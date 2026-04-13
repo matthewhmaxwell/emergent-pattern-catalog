@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emergent-pattern-catalog"
+version = "0.1.0"
+description = "Systematic catalog, detection toolkit, and discovery platform for emergent behavioral competencies in minimal agent-based systems."
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+    "scipy>=1.10.0",
+    "pyyaml>=6.0",
+    "powerlaw>=1.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.0",
+    "jupyter>=1.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
