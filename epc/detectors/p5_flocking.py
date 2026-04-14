@@ -1,230 +1,437 @@
-"""P5 — Translational alignment (flocking) detector.
+"""
+P5 — Translational alignment (flocking) detector.
 
-Detects global directional alignment achieved through local
-velocity-matching interactions. Primary metric: polarization order
-parameter φ = |(1/N) Σ v̂_i|.
+Implements the full P5 detector card specification:
+    - Primary metric: Polarization order parameter φ
+    - Secondary metrics: Group speed ratio R, angular momentum |L|,
+      heading autocorrelation, heading distribution
+    - Null model: Heading-shuffle permutation test
+    - Exclusions: P6 (milling), P7 (lanes)
+    - Three detection tiers: screening, confirmation, definitive
 
-See docs/detector_cards.md § P5 for full specification.
+Detector card reference:
+    Screening: φ_mean > 0.5 over ≥ 5 × T_cross
+    Confirmation: φ_mean > 0.7 over ≥ 10 × T_cross AND R > 0.5
+                  AND above shuffle null (p < 0.01)
+    Definitive: Confirmation + P6/P7/P8 exclusions
+                + zero-coupling null shows φ ≈ 1/√N
+
+Power requirements:
+    - Shuffle null: ≥ 199 permutations (floor p = 0.005)
+    - History must cover ≥ 5 × T_cross for screening,
+      ≥ 10 × T_cross for confirmation
 """
 
 from __future__ import annotations
 
-from typing import Any
-
 import numpy as np
+from dataclasses import dataclass, field
+from typing import Any, Optional
 
-from epc.base_detector import BaseDetector
-from epc.detector_result import NullType
 from epc.metrics.collective_motion import (
-    AngularMomentum,
-    GroupSpeedRatio,
-    Polarization,
+    PolarizationMetric,
+    GroupSpeedRatioMetric,
+    AngularMomentumMetric,
+    HeadingDistributionMetric,
 )
 
 
-class P5FlockingDetector(BaseDetector):
-    """Detector for P5: translational alignment (flocking).
+# ===================================================================
+# DetectorResult (matches project-wide schema)
+# ===================================================================
 
-    Primary metric: polarization φ (mean over sustained window).
-    Null model: heading-shuffle (preserves speeds, destroys alignment).
+@dataclass
+class DetectorResult:
+    """Standardized detector output."""
+
+    pattern_id: str
+    detected: bool
+    tier: str  # "none" | "screening" | "confirmation" | "definitive"
+    confidence: float
+    primary_metric: dict
+    secondary_metrics: dict
+    effect_size: dict
+    null_p_value: float
+    null_type: str
+    exclusions_checked: list
+    exclusion_results: dict
+    co_occurrence_candidates: list
+    metadata_available: bool
+    warnings: list = field(default_factory=list)
+    notes: str = ""
+
+
+# ===================================================================
+# Null model: heading-shuffle permutation test
+# ===================================================================
+
+def heading_shuffle_null(
+    history: list[dict[str, Any]],
+    n_permutations: int = 199,
+    measurement_window: Optional[tuple[int, int]] = None,
+    rng: Optional[np.random.Generator] = None,
+) -> dict[str, Any]:
+    """Heading-shuffle null model for polarization.
+
+    Replaces all headings with independent uniform random directions
+    while keeping positions and speeds. This tests whether the
+    observed alignment could arise from random heading assignment.
+
+    Under this null, φ ≈ 1/√N (central limit theorem for unit vectors).
+
+    Args:
+        history: State history with 'velocities' key.
+        n_permutations: Number of Monte Carlo samples. ≥199 for
+            confirmation-tier p < 0.005.
+        measurement_window: (start, end) indices. If None, use full history.
+        rng: Random generator for reproducibility.
+
+    Returns:
+        Dict with:
+            null_phi_values: (n_permutations,) mean φ per sample
+            observed_phi: mean φ of original data
+            p_value: fraction of null values ≥ observed
+            effect_size_d: Cohen's d (observed - null_mean) / null_std
+    """
+    if rng is None:
+        rng = np.random.default_rng(42)
+
+    # Select measurement window
+    if measurement_window is not None:
+        start, end = measurement_window
+        history = history[start:end]
+
+    # Observed polarization time series
+    observed_phis = np.array([
+        PolarizationMetric.compute_instant(s) for s in history
+    ])
+    observed_phi = np.mean(observed_phis)
+
+    # Get N from first state
+    N = len(history[0]["velocities"])
+    T = len(history)
+
+    # Generate null distribution
+    # For each permutation: at each timestep, assign independent random
+    # headings to all particles, compute φ, then average over time.
+    null_phi_values = np.empty(n_permutations)
+
+    for perm in range(n_permutations):
+        # Draw random headings for each (timestep, particle)
+        random_headings = rng.uniform(-np.pi, np.pi, size=(T, N))
+        # φ at each timestep: |(1/N) Σ (cos θ, sin θ)|
+        mean_cos = np.mean(np.cos(random_headings), axis=1)  # (T,)
+        mean_sin = np.mean(np.sin(random_headings), axis=1)  # (T,)
+        phi_t = np.sqrt(mean_cos**2 + mean_sin**2)           # (T,)
+        null_phi_values[perm] = np.mean(phi_t)
+
+    # p-value: fraction of null values ≥ observed (one-sided, upper)
+    p_value = (np.sum(null_phi_values >= observed_phi) + 1) / (n_permutations + 1)
+
+    # Effect size (Cohen's d)
+    null_mean = np.mean(null_phi_values)
+    null_std = np.std(null_phi_values)
+    if null_std > 1e-12:
+        cohens_d = (observed_phi - null_mean) / null_std
+    else:
+        cohens_d = float("inf") if observed_phi > null_mean else 0.0
+
+    return {
+        "null_phi_values": null_phi_values,
+        "null_mean": float(null_mean),
+        "null_std": float(null_std),
+        "observed_phi": float(observed_phi),
+        "p_value": float(p_value),
+        "cohens_d": float(cohens_d),
+        "n_permutations": n_permutations,
+    }
+
+
+# ===================================================================
+# P5 Flocking Detector
+# ===================================================================
+
+class P5FlockingDetector:
+    """Detector for P5 — Translational alignment (flocking).
+
+    Follows the three-tier detection protocol:
+        1. Screening: φ > 0.5 sustained over ≥ 5 T_cross
+        2. Confirmation: φ > 0.7 over ≥ 10 T_cross, R > 0.5,
+           shuffle null p < 0.01
+        3. Definitive: Confirmation + P6/P7 exclusions +
+           zero-coupling null
+
+    Args:
+        n_permutations: Permutation count for shuffle null.
+            Default 199 → floor p = 0.005.
+        T_cross: Domain crossing time in timesteps.
+            If None, estimated from metadata or history.
+        box_size: Domain size for periodic-aware angular momentum.
+            If None, skips periodic correction.
+        seed: Random seed for permutation test.
     """
 
-    def __init__(self, n_permutations: int = 999) -> None:
-        super().__init__(
-            pattern_id="P5",
-            excluded_patterns=["P6", "P7", "P8"],
-            allowed_co_occurrences=["P17", "P19", "P9"],
-            observable_scope="state_history_only",
-        )
+    # --- Detector card thresholds ---
+    SCREENING_PHI = 0.5
+    SCREENING_T_CROSS_MIN = 5  # multiples of T_cross
+
+    CONFIRMATION_PHI = 0.7
+    CONFIRMATION_T_CROSS_MIN = 10
+    CONFIRMATION_R_MIN = 0.5
+    CONFIRMATION_P_MAX = 0.01
+
+    P6_EXCLUSION_L_THRESHOLD = 0.5
+    P7_EXCLUSION_ANTIPARALLEL_THRESHOLD = 0.2
+
+    def __init__(
+        self,
+        n_permutations: int = 199,
+        T_cross: Optional[float] = None,
+        box_size: Optional[float] = None,
+        seed: int = 42,
+    ):
         self.n_permutations = n_permutations
-        self._pol_metric = Polarization()
-        self._am_metric = AngularMomentum()
-        self._gsr_metric = GroupSpeedRatio()
+        self.T_cross = T_cross
+        self.box_size = box_size
+        self.rng = np.random.default_rng(seed)
 
-    def _estimate_timescale(
+    def detect(
         self,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-    ) -> float:
-        """T_cross = box_size / speed."""
-        if model_metadata:
-            box = model_metadata.get("box_size", None)
-            speed = model_metadata.get("speed", None)
-            if box and speed and speed > 0:
-                return box / speed
+        history: list[dict[str, Any]],
+        metadata: Optional[dict[str, Any]] = None,
+    ) -> DetectorResult:
+        """Run full P5 detection pipeline.
 
-        if state_history and "box_size" in state_history[0]:
-            box = state_history[0]["box_size"]
-            v = state_history[0].get("velocities", None)
-            if v is not None:
-                speed = float(np.linalg.norm(v, axis=1).mean())
-                if speed > 0:
-                    return box / speed
+        Args:
+            history: State history — list of dicts with 'positions'
+                and 'velocities' keys.
+            metadata: Optional model metadata dict. Used for T_cross
+                estimation and zero-coupling null context.
 
-        return max(1.0, len(state_history) / 10.0)
-
-    def _validate_prerequisites(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> list[str]:
-        warnings = super()._validate_prerequisites(state_history, timescale)
-        if state_history and "velocities" not in state_history[0]:
-            warnings.append("missing 'velocities' key — not an active-matter model")
-        return warnings
-
-    def _compute_primary(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, float]:
-        if not state_history or "velocities" not in state_history[0]:
-            return {"polarization_mean": 0.0, "polarization_std": 1.0}
-
-        result = self._pol_metric.compute(state_history)
-        return {
-            "polarization_mean": result.get("polarization_mean", result.get("polarization", 0.0)),
-            "polarization_std": result.get("polarization_std", 0.0),
-        }
-
-    def _check_screening(
-        self,
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> bool:
-        """φ_mean > 0.5."""
-        return primary_result.get("polarization_mean", 0) > 0.5
-
-    def _compute_secondaries(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, Any]:
-        if not state_history or "velocities" not in state_history[0]:
-            return {}
-
-        gsr = self._gsr_metric.compute(state_history)
-        am = self._am_metric.compute(state_history)
-
-        # Directional persistence: heading autocorrelation at lag ~T_cross
-        lag = max(1, min(int(timescale), len(state_history) - 1))
-        headings_series = []
-        for s in state_history:
-            if "headings" in s:
-                headings_series.append(s["headings"])
-
-        persistence = 0.0
-        if len(headings_series) > lag:
-            # Circular correlation at lag
-            cos_diffs = []
-            for t in range(len(headings_series) - lag):
-                diff = headings_series[t + lag] - headings_series[t]
-                cos_diffs.append(float(np.mean(np.cos(diff))))
-            persistence = float(np.mean(cos_diffs))
-
-        return {
-            "group_speed_ratio": gsr.get("group_speed_ratio", gsr.get("group_speed_ratio_mean", 0.0)),
-            "angular_momentum_abs": am.get("angular_momentum_abs_mean", abs(am.get("angular_momentum", 0.0))),
-            "directional_persistence": persistence,
-        }
-
-    def _run_null_model(
-        self,
-        state_history: list[dict[str, Any]],
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> tuple[float, NullType, dict[str, float]]:
-        """Heading-shuffle null: permute headings across agents.
-
-        Expected φ_null ≈ 1/√N for random headings.
-        Sample 10 evenly-spaced frames, run 999 permutations each.
+        Returns:
+            DetectorResult with tier, confidence, and all metrics.
         """
-        rng = np.random.default_rng(0)
-        observed_phi = primary_result.get("polarization_mean", 0)
+        warnings = []
+        notes_parts = []
 
-        if not state_history or "velocities" not in state_history[0]:
-            return 1.0, NullType.SHUFFLE, {"mean": 0.0, "std": 0.0}
+        # --- Determine T_cross ---
+        T_cross = self._resolve_T_cross(history, metadata, warnings)
 
-        # Sample frames for null
-        n_frames = len(state_history)
-        n_sample = min(10, n_frames)
-        sample_idx = np.linspace(0, n_frames - 1, n_sample, dtype=int)
+        # --- Determine measurement window ---
+        T = len(history)
+        T_cross_steps = int(T_cross)
 
-        null_phis: list[float] = []
-        for _ in range(self.n_permutations):
-            frame_phis = []
-            for idx in sample_idx:
-                v = state_history[int(idx)]["velocities"].copy()
-                # Shuffle heading assignment across agents
-                perm = rng.permutation(len(v))
-                v_shuffled = v[perm]
-                speeds = np.linalg.norm(v_shuffled, axis=1, keepdims=True)
-                speeds = np.where(speeds == 0, 1.0, speeds)
-                v_hat = v_shuffled / speeds
-                phi = float(np.linalg.norm(v_hat.mean(axis=0)))
-                frame_phis.append(phi)
-            null_phis.append(float(np.mean(frame_phis)))
+        # Check minimum run length
+        min_steps_screening = self.SCREENING_T_CROSS_MIN * T_cross_steps
+        min_steps_confirmation = self.CONFIRMATION_T_CROSS_MIN * T_cross_steps
 
-        null_arr = np.array(null_phis)
-        p_value = float(np.mean(null_arr >= observed_phi))
-        if p_value == 0:
-            p_value = 1.0 / (self.n_permutations + 1)
+        if T < min_steps_screening:
+            warnings.append(
+                f"Run length ({T}) < {self.SCREENING_T_CROSS_MIN} T_cross "
+                f"({min_steps_screening}). Cannot reach screening tier."
+            )
 
-        return (
-            p_value,
-            NullType.SHUFFLE,
-            {"mean": float(null_arr.mean()), "std": float(null_arr.std())},
+        # Use second half of trajectory as measurement window
+        # (first half as equilibration)
+        meas_start = max(T // 2, 0)
+        meas_end = T
+        meas_length = meas_end - meas_start
+        meas_history = history[meas_start:meas_end]
+
+        n_T_cross = meas_length / T_cross if T_cross > 0 else 0
+        notes_parts.append(
+            f"Measurement window: steps {meas_start}–{meas_end} "
+            f"({n_T_cross:.1f} T_cross)"
         )
 
-    def _check_confirmation(
-        self,
-        primary_result: dict[str, float],
-        secondary_result: dict[str, Any],
-        null_p: float,
-        timescale: float,
-    ) -> bool:
-        """φ_mean > 0.7 AND R > 0.5 AND shuffle p < 0.01."""
-        phi = primary_result.get("polarization_mean", 0)
-        R = secondary_result.get("group_speed_ratio", 0)
-        return phi > 0.7 and R > 0.5 and null_p < 0.01
+        # --- Compute primary metric: polarization ---
+        phi_result = PolarizationMetric.compute(meas_history)
+        phi_mean = phi_result["phi_mean"]
 
-    def _check_exclusions(
-        self,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-        timescale: float,
-    ) -> tuple[list[str], dict[str, str]]:
-        results: dict[str, str] = {}
+        # --- Compute secondary metrics ---
+        R_result = GroupSpeedRatioMetric.compute(meas_history)
+        R_mean = R_result["R_mean"]
 
-        if not state_history or "velocities" not in state_history[0]:
-            return (["P6", "P7", "P8"], {"P6": "inconclusive", "P7": "inconclusive", "P8": "not_checked"})
+        L_result = AngularMomentumMetric.compute(meas_history, self.box_size)
+        L_abs_mean = L_result["L_abs_mean"]
 
-        # P6: milling — |L| > 0.5 → not_excluded (milling present, exclude P5)
-        am = self._am_metric.compute(state_history)
-        L_abs = am.get("angular_momentum_abs_mean", abs(am.get("angular_momentum", 0)))
-        results["P6"] = "not_excluded" if L_abs > 0.5 else "excluded"
+        heading_dist = HeadingDistributionMetric.compute(meas_history)
 
-        # P7: lane formation — bimodal antiparallel heading distribution
-        # Simple test: check if heading histogram has two peaks ~π apart
-        all_headings = []
-        n_sample = min(10, len(state_history))
-        sample_idx = np.linspace(0, len(state_history) - 1, n_sample, dtype=int)
-        for idx in sample_idx:
-            if "headings" in state_history[int(idx)]:
-                all_headings.extend(state_history[int(idx)]["headings"].tolist())
+        # --- Null model (shuffle) ---
+        null_result = heading_shuffle_null(
+            meas_history,
+            n_permutations=self.n_permutations,
+            rng=self.rng,
+        )
+        null_p = null_result["p_value"]
+        cohens_d = null_result["cohens_d"]
 
-        if all_headings:
-            h = np.array(all_headings)
-            # Check bimodality via circular variance of doubled angles
-            # If bimodal antiparallel, 2*theta should be unimodal
-            doubled = 2.0 * h
-            r2 = abs(np.mean(np.exp(1j * doubled)))
-            # High r2 means antiparallel bimodal
-            results["P7"] = "not_excluded" if r2 > 0.7 else "excluded"
+        # --- Exclusion checks ---
+        exclusion_results = {}
+
+        # P6: |L| > 0.5 → milling
+        p6_excluded = L_abs_mean > self.P6_EXCLUSION_L_THRESHOLD
+        exclusion_results["P6"] = "TRIGGERED" if p6_excluded else "excluded"
+
+        # P7: bimodal antiparallel heading → lanes
+        p7_excluded = heading_dist["is_bimodal_antiparallel"]
+        exclusion_results["P7"] = "TRIGGERED" if p7_excluded else "excluded"
+
+        # P8: backward density waves → jamming (not implemented yet)
+        exclusion_results["P8"] = "not_checked"
+        if exclusion_results["P8"] == "not_checked":
+            warnings.append("P8 exclusion (jamming) not yet implemented")
+
+        any_exclusion_triggered = p6_excluded or p7_excluded
+        all_implemented_exclusions_clear = (
+            not p6_excluded and not p7_excluded
+        )
+
+        # --- Tier determination ---
+        tier = "none"
+        detected = False
+        confidence = 0.0
+
+        # Screening: φ_mean > 0.5, ≥ 5 T_cross
+        screening_pass = (
+            phi_mean > self.SCREENING_PHI
+            and n_T_cross >= self.SCREENING_T_CROSS_MIN
+        )
+
+        # Confirmation: φ_mean > 0.7, R > 0.5, ≥ 10 T_cross, null p < 0.01
+        confirmation_pass = (
+            phi_mean > self.CONFIRMATION_PHI
+            and R_mean > self.CONFIRMATION_R_MIN
+            and n_T_cross >= self.CONFIRMATION_T_CROSS_MIN
+            and null_p < self.CONFIRMATION_P_MAX
+        )
+
+        # Definitive: confirmation + exclusions clear
+        definitive_pass = (
+            confirmation_pass
+            and all_implemented_exclusions_clear
+        )
+
+        if definitive_pass:
+            tier = "definitive"
+            detected = True
+            confidence = 0.75  # base
+            if all_implemented_exclusions_clear:
+                confidence += 0.10
+            if null_p < 0.001:
+                confidence += 0.10
+            # Cap at 1.0
+            confidence = min(confidence, 1.0)
+            # Note: zero-coupling null not run in this context
+            # (would require model access). Documented as limitation.
+            notes_parts.append(
+                "Zero-coupling null requires model access — "
+                "not run in state-history-only mode."
+            )
+
+        elif confirmation_pass:
+            tier = "confirmation"
+            detected = True
+            confidence = 0.55  # base
+            if null_p < 0.001:
+                confidence += 0.15
+            if cohens_d > 1.0:
+                confidence += 0.10
+            if R_mean > self.CONFIRMATION_R_MIN:
+                confidence += 0.05
+            confidence = min(confidence, 0.85)
+
+            if any_exclusion_triggered:
+                notes_parts.append(
+                    f"Exclusion(s) triggered: {exclusion_results}. "
+                    f"Confirmation tier, not definitive."
+                )
+
+        elif screening_pass:
+            tier = "screening"
+            detected = True
+            confidence = 0.35  # base
+            if R_mean > self.CONFIRMATION_R_MIN:
+                confidence += 0.15  # secondary pass
+            if null_p < 0.01:
+                confidence += 0.10
+            confidence = min(confidence, 0.60)
+
         else:
-            results["P7"] = "inconclusive"
+            tier = "none"
+            detected = False
+            confidence = 0.0
 
-        # P8: jamming — requires spacetime FFT, stub for now
-        results["P8"] = "not_checked"
+        # --- Assemble result ---
+        N = len(history[0]["velocities"])
+        return DetectorResult(
+            pattern_id="P5",
+            detected=detected,
+            tier=tier,
+            confidence=round(confidence, 3),
+            primary_metric={"polarization_mean": phi_mean},
+            secondary_metrics={
+                "group_speed_ratio": R_mean,
+                "angular_momentum_abs": L_abs_mean,
+                "heading_resultant_length": heading_dist["resultant_length"],
+                "heading_circular_variance": heading_dist["circular_variance"],
+                "antiparallel_fraction": heading_dist["antiparallel_fraction"],
+                "nematic_order": heading_dist["nematic_order"],
+                "measurement_T_cross": n_T_cross,
+            },
+            effect_size={
+                "cohens_d": cohens_d,
+                "phi_observed": phi_mean,
+                "phi_null_mean": null_result["null_mean"],
+                "phi_null_std": null_result["null_std"],
+            },
+            null_p_value=null_p,
+            null_type="shuffle",
+            exclusions_checked=["P6", "P7", "P8"],
+            exclusion_results=exclusion_results,
+            co_occurrence_candidates=["P17", "P19", "P9"],
+            metadata_available=metadata is not None,
+            warnings=warnings,
+            notes=" | ".join(notes_parts),
+        )
 
-        return (["P6", "P7", "P8"], results)
+    def _resolve_T_cross(
+        self,
+        history: list[dict[str, Any]],
+        metadata: Optional[dict[str, Any]],
+        warnings: list[str],
+    ) -> float:
+        """Determine T_cross from metadata, explicit setting, or estimation.
+
+        Priority: explicit > metadata > estimation from history.
+        """
+        if self.T_cross is not None:
+            return self.T_cross
+
+        if metadata is not None:
+            if "box_size" in metadata and "speed" in metadata:
+                v = metadata["speed"]
+                L = metadata["box_size"]
+                if v > 0:
+                    return L / v
+
+        # Estimate from history: T_cross = L_est / v_mean
+        # where L_est = domain size estimated from position range
+        if len(history) > 0:
+            all_pos = np.array([s["positions"] for s in history[:100]])
+            pos_range = np.max(all_pos, axis=(0, 1)) - np.min(all_pos, axis=(0, 1))
+            L_est = np.max(pos_range) * 1.1  # rough estimate
+
+            all_vel = np.array([s["velocities"] for s in history[:100]])
+            v_mean = np.mean(np.linalg.norm(all_vel, axis=2))
+
+            if v_mean > 1e-12:
+                T_est = L_est / v_mean
+                warnings.append(
+                    f"T_cross estimated from history: {T_est:.1f} steps. "
+                    f"Provide metadata or set T_cross explicitly for accuracy."
+                )
+                return T_est
+
+        warnings.append("Could not determine T_cross. Using T=100 as fallback.")
+        return 100.0

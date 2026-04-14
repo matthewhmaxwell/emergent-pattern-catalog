@@ -1,296 +1,368 @@
-"""P6 — Milling / vortex formation detector.
+"""
+P6 — Milling / vortex formation detector.
 
-Detects coherent rotational motion where agents orbit a common center,
-producing high angular momentum and low group speed ratio.
+Implements the full P6 detector card specification:
+    - Primary metric: Angular momentum |L|
+    - Secondary metrics: Group speed ratio R, ring density profile,
+      rotation coherence
+    - Null model: Heading-shuffle (random headings)
+    - Exclusions: P5 (R > 0.5 → flocking)
+    - Three detection tiers: screening, confirmation, definitive
 
-See docs/detector_cards.md § P6 for full specification.
+Detector card reference:
+    Screening: |L| > 0.3 over ≥ 5 × T_cross
+    Confirmation: |L| > 0.5 AND R < 0.3 over ≥ 10 × T_cross
+    Definitive: Confirmation + ring density confirmed + P5 exclusion
 """
 
 from __future__ import annotations
 
-from typing import Any
-
 import numpy as np
+from dataclasses import dataclass, field
+from typing import Any, Optional
 
-from epc.base_detector import BaseDetector
-from epc.detector_result import NullType
 from epc.metrics.collective_motion import (
-    AngularMomentum,
-    GroupSpeedRatio,
-    Polarization,
+    PolarizationMetric,
+    GroupSpeedRatioMetric,
+    AngularMomentumMetric,
 )
 
 
-class P6MillingDetector(BaseDetector):
-    """Detector for P6: milling / vortex formation.
+@dataclass
+class DetectorResult:
+    """Standardized detector output."""
+    pattern_id: str
+    detected: bool
+    tier: str
+    confidence: float
+    primary_metric: dict
+    secondary_metrics: dict
+    effect_size: dict
+    null_p_value: float
+    null_type: str
+    exclusions_checked: list
+    exclusion_results: dict
+    co_occurrence_candidates: list
+    metadata_available: bool
+    warnings: list = field(default_factory=list)
+    notes: str = ""
 
-    Primary metric: angular momentum |L|.
-    Null model: heading-shuffle (|L|_null ≈ 0).
+
+def ring_density_profile(
+    state: dict[str, Any],
+    n_bins: int = 10,
+) -> dict[str, Any]:
+    """Compute radial density profile from center of mass.
+
+    Returns hollowness = ρ(0) / ρ(r*) where r* is the peak radius.
+    Hollowness < 0.5 indicates a ring (hollow core).
+
+    Args:
+        state: State dict with 'positions' key.
+        n_bins: Number of radial bins.
+
+    Returns:
+        Dict with radial profile and hollowness.
+    """
+    positions = state["positions"]
+    com = np.mean(positions, axis=0)
+    radii = np.linalg.norm(positions - com, axis=1)
+
+    max_r = np.max(radii) * 1.1
+    bin_edges = np.linspace(0, max_r, n_bins + 1)
+    bin_centers = 0.5 * (bin_edges[:-1] + bin_edges[1:])
+    bin_widths = np.diff(bin_edges)
+
+    counts, _ = np.histogram(radii, bins=bin_edges)
+    # Normalize by annular area: 2πr·dr
+    areas = 2 * np.pi * bin_centers * bin_widths
+    areas = np.maximum(areas, 1e-12)
+    density = counts / areas
+
+    # Hollowness: density at center / density at peak
+    peak_idx = np.argmax(density)
+    peak_density = density[peak_idx]
+    core_density = density[0] if len(density) > 0 else 0
+
+    if peak_density > 0:
+        hollowness = core_density / peak_density
+    else:
+        hollowness = 1.0  # no clear structure
+
+    return {
+        "bin_centers": bin_centers,
+        "density": density,
+        "peak_radius": float(bin_centers[peak_idx]),
+        "hollowness": float(hollowness),
+        "mean_radius": float(np.mean(radii)),
+        "std_radius": float(np.std(radii)),
+    }
+
+
+def milling_null(
+    history: list[dict[str, Any]],
+    n_permutations: int = 199,
+    box_size: Optional[float] = None,
+    rng: Optional[np.random.Generator] = None,
+) -> dict[str, Any]:
+    """Random-heading null model for angular momentum.
+
+    Replaces all headings with uniform random directions.
+    Under this null, |L| ≈ 0 (no rotational coherence).
+
+    Args:
+        history: State history.
+        n_permutations: Monte Carlo samples.
+        box_size: For periodic-aware COM.
+        rng: Random generator.
+
+    Returns:
+        Dict with null distribution and p-value.
+    """
+    if rng is None:
+        rng = np.random.default_rng(42)
+
+    # Observed |L| time series
+    observed_L = np.array([
+        abs(AngularMomentumMetric.compute_instant(s, box_size))
+        for s in history
+    ])
+    observed_L_mean = float(np.mean(observed_L))
+
+    N = len(history[0]["velocities"])
+    T = len(history)
+
+    null_L_values = np.empty(n_permutations)
+
+    for perm in range(n_permutations):
+        perm_L = []
+        for state in history:
+            # Randomize heading directions, keep positions and speeds
+            pos = state["positions"]
+            vel = state["velocities"]
+            speeds = np.linalg.norm(vel, axis=1)
+            random_headings = rng.uniform(-np.pi, np.pi, size=N)
+            random_vel = np.column_stack([
+                speeds * np.cos(random_headings),
+                speeds * np.sin(random_headings),
+            ])
+            fake_state = {"positions": pos, "velocities": random_vel}
+            perm_L.append(abs(
+                AngularMomentumMetric.compute_instant(fake_state, box_size)
+            ))
+        null_L_values[perm] = np.mean(perm_L)
+
+    p_value = (np.sum(null_L_values >= observed_L_mean) + 1) / (n_permutations + 1)
+    null_mean = float(np.mean(null_L_values))
+    null_std = float(np.std(null_L_values))
+
+    if null_std > 1e-12:
+        cohens_d = (observed_L_mean - null_mean) / null_std
+    else:
+        cohens_d = float("inf") if observed_L_mean > null_mean else 0.0
+
+    return {
+        "null_L_values": null_L_values,
+        "null_mean": null_mean,
+        "null_std": null_std,
+        "observed_L_abs_mean": observed_L_mean,
+        "p_value": float(p_value),
+        "cohens_d": float(cohens_d),
+        "n_permutations": n_permutations,
+    }
+
+
+class P6MillingDetector:
+    """Detector for P6 — Milling / vortex formation.
+
+    Detection tiers:
+        Screening: |L| > 0.3 over ≥ 5 T_cross
+        Confirmation: |L| > 0.5 AND R < 0.3 over ≥ 10 T_cross
+        Definitive: Confirmation + ring density (hollowness < 0.5) + P5 exclusion
+
+    Args:
+        n_permutations: Permutation count for null test.
+        T_cross: Domain crossing time in timesteps.
+        box_size: For periodic-aware COM (None for open space).
+        seed: Random seed.
     """
 
-    def __init__(self, n_permutations: int = 999) -> None:
-        super().__init__(
-            pattern_id="P6",
-            excluded_patterns=["P5", "P12"],
-            allowed_co_occurrences=["P9"],
-            observable_scope="state_history_only",
-        )
+    SCREENING_L = 0.3
+    SCREENING_T_CROSS_MIN = 5
+
+    CONFIRMATION_L = 0.5
+    CONFIRMATION_R_MAX = 0.3
+    CONFIRMATION_T_CROSS_MIN = 10
+
+    DEFINITIVE_HOLLOWNESS_MAX = 0.5
+    P5_EXCLUSION_R_THRESHOLD = 0.5
+
+    def __init__(
+        self,
+        n_permutations: int = 199,
+        T_cross: Optional[float] = None,
+        box_size: Optional[float] = None,
+        seed: int = 42,
+    ):
         self.n_permutations = n_permutations
-        self._am_metric = AngularMomentum()
-        self._gsr_metric = GroupSpeedRatio()
-        self._pol_metric = Polarization()
+        self.T_cross = T_cross
+        self.box_size = box_size
+        self.rng = np.random.default_rng(seed)
 
-    def _estimate_timescale(
+    def detect(
         self,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-    ) -> float:
-        """T_cross = box_size / speed."""
-        if model_metadata:
-            box = model_metadata.get("box_size", None)
-            speed = model_metadata.get("speed", None)
-            if box and speed and speed > 0:
-                return box / speed
+        history: list[dict[str, Any]],
+        metadata: Optional[dict[str, Any]] = None,
+    ) -> DetectorResult:
+        """Run full P6 detection pipeline."""
+        warnings = []
+        notes_parts = []
 
-        if state_history and "box_size" in state_history[0]:
-            box = state_history[0]["box_size"]
-            v = state_history[0].get("velocities", None)
-            if v is not None:
-                speed = float(np.linalg.norm(v, axis=1).mean())
-                if speed > 0:
-                    return box / speed
+        # --- T_cross ---
+        T_cross = self.T_cross if self.T_cross else 100.0
+        if metadata and "v_eq" in metadata and "init_radius" in metadata:
+            T_cross = 2 * metadata["init_radius"] / metadata["v_eq"]
 
-        return max(1.0, len(state_history) / 10.0)
+        T = len(history)
+        T_cross_steps = max(T_cross, 1.0)
 
-    def _validate_prerequisites(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> list[str]:
-        warnings = super()._validate_prerequisites(state_history, timescale)
-        if state_history and "positions" not in state_history[0]:
-            warnings.append("missing 'positions' key")
-        if state_history and "velocities" not in state_history[0]:
-            warnings.append("missing 'velocities' key")
-        return warnings
+        # Measurement window: second half of trajectory
+        meas_start = T // 2
+        meas_end = T
+        meas_length = meas_end - meas_start
+        meas_history = history[meas_start:meas_end]
 
-    def _compute_primary(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, float]:
-        if not state_history or "velocities" not in state_history[0]:
-            return {"angular_momentum_abs_mean": 0.0, "angular_momentum_abs_std": 1.0}
+        # Compute actual time covered by measurement window
+        # Use step numbers from state dicts if available
+        dt_per_state = 1.0  # default: each history entry = 1 unit
+        if metadata and "dt" in metadata and len(meas_history) >= 2:
+            step_first = meas_history[0].get("step", 0)
+            step_last = meas_history[-1].get("step", len(meas_history) - 1)
+            step_span = max(step_last - step_first, 1)
+            dt_per_state = step_span * metadata["dt"] / max(len(meas_history) - 1, 1)
+            total_time = dt_per_state * (len(meas_history) - 1)
+        elif metadata and "dt" in metadata:
+            total_time = meas_length * metadata["dt"]
+        else:
+            total_time = float(meas_length)
 
-        result = self._am_metric.compute(state_history)
-        return {
-            "angular_momentum_abs_mean": result.get("angular_momentum_abs_mean", abs(result.get("angular_momentum", 0.0))),
-            "angular_momentum_abs_std": result.get("angular_momentum_abs_std", 0.0),
-        }
+        n_T_cross = total_time / T_cross if T_cross > 0 else 0
 
-    def _check_screening(
-        self,
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> bool:
-        """|L| > 0.3."""
-        return primary_result.get("angular_momentum_abs_mean", 0) > 0.3
-
-    def _compute_secondaries(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, Any]:
-        if not state_history or "velocities" not in state_history[0]:
-            return {}
-
-        gsr = self._gsr_metric.compute(state_history)
-        pol = self._pol_metric.compute(state_history)
-
-        # Ring density: radial density profile from COM
-        # Check hollowness = ρ(0) / ρ(r_peak)
-        hollowness = self._compute_hollowness(state_history)
-
-        # Rotation coherence: std of per-agent angular velocities
-        rot_coherence = self._compute_rotation_coherence(state_history)
-
-        return {
-            "group_speed_ratio": gsr.get("group_speed_ratio", gsr.get("group_speed_ratio_mean", 0.0)),
-            "polarization": pol.get("polarization", pol.get("polarization_mean", 0.0)),
-            "hollowness": hollowness,
-            "rotation_coherence": rot_coherence,
-        }
-
-    @staticmethod
-    def _compute_hollowness(state_history: list[dict[str, Any]]) -> float:
-        """Compute ring hollowness from radial density profile."""
-        from epc.metrics.collective_motion import _periodic_com
-
-        densities_center = []
-        densities_peak = []
-
-        n_sample = min(10, len(state_history))
-        sample_idx = np.linspace(0, len(state_history) - 1, n_sample, dtype=int)
-
-        for idx in sample_idx:
-            state = state_history[int(idx)]
-            pos = state["positions"]
-            box = state.get("box_size", None)
-            if box:
-                com = _periodic_com(pos, box)
-                dr = pos - com
-                dr = dr - box * np.round(dr / box)
-            else:
-                com = pos.mean(axis=0)
-                dr = pos - com
-
-            radii = np.linalg.norm(dr, axis=1)
-            if len(radii) < 5:
-                continue
-
-            # Bin into 10 radial bins
-            r_max = radii.max()
-            if r_max == 0:
-                continue
-            bins = np.linspace(0, r_max, 11)
-            counts, _ = np.histogram(radii, bins=bins)
-            # Normalize by ring area
-            areas = np.pi * (bins[1:] ** 2 - bins[:-1] ** 2)
-            areas = np.where(areas == 0, 1, areas)
-            density = counts / areas
-
-            if density.max() > 0:
-                densities_center.append(density[0])
-                densities_peak.append(density.max())
-
-        if not densities_peak or np.mean(densities_peak) == 0:
-            return 1.0
-
-        return float(np.mean(densities_center) / np.mean(densities_peak))
-
-    @staticmethod
-    def _compute_rotation_coherence(state_history: list[dict[str, Any]]) -> float:
-        """Low variance of per-agent angular velocities → high coherence."""
-        from epc.metrics.collective_motion import _periodic_com
-
-        if len(state_history) < 3:
-            return 0.0
-
-        angular_vel_stds = []
-        for t in range(1, len(state_history)):
-            s0 = state_history[t - 1]
-            s1 = state_history[t]
-            pos = s1["positions"]
-            box = s1.get("box_size", None)
-
-            if box:
-                com = _periodic_com(pos, box)
-                dr = pos - com
-                dr = dr - box * np.round(dr / box)
-            else:
-                com = pos.mean(axis=0)
-                dr = pos - com
-
-            angles = np.arctan2(dr[:, 1], dr[:, 0])
-
-            pos0 = s0["positions"]
-            if box:
-                com0 = _periodic_com(pos0, box)
-                dr0 = pos0 - com0
-                dr0 = dr0 - box * np.round(dr0 / box)
-            else:
-                com0 = pos0.mean(axis=0)
-                dr0 = pos0 - com0
-            angles0 = np.arctan2(dr0[:, 1], dr0[:, 0])
-
-            d_angle = angles - angles0
-            d_angle = (d_angle + np.pi) % (2 * np.pi) - np.pi
-            angular_vel_stds.append(float(np.std(d_angle)))
-
-        if not angular_vel_stds:
-            return 0.0
-        # Coherence: inverse of mean std (normalized to [0,1] range)
-        mean_std = float(np.mean(angular_vel_stds))
-        return float(1.0 / (1.0 + mean_std))
-
-    def _run_null_model(
-        self,
-        state_history: list[dict[str, Any]],
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> tuple[float, NullType, dict[str, float]]:
-        """Heading-shuffle null: permute headings, recompute |L|."""
-        rng = np.random.default_rng(0)
-        observed_L = primary_result.get("angular_momentum_abs_mean", 0)
-
-        if not state_history or "velocities" not in state_history[0]:
-            return 1.0, NullType.SHUFFLE, {"mean": 0.0, "std": 0.0}
-
-        n_frames = len(state_history)
-        n_sample = min(10, n_frames)
-        sample_idx = np.linspace(0, n_frames - 1, n_sample, dtype=int)
-
-        null_Ls: list[float] = []
-        for _ in range(self.n_permutations):
-            frame_Ls = []
-            for idx in sample_idx:
-                state = state_history[int(idx)]
-                # Shuffle velocity assignment
-                v = state["velocities"]
-                perm = rng.permutation(len(v))
-                shuffled_state = dict(state)
-                shuffled_state["velocities"] = v[perm]
-                L = abs(AngularMomentum._compute_L(shuffled_state))
-                frame_Ls.append(L)
-            null_Ls.append(float(np.mean(frame_Ls)))
-
-        null_arr = np.array(null_Ls)
-        p_value = float(np.mean(null_arr >= observed_L))
-        if p_value == 0:
-            p_value = 1.0 / (self.n_permutations + 1)
-
-        return (
-            p_value,
-            NullType.SHUFFLE,
-            {"mean": float(null_arr.mean()), "std": float(null_arr.std())},
+        notes_parts.append(
+            f"Measurement window: steps {meas_start}–{meas_end} "
+            f"({n_T_cross:.1f} T_cross)"
         )
 
-    def _check_confirmation(
-        self,
-        primary_result: dict[str, float],
-        secondary_result: dict[str, Any],
-        null_p: float,
-        timescale: float,
-    ) -> bool:
-        """|L| > 0.5 AND R < 0.3."""
-        L = primary_result.get("angular_momentum_abs_mean", 0)
-        R = secondary_result.get("group_speed_ratio", 1.0)
-        return L > 0.5 and R < 0.3 and null_p < 0.01
+        # --- Primary metric: |L| ---
+        L_result = AngularMomentumMetric.compute(meas_history, self.box_size)
+        L_abs_mean = L_result["L_abs_mean"]
 
-    def _check_exclusions(
-        self,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-        timescale: float,
-    ) -> tuple[list[str], dict[str, str]]:
-        results: dict[str, str] = {}
+        # --- Secondary metrics ---
+        R_result = GroupSpeedRatioMetric.compute(meas_history)
+        R_mean = R_result["R_mean"]
 
-        # P5: R > 0.5 → translational motion present → not_excluded (exclude P6)
-        if state_history and "velocities" in state_history[0]:
-            gsr = self._gsr_metric.compute(state_history)
-            R = gsr.get("group_speed_ratio", gsr.get("group_speed_ratio_mean", 0))
-            results["P5"] = "not_excluded" if R > 0.5 else "excluded"
-        else:
-            results["P5"] = "inconclusive"
+        phi_result = PolarizationMetric.compute(meas_history)
+        phi_mean = phi_result["phi_mean"]
 
-        # P12: nontransitive species spirals vs physical rotation
-        if model_metadata:
-            model_class = model_metadata.get("model_class", "")
-            if "nontransitive" in model_class or "rps" in model_class:
-                results["P12"] = "not_excluded"
-            else:
-                results["P12"] = "excluded"
-        else:
-            results["P12"] = "inconclusive"
+        # Ring density from last state
+        ring = ring_density_profile(meas_history[-1])
+        hollowness = ring["hollowness"]
 
-        return (["P5", "P12"], results)
+        # --- Null model ---
+        # Subsample history for null (speed optimization)
+        subsample = max(1, len(meas_history) // 50)
+        null_history = meas_history[::subsample]
+        null_result = milling_null(
+            null_history,
+            n_permutations=self.n_permutations,
+            box_size=self.box_size,
+            rng=self.rng,
+        )
+        null_p = null_result["p_value"]
+        cohens_d = null_result["cohens_d"]
+
+        # --- Exclusion checks ---
+        exclusion_results = {}
+
+        # P5: R > 0.5 → flocking
+        p5_excluded = R_mean > self.P5_EXCLUSION_R_THRESHOLD
+        exclusion_results["P5"] = "TRIGGERED" if p5_excluded else "excluded"
+
+        # --- Tier determination ---
+        screening_pass = (
+            L_abs_mean > self.SCREENING_L
+            and n_T_cross >= self.SCREENING_T_CROSS_MIN
+        )
+
+        confirmation_pass = (
+            L_abs_mean > self.CONFIRMATION_L
+            and R_mean < self.CONFIRMATION_R_MAX
+            and n_T_cross >= self.CONFIRMATION_T_CROSS_MIN
+        )
+
+        definitive_pass = (
+            confirmation_pass
+            and hollowness < self.DEFINITIVE_HOLLOWNESS_MAX
+            and not p5_excluded
+        )
+
+        tier = "none"
+        detected = False
+        confidence = 0.0
+
+        if definitive_pass:
+            tier = "definitive"
+            detected = True
+            confidence = 0.75
+            if not p5_excluded:
+                confidence += 0.10
+            if null_p < 0.001:
+                confidence += 0.10
+            confidence = min(confidence, 1.0)
+
+        elif confirmation_pass:
+            tier = "confirmation"
+            detected = True
+            confidence = 0.55
+            if null_p < 0.001:
+                confidence += 0.15
+            if cohens_d > 1.0:
+                confidence += 0.10
+            confidence = min(confidence, 0.85)
+
+        elif screening_pass:
+            tier = "screening"
+            detected = True
+            confidence = 0.35
+            if null_p < 0.01:
+                confidence += 0.10
+            confidence = min(confidence, 0.60)
+
+        return DetectorResult(
+            pattern_id="P6",
+            detected=detected,
+            tier=tier,
+            confidence=round(confidence, 3),
+            primary_metric={"angular_momentum_abs_mean": L_abs_mean},
+            secondary_metrics={
+                "group_speed_ratio": R_mean,
+                "polarization": phi_mean,
+                "hollowness": hollowness,
+                "peak_radius": ring["peak_radius"],
+                "mean_radius": ring["mean_radius"],
+                "measurement_T_cross": n_T_cross,
+            },
+            effect_size={
+                "cohens_d": cohens_d,
+                "L_observed": L_abs_mean,
+                "L_null_mean": null_result["null_mean"],
+            },
+            null_p_value=null_p,
+            null_type="shuffle",
+            exclusions_checked=["P5"],
+            exclusion_results=exclusion_results,
+            co_occurrence_candidates=["P9"],
+            metadata_available=metadata is not None,
+            warnings=warnings,
+            notes=" | ".join(notes_parts),
+        )
