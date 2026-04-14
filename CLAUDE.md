@@ -1,56 +1,70 @@
-# Emergent Pattern Catalog — Claude Code Context
+# CLAUDE.md — Emergent Pattern Catalog
 
-## Project Summary
-Systematic research program to catalog, detect, and discover emergent behavioral
-competencies in minimal agent-based systems. Building a "periodic table" of
-emergent patterns and a computational toolkit for detecting them.
+## Project Overview
+Detection toolkit for emergent behavioral competencies in agent-based systems.
+32 patterns across 10 clusters, organized in a three-layer architecture.
 
-## Current Status (v0.4)
-- Pattern catalog: 32 atomic patterns across 10 clusters, 3 layers, 11 dimensions
-- Architecture: Layer 1 (behaviors), Layer 2A (math descriptors), Layer 2B
-  (cognitive-analogue annotations), Layer 3 (meta-capacities)
-- Models: Base classes implemented (BaseModel, BaseMetric). All model and metric
-  implementations are TODO stubs.
-- See docs/pattern_catalog.md for the full catalog
+Repo: https://github.com/matthewhmaxwell/emergent-pattern-catalog
 
-## Architecture
-- `models/`: Each model implements BaseModel with `setup()`, `step()`, `run()`, `get_state()`
-- `metrics/`: Each metric implements BaseMetric with `compute(history)` returning named measurements
-- `analysis/`: Orchestration layer — runs models, collects histories, applies metric batteries, generates reports
-- `experiments/`: Config files (YAML) specifying model params, metric selections, trial counts
+## Current State: Sprint 1 Complete
+
+See `PROJECT_STATUS.md` for full tracker. See `REPLICATION_NOTES.md` for
+Zhang et al. comparison.
+
+## Code Structure
+
+```
+epc/                          # Python package
+├── __init__.py
+├── detector_result.py        # DetectorResult dataclass, tier-capped confidence
+├── base_detector.py          # Abstract detector interface (all 32 detectors subclass this)
+├── base_model.py             # Abstract model interface
+├── base_metric.py            # Abstract metric interface
+├── models/
+│   ├── cell_view_sorting.py           # Sequential sorting model (fast, deterministic)
+│   └── cell_view_sorting_threaded.py  # Threaded sorting model (faithful to Zhang)
+├── metrics/
+│   ├── aggregation.py                 # P1: Moran's I, segregation, clusters (1D + 2D)
+│   └── delayed_gratification.py       # P31: Zhang's monotonicity-based DG metric
+└── detectors/
+    ├── p1_aggregation.py              # P1 detector with null models and exclusions
+    └── p31_delayed_gratification.py   # P31 detector + NonRedundancyTest class
+docs/
+├── detector_cards.md          # v0.5.2 specs for all 32 detectors
+├── pattern_catalog_v0_4.md    # Full catalog with 32 patterns, 10 clusters
+├── ontology_v0_4.md           # 11 ontological dimensions
+└── paper_outline_v0_4.md      # Paper structure
+```
 
 ## Key Design Decisions
-- Models return full state history as list of numpy arrays (or dicts), not just final state
-- Metrics operate on state histories, not live simulations — decouples detection from execution
-- All randomness seeded for reproducibility
-- Results stored as JSON + numpy archives
+- Models return full state history as list of dicts
+- Metrics decouple from execution — operate on state histories
+- DetectorResult is the universal output schema (tier-capped confidence)
+- All randomness seeded for reproducibility (except threaded model by design)
+- Zhang sorting model: 1D array, N=100, matching their reference implementation
+- DG metric verified bit-for-bit against Zhang's `avg_wandering_range()`
+- Non-redundancy tests require ≥500 runs for reliable results
+- No heavy frameworks — NumPy + SciPy + Matplotlib + scikit-learn
 
-## Next Priorities (v0.5)
-1. Design detector specification cards for all 32 patterns (required observables,
-   metrics, null models, pass thresholds, false positives, neighbor exclusions)
-2. Implement Zhang et al. cell-view sorting (Bubble, Insertion, Selection) as first model
-3. Implement aggregation metric (P1) and DG metric (P31)
-4. Implement P31 three-stage non-redundancy test protocol
-5. Replicate Zhang et al. Figure 8A (algotype clustering) as validation
-6. Replicate Zhang et al. Figure 7 (DG vs frozen cells) as validation
-7. Implement P13/P15 Transfer Entropy discriminator
+## Running the Code
+```bash
+pip install numpy scipy matplotlib scikit-learn
+cd emergent-pattern-catalog
+python -c "
+from epc.models.cell_view_sorting import CellViewSorting
+m = CellViewSorting(n=100, algorithm='bubble', seed=0)
+h = m.run_to_completion()
+print(f'Sorted in {m._swap_count} swaps, DG={m.compute_dg():.4f}')
+"
+```
 
-## Pattern Clusters (32 total)
-- A: Spatial organization (P1-P4)
-- B: Collective motion (P5-P8)
-- C: Temporal dynamics (P9-P12)
-- D: Wave propagation (P13-P14)
-- E: Information processing (P15-P17)
-- F: Decision-making (P18-P23)
-- G: Resilience (P24-P26)
-- H: Competition/cooperation (P27-P28)
-- I: Structure formation (P29-P30)
-- J: Agent-level competencies (P31-P32)
+## Key Results (Sprint 1)
+- Zhang replication: swap counts within 4%, insertion DG within 4%
+- P31 SURVIVES non-redundancy (ΔR²=+0.645, p<0.000001, 600 runs)
+- Bubble DG ~35% higher than Zhang's — traced to Linux vs macOS threading
 
-## Coding Standards
-- Type hints on all function signatures
-- Docstrings on all public methods
-- NumPy for array operations
-- Matplotlib for plotting
-- No heavy frameworks (no Mesa dependency — keep it lightweight)
-- Tests for each model and metric
+## What's Next (Sprint 2)
+- Second model family (Boids, Greenberg-Hastings CA, or Schelling)
+- 3-4 new detectors from different clusters
+- Cross-model detection (run P1/P31 on new models)
+- Transfer matrix construction begins
