@@ -60,8 +60,21 @@ class P1AggregationDetector(BaseDetector):
 
         Chimeric array aggregation peaks during sorting then may decrease.
         We check both final and peak values.
+
+        Also counts unique types: Moran's I is degenerate (0/0) with only
+        one type, so systems without type diversity cannot show aggregation.
         """
         result_final = self._morans_i.compute(state_history, timestep=-1)
+
+        # Count unique types from the final state
+        final_state = state_history[-1]
+        n_unique_types = len(result_final.get("per_type", {}))
+        if n_unique_types == 0:
+            # Fallback: count from state directly
+            if "cell_types" in final_state:
+                n_unique_types = len(set(final_state["cell_types"]))
+            elif "grid" in final_state:
+                n_unique_types = len(np.unique(final_state["grid"]))
 
         # Sample trajectory for peak detection (every ~1% of run)
         n_states = len(state_history)
@@ -76,9 +89,18 @@ class P1AggregationDetector(BaseDetector):
             "morans_i_final": result_final["morans_i"],
             "morans_i_peak": peak_i,
             "expected_i": result_final["expected_i"],
+            "n_unique_types": n_unique_types,
         }
 
     def _check_screening(self, primary_result, timescale):
+        """Screening: Moran's I above expected AND at least 2 distinct types.
+
+        Single-type systems have degenerate Moran's I (0/0 → 0.0) which
+        trivially exceeds expected I = -1/(N-1). This is meaningless —
+        aggregation requires type diversity.
+        """
+        if primary_result.get("n_unique_types", 0) < 2:
+            return False
         return primary_result["morans_i"] > primary_result["expected_i"]
 
     def _compute_secondaries(self, state_history, timescale):

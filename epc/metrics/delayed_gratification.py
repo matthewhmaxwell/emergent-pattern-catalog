@@ -69,6 +69,16 @@ class DelayedGratification(BaseMetric):
             initial_error = final_error = max_error = min_error = 0
 
         # Count backtracking episodes
+        if not error_trace:
+            return {
+                "dg_index": 0.0,
+                "initial_error": 0,
+                "final_error": 0,
+                "max_error": 0,
+                "min_error": 0,
+                "trace_length": 0,
+                "n_backtrack_steps": 0,
+            }
         deduped = [error_trace[0]]
         for v in error_trace[1:]:
             if v != deduped[-1]:

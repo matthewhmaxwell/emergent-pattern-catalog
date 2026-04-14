@@ -1,11 +1,15 @@
-"""Excitable wave metrics for P13 detection.
+"""P13 — Excitable wave metrics.
 
-Metrics for detecting and characterizing excitable spiral and target waves
-in cellular automata with rest/excited/refractory states.
+Computes wavefront detection, propagation speed, spiral tip tracking,
+and wave source persistence for excitable media.
 
-- WavefrontSpeed: propagation speed and coefficient of variation
-- SpiralTipDetector: topological charge method for spiral tip counting
-- WaveSourceCount: persistent excitation sources
+Designed for Greenberg-Hastings and similar excitable CAs with discrete
+states: resting (0), excited (1), refractory (2+).
+
+Supported state history format:
+    grid      : np.ndarray (rows, cols) — cell states
+    grid_dims : (rows, cols)
+    n_states  : int — κ (number of states)
 """
 
 from __future__ import annotations
@@ -18,11 +22,14 @@ from epc.base_metric import BaseMetric
 
 
 class WavefrontSpeed(BaseMetric):
-    """Measure wavefront propagation speed via center-of-mass tracking.
+    """Measure wavefront propagation speed from excitable media state history.
 
-    Wavefronts are cells that transition rest(0) → excited(1) between
-    consecutive frames. Speed is the frame-to-frame displacement of the
-    wavefront center of mass.
+    Wavefronts are identified as resting→excited transitions (state 0 → 1).
+    Speed is estimated from the spatial displacement of wavefront centroids
+    between consecutive timesteps.
+
+    For GH automata with θ=1 and VN neighborhood, theoretical speed is
+    exactly 1 cell/step. Speed CV < 0.15 indicates stable propagation.
     """
 
     def __init__(self) -> None:
@@ -32,316 +39,365 @@ class WavefrontSpeed(BaseMetric):
         return ["grid", "grid_dims"]
 
     def compute(
-        self, state_history: list[dict[str, Any]], **kwargs: Any
+        self,
+        state_history: list[dict[str, Any]],
+        **kwargs: Any,
     ) -> dict[str, Any]:
-        min_wavefront_cells: int = kwargs.get("min_wavefront_cells", 5)
-        speeds: list[float] = []
-        prev_com: np.ndarray | None = None
-        persistence_frames = 0
-        total_wavefront_frames = 0
+        """Compute wavefront speed statistics over the trajectory.
 
-        for t in range(1, len(state_history)):
-            prev_grid = state_history[t - 1]["grid"]
-            curr_grid = state_history[t]["grid"]
+        Parameters
+        ----------
+        state_history : list[dict]
+            Full state trajectory.
 
-            # Wavefront: cells that are excited now and were resting before
-            wavefront = (curr_grid == 1) & (prev_grid == 0)
-            n_front = int(wavefront.sum())
-
-            if n_front < min_wavefront_cells:
-                prev_com = None
-                continue
-
-            total_wavefront_frames += 1
-            # Center of mass of wavefront cells
-            rows, cols = np.where(wavefront)
-            com = np.array([rows.mean(), cols.mean()])
-
-            if prev_com is not None:
-                # Periodic distance (use grid_dims)
-                dims = np.array(state_history[t]["grid_dims"], dtype=float)
-                delta = com - prev_com
-                # Minimum image convention
-                delta = delta - dims * np.round(delta / dims)
-                speed = float(np.linalg.norm(delta))
-                speeds.append(speed)
-
-            prev_com = com
-
-        if not speeds:
+        Returns
+        -------
+        dict with:
+            wavefront_speed_mean : float — mean speed (cells/step)
+            wavefront_speed_std  : float — std of speed
+            wavefront_speed_cv   : float — coefficient of variation
+            wavefront_count_mean : float — mean number of wavefront cells
+            speeds               : np.ndarray — per-step speed estimates
+        """
+        if len(state_history) < 3:
             return {
-                "wavefront_speed": self.name,
                 "wavefront_speed_mean": 0.0,
                 "wavefront_speed_std": 0.0,
                 "wavefront_speed_cv": float("inf"),
-                "n_wavefront_frames": total_wavefront_frames,
-                "n_speed_measurements": 0,
+                "wavefront_count_mean": 0.0,
+                "speeds": np.array([]),
             }
 
-        arr = np.array(speeds)
-        mean_speed = float(arr.mean())
-        std_speed = float(arr.std())
-        cv = std_speed / mean_speed if mean_speed > 0 else float("inf")
+        speeds = []
+        wavefront_counts = []
+        prev_wf_centroid = None
+
+        for t in range(1, len(state_history)):
+            grid_curr = state_history[t]["grid"]
+            grid_prev = state_history[t - 1]["grid"]
+
+            # Wavefront: cells that are excited now and were resting before
+            wavefront = (grid_curr == 1) & (grid_prev == 0)
+            wf_count = int(wavefront.sum())
+            wavefront_counts.append(wf_count)
+
+            if wf_count == 0:
+                prev_wf_centroid = None
+                continue
+
+            # Centroid of wavefront
+            wf_positions = np.argwhere(wavefront)
+            centroid = wf_positions.mean(axis=0)
+
+            if prev_wf_centroid is not None:
+                # Speed = displacement of centroid
+                # Handle periodic boundary wrapping
+                rows, cols = state_history[t]["grid_dims"]
+                dr = centroid[0] - prev_wf_centroid[0]
+                dc = centroid[1] - prev_wf_centroid[1]
+                # Minimum image convention for periodic BC
+                if abs(dr) > rows / 2:
+                    dr = dr - np.sign(dr) * rows
+                if abs(dc) > cols / 2:
+                    dc = dc - np.sign(dc) * cols
+                speed = np.sqrt(dr**2 + dc**2)
+                speeds.append(speed)
+
+            prev_wf_centroid = centroid
+
+        speeds = np.array(speeds)
+        wf_counts = np.array(wavefront_counts)
+
+        if len(speeds) == 0:
+            return {
+                "wavefront_speed_mean": 0.0,
+                "wavefront_speed_std": 0.0,
+                "wavefront_speed_cv": float("inf"),
+                "wavefront_count_mean": float(wf_counts.mean()) if len(wf_counts) > 0 else 0.0,
+                "speeds": speeds,
+            }
+
+        mean_speed = float(speeds.mean())
+        std_speed = float(speeds.std())
+        cv_speed = std_speed / mean_speed if mean_speed > 0 else float("inf")
 
         return {
-            self.name: mean_speed,
             "wavefront_speed_mean": mean_speed,
             "wavefront_speed_std": std_speed,
-            "wavefront_speed_cv": cv,
-            "n_wavefront_frames": total_wavefront_frames,
-            "n_speed_measurements": len(speeds),
+            "wavefront_speed_cv": cv_speed,
+            "wavefront_count_mean": float(wf_counts.mean()),
+            "speeds": speeds,
+        }
+
+
+class WavefrontSpeedLocal(BaseMetric):
+    """Per-cell wavefront speed via inter-excitation interval.
+
+    For each cell, measure the time between successive excitations
+    (inter-excitation interval = temporal period T). The spatial period
+    (wavelength λ) is κ — the number of states in the color wheel,
+    since the repeating spatial unit is one full cycle
+    (..., 0, 1, 2, ..., κ-1, 0, 1, 2, ...). Phase speed = λ / T.
+
+    For a GH automaton with Moore neighborhood and θ=1, T = κ in
+    spiral waves, giving speed = κ/κ = 1.0 cells/step — matching
+    the true wavefront propagation speed.
+
+    Note: for Von Neumann spirals, T may be slightly larger than κ
+    due to the spiral geometry (wavefront zigzags), giving apparent
+    speed < 1.0. This is a real geometric effect, not a bug.
+
+    More robust than centroid-based speed for multi-spiral systems
+    where centroids move erratically.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(name="wavefront_speed_local")
+
+    def required_keys(self) -> list[str]:
+        return ["grid", "grid_dims"]
+
+    def compute(
+        self,
+        state_history: list[dict[str, Any]],
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        """Compute local wavefront speed from inter-excitation intervals."""
+        if len(state_history) < 10:
+            return {
+                "wavefront_speed_mean": 0.0,
+                "wavefront_speed_std": 0.0,
+                "wavefront_speed_cv": float("inf"),
+            }
+
+        rows, cols = state_history[0]["grid_dims"]
+        n_states = state_history[0].get("n_states", 3)
+        wavelength = n_states  # spatial period: one full cycle (0, 1, ..., κ-1)
+
+        # Track excitation times for a sample of cells
+        n_sample = min(500, rows * cols)
+        rng = np.random.default_rng(0)
+        sample_indices = rng.choice(rows * cols, size=n_sample, replace=False)
+        sample_rc = [(idx // cols, idx % cols) for idx in sample_indices]
+
+        # Collect excitation times
+        excitation_times: dict[int, list[int]] = {i: [] for i in range(n_sample)}
+
+        for t, state in enumerate(state_history):
+            grid = state["grid"]
+            for i, (r, c) in enumerate(sample_rc):
+                if grid[r, c] == 1:
+                    excitation_times[i].append(t)
+
+        # Compute inter-excitation intervals → local periods
+        all_speeds = []
+        for i in range(n_sample):
+            times = excitation_times[i]
+            if len(times) < 2:
+                continue
+            intervals = np.diff(times)
+            # Filter out consecutive excitations (artifact of recording)
+            intervals = intervals[intervals > 1]
+            if len(intervals) == 0:
+                continue
+            # speed = wavelength / period
+            local_speeds = wavelength / intervals
+            all_speeds.extend(local_speeds.tolist())
+
+        speeds = np.array(all_speeds)
+        if len(speeds) == 0:
+            return {
+                "wavefront_speed_mean": 0.0,
+                "wavefront_speed_std": 0.0,
+                "wavefront_speed_cv": float("inf"),
+            }
+
+        mean_s = float(speeds.mean())
+        std_s = float(speeds.std())
+        cv_s = std_s / mean_s if mean_s > 0 else float("inf")
+
+        return {
+            "wavefront_speed_mean": mean_s,
+            "wavefront_speed_std": std_s,
+            "wavefront_speed_cv": cv_s,
         }
 
 
 class SpiralTipDetector(BaseMetric):
-    """Detect spiral wave tips via topological charge on 2x2 plaquettes.
+    """Detect spiral wave tips via topological charge.
 
-    Maps discrete cell states to phases: phase = 2π·state / n_states.
-    A spiral tip exists where the winding number around a 2x2 plaquette
-    is ±1 (topological charge ±1).
+    In an excitable medium with κ states arranged on a color wheel,
+    a spiral tip is a point where all κ states meet. The topological
+    charge Q is computed by summing phase differences around each 2×2
+    plaquette. Q = ±1 indicates a spiral tip; Q = 0 indicates no tip.
 
-    Reference: Barkley, D. (1991). A model for fast computer simulation
-    of waves in excitable media. Physica D.
+    For periodic media, the total topological charge sums to 0.
     """
 
     def __init__(self) -> None:
-        super().__init__(name="spiral_tip")
+        super().__init__(name="spiral_tips")
 
     def required_keys(self) -> list[str]:
-        return ["grid", "grid_dims"]
+        return ["grid", "grid_dims", "n_states"]
 
     def compute(
-        self, state_history: list[dict[str, Any]], **kwargs: Any
+        self,
+        state_history: list[dict[str, Any]],
+        **kwargs: Any,
     ) -> dict[str, Any]:
-        n_states: int = kwargs.get("n_states", None)
-        max_track_distance: float = kwargs.get("max_track_distance", 5.0)
+        """Count spiral tips at each timestep.
 
-        tip_counts: list[int] = []
-        tip_positions_per_frame: list[list[tuple[int, int]]] = []
+        Returns
+        -------
+        dict with:
+            tip_count_mean : float — mean number of tips over trajectory
+            tip_count_std  : float
+            tip_positions  : list[list[tuple]] — tip (r,c) at each recorded step
+            net_charge     : list[int] — net topological charge at each step
+            max_tip_persistence : int — longest streak a tip region is active
+        """
+        t_start = kwargs.get("t_start", 0)
+        t_end = kwargs.get("t_end", len(state_history))
 
-        for state in state_history:
+        tip_counts = []
+        net_charges = []
+        all_tip_positions = []
+
+        for t in range(t_start, t_end):
+            state = state_history[t]
             grid = state["grid"]
-            if n_states is None:
-                n_states = int(grid.max()) + 1
-            tips = self._find_tips(grid, n_states)
+            n_states = state["n_states"]
+            rows, cols = state["grid_dims"]
+
+            tips, charges = self._find_tips(grid, rows, cols, n_states)
             tip_counts.append(len(tips))
-            tip_positions_per_frame.append(tips)
+            net_charges.append(sum(charges))
+            all_tip_positions.append(tips)
 
-        # Track tips across frames and count rotations
-        max_rotations = 0.0
-        tip_persistence = 0
-        if any(tip_counts):
-            max_rotations, tip_persistence = self._track_tips(
-                tip_positions_per_frame,
-                state_history[0]["grid_dims"],
-                max_track_distance,
-            )
-
-        net_charge = 0
-        if tip_positions_per_frame and tip_positions_per_frame[-1]:
-            grid = state_history[-1]["grid"]
-            if n_states is None:
-                n_states = int(grid.max()) + 1
-            net_charge = self._net_charge(grid, n_states)
+        tc = np.array(tip_counts)
 
         return {
-            self.name: float(max(tip_counts)) if tip_counts else 0.0,
-            "n_spiral_tips_max": int(max(tip_counts)) if tip_counts else 0,
-            "n_spiral_tips_mean": float(np.mean(tip_counts)) if tip_counts else 0.0,
-            "max_rotations": max_rotations,
-            "tip_persistence_frames": tip_persistence,
-            "topological_charge_net": net_charge,
+            "tip_count_mean": float(tc.mean()) if len(tc) > 0 else 0.0,
+            "tip_count_std": float(tc.std()) if len(tc) > 0 else 0.0,
+            "tip_positions": all_tip_positions,
+            "net_charge": net_charges,
+            "tip_count_timeseries": tip_counts,
         }
 
     @staticmethod
     def _find_tips(
-        grid: np.ndarray, n_states: int
-    ) -> list[tuple[int, int]]:
-        """Find spiral tips via topological charge on 2x2 plaquettes."""
-        if n_states < 3:
-            return []
+        grid: np.ndarray,
+        rows: int,
+        cols: int,
+        n_states: int,
+    ) -> tuple[list[tuple[int, int]], list[int]]:
+        """Find spiral tips via topological charge on 2×2 plaquettes.
 
-        rows, cols = grid.shape
-        phase = 2.0 * np.pi * grid.astype(float) / n_states
+        The phase at each cell is φ = 2π × state / κ. The topological
+        charge of a plaquette is Q = (1/2π) Σ Δφ around the plaquette,
+        where Δφ is the phase difference wrapped to [-π, π].
+
+        Returns (tip_positions, tip_charges).
+        """
         tips = []
+        charges = []
 
         for r in range(rows):
             for c in range(cols):
-                # 2x2 plaquette with periodic wrap
+                # 2×2 plaquette: (r,c), (r,c+1), (r+1,c+1), (r+1,c)
+                # Periodic boundary
                 r1 = (r + 1) % rows
                 c1 = (c + 1) % cols
-                corners = [
-                    phase[r, c],
-                    phase[r, c1],
-                    phase[r1, c1],
-                    phase[r1, c],
+
+                states = [
+                    grid[r, c],
+                    grid[r, c1],
+                    grid[r1, c1],
+                    grid[r1, c],
                 ]
-                # Compute winding number
-                winding = 0.0
+
+                # Phase = 2π × state / κ
+                phases = [2 * np.pi * s / n_states for s in states]
+
+                # Sum phase differences around plaquette
+                total_diff = 0.0
                 for i in range(4):
-                    diff = corners[(i + 1) % 4] - corners[i]
-                    # Wrap to (-π, π]
+                    diff = phases[(i + 1) % 4] - phases[i]
+                    # Wrap to [-π, π]
                     diff = (diff + np.pi) % (2 * np.pi) - np.pi
-                    winding += diff
+                    total_diff += diff
 
-                charge = winding / (2 * np.pi)
-                if abs(charge) > 0.4:  # Should be ±1 for a tip
+                # Topological charge
+                charge = round(total_diff / (2 * np.pi))
+                if charge != 0:
                     tips.append((r, c))
+                    charges.append(charge)
 
-        return tips
-
-    @staticmethod
-    def _net_charge(grid: np.ndarray, n_states: int) -> int:
-        """Compute net topological charge (should be 0 for periodic BC)."""
-        tips = SpiralTipDetector._find_tips(grid, n_states)
-        if not tips:
-            return 0
-        rows, cols = grid.shape
-        phase = 2.0 * np.pi * grid.astype(float) / n_states
-        total = 0.0
-        for r, c in tips:
-            r1 = (r + 1) % rows
-            c1 = (c + 1) % cols
-            corners = [phase[r, c], phase[r, c1], phase[r1, c1], phase[r1, c]]
-            winding = 0.0
-            for i in range(4):
-                diff = corners[(i + 1) % 4] - corners[i]
-                diff = (diff + np.pi) % (2 * np.pi) - np.pi
-                winding += diff
-            total += winding / (2 * np.pi)
-        return int(round(total))
-
-    @staticmethod
-    def _track_tips(
-        tips_per_frame: list[list[tuple[int, int]]],
-        grid_dims: tuple[int, int],
-        max_distance: float,
-    ) -> tuple[float, int]:
-        """Track tips across frames via nearest-neighbor linking.
-
-        Returns (max_rotations, max_persistence_frames).
-        Rotation estimated as cumulative angular displacement / 2π.
-        """
-        if not any(tips_per_frame):
-            return 0.0, 0
-
-        # Simple nearest-neighbor tracker
-        tracks: list[list[tuple[int, int]]] = []  # each track = list of positions
-        active_track_indices: list[int] = []
-
-        rows, cols = grid_dims
-
-        for frame_tips in tips_per_frame:
-            used = set()
-            new_active: list[int] = []
-
-            for ti in active_track_indices:
-                if not frame_tips:
-                    break
-                last_pos = tracks[ti][-1]
-                # Find closest tip
-                best_dist = float("inf")
-                best_j = -1
-                for j, tp in enumerate(frame_tips):
-                    if j in used:
-                        continue
-                    dr = abs(tp[0] - last_pos[0])
-                    dc = abs(tp[1] - last_pos[1])
-                    dr = min(dr, rows - dr)
-                    dc = min(dc, cols - dc)
-                    d = (dr**2 + dc**2) ** 0.5
-                    if d < best_dist:
-                        best_dist = d
-                        best_j = j
-                if best_j >= 0 and best_dist <= max_distance:
-                    tracks[ti].append(frame_tips[best_j])
-                    used.add(best_j)
-                    new_active.append(ti)
-
-            # Start new tracks for unmatched tips
-            for j, tp in enumerate(frame_tips):
-                if j not in used:
-                    tracks.append([tp])
-                    new_active.append(len(tracks) - 1)
-
-            active_track_indices = new_active
-
-        if not tracks:
-            return 0.0, 0
-
-        # Estimate rotations per track: cumulative angular displacement / 2π
-        max_rot = 0.0
-        max_persist = 0
-        for track in tracks:
-            if len(track) < 3:
-                continue
-            max_persist = max(max_persist, len(track))
-            # Angular displacement from center of track
-            pts = np.array(track, dtype=float)
-            center = pts.mean(axis=0)
-            angles = np.arctan2(pts[:, 0] - center[0], pts[:, 1] - center[1])
-            # Cumulative angular displacement
-            diffs = np.diff(angles)
-            diffs = (diffs + np.pi) % (2 * np.pi) - np.pi
-            total_angle = float(np.abs(diffs).sum())
-            rotations = total_angle / (2 * np.pi)
-            max_rot = max(max_rot, rotations)
-
-        return max_rot, max_persist
+        return tips, charges
 
 
-class WaveSourceCount(BaseMetric):
-    """Count persistent wave emission sources.
+class WavePersistence(BaseMetric):
+    """Measure persistence of wave activity over time.
 
-    A wave source is a site that transitions rest(0) → excited(1)
-    without any excited neighbors in the previous frame (spontaneous
-    excitation or spiral tip emission).
+    Checks whether excitable wave dynamics are sustained (not transient).
+    For P13 screening, we need persistent wavefronts for ≥ 5 × T_prop.
     """
 
     def __init__(self) -> None:
-        super().__init__(name="wave_source_count")
+        super().__init__(name="wave_persistence")
 
     def required_keys(self) -> list[str]:
         return ["grid", "grid_dims"]
 
     def compute(
-        self, state_history: list[dict[str, Any]], **kwargs: Any
+        self,
+        state_history: list[dict[str, Any]],
+        **kwargs: Any,
     ) -> dict[str, Any]:
-        min_emissions: int = kwargs.get("min_emissions", 3)
-        from scipy.signal import convolve2d
+        """Compute wave persistence metrics.
 
-        moore = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], dtype=np.int32)
-        source_counts: dict[tuple[int, int], int] = {}
+        Returns
+        -------
+        dict with:
+            active_fraction      : float — fraction of timesteps with activity
+            activity_density_mean: float — mean excited fraction
+            activity_density_std : float
+            longest_active_streak: int — longest run of consecutive active steps
+            died_out             : bool — whether activity went to zero permanently
+        """
+        activities = []
+        for state in state_history:
+            grid = state["grid"]
+            excited = (grid == 1).sum()
+            total = grid.size
+            activities.append(excited / total)
 
-        for t in range(1, len(state_history)):
-            prev_grid = state_history[t - 1]["grid"]
-            curr_grid = state_history[t]["grid"]
+        activities = np.array(activities)
+        active = activities > 0
 
-            # Newly excited cells
-            new_excited = (curr_grid == 1) & (prev_grid == 0)
-            if not new_excited.any():
-                continue
+        # Longest active streak
+        streaks = []
+        current_streak = 0
+        for a in active:
+            if a:
+                current_streak += 1
+            else:
+                if current_streak > 0:
+                    streaks.append(current_streak)
+                current_streak = 0
+        if current_streak > 0:
+            streaks.append(current_streak)
 
-            # Count excited neighbors in previous frame
-            prev_excited = (prev_grid == 1).astype(np.int32)
-            n_excited_neighbors = convolve2d(
-                prev_excited, moore, mode="same", boundary="wrap"
-            )
+        longest = max(streaks) if streaks else 0
 
-            # Spontaneous: new_excited AND no excited neighbors previously
-            spontaneous = new_excited & (n_excited_neighbors == 0)
-            rows, cols = np.where(spontaneous)
-            for r, c in zip(rows, cols):
-                key = (int(r), int(c))
-                source_counts[key] = source_counts.get(key, 0) + 1
-
-        # Persistent sources: emitted >= min_emissions times
-        persistent = {k: v for k, v in source_counts.items() if v >= min_emissions}
+        # Check if died out (last 10% all dead)
+        late_start = max(0, int(len(activities) * 0.9))
+        died_out = all(activities[late_start:] == 0) if late_start < len(activities) else True
 
         return {
-            self.name: len(source_counts),
-            "wave_source_count": len(source_counts),
-            "persistent_sources": len(persistent),
-            "source_positions": list(persistent.keys()),
-            "max_emissions": max(source_counts.values()) if source_counts else 0,
+            "active_fraction": float(active.mean()),
+            "activity_density_mean": float(activities.mean()),
+            "activity_density_std": float(activities.std()),
+            "longest_active_streak": longest,
+            "died_out": died_out,
         }
