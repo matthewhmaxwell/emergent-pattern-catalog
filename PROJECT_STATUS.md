@@ -70,11 +70,63 @@ Proves the architecture works before scaling to full catalog.
 
 ---
 
-## Sprint 2 Plan (not started)
-- Second model family: Greenberg-Hastings CA or Vicsek Boids
-- 3-4 detectors from different clusters (P5/P6, P9, P13/P15)
-- P13/P15 Transfer Entropy discriminator
-- Cross-model detection: run full battery on all models
+## Sprint 2 — Second Model Families + Cross-Model Detection
+
+### Sprint 2 Checklist
+
+#### Phase 1 — New Models ✅
+- [x] `epc/models/greenberg_hastings.py` — Greenberg-Hastings excitable CA
+  - 2D periodic grid, synchronous update, Moore neighborhood
+  - States: rest/excited/refractory, threshold-based excitation
+  - Init modes: random sparse excitation, broken_wave (spiral formation)
+  - Validated: state counts, quiescence at high threshold, sustained spiral
+- [x] `epc/models/vicsek.py` — Vicsek self-propelled particles
+  - N agents in periodic 2D box, constant speed, alignment + noise
+  - Optional attraction_strength for milling (D'Orsogna extension)
+  - cKDTree periodic neighbor queries, circular mean for headings/COM
+  - Validated: box containment, constant speed, low-noise→flocking, high-noise→disorder
+
+#### Phase 2 — New Metrics ✅
+- [x] `epc/metrics/excitable_waves.py` — P13 metrics
+  - WavefrontSpeed: rest→excited tracking, COM displacement, speed CV
+  - SpiralTipDetector: topological charge on 2x2 plaquettes (Barkley 1991)
+  - WaveSourceCount: spontaneous excitation sites, persistent source tracking
+- [x] `epc/metrics/collective_motion.py` — P5/P6 metrics
+  - Polarization: φ = |mean(v̂_i)| order parameter
+  - AngularMomentum: L = (1/N)Σ(r̂_i × v̂_i) with periodic COM
+  - GroupSpeedRatio: R = |V_cm| / ⟨|v_i|⟩
+
+#### Phase 3 — New Detectors ✅
+- [x] `epc/detectors/p13_excitable_waves.py` — P13 excitable wave detector
+  - Primary: wavefront speed persistence + CV
+  - Null: frame-shuffle (mechanistic nulls as future work)
+  - Exclusions: P15 stub, P12 metadata check
+- [x] `epc/detectors/p5_flocking.py` — P5 flocking detector
+  - Primary: polarization φ
+  - Null: heading-shuffle (999 perms, φ_null ≈ 1/√N)
+  - Exclusions: P6 (|L|), P7 (heading bimodality), P8 stub
+- [x] `epc/detectors/p6_milling.py` — P6 milling detector
+  - Primary: |L| angular momentum
+  - Null: heading-shuffle
+  - Secondaries: hollowness, rotation coherence, group speed ratio
+  - Exclusions: P5 (R > 0.5), P12 metadata check
+
+#### Phase 4 — Cross-Model Detection ✅
+- [x] Transfer matrix tests: P13/P5/P6 on GH, Vicsek, sorting
+- [x] P13 on GH (broken_wave): DETECTED
+- [x] P13 on Vicsek: NOT detected (no grid)
+- [x] P13 on quiescent GH: NOT detected
+- [x] P5 on Vicsek (low noise): DETECTED
+- [x] P5 on Vicsek (high noise): NOT detected
+- [x] P5 on GH: NOT detected (no velocities)
+- [x] P6 on GH: NOT detected
+- [x] P6 on standard Vicsek: NOT detected or screening only
+
+#### Scope Decisions (Sprint 2)
+- **P9 deferred** to Sprint 2.5/3 — needs Kuramoto oscillators
+- **P15 deferred** — needs Game of Life; GH CA is the negative control
+- P15 exclusion in P13 detector: stub ("not_checked")
+- P8 exclusion in P5 detector: stub ("not_checked")
 
 ## Sprint 3+ Plan (not started)
 - Systematic model build-out (one per cluster minimum, ~15 total)
@@ -92,12 +144,12 @@ Proves the architecture works before scaling to full catalog.
 | Schelling segregation | A | P1 | Sprint 2-3 |
 | Active Brownian particles | A | P2 | Sprint 3+ |
 | Gray-Scott reaction-diffusion | A | P3 | Sprint 3+ |
-| Vicsek / Boids | B | P5, P6 | Sprint 2 |
+| Vicsek / Boids | B | P5, P6 | ✅ Sprint 2 |
 | Nagel-Schreckenberg traffic CA | B | P8 | Sprint 3+ |
 | Kuramoto oscillators | C | P9, P10 | Sprint 2-3 |
 | Lotka-Volterra lattice | C | P11 | Sprint 3+ |
 | Spatial rock-paper-scissors | C | P12 | Sprint 3+ |
-| Greenberg-Hastings CA | D | P13 | Sprint 2 |
+| Greenberg-Hastings CA | D | P13 | ✅ Sprint 2 |
 | BTW sandpile | D | P14 | Sprint 3+ |
 | Game of Life | E | P15 | Sprint 2-3 |
 | Hopfield network | E | P16 | Sprint 3+ |
@@ -115,17 +167,17 @@ Proves the architecture works before scaling to full catalog.
 | P2 | MIPS | Sprint 3+ |
 | P3 | Turing pattern formation | Sprint 3+ |
 | P4 | Territoriality | Sprint 3+ |
-| P5 | Flocking | Sprint 2 |
-| P6 | Milling | Sprint 2 |
+| P5 | Flocking | ✅ Sprint 2 |
+| P6 | Milling | ✅ Sprint 2 |
 | P7 | Lane formation | Sprint 3+ |
 | P8 | Jamming | Sprint 3+ |
 | P9 | Synchronization | Sprint 2-3 |
 | P10 | Chimera states | Sprint 3+ |
 | P11 | Predator-prey oscillations | Sprint 3+ |
 | P12 | Cyclic dominance | Sprint 3+ |
-| P13 | Excitable waves | Sprint 2 |
+| P13 | Excitable waves | ✅ Sprint 2 |
 | P14 | SOC | Sprint 3+ |
-| P15 | Persistent computation | Sprint 2 |
+| P15 | Persistent computation | Sprint 2-3 (deferred) |
 | P16 | Associative memory | Sprint 3+ |
 | P17 | Distributed sensing | Sprint 3+ |
 | P18 | Consensus | Sprint 3+ |
