@@ -336,3 +336,180 @@ Perfect discrimination: no false positives, no missed detections.
 4. P8 exclusion (jamming) not yet implemented in P5 detector
 5. Zero-coupling null requires model access — not run in state-history-only mode
 6. KSG estimator needed for continuous-space TE (architecture decision #23)
+
+---
+
+# Schelling × P1 End-to-End Validation (Sprint 4)
+
+Reference: Schelling, T.C. (1971). Dynamic models of segregation.
+Journal of Mathematical Sociology, 1(2), 143-186.
+
+## Setup
+
+Model: `epc/models/schelling.py` — 50×50 grid, density=0.9, threshold=0.375
+(3/8 neighbors = Schelling's original), 200 steps, seed=42.
+
+Detector: `epc/detectors/p1_aggregation.py` with n_permutations=999.
+
+Format adapter: Schelling returns `{'grid': array}` (0=empty, 1=type A, 2=type B).
+P1 needs `grid_dims` in each state dict. Adapter adds `grid_dims: grid.shape`.
+Empty cells treated as type 0 in Moran's I calculation — dilutes signal slightly
+(10% of grid) but effect overwhelms.
+
+## Results
+
+| Metric | Value |
+|---|---|
+| Detected | True |
+| Tier | CONFIRMATION |
+| p-value | 0.001 (floor with 999 perms) |
+| Confidence | 0.700 |
+| Moran's I | 0.423 |
+| Expected I | -0.0004 |
+| Cohen's d | 49.87 |
+| Segregation index | 0.652 |
+| sustained_i_cv | 0.000 |
+| Cluster count | 135 |
+| Max cluster size | 1068 |
+
+## Temporal Convergence Guard
+
+| Metric | Value |
+|---|---|
+| I_initial (step 0) | 0.005 |
+| I_late (last 20%) | 0.415 |
+| ΔI | 0.410 |
+| Spearman ρ | 0.510 (p=0.018) |
+| is_monotonic | False (p > 0.01) |
+| is_plateaued | True (cv_late ≈ 0) |
+| has_gain | True (ΔI > 0.10) |
+| Guard passes | True (has_gain AND is_plateaued) |
+
+Note: Schelling converges very fast (~10-20 steps of 150), so the Moran's I
+trajectory is not "monotonic" — it jumps quickly then plateaus. The guard
+correctly handles this via the plateau condition.
+
+## Negative Controls
+
+| Control | Result | Expected |
+|---|---|---|
+| Random grid (no dynamics) | p=0.452, screening only | ✅ Not confirmed |
+| GoL (types_are_constant=False) | Guard rejects | ✅ Correctly rejected |
+
+## Why CONFIRMATION, not DEFINITIVE
+
+With 999 shuffle permutations, the minimum achievable p-value is 1/(999+1) = 0.001.
+P1's definitive criterion requires p < 0.001 (strict). Since 0.001 is not < 0.001,
+CONFIRMATION is the maximum tier with shuffle-only null at this power level.
+
+To reach DEFINITIVE would require either:
+- ≥1999 permutations (floor p = 0.0005 < 0.001), or
+- A mechanistic null (e.g., removing the threshold-based movement rule)
+
+This is the same tier achieved by sorting models in the Sprint 2 transfer matrix.
+
+---
+
+# BTW Sandpile Replication Notes (Sprint 4)
+
+Reference: Bak, P., Tang, C. & Wiesenfeld, K. (1987). Self-organized
+criticality: An explanation of the 1/f noise. Physical Review Letters,
+59(4), 381-384.
+
+Exponent reference: Lübeck, S. & Usadel, K. (1997). Numerical determination
+of the avalanche exponents of the BTW model. Phys. Rev. E 55, 4095.
+
+## Implementation
+
+File: `epc/models/btw_sandpile.py`
+
+| Feature | BTW 1987 | Our implementation |
+|---|---|---|
+| Lattice | 2D square L×L | 2D square L×L ✅ |
+| Critical height | z_c = 4 | z_c = 4 ✅ |
+| Toppling | z -= 4, +1 to 4 neighbors | Vectorized parallel toppling ✅ |
+| Boundary | Open (dissipative) | Open ✅ |
+| Drive | +1 to random site | +1 to random site ✅ |
+| Null model | — | Bulk dissipation (p_diss=0.2) |
+
+Performance: 78s for 100k driving events at L=64.
+
+## Physics Validation
+
+| Property | Expected | Measured | Match |
+|---|---|---|---|
+| Critical state | max z = z_c-1 = 3 | max z = 3 | ✅ |
+| Mean height | ~2.0-2.2 | 2.098 | ✅ |
+| Size span | >3 decades | 4.3 decades | ✅ |
+| Heavy tail | mean >> median | 12.1× | ✅ |
+
+## Power-Law Exponent
+
+| Method | τ | Published |
+|---|---|---|
+| MLE (x_min=1) | 1.247 | 1.20 |
+| Log-binned PDF | 1.241 | 1.20 |
+| MLE (auto x_min=1688) | 2.818 | — |
+| CCDF slope | 1.588 | — |
+
+The MLE with x_min=1 and log-binned PDF agree (τ ≈ 1.24) and match the
+published value within 0.05. The auto x_min method fails for BTW because
+the distribution has multifractal scaling (logarithmic corrections) that
+causes the optimizer to select a very high x_min, fitting only the steep
+tail. The CCDF slope overestimates due to finite-size cutoff effects.
+
+## Likelihood Ratio Tests
+
+| Comparison | R | p | Interpretation |
+|---|---|---|---|
+| Power-law vs exponential | +80.6 | <0.001 | Power-law strongly preferred |
+| Power-law vs log-normal | -76.2 | <0.001 | Log-normal preferred |
+
+Log-normal preference is a known property of the 2D BTW universality class.
+The distribution has multifractal scaling with logarithmic corrections
+that deviate from a simple power law. This does NOT invalidate SOC detection.
+
+## Duration Scaling
+
+T ~ s^γ with γ = 0.642.
+
+## 1/f Noise
+
+Spectral exponent β = -0.17 (not detected). The activity signal is dominated
+by zero-size events (56.4% of drive steps produce no toppling). Cumulative
+activity integration did not recover clean 1/f scaling. Measurement methodology
+needs further work. The detector correctly uses duration scaling as the
+alternative secondary metric.
+
+## Dissipative Null Model (p_diss=0.2)
+
+| Property | BTW (critical) | Dissipative (subcritical) |
+|---|---|---|
+| Max avalanche | 20,972 | 68 |
+| Mean size | 351.3 | 3.8 |
+| LR vs exponential | R=+80.6 (power-law) | R=-6.0 (exponential) |
+| τ (MLE, x_min=1) | 1.247 | 1.740 |
+| P14 detected | ✅ DEFINITIVE | ✗ not detected |
+
+## P14 Detection Result
+
+| Metric | Value |
+|---|---|
+| Detected | True |
+| Tier | DEFINITIVE |
+| Confidence | 0.850 |
+| τ (MLE) | 1.247 |
+| τ (log-bin) | 1.241 |
+| Duration γ | 0.642 |
+| Null exponential | True |
+
+## BTW Summary
+
+| Published claim | Replicated? |
+|---|---|
+| System self-tunes to critical state | ✅ max z = z_c - 1 |
+| Power-law avalanche distribution | ✅ τ = 1.247 ≈ 1.20 |
+| Heavy-tailed sizes (scale-free) | ✅ 4.3 decades |
+| Subcritical with dissipation | ✅ Exponential at p_diss=0.2 |
+| Duration scaling | ✅ T ~ s^0.64 |
+| 1/f noise in activity | ⚠️ Not detected (measurement issue) |
