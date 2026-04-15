@@ -214,6 +214,32 @@ class P5FlockingDetector:
         warnings = []
         notes_parts = []
 
+        # --- Observable guard: require continuous-space state ---
+        if (
+            len(history) == 0
+            or "positions" not in history[0]
+            or "velocities" not in history[0]
+        ):
+            return DetectorResult(
+                pattern_id="P5",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"polarization_mean": 0.0},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type="n/a",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=metadata is not None,
+                warnings=["Substrate mismatch: history missing 'positions' "
+                          "and/or 'velocities' keys."],
+                notes="Substrate mismatch — P5 requires continuous-space "
+                      "state with positions and velocities.",
+            )
+
         # --- Determine T_cross ---
         T_cross = self._resolve_T_cross(history, metadata, warnings)
 

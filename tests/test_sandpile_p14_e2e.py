@@ -24,13 +24,38 @@ Statistical power:
 import sys
 import time
 import numpy as np
-
-sys.path.insert(0, '/home/claude/epc-repo')
+import pytest
 
 from epc.models.btw_sandpile import (
     run_sandpile, run_dissipative_sandpile, BTWSandpileParams
 )
 from epc.detectors.p14_soc import detect_p14
+
+
+# =========================================================================
+# Shared fixtures — expensive simulations run once per module
+# =========================================================================
+
+@pytest.fixture(scope="module")
+def btw_result():
+    """Run BTW sandpile once, share across tests."""
+    params = BTWSandpileParams(L=64, n_drive=100_000, n_burn=10_000, seed=42)
+    return run_sandpile(params)
+
+
+@pytest.fixture(scope="module")
+def det(btw_result):
+    """Run P14 detector on BTW result, share across tests."""
+    null_params = BTWSandpileParams(L=64, n_drive=50_000, n_burn=5_000, seed=42)
+    null_result = run_dissipative_sandpile(null_params, p_diss=0.2)
+    return detect_p14(
+        avalanche_sizes=btw_result.avalanche_sizes,
+        avalanche_durations=btw_result.avalanche_durations,
+        activity=btw_result.activity,
+        energy=btw_result.energy_history,
+        null_sizes=null_result.avalanche_sizes,
+        is_self_tuned=True,
+    )
 
 
 # =========================================================================
@@ -81,7 +106,7 @@ def test_btw_physics():
     print(f"  {'✅' if checks['heavy_tail'] else '❌'} Heavy-tailed: mean/median = {nonzero.mean()/np.median(nonzero):.1f}")
     
     all_ok = all(checks.values())
-    return all_ok, result
+    assert all_ok, f"BTW physics checks failed: {checks}"
 
 
 # =========================================================================
@@ -164,7 +189,7 @@ def test_p14_e2e(btw_result):
         if not passed:
             all_pass = False
     
-    return all_pass, det
+    assert all_pass, f"P14 e2e checks failed: {checks}"
 
 
 # =========================================================================
@@ -202,7 +227,7 @@ def test_dissipative_negative():
     # Should NOT be detected (exponential distribution, not power-law)
     not_detected = not det.detected or det.tier == 'none'
     print(f"\n  {'✅' if not_detected else '❌'} Dissipative sandpile not detected as SOC: {not_detected}")
-    return not_detected
+    assert not_detected
 
 
 # =========================================================================
@@ -248,7 +273,7 @@ def test_replication_summary(det):
     
     all_ok = tau_ok and exp_rej and null_ok
     print(f"\n  {'✅' if all_ok else '⚠️'} Core replication: {'PASS' if all_ok else 'PARTIAL'}")
-    return all_ok
+    assert all_ok, "Core replication checks failed"
 
 
 # =========================================================================
@@ -293,7 +318,7 @@ def main():
         failed = [name for name, v in results.items() if not v]
         print(f"\n  ISSUES: {failed}")
     
-    return all(results.values())
+    assert all(results.values())
 
 
 if __name__ == '__main__':

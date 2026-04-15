@@ -5,14 +5,15 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-4 substrate types:
+5 substrate types:
 - lattice_1d: Zhang sorting (chimeric)
-- lattice_2d: GH, GoL, BTW sandpile
+- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May
 - continuous_2d: Vicsek, D'Orsogna
 - oscillator: Kuramoto
+- opinion_space: Hegselmann-Krause
 
-Architecture decision #25: 11 models × 8 detectors → 24 compatible pairs,
-64 substrate mismatches correctly identified.
+Architecture decision #25 (updated Sprint 5):
+  11 models × 10 detectors → compatible pairs identified by substrate.
 """
 
 from __future__ import annotations
@@ -115,6 +116,20 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         primary_patterns=['P9'],
         metadata_keys=['N', 'K', 'gamma', 'freq_dist'],
     ),
+    'nowak_may': ModelRegistration(
+        name='nowak_may',
+        substrate_type='lattice_2d',
+        observables=['grid', 'grid_dims', 'coop_fraction', 'moran_i'],
+        primary_patterns=['P27'],
+        metadata_keys=['b', 'pd_structure', 'has_movement'],
+    ),
+    'hegselmann_krause': ModelRegistration(
+        name='hegselmann_krause',
+        substrate_type='opinion_space',
+        observables=['opinions', 'n_clusters', 'variance'],
+        primary_patterns=['P21'],
+        metadata_keys=['epsilon', 'n_agents', 'init_mode'],
+    ),
 }
 
 # === Detector Registry ===
@@ -167,6 +182,18 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         required_substrate=['lattice_1d'],
         required_observables=['cell_types'],
         observable_scope='state_history_only',
+    ),
+    'P21': DetectorRegistration(
+        pattern_id='P21',
+        required_substrate=['opinion_space'],
+        required_observables=['opinions'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P27': DetectorRegistration(
+        pattern_id='P27',
+        required_substrate=['lattice_2d'],
+        required_observables=['coop_fraction'],  # PD-specific; only Nowak-May produces this
+        observable_scope='model_metadata_required',
     ),
 }
 

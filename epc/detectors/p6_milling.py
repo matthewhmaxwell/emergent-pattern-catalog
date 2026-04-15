@@ -218,6 +218,32 @@ class P6MillingDetector:
         warnings = []
         notes_parts = []
 
+        # --- Observable guard: require continuous-space state ---
+        if (
+            len(history) == 0
+            or "positions" not in history[0]
+            or "velocities" not in history[0]
+        ):
+            return DetectorResult(
+                pattern_id="P6",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"L_abs_mean": 0.0},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type="n/a",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=metadata is not None,
+                warnings=["Substrate mismatch: history missing 'positions' "
+                          "and/or 'velocities' keys."],
+                notes="Substrate mismatch — P6 requires continuous-space "
+                      "state with positions and velocities.",
+            )
+
         # --- T_cross ---
         T_cross = self.T_cross if self.T_cross else 100.0
         if metadata and "v_eq" in metadata and "init_radius" in metadata:

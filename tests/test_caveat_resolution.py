@@ -89,7 +89,7 @@ def test_kuramoto_kc_convergence():
     
     ok = abs(r_measured - r_analytical_1_2) < 0.06
     print(f"  {'✅' if ok else '❌'} r(K=1.2) matches theory within 0.06: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -133,7 +133,7 @@ def test_p15_fidelity():
     print(f"\n  {'✅' if ok_fidelity else '❌'} Fidelity ≥ 0.9: {result.reproducibility:.3f}")
     print(f"  {'✅' if ok_functional else '❌'} Functional (diverse outcomes): {ok_functional}")
     print(f"  {'✅' if ok else '❌'} P15 fidelity test PASSES: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -190,7 +190,7 @@ def test_p1_guard_on_schelling():
     
     ok = passes
     print(f"  {'✅' if ok else '❌'} Schelling passes P1 temporal guard: {ok}")
-    return ok
+    assert ok
 
 
 def test_p1_guard_gol_still_rejects():
@@ -231,7 +231,7 @@ def test_p1_guard_gol_still_rejects():
     
     ok = not passes
     print(f"  {'✅' if ok else '❌'} GoL still rejected: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -285,7 +285,7 @@ def test_ksg_te_kuramoto_scaling():
     # Also check: highest K should be significantly above null
     ok = te_6 > te_0 and te_values[2] > te_values[0]
     print(f"  {'✅' if ok else '❌'} TE increases with coupling: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -389,7 +389,7 @@ def test_te_discriminator_direction():
         print(f"  ❌ TE discriminator direction WRONG at this scale")
         print(f"     (May need larger grid — Sprint 2 used 60×60)")
     
-    return direction_correct
+    assert direction_correct
 
 
 # =========================================================================
@@ -426,7 +426,7 @@ def main():
         failed = [name for name, v in results.items() if not v]
         print(f"\n  REMAINING ISSUES: {failed}")
     
-    return all(results.values())
+    assert all(results.values())
 
 
 if __name__ == '__main__':

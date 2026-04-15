@@ -174,7 +174,7 @@ def test_p1_on_schelling_full():
         if not passed:
             all_pass = False
     
-    return all_pass, result
+    assert all_pass
 
 
 # =========================================================================
@@ -216,7 +216,7 @@ def test_temporal_guard_on_schelling():
     
     ok = passes
     print(f"\n  {'✅' if ok else '❌'} Schelling passes temporal guard: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -266,10 +266,10 @@ def test_p1_on_random_grid():
     # Random grid should either fail screening or have non-significant p
     if not result.detected:
         print(f"  ✅ Not detected (failed screening) — correct")
-        return True
+        assert True  # correct rejection
     elif result.null_p_value > 0.05:
         print(f"  ✅ Detected but non-significant (p={result.null_p_value:.3f}) — correct")
-        return True
+        assert True  # correct non-significance
     else:
         # Random grid shouldn't pass. But Moran's I on a random grid 
         # should be near expected — check if it barely squeaked through
@@ -278,7 +278,7 @@ def test_p1_on_random_grid():
         # It's OK if it's only screening with low confidence
         ok = result.tier == DetectionTier.SCREENING
         print(f"  {'✅' if ok else '❌'} Only screening tier: {ok}")
-        return ok
+        assert ok, "Random grid passed beyond screening tier"
 
 
 # =========================================================================
@@ -320,7 +320,7 @@ def test_gol_rejected():
     
     ok = not passes
     print(f"  {'✅' if ok else '❌'} GoL rejected by temporal guard: {ok}")
-    return ok
+    assert ok
 
 
 # =========================================================================
@@ -359,7 +359,6 @@ def test_tier_explanation():
     print(f"  with shuffle-only null at 999 permutations.")
     
     print(f"\n  ✅ Tier analysis documented")
-    return True
 
 
 # =========================================================================
@@ -396,7 +395,7 @@ def main():
         failed = [name for name, v in results.items() if not v]
         print(f"\n  FAILURES: {failed}")
     
-    return all(results.values())
+    assert all(results.values())
 
 
 if __name__ == '__main__':

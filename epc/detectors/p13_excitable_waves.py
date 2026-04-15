@@ -28,7 +28,7 @@ import numpy as np
 
 from epc.base_detector import BaseDetector
 from epc.detector_result import DetectionTier, NullType
-from epc.metrics.wave_propagation import (
+from epc.metrics.excitable_waves import (
     SpiralTipDetector,
     WavefrontSpeedLocal,
     WavePersistence,

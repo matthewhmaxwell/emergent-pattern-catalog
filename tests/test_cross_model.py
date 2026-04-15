@@ -13,15 +13,15 @@ class TestP13OnModels:
 
     def test_p13_on_greenberg_hastings_detected(self):
         """P13 should detect on its canonical model (broken wave → spiral)."""
-        from epc.models.greenberg_hastings import GreenbergHastingsCA
+        from epc.models.greenberg_hastings import GreenbergHastings
         from epc.detectors.p13_excitable_waves import P13ExcitableWaveDetector
 
-        m = GreenbergHastingsCA(
-            grid_size=50, n_refractory=3, threshold=1,
+        m = GreenbergHastings(
+            rows=50, cols=50, n_states=5, threshold=1,
             init_mode="broken_wave", seed=0,
         )
         h = m.run(500)
-        d = P13ExcitableWaveDetector(n_permutations=99)
+        d = P13ExcitableWaveDetector(n_null_runs=99)
         r = d.detect(h, m.get_metadata())
         assert r.detected, f"P13 not detected on GH CA: {r.summary()}"
 
@@ -30,7 +30,7 @@ class TestP13OnModels:
         from epc.models.vicsek import VicsekModel
         from epc.detectors.p13_excitable_waves import P13ExcitableWaveDetector
 
-        m = VicsekModel(n_agents=100, seed=0)
+        m = VicsekModel(n_particles=100, seed=0)
         h = m.run(100)
         d = P13ExcitableWaveDetector()
         r = d.detect(h, m.get_metadata())
@@ -38,10 +38,10 @@ class TestP13OnModels:
 
     def test_p13_on_quiescent_gh_not_detected(self):
         """P13 should not detect on quiescent GH (high threshold)."""
-        from epc.models.greenberg_hastings import GreenbergHastingsCA
+        from epc.models.greenberg_hastings import GreenbergHastings
         from epc.detectors.p13_excitable_waves import P13ExcitableWaveDetector
 
-        m = GreenbergHastingsCA(grid_size=30, threshold=9, seed=0)
+        m = GreenbergHastings(rows=30, cols=30, threshold=9, seed=0)
         h = m.run(50)
         d = P13ExcitableWaveDetector()
         r = d.detect(h, m.get_metadata())
@@ -57,7 +57,7 @@ class TestP5OnModels:
         from epc.detectors.p5_flocking import P5FlockingDetector
 
         m = VicsekModel(
-            n_agents=100, box_size=5.0, speed=0.03,
+            n_particles=100, box_size=5.0, speed=0.03,
             noise=0.05, interaction_radius=1.0, seed=42,
         )
         h = m.run(3000)
@@ -71,7 +71,7 @@ class TestP5OnModels:
         from epc.detectors.p5_flocking import P5FlockingDetector
 
         m = VicsekModel(
-            n_agents=100, box_size=10.0, speed=0.03,
+            n_particles=100, box_size=10.0, speed=0.03,
             noise=2.0, interaction_radius=1.0, seed=42,
         )
         h = m.run(500)
@@ -81,10 +81,10 @@ class TestP5OnModels:
 
     def test_p5_on_greenberg_hastings_not_detected(self):
         """P5 should not detect on GH CA (no velocities)."""
-        from epc.models.greenberg_hastings import GreenbergHastingsCA
+        from epc.models.greenberg_hastings import GreenbergHastings
         from epc.detectors.p5_flocking import P5FlockingDetector
 
-        m = GreenbergHastingsCA(grid_size=30, seed=0)
+        m = GreenbergHastings(rows=30, cols=30, seed=0)
         h = m.run(50)
         d = P5FlockingDetector()
         r = d.detect(h, m.get_metadata())
@@ -96,10 +96,10 @@ class TestP6OnModels:
 
     def test_p6_on_greenberg_hastings_not_detected(self):
         """P6 should not detect on GH CA."""
-        from epc.models.greenberg_hastings import GreenbergHastingsCA
+        from epc.models.greenberg_hastings import GreenbergHastings
         from epc.detectors.p6_milling import P6MillingDetector
 
-        m = GreenbergHastingsCA(grid_size=30, seed=0)
+        m = GreenbergHastings(rows=30, cols=30, seed=0)
         h = m.run(50)
         d = P6MillingDetector()
         r = d.detect(h, m.get_metadata())
@@ -111,8 +111,8 @@ class TestP6OnModels:
         from epc.detectors.p6_milling import P6MillingDetector
 
         m = VicsekModel(
-            n_agents=100, box_size=10.0, speed=0.03,
-            noise=0.1, attraction_strength=0.0, seed=42,
+            n_particles=100, box_size=10.0, speed=0.03,
+            noise=0.1, seed=42,
         )
         h = m.run(500)
         d = P6MillingDetector()

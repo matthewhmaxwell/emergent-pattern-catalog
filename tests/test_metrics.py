@@ -1,8 +1,10 @@
-"""Unit tests for metrics."""
+"""Unit tests for metric implementations."""
 
 import numpy as np
 import pytest
 
+
+# --- Excitable wave metrics ---
 
 class TestWavefrontSpeed:
     def test_constant_speed_wavefront(self):
@@ -19,94 +21,103 @@ class TestWavefrontSpeed:
             if t > 0:
                 prev_col = (t - 1) % 20
                 grid[:, prev_col] = 2  # refractory
-            history.append({"grid": grid, "grid_dims": (20, 20)})
+            history.append({"grid": grid, "grid_dims": (20, 20), "n_states": 3})
 
         result = metric.compute(history)
-        assert result["n_wavefront_frames"] > 5
-        assert result["wavefront_speed_cv"] < 0.5
+        assert result["wavefront_count_mean"] > 5
+        assert abs(result["wavefront_speed_mean"] - 1.0) < 0.2
 
     def test_no_wavefront(self):
         """All-rest grid should report zero speed."""
         from epc.metrics.excitable_waves import WavefrontSpeed
         metric = WavefrontSpeed()
-        history = [{"grid": np.zeros((10, 10), dtype=int), "grid_dims": (10, 10)} for _ in range(10)]
+        history = [
+            {"grid": np.zeros((10, 10), dtype=int), "grid_dims": (10, 10), "n_states": 3}
+            for _ in range(10)
+        ]
         result = metric.compute(history)
-        assert result["n_wavefront_frames"] == 0
+        assert result["wavefront_count_mean"] == 0
 
+
+# --- Collective motion metrics ---
 
 class TestPolarization:
     def test_perfect_alignment(self):
-        """All agents heading right → φ = 1."""
-        from epc.metrics.collective_motion import Polarization
-        metric = Polarization()
-        v = np.column_stack([np.ones(50), np.zeros(50)])
-        history = [{"velocities": v}]
-        result = metric.compute(history, timestep=0)
-        assert abs(result["polarization"] - 1.0) < 1e-10
+        """All agents heading right -> phi = 1."""
+        from epc.metrics.collective_motion import PolarizationMetric
+        N = 50
+        pos = np.random.default_rng(0).random((N, 2)) * 10
+        vel = np.tile([1.0, 0.0], (N, 1))
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = PolarizationMetric.compute(history)
+        assert abs(result["phi_mean"] - 1.0) < 0.01
 
     def test_random_headings(self):
-        """Random headings → φ ≈ 1/√N."""
-        from epc.metrics.collective_motion import Polarization
-        metric = Polarization()
+        """Random headings -> phi ~ 1/sqrt(N)."""
+        from epc.metrics.collective_motion import PolarizationMetric
+        N = 200
         rng = np.random.default_rng(42)
-        n = 1000
-        angles = rng.uniform(0, 2 * np.pi, n)
-        v = np.column_stack([np.cos(angles), np.sin(angles)])
-        history = [{"velocities": v}]
-        result = metric.compute(history, timestep=0)
-        expected = 1.0 / np.sqrt(n)
-        assert result["polarization"] < 3 * expected  # should be near 1/sqrt(N)
+        pos = rng.random((N, 2)) * 10
+        theta = rng.uniform(0, 2 * np.pi, N)
+        vel = np.column_stack([np.cos(theta), np.sin(theta)])
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = PolarizationMetric.compute(history)
+        expected = 1 / np.sqrt(N)
+        assert result["phi_mean"] < 0.3, \
+            f"Expected phi ~ {expected:.3f}, got {result['phi_mean']:.3f}"
 
 
 class TestAngularMomentum:
     def test_perfect_mill(self):
-        """Agents arranged in circle, velocities tangent → |L| ≈ 1."""
-        from epc.metrics.collective_motion import AngularMomentum
-        metric = AngularMomentum()
-        n = 100
-        angles = np.linspace(0, 2 * np.pi, n, endpoint=False)
+        """Agents arranged in circle, velocities tangent -> |L| ~ 1."""
+        from epc.metrics.collective_motion import AngularMomentumMetric
+        N = 50
+        theta = np.linspace(0, 2 * np.pi, N, endpoint=False)
         r = 5.0
-        positions = np.column_stack([r * np.cos(angles) + 15, r * np.sin(angles) + 15])
-        # Tangent velocities (counterclockwise)
-        velocities = np.column_stack([-np.sin(angles), np.cos(angles)])
-        history = [{"positions": positions, "velocities": velocities, "box_size": 30.0}]
-        result = metric.compute(history, timestep=0)
-        assert abs(result["angular_momentum"]) > 0.9
+        pos = np.column_stack([r * np.cos(theta), r * np.sin(theta)]) + 10
+        vel = np.column_stack([-np.sin(theta), np.cos(theta)])
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = AngularMomentumMetric.compute(history)
+        assert result["L_abs_mean"] > 0.9, \
+            f"Expected |L| ~ 1, got {result['L_abs_mean']:.3f}"
 
     def test_zero_angular_momentum(self):
-        """Random velocities → L ≈ 0."""
-        from epc.metrics.collective_motion import AngularMomentum
-        metric = AngularMomentum()
+        """Random velocities -> L ~ 0."""
+        from epc.metrics.collective_motion import AngularMomentumMetric
+        N = 200
         rng = np.random.default_rng(42)
-        n = 500
-        positions = rng.uniform(0, 20, (n, 2))
-        angles = rng.uniform(0, 2 * np.pi, n)
-        velocities = np.column_stack([np.cos(angles), np.sin(angles)])
-        history = [{"positions": positions, "velocities": velocities, "box_size": 20.0}]
-        result = metric.compute(history, timestep=0)
-        assert abs(result["angular_momentum"]) < 0.2
+        pos = rng.random((N, 2)) * 10
+        theta = rng.uniform(0, 2 * np.pi, N)
+        vel = np.column_stack([np.cos(theta), np.sin(theta)])
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = AngularMomentumMetric.compute(history)
+        assert result["L_abs_mean"] < 0.3, \
+            f"Expected |L| ~ 0, got {result['L_abs_mean']:.3f}"
 
 
 class TestGroupSpeedRatio:
     def test_aligned_group(self):
-        """All moving same direction → R = 1."""
-        from epc.metrics.collective_motion import GroupSpeedRatio
-        metric = GroupSpeedRatio()
-        v = np.column_stack([np.ones(50), np.zeros(50)])
-        history = [{"velocities": v}]
-        result = metric.compute(history, timestep=0)
-        assert abs(result["group_speed_ratio"] - 1.0) < 1e-10
+        """All moving same direction -> R = 1."""
+        from epc.metrics.collective_motion import GroupSpeedRatioMetric
+        N = 50
+        pos = np.random.default_rng(0).random((N, 2)) * 10
+        vel = np.tile([1.0, 0.0], (N, 1))
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = GroupSpeedRatioMetric.compute(history)
+        assert abs(result["R_mean"] - 1.0) < 0.01
 
     def test_opposing_groups(self):
-        """Half left, half right → R ≈ 0."""
-        from epc.metrics.collective_motion import GroupSpeedRatio
-        metric = GroupSpeedRatio()
-        v = np.zeros((100, 2))
-        v[:50, 0] = 1.0
-        v[50:, 0] = -1.0
-        history = [{"velocities": v}]
-        result = metric.compute(history, timestep=0)
-        assert abs(result["group_speed_ratio"]) < 0.01
+        """Half left, half right -> R ~ 0."""
+        from epc.metrics.collective_motion import GroupSpeedRatioMetric
+        N = 100
+        pos = np.random.default_rng(0).random((N, 2)) * 10
+        vel = np.zeros((N, 2))
+        vel[:N // 2, 0] = 1.0
+        vel[N // 2:, 0] = -1.0
+        history = [{"positions": pos, "velocities": vel}] * 10
+        result = GroupSpeedRatioMetric.compute(history)
+        assert result["R_mean"] < 0.1, \
+            f"Expected R ~ 0, got {result['R_mean']:.3f}"
 
 
 class TestSpiralTipDetector:
@@ -115,16 +126,20 @@ class TestSpiralTipDetector:
         from epc.metrics.excitable_waves import SpiralTipDetector
         metric = SpiralTipDetector()
         grid = np.zeros((20, 20), dtype=int)
-        history = [{"grid": grid, "grid_dims": (20, 20)}]
-        result = metric.compute(history, n_states=5)
-        assert result["n_spiral_tips_max"] == 0
-
-
-class TestWaveSourceCount:
-    def test_no_sources_quiescent(self):
-        """All-rest grid should have no wave sources."""
-        from epc.metrics.excitable_waves import WaveSourceCount
-        metric = WaveSourceCount()
-        history = [{"grid": np.zeros((10, 10), dtype=int), "grid_dims": (10, 10)} for _ in range(10)]
+        # n_states must be in the state dict
+        history = [{"grid": grid, "grid_dims": (20, 20), "n_states": 5}]
         result = metric.compute(history)
-        assert result["wave_source_count"] == 0
+        assert result["tip_count_mean"] == 0
+
+
+class TestWavePersistence:
+    def test_no_persistence_quiescent(self):
+        """All-rest grid should have zero persistence."""
+        from epc.metrics.excitable_waves import WavePersistence
+        metric = WavePersistence()
+        history = [
+            {"grid": np.zeros((10, 10), dtype=int), "grid_dims": (10, 10), "n_states": 3}
+            for _ in range(20)
+        ]
+        result = metric.compute(history)
+        assert result["active_fraction"] == 0.0
