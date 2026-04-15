@@ -48,8 +48,31 @@ The catalog contains **32 atomic patterns** organized into a three-layer archite
 | I: Structure formation | Trail/network formation, Autopoiesis | 2 |
 | J: Agent-level competencies | Delayed gratification, Emergent specialization | 2 |
 
-See [docs/pattern_catalog.md](docs/pattern_catalog.md) for the full catalog with
-canonical models, detection metrics, dimensional profiles, and distinctness arguments.
+## Implementation Status
+
+### Models (11 implemented, validated against published literature)
+
+| Model | Cluster | Primary Patterns | Reference |
+|-------|---------|-----------------|-----------|
+| Zhang cell-view sorting | A, J | P1, P31 | Zhang et al. 2024 |
+| Schelling segregation | A | P1 | Schelling 1971 |
+| Vicsek model | B | P5 | Vicsek et al. 1995 |
+| D'Orsogna SPP | B | P6 | D'Orsogna et al. 2006 |
+| Kuramoto oscillators | C | P9 | Kuramoto 1975 |
+| Greenberg-Hastings CA | D | P13 | Greenberg & Hastings 1978 |
+| BTW sandpile | D | P14 | Bak, Tang & Wiesenfeld 1987 |
+| Game of Life | E | P15 | Conway / Gardner 1970 |
+| Hegselmann-Krause | F | P21 | Hegselmann & Krause 2002 |
+| Nowak-May spatial PD | H | P27 | Nowak & May 1992 |
+
+### Detectors (10 + discriminator, all with 3-tier detection)
+
+P1 Aggregation, P5 Flocking, P6 Milling, P9 Synchronization,
+P13 Excitable Waves, P14 SOC, P15 Persistent Computation,
+P21 Polarization, P27 Spatial Reciprocity, P31 Delayed Gratification,
+plus the P13/P15 boundary-conditioned TE discriminator.
+
+### Test Suite: 101/101 passing
 
 ## Installation
 
@@ -63,14 +86,12 @@ pip install -r requirements.txt
 
 ```
 emergent-pattern-catalog/
-├── models/          # Model implementations (sorting, Schelling, Boids, etc.)
-├── metrics/         # Detection toolkit (one metric per cataloged pattern)
-├── analysis/        # Orchestration: run models, apply metrics, generate reports
-├── experiments/     # Experiment configs and results
-├── docs/            # Living catalog (v0.4), ontology, paper outline
-├── notebooks/       # Jupyter notebooks for exploration
-├── tests/           # Unit tests
-└── scripts/         # CLI utilities
+├── epc/             # Core package (models, metrics, detectors, orchestration)
+├── tests/           # 13 test files, 101 tests
+├── docs/            # Catalog, detector cards, ontology, paper draft
+├── CLAUDE.md        # Claude Code context file
+├── PROJECT_STATUS.md
+└── REPLICATION_NOTES.md
 ```
 
 ## Ontological Dimensions (11)
@@ -79,18 +100,18 @@ Each pattern is classified along: spatial scale, temporal character, interaction
 type, interaction substrate, agent homogeneity, goal structure, feedback structure,
 memory, conflict structure, external driving, and update mode.
 
-See [docs/ontology.md](docs/ontology.md) for full dimension definitions.
-
 ## References
 
 - Levin, M. (2022). Technological Approach to Mind Everywhere. *Frontiers in Systems Neuroscience*.
-- Zhang, J., et al. (2024). Classical sorting algorithms as a model of morphogenesis. *Adaptive Behavior*.
+- Zhang, T., Goldstein, A. & Levin, M. (2024). Classical sorting algorithms as a model of morphogenesis. *Adaptive Behavior*, 33, 25–54.
 - Bak, P., Tang, C., & Wiesenfeld, K. (1987). Self-organized criticality. *Physical Review Letters*.
 - Reynolds, C. W. (1987). Flocks, herds and schools. *SIGGRAPH*.
 - Schelling, T. C. (1971). Dynamic models of segregation. *Journal of Mathematical Sociology*.
 - Nowak, M. A. & May, R. M. (1992). Evolutionary games and spatial chaos. *Nature*.
 - Kuramoto, Y. (1975). Self-entrainment of a population of coupled non-linear oscillators.
-- Arthur, W. B. (1994). Inductive reasoning and bounded rationality. *American Economic Review*.
+- Vicsek, T. et al. (1995). Novel type of phase transition in a system of self-driven particles. *Physical Review Letters*.
+- D'Orsogna, M. R. et al. (2006). Self-propelled particles with soft-core interactions. *Physical Review Letters*.
+- Hegselmann, R. & Krause, U. (2002). Opinion dynamics and bounded confidence models, analysis, and simulation. *JASSS*.
 
 ## License
 
