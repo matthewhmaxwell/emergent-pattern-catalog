@@ -52,6 +52,8 @@ class SandpileResult:
     avalanche_sizes: np.ndarray       # Array of sizes for easy analysis
     avalanche_durations: np.ndarray   # Array of durations
     activity: np.ndarray              # Topplings per drive event
+    energy_history: np.ndarray        # Total energy (sum of heights) per drive event
+    dissipation_history: np.ndarray   # Grains lost at boundary per drive event
     final_grid: np.ndarray            # Final height configuration
     params: BTWSandpileParams
     n_total_drive: int                # Total driving events run
@@ -84,6 +86,8 @@ def run_sandpile(params: Optional[BTWSandpileParams] = None) -> SandpileResult:
     
     avalanches = []
     grid_history = []
+    energy_list = []
+    dissipation_list = []
     
     n_total = params.n_burn + params.n_drive
     
@@ -141,6 +145,10 @@ def run_sandpile(params: Optional[BTWSandpileParams] = None) -> SandpileResult:
                 dissipated=dissipated,
             ))
             
+            # Record energy and dissipation time series
+            energy_list.append(int(np.sum(grid)))
+            dissipation_list.append(dissipated)
+            
             # Optional grid recording
             if (params.record_grid_every > 0 and
                 (drive_idx - params.n_burn) % params.record_grid_every == 0):
@@ -153,12 +161,16 @@ def run_sandpile(params: Optional[BTWSandpileParams] = None) -> SandpileResult:
     sizes = np.array([a.size for a in avalanches], dtype=np.int64)
     durations = np.array([a.duration for a in avalanches], dtype=np.int64)
     activity = sizes.copy()  # topplings per drive event
+    energy_history = np.array(energy_list, dtype=np.int64)
+    dissipation_history = np.array(dissipation_list, dtype=np.int64)
     
     return SandpileResult(
         avalanches=avalanches,
         avalanche_sizes=sizes,
         avalanche_durations=durations,
         activity=activity,
+        energy_history=energy_history,
+        dissipation_history=dissipation_history,
         final_grid=grid.copy(),
         params=params,
         n_total_drive=n_total,
@@ -194,6 +206,8 @@ def run_dissipative_sandpile(
     grid = rng.integers(0, z_c, size=(L, L), dtype=np.int32)
     
     avalanches = []
+    energy_list = []
+    dissipation_list = []
     n_total = params.n_burn + params.n_drive
     
     for drive_idx in range(n_total):
@@ -247,6 +261,8 @@ def run_dissipative_sandpile(
                 size=size, duration=duration,
                 area=int(np.sum(area_mask)), dissipated=dissipated,
             ))
+            energy_list.append(int(np.sum(grid)))
+            dissipation_list.append(dissipated)
     
     sizes = np.array([a.size for a in avalanches], dtype=np.int64)
     durations = np.array([a.duration for a in avalanches], dtype=np.int64)
@@ -256,6 +272,8 @@ def run_dissipative_sandpile(
         avalanche_sizes=sizes,
         avalanche_durations=durations,
         activity=sizes.copy(),
+        energy_history=np.array(energy_list, dtype=np.int64),
+        dissipation_history=np.array(dissipation_list, dtype=np.int64),
         final_grid=grid.copy(),
         params=params,
         n_total_drive=n_total,

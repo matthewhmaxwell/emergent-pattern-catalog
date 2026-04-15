@@ -109,6 +109,7 @@ def test_p14_e2e(btw_result):
         avalanche_sizes=btw_result.avalanche_sizes,
         avalanche_durations=btw_result.avalanche_durations,
         activity=btw_result.activity,
+        energy=btw_result.energy_history,
         null_sizes=null_result.avalanche_sizes,
         is_self_tuned=True,  # BTW is inherently self-tuning
     )

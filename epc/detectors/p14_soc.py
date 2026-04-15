@@ -161,30 +161,51 @@ def compute_duration_scaling(
     return float(gamma)
 
 
-def compute_spectral_beta(activity: np.ndarray) -> Optional[float]:
-    """Compute spectral exponent β from activity time series.
+def compute_spectral_beta(activity: np.ndarray,
+                          energy: Optional[np.ndarray] = None) -> Optional[float]:
+    """Compute spectral exponent β from energy or dissipation time series.
     
     PSD ~ f^(-β). β ∈ (0.5, 1.5) indicates 1/f-type noise.
     
-    Note: The BTW activity signal has many zeros (non-toppling events).
-    We compute the PSD of the cumulative activity (integrated signal)
-    which is known to show cleaner 1/f scaling, then subtract 2 to
-    recover the exponent of the original signal.
+    The 1/f noise in BTW sandpiles appears in the total energy E(t) = Σh(x,t),
+    NOT in the avalanche size sequence (which is approximately white noise).
+    
+    If energy is provided, compute PSD of energy fluctuations directly.
+    If only activity is provided, fall back to cumulative integration method
+    (which gives incorrect results for IID activity signals).
+    
+    Parameters
+    ----------
+    activity : array
+        Topplings per drive event (used as fallback).
+    energy : array, optional
+        Total energy (sum of heights) per drive event. Preferred signal.
+    
+    Returns
+    -------
+    float or None
+        Spectral exponent β, or None if insufficient data.
     """
     from scipy import signal as sig
     
-    if len(activity) < 1000:
+    # Use energy signal if available (correct for 1/f measurement)
+    if energy is not None and len(energy) >= 1000:
+        signal_data = energy.astype(float)
+        # Detrend: energy has a slow drift, remove linear trend
+        x = np.arange(len(signal_data))
+        coeffs = np.polyfit(x, signal_data, 1)
+        signal_data = signal_data - np.polyval(coeffs, x)
+    elif len(activity) >= 1000:
+        # Fallback: cumulative activity (documented as unreliable for BTW)
+        signal_data = np.cumsum(activity - activity.mean()).astype(float)
+    else:
         return None
     
-    # Use cumulative activity for cleaner spectral estimation
-    # If y(t) has PSD ~ f^(-β), then ∫y has PSD ~ f^(-(β+2))
-    cumulative = np.cumsum(activity - activity.mean())
+    nperseg = min(8192, len(signal_data) // 4)
+    freqs, psd = sig.welch(signal_data, fs=1.0, nperseg=nperseg)
     
-    nperseg = min(8192, len(cumulative) // 4)
-    freqs, psd = sig.welch(cumulative.astype(float), fs=1.0, nperseg=nperseg)
-    
-    # Fit in intermediate frequency range
-    f_mask = (freqs > 1e-3) & (freqs < 0.05)
+    # Fit in low-frequency range where 1/f scaling lives
+    f_mask = (freqs > 1e-4) & (freqs < 0.02)
     if np.sum(f_mask) < 10:
         return None
     
@@ -192,8 +213,14 @@ def compute_spectral_beta(activity: np.ndarray) -> Optional[float]:
     log_p = np.log10(psd[f_mask] + 1e-30)
     slope, _ = np.polyfit(log_f, log_p, 1)
     
-    # PSD of cumulative ~ f^(-(β+2)), so β = -slope - 2
-    beta = -slope - 2
+    # PSD of energy ~ f^(-β), so β = -slope
+    # (No need for the +2 correction when using energy directly)
+    if energy is not None:
+        beta = -slope
+    else:
+        # Cumulative fallback: PSD of cumsum ~ f^(-(β+2))
+        beta = -slope - 2
+    
     return float(beta)
 
 
@@ -201,6 +228,7 @@ def detect_p14(
     avalanche_sizes: np.ndarray,
     avalanche_durations: Optional[np.ndarray] = None,
     activity: Optional[np.ndarray] = None,
+    energy: Optional[np.ndarray] = None,
     null_sizes: Optional[np.ndarray] = None,
     is_self_tuned: bool = True,
     tau_range: Tuple[float, float] = (1.0, 2.0),
@@ -214,7 +242,9 @@ def detect_p14(
     avalanche_durations : np.ndarray, optional
         Durations of all avalanches.
     activity : np.ndarray, optional
-        Topplings per driving step (for 1/f noise).
+        Topplings per driving step (fallback for 1/f noise).
+    energy : np.ndarray, optional
+        Total energy (sum of heights) per driving step. Preferred for 1/f noise.
     null_sizes : np.ndarray, optional
         Avalanche sizes from dissipative null model.
     is_self_tuned : bool
@@ -270,8 +300,10 @@ def detect_p14(
         duration_gamma = compute_duration_scaling(nonzero, nz_dur)
     
     spectral_beta = None
-    if activity is not None:
-        spectral_beta = compute_spectral_beta(activity)
+    if energy is not None:
+        spectral_beta = compute_spectral_beta(activity=activity, energy=energy)
+    elif activity is not None:
+        spectral_beta = compute_spectral_beta(activity=activity)
     
     # === NULL MODEL ===
     null_tau = None
