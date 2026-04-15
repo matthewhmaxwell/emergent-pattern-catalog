@@ -1,10 +1,11 @@
 # Project Status Tracker
 
-Last updated: 2026-04-14
+Last updated: 2026-04-15
 
-## Current Phase: Sprint 5 — In Progress
+## Current Phase: Sprint 5 Complete — All Carry-Forward Items Resolved
 
-Sprints 1–4 complete. Sprint 5 TE benchmark complete. Code on GitHub:
+Sprints 1–5 complete. 101/101 tests passing (100 full-power, 1 reduced-power).
+Sprint 5 verification session completed — all bugs found and fixed. Code on GitHub:
 https://github.com/matthewhmaxwell/emergent-pattern-catalog
 
 ---
@@ -288,7 +289,7 @@ correctly rejected, synthetic convergent correctly passes.
 
 ---
 
-## Sprint 5 — In Progress
+## Sprint 5 — Complete ✅
 
 ### Completed
 
@@ -391,8 +392,8 @@ was a grid-size artifact; at 60×60 the clean 15-16× separation reproduces exac
 4. ~~Hegselmann-Krause × P21~~ — **Done**
 5. Additional models: Active Brownian (P2), Gray-Scott (P3), Nagel-Schreckenberg (P8),
    Lotka-Volterra (P11), spatial RPS (P12), Hopfield (P16),
-   Hegselmann-Krause (P21), SIR (P22), Minority Game (P23), Yard-Sale (P28).
-5. Paper Sections 3, 5, 6, 7 drafting.
+   SIR (P22), Minority Game (P23), Yard-Sale (P28).
+6. Paper Sections 3, 5, 6, 7 drafting.
 
 ---
 
@@ -514,9 +515,9 @@ was a grid-size artifact; at 60×60 the clean 15-16× separation reproduces exac
     (b) has_gain AND (is_monotonic OR is_plateaued) using I_initial from timestep 0.
     GoL correctly rejected (types not constant). Schelling correctly passes
     (ΔI=0.41, monotonic convergence).
-25. Substrate-aware detector dispatch. 4 substrate types (lattice_1d, lattice_2d,
-    continuous_2d, oscillator). Transfer matrix is block-diagonal by substrate type.
-    11 models × 8 detectors → 24/88 compatible pairs, 64 substrate mismatches.
+25. Substrate-aware detector dispatch. 5 substrate types (lattice_1d, lattice_2d,
+    continuous_2d, oscillator, opinion_space). Transfer matrix is block-diagonal
+    by substrate type. 11 models × 10 detectors → 24/110 compatible pairs.
 26. Global aggregate boundary TE (transfer_entropy_global.py). Accumulates frequency
     tables across all boundary cells per timestep using np.add.at, then computes
     single global TE. Matches discriminator._boundary_te exactly (verified 1e-6).

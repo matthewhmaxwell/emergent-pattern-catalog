@@ -647,3 +647,108 @@ KSG TE successfully extends the information-transfer measurement toolbox
 from lattice CAs (plug-in TE, Sprint 2) to continuous-space SPP models.
 Combined with the Sprint 3 Kuramoto validation, this covers all three substrate
 types that involve coupling: lattice_2d, oscillator, and continuous_2d.
+
+---
+
+# Kuramoto Model Replication Notes (Sprint 3)
+
+Reference: Kuramoto, Y. (1975). Self-entrainment of a population of
+coupled non-linear oscillators. See also: Strogatz, S. H. (2000).
+From Kuramoto to Crawford. Acebrón et al. (2005). The Kuramoto model:
+A simple paradigm for synchronization phenomena. Rev. Mod. Phys. 77, 137.
+
+Implementation: `epc/models/kuramoto.py`
+
+## Setup
+
+All-to-all coupled Kuramoto oscillators with Lorentzian natural frequency
+distribution (γ=0.5). Mean-field O(N) reformulation, RK4 integration (dt=0.05).
+
+## Replication Results (6/6 published claims)
+
+| Claim | Published | Ours | Match |
+|---|---|---|---|
+| Disordered baseline r ≈ 1/√N | 1/√N | r = 0.071 = 1/√200 | ✅ exact |
+| Phase transition at K_c = 2γ | K_c = 1.0 | Onset at K=1.0 for N≥300 | ✅ |
+| r(K=1.2) | √(1−1/1.2) = 0.408 | 0.448 | ✅ within 0.04 |
+| r(K=2.0) | √(1−1/2) = 0.707 | 0.707 | ✅ exact |
+| r(K=4.0) | √(1−1/4) = 0.866 | 0.879 | ✅ within 0.013 |
+| Frequency entrainment above K_c | σ → 0 for locked | 97% locked, σ=0.010 | ✅ |
+
+## P9 Detection Results
+
+| K | r_mean | T_osc | p-value | Tier |
+|---|---|---|---|---|
+| K = 8K_c | 0.963 | 119 | 0.005 | DEFINITIVE ✅ |
+| K < K_c | 0.087 | — | 0.185 | None ✅ |
+
+---
+
+# Nowak-May Spatial PD Replication Notes (Sprint 5)
+
+Reference: Nowak, M. A. & May, R. M. (1992). Evolutionary games and spatial
+chaos. Nature, 359, 826–829.
+
+Implementation: `epc/models/nowak_may.py`
+
+## Setup
+
+L×L lattice (L=100), binary strategies (Cooperate/Defect), synchronous
+imitation update (copy highest-payoff Moore neighbor), deterministic.
+Payoff: T=b, R=1, P=0, S=0 (one-parameter PD with benefit b).
+
+## Physics Validation
+
+| b | Published behavior | f_C (ours) | Moran's I | Match |
+|---|---|---|---|---|
+| 1.0 | All cooperate | 1.000 | — | ✅ |
+| 1.5 | C survives in clusters | 0.870 | high | ✅ |
+| 1.8 | Chaotic C/D coexistence | 0.408 | 0.497 | ✅ |
+| 2.0 | C extinct | 0.000 | — | ✅ |
+
+Nowak & May (1992) Figure 2 shows b=1.8 produces fractal-like C/D
+boundaries with cooperation sustained by spatial clustering. Our f_C=0.408
+and Moran's I=0.497 confirm both the cooperation level and the spatial
+structure.
+
+## P27 Detection Result
+
+P27 DEFINITIVE at b=1.8: f_C=0.408, Moran's I=0.497, p=0.005,
+PD structure verified (T>R>P≥S). Negative controls: b=2.0 → none
+(C extinct), b=1.0 → not definitive (no dilemma, all cooperate).
+
+---
+
+# Hegselmann-Krause Replication Notes (Sprint 5)
+
+Reference: Hegselmann, R. & Krause, U. (2002). Opinion dynamics and
+bounded confidence models, analysis, and simulation. JASSS, 5(3).
+
+Implementation: `epc/models/hegselmann_krause.py`
+
+## Setup
+
+N=500 agents, continuous opinions in [0,1], uniform initial distribution.
+Synchronous averaging: each agent adopts the mean opinion of all agents
+within confidence bound ε. Converges in O(10) steps for N=500.
+
+## Physics Validation
+
+| ε | Published behavior | n_clusters (ours) | Match |
+|---|---|---|---|
+| 0.5 | Consensus | 1 | ✅ |
+| 0.3 | Few clusters | 2 | ✅ |
+| 0.2 | Polarization | 2 | ✅ |
+| 0.1 | Fragmentation | 4 | ✅ |
+| 0.05 | Many clusters | 7 | ✅ |
+
+HK (2002) predict n_clusters ≈ 1/(2ε) for uniform IC on [0,1].
+At ε=0.1: predicted ≈5, observed 4. At ε=0.05: predicted ≈10,
+observed 7. Qualitative ordering matches; exact counts depend on
+boundary effects and N.
+
+## P21 Detection Result
+
+P21 DEFINITIVE at ε=0.2: 2 clusters, Hartigan's dip test p=0.001,
+confirmed from unimodal initial conditions. Negative: ε=0.5 → none
+(consensus, 1 cluster). ε=0.1 also DEFINITIVE (4 clusters).

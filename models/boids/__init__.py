@@ -1,1 +1,0 @@
-"""uoids model implementation."""

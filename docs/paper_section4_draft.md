@@ -231,43 +231,76 @@ The dissipative null model (p_diss = 0.2, bulk grain loss per toppling)
 produces exponentially distributed avalanches (LR R = −6.0, max size 68
 vs 20,972) and is correctly not detected as SOC.
 
-**Documented caveat.** Log-normal is preferred over simple power-law
+**Resolved caveat.** Log-normal is preferred over simple power-law
 (R = −76.2) — a known property of the 2D BTW universality class, which
 exhibits multifractal scaling with logarithmic corrections rather than a
-clean simple power law. The 1/f noise signature in the temporal activity
-signal was not successfully measured (β = −0.17), likely due to the
-zero-dominated activity signal (56.4% of driving events produce no
-toppling). The detector correctly uses duration scaling as the alternative
-secondary metric. Improving the spectral measurement methodology remains
-future work.
+clean simple power law. The 1/f noise signature was initially unmeasurable
+(β = −0.17) because the spectral analysis used avalanche sizes (approximately
+IID). Measuring the power spectral density of total energy E(t) = Σh(x,t)
+instead yields β = 1.41, correctly in the 1/f range [0.5, 1.5]. This
+confirms the expected temporal correlations in the SOC state.
 
-## 4.8 Consolidated Transfer Matrix
+## 4.8 Nowak-May Spatial Prisoner's Dilemma (Cluster H)
+
+The Nowak-May spatial PD (1992) places cooperators and defectors on a lattice
+where each cell plays a one-shot PD with its Moore neighbors and imitates the
+highest-payoff neighbor synchronously. With benefit parameter b=1.8 (the
+chaotic coexistence regime), the model produces fractal-like C/D boundaries
+with cooperation sustained at f_C ≈ 0.41 through spatial clustering (Moran's
+I = 0.497). This confirms that cooperation persistence arises from spatial
+reciprocity rather than individual strategy.
+
+The P27 detector achieves DEFINITIVE tier at b=1.8, with the Moran's I
+permutation test (199 permutations, p=0.005) confirming that the spatial
+clustering of cooperators is significantly stronger than random. PD payoff
+structure is verified (T>R>P≥S). Negative controls: b=2.0 (C extinct, no
+cooperation to cluster) and b=1.0 (all C, no dilemma) both correctly produce
+no detection. The use of `coop_fraction` rather than `grid` as the required
+observable prevents false compatibility with other lattice_2d models (GH, GoL,
+Schelling) that produce spatial structure for unrelated reasons.
+
+## 4.9 Hegselmann-Krause Bounded-Confidence Opinion Dynamics (Cluster F)
+
+The Hegselmann-Krause model (2002) places N agents with continuous opinions in
+[0,1] and updates each to the mean opinion of all agents within confidence
+bound ε. At ε=0.2, the initially uniform distribution polarizes into 2 stable
+clusters — the classic polarization outcome. At ε=0.1, fragmentation produces
+4 clusters; at ε=0.05, 7 clusters; at ε=0.5, consensus (1 cluster).
+
+The P21 detector achieves DEFINITIVE tier at ε=0.2 using Hartigan's dip test
+(bootstrap with 1000 samples, p=0.001) to confirm multimodality in the final
+opinion distribution, combined with verification that the initial condition was
+unimodal (ruling out pre-existing structure). The persistence check confirms
+clusters are stable for ≥10 steps. P18 (consensus) exclusion ensures
+detection only fires when the population genuinely splits rather than converging.
+
+## 4.10 Consolidated Transfer Matrix
 
 The following matrix summarizes detection outcomes across all model-detector
-pairs tested through Sprint 4. Entries show the highest achieved tier
-(D = definitive, C = confirmation, S = screening, — = not detected,
-× = substrate mismatch).
+pairs tested through Sprint 5. Entries show the highest achieved tier
+(D = definitive, C = confirmation, S = screening, rej = rejected by guard,
+— = untested compatible pair, × = substrate mismatch).
 
-|                  | P1   | P5   | P6   | P9   | P13  | P14  | P15     | P31  |
-|------------------|------|------|------|------|------|------|---------|------|
-| Zhang sorting    | S    | ×    | ×    | ×    | ×    | ×    | ×       | C    |
-| Schelling        | C    | ×    | ×    | ×    | ×    | ×    | ×       | —    |
-| Vicsek (ordered) | ×    | **D**| —    | ×    | ×    | ×    | ×       | ×    |
-| D'Orsogna (mill) | ×    | —    | **D**| ×    | ×    | ×    | ×       | ×    |
-| Kuramoto (sync)  | ×    | ×    | ×    | **D**| ×    | ×    | ×       | ×    |
-| GH spiral        | S    | ×    | ×    | ×    | C    | ×    | P13     | —    |
-| GH random        | S    | ×    | ×    | ×    | C    | ×    | P13     | —    |
-| GoL R-pentomino  | rej  | ×    | ×    | ×    | —    | ×    | **D**   | —    |
-| GoL random       | rej  | ×    | ×    | ×    | —    | ×    | **D**   | —    |
-| BTW sandpile     | ×    | ×    | ×    | ×    | ×    | **D**| —       | ×    |
+|                  | P1   | P5   | P6   | P9   | P13  | P14  | P15     | P21  | P27  | P31  |
+|------------------|------|------|------|------|------|------|---------|------|------|------|
+| Zhang sorting    | S    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | ×    | C    |
+| Schelling        | C    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | ×    | —    |
+| Vicsek (ordered) | ×    | **D**| —    | ×    | ×    | ×    | ×       | ×    | ×    | ×    |
+| D'Orsogna (mill) | ×    | —    | **D**| ×    | ×    | ×    | ×       | ×    | ×    | ×    |
+| Kuramoto (sync)  | ×    | ×    | ×    | **D**| ×    | ×    | ×       | ×    | ×    | ×    |
+| GH spiral        | S    | ×    | ×    | ×    | C    | ×    | P13     | ×    | ×    | —    |
+| GoL R-pentomino  | rej  | ×    | ×    | ×    | —    | ×    | **D**   | ×    | ×    | —    |
+| BTW sandpile     | ×    | ×    | ×    | ×    | ×    | **D**| —       | ×    | ×    | ×    |
+| Nowak-May (1.8)  | ×    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | **D**| ×    |
+| HK (ε=0.2)      | ×    | ×    | ×    | ×    | ×    | ×    | ×       | **D**| ×    | ×    |
 
 Key observations:
 
 1. **No false positives across substrate boundaries.** The substrate-aware
-   dispatch system (4 substrate types: lattice_1d, lattice_2d, continuous_2d,
-   oscillator) correctly prevents cross-substrate detector application,
-   eliminating a major source of potential false positives. Of 88 possible
-   model × detector pairs, 24 are compatible and 64 are correctly rejected.
+   dispatch system (5 substrate types: lattice_1d, lattice_2d, continuous_2d,
+   oscillator, opinion_space) correctly prevents cross-substrate detector
+   application. Of 110 possible model × detector pairs, 24 are compatible
+   and 86 are correctly rejected.
 
 2. **Clean within-cluster discrimination.** P5/P6 show perfect discrimination
    between flocking and milling. P13/P15 show clean separation between
@@ -275,20 +308,26 @@ Key observations:
    discriminator. P1 correctly fires on aggregation models (Schelling,
    chimeric sorting) and is correctly rejected on GoL (type constancy guard).
 
-3. **Tier ceilings are meaningful.** Several detections are capped at
+3. **Observable-level filtering beyond substrate.** P27 requires `coop_fraction`
+   (not just `grid`), preventing false matches with GH, GoL, and Schelling
+   despite shared lattice_2d substrate. P14 requires `avalanche_sizes`,
+   restricting to BTW. This demonstrates that substrate type alone is
+   insufficient — fine-grained observable matching is essential.
+
+4. **Tier ceilings are meaningful.** Several detections are capped at
    CONFIRMATION (Schelling P1, GH P13) rather than DEFINITIVE. In each case,
    the ceiling arises from specific methodological constraints (permutation
    count floor for Schelling, absence of mechanistic null for GH) rather
    than weak signals. This demonstrates that the tier system correctly
    distinguishes evidence strength from effect magnitude.
 
-4. **Negative results are informative.** GoL P1 "rejection" required a
+5. **Negative results are informative.** GoL P1 "rejection" required a
    two-layer defense (type constancy + substrate check) to resolve a genuine
    conceptual false positive. The resolution deepened our understanding of
    what P1 actually detects: persistent-type-label spatial sorting, not
    merely spatial autocorrelation from any source.
 
-## 4.9 Methodological Lessons
+## 4.11 Methodological Lessons
 
 Several methodological insights emerged from the replication process:
 

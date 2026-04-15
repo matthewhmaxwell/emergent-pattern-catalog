@@ -1,1 +1,0 @@
-"""sorting model implementation."""

@@ -31,11 +31,17 @@ Agent-Based Systems"
 
 ### 4. Replication Studies
 - Zhang sorting: P1 aggregation, P31 delayed gratification
-- Sandpile: P14 criticality
-- Boids: P5 flocking, P6 milling
+- Greenberg-Hastings: P13 excitable waves
 - Game of Life: P15 persistent propagating computation
-- Schelling: P1 aggregation, P4 territoriality
-- Kuramoto: P9 synchronization, P10 chimera states
+- Vicsek: P5 flocking
+- D'Orsogna: P6 milling
+- Kuramoto: P9 synchronization
+- Schelling: P1 aggregation
+- BTW sandpile: P14 self-organized criticality
+- Nowak-May: P27 spatial reciprocity
+- Hegselmann-Krause: P21 polarization
+- Boundary-conditioned TE discriminator (P13 vs P15)
+- Consolidated transfer matrix (10 models × 10 detectors)
 
 ### 5. Cross-Model Transfer
 - Testing each metric on non-canonical models
@@ -61,9 +67,10 @@ Agent-Based Systems"
 ## Status
 - [x] Section 1: Conceptual framework defined
 - [x] Section 2: Catalog v0.4 complete (32 patterns, 3 layers, 11 dimensions)
-- [ ] Section 3: Detector cards (v0.5 deliverable)
-- [ ] Section 4: Not started (requires model implementations)
-- [ ] Section 5: Not started (requires cross-model runs)
-- [ ] Section 6: Not started (requires metric battery results)
+- [x] Section 3: Detector cards v0.5.2 complete (32 patterns)
+- [x] Section 4: Draft complete (2,465 words, 10 model families, transfer matrix)
+      See docs/paper_section4_draft.md. Needs Sprint 5 updates (P21, P27).
+- [ ] Section 5: Partial (transfer matrix populated, "—" cells remain)
+- [ ] Section 6: Partial (P31 non-redundancy done; boundary-conditioned TE is novel finding)
 - [ ] Section 7: Not started
 - [ ] Section 8: Not started
