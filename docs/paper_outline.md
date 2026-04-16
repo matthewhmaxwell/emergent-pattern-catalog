@@ -67,10 +67,13 @@ Agent-Based Systems"
 ## Status
 - [x] Section 1: Conceptual framework defined
 - [x] Section 2: Catalog v0.4 complete (32 patterns, 3 layers, 11 dimensions)
-- [x] Section 3: Detector cards v0.5.2 complete (32 patterns)
-- [x] Section 4: Draft complete (2,465 words, 10 model families, transfer matrix)
-      See docs/paper_section4_draft.md. Needs Sprint 5 updates (P21, P27).
-- [ ] Section 5: Partial (transfer matrix populated, "—" cells remain)
-- [ ] Section 6: Partial (P31 non-redundancy done; boundary-conditioned TE is novel finding)
-- [ ] Section 7: Not started
-- [ ] Section 8: Not started
+- [x] Section 3: Draft complete (1,541 words). See docs/paper_section3_draft.md.
+- [x] Section 4: Draft complete (2,860 words, 10 model families, completed transfer matrix).
+      See docs/paper_section4_draft.md. Updated with Sprint 6 cross-detection results.
+- [x] Section 5: Draft complete (1,293 words). See docs/paper_section5_draft.md.
+- [x] Section 6: Draft complete (1,202 words). See docs/paper_section6_draft.md.
+- [x] Section 7: Draft complete (1,393 words). See docs/paper_section7_draft.md.
+- [ ] Section 8: Conclusion (brief; largely covered by Section 7.6)
+
+Total body: ~8,300 words across Sections 3–7. Sections 1–2 need drafting
+from catalog and ontology material.

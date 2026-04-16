@@ -47,6 +47,7 @@ class P13ExcitableWaveDetector(BaseDetector):
     """
 
     def __init__(self, n_null_runs: int = 199) -> None:
+        self._excitable_medium = True  # Guard flag; cleared if n_states < 3
         super().__init__(
             pattern_id="P13",
             excluded_patterns=["P15", "P12"],
@@ -74,6 +75,7 @@ class P13ExcitableWaveDetector(BaseDetector):
         state_history: list[dict[str, Any]],
         timescale: float,
     ) -> list[str]:
+        self._excitable_medium = True  # Reset for each detect() call
         warnings = super()._validate_prerequisites(state_history, timescale)
         if state_history:
             s = state_history[0]
@@ -84,6 +86,7 @@ class P13ExcitableWaveDetector(BaseDetector):
             n_states = s.get("n_states", 0)
             if n_states < 3:
                 warnings.append(f"n_states={n_states} < 3 — not a valid excitable medium")
+                self._excitable_medium = False
         return warnings
 
     def _compute_primary(
@@ -130,6 +133,10 @@ class P13ExcitableWaveDetector(BaseDetector):
         timescale: float,
     ) -> bool:
         """Screening: persistent wavefront for ≥ 5 × T_prop with speed CV < 0.2."""
+        # Hard guard: excitable media requires ≥ 3 states (resting/excited/refractory)
+        if not self._excitable_medium:
+            return False
+
         # Must not have died out
         if primary_result.get("died_out", 1.0) > 0.5:
             return False

@@ -61,7 +61,8 @@ def run_schelling(
     rng.shuffle(cells)
     grid = cells.reshape((grid_size, grid_size))
     
-    history = [{'grid': grid.copy()}]
+    history = [{'grid': grid.copy(), 'grid_dims': (grid_size, grid_size),
+                'n_states': 3, 'step': 0}]
     
     for step in range(n_steps):
         # Find unhappy agents
@@ -93,7 +94,8 @@ def run_schelling(
                     unhappy.append((r, c))
         
         if not unhappy or not empty:
-            history.append({'grid': grid.copy()})
+            history.append({'grid': grid.copy(), 'grid_dims': (grid_size, grid_size),
+                            'n_states': 3, 'step': step + 1})
             continue
         
         # Move unhappy agents to random empty cells
@@ -108,6 +110,7 @@ def run_schelling(
             grid[r_from, c_from] = 0
             empty[i] = (r_from, c_from)
         
-        history.append({'grid': grid.copy()})
+        history.append({'grid': grid.copy(), 'grid_dims': (grid_size, grid_size),
+                        'n_states': 3, 'step': step + 1})
     
     return history

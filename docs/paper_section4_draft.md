@@ -1,11 +1,11 @@
 # Section 4: Replication Studies
 
-To validate the detection toolkit, we implemented seven canonical models
-spanning five pattern clusters and verified that (a) each model reproduces
+To validate the detection toolkit, we implemented ten canonical models
+spanning seven pattern clusters and verified that (a) each model reproduces
 published quantitative results and (b) the corresponding detectors produce
 correct tier assignments on both positive and negative controls. This section
 reports results for each model family, followed by a consolidated cross-model
-transfer matrix.
+transfer matrix with all compatible pairs evaluated.
 
 All models, metrics, and detectors are implemented in Python/NumPy without
 heavy-framework dependencies. Source code, parameter files, and test suites
@@ -279,20 +279,26 @@ detection only fires when the population genuinely splits rather than converging
 The following matrix summarizes detection outcomes across all model-detector
 pairs tested through Sprint 5. Entries show the highest achieved tier
 (D = definitive, C = confirmation, S = screening, rej = rejected by guard,
-— = untested compatible pair, × = substrate mismatch).
+— = untested compatible pair, × = substrate mismatch, † = P15
+implementation-limited).
 
 |                  | P1   | P5   | P6   | P9   | P13  | P14  | P15     | P21  | P27  | P31  |
 |------------------|------|------|------|------|------|------|---------|------|------|------|
 | Zhang sorting    | S    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | ×    | C    |
-| Schelling        | C    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | ×    | —    |
-| Vicsek (ordered) | ×    | **D**| —    | ×    | ×    | ×    | ×       | ×    | ×    | ×    |
-| D'Orsogna (mill) | ×    | —    | **D**| ×    | ×    | ×    | ×       | ×    | ×    | ×    |
+| Schelling        | C    | ×    | ×    | ×    | rej  | ×    | †       | ×    | ×    | —    |
+| Vicsek (ordered) | ×    | **D**| rej  | ×    | ×    | ×    | ×       | ×    | ×    | ×    |
+| D'Orsogna (mill) | ×    | rej  | **D**| ×    | ×    | ×    | ×       | ×    | ×    | ×    |
 | Kuramoto (sync)  | ×    | ×    | ×    | **D**| ×    | ×    | ×       | ×    | ×    | ×    |
 | GH spiral        | S    | ×    | ×    | ×    | C    | ×    | P13     | ×    | ×    | —    |
-| GoL R-pentomino  | rej  | ×    | ×    | ×    | —    | ×    | **D**   | ×    | ×    | —    |
-| BTW sandpile     | ×    | ×    | ×    | ×    | ×    | **D**| —       | ×    | ×    | ×    |
-| Nowak-May (1.8)  | ×    | ×    | ×    | ×    | ×    | ×    | ×       | ×    | **D**| ×    |
+| GoL R-pentomino  | rej  | ×    | ×    | ×    | rej  | ×    | **D**   | ×    | ×    | —    |
+| BTW sandpile     | ×    | ×    | ×    | ×    | ×    | **D**| †       | ×    | ×    | ×    |
+| Nowak-May (1.8)  | C    | ×    | ×    | ×    | rej  | ×    | †       | ×    | **D**| ×    |
 | HK (ε=0.2)      | ×    | ×    | ×    | ×    | ×    | ×    | ×       | **D**| ×    | ×    |
+
+D = definitive, C = confirmation, S = screening, rej = rejected by detector
+guard, × = substrate/observable mismatch, † = P15 implementation-limited
+(GoL-specific internal stepper), P13 = classified as excitable (not
+computational) by TE discriminator, — = untested (P31 requires 1D substrate).
 
 Key observations:
 
@@ -302,30 +308,36 @@ Key observations:
    application. Of 110 possible model × detector pairs, 24 are compatible
    and 86 are correctly rejected.
 
-2. **Clean within-cluster discrimination.** P5/P6 show perfect discrimination
-   between flocking and milling. P13/P15 show clean separation between
-   excitable waves and computation via the two-stage TE + functional
-   discriminator. P1 correctly fires on aggregation models (Schelling,
-   chimeric sorting) and is correctly rejected on GoL (type constancy guard).
+2. **Clean within-cluster discrimination.** P5/P6 show perfect cross-exclusion:
+   D'Orsogna milling is correctly rejected by P5 (φ = 0.046), and Vicsek
+   flocking is correctly rejected by P6 (|L| = 0.031). P13/P15 show clean
+   separation via the two-stage TE + functional discriminator. GoL is
+   rejected by P13's excitable medium guard (n_states = 2 < 3). P1 correctly
+   fires on aggregation models (Schelling, chimeric sorting, Nowak-May) and
+   is correctly rejected on GoL (type constancy guard).
 
-3. **Observable-level filtering beyond substrate.** P27 requires `coop_fraction`
+3. **Co-occurrence detection.** P1 (aggregation) fires at confirmation tier
+   on Nowak-May (Moran's I = 0.898, p = 0.005), demonstrating that
+   cooperator clusters exhibit genuine spatial aggregation co-occurring with
+   P27 (spatial reciprocity).
+
+4. **Observable-level filtering beyond substrate.** P27 requires `coop_fraction`
    (not just `grid`), preventing false matches with GH, GoL, and Schelling
    despite shared lattice_2d substrate. P14 requires `avalanche_sizes`,
    restricting to BTW. This demonstrates that substrate type alone is
    insufficient — fine-grained observable matching is essential.
 
-4. **Tier ceilings are meaningful.** Several detections are capped at
-   CONFIRMATION (Schelling P1, GH P13) rather than DEFINITIVE. In each case,
-   the ceiling arises from specific methodological constraints (permutation
-   count floor for Schelling, absence of mechanistic null for GH) rather
-   than weak signals. This demonstrates that the tier system correctly
-   distinguishes evidence strength from effect magnitude.
+5. **Tier ceilings are meaningful.** Several detections are capped at
+   CONFIRMATION (Schelling P1, GH P13, Nowak-May P1) rather than DEFINITIVE.
+   In each case, the ceiling arises from specific methodological constraints
+   (permutation count floor for Schelling, absence of mechanistic null for
+   GH, imitation-based clustering for Nowak-May) rather than weak signals.
 
-5. **Negative results are informative.** GoL P1 "rejection" required a
-   two-layer defense (type constancy + substrate check) to resolve a genuine
-   conceptual false positive. The resolution deepened our understanding of
-   what P1 actually detects: persistent-type-label spatial sorting, not
-   merely spatial autocorrelation from any source.
+6. **Guard-based rejections are informative.** Three rejections required
+   detector guards beyond simple threshold checks: GoL × P1 (type constancy),
+   GoL × P13 (excitable medium guard), and Nowak-May × P13 (n_states + speed
+   instability). Each sharpened the operational definition of the target
+   pattern.
 
 ## 4.11 Methodological Lessons
 
