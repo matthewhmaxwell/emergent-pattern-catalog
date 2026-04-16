@@ -354,24 +354,69 @@ class P22CascadeDetector(BaseDetector):
         model_metadata: dict[str, Any] | None,
         timescale: float,
     ) -> tuple[list[str], dict[str, str]]:
-        """Check P13 exclusion (persistent waves vs. transient cascade)."""
+        """Check P13 exclusion (persistent waves vs. transient cascade).
+
+        A cascade (P22) is single-pass: activity spreads then dies out.
+        An excitable wave (P13) is re-entrant: activity persists indefinitely.
+
+        The discrimination logic has three signals, any of which is
+        sufficient to exclude P13:
+
+        1. FINAL STATE: if the last recorded step has zero activity, the
+           epidemic has definitively died out. Persistent waves cannot
+           produce this outcome — they never stop.
+
+        2. TRAILING-WINDOW DECAY: in a window sized to ~2×T_spread at the
+           end of the series, activity must be < 10% of peak. This catches
+           long simulations where activity hasn't quite hit zero yet but
+           has clearly decayed.
+
+        3. FINAL-OVER-PEAK RATIO: end-of-series activity < 1% of peak
+           indicates an essentially finished epidemic.
+
+        The previous implementation used a fixed "last quarter" window,
+        which fails for late-peaking epidemics where the peak is inside
+        that window (window max is then large even when the epidemic has
+        finished by the end of the series).
+        """
         checked = ["P13"]
         results: dict[str, str] = {}
 
-        # P13 exclusion: check if activity persists or dies out
-        if state_history:
-            i_series = [int((s["grid"] == 1).sum()) for s in state_history]
-            # If activity dies out → cascade (P22), not persistent wave (P13)
-            last_quarter = i_series[len(i_series) * 3 // 4 :]
-            if all(i == 0 for i in last_quarter):
-                results["P13"] = "excluded"
-            elif max(last_quarter) < max(i_series) * 0.1:
-                results["P13"] = "excluded"
-            else:
-                results["P13"] = "inconclusive"
-        else:
+        if not state_history:
             results["P13"] = "not_checked"
+            return checked, results
 
+        i_series = [int((s["grid"] == 1).sum()) for s in state_history]
+        peak = max(i_series)
+
+        if peak == 0:
+            # No infection ever happened; P13 can't apply
+            results["P13"] = "excluded"
+            return checked, results
+
+        final = i_series[-1]
+
+        # Signal 1: final state is zero → epidemic completed, clearly excluded
+        if final == 0:
+            results["P13"] = "excluded"
+            return checked, results
+
+        # Signal 3: final-over-peak ratio is tiny → practically done
+        if final < 0.01 * peak:
+            results["P13"] = "excluded"
+            return checked, results
+
+        # Signal 2: trailing window of ~2×T_spread (or 10% of series, whichever
+        # is larger) has decayed below 10% of peak
+        trailing_len = max(int(2 * timescale), len(i_series) // 10, 5)
+        trailing_len = min(trailing_len, len(i_series))
+        trailing = i_series[-trailing_len:]
+        if max(trailing) < 0.1 * peak:
+            results["P13"] = "excluded"
+            return checked, results
+
+        # Otherwise activity is still substantial at end — truly inconclusive
+        results["P13"] = "inconclusive"
         return checked, results
 
     def _all_secondaries_pass(self, secondary_result: dict[str, Any]) -> bool:

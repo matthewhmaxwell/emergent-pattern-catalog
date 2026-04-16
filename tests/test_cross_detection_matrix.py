@@ -272,44 +272,115 @@ class TestNowakMayP1CoOccurrence:
 # P15 implementation limitation documentation
 # ===================================================================
 
-class TestP15ImplementationScope:
-    """P15 (computation) is substrate-compatible with all lattice_2d models,
-    but its IMPLEMENTATION is GoL-specific: it hardcodes _step_gol and
-    _place_glider for deterministic collision testing.
+class TestP15GeneralizedCrossDetection:
+    """P15 (persistent computation) now has a generalized BaseDetector
+    implementation in p15_persistent_computation.py that works for any
+    deterministic lattice_2d CA via a step_fn parameter.
 
-    These tests document that P15 cannot be cross-tested against non-GoL
-    models with the current implementation. This is NOT a bug — it's an
-    implementation scope note for future generalization.
+    The OLD p15_fidelity_fix.py module is GoL-specific and retained for
+    backward compatibility; it is NOT the implementation used for
+    cross-detection.
+
+    These tests anchor the cross-detection outcomes for Nowak-May and
+    Schelling using the generalized detector. The exhaustive P15 validation
+    lives in tests/test_p15_generalized.py; this class only pins the
+    transfer-matrix cells that belong to the cross-detection audit.
     """
 
-    def test_p15_implementation_is_gol_specific(self):
-        """Verify P15 uses internal GoL stepping, not external model history."""
-        from epc.detectors.p15_fidelity_fix import (
-            test_p15_fidelity_deterministic,
-            _step_gol,
-            _place_glider,
+    def test_p15_generalized_detector_is_importable(self):
+        """Sanity check: the generalized detector exists and has the expected API."""
+        from epc.detectors.p15_persistent_computation import (
+            P15PersistentComputationDetector,
+            make_step_fn_for_gol,
+            make_step_fn_from_model,
         )
+        from epc.base_detector import BaseDetector
 
-        # P15 runs its own GoL simulation internally
-        result = test_p15_fidelity_deterministic()
-        assert result.reproducibility == 1.0, "P15 internal GoL should be deterministic"
-        print(f"  ✓ P15 is GoL-specific (reproducibility={result.reproducibility:.1f})")
+        assert issubclass(P15PersistentComputationDetector, BaseDetector), \
+            "Generalized P15 must be a BaseDetector subclass"
+        # Factories produce callables grid → grid
+        step_fn = make_step_fn_for_gol()
+        grid = np.zeros((10, 10), dtype=np.int8)
+        out = step_fn(grid)
+        assert out.shape == (10, 10)
+        print("  ✓ Generalized P15 detector importable with correct API")
 
-    def test_p15_substrate_compatible_but_not_cross_testable(self):
-        """Orchestration lists NowakMay×P15 and Schelling×P15 as compatible
-        (correct: both are lattice_2d with grid observable). But P15's
-        implementation doesn't accept external histories."""
-        from epc.orchestration import check_compatibility
+    def test_nowak_may_p15_screening_only(self):
+        """Nowak-May × P15 (generalized): SCREENING only, not DEFINITIVE.
 
-        # Substrate compatibility is correct
-        r1 = check_compatibility("nowak_may", "P15")
-        r2 = check_compatibility("schelling", "P15")
-        assert r1.compatible, "Nowak-May should be substrate-compatible with P15"
-        assert r2.compatible, "Schelling should be substrate-compatible with P15"
+        Nowak-May is deterministic (reproducibility = 1.0), so it clears
+        the bit-exact replay check. But it produces limited outcome
+        diversity under perturbation variations — typically 2 distinct
+        outcome classes (not the ≥3 required for confirmation). So the
+        detector reports SCREENING tier.
 
-        # But the implementation scope is GoL-only (document, not fix)
-        print("  ✓ NowakMay×P15, Schelling×P15: substrate-compatible "
-              "but P15 implementation is GoL-specific")
+        This is the scientifically correct classification: Nowak-May
+        supports persistent dynamics but is not a Turing-like computation
+        engine in the way GoL is.
+        """
+        from epc.detectors.p15_persistent_computation import (
+            P15PersistentComputationDetector,
+            make_step_fn_from_model,
+        )
+        from epc.models.nowak_may import NowakMayModel
+        from epc.detector_result import DetectionTier
+
+        nm = NowakMayModel(rows=40, cols=40, b=1.8, init_mode="random", seed=42)
+        nm.setup()
+        history = nm.run(n_steps=30)
+        meta = nm.get_metadata()
+
+        step_fn = make_step_fn_from_model(nm)
+        det = P15PersistentComputationDetector(
+            step_fn=step_fn, n_variations=8, seed=42,
+        )
+        result = det.detect(history, meta)
+
+        # Nowak-May is deterministic
+        assert result.primary_metric["reproducibility"] == 1.0, \
+            f"Nowak-May should be reproducible, got " \
+            f"{result.primary_metric['reproducibility']}"
+        # But does NOT reach DEFINITIVE (limited outcome diversity)
+        assert result.tier < DetectionTier.DEFINITIVE, \
+            f"Nowak-May should not achieve P15 DEFINITIVE, got {result.tier}"
+        print(f"  ✓ NowakMay × P15 (generalized): "
+              f"tier={result.tier.name}, "
+              f"n_distinct={result.primary_metric.get('n_distinct_outcomes', 0)}")
+
+    def test_schelling_p15_not_detected(self):
+        """Schelling × P15 (generalized): not detected (no step_fn available).
+
+        Schelling is stochastic (random agent selection for relocation) and
+        its run_schelling function does not expose a pure grid→grid step.
+        Without a step_fn, the detector cannot perform reproducibility or
+        variation testing → reproducibility = 0, outcome diversity = 0,
+        fails screening.
+
+        This is correct behavior: Schelling is not a deterministic
+        computation substrate.
+        """
+        from epc.detectors.p15_persistent_computation import (
+            P15PersistentComputationDetector,
+        )
+        from epc.models.schelling import run_schelling
+        from epc.detector_result import DetectionTier
+
+        history = run_schelling(grid_size=30, n_steps=50, seed=42)
+
+        # No step_fn provided → detector can't replay
+        det = P15PersistentComputationDetector(
+            step_fn=None, n_variations=8, seed=42,
+        )
+        result = det.detect(history, None)
+
+        assert not result.detected, \
+            f"Schelling should not register as P15 without step_fn, " \
+            f"got detected=True (tier={result.tier.name})"
+        assert result.primary_metric["reproducibility"] == 0.0, \
+            f"No step_fn → reproducibility should be 0, " \
+            f"got {result.primary_metric['reproducibility']}"
+        print(f"  ✓ Schelling × P15 (generalized): correctly not detected "
+              f"(no step_fn for stochastic model)")
 
 
 # ===================================================================
@@ -344,27 +415,105 @@ class TestSchellingStateEnrichment:
 # ===================================================================
 
 class TestTransferMatrixCompleteness:
-    """Verify all 8 previously-untested compatible pairs now have outcomes."""
+    """Pins the expected cross-detection outcome for every audited
+    model-detector pair. Each entry corresponds to a test elsewhere in
+    the suite (in this file or in test_sir_p22_e2e.py / test_p15_generalized.py)
+    that verifies the actual effect.
+
+    Values:
+      "detected"     — detector passes screening+ on this model
+      "screening"    — detector passes screening only (not confirmation+)
+      "rejected"     — detector correctly does not pass screening
+      "not_detected" — detector cannot run / produces no signal (e.g., no step_fn)
+    """
 
     EXPECTED_OUTCOMES = {
-        ("dorsogna", "P5"): "rejected",      # Milling ≠ flocking
-        ("vicsek", "P6"): "rejected",         # Flocking ≠ milling
-        ("game_of_life", "P13"): "rejected",  # n_states=2 guard
-        ("nowak_may", "P1"): "detected",      # Cooperator aggregation
-        ("nowak_may", "P13"): "rejected",     # n_states=2 guard
-        ("nowak_may", "P15"): "gol_specific", # P15 impl limitation
-        ("schelling", "P13"): "rejected",     # Not excitable
-        ("schelling", "P15"): "gol_specific", # P15 impl limitation
+        # --- Sprint 6 pairs (original scope) ---
+        ("dorsogna", "P5"): "rejected",       # Milling ≠ flocking
+        ("vicsek", "P6"): "rejected",          # Flocking ≠ milling
+        ("game_of_life", "P13"): "rejected",   # n_states=2 guard
+        ("nowak_may", "P1"): "detected",       # Cooperator aggregation
+        ("nowak_may", "P13"): "rejected",      # n_states=2 guard
+        ("schelling", "P13"): "rejected",      # Not excitable
+
+        # --- Sprint 7 pairs (SIR + P22) ---
+        ("sir_epidemic", "P22"): "detected",   # DEFINITIVE cascade
+        ("sir_epidemic", "P13"): "rejected",   # Single-pass, not re-entrant
+        ("sir_epidemic", "P1"): "screening",   # Transient wavefront aggregation only
+        ("greenberg_hastings", "P22"): "rejected",  # Re-entrant, not cascade
+        ("game_of_life", "P22"): "rejected",   # R-pentomino reach < 5%
+        ("nowak_may", "P22"): "rejected",      # No wavefront; moran_i_time ≈ 0
+        ("schelling", "P22"): "rejected",      # No wavefront; moran_i_time ≈ 0.06
+
+        # --- Sprint 8 pairs (generalized P15) ---
+        # P15 is no longer gol_specific; the generalized detector handles
+        # any deterministic lattice_2d CA via a step_fn parameter.
+        ("game_of_life", "P15"): "detected",   # DEFINITIVE with dense random IC
+        ("nowak_may", "P15"): "screening",     # Determinism=1, but only 2 outcomes
+        ("schelling", "P15"): "not_detected",  # Stochastic, no step_fn available
+        ("greenberg_hastings", "P15"): "rejected",  # Only 1 outcome class (spirals)
+        ("sir_epidemic", "P15"): "not_detected",    # Stochastic, fails reproducibility
     }
 
+    VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
+
     def test_all_pairs_documented(self):
-        """Every untested pair now has an expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) == 8
+        """Every audited pair has a valid, documented expected outcome."""
+        assert len(self.EXPECTED_OUTCOMES) >= 18, \
+            f"Expected at least 18 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+
+        # Every outcome value is in the valid set
+        for pair, outcome in self.EXPECTED_OUTCOMES.items():
+            assert outcome in self.VALID_OUTCOMES, \
+                f"Pair {pair} has invalid outcome '{outcome}'; " \
+                f"must be one of {self.VALID_OUTCOMES}"
+
         detected = sum(1 for v in self.EXPECTED_OUTCOMES.values() if v == "detected")
+        screening = sum(1 for v in self.EXPECTED_OUTCOMES.values() if v == "screening")
         rejected = sum(1 for v in self.EXPECTED_OUTCOMES.values() if v == "rejected")
-        limited = sum(1 for v in self.EXPECTED_OUTCOMES.values() if v == "gol_specific")
-        print(f"  ✓ Transfer matrix: {detected} detected, {rejected} rejected, "
-              f"{limited} implementation-limited")
+        not_detected = sum(1 for v in self.EXPECTED_OUTCOMES.values() if v == "not_detected")
+
+        print(f"  ✓ Transfer matrix: {detected} detected, {screening} screening, "
+              f"{rejected} rejected, {not_detected} not_detected "
+              f"({len(self.EXPECTED_OUTCOMES)} total)")
+
+    def test_sprint_7_pairs_covered(self):
+        """Every Sprint 7 cross-detection pair must appear in the matrix."""
+        sprint_7_pairs = [
+            ("sir_epidemic", "P22"),
+            ("sir_epidemic", "P13"),
+            ("sir_epidemic", "P1"),
+            ("greenberg_hastings", "P22"),
+            ("game_of_life", "P22"),
+            ("nowak_may", "P22"),
+            ("schelling", "P22"),
+        ]
+        for pair in sprint_7_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 7 pair {pair} missing from transfer matrix"
+        print(f"  ✓ Sprint 7: all {len(sprint_7_pairs)} P22 cross-detection pairs covered")
+
+    def test_sprint_8_p15_generalization_covered(self):
+        """Every Sprint 8 P15 cross-detection result must appear in the matrix.
+
+        After generalizing P15, there are no remaining 'gol_specific' cells:
+        every lattice_2d model has a real P15 outcome.
+        """
+        sprint_8_p15_pairs = [
+            ("game_of_life", "P15"),
+            ("nowak_may", "P15"),
+            ("schelling", "P15"),
+            ("greenberg_hastings", "P15"),
+            ("sir_epidemic", "P15"),
+        ]
+        for pair in sprint_8_p15_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 8 P15 pair {pair} missing from transfer matrix"
+            assert self.EXPECTED_OUTCOMES[pair] != "gol_specific", \
+                f"Pair {pair} still marked gol_specific — obsolete after " \
+                f"Sprint 8 generalization"
+        print(f"  ✓ Sprint 8: all {len(sprint_8_p15_pairs)} P15 pairs covered, "
+              f"no gol_specific entries remain")
 
 
 # ===================================================================

@@ -328,6 +328,281 @@ class TestP22CrossDetection:
         assert result.tier <= DetectionTier.CONFIRMATION, \
             f"GH should not achieve P22 definitive, got {result.tier}"
 
+    def test_game_of_life_rejected_by_p22(self):
+        """GoL with R-pentomino IC is not a cascade — no spreading epidemic.
+
+        R-pentomino is a methuselah on a sparse grid: it generates complex
+        long-lived activity but only a small fraction of cells ever transition
+        to state 1. P22 requires cascade_reach_total ≥ 0.05 AND moran_i_time
+        ≥ 0.10 to pass screening. R-pentomino on a 60×60 grid produces
+        cascade_reach ≈ 0.049 (just below threshold), so screening fails.
+
+        Note: GoL with DENSE random ICs can produce enough state transitions
+        to pass P22 screening (≈0.07 reach). That would be a screening-level
+        false positive; the detector's confirmation gate (unimodal curve + R0
+        + cascade_reach ≥ 30% + epidemic died out) correctly rejects it.
+        """
+        from epc.models.game_of_life import GameOfLife
+
+        gol = GameOfLife(rows=60, cols=60, init_mode="r_pentomino", seed=42)
+        gol.setup()
+        history = gol.run(n_steps=1200)
+        meta = gol.get_metadata()
+
+        det = P22CascadeDetector(n_permutations=99, seed=42)
+        result = det.detect(history, meta)
+
+        # Should fail screening — not enough state→1 transitions for a cascade
+        assert not result.detected, \
+            f"GoL R-pentomino should not register as cascade, got detected=True"
+        assert result.tier == DetectionTier.SCREENING, \
+            f"Expected screening-level rejection, got {result.tier}"
+        reach = result.primary_metric.get("cascade_reach_total", 0.0)
+        assert reach < 0.05, \
+            f"GoL R-pentomino cascade reach {reach:.4f} should be below 5%"
+
+    def test_nowak_may_rejected_by_p22(self):
+        """Nowak-May spatial PD has no cascade — cells update synchronously.
+
+        Nowak-May uses state 0 = defector, state 1 = cooperator. P22 looks for
+        cells transitioning 0→1 (susceptible→infected) and measures spatial
+        correlation of transition times. Nowak-May has transitions but:
+        1. No wavefront-from-seed pattern (fluctuations are scattered)
+        2. Cells flip back and forth, not monotonic 0→1→2
+
+        Expected: cascade_reach_total ≈ 0 (cells frequently flip back to 0),
+        moran_i_time ≈ 0 (no spatial structure in 0→1 transition timing),
+        fails screening.
+        """
+        from epc.models.nowak_may import NowakMayModel
+
+        nm = NowakMayModel(rows=60, cols=60, b=1.8, init_mode="random", seed=42)
+        nm.setup()
+        history = nm.run(n_steps=200)
+        meta = nm.get_metadata()
+
+        det = P22CascadeDetector(n_permutations=99, seed=42)
+        result = det.detect(history, meta)
+
+        assert not result.detected, \
+            f"Nowak-May should not register as cascade, got detected=True"
+        assert result.tier == DetectionTier.SCREENING, \
+            f"Expected screening-level rejection, got {result.tier}"
+        moran = result.primary_metric.get("moran_i_time", 1.0)
+        assert moran < 0.1, \
+            f"Nowak-May moran_i_time {moran:.3f} should be near zero " \
+            f"(no spatial wavefront in cooperation transitions)"
+
+
+# ============================================================
+# P22 ↔ P13 exclusion discrimination (the canonical boundary)
+# ============================================================
+
+
+class TestP22P13Exclusion:
+    """The P22 detector's P13 exclusion must correctly label SIR as 'excluded'.
+
+    SIR is the canonical P22 positive: epidemic wavefronts die out because
+    recovered cells never return to susceptible. This is the exact opposite
+    of P13 excitable waves, which are re-entrant and persistent.
+
+    When P22 achieves confirmation/definitive tier on SIR, its P13 exclusion
+    check must return 'excluded' (not 'inconclusive'). An earlier bug used
+    a fixed 'last quarter' window that spanned the peak of late-peaking
+    epidemics, causing false 'inconclusive' results even though the epidemic
+    had clearly finished.
+    """
+
+    def test_sir_definitive_excludes_p13(self):
+        """SIR × P22 at DEFINITIVE tier must exclude P13 (not 'inconclusive').
+
+        Uses the canonical DEFINITIVE test configuration. The epidemic fully
+        dies out (final I(t) = 0), so P13 (which requires persistent activity)
+        must be excluded on the terminal-state signal alone.
+        """
+        model = SIREpidemicModel(
+            rows=80, cols=80,
+            infection_prob=0.20, recovery_prob=0.3,
+            init_mode="single_seed", seed=42,
+        )
+        history = model.run(400, record_every=1)
+        meta = model.get_metadata()
+
+        det = P22CascadeDetector(n_permutations=199, seed=42)
+        result = det.detect(history, meta)
+
+        # Precondition: the test is only meaningful when P22 actually hits
+        # confirmation+ (that's when exclusions are computed at all)
+        assert result.tier >= DetectionTier.CONFIRMATION, \
+            f"Setup failed: expected CONFIRMATION+, got {result.tier}"
+
+        # The actual fix: P13 must be labeled 'excluded', not 'inconclusive'
+        assert "P13" in result.exclusion_results, \
+            "P13 should be in exclusion_results at confirmation+ tier"
+        assert result.exclusion_results["P13"] == "excluded", \
+            f"Expected P13='excluded' on died-out SIR epidemic, " \
+            f"got '{result.exclusion_results['P13']}'. " \
+            f"Final I(t) = {int((history[-1]['grid'] == 1).sum())}, " \
+            f"peak = {max(int((s['grid'] == 1).sum()) for s in history)}."
+
+    def test_late_peak_epidemic_still_excludes_p13(self):
+        """Regression test: SIR epidemics that fully die out must exclude P13
+        regardless of where the peak falls in the trajectory.
+
+        The old `_check_exclusions` used a fixed 'last quarter' window and
+        max(last_quarter) / max(whole_series) thresholds. This could return
+        'inconclusive' on real SIR epidemics where the window straddled the
+        downslope of the peak — even though the epidemic had clearly finished
+        (I(t)_end = 0). The canonical DEFINITIVE configuration is one such
+        case (reproduced: max(last_quarter)=295 was 54% of peak=546, neither
+        old branch fired).
+
+        The new implementation uses the final state directly: if I(t)_end = 0,
+        P13 is 'excluded'. This test pins that invariant across several
+        slow-spreading supercritical configurations.
+        """
+        configs = [
+            # (infection_prob, recovery_prob, seed, description)
+            (0.20, 0.3, 42, "canonical DEFINITIVE config"),
+            (0.15, 0.3, 7, "slower spread"),
+            (0.25, 0.3, 123, "faster spread (sanity check)"),
+        ]
+
+        checked = 0
+        for p_inf, p_rec, seed, desc in configs:
+            model = SIREpidemicModel(
+                rows=80, cols=80,
+                infection_prob=p_inf, recovery_prob=p_rec,
+                init_mode="single_seed", seed=seed,
+            )
+            history = model.run(400, record_every=1)
+
+            i_series = [int((s["grid"] == 1).sum()) for s in history]
+            # Skip configs where the epidemic didn't finish within 400 steps;
+            # the fix only guarantees correct exclusion once I_final = 0.
+            if i_series[-1] != 0:
+                continue
+
+            meta = model.get_metadata()
+            det = P22CascadeDetector(n_permutations=199, seed=42)
+            result = det.detect(history, meta)
+
+            # Only assert exclusion when the detector actually reached
+            # confirmation+ (otherwise exclusions aren't computed at all).
+            if result.tier >= DetectionTier.CONFIRMATION:
+                assert result.exclusion_results.get("P13") == "excluded", (
+                    f"[{desc}] Expected P13='excluded' on died-out SIR "
+                    f"(I_final={i_series[-1]}, peak={max(i_series)}, "
+                    f"tier={result.tier.name}), got "
+                    f"'{result.exclusion_results.get('P13')}'"
+                )
+                checked += 1
+
+        assert checked >= 1, (
+            "Regression test vacuous: no configuration reached "
+            "CONFIRMATION+ on a died-out epidemic. Fix parameters."
+        )
+
+
+# ============================================================
+# SIR × P1 screening-level co-occurrence (ambiguous classification)
+# ============================================================
+
+
+class TestSIRP1Screening:
+    """SIR × P1: screening-tier co-occurrence, not a true positive.
+
+    The transfer matrix marks SIR × P1 as 'S' (screening). The reason is
+    subtle: during an epidemic, infected cells form a moving wavefront that
+    is transiently clustered (peak Moran's I ≈ 0.85 on the grid == 1 map).
+    The final state is nearly uniform recovered (Moran's I ≈ 0.02).
+
+    P1 uses the PEAK Moran's I across the trajectory, so it registers the
+    transient aggregation at screening level. Whether this should count as
+    a real P1 co-occurrence or a P1 detector artifact is open (issue #5 in
+    the project status) — this test characterizes the current behavior
+    rather than claiming it's the correct outcome.
+    """
+
+    def test_sir_screening_level_p1_detection(self):
+        """SIR shows transient aggregation during epidemic → P1 screening.
+
+        The peak Moran's I (during the wavefront) is far above random, but
+        the final Moran's I (after recovery) is near zero. Current P1 uses
+        the peak, so screening fires.
+        """
+        from epc.detectors.p1_aggregation import P1AggregationDetector
+
+        model = SIREpidemicModel(
+            rows=80, cols=80,
+            infection_prob=0.20, recovery_prob=0.3,
+            init_mode="single_seed", seed=42,
+        )
+        history = model.run(400, record_every=1)
+        meta = model.get_metadata()
+
+        det = P1AggregationDetector(n_permutations=199)
+        result = det.detect(history, meta)
+
+        # Current behavior: passes screening
+        assert result.detected, \
+            "Expected P1 to pass screening on SIR (transient wavefront aggregation)"
+
+        # The transient peak is high; the final state is near-uniform
+        peak_moran = result.primary_metric.get("morans_i_peak", 0.0)
+        final_moran = result.primary_metric.get("morans_i_final", 1.0)
+
+        assert peak_moran > 0.5, \
+            f"Expected high peak Moran's I during epidemic wavefront, " \
+            f"got {peak_moran:.3f}"
+        assert final_moran < 0.1, \
+            f"Expected near-uniform final state after epidemic dies out, " \
+            f"got {final_moran:.3f}"
+
+        # This characterizes (but does not endorse) the current screening
+        # behavior. Issue #5 in the project status flags this as ambiguous:
+        # is transient wavefront aggregation a real P1 co-occurrence, or
+        # should P1 require sustained (not transient) spatial clustering?
+        # If that is later resolved, this test will need updating.
+
+    def test_sir_final_state_not_aggregated(self):
+        """After epidemic, final grid is nearly uniform recovered → no P1.
+
+        This is the scientifically cleaner measurement: if you only look at
+        the final state, SIR does NOT show aggregation. The transient peak
+        is an artifact of the wavefront moving across the grid.
+        """
+        model = SIREpidemicModel(
+            rows=80, cols=80,
+            infection_prob=0.20, recovery_prob=0.3,
+            init_mode="single_seed", seed=42,
+        )
+        history = model.run(400, record_every=1)
+
+        # Compute Moran's I on the FINAL recovered pattern directly
+        final_grid = history[-1]["grid"]
+        # Binary: recovered (state 2) vs rest
+        recovered = (final_grid == 2).astype(float)
+        rows, cols = final_grid.shape
+        x_bar = float(recovered.mean())
+        z = recovered - x_bar
+        denom = float((z ** 2).sum())
+        if denom == 0:
+            final_moran = 0.0
+        else:
+            numer = 0.0
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                shifted = np.roll(np.roll(z, -dr, axis=0), -dc, axis=1)
+                numer += float((z * shifted).sum())
+            w = 4 * rows * cols
+            final_moran = (rows * cols / w) * (numer / denom)
+
+        # Final recovered pattern is near-uniform (epidemic covered nearly
+        # everything), so Moran's I is close to zero.
+        assert abs(final_moran) < 0.1, \
+            f"Final SIR recovered pattern should be near-uniform, " \
+            f"Moran's I = {final_moran:.3f}"
+
 
 # ============================================================
 # Quantitative replication: Datta & Acharyya (2021)
