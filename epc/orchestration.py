@@ -12,8 +12,8 @@ by substrate type.
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
 
-Architecture decision #25 (updated Sprint 5):
-  11 models × 10 detectors → compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 7):
+  12 models × 11 detectors → compatible pairs identified by substrate.
 """
 
 from __future__ import annotations
@@ -130,6 +130,13 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         primary_patterns=['P21'],
         metadata_keys=['epsilon', 'n_agents', 'init_mode'],
     ),
+    'sir_epidemic': ModelRegistration(
+        name='sir_epidemic',
+        substrate_type='lattice_2d',
+        observables=['grid', 'grid_dims'],
+        primary_patterns=['P22'],
+        metadata_keys=['infection_prob', 'recovery_prob', 'neighborhood', 'r0_approx'],
+    ),
 }
 
 # === Detector Registry ===
@@ -194,6 +201,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         required_substrate=['lattice_2d'],
         required_observables=['coop_fraction'],  # PD-specific; only Nowak-May produces this
         observable_scope='model_metadata_required',
+    ),
+    'P22': DetectorRegistration(
+        pattern_id='P22',
+        required_substrate=['lattice_2d'],
+        required_observables=['grid'],
+        observable_scope='state_history_only',
     ),
 }
 

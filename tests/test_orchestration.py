@@ -58,30 +58,30 @@ class TestSubstrateCounts:
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 11, \
-            f"Expected 11 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 12, \
+            f"Expected 12 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 10, \
-            f"Expected 10 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 11, \
+            f"Expected 11 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 24, \
-            f"Expected 24 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 32, \
+            f"Expected 32 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 110, f"Expected 110 cells (11x10), got {total}"
+        assert total == 132, f"Expected 132 cells (12x11), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 110 - len(pairs)
-        assert mismatches == 86, f"Expected 86 mismatches, got {mismatches}"
+        mismatches = 132 - len(pairs)
+        assert mismatches == 100, f"Expected 100 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -97,6 +97,7 @@ class TestCanonicalPairs:
         ('hegselmann_krause', 'P21'),
         ('nowak_may', 'P27'),
         ('zhang_sequential', 'P31'),
+        ('sir_epidemic', 'P22'),
     ])
     def test_canonical_pair_compatible(self, model_name, detector_id):
         result = check_compatibility(model_name, detector_id)
