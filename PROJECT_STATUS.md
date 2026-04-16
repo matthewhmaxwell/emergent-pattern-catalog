@@ -527,3 +527,119 @@ was a grid-size artifact; at 60×60 the clean 15-16× separation reproduces exac
     Avalanche sizes are approximately IID (white noise spectrum). Energy fluctuations
     show 1/f scaling with β ≈ 1.4. compute_spectral_beta now prefers detrended
     energy signal; btw_sandpile tracks energy_history per driving event.
+
+---
+
+## Sprints 6–9 — Summary Block (appended retroactively in Sprint 9)
+
+This block captures sprints 6–9 in a compact form. Sprint 5's "Current Phase"
+heading near the top of this file was not updated per-sprint; the canonical
+status now lives in CLAUDE.md and this block.
+
+### Sprint 6 (commit `4ff238c`) — Cross-Detection Matrix
+
+Added 8 cross-detection tests covering every compatible model-detector pair
+that wasn't explicitly audited in Sprints 1–5. Key findings: D'Orsogna × P5
+and Vicsek × P6 correctly mutually reject; GoL × P13 had been a false positive
+at screening because the `n_states < 3` guard was a warning, not a hard guard
+(fix: promoted to hard guard, GoL × P13 now rejects via the guard). Added
+Schelling state enrichment: state dicts now include `grid_dims`, `n_states`,
+`step` to support cross-detector compatibility.
+
+Paper sections 3, 5, 6, 7 drafted.
+
+### Sprint 7 (commit `36306e8`) — SIR Epidemic + P22 Information Cascade
+
+Added `epc/models/sir_epidemic.py` (lattice SIR CA) and
+`epc/detectors/p22_information_cascade.py` (information cascade via Moran's I
+on infection-time map). Replication targets from Datta & Acharyya (2021):
+bell-shaped epidemic curve, linear wavefront radius growth, phase transition
+at p_c dependent on q and neighborhood. SIR × P22 → DEFINITIVE
+(Moran I_time = 0.987, Cohen's d = 109.5, p = 0.005, cascade reach = 1.0).
+
+### Sprint 8 (commit `d9b0465`) — SIR Reference Correction + P15 Generalization
+
+- SIR primary reference corrected from Fuks & Lawniczak 2002 (LGCA with
+  moving individuals — architecture mismatch) to Datta & Acharyya 2021
+  (same fixed-site CA with independent-neighbor infection).
+- P15 generalized from GoL-specific (`p15_fidelity_fix.py`) to a step_fn-based
+  detector (`p15_persistent_computation.py`) that works on any deterministic
+  lattice_2d CA via multi-checkpoint reproducibility + perturbative IC
+  variations. Legacy `p15_fidelity_fix.py` retained as smoke test.
+- GH and GoL replication documentation expanded in REPLICATION_NOTES.md.
+
+### Sprint 8b (commit `1820d28`) — Consolidation
+
+Four fixes:
+1. P22 P13-exclusion logic rewritten — old fixed-last-quarter window mishandled
+   late-peaking epidemics; new logic uses final state + trailing 2×T_spread
+   window.
+2. Cross-detection test coverage expanded (+6 tests in test_sir_p22_e2e.py).
+3. `EXPECTED_OUTCOMES` table in `tests/test_cross_detection_matrix.py` grew
+   from 8 → 18 audited pairs.
+4. P15 test imports modernized to use the generalized detector.
+
+### Sprint 9 — RPS (Reichenbach 2007) + P12 Cyclic Dominance
+
+**Scientific findings:**
+
+1. **P13 does NOT false-positive on RPS.** The Sprint 9 prompt predicted
+   that P13 might incorrectly fire on RPS because RPS satisfies the `n_states
+   ≥ 3` hard guard and produces persistent spiral-like wavefronts. In practice,
+   P13 rejects RPS cleanly at screening across 3 mobilities × 3 seeds via
+   `wavefront_speed_cv ∈ [0.59, 0.68]`, well above the 0.2 screening
+   threshold. Mechanism: GH wavefronts are clock-driven (uniform speed,
+   CV ≈ 0.05–0.15); RPS wavefronts are stochastic-neighbor-driven (high CV).
+   The RPS/GH CV ratio exceeds 3× robustly. Pinned in
+   `tests/test_rps_p13_boundary.py`.
+
+2. **P12 complements P13 via a neighbor-conditional replacement ratio**:
+   `ρ(X, Y) = P(cell→Y | had Y-neighbor) / P(cell→Y | no Y-neighbor)`.
+   For RPS dominance edges, ρ ≈ 70–200 at canonical coexistence parameters.
+   For GH clock transitions, ρ = 1.0 exactly. Two orders of magnitude of
+   separation. Primary metric:
+   `intransitivity_score = log10(max over cyclic triples (min forward ρ))`.
+   Null model: global spatial shuffle of the grid at each timestep.
+
+**Detection results (implemented in `P12CyclicDominanceDetector`):**
+- RPS (L=30, M=1e-4, 80 gens, n_perm=199): **CONFIRMATION**, score=1.83,
+  ρ_min=67.6, p=0.005, Cohen's d > 200, coexistence=1.0, direction stable,
+  P13 and P22 both excluded.
+- RPS (L=40, M=1e-5, 150 gens, n_perm=499): **DEFINITIVE**, score=2.06,
+  p=0.002, confidence=0.85.
+- GH n=3 and n=5: rejected, score = 0.0 exactly (ρ = 1.0 for clock-driven).
+- SIR: rejected (no cyclic dominance), score = 0.0.
+- GoL and Nowak-May: rejected via `n_candidate_species < 3` prerequisite.
+
+**Bug found during P12 development:** `_best_intransitive_triple` initially
+used the cached `self._all_species` set from `_validate_prerequisites`, which
+made direction-stability secondaries crash on sub-trajectories. Fix: helper
+now computes candidate species locally from the passed history. Without this
+fix, DEFINITIVE tier was unreachable.
+
+### Inventory totals at end of Sprint 9
+- 45 epc .py files (was 43 at Sprint 8b HEAD)
+- 21 test files (was 18)
+- 42 compatible model×detector pairs (was 32)
+- 27 audited cross-detection pairs (was 18)
+- 12 detectors, 13 models, 5 substrate types
+
+### Architecture decisions added in Sprint 9
+
+28. (carried from Sprint 7) P22 infection-time Moran's I — preferred over
+    final-state Moran because once an epidemic reaches most cells, the final
+    state is near-uniform (I → 0) while the infection-time map retains the
+    full wavefront structure.
+29. (carried from Sprint 8) P15 generalized via step_fn + multi-checkpoint
+    reproducibility + perturbative IC variations. Legacy p15_fidelity_fix.py
+    retained for backward compat.
+30. (Sprint 9) P12 primary metric is the neighbor-conditional replacement
+    ratio ρ(X,Y) over the best cyclic 3-triple. ρ is smoothed with
+    ε = 1e-6 to avoid div-by-zero. Null model is global spatial shuffle
+    at each timestep (destroys neighbor-transition correlation while
+    preserving species marginals).
+31. (Sprint 9) `model_class` strings matter: P13's placeholder exclusion
+    logic checks for "ca" or "excitable" substrings. RPS uses
+    `model_class="cyclic_competition"` explicitly to avoid this trap.
+    Future lattice CA models should do the same unless they genuinely ARE
+    clock-driven excitable dynamics.

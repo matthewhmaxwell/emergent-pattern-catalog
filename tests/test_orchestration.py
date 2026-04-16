@@ -58,30 +58,30 @@ class TestSubstrateCounts:
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 12, \
-            f"Expected 12 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 13, \
+            f"Expected 13 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 11, \
-            f"Expected 11 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 12, \
+            f"Expected 12 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 32, \
-            f"Expected 32 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 42, \
+            f"Expected 42 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 132, f"Expected 132 cells (12x11), got {total}"
+        assert total == 156, f"Expected 156 cells (13x12), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 132 - len(pairs)
-        assert mismatches == 100, f"Expected 100 mismatches, got {mismatches}"
+        mismatches = 156 - len(pairs)
+        assert mismatches == 114, f"Expected 114 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -126,3 +126,56 @@ class TestObservableGuards:
     def test_p21_only_hk(self):
         p21_pairs = [(m, d) for m, d in get_compatible_pairs() if d == 'P21']
         assert len(p21_pairs) == 1 and p21_pairs[0][0] == 'hegselmann_krause'
+
+
+class TestSprint9Registrations:
+    """Sprint 9: rps_spatial model + P12 detector are registered and
+    compatible with the expected counterparts."""
+
+    def test_rps_spatial_registered(self):
+        assert 'rps_spatial' in MODEL_REGISTRY, \
+            "rps_spatial model should be registered"
+        m = MODEL_REGISTRY['rps_spatial']
+        assert m.substrate_type == 'lattice_2d'
+        assert 'grid' in m.observables
+        assert 'P12' in m.primary_patterns
+
+    def test_p12_registered(self):
+        assert 'P12' in DETECTOR_REGISTRY, "P12 detector should be registered"
+        d = DETECTOR_REGISTRY['P12']
+        assert 'lattice_2d' in d.required_substrate
+        assert 'grid' in d.required_observables
+        assert d.observable_scope == 'state_history_only'
+
+    def test_rps_p12_compatible(self):
+        """The canonical Sprint 9 pair: rps_spatial × P12 must be compatible."""
+        from epc.orchestration import check_compatibility
+        r = check_compatibility('rps_spatial', 'P12')
+        assert r.compatible, f"rps_spatial × P12 should be compatible: {r.reason}"
+
+    def test_p12_compatible_with_all_lattice_2d_grid_models(self):
+        """P12 is a lattice_2d detector requiring 'grid' observable. Every
+        lattice_2d model exposing a 'grid' observable should pair.
+
+        Note: btw_sandpile is lattice_2d but exposes only avalanche-level
+        observables (no 'grid'), so it is correctly REJECTED by observable
+        mismatch, not substrate mismatch. This is expected behavior.
+        """
+        p12_pairs = {m for m, d in get_compatible_pairs() if d == 'P12'}
+        lattice_2d_grid_models = {
+            name for name, reg in MODEL_REGISTRY.items()
+            if reg.substrate_type == 'lattice_2d' and 'grid' in reg.observables
+        }
+        assert p12_pairs == lattice_2d_grid_models, (
+            f"P12 pairs {p12_pairs} should match lattice_2d-with-grid models "
+            f"{lattice_2d_grid_models}"
+        )
+
+    def test_p12_rejects_non_lattice_2d_substrates(self):
+        """P12 should NOT be compatible with oscillator/continuous_2d/etc."""
+        from epc.orchestration import check_compatibility
+        for model in ['kuramoto', 'vicsek', 'dorsogna',
+                      'hegselmann_krause', 'zhang_sequential']:
+            r = check_compatibility(model, 'P12')
+            assert not r.compatible, \
+                f"{model} (non-lattice_2d) should NOT match P12"

@@ -575,44 +575,140 @@ PSD quality factor Q = f_peak / bandwidth > 5.
 
 ### P12 — Cyclic dominance / coexistence waves
 
-**Observable scope:** Model-metadata required (nontransitive interaction graph must be verified)
+**Observable scope:** State-history only
+
+**Substrate:** lattice_2d (implemented). Generalizes in principle to any
+discrete-state substrate with local neighborhoods (e.g., graph-based
+RPS), but the current implementation assumes a 2D grid.
 
 **Required raw observables:**
-- `types[t]`: (N,) with ≥ 3 species
-- `positions[t]`: (N, 2)
-- Dominance matrix
-- `pop[t]`
+- `grid[t]`: (rows, cols) int array with discrete states. At least three
+  distinct non-empty species must be observed across the trajectory. A
+  state labelled `0` is treated as empty if the trajectory contains ≥ 4
+  distinct states; otherwise all observed states are candidate species.
+- `grid_dims`: (rows, cols)
 
 **Preprocessing:**
-1. Verify nontransitive cycle in dominance graph. 2. Abundance time series. 3. Cross-correlations with lags. 4. Topological charge analysis for spirals.
+1. Drop transient: analyze only the second half of the trajectory.
+2. Identify candidate species set (observed non-empty states).
+3. For each ordered pair `(X, Y)` with `X ≠ Y`, accumulate four counts
+   across `(t, t+1)` pairs:
+   - `n_X_with_Y_nbr` — cells in state X with ≥ 1 Y-neighbor at t
+   - `n_X_without_Y_nbr` — cells in state X with no Y-neighbor at t
+   - `n_became_Y_with` — subset of `n_X_with_Y_nbr` that transitioned to Y
+   - `n_became_Y_without` — subset of `n_X_without_Y_nbr` that transitioned to Y
+4. Compute the **neighbor-conditional replacement ratio**:
+   ```
+   ρ(X, Y) = (p_with + ε) / (p_without + ε)
+   ```
+   where `p_with = n_became_Y_with / n_X_with_Y_nbr`,
+   `p_without = n_became_Y_without / n_X_without_Y_nbr`, and `ε = 1e-6`
+   is a Laplace-smoothing constant.
+5. For every 3-subset of candidate species and every cyclic ordering
+   `(a, b, c)` (meaning "b replaces a, c replaces b, a replaces c"),
+   compute `min(ρ(a,b), ρ(b,c), ρ(c,a))`. Pick the ordering that
+   maximizes this minimum.
 
-**Primary metric: Phase-lagged oscillations**
-Cross-correlation peak at τ ≈ T/n_species between consecutive species.
+**Primary metric: log₁₀ of min forward-cycle ρ over best triple**
+
+```
+intransitivity_score = log10(max over triples (min forward ρ))
+```
+
+**Why this separates RPS from GH.** In RPS, transitions are entirely
+neighbor-dependent: a cell changes state only when a specific-species
+neighbor is selected by the Gillespie scheduler. For dominance edges,
+`p_with ≫ p_without`, giving ρ ≈ 70–200 on canonical coexistence
+parameters. In Greenberg-Hastings, transitions `k → (k+1) mod n` for
+`k > 0` are purely clock-driven and do NOT depend on neighbors; the
+only neighbor-dependent transition is `0 → 1`. Because the clock forces
+state-k cells to transition whether or not they have a (k+1)-neighbor,
+`p_with = p_without = 1` exactly, so `ρ = 1.0` for GH. This gives a
+two-orders-of-magnitude separation between the two mechanisms.
 
 **Secondary metrics:**
-- Coexistence time (all species extant)
-- Spatial spiral charge count
-- Coexistence vs mobility scaling
+- `coexistence_fraction` — fraction of second-half snapshots where all
+  three triple-members are present at ≥ 5% density
+- `min_species_density` — minimum over time of min species fraction
+- `direction_stable` — whether the identified cyclic triple from the
+  third and fourth quarters of the trajectory agree up to rotation
+- `identified_triple` — the cyclic direction, e.g. `[1, 3, 2]` meaning
+  species 3 replaces 1, species 2 replaces 3, species 1 replaces 2
 
-**Null models:**
-- *Well-mixed:* random pairing → rapid extinction.
-- *Transitive:* A > B > C → monotonic dominance, no oscillation.
+**Null model:**
 
-**Detection tiers:**
-- *Screening:* All species survive ≥ 100 T_gen AND phase-lagged oscillation visible
-- *Confirmation:* ≥ 500 T_gen AND cross-correlation peak at expected offset ±10% AND above well-mixed null (p < 0.01)
-- *Definitive:* Confirmation + ≥ 1000 T_gen + transitive null shows no oscillation + P11 exclusion
+*Spatial shuffle:* at each timestep in the analyzed window, globally
+permute the cells of the grid. This preserves species marginals
+(the proportion of each state) but destroys the neighbor-transition
+correlation. Under this null, `p_with ≈ p_without` for every edge,
+so `ρ → 1` and `intransitivity_score → 0`. `n_permutations = 199`
+(floor p = 0.005) is the default; use 499+ to reach `p < 0.005`
+needed for definitive tier.
+
+For the canonical positive (RPS at M = 10⁻⁴, L = 30), null scores
+cluster at `0.01 ± 0.01` against an observed score of 1.8, giving
+Cohen's d > 200.
+
+**Detection tiers** (implemented in `P12CyclicDominanceDetector`):
+
+- *Screening:* `n_candidate_species ≥ 3` AND
+  `intransitivity_score > 1.0` (i.e., min ρ > 10)
+- *Confirmation:* Screening + `intransitivity_score > 1.3` (min ρ > 20)
+  AND `coexistence_fraction ≥ 0.8` AND null `p < 0.01`
+- *Definitive:* Confirmation + `intransitivity_score > 2.0`
+  (min ρ > 100) AND `direction_stable = True` AND null `p < 0.005`
 
 **Common false positives:**
-- P11 (bilateral, 2 species). Neutral coexistence (no oscillation). P3 (reaction-diffusion spatial patterns).
+
+- P13 (excitable waves): LOOKS similar — persistent spiral-like
+  wavefronts on a lattice with ≥ 3 states — but clock-driven; produces
+  ρ ≈ 1.0 which fails P12 screening.
+- P11 (predator-prey oscillations): bilateral (2 species); fails the
+  3-candidate-species prerequisite.
+- P3 (Turing patterns): no neighbor-dependent species replacement;
+  produces low ρ.
 
 **Nearest-neighbor exclusions:**
-- P11: Bilateral → P11. Nontransitive → P12.
-- P3: Reaction-diffusion → P3. Agent competition → P12.
+
+- P13: RPS dominance edges yield ρ ≈ 70+. If `best_rho_min > 10`, mark
+  P13 as `excluded` (rules out clock-driven mechanism). If
+  `best_rho_min < 2`, mark P13 as `not_excluded`. Otherwise
+  `inconclusive`.
+- P22: RPS is re-entrant (species cycle indefinitely); P22 cascades
+  are single-pass. If model metadata reports `model_class =
+  "cyclic_competition"` or `model_name = "rps_spatial"`, mark P22
+  as `excluded`. If metadata reports an epidemic-class model, mark
+  P22 as `not_excluded`.
 
 **Co-occurrence:**
-- *Allowed:* P27 (spatial reciprocity in cyclic games)
-- *Excluded:* P11, P3
+
+- *Allowed:* P1 (cyclic spirals produce transient spatial clustering;
+  RPS × P1 fires at screening with Moran's I ≈ 0.57 during wavefront
+  passage, analogous to SIR × P1).
+- *Excluded:* P13 (mechanistic alternative for the same visual
+  signature), P22 (re-entrant vs. single-pass is definitional).
+
+**Verified on:** RPS (Reichenbach 2007, M = 10⁻⁴, L = 30, 80 generations,
+n_permutations = 199) × P12 → CONFIRMATION (score = 1.83, ρ_min = 67.6,
+p = 0.005, Cohen's d > 200, coexistence = 1.0, direction stable, P13
+and P22 both excluded). Reaches DEFINITIVE at M = 10⁻⁵, 150 generations,
+n_permutations = 499 (score = 2.06, p = 0.002, confidence = 0.85). See
+`tests/test_rps_p12_e2e.py::TestRPSDetectedByP12` and
+`tests/test_rps_replication.py` for the underlying model validation.
+
+**Verified rejections:** Greenberg-Hastings (n=3 and n=5, `ρ = 1.0`,
+score = 0.0), SIR (no cyclic dominance, score = 0.0), Game of Life
+(n_candidate_species = 2, fails prerequisite), Nowak-May (same
+prerequisite failure). See `tests/test_rps_p12_e2e.py::TestP12CrossDetectionRejections`.
+
+**P13 boundary note:** The Sprint 9 investigation documented that P13
+already rejects RPS cleanly at screening via wavefront-speed CV
+(CV = 0.59–0.68 on RPS vs. CV ≈ 0.05–0.15 on GH). This is an INDEPENDENT
+discrimination mechanism from P12's neighbor-conditional ratio — P13
+distinguishes clock-driven from stochastic-neighbor-driven wavefront
+propagation via speed uniformity, while P12 distinguishes them via
+per-cell transition logic. Both mechanisms agree on every tested case.
+See `tests/test_rps_p13_boundary.py` for the pinned behavior.
 
 ---
 

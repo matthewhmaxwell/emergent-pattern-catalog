@@ -1256,3 +1256,186 @@ when both have ≥3 discrete states, via wavefront speed and persistence.
    at various R0 — expect systematic lattice undercount near criticality.
 4. The von Neumann transition at p=0.12 shows 17/20 percolation, lower than
    p=0.11 at 18/20. This is noise at 20 seeds — more trials would stabilize.
+
+---
+
+# RPS (Reichenbach 2007) Replication Notes (Sprint 9)
+
+## Reference
+
+**Primary:** Reichenbach, T., Mobilia, M. & Frey, E. (2007). "Mobility promotes
+and jeopardizes biodiversity in rock-paper-scissors games." Nature 448,
+1046–1049. DOI: 10.1038/nature06095. arXiv: q-bio/0702032.
+
+**Supplementary material** (used for rate parameterizations and the critical-
+mobility value): Same authors' online supplementary info.
+
+**Canonical stochastic May-Leonard model** — square lattice with periodic BCs,
+states {A, B, C, ∅}, three Poisson-rate reactions:
+- Selection (rate σ, conventionally set to 1): A beats B, B beats C, C beats A.
+  Loser dies, leaving an empty site.
+- Reproduction (rate µ, conventionally 1): X reproduces into an adjacent empty
+  site.
+- Exchange/mobility (rate ε): swap any two adjacent individuals (including
+  swaps with empty sites).
+
+**Mobility measure (Reichenbach Eq. 1):**
+```
+M = 2 ε a² / N       (lattice spacing a = 1, N = L²)
+⇔ ε = M · L² / 2
+```
+
+## Implementation
+
+File: `epc/models/rps_spatial.py` (~440 lines).
+
+Key choices:
+1. **Vectorized asynchronous update.** One GENERATION = N = L² elementary
+   steps. Each elementary step is a (site, neighbor, reaction-type) draw
+   applied sequentially. Matches the paper's Gillespie-style description
+   semantically while using numpy draws for efficiency (~27 ms/generation
+   at L=100).
+2. **Parameterization by `mobility` OR `exchange_rate`.** User-friendly:
+   set `mobility=1e-4` directly rather than computing ε = M·L²/2.
+3. **`model_class = "cyclic_competition"`** — intentionally avoids the "ca"
+   and "excitable" substrings that would trigger P13's placeholder
+   exclusion logic.
+4. **Seeded numpy RNG** gives bitwise reproducibility across runs.
+5. **Early termination** when only one species remains.
+
+## Replication Results
+
+### Result 1: Biodiversity Regimes (Reichenbach Fig. 4 qualitative)
+
+Using L = 50 × 50:
+- **M = 10⁻⁵** (deep coexistence): After 200 generations, all three species
+  maintain > 10% density. Mean fractions near 1/3 each (with ~10–15% empties).
+- **M = 10⁻² ≈ 20 × M_c** (deep extinction): After 500 generations, min
+  species fraction drops below 5% (B = 0.002), max exceeds 70% (A = 0.757).
+- **Monotonic trend**: min species fraction decreases monotonically with
+  mobility across M ∈ {1e-5, 1e-3, 5e-3}.
+
+Pinned in `tests/test_rps_replication.py::TestBiodiversityRegimes`.
+
+We did NOT attempt to pin M_c precisely. A precise measurement would require
+a fine mobility sweep + ≥ 20 seeds per mobility × long runs — roughly an
+hour of compute per data point on our grid. The qualitative regime
+separation is robust at our test scale and matches the paper's phase-diagram
+qualitative structure (Fig. 4 of Reichenbach 2007).
+
+### Result 2: Spiral Wavelength Scaling (λ ∝ √M)
+
+**Not directly replicated.** We opted to skip the wavelength-scaling replication
+in favor of the much-more-diagnostic neighbor-conditional ratio ρ (which is
+what the P12 detector actually keys off). A full λ ∝ √M replication would
+require Fourier analysis or spiral-tip tracking at multiple mobilities with
+long runs, and the resulting fit constant depends on finite-size effects not
+rigorously controlled in our small L ≤ 60 test configurations. This is a
+candidate for a future "slow" test marked `@pytest.mark.slow` if needed.
+
+### Result 3: Reaction Mechanics
+
+- **Conservation**: total site count L² preserved at every snapshot.
+- **Reaction-rate scaling**: at fixed σ = µ = 1, increasing ε causes the
+  executed exchange count to grow proportionally. At M = 10⁻² (ε = 8.0 for
+  L = 40) exchanges are > 5× selection+reproduction combined. At M = 10⁻⁵
+  (ε = 0.008) exchanges are < 2% of total reactions.
+- **Dominance-only selection**: in a striped A/B lattice with ε = 0 and
+  µ ≈ 0, A cells are never killed (nothing dominates A in an all-A-and-B
+  setup); B cells drop > 50% in 20 generations.
+
+Pinned in `tests/test_rps_replication.py::TestReactionMechanics`.
+
+### Result 4: Coexistence Stability (slow)
+
+Long-run test at L = 60, M = 10⁻⁵, 500 generations. Each species exceeds
+10% density in > 95% of post-transient snapshots. Marked `@pytest.mark.slow`
+(5 s).
+
+## P13 Boundary Test
+
+**This is the Sprint 9 scientific headline.** The prompt predicted that
+P13 might false-positive on RPS because:
+- RPS has `n_states ≥ 3` (passes P13's hard guard)
+- RPS produces persistent wavefronts (not died_out)
+- RPS cells are re-excited (unlike SIR which is single-pass)
+
+**Observed behavior:** P13 rejects RPS cleanly at screening across 3
+mobilities × 3 seeds. The rejection is on `wavefront_speed_cv` which
+lands in [0.59, 0.68] on RPS vs. ≈ 0.05–0.15 on GH, far exceeding the
+0.2 screening threshold.
+
+**Mechanism:** Excitable media (GH) have clock-driven transitions — once
+excited, a cell ticks through refractory → rest on a deterministic
+schedule. The wavefront speed is set by this clock and is highly uniform.
+RPS transitions are entirely neighbor-driven and stochastic — a cell
+changes state only when a specific-species neighbor is selected by the
+Gillespie scheduler. This produces wavefronts that LOOK spiral-like on
+visual inspection but have much greater per-cell speed variability.
+
+Pinned in `tests/test_rps_p13_boundary.py`.
+
+## P12 Detection Result
+
+**Primary metric**: `intransitivity_score = log10(max over cyclic triples
+of min forward-cycle ρ(X,Y))`, where
+ρ(X,Y) = P(cell→Y | had Y-neighbor) / P(cell→Y | no Y-neighbor).
+
+**Canonical positive (L=30, M=10⁻⁴, 80 gens, n_perm=199):**
+- CONFIRMATION tier, confidence 0.70
+- intransitivity_score = 1.830 (ρ_min = 67.6; log₁₀(68) ≈ 1.83)
+- coexistence_fraction = 1.0
+- direction_stable = True
+- identified_triple = [1, 3, 2] — matches the model's dominance map
+  (species 3 replaces 1, 2 replaces 3, 1 replaces 2; i.e., C→A, B→C, A→B
+  in the Reichenbach indexing where A=1,B=2,C=3)
+- null p-value = 0.005 (at the n_perm=199 floor)
+- Cohen's d > 200 (null mean ≈ 0.01, null std ≈ 0.01)
+- P13 and P22 both marked `excluded` in exclusion_results
+
+**Stronger positive (L=40, M=10⁻⁵, 150 gens, n_perm=499):**
+- DEFINITIVE tier, confidence 0.85
+- score = 2.06, p = 0.002
+
+**Verified rejections (all on `n_permutations=49`):**
+- GH (n=3 and n=5, threshold=1): score = 0.0 exactly (ρ = 1 for all edges)
+- SIR (infection_prob=0.5, recovery_prob=0.1): score = 0.0
+- GoL (random, density=0.37): rejected by prerequisite (n_candidate_species=2)
+- Nowak-May: same prerequisite rejection
+
+Pinned in `tests/test_rps_p12_e2e.py`.
+
+## RPS Summary
+
+Three pieces of evidence that the Reichenbach RPS implementation is correct:
+1. Conservation (trivial but pinned).
+2. Regime separation (coexistence at M=10⁻⁵, extinction at M=10⁻²,
+   monotonic trend between).
+3. Dominance mechanics validate per-reaction (selection destroys prey,
+   exchange rate scales executed swap counts).
+
+Four pieces of evidence that P12 is well-designed:
+1. Enormous separation from null (Cohen's d > 200) via spatial shuffle.
+2. Correct cyclic-triple identification matching the model's dominance map.
+3. Clean rejection of all four tested negatives (GH n=3, GH n=5, SIR, GoL,
+   Nowak-May).
+4. Bidirectional exclusion: P12 marks P13 excluded (ρ_min > 10 rules out
+   clock-driven mechanism), and P13 independently rejects RPS via CV.
+   These two mechanisms agree on every tested case.
+
+## Open Items (RPS)
+
+1. **λ ∝ √M scaling not quantitatively replicated.** A test that measures
+   spiral wavelength at multiple mobilities and verifies the √M law would
+   deepen the model validation. This would need Fourier transform of the
+   spatial grid + peak-finding at the dominant wavenumber, ideally at
+   L ≥ 100 and ≥ 200 generations per mobility. Candidate for a future
+   slow-marked test.
+2. **M_c not pinned precisely.** Our 3-point mobility sweep confirms the
+   coexistence/extinction phase separation qualitatively but does not
+   measure M_c itself. The paper's value is M_c ≈ (4.5 ± 0.5) × 10⁻⁴ for
+   µ = σ = 1.
+3. **Asynchronous inner loop is pure-Python.** Performance is 27 ms/generation
+   at L = 100 which is adequate for tests but would be slow for precise
+   M_c measurement. A Numba/Cython inner loop is a possible future
+   optimization, though it would add a build dependency.

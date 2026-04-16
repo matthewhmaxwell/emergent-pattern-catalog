@@ -7,13 +7,13 @@ by substrate type.
 
 5 substrate types:
 - lattice_1d: Zhang sorting (chimeric)
-- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May
+- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS
 - continuous_2d: Vicsek, D'Orsogna
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
 
-Architecture decision #25 (updated Sprint 7):
-  12 models × 11 detectors → compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 9):
+  13 models × 12 detectors → compatible pairs identified by substrate.
 """
 
 from __future__ import annotations
@@ -137,6 +137,14 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         primary_patterns=['P22'],
         metadata_keys=['infection_prob', 'recovery_prob', 'neighborhood', 'r0_approx'],
     ),
+    'rps_spatial': ModelRegistration(
+        name='rps_spatial',
+        substrate_type='lattice_2d',
+        observables=['grid', 'grid_dims'],
+        primary_patterns=['P12'],
+        metadata_keys=['mobility', 'exchange_rate', 'selection_rate',
+                       'reproduction_rate', 'neighborhood', 'dominance_map'],
+    ),
 }
 
 # === Detector Registry ===
@@ -204,6 +212,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
     ),
     'P22': DetectorRegistration(
         pattern_id='P22',
+        required_substrate=['lattice_2d'],
+        required_observables=['grid'],
+        observable_scope='state_history_only',
+    ),
+    'P12': DetectorRegistration(
+        pattern_id='P12',
         required_substrate=['lattice_2d'],
         required_observables=['grid'],
         observable_scope='state_history_only',

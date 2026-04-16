@@ -453,14 +453,27 @@ class TestTransferMatrixCompleteness:
         ("schelling", "P15"): "not_detected",  # Stochastic, no step_fn available
         ("greenberg_hastings", "P15"): "rejected",  # Only 1 outcome class (spirals)
         ("sir_epidemic", "P15"): "not_detected",    # Stochastic, fails reproducibility
+
+        # --- Sprint 9 pairs (RPS + P12) ---
+        # RPS-row: all six non-exclusive detectors characterized.
+        ("rps_spatial", "P12"): "detected",     # CONFIRMATION (score=1.83, p=0.005)
+        ("rps_spatial", "P13"): "rejected",     # cv=0.65 >> 0.2 threshold
+        ("rps_spatial", "P22"): "screening",    # passes reach+Moran, fails unimodal
+        ("rps_spatial", "P1"): "screening",     # transient spiral aggregation (Moran=0.57)
+        ("rps_spatial", "P15"): "not_detected", # stochastic, reproducibility=0
+        # P12-column: all non-RPS lattice_2d grid models are rejected.
+        ("greenberg_hastings", "P12"): "rejected",  # ρ=1.0 (clock-driven)
+        ("sir_epidemic", "P12"): "rejected",    # 3 states, no cyclic dominance
+        ("game_of_life", "P12"): "rejected",    # n_species=2 < 3 (prerequisite)
+        ("nowak_may", "P12"): "rejected",       # n_states=2 < 3 (prerequisite)
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 18, \
-            f"Expected at least 18 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 27, \
+            f"Expected at least 27 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -514,6 +527,51 @@ class TestTransferMatrixCompleteness:
                 f"Sprint 8 generalization"
         print(f"  ✓ Sprint 8: all {len(sprint_8_p15_pairs)} P15 pairs covered, "
               f"no gol_specific entries remain")
+
+    def test_sprint_9_pairs_covered(self):
+        """Every Sprint 9 cross-detection pair (RPS row + P12 column) must
+        appear in the transfer matrix with a pinned expected outcome.
+
+        The Sprint 9 headline finding is that P12 cleanly separates
+        intransitive cyclic-dominance spirals (RPS) from excitable-wave
+        spirals (GH), even though both produce similar-looking spiral
+        patterns on lattice_2d. The detector-discrimination comes from
+        the neighbor-conditional replacement ratio ρ: RPS has ρ ≫ 1
+        (neighbor-driven transitions), while GH has ρ = 1.0 exactly
+        (clock-driven transitions).
+
+        A secondary finding is that P13 ALSO rejects RPS cleanly at
+        screening, via wavefront-speed CV rather than via the n_states
+        guard. This is documented in tests/test_rps_p13_boundary.py.
+        """
+        sprint_9_pairs = [
+            # RPS row — all 5 non-trivially-compatible detectors
+            ("rps_spatial", "P12"),
+            ("rps_spatial", "P13"),
+            ("rps_spatial", "P22"),
+            ("rps_spatial", "P1"),
+            ("rps_spatial", "P15"),
+            # P12 column — all 4 other lattice_2d-grid models
+            ("greenberg_hastings", "P12"),
+            ("sir_epidemic", "P12"),
+            ("game_of_life", "P12"),
+            ("nowak_may", "P12"),
+        ]
+        for pair in sprint_9_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 9 pair {pair} missing from transfer matrix"
+
+        # RPS × P12 is the Sprint 9 positive; all other P12 cells are
+        # rejections.
+        assert self.EXPECTED_OUTCOMES[("rps_spatial", "P12")] == "detected"
+        for other_model in ("greenberg_hastings", "sir_epidemic",
+                            "game_of_life", "nowak_may"):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P12")] == "rejected", (
+                f"{other_model} × P12 should be rejected (no cyclic dominance)"
+            )
+
+        print(f"  ✓ Sprint 9: all {len(sprint_9_pairs)} pairs covered "
+              f"(RPS row + P12 column)")
 
 
 # ===================================================================
