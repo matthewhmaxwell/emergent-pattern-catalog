@@ -1,15 +1,35 @@
 """SIR epidemic cellular automaton on a 2D lattice.
 
-Reference: Fuks, H. & Lawniczak, A.T. (2002). "Individual-based lattice model
-for spatial spread of epidemics." Discrete Dynamics in Nature and Society,
-6(3), 191-200.
+Primary reference:
+  Datta, A. & Acharyya, M. (2021). "Modelling the Spread of an Epidemic in
+  Presence of Vaccination using Cellular Automata." arXiv:2104.10456.
+  Published: Int. J. Mod. Phys. C, 33, 2250094 (2022).
+  — Uses the SAME fixed-site probabilistic SIR CA with independent-neighbor
+  infection on a 2D lattice. Reports linear wavefront radius growth and
+  epidemic curve agreement with Kermack-McKendrick.
 
-Also: Datta, A. & Acharyya, M. (2021). "Modelling the Spread of an Epidemic in
-Presence of Vaccination using Cellular Automata." arXiv:2104.10456.
+Related references:
+  Rousseau, G., Giorgini, G., Livi, R. & Chaté, H. (1997). "Dynamical
+  phases in a cellular automaton model for epidemic propagation." Physica D,
+  103, 554-563.
+  — Deterministic SIR CA with fixed infected/immunized lifetimes. Documents
+  phase transition between localized and spreading epidemic regimes.
 
-Also: Rousseau, G., Giorgini, G., Livi, R. & Chaté, H. (1997). "Dynamical
-phases in a cellular automaton model for epidemic propagation." Physica D,
-103, 554-563.
+  Grassberger, P. (1983). "On the critical behavior of the general epidemic
+  process and dynamical percolation." Math. Biosci. 63, 157-172.
+  — Establishes connection between SIR CA on a lattice and dynamical
+  percolation universality class.
+
+  Hoya White, S., Martín del Rey, A. & Rodríguez Sánchez, G. (2007).
+  "Modeling epidemics using cellular automata." Appl. Math. Comput. 186,
+  193-202.
+  — SIR CA on 2D lattice with von Neumann/Moore neighborhoods.
+
+NOTE on Fuks & Lawniczak (2002): That paper describes a Lattice Gas CA
+(LGCA) where individuals physically move between sites — a fundamentally
+different model from this fixed-site SIR CA. It was previously cited as
+the primary reference but the model architecture does not match. Retained
+here only as context for the broader SIR-on-lattice literature.
 
 The SIR CA is parameterized by (p, q, neighborhood):
   p (infection_prob): probability that a susceptible cell becomes infected
@@ -43,12 +63,23 @@ State history keys:
     newly_recovered   : int — I→R transitions this step
     activity_density  : float — fraction of infected cells
 
-Key published results for replication:
-  1. Epidemic curve: I(t) rises then falls (bell shape), matching Kermack-McKendrick.
+Key published results for replication (Datta & Acharyya 2021):
+  1. Epidemic curve: I(t) rises then falls (bell shape), matching
+     Kermack-McKendrick. Unimodal dI/dt.
   2. Single-seed wavefront: circular expansion with linear radius growth.
+     Confirmed: R² > 0.99 across all tested parameter regimes.
   3. Phase transition: critical infection probability p_c depends on q and
      neighborhood; below p_c, epidemic dies out; above, percolates.
-  4. Final epidemic size: R_∞/N is a function of the effective R0 = p*n_neighbors/q.
+     Measured: p_c ≈ 0.10 (VN, q=0.1), p_c ≈ 0.038 (Moore, q=0.1).
+  4. Conservation: S + I + R = N at every timestep (verified).
+
+R0 approximation in metadata:
+  get_metadata()['r0_approx'] uses (1 - (1-p)^n_neighbors) / q, which is the
+  single-step effective infection rate divided by recovery rate. This is a
+  mean-field APPROXIMATION that overestimates the true lattice R0 because
+  it ignores spatial correlations (depletion of susceptibles around the
+  wavefront). The actual critical threshold on the lattice is substantially
+  higher than mean-field R0 = 1 would predict.
 
 P13 boundary test:
   SIR has 3 states (S/I/R) → passes the P13 n_states≥3 guard.
@@ -265,8 +296,11 @@ class SIREpidemicModel(BaseModel):
 
     def get_metadata(self) -> dict[str, Any]:
         n_neighbors = 4 if self.neighborhood == "von_neumann" else 8
-        # Effective R0 approximation for lattice SIR
-        # R0 ≈ (1 - (1-p)^n_neighbors) / q for independent model
+        # Mean-field R0 APPROXIMATION for lattice SIR.
+        # Uses single-step effective infection rate / recovery rate.
+        # Overestimates true lattice R0 because it ignores spatial
+        # correlations (susceptible depletion around wavefront).
+        # Actual lattice critical threshold occurs at r0_approx >> 1.
         if self.independent_neighbors:
             effective_infection = 1.0 - (1.0 - self.infection_prob) ** n_neighbors
         else:
@@ -292,8 +326,8 @@ class SIREpidemicModel(BaseModel):
             "update_mode": "synchronous",
             "seed": self.seed,
             "reference": (
-                "Fuks & Lawniczak (2002), Datta & Acharyya (2021), "
-                "Rousseau et al. (1997)"
+                "Datta & Acharyya (2021/2022), Rousseau et al. (1997), "
+                "Grassberger (1983), Hoya White et al. (2007)"
             ),
         }
 

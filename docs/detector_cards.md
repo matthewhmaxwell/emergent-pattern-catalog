@@ -1016,42 +1016,97 @@ Dip test p < 0.01 at steady state.
 
 **Observable scope:** State-history only
 
+**Substrate:** lattice_2d (implemented); generalizes to any substrate with
+discrete states and local transition rules (e.g., network with adjacency).
+
 **Required raw observables:**
-- `adopted[t]`: (N,) boolean
-- `t_adopt`: (N,)
-- Network adjacency
-- Initial seed set
+- `grid[t]`: (rows, cols) int array with discrete states, including at
+  least "susceptible" (state 0) and "infected/active" (state 1)
+- `grid_dims`: (rows, cols)
+- `newly_infected` per step (optional; derivable from grid deltas)
+
+> **Note:** An earlier version of this card specified a network-centric
+> API (`adopted[t]`, `t_adopt`, adjacency matrix, cascade-size distribution
+> across trials). The implementation in `epc/detectors/p22_information_cascade.py`
+> uses the lattice-based approach below. The network-based formulation is
+> conceptually equivalent but operates on a different substrate; this card
+> documents what the code actually measures.
 
 **Preprocessing:**
-1. Adoption curve F(t). 2. Cascade size distribution across trials.
+1. Extract infection time map `T_inf[i, j] = t*` where `t*` is the first
+   step at which cell `(i, j)` entered the infected state.
+2. Time series: `i_count[t]`, `r_count[t]` (recovered count where
+   applicable), `newly_infected[t]`.
+3. Compute cascade reach at end of trajectory: fraction of cells that
+   ever left the susceptible state.
 
-**Primary metric: Cascade amplification**
-Final adoption > 50% from seed < 5%.
+**Primary metric: Moran's I on the infection TIME map**
+
+Spatial autocorrelation of `T_inf`. Cells near the seed have small `t*`;
+distant cells have large `t*`. A propagating wavefront produces strong
+spatial clustering (I ≈ 0.98 for a circular wavefront). Random assignment
+of infections to cells produces I ≈ 0.
+
+This metric is preferred over Moran's I on the final binary state because
+when the epidemic infects most cells the final state is nearly uniform
+(I → 0 by construction) while the infection time map retains the full
+wavefront structure regardless of final reach.
 
 **Secondary metrics:**
-- Critical threshold
-- Overshoot ratio (> 10)
-- Generation depth (> 2)
+- `cascade_reach_total` = (R∞ + I∞) / N — fraction ever infected
+- `r0_estimate` — early-growth exponential fit to `newly_infected[t]`
+- `peak_infected_fraction` — max(I[t]) / N
+- `is_unimodal` — binary flag: single peak in I(t) curve
+- `epidemic_died_out` — binary flag: I[-1] = 0
+- `wavefront_velocity` — secondary estimate from radial expansion
 
-**Null models:**
-- *Random-adoption:* Poisson, no heavy tail.
-- *Configuration-model:* same degrees, random wiring.
+**Null model:**
 
-**Detection tiers:**
-- *Screening:* Final adoption > 30% from seed < 10%
-- *Confirmation:* > 50% from < 5% AND cascade heavier-tailed than Poisson (p < 0.01) AND generation depth > 2
-- *Definitive:* Confirmation + configuration-model null + P20/P21 exclusions
+*Random-timing null:* preserve the NUMBER of cells that get newly infected
+at each timestep, but randomly assign which cells get infected. This
+destroys spatial correlation while preserving the overall epidemic curve
+shape (same `i_count[t]` trajectory expected value). Re-compute Moran's I
+on the null infection time map. n_permutations = 199 (floor p = 0.005).
+
+For the canonical positive (SIR epidemic), null Moran's I ≈ 0 ± 0.01,
+giving Cohen's d > 100 against observed.
+
+**Detection tiers** (implemented in `P22CascadeDetector`):
+
+- *Screening:* `cascade_reach_total ≥ 0.05` AND `moran_i_time ≥ 0.10`
+- *Confirmation:* Screening + `p < 0.01` AND `is_unimodal` AND
+  `r0_estimate > 1.0`
+- *Definitive:* Confirmation + `cascade_reach_total ≥ 0.30` AND
+  `epidemic_died_out = True` (single-pass wave, not persistent activity)
 
 **Common false positives:**
-- P21 (camps). P20 (density toggle). Direct broadcast (no multi-hop).
+
+- P13 (excitable waves): produces wavefronts but waves are persistent and
+  re-entrant, not single-pass. Exclusion check: if activity does NOT die
+  out in the last quarter of the trajectory, mark P13 inconclusive.
+- P1 (aggregation): can co-occur with P22 (cascade creates transient
+  clustering), but P1 alone does not imply cascade dynamics.
 
 **Nearest-neighbor exclusions:**
-- P21: One dominant state → P22. Multiple camps → P21.
-- P20: Network spread → P22. Density-mediated → P20.
+
+- P13: persistent re-entrant waves (cells re-excited many times) vs.
+  single-pass cascade (each cell infected at most once)
+- P1: static spatial clustering (convergence to an aggregated state) vs.
+  dynamic cascade (the spreading process itself)
 
 **Co-occurrence:**
-- *Allowed:* P28 (cascade dynamics can drive wealth condensation)
-- *Excluded:* P20 (network vs density), P21 (one-way vs stable partition)
+
+- *Allowed:* P1 (spatially-structured cascade produces transient
+  aggregation; co-occurrence expected on SIR during the epidemic peak)
+- *Excluded:* P13 (transient vs. persistent is definitional)
+
+**Verified on:** SIR epidemic CA × P22 → DEFINITIVE (Moran I_time = 0.987,
+Cohen's d = 109.5, p = 0.005, cascade_reach = 1.0, R0_est > 1, unimodal,
+died out). See `tests/test_sir_p22_e2e.py::TestSIRP22Canonical`.
+
+**Verified rejections:** GoL, Greenberg-Hastings, Nowak-May, Schelling all
+correctly rejected by P22 screening (either low cascade reach or low
+Moran's I on infection time map).
 
 ---
 
