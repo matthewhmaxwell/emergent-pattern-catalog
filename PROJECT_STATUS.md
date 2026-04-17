@@ -643,3 +643,91 @@ fix, DEFINITIVE tier was unreachable.
     `model_class="cyclic_competition"` explicitly to avoid this trap.
     Future lattice CA models should do the same unless they genuinely ARE
     clock-driven excitable dynamics.
+
+---
+
+### Sprint 10 — P1 primary metric: peak → final-state Moran's I
+
+**Motivation:** The Sprint 9 carry-forward list flagged SIR × P1 (and after
+Sprint 9, RPS × P1) as ambiguous classifications. Both models fired P1 at
+screening under the old `max(peak, final)` primary metric, but their final
+states looked very different. Sprint 10 ran an empirical characterization
+across six canonical models before touching the detector, per the
+replication philosophy.
+
+**Empirical characterization (6 models):**
+
+| Model                 | I_peak | I_final | I_sustained | sustained_CV | seg_final |
+|-----------------------|--------|---------|-------------|--------------|-----------|
+| Schelling τ=0.375     | +0.414 | +0.414  | +0.414      | 0.00         | +0.650    |
+| Nowak-May b=1.8       | +0.794 | +0.530  | +0.500      | 0.07         | +0.776    |
+| **SIR β=0.20 γ=0.3**  | +0.892 | **+0.019** | +0.175   | **0.99**     | +0.981    |
+| **RPS M=1e-4**        | +0.582 | **+0.550** | +0.562   | 0.016        | +0.668    |
+| GH n=8 random         | +0.412 | +0.204  | +0.204      | 0.00         | +0.307    |
+| Random grid (noise)   | +0.028 | +0.015  | −0.007      | inf          | +0.348    |
+
+**Scientific finding:** SIR and RPS do **not** share the same dynamics.
+SIR's spatial clustering is a genuinely transient wavefront (peak 0.89 →
+final 0.02, sustained CV=0.99). RPS's spatial clustering is genuinely
+sustained: spiral domains rotate but persist, so final ≈ peak ≈ 0.55.
+A global peak→sustained swap (what the Sprint 10 prompt initially
+recommended) would not have distinguished these. A peak→final swap does.
+
+**Detector changes:**
+
+1. `epc/detectors/p1_aggregation.py::_compute_primary` — primary
+   `morans_i` is now `morans_i_final`. The peak and sustained values are
+   retained as diagnostic fields.
+2. `epc/detectors/p1_aggregation.py::_check_screening` — added a 0.05
+   magnitude floor on top of the trivial `I > expected_I` check. This
+   corrects a pre-existing bug where a pure-noise random grid passed
+   screening at p ≈ 0.03 through chance sampling variance.
+
+**Outcome on the 6-model panel:**
+- Schelling, Nowak-May: CONFIRMATION (unchanged).
+- RPS: screening (unchanged in tier, but now correctly justified by
+  sustained clustering rather than transient).
+- SIR: **REJECTED** (was screening). Transfer matrix entry flips from `S`
+  to `rej`.
+- GH: screening → blocked at confirmation by secondary gates (seg=0.31
+  < 0.4). Unchanged.
+- Random grid: **REJECTED** (was passing screening through sampling
+  variance). Bugfix.
+
+**Test updates:**
+- `TestSIRP1Screening` → `TestSIRP1Rejection`: flip assertion, verify
+  peak/final gap as diagnostic.
+- `TestNowakMayP1CoOccurrence::test_nowak_may_p1_confirmation`: threshold
+  relaxed 0.5 → 0.4 (final-I = 0.49 vs peak-I = 0.89 on 100×100 b=1.8);
+  added explicit `peak > final` assertion.
+- `EXPECTED_OUTCOMES[("sir_epidemic", "P1")]`: `screening` → `rejected`.
+- RPS × P1 comment updated: "transient" → "sustained spiral clustering".
+- **New** `TestRPSP1ScreeningLevel` (2 tests in `test_rps_p12_e2e.py`):
+  - `test_rps_p1_screening_under_new_primary` — RPS still screens.
+  - `test_rps_vs_sir_p1_asymmetry` — cross-model assertion that both models
+    peak ≈ 0.5+ but only RPS has final ≈ peak.
+
+### Inventory totals at end of Sprint 10
+- 45 epc .py files (unchanged)
+- 21 test files (unchanged)
+- 27 audited cross-detection pairs (unchanged count; SIR × P1 reclassified)
+- 12 detectors, 13 models, 5 substrate types (unchanged)
+- Baseline 109 Sprint 9 tests + 2 new Sprint 10 tests = 111 fast tests pass
+
+### Architecture decisions added in Sprint 10
+
+32. (Sprint 10) **P1 primary metric is final-state Moran's I**, not peak
+    over trajectory. The peak and sustained values are reported as
+    diagnostic fields (`morans_i_peak`, `morans_i_sustained`). Rationale:
+    the 6-model characterization showed SIR has peak ≫ final (transient
+    wavefront) while RPS has peak ≈ final (sustained spiral domains). A
+    peak-based primary falsely conflated these. A final-based primary
+    correctly distinguishes them. See REPLICATION_NOTES.md for the full
+    empirical table.
+
+33. (Sprint 10) **P1 screening requires final I ≥ 0.05**, not merely
+    `I > expected_I`. The trivial check passes pure random noise via
+    sampling variance (random grid gave I=0.015 > expected=-0.0002, null
+    p=0.03). The 0.05 floor rejects this without affecting any of the
+    canonical positives (Schelling 0.41, NM 0.53, RPS 0.55 all clear the
+    floor comfortably).

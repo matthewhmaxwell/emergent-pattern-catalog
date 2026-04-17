@@ -56,13 +56,31 @@ class P1AggregationDetector(BaseDetector):
         return warnings
 
     def _compute_primary(self, state_history, timescale):
-        """Compute Moran's I — uses peak over trajectory for transient patterns.
+        """Compute Moran's I — uses FINAL-STATE I for aggregation.
 
-        Chimeric array aggregation peaks during sorting then may decrease.
-        We check both final and peak values.
+        Sprint 10 change (was: peak over trajectory; final is more conservative
+        and distinguishes transient wavefronts from genuine aggregation).
 
-        Also counts unique types: Moran's I is degenerate (0/0) with only
-        one type, so systems without type diversity cannot show aggregation.
+        RATIONALE: Models with transient wavefronts (SIR epidemic, traveling
+        excitation waves) produce high peak Moran's I during the wavefront
+        but near-zero final Moran's I. The peak-based primary metric caused
+        SIR × P1 to falsely pass screening as a "transient aggregation"
+        co-occurrence when in fact the final state is uniform recovered
+        cells (I ≈ 0.02). A final-state primary correctly distinguishes:
+          - Schelling, Nowak-May: final I ≈ 0.41–0.53 — genuine aggregation.
+          - RPS spiral domains: final I ≈ 0.55 — rotating spirals maintain
+            persistent clustering at every timestep.
+          - SIR epidemic: final I ≈ 0.02 — no aggregation at steady state.
+
+        The sustained Moran (mean over last 20%) is reported alongside as
+        a diagnostic; for robust aggregators, sustained ≈ final, and for
+        transient wavefronts like SIR, sustained >> final.
+
+        See PROJECT_STATUS.md decision 32 and REPLICATION_NOTES.md Sprint 10
+        entry for the empirical characterization across 6 canonical models.
+
+        Moran's I is degenerate (0/0) with only one type, so we still
+        require n_unique_types ≥ 2.
         """
         result_final = self._morans_i.compute(state_history, timestep=-1)
 
@@ -76,32 +94,79 @@ class P1AggregationDetector(BaseDetector):
             elif "grid" in final_state:
                 n_unique_types = len(np.unique(final_state["grid"]))
 
-        # Sample trajectory for peak detection (every ~1% of run)
+        # Sample trajectory to compute peak and sustained (diagnostics).
         n_states = len(state_history)
         step = max(1, n_states // 100)
-        peak_i = result_final["morans_i"]
-        for t in range(0, n_states, step):
+        sampled_idxs = list(range(0, n_states, step))
+        if sampled_idxs[-1] != n_states - 1:
+            sampled_idxs.append(n_states - 1)
+
+        sampled_i = []
+        for t in sampled_idxs:
             mi = self._morans_i.compute(state_history, timestep=t)
-            peak_i = max(peak_i, mi["morans_i"])
+            sampled_i.append(float(mi["morans_i"]))
+        sampled_i = np.array(sampled_i)
+
+        peak_i = float(np.max(sampled_i))
+        final_i = float(result_final["morans_i"])
+
+        # Sustained: mean over samples from the last 20% of the trajectory.
+        last_20_start = max(0, int(n_states * 0.8))
+        sustained_samples = [sampled_i[i] for i, t in enumerate(sampled_idxs)
+                             if t >= last_20_start]
+        if not sustained_samples:
+            sustained_samples = [final_i]
+        sustained_i = float(np.mean(sustained_samples))
 
         return {
-            "morans_i": max(result_final["morans_i"], peak_i),
-            "morans_i_final": result_final["morans_i"],
+            # PRIMARY METRIC (Sprint 10): final-state Moran's I.
+            # Kept under the key "morans_i" for compatibility with
+            # existing secondaries/null machinery that reads this key.
+            "morans_i": final_i,
+            "morans_i_final": final_i,
+            "morans_i_sustained": sustained_i,
             "morans_i_peak": peak_i,
             "expected_i": result_final["expected_i"],
             "n_unique_types": n_unique_types,
         }
 
     def _check_screening(self, primary_result, timescale):
-        """Screening: Moran's I above expected AND at least 2 distinct types.
+        """Screening: final-state Moran's I meaningfully above expected.
 
-        Single-type systems have degenerate Moran's I (0/0 → 0.0) which
-        trivially exceeds expected I = -1/(N-1). This is meaningless —
-        aggregation requires type diversity.
+        Sprint 10 change: added a minimum-magnitude floor of 0.05 on top
+        of the original 'I > expected_I' check. The trivial 'I > expected_I'
+        check is satisfied by pure random noise on any finite grid (because
+        sampling variance gives occasional tiny positive values above
+        E[I] = -1/(N-1) ≈ 0). The 0.05 floor excludes this:
+
+          - Schelling final I = 0.41, Nowak-May = 0.53, RPS = 0.55: pass.
+          - SIR final I = 0.02: correctly rejected (transient wavefront
+            has collapsed, grid is near-uniform).
+          - Random grid final I ≈ 0.01–0.03: correctly rejected as noise.
+
+        Moran's I is degenerate (0/0) with only one type, so we still
+        require n_unique_types ≥ 2.
+
+        The null-model p-value is a separate, stronger test applied at
+        the confirmation tier; screening is a prerequisite gate.
         """
+        # Require at least 2 distinct types
         if primary_result.get("n_unique_types", 0) < 2:
             return False
-        return primary_result["morans_i"] > primary_result["expected_i"]
+
+        observed = primary_result["morans_i"]
+        expected = primary_result["expected_i"]
+
+        # Must be meaningfully above expected, not just numerically above
+        if observed <= expected:
+            return False
+
+        # Minimum magnitude floor to reject noise and transient-dissipated states
+        SCREENING_FLOOR = 0.05
+        if observed < SCREENING_FLOOR:
+            return False
+
+        return True
 
     def _compute_secondaries(self, state_history, timescale):
         seg = self._segregation.compute(state_history, timestep=-1)

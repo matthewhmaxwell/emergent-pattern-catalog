@@ -1439,3 +1439,115 @@ Four pieces of evidence that P12 is well-designed:
    at L = 100 which is adequate for tests but would be slow for precise
    M_c measurement. A Numba/Cython inner loop is a possible future
    optimization, though it would add a build dependency.
+
+
+# Sprint 10 — P1 Primary Metric: Empirical Characterization
+
+Sprint 10 resolved the open SIR × P1 / RPS × P1 ambiguity flagged as
+carry-forward item #1 at Sprint 9. The goal was to decide whether the
+P1 detector's primary metric should continue to use peak Moran's I
+across the trajectory (which caused both SIR and RPS to pass screening)
+or change to a more conservative alternative.
+
+## Characterization Protocol
+
+Six canonical models were run on small fast configurations sufficient
+to resolve the peak vs final gap:
+
+| Model             | Config                                   | n_steps |
+|-------------------|------------------------------------------|---------|
+| Schelling         | 30×30, density=0.9, threshold=0.375      | 150     |
+| Nowak-May         | 40×40, b=1.8, coop_fraction=0.5          | 200     |
+| SIR               | 80×80, β=0.20 γ=0.3, single_seed init    | 400     |
+| RPS spatial       | 30×30, mobility=1e-4                     | 80      |
+| Greenberg-Hastings| 40×40, n_states=8, random init           | 200     |
+| Random grid       | 30×30, 3 labels, no dynamics             | 50      |
+
+For each model we sampled Moran's I at 40 evenly-spaced timesteps,
+recorded I_peak (max), I_final, I_sustained (mean over last 20% of
+the trajectory), and the coefficient of variation of the sustained
+window (std/mean).
+
+## Results
+
+| Model              | I_peak | I_final | I_sustained | sustained_CV | seg_final |
+|--------------------|--------|---------|-------------|--------------|-----------|
+| Schelling          | +0.414 | +0.414  | +0.414      | 0.00         | +0.650    |
+| Nowak-May b=1.8    | +0.794 | +0.530  | +0.500      | 0.07         | +0.776    |
+| **SIR**            | +0.892 | +0.019  | +0.175      | **0.99**     | +0.981    |
+| **RPS M=1e-4**     | +0.582 | +0.550  | +0.562      | 0.016        | +0.668    |
+| GH n=8 random      | +0.412 | +0.204  | +0.204      | 0.00         | +0.307    |
+| Random grid        | +0.028 | +0.015  | −0.007      | inf          | +0.348    |
+
+## Findings
+
+**SIR and RPS have fundamentally different aggregation dynamics**,
+contrary to the superficial similarity suggested by the Sprint 9 carry-
+forward item. SIR shows a true transient wavefront: peak=0.89 →
+final=0.02, with sustained_CV=0.99 indicating the last 20% window is
+wildly varying (the wavefront is still collapsing). RPS shows sustained
+clustering: peak=0.58 ≈ final=0.55 ≈ sustained=0.56, with sustained_CV
+= 0.016 indicating a very stable steady state.
+
+The physical mechanism is clear. SIR's infected cells recover
+irreversibly; once the wavefront has passed a cell, that cell stays
+recovered forever and the final state is near-uniform. RPS's spiral
+domains rotate (cyclic dominance means each species is always being
+consumed by another and replaced), so the spatial clustering structure
+is maintained indefinitely even as specific cells change identity.
+
+**Neither peak Moran nor sustained Moran cleanly distinguishes these
+cases.**
+- Peak fails: SIR peak=0.89 and RPS peak=0.58 both exceed any sensible
+  threshold.
+- Sustained fails: SIR sustained=0.175 is *not* very low (the wavefront
+  still covers much of the grid during the sustained window).
+
+**Final Moran I distinguishes them cleanly:** SIR's final=0.019 is
+near-zero; RPS's final=0.55 is clearly high.
+
+## Decision
+
+P1 primary metric is now `morans_i_final`. See PROJECT_STATUS.md
+Decision 32 and the source comment in
+`epc/detectors/p1_aggregation.py::_compute_primary` for the rationale.
+Peak and sustained are retained as reported diagnostics for introspection
+and cross-sprint backward compatibility (`tests/test_sir_p22_e2e.py`
+has historically inspected `morans_i_peak` and `morans_i_final`
+directly).
+
+## Incidental: Random-Grid False-Positive Bugfix
+
+The characterization incidentally revealed that the old `_check_screening`
+passed pure random noise at p ≈ 0.03 (random grid I=0.015, expected
+I=−0.0002, so the trivial `I > expected_I` check passed; null model had
+~3 out of 99 permutations exceed the tiny observed value). A 0.05
+magnitude floor on screening fixes this without affecting any canonical
+positives (Schelling 0.41, NM 0.53, RPS 0.55 all clear 0.05
+comfortably). See Decision 33.
+
+## Reproducing the Characterization
+
+The characterization script lived in the scratchpad during development
+and was not committed to the repo (it would have duplicated logic
+already present in the test suite). The post-Sprint-10 test
+`TestRPSP1ScreeningLevel::test_rps_vs_sir_p1_asymmetry` in
+`tests/test_rps_p12_e2e.py` replays the most salient cross-model
+comparison (RPS screens, SIR rejects, both peak high, only RPS final
+high) as an executable assertion that would fail if the detector
+regressed.
+
+## Open Items Carried Forward from Sprint 10
+
+1. **Nowak-May final I at 100×100 is lower than at 40×40** (0.49 vs
+   0.53). This is likely just finite-size variation (cooperator clusters
+   are larger in absolute extent on bigger grids, which can actually
+   reduce normalized I at fixed init_coop_fraction). Not a correctness
+   concern, but worth pinning if future NM tests have tight thresholds.
+2. **P1 detector card in `docs/detector_cards.md` still describes the
+   peak-based primary.** Needs a rewrite in a follow-on sprint or as
+   part of Sprint 10's doc update. (Handled in Sprint 10 delivery
+   bundle.)
+3. **Transfer matrix in the Sprint transfer prompt still shows
+   SIR × P1 = S.** After Sprint 10 merge, it becomes `rej`. RPS × P1
+   stays `S` with commentary updated.

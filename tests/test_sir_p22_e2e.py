@@ -505,31 +505,36 @@ class TestP22P13Exclusion:
 
 
 # ============================================================
-# SIR × P1 screening-level co-occurrence (ambiguous classification)
+# SIR × P1 — Sprint 10: now REJECTED (was screening).
 # ============================================================
 
 
-class TestSIRP1Screening:
-    """SIR × P1: screening-tier co-occurrence, not a true positive.
+class TestSIRP1Rejection:
+    """SIR × P1: rejected by the Sprint-10 final-state Moran's I primary.
 
-    The transfer matrix marks SIR × P1 as 'S' (screening). The reason is
-    subtle: during an epidemic, infected cells form a moving wavefront that
-    is transiently clustered (peak Moran's I ≈ 0.85 on the grid == 1 map).
-    The final state is nearly uniform recovered (Moran's I ≈ 0.02).
+    The transfer matrix previously marked SIR × P1 as 'S' (screening)
+    because the detector's primary metric was the PEAK Moran's I across
+    the trajectory. During an epidemic, infected cells form a moving
+    wavefront that is transiently clustered (peak Moran's I ≈ 0.89), so
+    the peak-based primary fired. But the final state after recovery is
+    nearly uniform (Moran's I ≈ 0.02) — there is no sustained aggregation.
 
-    P1 uses the PEAK Moran's I across the trajectory, so it registers the
-    transient aggregation at screening level. Whether this should count as
-    a real P1 co-occurrence or a P1 detector artifact is open (issue #5 in
-    the project status) — this test characterizes the current behavior
-    rather than claiming it's the correct outcome.
+    Sprint 10 switches P1's primary metric to the FINAL-state Moran's I
+    (Decision 32). SIR now correctly rejects: the transient wavefront
+    peak is retained as a diagnostic (reported in primary_metric[
+    "morans_i_peak"]) but it no longer drives detection.
+
+    Contrast with RPS (M=1e-4): spiral domains rotate but persist, so
+    final Moran's I ≈ 0.55 ≈ peak — RPS correctly still screens.
     """
 
-    def test_sir_screening_level_p1_detection(self):
-        """SIR shows transient aggregation during epidemic → P1 screening.
+    def test_sir_rejected_by_final_state_moran(self):
+        """SIR transient wavefront does NOT drive P1 screening anymore.
 
-        The peak Moran's I (during the wavefront) is far above random, but
-        the final Moran's I (after recovery) is near zero. Current P1 uses
-        the peak, so screening fires.
+        Sprint 10: P1 primary is final-state Moran (was peak). SIR's final
+        state is nearly uniform recovered (I ≈ 0.02), which fails the
+        screening floor (0.05). The transient peak (I ≈ 0.89) is retained
+        as a diagnostic.
         """
         from epc.detectors.p1_aggregation import P1AggregationDetector
 
@@ -544,26 +549,29 @@ class TestSIRP1Screening:
         det = P1AggregationDetector(n_permutations=199)
         result = det.detect(history, meta)
 
-        # Current behavior: passes screening
-        assert result.detected, \
-            "Expected P1 to pass screening on SIR (transient wavefront aggregation)"
+        # Sprint 10 target behavior: rejected.
+        assert not result.detected, \
+            "Sprint 10: SIR × P1 should REJECT (final-state Moran near zero)"
 
-        # The transient peak is high; the final state is near-uniform
+        # Diagnostic: verify the peak/final gap — this is the physics
+        # that motivates the rejection.
         peak_moran = result.primary_metric.get("morans_i_peak", 0.0)
         final_moran = result.primary_metric.get("morans_i_final", 1.0)
+        primary_moran = result.primary_metric.get("morans_i", 1.0)
 
         assert peak_moran > 0.5, \
-            f"Expected high peak Moran's I during epidemic wavefront, " \
-            f"got {peak_moran:.3f}"
+            f"Expected high peak Moran's I during epidemic wavefront " \
+            f"(transient clustering), got {peak_moran:.3f}"
         assert final_moran < 0.1, \
             f"Expected near-uniform final state after epidemic dies out, " \
             f"got {final_moran:.3f}"
-
-        # This characterizes (but does not endorse) the current screening
-        # behavior. Issue #5 in the project status flags this as ambiguous:
-        # is transient wavefront aggregation a real P1 co-occurrence, or
-        # should P1 require sustained (not transient) spatial clustering?
-        # If that is later resolved, this test will need updating.
+        # Primary is now final, not peak
+        assert abs(primary_moran - final_moran) < 1e-6, \
+            f"Sprint 10: primary metric should equal final Moran, " \
+            f"got primary={primary_moran:.4f}, final={final_moran:.4f}"
+        # Primary fails the screening floor
+        assert primary_moran < 0.05, \
+            f"Expected primary Moran < screening floor 0.05, got {primary_moran:.4f}"
 
     def test_sir_final_state_not_aggregated(self):
         """After epidemic, final grid is nearly uniform recovered → no P1.

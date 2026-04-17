@@ -238,9 +238,27 @@ class TestNowakMayP1CoOccurrence:
             f"Expected confirmation+, got {result.tier}"
         )
 
-        # Verify effect sizes
+        # Verify effect sizes.
+        # Sprint 10: primary metric is now final-state Moran's I (was
+        # peak over trajectory). NM b=1.8 shows final I ≈ 0.49, which is
+        # strong aggregation but below the old 0.5 threshold calibrated
+        # against the peak-based primary. We now also verify that the
+        # transient peak Moran (retained as a diagnostic) is >> final.
         I = result.primary_metric.get("morans_i", 0)
-        assert I > 0.5, f"Moran's I={I:.3f} should be > 0.5 for strong clustering"
+        assert I > 0.4, f"Moran's I={I:.3f} should be > 0.4 for strong clustering"
+
+        # Final-state Moran is the primary; report it and check it's solid.
+        I_final = result.primary_metric.get("morans_i_final", 0)
+        assert I_final > 0.4, f"Final Moran's I={I_final:.3f} should be > 0.4"
+
+        # Peak transient Moran is reported as a diagnostic — typically
+        # higher than final on NM because cooperator clusters tighten early
+        # then relax toward a shifting equilibrium.
+        I_peak = result.primary_metric.get("morans_i_peak", 0)
+        assert I_peak > I_final, (
+            f"Peak I={I_peak:.3f} should exceed final I={I_final:.3f} "
+            "on Nowak-May (transient cluster tightening)"
+        )
 
         seg = result.secondary_metrics.get("segregation_index", 0)
         assert seg > 0.5, f"Segregation index={seg:.3f} should be > 0.5"
@@ -254,7 +272,8 @@ class TestNowakMayP1CoOccurrence:
         assert n_types == 2, f"Expected 2 types (C/D), got {n_types}"
 
         print(f"  ✓ Nowak-May × P1: CONFIRMATION "
-              f"(I={I:.3f}, seg={seg:.3f}, p={result.null_p_value:.4f})")
+              f"(I_final={I_final:.3f}, I_peak={I_peak:.3f}, "
+              f"seg={seg:.3f}, p={result.null_p_value:.4f})")
 
     def test_nowak_may_p1_co_occurrence_with_p27(self):
         """P1 lists P27 as allowed co-occurrence — verify this is consistent."""
@@ -439,7 +458,10 @@ class TestTransferMatrixCompleteness:
         # --- Sprint 7 pairs (SIR + P22) ---
         ("sir_epidemic", "P22"): "detected",   # DEFINITIVE cascade
         ("sir_epidemic", "P13"): "rejected",   # Single-pass, not re-entrant
-        ("sir_epidemic", "P1"): "screening",   # Transient wavefront aggregation only
+        # Sprint 10: SIR × P1 flipped screening → rejected under new
+        # final-state Moran primary (Decision 32). Wavefront is transient;
+        # final recovered pattern is near-uniform (I ≈ 0.02, fails 0.05 floor).
+        ("sir_epidemic", "P1"): "rejected",    # Sprint 10: final-I primary
         ("greenberg_hastings", "P22"): "rejected",  # Re-entrant, not cascade
         ("game_of_life", "P22"): "rejected",   # R-pentomino reach < 5%
         ("nowak_may", "P22"): "rejected",      # No wavefront; moran_i_time ≈ 0
@@ -459,7 +481,12 @@ class TestTransferMatrixCompleteness:
         ("rps_spatial", "P12"): "detected",     # CONFIRMATION (score=1.83, p=0.005)
         ("rps_spatial", "P13"): "rejected",     # cv=0.65 >> 0.2 threshold
         ("rps_spatial", "P22"): "screening",    # passes reach+Moran, fails unimodal
-        ("rps_spatial", "P1"): "screening",     # transient spiral aggregation (Moran=0.57)
+        # Sprint 10: RPS × P1 stays at screening under the new final-I
+        # primary. Spiral domains rotate but persist, so final Moran ≈ peak
+        # ≈ 0.55 — genuinely sustained clustering, unlike SIR's collapsing
+        # wavefront. Co-exists at screening (not confirmation, because
+        # cluster geometry is not Schelling-style block segregation).
+        ("rps_spatial", "P1"): "screening",     # sustained spiral clustering (I_final≈0.55)
         ("rps_spatial", "P15"): "not_detected", # stochastic, reproducibility=0
         # P12-column: all non-RPS lattice_2d grid models are rejected.
         ("greenberg_hastings", "P12"): "rejected",  # ρ=1.0 (clock-driven)

@@ -115,33 +115,76 @@ Each card is labeled with one of:
 
 **Required raw observables:**
 - `positions[t]`: (N,) grid indices or (N, 2) (row, col)
-- `types`: (N,) integer labels (constant)
-- `grid_dims`: (rows, cols)
+- `types`: (N,) integer labels (constant, ≥ 2 distinct values required)
+- `grid_dims`: (rows, cols) for 2D models; `n` for 1D chimeric arrays
 
 **Preprocessing:**
-1. Construct 8-connected neighbor matrix per timestep.
-2. Same-type neighbor fraction: `s_i(t) = (# same-type neighbors) / (# total neighbors)`.
-3. Type-occupancy grid G(t).
+1. Construct adjacency (1D: left/right; 2D: 4- or 8-connected neighbors).
+2. Type-occupancy grid G(t).
+3. Same-type neighbor fraction `s_i(t) = (# same-type neighbors) / (# total neighbors)`.
 
-**Primary metric: Moran's I**
-`I = (N/W) · Σ w_{ij}(x_i−x̄)(x_j−x̄) / Σ(x_i−x̄)²`
+**Primary metric: Final-state Moran's I**
+
+`I_final = (N/W) · Σ w_{ij}(x_i−x̄)(x_j−x̄) / Σ(x_i−x̄)²`
+
+computed on the **terminal state** `state_history[-1]`.
+
+Sprint 10 change: the primary was previously `max(peak, final)` over the
+trajectory. That metric falsely classified models with transient
+wavefronts (SIR epidemic, traveling excitation waves) as P1 co-
+occurrences because peak Moran's I during the wavefront can be very
+high (≈ 0.9) even when the final state is uniform (≈ 0.02 after the
+epidemic dies out and every cell is recovered). Final-state Moran's I
+correctly distinguishes:
+
+- **Genuine sustained aggregation** (Schelling, Nowak-May b=1.8): final ≈ peak.
+- **Rotating-but-persistent clustering** (RPS spatial spirals): final ≈ peak
+  ≈ 0.55 (spirals rotate but the spatial structure persists at every step).
+- **Transient wavefronts** (SIR epidemic): peak ≈ 0.89 but final ≈ 0.02 —
+  correctly rejected.
+
+See REPLICATION_NOTES.md (Sprint 10 section) for the 6-model empirical
+characterization that motivated this change, and PROJECT_STATUS.md
+Decision 32 for the architecture rationale.
+
+**Retained diagnostic fields in `primary_metric`:**
+- `morans_i_final` — primary, equal to `morans_i`
+- `morans_i_peak` — max over sampled trajectory (diagnostic; shows transient gap)
+- `morans_i_sustained` — mean over last 20% of trajectory (diagnostic; stability check)
+- `expected_i` — E[I] under random spatial null = −1/(N−1)
+- `n_unique_types` — hard prerequisite: must be ≥ 2 (Moran's I is degenerate with 1 type)
 
 **Secondary metrics:**
-- Segregation index S(t) = ⟨s_i(t)⟩
-- Cluster count and mean cluster size (8-connected components)
+- Segregation index S(t) = ⟨s_i(t)⟩ at final step
+- Cluster count and mean cluster size (connected components)
+- `sustained_i_mean` and `sustained_i_cv` over last 20% of trajectory
+  (stability check — used at confirmation tier)
 - Mean path length (sorting models only)
 
-**Null models:**
-- *Label-shuffle:* permute type labels across occupied positions (999 shuffles)
-- *Random-placement:* uniform random placement, same type proportions
+**Null model:**
+- *Label-shuffle on final state*: permute type labels across occupied
+  positions on the terminal-state grid, recompute Moran's I, build null
+  distribution (default 999 permutations). Matches the primary-metric
+  substrate (final state) so observed-vs-null comparison is coherent.
 
 **Detection tiers:**
-- *Screening:* Moran's I z > 1.96 vs label-shuffle null (p < 0.05)
-- *Confirmation:* z > 2.58 (p < 0.01) AND segregation index > random + 2σ. Sustained over last 0.2 × T_sort (or last 20% of run for non-sorting models)
-- *Definitive:* Confirmation + P2/P3/P30 exclusions all cleared + both null models rejected
+- **Screening:** `n_unique_types ≥ 2` AND `I_final > expected_i` AND
+  `I_final ≥ 0.05` (magnitude floor). The 0.05 floor was added in Sprint 10
+  to reject pure-noise false positives; without it a random-label grid
+  passes screening at p ≈ 0.03 through sampling variance alone (observed
+  I ≈ 0.015, expected I ≈ −0.0002).
+- **Confirmation:** Screening + null p < 0.01 + segregation index > 0.4 +
+  `sustained_i_cv` < 0.3 (stability check — transient wavefronts with
+  collapsing final states fail this gate even if final I happened to be
+  above the floor).
+- **Definitive:** Confirmation + p < 0.001 + P2/P3/P30 exclusions all cleared.
 
 **Common false positives:**
-- P2 (MIPS): type-blind clustering. P3 (Turing): periodic spacing. Initial-condition artifacts. Finite-size trapping (require N ≥ 50).
+- P2 (MIPS): type-blind clustering. Excluded via type-label preservation check.
+- P3 (Turing): periodic spacing. Excluded via 2D FFT dominant-peak check.
+- Transient wavefronts (SIR-style): **no longer a false positive** after
+  Sprint 10; rejected at screening by the final-state primary.
+- Initial-condition artifacts; finite-size trapping (require N ≥ 50).
 
 **Nearest-neighbor exclusions:**
 - P2: Type-blind density analysis — clustering persists without type distinction → P2
@@ -149,8 +192,19 @@ Each card is labeled with one of:
 - P30: Topological closure → P30
 
 **Co-occurrence:**
-- *Allowed:* P31 (if non-redundancy passes), P27 (spatial reciprocity uses P1-like clustering of cooperators — co-detection is expected, not a conflict)
-- *Excluded:* P2 (same spatial signal, different mechanism), P3 (periodic vs irregular), P30 (closure vs open clusters)
+- *Allowed:* P31 (if non-redundancy passes), P27 (spatial reciprocity uses
+  P1-like clustering of cooperators — co-detection expected).
+- *Screening-only co-occurrence:* RPS spatial (P12 definitive + P1 screening)
+  — spiral domains produce sustained non-block clustering that screens but
+  not confirms, because cluster geometry is cyclically-evolving rather than
+  Schelling-style static segregation.
+- *Excluded:* P2 (same spatial signal, different mechanism), P3 (periodic
+  vs irregular), P30 (closure vs open clusters).
+
+**Implementation note:** The legacy `morans_i_peak` field is preserved
+in the primary metric dict for backward compatibility with tests that
+historically inspected it directly (e.g. `test_sir_p22_e2e.py` asserts
+peak > 0.5 and final < 0.1 on SIR as a physics diagnostic).
 
 ---
 

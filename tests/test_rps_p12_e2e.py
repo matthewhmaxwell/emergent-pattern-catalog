@@ -273,5 +273,119 @@ class TestP12Robustness:
             )
 
 
+# ===================================================================
+# Sprint 10: RPS × P1 characterization under new final-I primary
+# ===================================================================
+
+
+class TestRPSP1ScreeningLevel:
+    """RPS × P1: Sprint 10 final-state Moran primary.
+
+    In contrast with SIR (rejected by the same change), RPS spiral
+    domains rotate but persist — final Moran's I ≈ peak Moran's I ≈ 0.55.
+    The aggregation is genuinely sustained, so RPS × P1 still screens
+    under the Sprint-10 detector. This distinguishes the RPS case from
+    the SIR case, which shares an initially-similar peak-Moran
+    signature but collapses to a near-uniform final state.
+    """
+
+    def test_rps_p1_screening_under_new_primary(self):
+        """RPS at canonical mobility still screens under final-I primary.
+
+        Expected: final_moran ≈ peak_moran ≈ 0.5 (sustained spiral
+        clustering). Screening floor is 0.05, so final > floor passes.
+        """
+        from epc.detectors.p1_aggregation import P1AggregationDetector
+
+        def adapt(history):
+            adapted = []
+            for state in history:
+                s = dict(state)
+                if "grid_dims" not in s and "grid" in s:
+                    s["grid_dims"] = s["grid"].shape
+                adapted.append(s)
+            return adapted
+
+        m = RPSSpatialModel(rows=30, cols=30, mobility=1e-4, seed=42)
+        history = adapt(m.run(n_steps=80))
+
+        det = P1AggregationDetector(n_permutations=99)
+        result = det.detect(history, m.get_metadata())
+
+        assert result.detected, \
+            "Sprint 10: RPS × P1 should still screen (spiral domains are sustained)"
+
+        peak_moran = result.primary_metric.get("morans_i_peak", 0.0)
+        final_moran = result.primary_metric.get("morans_i_final", 0.0)
+        primary_moran = result.primary_metric.get("morans_i", 0.0)
+
+        # RPS spirals are sustained: final ≈ peak (unlike SIR).
+        assert final_moran > 0.4, \
+            f"RPS final Moran should be ≈ 0.5 (sustained spirals), got {final_moran:.3f}"
+        assert peak_moran > 0.4, \
+            f"RPS peak Moran should be ≈ 0.5, got {peak_moran:.3f}"
+        # The peak-final gap should be small (rotating but persistent).
+        gap = peak_moran - final_moran
+        assert gap < 0.15, \
+            f"RPS peak-final gap should be small (sustained), got {gap:.3f}"
+
+        # Primary is now final-state Moran (Sprint 10).
+        assert abs(primary_moran - final_moran) < 1e-6, \
+            f"Sprint 10: primary should equal final, got " \
+            f"primary={primary_moran:.4f}, final={final_moran:.4f}"
+
+    def test_rps_vs_sir_p1_asymmetry(self):
+        """Sprint 10: same-family models differ — RPS screens, SIR rejects.
+
+        Both RPS and SIR produce high PEAK Moran's I during their
+        characteristic spatial dynamics, but only RPS maintains final
+        Moran near peak. This asymmetry is the scientific motivation
+        for the Sprint 10 primary-metric change.
+        """
+        from epc.detectors.p1_aggregation import P1AggregationDetector
+
+        def adapt(history):
+            adapted = []
+            for state in history:
+                s = dict(state)
+                if "grid_dims" not in s and "grid" in s:
+                    s["grid_dims"] = s["grid"].shape
+                adapted.append(s)
+            return adapted
+
+        # --- RPS ---
+        rps = RPSSpatialModel(rows=30, cols=30, mobility=1e-4, seed=42)
+        rps_hist = adapt(rps.run(n_steps=80))
+        det = P1AggregationDetector(n_permutations=99)
+        rps_res = det.detect(rps_hist, rps.get_metadata())
+
+        # --- SIR ---
+        sir = SIREpidemicModel(
+            rows=80, cols=80,
+            infection_prob=0.20, recovery_prob=0.3,
+            init_mode="single_seed", seed=42,
+        )
+        sir_hist = sir.run(400, record_every=1)
+        sir_res = det.detect(sir_hist, sir.get_metadata())
+
+        # Both peak high.
+        rps_peak = rps_res.primary_metric["morans_i_peak"]
+        sir_peak = sir_res.primary_metric["morans_i_peak"]
+        assert rps_peak > 0.4, f"RPS peak should be > 0.4, got {rps_peak:.3f}"
+        assert sir_peak > 0.5, f"SIR peak should be > 0.5, got {sir_peak:.3f}"
+
+        # Only RPS maintains final near peak.
+        rps_final = rps_res.primary_metric["morans_i_final"]
+        sir_final = sir_res.primary_metric["morans_i_final"]
+        assert rps_final > 0.4, \
+            f"RPS final should ≈ peak (sustained), got {rps_final:.3f}"
+        assert sir_final < 0.1, \
+            f"SIR final should be near 0 (transient collapsed), got {sir_final:.3f}"
+
+        # Sprint 10 decision outcomes.
+        assert rps_res.detected, "Sprint 10: RPS × P1 should screen"
+        assert not sir_res.detected, "Sprint 10: SIR × P1 should reject"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])
