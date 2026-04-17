@@ -4,4 +4,5 @@
 - delayed_gratification: Zhang's DG metric (P31)
 - excitable_waves: wavefront speed, spiral tips, wave sources (P13)
 - collective_motion: polarization, angular momentum, group speed ratio (P5/P6)
+- predator_prey_crosscorr: rho_anti, FFT peak-to-mean, circular-shift null (P11)
 """

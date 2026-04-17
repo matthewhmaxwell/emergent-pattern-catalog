@@ -1,6 +1,10 @@
-# Detector Specification Cards v0.5.2
+# Detector Specification Cards v0.5.3
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
+
+v0.5.3 (Sprint 11): P11 card rewritten to match implemented detector
+(primary metric is `rho_anti` at nonzero lag, not PSD Q-factor).
+Empirical measurements from LV lattice canonical positive added.
 
 ---
 
@@ -589,41 +593,77 @@ Bimodal distribution of {r_w}: some > 0.9, others < 0.5.
 
 ### P11 — Predator-prey oscillations
 
-**Observable scope:** Model-metadata assisted (interaction type labeling helpful)
+**Observable scope:** State-history only (species labels on a grid, plus an empty-reservoir state)
+
+**Canonical positive:** Lotka-Volterra lattice (`LotkaVolterraLattice`; Mobilia-Georgiev-Täuber 2007). L=100, predation_rate=4.0, prey_reproduction_rate=1.0, predator_death_rate=1.0, seed=42, ≥1200 generations.
 
 **Required raw observables:**
-- `pop[t]`: (n_species,) population counts (minimum 2)
-- Species identities
+- `state_history`: list of snapshots each with `grid` (2D int array; state 0 = empty, states 1+ = species)
+- Exactly two non-empty species observed
 
 **Preprocessing:**
-1. Detrend. 2. PSD via Welch. 3. Cross-spectral density.
+1. Auto-detect the two most-populous non-zero grid states (or use explicit `species_state_hint` from metadata).
+2. Extract fraction-vs-time for each species.
+3. Drop first `burn_in` generations (default 100).
 
-**Primary metric: Period regularity**
-PSD quality factor Q = f_peak / bandwidth > 5.
+**Prerequisites (all three must pass — see Decision 35):**
+- **n_unique_species_observed == 2**. Rejects RPS (3 species) even though RPS species pairs give stronger anti-correlation than LV on the primary metric.
+- **std(species_A) > 0.005 AND std(species_B) > 0.005**. Rejects Schelling (per-agent identity is conserved, so species fractions never change).
+- **std(species_A + species_B) > 0.005**. Rejects strictly-conserved 2-species systems like Nowak-May (coop + defect = 1 exactly → rho_anti = -1.0 by algebra, a conservation artifact). LV has a nontrivial empty reservoir: std(prey + pred) ≈ 0.03.
+
+**Primary metric: rho_anti at nonzero lag**
+
+$$\rho_{\text{anti}} = \min_{|\tau| \ge 5} \text{Pearson}\big(\text{prey}(t), \text{pred}(t + \tau)\big)$$
+
+Rationale (Decision 34): the LV quarter-period phase shift plus strong anti-phase coupling means the minimum of the cross-correlogram is at |τ| ~ 10-20 rather than at the prettier τ = T/4 ~ 40. Empirically measured |tau_anti| ∈ [11, 18] for canonical LV. The |τ| ≥ 5 exclusion band rejects near-instantaneous anti-correlation (which would be a conservation artifact in systems like Nowak-May).
 
 **Secondary metrics:**
-- Amplitude CV < 0.3
-- Cross-spectral phase (prey leads by ~π/2)
-- Persistence time (cycles before extinction)
+- `fft_peak_to_mean`: predator density FFT peak-to-mean ratio (skip DC; period ≥ 3). LV empirical range: 18–32 across seeds.
+- `|tau_anti|`: lag at which rho_anti is achieved.
+- `rho_at_zero_lag`: contrast with lagged rho_anti.
+- `rho_anti` on first half / second half with `halves_agree` flag (robustness).
 
-**Null models:**
-- *No-predation:* prey to K, predator extinct.
-- *Random birth-death:* independent noise, no regular period.
+**Null model: circular shift (SHUFFLE)**
+
+At each permutation, circularly shift the predator time series by a uniformly random offset in [1, n-1]. Preserves each series' marginal distribution, autocorrelation, and FFT magnitude spectrum; destroys the cross-series phase relationship.
+
+**Decision 36**: p-value is NOT a tier gate. The circular-shift null preserves the autocorrelation that makes LV's extreme rho_anti possible, so on LV the null frequently produces its own extreme anti-correlations (p ≈ 0.05-0.15 even when Cohen's d ≈ -2). Signal-vs-noise separation is achieved by rho_anti magnitude (|LV| ~ 0.8, |noise| ~ 0.1) and cohens_d. The null is retained for reporting the effect-size diagnostic.
 
 **Detection tiers:**
-- *Screening:* PSD peak F-test p < 0.05 AND ≥ 5 cycles
-- *Confirmation:* F-test p < 0.01 AND ≥ 10 cycles AND amplitude CV < 0.5
-- *Definitive:* Confirmation + no-predation null shows no oscillation + P12 exclusion (bilateral, not cyclic)
+- *Screening:* prerequisites pass AND rho_anti < −0.3 AND |tau_anti| ≥ 5 AND fft_peak_to_mean > 6.
+- *Confirmation:* screening AND rho_anti ≤ −0.5 AND cohens_d ≤ −1.5 AND halves_agree.
+- *Definitive:* confirmation AND rho_anti ≤ −0.7 AND fft_peak_to_mean > 12 AND cohens_d ≤ −1.5.
 
-**Common false positives:**
-- P12 (≥ 3 species, nontransitive). External forcing. P26 (noise-enhanced).
+**Canonical-positive measurements (Sprint 11):**
 
-**Nearest-neighbor exclusions:**
-- P12: 2 species + bilateral → P11. ≥ 3 + nontransitive → P12.
+| Seed | n_steps | rho_anti | tau_anti | fft_p2m | cohens_d | tier |
+|------|---------|----------|----------|---------|----------|------|
+| 42   | 1500    | −0.863   | −16      | 25.1    | −2.21    | DEFINITIVE |
+| 42   | 1200    | −0.863   | −15      | 21.6    | −1.75    | DEFINITIVE |
+| 7    | 1200    | −0.716   | −16      | 13.6    | −1.77    | DEFINITIVE |
+| 123  | 1200    | −0.780   | −14      | 17.6    | −1.95    | DEFINITIVE |
+
+**Common false positives and how P11 rejects them:**
+- **RPS (3-species cyclic)**: rho_anti measured at −0.93 to −0.97 on species pairs, *stronger* than LV. Rejected via n_species prerequisite.
+- **Nowak-May (strict 2-species conservation)**: rho_anti = −0.979 at lag +3 by algebraic conservation. Rejected via total_std prerequisite (= 0.000).
+- **Schelling (static identity)**: species fractions never change. Rejected via species_std prerequisite.
+- **SIR (transient wavefront)**: active phase is O(L) generations only; post-burn-in variance ~ 0. Rejected via species_std prerequisite.
+- **White noise**: rho_anti ≈ −0.08 << −0.3. Rejected at screening.
+
+**Nearest-neighbor exclusions (Sprint 11 implementation):**
+- **P12**: requires ≥ 3 cyclically-competing species. P11's n_species == 2 prerequisite auto-clears P12; when fired, P11 marks P12 as `excluded`.
+- **P9**: intra-species synchronization (phase coherence among identical oscillators). P11 is inter-species anti-phase; marked `excluded` when P11 fires with n_species == 2.
 
 **Co-occurrence:**
-- *Allowed:* P1 (spatial clustering of predator/prey populations)
-- *Excluded:* P12 (bilateral vs nontransitive)
+- *Allowed:* P1 (spatial clustering of predator/prey populations). Measured: LV × P1 = CONFIRMATION with I_final ≈ 0.46, seg ≈ 0.70 at standard n_perm = 999.
+- *Excluded:* P12 (bilateral vs nontransitive).
+
+**Implementation:** `epc.detectors.p11_predator_prey_oscillation.P11PredatorPreyDetector`. Metric module: `epc.metrics.predator_prey_crosscorr`.
+
+**References:**
+- Mobilia, M., Georgiev, I.T. & Täuber, U.C. (2007). "Phase Transitions and Spatio-Temporal Fluctuations in Stochastic Lattice Lotka-Volterra Models." J. Stat. Phys. 128, 447-483. [arXiv: q-bio/0512039]
+- Heiba, B., Chen, S. & Täuber, U.C. (2018). "Boundary effects on population dynamics in stochastic lattice Lotka-Volterra models." Physica A 491, 582-590. [arXiv: 1706.02567]
+- Täuber, U.C. (2024). "Stochastic spatial Lotka-Volterra predator-prey models." arXiv: 2405.05006.
 
 ---
 

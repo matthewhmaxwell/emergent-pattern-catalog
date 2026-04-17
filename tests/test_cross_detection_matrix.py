@@ -493,14 +493,38 @@ class TestTransferMatrixCompleteness:
         ("sir_epidemic", "P12"): "rejected",    # 3 states, no cyclic dominance
         ("game_of_life", "P12"): "rejected",    # n_species=2 < 3 (prerequisite)
         ("nowak_may", "P12"): "rejected",       # n_states=2 < 3 (prerequisite)
+
+        # --- Sprint 11 pairs (LV row + P11 column) ---
+        # Headline finding: P11 cleanly separates bilateral predator-prey
+        # oscillation (LV) from cyclic three-species dominance (RPS) via
+        # the n_species prerequisite. On the primary metric alone (rho_anti
+        # at nonzero lag), RPS species pairs actually score STRONGER anti-
+        # correlation than LV (-0.93 to -0.97 vs LV's -0.72 to -0.88) — the
+        # separation comes from the n_species==2 prerequisite, not from
+        # the primary metric. See REPLICATION_NOTES.md Sprint 11.
+        # A secondary finding is that strictly conserved 2-species systems
+        # (Nowak-May: coop+defect=1 exactly) give rho_anti=-1.0 by algebra
+        # alone, so P11 must also verify total_std > 0.005 (nontrivial
+        # empty reservoir). See Decision 35.
+        ("lotka_volterra_lattice", "P11"): "detected",  # DEFINITIVE (rho_anti ≈ -0.86)
+        ("lotka_volterra_lattice", "P12"): "rejected",  # intransitivity_score=0.24 << 1.0
+        ("lotka_volterra_lattice", "P13"): "rejected",  # wavefront_speed_cv=1.17 >> 0.2
+        ("lotka_volterra_lattice", "P22"): "screening", # reach passes, is_unimodal=0 (cyclic)
+        ("lotka_volterra_lattice", "P1"): "detected",   # I_final≈0.46, CONFIRMATION at n_perm≥499
+        ("lotka_volterra_lattice", "P15"): "not_detected",  # stochastic, no step_fn
+        # P11-column: all other audited lattice_2d models reject.
+        ("schelling", "P11"): "rejected",       # prereq: species_std ≈ 0 (per-agent identity)
+        ("nowak_may", "P11"): "rejected",       # prereq: total_std = 0 (strict A+B=1 conservation)
+        ("sir_epidemic", "P11"): "rejected",    # prereq: post-burn-in variance ≈ 0 (transient dynamics)
+        ("rps_spatial", "P11"): "rejected",     # prereq: n_unique_species_observed=3 ≠ 2
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 27, \
-            f"Expected at least 27 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 37, \
+            f"Expected at least 37 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -599,6 +623,64 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 9: all {len(sprint_9_pairs)} pairs covered "
               f"(RPS row + P12 column)")
+
+    def test_sprint_11_pairs_covered(self):
+        """Every Sprint 11 cross-detection pair (LV row + P11 column) must
+        appear in the transfer matrix with a pinned expected outcome.
+
+        The Sprint 11 headline finding is that P11 cleanly separates
+        bilateral predator-prey oscillation (LV) from cyclic three-
+        species dominance (RPS) — but the separation is mechanistic
+        (n_species prerequisite), not signal-based. On the primary
+        metric alone (rho_anti = min cross-correlation at nonzero lag),
+        RPS species pairs score STRONGER anti-correlation than LV
+        (-0.93 to -0.97 vs LV's -0.72 to -0.88). The n_species==2
+        prerequisite is what keeps P11 specific to bilateral systems.
+
+        A secondary finding is that strictly conserved 2-species
+        systems (Nowak-May: coop + defect = 1 exactly) give rho_anti
+        = -1.0 by algebra alone, requiring P11 to also verify
+        total_std > 0.005 (nontrivial empty reservoir).
+        """
+        sprint_11_pairs = [
+            # LV row — all 6 audited detectors
+            ("lotka_volterra_lattice", "P11"),
+            ("lotka_volterra_lattice", "P12"),
+            ("lotka_volterra_lattice", "P13"),
+            ("lotka_volterra_lattice", "P22"),
+            ("lotka_volterra_lattice", "P1"),
+            ("lotka_volterra_lattice", "P15"),
+            # P11 column — all 4 other 2-species (or multi-species) models
+            ("schelling", "P11"),
+            ("nowak_may", "P11"),
+            ("sir_epidemic", "P11"),
+            ("rps_spatial", "P11"),
+        ]
+        for pair in sprint_11_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 11 pair {pair} missing from transfer matrix"
+
+        # LV × P11 is the Sprint 11 positive; all other P11 cells are
+        # rejections via different prerequisite paths.
+        assert self.EXPECTED_OUTCOMES[("lotka_volterra_lattice", "P11")] == "detected"
+        for other_model in ("schelling", "nowak_may", "sir_epidemic",
+                            "rps_spatial"):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P11")] == "rejected", (
+                f"{other_model} × P11 should be rejected (prerequisite failure)"
+            )
+
+        # LV column exclusions: P12 and P13 must reject cleanly.
+        assert self.EXPECTED_OUTCOMES[("lotka_volterra_lattice", "P12")] == "rejected", (
+            "LV × P12 must be rejected (intransitivity_score < 1.0; no cyclic "
+            "A→B→C→A, only bilateral predation)"
+        )
+        assert self.EXPECTED_OUTCOMES[("lotka_volterra_lattice", "P13")] == "rejected", (
+            "LV × P13 must be rejected (pursuit-evasion fronts are noise-"
+            "driven with wavefront_speed_cv > 1, not clock-driven)"
+        )
+
+        print(f"  ✓ Sprint 11: all {len(sprint_11_pairs)} pairs covered "
+              f"(LV row + P11 column)")
 
 
 # ===================================================================

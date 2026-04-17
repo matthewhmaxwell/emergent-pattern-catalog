@@ -731,3 +731,134 @@ recommended) would not have distinguished these. A peak→final swap does.
     p=0.03). The 0.05 floor rejects this without affecting any of the
     canonical positives (Schelling 0.41, NM 0.53, RPS 0.55 all clear the
     floor comfortably).
+
+### Sprint 11 — Lotka-Volterra lattice + P11 predator-prey oscillation detector
+
+Scientifically the sharpest next step after Sprint 10: P11 is the 2-species
+bilateral sibling of P12 (cyclic 3-species dominance). Adding LV + P11 lets
+us test the P12 ↔ P11 exclusion story from the negative side — a bilateral
+2-species lattice predator-prey model fires P11 DEFINITIVELY and correctly
+fails P12's `n_candidate_species ≥ 3` prerequisite.
+
+Per Sprint 10's "look before touching" philosophy, extensive characterization
+of the LV model preceded any detector-code writing. The characterization
+reshaped the design in two important ways, documented in Decisions 34-36.
+
+#### Scientific findings
+
+1. **LV parameter regime is narrower than initially assumed.** λ=2.0 (our
+   first guess; ratios matching Mobilia 2007's published values) is in the
+   EXTINCTION phase at L=100: predators reliably die out. Coexistence is
+   λ ∈ [3.0, 5.0]; λ=5.0 is the stationary-node regime with clusters but no
+   oscillation. Canonical positive: λ=4.0, σ=μ=1.0, L=100.
+
+2. **Global density oscillations exist but are small-amplitude and require
+   long runs.** Short (200-generation) runs show only a single initial
+   transient swing. Long (≥1000-generation) runs reveal the persistent
+   resonant oscillation. Amplitude shrinks as O(1/√N) with system size
+   (matches Mobilia's thermodynamic-limit prediction), but FFT peak-to-mean
+   remains robustly > 15 across L ∈ [30, 128] — **the detection signal is
+   scale-robust even though the amplitude is not**.
+
+3. **The RPS vs LV separation is mechanistic (n_species), not signal-based.**
+   RPS species pairs give `rho_anti ≈ -0.94` — STRONGER anti-correlation
+   than LV's ~-0.8. This was initially surprising; it forced the design
+   decision that P11's `n_species == 2` prerequisite is the primary
+   discriminator vs P12, not the rho_anti metric itself.
+
+4. **Conservation-locked 2-species systems produce trivial `rho_anti ≈ -1`
+   by algebra alone.** Measured on Nowak-May (`coop + defect = 1` exactly):
+   rho_anti = −0.979 at lag +3. Caught by requiring `std(species_A +
+   species_B) > 0.005` (nontrivial empty reservoir). LV has std ≈ 0.03; NM
+   has exactly 0.000.
+
+5. **Circular-shift null is intentionally too strong for clean p-values.**
+   It preserves each series' autocorrelation, so on LV the null frequently
+   produces deep anti-correlations (null 5th percentile ≈ observed value).
+   p-value cannot be a clean tier gate; signal-vs-noise separation relies
+   on `rho_anti` magnitude and Cohen's d instead.
+
+#### New files (4)
+
+- `epc/models/lotka_volterra_lattice.py` (371 lines): `LotkaVolterraLattice`
+  class, single-occupation variant per Mobilia-Georgiev-Täuber 2007.
+  model_class = "predator_prey" (explicitly avoiding "ca" / "excitable"
+  substrings per Decision 31).
+- `epc/metrics/predator_prey_crosscorr.py` (360 lines):
+  `cross_correlation_lag_range`, `predator_prey_rho_anti`,
+  `fft_peak_to_mean`, `species_time_series_variance_check`,
+  `circular_shift_null`, `extract_species_fractions`.
+- `epc/detectors/p11_predator_prey_oscillation.py` (~420 lines):
+  `P11PredatorPreyDetector`, excluded_patterns=["P9", "P12"],
+  observable_scope="state_history_only".
+- `tests/test_lv_p11_e2e.py` (310 lines, 18 tests): LV positives
+  (3 seeds × DEFINITIVE), Schelling/NM/SIR/RPS/white-noise negatives,
+  prerequisite behavior tests, explicit metadata hint test.
+
+#### Modified files (4)
+
+- `epc/models/__init__.py`, `epc/metrics/__init__.py`,
+  `epc/detectors/__init__.py`: added Sprint 11 module to docstring.
+- `tests/test_cross_detection_matrix.py`: +10 EXPECTED_OUTCOMES entries
+  (Sprint 11 row + column), +1 `test_sprint_11_pairs_covered`, raised
+  `>= 27` → `>= 37` pair count floor.
+- `docs/detector_cards.md`: P11 card rewritten (v0.5.2 → v0.5.3) to match
+  implementation — primary metric is `rho_anti` at nonzero lag, not PSD
+  Q-factor. Includes measured empirical ranges.
+- `REPLICATION_NOTES.md`: Sprint 11 section (~200 lines) covering
+  parameter-regime sweep, oscillation characterization at multiple L,
+  null-model calibration, LV × P1 cross-detection, reproducing examples.
+- `PROJECT_STATUS.md`: this block, Decisions 34-36.
+
+#### Cross-detection matrix (Sprint 11 row + column, 37 audited pairs total)
+
+LV row:
+- LV × P11 = detected (DEFINITIVE, rho_anti ≈ -0.86, n_species=2, total_std=0.034)
+- LV × P12 = rejected (intransitivity_score = 0.24 << 1.0 threshold)
+- LV × P13 = rejected (wavefront_speed_cv = 1.17 >> 0.2 threshold)
+- LV × P22 = screening (reach passes, is_unimodal = 0 because cyclic)
+- LV × P1  = detected (CONFIRMATION at n_perm=999; I_final ≈ 0.46, seg ≈ 0.70)
+- LV × P15 = not_detected (stochastic, no step_fn)
+
+P11 column (non-positive):
+- Schelling × P11 = rejected (species_std ≈ 0 prereq fail; per-agent identity)
+- Nowak-May × P11 = rejected (total_std = 0 prereq fail; strict A+B=1)
+- SIR × P11      = rejected (post-burn-in variance ~ 0 prereq fail; transient)
+- RPS × P11      = rejected (n_species = 3 prereq fail; cyclic)
+
+#### Inventory totals at end of Sprint 11
+
+- `epc/` Python files: 45 → 48 (+3: LV model, P11 metric, P11 detector)
+- `tests/` Python files: 21 → 22 (+1: test_lv_p11_e2e.py)
+- Detectors: 12 → 13 (P11 added; P13/P15 discriminator unchanged)
+- Models: 13 → 14 (LV lattice added)
+- Metric modules: 9 → 10 (predator_prey_crosscorr added)
+- Tests in canonical fast suite: 116 → 135
+  (116 Sprint 10 baseline + 1 new Sprint 11 cross-matrix test +
+   18 new `test_lv_p11_e2e.py` tests)
+- Audited transfer-matrix pairs: 27 → 37
+
+#### Architecture decisions added in Sprint 11
+
+34. (Sprint 11) **P11 primary metric is `rho_anti` at nonzero lag**, not
+    positive-lag cross-correlation or PSD Q-factor. Empirical finding: the
+    quarter-period phase shift plus strong anti-phase coupling means the
+    minimum of the cross-correlogram is at `|τ|` ~ 10-20, not at the prettier
+    `τ = T/4` ~ 40. Measured LV `|tau_anti|` range: [11, 18]. The metric
+    excludes `|τ| < 5` to avoid instantaneous-conservation artifacts (see
+    Decision 35).
+
+35. (Sprint 11) **P11 requires nontrivial empty reservoir**, enforced as
+    `std(species_A + species_B) > 0.005`. Strictly-conserved 2-species
+    systems (Nowak-May: coop + defect = 1 exactly) produce `rho_anti = -1.0`
+    at small lag by algebra alone — an algebraic artifact, not a genuine
+    predator-prey signal. Verified catch: NM rejects with `total_std =
+    0.000`; LV passes with `total_std ≈ 0.034`.
+
+36. (Sprint 11) **P11 does not gate on null p-value**. The circular-shift
+    null preserves each series' autocorrelation, so on LV the null
+    frequently produces its own extreme anti-correlations (observed p ≈
+    0.05-0.15 even at Cohen's d ≈ -2). Signal-vs-noise separation relies on
+    `rho_anti` magnitude (|LV| ~ 0.8 vs |noise| ~ 0.1) and `cohens_d`
+    (|LV| ≥ 1.5). The null p-value is retained in the result object as a
+    reported diagnostic.

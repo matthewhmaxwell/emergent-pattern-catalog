@@ -5,4 +5,5 @@
 - p5_flocking: P5 translational alignment (flocking)
 - p6_milling: P6 milling / vortex formation
 - p13_excitable_waves: P13 excitable spiral and target waves
+- p11_predator_prey_oscillation: P11 bilateral predator-prey oscillation (Sprint 11)
 """

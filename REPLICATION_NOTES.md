@@ -1551,3 +1551,212 @@ regressed.
 3. **Transfer matrix in the Sprint transfer prompt still shows
    SIR × P1 = S.** After Sprint 10 merge, it becomes `rej`. RPS × P1
    stays `S` with commentary updated.
+
+
+---
+
+# Sprint 11 — Lotka-Volterra Lattice + P11 Detector
+
+Sprint 11 added the stochastic lattice Lotka-Volterra predator-prey model
+and the P11 bilateral predator-prey oscillation detector. Per the Sprint
+10 "look before touching" philosophy, extensive characterization was
+performed on the LV model BEFORE the P11 detector was designed; the
+characterization reshaped the detector design in two important ways
+documented below.
+
+## LV Model Replication
+
+Canonical reference: Mobilia, Georgiev & Täuber (2007), *J. Stat. Phys.*
+128, 447-483 (arXiv: q-bio/0512039). Single-occupation variant with
+reactions `A → ∅` at rate μ, `B + ∅ → B + B` at rate σ, `A + B → A + A`
+at rate λ on a 2D periodic square lattice, random-sequential updates
+with one generation = L² elementary steps.
+
+### Parameter Regime Finding
+
+Our first parameter choice (λ=2, σ=μ=1 at L=100 / seed=42) was near the
+extinction threshold: predators went extinct before reaching
+quasi-stationary coexistence. A sweep over λ revealed three regimes:
+
+| λ (σ=μ=1, L=100, seed=42) | Regime | Predator dynamics |
+|---------------------------|--------|-------------------|
+| 2.0, 2.5                  | Extinction | All runs extinct by t ~ 100-200 |
+| 3.0, 3.5, 4.0, 4.5        | Coexistence (focus) | Sustained population with erratic oscillations |
+| 5.0                       | Stationary nodes  | Clusters persist but no oscillation (amplitude CV ≈ 0.1) |
+
+The Mobilia paper's reported rates (λ=0.2, σ=μ=0.1 at L=512) have
+identical *ratios* to our rates; the only difference is overall
+time-unit scaling. The extinction-threshold behavior is a finite-size
+effect that shrinks with L.
+
+**Canonical coexistence choice**: λ=4.0, σ=μ=1.0, L=100. Stable across
+seeds 42, 7, 123 for ≥ 1200 generations; no extinctions observed.
+
+### Oscillation Characterization
+
+Short runs (200 generations) showed a **single deterministic-like
+initial swing** (predator crash + prey recovery) followed by noisy
+quasi-stationary fluctuations, suggesting no persistent oscillation.
+This was misleading.
+
+Long runs (2000 generations) revealed the actual signal:
+
+| Config | prey std (SS) | pred std (SS) | FFT peak-to-mean | Dominant period |
+|--------|---------------|---------------|------------------|-----------------|
+| L=30, λ=4, seed=42  | 0.113 | 0.029 | 22.3 | ~100 gens |
+| L=100, λ=4, seed=42 | 0.034 | 0.009 | 22.6 | ~80 gens |
+| L=128, λ=4, seed=42 | 0.019 | 0.005 | 22.4 | ~350 gens |
+
+Two physical facts confirmed: (i) oscillation amplitudes shrink
+as L increases (resonant demographic noise O(1/√N)), matching Mobilia
+2007 Fig. 3; (ii) despite shrinking amplitudes, the FFT peak-to-mean
+ratio stays robustly above 10 across L — **the detection signal is
+scale-robust even though the amplitude is not**.
+
+## P11 Detector Design — Two Empirical Course Corrections
+
+### Correction 1: Primary Metric is Anti-Correlation, Not Positive-Lag
+
+The original sprint plan proposed "max cross-correlation at positive
+lag τ > 0, with predator lagging prey by quarter period." Measurement
+showed this is the *wrong* signal:
+
+At L=100 λ=4 seed=42, 1900-step post-burn-in series:
+- Cross-correlation at lag +40 (≈ T/4): only about +0.16 (weak)
+- Cross-correlation at lag −15: **−0.85** (very strong, anti-phase)
+
+The anti-phase coupling dominates over the phase-lag signature in
+finite-amplitude oscillations. The detector was redesigned around
+
+$$\rho_{\text{anti}} = \min_{|\tau| \ge 5} \text{Pearson}(\text{prey}(t), \text{pred}(t+\tau))$$
+
+with measured range −0.72 to −0.88 across canonical seeds. The |τ| ≥ 5
+floor excludes conservation artifacts (see Correction 2). See Decision 34.
+
+### Correction 2: Prerequisite Against Conservation-Locked Systems
+
+Initial testing of the `rho_anti` primary metric on negative models
+revealed a **false positive on Nowak-May** (b=1.8): rho_anti = −0.979
+at lag +3. Root cause: Nowak-May has coop + defect = 1 exactly (no
+empty cells after initialization), so the two species fractions are
+algebraically anti-correlated with correlation −1.0 at all lags by
+conservation.
+
+Added prerequisite: `std(species_A + species_B) > 0.005`. LV has
+std(prey + pred) ≈ 0.03 (nontrivial empty reservoir); Nowak-May has
+exactly 0.000. Clean separation. See Decision 35.
+
+## Null-Model and Discrimination Findings
+
+### Circular-Shift Null is Intentionally Strong
+
+The P11 null model is a circular shift of one species' time series —
+this preserves each series' autocorrelation and FFT magnitude spectrum
+while destroying the cross-series phase relationship.
+
+Empirically, at the canonical LV positive:
+- Observed rho_anti = −0.863
+- Null rho_anti distribution: mean = −0.462, std = 0.188
+- Null 5th percentile = −0.869 (!)
+- One-sided p-value = 0.07
+
+**The null is too strong to give a clean p-value**, because LV's
+slow-mode autocorrelation survives the circular shift and produces
+occasional deep anti-correlations in the null distribution. This is
+not a bug — it correctly reflects that "oscillating series are
+autocorrelated" is insufficient evidence for "this is a predator-prey
+coupling."
+
+**Decision 36**: P11 does not gate on null_p. Separation relies on
+rho_anti magnitude (|LV| ~ 0.8, |noise| ~ 0.1) and cohens_d
+(canonical LV: -1.75 to -2.21). The p-value is reported as a
+diagnostic only.
+
+### Cross-Model P11 Signal Table
+
+| Model | rho_anti | |τ_anti| | FFT p2m | species std | total std | Verdict |
+|-------|----------|---------|---------|-------------|-----------|---------|
+| **LV seed=42**   | −0.86 | 16 | 25.1 | 0.037, 0.009 | 0.034 | **DEFINITIVE** |
+| **LV seed=7**    | −0.72 | 16 | 13.6 | 0.024, —     | 0.022 | **DEFINITIVE** |
+| **LV seed=123**  | −0.78 | 14 | 17.6 | 0.027, —     | 0.024 | **DEFINITIVE** |
+| RPS (A vs B)     | −0.94 | 28 | 77   | large       | ≠ 0   | rejected (n_species=3) |
+| RPS (B vs C)     | −0.94 | 35 | 89   | large       | ≠ 0   | rejected (n_species=3) |
+| Nowak-May        | −0.98 | 3  | 12.6 | 0.26, 0.26  | **0.000** | rejected (total_std prereq) |
+| Schelling        | 0.00  | —  | 0.0  | **0.000**, 0.000 | 0.000 | rejected (species_std prereq) |
+| SIR (post-BI)    | 0.00  | —  | 1.9  | **0.0002**, 0.0002 | 0.000 | rejected (species_std prereq) |
+| White noise      | −0.08 | — | 2.7 | —           | —     | rejected (rho_anti screen) |
+
+RPS scores *stronger* on rho_anti than LV. The **n_species
+prerequisite** is what keeps P11 specific to bilateral systems —
+emphasized here because the Sprint 11 prompt correctly anticipated
+this as the essential design lever.
+
+## LV × P1 Cross-Detection
+
+Per Sprint 10 philosophy, characterized LV against the existing P1
+aggregation detector before locking the matrix entry:
+
+| Seed | n_steps | n_perm | I_final | seg | sus_cv | null_p | tier |
+|------|---------|--------|---------|-----|--------|--------|------|
+| 42   | 800     | 99     | 0.463   | 0.702 | 0.033 | 0.010 | SCREENING |
+| 42   | 800     | 499    | 0.463   | 0.702 | 0.033 | 0.002 | CONFIRMATION |
+| 7    | 800     | 99     | 0.454   | 0.690 | 0.028 | 0.010 | SCREENING |
+| 123  | 800     | 99     | 0.434   | 0.682 | 0.034 | 0.010 | SCREENING |
+
+LV produces strong spatial clustering of both species (Moran's I_final
+≈ 0.45, segregation ≈ 0.70 — both well above CONFIRMATION thresholds),
+so with P1's standard n_permutations = 999 the pair cleanly reaches
+CONFIRMATION. Recorded as `"detected"` in the transfer matrix.
+
+## Reproducing the Characterization
+
+```python
+from epc.models.lotka_volterra_lattice import LotkaVolterraLattice
+from epc.metrics.predator_prey_crosscorr import (
+    extract_species_fractions, predator_prey_rho_anti,
+    fft_peak_to_mean, circular_shift_null,
+)
+
+m = LotkaVolterraLattice(
+    rows=100, cols=100,
+    predation_rate=4.0, prey_reproduction_rate=1.0,
+    predator_death_rate=1.0, seed=42,
+)
+history = m.run(1500)
+prey, pred = extract_species_fractions(history)
+prey_ss, pred_ss = prey[100:], pred[100:]
+
+# Expected (seed=42, n=1500):
+#   rho_anti ≈ -0.863 at tau ≈ -16
+#   fft_peak_to_mean ≈ 25.1
+#   cohens_d vs null ≈ -2.21
+```
+
+```python
+from epc.detectors.p11_predator_prey_oscillation import P11PredatorPreyDetector
+
+det = P11PredatorPreyDetector(n_permutations=99, seed=42)
+result = det.detect(history, model_metadata=m.get_metadata())
+# Expected: tier=DEFINITIVE, confidence=0.90
+```
+
+Runtime note: one canonical LV run at L=100 is ~25 s; the full
+`tests/test_lv_p11_e2e.py` suite (18 tests, 6 model runs) takes
+~3.5 minutes.
+
+## Open Items Carried Forward from Sprint 11
+
+1. **LV × P11 at edge of coexistence**. At λ ≤ 3.0 or ≥ 5.0, the
+   detector's behavior becomes less clean: near extinction, signal
+   stability drops; in the node regime, FFT peak-to-mean falls below 8
+   (no oscillation). Future work: add `@pytest.mark.slow` finite-size
+   scaling test pinning the boundaries.
+
+2. **LV model inner loop is pure Python** (~27 ms/generation at L=100,
+   identical to RPS). A canonical LV positive at L=100 1500 steps takes
+   ~40 s; the full P11 test suite takes ~3.5 min. Numba acceleration
+   would parallel the existing open-items entry for RPS.
+
+3. **P11 canonical positive requires ≥ 1200 generations**. Shorter
+   runs can drop to CONFIRMATION (still `"detected"` but not DEFINITIVE).
+   Documented as prerequisite warning in the detector.
