@@ -1,11 +1,12 @@
 """Orchestration layer tests — substrate-aware detector dispatch.
 
-Tests the compatibility matrix: 5 substrate types, 11 models × 10 detectors,
-24 compatible pairs. Verifies substrate filtering, observable guards, canonical
-positive/negative assignments, and that Sprint 5 models (Nowak-May, HK) are
-correctly registered.
+Tests the compatibility matrix: 6 substrate types, 14 models × 13 detectors,
+43 compatible pairs (Sprint 13 added gray_scott × P3 on the new
+lattice_2d_continuous substrate). Verifies substrate filtering, observable
+guards, canonical positive/negative assignments, and that Sprint 5 models
+(Nowak-May, HK) are correctly registered.
 
-Architecture decision #25 (updated Sprint 5 verification).
+Architecture decision #25 (updated Sprint 13).
 """
 
 import pytest
@@ -52,36 +53,36 @@ class TestSubstrateCounts:
 
     def test_five_substrate_types_total(self):
         substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
-        assert len(substrates) == 5, f"Expected 5 substrate types, got {substrates}"
+        assert len(substrates) == 6, f"Expected 6 substrate types, got {substrates}"
 
 
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 13, \
-            f"Expected 13 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 14, \
+            f"Expected 14 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 12, \
-            f"Expected 12 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 13, \
+            f"Expected 13 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 42, \
-            f"Expected 42 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 43, \
+            f"Expected 43 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 156, f"Expected 156 cells (13x12), got {total}"
+        assert total == 182, f"Expected 182 cells (14x13), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 156 - len(pairs)
-        assert mismatches == 114, f"Expected 114 mismatches, got {mismatches}"
+        mismatches = 182 - len(pairs)
+        assert mismatches == 139, f"Expected 139 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:

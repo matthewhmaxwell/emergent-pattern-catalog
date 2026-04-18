@@ -517,6 +517,38 @@ class TestTransferMatrixCompleteness:
         ("nowak_may", "P11"): "rejected",       # prereq: total_std = 0 (strict A+B=1 conservation)
         ("sir_epidemic", "P11"): "rejected",    # prereq: post-burn-in variance ≈ 0 (transient dynamics)
         ("rps_spatial", "P11"): "rejected",     # prereq: n_unique_species_observed=3 ≠ 2
+
+        # --- Sprint 13 pairs (Gray-Scott + P3) ---
+        # Gray-Scott is the first continuous-valued-field model in the
+        # catalog. It occupies the new lattice_2d_continuous substrate
+        # (16k unique float values per snapshot, vs ≤ 10 for every integer-
+        # grid model). P3 is restricted to this substrate by registration
+        # AND by the n_unique_values >= 50 content prerequisite.
+        #
+        # Key negative-sweep finding: RPS at low mobility shows radial-FFT
+        # peak-to-mean ≈ 23 on its raw integer grid — numerically matching
+        # Gray-Scott labyrinth. Discrimination is substrate-level, NOT
+        # empirical threshold tuning. See REPLICATION_NOTES.md Sprint 13.
+        ("gray_scott", "P3"): "detected",       # DEFINITIVE (p/m=18.75, d~103, cv=0)
+        # P3-column: all integer-grid models reject at substrate prereq
+        # with informative warnings ("no 'field' (continuous 2D) observable").
+        ("schelling", "P3"): "rejected",        # substrate prereq: no 'field' observable
+        ("nowak_may", "P3"): "rejected",        # substrate prereq: no 'field' observable
+        ("sir_epidemic", "P3"): "rejected",     # substrate prereq: no 'field' observable
+        ("rps_spatial", "P3"): "rejected",      # substrate prereq: no 'field' observable
+        ("game_of_life", "P3"): "rejected",     # substrate prereq: no 'field' observable
+        ("greenberg_hastings", "P3"): "rejected", # substrate prereq: no 'field' observable
+        ("lotka_volterra_lattice", "P3"): "rejected", # substrate prereq: no 'field' observable
+        # Gray-Scott-row: other detectors are substrate-incompatible.
+        # P13, P22, P11, P12 inspect the 'grid' observable, which GS does
+        # not expose; they reject gracefully at screening with warnings.
+        # P1 currently raises KeyError on GS (pre-existing robustness
+        # issue in P1's 2D branch — documented as carry-forward item).
+        ("gray_scott", "P13"): "rejected",      # no 'grid' observable, rejects gracefully
+        ("gray_scott", "P22"): "rejected",      # no 'grid' observable, rejects gracefully
+        ("gray_scott", "P11"): "rejected",      # no 'grid' observable, rejects gracefully
+        ("gray_scott", "P12"): "rejected",      # no 'grid' observable, rejects gracefully
+        ("gray_scott", "P15"): "not_detected",  # no step_fn / stochastic-incompatible
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
@@ -681,6 +713,65 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 11: all {len(sprint_11_pairs)} pairs covered "
               f"(LV row + P11 column)")
+
+    def test_sprint_13_gray_scott_p3_covered(self):
+        """Sprint 13 added Gray-Scott as the first continuous-valued-field
+        model and P3 (Turing-wavelength) as its canonical detector.
+
+        Key structural facts pinned by this test:
+        - GS × P3 must be `detected` (canonical DEFINITIVE positive,
+          p/m=18.75, Cohen's d ~103, seeds 42, 7, 123).
+        - Every integer-grid model × P3 must be `rejected` (substrate
+          prerequisite: no 'field' observable; secondary prerequisite:
+          n_unique_values >= 50).
+        - Every other 'grid'-consuming detector × GS must be `rejected`
+          (graceful substrate mismatch — GS exposes 'field', not 'grid').
+        """
+        sprint_13_pairs = [
+            # GS row (canonical positive + substrate-mismatch rejections)
+            ("gray_scott", "P3"),
+            ("gray_scott", "P13"),
+            ("gray_scott", "P22"),
+            ("gray_scott", "P11"),
+            ("gray_scott", "P12"),
+            ("gray_scott", "P15"),
+            # P3 column (all integer-grid models reject at substrate prereq)
+            ("schelling", "P3"),
+            ("nowak_may", "P3"),
+            ("sir_epidemic", "P3"),
+            ("rps_spatial", "P3"),
+            ("game_of_life", "P3"),
+            ("greenberg_hastings", "P3"),
+            ("lotka_volterra_lattice", "P3"),
+        ]
+        for pair in sprint_13_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 13 pair {pair} missing from transfer matrix"
+
+        # GS × P3 is the Sprint 13 positive.
+        assert self.EXPECTED_OUTCOMES[("gray_scott", "P3")] == "detected"
+
+        # Every integer-grid model × P3 must be rejected via substrate
+        # prerequisite. This is the headline Sprint 13 discrimination
+        # test — notably RPS at low mobility has radial-FFT peak-to-mean
+        # ≈ 23 matching Gray-Scott labyrinth, so discrimination CANNOT
+        # be on peak-to-mean alone.
+        for other_model in ("schelling", "nowak_may", "sir_epidemic",
+                            "rps_spatial", "game_of_life",
+                            "greenberg_hastings", "lotka_volterra_lattice"):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P3")] == "rejected", (
+                f"{other_model} × P3 should be rejected (substrate prereq: "
+                f"no 'field' observable, or nu_unique_values < 50)"
+            )
+
+        # GS row: other detectors must not falsely detect.
+        for det in ("P13", "P22", "P11", "P12"):
+            assert self.EXPECTED_OUTCOMES[("gray_scott", det)] == "rejected", (
+                f"gray_scott × {det} should be rejected (no 'grid' observable)"
+            )
+
+        print(f"  ✓ Sprint 13: all {len(sprint_13_pairs)} pairs covered "
+              f"(GS row + P3 column)")
 
 
 # ===================================================================

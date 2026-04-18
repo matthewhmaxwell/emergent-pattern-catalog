@@ -1760,3 +1760,279 @@ Runtime note: one canonical LV run at L=100 is ~25 s; the full
 3. **P11 canonical positive requires ≥ 1200 generations**. Shorter
    runs can drop to CONFIRMATION (still `"detected"` but not DEFINITIVE).
    Documented as prerequisite warning in the detector.
+
+
+---
+
+# Sprint 13 — Gray-Scott Reaction-Diffusion + P3 Turing-Wavelength Detector
+
+Sprint 13 added the Gray-Scott reaction-diffusion PDE as the first
+continuous-valued-field model in the catalog, occupying a new
+`lattice_2d_continuous` substrate, and the P3 Turing-wavelength detector
+as its canonical detector. Per the Sprint 9-11 "look before touching"
+philosophy, extensive characterization was performed on Gray-Scott AND
+on every existing integer-grid model BEFORE the P3 detector was
+designed. The characterization reshaped the detector design in two
+important ways documented below.
+
+## Gray-Scott Model Replication
+
+Canonical reference: Pearson (1993), *Science* 261, 189-192. The
+reaction-diffusion system:
+
+    ∂u/∂t = D_u ∇²u − u v² + F (1 − u)
+    ∂v/∂t = D_v ∇²v + u v² − (F + k) v
+
+Discretization: 5-point Laplacian on a 2D integer grid with periodic
+boundaries, forward-Euler integration with dt = 1.0. Standard grid-scale
+diffusion coefficients D_u = 0.16, D_v = 0.08 (stability bound
+dt · max(D_u, D_v) = 0.16 ≤ 0.25).
+
+Pearson seed IC: u = 1, v = 0 everywhere except a central square patch
+(width N/10) with u = 0.5, v = 0.25, plus iid Gaussian noise (std 0.02)
+to break symmetry.
+
+### Canonical regime characterization (N=128, T=8000, seed=42)
+
+| Regime | (F, k) | peak_k | λ (px) | peak/mean | v.std | Pattern type (visual) |
+|---|---|---|---|---|---|---|
+| Labyrinth | (0.037, 0.060) | 10 | 12.8 | 23.2 | 0.108 | True stripe-labyrinth |
+| Spots (short-λ) | (0.030, 0.062) | 11 | 11.6 | 24.8 | 0.113 | True hexagonal spots |
+| "Pearson spots" | (0.062, 0.0609) | 2 | 64.0 |  7.0 | 0.058 | **Domain artifact at N=128** |
+| Transient chaos | (0.062, 0.065) | — | — | — | 0.020 | v-field decays (sensitive IC) |
+| Uniform decay | (0.100, 0.100) | — | — | — | 0.000 | v → 0 (out of Turing window) |
+| Uniform high | (0.010, 0.020) | — | — | — | 0.000 | v constant ≈ 0.3 |
+
+### Surprising finding 1: "Pearson spots" parameters give bands at N=128
+
+The commonly-cited Pearson (1993) spots parameters (F=0.062, k=0.0609)
+produce a wavelength ≈ 64 pixels at N=128 — **larger than the domain
+can cleanly resolve**. Visual inspection confirms wide bands rather
+than hexagonal spots. These parameters need N ≥ 256 to show their
+characteristic short-wavelength spot structure. At N=128 use the
+F=0.030, k=0.062 regime for a cleanly-resolved spot pattern.
+
+This is documented in `epc/models/gray_scott.py` docstring. The
+canonical P3 positive is the labyrinth regime, not the nominal "spots".
+
+### Wavelength invariance across grid sizes
+
+| N | T | peak_k | λ (px) | peak/mean |
+|---|---|---|---|---|
+| 64 | 3000 | 5 | 12.8 | 17.0 |
+| 96 | 3000 | 7 | 13.7 | 22.8 |
+| 128 | 4000 | 10 | 12.8 | 18.8 |
+| 192 | 12000 | 16 | 12.0 | 25.1 |
+
+peak_k scales linearly with N; wavelength in pixels is ≈ 12 and
+invariant. This is a physical property of the Du/Dv/(F+k) parameter
+balance, not a grid artifact. Verified as a regression test in
+`test_gs_p3_e2e.py::TestTuringWavelengthScalesWithGrid`.
+
+### Pattern selection transient
+
+At N=128 the Turing wavelength selects within ~4000 timesteps from the
+Pearson seed. Early snapshots (t < 4000) show peak_k drifting through
+values 2, 3, 4, 8 as the front invades the surrounding u=1 medium;
+peak_k stabilizes at 10 from t ≈ 4000 onward and peak-to-mean grows
+monotonically from ~15 to ~23.
+
+Detector guidance: runs at N=128 need ≥ 4000 timesteps for DEFINITIVE
+detection. Smaller grids (N=64) converge faster — T=3000 suffices.
+
+## P3 Detector Design — Two Reshaping Findings
+
+### Surprising finding 2: RPS false-positive risk (the load-bearing finding)
+
+The broad negative-model sweep on every existing integer-grid model
+revealed that **RPS at mobility = 1e-4 produces a raw-grid radial-FFT
+peak-to-mean ≈ 23 — numerically indistinguishable from Gray-Scott
+labyrinth**. This is the Sprint 13 equivalent of the Sprint 11 Nowak-May
+conservation trap: a false positive that only shows up when the
+detector is tested against models it wasn't explicitly designed to
+handle.
+
+Additional integer-grid sweep results on raw grids:
+
+| Model | peak/mean (raw grid) | Notes |
+|---|---|---|
+| RPS (M=1e-4) | 23.1 | Critical false-positive risk |
+| GH (n=8, random IC) | 6.6 | Below screening threshold |
+| Schelling (τ=0.375) | 3.3 | Below screening threshold |
+| Nowak-May (b=1.8) | 3.6 | Below screening threshold |
+| SIR (single-seed) | 3.7 | Below screening threshold |
+| GoL (random d=0.37) | 5.4 | Just below screening threshold |
+| LV lattice | 6.7 | Below screening threshold |
+| iid noise baseline | 1.0 | Null reference |
+
+RPS alone would fire a naive peak-to-mean detector. A detector that
+relied solely on empirical thresholding would need fragile tuning
+(pick a threshold above RPS's 23 but below GS labyrinth's 23 — no
+such window exists).
+
+### Decision 37 — Substrate-level discrimination via n_unique_values
+
+The characterization found a cleanly separating signature:
+continuous-valued fields have many thousands of distinct floating-point
+values; integer-grid states have ≤ 10 distinct labels.
+
+| Model | state dtype | n_unique_values in final state |
+|---|---|---|
+| Gray-Scott (any regime) | float64 | 16384 (all cells distinct at N=128) |
+| RPS raw grid | int | 4 |
+| GH raw grid | int | 8 |
+| Schelling raw grid | int | 3 |
+| Nowak-May raw grid | int | 2 |
+| SIR raw grid | int | 3 |
+| GoL raw grid | int | 2 |
+| LV raw grid | int | 3 |
+
+P3 therefore has **two** substrate-level gates:
+1. The state snapshots must carry a `field` observable, not `grid`. The
+   detector does NOT fall back to `grid` (a silent substrate violation
+   would be worse than rejection).
+2. The final field must have n_unique_values ≥ 50. This catches
+   adversarial cases where someone manually re-labels an integer grid
+   as `field` — verified in
+   `test_gs_p3_e2e.py::TestAdversarialDiscreteFieldRejected`.
+
+This is discrimination by substrate, not by empirical threshold tuning.
+No floating-point magic numbers are required.
+
+### Decision 38 — k_max_frac = 1.0 for the radial-FFT mean
+
+The peak-to-mean statistic requires choosing a wavenumber range for the
+"mean" (noise floor). Three candidates were evaluated against the
+shuffle-null baseline on GS labyrinth:
+
+| k_max_frac | k_max at N=128 | GS p/m | Shuffle null p/m | d |
+|---|---|---|---|---|
+| 0.5 | 32 | 9.08 | 0.89 ± 0.13 | 63 |
+| 0.75 | 48 | 13.9 | 1.15 ± 0.14 | 91 |
+| 1.0 | 64 | 18.75 | 1.42 ± 0.16 | 107 |
+
+k_max_frac = 1.0 (the full radial range) gives the highest
+signal-to-noise. This is the classical convention in the
+reaction-diffusion literature and is used as the P3 detector's default.
+
+### Decision 39 — n_permutations default 199, not 99
+
+P3 uses 199 permutations by default. The shuffle null produces such
+extreme separation (Cohen's d ≈ 100) that 99 perms is sufficient for
+screening, but CONFIRMATION requires p < 0.01 which is achievable only
+at n ≥ 199 (the floor p-value is 1/(n+1)). 199 perms gives a ~0.005
+floor, comfortably below the 0.01 threshold.
+
+## Canonical Positive Verification
+
+Labyrinth (F=0.037, k=0.060), N=128, T=4000, seeds 42/7/123:
+- All three seeds reach DEFINITIVE tier.
+- peak_k = 10 (λ = 12.8 px) identical across seeds.
+- peak_to_mean = 18.75 (seed 42), similar across seeds.
+- Cohen's d ≈ 100 vs shuffle null.
+- null p = 0.005 (floor at n_perm = 199).
+- peak_k_cv = 0.000 across last 5 snapshots at stride 50.
+
+Spots (F=0.030, k=0.062), N=128, T=4000, seed=42:
+- CONFIRMATION tier (p/m=13.35 < DEFINITIVE threshold 15.0).
+- peak_k = 11 (λ = 11.6 px).
+- Cohen's d = 58.8.
+
+Grid-size scaling (seeds all = 42):
+- N=64, T=3000:  peak_k=5,  λ=12.8 px, p/m=16.98 → DEFINITIVE
+- N=96, T=3000:  peak_k=7,  λ=13.7 px, p/m=22.84 → DEFINITIVE
+- N=128, T=4000: peak_k=10, λ=12.8 px, p/m=18.75 → DEFINITIVE
+
+## Negative-Model Verification
+
+All seven existing integer-grid model canonical runs rejected with
+informative warnings:
+
+| Model | Reject mode | Detector warning |
+|---|---|---|
+| RPS (M=1e-4, T=1200) | Substrate prereq | "no 'field' (continuous 2D) observable" |
+| GH (n=8, T=200) | Substrate prereq | same |
+| LV (λ=4, T=500) | Substrate prereq | same |
+| Schelling (τ=0.375) | Substrate prereq | same |
+| Nowak-May (b=1.8) | Substrate prereq | same |
+| GoL (d=0.37) | Substrate prereq | same |
+| SIR (single-seed) | Substrate prereq | same |
+
+Adversarial cases (integer grids re-labeled as `field`):
+- RPS-as-field: rejected at n_unique_values prerequisite (nu=4 < 50)
+  despite p/m = 23.10.
+- Binary random field: rejected at n_unique_values prerequisite (nu=2).
+
+Non-Turing Gray-Scott regimes (continuous fields):
+- Uniform decay (F=0.10, k=0.10): rejected at field_std prereq (std=0).
+- Uniform high (F=0.01, k=0.02): rejected at field_std prereq (std=0).
+
+## Architecture Decisions Added (37, 38, 39)
+
+- **Decision 37**: Discriminate `lattice_2d_continuous` from `lattice_2d`
+  via dual content-level gates (`field` observable + n_unique_values ≥ 50),
+  not by empirical peak-to-mean thresholding.
+- **Decision 38**: Use k_max_frac = 1.0 (full radial range) for the
+  peak-to-mean mean calculation. Empirically gives highest d.
+- **Decision 39**: Default n_permutations = 199 for P3, so the p < 0.01
+  confirmation threshold is achievable at the permutation floor.
+
+## Transfer Matrix Entries Added (Sprint 13)
+
+13 new audited cells added to `EXPECTED_OUTCOMES` in
+`tests/test_cross_detection_matrix.py`:
+
+- `(gray_scott, P3)` = detected (canonical DEFINITIVE positive)
+- `(gray_scott, P11)`, `(gray_scott, P12)`, `(gray_scott, P13)`,
+  `(gray_scott, P22)` = rejected (no `grid` observable, graceful reject)
+- `(gray_scott, P15)` = not_detected (no step_fn / stochastic-incompatible)
+- `(schelling, P3)`, `(nowak_may, P3)`, `(sir_epidemic, P3)`,
+  `(rps_spatial, P3)`, `(game_of_life, P3)`, `(greenberg_hastings, P3)`,
+  `(lotka_volterra_lattice, P3)` = rejected (substrate prereq: no
+  `field` observable; adversarial n_unique_values prereq catches label
+  aliasing)
+
+Total audited cells in the matrix after Sprint 13: 50 + 13 = 63.
+(37 cross-detection regression entries in EXPECTED_OUTCOMES + 13
+canonical positives in dedicated e2e tests + Sprint 13 adds 1 canonical
+positive (GS × P3) + 12 new rejections.)
+
+## Carry-Forward Items from Sprint 13
+
+1. **P1 raises KeyError on continuous-field substrate** (pre-existing
+   bug). Running P1 on Gray-Scott raises `KeyError: "Need
+   'type_labels_at_pos' or 'grid' for 2D"` instead of returning a
+   graceful `DetectorResult(detected=False)` with a substrate warning.
+   P1's 2D branch should be hardened to match the pattern used by P11,
+   P22, P13, etc. Not a Sprint 13 blocker (no `(gray_scott, P1)` entry
+   in EXPECTED_OUTCOMES), but worth fixing when next touching P1.
+   Estimated: small patch (~10 lines) in `p1_aggregation.py`.
+
+2. **Gray-Scott inner loop is pure numpy** (no Numba). ~0.06 s/step at
+   N=128, so full canonical 4000-step run is ~4 min. Acceptable for
+   testing but tests run slower than strictly necessary. Parallels the
+   open items for RPS and LV Numba acceleration.
+
+3. **Spots regime (F=0.030, k=0.062) currently reaches CONFIRMATION,
+   not DEFINITIVE.** The peak-to-mean threshold for DEFINITIVE (15.0)
+   is above the spots regime's observed 13.35. Either (a) lower the
+   DEFINITIVE threshold to 12.0 and accept both regimes as canonical
+   DEFINITIVE positives, or (b) keep the current configuration and
+   document spots as a CONFIRMATION-tier example. Currently (b).
+
+4. **Lotka-Volterra finite-size scaling slow test** (carry from
+   Sprint 11 #1) — still outstanding.
+
+5. **P15 generalized detector: IC sensitivity** (carry from Sprint 8)
+   — still outstanding.
+
+6. **RPS wavelength scaling (λ ∝ √M)** (carry from Sprint 9) — still
+   outstanding.
+
+7. **Numba for RPS and LV inner loops** — still outstanding.
+
+8. **NM final I size sensitivity** (carry from Sprint 10) — still
+   outstanding.
+
+9. **SIR × P1 secondary metrics NaN on early exit** (carry from
+   Sprint 10) — still outstanding.

@@ -1,6 +1,10 @@
-# Detector Specification Cards v0.5.3
+# Detector Specification Cards v0.5.4
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
+
+v0.5.4 (Sprint 13): P3 card rewritten to match implemented detector
+(Gray-Scott + P3TuringWavelengthDetector). New lattice_2d_continuous
+substrate documented.
 
 v0.5.3 (Sprint 11): P11 card rewritten to match implemented detector
 (primary metric is `rho_anti` at nonzero lag, not PSD Q-factor).
@@ -257,43 +261,83 @@ Dip test on density histogram at steady state.
 
 ### P3 — Turing pattern formation
 
-**Observable scope:** Model-metadata assisted (dispersion relation match requires D_u, D_v; primary detection is state-history only)
+**Observable scope:** State-history only (continuous scalar field on a 2D periodic lattice).
+
+**Canonical positive:** Gray-Scott reaction-diffusion (`GrayScott`; Pearson 1993). N=128, feed_rate=0.037, kill_rate=0.060 (labyrinth regime), Du=0.16, Dv=0.08, seed=42, ≥4000 timesteps.
+
+**Substrate:** `lattice_2d_continuous` — new in Sprint 13. Distinguished from the integer-labelled `lattice_2d` substrate by the `n_unique_values` content prerequisite (see Prerequisites below). Gray-Scott is currently the only model on this substrate.
 
 **Required raw observables:**
-- `u[t]`, `v[t]`: (rows, cols) concentration fields
-- Grid dimensions, boundary conditions
+- `state_history`: list of snapshots each carrying a `field` observable (2D float array). The detector intentionally does NOT fall back to `grid` — consuming an integer grid would be a silent substrate violation.
+- Grid dimensions (periodic boundaries).
 
 **Preprocessing:**
-1. 2D FFT of u(t). Radially averaged power spectrum P(k).
-2. Track dominant wavenumber k* over time.
+1. Extract the final `field` snapshot (v-field for Gray-Scott).
+2. Subtract spatial mean (kills DC bin).
+3. 2D FFT, azimuthal average → radial power spectrum `radial[k]` for k = 0, 1, ..., N/2 − 1.
+4. Search for the peak in radial[k_min : k_max] with k_min = 2 (skip DC and first bin) and k_max = N/2 (full radial range, Sprint 13 characterization showed this gives the cleanest signal-to-noise).
 
-**Primary metric: Wavenumber selection**
-Sharp peak in radial spectrum at k* > 0. Peak-to-mean ratio.
+**Prerequisites (all three must pass):**
+- **n_unique_values ≥ 50** in the final field. The load-bearing Sprint 13 discriminator. RPS at mobility = 1e-4 produces a raw integer-grid radial-FFT peak-to-mean ≈ 23 — *numerically matching* Gray-Scott labyrinth. Discrimination is substrate-level (GS has ~16k unique float values; every integer-grid model has ≤ 10), not empirical threshold tuning. Rejects RPS, GH, Schelling, Nowak-May, GoL, SIR, LV cleanly without any parameter fitting.
+- **field_std ≥ 0.01**. Rejects non-Turing Gray-Scott parameter regimes (uniform decay at F=0.10, k=0.10 gives v → 0; uniform high at F=0.01, k=0.02 gives constant v ≈ 0.30).
+- **2 ≤ peak_k ≤ N/4**. Rejects DC/first-bin drift and grid-discretization artifacts near Nyquist.
+
+**Primary metric: radial-FFT peak-to-mean**
+
+$$\text{peak\_to\_mean} = \max_{k_\text{min} \le k < k_\text{max}} \text{radial}[k] \;\big/\; \text{mean}(\text{radial}[k_\text{min} : k_\text{max}])$$
 
 **Secondary metrics:**
-- Wavelength stability: CV of k* < 0.1 over last 50%
-- Pattern type: anisotropy of FFT (spots/stripes/labyrinthine)
-- Dispersion relation match (requires model metadata)
+- `peak_k`, `wavelength_pixels = N / peak_k`
+- `peak_k_cv`: std/mean of peak_k across the last N snapshots (default last 5 at stride 50) — stationarity check for the selected wavelength
+- `peak_to_mean_min`: minimum peak-to-mean across late snapshots (weakness check)
 
-**Null models:**
-- *Equal-diffusion:* D_u = D_v. Uniform steady state.
-- *Random-field:* uncorrelated noise, same marginals.
+**Null model: spatial shuffle (SHUFFLE)**
+
+Shuffle the field values while preserving the marginal intensity distribution. Destroys all spatial structure including the Turing wavelength. This is a clean null for Turing-pattern detection — for Gray-Scott labyrinth the null peak-to-mean distribution is centered at ≈ 1.42 ± 0.16, giving Cohen's d ≈ 107 against the observed ≈ 18.75.
 
 **Detection tiers:**
-- *Screening:* Peak-to-mean ratio > 3.0
-- *Confirmation:* Ratio > 5.0 AND wavelength CV < 0.1 AND λ < L/3
-- *Definitive:* Confirmation + equal-diffusion null produces no peak + P1/P12 exclusions
+- *Screening:* prerequisites pass AND peak_to_mean > 5.0 AND peak_k ∈ [2, N/4].
+- *Confirmation:* screening AND peak_to_mean > 10.0 AND Cohen's d > 10.0 AND peak_k_cv < 0.15 AND null p < 0.01.
+- *Definitive:* confirmation AND peak_to_mean > 15.0 AND Cohen's d > 30.0 AND peak_k_cv < 0.05.
 
-**Common false positives:**
-- P1 (no spectral peak). Domain-boundary artifacts (λ < L/3 required). Transient patterns.
+Requires `n_permutations ≥ 199` for confirmation (achieves p ≤ 0.005 at the floor). Default is 199.
 
-**Nearest-neighbor exclusions:**
-- P1: No dominant frequency → P1
-- P12: Nontransitive agent interaction → P12 (not reaction-diffusion)
+**Canonical-positive measurements (Sprint 13):**
+
+| Seed | N | T | peak_k | λ (px) | peak/mean | Cohen's d | null p | peak_k_cv | tier |
+|------|---|---|--------|--------|-----------|-----------|--------|-----------|------|
+| 42   | 128 | 4000 | 10 | 12.8 | 18.75 | 102.8 | 0.005 | 0.000 | DEFINITIVE |
+| 7    | 128 | 4000 | 10 | 12.8 |  ≈18  |  ≈100 | 0.005 | 0.000 | DEFINITIVE |
+| 123  | 128 | 4000 | 10 | 12.8 |  ≈18  |  ≈100 | 0.005 | 0.000 | DEFINITIVE |
+| 42   |  64 | 3000 |  5 | 12.8 | 16.98 |  >70  | 0.005 | 0.000 | DEFINITIVE |
+| 42   |  96 | 3000 |  7 | 13.7 | 22.84 |  >70  | 0.005 | 0.000 | DEFINITIVE |
+
+Spots regime (F=0.030, k=0.062) at N=128, T=4000, seed=42: peak_k=11, λ=11.6 px, peak/mean=13.35, d=58.8 → **CONFIRMATION**.
+
+**Wavelength invariance (Sprint 13 scaling test):**
+peak_k scales linearly with N; wavelength in pixels is ≈ 12 and invariant. This is a physical property of the reaction-diffusion system (Du, Dv, F, k), not a grid artifact.
+
+**Common false positives and how P3 rejects them:**
+- **RPS (low mobility, raw grid)**: peak/mean ≈ 23 — higher than Gray-Scott labyrinth. Rejected at substrate prerequisite (no `field` observable on the state snapshots); also caught at the n_unique_values prerequisite if someone manually injects the grid as a `field`.
+- **GH excitable spirals**: peak/mean ≈ 6.6 on raw grid. Rejected at substrate prerequisite.
+- **Schelling segregation**: peak/mean ≈ 3.3 on raw grid. Rejected at substrate prerequisite (also fails peak/mean screening).
+- **Non-Turing Gray-Scott regimes**: v-field decays to 0 or a spatially uniform value. Rejected at field_std prerequisite.
+- **"Pearson spots" at small N**: the literature-standard F=0.062, k=0.0609 gives wavelength ≈ 64 pixels at N=128, which is a domain-size artifact (the pattern needs N ≥ 256 to resolve short-wavelength structure). Documented in `GrayScott` docstring; use F=0.030, k=0.062 as the short-wavelength "spots" alternative for N=128.
+
+**Nearest-neighbor exclusions (Sprint 13 implementation):**
+- **P1 (aggregation)**: canonical P1 positives (Schelling, Zhang sorting) live on integer-grid substrates; the `n_unique_values ≥ 50` prerequisite auto-clears P1. Marked `excluded` when P3 fires.
+- **P13 (excitable waves)**: canonical P13 positive (GH) is integer-grid. Same auto-clear; marked `excluded`.
 
 **Co-occurrence:**
-- *Allowed:* P14 (Turing system near criticality)
-- *Excluded:* P1 (irregular vs periodic)
+- *Allowed:* none registered at Sprint 13 (Gray-Scott is the only model on `lattice_2d_continuous`).
+- *Excluded:* P1, P13 (substrate-level).
+
+**Implementation:** `epc.detectors.p3_turing_wavelength.P3TuringWavelengthDetector`. Metric module: `epc.metrics.turing_wavelength`.
+
+**References:**
+- Turing, A. M. (1952). "The Chemical Basis of Morphogenesis." Phil. Trans. R. Soc. Lond. B 237, 37-72.
+- Gray, P. & Scott, S. K. (1983). "Autocatalytic reactions in the isothermal, continuous stirred tank reactor." Chem. Eng. Sci. 38, 29-43.
+- Pearson, J. E. (1993). "Complex Patterns in a Simple System." Science 261, 189-192.
 
 ---
 

@@ -5,15 +5,18 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-5 substrate types:
+6 substrate types:
 - lattice_1d: Zhang sorting (chimeric)
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS
+- lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
 - continuous_2d: Vicsek, D'Orsogna
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
 
-Architecture decision #25 (updated Sprint 9):
-  13 models × 12 detectors → compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 13):
+  14 models × 13 detectors — compatible pairs identified by substrate.
+  Gray-Scott (Sprint 13) occupies the new lattice_2d_continuous
+  substrate; P3 (Sprint 13) is restricted to it by registration.
 """
 
 from __future__ import annotations
@@ -145,6 +148,13 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         metadata_keys=['mobility', 'exchange_rate', 'selection_rate',
                        'reproduction_rate', 'neighborhood', 'dominance_map'],
     ),
+    'gray_scott': ModelRegistration(
+        name='gray_scott',
+        substrate_type='lattice_2d_continuous',
+        observables=['field', 'field_u', 'grid_dims'],
+        primary_patterns=['P3'],
+        metadata_keys=['feed_rate', 'kill_rate', 'Du', 'Dv', 'state_dtype'],
+    ),
 }
 
 # === Detector Registry ===
@@ -220,6 +230,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P12',
         required_substrate=['lattice_2d'],
         required_observables=['grid'],
+        observable_scope='state_history_only',
+    ),
+    'P3': DetectorRegistration(
+        pattern_id='P3',
+        required_substrate=['lattice_2d_continuous'],
+        required_observables=['field'],
         observable_scope='state_history_only',
     ),
 }
