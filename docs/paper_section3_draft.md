@@ -139,24 +139,40 @@ detector expects continuous-space positions and headings; applying it to a
 lattice cellular automaton is meaningless. The orchestration layer prevents
 these cross-substrate mismatches through a two-level compatibility check.
 
-The first level is **substrate type matching.** Five substrate types are
+The first level is **substrate type matching.** Six substrate types are
 defined: lattice_1d (chimeric sorting), lattice_2d (cellular automata,
-Schelling, Nowak-May), continuous_2d (Vicsek, D'Orsogna), oscillator
-(Kuramoto), and opinion_space (Hegselmann-Krause). Each detector declares
+Schelling, Nowak-May, SIR, RPS), continuous_2d (Vicsek, D'Orsogna),
+oscillator (Kuramoto), opinion_space (Hegselmann-Krause), and
+predator_prey (lattice Lotka-Volterra). The predator_prey substrate is
+operationally lattice_2d but carries additional type information (prey,
+predator, empty) that enables the P11 bilateral-coupling detector and
+distinguishes it from cyclic-competition systems. Each detector declares
 which substrate types it is compatible with.
 
-The second level is **observable matching.** Within a compatible substrate,
-the detector requires specific state keys. P27 (spatial reciprocity)
-requires the `coop_fraction` observable that only Prisoner's Dilemma models
-produce, preventing it from firing on other lattice_2d systems like
-Greenberg-Hastings or Game of Life. P14 (self-organized criticality)
-requires `avalanche_sizes`, restricting it to sandpile-type models.
+The second level is **observable matching.** Within a compatible
+substrate, the detector requires specific state keys. P27 (spatial
+reciprocity) requires the `coop_fraction` observable that only
+Prisoner's Dilemma models produce, preventing it from firing on other
+lattice_2d systems like Greenberg-Hastings or Game of Life. P14
+(self-organized criticality) requires `avalanche_sizes`, restricting
+it to sandpile-type models. P11 (predator-prey oscillation) requires
+prey and predator time series plus a nontrivial-empty-reservoir
+prerequisite (`std(species_A + species_B) > 0.005`), which both
+distinguishes it from conservation-locked two-state systems like
+Nowak-May and — combined with the `n_unique_species_observed == 2`
+gate — separates it from three-species cyclic systems like RPS.
 
-Of 110 possible model × detector pairs in the current inventory
-(11 models × 10 detectors), 24 pass both checks. The remaining 86 are
-correctly rejected — 82 by substrate mismatch and 4 by missing observables.
-This block-diagonal structure ensures that detectors operate only in domains
-where their metrics are meaningful.
+Of 169 possible model × detector pairs in the current inventory
+(13 distinct model families × 13 detectors), 50 are audited as
+substrate-compatible, observable-compatible, and empirically tested.
+The remaining 119 cells are correctly eliminated by substrate mismatch
+(112) or by detector-substrate incompatibility (7, primarily P31 which
+requires lattice_1d). Of the 50 audited cells, 37 are pinned in the
+cross-detection regression suite (`tests/test_cross_detection_matrix.py`
+`EXPECTED_OUTCOMES`) and the other 13 are canonical positives pinned
+in dedicated end-to-end test files. This block-diagonal structure
+ensures that detectors operate only in domains where their metrics
+are meaningful.
 
 ## 3.5 Key Boundary Tests
 
@@ -195,6 +211,25 @@ screening threshold. A hard prerequisite guard requires n_states ≥ 3
 for excitable dynamics), preventing detection on structurally incompatible
 models.
 
+**P11 conservation and bilateral-vs-cyclic guards.** The P11
+predator-prey oscillation detector combines two prerequisites that
+emerged from broad negative-model sweeps. The anti-phase
+cross-correlation primary metric (ρ_anti) false-positives on strictly
+conserved two-state systems — Nowak-May's cooperator and defector
+fractions sum to 1 exactly and are therefore anti-correlated at
+ρ = −1 at short lag by algebra alone, independent of any dynamical
+coupling. A total-std prerequisite (`std(species_A + species_B) >
+0.005`, requiring a nontrivial empty reservoir) catches this: Nowak-May
+has total_std = 0.000; Lotka-Volterra has total_std ≈ 0.034. The
+primary metric also triggers strongly on three-species cyclic systems:
+spatial RPS produces ρ_anti ≈ −0.94 on any pair of species, *stronger*
+than Lotka-Volterra's ρ_anti ≈ −0.86 on the predator-prey pair. The
+n_unique_species_observed prerequisite (`== 2`) keeps P11 specific to
+bilateral coupling rather than firing on cyclic dominance. Both
+prerequisites were identified by testing the proposed primary metric
+against every existing two-species lattice model before locking the
+detector, not against the planned negatives alone.
+
 ## 3.6 Statistical Power Requirements
 
 Permutation-based significance testing imposes minimum sample sizes that we
@@ -202,11 +237,30 @@ enforce across the toolkit. With n permutations, the smallest achievable
 p-value is 1/(n + 1). For a significance threshold of p < 0.01, at least
 99 permutations are required; for p < 0.005, at least 199. Our standard
 configuration uses 999 permutations for P1 (yielding p floor of 0.001),
-199 for P5/P6/P9/P27 (p floor 0.005), and 99 for TE-based tests (p floor
-0.01). The P31 non-redundancy test requires at least 500 model runs for
-stable 10-fold cross-validation with 8+ features.
+199 for P5/P6/P9/P22/P27 (p floor 0.005), 199 for P12 CONFIRMATION and
+≥499 for DEFINITIVE, 99 for P11 (where the null p-value is not a tier
+gate — see below), and 99 for TE-based tests (p floor 0.01). The P31
+non-redundancy test requires at least 500 model runs for stable 10-fold
+cross-validation with 8+ features. For P11 specifically, the canonical
+positive requires ≥1,200 generations at L = 100 for DEFINITIVE tier
+(effect-size Cohen's d ≤ −1.5 is the discriminator); shorter runs drop
+to CONFIRMATION.
+
+P11's null-model behavior is an instructive special case. Its
+circular-shift null preserves each series' autocorrelation and FFT
+magnitude spectrum, so on Lotka-Volterra the null frequently produces
+extreme anti-correlations (null 5th percentile ≈ observed value; p in
+the range 0.05–0.15 even at Cohen's d ≈ −2). This is not a bug — the
+null correctly reflects that oscillating series are autocorrelated, and
+autocorrelation alone is insufficient evidence for predator-prey
+coupling. Tier gating therefore uses Cohen's d against the null
+distribution rather than the one-sided p-value. The p-value is
+reported as a diagnostic only. This pattern — a null model that is
+intentionally too strong for clean p-values, with effect-size gating as
+the compensating discriminator — may recur for other detectors whose
+primary metric is a phase-relationship rather than a magnitude.
 
 These are not arbitrary choices — in multiple cases, underpowered initial
 tests produced incorrect results that were only resolved by increasing
-statistical power (Section 4.11). We now treat minimum permutation counts
+statistical power (Section 4.14). We now treat minimum permutation counts
 as hard requirements, not suggestions.
