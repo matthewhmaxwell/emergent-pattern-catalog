@@ -540,10 +540,11 @@ class TestTransferMatrixCompleteness:
         ("greenberg_hastings", "P3"): "rejected", # substrate prereq: no 'field' observable
         ("lotka_volterra_lattice", "P3"): "rejected", # substrate prereq: no 'field' observable
         # Gray-Scott-row: other detectors are substrate-incompatible.
-        # P13, P22, P11, P12 inspect the 'grid' observable, which GS does
-        # not expose; they reject gracefully at screening with warnings.
-        # P1 currently raises KeyError on GS (pre-existing robustness
-        # issue in P1's 2D branch — documented as carry-forward item).
+        # P1, P13, P22, P11, P12 inspect integer-grid observables, which
+        # GS does not expose; they reject gracefully at screening with
+        # warnings. (Sprint 14 B.1 hardened P1's 2D branch to match the
+        # graceful-reject pattern — previously GS × P1 raised KeyError.)
+        ("gray_scott", "P1"): "rejected",       # Sprint 14 B.1: no 'grid'/'type_labels_at_pos', substrate warning
         ("gray_scott", "P13"): "rejected",      # no 'grid' observable, rejects gracefully
         ("gray_scott", "P22"): "rejected",      # no 'grid' observable, rejects gracefully
         ("gray_scott", "P11"): "rejected",      # no 'grid' observable, rejects gracefully
@@ -772,6 +773,28 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 13: all {len(sprint_13_pairs)} pairs covered "
               f"(GS row + P3 column)")
+
+    def test_sprint_14_p1_substrate_robustness_covered(self):
+        """Sprint 14 B.1 hardened P1's 2D branch against continuous-field
+        substrates (carry-forward from Sprint 13 #1).
+
+        Before Sprint 14, P1 raised ``KeyError: "Need 'type_labels_at_pos'
+        or 'grid' for 2D"`` when invoked on Gray-Scott's state_history
+        (which exposes ``field`` but no integer-grid observable). Post-fix,
+        P1 returns a graceful ``detected=False`` result with a substrate
+        warning, matching the pattern used by P11/P13/P22.
+
+        The transfer-matrix cell ``gray_scott × P1`` flipped from ``ker``
+        (pre-existing bug, skipped in test matrix) to ``rej`` (audited).
+        """
+        assert ("gray_scott", "P1") in self.EXPECTED_OUTCOMES, \
+            "Sprint 14 B.1 requires gray_scott × P1 in EXPECTED_OUTCOMES"
+        assert self.EXPECTED_OUTCOMES[("gray_scott", "P1")] == "rejected", (
+            "gray_scott × P1 should be rejected (no integer-labeled grid; "
+            "graceful substrate-warning reject per Sprint 14 B.1)"
+        )
+        print("  ✓ Sprint 14 B.1: gray_scott × P1 = rejected "
+              "(KeyError → graceful reject)")
 
 
 # ===================================================================

@@ -48,6 +48,17 @@ class P1AggregationDetector(BaseDetector):
         warnings = super()._validate_prerequisites(state_history, timescale)
         if state_history:
             s = state_history[0]
+            # Sprint 14 B.1: substrate-mismatch guard. P1 needs categorical
+            # integer labels (1D 'cell_types' or 2D 'grid'/'type_labels_at_pos').
+            # Continuous-valued fields (e.g. Gray-Scott 'field') are not valid
+            # inputs — graceful reject with warning, matching P11/P13 pattern.
+            if ("grid" not in s and "type_labels_at_pos" not in s
+                    and "cell_types" not in s):
+                warnings.append(
+                    "no 'grid', 'type_labels_at_pos', or 'cell_types' — "
+                    "P1 needs integer-labeled spatial data"
+                )
+                return warnings
             n = s.get("n", 0)
             if "grid_dims" in s:
                 n = s["grid_dims"][0] * s["grid_dims"][1]
@@ -82,6 +93,24 @@ class P1AggregationDetector(BaseDetector):
         Moran's I is degenerate (0/0) with only one type, so we still
         require n_unique_types ≥ 2.
         """
+        # Sprint 14 B.1: substrate-mismatch guard. Return benign zeros when
+        # state_history lacks integer-labeled spatial data; _check_screening
+        # will reject cleanly on n_unique_types=0 / observed<=expected=0.
+        if not state_history:
+            return {
+                "morans_i": 0.0, "morans_i_final": 0.0,
+                "morans_i_sustained": 0.0, "morans_i_peak": 0.0,
+                "expected_i": 0.0, "n_unique_types": 0,
+            }
+        s0 = state_history[0]
+        if ("grid" not in s0 and "type_labels_at_pos" not in s0
+                and "cell_types" not in s0):
+            return {
+                "morans_i": 0.0, "morans_i_final": 0.0,
+                "morans_i_sustained": 0.0, "morans_i_peak": 0.0,
+                "expected_i": 0.0, "n_unique_types": 0,
+            }
+
         result_final = self._morans_i.compute(state_history, timestep=-1)
 
         # Count unique types from the final state
@@ -232,8 +261,14 @@ class P1AggregationDetector(BaseDetector):
         checked = ["P2", "P3", "P30"]
         results = {"P2": "not_checked", "P3": "not_checked", "P30": "not_checked"}
 
-        # P3 exclusion: FFT peak check (only meaningful for 2D)
+        # Sprint 14 B.1: skip P3 FFT exclusion on substrates without grid.
+        if not state_history:
+            return checked, results
         final = state_history[-1]
+        if "grid" not in final and "type_labels_at_pos" not in final:
+            return checked, results
+
+        # P3 exclusion: FFT peak check (only meaningful for 2D)
         if "grid_dims" in final:
             try:
                 rows, cols = final["grid_dims"]

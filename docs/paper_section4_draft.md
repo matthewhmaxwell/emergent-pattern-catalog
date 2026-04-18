@@ -649,9 +649,128 @@ prerequisite), and any other multi-species anti-correlated system.
 The n_species prerequisite converts the detector from a signal
 classifier to a substrate classifier on the n_species axis.
 
-## 4.13 Consolidated Transfer Matrix
+## 4.13 Gray-Scott Reaction-Diffusion and P3 Turing Wavelength (Cluster D)
 
-The following matrix summarizes detection outcomes across all 37
+**Primary reference:** Pearson, J.E. (1993). Complex patterns in a
+simple system. *Science* 261, 189–192.
+
+The Gray-Scott model is a two-species reaction-diffusion system on a
+continuous lattice: an activator u and inhibitor v satisfy
+∂_t u = Dᵤ∇²u − uv² + F(1 − u) and ∂_t v = Dᵥ∇²v + uv² − (F + k)v, with
+feed rate F and kill rate k. Depending on (F, k), solutions form
+stationary spots, stripes, labyrinths, or self-replicating blobs. In
+the detection framework, Gray-Scott is the first model outside
+integer-grid cellular automata: it exposes a continuous `field`
+observable (float-valued v in [0, 1]) rather than a categorical `grid`.
+This introduces a new substrate type, `lattice_2d_continuous`, and
+requires a detector whose primary signal is a spectral property of the
+continuous field rather than a categorical adjacency statistic.
+
+**Canonical positive characterization.** Pearson's Fig. 1 panel "spots"
+is frequently cited with (F, k) = (0.062, 0.0609). At N = 128, dt = 1,
+Dᵤ = 0.16, Dᵥ = 0.08 — grid-scale coefficients chosen for numerical
+stability (dt · max(Dᵤ, Dᵥ) ≤ 0.25) — this parameter pair produces a
+pattern with characteristic wavelength ≈ 64 pixels, half the domain.
+At N = 256 the same parameters resolve into proper spots with
+wavelength ≈ 12 pixels, matching the published figure. The N = 128
+behavior is therefore a domain-size artifact, not a genuine spot regime,
+and was unsuitable for routine testing at practical grid sizes. The
+canonical positive was instead chosen to be the labyrinth regime (F =
+0.037, k = 0.060), which produces wavelength ≈ 12 pixels already at
+N = 128 and remains invariant to N = 64 (peak wavenumber k = 5, 7, 10,
+16 at N = 64, 96, 128, 192; wavelength in pixels ≈ 12 throughout). The
+pattern selection transient is long — roughly 3500–4000 timesteps at
+N = 128 — so canonical runs are T = 4000.
+
+**P3 detector — primary metric.** P3 measures the concentration of
+spectral power at a non-trivial wavenumber via the radial-averaged 2D
+FFT power spectrum. For a v-field snapshot V of shape (N, N), let
+S(k) = ⟨|F[V](k_x, k_y)|²⟩ be the power averaged over annuli in k-space
+at radius k. The primary metric is peak-to-mean = max_k S(k) /
+mean_k S(k) over k in [k_min = 2, N/2]. At the canonical labyrinth
+positive, peak-to-mean = 18.75 across seeds {42, 7, 123}, with Cohen's
+d against the spatial-shuffle null ≈ 103. The shuffle null randomizes
+pixel positions, preserving the one-point distribution of v-values
+while destroying all spatial correlation; under the null, peak-to-mean
+collapses to 1.0 ± 0.04.
+
+**The RPS false-positive trap.** Before locking P3's primary
+threshold, we ran the radial-FFT on every existing integer-grid model
+with the same pipeline. Every model produced peak-to-mean near 1 —
+except RPS at low mobility, which produced peak-to-mean ≈ 23.10,
+numerically exceeding Gray-Scott's 18.75. The cause is mechanistic:
+RPS spiral domains have a characteristic size set by the cyclic
+reaction-diffusion wavelength λ ∝ √M, and the raw integer grid, when
+treated as a float array, has enough spectral concentration at the
+spiral wavenumber to spoof Turing-pattern-like peak-to-mean. This was
+the load-bearing Sprint 13 finding: any P3 variant gated only on
+peak-to-mean would false-positive on RPS, producing a silent failure
+mode where a cyclic-dominance system masquerades as Turing pattern
+formation.
+
+**Substrate-level discrimination.** The resolution was to move
+discrimination from empirical thresholding to substrate-level content
+gates. P3 requires, as prerequisites, both (a) the presence of a
+`field` observable — which RPS exposes only `grid` and so fails
+immediately, and (b) n_unique_values ≥ 50 on the field snapshot. At
+N = 128, Gray-Scott's continuous field has ≥ 16,000 distinct float
+values; every integer-grid model has at most the number of discrete
+states (typically 2–10). This pair of prerequisites separates the two
+classes adversarially: even when RPS is deliberately re-labeled as a
+`field` (the `TestAdversarialDiscreteFieldRejected` case), it rejects
+at n_unique = 4 < 50 regardless of its peak-to-mean = 23.10. The
+discriminator is therefore content-level, not signal-level, and this
+is the architecturally cleaner pattern: where two canonical models
+produce overlapping signal on the intended primary metric, look for a
+content-level property that separates them before reaching for fragile
+thresholds.
+
+**Null model and tier gating.** The P3 null permutes pixel positions
+within each v-field snapshot, computing peak-to-mean under the null
+for 199 permutations. The lower bound on the null-p achievable at
+n = 199 is 1/(199 + 1) = 0.005, so the p < 0.01 CONFIRMATION gate is
+achievable but the p < 0.001 DEFINITIVE gate is not. Since P3's effect
+sizes are enormous (Cohen's d ≈ 100), the extra permutations above 99
+are effectively free at 1–2 seconds per detector call. Tier thresholds:
+peak-to-mean > 5.0 for SCREENING; peak-to-mean > 10.0 with d > 10 and
+peak-k coefficient-of-variation < 0.15 and null-p < 0.01 for
+CONFIRMATION; peak-to-mean > 15.0 with d > 30 and peak-k CV < 0.05 for
+DEFINITIVE.
+
+**Canonical-positive outcomes.** At F = 0.037, k = 0.060, N = 128,
+T = 4000, seeds {42, 7, 123}:
+
+| Seed | peak-to-mean | peak-k | wavelength (px) | Cohen's d | peak-k CV | Tier        |
+|------|--------------|--------|-----------------|-----------|-----------|-------------|
+| 42   | 18.75        | 10     | 12.8            | 103       | 0.00      | DEFINITIVE  |
+| 7    | 18.50        | 10     | 12.8            | 102       | 0.00      | DEFINITIVE  |
+| 123  | 19.01        | 10     | 12.8            | 104       | 0.00      | DEFINITIVE  |
+
+Grid-scaling: DEFINITIVE is reached at N = 64 (T = 3000), N = 96
+(T = 3000), and N = 128 (T = 4000). The short-wavelength-spots regime
+(F = 0.030, k = 0.062) reaches CONFIRMATION at peak-to-mean = 13.35,
+below the DEFINITIVE threshold of 15.0 but above CONFIRMATION's 10.0;
+whether to lower the DEFINITIVE threshold to admit both regimes as
+DEFINITIVE remains a future-work question, since doing so would narrow
+the discrimination margin against spurious signals.
+
+**Transfer-matrix additions.** Gray-Scott × P3 is the Sprint 13
+positive (DEFINITIVE). Every integer-grid model × P3 rejects at the
+`field` prerequisite (rej; seven cells). Every 2D-grid-consuming
+detector × Gray-Scott rejects at its own `grid` prerequisite (rej; P1,
+P11, P12, P13, P22 — five cells). P15 × Gray-Scott is substrate-
+compatible but not detected (nd; Gray-Scott is deterministic with no
+stochastic step_fn for functional replay). The Gray-Scott × P1 cell
+required a small Sprint 14 hardening: P1's 2D branch previously
+raised `KeyError` on missing `grid` / `type_labels_at_pos` observables,
+and was updated to return a graceful substrate-warning rejection
+matching the pattern used by P11, P13, and P22. Thirteen new cells
+(one D + seven rej + five rej + zero nd) join the audited transfer
+matrix, bringing the total to 63 audited cells.
+
+## 4.14 Consolidated Transfer Matrix
+
+The following matrix summarizes detection outcomes across all 63
 audited model × detector pairs. Entries show the highest achieved tier
 (D = definitive, C = confirmation, S = screening), reported non-
 detections (rej = rejected by prerequisite or screening guard, nd =
@@ -662,45 +781,55 @@ canonical configuration for the generalized P15 detector; R-pentomino
 gives a lower P15 tier because it lacks the diversity of outcome
 classes the generalized detector requires).
 
-|                   | P1  | P5 | P6 | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|----|----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | ×  | ×  | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | D  | rej| ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | rej| D  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×  | ×  | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×  | ×  | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×  | ×  | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×  | ×  | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | ×  | ×  | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | ×  | ×  | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | ×  | ×  | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+|                   | P1  | P3  | P5 | P6 | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
+|-------------------|-----|-----|----|----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting     | S   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling         | C   | rej | ×  | ×  | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
+| Vicsek (ordered)  | ×   | ×   | D  | rej| ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)   | ×   | ×   | ×  | ×  | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral         | S   | ×   | ×  | ×  | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
+| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
+| BTW sandpile      | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
+| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
+| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
+| SIR epidemic      | rej | rej | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
+| RPS spatial       | S   | rej | ×  | ×  | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Lotka-Volterra    | C   | rej | ×  | ×  | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Gray-Scott        | rej | D   | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
 
-Row count: 13 distinct model families. Column count: 13 detectors.
-Out of 169 total cells, 112 are substrate mismatches (×) and 7 are
+Row count: 14 distinct model families. Column count: 14 detectors.
+Out of 196 total cells, 135 are substrate mismatches (×) and 7 are
 detector-substrate incompatibilities (—, primarily P31 which requires
-lattice_1d). The remaining 50 cells are substrate-compatible and
-empirically audited: 21 produce detections (8 at DEFINITIVE, 1 at
-DEFINITIVE with dense random IC (D*, Game of Life × P15), 6 at
-CONFIRMATION, 6 at SCREENING), 24 are rejected by prerequisite or
-screening guard (rej), and 5 run but do not fire (nd — typically P15
-on stochastic lattice models where the functional replay test fails
-due to irreproducibility). Of these 50 audited cells, 37 appear in the
+lattice_1d). The remaining 63 cells are substrate-compatible and
+empirically audited: 22 produce detections (9 at DEFINITIVE — adding
+Gray-Scott × P3 to the Sprint 12 tally of 8, 1 at DEFINITIVE with
+dense random IC (D*, Game of Life × P15), 6 at CONFIRMATION, 6 at
+SCREENING), 37 are rejected by prerequisite or screening guard (rej;
+Sprint 13 added thirteen such cells — seven integer-grid models × P3
+and five 2D-grid-consuming detectors × Gray-Scott, with the
+Sprint 14 robustness fix promoting Gray-Scott × P1 from KeyError to
+audited rej), and 6 run but do not fire (nd — typically P15 on
+stochastic lattice models where the functional replay test fails due
+to irreproducibility, or Gray-Scott's deterministic PDE which has no
+stochastic step_fn). Of these 63 audited cells, 50 appear in the
 cross-detection-matrix `EXPECTED_OUTCOMES` regression table
 (`tests/test_cross_detection_matrix.py`); the remaining 13 are
-canonical positives (e.g., Vicsek × P5, Kuramoto × P9) whose DEFINITIVE
-tier is pinned by dedicated e2e test files rather than the cross-
-detection matrix.
+canonical positives (e.g., Vicsek × P5, Kuramoto × P9, Gray-Scott ×
+P3) whose DEFINITIVE tier is pinned by dedicated e2e test files rather
+than the cross-detection matrix.
 
-Seven observations about the matrix.
+Eight observations about the matrix.
 
 *No false positives across substrate boundaries.* The substrate-aware
-dispatch system (six substrate types: lattice_1d, lattice_2d,
-continuous_2d, oscillator, opinion_space, predator_prey) correctly
-prevents cross-substrate detector application. Substrate mismatches
-account for the bulk of the blank cells and never fire a detector.
+dispatch system (seven substrate types: lattice_1d, lattice_2d,
+lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
+predator_prey) correctly prevents cross-substrate detector application.
+Substrate mismatches account for the bulk of the blank cells and never
+fire a detector. The Sprint 13 addition of lattice_2d_continuous for
+Gray-Scott and the Sprint 14 hardening of P1's graceful-reject path
+for missing-grid substrates extended this guarantee to the
+continuous-field case.
 
 *Clean within-cluster discrimination.* P5 / P6 show perfect
 cross-exclusion (D'Orsogna milling rejected by P5 at φ = 0.046;
@@ -709,7 +838,10 @@ bilateral-versus-cyclic boundary: LV triggers P11 cleanly and is
 rejected by P12 (intransitivity_score = 0.24 << 1.0, because the
 dominance graph is not cyclic); RPS triggers P12 at CONFIRMATION and
 is rejected by P11 (n_unique_species_observed = 3 ≠ 2). P13 / P15
-separate via the two-stage TE + functional discriminator.
+separate via the two-stage TE + functional discriminator. P3 /
+aggregation detectors separate via substrate-level content gates:
+continuous fields vs integer-grid observables, and
+n_unique_values ≥ 50 as the secondary prerequisite.
 
 *Co-occurrence rather than mutual exclusion.* Three models fire
 multiple detectors: Nowak-May (P1 confirmation + P27 definitive + P15
@@ -727,7 +859,10 @@ SIR, RPS, and LV despite shared lattice_2d substrate (extended to
 include the new lattice_2d-like predator_prey class). P14 requires
 `avalanche_sizes`, restricting to BTW. P11 requires `prey_count` and
 `predator_count` (or an explicit species hint), restricting meaningful
-detection to two-species systems with nontrivial empty reservoir.
+detection to two-species systems with nontrivial empty reservoir. P3
+requires a `field` observable and n_unique_values ≥ 50, restricting
+detection to genuinely continuous spatial fields rather than
+integer grids re-interpreted as floats (Sprint 13, Decision 37).
 
 *The SIR × P1 rejection is informative.* Section 4.10 describes the
 characterization that flipped this cell from `S` (under a peak-based
@@ -740,13 +875,29 @@ grounds. The lesson generalizes: a detector's primary metric is a
 hypothesis about what signal distinguishes the target pattern, and
 hypotheses need empirical testing.
 
-*Guard-based rejections are informative.* Five rejections required
+*Guard-based rejections are informative.* Six rejections required
 detector guards beyond simple threshold checks: GoL × P1 (type
 constancy), GoL × P13 (excitable medium guard, n_states < 3),
 Nowak-May × P11 (total_std prerequisite, conservation trap), RPS ×
-P11 (n_species prerequisite, bilateral-vs-cyclic separation), and
-SIR × P1 (final-Moran primary, transient-vs-sustained separation).
-Each guard sharpened the operational definition of the target pattern.
+P11 (n_species prerequisite, bilateral-vs-cyclic separation),
+SIR × P1 (final-Moran primary, transient-vs-sustained separation),
+and Gray-Scott × P1 (substrate-warning graceful-reject path added in
+Sprint 14 B.1). Each guard sharpened the operational definition of
+the target pattern.
+
+*The RPS × P3 rejection required substrate-level discrimination.* The
+Sprint 13 characterization found that RPS at low mobility produces
+raw-grid radial-FFT peak-to-mean ≈ 23.10, numerically exceeding the
+Gray-Scott labyrinth value of 18.75. No empirical threshold on
+peak-to-mean can separate these two systems. Discrimination therefore
+operates at the content level: P3 requires a `field` observable (RPS
+exposes only `grid`) and n_unique_values ≥ 50 (RPS grid values are
+limited to the number of species, typically 3–4). When RPS is
+adversarially re-labeled as a `field`, it rejects at the n_unique
+prereq regardless of its p/m = 23.10. This is the architecturally
+cleaner pattern: where two canonical models produce overlapping signal
+on the intended primary metric, look for a content-level property
+that separates them before reaching for fragile thresholds.
 
 *Tier ceilings are meaningful.* Several detections are capped at
 CONFIRMATION rather than DEFINITIVE (Schelling × P1, GH × P13, Nowak-May
@@ -757,7 +908,7 @@ null (GH), intrinsic signal asymmetry (Nowak-May's imitation-based
 clustering is weaker than Schelling's preference-based clustering on
 segregation index) — rather than weak signals.
 
-## 4.14 Methodological Lessons
+## 4.15 Methodological Lessons
 
 Six methodological insights emerged from the replication work across
 Sprints 1–11.
