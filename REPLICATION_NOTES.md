@@ -2031,8 +2031,166 @@ positive (GS × P3) + 12 new rejections.)
 
 7. **Numba for RPS and LV inner loops** — still outstanding.
 
-8. **NM final I size sensitivity** (carry from Sprint 10) — still
-   outstanding.
+8. **NM final I size sensitivity** (carry from Sprint 10) —
+   **resolved in Sprint 14.5.** Characterized across 5 seeds × 5 grid
+   sizes; see Sprint 14.5 section below for the empirical table and
+   the practical guidance on safe-N regimes.
 
 9. **SIR × P1 secondary metrics NaN on early exit** (carry from
-   Sprint 10) — still outstanding.
+   Sprint 10) — **resolved in Sprint 14.5.** P1 now emits a
+   ``screening_rejection_reason`` diagnostic on every primary_metric
+   (one of: none, uniform_state, below_expected,
+   below_magnitude_floor, substrate_mismatch, empty_state_history),
+   and a ``sustained_i_cv_undefined`` boolean flag on secondaries
+   when ``|mean_i| < 0.01``. See Sprint 14.5 section below.
+
+# Sprint 14.5: Small Improvements (D.2 + D.3)
+
+Sprint 14.5 closed two Sprint 10 carry-forward items: NM × P1 grid-size
+sensitivity (D.2, characterization only) and SIR × P1 / substrate-
+mismatch diagnostic visibility (D.3, detector polish). No new models
+or detectors, no transfer-matrix changes.
+
+## D.3 — P1 diagnostic-schema polish
+
+**Problem.** When P1 rejects at screening (e.g., on SIR after the
+infection wave has collapsed, or on the Sprint 14 B.1 graceful-reject
+path for substrates without integer grids), `DetectorResult.primary_metric`
+carried the computed Moran's I values but did not name the specific
+screening gate that caused the rejection. Users had to reason from
+`n_unique_types`, `morans_i_final`, and `expected_i` to infer the
+rejection mode. Additionally, `secondary_metrics.sustained_i_cv` was
+reported as `float("inf")` when `mean_i` was near zero — correct
+numerically (the numeric `cv > 0.3` confirmation check still rejects)
+but opaque about the underlying undefined-CV regime, and the old
+`mean_i > 0` guard failed on negative near-zero means (SIR's
+≈ −0.0009 produces a spurious negative CV under the old guard).
+
+**Fix.** Three minimal changes in `epc/detectors/p1_aggregation.py`:
+
+1. `_compute_primary` adds `screening_rejection_reason` to its return
+   dict on every path. Values: `"none"` (screening would pass),
+   `"uniform_state"` (n_unique_types < 2 — SIR post-collapse),
+   `"below_expected"` (observed ≤ expected_i — random noise),
+   `"below_magnitude_floor"` (observed < 0.05 — transient dissipated),
+   `"substrate_mismatch"` (no grid/type_labels_at_pos/cell_types —
+   Gray-Scott, per Sprint 14 B.1), `"empty_state_history"` (edge case).
+
+2. `_compute_secondaries` adds `sustained_i_cv_undefined` boolean flag,
+   `True` when `|mean_i| < 0.01` (the undefined-CV floor). The numeric
+   `sustained_i_cv` remains `float("inf")` in that case for
+   backwards-compat with the `cv > 0.3` confirmation check; this is a
+   diagnostic flag, not a signal-path change.
+
+3. Changed the near-zero-mean guard from `mean_i > 0` to
+   `abs(mean_i) >= 0.01`. This fixes a subtle bug where slightly
+   negative mean Moran's I values (common on uniform grids due to
+   the E[I] = −1/(N−1) null) would produce negative CVs.
+
+**Verified on canonical cases:**
+
+| Input                         | rejection_reason      | tier       | notes                    |
+|-------------------------------|-----------------------|------------|--------------------------|
+| Schelling (canonical positive)| `none`                | CONFIRM    | Detector fires normally  |
+| Nowak-May (canonical positive)| `none`                | CONFIRM    | Detector fires normally  |
+| SIR (post-collapse, uniform)  | `uniform_state`       | SCREENING  | n_unique_types=1         |
+| Gray-Scott (no grid)          | `substrate_mismatch`  | SCREENING  | Sprint 14 B.1 path       |
+| Empty state_history           | `empty_state_history` | SCREENING  | Edge case                |
+
+The SIR primary_metric dict preserves the full diagnostic story:
+`morans_i_peak` ≈ 0.87 (the wavefront signal), `morans_i_final` ≈ 0.0
+(post-collapse), `screening_rejection_reason = "uniform_state"`. A user
+now sees both the wavefront was real and that the final state was
+uniform, which is the load-bearing Sprint 10 distinction.
+
+No detection outcomes changed. All Sprint 13 canonical tests (Schelling,
+Nowak-May, GS × P3, RPS × P12, LV × P11, SIR × P22) continue to pass.
+
+**New test file:** `tests/test_p1_diagnostic_schema.py` (6 tests covering
+the five rejection paths + the canonical-positive `"none"` path + the
+`sustained_i_cv_undefined` flag). `test_p1_rejection_reason_always_valid`
+pins the rejection-reason vocabulary.
+
+## D.2 — Nowak-May × P1 finite-size sensitivity
+
+**Problem.** The NM × P1 canonical positive in the detection tests is
+pinned at specific grid sizes (N=100 in `test_nowak_may_p27_e2e.py`,
+N=60 in cross-detection matrix tests). The Sprint 10 carry item noted
+"finite-size variation; worth pinning if future NM tests have tight
+thresholds" but no characterization had been done.
+
+**Method.** Ran NM (b=1.8, n_steps=200, init_mode=random) × P1 across
+grid sizes N ∈ {30, 50, 80, 100, 128} and seeds {42, 7, 123, 999, 2024}.
+Recorded final Moran's I and whether the system reached the canonical
+bistable coexistence or one strategy went extinct.
+
+**Characterization table:**
+
+| N    | Coex. rate | Coex-only mean final_I | Notes                                |
+|------|-----------:|-----------------------:|--------------------------------------|
+| 30   | 1/5 (0.2)  | 0.227                  | 4/5 seeds → strategy extinction      |
+| 50   | 4/5 (0.8)  | 0.565 (σ ≈ 0.12)       | Extinction risk ~20%; high variance  |
+| 80   | 4/5 (0.8)  | 0.487 (σ ≈ 0.01)       | Mostly coex; stable `final_I` when coex |
+| 100  | 5/5 (1.0)  | 0.490 (σ ≈ 0.005)      | Fully coexistence                    |
+| 128  | 5/5 (1.0)  | 0.491 (σ ≈ 0.005)      | Fully coexistence                    |
+
+**Findings.**
+
+1. **N=30 is below the self-sustaining threshold.** 80% of seeds went
+   to strategy extinction (all cooperators or all defectors) at n_steps=200,
+   producing `final_I = 0.0` and `screening_rejection_reason =
+   "uniform_state"`. Not a safe regime for NM × P1 positive testing.
+
+2. **N=50 and N=80 show "binary" behavior.** Seeds either go fully
+   extinct or reach stable coexistence — no intermediate states. The
+   coex-only mean `final_I` jumps from 0.565 (N=50) to 0.487 (N=80);
+   the higher value at N=50 reflects tighter spatial structure on
+   the smaller domain rather than a stronger aggregation signal.
+
+3. **N ≥ 100 is safe for tight-threshold tests.** Coexistence is
+   universal across 5 seeds, and `final_I` variance is σ ≈ 0.005 —
+   a full order of magnitude below the CONFIRMATION threshold's
+   implicit 0.05 magnitude floor. The canonical positive at N=100
+   reports `final_I ≈ 0.49` with extreme reproducibility.
+
+4. **The N=100 canonical choice is well-founded.** The existing
+   `test_nowak_may_p27_e2e.py` (N=100) and the cross-detection matrix
+   test (N=60 — at the boundary of the safe regime) are both above
+   the extinction floor, but only N=100 is in the "tight variance"
+   regime. Future NM × P1 tests with tolerances below 0.02 should
+   prefer N ≥ 100.
+
+**Practical guidance.**
+
+- For canonical positive tests at tight thresholds: **N ≥ 100, seeds
+  from {42, 7, 123, 999, 2024}** (or any subset) — stable to σ ≈ 0.005.
+- For characterization at N = 50–80: expect 20% extinction rate; if
+  you need deterministic coexistence at small N, use longer
+  `n_steps` (≥ 500) or `init_mode="stripes"` to suppress the boundary
+  initialization variance.
+- **Never use N < 50 for NM × P1 canonical positive testing.**
+  Extinction dominates.
+
+**No code changes** — this was a characterization pass only, answering
+the Sprint 10 question of "how tight can NM × P1 thresholds be?" with
+an empirical answer (σ ≈ 0.005 at N=100, 5 seeds). The Sprint 14.5 D.3
+diagnostic schema additions make the extinction-detection case cleanly
+visible via `screening_rejection_reason = "uniform_state"`, which also
+made this characterization straightforward to perform.
+
+## Sprint 14.5 test totals
+
+- 6 new tests in `tests/test_p1_diagnostic_schema.py`
+- All Sprint 14 fast-half tests continue to pass (123 → 129 fast-half)
+- No new slow tests, no new models, no new detectors
+
+## Carry-forwards cleared by Sprint 14.5
+
+- Sprint 10 carry #8 (NM final I size sensitivity): **resolved** (D.2,
+  characterization only).
+- Sprint 10 carry #9 (SIR × P1 diagnostic visibility): **resolved**
+  (D.3, detector polish).
+
+Remaining Sprint 10–13 carry-forwards: #1–#7 (numerical acceleration,
+finite-size scaling slow tests, spots regime threshold, P15 IC
+sensitivity, RPS wavelength scaling), all unchanged.

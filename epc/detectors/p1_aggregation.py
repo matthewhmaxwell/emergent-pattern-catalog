@@ -101,6 +101,7 @@ class P1AggregationDetector(BaseDetector):
                 "morans_i": 0.0, "morans_i_final": 0.0,
                 "morans_i_sustained": 0.0, "morans_i_peak": 0.0,
                 "expected_i": 0.0, "n_unique_types": 0,
+                "screening_rejection_reason": "empty_state_history",
             }
         s0 = state_history[0]
         if ("grid" not in s0 and "type_labels_at_pos" not in s0
@@ -109,6 +110,7 @@ class P1AggregationDetector(BaseDetector):
                 "morans_i": 0.0, "morans_i_final": 0.0,
                 "morans_i_sustained": 0.0, "morans_i_peak": 0.0,
                 "expected_i": 0.0, "n_unique_types": 0,
+                "screening_rejection_reason": "substrate_mismatch",
             }
 
         result_final = self._morans_i.compute(state_history, timestep=-1)
@@ -147,6 +149,23 @@ class P1AggregationDetector(BaseDetector):
             sustained_samples = [final_i]
         sustained_i = float(np.mean(sustained_samples))
 
+        # Sprint 14.5 D.3: attach a screening-rejection-reason diagnostic
+        # so users can see *why* a screening-reject happened on the
+        # primary_metric alone (since secondary_metrics is empty on early
+        # exit). The three rejection modes are:
+        #   - uniform_state: n_unique_types < 2 (SIR after wavefront collapse)
+        #   - below_expected: observed <= expected_i (random noise)
+        #   - below_magnitude_floor: observed < 0.05 (transient dissipated)
+        expected_i = float(result_final["expected_i"])
+        if n_unique_types < 2:
+            rejection_reason = "uniform_state"
+        elif final_i <= expected_i:
+            rejection_reason = "below_expected"
+        elif final_i < 0.05:
+            rejection_reason = "below_magnitude_floor"
+        else:
+            rejection_reason = "none"  # screening would pass
+
         return {
             # PRIMARY METRIC (Sprint 10): final-state Moran's I.
             # Kept under the key "morans_i" for compatibility with
@@ -155,8 +174,12 @@ class P1AggregationDetector(BaseDetector):
             "morans_i_final": final_i,
             "morans_i_sustained": sustained_i,
             "morans_i_peak": peak_i,
-            "expected_i": result_final["expected_i"],
+            "expected_i": expected_i,
             "n_unique_types": n_unique_types,
+            # Sprint 14.5 D.3: screening-rejection diagnostic. When
+            # detected=False and tier=SCREENING, this names the gate
+            # that rejected.
+            "screening_rejection_reason": rejection_reason,
         }
 
     def _check_screening(self, primary_result, timescale):
@@ -210,8 +233,18 @@ class P1AggregationDetector(BaseDetector):
             sustained_i.append(mi["morans_i"])
 
         mean_i = float(np.mean(sustained_i)) if sustained_i else 0.0
-        cv_i = (float(np.std(sustained_i) / mean_i)
-                if sustained_i and mean_i > 0 else float("inf"))
+        # Sprint 14.5 D.3: CV is undefined when mean is near-zero (e.g.,
+        # a uniform post-collapse grid like SIR at t=T_end). Flag this
+        # explicitly; keep cv_i=inf for backwards-compat with the
+        # numeric `cv > 0.3` confirmation check, but add a boolean so
+        # downstream consumers can distinguish "huge CV" from "mean
+        # too small to define CV".
+        CV_UNDEFINED_MEAN_FLOOR = 0.01
+        cv_undefined = bool(sustained_i) and abs(mean_i) < CV_UNDEFINED_MEAN_FLOOR
+        if sustained_i and abs(mean_i) >= CV_UNDEFINED_MEAN_FLOOR:
+            cv_i = float(np.std(sustained_i) / abs(mean_i))
+        else:
+            cv_i = float("inf")
 
         return {
             "segregation_index": seg["segregation_index"],
@@ -221,6 +254,7 @@ class P1AggregationDetector(BaseDetector):
             "max_cluster_size": clust["max_cluster_size"],
             "sustained_i_mean": mean_i,
             "sustained_i_cv": cv_i,
+            "sustained_i_cv_undefined": cv_undefined,
         }
 
     def _run_null_model(self, state_history, primary_result, timescale):
