@@ -136,8 +136,23 @@ class TestGrayScottLabyrinthP3Definitive:
 
 
 class TestGrayScottSpotsP3Confirmation:
-    """Gray-Scott spots regime (F=0.030, k=0.062) reaches at least
-    CONFIRMATION — p/m is lower than labyrinth (~13 vs ~19)."""
+    """Gray-Scott spots regime (F=0.030, k=0.062) reaches CONFIRMATION —
+    p/m is lower than labyrinth (~13 vs ~19), insufficient to clear the
+    DEFINITIVE threshold (15.0).
+
+    Sprint 14.6 decision (carry-forward from Sprint 13 #2): keep the
+    DEFINITIVE peak-to-mean threshold at 15.0, pinning spots as a
+    CONFIRMATION-tier canonical example. Empirical 5-seed characterization
+    (seeds {42, 7, 123, 999, 2024}) measured peak-to-mean in [11.79,
+    14.85] with mean 12.89 and stdev ≈ 1.25. Labyrinth's 5-seed range
+    is [17.64, 19.64], giving a clean ~5-point separation between the
+    two regimes' tier assignments. Lowering the threshold to admit
+    spots as DEFINITIVE would erode this margin without improving
+    discrimination against non-Turing systems (which are rejected at
+    the substrate/prerequisite stage, not the tier threshold).
+    See REPLICATION_NOTES.md Sprint 14.6 section for the full
+    empirical justification.
+    """
 
     def test_spots_reaches_confirmation(self):
         m = GrayScott(rows=128, cols=128, feed_rate=0.030, kill_rate=0.062, seed=42)
@@ -150,6 +165,27 @@ class TestGrayScottSpotsP3Confirmation:
             f"GS spots should reach >= CONFIRMATION; got {result.tier.name}. "
             f"p/m={result.primary_metric.get('peak_to_mean')}, "
             f"d={result.effect_size.get('cohens_d')}"
+        )
+
+    def test_spots_tier_is_exactly_confirmation(self):
+        """Pin the Sprint 14.6 design decision: spots is CONFIRMATION,
+        not DEFINITIVE. If a future change lowers _DEF_PM_MIN below the
+        spots regime's peak-to-mean (~12-15 range), this test will fail
+        and force an explicit review of whether the margin-against-RPS
+        story still holds.
+        """
+        m = GrayScott(rows=128, cols=128, feed_rate=0.030, kill_rate=0.062, seed=42)
+        history = m.run(4000)
+        det = P3TuringWavelengthDetector(n_permutations=199, seed=42)
+        result = det.detect(history, m.get_metadata())
+
+        assert result.tier == DetectionTier.CONFIRMATION, (
+            f"Sprint 14.6 pins spots at exactly CONFIRMATION (not DEFINITIVE). "
+            f"Got tier={result.tier.name} with "
+            f"p/m={result.primary_metric.get('peak_to_mean'):.2f}. "
+            f"If you've intentionally lowered the DEFINITIVE threshold, "
+            f"update this test and the Sprint 14.6 section of "
+            f"REPLICATION_NOTES.md."
         )
 
 

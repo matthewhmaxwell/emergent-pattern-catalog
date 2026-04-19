@@ -38,7 +38,12 @@ from epc.detectors.p14_soc import detect_p14
 
 @pytest.fixture(scope="module")
 def btw_result():
-    """Run BTW sandpile once, share across tests."""
+    """Run BTW sandpile once, share across tests.
+
+    Sprint 14.6 D.1: This fixture produces a replication-quality 100k-event
+    run (~130s) and is only consumed by slow-marked tests. Fast-half
+    tests use the separate `test_p14_fast_smoke` below.
+    """
     params = BTWSandpileParams(L=64, n_drive=100_000, n_burn=10_000, seed=42)
     return run_sandpile(params)
 
@@ -59,9 +64,67 @@ def det(btw_result):
 
 
 # =========================================================================
-# Test 1: BTW Model Physics
+# FAST-SMOKE: pipeline works end-to-end at reduced scale (Sprint 14.6 D.1)
 # =========================================================================
 
+def test_p14_fast_smoke():
+    """Fast-smoke pipeline verification at reduced scale.
+
+    Sprint 14.6 D.1: The full-replication tests below each run ~130s of
+    BTW simulation (100k events at L=64). This fast-smoke test uses
+    L=32 and n_drive=5_000 to verify that:
+
+      1. The BTW sandpile model runs to completion without raising.
+      2. The P14 detector accepts the output and returns a result.
+      3. The returned result has the expected schema (tier, detected,
+         fit, tau_in_range).
+
+    It does NOT assert replication-quality τ values or power-law fit
+    quality — those are pinned by the slow-marked `test_replication_summary`
+    on 100k-event runs. If this smoke test fails, the pipeline is
+    structurally broken; if it passes but the slow tests fail, the
+    issue is a statistical-power or replication-quality regression.
+
+    Timing: ~5s on typical hardware.
+    """
+    params = BTWSandpileParams(L=32, n_drive=5_000, n_burn=500, seed=42)
+    result = run_sandpile(params)
+
+    # Model physics: reached critical state, produced avalanches
+    assert result.final_grid.max() < params.z_c, (
+        f"BTW critical state violation: max height = "
+        f"{result.final_grid.max()} >= z_c = {params.z_c}"
+    )
+    sizes = result.avalanche_sizes
+    assert len(sizes) > 0, "BTW produced no avalanches"
+    nonzero = sizes[sizes > 0]
+    assert len(nonzero) > 50, (
+        f"BTW produced only {len(nonzero)} non-zero avalanches "
+        f"(need >50 for detector to run meaningfully)"
+    )
+
+    # Detector pipeline: runs to completion, returns schema-valid result
+    det_result = detect_p14(
+        avalanche_sizes=result.avalanche_sizes,
+        avalanche_durations=result.avalanche_durations,
+        activity=result.activity,
+        energy=result.energy_history,
+        is_self_tuned=True,
+    )
+
+    assert hasattr(det_result, "detected"), "Detector result missing 'detected'"
+    assert hasattr(det_result, "tier"), "Detector result missing 'tier'"
+    assert hasattr(det_result, "fit"), "Detector result missing 'fit'"
+    # tier may be 'none', 'screening', 'confirmation', or 'definitive'
+    # at this low statistical power — don't pin; just verify it ran.
+    assert det_result.tier is not None
+
+
+# =========================================================================
+# Test 1: BTW Model Physics (slow — replication-quality)
+# =========================================================================
+
+@pytest.mark.slow
 def test_btw_physics():
     """Verify BTW sandpile reaches critical state with correct properties."""
     print("=" * 70)
@@ -110,9 +173,10 @@ def test_btw_physics():
 
 
 # =========================================================================
-# Test 2: Full P14 Detector End-to-End
+# Test 2: Full P14 Detector End-to-End (slow — replication-quality)
 # =========================================================================
 
+@pytest.mark.slow
 def test_p14_e2e(btw_result):
     """Run full P14 detector on BTW sandpile."""
     print("\n" + "=" * 70)
@@ -231,9 +295,10 @@ def test_dissipative_negative():
 
 
 # =========================================================================
-# Test 4: Replication Summary
+# Test 4: Replication Summary (slow — requires full 100k-event fixture)
 # =========================================================================
 
+@pytest.mark.slow
 def test_replication_summary(det):
     """Summarize replication against published BTW results."""
     print("\n" + "=" * 70)

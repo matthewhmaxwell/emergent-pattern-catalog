@@ -2018,7 +2018,13 @@ positive (GS × P3) + 12 new rejections.)
    is above the spots regime's observed 13.35. Either (a) lower the
    DEFINITIVE threshold to 12.0 and accept both regimes as canonical
    DEFINITIVE positives, or (b) keep the current configuration and
-   document spots as a CONFIRMATION-tier example. Currently (b).
+   document spots as a CONFIRMATION-tier example. **Resolved in
+   Sprint 14.6 as option (b).** 5-seed characterization confirmed
+   spots peak-to-mean is stably in [11.79, 14.85] (mean 12.89,
+   σ ≈ 1.25), cleanly separated from labyrinth's [17.64, 19.64].
+   Test `test_spots_tier_is_exactly_confirmation` in
+   `tests/test_gs_p3_e2e.py` pins the decision; see Sprint 14.6
+   section below for full empirical justification.
 
 4. **Lotka-Volterra finite-size scaling slow test** (carry from
    Sprint 11 #1) — still outstanding.
@@ -2194,3 +2200,154 @@ made this characterization straightforward to perform.
 Remaining Sprint 10–13 carry-forwards: #1–#7 (numerical acceleration,
 finite-size scaling slow tests, spots regime threshold, P15 IC
 sensitivity, RPS wavelength scaling), all unchanged.
+
+# Sprint 14.6: Small Improvements (Sprint 13 #2 + Sprint 14 D.1)
+
+Sprint 14.6 closed two more carry-forwards: the Gray-Scott spots
+regime threshold decision (Sprint 13 #2) and the sandpile test split
+(Sprint 14 D.1). No new models, no new detectors, no transfer-matrix
+changes.
+
+## Sprint 13 #2 — Gray-Scott spots regime threshold decision
+
+**Problem.** The Sprint 13 characterization measured peak-to-mean =
+13.35 at the spots regime (F=0.030, k=0.062, seed=42, N=128, T=4000),
+which falls below the DEFINITIVE threshold of 15.0. The carry-forward
+item posed two options: (a) lower the DEFINITIVE threshold to ~12.0
+and accept both regimes as canonical DEFINITIVE positives, or (b)
+keep the current threshold and document spots as a CONFIRMATION-tier
+canonical example.
+
+**Method.** Extended the Sprint 13 single-seed measurement to a 5-seed
+characterization across both regimes (seeds {42, 7, 123, 999, 2024}).
+
+**Measurements** (N=128, T=4000, n_permutations=199):
+
+Spots regime (F=0.030, k=0.062):
+
+| Seed | peak-to-mean | peak_k | Cohen's d | peak_k_cv | tier         |
+|------|-------------:|-------:|----------:|----------:|--------------|
+| 42   | 13.35 | 10 | 58.8 | 0.044 | CONFIRMATION |
+| 7    | 14.85 | 9  | 69.5 | 0.000 | CONFIRMATION |
+| 123  | 11.79 | 9  | 56.2 | 0.000 | CONFIRMATION |
+| 999  | 11.96 | 9  | 55.4 | 0.000 | CONFIRMATION |
+| 2024 | 12.52 | 9  | 58.4 | 0.000 | CONFIRMATION |
+
+Labyrinth regime (F=0.037, k=0.060, the canonical DEFINITIVE positive):
+
+| Seed | peak-to-mean | peak_k | tier       |
+|------|-------------:|-------:|------------|
+| 42   | 18.75 | 10 | DEFINITIVE |
+| 7    | 19.64 | 10 | DEFINITIVE |
+| 123  | 17.64 | 10 | DEFINITIVE |
+| 999  | 18.53 | 10 | DEFINITIVE |
+| 2024 | 17.69 | 10 | DEFINITIVE |
+
+**Findings.**
+
+1. **Spots is firmly in CONFIRMATION across all 5 seeds**, not a
+   borderline case. Spots peak-to-mean range: [11.79, 14.85], mean
+   12.89, σ ≈ 1.25. Never reaches 15.0.
+2. **The seed=42 measurement from Sprint 13 (13.35) was the
+   second-highest of 5 seeds.** The distribution is actually centered
+   near 12–13, not 13–14. Seed=123 at 11.79 is the lowest.
+3. **Labyrinth clearly dominates spots on peak-to-mean.** Ranges
+   [17.64, 19.64] vs [11.79, 14.85] — a ~5-point separation with no
+   overlap.
+4. **Lowering `_DEF_PM_MIN` to 12.0** would promote 4/5 spots seeds
+   to DEFINITIVE but still miss seed=123.
+5. **Lowering `_DEF_PM_MIN` to 11.0** would promote all 5 spots seeds
+   to DEFINITIVE but narrow the margin-against-false-positive story
+   established in Sprint 13.
+
+**Decision: option (b), keep `_DEF_PM_MIN = 15.0`.**
+
+Rationale:
+
+- Current thresholds produce a clean, stable ~5-point gap between the
+  two regimes' tier assignments. This gap is an informative signal:
+  labyrinth's peak-to-mean is genuinely ~50% higher than spots', and
+  the tier system is designed to capture confidence-level differences.
+- Tier names are semantic: DEFINITIVE is "this exceeds anything any
+  non-Turing system could conceivably produce"; labyrinth at p/m=18
+  comfortably clears, while spots at p/m=12-14 is a strong
+  CONFIRMATION with Cohen's d ≈ 60 and null_p ≤ 0.005.
+- Lowering the threshold to ~11 would erode the margin against the
+  RPS false-positive trap documented in Sprint 13 (RPS raw-grid p/m
+  ≈ 23.10). This margin is load-bearing: discrimination against RPS
+  is already enforced at the substrate-prerequisite level (no `field`
+  observable, n_unique_values < 50), so lowering the tier threshold
+  would not compromise soundness — but it would shrink the "defense
+  in depth" story.
+- Spots at CONFIRMATION is not a deficiency; it is a correct
+  description of the relative signal strength.
+
+**Test pinning.** `tests/test_gs_p3_e2e.py::TestGrayScottSpotsP3Confirmation`
+gains a new `test_spots_tier_is_exactly_confirmation` that asserts
+the exact CONFIRMATION tier (not just `>=`). Previously the test only
+asserted `>= CONFIRMATION`, which would have silently passed under a
+lowered threshold. The new test forces an explicit review if anyone
+lowers `_DEF_PM_MIN` in the future.
+
+## Sprint 14 D.1 — Sandpile test split
+
+**Problem.** `tests/test_sandpile_p14_e2e.py` contained four unmarked
+tests — all running in the fast-half — with combined runtime of
+~5 minutes. The bulk of this was replication-quality BTW simulation:
+100,000 driving events at L=64 in `test_btw_physics` (~130s) and the
+same setup reused by `test_p14_e2e` and `test_replication_summary`
+(~130s in the module-scoped fixture). These are appropriate
+measurements for replication fidelity but far too slow for the
+fast-half canonical loop.
+
+**Method.** Separated into fast and slow layers:
+
+1. **New `test_p14_fast_smoke`** (fast-half): runs at reduced scale
+   (L=32, n_drive=5000, n_burn=500; ~5s) and verifies:
+   - BTW model runs to completion without raising.
+   - Critical state reached (`max_height < z_c`).
+   - At least 50 non-zero avalanches produced (detector has enough data).
+   - P14 detector accepts the output and returns a schema-valid
+     `DetectorResult` with `detected`, `tier`, and `fit` fields.
+   - Does NOT assert replication-quality τ ≈ 1.20 — that is pinned
+     by the slow tests on 100k-event runs.
+2. **`@pytest.mark.slow`** applied to `test_btw_physics`,
+   `test_p14_e2e`, and `test_replication_summary` (and the shared
+   `btw_result` / `det` fixtures which they depend on).
+3. **`test_dissipative_negative`** (8s standalone) remains in the
+   fast-half as a fast negative control. It uses its own small
+   simulation and does not depend on the slow 100k-event fixture.
+
+**Timing impact** (measured):
+
+| Scope        | Before (s) | After (s) | Delta  |
+|--------------|-----------:|----------:|-------:|
+| Fast-half sandpile | 293 | 8.6 | **-284s (-97%)** |
+| Slow-only sandpile | N/A | 167 | — |
+
+The fast-half speedup is the headline change: canonical fast
+verification (119→132 tests across Sprints 13, 14, 14.5, 14.6) now
+runs in ~190s total instead of ~475s with the sandpile-heavy runs
+included. The replication-quality tests still exist and pass — they
+are just gated behind `-m slow` to run on demand.
+
+**Test totals after Sprint 14.6.**
+
+- Fast-half: 132 passed, 3 deselected (was 129 + 0 at Sprint 14.5)
+- Heavy-half (sandpile slow + LV/RPS/GS e2e): 3 + 41 = 44 passed
+- Grand total: 176 fast + slow tests, + 1 deselected
+
+## Carry-forwards cleared by Sprint 14.6
+
+- Sprint 13 carry #2 (GS spots regime tier): **resolved** as option (b).
+- Sprint 14 D.1 (sandpile test split): **resolved**.
+
+## Carry-forwards still outstanding
+
+- Sprint 11 #1 — LV × P11 finite-size scaling slow test
+- Sprint 8 #5 — P15 IC sensitivity
+- Sprint 9 #6 — RPS wavelength scaling λ ∝ √M
+- Sprint 9 #7 — RPS M_c not precisely pinned
+- Sprint 9/11/13 — Numba acceleration for RPS, LV, Gray-Scott
+- Sprint 11 #9 — P11 requires ≥ 1200 generations (documented, not enforced)
+- Paper: §6/§7 consistency pass, §8 Conclusion draft, reference list
