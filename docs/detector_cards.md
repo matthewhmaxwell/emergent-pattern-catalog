@@ -1,6 +1,20 @@
-# Detector Specification Cards v0.5.5
+# Detector Specification Cards v0.6.0
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
+
+v0.6.0 (Sprint 16): P2 card completely rewritten to match implemented
+detector (ABP + P2MIPSDetector). The pre-existing recipe based on
+Hartigan dip on density histograms was shown empirically (Phase 1c/d)
+to false-positive every discrete-count distribution — dip is a bad
+primary for this substrate. Replaced with two_phase_coexistence_score
+= min(f_gas, f_liquid) plus a three-part confirmation gate (r band,
+CV_v, frac_stalled) and a metadata-driven mechanistic null for
+DEFINITIVE. See ADR 43-46 and REPLICATION_NOTES.md Sprint 16.
+
+v0.5.5 (Sprint 15): P8 card rewritten to match implemented detector
+(Nagel-Schreckenberg + P8TrafficJammingDetector). Calibration table at
+L=1000, v_max=5, p_slow=0.3 regime. Density-saturation false-positive
+trap discriminator documented.
 
 v0.5.4 (Sprint 13): P3 card rewritten to match implemented detector
 (Gray-Scott + P3TuringWavelengthDetector). New lattice_2d_continuous
@@ -218,44 +232,183 @@ peak > 0.5 and final < 0.1 on SIR as a physics diagnostic).
 
 ### P2 — Activity-induced phase separation (MIPS)
 
-**Observable scope:** Model-metadata required (absence of attraction must be verified from rule set)
+**Status:** Implemented Sprint 16. Canonical positive: Fily-Marchetti
+Active Brownian Particles at phi=0.5, Pe=100, N>=800.
+
+**Observable scope:** Model-metadata-assisted. Empirical detection runs
+entirely on state_history (positions + velocities). Metadata flags
+promote CONFIRMATION → DEFINITIVE via the mechanistic-null gate.
 
 **Required raw observables:**
-- `positions[t]`: (N, 2) continuous
-- `velocities[t]`: (N, 2)
-- `speed[t]`: (N,) self-propulsion
+- `positions[t]`: (N, 2) float continuous in [0, L)² with periodic BC
+- `velocities[t]`: (N, 2) float — OR `speeds[t]`: (N,) magnitudes
+- (optional) `local_density[t]`: (N,) per-particle counts / area; if
+  absent the detector computes it via cKDTree on positions.
+
+**Required metadata for DEFINITIVE:**
+- `box_size`: float — periodic box side length L
+- `rho_star`: float — density threshold at which v(rho) → 0
+  (fallback default 4.0 if absent, matches ABP with r_cg=1.0=sigma)
+- `has_density_dependent_speed`: bool — must be True for DEFINITIVE
+- `has_attraction_rule`: bool — must be False for DEFINITIVE
+- `has_alignment_rule`: bool — must be False for DEFINITIVE
 
 **Preprocessing:**
-1. Local density via Voronoi (1/cell area) or KDE (h = 2× interaction radius).
-2. Density-speed correlation: Pearson r(ρ_i, |v_i|) per timestep.
-3. Global density histogram for bimodality.
+1. Compute local density rho_i(t) at each particle via cKDTree disk
+   query with coarse-graining radius r_cg (default 1.0 = particle
+   diameter). Self-inclusion in count; divide by pi*r_cg^2.
+2. Compute per-particle speed magnitudes from velocities.
+3. Collect rho and speed across burn-in-skipped measurement frames.
 
-**Primary metric: Bimodal density distribution**
-Dip test on density histogram at steady state.
+**Primary metric: two_phase_coexistence_score = min(f_gas, f_liquid)**
+
+  f_gas = fraction of particles with rho_local < rho_star/2
+  f_liquid = fraction of particles with rho_local > rho_star
+
+True MIPS shows BOTH phases present in steady state. Flocking shows
+f_liquid ≈ 1 with f_gas ≈ 0; uniform gas shows f_gas ≈ 1 with
+f_liquid ≈ 0; density-saturated (stuck) shows f_liquid ≈ 1 with
+f_gas ≈ 0. Only genuine coexistence produces a nontrivial minimum.
+
+Score range [0, 0.5]. Empirical calibration at Fily-Marchetti canonical
+regime (phi=0.5, Pe=100, N=1000, 3000 post-burn steps):
+  score = 0.34 (f_gas=0.63, f_liquid=0.34).
 
 **Secondary metrics:**
-- Density-velocity anti-correlation: r < −0.3
-- Phase coexistence stability: CV of each mode < 0.1 over last 50% of run
-- Structural check: no pairwise attraction in rule set (model metadata)
+- `density_speed_r` (Pearson r of rho and |v|): genuine MIPS shows
+  -0.95 < r < -0.30. r <= -0.99 is the dilute-Poisson artifact
+  (few discrete density values give spurious perfect correlation).
+- `cv_v` (coefficient of variation of |v|): > 0.30 discriminates
+  genuine density-dependent slowdown from thermal/flocking regimes
+  where speed is uniform.
+- `p90_p10_ratio` (density dynamic range): > 5 indicates clustering;
+  not itself a tier gate but a diagnostic.
+- `frac_stalled` (fraction with |v| < 5% of mean): in (0.0, 0.98)
+  for MIPS; = 1.0 for fully stuck.
+- `mean_v`, `mean_rho`: sanity diagnostics.
 
 **Null models:**
-- *Constant-speed:* v(ρ) = v₀ (no density-dependent slowdown). Unimodal density expected.
-- *Equilibrium:* passive Brownian particles. Uniform density.
+
+1. *Shuffle null (primary confirmation gate):* Independently permute
+   rho_local[i] ↔ speed[i] pairings across particles, keeping each
+   marginal distribution fixed. Under H0 (no density-velocity
+   coupling), r ≈ 0. Observed r much more negative rejects H0.
+   At canonical regime: null mean r ≈ 0.00, null std ≈ 0.013,
+   observed r ≈ −0.94, Cohen's d ≈ −71 (effectively infinite).
+   Requires n_permutations >= 199 for p < 0.01 floor.
+
+2. *Mechanistic null (DEFINITIVE gate, metadata-based):* Model must
+   affirm via metadata flags: has_density_dependent_speed=True,
+   has_attraction_rule=False, has_alignment_rule=False. This is
+   the P2 analogue of Sprint 13's continuous-field substrate gate
+   for P3 (Decision 37) and Sprint 15's integer-velocity substrate
+   gate for P8 (Decision 41). See ADR 43.
+
+3. *Mechanistic intervention (orthogonal validation, NOT gated by
+   detector):* Running the same model with rho_star → ∞ (constant
+   speed, no density feedback) produces two_phase_score ≈ 0.0,
+   f_liquid = 0.0. Phase 1f verified this on ABP canonical. The
+   detector does not re-run the model; this validation is left to
+   follow-on analysis.
 
 **Detection tiers:**
-- *Screening:* Dip test p < 0.05
-- *Confirmation:* Dip p < 0.01 AND r(ρ,v) < −0.3 (p < 0.01) AND no attraction in rules
-- *Definitive:* Confirmation + constant-speed null produces unimodal + P1 exclusion cleared
 
-**Common false positives:**
-- P1 (preference-driven). Attractive-force clustering. Boundary accumulation (use periodic BC).
+- *Screening:* prereqs + two_phase_score > 0.03
+- *Confirmation:* screening + two_phase_score > 0.08 +
+  (-0.99 < density_speed_r < -0.30) + cv_v > 0.30 +
+  frac_stalled < 0.98 + null_p < 0.01
+- *Definitive:* confirmation + two_phase_score > 0.15 +
+  mechanistic null metadata affirms (has_density_dependent_speed=True,
+  has_attraction_rule=False, has_alignment_rule=False)
+
+**Prerequisite gates (cause screening_rejection_reason):**
+- `empty_state_history`: no snapshots
+- `substrate_mismatch`: no positions, wrong shape, no velocities/speeds
+- `too_few_particles`: N < 50
+- `run_too_short`: post-burn < 300 snapshots
+- `below_two_phase_floor`: primary <= 0.03
+
+**Three false-positive traps identified in Phase 1 characterization:**
+
+1. *Thermal regime* (low Pe, e.g. phi=0.5 Pe=5): v(rho) is active
+   but the overall speed distribution is narrow because few
+   particles reach rho_star. two_phase_score ~ 0.05, r ~ -0.95,
+   but cv_v ~ 0.3 — fails confirmation gate.
+
+2. *Dilute regime* (low phi, e.g. phi=0.1 Pe=100): local density
+   takes few discrete values, f_liquid ≈ 0. r ≈ -1.0 (Poisson
+   artifact from discrete counts), cv_v ≈ 0. Primary below floor
+   rejects at screening.
+
+3. *Over-saturated (stuck) regime* (high phi long runtime, e.g.
+   phi=0.85 Pe=100 >= 3000 steps): system coarsens to one dense
+   cluster, f_gas << 0.03. Short-runtime traces of this regime
+   show transient two-phase coarsening that CAN false-positive to
+   DEFINITIVE — detector requires >= 3·T_rot post-burn to avoid
+   this. See ADR 46.
+
+**Common false positives (across-model):**
+- Flocking (Vicsek ordered): all particles in a moving band; f_liquid
+  dominant but f_gas near zero → below screening. Additionally
+  cv_v = 0 exactly (constant speed) blocks confirmation anyway.
+- Attractive clustering (D'Orsogna milling): tight flock + empty
+  surround; f_liquid ~ 0.7 but f_gas ~ 0.05 → SCREENING only.
+  Additionally has_attraction_rule=True blocks DEFINITIVE via the
+  mechanistic-null metadata gate.
 
 **Nearest-neighbor exclusions:**
-- P1: Type labels + preference rules present → P1
+- P1 (similarity aggregation): excluded_by_substrate (lattice only).
+- P6 (milling): excluded when has_attraction_rule=False;
+  not_excluded when has_attraction_rule=True; inconclusive without
+  metadata.
 
 **Co-occurrence:**
-- *Allowed:* P5 (MIPS agents can also flock)
-- *Excluded:* P1 (same macro-signal, different mechanism)
+- *Allowed:* P5 (flocking + v(rho) would co-exist in a Vicsek+v(rho)
+  hybrid model — not currently in catalog).
+- *Excluded:* P1 (different substrate), P6 (different mechanism).
+
+**Empirical calibration (Sprint 16 Phase 1):**
+
+  Canonical MIPS positive (N=1000, phi=0.5, Pe=100, rho_star=4.0,
+  r_cg=1.0, dt=0.05, 2000 burn + 3000 measurement):
+
+    two_phase_score: 0.25 – 0.40   (seed-dependent finite-size)
+    f_gas: 0.35 – 0.65
+    f_liquid: 0.30 – 0.65
+    r: −0.87 to −0.95
+    cv_v: 0.8 – 2.5 (highly regime-dependent)
+    frac_stalled: 0.3 – 0.7
+    null_p: < 0.005 (= 1/201 floor at n_permutations=199)
+    Cohen's d: −50 to −100 (null std ~ 0.01, observed r ~ −0.9)
+    → DEFINITIVE at all tested seeds.
+
+  Negative sweep (continuous_2d neighbours):
+    Vicsek ordered (eta=0.1):     score=0.017, f_gas=0.02
+                                  → rejected (below_two_phase_floor)
+    Vicsek disordered (eta=2.5):  score=0.002, f_gas=0.003
+                                  → rejected
+    D'Orsogna milling:            score=0.056, f_gas=0.056
+                                  → SCREENING only
+                                  (primary above floor but below
+                                  confirmation; metadata flag would
+                                  block DEFINITIVE)
+
+  Within-model false-positive traps (ABP, varying regime):
+    thermal (phi=0.5 Pe=5):       score=0.05, cv_v=0.3 → SCREENING
+    dilute (phi=0.1 Pe=100):      score=0.00, f_liq=0 → rej_screening
+    stuck long (phi=0.85 3500):   score=0.07, f_gas=0.07 → SCREENING
+    stuck short (phi=0.85 2000):  score=0.24 → transient CONFIRMATION
+                                  (documented caveat, ADR 46)
+
+**References:**
+- Fily, Y. & Marchetti, M. C. (2012). *Athermal Phase Separation of
+  Self-Propelled Particles with No Alignment.* Phys. Rev. Lett.
+  108, 235702.
+- Redner, G. S., Hagan, M. F. & Baskaran, A. (2013). *Structure and
+  Dynamics of a Phase-Separating Active Colloidal Fluid.* Phys.
+  Rev. Lett. 110, 055701.
+- Cates, M. E. & Tailleur, J. (2015). *Motility-Induced Phase
+  Separation.* Annu. Rev. Condens. Matter Phys. 6, 219.
 
 ---
 

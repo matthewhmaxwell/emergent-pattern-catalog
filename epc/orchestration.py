@@ -9,17 +9,22 @@ by substrate type.
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS
 - lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
-- continuous_2d: Vicsek, D'Orsogna
+- continuous_2d: Vicsek, D'Orsogna, ABP
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
 
-Architecture decision #25 (updated Sprint 15):
-  15 models × 14 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 16):
+  16 models × 15 detectors — compatible pairs identified by substrate.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
   model with a 'velocities' observable; P8 (Sprint 15) is restricted
   to lattice_1d AND requires integer 1D velocities at content-level.
+  ABP (Sprint 16) shares continuous_2d with Vicsek and D'Orsogna;
+  P2 (Sprint 16) is restricted to continuous_2d and uses metadata
+  flags (has_alignment_rule, has_attraction_rule,
+  has_density_dependent_speed) to discriminate MIPS from flocking
+  and milling at the mechanistic-null (DEFINITIVE) gate.
 """
 
 from __future__ import annotations
@@ -167,6 +172,17 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         metadata_keys=['L', 'v_max', 'p_slow', 'density', 'init_mode',
                        'boundary', 'interaction_type', 'update_mode'],
     ),
+    'abp': ModelRegistration(
+        name='abp',
+        substrate_type='continuous_2d',
+        observables=['positions', 'velocities', 'headings', 'speeds',
+                     'local_density'],
+        primary_patterns=['P2'],
+        metadata_keys=['n_particles', 'box_size', 'v0', 'rho_star', 'D_r',
+                       'r_cg', 'dt', 'peclet', 'packing_fraction',
+                       'has_alignment_rule', 'has_attraction_rule',
+                       'has_density_dependent_speed', 'interaction_type'],
+    ),
 }
 
 # === Detector Registry ===
@@ -255,6 +271,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         required_substrate=['lattice_1d'],
         required_observables=['velocities'],
         observable_scope='state_history_only',
+    ),
+    'P2': DetectorRegistration(
+        pattern_id='P2',
+        required_substrate=['continuous_2d'],
+        required_observables=['positions'],
+        observable_scope='model_metadata_assisted',
     ),
 }
 

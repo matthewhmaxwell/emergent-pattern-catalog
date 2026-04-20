@@ -902,10 +902,165 @@ rejects at its own observable prereq: P1 needs `grid`, P3 needs
 sixteen rej) join the audited transfer matrix, bringing the total to
 80 audited cells across 15 models × 14 detectors.
 
-## 4.15 Consolidated Transfer Matrix
+## 4.15 Active Brownian Particles and P2 Motility-Induced Phase Separation (Cluster B)
 
-The following matrix summarizes detection outcomes across all 80
-audited model × detector pairs. Entries show the highest achieved tier
+**Primary reference:** Fily, Y. & Marchetti, M. C. (2012). Athermal
+phase separation of self-propelled particles with no alignment.
+*Phys. Rev. Lett.* 108, 235702.
+
+**Secondary references:** Redner, G. S., Hagan, M. F. & Baskaran, A.
+(2013). Structure and dynamics of a phase-separating active colloidal
+fluid. *Phys. Rev. Lett.* 110, 055701. Cates, M. E. & Tailleur, J.
+(2015). Motility-induced phase separation. *Annu. Rev. Condens.
+Matter Phys.* 6, 219.
+
+The Active Brownian Particles (ABP) model is the canonical minimal
+realization of motility-induced phase separation, the surprising
+phenomenon in which self-propelled particles with *no* attractive
+interaction and *no* alignment rule nonetheless phase-separate into
+coexisting dense and dilute regions. N disk-shaped particles on a
+periodic 2D domain follow overdamped Langevin dynamics with two
+rules: (1) each particle moves ballistically along its heading at a
+density-dependent speed v(ρᵢ) = v₀·max(0, 1 − ρᵢ/ρ\*); (2) the
+heading diffuses rotationally with correlation time 1/D_r. The single
+coupling between particles — the v(ρ) slowdown — drives the entire
+phenomenology: particles that by chance encounter dense regions slow
+down, which increases the local density, which slows more particles
+still, producing a runaway positive-feedback mechanism that produces
+dense clusters even in the complete absence of attractive forces.
+ABP occupies the `continuous_2d` substrate alongside Vicsek and
+D'Orsogna, and is the first catalog model of *third-kind* kinetic
+self-organization: neither alignment (Vicsek) nor attraction
+(D'Orsogna) but density-dependent kinetics.
+
+**Phase-boundary replication.** We characterize the MIPS boundary
+empirically in the (packing fraction φ, Péclet number Pe) plane
+following Fily-Marchetti's Fig. 1. Packing fraction φ = Nπσ²/(4L²)
+parametrizes density; Péclet number Pe = v₀/(D_r·σ) parametrizes
+activity, with σ = 1 the particle diameter. We use ρ\* = 4 (matching
+Fily-Marchetti's close-packing convention at r_cg = σ = 1),
+dt = 0.05, and measurement of 3·T_rot post-burn-in where
+T_rot = 1/D_r is the rotational correlation time. At N = 1000 and
+three seeds per cell, the phase diagram separates cleanly: MIPS is
+present in a wedge bounded by φ ≳ 0.35 and Pe ≳ 50; outside this
+region the system is uniform (dilute or thermal) or one-phase (stuck
+in the high-φ/high-Pe corner where every particle satisfies
+ρᵢ > ρ\*). The canonical Fily-Marchetti regime — φ = 0.5, Pe = 100 —
+reliably produces DEFINITIVE P2 detection at seed-averaged
+two_phase_score = 0.34, matching the published density-histogram
+bimodality of their Fig. 1(b,c). At phi = 0.85, Pe = 100, the
+steady-state is one-phase (f_gas = 0.07, f_liquid = 0.91), but
+short-runtime traces (< 2·T_rot after burn-in) show transient
+coarsening structure that would false-positive a naive detector —
+this is the P2 analogue of Sprint 15's pigeonhole density saturation
+trap in Nagel-Schreckenberg, and is gated by the run-length
+requirement documented in Architecture Decision 46.
+
+**P2 detector — primary metric reshaped by empirical findings.** The
+pre-existing P2 detector card (v0.5.5 of detector_cards.md) specified
+a Hartigan dip test on the density histogram as the primary metric,
+following the textbook MIPS characterization via bimodality.
+Phase 1c characterization revealed that this recipe is empirically
+wrong for this substrate: particle-level local densities are integer
+counts divided by a constant area, producing *discrete* distributions
+that are trivially non-uniform by Hartigan's test regardless of
+underlying physics. Dip p-values floored at the bootstrap minimum
+(p = 0.005 at n_boot = 199) across *every* tested regime, including
+known-uniform dilute (φ = 0.1) and known-one-phase stuck (φ = 0.8)
+regimes. Dip is unusable as the P2 primary.
+
+The Sprint 16 P2 detector instead uses a two-phase-coexistence score:
+
+  f_gas   = fraction of particles with ρᵢ < ρ\*/2
+  f_liquid = fraction of particles with ρᵢ > ρ\*
+  two_phase_coexistence_score = min(f_gas, f_liquid)
+
+This exploits the essential *mechanistic* signature of MIPS:
+simultaneous presence of both phases in non-negligible fractions.
+Flocking (all-liquid), uniform gas (all-gas), and stuck (all-liquid
+near ρ\*) each zero out one of the fractions, so their min is zero.
+At the canonical Fily-Marchetti regime (φ = 0.5, Pe = 100, N = 1000),
+f_gas = 0.23 and f_liquid = 0.76, giving score = 0.23. The detector
+uses three-part confirmation gating: the density-speed Pearson r
+must satisfy -0.99 < r < -0.30 (the upper bound excludes the
+Poisson-discrete artifact where few local-density values produce
+spurious perfect correlation), the speed CV must exceed 0.30 (ruling
+out constant-speed Vicsek and thermal ABP), and the stalled fraction
+must be below 0.98 (ruling out the stuck-cluster trap). Definitive
+tier requires a metadata-based mechanistic null: the model must
+affirm `has_density_dependent_speed = True`,
+`has_attraction_rule = False`, and `has_alignment_rule = False`.
+
+**Mechanistic null verification.** We verify the v(ρ) causal
+mechanism directly by setting ρ\* → ∞ (effectively disabling the
+density-dependent slowdown). Same initial conditions, same seeds,
+same parameters otherwise: f_liquid drops from 0.86 to exactly 0,
+mean_ρ collapses from 6.32 to 0.96 (uniform gas limit), r saturates
+at -1.0 (Poisson-discrete artifact on the low-N local-density
+distribution), and the two_phase_score drops below the screening
+floor. This is the textbook mechanistic null for MIPS, and the
+Sprint 16 detector encodes it as a model_metadata flag rather than
+re-running the simulation — analogous to the Sprint 13 P3 substrate-
+content gate (Decision 37) and Sprint 15 P8 content-level integer-
+velocity gate (Decision 41). Decision 43 formalizes this metadata-
+mechanism gate as the third class of discrimination in the catalog's
+detector architecture: substrate-type (registry), substrate-content
+(observable values), and metadata-mechanism (physical rule flags).
+
+**Substrate-compatible neighbours.** P2 shares the continuous_2d
+substrate with P5 (flocking) and P6 (milling). Vicsek × P2 rejects
+cleanly at the screening floor: ordered-phase flocks concentrate all
+particles into a moving band (f_liquid = 0.95), but there is no
+dilute coexistence phase (f_gas = 0.02), so the two_phase_score = 0.02
+falls below the 0.03 screening threshold. Disordered Vicsek rejects
+even more strongly (score = 0.002). Additionally, Vicsek's constant-
+speed kinematics give CV_v = 0 exactly, which blocks any confirmation
+path. D'Orsogna milling produces a tight rotating flock surrounded by
+empty space — structurally similar to phase separation at first
+glance, but f_gas = 0.056 and f_liquid = 0.73 give score = 0.056,
+which passes the screening floor but falls short of the 0.08
+confirmation threshold. Even when a D'Orsogna configuration scores
+higher, the mechanistic-null gate (has_attraction_rule = True when
+the metadata flag is carried) blocks DEFINITIVE tier: attraction-
+driven clustering is P6, not P2. This is the same form of
+mechanistically-asymmetric discrimination used for the bilateral vs.
+cyclic predator-prey boundary in Sprint 11 (P11 vs. P12).
+
+**Broad within-model sweep identifies three false-positive traps.**
+ABP is richer than Vicsek or D'Orsogna: varying φ and Pe produces
+four qualitatively distinct regimes of which only one is MIPS. Phase 1
+characterization exhaustively mapped the non-MIPS regimes and the
+specific detector gates that catch each. First, thermal ABP (Pe ≲ 10)
+has active v(ρ) dynamics but the Pe is low enough that rotational
+diffusion dominates translation, and particles never reach the ρ > ρ\*
+regime; CV_v stays near 0.3, failing the confirmation gate. Second,
+dilute ABP (φ ≲ 0.2) has too few particles per coarse-graining disk
+to ever reach the dense-phase threshold; f_liquid = 0 deterministically,
+primary = 0 below the screening floor, and the observed Pearson r
+saturates at −1.0 (Poisson-discrete artifact). Third, over-saturated
+ABP (φ ≳ 0.8, long runtime) coarsens to a single giant cluster with
+no dilute surround; f_gas drops below 0.05, primary falls below the
+0.08 confirmation threshold. Each trap maps to a distinct
+screening_rejection_reason or confirmation-gate failure, giving
+downstream pipeline operators informative diagnostics for every
+non-MIPS outcome — the same design pattern as Sprint 15's
+P8 screening_rejection_reason taxonomy.
+
+**Transfer-matrix expansion.** The orchestration registry now has 16
+models × 15 detectors = 240 cells (was 210 at Sprint 15). ABP × P2 is
+the canonical positive; ABP × P5 and ABP × P6 are both rejected
+(ABP has no alignment, no attraction). P2 × thirteen non-continuous_2d
+models are all substrate_mismatch rejections. Vicsek × P2 rejects at
+the screening floor; D'Orsogna × P2 lands at SCREENING only.
+Thirty-four new cells (1 detected + 1 screening + 32 rejected) join
+the audited EXPECTED_OUTCOMES table in
+`tests/test_cross_detection_matrix.py`, bringing the total to 78
+audited pairs.
+
+## 4.16 Consolidated Transfer Matrix
+
+The following matrix summarizes detection outcomes across all audited
+model × detector pairs. Entries show the highest achieved tier
 (D = definitive, C = confirmation, S = screening), reported non-
 detections (rej = rejected by prerequisite or screening guard, nd =
 substrate-compatible but not detected), or substrate/observable
@@ -915,49 +1070,51 @@ canonical configuration for the generalized P15 detector; R-pentomino
 gives a lower P15 tier because it lacks the diversity of outcome
 classes the generalized detector requires).
 
-|                   | P1  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Gray-Scott        | rej | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
-| Nagel-Schreck.    | rej | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
+|                   | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
+|-------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting     | S   | ×   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling         | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
+| Vicsek (ordered)  | ×   | rej | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)  | ×   | S   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| ABP (MIPS)        | ×   | D   | ×   | rej| rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)   | ×   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral         | S   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
+| GoL (R-pent/rand) | rej | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
+| BTW sandpile      | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
+| Nowak-May (b=1.8) | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
+| HK (ε=0.2)        | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
+| SIR epidemic      | rej | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
+| RPS spatial       | S   | ×   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Lotka-Volterra    | C   | ×   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Gray-Scott        | rej | ×   | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+| Nagel-Schreck.    | rej | ×   | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
 
-Row count: 15 distinct model families. Column count: 15 displayed detector
-slots (14 formally registered in the orchestration layer plus P11 which
-was implemented in Sprint 11 but not retrofitted into the detector
-registry — a pre-existing documentation-vs-registry gap carried forward
-from Sprints 11–14). Out of 225 displayed cells, 147 are substrate
-mismatches (×) and 7 are detector-substrate incompatibilities (—,
-primarily P31 which requires lattice_1d). The remaining 71 cells are
-substrate-compatible and empirically audited: 23 produce detections
-(10 at DEFINITIVE — adding Nagel-Schreckenberg × P8 to the Sprint 13
-tally of 9, 1 at DEFINITIVE with dense random IC (D*, Game of Life ×
-P15), 6 at CONFIRMATION, 6 at SCREENING), 42 are rejected by
-prerequisite or screening guard (rej; Sprint 15 added sixteen such
-cells — nine existing-model × P8 rejections and seven NS × 2D-
-substrate-detector rejections), and 6 run but do not fire (nd —
-typically P15 on stochastic lattice models where the functional replay
-test fails due to irreproducibility, or Gray-Scott's deterministic PDE
-which has no stochastic step_fn). Of these 71 displayed audited cells,
-68 appear in the cross-detection-matrix `EXPECTED_OUTCOMES` regression
-table (`tests/test_cross_detection_matrix.py`); the remaining canonical
+Row count: 16 distinct model families (ABP added Sprint 16). Column
+count: 16 displayed detector slots (15 formally registered in the
+orchestration layer — the Sprint 15 entries plus P2 added Sprint 16 —
+and P11 displayed but not registry-retrofitted, a pre-existing
+documentation-vs-registry gap carried forward from Sprints 11–14).
+Out of 256 displayed cells, 168 are substrate mismatches (×) and 7
+are detector-substrate incompatibilities (—, primarily P31 which
+requires lattice_1d and P12/P22 which require lattice_2d grid
+observables). The remaining 81 cells are substrate-compatible and
+empirically audited: 25 produce detections (11 at DEFINITIVE — adding
+ABP × P2 to the Sprint 15 tally of 10, 1 at DEFINITIVE with dense
+random IC (D*, Game of Life × P15), 6 at CONFIRMATION, 7 at
+SCREENING — adding D'Orsogna × P2 to the existing 6), 50 are rejected
+by prerequisite or screening guard (rej — Sprint 16 added eight such
+cells: ABP × P5, ABP × P6, Vicsek × P2, plus five substrate-matched
+rejections for ABP against lattice/oscillator/opinion detectors),
+and 6 run but do not fire (nd — typically P15 on stochastic lattice
+models where the functional replay test fails due to
+irreproducibility, or Gray-Scott's deterministic PDE which has no
+stochastic step_fn). Of these 81 displayed audited cells, 78 appear
+in the cross-detection-matrix `EXPECTED_OUTCOMES` regression table
+(`tests/test_cross_detection_matrix.py`); the remaining canonical
 positives (e.g., Vicsek × P5, Kuramoto × P9, Gray-Scott × P3,
-Nagel-Schreckenberg × P8) have their DEFINITIVE tier pinned by
-dedicated e2e test files rather than the cross-detection matrix. Nine
-additional audited cells in the LV × P11 row and P11 column (the
-Sprint 11 work) live outside the orchestration registry but inside the
-test suite.
+Nagel-Schreckenberg × P8, ABP × P2) have their DEFINITIVE tier
+pinned by dedicated e2e test files rather than the cross-detection
+matrix.
 
 Eight observations about the matrix.
 
@@ -1048,10 +1205,10 @@ null (GH), intrinsic signal asymmetry (Nowak-May's imitation-based
 clustering is weaker than Schelling's preference-based clustering on
 segregation index) — rather than weak signals.
 
-## 4.16 Methodological Lessons
+## 4.17 Methodological Lessons
 
-Six methodological insights emerged from the replication work across
-Sprints 1–11.
+Eight methodological insights emerged from the replication work across
+Sprints 1–16.
 
 **Look before touching.** The most important pattern from Sprints 9,
 10, and 11 is that empirical characterization on the target and

@@ -46,25 +46,26 @@ historical reasons, and the cross-matrix number (68) reflects the
 non-canonical subset that requires systematic maintenance as new
 detectors are added.
 
-**Table 1: Consolidated Transfer Matrix (71 audited cells across 15 model families × 15 displayed detector slots)**
+**Table 1: Consolidated Transfer Matrix (78 audited cells across 16 model families × 16 displayed detector slots)**
 
-|                   | P1  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Gray-Scott        | rej | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
-| Nagel-Schreck.    | rej | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
+|                   | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
+|-------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting     | S   | ×   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling         | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
+| Vicsek (ordered)  | ×   | rej | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)  | ×   | S   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| ABP (MIPS)        | ×   | D   | ×   | rej| rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)   | ×   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral         | S   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
+| GoL (R-pent/rand) | rej | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
+| BTW sandpile      | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
+| Nowak-May (b=1.8) | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
+| HK (ε=0.2)        | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
+| SIR epidemic      | rej | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
+| RPS spatial       | S   | ×   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Lotka-Volterra    | C   | ×   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Gray-Scott        | rej | ×   | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+| Nagel-Schreck.    | rej | ×   | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
 
 D = definitive, C = confirmation, S = screening, rej = rejected by
 prerequisite or screening guard, nd = substrate-compatible but not
@@ -97,7 +98,25 @@ substrate with NS but exposes `cell_types` and `array` rather than
 `velocities`, so it rejects at observable-prereq rather than
 substrate-mismatch. The rejection is the P8 analogue of Sprint 13's
 Decision 37 content-level discrimination (integer-grid vs continuous-
-field for P3).
+field for P3). Sprint 16 extended the continuous_2d substrate with
+Active Brownian Particles as a third model family (alongside Vicsek
+and D'Orsogna) and added P2 as the MIPS detector. The ABP × P2
+pairing is the Sprint 16 canonical DEFINITIVE positive; the new
+P2-column cells record rejections at the screening floor for Vicsek
+(primary = 0.017, f_gas = 0.02 — flocking has no dilute phase) and
+SCREENING-only for D'Orsogna (primary = 0.056 — attractive milling
+clusters, but the mechanistic-null metadata gate has_attraction_rule
+blocks DEFINITIVE). Sprint 16's architectural contribution is the
+metadata-based mechanistic null (Decision 43), which completes the
+three-class discrimination framework: substrate-type (registry),
+substrate-content (observable values, Decisions 37/41), metadata-
+mechanism (rule flags, Decision 43). The 16×16 displayed matrix
+contains 256 cells total — 168 substrate mismatches (×), 7
+detector-substrate incompatibilities (—), and 81 substrate-compatible
+audited cells of which 78 are pinned in the EXPECTED_OUTCOMES
+regression table and the remainder (canonical positives like Vicsek
+× P5, Kuramoto × P9, Gray-Scott × P3, NS × P8, ABP × P2) are pinned
+in dedicated e2e test files.
 
 ## 5.2 Block-Diagonal Structure by Substrate
 

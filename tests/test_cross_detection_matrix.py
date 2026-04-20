@@ -590,14 +590,80 @@ class TestTransferMatrixCompleteness:
         ("nagel_schreckenberg", "P12"): "rejected",  # no 'grid' observable
         ("nagel_schreckenberg", "P15"): "rejected",  # no 'grid' observable
         ("nagel_schreckenberg", "P3"): "rejected",   # no 'field' observable
+
+        # --- Sprint 16 pairs (Active Brownian Particles + P2) ---
+        # ABP is the 16th model family and the first continuous_2d model
+        # with a density-dependent self-propulsion mechanism. P2 (MIPS)
+        # is substrate-compatible with all three continuous_2d models
+        # (Vicsek, D'Orsogna, ABP) but the DEFINITIVE tier requires
+        # metadata affirmation: has_alignment_rule=False +
+        # has_attraction_rule=False + has_density_dependent_speed=True.
+        # Only ABP carries all three flags. This is metadata-level
+        # discrimination (Decision 43), analogous to Sprint 15's
+        # content-level discrimination for P8.
+        #
+        # Canonical ABP positive: N=1000, phi=0.5, Pe=100, rho_star=4,
+        # 3000 post-burn steps. two_phase_score ~ 0.25-0.40, r ~ -0.93,
+        # CV_v ~ 1.3, null_p = 0.005 -> DEFINITIVE.
+        #
+        # Negative-sweep findings:
+        #   - Vicsek (any eta): constant speed, f_gas << 0.03 because
+        #     ordered flocks are all-liquid (no dilute phase) and
+        #     disordered is uniform (no liquid). Primary < 0.03 rejects
+        #     at screening floor.
+        #   - D'Orsogna milling: attractive Morse potential. Clusters
+        #     strongly (f_liquid ~ 0.73) but f_gas ~ 0.05. Primary ~ 0.05
+        #     lands at SCREENING. Even when primary is above SCREENING
+        #     floor, has_attraction_rule=True blocks DEFINITIVE.
+        #   - Three false-positive TRAPS identified at Phase 1:
+        #     thermal ABP (Pe=5), dilute ABP (phi=0.1), over-saturated
+        #     ABP (phi=0.85 long runtime). Each caught by a distinct
+        #     confirmation gate (CV_v, primary, primary respectively).
+        ("abp", "P2"): "detected",        # DEFINITIVE canonical MIPS
+        ("abp", "P5"): "rejected",        # not a flocking system — no alignment
+        ("abp", "P6"): "rejected",        # not a milling system — no attraction/confinement
+        # P2 column — every other continuous_2d model that is substrate-
+        # compatible should fire at most SCREENING.
+        ("vicsek", "P2"): "rejected",      # constant speed, f_gas ≈ 0 -> below_two_phase_floor
+        ("dorsogna", "P2"): "screening",   # attractive milling: f_liquid high, f_gas tiny
+                                           # -> SCREENING; metadata gates DEFINITIVE
+        # Every non-continuous_2d model is substrate_mismatch for P2.
+        ("zhang_sequential", "P2"): "rejected",
+        ("schelling", "P2"): "rejected",
+        ("nowak_may", "P2"): "rejected",
+        ("sir_epidemic", "P2"): "rejected",
+        ("rps_spatial", "P2"): "rejected",
+        ("game_of_life", "P2"): "rejected",
+        ("greenberg_hastings", "P2"): "rejected",
+        ("lotka_volterra_lattice", "P2"): "rejected",
+        ("gray_scott", "P2"): "rejected",
+        ("nagel_schreckenberg", "P2"): "rejected",
+        ("btw_sandpile", "P2"): "rejected",
+        ("kuramoto", "P2"): "rejected",
+        ("hegselmann_krause", "P2"): "rejected",
+        # ABP-row: lattice-only detectors all substrate_mismatch,
+        # continuous_2d detectors P5 and P6 handled above.
+        ("abp", "P1"): "rejected",         # lattice_2d only
+        ("abp", "P13"): "rejected",
+        ("abp", "P22"): "rejected",
+        ("abp", "P11"): "rejected",
+        ("abp", "P12"): "rejected",
+        ("abp", "P15"): "rejected",
+        ("abp", "P3"): "rejected",
+        ("abp", "P8"): "rejected",         # lattice_1d only
+        ("abp", "P9"): "rejected",         # oscillator only
+        ("abp", "P14"): "rejected",        # btw only
+        ("abp", "P21"): "rejected",        # opinion_space only
+        ("abp", "P27"): "rejected",        # nowak_may coop_fraction only
+        ("abp", "P31"): "rejected",        # lattice_1d cell_types only
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 54, \
-            f"Expected at least 54 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 78, \
+            f"Expected at least 78 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -914,6 +980,132 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 15: all {len(sprint_15_pairs)} pairs covered "
               f"(NS row + P8 column)")
+
+    def test_sprint_16_abp_p2_covered(self):
+        """Sprint 16 added Active Brownian Particles (ABP) as the 16th
+        model (third continuous_2d model after Vicsek and D'Orsogna)
+        and P2 (MIPS) as the 15th detector.
+
+        Key structural facts pinned by this test:
+        - ABP × P2 is the canonical positive (DEFINITIVE at N >= 800,
+          phi=0.5, Pe=100, 2500 measurement steps: two_phase_score
+          ~ 0.15-0.40, r ~ -0.9, null_p < 0.01, metadata flags
+          has_density_dependent_speed=True, has_alignment_rule=False,
+          has_attraction_rule=False).
+        - Vicsek × P2 and D'Orsogna × P2 share the substrate but are
+          distinguished mechanistically. Vicsek has constant speed so
+          CV_v = 0 exactly AND f_gas is near zero (flocks are all-
+          liquid); primary falls below the screening floor.
+          D'Orsogna has variable speed AND does cluster, but its
+          attractive Morse potential manifests as f_liquid dominant /
+          f_gas tiny, and the has_attraction_rule=True metadata flag
+          (when carried) blocks DEFINITIVE.
+        - Every non-continuous_2d model × P2 must be `rejected` at
+          substrate mismatch. Every non-continuous_2d detector × ABP
+          must also be `rejected` at substrate mismatch.
+        - The Sprint 16 Phase 1 characterization identified THREE
+          false-positive traps within the ABP model family itself:
+          thermal (low Pe, CV_v gate rejects), dilute (low phi,
+          primary floor rejects), over-saturated (high phi long
+          runtime, primary drops below CONFIRMATION). Each trap
+          corresponds to a specific detector confirmation gate.
+        - ONE decision deviates from the pre-existing P2 detector card
+          in docs/detector_cards.md: the card's recipe uses Hartigan
+          dip on density histogram. Phase 1c/1d showed this is
+          empirically wrong — dip rejects uniformity on discrete
+          density histograms universally (floor p=0.005 even on
+          truly uniform regimes). The Sprint 16 detector instead
+          uses ``two_phase_coexistence_score = min(f_gas, f_liquid)``
+          which is tight-fitting for MIPS and zero for flocking /
+          stuck / dilute regimes. See ADR 44 in REPLICATION_NOTES.md.
+        """
+        sprint_16_pairs = [
+            # ABP row — canonical positive + continuous_2d neighbor handling
+            ("abp", "P2"),
+            ("abp", "P5"),
+            ("abp", "P6"),
+            # ABP row — substrate-mismatch rejections
+            ("abp", "P1"),
+            ("abp", "P3"),
+            ("abp", "P8"),
+            ("abp", "P9"),
+            ("abp", "P11"),
+            ("abp", "P12"),
+            ("abp", "P13"),
+            ("abp", "P14"),
+            ("abp", "P15"),
+            ("abp", "P21"),
+            ("abp", "P22"),
+            ("abp", "P27"),
+            ("abp", "P31"),
+            # P2 column — continuous_2d neighbors
+            ("vicsek", "P2"),
+            ("dorsogna", "P2"),
+            # P2 column — substrate-mismatch rejections
+            ("zhang_sequential", "P2"),
+            ("schelling", "P2"),
+            ("nowak_may", "P2"),
+            ("sir_epidemic", "P2"),
+            ("rps_spatial", "P2"),
+            ("game_of_life", "P2"),
+            ("greenberg_hastings", "P2"),
+            ("lotka_volterra_lattice", "P2"),
+            ("gray_scott", "P2"),
+            ("nagel_schreckenberg", "P2"),
+            ("btw_sandpile", "P2"),
+            ("kuramoto", "P2"),
+            ("hegselmann_krause", "P2"),
+        ]
+        for pair in sprint_16_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 16 pair {pair} missing from transfer matrix"
+
+        # ABP × P2 is the Sprint 16 positive.
+        assert self.EXPECTED_OUTCOMES[("abp", "P2")] == "detected", (
+            "abp × P2 must be detected (canonical MIPS DEFINITIVE)"
+        )
+
+        # ABP × other continuous_2d detectors must be rejected —
+        # ABP has no alignment (P5) and no attractive/milling centre (P6).
+        for det in ("P5", "P6"):
+            assert self.EXPECTED_OUTCOMES[("abp", det)] == "rejected", (
+                f"abp × {det} should be rejected (no alignment / no attraction)"
+            )
+
+        # P2 column on continuous_2d neighbours: Vicsek rejects at
+        # the screening floor (flocks are all-liquid OR uniform-gas);
+        # D'Orsogna can reach SCREENING via clustering but not higher.
+        assert self.EXPECTED_OUTCOMES[("vicsek", "P2")] == "rejected", (
+            "vicsek × P2 should be rejected (constant speed, below_two_phase_floor)"
+        )
+        assert self.EXPECTED_OUTCOMES[("dorsogna", "P2")] == "screening", (
+            "dorsogna × P2 should reach SCREENING only (attraction-driven clustering)"
+        )
+
+        # Every non-continuous_2d model × P2 must be rejected at
+        # substrate mismatch.
+        for other_model in (
+            "zhang_sequential", "schelling", "nowak_may", "sir_epidemic",
+            "rps_spatial", "game_of_life", "greenberg_hastings",
+            "lotka_volterra_lattice", "gray_scott", "nagel_schreckenberg",
+            "btw_sandpile", "kuramoto", "hegselmann_krause",
+        ):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P2")] == "rejected", (
+                f"{other_model} × P2 should be rejected (substrate_mismatch: "
+                f"P2 requires continuous_2d)"
+            )
+
+        # ABP-row: every lattice-only / oscillator / opinion-space
+        # detector must reject at substrate mismatch.
+        for det in ("P1", "P3", "P8", "P9", "P11", "P12", "P13", "P14",
+                    "P15", "P21", "P22", "P27", "P31"):
+            assert self.EXPECTED_OUTCOMES[("abp", det)] == "rejected", (
+                f"abp × {det} should be rejected "
+                f"(substrate mismatch — non-continuous_2d detector)"
+            )
+
+        print(f"  ✓ Sprint 16: all {len(sprint_16_pairs)} pairs covered "
+              f"(ABP row + P2 column)")
 
 
 # ===================================================================
