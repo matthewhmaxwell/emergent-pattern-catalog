@@ -1,4 +1,4 @@
-# Detector Specification Cards v0.5.4
+# Detector Specification Cards v0.5.5
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
 
@@ -519,39 +519,105 @@ L(t) = (1/N) Σ (r̂_i × v̂_i). |L| near 1 = milling.
 
 **Observable scope:** State-history only
 
+**Canonical positive model:** Nagel-Schreckenberg traffic CA (1D ring,
+`lattice_1d` substrate), `L=1000`, `v_max=5`, `p_slow=0.3`, `ρ=0.15`.
+
 **Required raw observables:**
-- `positions[t]`: (N,) on ring or (N, 2) on lattice
-- `speed[t]`: (N,)
+- `velocities[t]`: (n_cars,) integer array with values in [0, v_max].
+  Provided by Nagel-Schreckenberg; not emitted by any other catalog
+  model (substrate-level discrimination).
+- `gaps[t]`: (n_cars,) integer array. Used for secondary metrics.
 
 **Preprocessing:**
-1. Spacetime diagram (position vs time). 2. 2D FFT. 3. Speed distribution.
+1. Collect per-step velocity history across post-burn-in snapshots into a
+   `(T, n_cars)` integer matrix.
+2. Compute marginal stopped-fraction (primary).
+3. For each car, extract consecutive-`v=0` run lengths → pooled lifetime
+   distribution (secondary).
 
-**Primary metric: Backward-propagating density wave**
-Peak in spacetime FFT at negative phase velocity.
+**Primary metric: Stopped fraction `P(v=0)`**
+`stopped_fraction = <1[v_i(t) = 0]>_{t > burn_in, i}` — time-and-car-
+averaged fraction of v=0 states. This is the Bette-Habel-Emig-
+Schreckenberg (2017) order parameter for the NS jamming transition.
+
+Choice rationale (Sprint 15 empirical finding): spacetime-FFT primaries
+(the Sprint 6-era design) work but require a 2D spacetime diagram and
+are more expensive; `stopped_fraction` has tiny seed-to-seed variance
+(σ/mean < 2% at L=1000) and matches the published order parameter.
 
 **Secondary metrics:**
-- Speed bimodality (dip test)
-- Flow-density breakdown
-- Density oscillation amplitude
+- `jam_lifetime_p95`, `jam_lifetime_max`: 95th-percentile and maximum of
+  per-car consecutive-v=0 run lengths. Heavy-tailed in true jamming
+  (p95 ≈ 13, max > 50 at canonical positive); short and bounded in
+  pigeonhole density saturation (p95 ≤ 4 even at ρ=0.80).
+- `gap_cv`, `zero_gap_fraction`: coefficient of variation and zero-gap
+  fraction of the gap distribution. Bimodal gap distribution in jammed
+  regimes (bumper-to-bumper inside jams, large gaps between).
+- `n_jam_events`: total number of stopped-runs across all cars.
 
-**Null models:**
-- *Subcritical-density:* below jamming threshold. Unimodal speed.
-- *Infinite-patience:* instantaneous acceleration. No backward wave.
+**Null model:** Per-car independent temporal shuffle of `v(t)`, applied
+to the jam_lifetime_p95 statistic. Preserves marginal v-distribution
+per car (so stopped_fraction is unchanged under the null), destroys the
+persistence structure that makes real NS lifetimes heavy-tailed. Under
+the null, `p95` collapses to the geometric-distribution p95 at the
+observed stopped marginal (≈ 2 steps), giving effectively infinite
+Cohen's d at canonical parameters (null std ≈ 0 across 199 permutations).
 
-**Detection tiers:**
-- *Screening:* Speed bimodality (dip p < 0.05) OR spacetime FFT peak > 3× background
-- *Confirmation:* FFT peak > 5× background AND speed bimodality (p < 0.01). Sustained ≥ 5 × T_prop
-- *Definitive:* Confirmation + subcritical null unimodal + no physical bottleneck + P14 exclusion
+n_permutations = 199 required for confirmation tier (p < 0.01 floor
+= 1/200 = 0.005).
 
-**Common false positives:**
-- P14 (scale-free avalanches, no characteristic scale). Bottleneck jams. Periodic forcing.
+**Detection tiers (Sprint 15 empirical calibration):**
+- *Screening:* substrate prereqs PASSED AND `stopped_fraction > 0.05`.
+- *Confirmation:* screening + `jam_lifetime_p95 > 5` + null `p < 0.01`.
+  The `p95` gate is the designed discriminator between emergent NS
+  jamming (p95 > 10) and pigeonhole density saturation (p95 ≤ 4 at
+  ρ=0.80, p=0).
+- *Definitive:* confirmation + `stopped_fraction > 0.15` +
+  `jam_lifetime_max > 20`.
+
+**Substrate-level prerequisites (hard rejections):**
+- `velocities` observable must be present as a 1D integer array
+  (rejects all lattice_2d, continuous_2d, oscillator, opinion_space
+  models; rejects Zhang sorting which is lattice_1d but has no
+  velocities observable).
+- Velocity values must lie in [0, 64] (rejects Vicsek/D'Orsogna's
+  continuous 2D velocity vectors should substrate gating ever be
+  bypassed).
+- `n_cars >= 20` and post-burn-in run length `>= 100`.
+
+**Common false positives (and how they are rejected):**
+- **Pigeonhole density saturation** (NS at ρ > 1/(v_max+1) with p=0):
+  stopped_fraction high, but `jam_lifetime_p95 ≤ 4`. Rejected at
+  confirmation.
+- **P14 (SOC scale-free avalanches):** 2D substrate, incompatible with
+  `velocities` observable. Rejected at substrate registration.
+- **Periodic forcing / external bottleneck:** not present in the NS
+  canonical model family; would need a separate model variant to test.
 
 **Nearest-neighbor exclusions:**
-- P14: Characteristic wave speed → P8. Scale-free → P14.
+- None currently active. P8's substrate prerequisite (1D integer
+  velocities) cleanly excludes all other EPC patterns by construction.
+  Future pattern additions on lattice_1d would trigger an exclusion
+  check update (e.g., a hypothetical P4 on 1D occupancy, or a P13
+  variant on 1D excitable media).
 
 **Co-occurrence:**
-- *Allowed:* P7 (counterflow + jamming)
-- *Excluded:* P14 (characteristic scale vs scale-free)
+- None currently. NS is the only lattice_1d traffic model in the
+  catalog. Future multi-lane or counterflow variants could allow P7
+  co-occurrence.
+
+**Sprint 15 calibration anchors (L=1000, v_max=5, p_slow=0.3):**
+
+| Regime | ρ | stopped | lt_p95 | lt_max | Tier |
+|---|---|---|---|---|---|
+| Free flow | 0.05 | 0.000 | 0 | 0 | Screening (rej) |
+| Free flow | 0.08 | 0.000 | 1 | ~1 | Screening (rej) |
+| Onset | 0.10 | 0.003 | 0 | 0 | Screening (rej) |
+| **Near-transition** | **0.12** | **0.082** | **12** | ~50 | **CONFIRMATION** |
+| **Canonical positive** | **0.15** | **0.181** | **13** | ~60 | **DEFINITIVE** |
+| Deep jam | 0.30 | 0.431 | 13 | ~85 | DEFINITIVE |
+| Deterministic (p=0) | 0.15 | 0.000 | 0 | 0 | Screening (rej) |
+| Density saturation (p=0) | 0.80 | 0.750 | 4 | 6 | Screening (confirmation rej) |
 
 ---
 

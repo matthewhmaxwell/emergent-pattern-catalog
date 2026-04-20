@@ -4,7 +4,7 @@ The detection toolkit's value lies not only in confirming that canonical
 models produce their expected patterns, but in revealing which patterns
 appear — and which do not — when detectors are applied systematically
 across the full model inventory. This section reports the consolidated
-transfer matrix at 63 audited pairs, analyzes its block-diagonal
+transfer matrix at 80 audited pairs, analyzes its block-diagonal
 structure by substrate, and examines three cross-model findings —
 co-occurrence of aggregation with reciprocity on Nowak-May, the
 asymmetric P1 signature on SIR versus RPS, and the bilateral-versus-
@@ -13,52 +13,58 @@ definitions beyond their initial specifications.
 
 ## 5.1 The Completed Transfer Matrix
 
-The current inventory contains 14 distinct model families and 14
-detectors. Of 196 possible model × detector cells, 63 are
-substrate-compatible, observable-compatible, and empirically audited;
-the remaining 133 are correctly eliminated by substrate mismatch (126)
-or detector-substrate incompatibility (7, primarily P31 which requires
-lattice_1d). Of the 63 audited cells, 22 produce detections (9
-definitive — including Gray-Scott × P3 added in Sprint 13, 1 definitive
-with dense random IC (Game of Life × P15), 6 confirmations, 6
-screening), 37 are rejected by prerequisite or screening guard, and 6
-run but do not fire (typically P15 on stochastic lattice models where
-the functional replay test fails due to irreproducibility, or
-Gray-Scott which is deterministic and has no stochastic step_fn for
-functional replay).
+The current inventory contains 15 distinct model families and 14
+registered detectors (with a fifteenth displayed column, P11, for the
+Sprint 11 predator-prey oscillation work that was implemented into the
+test suite but not retrofitted into the orchestration registry — a
+pre-existing gap carried forward). Of 225 displayed model × detector
+cells, 71 are substrate-compatible, observable-compatible, and
+empirically audited; the remaining 154 are correctly eliminated by
+substrate mismatch (147) or detector-substrate incompatibility (7,
+primarily P31 which requires lattice_1d). Of the 71 displayed audited
+cells, 23 produce detections (10 definitive — including
+Nagel-Schreckenberg × P8 added in Sprint 15 and Gray-Scott × P3 added
+in Sprint 13, 1 definitive with dense random IC (Game of Life × P15),
+6 confirmations, 6 screening), 42 are rejected by prerequisite or
+screening guard, and 6 run but do not fire (typically P15 on
+stochastic lattice models where the functional replay test fails due
+to irreproducibility, or Gray-Scott which is deterministic and has no
+stochastic step_fn for functional replay).
 
-Of the 63 audited cells, 50 appear in the cross-detection-matrix
-regression table (`tests/test_cross_detection_matrix.py`
+Of the 71 displayed audited cells, 68 appear in the cross-detection-
+matrix regression table (`tests/test_cross_detection_matrix.py`
 `EXPECTED_OUTCOMES`), which pins the non-canonical (cross-pattern)
 outcomes to catch regressions when detectors or models are modified.
-The other 13 cells are canonical positives (e.g., Vicsek × P5,
-Kuramoto × P9, Lotka-Volterra × P11, Gray-Scott × P3) whose DEFINITIVE
-tier is pinned by dedicated end-to-end test files rather than in the
-cross-matrix. Both groups are audited with the same discipline — every
-detection is backed by replicated published quantitative results and
-by null-model significance testing — but they live in different test
-files for historical reasons, and the cross-matrix number (50)
-reflects the non-canonical subset that requires systematic maintenance
-as new detectors are added.
+The other cells are canonical positives (e.g., Vicsek × P5,
+Kuramoto × P9, Lotka-Volterra × P11, Gray-Scott × P3,
+Nagel-Schreckenberg × P8) whose DEFINITIVE tier is pinned by dedicated
+end-to-end test files rather than in the cross-matrix. Both groups are
+audited with the same discipline — every detection is backed by
+replicated published quantitative results and by null-model
+significance testing — but they live in different test files for
+historical reasons, and the cross-matrix number (68) reflects the
+non-canonical subset that requires systematic maintenance as new
+detectors are added.
 
-**Table 1: Consolidated Transfer Matrix (63 audited cells across 14 model families × 14 detectors)**
+**Table 1: Consolidated Transfer Matrix (71 audited cells across 15 model families × 15 displayed detector slots)**
 
-|                   | P1  | P3  | P5 | P6 | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|-----|----|----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | rej | ×  | ×  | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | ×   | D  | rej| ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×   | ×  | ×  | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×   | ×  | ×  | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | rej | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | rej | ×  | ×  | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | rej | ×  | ×  | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Gray-Scott        | rej | D   | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+|                   | P1  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
+|-------------------|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting     | S   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling         | C   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
+| Vicsek (ordered)  | ×   | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral         | S   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
+| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
+| BTW sandpile      | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
+| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
+| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
+| SIR epidemic      | rej | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
+| RPS spatial       | S   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Lotka-Volterra    | C   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Gray-Scott        | rej | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+| Nagel-Schreck.    | rej | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
 
 D = definitive, C = confirmation, S = screening, rej = rejected by
 prerequisite or screening guard, nd = substrate-compatible but not
@@ -81,7 +87,17 @@ gap: Gray-Scott × P1 had previously raised KeyError (pre-existing
 fragility in P1's 2D branch, unmeasured until Gray-Scott was added);
 its graceful-reject path now returns `detected=False` at screening
 with an informative substrate warning, matching the pattern used by
-P11, P13, and P22.
+P11, P13, and P22. Sprint 15 added Nagel-Schreckenberg as the second
+`lattice_1d` model (joining Zhang sorting) and P8 as its traffic-
+jamming detector, with seventeen new audited cells: one DEFINITIVE
+positive (NS × P8), nine existing-model × P8 substrate rejections, and
+seven NS × 2D-substrate-detector observable rejections. Zhang × P8 is
+the structurally interesting rejection — Zhang shares the lattice_1d
+substrate with NS but exposes `cell_types` and `array` rather than
+`velocities`, so it rejects at observable-prereq rather than
+substrate-mismatch. The rejection is the P8 analogue of Sprint 13's
+Decision 37 content-level discrimination (integer-grid vs continuous-
+field for P3).
 
 ## 5.2 Block-Diagonal Structure by Substrate
 

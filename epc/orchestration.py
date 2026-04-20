@@ -6,17 +6,20 @@ cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
 6 substrate types:
-- lattice_1d: Zhang sorting (chimeric)
+- lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS
 - lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
 - continuous_2d: Vicsek, D'Orsogna
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
 
-Architecture decision #25 (updated Sprint 13):
-  14 models × 13 detectors — compatible pairs identified by substrate.
-  Gray-Scott (Sprint 13) occupies the new lattice_2d_continuous
-  substrate; P3 (Sprint 13) is restricted to it by registration.
+Architecture decision #25 (updated Sprint 15):
+  15 models × 14 detectors — compatible pairs identified by substrate.
+  Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
+  P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
+  (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
+  model with a 'velocities' observable; P8 (Sprint 15) is restricted
+  to lattice_1d AND requires integer 1D velocities at content-level.
 """
 
 from __future__ import annotations
@@ -155,6 +158,15 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         primary_patterns=['P3'],
         metadata_keys=['feed_rate', 'kill_rate', 'Du', 'Dv', 'state_dtype'],
     ),
+    'nagel_schreckenberg': ModelRegistration(
+        name='nagel_schreckenberg',
+        substrate_type='lattice_1d',
+        observables=['positions', 'velocities', 'gaps', 'n_cars', 'density',
+                     'L', 'v_max', 'mean_velocity', 'flow', 'stopped_fraction'],
+        primary_patterns=['P8'],
+        metadata_keys=['L', 'v_max', 'p_slow', 'density', 'init_mode',
+                       'boundary', 'interaction_type', 'update_mode'],
+    ),
 }
 
 # === Detector Registry ===
@@ -236,6 +248,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P3',
         required_substrate=['lattice_2d_continuous'],
         required_observables=['field'],
+        observable_scope='state_history_only',
+    ),
+    'P8': DetectorRegistration(
+        pattern_id='P8',
+        required_substrate=['lattice_1d'],
+        required_observables=['velocities'],
         observable_scope='state_history_only',
     ),
 }

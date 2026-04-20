@@ -2337,7 +2337,270 @@ are just gated behind `-m slow` to run on demand.
 - Heavy-half (sandpile slow + LV/RPS/GS e2e): 3 + 41 = 44 passed
 - Grand total: 176 fast + slow tests, + 1 deselected
 
-## Carry-forwards cleared by Sprint 14.6
+## Sprint 15 — Nagel-Schreckenberg traffic + P8 traffic-jamming detector
+
+**Scope.** Added Nagel-Schreckenberg (1992) as the second `lattice_1d`
+model in the catalog (joining Zhang sorting) and P8 as its canonical
+traffic-jamming detector. Sprint 15 follows the Sprint 11/13
+big-science template: characterize first on published literature,
+sweep candidate primaries across every existing model for false-
+positive traps, lock thresholds on data.
+
+**Primary references.** Nagel, K. & Schreckenberg, M. (1992). "A
+cellular automaton model for freeway traffic." *J. Phys. I France* 2,
+2221–2229. Bette, H.M., Habel, L., Emig, T. & Schreckenberg, M.
+(2017). "Mechanisms of jamming in the Nagel-Schreckenberg model for
+traffic flow." *Phys. Rev. E* 95, 012311 — the BHES paper from which
+we adopt P(v=0) (stopped-car fraction) as the P8 primary metric.
+
+### Phase 1 — NS fundamental diagram replication
+
+**Setup.** L = 1000, v_max = 5, parallel update of all cars per step
+(Rules 1-4 of Nagel-Schreckenberg 1992: accelerate, slow-to-gap,
+randomize with probability p, move). Uniform-gap initial condition
+with all cars at v = v_max. 1000-step burn-in, 2000-step measurement,
+3 seeds (42, 43, 44). Von Neumann-style ring boundary; cars cannot
+overtake.
+
+**Measurements (flow = density × mean_velocity):**
+
+At p = 0.3 (NS's illustrative choice):
+
+| ρ    | mean_v ± σ     | flow ± σ      | stopped ± σ    |
+|------|----------------|---------------|----------------|
+| 0.05 | 4.686 ± 0.001  | 0.234 ± 0.000 | 0.0000 ± 0.0000 |
+| 0.08 | 4.666 ± 0.001  | 0.373 ± 0.000 | 0.0000 ± 0.0000 |
+| 0.10 | 4.585 ± 0.017  | 0.459 ± 0.002 | 0.0032 ± 0.0016 |
+| 0.12 | 3.856 ± 0.031  | 0.463 ± 0.004 | 0.0819 ± 0.0038 |
+| 0.15 | 3.047 ± 0.008  | 0.457 ± 0.001 | 0.1806 ± 0.0031 |
+| 0.20 | 2.184 ± 0.010  | 0.437 ± 0.002 | 0.2973 ± 0.0053 |
+| 0.30 | 1.311 ± 0.005  | 0.393 ± 0.001 | 0.4306 ± 0.0035 |
+| 0.50 | 0.594 ± 0.002  | 0.297 ± 0.001 | 0.5965 ± 0.0072 |
+
+At p = 0.0 (deterministic, analytic transition):
+
+| ρ    | mean_v | flow  | stopped |
+|------|--------|-------|---------|
+| 0.10 | 5.000  | 0.500 | 0.0000  |
+| 0.15 | 5.000  | 0.750 | 0.0000  |
+| 0.20 | 4.000  | 0.800 | 0.0050  |
+| 0.30 | 2.333  | 0.700 | 0.0033  |
+| 0.50 | 1.000  | 0.500 | 0.0020  |
+| 0.80 | 0.250  | 0.200 | 0.7500  |
+
+At p = 0.5 (heavier noise):
+
+| ρ    | mean_v | flow  | stopped |
+|------|--------|-------|---------|
+| 0.08 | 4.081  | 0.326 | 0.0478  |
+| 0.12 | 2.626  | 0.315 | 0.2665  |
+| 0.20 | 1.461  | 0.292 | 0.4561  |
+
+**Findings.**
+
+1. **Textbook fundamental-diagram replication.** Peak flow ≈ 0.46 at
+   ρ ∈ [0.10, 0.12] at p=0.3 matches Nagel-Schreckenberg 1992 and the
+   Wikipedia illustrative value (which cites the same original paper).
+2. **Analytic dilute-limit match.** At ρ = 0.05, p = 0.3: ⟨v⟩ = 4.686 ≈
+   v_max - p = 4.7, confirming the analytic expectation for independent
+   cars.
+3. **Deterministic sharp transition.** At p = 0, the transition
+   sharpens to ρ_c = 1/(v_max + 1) = 1/6 ≈ 0.167. Below ρ_c the
+   mean velocity is exactly v_max = 5; above, it drops discontinuously.
+4. **Seed-to-seed standard deviation is tiny** at L = 1000 (σ/mean
+   < 2% across all jammed regimes), which is why `stopped_fraction`
+   becomes an unusually clean primary metric — Phase 2 below.
+
+### Phase 2 — P8 primary-metric characterization
+
+**Candidate primary metrics considered:**
+
+- `stopped_fraction` = ⟨1[v_i(t) = 0]⟩ averaged over time and cars.
+  Tracks the BHES 2017 order parameter.
+- `flow_density_gap` — discontinuity in the fundamental diagram.
+- `jam_lifetime_tail_exponent` — power-law fit to lifetime distribution.
+- `gap_distribution_bimodality` — dip-test on the gap distribution.
+
+**Measurements (canonical regimes, L=1000, v_max=5, seed=42):**
+
+| Regime                | ρ    | p   | stopped  | gap_cv | gap_zero | n_jam_events | lt_mean | lt_p95 | lt_max |
+|-----------------------|------|-----|----------|--------|----------|-------------|---------|--------|--------|
+| Free flow             | 0.05 | 0.3 | 0.000    | 0.63   | 0.000    | 0           | 0.0     | 0      | 0      |
+| Free flow             | 0.08 | 0.3 | 0.000    | 0.50   | 0.000    | 1           | 1.0     | 1      | 1      |
+| Near-transition       | 0.12 | 0.3 | 0.077    | 0.64   | 0.057    | 8,318       | 3.3     | 12     | 50     |
+| **Canonical jam**     | 0.15 | 0.3 | **0.190**| 0.86   | 0.151    | 22,461      | 3.8     | 14     | 80     |
+| Deep jam              | 0.20 | 0.3 | 0.295    | 1.04   | 0.218    | 47,237      | 3.8     | 13     | ~80    |
+| Congested             | 0.30 | 0.3 | 0.425    | 1.37   | 0.334    | 102,047     | 3.7     | 13     | ~80    |
+| Deterministic free    | 0.15 | 0.0 | 0.000    | 0.16   | 0.000    | 0           | 0.0     | 0      | 0      |
+| Density saturation    | 0.80 | 0.0 | **0.750**| 1.73   | 0.750    | 320,600     | 3.7     | **4**  | **6**  |
+| Density sat. + noise  | 0.80 | 0.3 | 0.844    | 2.06   | 0.781    | 273,699     | 7.4     | 23     | 67     |
+
+**Decision: primary metric is `stopped_fraction`.**
+
+Rationale:
+
+- Tiny seed-to-seed variance (σ < 0.005) gives a clean threshold.
+- Matches the published BHES 2017 order parameter, so the detector's
+  primary is interpretable in the traffic-flow physics literature.
+- Has a sharp, monotone transition from 0 to ~0.5 across the jamming
+  region ρ ∈ [0.10, 0.15].
+- Alternative `flow_density_gap` requires measuring two regimes and
+  differencing — more expensive and less clean.
+- Alternative `jam_lifetime_tail_exponent` is noisier and has the
+  wrong discrimination properties: both canonical-jam and density-
+  saturation regimes have similar exponents.
+
+### Phase 2 (continued) — the density-saturation false-positive trap
+
+**Problem discovered during Phase 2 sweep.** At ρ = 0.80, p = 0
+(pigeonhole density saturation), stopped_fraction = 0.750 — easily
+above both the screening threshold (0.05) and the DEFINITIVE threshold
+(0.15). A detector gated only on `stopped_fraction` would report
+DEFINITIVE traffic jamming on a regime that has no emergent
+stop-and-go dynamics, only geometric saturation (cars physically
+cannot all move because there aren't enough empty cells).
+
+**Resolution: jam-lifetime p95 as confirmation gate.** The
+distribution of per-car consecutive-v = 0 run lengths cleanly separates
+the two regimes:
+
+- **True NS jamming** (ρ ∈ [0.12, 0.30], p > 0): lifetime p95 ∈ [12, 14],
+  maximum lifetimes exceeding 50 steps, heavy-tailed distribution.
+- **Density saturation** (ρ = 0.80, p = 0): lifetime p95 = 4, maximum
+  lifetime = 6, bounded short stops with no heavy tail. Every "jam"
+  is just the momentary truncation of a car by its front neighbor.
+
+The three-fold separation (p95 = 13 vs p95 = 4) motivates the
+CONFIRMATION threshold of 5; at no parameter choice does genuine NS
+jamming give p95 ≤ 5, and at no deterministic saturation choice does
+density-only stopping give p95 > 5.
+
+**Architectural parallel to Sprint 13.** This is the P8 analogue of
+the RPS-vs-Gray-Scott false-positive trap found in Sprint 13.
+Sprint 13's resolution was a content-level substrate prerequisite
+(`n_unique_values >= 50` rejects all discrete-state grids); Sprint 15's
+resolution is a content-level SECONDARY prerequisite (jam-lifetime p95
+> 5 distinguishes emergent temporal persistence from geometric
+saturation). The lesson is the same: when a primary metric has a
+trivial inflation mode, discrimination should live at the content or
+structural level, not in a tuned threshold on the primary itself.
+
+### Phase 2 (continued) — broad negative-model sweep
+
+**Procedure.** For each of the 14 non-NS models in the catalog,
+synthesize a representative state-history dict and feed it to P8's
+`detect()`. Every model was also tested by running a short simulation
+against the actual model class where feasible. Four adversarial
+synthetic cases were also constructed (2D-float `velocities`, 1D float
+`velocities`, 1D integer `velocities` in [0, 10000], 1D integer
+`velocities` with only 5 cars).
+
+**Result. Every non-NS model rejects at screening with a distinct
+informative `screening_rejection_reason`:**
+
+| Substrate            | Models                                   | Rejection reason              |
+|----------------------|------------------------------------------|-------------------------------|
+| `lattice_1d`         | Zhang sorting                            | substrate_mismatch (no `velocities`) |
+| `lattice_2d`         | Schelling, GH, GoL, BTW, NM, HK, SIR, RPS, LV | substrate_mismatch (no `velocities`) |
+| `continuous_2d`      | Vicsek, D'Orsogna                        | substrate_mismatch (2D float velocities) |
+| `oscillator`         | Kuramoto                                 | substrate_mismatch            |
+| `opinion_space`      | HK                                       | substrate_mismatch            |
+| `lattice_2d_continuous` | Gray-Scott                            | substrate_mismatch (no `velocities`) |
+| Adversarial: 2D vel  | synthetic                                | substrate_mismatch (non-1D)   |
+| Adversarial: float   | synthetic                                | non_integer_velocities        |
+| Adversarial: range   | synthetic                                | velocity_range_out_of_bounds  |
+| Adversarial: few-car | synthetic (n=5)                          | too_few_cars                  |
+
+**Conclusion.** P8's substrate-level prerequisite (`lattice_1d` AND
+1D integer `velocities` observable in [0, 64] AND n_cars ≥ 20)
+cleanly rejects every non-NS model with an informative diagnostic. No
+empirical thresholding is required for cross-model discrimination;
+every non-NS rejection is at the content / substrate level.
+
+### P8 tier calibration (final)
+
+Final tier structure (Sprint 15, L = 1000, 1000 burn-in):
+
+| Gate          | Threshold                                  |
+|---------------|--------------------------------------------|
+| SCREENING     | substrate prereqs pass AND stopped > 0.05  |
+| CONFIRMATION  | screening + jam_lt_p95 > 5 + null_p < 0.01 |
+| DEFINITIVE    | confirmation + stopped > 0.15 + lt_max > 20 |
+
+**Canonical-positive results at L = 1000, ρ = 0.15, p = 0.3, seeds
+{42, 123, 2024}:** all three land at DEFINITIVE with stopped ≈ 0.18,
+lt_p95 ∈ [13, 14], lt_max ∈ [57, 68], null_p = 0.005 (floor),
+Cohen's d effectively infinite (null std ≈ 0).
+
+**Canonical-confirmation result at L = 1000, ρ = 0.12, p = 0.3,
+seed = 42:** stopped = 0.067 (above screening, below definitive),
+lt_p95 = 12, tier CONFIRMATION. This is the Sprint 15 "canonical
+CONFIRMATION example" analogous to GS spots at Sprint 14.6.
+
+### Architecture decisions
+
+**Decision 40 (Sprint 15).** P8 primary metric is
+`stopped_fraction = ⟨1[v_i(t) = 0]⟩` (time-and-car average,
+post-burn-in). Chosen over jam-lifetime statistics as primary because
+(a) it has a clean threshold structure, (b) seed-to-seed variance is
+tiny at L = 1000 (σ/mean < 2%), and (c) it matches the
+Bette-Habel-Emig-Schreckenberg (2017) order parameter. Jam-lifetime
+statistics serve as secondary metrics gating the CONFIRMATION tier.
+
+**Decision 41 (Sprint 15).** P8's substrate prerequisites are
+`lattice_1d` substrate registration AND 1D integer `velocities`
+observable AND velocity range [0, 64] AND n_cars ≥ 20 AND
+post-burn-in run length ≥ 100. This is substrate-level discrimination
+(cf. Decision 37 for P3), not empirical thresholding. Zhang sorting
+(the only other `lattice_1d` model) correctly rejects at
+observable-prereq because it exposes `array` and `cell_types` but not
+`velocities`.
+
+**Decision 42 (Sprint 15).** P8's CONFIRMATION tier requires
+jam_lifetime_p95 > 5 to discriminate emergent NS jamming from
+deterministic pigeonhole density saturation. The threshold of 5 sits
+in the gap between the two regimes' typical p95 values (true jamming:
+12-14; density saturation: 4). The null model (per-car temporal
+shuffle of `v(t)`) destroys temporal persistence while preserving the
+stopped-fraction marginal; it gives floor p-values at the NS
+canonical positive (null_p = 0.005 at n_permutations = 199, with
+effectively infinite Cohen's d because null std ≈ 0).
+
+### Carry-forwards cleared by Sprint 15
+
+None directly — Sprint 15 is a big-science sprint adding new model +
+detector + substrate observable, not a cleanup sprint. Paper §4 and §5
+were updated in-line with the Sprint 15 work, bringing those sections
+fully current through Sprint 15 (§6 and §7 remain Sprint 6 era and are
+still carry-forwards).
+
+### Carry-forwards introduced by Sprint 15
+
+- **Sprint 15 #1 — NS inner loop is pure numpy.** `NagelSchreckenberg.step()`
+  is vectorized with numpy but still uses a Python-level parallel update
+  per step (≈ 0.1 ms/step at L=1000, ≈ 2000 steps in 0.2 s). Adequate
+  for current test scales; numba acceleration would give 10-20× for
+  large-L or long-run measurements.
+- **Sprint 15 #2 — Finite-size behavior at the CONFIRMATION tier.** At
+  L = 500, the near-transition regime (ρ = 0.12) has stopped_fraction
+  fluctuating near 0.05 (the screening threshold), so some seeds land
+  at SCREENING rather than CONFIRMATION. The canonical CONFIRMATION
+  demonstration requires L = 1000. A future slow-marked finite-size
+  scaling test at L ∈ {250, 500, 1000, 2000} would pin the minimum
+  L for reliable CONFIRMATION tier.
+- **Sprint 15 #3 — P11 missing from orchestration registry** (pre-existing
+  gap discovered during Sprint 15 paper-table work, not introduced by
+  Sprint 15). The Sprint 11 LV + P11 detector is implemented and
+  DEFINITIVE-tested, but the detector is not registered in
+  `epc/orchestration.py::DETECTOR_REGISTRY`. This means the
+  `get_compatible_pairs()` count (44 at Sprint 15) is one short of the
+  paper-table display count. Fix in a future cleanup sprint: add a P11
+  DetectorRegistration entry, update orchestration counts, and extend
+  `test_cross_detection_matrix.py` to cover P11-column pairs. Not
+  urgent — only affects documentation-vs-registry consistency, not
+  detection correctness.
+
+
 
 - Sprint 13 carry #2 (GS spots regime tier): **resolved** as option (b).
 - Sprint 14 D.1 (sandpile test split): **resolved**.

@@ -550,14 +550,54 @@ class TestTransferMatrixCompleteness:
         ("gray_scott", "P11"): "rejected",      # no 'grid' observable, rejects gracefully
         ("gray_scott", "P12"): "rejected",      # no 'grid' observable, rejects gracefully
         ("gray_scott", "P15"): "not_detected",  # no step_fn / stochastic-incompatible
+
+        # --- Sprint 15 pairs (Nagel-Schreckenberg + P8) ---
+        # Nagel-Schreckenberg is the second lattice_1d model (after Zhang
+        # sorting) and the first lattice_1d model with a 'velocities'
+        # observable. P8 is restricted to lattice_1d by registration AND
+        # requires integer 1D velocity arrays at content level. This
+        # produces substrate-level discrimination analogous to Sprint 13's
+        # Decision 37 (continuous-field gate for P3).
+        #
+        # Canonical NS positive: L=1000, rho=0.15, v_max=5, p_slow=0.3,
+        # burn_in=1000, measurement >= 1500 steps. stopped_fraction ≈ 0.18,
+        # jam_lifetime_p95 ≈ 13, jam_lifetime_max ≥ 50, null_p ≈ 0.005,
+        # Cohen's d effectively infinite (null std ≈ 0).
+        #
+        # Negative discrimination: density saturation (rho=0.80, p=0)
+        # gives stopped=0.75 (pigeonhole, not jamming), but jam_lt_p95=4
+        # — correctly rejected at the confirmation gate.
+        ("nagel_schreckenberg", "P8"): "detected",   # DEFINITIVE canonical jam
+        # P8-column: every other model rejects at substrate prereq
+        # (missing 'velocities' observable) or substrate mismatch.
+        ("zhang_sequential", "P8"): "rejected",      # lattice_1d but no 'velocities'
+        ("schelling", "P8"): "rejected",             # substrate_mismatch: lattice_2d
+        ("nowak_may", "P8"): "rejected",             # substrate_mismatch: lattice_2d
+        ("sir_epidemic", "P8"): "rejected",          # substrate_mismatch: lattice_2d
+        ("rps_spatial", "P8"): "rejected",           # substrate_mismatch: lattice_2d
+        ("game_of_life", "P8"): "rejected",          # substrate_mismatch: lattice_2d
+        ("greenberg_hastings", "P8"): "rejected",    # substrate_mismatch: lattice_2d
+        ("lotka_volterra_lattice", "P8"): "rejected",# substrate_mismatch: lattice_2d
+        ("gray_scott", "P8"): "rejected",            # substrate_mismatch: lattice_2d_continuous
+        # NS-row: other detectors are substrate-incompatible.
+        # Every lattice_2d detector (P1/P13/P22/P11/P12/P15) rejects
+        # gracefully at missing_observable: NS has 1D velocities but no
+        # 'grid' / 'cell_types' / 'field' / 'opinions' / 'theta' etc.
+        ("nagel_schreckenberg", "P1"): "rejected",   # no 'grid'/'cell_types'
+        ("nagel_schreckenberg", "P13"): "rejected",  # no 'grid' observable
+        ("nagel_schreckenberg", "P22"): "rejected",  # no 'grid' observable
+        ("nagel_schreckenberg", "P11"): "rejected",  # no 'grid' observable
+        ("nagel_schreckenberg", "P12"): "rejected",  # no 'grid' observable
+        ("nagel_schreckenberg", "P15"): "rejected",  # no 'grid' observable
+        ("nagel_schreckenberg", "P3"): "rejected",   # no 'field' observable
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 37, \
-            f"Expected at least 37 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 54, \
+            f"Expected at least 54 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -795,6 +835,85 @@ class TestTransferMatrixCompleteness:
         )
         print("  ✓ Sprint 14 B.1: gray_scott × P1 = rejected "
               "(KeyError → graceful reject)")
+
+    def test_sprint_15_ns_p8_covered(self):
+        """Sprint 15 added Nagel-Schreckenberg as the second lattice_1d
+        model (after Zhang sorting) and P8 (traffic jamming) as its
+        canonical detector.
+
+        Key structural facts pinned by this test:
+        - NS × P8 must be `detected` (canonical DEFINITIVE positive at
+          L=1000, rho=0.15, v_max=5, p_slow=0.3: stopped=0.18,
+          jam_lifetime_p95=13, null p=0.005, Cohen's d effectively
+          infinite because null_std ≈ 0).
+        - Every other model × P8 must be `rejected` — either at substrate
+          level (non-lattice_1d) or at observable level (Zhang is
+          lattice_1d but lacks a 'velocities' observable).
+        - Every other detector × NS must be `rejected` — NS exposes
+          positions/velocities/gaps but none of the 'grid'/'field'/
+          'cell_types'/'theta'/'opinions' observables the other
+          detectors require.
+        - A secondary finding is that density saturation (NS at rho=0.80,
+          p=0) gives stopped_fraction=0.75 by pigeonhole but
+          jam_lifetime_p95=4 — correctly rejected at the confirmation
+          gate. This is the P8 equivalent of the Sprint 13 RPS false-
+          positive trap being rejected at the n_unique_values prereq.
+        """
+        sprint_15_pairs = [
+            # NS row — canonical positive + substrate-mismatch rejections
+            ("nagel_schreckenberg", "P8"),
+            ("nagel_schreckenberg", "P1"),
+            ("nagel_schreckenberg", "P13"),
+            ("nagel_schreckenberg", "P22"),
+            ("nagel_schreckenberg", "P11"),
+            ("nagel_schreckenberg", "P12"),
+            ("nagel_schreckenberg", "P15"),
+            ("nagel_schreckenberg", "P3"),
+            # P8 column — every other model must reject
+            ("zhang_sequential", "P8"),
+            ("schelling", "P8"),
+            ("nowak_may", "P8"),
+            ("sir_epidemic", "P8"),
+            ("rps_spatial", "P8"),
+            ("game_of_life", "P8"),
+            ("greenberg_hastings", "P8"),
+            ("lotka_volterra_lattice", "P8"),
+            ("gray_scott", "P8"),
+        ]
+        for pair in sprint_15_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 15 pair {pair} missing from transfer matrix"
+
+        # NS × P8 is the Sprint 15 positive.
+        assert self.EXPECTED_OUTCOMES[("nagel_schreckenberg", "P8")] == "detected"
+
+        # Every other model × P8 must be rejected via substrate or
+        # observable prerequisite. Zhang is the important case: it
+        # shares the lattice_1d substrate but lacks a 'velocities'
+        # observable, so rejection is at observable-prereq (not
+        # substrate_mismatch) — analogous to Sprint 13's n_unique_values
+        # content-level gate for P3.
+        for other_model in (
+            "zhang_sequential", "schelling", "nowak_may", "sir_epidemic",
+            "rps_spatial", "game_of_life", "greenberg_hastings",
+            "lotka_volterra_lattice", "gray_scott",
+        ):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P8")] == "rejected", (
+                f"{other_model} × P8 should be rejected "
+                f"(substrate_mismatch or missing 'velocities' observable)"
+            )
+
+        # NS-row: every integer-grid / continuous-field / oscillator
+        # detector must reject cleanly — NS exposes positions/velocities/
+        # gaps but none of the 2D observables.
+        for det in ("P1", "P13", "P22", "P11", "P12", "P15", "P3"):
+            assert self.EXPECTED_OUTCOMES[("nagel_schreckenberg", det)] == "rejected", (
+                f"nagel_schreckenberg × {det} should be rejected "
+                f"(missing 2D 'grid' or 'field' observable)"
+            )
+
+        print(f"  ✓ Sprint 15: all {len(sprint_15_pairs)} pairs covered "
+              f"(NS row + P8 column)")
 
 
 # ===================================================================

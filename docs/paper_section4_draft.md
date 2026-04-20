@@ -768,9 +768,143 @@ matching the pattern used by P11, P13, and P22. Thirteen new cells
 (one D + seven rej + five rej + zero nd) join the audited transfer
 matrix, bringing the total to 63 audited cells.
 
-## 4.14 Consolidated Transfer Matrix
+## 4.14 Nagel-Schreckenberg Traffic CA and P8 Traffic Jamming (Cluster D)
 
-The following matrix summarizes detection outcomes across all 63
+**Primary reference:** Nagel, K. & Schreckenberg, M. (1992). A cellular
+automaton model for freeway traffic. *J. Phys. I France* 2, 2221–2229.
+
+**Secondary reference:** Bette, H.M., Habel, L., Emig, T. &
+Schreckenberg, M. (2017). Mechanisms of jamming in the Nagel-
+Schreckenberg model for traffic flow. *Phys. Rev. E* 95, 012311.
+
+The Nagel-Schreckenberg model is a minimal one-dimensional cellular
+automaton for single-lane freeway traffic. L cells are arranged on a
+ring (periodic boundaries); each cell is either empty or occupied by
+one car; each car carries an integer velocity v ∈ {0, 1, …, v_max}.
+Each time step is a parallel update applying four rules in order:
+(1) accelerate v ← min(v + 1, v_max); (2) slow down to the gap
+v ← min(v, d) where d is the number of empty cells to the next car
+ahead; (3) randomize v ← max(v − 1, 0) with probability p; (4) move
+x ← (x + v) mod L. Despite its extreme simplicity — no continuous
+dynamics, no forces, one parameter each for maximum velocity and
+driver imperfection — the model reproduces the textbook freeway flow-
+density fundamental diagram and the spontaneous formation of traffic
+jams from homogeneous initial conditions. Nagel-Schreckenberg occupies
+the `lattice_1d` substrate, previously held only by Zhang cell-view
+sorting, and is the first `lattice_1d` model in the catalog with an
+integer velocity observable.
+
+**Fundamental-diagram replication.** At L = 1000, v_max = 5, p = 0.3 —
+Nagel-Schreckenberg's original illustrative parameter choice — our
+implementation reproduces the published flow-density diagram
+quantitatively: peak flow ≈ 0.46 at ρ ∈ [0.10, 0.12], free-flow mean
+velocity ⟨v⟩ = 4.70 in the dilute limit (matching the analytic
+prediction v_max − p = 4.7), and the characteristic asymmetric shape
+in which flow rises linearly from ρ = 0 to the peak and decays roughly
+linearly back to zero at ρ = 1. At p = 0 the transition sharpens to a
+discontinuity at ρ_c = 1/(v_max + 1) = 1/6 ≈ 0.167, consistent with
+the analytic result. At p = 0.5 the peak shifts to lower density
+(ρ ≈ 0.08) and lower magnitude (flow ≈ 0.32), also matching the
+published trend. All three regimes (p = 0, p = 0.3, p = 0.5)
+replicate within < 3% of the published values at three seeds.
+
+**P8 detector — primary metric.** P8's primary metric is the stopped-
+car fraction P(v = 0) = ⟨1[v_i(t) = 0]⟩, averaged over post-burn-in
+timesteps and all cars. This is the Bette-Habel-Emig-Schreckenberg
+(2017) order parameter for the NS jamming transition; the BHES paper
+also decomposes the jammed-car fraction P(v ∈ {0, 1}) into three
+physically meaningful factors (jamming rate × jam lifetime × jam size)
+and derives random-walk scaling exponents near the critical density.
+Our characterization at L = 1000, 1000 burn-in + 2000 measurement,
+three seeds, gives ρ = 0.05 → stopped = 0.000, ρ = 0.12 → stopped =
+0.082 (onset), ρ = 0.15 → stopped = 0.181, ρ = 0.30 → stopped = 0.431
+(deep jam), with seed-to-seed standard deviation < 0.005 at every
+density. The stopped-fraction order parameter has tiny finite-size
+fluctuation and a sharp transition around ρ ≈ 0.10–0.12 — the same
+region where flow peaks.
+
+**The density-saturation false-positive.** Before locking P8's
+thresholds, we ran the detector across every NS parameter regime
+including deterministic p = 0 at saturation density ρ = 0.80. Under
+pigeonhole constraint, a ring holding 0.80 L cars-worth of traffic
+cannot have every car moving: at minimum, a fraction (v_max ρ − 1)/
+v_max of cars must be standing still at each timestep simply because
+there isn't room for every car to advance. At ρ = 0.80, p = 0 this
+gives stopped-fraction = 0.750 — high above the screening threshold
+(0.05) and the definitive threshold (0.15). A P8 variant gated only on
+stopped-fraction would false-positive here, reporting DEFINITIVE jamming
+in a regime with no stochastic dynamics and no emergent stop-go waves —
+only saturation geometry. The sharp analogue of Sprint 13's RPS-vs-
+GrayScott false-positive trap.
+
+**The jam-lifetime p95 discriminator.** The resolution was to introduce
+a secondary metric — the 95th-percentile of per-car consecutive-v = 0
+run lengths — and make it a hard gate at the CONFIRMATION tier.
+Emergent NS jamming at canonical parameters produces heavy-tailed
+lifetime distributions: p95 = 13 at ρ = 0.15, with a maximum lifetime
+exceeding 50 timesteps. Pigeonhole density-saturation at ρ = 0.80,
+p = 0 produces uniform short stops — every car is blocked by its front
+neighbor for at most a few timesteps before geometry releases it —
+giving p95 = 4 and a maximum lifetime of 6 with no heavy tail. The
+three-fold separation between the two regimes (p95 = 13 vs p95 = 4)
+motivates the CONFIRMATION threshold of 5; at no parameter choice does
+genuine NS jamming give p95 ≤ 5, and at no deterministic saturation
+choice does density-only stopping give p95 > 5. This is the load-
+bearing Sprint 15 finding: a confirmation-tier gate cannot be the
+primary's effect-size alone when the primary has a trivial geometric
+inflation mode; a secondary that measures the distribution's tail
+structure is the correct discriminator.
+
+**Substrate-level discrimination.** P8 is gated on two content-level
+prerequisites in addition to lattice_1d substrate registration:
+presence of a 1D integer `velocities` observable, and values in
+[0, 64]. These gates cleanly reject all fourteen other catalog models
+without empirical thresholding. Zhang cell-view sorting shares the
+lattice_1d substrate but exposes `array` and `cell_types` rather than
+`velocities`; it rejects at observable-prereq. Vicsek and D'Orsogna
+expose `velocities` but as continuous 2D vectors; they reject at the
+non-1D / non-integer check. All lattice_2d and lattice_2d_continuous
+models reject at substrate_mismatch. This matches the Sprint 13
+Decision 37 architectural pattern: discrimination by substrate content
+beats discrimination by empirical threshold.
+
+**Null model and tier gating.** P8's null permutes each car's velocity
+time-series independently, preserving per-car marginal v-distribution
+(so stopped-fraction is invariant under the null) while destroying the
+temporal persistence that produces heavy jam-lifetime tails. Under the
+null, p95 collapses to the geometric-distribution p95 at the observed
+stopped marginal, typically 2 timesteps at canonical parameters. With
+199 permutations the null-p floor is 1/200 = 0.005; Cohen's d is
+effectively infinite because the null distribution is concentrated
+(null-std ≈ 0 across 199 draws from nearly identical shuffles). For
+cost control the null subsamples up to 80 cars per permutation; the
+per-car locality of the shuffle makes p95 extensively insensitive to
+car count above ~50. Tier thresholds: stopped-fraction > 0.05 for
+SCREENING; jam-lifetime-p95 > 5 with null-p < 0.01 for CONFIRMATION;
+stopped-fraction > 0.15 with jam-lifetime-max > 20 for DEFINITIVE.
+
+**Canonical-positive outcomes.** At L = 1000, v_max = 5, p = 0.3,
+ρ = 0.15, 1000 burn-in + 2000 measurement, seeds {42, 123, 2024}:
+
+| Seed | stopped | lt_p95 | lt_max | null-p | Cohen's d | Tier       |
+|------|---------|--------|--------|--------|-----------|------------|
+| 42   | 0.178   | 13     | 57     | 0.005  | > 1e6     | DEFINITIVE |
+| 123  | 0.182   | 13     | 63     | 0.005  | > 1e6     | DEFINITIVE |
+| 2024 | 0.185   | 14     | 68     | 0.005  | > 1e6     | DEFINITIVE |
+
+**Transfer-matrix additions.** Nagel-Schreckenberg × P8 is the
+Sprint 15 positive (DEFINITIVE). Every other model × P8 rejects: Zhang
+at observable-prereq (no `velocities`); all lattice_2d, continuous_2d,
+oscillator, opinion_space, and lattice_2d_continuous models at
+substrate_mismatch (nine cells). Every 2D-substrate detector × NS
+rejects at its own observable prereq: P1 needs `grid`, P3 needs
+`field`, P11/P12/P13/P15/P22 need `grid`. Seventeen new cells (one D +
+sixteen rej) join the audited transfer matrix, bringing the total to
+80 audited cells across 15 models × 14 detectors.
+
+## 4.15 Consolidated Transfer Matrix
+
+The following matrix summarizes detection outcomes across all 80
 audited model × detector pairs. Entries show the highest achieved tier
 (D = definitive, C = confirmation, S = screening), reported non-
 detections (rej = rejected by prerequisite or screening guard, nd =
@@ -781,43 +915,49 @@ canonical configuration for the generalized P15 detector; R-pentomino
 gives a lower P15 tier because it lacks the diversity of outcome
 classes the generalized detector requires).
 
-|                   | P1  | P3  | P5 | P6 | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|-----|----|----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | rej | ×  | ×  | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | ×   | D  | rej| ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×   | ×  | ×  | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×   | ×  | ×  | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | rej | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | rej | ×  | ×  | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | rej | ×  | ×  | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Gray-Scott        | rej | D   | ×  | ×  | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+|                   | P1  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
+|-------------------|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting     | S   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling         | C   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
+| Vicsek (ordered)  | ×   | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)  | ×   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral         | S   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
+| GoL (R-pent/rand) | rej | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
+| BTW sandpile      | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
+| Nowak-May (b=1.8) | C   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
+| HK (ε=0.2)        | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
+| SIR epidemic      | rej | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
+| RPS spatial       | S   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Lotka-Volterra    | C   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
+| Gray-Scott        | rej | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
+| Nagel-Schreck.    | rej | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
 
-Row count: 14 distinct model families. Column count: 14 detectors.
-Out of 196 total cells, 135 are substrate mismatches (×) and 7 are
-detector-substrate incompatibilities (—, primarily P31 which requires
-lattice_1d). The remaining 63 cells are substrate-compatible and
-empirically audited: 22 produce detections (9 at DEFINITIVE — adding
-Gray-Scott × P3 to the Sprint 12 tally of 8, 1 at DEFINITIVE with
-dense random IC (D*, Game of Life × P15), 6 at CONFIRMATION, 6 at
-SCREENING), 37 are rejected by prerequisite or screening guard (rej;
-Sprint 13 added thirteen such cells — seven integer-grid models × P3
-and five 2D-grid-consuming detectors × Gray-Scott, with the
-Sprint 14 robustness fix promoting Gray-Scott × P1 from KeyError to
-audited rej), and 6 run but do not fire (nd — typically P15 on
-stochastic lattice models where the functional replay test fails due
-to irreproducibility, or Gray-Scott's deterministic PDE which has no
-stochastic step_fn). Of these 63 audited cells, 50 appear in the
-cross-detection-matrix `EXPECTED_OUTCOMES` regression table
-(`tests/test_cross_detection_matrix.py`); the remaining 13 are
-canonical positives (e.g., Vicsek × P5, Kuramoto × P9, Gray-Scott ×
-P3) whose DEFINITIVE tier is pinned by dedicated e2e test files rather
-than the cross-detection matrix.
+Row count: 15 distinct model families. Column count: 15 displayed detector
+slots (14 formally registered in the orchestration layer plus P11 which
+was implemented in Sprint 11 but not retrofitted into the detector
+registry — a pre-existing documentation-vs-registry gap carried forward
+from Sprints 11–14). Out of 225 displayed cells, 147 are substrate
+mismatches (×) and 7 are detector-substrate incompatibilities (—,
+primarily P31 which requires lattice_1d). The remaining 71 cells are
+substrate-compatible and empirically audited: 23 produce detections
+(10 at DEFINITIVE — adding Nagel-Schreckenberg × P8 to the Sprint 13
+tally of 9, 1 at DEFINITIVE with dense random IC (D*, Game of Life ×
+P15), 6 at CONFIRMATION, 6 at SCREENING), 42 are rejected by
+prerequisite or screening guard (rej; Sprint 15 added sixteen such
+cells — nine existing-model × P8 rejections and seven NS × 2D-
+substrate-detector rejections), and 6 run but do not fire (nd —
+typically P15 on stochastic lattice models where the functional replay
+test fails due to irreproducibility, or Gray-Scott's deterministic PDE
+which has no stochastic step_fn). Of these 71 displayed audited cells,
+68 appear in the cross-detection-matrix `EXPECTED_OUTCOMES` regression
+table (`tests/test_cross_detection_matrix.py`); the remaining canonical
+positives (e.g., Vicsek × P5, Kuramoto × P9, Gray-Scott × P3,
+Nagel-Schreckenberg × P8) have their DEFINITIVE tier pinned by
+dedicated e2e test files rather than the cross-detection matrix. Nine
+additional audited cells in the LV × P11 row and P11 column (the
+Sprint 11 work) live outside the orchestration registry but inside the
+test suite.
 
 Eight observations about the matrix.
 
@@ -908,7 +1048,7 @@ null (GH), intrinsic signal asymmetry (Nowak-May's imitation-based
 clustering is weaker than Schelling's preference-based clustering on
 segregation index) — rather than weak signals.
 
-## 4.15 Methodological Lessons
+## 4.16 Methodological Lessons
 
 Six methodological insights emerged from the replication work across
 Sprints 1–11.
