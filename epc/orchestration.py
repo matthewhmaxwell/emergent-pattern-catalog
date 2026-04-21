@@ -5,16 +5,17 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-6 substrate types:
+7 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
-- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS
+- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS, LV
 - lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
 - continuous_2d: Vicsek, D'Orsogna, ABP
 - oscillator: Kuramoto
 - opinion_space: Hegselmann-Krause
+- scalar_wealth: Yard-Sale (Sprint 17, new)
 
-Architecture decision #25 (updated Sprint 16):
-  16 models × 15 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 17):
+  17 models × 16 detectors — compatible pairs identified by substrate.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
@@ -25,6 +26,13 @@ Architecture decision #25 (updated Sprint 16):
   flags (has_alignment_rule, has_attraction_rule,
   has_density_dependent_speed) to discriminate MIPS from flocking
   and milling at the mechanistic-null (DEFINITIVE) gate.
+  Yard-Sale (Sprint 17) occupies the new scalar_wealth substrate —
+  the first well-mixed (non-spatial) agent population in the registry.
+  P28 (Sprint 17) is restricted to scalar_wealth and uses metadata
+  flags (has_conserved_resource, has_multiplicative_stake,
+  has_saving_propensity, has_redistribution) to discriminate pure
+  condensation from redistributive or saving-propensity regimes at
+  the mechanistic-null (DEFINITIVE) gate. See Decisions 47–49.
 """
 
 from __future__ import annotations
@@ -183,6 +191,19 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_alignment_rule', 'has_attraction_rule',
                        'has_density_dependent_speed', 'interaction_type'],
     ),
+    'yard_sale': ModelRegistration(
+        name='yard_sale',
+        substrate_type='scalar_wealth',
+        observables=['wealth', 'gini', 'max_share', 'top_1pct_share',
+                     'top_10pct_share', 'total_wealth'],
+        primary_patterns=['P28'],
+        metadata_keys=['n_agents', 'f', 'lambda_save', 'chi',
+                       'redistribute_every', 'w0', 'init_mode',
+                       'has_conserved_resource', 'has_pairwise_exchange',
+                       'has_multiplicative_stake', 'has_redistribution',
+                       'has_saving_propensity', 'interaction_type',
+                       'total_wealth_conserved'],
+    ),
 }
 
 # === Detector Registry ===
@@ -276,6 +297,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P2',
         required_substrate=['continuous_2d'],
         required_observables=['positions'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P28': DetectorRegistration(
+        pattern_id='P28',
+        required_substrate=['scalar_wealth'],
+        required_observables=['wealth'],
         observable_scope='model_metadata_assisted',
     ),
 }

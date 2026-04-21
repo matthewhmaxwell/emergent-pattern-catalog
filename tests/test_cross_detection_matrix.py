@@ -656,14 +656,79 @@ class TestTransferMatrixCompleteness:
         ("abp", "P21"): "rejected",        # opinion_space only
         ("abp", "P27"): "rejected",        # nowak_may coop_fraction only
         ("abp", "P31"): "rejected",        # lattice_1d cell_types only
+
+        # --- Sprint 17 pairs (Yard-Sale + P28 Wealth Condensation) ---
+        # Yard-Sale is the 17th model and occupies the new scalar_wealth
+        # substrate (the first well-mixed/non-spatial substrate in the
+        # registry). P28 is the 16th detector and is restricted to
+        # scalar_wealth by registration.
+        #
+        # Empirical tier behavior (Phase 1 + Phase 2):
+        #   - YS f=0.1 λ=0 χ=0 N=1000 at t=2e6: DEFINITIVE (gini=0.94,
+        #     top_1pct=0.35, monotonic, null-p=0.005).
+        #   - Within-family negatives separate cleanly:
+        #     λ=0.5 saving propensity → gini=0.28 → below screening floor.
+        #     χ=0.001 redistribution → gini=0.68, top_1pct=0.14 →
+        #       SCREENING (top_1pct < 0.15 blocks CONFIRMATION).
+        #     χ=0.0001 mild redistribution → gini=0.89 → empirically DEF-
+        #       strength but metadata has_redistribution=True blocks DEF;
+        #       CONFIRMATION is the correct tier (Decision 49).
+        #   - Every non-wealth substrate rejects at substrate_mismatch
+        #     when run through P28.
+        #
+        # ONE empirical decision deviates from the pre-existing P28
+        # detector card in docs/pattern_catalog_v0_4.md: the catalog
+        # mentions a "Pareto power-law tail" as a detection signature.
+        # Phase 1c showed that the Hill-estimator α is NOT stable across
+        # timescales — it drifts through the Pareto band (1 < α < 2)
+        # only transiently before the distribution degenerates toward a
+        # delta. α is carried as a DIAGNOSTIC secondary metric but is
+        # explicitly NOT used as a tier gate. Decision 47.
+        ("yard_sale", "P28"): "detected",   # DEFINITIVE canonical condensation
+        # P28 column — every other registered model rejects at substrate_mismatch.
+        ("zhang_sequential", "P28"): "rejected",
+        ("zhang_threaded", "P28"): "rejected",
+        ("schelling", "P28"): "rejected",
+        ("greenberg_hastings", "P28"): "rejected",
+        ("game_of_life", "P28"): "rejected",
+        ("vicsek", "P28"): "rejected",
+        ("dorsogna", "P28"): "rejected",
+        ("kuramoto", "P28"): "rejected",
+        ("btw_sandpile", "P28"): "rejected",
+        ("nowak_may", "P28"): "rejected",
+        ("hegselmann_krause", "P28"): "rejected",
+        ("sir_epidemic", "P28"): "rejected",
+        ("rps_spatial", "P28"): "rejected",
+        ("lotka_volterra_lattice", "P28"): "rejected",
+        ("gray_scott", "P28"): "rejected",
+        ("nagel_schreckenberg", "P28"): "rejected",
+        ("abp", "P28"): "rejected",
+        # yard_sale row — every non-P28 detector rejects at substrate_mismatch
+        # (scalar_wealth is distinct from all 6 existing substrates).
+        ("yard_sale", "P1"): "rejected",
+        ("yard_sale", "P2"): "rejected",
+        ("yard_sale", "P3"): "rejected",
+        ("yard_sale", "P5"): "rejected",
+        ("yard_sale", "P6"): "rejected",
+        ("yard_sale", "P8"): "rejected",
+        ("yard_sale", "P9"): "rejected",
+        ("yard_sale", "P11"): "rejected",  # P11 implemented but unregistered
+        ("yard_sale", "P12"): "rejected",
+        ("yard_sale", "P13"): "rejected",
+        ("yard_sale", "P14"): "rejected",
+        ("yard_sale", "P15"): "rejected",
+        ("yard_sale", "P21"): "rejected",
+        ("yard_sale", "P22"): "rejected",
+        ("yard_sale", "P27"): "rejected",
+        ("yard_sale", "P31"): "rejected",
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 78, \
-            f"Expected at least 78 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 112, \
+            f"Expected at least 112 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -1106,6 +1171,109 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 16: all {len(sprint_16_pairs)} pairs covered "
               f"(ABP row + P2 column)")
+
+    def test_sprint_17_yard_sale_p28_covered(self):
+        """Sprint 17 added Yard-Sale as the 17th model (first scalar_wealth
+        model — the first well-mixed / non-spatial substrate in the
+        registry) and P28 (Wealth Condensation) as the 16th detector.
+
+        Key structural facts pinned by this test:
+        - yard_sale × P28 is the canonical positive (DEFINITIVE at
+          N=1000, f=0.1, lambda=0, chi=0, t=2e6: gini ~ 0.94,
+          top_1pct ~ 0.34, monotonic, null-p < 0.01, metadata flags
+          has_conserved_resource=True, has_multiplicative_stake=True,
+          has_saving_propensity=False, has_redistribution=False).
+        - Every non-scalar_wealth model × P28 rejects at substrate
+          mismatch.
+        - Every non-P28 detector × yard_sale rejects at substrate
+          mismatch (scalar_wealth is a new, isolated substrate type
+          at Sprint 17).
+        - Within-family negatives are handled at detector-layer gates,
+          not at the registry layer (saving propensity, redistribution
+          are mechanism-flag discriminations, not substrate mismatches).
+          These are tested in tests/test_yard_sale_p28_e2e.py and do
+          not need entries in this cross-model transfer matrix (which
+          audits across-model-family pairs only).
+        - ONE decision deviates from the pre-existing P28 pattern-
+          catalog entry: the catalog mentions "Pareto power-law tail"
+          as a detection signature, but the Hill estimator α drifts
+          unstably with time (Phase 1c). α is a diagnostic metric,
+          NOT a tier gate. Decision 47 in REPLICATION_NOTES.md.
+        """
+        sprint_17_pairs = [
+            # yard_sale × P28 — canonical positive
+            ("yard_sale", "P28"),
+            # P28 column — substrate-mismatch rejections (every non-wealth model)
+            ("zhang_sequential", "P28"),
+            ("zhang_threaded", "P28"),
+            ("schelling", "P28"),
+            ("greenberg_hastings", "P28"),
+            ("game_of_life", "P28"),
+            ("vicsek", "P28"),
+            ("dorsogna", "P28"),
+            ("kuramoto", "P28"),
+            ("btw_sandpile", "P28"),
+            ("nowak_may", "P28"),
+            ("hegselmann_krause", "P28"),
+            ("sir_epidemic", "P28"),
+            ("rps_spatial", "P28"),
+            ("lotka_volterra_lattice", "P28"),
+            ("gray_scott", "P28"),
+            ("nagel_schreckenberg", "P28"),
+            ("abp", "P28"),
+            # yard_sale row — substrate-mismatch rejections (every non-P28 detector)
+            ("yard_sale", "P1"),
+            ("yard_sale", "P2"),
+            ("yard_sale", "P3"),
+            ("yard_sale", "P5"),
+            ("yard_sale", "P6"),
+            ("yard_sale", "P8"),
+            ("yard_sale", "P9"),
+            ("yard_sale", "P11"),
+            ("yard_sale", "P12"),
+            ("yard_sale", "P13"),
+            ("yard_sale", "P14"),
+            ("yard_sale", "P15"),
+            ("yard_sale", "P21"),
+            ("yard_sale", "P22"),
+            ("yard_sale", "P27"),
+            ("yard_sale", "P31"),
+        ]
+        for pair in sprint_17_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 17 pair {pair} missing from transfer matrix"
+
+        # yard_sale × P28 is the Sprint 17 canonical positive.
+        assert self.EXPECTED_OUTCOMES[("yard_sale", "P28")] == "detected", (
+            "yard_sale × P28 must be detected (canonical wealth condensation DEFINITIVE)"
+        )
+
+        # Every non-wealth model × P28 must be rejected at substrate mismatch.
+        for other_model in (
+            "zhang_sequential", "zhang_threaded", "schelling",
+            "greenberg_hastings", "game_of_life", "vicsek", "dorsogna",
+            "kuramoto", "btw_sandpile", "nowak_may", "hegselmann_krause",
+            "sir_epidemic", "rps_spatial", "lotka_volterra_lattice",
+            "gray_scott", "nagel_schreckenberg", "abp",
+        ):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P28")] == "rejected", (
+                f"{other_model} × P28 should be rejected "
+                f"(substrate_mismatch: P28 requires scalar_wealth)"
+            )
+
+        # yard_sale row — every detector except P28 must reject at substrate
+        # mismatch (scalar_wealth is isolated from all 6 prior substrates).
+        for det in (
+            "P1", "P2", "P3", "P5", "P6", "P8", "P9", "P11", "P12",
+            "P13", "P14", "P15", "P21", "P22", "P27", "P31",
+        ):
+            assert self.EXPECTED_OUTCOMES[("yard_sale", det)] == "rejected", (
+                f"yard_sale × {det} should be rejected "
+                f"(substrate_mismatch — scalar_wealth substrate)"
+            )
+
+        print(f"  ✓ Sprint 17: all {len(sprint_17_pairs)} pairs covered "
+              f"(yard_sale row + P28 column)")
 
 
 # ===================================================================

@@ -2955,3 +2955,448 @@ transfer prompt). Sprint 16 adds:
       test at N in {250, 500, 1000, 2000} pinning the minimum N
       for reliable DEFINITIVE would complement the tier thresholds.
       Analogous to Sprint 15 #11 (NS finite-size). 1 session.
+
+
+# =============================================================================
+# SPRINT 17 — Yard-Sale model + P28 (Wealth condensation)
+# =============================================================================
+
+Sprint 17 extended the catalog with the 17th model family (Yard-Sale) and
+the 16th registered detector (P28, wealth condensation). Yard-Sale is the
+first WELL-MIXED (non-spatial) agent population in the registry — it
+occupies the new **scalar_wealth** substrate, bringing the substrate count
+from 6 to 7. P28 is the second detector (after Sprint 16's P2) whose
+DEFINITIVE tier depends on a metadata-based mechanistic-null gate, and the
+first whose mechanism gate uses FOUR boolean flags simultaneously.
+
+This is the first sprint of the Scenario-A catalog-completion campaign
+(Sprints 17+ targeting the remaining 16 of 32 patterns). The "look before
+touching" discipline carried forward from Sprints 11/13/15/16 identified
+one empirical problem with the pre-existing P28 pattern catalog recipe
+that reshaped the detector design — see ADR 47.
+
+## PHASE 1 CHARACTERIZATION
+
+### Phase 1a — Yard-Sale smoke test (N=1000, f=0.01, lambda=0)
+
+Confirmed baseline model behavior against Boghosian (2014) qualitative
+claims:
+
+  t =     1,000  Gini = 0.0077  max_share = 0.0011  top_1% = 0.010
+  t =    10,000  Gini = 0.0245  max_share = 0.0011  top_1% = 0.011
+  t =   100,000  Gini = 0.0752  max_share = 0.0014  top_1% = 0.013
+  t = 1,000,000  Gini = 0.2143  max_share = 0.0025  top_1% = 0.023
+  t = 5,000,000  Gini = 0.4265  max_share = 0.0051  top_1% = 0.041
+
+Findings:
+  - Gini rises monotonically from 0 (equal init).
+  - Total wealth conserved bit-exactly across 5M transactions.
+  - No negative wealth produced by the multiplicative stake rule.
+  - At f=0.01 the condensation timescale is long; higher f needed
+    to reach the CONFIRMATION/DEFINITIVE band in reasonable wall time.
+
+### Phase 1b — stake fraction and saving propensity sweeps
+
+Stake fraction f (5M transactions, N=1000, lambda=0):
+
+  f       Gini    max_share  top_1%  top_10%
+  0.01    0.422     0.005    0.04    0.27
+  0.05    0.903     0.036    0.23    0.87
+  0.10    0.972     0.113    0.57    1.00
+  0.30    0.996     0.433    0.99    1.00
+  0.50    0.998     0.637    1.00    1.00
+  1.00    0.999     1.000    1.00    1.00
+
+Saving propensity lambda (2M transactions, N=1000, f=0.1):
+
+  lambda  Gini    max_share  top_1%  top_10%
+  0.00    0.936     0.054    0.33    0.94
+  0.10    0.455     0.006    0.05    0.30
+  0.30    0.367     0.005    0.04    0.25
+  0.50    0.286     0.003    0.03    0.21
+  0.70    0.205     0.002    0.02    0.18
+  0.90    0.111     0.002    0.02    0.14
+
+Findings:
+  - Pure YS (lambda=0) condenses monotonically; larger f -> faster
+    condensation. Full winner-take-all at f=1.0 reproduces the
+    Boghosian H-theorem result.
+  - Nonzero lambda produces a FINITE-Gini plateau (CC 2000 Gamma
+    equilibrium), giving us a clean within-family negative control
+    for the CONFIRMATION gate.
+
+### Phase 1c — Pareto tail MLE fit is empirically UNSTABLE
+
+Tested the pre-existing P28 pattern-catalog recipe: "Pareto power-law
+tail" as a confirmation/definitive tier gate. Hill estimator alpha on
+the top 10% of N=1000 agents across f ∈ {0.05, 0.10, 0.30} × t ∈
+{500k, 2M, 5M}:
+
+  f     t=500k         t=2M           t=5M
+  0.05  alpha=2.80     alpha=1.61     alpha=1.04
+  0.10  alpha=1.44     alpha=0.66     alpha=0.34
+  0.30  alpha=0.38     alpha=0.11     alpha=0.04
+
+The "canonical Pareto range" 1 < alpha < 2 is reached only in a narrow
+transient window that shifts with f. At long time alpha drops below 1
+(degenerate Pareto) and eventually approaches 0 (delta-on-winner). At
+short time alpha > 2 (near-exponential). There is NO stable time
+window in which a fixed-alpha gate discriminates condensation from
+non-condensation.
+
+Negative controls confirm the diagnostic:
+  lambda=0.5 (savings plateau):   alpha=4.79, KS=0.087
+  chi=0.01 (strong redistrib):    alpha=6.9e7 (degenerate fit)
+  uniform init, lambda=0:         alpha=0.62 (normal condensation)
+
+Pareto tail alpha is therefore UNUSABLE as a tier gate. This locked
+in **ADR 47** — alpha is carried as a DIAGNOSTIC secondary metric
+only; the primary is Gini.
+
+This is Sprint 17's direct analogue of Sprint 16's Hartigan-dip
+finding (ADR 44): the pre-existing detector card prescribed a
+statistical recipe that fails empirically on the actual substrate.
+
+### Phase 1d — trajectory shape, multi-seed, N-scaling, chi-sweep
+
+1d.1 Multi-seed reproducibility (f=0.05, N=1000) at 5 checkpoints:
+
+  seed    t=100k    t=500k    t=1M      t=2M      t=5M
+  42      0.3199    0.5784    0.7007    0.8053    0.9055
+  7       0.3211    0.5791    0.6978    0.8034    0.8986
+  101     0.3162    0.5705    0.6858    0.8052    0.9030
+  999     0.3143    0.5694    0.6989    0.8020    0.9065
+  2025    0.3180    0.5767    0.6929    0.8005    0.9068
+
+Std across seeds at t=5M: sigma(Gini) = 0.003. YS is REPRODUCIBLE —
+no seed-dependent metastability like Sprint 16 ABP at N=400.
+
+1d.2 Monotonicity: Over 100 checkpoints spaced 50k transactions
+apart, only 1 showed a Gini decrease larger than 1e-4. Trajectory is
+visibly smooth and monotonic. "Monotonic growth fraction > 0.80" is
+a usable confirmation gate.
+
+1d.3 Realistic redistribution chi (2M transactions, N=1000, f=0.1,
+redistribute_every=1000):
+
+  chi        Gini(2M)    max_share
+  0.0001     0.7664      0.0441      -> passes screen, borderline confirm
+  0.001      0.1266      0.0081      -> below screening floor
+  0.01       0.0000      0.0010      -> total equalization (strong tax)
+  0.05       0.0000      0.0010      -> ditto
+
+Pin decision: chi=0.0001 is the "critical within-family negative" —
+empirically looks like condensation (Gini=0.77, monotonic) but should
+NOT be flagged DEFINITIVE because redistribution is active. This is
+where the metadata-mechanism gate earns its place.
+
+1d.4 N-scaling at fixed sweeps (f=0.1, 1000 sweeps, lambda=0):
+
+  N       Gini      max_share
+  200     0.8884    0.1093
+  500     0.8887    0.0493
+  1000    0.8892    0.0260
+  2000    0.8852    0.0195
+
+Gini at 1000 sweeps is N-invariant to ±0.004. Confirms that "sweeps"
+(= N transactions) is the natural timescale. Detector accepts any N
+>= 50 but the Gini_initial/Gini_final measurement is in sweep units.
+
+### Phase 1e — primary metric locked
+
+Phase 1 results locked:
+  PRIMARY = Gini coefficient at final frame of measurement window
+            (sorted-order formula, O(N log N))
+  SECONDARIES:
+    - top_1pct_share, top_10pct_share (sorted-descending sums)
+    - monotonic_fraction (fraction of delta_Gini >= -1e-4)
+    - relative_gini_growth ((G_end - G_start) / (1 - G_start))
+    - alpha_hill (Hill estimator, diagnostic only per ADR 47)
+  NULL = Well-mixed Boltzmann-Gibbs (Dragulescu-Yakovenko 2001):
+    draw N samples from Exp(mean_w), compute Gini, repeat n_perm times.
+    Right-tailed p = P(Gini_null >= Gini_obs).
+    Null mean ~ 0.5 (the DY Exp equilibrium Gini).
+
+## PHASE 2 — DETECTOR END-TO-END VALIDATION
+
+### Phase 2a — positive + within-family negatives
+
+Seven regimes, each at N=1000 with appropriate total_tx:
+
+  regime                            tier            Gini    top_1%  mono    null_p
+  YS f=0.1 canonical (t=2M)         DEFINITIVE     0.9364  0.3455  1.000   0.0050
+  YS f=0.3 fast (t=1M)              DEFINITIVE     0.9855  0.7402  1.000   0.0050
+  YS f=0.05 slow (t=5M)             CONFIRMATION   0.9049  0.2606  1.000   0.0050
+  YS lambda=0.5 (savings, t=2M)     screening-rej  0.2795  0.0000    -     1.0000
+  YS chi=0.0001 mild (t=2M)         CONFIRMATION   0.8890  0.2888  1.000   0.0050
+  YS chi=0.001 moderate (t=2M)      screening      0.6834  0.1417  0.677   0.0050
+  YS f=0.01 too-early (t=100k)      screening-rej  0.0764  0.0000    -     1.0000
+  substrate-mismatch (no wealth)    screening-rej      -       -     -         -
+
+All seven tier assignments match the scientific intent.
+
+KEY FINDING (the "mechanism matters" case): YS chi=0.0001 at t=2M
+shows Gini=0.889, top_1pct=0.289, monotonic_fraction=1.0, null_p=0.005.
+Every empirical signal is DEFINITIVE-strength. The tier is CORRECTLY
+held at CONFIRMATION because model_metadata has has_redistribution=True.
+This is the three-class discrimination framework doing exactly what
+it's designed for — analogous to Sprint 16's D'Orsogna milling case
+blocked by has_attraction_rule=True.
+
+### Phase 2b — multi-seed at canonical DEFINITIVE (N=1000, f=0.1, t=2M)
+
+  seed    tier         Gini    top_1%   confidence
+  42      DEFINITIVE   0.9364  0.3455   0.95
+  7       DEFINITIVE   0.9348  0.3212   0.95
+  101     DEFINITIVE   0.9382  0.3158   0.95
+  999     DEFINITIVE   0.9361  0.3406   0.95
+
+Std across seeds: sigma(Gini) = 0.0013, sigma(top_1%) = 0.013.
+Tight, reproducible, no metastability at N=1000.
+
+### Phase 2c — broad negative sweep across all 16 existing model families
+
+Ran P28 against 16 synthetic state histories matching the observables
+of each existing registered model (or model family):
+
+  model/substrate                        tier       reason                detected
+  zhang_sequential (lattice_1d)          screening  substrate_mismatch    False
+  nagel_schreckenberg (lattice_1d)       screening  substrate_mismatch    False
+  schelling (lattice_2d)                 screening  substrate_mismatch    False
+  greenberg_hastings (lattice_2d)        screening  substrate_mismatch    False
+  game_of_life (lattice_2d)              screening  substrate_mismatch    False
+  btw_sandpile (lattice_2d)              screening  substrate_mismatch    False
+  nowak_may (lattice_2d)                 screening  substrate_mismatch    False
+  sir_epidemic (lattice_2d)              screening  substrate_mismatch    False
+  rps_spatial (lattice_2d)               screening  substrate_mismatch    False
+  lotka_volterra_lattice (lattice_2d)    screening  substrate_mismatch    False
+  gray_scott (lattice_2d_continuous)     screening  substrate_mismatch    False
+  vicsek (continuous_2d)                 screening  substrate_mismatch    False
+  dorsogna (continuous_2d)               screening  substrate_mismatch    False
+  abp (continuous_2d)                    screening  substrate_mismatch    False
+  kuramoto (oscillator)                  screening  substrate_mismatch    False
+  hegselmann_krause (opinion_space)      screening  substrate_mismatch    False
+
+All 16 reject cleanly with reason=substrate_mismatch. Expected.
+
+## PHASE 3 — TIER THRESHOLD CALIBRATION
+
+Final Sprint 17 P28 thresholds (locked):
+
+  SCREENING     Gini > 0.40  AND  top_1pct > 0.05
+  CONFIRMATION  Screening + Gini > 0.55  AND  top_1pct > 0.15  AND
+                monotonic_fraction > 0.80  AND  null-p < 0.01
+  DEFINITIVE    Confirmation + Gini > 0.80  AND  top_1pct > 0.30  AND
+                mechanistic-null gate (4 flags):
+                  has_conserved_resource = True
+                  has_multiplicative_stake = True
+                  has_saving_propensity = False
+                  has_redistribution = False
+
+Empirical evidence supporting each threshold:
+  - 0.40 Gini floor: above the Dragulescu-Yakovenko Exp equilibrium
+    (0.5) for the null-p to be small, and above the observed
+    lambda=0.5 plateau (0.29). Single test case chi=0.001 at
+    f=0.1 lands at Gini=0.68 (screens) but top_1pct=0.14 blocks
+    confirmation — clean behavior.
+  - 0.55 Gini confirmation floor: separates plateau-regime
+    redistribution (chi=0.001 -> 0.68) from pure-condensation regime
+    but still permits the canonical signal above.
+  - 0.80 Gini DEFINITIVE floor: at N=1000 f=0.1 t=1.5M we saw
+    Gini=0.91 land in CONFIRMATION due to top_1pct just below
+    0.30 — 0.80 floor lets the tier gate fire cleanly when the
+    top_1pct gate is also met.
+  - top_1pct = 0.30 DEFINITIVE floor: at t=2M multi-seed we saw
+    top_1pct in [0.316, 0.346]. Below 0.30 the distribution is
+    still in the approach-to-condensation phase, not the final
+    oligarchic phase.
+  - monotonic_fraction 0.80: empirical YS at pure-condensation is
+    ~1.0; redistributive regimes drop to 0.677 (chi=0.001 case).
+    0.80 separates them.
+
+## PHASE 4 — REGISTRATION & TESTING
+
+### Registry updates (epc/orchestration.py)
+
+  New substrate: scalar_wealth (the 7th substrate type).
+  New model entry: yard_sale (substrate_type=scalar_wealth,
+    observables=[wealth, gini, max_share, top_1pct_share,
+                 top_10pct_share, total_wealth],
+    metadata_keys include the 4 mechanistic flags).
+  New detector entry: P28 (required_substrate=[scalar_wealth],
+    required_observables=[wealth],
+    observable_scope=model_metadata_assisted).
+
+Counts: 16 models -> 17; 15 detectors -> 16; 49 compatible pairs
+-> 50 (+1 yard_sale × P28); 240 cells -> 272 (+32: +16 P28 column
+rows + +16 yard_sale row cols, minus the old grid's missing yard_sale
+row and missing P28 column, net +32); 191 mismatches -> 222.
+
+### Test updates
+
+  MOD: tests/test_orchestration.py  34 -> 42 passed
+        counts updated (16->17 models, 15->16 dets, 49->50 pairs,
+                       240->272 cells, 191->222 mismatches,
+                       6->7 substrates)
+        new class TestSprint17Registrations with 8 tests.
+
+  MOD: tests/test_cross_detection_matrix.py  +34 EXPECTED_OUTCOMES
+        cells (yard_sale × P28 detected, 17 non-wealth × P28
+        rejected, 16 yard_sale × non-P28 rejected),
+        +test_sprint_17_yard_sale_p28_covered method,
+        min-count assertion 78 -> 112.
+
+  NEW: tests/test_yard_sale_p28_e2e.py  35 tests (30 fast + 5 slow)
+        TestYardSaleReplication (6 tests):
+          wealth conservation, Gini starts at 0, long-time
+          condensation, saving-propensity plateau, no negative
+          wealth, N-invariance at fixed sweeps.
+        TestCanonicalP28 (6 tests):
+          DEFINITIVE canonical, primary magnitude, fast-condensation
+          DEFINITIVE, slow-condensation CONFIRMATION, monotonic
+          growth, null rejects positive.
+        TestP28Negatives (6 tests):
+          savings rejected, moderate-redist SCREENING, mild-redist
+          CONFIRMATION (critical "mechanism matters" test),
+          too-early rejected, substrate-mismatch rejected, too-few-
+          agents rejected.
+        TestP28MechanisticNull (6 tests):
+          all-flags DEFINITIVE, each of 4 flags tampered individually
+          to verify CONFIRMATION, metadata absent -> CONFIRMATION.
+        TestMultiSeedReproducibility (3 parametric tests, fast).
+        TestSprint17SlowReplication (5 slow tests): 4 seeds at t=2M
+          DEFINITIVE + N-scaling Gini invariance.
+        TestSprint17RegistryHooks (3 tests): orchestration hooks.
+
+## TEST COUNT DELTA (SPRINT 16 -> SPRINT 17)
+
+  Fast-half:   172 -> 213 passed (+41: +30 YS e2e, +8 orchestration,
+                                   +1 cross-matrix helper, +2 other
+                                   registration tests)
+               10 -> 15 deselected (+5 new slow tests marked)
+  Heavy-half:  41 passed (unchanged)
+  Sandpile-slow: 3 passed (unchanged)
+  NS-slow:     3 passed (unchanged)
+  ABP-slow:    4 passed (unchanged)
+  YS-slow:     5 passed (NEW)
+  GRAND TOTAL: 213 -> 269 passed, 11 -> 16 deselected
+
+## ARCHITECTURE DECISIONS LOG (SPRINT 17 ADDITIONS)
+
+### Decision 47 — P28 primary metric is Gini, not Pareto alpha
+
+The pre-existing pattern_catalog_v0_4.md entry for P28 listed
+"Pareto power-law tail" as a detection signature. Phase 1c Hill
+estimator characterization showed alpha drifts unstably across
+timescales: at short time alpha > 2 (sub-Pareto), at intermediate
+time transiently alpha in (1, 2), and at long time alpha drops
+below 1 and eventually toward 0 as the distribution degenerates
+to a delta on the winner. There is NO stable time window in which
+a fixed-alpha gate discriminates condensation regimes.
+
+The Gini coefficient is stable, monotonic, and has a clean null
+distribution under the DY 2001 Exp equilibrium (Gini ~ 0.5).
+Gini is the primary; alpha_hill is a diagnostic secondary metric
+only. Documented in detector_cards.md P28 card Sprint 17
+rewrite.
+
+Analogous to Sprint 16's ADR 44 (Hartigan dip -> two_phase_score).
+
+### Decision 48 — P28 null is well-mixed Boltzmann-Gibbs (DY 2001)
+
+The null hypothesis for condensation is that symmetric exchange of
+a conserved scalar resource equilibrates to a well-mixed Boltzmann-
+Gibbs distribution (Dragulescu-Yakovenko 2001), i.e., Exp(mean_w).
+The Gini of Exp(β) is ~0.5 in the large-N limit. We draw N samples
+from Exp(observed mean_w) and compute Gini, repeated n_permutations
+times. Observed Gini >> null ~0.5 is the evidence of SUPER-
+Boltzmann condensation.
+
+n_permutations >= 199 gives floor p = 0.005 (required for
+CONFIRMATION null-p < 0.01). NullType = SURROGATE (not SHUFFLE)
+because this is sampling from a theoretical equilibrium, not
+permuting observed data.
+
+### Decision 49 — P28 mechanistic-null gate uses four metadata flags
+
+DEFINITIVE requires ALL four of:
+  has_conserved_resource = True      (resource totals preserved)
+  has_multiplicative_stake = True    (stake = f * min(w_i, w_j) rule)
+  has_saving_propensity = False      (lambda = 0 in CC terminology)
+  has_redistribution = False         (chi = 0, no wealth tax)
+
+This separates true YS condensation from CC 2000 Gamma-plateau
+regimes (saving propensity blocks full condensation) and from
+redistributive economies (chi > 0 creates a finite-Gini fixed
+point even with full multiplicative stake rule). All four flags
+are required simultaneously because each represents an independent
+mechanism that can block condensation.
+
+Testable: the fixture-based test class TestP28MechanisticNull
+tampers each flag individually and asserts the tier drops from
+DEFINITIVE to CONFIRMATION. Tier = CONFIRMATION is the ceiling
+whenever the empirical signal is present but the mechanism is
+not cleanly affirmed.
+
+Third generation of the three-class discrimination framework:
+  - Substrate-level (registry)       Decisions 25, 37, 41
+  - Substrate-content (observable)   Decision 42 (NS integer v)
+  - Metadata-mechanism (rule flags)  Decision 43 (P2), now 49 (P28)
+
+## SPRINT 17 FILES — DELTA SUMMARY
+
+NEW (4 files):
+  epc/models/yard_sale.py                       ~325 lines
+  epc/metrics/wealth_concentration.py           ~225 lines
+  epc/detectors/p28_wealth_condensation.py      ~440 lines
+  tests/test_yard_sale_p28_e2e.py               ~380 lines
+
+MOD (7 files):
+  epc/orchestration.py
+      +yard_sale model entry, +P28 detector entry,
+      module docstring updated (6 substrates -> 7)
+  tests/test_orchestration.py
+      +test_scalar_wealth_models_exist,
+      +TestSprint17Registrations (8 tests),
+      counts refreshed
+  tests/test_cross_detection_matrix.py
+      +34 EXPECTED_OUTCOMES cells,
+      +test_sprint_17_yard_sale_p28_covered,
+      min-count assertion 78 -> 112
+  docs/detector_cards.md
+      v0.6.0 -> v0.6.1,
+      P28 card completely rewritten for Sprint 17 implementation
+  REPLICATION_NOTES.md
+      +Sprint 17 section (this content)
+  PROJECT_STATUS.md
+      Sprint 16 -> Sprint 17 snapshot refresh
+
+## OUTSTANDING CARRY-FORWARDS AT SPRINT 17 HEAD
+
+All Sprint 16 carry-forwards remain. Sprint 17 adds:
+
+  19. **YS model inner loop is pure Python per transaction**
+      (Sprint 17 #1). The step() method does one transaction per
+      Python iteration; at f=0.1 N=1000 this is about 500k
+      transactions/sec. For long-t slow replication tests
+      (N-scaling at N=5000+) this is a bottleneck. Numba JIT of
+      the inner loop would give ~20x. Low priority.
+
+  20. **P28 finite-size scaling slow test** (Sprint 17 #2). Phase
+      1d.4 verified Gini N-invariance at 1000 sweeps across N in
+      {200, 500, 1000, 2000}. A slow-marked finite-size scaling
+      test pinning the critical N below which seed-metastability
+      appears (analogous to Sprint 16's N=400 ABP finding) would
+      strengthen the robustness claim. Phase 2b at N=1000 showed
+      no seed dependence, so N=1000 is safe, but the lower bound
+      is unpinned. 1 session.
+
+  21. **Retrofit P28 metadata flags to existing non-YS models**
+      (Sprint 17 #3). Analogous to Sprint 16 carry-forward #17
+      (retrofit P2 rule flags to Vicsek/D'Orsogna). If other
+      models ever expose a wealth observable (e.g., a future
+      Hopfield network with scalar activation accumulating
+      resource), they would also need has_conserved_resource,
+      has_multiplicative_stake, has_saving_propensity,
+      has_redistribution declared. Not urgent until a second
+      scalar_wealth model lands. Low priority.

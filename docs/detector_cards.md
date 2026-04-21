@@ -1,4 +1,4 @@
-# Detector Specification Cards v0.6.0
+# Detector Specification Cards v0.6.1
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
 
@@ -1780,43 +1780,113 @@ f_C > 0 long-term when well-mixed predicts f_C → 0.
 
 ### P28 — Wealth condensation / spontaneous inequality
 
-**Observable scope:** State-history only
+**Sprint 17 note:** This card reflects the IMPLEMENTED detector as of
+Sprint 17 (`epc/detectors/p28_wealth_condensation.py`). It supersedes
+an earlier specification that treated the Pareto power-law tail as a
+tier gate; Sprint 17 Phase 1c characterization showed the Hill
+estimator α drifts unstably across timescales (α ∈ (1,2) only
+transiently, crosses below 1 at full condensation) and is therefore
+a DIAGNOSTIC metric only, not a tier gate. See ADR 47 in
+REPLICATION_NOTES.md.
+
+**Observable scope:** `model_metadata_assisted` — empirical
+detection runs on `state_history` alone; metadata flags promote
+CONFIRMATION → DEFINITIVE via the mechanistic-null gate.
 
 **Required raw observables:**
-- `wealth[t]`: (N,) non-negative
-- Exchange events
-- W_total (conserved)
+- `wealth[t]`: (N,) non-negative float per snapshot, N ≥ 50.
+- Measurement window ≥ 3 frames.
+
+**Required metadata (for DEFINITIVE tier only):**
+- `has_conserved_resource`: bool — total resource is preserved.
+- `has_multiplicative_stake`: bool — transaction size scales with
+  the poorer party's holdings (stake = f · min(w_i, w_j)).
+- `has_saving_propensity`: bool — agents keep a guaranteed fraction
+  of wealth before exchange (λ > 0).
+- `has_redistribution`: bool — periodic tax / redistribution step
+  (χ > 0).
 
 **Preprocessing:**
-1. Gini G(t). 2. Wealth distribution; Pareto tail. 3. Oligarchic fraction.
+1. Collect wealth frames across measurement window (post burn-in).
+2. Compute Gini coefficient via sorted-order formula, O(N log N).
+3. Compute top-p shares for p ∈ {0.01, 0.10}.
+4. Compute monotonic-growth fraction across Gini trajectory.
 
-**Primary metric: Gini toward 1.0**
-Monotonically increasing. Spearman ρ(G, t) > 0.9.
+**Primary metric: Gini coefficient at final frame**
+- Pure YS: G(t) → 1.0 monotonically.
+- Well-mixed Boltzmann-Gibbs equilibrium: G → 0.5 (Dragulescu-
+  Yakovenko 2001 baseline).
+- Perfect equality: G = 0.
 
 **Secondary metrics:**
-- Pareto exponent α
-- Oligarchic fraction
-- Wealth mobility (rank correlation)
+- `top_1pct_share`, `top_10pct_share` — share held by wealthiest 1%, 10%.
+- `monotonic_fraction` — fraction of checkpoints where Gini does not
+  decrease (pure YS: ≥ 0.95; redistributive regimes: < 0.80).
+- `relative_gini_growth` — (G_end − G_start) / (1 − G_start).
+- `alpha_hill` — Hill-estimator Pareto tail exponent (diagnostic
+  only; NOT a tier gate, per ADR 47).
+- `max_share` — share of the single richest agent.
 
-**Null models:**
-- *Random redistribution:* Gini fluctuates, no trend.
-- *Non-interacting:* Gini constant.
+**Null model: Well-mixed Boltzmann-Gibbs (Dragulescu-Yakovenko 2001)**
+- Draw N wealth values from Exp(⟨w⟩) matched to observed mean.
+- Compute Gini of sample. Repeat n_permutations (≥ 199 for
+  CONFIRMATION floor p = 0.005).
+- Right-tailed p: p = P(Gini_null ≥ Gini_obs).
+- Null mean ≈ 0.5; a strong P28 signal has p ≪ 0.01.
+- `NullType = SURROGATE`.
 
-**Detection tiers:**
-- *Screening:* G_final > 0.6 AND Spearman > 0.7
-- *Confirmation:* G > 0.8 AND Spearman > 0.9 AND Pareto tail (p > 0.1)
-- *Definitive:* Confirmation + redistribution null flat + identical initial agents verified + P14/P32 exclusions
+**Detection tiers (Sprint 17 empirical calibration, N=1000):**
+- *Screening:* Gini > 0.40 AND top_1pct > 0.05.
+- *Confirmation:* Screening + Gini > 0.55 + top_1pct > 0.15 +
+  monotonic_fraction > 0.80 + null-p < 0.01.
+- *Definitive:* Confirmation + Gini > 0.80 + top_1pct > 0.30 +
+  mechanistic-null gate (metadata affirms
+  `has_conserved_resource=True`, `has_multiplicative_stake=True`,
+  `has_saving_propensity=False`, `has_redistribution=False`).
+
+**Canonical positive (Yard-Sale f=0.1, λ=0, χ=0, N=1000, t=2e6):**
+Gini = 0.94, top_1pct = 0.34, monotonic_fraction = 1.00, null-p = 0.005,
+metadata flags all affirmed → **DEFINITIVE**, confidence 0.95.
+Reproduces Boghosian (2014) qualitative claim. Seed-robust across
+{42, 7, 101, 999}: Gini 0.934 – 0.938.
+
+**Within-family negatives (Sprint 17 Phase 2):**
+- Saving propensity (λ = 0.5): Gini = 0.28 → rejected at screening
+  floor (CC 2000 Gamma-plateau regime).
+- Moderate redistribution (χ = 0.001): Gini = 0.68, top_1pct = 0.14
+  → SCREENING (top_1pct fails confirmation gate).
+- Mild redistribution (χ = 0.0001): Gini = 0.89, top_1pct = 0.29,
+  monotonic — **empirically looks like DEFINITIVE** but metadata
+  `has_redistribution = True` blocks the mechanism gate →
+  CONFIRMATION. This is the key Sprint 17 "mechanism matters"
+  case, analogous to Sprint 16's D'Orsogna × P2 screening.
 
 **Common false positives:**
-- P14 (stationary power law). P32 (functional roles). Pre-existing heterogeneity.
+- P14 (stationary SOC power law — different substrate; rejected
+  at registry).
+- P32 (division of labor — functional role, not resource; rejected
+  at substrate level).
+- Pre-existing heterogeneity (not a dynamic pattern — rejected by
+  Gini_initial ≈ Gini_final test in monotonicity gate).
 
 **Nearest-neighbor exclusions:**
-- P14: Stationary → P14. Trending to absorption → P28.
-- P32: Functional roles → P32. Resource quantity → P28.
+- None on the scalar_wealth substrate at Sprint 17 (P28 is the only
+  detector registered for this substrate).
+- Cross-substrate neighbors (P14 critical avalanches, P32 division
+  of labor): excluded at the registry layer by substrate_mismatch.
 
 **Co-occurrence:**
-- *Allowed:* P22 (cascade dynamics driving condensation)
-- *Excluded:* P14 (stationary vs non-stationary), P32 (resource vs role)
+- *Allowed:* None registered at Sprint 17.
+- *Excluded:* All other registered patterns by substrate mismatch.
+
+**Architecture decisions (Sprint 17):**
+- **ADR 47**: Primary is Gini (not Pareto α, which is empirically
+  unstable across timescales).
+- **ADR 48**: Null is well-mixed Boltzmann-Gibbs (Dragulescu-
+  Yakovenko 2001) — draw N from Exp(⟨w⟩), right-tailed p.
+- **ADR 49**: Mechanistic-null gate requires FOUR metadata flags
+  (conserved, multiplicative_stake, NOT saving_propensity,
+  NOT redistribution).
 
 ---
 

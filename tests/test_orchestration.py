@@ -1,12 +1,12 @@
 """Orchestration layer tests — substrate-aware detector dispatch.
 
-Tests the compatibility matrix: 6 substrate types, 14 models × 13 detectors,
-43 compatible pairs (Sprint 13 added gray_scott × P3 on the new
-lattice_2d_continuous substrate). Verifies substrate filtering, observable
+Tests the compatibility matrix: 7 substrate types, 17 models × 16 detectors,
+50 compatible pairs (Sprint 17 added yard_sale × P28 on the new
+scalar_wealth substrate). Verifies substrate filtering, observable
 guards, canonical positive/negative assignments, and that Sprint 5 models
 (Nowak-May, HK) are correctly registered.
 
-Architecture decision #25 (updated Sprint 13).
+Architecture decision #25 (updated Sprint 17).
 """
 
 import pytest
@@ -51,38 +51,43 @@ class TestSubstrateCounts:
                   if m.substrate_type == 'opinion_space']
         assert len(models) >= 1
 
+    def test_scalar_wealth_models_exist(self):
+        models = [m for m in MODEL_REGISTRY.values()
+                  if m.substrate_type == 'scalar_wealth']
+        assert len(models) >= 1
+
     def test_five_substrate_types_total(self):
         substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
-        assert len(substrates) == 6, f"Expected 6 substrate types, got {substrates}"
+        assert len(substrates) == 7, f"Expected 7 substrate types, got {substrates}"
 
 
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 16, \
-            f"Expected 16 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 17, \
+            f"Expected 17 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 15, \
-            f"Expected 15 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 16, \
+            f"Expected 16 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 49, \
-            f"Expected 49 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 50, \
+            f"Expected 50 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 240, f"Expected 240 cells (16x15), got {total}"
+        assert total == 272, f"Expected 272 cells (17x16), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 240 - len(pairs)
-        assert mismatches == 191, f"Expected 191 mismatches, got {mismatches}"
+        mismatches = 272 - len(pairs)
+        assert mismatches == 222, f"Expected 222 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -99,6 +104,7 @@ class TestCanonicalPairs:
         ('nowak_may', 'P27'),
         ('zhang_sequential', 'P31'),
         ('sir_epidemic', 'P22'),
+        ('yard_sale', 'P28'),
     ])
     def test_canonical_pair_compatible(self, model_name, detector_id):
         result = check_compatibility(model_name, detector_id)
@@ -180,3 +186,73 @@ class TestSprint9Registrations:
             r = check_compatibility(model, 'P12')
             assert not r.compatible, \
                 f"{model} (non-lattice_2d) should NOT match P12"
+
+
+class TestSprint17Registrations:
+    """Sprint 17: yard_sale model + P28 detector are registered on the
+    new scalar_wealth substrate and compatible with each other; P28
+    rejects all 16 other substrates at substrate_mismatch."""
+
+    def test_yard_sale_registered(self):
+        assert 'yard_sale' in MODEL_REGISTRY, \
+            "yard_sale model should be registered"
+        m = MODEL_REGISTRY['yard_sale']
+        assert m.substrate_type == 'scalar_wealth'
+        assert 'wealth' in m.observables
+        assert 'P28' in m.primary_patterns
+
+    def test_yard_sale_metadata_rule_flags(self):
+        """P28 mechanistic-null gate depends on four metadata flags.
+
+        These MUST be declared in the yard_sale MODEL_REGISTRY entry so
+        downstream detector code can rely on their presence (Decision 49).
+        """
+        m = MODEL_REGISTRY['yard_sale']
+        for flag in ['has_conserved_resource', 'has_multiplicative_stake',
+                     'has_saving_propensity', 'has_redistribution']:
+            assert flag in m.metadata_keys, \
+                f"yard_sale must declare metadata flag '{flag}' for P28"
+
+    def test_p28_registered(self):
+        assert 'P28' in DETECTOR_REGISTRY, "P28 detector should be registered"
+        d = DETECTOR_REGISTRY['P28']
+        assert 'scalar_wealth' in d.required_substrate
+        assert 'wealth' in d.required_observables
+        assert d.observable_scope == 'model_metadata_assisted'
+
+    def test_yard_sale_p28_compatible(self):
+        """The canonical Sprint 17 pair: yard_sale × P28 must be compatible."""
+        r = check_compatibility('yard_sale', 'P28')
+        assert r.compatible, f"yard_sale × P28 should be compatible: {r.reason}"
+
+    def test_p28_rejects_all_non_wealth_substrates(self):
+        """P28 should reject every substrate except scalar_wealth at
+        substrate_mismatch. This exercises the full registry for the
+        new substrate type."""
+        for m in MODEL_REGISTRY:
+            reg = MODEL_REGISTRY[m]
+            r = check_compatibility(m, 'P28')
+            if reg.substrate_type == 'scalar_wealth':
+                assert r.compatible, f"{m} (scalar_wealth) should match P28"
+            else:
+                assert not r.compatible, \
+                    f"{m} ({reg.substrate_type}) should NOT match P28"
+                assert 'substrate_mismatch' in r.reason, \
+                    f"{m} × P28 rejection reason should be substrate_mismatch"
+
+    def test_p28_only_pairs_with_yard_sale(self):
+        """P28 should have exactly one compatible model (yard_sale) at Sprint 17."""
+        p28_pairs = [(m, d) for m, d in get_compatible_pairs() if d == 'P28']
+        assert len(p28_pairs) == 1 and p28_pairs[0][0] == 'yard_sale'
+
+    def test_yard_sale_only_pairs_with_p28(self):
+        """yard_sale is on the new scalar_wealth substrate, so no other
+        detector should match it at Sprint 17."""
+        ys_pairs = [(m, d) for m, d in get_compatible_pairs() if m == 'yard_sale']
+        assert len(ys_pairs) == 1 and ys_pairs[0][1] == 'P28'
+
+    def test_scalar_wealth_substrate_exclusive(self):
+        """scalar_wealth should have exactly one model (yard_sale)."""
+        sw_models = [name for name, reg in MODEL_REGISTRY.items()
+                     if reg.substrate_type == 'scalar_wealth']
+        assert sw_models == ['yard_sale']
