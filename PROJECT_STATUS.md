@@ -1,10 +1,10 @@
 # Project Status Tracker
 
-Last updated: Sprint 17 (April 2026)
+Last updated: Sprint 18 (April 2026)
 
-## Current state (post Sprint 17)
+## Current state (post Sprint 18)
 
-The catalog has progressed through 17 sprints of work. Sprint 1 built
+The catalog has progressed through 18 sprints of work. Sprint 1 built
 the foundation (Zhang sorting + P1 + P31). Sprints 2–11 filled out the
 core model inventory and detectors across every substrate type.
 Sprint 12 was a paper catch-up sprint. Sprint 13 added the first
@@ -15,33 +15,36 @@ Sprint 15 added Nagel-Schreckenberg traffic + P8 — the second
 observables. Sprint 16 added Active Brownian Particles + P2 — the
 third `continuous_2d` model and the first detector whose DEFINITIVE
 tier depends on a metadata-based mechanistic-null gate (Decision 43),
-completing the three-class discrimination framework. **Sprint 17**
-adds Yard-Sale + P28 (wealth condensation) — the first well-mixed
+completing the three-class discrimination framework. Sprint 17 added
+Yard-Sale + P28 (wealth condensation) — the first well-mixed
 (non-spatial) agent population in the registry, introducing the new
-`scalar_wealth` substrate. Sprint 17 is also the first sprint of the
-Scenario-A catalog-completion campaign, targeting the remaining ~16
-patterns that lack canonical positive-model + detector pairs.
+`scalar_wealth` substrate. **Sprint 18** adds the non-local Kuramoto
+ring + P10 (chimera states) — the second oscillator-substrate model,
+creating the first 2×2 within-substrate block in the transfer matrix
+and the first canonical positive that depends on a specific initial
+condition and seed (chimera/sync bistability). Sprint 18 is the second
+big-science sprint of the Scenario-A catalog-completion campaign.
 
-## Inventory snapshot at Sprint 17 HEAD
+## Inventory snapshot at Sprint 18 HEAD
 
-- **17 model families** (18 model files, Zhang sequential and threaded
+- **18 model families** (19 model files, Zhang sequential and threaded
   count as the same family)
-- **16 registered detectors** in `epc/orchestration.py::DETECTOR_REGISTRY`
+- **17 registered detectors** in `epc/orchestration.py::DETECTOR_REGISTRY`
   + 1 additional column for P11 (Sprint 11 work implemented but not
   retrofitted into the registry — pre-existing gap; see Sprint 15 #3
   and Sprint 16 #12 in REPLICATION_NOTES.md)
 - **7 substrate types**: lattice_1d, lattice_2d, lattice_2d_continuous,
-  continuous_2d, oscillator, opinion_space, **scalar_wealth** (new
-  at Sprint 17)
-- **112 audited cells** in `tests/test_cross_detection_matrix.py::
-  EXPECTED_OUTCOMES` (Sprint 16: 78 → Sprint 17: 112, +34 from
-  yard_sale row + P28 column)
-- **Test suite**: **269 passed + 16 deselected** across fast-half
-  (213 + 15 deselected), heavy-half (41 + 1), sandpile-slow
-  (3 + 2), NS slow (3 + 19), ABP slow (4 + 19), and YS slow
-  (5 + 30 when run alone)
+  continuous_2d, **oscillator** (newly multi-model at Sprint 18),
+  opinion_space, scalar_wealth
+- **146 audited cells** in `tests/test_cross_detection_matrix.py::
+  EXPECTED_OUTCOMES` (Sprint 17: 112 → Sprint 18: 146, +34 from
+  kuramoto_nonlocal row + P10 column)
+- **Test suite**: **294 passed + 16 deselected** across fast-half
+  (235 + 15 deselected), heavy-half (41 + 1), sandpile-slow
+  (3 + 2), NS slow (3 + 19), ABP slow (4 + 19), YS slow
+  (5 + 30 when run alone), and **new P10 slow (3 + 22 when run alone)**
 
-## Models (17)
+## Models (18)
 
 | Model | Substrate | Primary Patterns | Sprint | Status |
 |-------|-----------|-----------------|--------|--------|
@@ -62,12 +65,14 @@ patterns that lack canonical positive-model + detector pairs.
 | Gray-Scott reaction-diffusion | lattice_2d_continuous | P3 | 13 | ✅ |
 | Nagel-Schreckenberg traffic | lattice_1d | P8 | 15 | ✅ |
 | Active Brownian Particles | continuous_2d | P2 | 16 | ✅ |
-| **Yard-Sale wealth exchange** | **scalar_wealth** | **P28** | **17** | ✅ |
+| Yard-Sale wealth exchange | scalar_wealth | P28 | 17 | ✅ |
+| **Non-local Kuramoto ring** | **oscillator** | **P10** | **18** | ✅ |
 
 ## Detectors
 
-Registered in `epc/orchestration.py::DETECTOR_REGISTRY` (16):
-P1, P2, P3, P5, P6, P8, P9, P12, P13, P14, P15, P21, P22, P27, **P28**, P31.
+Registered in `epc/orchestration.py::DETECTOR_REGISTRY` (17):
+P1, P2, P3, P5, P6, P8, P9, **P10**, P12, P13, P14, P15, P21, P22, P27,
+P28, P31.
 
 Implemented and test-covered but not registered (1):
 **P11** (Sprint 11 LV + P11 predator-prey oscillation detector — the
@@ -102,9 +107,10 @@ not a standalone detector.
 | 14.6 | Threshold lock + test split | GS spots tier decision, sandpile test split |
 | 15 | Traffic jamming | Nagel-Schreckenberg, P8, 2nd lattice_1d model |
 | 16 | MIPS | Active Brownian Particles, P2, metadata-mechanism gate (Decision 43) |
-| **17** | **Wealth condensation** | **Yard-Sale, P28, `scalar_wealth` substrate, first well-mixed agent population, Decisions 47–49** |
+| 17 | Wealth condensation | Yard-Sale, P28, `scalar_wealth` substrate, first well-mixed agent population, Decisions 47–49 |
+| **18** | **Chimera states** | **Non-local Kuramoto ring, P10, first 2×2 within-substrate block (oscillator), first IC-dependent canonical positive, Decisions 50–53** |
 
-## Architecture decisions log (49 total, Sprint 17 adds 3)
+## Architecture decisions log (53 total, Sprint 18 adds 4)
 
 Decisions 1–36 locked before Sprint 13. Sprint 13 added 37–39
 (substrate-content gating; k_max_frac=1.0; n_permutations=199).
@@ -112,42 +118,59 @@ Sprint 15 added 40–42 (P8 stopped_fraction primary; lattice_1d
 + integer velocity prereqs; jam_lifetime_p95 confirmation gate).
 Sprint 16 added 43–46 (P2 mechanistic-null gate, two_phase_score
 primary, confirmation gates, post-burn ≥ 3·T_rot).
-Sprint 17 adds:
+Sprint 17 added 47–49 (P28 Gini-not-Pareto primary, DY Boltzmann-
+Gibbs surrogate null, four-flag mechanistic-null gate).
+Sprint 18 adds:
 
-- **Decision 47**: P28 primary metric is the Gini coefficient, NOT
-  the Pareto tail exponent α. The pre-existing pattern-catalog entry
-  prescribed "Pareto power-law tail" as a detection signature; Phase
-  1c Hill-estimator characterization showed α drifts unstably across
-  timescales — at short time α > 2 (sub-Pareto), transiently α ∈ (1,
-  2), at long time α < 1 (degenerate). No stable window exists in
-  which a fixed-α gate discriminates condensation regimes. Gini is
-  stable, monotonic, and has a clean null under the Dragulescu-
-  Yakovenko equilibrium. α_hill is carried as a diagnostic secondary
-  metric only. Analogous to Sprint 16's ADR 44 (Hartigan dip → two-
-  phase score).
+- **Decision 50**: P10 primary metric is `pos_vel_ac[lag=4]` — spatial
+  autocorrelation of time-averaged per-oscillator phase velocity on
+  the ring — NOT the pattern-catalog-obvious bimodal `{r_w}` window
+  signature. Phase 1h/1i showed that every window-based chimera
+  signature (gap, persistence_corr, time_std_ratio, per-window
+  coexistence) gives false positives on ordinary all-to-all Kuramoto
+  near K_c, because the mean-field model's internal ω-sort produces
+  persistent window structure that is window-wise indistinguishable
+  from a chimera arc. `pos_vel_ac[4]` discriminates spatial (coupling)
+  ordering from frequency ordering, giving a separation gap of +0.47
+  with no overlap between chimera (0.93 ± 0.01) and ordinary Kuramoto
+  K=1.0 (0.31 ± 0.13). Analogous to Sprint 16 ADR 44 (Hartigan dip
+  failure) and Sprint 17 ADR 47 (Pareto α failure).
 
-- **Decision 48**: P28 null model is the well-mixed Boltzmann-Gibbs
-  distribution (Dragulescu-Yakovenko 2001). Under the null hypothesis
-  "symmetric exchange of a conserved scalar resource equilibrates to
-  a Boltzmann-Gibbs distribution", the Gini of a sample from Exp(⟨w⟩)
-  is ≈ 0.5 in the large-N limit. We draw N samples from Exp(observed
-  mean_w), compute Gini, repeat n_permutations (≥ 199 for floor
-  p = 0.005). Right-tailed p. NullType = SURROGATE (not SHUFFLE)
-  because we sample from a theoretical equilibrium.
+- **Decision 51**: Canonical positive pins β = 0.05, seed = 0, asymmetric
+  Gaussian IC — NOT the paper's β = 0.18. Chimera states are bistable
+  with full sync at these parameters; at β = 0.18 only half of random
+  seeds land in the chimera basin, while at β = 0.05 all tested seeds
+  (0, 1, 42, 200, 500) robustly produce chimeras. This is the first
+  sprint where the canonical positive depends on a specific IC and
+  seed; future bistable pattern detectors (likely P16 Hopfield, P26
+  stochastic resonance) will need the same IC-specific pinning. Paper
+  β = 0.18 retained as a slow-half replication test.
 
-- **Decision 49**: P28 mechanistic-null gate uses FOUR metadata flags
-  simultaneously. DEFINITIVE requires:
-  `has_conserved_resource = True`,
-  `has_multiplicative_stake = True`,
-  `has_saving_propensity = False`,
-  `has_redistribution = False`.
-  Each flag represents an independent mechanism that can block
-  condensation (CC 2000 saving propensity and chi > 0 redistribution
-  both produce finite-Gini fixed points even with a full multiplicative
-  stake rule). The four-flag requirement is the third generation of
-  the three-class discrimination framework: substrate-level (registry)
-  / substrate-content (observable values, Decisions 37, 41) /
-  metadata-mechanism (rule flags, Decisions 43, now 49).
+- **Decision 52**: P10 DEFINITIVE gate uses two metadata flags:
+  `has_nonlocal_coupling = True` AND `has_frequency_heterogeneity !=
+  True`. Ordinary all-to-all Kuramoto (heterogeneous ω, no non-local
+  kernel) cannot reach DEFINITIVE via P10 under any content
+  configuration. Follows the P2 (Decision 43) / P28 (Decision 49)
+  template — content-level signal alone caps at CONFIRMATION without
+  metadata affirmation of the mechanism. The retrofit on the existing
+  `kuramoto.py` (adding `has_nonlocal_coupling = False`,
+  `has_frequency_heterogeneity = True`) provides the negative-match
+  side of the gate.
+
+- **Decision 53**: P10 coexistence gate uses a drift-invariant per-frame
+  measure — `per_frame_coexistence_fraction ≥ 0.90` — NOT a per-window
+  persistence measure. Phase 2b discovered that Abrams-Strogatz
+  chimera arcs execute slow random-walk translations along the ring
+  at long times. A per-window persistence gate (window X coherent ≥
+  90% of all frames) produces false negatives at T ≥ 100 because no
+  single window is persistently coherent despite the chimera being
+  intact. The per-frame measure requires that EACH FRAME has at
+  least one coherent and at least one incoherent window (in the same
+  frame); a drifting chimera satisfies this at ~100% of frames
+  regardless of where the arcs are. Per-window persistence counts
+  (`n_persistent_coh`, `n_persistent_incoh`) are retained as
+  spatial-stationarity diagnostics in secondary metrics but not used
+  as tier gates.
 
 ## Paper drafts
 
@@ -163,14 +186,21 @@ Sprint 17 adds:
 | §8 Conclusion | not drafted | — |
 | References | not compiled | — |
 
-**Sprint 17 deferred §4.18 + §5 table update** to a future paper-catchup
-sprint. The empirical/detector work is complete; Sprint 17's paper
-contribution is documented in REPLICATION_NOTES.md Sprint 17 section
-(~445 lines with Phase 1 characterization tables and ADRs 47-49) and
-in the P28 detector card (docs/detector_cards.md v0.6.1).
+**Sprint 17 and Sprint 18 both deferred their paper sections** (§4.18
+P28 and §4.19 P10 respectively) to a future paper-catchup sprint. The
+empirical/detector work is complete; Sprint 18's paper contribution is
+documented in REPLICATION_NOTES.md Sprint 18 section (~440 lines with
+Phase 1 characterization tables, Phase 2 detector verification, and
+ADRs 50-53) and in the P10 detector card (docs/detector_cards.md
+v0.6.2).
 
-Total paper body at Sprint 17 HEAD: ~23,400 words (unchanged from
-Sprint 16 — Sprint 17 paper update deferred as a carry-forward).
+Total paper body at Sprint 18 HEAD: ~23,400 words (unchanged from
+Sprint 16 — Sprints 17 and 18 both deferred paper updates).
+
+Paper cleanup is expected in a dedicated sprint after Sprints 19-20,
+covering items #24–29 (§6/§7 consistency pass, §8 Conclusion draft,
+reference list compilation, §4.18 P28 prose, §4.19 P10 prose, §5
+transfer matrix table 18×17 display).
 
 ## Outstanding carry-forwards
 
@@ -216,33 +246,55 @@ Sprint 16 — Sprint 17 paper update deferred as a carry-forward).
 18. Retrofit P28 metadata flags to any future second scalar_wealth
     model. Not urgent until a second wealth model lands. Low priority.
 
+**Introduced in Sprint 18:**
+19. Non-local Kuramoto inner loop is O(N²) per RK4 substep, scalar
+    numpy. At N=128 one frame ≈ 2s for T=50. Numba or a cached G-matrix
+    sparse approximation would give 5-10× for larger-N studies. Low
+    priority until N > 512 tests are requested.
+20. Chimera arc drift quantification not characterized. Phase 2b
+    observed drift qualitatively but did not fit a diffusion
+    constant. Low priority.
+21. Paper-convention time rescaling not applied. Implementation uses
+    a convention that rescales time by N relative to the paper's PDE
+    units. Documented in code and REPLICATION_NOTES.md. Low priority;
+    cosmetic convention.
+22. P10 finite-size robustness slow test (analogous to #15 and #17).
+    Phase 1e verified pos_vel_ac[4] at N ∈ {64, 128, 256}; pinning
+    the lower N bound would strengthen robustness claim. 1 session.
+23. P10 β = 0.18 paper-parameter full replication (incl. lifetime
+    measurements and (A, β) parameter-space boundary mapping) was not
+    done. Slow-half test confirms seed=42 at β=0.18 reaches
+    DEFINITIVE; full replication is 1-2 sessions.
+
 **Paper carry-forwards:**
-19. §6 and §7 consistency pass (Sprint 12 #1). Sprint 6-era content
-    should reflect Sprints 7–17 findings.
-20. §8 Conclusion not drafted (Sprint 12 #2).
-21. Reference list not compiled (Sprint 12 #3).
-22. **§4.18 P28 section** not drafted (Sprint 17 deferral). The
-    empirical work is complete in REPLICATION_NOTES.md; the paper
-    prose catch-up is deferred to a paper-cleanup sprint.
-23. §5 transfer matrix table update to 17×16 display (Sprint 17
-    deferral, paired with #22).
+24. §6 and §7 consistency pass (Sprint 12 #1). Sprint 6-era content
+    should reflect Sprints 7–18 findings.
+25. §8 Conclusion not drafted (Sprint 12 #2).
+26. Reference list not compiled (Sprint 12 #3).
+27. **§4.18 P28 section** not drafted (Sprint 17 deferral).
+    Empirical work complete in REPLICATION_NOTES.md.
+28. **§4.19 P10 section** not drafted (Sprint 18 deferral).
+    Empirical work complete in REPLICATION_NOTES.md.
+29. §5 transfer matrix table update to 18×17 display (Sprint 18
+    deferral, paired with #28).
 
-## Test totals at Sprint 17 HEAD
+## Test totals at Sprint 18 HEAD
 
-- **Fast-half**: 213 passed + 15 deselected (~4:14)
+- **Fast-half**: 235 passed + 15 deselected (~4:40)
 - **Heavy-half**: 41 passed + 1 deselected (~3:58)
 - **Sandpile-slow**: 3 passed + 2 deselected (~2:57)
 - **NS slow**: 3 passed + 19 deselected (~0:07)
 - **ABP slow** (Sprint 16): 4 passed + 19 deselected (~0:40)
-- **YS slow (Sprint 17, NEW)**: 5 passed + 30 deselected (~0:10)
-- **Grand total**: **269 passed + 16 deselected** (was 213+11 at
-  Sprint 16)
+- **YS slow** (Sprint 17): 5 passed + 30 deselected (~0:10)
+- **P10 slow (Sprint 18, NEW)**: 3 passed + 22 deselected (~0:50)
+- **Grand total**: **294 passed + 16 deselected** (was 269+16 at
+  Sprint 17)
 
-Sprint 17 adds: 30 fast + 5 slow e2e tests in
-`test_yard_sale_p28_e2e.py`, 8 registration tests in
-`test_orchestration.py` (`TestSprint17Registrations` class),
-1 new coverage test in `test_cross_detection_matrix.py`
-(`test_sprint_17_yard_sale_p28_covered`), 34 new `EXPECTED_OUTCOMES`
-cells, and 2 other small registration tests.
+Sprint 18 adds: 22 fast + 3 slow e2e tests in
+`test_kuramoto_p10_e2e.py`, 1 new canonical-pair entry and count
+updates in `test_orchestration.py`, 1 new coverage test in
+`test_cross_detection_matrix.py` (`test_sprint_18_kuramoto_nonlocal_p10_covered`),
+34 new `EXPECTED_OUTCOMES` cells, and the audited-pair floor bump
+from 112 to 146.
 
-Sprint 17 net fast-half delta: +41 (172 → 213).
+Sprint 18 net fast-half delta: +22 (213 → 235).

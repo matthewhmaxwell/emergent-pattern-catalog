@@ -1,4 +1,4 @@
-# Detector Specification Cards v0.6.1
+# Detector Specification Cards v0.6.2
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
 
@@ -817,40 +817,66 @@ r(t) = |(1/N) Σ exp(iθ_i)|
 
 ### P10 — Chimera states
 
-**Observable scope:** Model-metadata assisted (coupling kernel shape useful but not required)
+**Observable scope:** Model-metadata assisted (`has_nonlocal_coupling` gates DEFINITIVE)
 
 **Required raw observables:**
-- `θ[t]`: (N,) with spatial ordering
-- Coupling kernel specification
+- `theta[t]`: (N,) phases with ring (index-contiguous) spatial ordering
+- Ring positions (inferred from index contiguity if not provided explicitly)
 
 **Preprocessing:**
-1. Partition into W spatial windows. 2. Local r_w per window. 3. Spatial r_w profile.
+1. Burn-in (default 30% of frames).
+2. Partition ring into `n_windows` (default 16) contiguous arcs; compute local Kuramoto order parameter `r_w(t)` per window per frame.
+3. Unwrap `theta` along time axis; finite-difference to get per-oscillator phase velocities.
+4. Time-average velocities and compute spatial autocorrelation on the ring.
 
-**Primary metric: Coherent/incoherent coexistence**
-Bimodal distribution of {r_w}: some > 0.9, others < 0.5.
+**Primary metric: `pos_vel_ac[lag=4]`**
+
+Spatial autocorrelation (at ring-index lag 4) of time-averaged per-oscillator phase velocity. A chimera has neighboring ring oscillators drifting at correlated rates because the non-local coupling kernel mixes their dynamics; ordinary Kuramoto has each oscillator drifting at its own intrinsic `ω_i`, so the ω-sorted ring has low spatial velocity correlation. Phase 1j separation gap: chimera `0.929 ± 0.007` vs ordinary Kuramoto (K=1.0, 6 seeds) `0.312 ± 0.130`, chim-min − Kur-max = +0.47.
 
 **Secondary metrics:**
-- Spatial persistence of partition (temporal autocorrelation of r_w profile)
-- Global r in (0.3, 0.8)
+- `r_global_mean` (expected partial-sync band ~0.3–0.95)
+- `persistence_corr` (temporal correlation of `r_w` vectors — high but non-discriminative)
+- `velocity_neighbor_corr` (Pearson correlation of neighbor velocity time series)
+- `n_persistent_coh` / `n_persistent_incoh` (spatial stationarity diagnostic; drifting chimeras have low counts but remain valid positives)
+- `per_frame_coexistence_fraction` (drift-invariant coexistence measure, ≥ 0.90 required for screening)
 
-**Null models:**
-- *Global-coupling:* all-to-all → full sync, no chimera.
-- *Short-range:* nearest-neighbor only → no chimera.
+**Null model:** SURROGATE (position-shuffle).
+
+For each permutation, relabel oscillator indices uniformly at random; recompute velocities and `pos_vel_ac[4]`. This destroys ring adjacency while preserving per-frame phase distributions and per-oscillator trajectories. `n_permutations ≥ 199` required for CONFIRMATION (floor p = 0.005).
+
+**Screening prerequisites (all required):**
+- `theta` observable present; `N ≥ 32` oscillators
+- Post-burn run length ≥ 30 frames
+- `per_frame_coexistence_fraction ≥ 0.90` (drift-invariant — rejects full sync and full incoherence)
+- `pos_vel_ac[4] > 0.55`
 
 **Detection tiers:**
-- *Screening:* Dip test on {r_w} p < 0.05 AND global r < 0.9
-- *Confirmation:* Dip p < 0.01 AND persists ≥ 50 T_osc AND global r in (0.3, 0.8)
-- *Definitive:* Confirmation + ≥ 100 T_osc + global-coupling null eliminates chimera + P9 exclusion
+- *SCREENING:* all prerequisites pass.
+- *CONFIRMATION:* `pos_vel_ac[4] ≥ 0.75` AND surrogate null `p < 0.01`.
+- *DEFINITIVE:* CONFIRMATION + `has_nonlocal_coupling = True` in metadata AND `has_frequency_heterogeneity != True`.
 
-**Common false positives:**
-- P9 (uniform high r). Transient disorder. P21 (opinion fragmentation — different substrate).
+**Empirical calibration (Sprint 18 Phase 1j, N=128, A=0.995, β=0.05, dt=0.025, record_dt=1.0, 50 frames, asymmetric-Gaussian IC):**
+- Canonical positive (seed=0): `pos_vel_ac[4] = 0.844`, null_p = 0.005, cohen's d ≈ 9.4, confidence 0.95 → DEFINITIVE
+- Seed variations (1, 42, 200, 500) at β=0.05: 5/5 reach DEFINITIVE with `pos_vel_ac[4] ∈ [0.840, 0.860]`
+- Sync basin (β=0.10, seed=0): screening rejected at `no_coexistence`
+- Ordinary Kuramoto (K ∈ {0.3, 1.0, 2.0, 4.0}, 2 seeds each, 8 runs total): `pos_vel_ac[4] ≤ 0.448`, all screen-rejected
+
+**Common false-positive traps:**
+- **Ordinary Kuramoto near K_c** — partial sync on mean-field model produces persistent window-level "coexistence" after ω-sort. Defeated by `pos_vel_ac[4]` which discriminates spatial vs. frequency ordering.
+- **Random uniform phases** — gap of time-averaged local r can reach 0.54 at N=128 by sampling noise; defeated by per-frame coexistence gate plus `pos_vel_ac[4]` (random has value near 0).
+- **Full sync (K >> K_c)** — `n_persistent_incoh = 0` fails the coexistence gate.
+- **Full incoherence (K << K_c)** — `n_persistent_coh = 0` fails the coexistence gate.
+
+**Chimera-specific phenomena that complicate naive detection:**
+- **Basin bistability** — at intermediate β, seeds partition into chimera and sync basins (~50/50 at β=0.18; ~100% chimera at β=0.05). Canonical positive pins β=0.05 seed=0 for wide basin.
+- **Arc drift** — at long times the chimera arc executes slow translations along the ring. A fixed-window persistence metric would undercount; the detector uses a per-frame drift-invariant coexistence measure.
 
 **Nearest-neighbor exclusions:**
-- P9: Uniform r_w → P9. Heterogeneous → P10.
+- P9 (temporal synchronization). P9 already gates `local_r_cv < 0.2` internally and caps at CONFIRMATION on chimera data (`local_r_cv ≈ 0.47`); with P9's `r > 0.7` screening threshold, P9 does not fire on chimera (`r_global ≈ 0.58`) and is content-rejected on `kuramoto_nonlocal` in the cross-detection matrix.
 
 **Co-occurrence:**
-- *Allowed:* (chimera is typically exclusive within oscillator systems)
-- *Excluded:* P9 (full vs partial sync)
+- *Allowed:* none (within-substrate content-level mutually exclusive with P9)
+- *Excluded:* P9 (uniform vs. chimeric coexistence)
 
 ---
 

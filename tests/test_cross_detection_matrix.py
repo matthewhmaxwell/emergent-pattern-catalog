@@ -721,14 +721,92 @@ class TestTransferMatrixCompleteness:
         ("yard_sale", "P22"): "rejected",
         ("yard_sale", "P27"): "rejected",
         ("yard_sale", "P31"): "rejected",
+
+        # --- Sprint 18 pairs (Kuramoto-nonlocal + P10 chimera) ---
+        # kuramoto_nonlocal is the 18th model; P10 is the 17th detector.
+        # Both occupy the existing `oscillator` substrate, expanding the
+        # 1x1 Kuramoto block to 2x2 (kuramoto, kuramoto_nonlocal x P9, P10).
+        # The new entries are therefore DOUBLE-gated: substrate-level for
+        # the 32 off-oscillator cells (16 P10 column rejections, 15
+        # kuramoto_nonlocal row rejections vs non-oscillator detectors),
+        # and content-level for the 2 same-substrate cross-detector cells
+        # (kuramoto x P10 and kuramoto_nonlocal x P9).
+        #
+        # Empirical Phase 1j results (N=128, A=0.995, β=0.05, asymmetric
+        # IC, seed=0, T=50, n_permutations=199):
+        #   pos_vel_ac[4] ≈ 0.84 (canonical chimera), null_p=0.005,
+        #   cohens_d ≈ 9. tier = DEFINITIVE with confidence 0.95.
+        #
+        # Ordinary Kuramoto negatives across K ∈ {0.3, 1.0, 2.0, 4.0}:
+        #   pos_vel_ac[4] ≤ 0.45 across all 8 (K, seed) pairs. Clean
+        #   separation gap of +0.47 from the chimera distribution.
+        #   P10 rejects at screening via either no_coexistence or
+        #   pos_vel_ac_below_floor.
+        #
+        # P9 (temporal synchronization) on chimera data: P9's r_global
+        # threshold requires r > 0.7 for screening; canonical chimera
+        # at seed=0 gives r = 0.58, so P9 does not even reach screening.
+        # Cross-rejection is clean.
+        #
+        # ONE mechanism-level decision that deviates from the paper's
+        # literal parametrization: β=0.05 is the canonical positive,
+        # NOT the paper's β=0.18. At β=0.18 only ~half of random seeds
+        # land in the chimera basin (the other half relax to full sync);
+        # at β=0.05 the chimera basin is wide enough to accept all
+        # seeds tested. This matches what a user would encounter when
+        # running the detector on an unknown system. See ADR 51.
+        ("kuramoto_nonlocal", "P10"): "detected",  # DEFINITIVE canonical chimera
+        # P10 column — every other registered model rejects (substrate
+        # or content). 15 substrate-mismatch + 2 content-level rejections
+        # (kuramoto = ordinary all-to-all; has_nonlocal_coupling=False).
+        ("zhang_sequential", "P10"): "rejected",
+        ("zhang_threaded", "P10"): "rejected",
+        ("schelling", "P10"): "rejected",
+        ("greenberg_hastings", "P10"): "rejected",
+        ("game_of_life", "P10"): "rejected",
+        ("vicsek", "P10"): "rejected",
+        ("dorsogna", "P10"): "rejected",
+        ("btw_sandpile", "P10"): "rejected",
+        ("nowak_may", "P10"): "rejected",
+        ("hegselmann_krause", "P10"): "rejected",
+        ("sir_epidemic", "P10"): "rejected",
+        ("rps_spatial", "P10"): "rejected",
+        ("lotka_volterra_lattice", "P10"): "rejected",
+        ("gray_scott", "P10"): "rejected",
+        ("nagel_schreckenberg", "P10"): "rejected",
+        ("abp", "P10"): "rejected",
+        ("yard_sale", "P10"): "rejected",
+        ("kuramoto", "P10"): "rejected",    # content-level: heterogeneous-ω partial sync
+        # kuramoto_nonlocal row — every non-P10 detector rejects (15
+        # substrate-mismatch + 1 content-level at P9).
+        ("kuramoto_nonlocal", "P1"): "rejected",
+        ("kuramoto_nonlocal", "P2"): "rejected",
+        ("kuramoto_nonlocal", "P3"): "rejected",
+        ("kuramoto_nonlocal", "P5"): "rejected",
+        ("kuramoto_nonlocal", "P6"): "rejected",
+        ("kuramoto_nonlocal", "P8"): "rejected",
+        # P9 content-level rejection: r_global ≈ 0.58 on canonical chimera
+        # fails P9's r > 0.7 screening gate. Result is tier='none', i.e.
+        # not even SCREENING — stricter than substrate-mismatch.
+        ("kuramoto_nonlocal", "P9"): "rejected",
+        ("kuramoto_nonlocal", "P11"): "rejected",  # P11 unregistered; substrate-mismatch
+        ("kuramoto_nonlocal", "P12"): "rejected",
+        ("kuramoto_nonlocal", "P13"): "rejected",
+        ("kuramoto_nonlocal", "P14"): "rejected",
+        ("kuramoto_nonlocal", "P15"): "rejected",
+        ("kuramoto_nonlocal", "P21"): "rejected",
+        ("kuramoto_nonlocal", "P22"): "rejected",
+        ("kuramoto_nonlocal", "P27"): "rejected",
+        ("kuramoto_nonlocal", "P28"): "rejected",
+        ("kuramoto_nonlocal", "P31"): "rejected",
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 112, \
-            f"Expected at least 112 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 146, \
+            f"Expected at least 146 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -1274,6 +1352,141 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 17: all {len(sprint_17_pairs)} pairs covered "
               f"(yard_sale row + P28 column)")
+
+    def test_sprint_18_kuramoto_nonlocal_p10_covered(self):
+        """Sprint 18 added kuramoto_nonlocal as the 18th model (second
+        oscillator-substrate model — non-local ring, Abrams-Strogatz 2004)
+        and P10 (chimera states) as the 17th detector.
+
+        Unlike Sprint 17 which introduced a brand-new substrate
+        (scalar_wealth), Sprint 18 extends the existing oscillator
+        substrate that only held ordinary Kuramoto before, creating the
+        first 2x2 within-substrate block in the transfer matrix
+        (kuramoto, kuramoto_nonlocal x P9, P10). Cross-detector
+        discrimination on this block is therefore content-level, not
+        registry-level.
+
+        Key structural facts pinned by this test:
+        - kuramoto_nonlocal x P10 is the canonical positive (DEFINITIVE
+          at N=128, A=0.995, β=0.05, asymmetric IC, seed=0, T=50:
+          pos_vel_ac[4] ~ 0.84, null_p=0.005, cohens_d ~ 9, metadata
+          flags has_nonlocal_coupling=True,
+          has_frequency_heterogeneity=False).
+        - Every non-oscillator model x P10 rejects at substrate mismatch
+          (16 models).
+        - kuramoto x P10 rejects at CONTENT level: ordinary Kuramoto
+          across K in {0.3, 1.0, 2.0, 4.0} with multiple seeds gives
+          pos_vel_ac[4] ≤ 0.44, safely below the 0.55 screening floor.
+          This is a 2x2 within-substrate content rejection, not
+          substrate-level.
+        - kuramoto_nonlocal x P9 rejects at CONTENT level: chimera
+          states have r_global ~ 0.58 (partial sync), below P9's
+          r > 0.7 screening threshold, so P9 does not fire.
+        - Every non-P10 detector other than P9 x kuramoto_nonlocal
+          rejects at substrate mismatch (15 detectors).
+
+        Primary-metric design decision (ADR 50): the canonical chimera
+        signature "coexisting coherent + incoherent windows" gives
+        FALSE POSITIVES on ordinary Kuramoto near K_c because
+        partial-sync on a mean-field model produces persistent window
+        structure sorted by omega that superficially matches chimera
+        arcs. The discriminating metric is pos_vel_ac[lag=4] — spatial
+        autocorrelation of time-averaged per-oscillator phase velocity
+        on the ring — which exploits that a chimera's coherent arc is
+        organized by ring POSITION (coupling topology) while ordinary
+        Kuramoto entrainment is organized by intrinsic FREQUENCY. Phase
+        1j measured separation gap +0.47 with no overlap.
+
+        Canonical β decision (ADR 51): β=0.05 rather than the paper's
+        β=0.18, because the chimera basin is wider at β=0.05 (all tested
+        seeds land in chimera) while at β=0.18 roughly half of seeds
+        land in the sync basin. Both produce genuine chimeras; β=0.05
+        is simply more robust for testing.
+        """
+        sprint_18_pairs = [
+            # kuramoto_nonlocal × P10 — canonical positive
+            ("kuramoto_nonlocal", "P10"),
+            # P10 column — substrate-mismatch rejections (16 non-oscillator models)
+            ("zhang_sequential", "P10"),
+            ("zhang_threaded", "P10"),
+            ("schelling", "P10"),
+            ("greenberg_hastings", "P10"),
+            ("game_of_life", "P10"),
+            ("vicsek", "P10"),
+            ("dorsogna", "P10"),
+            ("btw_sandpile", "P10"),
+            ("nowak_may", "P10"),
+            ("hegselmann_krause", "P10"),
+            ("sir_epidemic", "P10"),
+            ("rps_spatial", "P10"),
+            ("lotka_volterra_lattice", "P10"),
+            ("gray_scott", "P10"),
+            ("nagel_schreckenberg", "P10"),
+            ("abp", "P10"),
+            ("yard_sale", "P10"),
+            # P10 column — CONTENT-level rejection (ordinary Kuramoto).
+            ("kuramoto", "P10"),
+            # kuramoto_nonlocal row — substrate-mismatch rejections except P9/P10.
+            ("kuramoto_nonlocal", "P1"),
+            ("kuramoto_nonlocal", "P2"),
+            ("kuramoto_nonlocal", "P3"),
+            ("kuramoto_nonlocal", "P5"),
+            ("kuramoto_nonlocal", "P6"),
+            ("kuramoto_nonlocal", "P8"),
+            ("kuramoto_nonlocal", "P11"),
+            ("kuramoto_nonlocal", "P12"),
+            ("kuramoto_nonlocal", "P13"),
+            ("kuramoto_nonlocal", "P14"),
+            ("kuramoto_nonlocal", "P15"),
+            ("kuramoto_nonlocal", "P21"),
+            ("kuramoto_nonlocal", "P22"),
+            ("kuramoto_nonlocal", "P27"),
+            ("kuramoto_nonlocal", "P28"),
+            ("kuramoto_nonlocal", "P31"),
+            # kuramoto_nonlocal row — CONTENT-level rejection (P9 on chimera).
+            ("kuramoto_nonlocal", "P9"),
+        ]
+        for pair in sprint_18_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 18 pair {pair} missing from transfer matrix"
+
+        # kuramoto_nonlocal × P10 is the Sprint 18 canonical positive.
+        assert self.EXPECTED_OUTCOMES[("kuramoto_nonlocal", "P10")] == "detected", (
+            "kuramoto_nonlocal × P10 must be detected (canonical chimera DEFINITIVE)"
+        )
+
+        # Every non-oscillator model × P10 must be rejected at substrate mismatch.
+        for other_model in (
+            "zhang_sequential", "zhang_threaded", "schelling",
+            "greenberg_hastings", "game_of_life", "vicsek", "dorsogna",
+            "btw_sandpile", "nowak_may", "hegselmann_krause",
+            "sir_epidemic", "rps_spatial", "lotka_volterra_lattice",
+            "gray_scott", "nagel_schreckenberg", "abp", "yard_sale",
+        ):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P10")] == "rejected", (
+                f"{other_model} × P10 should be rejected "
+                f"(substrate_mismatch: P10 requires oscillator)"
+            )
+
+        # Ordinary Kuramoto × P10 is the within-substrate content-level rejection.
+        assert self.EXPECTED_OUTCOMES[("kuramoto", "P10")] == "rejected", (
+            "kuramoto × P10 should be rejected (content-level: ordinary "
+            "all-to-all Kuramoto has pos_vel_ac < 0.55 screening floor)"
+        )
+
+        # kuramoto_nonlocal row — all detectors except P10 must reject.
+        # 15 substrate-mismatch + 1 content-level (P9).
+        for det in (
+            "P1", "P2", "P3", "P5", "P6", "P8", "P9", "P11", "P12",
+            "P13", "P14", "P15", "P21", "P22", "P27", "P28", "P31",
+        ):
+            assert self.EXPECTED_OUTCOMES[("kuramoto_nonlocal", det)] == "rejected", (
+                f"kuramoto_nonlocal × {det} should be rejected "
+                f"(substrate_mismatch or content-level)"
+            )
+
+        print(f"  ✓ Sprint 18: all {len(sprint_18_pairs)} pairs covered "
+              f"(kuramoto_nonlocal row + P10 column)")
 
 
 # ===================================================================

@@ -140,15 +140,29 @@ class KuramotoModel:
         return history
     
     def get_metadata(self) -> Dict[str, Any]:
-        """Return model metadata for detector use."""
+        """Return model metadata for detector use.
+
+        Includes ``has_nonlocal_coupling = False`` and
+        ``has_frequency_heterogeneity = True`` to distinguish from the
+        non-local Kuramoto ring variant (``KuramotoNonlocal``) which
+        sets these flags the opposite way. Used by the P10 chimera
+        detector's DEFINITIVE mechanistic-null gate.
+        """
         return {
             'model': 'kuramoto',
+            'model_family': 'kuramoto',
             'substrate_type': 'oscillator',
+            'space_type': 'all_to_all',
+            'dynamics_type': 'mean_field_phase_ode',
             'N': self.params.N,
             'K': self.params.K,
             'gamma': self.params.gamma,
             'K_c': 2 * self.params.gamma if self.params.freq_dist == 'lorentzian' else None,
             'freq_dist': self.params.freq_dist,
+            # Mechanistic flags for P10 detector
+            'has_nonlocal_coupling': False,
+            'has_frequency_heterogeneity': True,
+            'coupling_kernel': 'all_to_all',
         }
     
     def get_timescale(self) -> float:

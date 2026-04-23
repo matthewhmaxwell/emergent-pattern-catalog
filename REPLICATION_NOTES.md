@@ -3400,3 +3400,576 @@ All Sprint 16 carry-forwards remain. Sprint 17 adds:
       has_multiplicative_stake, has_saving_propensity,
       has_redistribution declared. Not urgent until a second
       scalar_wealth model lands. Low priority.
+
+
+# =============================================================================
+# SPRINT 18 — Non-local Kuramoto ring + P10 (Chimera states)
+# =============================================================================
+
+Sprint 18 extended the catalog with the 18th model family (Abrams-Strogatz
+non-local Kuramoto ring) and the 17th registered detector (P10, chimera
+states). Unlike Sprint 17 which introduced a brand-new substrate
+(scalar_wealth), Sprint 18 extends the existing **oscillator** substrate
+that previously held only ordinary all-to-all Kuramoto. This creates the
+first 2×2 within-substrate block in the transfer matrix:
+
+                      | P9   | P10  |
+  kuramoto            | D    | rej  |  (full sync: P9 yes, chimera: no)
+  kuramoto_nonlocal   | rej  | D    |  (chimera: P10 yes, full sync: no)
+
+Cross-rejection within the oscillator block is therefore CONTENT-level,
+not registry-level. This is the first Sprint 18 architectural change:
+detectors on a shared substrate must discriminate via observable or
+metadata-mechanism gates, not via the registry. The P2/P28 template of
+metadata-mechanism gates (ADR 46, 49) carries forward cleanly to P10
+(ADR 52).
+
+As expected for the Scenario-A catalog-completion campaign, the
+"look before touching" discipline surfaced THREE empirical surprises that
+reshaped detector design:
+
+  1. The pattern-catalog-obvious chimera signature ("bimodal {r_w}
+     windows plus global r in (0.3, 0.8)") gives FALSE POSITIVES on
+     ordinary Kuramoto near K_c. Had to pivot to a spatial velocity
+     autocorrelation metric. See ADR 50.
+
+  2. Chimera states are BISTABLE with full sync in the A-S parameter
+     regime. At the paper's β = 0.18, roughly half of random seeds land
+     in the sync basin rather than the chimera basin. Canonical
+     positive pins β = 0.05 where the chimera basin is wider. See ADR
+     51.
+
+  3. Chimera arcs DRIFT spatially at long times. A naive per-window
+     persistence gate produces false negatives at T ≥ 100 frames. Had
+     to build a drift-invariant per-frame coexistence measure. See
+     ADR 53.
+
+## PHASE 1 CHARACTERIZATION
+
+### Phase 1a — Reproduce paper initial condition at A = 0.995, β = 0.18
+
+Direct reproduction of Abrams-Strogatz 2004 Fig. 2: non-local Kuramoto
+ring, cosine kernel, identical oscillators (ω = 0), localized-noise IC
+per paper formula (amp 6.0, narrow σ ≈ 0.18, seed 42).
+
+  N = 256, A = 0.995, β = 0.18, T = 100, dt = 0.025
+
+  Result: r_global → 1.000, all 16 windows coherent. NO CHIMERA at
+  this seed. Full sync basin is dominant at the paper's parameters
+  for this specific IC formula.
+
+This initial failure is not a bug — it's the first hint of bistability.
+Abrams-Strogatz explicitly note that chimera states are initial-
+condition sensitive and that they constructed specific asymmetric
+perturbations to find the chimera basin. Their paper's IC uses
+localized phase noise at x = π; we reproduced it verbatim at seed=42
+and landed in sync.
+
+### Phase 1b — Alternative IC, seed sweep at β = 0.18
+
+Switched to a "strong asymmetric Gaussian" IC (amp 2.0, σ 0.5, envelope
+centered at x = π), based on similar IC constructions in Martens et al.
+2013 and related chimera literature.
+
+  N = 128, A = 0.995, β = 0.18, T = 50, dt = 0.025
+
+  Seed 0:   r_global → 1.000, all coherent       (SYNC basin)
+  Seed 1:   r_global = 0.633 ± 0.040             (CHIMERA basin, arc present)
+  Seed 2:   r_global → 1.000                     (SYNC basin)
+  Seed 42:  r_global = 0.629 ± 0.036             (CHIMERA basin)
+
+Roughly 50/50 split between sync and chimera basins. This is the
+bistability finding — a stable chimera coexists with stable full sync
+at these parameters, and which attractor wins depends on IC.
+
+### Phase 1c — β scan at fixed A, seed 0
+
+Varied β at seed 0 to check whether a different β gives a wider
+chimera basin.
+
+  β = 0.05:  r_global = 0.579 ± 0.030   CHIMERA basin
+  β = 0.10:  r_global → 1.000           SYNC
+  β = 0.15:  r_global → 1.000           SYNC
+  β = 0.18:  r_global → 1.000           SYNC
+  β = 0.20:  r_global → 1.000           SYNC
+  β = 0.25:  r_global → 1.000           SYNC
+
+β = 0.05 lands in the chimera basin even for the seed-0 IC that fails
+at β = 0.18. The chimera basin is WIDER at smaller β. Retested at β =
+0.05 across seeds {0, 1, 42, 200, 500}: all five reach the chimera
+basin with r_global = 0.577–0.582 (see Phase 1j). This is the basis
+for ADR 51 (canonical β = 0.05).
+
+### Phase 1d — Long-run stability at T = 200
+
+  N = 128, β = 0.05, seed 0, T = 200
+
+  r_global = 0.582 ± 0.032 (steady across 200 units)
+  Local r per window early (T ≈ 66):   min 0.172, max 1.000
+  Local r per window late  (T ≈ 198):  min 0.115, max 1.000
+
+Chimera persists at T = 200 with no structural decay. Global r is
+stationary. This is a genuine chimera attractor, not a long transient.
+
+### Phase 1e — N-scaling
+
+  β = 0.05, seed 0, T = 50, for N ∈ {64, 128, 256}
+
+  N =  64:  r_global = 0.580, gap 0.510, pos_vel_ac[4] = 0.863
+  N = 128:  r_global = 0.579, gap 0.587, pos_vel_ac[4] = 0.863
+  N = 256:  r_global = 0.579, gap 0.653, pos_vel_ac[4] = 0.863 (slow),
+                                         0.91 at n_frames 50
+
+Chimera structure scales cleanly from N = 64 to N = 256. Global r is
+N-invariant (as expected for a coexistence-phase fixed point). The
+spatial gap grows with N because single-window statistics improve.
+Primary metric pos_vel_ac[4] is essentially N-invariant.
+
+### Phase 1f — Ordinary Kuramoto (all-to-all, heterogeneous ω)
+
+The hardest negative. Ran existing epc.models.kuramoto (mean-field O(N))
+at three K regimes and compared to chimera signatures.
+
+  N = 128, γ = 0.5 (K_c = 1.0), Lorentzian ω
+
+  K = 0.3 (incoherent):
+    r_global = 0.104 ± 0.046,  gap 0.391,  coexistence = False
+    local_r range [0.20, 0.59]
+  K = 1.0 (near K_c, partial sync):
+    r_global = 0.266 ± 0.075,  gap 0.678,  coexistence = True
+    local_r range [0.32, 0.999]   <-- LOOKS LIKE CHIMERA!
+  K = 4.0 (full sync):
+    r_global = 0.900 ± 0.016,  gap 0.423,  coexistence = False
+    local_r range [0.577, 1.000]  <-- single dense coherent block
+
+Critical finding: K = 1.0 all-to-all Kuramoto produces window-level
+coexistence statistics that are numerically comparable to a genuine
+chimera. Gap is 0.68 (LARGER than the chimera's 0.59). Persistent
+coherent windows and persistent incoherent windows BOTH non-empty. The
+naive chimera signature FAILS to distinguish ordinary Kuramoto near
+K_c from a chimera.
+
+Why: After the Kuramoto model's internal ω-sort, the oscillators near
+the center of the frequency distribution entrain (coherent arc), while
+the tails drift (incoherent arc). The window-index-vs-local-r profile
+then LOOKS like a chimera. This is the empirical surprise that forced
+a pivot to a new primary metric.
+
+### Phase 1g — Random phases (noise floor)
+
+  N = 128, 10 trials per N, uniform [0, 2π] phases per frame
+
+  Max local_r = 0.627 ± 0.084,  min = 0.091 ± 0.048,  gap = 0.536 ± 0.079
+
+Random uniform phases at N = 128 produce gap 0.54 — INDISTINGUISHABLE
+from the canonical chimera's gap 0.59 under the naive signature. This
+is because at N = 128 with 16 windows, each window has only 8
+oscillators; the finite-N sampling variance of local_r is large.
+
+### Phase 1h — Candidate metrics across all regimes
+
+Exhaustive test of four candidate metrics against chimera positives,
+sync negatives, Kuramoto-K_c negative, and random-phase negative:
+
+  | Regime                          | gap  | pcorr | pcorr5 | tsr    | coex |
+  | ------------------------------- | ---- | ----- | ------ | ------ | ---- |
+  | Chimera β=0.05 s=0              | 0.59 | +0.55 | +0.62  |  1.24  | T    |
+  | Chimera β=0.05 s=1              | 0.62 | +0.65 | +0.67  |  1.31  | T    |
+  | Chimera β=0.05 s=42             | 0.61 | +0.63 | +0.63  |  1.29  | T    |
+  | Chimera β=0.18 s=1              | 0.56 | +0.68 | +0.67  |  1.71  | T    |
+  | Chimera β=0.18 s=42             | 0.57 | +0.64 | +0.72  |  1.67  | T    |
+  | Sync β=0.18 s=2                 | 0.00 | +0.00 | +0.00  |  0.00  | F    |
+  | Sync β=0.10 s=0                 | 0.00 | +0.00 | +0.00  |  0.00  | F    |
+  | Kuramoto K=0.3                  | 0.40 | +0.88 | +0.59  |  0.65  | F    |
+  | Kuramoto K=1.0                  | 0.68 | +0.90 | +0.71  |  1.61  | T    |
+  | Kuramoto K=2.0                  | 0.59 | +0.93 | +0.93  |  7.01  | T    |
+  | Kuramoto K=4.0                  | 0.41 | +0.92 | +0.90  |  6.09  | F    |
+  | Random (frozen)                 | 0.74 | +1.00 | +1.00  | huge   | F    |
+  | Random (resampled)              | 0.10 | -0.04 | +0.03  |  0.19  | F    |
+
+pcorr = persistence_corr (1-step), pcorr5 = persistence_corr(lag 5),
+tsr = time_std_ratio, coex = per-window coexistence (persistence ≥ 90%).
+
+Every metric in the table fails as a primary for at least one negative:
+
+  - gap: random uniform > chimera
+  - pcorr: Kuramoto K = 2.0 at 0.93 > chimera at 0.68
+  - tsr: Kuramoto K = 2.0 at 7.01 >> chimera at 1.31
+  - coex: Kuramoto K = 1.0 and K = 2.0 both True
+
+### Phase 1i — Phase velocity autocorrelation
+
+Inspired by the mechanism: a chimera's structure is organized by ring
+POSITION (non-local coupling topology); ordinary Kuramoto's structure
+is organized by natural FREQUENCY (after the ω-sort). Try metrics
+that directly test whether neighboring-in-ring-index oscillators have
+correlated velocities.
+
+  | Regime                          | nbr_vel_corr | pos_vel_AC(lag=4) |
+  | ------------------------------- | ------------ | ----------------- |
+  | Chimera β=0.05 s=0              |     +0.224   |      +0.863       |
+  | Chimera β=0.05 s=1              |     +0.176   |      +0.857       |
+  | Chimera β=0.05 s=42             |     +0.228   |      +0.863       |
+  | Chimera β=0.18 s=1              |     +0.313   |      +0.934       |
+  | Chimera β=0.18 s=42             |     +0.432   |      +0.919       |
+  | Sync (any)                      |     +0.000   |      +1.000       |
+  | Kuramoto K=0.3                  |     +0.193   |      +0.425       |
+  | Kuramoto K=1.0                  |     +0.502   |      +0.438       |
+  | Kuramoto K=2.0                  |     +0.833   |      -0.154       |
+  | Kuramoto K=4.0                  |     +0.929   |      +0.107       |
+  | Random resampled                |     +0.001   |      -0.009       |
+
+Neighbor velocity correlation (nbr_vel_corr) FAILS: Kuramoto K = 2.0
+and K = 4.0 both score higher than chimera (because in ordinary
+Kuramoto all fully-synced oscillators have the same velocity so
+neighbor velocity correlation is trivially near 1).
+
+Position-velocity spatial autocorrelation at lag 4 (pos_vel_AC[4])
+CLEANLY SEPARATES:
+  - Chimera range:  [+0.86, +0.93]
+  - Kuramoto range: [-0.15, +0.44]  (max 0.44 at K = 1.0)
+  - Full sync: +1.000 but coexistence = False rejects at screening
+  - Random: ≈ 0.00
+
+Sync edge case (pos_vel_AC = 1.000 when all velocities identical) is
+handled by the coexistence gate at screening; sync data cannot reach
+CONFIRMATION.
+
+### Phase 1j — Robustness of pos_vel_AC[4]
+
+Extended test: seeds {0, 1, 42, 200, 500} at β = 0.05 (five positives,
+all chimera basin), seeds {0, 1, 2, 42, 100, 200} for Kuramoto at K =
+1.0 (six hardest negatives), plus sanity checks at Kuramoto K = 0.8
+and K = 1.2.
+
+  Chimera (coex-passing, multi-seed β=0.18, N=128, T=50):
+    pos_vel_AC[4] = 0.929 ± 0.007   (range [0.919, 0.935])
+  Kuramoto K = 1.0 (6 seeds):
+    pos_vel_AC[4] = 0.312 ± 0.130   (range [0.093, 0.448])
+  Kuramoto K = 0.8 (4 seeds):
+    pos_vel_AC[4] range [0.091, 0.438]
+  Kuramoto K = 1.2 (4 seeds):
+    pos_vel_AC[4] range [-0.154, +0.372]
+
+Chimera min (0.919) − Kuramoto max across all regimes (0.448) = +0.47.
+No overlap. Threshold ≥ 0.75 sits comfortably in the gap with ~0.17
+margin to the nearest chimera and ~0.30 margin to the nearest
+Kuramoto. This is the basis for ADR 50 (primary metric pos_vel_AC[4]).
+
+## PHASE 2 — DETECTOR IMPLEMENTATION AND VERIFICATION
+
+### Phase 2a — Canonical positive batch (fast half)
+
+With the metrics module and detector built:
+
+  P10Detector(n_permutations=199, seed=42)
+  applied to KuramotoNonlocal(seed=s, beta=0.05) running 50 frames
+
+  seed 0:    tier = DEFINITIVE, pos_vel_ac = 0.844, null_p = 0.005, d = 9.4
+  seed 1:    tier = DEFINITIVE, pos_vel_ac = 0.847, null_p = 0.005, d ≈ 9
+  seed 42:   tier = DEFINITIVE, pos_vel_ac = 0.860, null_p = 0.005, d ≈ 10
+  seed 200:  tier = DEFINITIVE, pos_vel_ac = 0.840, null_p = 0.005, d ≈ 9
+  seed 500:  tier = DEFINITIVE, pos_vel_ac = 0.859, null_p = 0.005, d ≈ 10
+
+All 5 reach DEFINITIVE with confidence 0.95 (DEFINITIVE cap floor).
+
+### Phase 2b — Long-run surprise
+
+  KuramotoNonlocal(seed=0, beta=0.05).run(n_frames=100)
+  P10 with initial per-window persistence gate (persistence_fraction=0.90
+  applied to "window persistently coherent ≥ 90% of time" rule)
+
+  Result: tier = SCREENING (detected = False), screening rejected at
+  "no_coexistence".
+
+  pos_vel_ac = 0.9009  <-- STRONGER than 50-frame run
+  n_persistent_coh = 0
+  n_persistent_incoh = 3
+  gap_timeavg = 0.573   (still chimera-scale)
+
+Investigation: early-window vs late-window local_r profiles show the
+coherent arc has DRIFTED by ~2 window positions over T = 100. The
+chimera is intact (pos_vel_ac is even stronger), but no single window
+is coherent for ≥ 90% of all frames.
+
+This is a well-known Abrams-Strogatz finding — chimera arcs execute
+slow random-walk translations along the ring at long times. My initial
+coexistence gate assumed spatial stationarity and undercounted.
+
+Fix: change coexistence gate semantics. Instead of
+  "≥ 1 window persistently coherent AND ≥ 1 window persistently incoherent"
+use the drift-invariant
+  "≥ 90% of frames have ≥ 1 coherent window AND ≥ 1 incoherent window
+   in the same frame"
+(per_frame_coexistence_fraction ≥ persistence_fraction).
+
+After the fix, T = 100 chimera lands at DEFINITIVE correctly; T = 50
+behavior is unchanged (per-frame measure is identically 1.0 on a
+stationary chimera). See ADR 53.
+
+### Phase 2c — Broad negative sweep
+
+Ran P10 against all 17 non-kuramoto_nonlocal registered models.
+
+Registry-level rejections (16 models, substrate_mismatch):
+  zhang_sequential, zhang_threaded, schelling, greenberg_hastings,
+  game_of_life, vicsek, dorsogna, btw_sandpile, nowak_may,
+  hegselmann_krause, sir_epidemic, rps_spatial, lotka_volterra_lattice,
+  gray_scott, nagel_schreckenberg, abp, yard_sale.
+  All 16 reject with reason substrate_mismatch (P10 requires oscillator).
+
+Content-level rejection (1 model, same substrate):
+  kuramoto (ordinary all-to-all) across K ∈ {0.3, 1.0, 2.0, 4.0} with
+  2 seeds each. pos_vel_ac[4] max across all 8 runs: 0.438. All 8
+  screen-rejected at no_coexistence or pos_vel_ac_below_floor.
+
+### Phase 2d — Reverse-direction cross-rejection (P9 on chimera)
+
+Checked whether P9 (temporal synchronization, existing Sprint 5 detector)
+fires on chimera data.
+
+  P9.detect(kuramoto_nonlocal chimera) → tier = 'none', r_mean = 0.584
+
+P9 requires r_global > 0.7 at screening (chimera's 0.58 falls short),
+so P9 does not reach its screening floor on chimera data. The P9-P10
+mutual exclusion is therefore clean at the content level without any
+explicit exclusion logic needed in P10.
+
+## ARCHITECTURE DECISIONS
+
+### Decision 50 — Primary metric is pos_vel_ac[lag=4]
+
+Candidate chimera signatures evaluated in Phase 1h:
+  - gap (time-averaged local r max − min): fails on random uniform phases
+  - persistence_corr (1-step and lag-5): fails on ordinary Kuramoto
+  - time_std_ratio: fails on ordinary Kuramoto at K = 2.0
+  - per-window coexistence (count of persistent-coh + persistent-incoh
+    windows): fails on ordinary Kuramoto at K = 1.0 and K = 2.0
+
+ALL naive chimera signatures produce false positives on ordinary Kuramoto
+near K_c because the mean-field model's ω-sort creates persistent window
+structure that is window-wise indistinguishable from a chimera arc.
+
+The discriminating metric is pos_vel_ac[lag=4] — spatial autocorrelation
+of time-averaged per-oscillator phase velocity on the ring. The
+mechanism this exploits:
+  - A chimera's structure is organized by RING POSITION (coupling
+    topology organizes spatially-neighboring oscillators into the same
+    arc, and they drift at the same effective rate).
+  - Ordinary Kuramoto's structure is organized by NATURAL FREQUENCY
+    (ω-sort puts similar ω near each other in the index, but velocities
+    are set by individual ω_i which are uncorrelated at small index
+    differences after mean-field entrainment).
+
+Phase 1j measured separation: chimera 0.929 ± 0.007, Kuramoto (hardest
+negative) 0.312 ± 0.130, chim-min − Kur-max = +0.47. Tier threshold
+set at 0.75 — safely inside the gap from both sides.
+
+Analogous to Sprint 16 ADR 44 (Hartigan dip fails → two-phase score)
+and Sprint 17 ADR 47 (Pareto α fails → Gini): the pattern-catalog-
+obvious metric was empirically wrong, and a mechanism-derived metric
+was the actual discriminator.
+
+### Decision 51 — Canonical β = 0.05, not paper's β = 0.18
+
+The Abrams-Strogatz 2004 paper uses β = 0.18 (phase lag α = π/2 − β).
+Phase 1b tested β = 0.18 across seeds {0, 1, 2, 42}: only seeds 1 and
+42 landed in the chimera basin. Seeds 0 and 2 relaxed to full sync.
+
+Phase 1c tested seed 0 across β ∈ {0.05, 0.10, 0.15, 0.18, 0.20, 0.25}:
+only β = 0.05 produced a chimera at seed 0. All other β values landed
+in the sync basin.
+
+At β = 0.05, all five tested seeds {0, 1, 42, 200, 500} reach the
+chimera basin. The chimera/sync bistability is a genuine feature of
+the dynamical system — not an artifact — but the relative basin widths
+depend strongly on β.
+
+For the canonical positive (the test case that pins the detector's
+DEFINITIVE tier), we choose β = 0.05 for robustness. Both β = 0.05 and
+β = 0.18 produce real chimeras; β = 0.05 is simply a larger and more
+robust basin.
+
+Paper-faithful β = 0.18 is retained as an additional slow-half
+replication test to confirm the detector catches chimeras in the
+paper's original regime (seed 42 at β = 0.18 still reaches DEFINITIVE).
+
+This is the first sprint where the "canonical positive" pins BOTH a
+model AND a specific IC and seed — previous big-science sprints had
+monostable attractors. Future bistable pattern detectors (likely P26
+stochastic resonance, P16 Hopfield memory, and others in Wave 2+) will
+need the same IC-specific pinning.
+
+### Decision 52 — DEFINITIVE gate uses two metadata flags
+
+Analogous to ADR 46 (P2 MIPS: has_density_dependent_speed = True AND
+has_attraction_rule = False AND has_alignment_rule = False) and ADR 49
+(P28 wealth: has_conserved_resource = True AND has_multiplicative_stake
+= True AND has_saving_propensity = False AND has_redistribution = False).
+
+For P10, DEFINITIVE requires:
+  has_nonlocal_coupling = True               (chimera-enabling mechanism)
+  has_frequency_heterogeneity != True        (identical-ω ring, not all-to-all Kuramoto)
+
+Content-level signal (pos_vel_ac > 0.75, null_p < 0.01, coexistence
+passes) gets capped at CONFIRMATION without these metadata flags.
+
+This is the mechanistic-null gate at its purest: even if the
+observable-level statistics unambiguously indicate chimera, we withhold
+DEFINITIVE until the metadata affirms the mechanism is present. The
+goal is to prevent content-only false positives from reaching the
+highest tier on systems whose mechanism we cannot inspect.
+
+The symmetric retrofit on the existing kuramoto.py (adding
+has_nonlocal_coupling = False, has_frequency_heterogeneity = True)
+provides the negative-match side of this gate. Ordinary Kuramoto
+cannot reach DEFINITIVE via P10 under any content configuration.
+
+### Decision 53 — Drift-invariant per-frame coexistence gate
+
+Phase 2b discovered that Abrams-Strogatz chimeras execute slow
+translations along the ring at long times. This is a well-known but
+not always documented feature of the dynamical system. Per-window
+persistence gates (window X spends ≥ 90% of time above threshold) give
+FALSE NEGATIVES on drifting chimeras because no single window is
+persistently coherent.
+
+Replace the persistence gate with a per-frame drift-invariant test:
+
+  per_frame_coexistence_fraction = fraction of frames in which
+    AT LEAST ONE window has local r > coh_thresh AND
+    AT LEAST ONE window has local r < incoh_thresh
+    (in the same frame)
+
+Require per_frame_coexistence_fraction ≥ 0.90 for screening.
+
+A stationary chimera has per_frame_coexistence_fraction = 1.0
+(coexistence holds every frame). A drifting chimera also has value
+≈ 1.0 because coexistence holds every frame regardless of where the
+coherent arc is. Full sync has value 0 (no incoherent window ever).
+Full incoherence has value 0 (no coherent window ever). Random phases
+at N = 128 typically don't satisfy both conditions at any single frame
+because any "coherent" window is pure sampling noise.
+
+Per-window persistence counts (n_persistent_coh, n_persistent_incoh)
+are retained as spatial-stationarity diagnostics in the secondary
+metrics dict, but are not used as tier gates.
+
+Analogous to Sprint 16 ADR 44 where the primary signature pivoted
+mid-sprint after Phase 1 characterization; here the pivot happened
+during Phase 2 when long-run tests surfaced a design assumption that
+didn't hold.
+
+## TRANSFER MATRIX EXPANSION
+
+At Sprint 18 HEAD:
+  18 models × 17 detectors = 306 total cells
+  Audited: 146 (+34 from Sprint 17's 112)
+  Compatible pairs: 53 (+3 from 50: kuramoto×P10, kuramoto_nonlocal×P10,
+                        kuramoto_nonlocal×P9)
+  Mismatches: 253
+
+Sprint 18 added cells:
+  kuramoto_nonlocal × P10 = detected   (canonical chimera DEFINITIVE)
+  kuramoto × P10 = rejected            (content-level, pos_vel_ac below floor)
+  kuramoto_nonlocal × P9 = rejected    (content-level, r_global below P9 floor)
+  16 cells of (non-oscillator model × P10) = rejected   (substrate_mismatch)
+  15 cells of (kuramoto_nonlocal × non-P9/P10 detector) = rejected
+                                                          (substrate_mismatch)
+
+This is the first 2×2 within-substrate block — both off-diagonal cells
+(kuramoto × P10 and kuramoto_nonlocal × P9) reject at CONTENT level,
+not substrate level. No detector pair on the oscillator block double-
+triggers.
+
+## NOTE ON TIME UNITS
+
+The Abrams-Strogatz PDE dθ/dt = −∫G(x−y) sin(θ(x)−θ(y)+α) dy is
+discretized with a Riemann measure dy = 2π/N. The proper discrete form
+carries a (1/N) prefactor (absorbing the (2π/N) of dy against the
+(1/(2π)) in the cosine kernel). Our implementation OMITS this (1/N),
+which rescales time by a factor of N relative to the PDE's natural
+units.
+
+Consequence: integration times in this module's "T = 50" are not
+comparable to the paper's "T = 50". A direct paper-comparison would
+require rescaling by N ≈ 128 (so our T = 50 corresponds roughly to
+paper's T ≈ 0.4, or equivalently our dt = 0.025 corresponds to paper's
+dt ≈ 3.2).
+
+This is a calibration convention, not a correctness issue. All Phase 1
+and Phase 2 tables are internally consistent in the omitted-(1/N)
+convention. The docstring on KuramotoNonlocal._derivatives documents
+this explicitly. Future replication-quality comparisons against
+published chimera lifetimes or relaxation timescales would need to
+apply the (N/(2π)) rescaling.
+
+## CARRY-FORWARDS
+
+22. **Non-local Kuramoto inner loop is O(N²) per RK4 substep**,
+    scalar numpy. At N = 128 one frame = 40 RK4 substeps ≈ 2.0 s at
+    T = 50 on CPU. Numba or a cached G-matrix sparse approximation
+    would give 5-10× for larger-N studies. Low priority until N > 512
+    tests are requested.
+
+23. **Chimera arc drift quantification not characterized**. Phase 2b
+    observed drift at T = 100 qualitatively (coherent arc moved ~2
+    windows ≈ 16 oscillator positions in ~50 time units) but did not
+    fit a diffusion constant. A future characterization sprint could
+    measure <Δx²(t)> for the arc center as a function of (A, β, N) and
+    compare against published chimera diffusion studies (Omelchenko et
+    al. 2010 etc.). Low priority.
+
+24. **Paper-convention time rescaling not applied**. Implementation
+    uses a convention that rescales time by N relative to the
+    Abrams-Strogatz paper. Direct lifetime/timescale comparisons
+    against published chimera work would require applying the
+    (N/(2π)) factor. Documented in the code and in the NOTE ON TIME
+    UNITS section above. Low priority; a cosmetic convention.
+
+25. **P10 finite-size robustness slow test** (analogous to Sprint 16
+    #15 and Sprint 17 #17). Phase 1e verified pos_vel_ac[4] at N ∈
+    {64, 128, 256}; pinning the lower N below which seed-metastability
+    appears (if any) would strengthen the robustness claim. N = 64
+    was the smallest tested and was already clean. 1 session.
+
+26. **P10 replication against β = 0.18 paper value**. Phase 1b and
+    the slow-half test confirm seed 42 β = 0.18 lands in chimera
+    basin and reaches DEFINITIVE, but a full paper-parameter
+    reproduction of Abrams-Strogatz Fig. 2 (incl. lifetime
+    measurements and parameter-space boundary mapping) was not done.
+    1-2 sessions if desired for replication-quality completeness.
+
+27. **P9 screening floor surprise** (Phase 2d discovery, not explicitly
+    a carry-forward for P10 but worth noting): P9's `r > 0.7`
+    screening threshold is strictly greater than the canonical
+    chimera's r_global ≈ 0.58, so P9 gives tier='none' on chimera
+    input. This is looser than expected — we expected P9 to reach
+    SCREENING or CONFIRMATION but be blocked at DEFINITIVE by the
+    existing `p10_excluded` check. In practice P9 doesn't even clear
+    screening. Mentioned in detector_cards.md P10 card. Not a P9 bug;
+    P9's threshold is appropriate for its own canonical behavior.
+
+## SPRINT 18 FILES — DELTA SUMMARY
+
+  NEW:
+    epc/metrics/chimera_coexistence.py       (~240 lines)
+    epc/models/kuramoto_nonlocal.py          (~300 lines)
+    epc/detectors/p10_chimera.py             (~470 lines)
+    tests/test_kuramoto_p10_e2e.py           (~380 lines)
+
+  MODIFIED:
+    epc/models/kuramoto.py                   (+4 metadata keys in get_metadata)
+    epc/orchestration.py                     (+kuramoto_nonlocal, +P10)
+    tests/test_orchestration.py              (count updates; +canonical pair)
+    tests/test_cross_detection_matrix.py     (+34 EXPECTED_OUTCOMES cells,
+                                              floor bump 112→146, new
+                                              Sprint 18 covered-pairs test)
+    docs/detector_cards.md                   (v0.6.1→v0.6.2; rewrote P10 card)
+    REPLICATION_NOTES.md                     (+Sprint 18 section, +~440 lines)
+    PROJECT_STATUS.md                        (Sprint 17→Sprint 18 refresh)
+
+Test delta:
+  Fast half: 213 → 235 passed (+22 new P10 tests)
+  Slow half: NEW tests/test_kuramoto_p10_e2e.py::TestSlowReplication: 3 tests
+  Grand total: 269 passed + 16 deselected → 294 passed + 16 deselected

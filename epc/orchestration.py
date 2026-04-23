@@ -133,7 +133,19 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         substrate_type='oscillator',
         observables=['theta', 'r', 'psi', 'omega'],
         primary_patterns=['P9'],
-        metadata_keys=['N', 'K', 'gamma', 'freq_dist'],
+        metadata_keys=['N', 'K', 'gamma', 'freq_dist',
+                       'has_nonlocal_coupling', 'has_frequency_heterogeneity',
+                       'coupling_kernel'],
+    ),
+    'kuramoto_nonlocal': ModelRegistration(
+        name='kuramoto_nonlocal',
+        substrate_type='oscillator',
+        observables=['theta', 'r', 'psi', 'positions'],
+        primary_patterns=['P10'],
+        metadata_keys=['N', 'A', 'beta', 'alpha', 'dt', 'record_dt',
+                       'kernel', 'init_mode',
+                       'has_nonlocal_coupling', 'has_frequency_heterogeneity',
+                       'coupling_kernel', 'freq_dist'],
     ),
     'nowak_may': ModelRegistration(
         name='nowak_may',
@@ -303,6 +315,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P28',
         required_substrate=['scalar_wealth'],
         required_observables=['wealth'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P10': DetectorRegistration(
+        pattern_id='P10',
+        required_substrate=['oscillator'],
+        required_observables=['theta'],
         observable_scope='model_metadata_assisted',
     ),
 }
