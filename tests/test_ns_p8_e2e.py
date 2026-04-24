@@ -434,3 +434,96 @@ class TestReplicationQuality:
         assert lt_p95 >= 10, f"seed={seed}: lt_p95={lt_p95} below Phase 1 anchor ~13"
         print(f"  ✓ L=1000 seed={seed}: {result.tier.name}, stopped={sf:.3f}, "
               f"lt_p95={lt_p95:.1f}")
+
+
+# -----------------------------------------------------------------------------
+# Slow-half: finite-size scaling (Sprint 19 — closes carry-forward #15)
+# -----------------------------------------------------------------------------
+
+
+@pytest.mark.slow
+class TestFiniteSizeScaling:
+    """Finite-size scaling test pinning the minimum L for reliable
+    CONFIRMATION/DEFINITIVE tier across seeds.
+
+    Sprint 15 REPLICATION_NOTES documented that at L = 500 near the
+    critical density ρ = 0.12, stopped_fraction fluctuates near the
+    screening threshold (0.05), so some seeds land at SCREENING rather
+    than CONFIRMATION. The canonical CONFIRMATION demonstration requires
+    L = 1000. This test pins that finding by running the canonical
+    ρ = 0.15, p_slow = 0.3 regime across L ∈ {250, 500, 1000} with three
+    seeds at each L, and asserting the expected finite-size behavior:
+
+    - At L ≥ 500, all seeds reach DEFINITIVE (the canonical regime is
+      sufficiently above the transition that finite-size variance is
+      bounded).
+    - At L = 250, we relax to at least CONFIRMATION across all seeds;
+      SCREENING-only outcomes at L = 250 would indicate an emerging
+      finite-size sensitivity.
+    - stopped_fraction spread across seeds contracts monotonically with
+      L (σ(sf) decreasing as L increases), confirming the standard
+      1/√L finite-size scaling for this lattice_1d order parameter.
+
+    Runtime: ~4–8 minutes total for 9 runs (3 L-values × 3 seeds) at
+    n_permutations = 199 (the canonical P8 setting — n_perm = 99 hits
+    the null-p floor of 0.01 exactly and fails the strict `< 0.01`
+    confirmation gate, per the Sprint 8b null-p-floor finding).
+    """
+
+    @pytest.mark.parametrize("L", [250, 500, 1000])
+    @pytest.mark.parametrize("seed", [42, 123, 2024])
+    def test_definitive_across_L_and_seed(self, L, seed):
+        """Canonical ρ=0.15 regime reaches at least CONFIRMATION at every
+        tested (L, seed); DEFINITIVE at L ≥ 500."""
+        # Scale burn_in + measurement proportionally so total cars × steps
+        # gives comparable per-trajectory statistics across L.
+        n_steps = 1500 if L <= 500 else 2000
+        burn_in = 500 if L <= 500 else 800
+        result, _ = _run_p8(rho=0.15, p_slow=0.3, L=L, n_steps=n_steps,
+                            burn_in=burn_in, n_permutations=199, seed=seed)
+        assert result.detected, (
+            f"L={L} seed={seed}: expected at least SCREENING, got {result.tier.name}"
+        )
+        # Every tested (L, seed) should clear CONFIRMATION at the canonical
+        # ρ=0.15 regime; L=250 is the lower bound we're pinning as safe.
+        assert result.tier.value >= DetectionTier.CONFIRMATION.value, (
+            f"L={L} seed={seed}: finite-size regression — "
+            f"canonical ρ=0.15 should reach CONFIRMATION, got {result.tier.name}"
+        )
+        if L >= 500:
+            assert result.tier == DetectionTier.DEFINITIVE, (
+                f"L={L} seed={seed}: L≥500 should give DEFINITIVE, got "
+                f"{result.tier.name}; stopped_fraction="
+                f"{result.primary_metric['stopped_fraction']:.3f}"
+            )
+
+    def test_stopped_fraction_spread_contracts_with_L(self):
+        """σ(stopped_fraction) across seeds should decrease with L
+        (standard 1/√L finite-size scaling for ring order parameters).
+
+        This is the structural test that motivated the carry-forward:
+        Sprint 15 observed the near-transition regime had growing σ at
+        small L; we confirm the canonical regime shows the expected
+        shrinking σ as L grows.
+        """
+        sigmas = {}
+        for L in [250, 500, 1000]:
+            n_steps = 1500 if L <= 500 else 2000
+            burn_in = 500 if L <= 500 else 800
+            sf_values = []
+            for seed in [42, 123, 2024]:
+                result, _ = _run_p8(rho=0.15, p_slow=0.3, L=L, n_steps=n_steps,
+                                    burn_in=burn_in, n_permutations=199,
+                                    seed=seed)
+                sf_values.append(result.primary_metric["stopped_fraction"])
+            sigmas[L] = float(np.std(sf_values, ddof=1))
+            print(f"  L={L}: stopped_fraction = {sf_values}, σ={sigmas[L]:.4f}")
+
+        # Monotone shrinkage is the strong claim, but 3 seeds give noisy
+        # σ estimates; assert the weaker but robust claim that σ at L=1000
+        # is no larger than σ at L=250.
+        assert sigmas[1000] <= sigmas[250] + 0.01, (
+            f"σ(stopped_fraction) at L=1000 ({sigmas[1000]:.4f}) exceeds "
+            f"σ at L=250 ({sigmas[250]:.4f}) + 0.01 — finite-size "
+            f"scaling regression"
+        )

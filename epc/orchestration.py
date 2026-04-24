@@ -7,15 +7,16 @@ by substrate type.
 
 7 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
-- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS, LV
+- lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
+              Lotka-Volterra
 - lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
 - continuous_2d: Vicsek, D'Orsogna, ABP
-- oscillator: Kuramoto
+- oscillator: Kuramoto, Kuramoto-nonlocal
 - opinion_space: Hegselmann-Krause
 - scalar_wealth: Yard-Sale (Sprint 17, new)
 
-Architecture decision #25 (updated Sprint 17):
-  17 models × 16 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 19):
+  19 models × 18 detectors — compatible pairs identified by substrate.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
@@ -33,6 +34,18 @@ Architecture decision #25 (updated Sprint 17):
   has_saving_propensity, has_redistribution) to discriminate pure
   condensation from redistributive or saving-propensity regimes at
   the mechanistic-null (DEFINITIVE) gate. See Decisions 47–49.
+  Kuramoto-nonlocal (Sprint 18) shares the oscillator substrate
+  with Kuramoto; P10 (Sprint 18) is restricted to oscillator and
+  uses metadata flags (has_nonlocal_coupling, has_frequency_heterogeneity)
+  to discriminate chimeras from global synchronization at the
+  mechanistic-null (DEFINITIVE) gate. See Decisions 50–53.
+  Lotka-Volterra lattice (Sprint 11, registered Sprint 19) and
+  P11 predator-prey oscillation (Sprint 11, registered Sprint 19)
+  close the Sprint 11 registration gap. LV is lattice_2d with a
+  'grid' observable; P11 is restricted to lattice_2d AND enforces
+  the `n_unique_species_observed == 2` prerequisite at content-level
+  to discriminate bilateral (LV) from cyclic (RPS, 3+ species)
+  predator-prey dynamics. See Decisions 34–36.
 """
 
 from __future__ import annotations
@@ -176,6 +189,23 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         metadata_keys=['mobility', 'exchange_rate', 'selection_rate',
                        'reproduction_rate', 'neighborhood', 'dominance_map'],
     ),
+    'lotka_volterra': ModelRegistration(
+        name='lotka_volterra',
+        substrate_type='lattice_2d',
+        observables=['grid', 'grid_dims', 'prey_count', 'predator_count',
+                     'prey_fraction', 'predator_fraction',
+                     'empty_count', 'empty_fraction',
+                     'activity_density', 'n_states'],
+        primary_patterns=['P11'],
+        metadata_keys=['rows', 'cols',
+                       'predation_rate', 'prey_reproduction_rate',
+                       'predator_death_rate', 'neighborhood',
+                       'init_mode', 'init_prey_fraction',
+                       'init_predator_fraction', 'seed',
+                       'model_class', 'model_name', 'interaction_type',
+                       'n_species', 'n_states', 'n_neighbors',
+                       'update_mode', 'reference'],
+    ),
     'gray_scott': ModelRegistration(
         name='gray_scott',
         substrate_type='lattice_2d_continuous',
@@ -289,6 +319,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
     ),
     'P12': DetectorRegistration(
         pattern_id='P12',
+        required_substrate=['lattice_2d'],
+        required_observables=['grid'],
+        observable_scope='state_history_only',
+    ),
+    'P11': DetectorRegistration(
+        pattern_id='P11',
         required_substrate=['lattice_2d'],
         required_observables=['grid'],
         observable_scope='state_history_only',

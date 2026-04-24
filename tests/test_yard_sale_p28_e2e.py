@@ -400,6 +400,62 @@ class TestSprint17SlowReplication:
             f"Gini spread {spread:.4f} across N={list(ginis.keys())} " \
             f"exceeds 0.02: {ginis}"
 
+    @pytest.mark.slow
+    @pytest.mark.parametrize("N", [200, 500, 1000])
+    @pytest.mark.parametrize("seed", [42, 7, 101])
+    def test_low_N_seed_robustness(self, N, seed):
+        """Sprint 19 closes carry-forward #17.
+
+        Phase 1d.4 verified Gini N-invariance at 1000 sweeps across
+        N ∈ {200, 500, 1000, 2000} at seed=42 only. This test pins the
+        lower-N seed-robustness claim: at each N, across three seeds,
+        Gini should land in a narrow band and no seed should display
+        metastability (analogous to the Sprint 16 N=400 ABP finding where
+        some seeds at small N fell into a different attractor).
+
+        Expected: Gini at 1000 sweeps = 0.888 ± 0.015 for every (N, seed)
+        combination in the tested grid. N=200 is the floor — smaller N
+        would be unpinned by this test.
+        """
+        m = YardSale(n_agents=N, f=0.1, lambda_save=0.0, seed=seed)
+        m.setup()
+        m.step(1000 * N)
+        gini = YardSale._gini(m.wealth)
+        # Phase 1d.4 anchor is 0.888; ±0.02 tolerance accommodates
+        # seed variance at the smallest N.
+        assert 0.86 < gini < 0.92, (
+            f"N={N} seed={seed}: Gini={gini:.4f} outside finite-size band "
+            f"[0.86, 0.92]; possible metastability at low N"
+        )
+
+    @pytest.mark.slow
+    def test_low_N_gini_spread_bounded(self):
+        """σ(Gini) across seeds should be small at every N ≥ 200, with
+        no dramatic enlargement as N shrinks (the metastability signature
+        this test is built to catch).
+        """
+        ginis_by_N = {}
+        for N in [200, 500, 1000]:
+            g_values = []
+            for seed in [42, 7, 101]:
+                m = YardSale(n_agents=N, f=0.1, lambda_save=0.0, seed=seed)
+                m.setup()
+                m.step(1000 * N)
+                g_values.append(YardSale._gini(m.wealth))
+            ginis_by_N[N] = g_values
+            sigma = float(np.std(g_values, ddof=1))
+            print(f"  N={N}: Gini={g_values}, σ={sigma:.4f}")
+
+        sigma_200 = float(np.std(ginis_by_N[200], ddof=1))
+        sigma_1000 = float(np.std(ginis_by_N[1000], ddof=1))
+        # Metastability would show as σ(N=200) >> σ(N=1000). Allow
+        # modest enlargement but flag a doubling as suspicious.
+        assert sigma_200 < 2 * sigma_1000 + 0.005, (
+            f"σ(Gini) at N=200 ({sigma_200:.4f}) exceeds 2 × σ at N=1000 "
+            f"({sigma_1000:.4f}) + 0.005 — possible seed metastability "
+            f"at small N: {ginis_by_N}"
+        )
+
 
 # -----------------------------------------------------------------------------
 # Registry hooks

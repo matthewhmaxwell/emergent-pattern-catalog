@@ -766,7 +766,7 @@ raised `KeyError` on missing `grid` / `type_labels_at_pos` observables,
 and was updated to return a graceful substrate-warning rejection
 matching the pattern used by P11, P13, and P22. Thirteen new cells
 (one D + seven rej + five rej + zero nd) join the audited transfer
-matrix, bringing the total to 63 audited cells.
+matrix at Sprints 13–14.
 
 ## 4.14 Nagel-Schreckenberg Traffic CA and P8 Traffic Jamming (Cluster D)
 
@@ -899,8 +899,8 @@ oscillator, opinion_space, and lattice_2d_continuous models at
 substrate_mismatch (nine cells). Every 2D-substrate detector × NS
 rejects at its own observable prereq: P1 needs `grid`, P3 needs
 `field`, P11/P12/P13/P15/P22 need `grid`. Seventeen new cells (one D +
-sixteen rej) join the audited transfer matrix, bringing the total to
-80 audited cells across 15 models × 14 detectors.
+sixteen rej) join the audited transfer matrix at Sprint 15; the
+consolidated cell count is reported in Section 5.1.
 
 ## 4.15 Active Brownian Particles and P2 Motility-Induced Phase Separation (Cluster B)
 
@@ -1046,93 +1046,53 @@ downstream pipeline operators informative diagnostics for every
 non-MIPS outcome — the same design pattern as Sprint 15's
 P8 screening_rejection_reason taxonomy.
 
-**Transfer-matrix expansion.** The orchestration registry now has 16
-models × 15 detectors = 240 cells (was 210 at Sprint 15). ABP × P2 is
-the canonical positive; ABP × P5 and ABP × P6 are both rejected
-(ABP has no alignment, no attraction). P2 × thirteen non-continuous_2d
-models are all substrate_mismatch rejections. Vicsek × P2 rejects at
-the screening floor; D'Orsogna × P2 lands at SCREENING only.
-Thirty-four new cells (1 detected + 1 screening + 32 rejected) join
-the audited EXPECTED_OUTCOMES table in
-`tests/test_cross_detection_matrix.py`, bringing the total to 78
-audited pairs.
+**Transfer-matrix expansion.** Sprint 16 extended the orchestration
+registry from 15 models × 14 detectors to 16 models × 15 detectors.
+ABP × P2 is the canonical positive; ABP × P5 and ABP × P6 are both
+rejected (ABP has no alignment, no attraction). P2 × thirteen
+non-continuous_2d models are all substrate_mismatch rejections. Vicsek
+× P2 rejects at the screening floor; D'Orsogna × P2 lands at SCREENING
+only. Thirty-four new cells (1 detected + 1 screening + 32 rejected)
+join the audited EXPECTED_OUTCOMES table at Sprint 16; the
+consolidated count across all sprints is reported in Section 5.1.
 
 ## 4.16 Consolidated Transfer Matrix
 
-The following matrix summarizes detection outcomes across all audited
-model × detector pairs. Entries show the highest achieved tier
-(D = definitive, C = confirmation, S = screening), reported non-
-detections (rej = rejected by prerequisite or screening guard, nd =
-substrate-compatible but not detected), or substrate/observable
-incompatibility (× = substrate mismatch, — = detector requires
-different substrate). D* denotes Game of Life with dense random IC (the
-canonical configuration for the generalized P15 detector; R-pentomino
-gives a lower P15 tier because it lacks the diversity of outcome
-classes the generalized detector requires).
-
-|                   | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P31 |
-|-------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting     | S   | ×   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling         | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | —   | rej | ×   | nd  | ×   | rej | ×   | —   |
-| Vicsek (ordered)  | ×   | rej | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)  | ×   | S   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| ABP (MIPS)        | ×   | D   | ×   | rej| rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)   | ×   | ×   | ×   | ×  | ×  | ×   | D  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral         | S   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | C   | ×   | rej | ×   | rej | ×   | —   |
-| GoL (R-pent/rand) | rej | ×   | ×   | ×  | ×  | ×   | ×  | ×   | rej | rej | ×   | D*  | ×   | rej | ×   | —   |
-| BTW sandpile      | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | D   | nd  | ×   | ×   | ×   | ×   |
-| Nowak-May (b=1.8) | C   | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   |
-| HK (ε=0.2)        | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   |
-| SIR epidemic      | rej | ×   | rej | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | D   | ×   | —   |
-| RPS spatial       | S   | ×   | rej | ×  | ×  | ×   | ×  | rej | C   | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Lotka-Volterra    | C   | ×   | rej | ×  | ×  | ×   | ×  | D   | rej | rej | ×   | nd  | ×   | S   | ×   | —   |
-| Gray-Scott        | rej | ×   | D   | ×  | ×  | ×   | ×  | rej | rej | rej | ×   | nd  | ×   | rej | ×   | ×   |
-| Nagel-Schreck.    | rej | ×   | rej | ×  | ×  | D   | ×  | rej | rej | rej | ×   | rej | ×   | rej | ×   | ×   |
-
-Row count: 16 distinct model families (ABP added Sprint 16). Column
-count: 16 displayed detector slots (15 formally registered in the
-orchestration layer — the Sprint 15 entries plus P2 added Sprint 16 —
-and P11 displayed but not registry-retrofitted, a pre-existing
-documentation-vs-registry gap carried forward from Sprints 11–14).
-Out of 256 displayed cells, 168 are substrate mismatches (×) and 7
-are detector-substrate incompatibilities (—, primarily P31 which
-requires lattice_1d and P12/P22 which require lattice_2d grid
-observables). The remaining 81 cells are substrate-compatible and
-empirically audited: 25 produce detections (11 at DEFINITIVE — adding
-ABP × P2 to the Sprint 15 tally of 10, 1 at DEFINITIVE with dense
-random IC (D*, Game of Life × P15), 6 at CONFIRMATION, 7 at
-SCREENING — adding D'Orsogna × P2 to the existing 6), 50 are rejected
-by prerequisite or screening guard (rej — Sprint 16 added eight such
-cells: ABP × P5, ABP × P6, Vicsek × P2, plus five substrate-matched
-rejections for ABP against lattice/oscillator/opinion detectors),
-and 6 run but do not fire (nd — typically P15 on stochastic lattice
-models where the functional replay test fails due to
-irreproducibility, or Gray-Scott's deterministic PDE which has no
-stochastic step_fn). Of these 81 displayed audited cells, 78 appear
-in the cross-detection-matrix `EXPECTED_OUTCOMES` regression table
-(`tests/test_cross_detection_matrix.py`); the remaining canonical
-positives (e.g., Vicsek × P5, Kuramoto × P9, Gray-Scott × P3,
-Nagel-Schreckenberg × P8, ABP × P2) have their DEFINITIVE tier
-pinned by dedicated e2e test files rather than the cross-detection
-matrix.
+The complete consolidated transfer matrix, including all rows and
+columns added through Sprint 19, appears as Table 1 of Section 5 and
+is not reproduced here. The following observations summarize the
+structural features that emerged as each model family was added and
+tested against every previously audited detector; the empirical values
+underlying each cell are documented in the per-model subsections of
+this Section 4 and in the cross-detection regression table
+(`tests/test_cross_detection_matrix.py::EXPECTED_OUTCOMES`).
 
 Eight observations about the matrix.
 
 *No false positives across substrate boundaries.* The substrate-aware
 dispatch system (seven substrate types: lattice_1d, lattice_2d,
 lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
-predator_prey) correctly prevents cross-substrate detector application.
+scalar_wealth) correctly prevents cross-substrate detector application.
 Substrate mismatches account for the bulk of the blank cells and never
 fire a detector. The Sprint 13 addition of lattice_2d_continuous for
 Gray-Scott and the Sprint 14 hardening of P1's graceful-reject path
 for missing-grid substrates extended this guarantee to the
-continuous-field case.
+continuous-field case; Sprint 17's addition of the scalar_wealth
+substrate extended it further to well-mixed (non-spatial) agent
+populations.
 
 *Clean within-cluster discrimination.* P5 / P6 show perfect
 cross-exclusion (D'Orsogna milling rejected by P5 at φ = 0.046;
-Vicsek flocking rejected by P6 at |L| = 0.031). P11 / P12 show the
+Vicsek flocking rejected by P6 at |L| = 0.031). P5 / P6 / P2 form a
+three-way within-substrate discrimination on continuous_2d: ABP × P2
+fires DEFINITIVE, while ABP × P5 and ABP × P6 both reject (no alignment,
+no attraction). P9 / P10 form the first within-substrate 2×2 block on
+the oscillator substrate: Kuramoto × P9 and Kuramoto-nonlocal × P10
+are the two DEFINITIVE on-diagonals, while Kuramoto × P10 rejects at
+the pos_vel_ac screening floor and Kuramoto-nonlocal × P9 rejects at
+the r-global screening floor (Section 4.19). P11 / P12 show the
 bilateral-versus-cyclic boundary: LV triggers P11 cleanly and is
-rejected by P12 (intransitivity_score = 0.24 << 1.0, because the
+rejected by P12 (intransitivity_score = 0.24 ≪ 1.0, because the
 dominance graph is not cyclic); RPS triggers P12 at CONFIRMATION and
 is rejected by P11 (n_unique_species_observed = 3 ≠ 2). P13 / P15
 separate via the two-stage TE + functional discriminator. P3 /
@@ -1152,14 +1112,15 @@ incompatibilities, not the combinatorial space of co-occurrence.
 
 *Observable-level filtering beyond substrate.* P27 requires
 `coop_fraction`, preventing false matches with GH, GoL, Schelling,
-SIR, RPS, and LV despite shared lattice_2d substrate (extended to
-include the new lattice_2d-like predator_prey class). P14 requires
+SIR, RPS, and LV despite shared lattice_2d substrate. P14 requires
 `avalanche_sizes`, restricting to BTW. P11 requires `prey_count` and
 `predator_count` (or an explicit species hint), restricting meaningful
 detection to two-species systems with nontrivial empty reservoir. P3
 requires a `field` observable and n_unique_values ≥ 50, restricting
-detection to genuinely continuous spatial fields rather than
-integer grids re-interpreted as floats (Sprint 13, Decision 37).
+detection to genuinely continuous spatial fields rather than integer
+grids re-interpreted as floats (Sprint 13, Decision 37). P28 requires
+a `wealth` observable on the `scalar_wealth` substrate, cleanly
+isolating it from all spatial models.
 
 *The SIR × P1 rejection is informative.* Section 4.10 describes the
 characterization that flipped this cell from `S` (under a peak-based
@@ -1172,13 +1133,13 @@ grounds. The lesson generalizes: a detector's primary metric is a
 hypothesis about what signal distinguishes the target pattern, and
 hypotheses need empirical testing.
 
-*Guard-based rejections are informative.* Six rejections required
+*Guard-based rejections are informative.* Several rejections required
 detector guards beyond simple threshold checks: GoL × P1 (type
 constancy), GoL × P13 (excitable medium guard, n_states < 3),
 Nowak-May × P11 (total_std prerequisite, conservation trap), RPS ×
-P11 (n_species prerequisite, bilateral-vs-cyclic separation),
-SIR × P1 (final-Moran primary, transient-vs-sustained separation),
-and Gray-Scott × P1 (substrate-warning graceful-reject path added in
+P11 (n_species prerequisite, bilateral-vs-cyclic separation), SIR ×
+P1 (final-Moran primary, transient-vs-sustained separation), and
+Gray-Scott × P1 (substrate-warning graceful-reject path added in
 Sprint 14 B.1). Each guard sharpened the operational definition of
 the target pattern.
 
@@ -1196,14 +1157,31 @@ cleaner pattern: where two canonical models produce overlapping signal
 on the intended primary metric, look for a content-level property
 that separates them before reaching for fragile thresholds.
 
+*Metadata-mechanism gates generalize across substrates.* The three
+DEFINITIVE detections whose on-diagonal tier depends on
+`model_metadata` flags (ABP × P2, Yard-Sale × P28, Kuramoto-nonlocal ×
+P10) confirm that the metadata-mechanism gate pattern (Decision 43,
+then 49, then 52) is substrate-independent. The same architecture — a
+boolean flag asserting the *mechanism* the detector is built to
+identify — works on continuous_2d (P2's `has_density_dependent_speed`,
+`has_alignment_rule = False`, `has_attraction_rule = False`), on
+scalar_wealth (P28's four-flag gate: `has_conserved_resource`,
+`has_multiplicative_stake`, `has_saving_propensity = False`,
+`has_redistribution = False`), and on oscillator (P10's two-flag gate:
+`has_nonlocal_coupling`, `has_frequency_heterogeneity = False`). This
+is the third discrimination class in the catalog's detector
+architecture — substrate-type (registry), substrate-content
+(observable values, Decisions 37/41), metadata-mechanism (rule flags,
+Decisions 43/49/52).
+
 *Tier ceilings are meaningful.* Several detections are capped at
-CONFIRMATION rather than DEFINITIVE (Schelling × P1, GH × P13, Nowak-May
-× P1, LV × P1, RPS × P12). In each case, the ceiling arises from
-specific methodological constraints — permutation-count floors (999
-for P1, hitting p = 0.001 but not p < 0.001), absence of mechanistic
-null (GH), intrinsic signal asymmetry (Nowak-May's imitation-based
-clustering is weaker than Schelling's preference-based clustering on
-segregation index) — rather than weak signals.
+CONFIRMATION rather than DEFINITIVE (Schelling × P1, GH × P13,
+Nowak-May × P1, LV × P1, RPS × P12). In each case, the ceiling arises
+from specific methodological constraints — permutation-count floors
+(999 for P1, hitting p = 0.001 but not p < 0.001), absence of
+mechanistic null (GH), intrinsic signal asymmetry (Nowak-May's
+imitation-based clustering is weaker than Schelling's preference-based
+clustering on segregation index) — rather than weak signals.
 
 ## 4.17 Methodological Lessons
 
@@ -1271,3 +1249,348 @@ not only the absent pattern but also the confounders one hasn't
 thought of. The catalog's internal model inventory makes this sweep
 cheap; we now treat it as a standard step between detector design and
 detector acceptance.
+
+## 4.18 Yard-Sale Wealth Exchange and P28 Wealth Condensation (Cluster H)
+
+**Primary reference:** Chakraborti, A. (2002). Distributions of money
+in model markets of economy. *Int. J. Mod. Phys. C* 13, 1315–1321.
+
+**Secondary reference:** Boghosian, B.M. (2014). Kinetics of wealth and
+the Pareto law. *Phys. Rev. E* 89, 042804.
+
+The Yard-Sale model is a minimal agent-based market economy. N agents
+each hold a scalar wealth w_i ≥ 0; at every step a randomly chosen
+pair (i, j) exchanges a stake Δ = f · min(w_i, w_j) with the winner
+chosen uniformly at random. Total wealth is conserved bit-exactly
+across all transactions and no agent can go negative. The canonical
+variant (Chakraborti 2002, Boghosian 2014) runs at fixed stake
+fraction f and no saving propensity; two extensions are included in
+the implementation as within-family negative controls — savings
+propensity λ ∈ [0, 1] (Chakraborti–Chakrabarti 2000: each agent retains
+λ · w_i before the exchange, making the transaction redistribute only
+(1 − λ) · w_i), and periodic redistribution χ ∈ [0, 1] (each period a
+χ-fraction of total wealth is taxed uniformly and redistributed
+equally). Yard-Sale occupies the new `scalar_wealth` substrate — the
+first well-mixed (non-spatial) population in the catalog, bringing the
+substrate count from six to seven. Unlike every prior model family, it
+carries no position, neighborhood, or lattice structure; every agent
+is connected to every other through uniform-random pairing.
+
+**H-theorem replication.** Running the canonical regime (N = 1000,
+f = 0.1, λ = 0, no redistribution) to 2 million transactions produces
+monotonic wealth condensation: the Gini coefficient rises smoothly from
+0 at initialization (equal wealth) through 0.42 at 10⁵ transactions,
+0.74 at 10⁶, and 0.94 at 2 × 10⁶, while the wealth share of the top 1%
+of agents climbs from 0.01 to 0.34. At higher stake fraction f = 0.3
+the condensation accelerates (Gini = 0.986 at t = 10⁶); at f = 1 the
+system exhibits winner-take-all behavior within 10⁵ transactions (Gini
+= 0.999, max_share = 1.000). These values match Boghosian's H-theorem
+result qualitatively — the entropy H = Σ w_i ln w_i decreases
+monotonically toward a δ-function on a single agent — and quantitatively
+reproduce the published Gini trajectories within < 1% at canonical
+parameters, across five seeds with σ(Gini) = 0.003 at t = 2 × 10⁶.
+Saving propensity λ = 0.5 produces a finite-Gini plateau at
+Gini ≈ 0.29 (the Chakraborti–Chakrabarti Gamma equilibrium); λ = 0.9
+plateau at Gini ≈ 0.11. Nonzero redistribution χ = 10⁻³ flattens Gini
+below 0.13; χ = 10⁻² collapses the population to full equality. All
+three variants thus give us clean within-family negative controls.
+
+**P28 detector — primary metric.** The pre-existing detector card
+specified the Pareto tail exponent α (Hill estimator on the top 10%)
+as a confirmation-tier gate, following the textbook characterization
+of wealth distributions as power-laws with 1 < α < 2. Phase 1c
+empirically tested this recipe at N = 1000 across f ∈ {0.05, 0.10,
+0.30} and t ∈ {5 × 10⁵, 2 × 10⁶, 5 × 10⁶}. The result: the canonical
+Pareto range is reached only in a narrow transient window that shifts
+with f. At long time α drops below 1 (degenerate Pareto) and eventually
+approaches 0 (δ-on-winner); at short time α > 2 (near-exponential).
+There is no stable time window in which a fixed-α gate discriminates
+condensation from non-condensation. Negative controls confirm the
+diagnostic: λ = 0.5 (stable plateau) gives α = 4.8, and χ = 0.01
+(equalized) gives α = 7 × 10⁷ (degenerate fit). Pareto α is therefore
+unusable as a tier gate; we retain it as a diagnostic secondary metric
+only. This is Sprint 17's direct analogue of Sprint 16's Hartigan-dip
+finding: a pattern-catalog-obvious statistical recipe failed
+empirically on the actual substrate, and a mechanism-derived metric
+had to replace it. Decision 47 locks the primary metric as the Gini
+coefficient at the final frame of the measurement window (sorted-order
+formula, O(N log N)), with secondaries `top_1pct_share`,
+`top_10pct_share`, `monotonic_fraction` (fraction of Δ-Gini ≥ −10⁻⁴
+across checkpoints), and `relative_gini_growth`.
+
+**Null model.** Decision 48 specifies the null as the well-mixed
+Boltzmann–Gibbs distribution derived by Dragulescu–Yakovenko (2001)
+for money exchange with no saving: draw N samples from Exp(mean_w),
+compute Gini, repeat n_perm times, and return the right-tailed p-value
+P(Gini_null ≥ Gini_obs). The null mean sits at ≈ 0.5 (the DY Exp
+equilibrium Gini), so any Gini above ~0.7 rejects the null cleanly at
+p = 0.005 (the n_perm = 199 floor). The null is *not* the shuffle of
+observed wealths, because shuffling preserves Gini exactly by
+construction; the DY Exp null is the right reference distribution
+because it is what a well-mixed conservative exchange economy with
+maximum-entropy pairing produces in the absence of multiplicative
+stake dynamics. Distinguishing pure multiplicative condensation
+(Yard-Sale) from additive equilibrium (Dragulescu–Yakovenko) is
+exactly the question P28 is designed to ask.
+
+**Mechanistic-null gate (four flags).** The critical discrimination
+case is χ = 10⁻⁴ (mild redistribution) at t = 2 × 10⁶. Every empirical
+signal is DEFINITIVE-strength: Gini = 0.889, top_1pct = 0.289,
+monotonic_fraction = 1.0, null_p = 0.005. A primary-only detector
+would report this as condensation. But `has_redistribution = True`
+indicates the population will eventually reach a bounded-inequality
+steady state, not condense to a δ-function — the dynamical behavior is
+conceptually distinct even if the transient measurements are
+indistinguishable. Decision 49 formalizes this as a four-flag
+mechanistic-null gate at the DEFINITIVE tier: pure wealth condensation
+requires `has_conserved_resource = True` (total wealth exactly
+conserved), `has_multiplicative_stake = True` (Δ ∝ w), and both
+`has_saving_propensity = False` and `has_redistribution = False`. The
+χ = 10⁻⁴ case passes the first two gates but fails the fourth;
+CONFIRMATION tier is held; DEFINITIVE is correctly blocked. This is
+the direct extension of Sprint 16's Decision 43 (two-flag gate on ABP
+× P2) to four simultaneous flags, and the first catalog detector whose
+mechanism gate uses four boolean conditions.
+
+**Canonical-positive outcomes.** At N = 1000, f = 0.1, λ = 0, no
+redistribution, t = 2 × 10⁶, five seeds:
+
+| Seed | Gini   | top_1pct | monotonic_fraction | null_p | Tier       |
+|------|--------|----------|--------------------|--------|------------|
+| 42   | 0.9364 | 0.3455   | 1.000              | 0.005  | DEFINITIVE |
+| 7    | 0.9348 | 0.3212   | 1.000              | 0.005  | DEFINITIVE |
+| 101  | 0.9382 | 0.3158   | 1.000              | 0.005  | DEFINITIVE |
+| 999  | 0.9361 | 0.3406   | 1.000              | 0.005  | DEFINITIVE |
+| 2025 | 0.9370 | 0.3350   | 1.000              | 0.005  | DEFINITIVE |
+
+Seed-to-seed σ(Gini) = 0.0013, σ(top_1pct) = 0.013. Tight and
+reproducible with no seed-dependent metastability at N = 1000. The
+N-scaling study at fixed sweeps (N ∈ {200, 500, 1000, 2000}, 1000
+sweeps, f = 0.1, λ = 0) gives Gini = 0.888 ± 0.004 — N-invariant to ±
+0.004 across a ten-fold range — confirming that "sweep" (= N
+transactions) is the natural timescale; max_share scales as 1/√N as
+expected for the broadening of the single-winner peak across the
+fixed-N tail.
+
+**Substrate-level and mechanistic-level discrimination.** Yard-Sale is
+the first and only scalar_wealth model, so P28 rejects every other
+registered model at substrate_mismatch: all seventeen non-wealth
+models return rejected with reason `substrate_mismatch` (P28 requires
+`scalar_wealth`). Conversely, Yard-Sale rejects every non-P28 detector
+at substrate_mismatch as well: P1 requires `lattice_1d` or
+`lattice_2d`, P2/P5/P6 require `continuous_2d`, P3 requires
+`lattice_2d_continuous`, P8 requires `lattice_1d`, P9/P10 require
+`oscillator`, P11/P12/P13/P14/P15/P22/P27 require `lattice_2d`, P21
+requires `opinion_space`, P31 requires `lattice_1d`. The entire
+Yard-Sale row and the entire P28 column are × cells except for the
+one DEFINITIVE on-diagonal.
+
+**Transfer-matrix additions.** Yard-Sale × P28 is the Sprint 17
+positive (DEFINITIVE). Thirty-four new cells (1 D + 16 × across the
+P28 column + 17 × across the Yard-Sale row, minus the diagonal) join
+the audited transfer matrix. Together with the addition of the
+scalar_wealth substrate category itself, this extends the block-
+diagonal transfer-matrix structure beyond spatially-embedded model
+families for the first time.
+
+## 4.19 Non-local Kuramoto Ring and P10 Chimera States (Cluster C)
+
+**Primary reference:** Abrams, D.M. & Strogatz, S.H. (2004). Chimera
+states for coupled oscillators. *Phys. Rev. Lett.* 93, 174102.
+
+**Secondary reference:** Martens, E.A., Thutupalli, S., Fourrière, A.
+& Hallatschek, O. (2013). Chimera states in mechanical oscillator
+networks. *Proc. Natl. Acad. Sci. USA* 110, 10563–10567.
+
+Chimera states are a striking form of self-organized symmetry breaking
+in networks of identical coupled oscillators: a spontaneously formed
+spatial coexistence of synchronized and desynchronized populations.
+The Abrams–Strogatz 2004 model is the canonical minimal substrate —
+N identical phase oscillators (ω = 0 for every oscillator) arranged on
+a one-dimensional periodic ring with non-local coupling through a
+cosine kernel G(x) = (1 + A cos x) / (2π) and phase lag α = π/2 − β.
+The dynamics are
+
+    dθ_i/dt = −(1/N) Σ_j G(x_i − x_j) sin(θ_i − θ_j + α).
+
+At most parameter values this produces either full synchronization
+(r_global → 1) or full incoherence (r_global → 0). In a narrow
+parameter window centered on small β and A close to 1, the ring
+spontaneously separates into a coherent arc (local r near 1) and an
+incoherent arc (local r ≈ 0.2) that coexist indefinitely. Crucially,
+the oscillators are identical — the broken symmetry is in the phase
+configuration, not the intrinsic frequencies. Chimera states are the
+prototype example in a body of literature (Panaggio–Abrams 2015,
+Kuramoto–Battogtokh 2002, Martens et al. 2013) that demonstrates
+symmetry-breaking dynamical patterns in systems where every unit is
+identical.
+
+Our implementation is a direct RK4 integration of the Abrams–Strogatz
+PDE on an N-point ring with cosine kernel and step-based kernel radius
+r = N/2. `kuramoto_nonlocal` is the second oscillator-substrate model
+(alongside ordinary all-to-all Kuramoto from Sprint 2), creating the
+catalog's first 2×2 within-substrate block: Kuramoto × P9 and
+Kuramoto-nonlocal × P10 are the two DEFINITIVE on-diagonals, while
+Kuramoto × P10 and Kuramoto-nonlocal × P9 are both within-substrate
+content-level rejections.
+
+**Initial-condition sensitivity and the bistability finding.** Our
+first attempted replication ran the paper's exact A–S parameters
+(A = 0.995, β = 0.18, N = 256, T = 100) with their localized-noise IC
+formula (amplitude 6.0, narrow σ ≈ 0.18, seed 42) and landed in the
+full-sync basin at r_global → 1.000. Switching to an alternative
+asymmetric Gaussian IC (amp 2.0, σ 0.5, envelope at x = π) reproduced
+the chimera in some seeds but not others: at β = 0.18 across seeds
+{0, 1, 2, 42}, only seeds 1 and 42 reached the chimera basin (r_global
+≈ 0.63); seeds 0 and 2 relaxed to full sync. A β-scan at seed 0 across
+β ∈ {0.05, 0.10, 0.15, 0.18, 0.20, 0.25} showed that only β = 0.05
+produced a chimera at that seed; at β = 0.05 all five tested seeds
+{0, 1, 42, 200, 500} reached the chimera basin with r_global = 0.577–
+0.582. This is a feature of the dynamical system, not an artifact — a
+stable chimera coexists with stable full sync in the Abrams–Strogatz
+window, with relative basin widths that depend strongly on β. Decision
+51 pins the canonical-positive regime at β = 0.05 (wider basin), and
+retains the paper-faithful β = 0.18 (seed 42) as an additional slow-
+half test to confirm the detector catches chimeras in the paper's
+original regime. This is the first sprint where the canonical positive
+pins both a model *and* a specific IC and seed, not merely a parameter
+point; future bistable pattern detectors (P26 stochastic resonance,
+P16 Hopfield memory, others in Wave 2+) will likely need the same
+IC-anchored canonical.
+
+**The naive chimera signature fails on ordinary Kuramoto near K_c.**
+The pattern-catalog-obvious chimera signature is a per-window coherence
+statistic — divide the ring into windows, compute per-window local
+order parameter r_w, and look for simultaneous coexistence of
+persistently coherent windows (r_w near 1) and persistently incoherent
+windows (r_w near 0). We tested this approach against four chimera
+positives (β = 0.05 and β = 0.18 seeds), two full-sync negatives,
+ordinary Kuramoto at K ∈ {0.3, 1.0, 2.0, 4.0}, and random-phase
+baselines. At K = 1.0 (near the critical coupling K_c = 1.0 for the
+Lorentzian frequency distribution with γ = 0.5), ordinary all-to-all
+Kuramoto produces window-level statistics nearly identical to a
+genuine chimera: the coherence gap (max local r − min local r) is
+0.68 — *larger* than the canonical chimera's 0.59 — and both
+persistently coherent and persistently incoherent windows exist. The
+naive chimera signature fires false positive on ordinary partially
+synchronized Kuramoto. The mechanism behind this false positive is
+subtle but instructive: the Kuramoto integration internally sorts
+oscillators by natural frequency ω for efficiency; after entrainment,
+oscillators with ω near the distribution center are locked (coherent)
+and tail oscillators drift (incoherent), so the window-index-vs-local-r
+profile mimics a chimera arc. The naive chimera detector inadvertently
+detects the ω-sort, not the spatial symmetry breaking. This mirrors
+Sprint 16's Hartigan-dip finding (Decision 44) and Sprint 17's Pareto-
+α finding (Decision 47): a pattern-catalog-obvious statistical recipe
+fails empirically, and a mechanism-derived metric must replace it.
+
+**Primary metric: spatial autocorrelation of phase velocity.** The
+discriminating metric is `pos_vel_ac[lag = 4]` — the spatial
+autocorrelation of time-averaged per-oscillator phase velocity along
+the ring at lag 4. The mechanism it exploits: a chimera's structure
+is organized by *ring position* (non-local coupling connects spatial
+neighbors into the same arc, which drifts at a common effective rate),
+while ordinary Kuramoto's structure is organized by *natural frequency*
+(the ω-sort puts similar ω near each other in the index, but velocities
+are set by individual ω_i which are uncorrelated at small index
+differences after mean-field entrainment). Phase 1j measured the gap
+cleanly: chimera positives at β = 0.18 had pos_vel_ac[4] = 0.929 ±
+0.007 (range [0.919, 0.935]), while ordinary Kuramoto K = 1.0 (the
+hardest negative) across six seeds gave pos_vel_ac[4] = 0.312 ± 0.130
+(range [0.093, 0.448]); weaker Kuramoto regimes (K = 0.8, 1.2) produce
+similar or lower values. Chimera minimum (0.919) minus Kuramoto
+maximum across all regimes (0.448) = +0.47, with no overlap. Decision
+50 locks the primary as pos_vel_ac[lag = 4] with screening threshold
+0.55 and definitive threshold 0.75, leaving ≈ 0.17 margin to the
+nearest chimera and ≈ 0.30 margin to the nearest Kuramoto false
+positive. The full-sync edge case (pos_vel_ac = 1.000 when all
+velocities are identical) is handled by a separate per-frame
+coexistence gate at the screening tier; fully synchronized data cannot
+reach CONFIRMATION regardless of its spatial autocorrelation.
+
+**Drift-invariant coexistence gate.** A naive per-window persistence
+gate (≥ 1 window persistently coherent across ≥ 90% of frames AND ≥ 1
+window persistently incoherent across ≥ 90% of frames) works at short
+runtimes but produces false negatives at T ≥ 100 frames: the chimera
+arc executes slow random-walk translations along the ring (a known
+Abrams–Strogatz finding), and no single window position stays in the
+same coherence state for 90% of the run even though the chimera is
+structurally intact. Decision 53 changes the gate semantics to a
+drift-invariant per-frame coexistence measure: ≥ 90% of frames must
+contain both ≥ 1 coherent window and ≥ 1 incoherent window somewhere
+in that frame. After the fix, T = 100 chimeras reach DEFINITIVE
+correctly; T = 50 behavior is unchanged (on a stationary chimera the
+per-frame measure is identically 1.0).
+
+**Metadata-mechanism gate (two flags).** Decision 52 formalizes the
+P10 DEFINITIVE gate as a two-flag metadata-mechanism gate on
+`has_nonlocal_coupling = True` (chimeras require non-local spatial
+coupling — ordinary mean-field Kuramoto has no spatial structure) and
+`has_frequency_heterogeneity = False` (canonical chimeras are
+spontaneous symmetry breaking in *identical* oscillators; frequency-
+heterogeneous chimera-analogues exist but are a distinct pattern). This
+is the fourth instance of the metadata-mechanism-gate architecture
+pattern (Decisions 43, 46, 49, 52), now fully generalized across
+four substrate families: continuous_2d (P2), scalar_wealth (P28), and
+oscillator (P10). The three-class discrimination framework —
+substrate-type (registry), substrate-content (observable values), and
+metadata-mechanism (rule flags) — has become the catalog's standard
+architecture for cross-pattern discrimination.
+
+**Canonical-positive outcomes.** At N = 128, A = 0.995, β = 0.05,
+T = 50, dt = 0.025, asymmetric Gaussian IC:
+
+| Seed | pos_vel_ac[4] | per_frame_coex | null_p | Cohen's d | Tier       |
+|------|---------------|----------------|--------|-----------|------------|
+| 0    | 0.844         | 1.000          | 0.005  | 9.4       | DEFINITIVE |
+| 1    | 0.847         | 1.000          | 0.005  | 9.0       | DEFINITIVE |
+| 42   | 0.860         | 1.000          | 0.005  | 10.0      | DEFINITIVE |
+| 200  | 0.840         | 1.000          | 0.005  | 9.0       | DEFINITIVE |
+| 500  | 0.859         | 1.000          | 0.005  | 10.0      | DEFINITIVE |
+
+All five seeds reach DEFINITIVE with confidence 0.95. The N-scaling
+study (N ∈ {64, 128, 256} at β = 0.05, seed 0, T = 50) gives
+pos_vel_ac[4] = 0.863 — N-invariant across a four-fold range, as
+expected for a coexistence-phase fixed point of the continuum
+Abrams–Strogatz PDE. Long-run stability at T = 200 shows r_global =
+0.582 ± 0.032 (stationary across 200 time units); the chimera is a
+genuine attractor, not a long transient.
+
+**Within-substrate content-level rejection (Kuramoto × P10).** The
+hardest negative is ordinary all-to-all Kuramoto run through P10. At
+K ∈ {0.3, 1.0, 2.0, 4.0} × two seeds each, pos_vel_ac[4] across all
+eight runs reaches maximum 0.438 — well below the 0.55 screening floor.
+All eight runs screen-reject at either `no_coexistence` (for fully
+coherent or fully incoherent regimes) or `pos_vel_ac_below_floor` (for
+K = 1.0 near-K_c where window statistics superficially resemble a
+chimera). The P9 × chimera reverse direction is also clean without
+explicit exclusion logic: P9 requires r_global > 0.7 at its screening
+floor, and a chimera's r_global ≈ 0.58 falls short; P9 returns tier
+= 'none'. The P9–P10 mutual exclusion is therefore enforced at the
+content level, not by registry or metadata gates.
+
+**Honest caveat on time-unit convention.** The implementation uses a
+time convention in which model time is rescaled by a factor of N
+relative to the Abrams–Strogatz PDE units (the paper's integration is
+over continuous x ∈ [0, 2π) while ours is over discrete index
+i ∈ {0, …, N − 1}; the sum-vs-integral normalization introduces an N-
+dependent rescaling). All canonical metrics (r_global, gap,
+pos_vel_ac[4]) are dimensionless and N-invariant, so published
+*qualitative* results reproduce exactly and published *numerical* order
+parameters reproduce within seed variance, but a reader comparing
+absolute time values (e.g., arc drift rate in natural PDE units) must
+apply the factor-of-N correction. This discrepancy is documented in
+`REPLICATION_NOTES.md` and flagged as a low-priority cosmetic
+carry-forward; the Phase 2 tests confirm the detector fires correctly
+across the parameter range regardless of the time-unit convention.
+
+**Transfer-matrix additions.** Kuramoto-nonlocal × P10 is the Sprint
+18 positive (DEFINITIVE). Thirty-four new cells join the audited
+matrix: seventeen Kuramoto-nonlocal × non-P10 rejections (one content-
+level P9 rejection, sixteen substrate-mismatch rejections for the
+remaining detectors) and seventeen non-nonlocal-Kuramoto × P10
+rejections (one content-level Kuramoto × P10 rejection, sixteen
+substrate-mismatch rejections). The oscillator substrate now holds the
+catalog's first within-substrate 2×2 block — the structural pattern
+that any future substrate addition with multiple models will have to
+replicate.

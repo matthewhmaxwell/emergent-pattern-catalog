@@ -388,3 +388,103 @@ class TestSlowReplication:
             f"got {result.tier}, "
             f"pos_vel_ac={result.primary_metric.get('pos_vel_ac'):.3f}"
         )
+
+
+# -----------------------------------------------------------------------------
+# Slow-half: finite-size robustness (Sprint 19 — closes carry-forward #22)
+# -----------------------------------------------------------------------------
+
+
+@pytest.mark.slow
+class TestFiniteSizeRobustness:
+    """Finite-size robustness test pinning the lower-N bound of the
+    chimera basin at β=0.05 across multiple seeds.
+
+    Sprint 18 Phase 1e characterized pos_vel_ac[4] at seed=0 across
+    N ∈ {64, 128, 256}; Phase 1j confirmed all five seeds
+    {0, 1, 42, 200, 500} reach the chimera basin at β=0.05 for N=128.
+    This test combines the two: at each N in {128, 256}, run all
+    five chimera-basin seeds and require DEFINITIVE tier at every
+    (N, seed) pair.
+
+    Sprint 19 finding (added when this test was written): at N=64 the
+    chimera basin is NOT robust across the Phase-1j seed set. A clean
+    run across the five anchored seeds at N=64, β=0.05 gives
+    pos_vel_ac[4] ∈ [−0.008, 0.59] — five SCREENING outcomes with no
+    DEFINITIVE. The Sprint 18 Phase 1e claim "pos_vel_ac[4] = 0.863 at
+    N=64" holds for a specific seed-IC configuration that does not
+    generalize. N=64 is therefore below the seed-robust chimera basin
+    floor; N=128 is the true lower bound pinned by this test. The
+    discrepancy is documented as a Sprint 19 scientific finding for
+    the Sprint 20 transfer prompt to carry forward.
+
+    Runtime: ~4–7 minutes total for 10 runs (2 N-values × 5 seeds) at
+    n_permutations=199.
+    """
+
+    @pytest.mark.parametrize("N", [128, 256])
+    @pytest.mark.parametrize("seed", [0, 1, 42, 200, 500])
+    def test_chimera_basin_across_N_and_seed(self, N, seed):
+        """Canonical β=0.05 regime reaches DEFINITIVE at every tested
+        (N, seed) combination for N ≥ 128. Failure of any case would
+        indicate that the chimera basin narrows further than expected
+        at N=128 for some specific seeds."""
+        result = _run_chimera_p10(seed=seed, beta=0.05, N=N, n_frames=50,
+                                   n_permutations=199)
+        assert result.tier == DetectionTier.DEFINITIVE, (
+            f"N={N} seed={seed} β=0.05: expected DEFINITIVE, got "
+            f"{result.tier}; pos_vel_ac="
+            f"{result.primary_metric.get('pos_vel_ac'):.3f}. "
+            f"Chimera basin regression at N ≥ 128."
+        )
+
+    def test_pos_vel_ac_N_invariance(self):
+        """pos_vel_ac[lag=4] averaged across the five chimera-basin
+        seeds should be tight across N ∈ {128, 256} (within ±0.10) —
+        the structural claim that the chimera fixed point is a
+        continuum attractor whose dimensionless order parameter is
+        genuinely N-invariant above the finite-size basin-shrinkage
+        regime.
+        """
+        means = {}
+        for N in [128, 256]:
+            vals = []
+            for seed in [0, 1, 42, 200, 500]:
+                result = _run_chimera_p10(seed=seed, beta=0.05, N=N,
+                                           n_frames=50, n_permutations=199)
+                vals.append(float(result.primary_metric["pos_vel_ac"]))
+            means[N] = float(np.mean(vals))
+            print(f"  N={N}: pos_vel_ac[4] per-seed = "
+                  f"{[f'{v:.3f}' for v in vals]}, mean={means[N]:.3f}")
+
+        m_values = list(means.values())
+        spread = max(m_values) - min(m_values)
+        assert spread < 0.10, (
+            f"pos_vel_ac[4] spread {spread:.3f} across N={list(means.keys())} "
+            f"exceeds 0.10 — finite-size variation larger than expected "
+            f"for a continuum attractor: {means}"
+        )
+
+    @pytest.mark.parametrize("seed", [0, 1, 42, 200, 500])
+    def test_N64_below_robust_basin(self, seed):
+        """N=64 is below the seed-robust chimera basin floor.
+
+        Pinned as a scientific finding discovered during Sprint 19
+        cleanup: at N=64, β=0.05, none of the five Phase-1j anchored
+        seeds reach DEFINITIVE (pos_vel_ac[4] ≤ 0.59 for all five).
+        Future detector improvements that extend the robust basin
+        below N=128 should make THIS test fail (flipping from
+        SCREENING to DEFINITIVE); that failure would be a scientific
+        finding, not a regression.
+        """
+        result = _run_chimera_p10(seed=seed, beta=0.05, N=64, n_frames=50,
+                                   n_permutations=199)
+        # The empirical upper bound observed across the 5 seeds at N=64
+        # is pos_vel_ac ≈ 0.59. Any value exceeding 0.70 would mean the
+        # finite-size basin has improved materially — worth investigating.
+        pv = float(result.primary_metric["pos_vel_ac"])
+        assert pv < 0.70, (
+            f"N=64 seed={seed}: pos_vel_ac={pv:.3f} exceeds 0.70 floor. "
+            f"If this is a detector improvement, celebrate and update "
+            f"the seed-robust basin lower bound from N=128 to N=64."
+        )
