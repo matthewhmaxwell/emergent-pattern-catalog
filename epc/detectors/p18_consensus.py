@@ -464,8 +464,20 @@ class P18ConsensusDetector(BaseDetector):
           - GH broken_wave: moran_final ~0.87 > 0.75, rejected.
           - GoL random:     moran_final ~0.27 < 0.30, rejected at screening.
           - GoL r_pent:     moran_spearman_early ~0.17, rejected at screening.
-          - GH random:      wall_final ~0.011 < 0.05, rejected here.
-          - Schelling P1:   saturates to wall ~0.02, rejected here.
+          - GH random:      wall_final ~0.036 < 0.05, rejected here.
+          - Schelling P1 (threshold = 0.375): rejected at screening or
+            confirmation, NOT here. The Sprint 21 5-seed characterization
+            (TestSchellingP18ContentLevel) found Schelling's three-state
+            grid {0, 1, 2} yields wall_final ~0.36, well ABOVE the 0.05
+            definitive floor; the actual rejection mechanism is
+            moran_final_qtr ≤ 0.30 (4 of 5 seeds fail screening) or
+            wall_final_qtr ≥ 0.30 (the 5th seed reaches screening but
+            fails the confirmation ceiling).
+          - Schelling P1 (threshold = 0.5): KNOWN FALSE POSITIVE — reaches
+            DEFINITIVE on all 5 characterized seeds with P1 marked
+            "inconclusive" because Schelling's metadata lacks a
+            copy/imitation/voter `update` key. See Sprint 21 carry-forward
+            #20b in REPLICATION_NOTES.md.
         """
         mfq = primary_result.get("moran_final_qtr_mean", 0.0)
         if not (self.DEFINITIVE_MORAN_FINAL_MIN <= mfq <=
@@ -487,16 +499,25 @@ class P18ConsensusDetector(BaseDetector):
         model_metadata: dict[str, Any] | None,
         timescale: float,
     ) -> tuple[list[str], dict[str, str]]:
-        """Three-class exclusions via metric-based discrimination.
+        """Three-class exclusions via metric-based + metadata discrimination.
 
         P13 (excitable wave): final wall density near 0.02 and Moran near
-          0.87 indicates pre-organized spiral, excluded. We check for these.
+          0.87 indicates pre-organized spiral, excluded by metric thresholds
+          (wall_final > 0.05 AND moran_final < 0.75).
         P15 (persistent computation): Moran plateau below 0.30 with sparse
-          alive fraction indicates GoL-like decay, excluded.
-        P1  (similarity aggregation): For voter, "types" are not constant
-          (states flip). Model metadata flag ``types_are_constant=True`` in
-          the detector card would exclude P1; we rely on the primary-tier
-          characterization that voter state flips pervasively.
+          alive fraction indicates GoL-like decay, excluded by metric
+          thresholds (moran_final >= 0.30 AND minority_final >= 0.05).
+        P1  (similarity aggregation): metadata-keyed. Returns "excluded"
+          only if model metadata's `update` key contains 'copy', 'imitation',
+          or 'voter'; returns "inconclusive" otherwise (including for
+          Schelling, whose metadata keys are `threshold` and `density`).
+          For canonical Schelling at threshold = 0.375 the metric gates
+          alone reject below CONFIRMATION (Sprint 21 5-seed audit), so the
+          inconclusive P1 outcome does not yield a false-positive
+          DEFINITIVE. For Schelling at threshold = 0.5 the metric gates
+          DO admit the model to DEFINITIVE with P1 marked "inconclusive";
+          this is recorded as Sprint 21 carry-forward #20b in
+          REPLICATION_NOTES.md.
         """
         results: dict[str, str] = {}
         metrics = self._trajectory_metrics(state_history)

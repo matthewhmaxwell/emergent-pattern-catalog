@@ -412,14 +412,47 @@ The voter dynamics' identifying mechanism is opinion *copying* with
 local imitation, and this is exposed via the model metadata key
 `update = 'asynchronous_copy_neighbor'`. The P18 detector's P1
 exclusion uses this metadata key as a check, not as a hard gate
-(the metric-level gates already exclude Schelling at screening
-because Schelling's wall-density decay is geometry-bounded rather
-than copying-driven, and its `moran_growth` over the early window
-is below P18's 0.20 floor). The metadata key would only become
-load-bearing if a future model implemented a copying-driven
-mechanism that also satisfied the geometry-bounded metric profile
-— i.e., it is a *defense in depth* rather than the primary
-discriminator.
+on the tier itself.
+
+The Sprint 21 5-seed audit at L = 64, density = 0.9, threshold = 0.375
+(Schelling 1971's canonical 3/8) confirmed that no seed reaches
+CONFIRMATION: four of five seeds fail screening because their
+moran_final_qtr saturates at ≈ 0.24–0.29 (below the 0.30 floor),
+and the remaining seed scrapes through screening with moran_final_qtr
+≈ 0.301 but is rejected at confirmation because its wall_final_qtr
+≈ 0.36 exceeds the 0.30 ceiling. Note that the rejection mechanism
+is *not* a low wall plateau — Schelling's three-state grid {0, 1, 2}
+counts every empty-cell boundary as a wall under the Moore-neighborhood
+metric, yielding a wall plateau of ≈ 0.36 across all five seeds, far
+above the DEFINITIVE wall_final > 0.05 floor. The discriminator is
+instead the *combination* of moderate Moran plateau and elevated wall
+plateau: voter coarsens both Moran *up* (≈ 0.55) and wall *down*
+(≈ 0.21), while Schelling at threshold = 0.375 coarsens Moran weakly
+*up* and wall weakly *down* but stops at a partition with too much
+remaining boundary.
+
+The metadata key `update` containing `copy`/`imitation`/`voter` is
+therefore *defense in depth* rather than the primary discriminator at
+canonical Schelling parameters — it would only become load-bearing
+if a future model implemented a copying-driven mechanism that also
+satisfied the geometry-bounded metric profile.
+
+*A caveat at non-canonical Schelling parameters.* The Sprint 21 audit
+also tested Schelling at threshold = 0.5 (the strong-segregation
+parameter sometimes used in textbook Schelling expositions). At this
+parameter, all five characterized seeds reach P18 DEFINITIVE with P1
+exclusion marked "inconclusive" because Schelling's registry metadata
+lacks any copy/imitation/voter `update` key. This is a metric-level
+false positive: at threshold = 0.5, Schelling's wall plateau drops
+to ≈ 0.27 (just below the 0.30 confirmation ceiling) and its Moran
+plateau rises to ≈ 0.39 (within the [0.30, 0.75] definitive window).
+The Class 4 pure-metric discrimination claim is therefore parameter-
+contingent for the Schelling × P18 pair: it holds at canonical
+threshold = 0.375 but breaks at threshold = 0.5. The recovery path
+is either a stricter wall-density confirmation ceiling, a definitive-
+tier downgrade keyed on the inconclusive P1 exclusion, or both —
+recorded as Sprint 21 carry-forward #20b for a follow-up science
+sprint.
 
 The voter case demonstrates that Class 3 (metadata-mechanism)
 discrimination is not strictly required even for same-substrate
@@ -486,16 +519,33 @@ choices that achieved this metric-level sharpness:
     adopted in a detector pipeline.
 
 These three decisions together complete the voter discrimination
-without requiring a metadata gate. The voter case therefore
-represents a fourth class of within-substrate discrimination,
-complementing Class 1 (substrate registry), Class 2 (observable-
-content prerequisite), and Class 3 (metadata-mechanism flag): pure
-metric-level discrimination via thresholds calibrated against a
-dense same-substrate discriminator ensemble. This pure-metric
-class is preferable when achievable because it avoids the
-maintenance burden of metadata flags that must be kept in sync
-between models and detectors. It is achievable when the
-target pattern's metric trajectory is sharply enough separated
-from each near-neighbor pattern's trajectory; this is more often
-true for early-time signatures than for late-time plateaus, which
-is why P18 is built primarily on early-window metrics.
+without requiring a metadata gate at canonical Schelling parameters
+(threshold = 0.375). The voter case therefore represents a fourth
+class of within-substrate discrimination, complementing Class 1
+(substrate registry), Class 2 (observable-content prerequisite),
+and Class 3 (metadata-mechanism flag): pure metric-level
+discrimination via thresholds calibrated against a dense
+same-substrate discriminator ensemble. This pure-metric class is
+preferable when achievable because it avoids the maintenance burden
+of metadata flags that must be kept in sync between models and
+detectors. It is achievable when the target pattern's metric
+trajectory is sharply enough separated from each near-neighbor
+pattern's trajectory; this is more often true for early-time
+signatures than for late-time plateaus, which is why P18 is built
+primarily on early-window metrics.
+
+A consequence of the Sprint 21 audit, however, is that Class 4
+purity should be understood as parameter-contingent rather than
+unconditional. The claim "metric gates alone exclude Schelling
+from P18 confirmation" is empirically true only inside the
+discriminator-ensemble parameter range used at calibration time.
+Outside that range — at Schelling threshold = 0.5, the
+strong-segregation parameter — the same metric gates admit a
+DEFINITIVE false positive. The honest characterization of Class 4
+is therefore that pure-metric discrimination is *valid against the
+parameter ensemble it was calibrated against*, and that any
+extension of the catalog to a wider parameter neighborhood requires
+either re-calibrating the gates or supplementing them with a
+metadata-mechanism (Class 3) check. This is the cost of choosing
+purity over defense-in-depth, and a future iteration of the P18
+detector may revisit the trade-off.

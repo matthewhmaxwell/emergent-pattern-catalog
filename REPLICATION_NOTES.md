@@ -4192,3 +4192,129 @@ L = 128, ~3 s at L = 64. Eight-test slow suite runs in ~85 s total.
    (+10 orchestration registration, +45 voter+P18 e2e fast)
   Slow half: 16 → 24
    (+8 voter+P18 finite-size at L ∈ {64,128,256} × 3 seeds, modulo L=256 short)
+
+---
+
+## Sprint 21 — Schelling × P18 content-level audit (closes Sprint 20 #20)
+
+**Purpose.** Sprint 20 §4.20 introduced the P18 coarsening-to-consensus
+detector and made the empirical claim that Schelling segregation is
+rejected from P18 by the metric gates alone, with the metadata flag
+serving as defense-in-depth. The Sprint 20 transfer prompt flagged this
+as carry-forward #20: "the §4.20 P1 exclusion currently relies on the
+metadata key `update = 'asynchronous_copy_neighbor'` rather than a
+measured Schelling × P18 characterization. Should add 5-seed Schelling
+characterization at L = 64 to confirm the metric-level signature
+(specifically wall-density trajectory shape and Moran growth) does not
+pass the P18 confirmation gates."
+
+Sprint 21 supplied that 5-seed audit. The result partly confirms and
+partly corrects the Sprint 20 record, and surfaces a new false-positive
+finding at non-canonical Schelling parameters that becomes carry-forward
+#20b.
+
+**Audit configuration.**
+- Model: `run_schelling` at L = 64, density = 0.9, threshold = 0.375
+  (Schelling 1971 canonical 3/8), n_steps = 300.
+- Detector: `P18ConsensusDetector(n_permutations=199, seed=0)`.
+- Seeds: {0, 1, 2, 3, 4}.
+- Metadata: tested both with `model_metadata=None` (worst case for the
+  P1 exclusion) and with `{'threshold': 0.375, 'density': 0.9}`
+  (Schelling's registered metadata keys, which lack any
+  copy/imitation/voter token and so route through the P1 "inconclusive"
+  branch).
+- Test class: `tests/test_voter_p18_e2e.py::TestSchellingP18ContentLevel`
+  (21 parametrized tests).
+
+**Headline numerical results.**
+
+| seed | moran_final_qtr | wall_final_qtr | tier reached | detected | first failing gate |
+|------|-----------------|----------------|--------------|----------|--------------------|
+| 0 | 0.27 | 0.37 | SCREENING | False | screen_moran_final ≤ 0.30 |
+| 1 | 0.28 | 0.37 | SCREENING | False | screen_moran_final ≤ 0.30 |
+| 2 | 0.30 | 0.36 | SCREENING | True  | conf_wall_final ≥ 0.30 |
+| 3 | 0.24 | 0.36 | SCREENING | False | screen_moran_final ≤ 0.30 |
+| 4 | 0.25 | 0.36 | SCREENING | False | screen_moran_final ≤ 0.30 |
+
+(Numbers approximate; precise values cached in
+`scripts/schelling_p18_characterization.json` from the audit script
+`scripts/characterize_schelling_p18.py`.)
+
+**Findings.**
+
+1. **No seed reaches CONFIRMATION.** The pure-metric discrimination
+   claim of §6.10 holds at canonical Schelling parameters. Both
+   `model_metadata=None` and the realistic Schelling metadata produce
+   identical tier outcomes on all 5 seeds, confirming the metric path
+   is the load-bearing one.
+
+2. **The wall-density rejection mechanism in §4.20 was empirically
+   wrong.** The Sprint 20 detector docstring claimed "Schelling P1
+   saturates to wall ~0.02, rejected here" via the DEFINITIVE
+   `wall_final > 0.05` floor. The actual Schelling wall plateau is
+   wall_final_qtr ≈ 0.36, far above the 0.05 floor. The reason is
+   geometric: Schelling's three-state grid {0 = empty, 1 = type A,
+   2 = type B} counts every empty-cell boundary as a wall under the
+   Moore-neighborhood difference metric, and at density 0.9 ≈ 10%
+   empty cells produce a wall floor near 0.36 even after maximal
+   segregation.
+
+3. **The actual rejection mechanism is two-pronged.** Four of five
+   seeds fail screening because moran_final_qtr ≤ 0.30; the fifth
+   seed scrapes through screening (moran_final_qtr ≈ 0.301) but is
+   rejected at confirmation because wall_final_qtr ≈ 0.36 exceeds
+   the 0.30 confirmation ceiling. The §4.20 secondary claim that
+   "moran_growth ≤ 0.20 floor" excludes Schelling was also wrong:
+   Schelling moran_growth values were 0.23–0.30, all above 0.20.
+
+4. **CARRY-FORWARD #20b: false positive at Schelling threshold = 0.5.**
+   The same audit also tested Schelling at the strong-segregation
+   threshold = 0.5, which is sometimes cited in textbook expositions
+   of the model. At this parameter, all 5 seeds reach P18 DEFINITIVE
+   with P1 marked "inconclusive" because Schelling's registered
+   metadata lacks any copy/imitation/voter `update` token. Schelling
+   at threshold = 0.5 produces moran_final_qtr ≈ 0.39 (in [0.30, 0.75]
+   definitive window) and wall_final_qtr ≈ 0.27 (just below the 0.30
+   confirmation ceiling). This is a metric-level false positive that
+   contradicts the unconditional Class 4 pure-metric claim. Recovery
+   options for a future sprint:
+     - tighten `CONFIRMATION_WALL_FINAL_MAX` from 0.30 to ≈ 0.25 (need
+       to re-verify voter still passes — voter wall_final_qtr ≈ 0.21
+       per Sprint 20 characterization, so should hold);
+     - add a P1-aware definitive downgrade that rejects DEFINITIVE
+       when the P1 exclusion result is "inconclusive" rather than
+       "excluded";
+     - require Schelling's registry to carry an explicit `update =
+       'move'` (or equivalent) metadata flag that the P1 exclusion
+       can use as a positive identifier rather than absence-of-copy;
+     - some combination of the above.
+   The look-before-touching principle requires that any of these be
+   characterized against both Schelling parameter regimes
+   (threshold ∈ {0.30, 0.375, 0.5}) and against voter to ensure no
+   regression. This is therefore deferred to a follow-up science
+   sprint, not patched in Sprint 21.
+
+**Test additions.**
+- `tests/test_voter_p18_e2e.py::TestSchellingP18ContentLevel`: 21
+  parametrized tests (5 seeds × 4 properties + 1 aggregate). All pass
+  at Sprint 21 HEAD.
+
+**Documentation corrections.**
+- `epc/detectors/p18_consensus.py`: `_check_definitive` docstring updated
+  with corrected Schelling rejection mechanism and the threshold = 0.5
+  false positive note. `_check_exclusions` docstring rewritten to
+  describe the actual P1 metadata-keyed logic rather than the
+  type-stability narrative.
+- `docs/paper_section4_draft.md`: §4.20 "Honest caveat" replaced with
+  "Sprint 21 update" reporting the empirical findings; "Sprint 21 caveat"
+  added documenting the threshold = 0.5 false positive.
+- `docs/paper_section6_draft.md`: §6.10 Schelling discussion rewritten
+  to match the empirical rejection mechanism; Class 4 closing
+  paragraph qualified with parameter-contingency caveat.
+
+**Carry-forward summary at Sprint 21 close.**
+- #20 (Sprint 20 carry-forward): closed — Schelling × P18 5-seed audit
+  added at threshold = 0.375.
+- #20b (new Sprint 21 carry-forward): Schelling × P18 false positive
+  at threshold = 0.5 — recovery requires detector calibration work
+  that should be its own science sprint.

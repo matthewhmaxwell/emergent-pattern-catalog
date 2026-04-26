@@ -1795,19 +1795,57 @@ for GH broken-wave and GoL r-pentomino) is what allows the
 three-tier framework to discriminate cleanly without requiring any
 metadata assistance for the four discriminators. The P1 exclusion
 is the only one that uses metadata (the model's `update` key), and
-even there the metadata is not strictly required because Schelling's
-spatial signature (clusters that grow but do not coarsen toward
-consensus) does not satisfy the moran_growth > 0.20 screening gate
-in the run-length window typically used for P1 detection.
+the Sprint 21 audit (described below) confirmed that this metadata
+gate is not strictly required for the canonical Schelling parameter
+choice — though it remains load-bearing at non-canonical Schelling
+parameters, where the metric gates alone admit a false positive.
 
-**Honest caveat: Schelling negative case is documented but not
-exhaustively validated.** No characterization run was made on
-Schelling at matched L for this sprint. The P1 exclusion is conservative
-— relying on metadata for the rejection — and a Sprint 21 follow-up
-should add a Schelling × P18 content-level negative test to confirm
-that Schelling's coarsening does not satisfy the wall-density and
-Moran-plateau definitive bounds. This is recorded as a Sprint 20
-carry-forward.
+**Sprint 21 update: Schelling × P18 5-seed characterization.** The
+Sprint 20 §4.20 record left the Schelling exclusion as a documented
+but not exhaustively validated case ("no characterization run was
+made on Schelling at matched L for this sprint"). The Sprint 21
+audit (`tests/test_voter_p18_e2e.py::TestSchellingP18ContentLevel`)
+ran 5 seeds of Schelling at L = 64, density = 0.9, threshold =
+0.375, n_steps = 300, with `model_metadata=None`. The empirical
+finding partially confirms and partially corrects the original
+prediction:
+
+  - **Confirmed:** No seed reaches CONFIRMATION. The pure-metric
+    discrimination claim holds at canonical Schelling parameters.
+  - **Corrected:** The mechanism is *not* a low Schelling wall
+    plateau (the Sprint 20 narrative implied wall ~0.02; the
+    empirical value is wall_final_qtr ≈ 0.36 across all five
+    seeds, far above the DEFINITIVE wall floor of 0.05). Schelling's
+    three-state grid {0, 1, 2} counts every empty-cell boundary
+    as a wall under the Moore-neighborhood metric, yielding a
+    geometry-imposed wall floor near 0.36.
+  - **Corrected:** The mechanism is *not* moran_growth below the
+    0.20 screening floor either; Schelling's moran_growth values
+    were 0.23–0.30 across seeds, all above 0.20. The actual
+    rejection mechanism is two-pronged:
+      (a) moran_final_qtr ≈ 0.24–0.29 fails the 0.30 screening
+          floor in 4 of 5 seeds (detected = False at SCREENING);
+      (b) the remaining seed reaches moran_final_qtr ≈ 0.301,
+          passes screening with detected = True, but is rejected
+          at confirmation because wall_final_qtr ≈ 0.36 exceeds
+          the 0.30 confirmation ceiling.
+    Either way no seed reaches CONFIRMATION.
+
+**Sprint 21 caveat: false positive at Schelling threshold = 0.5.**
+The same audit also tested the strong-segregation Schelling
+parameter (threshold = 0.5), which is sometimes cited in textbook
+expositions of the model. At this parameter, all five characterized
+seeds reach P18 DEFINITIVE with P1 marked "inconclusive" because
+Schelling's registered metadata keys (`threshold`, `density`) lack
+any copy/imitation/voter `update` token. Schelling at threshold =
+0.5 reaches moran_final_qtr ≈ 0.39 (in the [0.30, 0.75] definitive
+window) and wall_final_qtr ≈ 0.27 (just below the 0.30 confirmation
+ceiling). This is recorded as Sprint 21 carry-forward #20b (see
+REPLICATION_NOTES.md). The honest framing in §6.10 is that pure-
+metric discrimination is valid against the parameter ensemble it
+was calibrated against; it is not unconditional, and a future
+sprint should re-calibrate the wall ceiling, add a P1-aware
+definitive downgrade, or both.
 
 **Transfer-matrix additions.** Voter × P18 is the Sprint 20 positive
 (DEFINITIVE). Twenty-seven new cells join the audited matrix:
