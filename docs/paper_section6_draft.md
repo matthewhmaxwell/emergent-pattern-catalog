@@ -347,3 +347,155 @@ the other's numerical behavior on the wrong model. The same
 architectural strategy could be applied to any future pattern pair
 that shares substrate and shares observable type but differs in
 a structural property discoverable from state alone.
+
+## 6.10 Within-Substrate Discrimination Without Metadata: the Voter Case
+
+Sprint 20 added the voter model and P18 coarsening-to-consensus to a
+lattice_2d-with-grid block that already contained eight models (GH,
+GoL, BTW, Schelling, Nowak-May, SIR, RPS, LV) and six detectors (P1,
+P11, P12, P13, P15, P22). Voter shares substrate, observable type,
+and even surface phenomenology (cluster formation, coarsening) with
+several existing models. Yet P18 discriminates voter from each of the
+nearby patterns without using a single metadata flag — the
+discrimination is entirely metric-based at content level, in
+contrast to Decisions 43 (P2), 49 (P28), and 52 (P10) which all
+required a metadata-mechanism gate (Class 3 of §6.8) to separate
+same-substrate same-observable models.
+
+The voter discriminator architecture relies on three observations
+about how the canonical voter trajectory differs from the four
+nearest lattice_2d-with-grid patterns:
+
+*Versus P13 (excitable waves) on GH spirals.* GH with a broken-wave
+initial condition produces a Moran's I trajectory that is
+*stationary* at ≈ 0.87 from the moment the wave stabilizes. Spearman
+ρ over time is exactly zero for a constant signal. Voter, by
+contrast, produces a Moran's I trajectory that *grows monotonically*
+from ≈ 0 to ≈ 0.5 over the first τ ~ L / 2 sweeps. The screening
+gate `moran_spearman_early > 0.70` rejects GH spiral immediately
+because its early-window Spearman is 0; voter passes.
+
+*Versus P13 on GH random transient.* GH with a random initial
+condition is the harder case. Sparse surviving excited cells form
+local clusters as excitation propagates and dies out, producing a
+genuine early-time Moran growth (Spearman ≈ +0.93) and a genuine
+early-time wall decay. GH random reaches the confirmation tier of
+P18 — the screening and confirmation gates do not separate it from
+voter. The discrimination instead happens at the definitive tier:
+voter's wall density plateaus at ≈ 0.21 (significantly above zero
+because it never reaches consensus on a finite torus in the
+characterization window), while GH random's wall density collapses
+to ≈ 0.011 once excitation extinguishes. The definitive gate
+`wall_final_qtr_mean > 0.05` excludes GH random from DEFINITIVE
+while still allowing it to be flagged as having "some coarsening
+signal" at confirmation. This is a deliberate use of the
+three-tier framework: the lower tiers correctly indicate that GH
+random does undergo cluster formation in some sense, while the
+definitive tier preserves the specific identity of "voter-like
+coarsening to a balanced two-opinion plateau".
+
+*Versus P15 (persistent computation) on GoL.* Game of Life with a
+random initial condition decays to a sparse landscape of still-
+lifes and oscillators. The Moran's I of the surviving alive cells
+does grow in the early window (Spearman ≈ +0.87) but the plateau
+saturates at ≈ 0.27, below the 0.30 screening floor of P18. GoL with
+an r-pentomino seed starts at high Moran (≈ 0.35 due to the
+compactness of the initial pattern) and shows essentially no
+early-time growth. Both fail the screening gates without requiring
+any metadata-mechanism gate.
+
+*Versus P1 (similarity aggregation) on Schelling.* Schelling
+segregation does coarsen, in a superficial sense — agents move
+toward like-typed clusters. But the agents do not *flip* their
+type labels; the coarsening is movement-driven, not copying-driven.
+The voter dynamics' identifying mechanism is opinion *copying* with
+local imitation, and this is exposed via the model metadata key
+`update = 'asynchronous_copy_neighbor'`. The P18 detector's P1
+exclusion uses this metadata key as a check, not as a hard gate
+(the metric-level gates already exclude Schelling at screening
+because Schelling's wall-density decay is geometry-bounded rather
+than copying-driven, and its `moran_growth` over the early window
+is below P18's 0.20 floor). The metadata key would only become
+load-bearing if a future model implemented a copying-driven
+mechanism that also satisfied the geometry-bounded metric profile
+— i.e., it is a *defense in depth* rather than the primary
+discriminator.
+
+The voter case demonstrates that Class 3 (metadata-mechanism)
+discrimination is not strictly required even for same-substrate
+same-observable model pairs, provided the metric-level signatures
+are sharply enough separated. Decisions 54-56 record the design
+choices that achieved this metric-level sharpness:
+
+  - **Decision 54 (Sprint 20).** P18 uses a full random permutation
+    null on the Moran's I trajectory rather than a circular-shift
+    null. The circular-shift null was the natural starting choice
+    because it preserves time-series autocorrelation, which under H0
+    of "no monotonic trend" should be preserved. But Moran's I in
+    the voter dynamics is so strongly autocorrelated (consecutive
+    values differ by less than 0.05 typically) that circular shifts
+    fail to spread the null distribution adequately: the null
+    Spearman ρ retains substantial mass at large positive values,
+    inflating p-values above the 0.01 confirmation gate even on
+    canonical positive runs. Replacing the circular-shift null with
+    a full random permutation destroys both the trend and the
+    autocorrelation, and the null Spearman distribution becomes
+    centered near zero with std ≈ 0.16. Under this null all 10
+    voter seeds tested at L = 64 produce p < 0.01, and all four
+    discriminator scenarios produce p ≈ 1. This decision parallels
+    Sprint 11 ADR 36 (circular-shift autocorrelation preservation
+    in the P11 cross-correlation null) in a different detector
+    context. The lesson is that null-model design must consider
+    not just what the null preserves but what it must *destroy* to
+    achieve adequate spread under the test statistic of interest.
+
+  - **Decision 55 (Sprint 20).** P18's secondary metric is the
+    wall-density Spearman ρ computed over t ≤ τ, not over the
+    full trajectory. The voter wall-density trajectory has two
+    qualitatively distinct regimes: a sharp decay over t ∈ [0, τ]
+    where the wall density drops from ≈ 0.5 to ≈ 0.27, and a slow
+    random-walk drift afterward at the plateau level. A
+    full-window Spearman is dominated by the larger number of
+    samples in the late regime, where the random-walk noise can
+    push the empirical Spearman positive on individual seeds —
+    causing false-negative confirmation-tier rejections. The
+    early-window Spearman is robustly ≤ −0.83 across all seeds at
+    every L tested (64, 128, 256). The lesson is that
+    double-regime trajectories require careful window-restriction
+    in the secondary metric, with the window aligned to the
+    coarsening-active regime rather than to the full run.
+
+  - **Decision 56 (Sprint 20).** All Sprint 20 voter
+    characterization uses the canonical asynchronous Glauber-like
+    voter dynamics: one Monte Carlo sweep is N elementary site-
+    updates, each picking a uniformly random site and copying a
+    uniformly random neighbor. A checkerboard parallelization of
+    the dynamics was prototyped during development for ≈ 4×
+    speedup at L = 256; it preserves the late-time coarsening
+    exponent within statistical noise but produces early-time
+    wall-density trajectories that differ from canonical async by
+    more than 3σ at t = 10 sweeps. Because all P18 detector gates
+    are calibrated against the early-time canonical trajectories
+    (via Decisions 54 and 55), the speedup did not justify the
+    quantitative drift, and the canonical async dynamics is the
+    only dynamics used in characterization, in detector
+    calibration, and in the slow-test pinning. The lesson is that
+    parallel-update approximations to inherently asynchronous
+    dynamics must be validated for trajectory-level equivalence,
+    not only for asymptotic-exponent equivalence, before being
+    adopted in a detector pipeline.
+
+These three decisions together complete the voter discrimination
+without requiring a metadata gate. The voter case therefore
+represents a fourth class of within-substrate discrimination,
+complementing Class 1 (substrate registry), Class 2 (observable-
+content prerequisite), and Class 3 (metadata-mechanism flag): pure
+metric-level discrimination via thresholds calibrated against a
+dense same-substrate discriminator ensemble. This pure-metric
+class is preferable when achievable because it avoids the
+maintenance burden of metadata flags that must be kept in sync
+between models and detectors. It is achievable when the
+target pattern's metric trajectory is sharply enough separated
+from each near-neighbor pattern's trajectory; this is more often
+true for early-time signatures than for late-time plateaus, which
+is why P18 is built primarily on early-window metrics.

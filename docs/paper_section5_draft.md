@@ -4,34 +4,38 @@ The detection toolkit's value lies not only in confirming that canonical
 models produce their expected patterns, but in revealing which patterns
 appear — and which do not — when detectors are applied systematically
 across the full model inventory. This section reports the consolidated
-transfer matrix at 146 audited cross-detection pairs plus ~18 canonical
+transfer matrix at 173 audited cross-detection pairs plus 19 canonical
 DEFINITIVE positives pinned in dedicated end-to-end tests, analyzes its
-block-diagonal structure by substrate, and examines three cross-model
+block-diagonal structure by substrate, and examines four cross-model
 findings — co-occurrence of aggregation with reciprocity on Nowak-May,
-the asymmetric P1 signature on SIR versus RPS, and the bilateral-versus-
-cyclic exclusion between P11 and P12 — that sharpened pattern
-definitions beyond their initial specifications.
+the asymmetric P1 signature on SIR versus RPS, the bilateral-versus-
+cyclic exclusion between P11 and P12, and the same-substrate
+content-level discrimination of voter coarsening from the four other
+lattice_2d-with-grid patterns (P1, P13, P15, plus the GH random-decay
+edge case) — that sharpened pattern definitions beyond their initial
+specifications.
 
 ## 5.1 The Completed Transfer Matrix
 
-The current inventory contains 19 registered models (displayed here as 18
+The current inventory contains 20 registered models (displayed here as 19
 rows, collapsing the two Zhang sorting variants `zhang_sequential` and
 `zhang_threaded` which share substrate, observables, and primary
-patterns) and 18 registered detectors. Of the 342 registry cells
-(18 display rows × 18 detector columns yields 324 displayed cells;
-the registry-level count of 342 differentiates the two Zhang variants),
-63 are substrate-compatible, observable-compatible, and empirically
-audited at the cell level; the remaining 261 are correctly eliminated
-by substrate mismatch (238) or detector–observable incompatibility (23,
-chiefly P31 which requires `lattice_1d` with `cell_types`, P14 which
-requires `avalanche_sizes`, and P27 which requires `coop_fraction`).
-Of the 63 displayed audited cells, 13 produce canonical DEFINITIVE
+patterns) and 19 registered detectors. Of the 380 registry cells
+(19 display rows × 19 detector columns yields 361 displayed cells;
+the registry-level count of 380 differentiates the two Zhang variants),
+79 are substrate-compatible, observable-compatible, and empirically
+audited at the cell level; the remaining 282 are correctly eliminated
+by substrate mismatch (multi-substrate boundary) or detector–observable
+incompatibility (chiefly P31 which requires `lattice_1d` with
+`cell_types`, P14 which requires `avalanche_sizes`, and P27 which
+requires `coop_fraction`).
+Of the 79 displayed audited cells, 19 produce canonical DEFINITIVE
 detections (one per primary model family: Zhang × P31, Schelling × P1,
 Vicsek × P5, D'Orsogna × P6, ABP × P2, Kuramoto × P9,
 Kuramoto-nonlocal × P10, GH × P13, GoL × P15 with dense random IC,
 BTW × P14, Nowak-May × P27, HK × P21, SIR × P22, RPS × P12,
 Lotka-Volterra × P11, Gray-Scott × P3, Nagel-Schreckenberg × P8,
-Yard-Sale × P28), plus several CONFIRMATION and SCREENING
+Yard-Sale × P28, Voter × P18), plus several CONFIRMATION and SCREENING
 co-occurrences documented below; the remainder reject at prerequisite
 or screening guard, and a small number run without firing (typically
 P15 on stochastic lattice models where the functional replay test
@@ -40,37 +44,39 @@ fails due to irreproducibility).
 The cross-detection-matrix regression table
 (`tests/test_cross_detection_matrix.py::EXPECTED_OUTCOMES`) pins the
 non-canonical cells and has grown from 27 audited pairs at Sprint 10
-to 146 at Sprint 18. Canonical positives — the ~18 "on-diagonal"
+to 173 at Sprint 20. Canonical positives — the ~19 "on-diagonal"
 model × primary-detector DEFINITIVE cells — are pinned separately in
 dedicated end-to-end test files (`test_vicsek_validation.py`,
-`test_kuramoto_p10_e2e.py`, `test_lv_p11_e2e.py`, etc.), not in the
-cross-matrix. Both groups are audited with the same discipline (every
-detection is backed by replicated published quantitative results and
-by null-model significance testing); they live in different files for
-historical reasons rather than methodological ones.
+`test_kuramoto_p10_e2e.py`, `test_lv_p11_e2e.py`,
+`test_voter_p18_e2e.py`, etc.), not in the cross-matrix. Both groups
+are audited with the same discipline (every detection is backed by
+replicated published quantitative results and by null-model
+significance testing); they live in different files for historical
+reasons rather than methodological ones.
 
-**Table 1: Consolidated Transfer Matrix (18 model families × 18 detector slots)**
+**Table 1: Consolidated Transfer Matrix (19 model families × 19 detector slots)**
 
-|                    | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P10 | P11 | P12 | P13 | P14 | P15 | P21 | P22 | P27 | P28 | P31 |
-|--------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| Zhang sorting      | S   | ×   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
-| Schelling          | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | ×   | rej | rej | ×   | ×   |
-| Vicsek (ordered)   | ×   | rej | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| D'Orsogna (mill)   | ×   | S   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| ABP (MIPS)         | ×   | D   | ×   | rej| rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto (sync)    | ×   | ×   | ×   | ×  | ×  | ×   | D  | rej | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| Kuramoto-nonlocal  | ×   | ×   | ×   | ×  | ×  | ×   | rej| D   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
-| GH spiral          | S   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | D   | ×   | rej | ×   | rej | rej | ×   | ×   |
-| GoL (R-pent/rand)  | rej | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | D*  | ×   | rej | rej | ×   | ×   |
-| BTW sandpile       | ×   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | D   | nd  | ×   | rej | rej | ×   | ×   |
-| Nowak-May (b=1.8)  | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | S   | ×   | rej | D   | ×   | ×   |
-| HK (ε=0.2)         | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   | ×   |
-| SIR epidemic       | rej | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | ×   | D   | rej | ×   | ×   |
-| RPS spatial        | S   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | D   | rej | ×   | nd  | ×   | S   | rej | ×   | ×   |
-| Lotka-Volterra     | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | D   | rej | rej | ×   | nd  | ×   | S   | rej | ×   | ×   |
-| Gray-Scott         | rej | ×   | D   | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | ×   | rej | rej | ×   | ×   |
-| Nagel-Schreck.     | rej | ×   | rej | ×  | ×  | D   | ×  | ×   | rej | rej | rej | ×   | rej | ×   | rej | rej | ×   | ×   |
-| Yard-Sale          | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | D   | ×   |
+|                    | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P10 | P11 | P12 | P13 | P14 | P15 | P18 | P21 | P22 | P27 | P28 | P31 |
+|--------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Zhang sorting      | S   | ×   | ×   | ×  | ×  | rej | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | C   |
+| Schelling          | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | rej | ×   | rej | rej | ×   | ×   |
+| Vicsek (ordered)   | ×   | rej | ×   | D  | rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| D'Orsogna (mill)   | ×   | S   | ×   | rej| D  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| ABP (MIPS)         | ×   | D   | ×   | rej| rej| ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto (sync)    | ×   | ×   | ×   | ×  | ×  | ×   | D  | rej | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| Kuramoto-nonlocal  | ×   | ×   | ×   | ×  | ×  | ×   | rej| D   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   |
+| GH spiral          | S   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | D   | ×   | rej | S   | ×   | rej | rej | ×   | ×   |
+| GoL (R-pent/rand)  | rej | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | D*  | rej | ×   | rej | rej | ×   | ×   |
+| BTW sandpile       | ×   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | D   | nd  | ×   | ×   | rej | rej | ×   | ×   |
+| Nowak-May (b=1.8)  | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | S   | rej | ×   | rej | D   | ×   | ×   |
+| HK (ε=0.2)         | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | D   | ×   | ×   | ×   | ×   |
+| SIR epidemic       | rej | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | rej | ×   | D   | rej | ×   | ×   |
+| RPS spatial        | S   | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | D   | rej | ×   | nd  | rej | ×   | S   | rej | ×   | ×   |
+| Lotka-Volterra     | C   | ×   | rej | ×  | ×  | ×   | ×  | ×   | D   | rej | rej | ×   | nd  | rej | ×   | S   | rej | ×   | ×   |
+| Voter              | rej | ×   | rej | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | rej | D   | ×   | rej | rej | ×   | ×   |
+| Gray-Scott         | rej | ×   | D   | ×  | ×  | ×   | ×  | ×   | rej | rej | rej | ×   | nd  | ×   | ×   | rej | rej | ×   | ×   |
+| Nagel-Schreck.     | rej | ×   | rej | ×  | ×  | D   | ×  | ×   | rej | rej | rej | ×   | rej | ×   | ×   | rej | rej | ×   | ×   |
+| Yard-Sale          | ×   | ×   | ×   | ×  | ×  | ×   | ×  | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | ×   | D   | ×   |
 
 D = DEFINITIVE, C = CONFIRMATION, S = SCREENING, rej = rejected by
 observable, prerequisite, or screening guard, nd = substrate-compatible
@@ -109,8 +115,11 @@ and Kuramoto-nonlocal × P10 are both DEFINITIVE on-diagonals, while
 Kuramoto × P10 and Kuramoto-nonlocal × P9 are both within-substrate
 content-level rejections (Decisions 50–53). Sprint 19 closed the
 orchestration-layer registration gap for Lotka-Volterra and P11
-(shipped in Sprint 11 but not registered until Sprint 19), bringing
-the 18-row display table to its current state.
+(shipped in Sprint 11 but not registered until Sprint 19). Sprint 20
+added the `voter` model and P18 coarsening-to-consensus detector,
+expanding the lattice_2d-with-grid block to nine models and seven
+detectors — the catalog's most heavily populated cross-detection
+block (Decisions 54–56).
 
 ## 5.2 Block-Diagonal Structure by Substrate
 

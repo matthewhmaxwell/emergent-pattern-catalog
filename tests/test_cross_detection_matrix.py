@@ -799,14 +799,78 @@ class TestTransferMatrixCompleteness:
         ("kuramoto_nonlocal", "P27"): "rejected",
         ("kuramoto_nonlocal", "P28"): "rejected",
         ("kuramoto_nonlocal", "P31"): "rejected",
+
+        # --- Sprint 20 pairs (Voter + P18 consensus) ---
+        # voter is the 19th model; P18 is the 18th detector. Both occupy
+        # the existing lattice_2d substrate. Sprint 20 §4.20 characterization:
+        #   At L=64, 10 seeds, 1500 sweeps: voter reaches DEFINITIVE with
+        #   moran_spearman_early ≈ +0.94 ± 0.05, wall_spearman_early ≈
+        #   -0.94 ± 0.05, moran_final_qtr ≈ 0.54 ± 0.05, wall_final ≈
+        #   0.21 ± 0.04, minority_fraction_final ≈ 0.37 ± 0.11.
+        #
+        # The three-class discrimination (excludes P13/P15/P1) is encoded
+        # at the definitive tier:
+        #   - GH broken_wave (P13 spiral): Moran stationary at 0.87,
+        #     Spearman = 0, rejected at SCREENING.
+        #   - GH random (P13 transient): Moran does grow in early window
+        #     (Spearman ~0.93) but wall_final ~0.011 < 0.05 definitive
+        #     gate ⇒ excluded from DEFINITIVE; reaches CONFIRMATION.
+        #     Recorded as "screening" since not detected at confirmation+.
+        #   - GoL random (P15 decay): Moran plateau ~0.27 < 0.30 screening
+        #     gate, rejected at SCREENING.
+        #   - GoL r_pent (P15 chaos): no early-time growth (Spearman ~0.17),
+        #     rejected at SCREENING.
+        #   - Schelling (P1): does coarsen, but its "type" indicator is
+        #     stable (agents don't flip) and the early-time wall decay is
+        #     governed by movement, not copying. Conservative classification
+        #     pending content-level negative test.
+        #
+        # See ADRs 54-56 for null-model and metric-window decisions.
+        # See REPLICATION_NOTES.md Sprint 20 and docs/paper_section4_draft.md
+        # §4.20 for the full discriminator table.
+        ("voter", "P18"): "detected",                    # DEFINITIVE canonical
+        # P18 column — every other registered model rejects (15 substrate +
+        # several content-level rejections from same-substrate models).
+        ("zhang_sequential", "P18"): "rejected",         # lattice_1d substrate
+        ("zhang_threaded", "P18"): "rejected",
+        ("vicsek", "P18"): "rejected",                   # continuous_2d
+        ("dorsogna", "P18"): "rejected",
+        ("kuramoto", "P18"): "rejected",                 # oscillator
+        ("kuramoto_nonlocal", "P18"): "rejected",
+        ("hegselmann_krause", "P18"): "rejected",        # opinion_space
+        ("nagel_schreckenberg", "P18"): "rejected",      # lattice_1d
+        ("abp", "P18"): "rejected",                      # continuous_2d
+        ("yard_sale", "P18"): "rejected",                # scalar_wealth
+        ("gray_scott", "P18"): "rejected",               # lattice_2d_continuous
+        ("btw_sandpile", "P18"): "rejected",             # missing 'grid' observable
+        # Same-substrate (lattice_2d-with-grid) content-level rejections.
+        # Each of these passes orchestration (voter and these models share
+        # substrate+observable) but P18 correctly does not flag.
+        ("greenberg_hastings", "P18"): "screening",      # GH random reaches CONFIRMATION but excluded from DEFINITIVE
+        ("game_of_life", "P18"): "rejected",             # Moran plateau < 0.30 screening
+        ("schelling", "P18"): "rejected",                # static "type" labels, no copying
+        ("nowak_may", "P18"): "rejected",                # cooperation dynamics, not consensus
+        ("sir_epidemic", "P18"): "rejected",             # epidemic curve, not coarsening
+        ("rps_spatial", "P18"): "rejected",              # cyclic dominance, not consensus
+        ("lotka_volterra_lattice", "P18"): "rejected",   # predator-prey, not consensus
+        # voter row — every non-P18 detector rejects.
+        ("voter", "P1"): "rejected",      # voter "types" are not stable (constant flipping)
+        ("voter", "P11"): "rejected",     # not predator-prey
+        ("voter", "P12"): "rejected",     # 2 species, not 3+
+        ("voter", "P13"): "rejected",     # not excitable; no refractory
+        ("voter", "P15"): "rejected",     # stochastic, not deterministic step_fn
+        ("voter", "P22"): "rejected",     # no S→I→R cascade structure
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
 
     def test_all_pairs_documented(self):
-        """Every audited pair has a valid, documented expected outcome."""
-        assert len(self.EXPECTED_OUTCOMES) >= 146, \
-            f"Expected at least 146 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        """Every audited pair has a valid, documented expected outcome.
+
+        Sprint 20: 27 voter+P18 cells added, total ≥ 173.
+        """
+        assert len(self.EXPECTED_OUTCOMES) >= 173, \
+            f"Expected at least 173 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -1487,6 +1551,106 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 18: all {len(sprint_18_pairs)} pairs covered "
               f"(kuramoto_nonlocal row + P10 column)")
+
+    def test_sprint_20_voter_p18_covered(self):
+        """Sprint 20 added voter as the 19th model and P18 (consensus
+        coarsening) as the 18th detector. Both occupy lattice_2d.
+
+        Voter expands the lattice_2d-with-grid block from 8 models to 9.
+        P18 expands the per-l2d-grid-model detector menu from 6 to 7.
+        Sprint 20 added 27 audited cells:
+          - voter × P18 (canonical positive, DEFINITIVE)
+          - voter × {P1, P11, P12, P13, P15, P22} (6 same-substrate
+            content-level rejections of voter row)
+          - 18 P18-column entries (8 same-substrate content rejections
+            + 1 missing-observable rejection (btw_sandpile) + 9
+            substrate mismatches across the other 6 substrates).
+
+        Headline scientific finding (Sprint 20 §4.20): the voter coarsening
+        signature (early-time Moran growth + early-time wall decay) is
+        cleanly distinguishable from GH spiral (Moran stationary at 0.87),
+        GH random decay (wall_final ~0.011 < 0.05 definitive gate), GoL
+        random (Moran plateau ~0.27 < 0.30 screening), and GoL r-pentomino
+        (no early-time growth). The discriminator framework relies on the
+        permutation-null statistical test (ADR 54), early-window wall
+        Spearman (ADR 55), and canonical async voter updating (ADR 56).
+        """
+        sprint_20_pairs = [
+            # Canonical positive
+            ("voter", "P18"),
+            # P18 column — substrate-mismatch rejections.
+            ("zhang_sequential", "P18"),
+            ("zhang_threaded", "P18"),
+            ("vicsek", "P18"),
+            ("dorsogna", "P18"),
+            ("kuramoto", "P18"),
+            ("kuramoto_nonlocal", "P18"),
+            ("hegselmann_krause", "P18"),
+            ("nagel_schreckenberg", "P18"),
+            ("abp", "P18"),
+            ("yard_sale", "P18"),
+            ("gray_scott", "P18"),
+            # P18 column — observable-mismatch rejection (lattice_2d, no grid).
+            ("btw_sandpile", "P18"),
+            # P18 column — same-substrate content-level rejections/screening.
+            ("greenberg_hastings", "P18"),
+            ("game_of_life", "P18"),
+            ("schelling", "P18"),
+            ("nowak_may", "P18"),
+            ("sir_epidemic", "P18"),
+            ("rps_spatial", "P18"),
+            ("lotka_volterra_lattice", "P18"),
+            # voter row — content-level rejections vs other lattice_2d detectors.
+            ("voter", "P1"),
+            ("voter", "P11"),
+            ("voter", "P12"),
+            ("voter", "P13"),
+            ("voter", "P15"),
+            ("voter", "P22"),
+        ]
+        for pair in sprint_20_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 20 pair {pair} missing from transfer matrix"
+
+        # voter × P18 is the Sprint 20 canonical positive.
+        assert self.EXPECTED_OUTCOMES[("voter", "P18")] == "detected", (
+            "voter × P18 must be detected (canonical consensus DEFINITIVE)"
+        )
+
+        # Every non-lattice_2d model × P18 must be rejected at substrate.
+        for other_model in (
+            "zhang_sequential", "zhang_threaded", "vicsek", "dorsogna",
+            "kuramoto", "kuramoto_nonlocal", "hegselmann_krause",
+            "nagel_schreckenberg", "abp", "yard_sale", "gray_scott",
+        ):
+            assert self.EXPECTED_OUTCOMES[(other_model, "P18")] == "rejected", (
+                f"{other_model} × P18 should be rejected "
+                f"(substrate_mismatch: P18 requires lattice_2d)"
+            )
+
+        # btw_sandpile is lattice_2d but missing 'grid' observable
+        assert self.EXPECTED_OUTCOMES[("btw_sandpile", "P18")] == "rejected", (
+            "btw_sandpile × P18 should be rejected (observable_mismatch: "
+            "btw_sandpile lacks 'grid' observable)"
+        )
+
+        # GH random reaches CONFIRMATION but is excluded from DEFINITIVE
+        # by the wall_final < 0.05 gate. Recorded as 'screening' since
+        # not detected at confirmation+ tier per the matrix convention.
+        assert self.EXPECTED_OUTCOMES[("greenberg_hastings", "P18")] == "screening", (
+            "greenberg_hastings × P18 reaches CONFIRMATION but excluded "
+            "from DEFINITIVE (wall_final < 0.05); recorded as screening"
+        )
+
+        # voter row — every non-P18 lattice_2d detector must reject.
+        for det in ("P1", "P11", "P12", "P13", "P15", "P22"):
+            assert self.EXPECTED_OUTCOMES[("voter", det)] == "rejected", (
+                f"voter × {det} should be rejected (content-level: voter "
+                f"is consensus-coarsening, not the {det} pattern)"
+            )
+
+        print(f"  ✓ Sprint 20: all {len(sprint_20_pairs)} pairs covered "
+              f"(voter row + P18 column)")
 
 
 # ===================================================================

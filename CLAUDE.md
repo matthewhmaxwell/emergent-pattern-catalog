@@ -7,7 +7,30 @@ emergent patterns and a computational toolkit for detecting them.
 
 Repository: https://github.com/matthewhmaxwell/emergent-pattern-catalog
 
-## Current Status — Sprint 9 Complete
+## Current Status — Sprint 20 Complete
+
+For the up-to-date inventory, ADR list, and per-sprint finding history,
+see `PROJECT_STATUS.md` and `REPLICATION_NOTES.md`. The status block
+below is preserved as a Sprint 9 historical snapshot and intentionally
+not maintained — everything except the package layout in this file
+should be assumed possibly-stale; use PROJECT_STATUS.md as the
+authoritative inventory.
+
+**Sprint 20 added** the voter model (canonical asynchronous Glauber-
+like dynamics on a 2D torus) and the P18 coarsening-to-consensus
+detector. Voter is the ninth lattice_2d-with-grid model; P18 is the
+seventh lattice_2d-compatible detector. Inventory now stands at 19
+model families, 19 registered detectors, 7 substrate types,
+**18 of 32 patterns covered**, 79 substrate+observable compatible
+pairs, **173 audited cross-detection cells**. Key Sprint 20 ADRs:
+permutation null over circular shift (ADR 54), early-window wall
+Spearman over full-window (ADR 55), canonical async voter dynamics
+exclusively over checkerboard parallelization (ADR 56). Detailed
+characterization in §4.20 of the paper draft.
+
+---
+
+## Sprint 9 Snapshot (preserved historical, not current)
 
 Sprint 9 added spatial Rock-Paper-Scissors (Reichenbach 2007) as the canonical
 P12 positive and built the P12 cyclic-dominance detector. Core finding: P13

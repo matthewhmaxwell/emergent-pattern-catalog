@@ -65,30 +65,30 @@ class TestSubstrateCounts:
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 19, \
-            f"Expected 19 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 20, \
+            f"Expected 20 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 18, \
-            f"Expected 18 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 19, \
+            f"Expected 19 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 65, \
-            f"Expected 65 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 79, \
+            f"Expected 79 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 342, f"Expected 342 cells (19x18), got {total}"
+        assert total == 380, f"Expected 380 cells (20x19), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 342 - len(pairs)
-        assert mismatches == 277, f"Expected 277 mismatches, got {mismatches}"
+        mismatches = 380 - len(pairs)
+        assert mismatches == 301, f"Expected 301 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -108,6 +108,7 @@ class TestCanonicalPairs:
         ('yard_sale', 'P28'),
         ('kuramoto_nonlocal', 'P10'),
         ('lotka_volterra', 'P11'),
+        ('voter', 'P18'),
     ])
     def test_canonical_pair_compatible(self, model_name, detector_id):
         result = check_compatibility(model_name, detector_id)
@@ -360,15 +361,16 @@ class TestSprint19Registrations:
             f"{lattice_2d_grid_models}"
         )
 
-    def test_lotka_volterra_pairs_with_six_detectors(self):
+    def test_lotka_volterra_pairs_with_seven_detectors(self):
         """LV is lattice_2d with 'grid': should pair with P1, P11, P12,
-        P13, P15, P22 (six). P14 needs avalanche_sizes (rejected at
-        observable); P27 needs coop_fraction (rejected at observable);
+        P13, P15, P18, P22 (seven). P14 needs avalanche_sizes (rejected
+        at observable); P27 needs coop_fraction (rejected at observable);
         all other detectors are on other substrates (rejected at
-        substrate). This pins the full per-model column."""
+        substrate). P18 added Sprint 20.
+        This pins the full per-model column."""
         lv_dets = {d for m, d in get_compatible_pairs() if m == 'lotka_volterra'}
-        assert lv_dets == {'P1', 'P11', 'P12', 'P13', 'P15', 'P22'}, \
-            f"Expected LV to pair with 6 detectors, got {lv_dets}"
+        assert lv_dets == {'P1', 'P11', 'P12', 'P13', 'P15', 'P18', 'P22'}, \
+            f"Expected LV to pair with 7 detectors, got {lv_dets}"
 
     def test_p11_and_p12_share_substrate_by_design(self):
         """P11 and P12 are the two predator-prey detectors: P11 for
@@ -385,3 +387,127 @@ class TestSprint19Registrations:
         p12_pairs = {m for m, d in get_compatible_pairs() if d == 'P12'}
         assert p11_pairs == p12_pairs, \
             f"P11 pairs {p11_pairs} should equal P12 pairs {p12_pairs}"
+
+
+class TestSprint20Registrations:
+    """Sprint 20: voter model + P18 consensus detector.
+
+    The voter model (Clifford & Sudbury 1973; Holley & Liggett 1975)
+    is the canonical microscopic model for emergent consensus on a 2D
+    lattice. P18 detects coarsening-to-consensus via early-time Moran's
+    I growth (primary) and early-time wall-density decay (secondary)
+    with a permutation-null test against the no-trend hypothesis.
+
+    Scientific anchors (Sprint 20 §4.20 characterization):
+    - Voter at L=64, 10 seeds: Moran's I final-quarter mean = 0.54 ±
+      0.05; early-window Spearman ρ(t, Moran) = +0.89 ± 0.07; early-
+      window Spearman ρ(t, wall) = -0.94 ± 0.05.
+    - GH random init: ρ(t, Moran)_early = +0.93 ± 0.07 (overlaps voter)
+      but wall_final = 0.011 ± 0.007 (excluded by definitive gate
+      wall_final > 0.05).
+    - GH broken_wave: Moran is stationary at 0.87 (Spearman = 0,
+      rejected at screening).
+    - GoL random: Moran plateau at 0.27 < 0.30 (rejected at screening).
+    - GoL r_pentomino: no early-time growth (Spearman ≈ +0.17,
+      rejected at screening).
+
+    Architectural anchors (Sprint 20 ADRs):
+    - ADR 54: P18 uses random-permutation null, NOT circular shift,
+      because Moran's I has strong autocorrelation that circular shifts
+      preserve — inflating the null distribution and pushing voter
+      p-values above the 0.01 confirmation gate (echoes Sprint 11
+      ADR 36).
+    - ADR 55: Wall-density Spearman is computed on the early window
+      (t ≤ τ ~ L/2), not the full window, because voter wall density
+      has a two-regime trajectory (sharp early decay + late plateau)
+      and the late-plateau noise can flip the full-window Spearman
+      positive on individual seeds.
+    - ADR 56: Canonical async voter updating only — a checkerboard
+      parallelization was trialed and rejected because its early-time
+      trajectories differ from canonical async by >3σ, even though
+      late-time coarsening exponents agree.
+    """
+
+    def test_voter_registered(self):
+        assert 'voter' in MODEL_REGISTRY, \
+            "voter model should be registered (Sprint 20)"
+        m = MODEL_REGISTRY['voter']
+        assert m.substrate_type == 'lattice_2d'
+        assert 'grid' in m.observables
+        assert 'P18' in m.primary_patterns
+
+    def test_voter_observables(self):
+        """Voter exposes magnetization, wall_density, moran_i, etc.
+        These observables (not just 'grid') let downstream code
+        introspect the canonical signatures without re-binarizing."""
+        m = MODEL_REGISTRY['voter']
+        for key in ['grid', 'magnetization', 'abs_magnetization',
+                    'wall_density', 'moran_i', 'consensus_reached']:
+            assert key in m.observables, \
+                f"voter must expose '{key}' observable"
+
+    def test_voter_metadata_keys(self):
+        """The 'update' metadata key signals 'asynchronous_copy_neighbor';
+        this distinguishes voter from same-substrate models for the
+        P18 detector's P1-exclusion (Sprint 20 §4.20)."""
+        m = MODEL_REGISTRY['voter']
+        for key in ['update', 'neighborhood', 'boundary', 'has_movement']:
+            assert key in m.metadata_keys, \
+                f"voter must declare metadata key '{key}'"
+
+    def test_p18_registered(self):
+        assert 'P18' in DETECTOR_REGISTRY, \
+            "P18 detector should be registered (Sprint 20)"
+        d = DETECTOR_REGISTRY['P18']
+        assert 'lattice_2d' in d.required_substrate
+        assert 'grid' in d.required_observables
+        assert d.observable_scope == 'state_history_only'
+
+    def test_voter_p18_compatible(self):
+        """The canonical Sprint 20 pair: voter × P18."""
+        r = check_compatibility('voter', 'P18')
+        assert r.compatible, \
+            f"voter × P18 should be compatible: {r.reason}"
+
+    def test_p18_rejects_non_lattice_2d_substrates(self):
+        """P18 should reject every non-lattice_2d substrate."""
+        for m_name in MODEL_REGISTRY:
+            reg = MODEL_REGISTRY[m_name]
+            r = check_compatibility(m_name, 'P18')
+            if reg.substrate_type != 'lattice_2d':
+                assert not r.compatible, \
+                    f"{m_name} ({reg.substrate_type}) should NOT match P18"
+                assert 'substrate_mismatch' in r.reason, \
+                    f"{m_name} × P18 should fail on substrate, got: {r.reason}"
+
+    def test_p18_rejects_lattice_2d_without_grid(self):
+        """btw_sandpile is lattice_2d but exposes only avalanche-level
+        observables. P18 should reject at the observable guard."""
+        r = check_compatibility('btw_sandpile', 'P18')
+        assert not r.compatible
+        assert 'missing_observable' in r.reason, \
+            f"btw_sandpile × P18 should fail on observable, got: {r.reason}"
+
+    def test_p18_compatible_with_all_lattice_2d_grid_models(self):
+        """P18 is lattice_2d + 'grid' required. All 9 lattice_2d-with-grid
+        models should pair at the orchestration layer (including voter
+        itself). Content-level discrimination vs P13/P15/P1 happens in
+        the detector at definitive tier."""
+        p18_pairs = {m for m, d in get_compatible_pairs() if d == 'P18'}
+        lattice_2d_grid_models = {
+            name for name, reg in MODEL_REGISTRY.items()
+            if reg.substrate_type == 'lattice_2d' and 'grid' in reg.observables
+        }
+        assert p18_pairs == lattice_2d_grid_models, (
+            f"P18 pairs {p18_pairs} should equal lattice_2d-with-grid models "
+            f"{lattice_2d_grid_models}"
+        )
+
+    def test_voter_pairs_with_seven_lattice_2d_detectors(self):
+        """voter is lattice_2d with 'grid': pairs with P1, P11, P12, P13,
+        P15, P18, P22 (seven). Same family as Lotka-Volterra (Sprint 19).
+        Content-level rejections vs P1/P13/P15 are exercised in the
+        cross-detection matrix and in the dedicated P18 e2e tests."""
+        voter_dets = {d for m, d in get_compatible_pairs() if m == 'voter'}
+        assert voter_dets == {'P1', 'P11', 'P12', 'P13', 'P15', 'P18', 'P22'}, \
+            f"Expected voter to pair with 7 detectors, got {voter_dets}"

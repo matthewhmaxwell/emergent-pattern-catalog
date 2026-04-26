@@ -3973,3 +3973,222 @@ Test delta:
   Fast half: 213 → 235 passed (+22 new P10 tests)
   Slow half: NEW tests/test_kuramoto_p10_e2e.py::TestSlowReplication: 3 tests
   Grand total: 269 passed + 16 deselected → 294 passed + 16 deselected
+
+---
+
+## Sprint 20 — voter model + P18 coarsening-to-consensus
+
+**Purpose.** Add the canonical microscopic substrate for emergent
+consensus on a 2D lattice (the voter model of Clifford & Sudbury 1973
+and Holley & Liggett 1975) and a P18 detector that captures
+"coarsening without surface tension" — the universality class that
+Dornic et al. (2001) identified as distinct from Ising-type curvature-
+driven coarsening.
+
+**Headline numerical results (L=64, 10 random-init seeds, 1500 sweeps).**
+- Moran's I final-quarter mean: **0.54 ± 0.05**
+- Wall-density final-quarter mean: **0.21 ± 0.04**
+- Early-window (t ≤ τ = 32) Moran Spearman ρ(t, I): **+0.94 ± 0.05**
+- Early-window wall Spearman ρ(t, w): **−0.94 ± 0.05**
+- Magnetization |m| at t = 1500: **wide spread, 0.03–0.96** across
+  seeds (the martingale random walk in magnetization, expected for
+  finite L without consensus)
+- Minority fraction at end of run: **0.37 ± 0.11**
+
+L=128 ensemble (10 seeds, 800 sweeps) tightens these distributions:
+moran_final_qtr_mean = 0.56 ± 0.03, wall_final_qtr_mean = 0.22 ± 0.01,
+moran_spearman_early = +0.96 ± 0.04.
+
+**Comparison to theoretical scaling — honest note on Cox 1989.** The
+2D voter consensus time τ_c(L) follows the Cox theorem's scaling form
+τ_c(L) ~ s_L = L² ln L. Our characterization at L ∈ {16, 24, 32}
+(20 seeds each) confirms the ∝ L² ln L scaling order-of-magnitude but
+the empirical prefactor τ_c / (L² ln L) is **L-dependent** (0.40 at
+L=16, 0.36 at L=24, 0.24 at L=32) and does **not** match the Cox
+theorem's continuous-time, nearest-neighbor (Von Neumann) prefactor.
+Two reasons are honest:
+
+  1. Cox 1989 is for the **nearest-neighbor (Von Neumann)** voter
+     model in **continuous time** (each site flips at rate 1 toward a
+     uniformly chosen neighbor). Our implementation is **Moore
+     neighborhood** (8 neighbors, faster mixing) in **discrete sweep
+     time** (one sweep = N elementary updates).
+
+  2. The 2D voter consensus-time distribution is **bimodal** due to
+     long-lived stripe-state configurations (Ben-Naim, Vazquez, Redner
+     2011, "Dynamics of Confident Voting", arXiv:1111.3883). Even
+     20 seeds is inadequate to estimate the mean prefactor reliably —
+     at L = 16 our 20-sample distribution shows max/median = 10.5
+     because of one outlier stripe-state seed.
+
+The detector does **not** gate on the consensus-time prefactor — it
+gates on whether a run displays coarsening-to-consensus behavior at
+all — so this discrepancy does not affect detection performance.
+Documented honestly here for §4.20 reproducibility and to flag the
+pitfall for future implementers.
+
+**Coarsening exponent — also documented honestly.** Truncated
+power-law fits log ρ_w = a + b log t over t ∈ [30, 500] return
+effective exponents:
+- L=64, 5 seeds: b = **−0.18 ± 0.07**
+- L=128, 3 seeds: b = **−0.11 ± 0.04**
+
+Naïvely one might expect b = −1/2 from a curvature-driven coarsening
+analogy. Two-dimensional voter coarsening is **not** curvature-driven
+— Dornic et al. (2001) showed it follows ρ_w(t) ∝ ln(t) / t
+asymptotically. Truncated power-law fits of a logarithmically
+correctected decay return effective exponents that depend on both
+the fit window and L, drifting toward zero as L grows. Our L = 64
+vs L = 128 results show the L-dependent drift exactly as predicted.
+This is an important didactic point for §4.20 and consistent with
+the "look-before-touching" methodological lesson: a detector
+calibrated against textbook expectations of "−1/2" would have been
+calibrated against the wrong number.
+
+**Discriminator characterization.** Sprint 20 ran a matched
+discriminator ensemble at L = 64, 5 seeds each, 800 steps:
+
+| Configuration | Moran final | Moran sp_early | Wall final | Wall sp_early | Outcome |
+|---|---|---|---|---|---|
+| voter L=64 (target) | 0.54 ± 0.05 | +0.89 ± 0.07 | 0.21 ± 0.04 | −0.94 ± 0.05 | DEFINITIVE 5/5 |
+| voter L=128 | 0.56 ± 0.03 | +0.96 ± 0.04 | 0.22 ± 0.01 | −0.94 ± 0.04 | DEFINITIVE 5/5 |
+| GH random (P13 transient) | 0.63 ± 0.04 | +0.93 ± 0.07 | 0.011 ± 0.007 | −0.94 ± 0.04 | CONFIRMATION 5/5 (excluded from DEFINITIVE) |
+| GH broken_wave (P13 spiral) | 0.87 (const) | 0 (const) | 0.02 (const) | 0 (const) | screening reject 5/5 |
+| GoL random (P15 decay) | 0.27 ± 0.02 | +0.87 ± 0.03 | 0.08 ± 0.04 | (irrelevant) | screening reject 5/5 |
+| GoL r_pent (P15 chaos) | 0.30 (const) | +0.17 (const) | 0.08 (const) | (irrelevant) | screening reject 5/5 |
+
+GH random is the most interesting near-neighbor: it does pass screening
+and confirmation, but is excluded from DEFINITIVE by the
+`wall_final_qtr_mean > 0.05` definitive gate (GH random's wall
+collapses to ≈ 0.011 once excitation extinguishes). This is the
+intended behavior of the three-tier framework — confirmation indicates
+"some coarsening signal", definitive preserves the specific identity
+of "voter-like" coarsening.
+
+**Two detector-design fixes discovered during Sprint 20** (both
+through multi-seed smoke testing — the seed = 0 case passed cleanly
+but seeds 2, 3, 4 failed):
+
+  1. *Circular-shift null was too liberal.* The circular-shift null on
+     Moran's I preserves the strong autocorrelation between consecutive
+     timesteps (Moran values change by < 0.05 typically), inflating
+     the null distribution of Spearman ρ at large positive values. Voter
+     p-values came out at 0.04 instead of below the strict 0.01
+     confirmation gate. **Fix (Decision 54):** use a full random
+     permutation null, which destroys the autocorrelation along with
+     the trend. Under permutation null all 10 voter seeds get p < 0.01
+     reliably while all four discriminators get p ≈ 1. Echoes Sprint
+     11 ADR 36 in a different detector context.
+
+  2. *Full-window wall Spearman was too noisy.* Voter wall density has
+     two regimes: sharp drop from 0.50 to ~0.27 over t ∈ [0, τ], then
+     slow random-walk drift at the plateau. Full-window Spearman is
+     dominated by the late-regime random walk and can flip positive on
+     individual seeds (seed = 3 at L = 64 produced full-window Spearman
+     = +0.046, failing the < −0.40 gate). **Fix (Decision 55):** use
+     early-window (t ≤ τ) wall Spearman, which is reliably ≤ −0.83 on
+     all voter seeds at L ∈ {64, 128, 256}.
+
+**Decision 56: canonical async dynamics only.** A checkerboard
+parallelization was prototyped early in development for ~4× speedup at
+L = 256. While late-time coarsening exponents agreed within statistical
+noise with the canonical async dynamics, early-time wall-density
+trajectories differed by **>3σ at t = 10 sweeps**. Since all
+P18 detector gates are calibrated against the early-time canonical
+trajectories (via Decisions 54 and 55), the speedup did not justify
+the quantitative drift. The canonical async dynamics is the only
+dynamics used in characterization, calibration, and slow-test pinning.
+
+**Test counts, Sprint 20 delta.**
+- New file `tests/test_voter_p18_e2e.py`: 45 fast tests + 8 slow tests
+- `tests/test_orchestration.py`: 53 → 63 (+10 Sprint 20 registration tests)
+- `tests/test_cross_detection_matrix.py`: 23 → 24 (new Sprint 20 covered-pairs test)
+- `EXPECTED_OUTCOMES`: 146 → **173 audited cells** (+27: voter row 6
+  cells + P18 column 19 cells + voter × P18 canonical positive)
+
+**Slow-test budget at L = 256.** L = 256 voter is ~58 ms/sweep on the
+reference environment. Sprint 20 finite-size tests use 300 sweeps at
+L = 256, 400 at L ∈ {64, 128} — the P18 primary metric (early-window
+Moran Spearman) is calibrated against τ ~ L/2 ~ 128 sweeps, so 300
+sweeps gives ~2.3τ which is sufficient for plateau onset and the
+secondary wall metric. Per-seed runtime: ~15 s at L = 256, ~5 s at
+L = 128, ~3 s at L = 64. Eight-test slow suite runs in ~85 s total.
+
+**Carry-forward from Sprint 20.**
+
+  1. **Schelling × P18 content-level negative test** (highest priority).
+     The §4.20 P1 exclusion currently relies on metadata key
+     `update = 'asynchronous_copy_neighbor'` rather than a measured
+     Schelling × P18 characterization at L = 64. Should add 5-seed
+     Schelling characterization to confirm the metric-level signature
+     (specifically wall-density trajectory shape and Moran growth)
+     does not pass the P18 confirmation gates. ~1 hour.
+
+  2. **N=64 chimera basin in §4.19** (carry-forward from Sprint 19,
+     repeated here). Sprint 19 found that N = 64 is below the seed-
+     robust chimera basin floor at β = 0.05; §4.19 should be edited to
+     state this explicitly. ~30 minutes.
+
+  3. **`lotka_volterra` vs `lotka_volterra_lattice` naming
+     reconciliation** (Sprint 19 carry-forward). The orchestration
+     registry uses `lotka_volterra` while `EXPECTED_OUTCOMES` uses
+     `lotka_volterra_lattice`. Sprint 20's audit follows the existing
+     `lotka_volterra_lattice` convention to avoid introducing a third
+     naming variant; the reconciliation is still an independent
+     ~1-session cleanup.
+
+  4. **Sprint 21 detector-coverage candidates.** Sprint 19 transfer
+     prompt named P18 (this sprint), P23 anti-coordination on a
+     scalar-decision substrate (highest-risk: introduces a new
+     substrate, the first since Sprint 17), and "another cleanup
+     sprint". After Sprint 20 the natural next options are: (a)
+     P23 minority game on a new El-Farol-style substrate, (b) more
+     lattice_2d patterns (P19 leadership, P20 quorum, P32 emergent
+     specialization), or (c) paper pre-submission pass.
+
+  5. **Voter Numba acceleration** (low priority). At L = 256 the inner
+     site-update loop dominates runtime. Numba JIT-compilation of the
+     `step` method would speed it up ~10×. Not blocking any Sprint 21
+     candidate; would only matter if a future sprint targets L ≥ 512.
+
+**Sprint 20 files.**
+
+  NEW:
+    epc/models/voter.py                      (~290 lines)
+    epc/detectors/p18_consensus.py           (~530 lines)
+    tests/test_voter_p18_e2e.py              (~310 lines, 53 tests)
+    scripts/_sprint20_*.py                   (5 internal characterization
+                                              scripts, each ~80–200 lines,
+                                              not committed to repo)
+
+  MODIFIED:
+    epc/orchestration.py                     (+voter, +P18, header narrative)
+    tests/test_orchestration.py              (counts: 19→20 models, 18→19
+                                              detectors, 65→79 pairs, 342→380
+                                              cells, 277→301 mismatches; LV
+                                              pairs 6→7 detectors;
+                                              TestSprint20Registrations: +9 tests;
+                                              canonical-pair list: +voter,P18)
+    tests/test_cross_detection_matrix.py     (+27 EXPECTED_OUTCOMES cells,
+                                              floor bump 146→173, new
+                                              test_sprint_20_voter_p18_covered)
+    docs/paper_section4_draft.md             (+§4.20 ~3,200 words)
+    docs/paper_section5_draft.md             (table 18→19 rows; row "Voter"
+                                              and column "P18" added; opening
+                                              count 146→173, "three findings"
+                                              → "four findings" with voter)
+    docs/paper_section6_draft.md             (+§6.10 ~1,400 words on the
+                                              fourth pure-metric class +
+                                              Decisions 54-56)
+    docs/paper_section7_draft.md             (§7.3 four-class framework,
+                                              §7.3 multi-seed smoke testing,
+                                              §7.4 17→18 patterns / 17→19 models)
+    REPLICATION_NOTES.md                     (+Sprint 20 section)
+    PROJECT_STATUS.md                        (Sprint 18→Sprint 20 refresh)
+    CLAUDE.md                                (Sprint 9→Sprint 20 status pointer)
+
+**Test delta.**
+  Fast half: 235 (Sprint 19) → 290 passed at Sprint 20 HEAD
+   (+10 orchestration registration, +45 voter+P18 e2e fast)
+  Slow half: 16 → 24
+   (+8 voter+P18 finite-size at L ∈ {64,128,256} × 3 seeds, modulo L=256 short)

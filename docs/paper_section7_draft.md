@@ -82,21 +82,32 @@ more nuanced than binary detection. This structure could be adopted by
 other pattern detection frameworks where false-positive control and
 evidence calibration matter.
 
-**Three-class discrimination framework.** The substrate-type /
-substrate-content / metadata-mechanism architecture (Section 6.8),
-which emerged over Sprints 13–18 in response to the recurring
-pattern-catalog-obvious-recipe failures (Section 6.7), is the catalog's
-most broadly applicable contribution. Any pattern detection system that
-will be applied across multiple model families needs all three classes:
-substrate-level registry filtering (Class 1) to prevent cross-substrate
-false positives, substrate-content prerequisites (Class 2) to
-discriminate same-substrate models with different observable types,
-and metadata-mechanism flags (Class 3) to discriminate same-substrate
+**Three-class discrimination framework, plus a fourth pure-metric
+class.** The substrate-type / substrate-content / metadata-mechanism
+architecture (Section 6.8), which emerged over Sprints 13–18 in
+response to the recurring pattern-catalog-obvious-recipe failures
+(Section 6.7), is the catalog's most broadly applicable contribution.
+Any pattern detection system that will be applied across multiple
+model families needs all three classes: substrate-level registry
+filtering (Class 1) to prevent cross-substrate false positives,
+substrate-content prerequisites (Class 2) to discriminate
+same-substrate models with different observable types, and
+metadata-mechanism flags (Class 3) to discriminate same-substrate
 same-observable models with different underlying dynamics. The
 framework is substrate-independent (demonstrated on continuous_2d,
 scalar_wealth, and oscillator substrates with P2, P28, and P10
-respectively) and should generalize to any future substrate where
-multiple dynamically distinct models coexist.
+respectively) and generalizes to any substrate where multiple
+dynamically distinct models coexist. Sprint 20's voter / P18 work
+extended the framework with a fourth class: pure-metric
+within-substrate discrimination, in which calibrated metric-level
+thresholds achieve the same separation that Class 3 achieves with
+metadata flags. This fourth class is preferable when achievable
+because it eliminates the maintenance burden of metadata
+synchronization between models and detectors, but it is achievable
+only when the target pattern's metric trajectory is sharply enough
+separated from each near-neighbor's trajectory across a dense
+discriminator ensemble — a condition more often met by early-time
+signatures than by late-time plateaus (Section 6.10).
 
 **Boundary-conditioned transfer entropy.** The technique of restricting
 TE measurement to structural interaction boundaries, developed for the
@@ -120,33 +131,41 @@ failures documented in Section 6.7 *before* they could contaminate the
 production detector set. It also repeatedly reshaped sprint scope in
 productive directions — the Sprint 10 peak-to-final Moran swap, the
 Sprint 13 substrate-content gate for P3, the Sprint 18 primary-metric
-pivot for P10 — none of which were anticipated at sprint planning
-time. The methodological lesson is that new-detector sprints should
-always allocate explicit time for pre-threshold characterization; a
-detector built without it will carry undiscovered false-positive
-traps.
+pivot for P10, the Sprint 20 null-model pivot from circular shift to
+random permutation, and the Sprint 20 secondary-metric window
+restriction (Decisions 54 and 55) — none of which were anticipated at
+sprint planning time. The methodological lesson is that new-detector
+sprints should always allocate explicit time for pre-threshold
+characterization; a detector built without it will carry undiscovered
+false-positive traps. Sprint 20 also surfaced an additional discipline:
+multi-seed smoke testing across the canonical positive ensemble before
+locking thresholds. Both Sprint 20 detector-design fixes (Decisions
+54 and 55) were discovered when the detector that passed the seed = 0
+smoke test failed on seeds 2, 3, 4 — a failure mode that single-seed
+specification testing would have missed.
 
 ## 7.4 Limitations
 
 Several limitations constrain the current work.
 
 **Coverage.** The catalog defines 32 patterns and the current
-implementation covers 17 of them (P1, P2, P3, P5, P6, P8, P9, P10, P11,
-P12, P13, P14, P15, P21, P22, P27, P28, P31) across 17 model families
-on seven substrates (lattice_1d, lattice_2d, lattice_2d_continuous,
-continuous_2d, oscillator, opinion_space, scalar_wealth). Fifteen
-patterns await detectors, including P4 (territoriality), P7 (lane
-formation), P16 (associative memory), P17 (distributed sensing), P18
-(consensus), P19 (leadership), P20 (quorum sensing), P23 (anti-
-coordination), P24 (homeostatic regulation), P25 (canalized
+implementation covers 18 of them (P1, P2, P3, P5, P6, P8, P9, P10,
+P11, P12, P13, P14, P15, P18, P21, P22, P27, P28, P31) across 19
+model families on seven substrates (lattice_1d, lattice_2d,
+lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
+scalar_wealth). Fourteen patterns await detectors, including P4
+(territoriality), P7 (lane formation), P16 (associative memory), P17
+(distributed sensing), P19 (leadership), P20 (quorum sensing), P23
+(anti-coordination), P24 (homeostatic regulation), P25 (canalized
 restoration), P26 (stochastic resonance), P29 (trail formation), P30
 (autopoiesis), and P32 (emergent specialization). Claims about transfer
 matrix structure are necessarily provisional given this incomplete
 coverage, though the density of within-substrate discrimination
-demonstrated on lattice_2d (eight models × eight potentially applicable
-detectors), continuous_2d (three models × three potentially applicable
-detectors), and oscillator (two models × two potentially applicable
-detectors) supports confidence that the discrimination framework scales.
+demonstrated on lattice_2d (nine models × seven potentially applicable
+detectors after Sprint 20), continuous_2d (three models × three
+potentially applicable detectors), and oscillator (two models × two
+potentially applicable detectors) supports confidence that the
+discrimination framework scales.
 
 **Substrate dependence.** The substrate-aware dispatch system is both a
 strength and a limitation. It correctly prevents cross-substrate false

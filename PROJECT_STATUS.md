@@ -1,10 +1,10 @@
 # Project Status Tracker
 
-Last updated: Sprint 18 (April 2026)
+Last updated: Sprint 20 (April 2026)
 
-## Current state (post Sprint 18)
+## Current state (post Sprint 20)
 
-The catalog has progressed through 18 sprints of work. Sprint 1 built
+The catalog has progressed through 20 sprints of work. Sprint 1 built
 the foundation (Zhang sorting + P1 + P31). Sprints 2–11 filled out the
 core model inventory and detectors across every substrate type.
 Sprint 12 was a paper catch-up sprint. Sprint 13 added the first
@@ -18,31 +18,38 @@ tier depends on a metadata-based mechanistic-null gate (Decision 43),
 completing the three-class discrimination framework. Sprint 17 added
 Yard-Sale + P28 (wealth condensation) — the first well-mixed
 (non-spatial) agent population in the registry, introducing the new
-`scalar_wealth` substrate. **Sprint 18** adds the non-local Kuramoto
+`scalar_wealth` substrate. Sprint 18 added the non-local Kuramoto
 ring + P10 (chimera states) — the second oscillator-substrate model,
-creating the first 2×2 within-substrate block in the transfer matrix
-and the first canonical positive that depends on a specific initial
-condition and seed (chimera/sync bistability). Sprint 18 is the second
-big-science sprint of the Scenario-A catalog-completion campaign.
+creating the first 2×2 within-substrate block in the transfer matrix.
+Sprint 19 was a cleanup sprint that closed the Sprint 11
+orchestration-registration gap for Lotka-Volterra and P11, brought
+§4/§5/§6/§7 of the paper draft up to date through §4.19, and added
+finite-size slow tests at L = 250–1000 for NS/YS/KN. **Sprint 20**
+adds the voter model + P18 (coarsening to consensus) — expanding the
+lattice_2d-with-grid block to nine models and seven compatible
+detectors, the catalog's most heavily populated cross-detection
+block. Voter is the canonical microscopic substrate for emergent
+consensus and the simplest member of a coarsening-without-surface-
+tension universality class (Dornic et al. 2001). P18 uses a
+permutation-null statistical test (ADR 54), an early-window wall-
+density Spearman secondary metric (ADR 55), and canonical async
+voter dynamics exclusively (ADR 56).
 
-## Inventory snapshot at Sprint 18 HEAD
+## Inventory snapshot at Sprint 20 HEAD
 
-- **18 model families** (19 model files, Zhang sequential and threaded
+- **19 model families** (20 model files, Zhang sequential and threaded
   count as the same family)
-- **17 registered detectors** in `epc/orchestration.py::DETECTOR_REGISTRY`
-  + 1 additional column for P11 (Sprint 11 work implemented but not
-  retrofitted into the registry — pre-existing gap; see Sprint 15 #3
-  and Sprint 16 #12 in REPLICATION_NOTES.md)
+- **19 registered detectors** in `epc/orchestration.py::DETECTOR_REGISTRY`
 - **7 substrate types**: lattice_1d, lattice_2d, lattice_2d_continuous,
-  continuous_2d, **oscillator** (newly multi-model at Sprint 18),
-  opinion_space, scalar_wealth
-- **146 audited cells** in `tests/test_cross_detection_matrix.py::
-  EXPECTED_OUTCOMES` (Sprint 17: 112 → Sprint 18: 146, +34 from
-  kuramoto_nonlocal row + P10 column)
-- **Test suite**: **294 passed + 16 deselected** across fast-half
-  (235 + 15 deselected), heavy-half (41 + 1), sandpile-slow
-  (3 + 2), NS slow (3 + 19), ABP slow (4 + 19), YS slow
-  (5 + 30 when run alone), and **new P10 slow (3 + 22 when run alone)**
+  continuous_2d, oscillator, opinion_space, scalar_wealth
+- **18 of 32 patterns covered** (P1, P2, P3, P5, P6, P8, P9, P10, P11,
+  P12, P13, P14, P15, P18, P21, P22, P27, P28, P31)
+- **173 audited cells** in `tests/test_cross_detection_matrix.py::
+  EXPECTED_OUTCOMES` (Sprint 18: 146 → Sprint 20: 173, +27 from
+  voter row + P18 column)
+- **Test suite (Sprint 20)**: orchestration 63 passed (was 53);
+  voter+P18 e2e 45 fast + 8 slow; cross-detection-matrix 24 passed
+  (with new Sprint 20 coverage method)
 
 ## Models (18)
 

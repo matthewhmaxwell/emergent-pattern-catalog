@@ -8,15 +8,15 @@ by substrate type.
 7 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
-              Lotka-Volterra
+              Lotka-Volterra, Voter
 - lattice_2d_continuous: Gray-Scott (continuous-valued field on 2D lattice)
 - continuous_2d: Vicsek, D'Orsogna, ABP
 - oscillator: Kuramoto, Kuramoto-nonlocal
 - opinion_space: Hegselmann-Krause
 - scalar_wealth: Yard-Sale (Sprint 17, new)
 
-Architecture decision #25 (updated Sprint 19):
-  19 models × 18 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 20):
+  20 models × 19 detectors — compatible pairs identified by substrate.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
@@ -46,6 +46,17 @@ Architecture decision #25 (updated Sprint 19):
   the `n_unique_species_observed == 2` prerequisite at content-level
   to discriminate bilateral (LV) from cyclic (RPS, 3+ species)
   predator-prey dynamics. See Decisions 34–36.
+  Voter model (Sprint 20) shares lattice_2d with GH, GoL, Schelling,
+  Nowak-May, SIR, RPS, and Lotka-Volterra; P18 (Sprint 20) is
+  restricted to lattice_2d with content-level discrimination from
+  P13 (excitable wave), P15 (persistent computation), and P1
+  (similarity aggregation) via the three-tier framework: screening
+  uses early-time Moran's I growth, confirmation uses early-time
+  wall-density decay with a permutation-null test, definitive adds
+  bounds on the Moran plateau (excludes GH spirals at ~0.87) and
+  on wall_final (excludes GH random decay at ~0.02) and on minority
+  fraction (excludes GoL decay-to-sparse-still-life at ~0.03). See
+  Decisions 54–56.
 """
 
 from __future__ import annotations
@@ -246,6 +257,16 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_saving_propensity', 'interaction_type',
                        'total_wealth_conserved'],
     ),
+    'voter': ModelRegistration(
+        name='voter',
+        substrate_type='lattice_2d',
+        observables=['grid', 'grid_dims', 'magnetization',
+                     'abs_magnetization', 'wall_density', 'moran_i',
+                     'consensus_reached', 'n_states'],
+        primary_patterns=['P18'],
+        metadata_keys=['rows', 'cols', 'neighborhood', 'boundary',
+                       'substrate', 'update', 'has_movement'],
+    ),
 }
 
 # === Detector Registry ===
@@ -358,6 +379,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         required_substrate=['oscillator'],
         required_observables=['theta'],
         observable_scope='model_metadata_assisted',
+    ),
+    'P18': DetectorRegistration(
+        pattern_id='P18',
+        required_substrate=['lattice_2d'],
+        required_observables=['grid'],
+        observable_scope='state_history_only',
     ),
 }
 

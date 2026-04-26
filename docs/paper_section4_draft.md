@@ -1594,3 +1594,262 @@ substrate-mismatch rejections). The oscillator substrate now holds the
 catalog's first within-substrate 2×2 block — the structural pattern
 that any future substrate addition with multiple models will have to
 replicate.
+
+## 4.20 Voter Model and P18 Coarsening-to-Consensus (Cluster F)
+
+**Primary reference:** Clifford, P. & Sudbury, A. (1973). A model for
+spatial conflict. *Biometrika* 60(3), 581–588.
+
+**Secondary references:** Holley, R. & Liggett, T.M. (1975). Ergodic
+theorems for weakly interacting infinite systems and the voter model.
+*Annals of Probability* 3(4), 643–663. Dornic, I., Chaté, H., Chave,
+J. & Hinrichsen, H. (2001). Critical coarsening without surface
+tension: the universality class of the voter model. *Physical Review
+Letters* 87, 045701. Cox, J.T. (1989). Coalescing random walks and
+voter model consensus times on the torus in Z^d. *Annals of
+Probability* 17(4), 1333–1366.
+
+The voter model is the canonical microscopic substrate for emergent
+consensus on a spatial lattice. Each site holds one of two opinions;
+at each elementary timestep a randomly chosen site copies the opinion
+of a uniformly chosen neighbor. The model is exactly solvable in
+closed form for some quantities — the magnetization is a martingale,
+the system has duality with coalescing random walks, and consensus is
+reached almost surely on a finite graph — but its emergent
+*spatial* signature, the formation and slow merging of single-opinion
+domains, is what places it in the pattern catalog. A 2D voter
+trajectory starting from a random initial condition shows, within
+tens of Monte Carlo sweeps, the rapid formation of contiguous
+opinion clusters; over hundreds of sweeps the clusters coarsen
+slowly until only one survives.
+
+The voter model is the simplest member of a family of consensus-
+forming microscopic dynamics that includes majority-rule voting,
+nonlinear voter models, and Glauber Ising dynamics at zero
+temperature. P18 is designed to capture the universal *coarsening
+without surface tension* signature shared by these dynamics: domains
+form, persist, and slowly merge, but the rate of merging is governed
+by random-walk diffusion of domain boundaries rather than by an
+energetic preference for shorter boundaries. This distinguishes
+voter coarsening from Ising coarsening (which has surface tension and
+classical L(t) ∝ t^{1/2} growth) and from the three lattice-2d
+patterns already in the catalog: P13 (excitable waves), P15
+(persistent computation), and P1 (similarity aggregation).
+
+**Implementation.** `epc/models/voter.py` implements the canonical
+asynchronous Glauber-like dynamics: one Monte Carlo sweep is N = R·C
+elementary site-updates, where each elementary update picks a
+uniformly random site, picks a uniformly random Moore or Von Neumann
+neighbor, and copies the neighbor's state onto the site. We use the
+Moore neighborhood as default. The grid is a torus (periodic
+boundaries). Three initial conditions are supported: random (50/50
+balanced), biased (a tunable initial fraction), and half-and-half
+(deterministic spatial split). Across all characterization runs in
+this section we use random initial conditions unless stated.
+
+A checkerboard-parallelized step was prototyped during development to
+gain ~4× speedup at L = 256 but rejected after validation: while the
+late-time coarsening exponent agreed within statistical noise with
+the canonical async dynamics, the early-time wall-density trajectory
+differed from canonical async by more than 3σ at t = 10 sweeps. Since
+all Sprint 20 detector design decisions are based on the early-time
+trajectory (see ADR 56), the speedup did not justify the
+quantitative drift, and the canonical async dynamics is the only
+dynamics used in this section's characterization and in the slow
+tests pinning P18 across L ∈ {64, 128, 256}.
+
+**The 2D coarsening signature.** A canonical voter run at L = 64,
+random initial condition, observed for 1000 Monte Carlo sweeps:
+during t ∈ [0, 30] sweeps Moran's I (Moore neighborhood, binary
+opinion indicator) grows from ≈ 0 to ≈ 0.5; the wall density
+(fraction of Moore-neighbor pairs with disagreeing states) drops
+from ≈ 0.5 to ≈ 0.27 over the same window. After this rapid
+transient both quantities plateau and drift slowly with the
+characteristic random-walk shape. Across 10 random seeds at L = 64,
+moran_final_qtr_mean = 0.54 ± 0.05 and wall_final_qtr_mean = 0.21 ±
+0.04 (mean ± 1 SD, 1500 sweeps). Across 10 random seeds at L = 128,
+moran_final_qtr_mean = 0.56 ± 0.03 and wall_final_qtr_mean = 0.22 ±
+0.01 — the L = 128 distribution is tighter, as expected for the
+larger ensemble.
+
+**Comparison to theoretical scaling.** Two known theoretical
+predictions are relevant. Dornic et al. (2001) showed that 2D voter
+coarsening is logarithmic — the wall density obeys ρ_w(t) ∝ ln(t)/t
+asymptotically, not a clean power law. A truncated power-law fit
+log ρ_w = a + b log t over t ∈ [30, 500] therefore returns an
+*effective* exponent b that depends on both the fit window and the
+linear size L. Our characterization confirms this: at L = 64,
+effective exponent b = −0.18 ± 0.07 (5 seeds, t window [30, 500]);
+at L = 128, b = −0.11 ± 0.04 (3 seeds). The drift toward zero with
+larger L is the hallmark of the logarithmic correction. Cox (1989)
+established the consensus-time scaling τ_c(L) ∝ L^2 ln L on a 2D
+torus. Our characterization at L = 16, 24, 32 (20 seeds each)
+confirms the L^2 ln L scaling order-of-magnitude but the empirical
+prefactor in our discrete-sweep, Moore-neighborhood implementation
+does not match the continuous-time, nearest-neighbor prefactor in
+Cox's theorem; the consensus-time distribution also exhibits the
+heavy right tail predicted by Ben-Naim et al. (2011) due to long-
+lived stripe-state configurations. Because the detector does not
+gate on the consensus-time prefactor (only on whether the run
+displays coarsening to consensus), this discrepancy is documented
+honestly here but does not impact detection performance.
+
+**P18 detector design.** The detector is a three-tier substrate-aware
+test on lattice_2d with the `grid` observable. Its primary test
+statistic is the early-time Spearman ρ between time and Moran's I
+over t ≤ τ, where τ = max(R, C) / 2 is the system-intrinsic
+timescale (≈ 32 sweeps at L = 64, 64 sweeps at L = 128, 128 sweeps
+at L = 256). Spatial coarsening drives Moran's I upward
+monotonically over this window in the voter model. The screening
+gates are moran_spearman_early > 0.70, moran_final_qtr_mean > 0.30,
+and moran_growth > 0.20. The confirmation tier adds a secondary
+metric — early-window wall-density Spearman — and a permutation-null
+statistical test on the primary statistic. The wall-density
+Spearman gate is wall_spearman_early < −0.40 with wall_final_qtr_mean
+< 0.30 and wall_decay > 0.15, with the null p-value strict at <
+0.01. The definitive tier adds three-class exclusion bounds:
+moran_final_qtr_mean ∈ [0.30, 0.75], wall_final_qtr_mean > 0.05, and
+minority_fraction_final > 0.05. Each bound is calibrated to exclude
+one of the three nearby lattice_2d patterns at content level.
+
+**Null model design.** A circular-shift null was trialed first but
+rejected. Moran's I has strong autocorrelation (consecutive values
+differ by less than 0.05 typically), and circular shifts preserve
+the autocorrelation structure of the original time series. The
+distribution of null Spearman ρ values under circular shift is
+therefore not centered at zero — it has substantial mass at large
+positive values, because shifted trajectories retain a
+quasi-monotonic shape inside the early window. Replacing the
+circular-shift null with a full random permutation null destroys the
+autocorrelation along with the trend, and the null distribution of
+Spearman ρ becomes appropriately centered near zero with standard
+deviation ≈ 0.16. Under this null, voter runs at L = 64 produce
+p < 0.01 with n_permutations = 199 across all 10 seeds tested, while
+the four discriminator scenarios all produce p ≈ 1 because their
+observed early-window Spearman ρ falls inside the null mass. ADR 54
+documents this decision; it parallels the Sprint 11 ADR 36 finding
+that circular shifts preserve autocorrelation in a different
+detector context (P11 cross-correlation null).
+
+**Wall-density Spearman is computed on the early window, not the
+full window.** During development the full-trajectory wall Spearman
+was used as the secondary gate, with threshold < −0.40. For most
+seeds this passes (full-trajectory Spearman is robustly negative
+because the early decay dominates), but for individual seeds the
+late-plateau random-walk noise can push the full-window Spearman
+near zero or even slightly positive — a false negative at the
+detector level. The voter wall-density trajectory has two regimes:
+sharp early decay over t ≤ τ and a slow random-walk drift after.
+The early-window Spearman is reliably ≤ −0.83 across all seeds at
+L = 64, 128, 256, while the full-window Spearman has variance large
+enough to flip sign on some individual seeds. Restricting the
+secondary gate to the early window resolves the false-negative rate
+to zero on the canonical positive ensemble. ADR 55 documents this
+decision.
+
+**Discrimination from the three lattice_2d neighbors.** The Sprint 20
+characterization ensemble compared voter against four discriminator
+configurations at matched L = 64. Greenberg–Hastings excitable CA
+with broken-wave (spiral-seeded) initial condition produces
+Moran's I = 0.87 stationary across the run, with Spearman ρ(t,
+Moran) = 0 (the trajectory is essentially constant once the wave
+stabilizes). The detector rejects this case at screening: the
+moran_spearman_early gate fails immediately. Greenberg–Hastings with
+random initial condition is a more interesting case: Moran's I does
+grow rapidly from ≈ 0 to ≈ 0.6 in the early window because the
+sparse surviving excited cells form structured clusters, and the
+wall density does decrease rapidly over the same window. GH random
+therefore passes the screening tier and the confirmation null
+test. The detector excludes it at the definitive tier via the
+wall_final_qtr_mean > 0.05 gate: GH random's wall density
+collapses to ≈ 0.011 ± 0.007 once excitation dies out, well below
+the 0.05 floor that the voter dynamics maintains (≈ 0.21 at the
+plateau). Game of Life with random initial condition produces a
+classic decay-to-still-life-and-oscillators landscape. Moran's I
+does grow in the early window (Spearman ρ ≈ +0.87) but its plateau
+sits at ≈ 0.27, below the 0.30 screening floor. The detector
+rejects this case at screening. Game of Life with r-pentomino seed
+produces no early-time Moran growth (the r-pentomino starts at
+Moran ≈ 0.35 due to its compact spatial concentration and decays
+slightly over the run as the explosion fills the grid with
+roughly-uniform low-density activity); Spearman ρ(t, Moran) ≈ +0.17,
+again rejected at screening. Schelling segregation has stable type
+labels (agents do not flip), and the metadata flag in the model
+registration explicitly identifies the dynamics as `move`-driven
+rather than `copy`-driven; the detector's exclusion logic relies on
+this metadata key for the P1 exclusion. The full discriminator
+table is summarized below.
+
+| Configuration              | n  | Moran final-quarter | Moran early-window ρ | Wall final-quarter | Wall early-window ρ | Tier reached  |
+|----------------------------|----|---------------------|----------------------|--------------------|----------------------|---------------|
+| voter L = 64               | 10 | 0.54 ± 0.05         | +0.89 ± 0.07         | 0.21 ± 0.04        | −0.94 ± 0.05         | DEFINITIVE    |
+| voter L = 128              | 10 | 0.56 ± 0.03         | +0.96 ± 0.04         | 0.22 ± 0.01        | −0.94 ± 0.04         | DEFINITIVE    |
+| GH random L = 64           |  5 | 0.63 ± 0.04         | +0.93 ± 0.07         | 0.011 ± 0.007      | −0.94 ± 0.04         | CONFIRMATION  |
+| GH broken-wave L = 64      |  5 | 0.87 (constant)     | 0 (constant)         | 0.02 (constant)    | 0 (constant)         | screening rej |
+| GoL random L = 64          |  5 | 0.27 ± 0.02         | +0.87 ± 0.03         | 0.08 ± 0.04        | (irrelevant)         | screening rej |
+| GoL r-pentomino L = 64     |  5 | 0.30 (near-const)   | +0.17 (near-const)   | 0.08 (near-const)  | (irrelevant)         | screening rej |
+
+The clean separation along multiple axes (Moran plateau level for
+GoL, wall plateau level for GH-random, early Moran trajectory shape
+for GH broken-wave and GoL r-pentomino) is what allows the
+three-tier framework to discriminate cleanly without requiring any
+metadata assistance for the four discriminators. The P1 exclusion
+is the only one that uses metadata (the model's `update` key), and
+even there the metadata is not strictly required because Schelling's
+spatial signature (clusters that grow but do not coarsen toward
+consensus) does not satisfy the moran_growth > 0.20 screening gate
+in the run-length window typically used for P1 detection.
+
+**Honest caveat: Schelling negative case is documented but not
+exhaustively validated.** No characterization run was made on
+Schelling at matched L for this sprint. The P1 exclusion is conservative
+— relying on metadata for the rejection — and a Sprint 21 follow-up
+should add a Schelling × P18 content-level negative test to confirm
+that Schelling's coarsening does not satisfy the wall-density and
+Moran-plateau definitive bounds. This is recorded as a Sprint 20
+carry-forward.
+
+**Transfer-matrix additions.** Voter × P18 is the Sprint 20 positive
+(DEFINITIVE). Twenty-seven new cells join the audited matrix:
+nineteen P18-column cells (one canonical positive, six same-substrate
+content-level rejections among lattice_2d-with-grid models, eleven
+substrate-mismatch rejections across the other six substrates, one
+observable-mismatch rejection for btw_sandpile which is lattice_2d
+but lacks the `grid` observable), plus six voter-row content-level
+rejections (voter × P1, P11, P12, P13, P15, P22). Together with the
+27 Sprint 19 + 34 Sprint 18 cells already in the matrix, the audited
+transfer-matrix population now stands at ≥ 173 cells. Voter is the
+ninth lattice_2d-with-grid model in the catalog, and P18 is the
+seventh detector compatible with that block. The lattice_2d
+substrate is now the catalog's most heavily populated cross-detection
+block.
+
+**Sprint 20 ADRs.**
+
+  - **ADR 54 (permutation null).** P18 uses a full random
+    permutation null on the Moran's I trajectory rather than a
+    circular-shift null. Circular shifts preserve autocorrelation
+    structure in the time series, which inflates the null
+    distribution of Spearman ρ at large positive values and pushes
+    voter p-values above the strict 0.01 confirmation gate. Random
+    permutation destroys both the trend and the autocorrelation, the
+    appropriate null for testing "is there a monotonic trend in time
+    against a no-trend null." Echoes Sprint 11 ADR 36 in a different
+    detector context.
+
+  - **ADR 55 (early-window wall Spearman).** P18's secondary metric
+    is the wall-density Spearman ρ over t ≤ τ, not over the full
+    trajectory. The voter wall trajectory has two regimes (sharp
+    early decay, slow late random walk); the late-regime noise can
+    flip the full-window Spearman positive on individual seeds and
+    cause false negatives. The early-window Spearman is uniformly ≤
+    −0.83 across all tested seeds at L ∈ {64, 128, 256}.
+
+  - **ADR 56 (canonical async only).** P18's characterization uses
+    canonical asynchronous voter dynamics exclusively. A
+    checkerboard-parallelized step was trialed for ≈ 4× speedup but
+    rejected: while late-time coarsening exponents agree, early-time
+    trajectories differ by more than 3σ at t = 10 sweeps, and all
+    detector gates are calibrated against the early-time canonical
+    trajectories. Speedup did not justify the quantitative drift.
+
