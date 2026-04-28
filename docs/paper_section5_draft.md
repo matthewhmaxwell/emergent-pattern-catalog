@@ -23,13 +23,15 @@ rows, collapsing the two Zhang sorting variants `zhang_sequential` and
 patterns) and 19 registered detectors. Of the 380 registry cells
 (19 display rows × 19 detector columns yields 361 displayed cells;
 the registry-level count of 380 differentiates the two Zhang variants),
-79 are substrate-compatible, observable-compatible, and empirically
-audited at the cell level; the remaining 282 are correctly eliminated
-by substrate mismatch (multi-substrate boundary) or detector–observable
-incompatibility (chiefly P31 which requires `lattice_1d` with
-`cell_types`, P14 which requires `avalanche_sizes`, and P27 which
-requires `coop_fraction`).
-Of the 79 displayed audited cells, 19 produce canonical DEFINITIVE
+79 registry-level cells are substrate-compatible, observable-compatible,
+and empirically audited (77 of which are displayed in the folded table,
+the remaining 2 being the dropped Zhang variant's compatible cells);
+the remaining 301 registry-level cells (284 in the displayed table)
+are correctly eliminated by substrate mismatch (274 cells: multi-
+substrate boundary) or detector–observable incompatibility (27 cells:
+chiefly P31 which requires `lattice_1d` with `cell_types`, P14 which
+requires `avalanche_sizes`, and P27 which requires `coop_fraction`).
+Of the 79 audited cells, 19 produce canonical DEFINITIVE
 detections (one per primary model family: Zhang × P31, Schelling × P1,
 Vicsek × P5, D'Orsogna × P6, ABP × P2, Kuramoto × P9,
 Kuramoto-nonlocal × P10, GH × P13, GoL × P15 with dense random IC,
@@ -40,6 +42,14 @@ co-occurrences documented below; the remainder reject at prerequisite
 or screening guard, and a small number run without firing (typically
 P15 on stochastic lattice models where the functional replay test
 fails due to irreproducibility).
+
+The figures in this section are programmatically derived from
+`MODEL_REGISTRY` and `DETECTOR_REGISTRY` by
+`scripts/count_transfer_matrix.py`, with the script's output pinned by
+`tests/test_transfer_matrix_counts.py`. Future registry changes will
+fail the test before propagating silently into this section; if the
+test fails, run the script and update both the test's `EXPECTED` dict
+and the prose figures here to match.
 
 The cross-detection-matrix regression table
 (`tests/test_cross_detection_matrix.py::EXPECTED_OUTCOMES`) pins the
