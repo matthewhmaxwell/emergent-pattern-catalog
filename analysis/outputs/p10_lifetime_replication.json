@@ -1,0 +1,78 @@
+{
+  "sprint": 26,
+  "phase": "1k",
+  "purpose": "chimera lifetime distribution at paper beta=0.18",
+  "config": {
+    "Ns": [
+      64,
+      128,
+      256
+    ],
+    "n_seeds_per_N": {
+      "64": 30,
+      "128": 30,
+      "256": 10
+    },
+    "A": 0.995,
+    "beta": 0.18,
+    "T_max": 100,
+    "dt": 0.025,
+    "record_dt": 1.0,
+    "init_mode": "asymmetric_gaussian",
+    "chim_band": [
+      0.4,
+      0.85
+    ],
+    "tau_consecutive": 10,
+    "init_burnin_frames": 20
+  },
+  "summary_per_N": {
+    "64": {
+      "N": 64,
+      "T_max": 100,
+      "n_seeds": 30,
+      "chimera_basin_count": 24,
+      "sync_basin_count": 6,
+      "chimera_basin_fraction": 0.8,
+      "censored_count": 24,
+      "completed_count": 0,
+      "censored_fraction": 1.0,
+      "median_lifetime_frames": 100.0,
+      "mean_lifetime_frames": 100.0,
+      "wall_time_s": 45.31900715827942
+    },
+    "128": {
+      "N": 128,
+      "T_max": 100,
+      "n_seeds": 30,
+      "chimera_basin_count": 15,
+      "sync_basin_count": 15,
+      "chimera_basin_fraction": 0.5,
+      "censored_count": 15,
+      "completed_count": 0,
+      "censored_fraction": 1.0,
+      "median_lifetime_frames": 100.0,
+      "mean_lifetime_frames": 100.0,
+      "wall_time_s": 154.47516322135925
+    },
+    "256": {
+      "N": 256,
+      "T_max": 100,
+      "n_seeds": 10,
+      "chimera_basin_count": 8,
+      "sync_basin_count": 2,
+      "chimera_basin_fraction": 0.8,
+      "censored_count": 8,
+      "completed_count": 0,
+      "censored_fraction": 1.0,
+      "median_lifetime_frames": 100.0,
+      "mean_lifetime_frames": 100.0,
+      "wall_time_s": 220.8505561351776
+    }
+  },
+  "per_N_files": {
+    "64": "p10_lifetime_N64.json",
+    "128": "p10_lifetime_N128.json",
+    "256": "p10_lifetime_N256.json"
+  }
+}

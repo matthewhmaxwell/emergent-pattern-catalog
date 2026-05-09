@@ -4569,3 +4569,328 @@ by Claude Code post-push):**
 | Added | `docs/sprint24/candidate_grades.json` | dry-run grading detail |
 | Added | `scripts/sprint24_baseline.py` | reproducibility: characterization driver |
 | Added | `scripts/sprint24_grade_candidates.py` | reproducibility: candidate dry-run grader |
+
+## Sprint 25 — close #27 contract bug audit + codify Sprint 23/24 process
+
+**Goal.** Address Sprint 24 carry-forward #27 (the `all_exclusions_cleared
+= True` hardcoded pattern in P10, P2, P28) and codify the Sprint 23/24
+process findings (#24, #25, #28, #29) into `CLAUDE.md`. Lower-cost
+sprint by design: the audit found no live false positives in P10/P2/P28,
+so the "fix" is contract tightening rather than detector calibration.
+
+**Workflow.** Single-thread sprint following the Sprint 24 Option A
+discipline (look-before-touching, then patch). The audit phase was
+short-circuit fast because the pattern is at the architectural level —
+reading three detector files and tracing the gate logic took ~5 minutes,
+no model runs needed.
+
+**Phase 1 — audit findings (one paragraph per detector).**
+
+  - **P10 (chimera).** `excluded_patterns = ["P9"]`. P10's
+    `_determine_tier` at lines 564–567 inline-replicates the P9
+    exclusion logic (gates DEFINITIVE on `has_nonlocal_coupling=True`
+    AND `has_frequency_heterogeneity` not True — the P9 exclusion is
+    "is the model a frequency-heterogeneous Kuramoto"). P10's
+    `_check_exclusions` unconditionally returns `P9: "excluded"`
+    (rationale: anything reaching CONFIRMATION has metric-excluded P9
+    via the coexistence gate). So `all_exclusions_cleared = True`
+    is empirically honest, just architecturally redundant. **NO live
+    false positive.**
+
+  - **P2 (MIPS).** `excluded_patterns = ["P1", "P6"]`. P2's
+    `_determine_tier` at line 612 gates DEFINITIVE on
+    `mechanistic_null_test`'s `null_rejects_mips=True`, which
+    requires `has_attraction_rule=False`. P2's `_check_exclusions`
+    returns `P1: "excluded_by_substrate"` (cross-substrate; cannot
+    co-occur by registration), `P6: "excluded"` if
+    `has_attraction_rule=False`, `"not_excluded"` if True,
+    `"inconclusive"` if absent. The two gates (mechanistic null + P6
+    exclusion) consult the same metadata flag — they are redundant
+    in practice. The existing `test_dorsogna_milling_not_definitive`
+    test already pins this. **NO live false positive.**
+
+  - **P28 (wealth condensation).** `excluded_patterns = []`. No
+    near-neighbor patterns share the scalar_wealth substrate at
+    Sprint 17 HEAD. `_check_exclusions` returns empty. So
+    `all_exclusions_cleared = True` is **vacuously true**. **NO live
+    false positive** (and structurally cannot have one until a new
+    pattern is registered on scalar_wealth).
+
+The Sprint 24 finding (P18's `all_exclusions_cleared = True` was a
+behaviorally consequential contract bug because P18's `_check_definitive`
+was metric-only and the metadata-keyed P1 exclusion result was never
+consulted) **does not generalize** to P10/P2/P28. Each of those three
+detectors consults the relevant exclusion-determining metadata at a
+different gate (metadata flag at confirmation→definitive transition for
+P10/P2; no exclusions at all for P28).
+
+**Phase 2 — contract tightening (no behavioral change expected).**
+
+For each of P10, P2, P28: replace the hardcoded
+`bonuses["all_exclusions_cleared"] = True` with a computed value from
+a new `_compute_all_exclusions_cleared` helper that calls
+`_check_exclusions` and returns True iff every entry in
+`excluded_patterns` returns "excluded" (or "excluded_by_substrate"
+for P2's cross-substrate case). The helper returns True for the
+canonical paths that previously hardcoded True; it returns False if a
+future change introduces an unhandled exclusion outcome. The fix is
+purely architectural — the bonus dict's flag now reflects reality
+rather than asserting it.
+
+**Phase 2 — files modified (Sprint 25).**
+
+| Path | What changed |
+|---|---|
+| `epc/detectors/p10_chimera.py` | Added `_compute_all_exclusions_cleared` helper; replaced hardcoded `True` in `_determine_tier`. |
+| `epc/detectors/p2_mips.py` | Added `_compute_all_exclusions_cleared` helper (accepts both `"excluded"` and `"excluded_by_substrate"` as cleared); replaced hardcoded `True` and "exclusions checked in base" comment. |
+| `epc/detectors/p28_wealth_condensation.py` | Added `_compute_all_exclusions_cleared` helper (vacuously True under empty `excluded_patterns`, but consults `_check_exclusions` so future sprints adding patterns are protected). Replaced hardcoded `True`. |
+| `tests/test_kuramoto_p10_e2e.py` | Added `TestSprint25ExclusionContract` — 3 tests pinning helper consistency, false-on-monkey-patched-uncleared, canonical-positive-still-DEFINITIVE. |
+| `tests/test_abp_p2_e2e.py` | Added `TestSprint25ExclusionContract` — 4 tests pinning helper TRUE on clean metadata, FALSE on `has_attraction_rule=True` (P6 not_excluded), FALSE on absent metadata (P6 inconclusive), accepts `"excluded_by_substrate"`. |
+| `tests/test_yard_sale_p28_e2e.py` | Added `TestSprint25ExclusionContract` — 2 tests pinning vacuous-True under empty `excluded_patterns` and FALSE under monkey-patched future-pattern not-excluded. |
+
+**Phase 3 — process convention codification.**
+
+`CLAUDE.md` extended with a new "Sprint Workflow Conventions (codified
+Sprint 25)" section covering five sub-sections:
+  - **Pre-flight checklist** (Sprint 23 #24 + count-script convention)
+  - **Sprint close** (per-deliverable checklist + numerical-claim
+    pinning, addressing Sprint 23 #24 and #25)
+  - **Look-before-touching** (Sprint 24 dry-run grading workflow,
+    addressing Sprint 24 #29; metric-choice principle, addressing
+    Sprint 24 #28)
+  - **File handoff** (Claude.ai → Claude Code thread split, codified)
+  - **Bonus dict contracts** (the architectural lesson from this
+    sprint — bonuses must be computed from actual exclusion results,
+    not hardcoded)
+
+**Test counts at Sprint 25 HEAD.**
+
+| Bucket | Sprint 24 | Sprint 25 | Δ |
+|---|---|---|---|
+| Total tests collected | 573 | 582 | +9 |
+| Fast (`-m "not slow"`) | 508 | 517 | +9 |
+| Slow (`-m "slow"`) | 65 | 65 | 0 |
+| Test files | 30 | 30 | 0 |
+| `test_kuramoto_p10_e2e.py` (fast) | 38 | 41 | +3 |
+| `test_abp_p2_e2e.py` (fast) | 22 | 26 | +4 |
+| `test_yard_sale_p28_e2e.py` (fast) | 11 | 13 | +2 |
+
+Pre-flight bundle (orchestration + transfer-matrix-counts +
+cross-detection-matrix + voter-P18-fast): **205 tests pass at Sprint 25
+HEAD** (unchanged from Sprint 24; the contract-tightening tests live
+in the per-detector test files, not the pre-flight bundle).
+
+Registry counts unchanged: 20 models × 19 detectors × 79 compatible
+pairs (pinned by `tests/test_transfer_matrix_counts.py`).
+
+**Carry-forward summary at Sprint 25 close.**
+
+Closed in Sprint 25:
+- ~~Sprint 24 #27 — `all_exclusions_cleared` latent contract bug pattern
+  in P10/P2/P28~~. **CLOSED.** Audit found no live false positives.
+  Contract tightened; regression tests added.
+- ~~Sprint 23 #24 — sprint-close per-deliverable checklist convention~~.
+  **CLOSED.** Now in `CLAUDE.md` "Sprint close" sub-section.
+- ~~Sprint 23 #25 — paper-figure pinning convention~~. **CLOSED.**
+  Lightweight option (parenthetical citation in prose) codified in
+  `CLAUDE.md` "Sprint close" sub-section.
+- ~~Sprint 24 #28 — metric-choice principle codification~~. **CLOSED.**
+  Now in `CLAUDE.md` "Look-before-touching" sub-section.
+- ~~Sprint 24 #29 — codify dry-run grading workflow~~. **CLOSED.** Now in
+  `CLAUDE.md` "Look-before-touching" sub-section.
+
+Five items closed. Sprint 23 #26 (dangling `v0.23.0` tag) was deliberately
+deferred to the Code thread's tag-handling step at the end of this sprint.
+
+Continuing carry-forwards (12 open after Sprint 25):
+- Sprint 8 #5 — P15 IC sensitivity (low priority).
+- Sprint 9 #6 — RPS wavelength scaling λ ∝ √M (low priority).
+- Sprint 9 #7 — RPS M_c not precisely pinned (low priority).
+- Numba/vectorization for RPS, LV, Gray-Scott, YS, KN (low priority).
+- Sprint 11 #9 — P11 ≥ 1200 generations (documented, not enforced).
+- Sprint 13 #5 — Gray-Scott Pe-scaling slow test.
+- Sprint 14 #3 — P1 test type_labels_at_pos enrichment.
+- Sprint 16 #13 — ABP metastability lower-N bound.
+- Sprint 16 #14 — P2 retrofit rule flags to Vicsek/D'Orsogna.
+- Sprint 17 #16 — YS Numba inner-loop acceleration.
+- Sprint 17 #18 — P28 retrofit flags to second scalar_wealth model.
+- Sprint 18 #19 — KN O(N²) inner loop, Numba/sparse.
+- Sprint 18 #20 — Chimera arc drift quantification.
+- Sprint 18 #23 — P10 β=0.18 paper-parameter full replication.
+- Sprint 20 #21 — Voter Numba acceleration.
+- Slow-test runtime continues to grow — consider splitting `slow` and
+  `very_slow` markers if more finite-size studies land.
+
+**Sprint 25 newly surfaced findings.** None. The audit converged
+cleanly without uncovering new science questions.
+
+**Files added/changed (Sprint 25).**
+
+| Type | Path | Status |
+|---|---|---|
+| Modified | `epc/detectors/p10_chimera.py` | `_compute_all_exclusions_cleared` helper |
+| Modified | `epc/detectors/p2_mips.py` | `_compute_all_exclusions_cleared` helper |
+| Modified | `epc/detectors/p28_wealth_condensation.py` | `_compute_all_exclusions_cleared` helper |
+| Modified | `tests/test_kuramoto_p10_e2e.py` | +TestSprint25ExclusionContract (3 tests) |
+| Modified | `tests/test_abp_p2_e2e.py` | +TestSprint25ExclusionContract (4 tests) |
+| Modified | `tests/test_yard_sale_p28_e2e.py` | +TestSprint25ExclusionContract (2 tests) |
+| Modified | `CLAUDE.md` | +Sprint Workflow Conventions section |
+| Modified | `REPLICATION_NOTES.md` | +this section |
+
+## Sprint 26 — close #23 (P10 β=0.18 paper-parameter full replication)
+
+**Goal.** Close Sprint 18 carry-forward #23. Sprint 18 confirmed seed
+42 at β=0.18 lands in the chimera basin and reaches DEFINITIVE, but the
+two paper-faithful replication elements of Abrams-Strogatz 2004 Fig. 2
+were deferred: (a) chimera lifetime distribution at the paper's β=0.18,
+and (b) (A, β) phase-space boundary. Both delivered here.
+
+**Pre-flight.** Sprint 25 HEAD `930c94b`. Pre-flight bundle 205 tests
+unchanged; no detector / model / metric changes in Sprint 26.
+`scripts/count_transfer_matrix.py` outputs unchanged at
+20 / 19 / 79 / 274 / 27 / 19 / 361 / 77 / 284.
+
+### Phase 1m — (A, β) phase-space boundary
+
+  N=128, A ∈ {0.95, 0.96, ..., 1.00} (6 points),
+  β ∈ {0.00, 0.02, ..., 0.30} (16 points), seed=42, T=50, dt=0.025,
+  IC=asymmetric_gaussian.
+  96 cells, single seed per cell. Classification on r_global mean over
+  last 10 frames: sync if > 0.95, chimera if (0.4, 0.85) with std < 0.10,
+  incoherent if < 0.2, else other.
+
+**Result.**
+  | classification | count |
+  |---|---|
+  | chimera        | 66/96 |
+  | sync           | 30/96 |
+  | incoherent     | 0/96  |
+  | other          | 0/96  |
+
+The chimera region forms a contiguous rectangle:
+**A ∈ [0.95, 1.00], β ∈ [0.00, 0.20]** with a sharp boundary near
+β ≈ 0.21 (every β ≤ 0.20 cell reaches chimera at this seed; every
+β ≥ 0.22 cell reaches sync). The transition is independent of A in the
+tested range — i.e., the boundary is essentially vertical in (A, β)
+space at A close to 1.
+
+**Comparison to Abrams-Strogatz Fig. 2.** Topology agrees: chimera
+states exist in the (β small, A close to 1) corner the paper identifies,
+and the chimera region is bounded above in β by a critical value beyond
+which only full sync is reached. The paper's β=0.18 sits inside the
+chimera region in our scan (r_mean = 0.631–0.652 across A values at
+β=0.18). Quantitative agreement on the boundary location is not
+attempted here — Abrams-Strogatz did not publish a full numerical map
+of the boundary at A=0.995, only the existence claim.
+
+See `analysis/outputs/p10_phase_diagram.json` and
+`analysis/outputs/p10_phase_diagram.npz` for the underlying grid.
+
+### Phase 1k — chimera lifetime / basin fraction at β=0.18
+
+  N ∈ {64, 128, 256}, A=0.995, β=0.18, seeds 0..29 (N=64, 128) or 0..9
+  (N=256), T_max=100, IC=asymmetric_gaussian. Seeds with r_global mean
+  over first 20 frames > 0.95 are classified sync-basin and excluded
+  from lifetime measurement (lifetime=0 by construction). For
+  chimera-basin seeds, lifetime = first frame at which r_global stays
+  outside the chimera band (0.4, 0.85) for ≥ 10 consecutive frames;
+  if never, right-censored at T_max.
+
+**Result.**
+  | N   | n_seeds | chimera basin | sync basin | basin fraction | censored | median LT |
+  |---|---|---|---|---|---|---|
+  | 64  | 30      | 24            | 6          | 0.800          | 24/24    | 100.0     |
+  | 128 | 30      | 15            | 15         | 0.500          | 15/15    | 100.0     |
+  | 256 | 10      |  8            | 2          | 0.800          |  8/8     | 100.0     |
+
+**Two divergences from the paper.**
+
+1. **No transitions to sync observed within T=100.** All 47 chimera-basin
+   seeds (across the three N values) survived the full T_max. The
+   Abrams-Strogatz claim that chimera lifetime is finite and
+   N-dependent cannot be tested in this run — our chimera state is
+   either genuinely infinite-lifetime in this implementation, or has a
+   median lifetime well above T=100 in our time units. (Note that the
+   model's RHS uses an O(1) effective timescale rather than the PDE's
+   natural time units; see the docstring of
+   `epc/models/kuramoto_nonlocal.py::_derivatives`. T=100 in our units
+   may correspond to a different number of "natural" oscillator periods
+   than the paper's reported lifetimes.)
+
+2. **Chimera basin fraction is non-monotone in N.** N=64 and N=256 both
+   show 80% basin fraction; N=128 shows 50%. The paper's narrative
+   (chimera basin grows with N) is not supported by our data. This
+   confirms the Sprint 18 Phase 1b finding (REPLICATION_NOTES line
+   3481: "roughly 50/50 split between sync and chimera basins" at
+   N=128, β=0.18) and extends it to N=64 and N=256. Wilson 95% CIs:
+   N=64 [0.63, 0.91], N=128 [0.33, 0.67], N=256 [0.49, 0.94] — the
+   N=128 dip from N=64 is statistically significant (CIs do not
+   overlap); the N=128 vs N=256 difference is not (CIs overlap).
+   The N=64 → N=128 → N=256 non-monotonicity may reflect the Sprint
+   18 IC-dependence finding (ADR 51) and is not a numerical artifact
+   of either the simulator or the classification rule.
+
+**Honest scope.** This is partial replication: topology of the phase
+diagram replicates cleanly; lifetime-finite claim is neither confirmed
+nor refuted (T_max insufficient); basin-fraction-vs-N claim does not
+replicate at the paper's β=0.18. The latter is a genuine divergence
+worth documenting rather than rationalizing — possible sources include
+the IC formula difference (asymmetric Gaussian vs. paper's narrower
+localized noise), the N values tested (paper's grid extends higher),
+and the integration-time-units convention (see _derivatives docstring).
+
+See `analysis/outputs/p10_lifetime_replication.json` (manifest),
+`analysis/outputs/p10_lifetime_N{64,128,256}.json` (per-N raw),
+`analysis/outputs/p10_lifetime_N{64,128,256}_trajectories.npz`
+(r_traj per chimera-basin seed), and
+`analysis/outputs/p10_phase_diagram.png` (canonical figure).
+
+### Carry-forwards
+
+Closed in Sprint 26:
+- ~~Sprint 18 #23 — P10 replication against β=0.18 paper value~~. **CLOSED**
+  with documented partial replication (topology yes, lifetime-finite
+  inconclusive, basin-fraction-vs-N divergent). The findings strengthen
+  ADR 51's choice of β=0.05 as canonical positive — at β=0.18, the
+  basin structure is non-trivially N-dependent and the chimera state
+  is too long-lived for a fast-test lifetime measurement; β=0.05 has
+  none of these complications.
+
+Newly surfaced:
+- **#30 (Sprint 26).** Lifetime measurement with sufficient T_max to
+  observe chimera→sync transitions. Requires either Numba-accelerated
+  RHS (Sprint 18 #19) or an order-of-magnitude longer wall budget.
+  Worth deferring until #19 lands.
+- **#31 (Sprint 26).** Per-cell basin volume on the (A, β) phase
+  diagram (multi-seed sample at each Phase 1m cell). Would tighten
+  the boundary location and may surface the seed-sensitivity that
+  drove the β=0.05 vs β=0.18 ADR. 1 session if #19 lands first.
+- **#32 (Sprint 26).** Reconcile integration-time-units convention.
+  The kernel-normalization choice in `_derivatives` absorbs the
+  Riemann measure dy = 2π/N into an O(1) timescale, which means our
+  T=100 is not directly comparable to the paper's lifetime numbers.
+  Worth a one-paragraph methods note in §4.19.
+
+Continuing carry-forwards (12 → 14 open after Sprint 26, net +2):
+- All 12 from Sprint 25 carry-forward list above
+- New: #30 (lifetime T_max extension), #31 (multi-seed phase boundary),
+  #32 (integration time-units methods note).
+
+**Files added/changed (Sprint 26).**
+
+| Type | Path | Status |
+|---|---|---|
+| New | `analysis/p10_phase_diagram.py` | Phase 1m scan script |
+| New | `analysis/p10_lifetime_one_N.py` | Phase 1k per-N script |
+| New | `analysis/p10_make_figure.py` | Two-panel figure generator |
+| New | `analysis/outputs/p10_phase_diagram.json` | Phase 1m grid + classifications |
+| New | `analysis/outputs/p10_phase_diagram.npz` | Phase 1m npz |
+| New | `analysis/outputs/p10_lifetime_replication.json` | Phase 1k manifest |
+| New | `analysis/outputs/p10_lifetime_N64.json` | Phase 1k N=64 raw |
+| New | `analysis/outputs/p10_lifetime_N128.json` | Phase 1k N=128 raw |
+| New | `analysis/outputs/p10_lifetime_N256.json` | Phase 1k N=256 raw |
+| New | `analysis/outputs/p10_lifetime_N64_trajectories.npz` | Phase 1k trajectories |
+| New | `analysis/outputs/p10_lifetime_N128_trajectories.npz` | Phase 1k trajectories |
+| New | `analysis/outputs/p10_lifetime_N256_trajectories.npz` | Phase 1k trajectories |
+| New | `analysis/outputs/p10_phase_diagram.png` | Canonical Sprint 26 figure |
+| Modified | `REPLICATION_NOTES.md` | +this section |

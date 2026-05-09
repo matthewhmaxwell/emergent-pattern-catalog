@@ -1,0 +1,228 @@
+{
+  "summary": {
+    "N": 64,
+    "T_max": 100,
+    "n_seeds": 30,
+    "chimera_basin_count": 24,
+    "sync_basin_count": 6,
+    "chimera_basin_fraction": 0.8,
+    "censored_count": 24,
+    "completed_count": 0,
+    "censored_fraction": 1.0,
+    "median_lifetime_frames": 100.0,
+    "mean_lifetime_frames": 100.0,
+    "wall_time_s": 45.31900715827942
+  },
+  "results": [
+    {
+      "seed": 0,
+      "basin": "chimera",
+      "r_burnin": 0.6388042950362351,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 1,
+      "basin": "chimera",
+      "r_burnin": 0.6585489042028533,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 2,
+      "basin": "chimera",
+      "r_burnin": 0.6839169068330524,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 3,
+      "basin": "chimera",
+      "r_burnin": 0.6425225950012028,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 4,
+      "basin": "sync",
+      "r_burnin": 0.9698347002891431,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 5,
+      "basin": "sync",
+      "r_burnin": 0.9854618550222674,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 6,
+      "basin": "chimera",
+      "r_burnin": 0.6613770525450734,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 7,
+      "basin": "chimera",
+      "r_burnin": 0.67459222825434,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 8,
+      "basin": "chimera",
+      "r_burnin": 0.6438952414298855,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 9,
+      "basin": "chimera",
+      "r_burnin": 0.6535538441268931,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 10,
+      "basin": "chimera",
+      "r_burnin": 0.6544152970400049,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 11,
+      "basin": "chimera",
+      "r_burnin": 0.7129595172285141,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 12,
+      "basin": "chimera",
+      "r_burnin": 0.6713467106964555,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 13,
+      "basin": "chimera",
+      "r_burnin": 0.6855681133185135,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 14,
+      "basin": "chimera",
+      "r_burnin": 0.6845198695875594,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 15,
+      "basin": "chimera",
+      "r_burnin": 0.6449458633761042,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 16,
+      "basin": "chimera",
+      "r_burnin": 0.6335886135907896,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 17,
+      "basin": "chimera",
+      "r_burnin": 0.6695618010476689,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 18,
+      "basin": "chimera",
+      "r_burnin": 0.6461757383595728,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 19,
+      "basin": "sync",
+      "r_burnin": 0.9811932877544265,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 20,
+      "basin": "chimera",
+      "r_burnin": 0.644525576541332,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 21,
+      "basin": "chimera",
+      "r_burnin": 0.6591499941234706,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 22,
+      "basin": "chimera",
+      "r_burnin": 0.6399508473394401,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 23,
+      "basin": "sync",
+      "r_burnin": 0.9899257253695135,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 24,
+      "basin": "sync",
+      "r_burnin": 0.9773134873162821,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 25,
+      "basin": "chimera",
+      "r_burnin": 0.6423790917802437,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 26,
+      "basin": "sync",
+      "r_burnin": 0.9831967329037109,
+      "lifetime": 0,
+      "censored": false
+    },
+    {
+      "seed": 27,
+      "basin": "chimera",
+      "r_burnin": 0.641150919893039,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 28,
+      "basin": "chimera",
+      "r_burnin": 0.6861788815999367,
+      "lifetime": 100,
+      "censored": true
+    },
+    {
+      "seed": 29,
+      "basin": "chimera",
+      "r_burnin": 0.6330840484349846,
+      "lifetime": 100,
+      "censored": true
+    }
+  ]
+}
