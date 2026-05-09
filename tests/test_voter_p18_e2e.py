@@ -11,6 +11,11 @@ Test classes:
     rejection without reliance on the metadata flag (Class 4 of §6.10).
 - TestP18MultiSeed: detector behavior across seeds (run-to-run robustness).
 - TestSprint20SlowReplication: finite-size slow tests at L ∈ {64, 128, 256}.
+- TestSprint24Schelling0p5Regression: Sprint 24 closes carry-forward #20b.
+    Pins Schelling × P18 at thresholds 0.43 and 0.5 to NOT reach DEFINITIVE
+    (the pre-Sprint-24 false positive). 30 parametrized tests (2 thresholds
+    × 5 seeds × 3 assertions: not-DEFINITIVE, exactly-CONFIRMATION,
+    P1-inconclusive). See docs/sprint24/phase1_baseline.md.
 """
 
 from __future__ import annotations
@@ -562,4 +567,132 @@ class TestSprint20SlowReplication:
             f"voter L={L} seed={seed} should reach DEFINITIVE, "
             f"got {r.tier.name}, p={r.null_p_value:.4f}, "
             f"primary={r.primary_metric}"
+        )
+
+
+# ============================================================================
+# Sprint 24 — close carry-forward #20b (Schelling × P18 false positive)
+# ============================================================================
+
+
+class TestSprint24Schelling0p5Regression:
+    """Sprint 24 regression test: closes carry-forward #20b.
+
+    Phase 1 baseline characterization (docs/sprint24/phase1_baseline.md)
+    showed that under the Sprint 23 detector state, Schelling at
+    threshold ∈ {0.43, 0.5} reaches P18 DEFINITIVE on all 5 characterized
+    seeds — a metric-level false positive. The Sprint 24 fix raises
+    DEFINITIVE_MORAN_FINAL_MIN from 0.30 to 0.45 (C5) and adds an
+    explicit exclusions-must-be-cleared check inside _check_definitive
+    (C2). This test pins both regimes against re-introducing the false
+    positive.
+
+    Schelling at thresholds 0.43 and 0.5 is dynamically equivalent at
+    full-neighborhood positions because the discrete same-fraction
+    values {0, 1/8, 2/8, 3/8, 4/8, ...} skip the half-open interval
+    [0.43, 0.5). Both thresholds therefore produce bit-for-bit identical
+    metric outcomes (verified Phase 1: moran_final 0.375 vs 0.375,
+    wall_final 0.276 vs 0.276 at seed=0). Pinning both ensures any
+    future change that resurfaces the Schelling FP is caught regardless
+    of which threshold a regression touches.
+
+    The test asserts the EXACT post-fix tier outcome: tier ==
+    CONFIRMATION (the metric path through screening + confirmation is
+    valid, but the P1 exclusion gate does not clear because Schelling's
+    metadata lacks an 'update' token). This is stronger than asserting
+    "not DEFINITIVE" because it pins the architectural intent of C6:
+    Schelling is honestly reported as confirmation-tier evidence with
+    nearest-neighbor exclusions still ambiguous.
+    """
+
+    SEEDS = [0, 1, 2, 3, 4]
+    L = 64
+    N_STEPS = 300
+
+    @pytest.fixture(scope="class")
+    def schelling_runs_at_high_threshold(self):
+        """Cache Schelling runs at thresholds 0.43 and 0.5 for all 5 seeds."""
+        out = {}
+        for threshold in (0.43, 0.5):
+            for seed in self.SEEDS:
+                h = run_schelling(grid_size=self.L,
+                                  density=0.9,
+                                  threshold=threshold,
+                                  n_steps=self.N_STEPS,
+                                  seed=seed)
+                out[(threshold, seed)] = h
+        return out
+
+    @pytest.mark.parametrize("threshold", [0.43, 0.5])
+    @pytest.mark.parametrize("seed", SEEDS)
+    def test_schelling_high_threshold_does_not_reach_definitive(
+        self, threshold, seed, schelling_runs_at_high_threshold
+    ):
+        """Sprint 24 regression: Schelling thr ∈ {0.43, 0.5} must NOT
+        reach DEFINITIVE.
+
+        Pre-fix (Sprint 23): all 5 seeds at each threshold reach
+        DEFINITIVE with P1='inconclusive'. Post-fix: tier ==
+        CONFIRMATION on every seed.
+        """
+        h = schelling_runs_at_high_threshold[(threshold, seed)]
+        det = P18ConsensusDetector(n_permutations=199, seed=0)
+        meta = {"threshold": threshold, "density": 0.9}
+        r = det.detect(h, model_metadata=meta)
+        assert r.tier != DetectionTier.DEFINITIVE, (
+            f"Sprint 24 #20b regression: Schelling thr={threshold} "
+            f"seed={seed} reached DEFINITIVE (false positive resurfaced). "
+            f"primary={r.primary_metric}, secondary={r.secondary_metrics}, "
+            f"exclusions={r.exclusion_results}, p={r.null_p_value:.4f}"
+        )
+
+    @pytest.mark.parametrize("threshold", [0.43, 0.5])
+    @pytest.mark.parametrize("seed", SEEDS)
+    def test_schelling_high_threshold_pinned_at_confirmation(
+        self, threshold, seed, schelling_runs_at_high_threshold
+    ):
+        """Sprint 24 architectural pin: Schelling thr ∈ {0.43, 0.5}
+        reaches exactly CONFIRMATION (not screening, not definitive).
+
+        This pins the C6 design intent: Schelling has confirmable
+        metric signature for P18-style coarsening (Moran growth, wall
+        decay) but the P1 nearest-neighbor exclusion is "inconclusive"
+        because the model's metadata lacks an 'update' token, so the
+        DEFINITIVE gate is correctly held back.
+        """
+        h = schelling_runs_at_high_threshold[(threshold, seed)]
+        det = P18ConsensusDetector(n_permutations=199, seed=0)
+        meta = {"threshold": threshold, "density": 0.9}
+        r = det.detect(h, model_metadata=meta)
+        assert r.tier == DetectionTier.CONFIRMATION, (
+            f"Sprint 24 C6 architectural pin: Schelling thr={threshold} "
+            f"seed={seed} expected CONFIRMATION, got {r.tier.name}. "
+            f"primary={r.primary_metric}, exclusions={r.exclusion_results}"
+        )
+
+    @pytest.mark.parametrize("threshold", [0.43, 0.5])
+    @pytest.mark.parametrize("seed", SEEDS)
+    def test_schelling_high_threshold_p1_inconclusive(
+        self, threshold, seed, schelling_runs_at_high_threshold
+    ):
+        """The P1 exclusion outcome must remain 'inconclusive' for
+        Schelling at thr ∈ {0.43, 0.5}.
+
+        This documents the architectural invariant that drives the C2
+        component of C6: Schelling's metadata has no 'update' key, so
+        the metadata-keyed P1 exclusion in _check_exclusions returns
+        'inconclusive', not 'excluded'. The DEFINITIVE gate's new
+        exclusions-must-be-cleared rule then correctly holds back.
+        Removing this invariant (e.g., adding an 'update' key to
+        Schelling's metadata that contains 'copy'/'imitation'/'voter')
+        would be a registry-level change requiring its own audit.
+        """
+        h = schelling_runs_at_high_threshold[(threshold, seed)]
+        det = P18ConsensusDetector(n_permutations=199, seed=0)
+        meta = {"threshold": threshold, "density": 0.9}
+        r = det.detect(h, model_metadata=meta)
+        assert r.exclusion_results.get("P1") == "inconclusive", (
+            f"Sprint 24 invariant: Schelling thr={threshold} seed={seed} "
+            f"P1 exclusion expected 'inconclusive', got "
+            f"{r.exclusion_results.get('P1')!r}. exclusions={r.exclusion_results}"
         )

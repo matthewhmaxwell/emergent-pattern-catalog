@@ -1867,6 +1867,71 @@ was calibrated against; it is not unconditional, and a future
 sprint should re-calibrate the wall ceiling, add a P1-aware
 definitive downgrade, or both.
 
+**Sprint 24 update: #20b closed via combined gate fix (C6).** The
+Sprint 24 Phase 1 baseline characterization
+(`docs/sprint24/phase1_baseline.md`) ran a full audit of voter
+(L ∈ {64, 128, 256} × 5 seeds = 15 runs) and Schelling (thresholds
+{0.30, 0.375, 0.43, 0.5} × 5 seeds = 20 runs) against the unmodified
+Sprint 23 detector, then graded six candidate fixes against the
+saved baseline metrics. Two findings drove the resolution:
+
+  - **The false positive generalizes from {0.5} to (0.375, 0.5].**
+    Phase 1 added threshold = 0.43 to the audit and discovered
+    bit-for-bit identical metric outcomes vs threshold = 0.5 across
+    all five seeds. The reason is Schelling's discrete neighbor
+    counting: at full neighborhood (8 neighbors) the possible
+    same-fraction values are {0/8, 1/8, …, 8/8}, none of which
+    falls in the half-open interval [0.43, 0.5). Threshold = 0.43
+    and threshold = 0.5 are dynamically equivalent at full-
+    neighborhood positions, so the false positive is broader than
+    the Sprint 21 carry-forward suggested.
+  - **The cleanest empirical separation is on `moran_final_qtr_mean`,
+    not `wall_final_qtr_mean`.** Voter `moran_final` ∈ [0.499, 0.663]
+    across all 15 runs vs Schelling thr ∈ {0.43, 0.5} ∈ [0.375,
+    0.410] across all 10 runs — a 0.089-wide gap with clean
+    midpoint at 0.45. The wall-ceiling alternative (proposed in
+    Sprint 21 as one of three candidates) has only a 0.012 margin
+    at voter L = 128 against a tightened 0.25 ceiling, trading the
+    known false positive for a probable future false negative.
+
+The Sprint 24 fix (C6) is two-pronged:
+
+  (1) **C5 component:** raise `DEFINITIVE_MORAN_FINAL_MIN` from 0.30
+      to 0.45. The new definitive window for Moran's I is [0.45,
+      0.75]. Voter passes with ≥ 0.05 margin on the new floor;
+      Schelling at thr ∈ {0.43, 0.5} fails by ~0.05.
+
+  (2) **C2 component:** `_check_definitive` now consults
+      `_check_exclusions` and requires
+      `exclusion_results[P1] == "excluded"` (and P13, P15) for the
+      DEFINITIVE tier. Previously the DEFINITIVE gate was metric-
+      only, with the bonus dictionary's `all_exclusions_cleared`
+      flag hardcoded to `True` — making the architectural assertion
+      "definitive REQUIRES exclusions cleared" cosmetic. C2 makes
+      it real and provides defense in depth: even if a future
+      Schelling parameter or a different cause produced
+      moran_final ≥ 0.45, the metadata-keyed P1 exclusion would
+      still hold the definitive tier back because Schelling's
+      `update` key is absent.
+
+Post-fix verification (Phase 2): voter retains 15/15 DEFINITIVE on
+the same 15-run baseline; Schelling at thresholds 0.43 and 0.5 now
+reaches CONFIRMATION (5/5 each) rather than DEFINITIVE — the
+honest tier outcome for "metrics consistent with coarsening, but
+nearest-neighbor exclusions cannot be cleared." Schelling at
+thresholds 0.30 and 0.375 is unchanged (BELOW_SCREENING and
+SCREENING-or-BELOW respectively, matching Sprint 21). The full
+175-test pre-flight bundle and the broader 205-test voter+P18 test
+suite (including 30 new `TestSprint24Schelling0p5Regression`
+parametrized tests) all pass.
+
+The §6.10 pure-metric discrimination claim now holds with a
+narrower but more honest scope: voter is metric-distinguishable
+from Schelling across the entire useful parameter range
+τ ∈ [0.30, 0.5], with metadata-keyed defense in depth at the
+DEFINITIVE tier rather than at the CONFIRMATION tier. Carry-
+forward #20b is closed.
+
 **Transfer-matrix additions.** Voter × P18 is the Sprint 20 positive
 (DEFINITIVE). Twenty-seven new cells join the audited matrix:
 nineteen P18-column cells (one canonical positive, six same-substrate

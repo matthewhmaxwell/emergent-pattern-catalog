@@ -1,0 +1,2980 @@
+{
+  "voter": {
+    "BASELINE": {
+      "label": "voter",
+      "candidate": "BASELINE",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C1": {
+      "label": "voter",
+      "candidate": "C1",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C2": {
+      "label": "voter",
+      "candidate": "C2",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C3": {
+      "label": "voter",
+      "candidate": "C3",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C2_AND_C3": {
+      "label": "voter",
+      "candidate": "C2_AND_C3",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C4_C1_AND_C2": {
+      "label": "voter",
+      "candidate": "C4_C1_AND_C2",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C5": {
+      "label": "voter",
+      "candidate": "C5",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    },
+    "C6_C5_AND_C2": {
+      "label": "voter",
+      "candidate": "C6_C5_AND_C2",
+      "counts": {
+        "DEFINITIVE": 15
+      },
+      "n": 15,
+      "detail": [
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 64,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 128,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 0,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 1,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 42,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 200,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        },
+        {
+          "model": "voter",
+          "L": 256,
+          "seed": 500,
+          "threshold": null,
+          "metadata_path": null,
+          "baseline_tier": "DEFINITIVE",
+          "candidate_tier": "DEFINITIVE"
+        }
+      ]
+    }
+  },
+  "schelling_by_threshold": {
+    "0.3": {
+      "BASELINE": {
+        "label": "sch_thr=0.3",
+        "candidate": "BASELINE",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C1": {
+        "label": "sch_thr=0.3",
+        "candidate": "C1",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C2": {
+        "label": "sch_thr=0.3",
+        "candidate": "C2",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C3": {
+        "label": "sch_thr=0.3",
+        "candidate": "C3",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C2_AND_C3": {
+        "label": "sch_thr=0.3",
+        "candidate": "C2_AND_C3",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C4_C1_AND_C2": {
+        "label": "sch_thr=0.3",
+        "candidate": "C4_C1_AND_C2",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C5": {
+        "label": "sch_thr=0.3",
+        "candidate": "C5",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C6_C5_AND_C2": {
+        "label": "sch_thr=0.3",
+        "candidate": "C6_C5_AND_C2",
+        "counts": {
+          "BELOW_SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.3,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      }
+    },
+    "0.375": {
+      "BASELINE": {
+        "label": "sch_thr=0.375",
+        "candidate": "BASELINE",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C1": {
+        "label": "sch_thr=0.375",
+        "candidate": "C1",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C2": {
+        "label": "sch_thr=0.375",
+        "candidate": "C2",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C3": {
+        "label": "sch_thr=0.375",
+        "candidate": "C3",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C2_AND_C3": {
+        "label": "sch_thr=0.375",
+        "candidate": "C2_AND_C3",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C4_C1_AND_C2": {
+        "label": "sch_thr=0.375",
+        "candidate": "C4_C1_AND_C2",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C5": {
+        "label": "sch_thr=0.375",
+        "candidate": "C5",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      },
+      "C6_C5_AND_C2": {
+        "label": "sch_thr=0.375",
+        "candidate": "C6_C5_AND_C2",
+        "counts": {
+          "BELOW_SCREENING": 4,
+          "SCREENING": 1
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "SCREENING",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.375,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "BELOW_SCREENING",
+            "candidate_tier": "BELOW_SCREENING"
+          }
+        ]
+      }
+    },
+    "0.43": {
+      "BASELINE": {
+        "label": "sch_thr=0.43",
+        "candidate": "BASELINE",
+        "counts": {
+          "DEFINITIVE": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          }
+        ]
+      },
+      "C1": {
+        "label": "sch_thr=0.43",
+        "candidate": "C1",
+        "counts": {
+          "SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          }
+        ]
+      },
+      "C2": {
+        "label": "sch_thr=0.43",
+        "candidate": "C2",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C3": {
+        "label": "sch_thr=0.43",
+        "candidate": "C3",
+        "counts": {
+          "DEFINITIVE": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          }
+        ]
+      },
+      "C2_AND_C3": {
+        "label": "sch_thr=0.43",
+        "candidate": "C2_AND_C3",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C4_C1_AND_C2": {
+        "label": "sch_thr=0.43",
+        "candidate": "C4_C1_AND_C2",
+        "counts": {
+          "SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          }
+        ]
+      },
+      "C5": {
+        "label": "sch_thr=0.43",
+        "candidate": "C5",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C6_C5_AND_C2": {
+        "label": "sch_thr=0.43",
+        "candidate": "C6_C5_AND_C2",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.43,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      }
+    },
+    "0.5": {
+      "BASELINE": {
+        "label": "sch_thr=0.5",
+        "candidate": "BASELINE",
+        "counts": {
+          "DEFINITIVE": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          }
+        ]
+      },
+      "C1": {
+        "label": "sch_thr=0.5",
+        "candidate": "C1",
+        "counts": {
+          "SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          }
+        ]
+      },
+      "C2": {
+        "label": "sch_thr=0.5",
+        "candidate": "C2",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C3": {
+        "label": "sch_thr=0.5",
+        "candidate": "C3",
+        "counts": {
+          "DEFINITIVE": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "DEFINITIVE"
+          }
+        ]
+      },
+      "C2_AND_C3": {
+        "label": "sch_thr=0.5",
+        "candidate": "C2_AND_C3",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C4_C1_AND_C2": {
+        "label": "sch_thr=0.5",
+        "candidate": "C4_C1_AND_C2",
+        "counts": {
+          "SCREENING": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "SCREENING"
+          }
+        ]
+      },
+      "C5": {
+        "label": "sch_thr=0.5",
+        "candidate": "C5",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      },
+      "C6_C5_AND_C2": {
+        "label": "sch_thr=0.5",
+        "candidate": "C6_C5_AND_C2",
+        "counts": {
+          "CONFIRMATION": 5
+        },
+        "n": 5,
+        "detail": [
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 0,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 1,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 2,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 3,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          },
+          {
+            "model": "schelling",
+            "L": 64,
+            "seed": 4,
+            "threshold": 0.5,
+            "metadata_path": "with_metadata",
+            "baseline_tier": "DEFINITIVE",
+            "candidate_tier": "CONFIRMATION"
+          }
+        ]
+      }
+    }
+  },
+  "voter_wall_final_by_L": {
+    "64": {
+      "values": [
+        0.153326416015625,
+        0.1561279296875,
+        0.19703369140625,
+        0.165587158203125,
+        0.2010693359375
+      ],
+      "min": 0.153326416015625,
+      "max": 0.2010693359375,
+      "mean": 0.17462890625
+    },
+    "128": {
+      "values": [
+        0.1868902587890625,
+        0.20831939697265625,
+        0.2377093505859375,
+        0.22793975830078125,
+        0.20768707275390624
+      ],
+      "min": 0.1868902587890625,
+      "max": 0.2377093505859375,
+      "mean": 0.21370916748046875
+    },
+    "256": {
+      "values": [
+        0.21349629720052082,
+        0.21975809733072918,
+        0.2194709269205729,
+        0.23403564453125,
+        0.22274017333984375
+      ],
+      "min": 0.21349629720052082,
+      "max": 0.23403564453125,
+      "mean": 0.22190022786458333
+    }
+  }
+}

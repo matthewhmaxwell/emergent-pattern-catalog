@@ -12,7 +12,8 @@ Works for any 2D grid model with binary or multi-state opinion variables
 where local imitation/copying drives a monotonic reduction in spatial
 boundary density over time.
 
-Detection tiers (from Sprint 20 characterization, §4.20):
+Detection tiers (from Sprint 20 characterization, §4.20; Sprint 24 update
+for gates that close carry-forward #20b):
 
   Screening: early-time monotonic growth of Moran's I AND final Moran's I
              above the spatial-structure threshold. Captures the rapid
@@ -26,11 +27,19 @@ Detection tiers (from Sprint 20 characterization, §4.20):
   Definitive: all confirmation gates AND three-class content-level exclusion
              of the lattice_2d neighbors (GH excitable, GoL persistent,
              Schelling aggregation). Specifically:
-               - moran_final ∈ [0.30, 0.75] (excludes pre-organized
-                 GH spiral at ~0.87 and GoL-random plateau at ~0.27)
-               - wall_final > 0.05 (excludes GH at ~0.02)
+               - moran_final ∈ [0.45, 0.75] (Sprint 24 C5 update: floor
+                 raised from 0.30 to 0.45 to exclude Schelling thr ∈
+                 (0.375, 0.5] whose moran_final ≈ 0.39 sits in the old
+                 window)
+               - wall_final > 0.05 (excludes GH at ~0.036)
                - minority fraction stays above 0.05 at end (excludes GoL
                  decay-to-sparse-still-life)
+               - exclusion_results[P1] == "excluded" AND
+                 exclusion_results[P13] == "excluded" AND
+                 exclusion_results[P15] == "excluded" (Sprint 24 C2 update:
+                 _check_definitive now consults _check_exclusions; previously
+                 these were checked only for the bonus-dict
+                 all_exclusions_cleared flag, which was hardcoded True).
 
 Null model: full random permutation of the Moran's I trajectory time
 indices (ADR 54, Sprint 20). Under H0 (no temporal trend), the early-time
@@ -125,7 +134,7 @@ class P18ConsensusDetector(BaseDetector):
       - minority_fraction_final: minority opinion share at end of run.
     """
 
-    # Characterization-derived gates (Sprint 20 §4.20)
+    # Characterization-derived gates (Sprint 20 §4.20; Sprint 24 C5 update)
     SCREENING_MORAN_SPEARMAN_MIN = 0.70
     SCREENING_MORAN_FINAL_MIN = 0.30
     SCREENING_MORAN_GROWTH_MIN = 0.20
@@ -134,7 +143,14 @@ class P18ConsensusDetector(BaseDetector):
     CONFIRMATION_WALL_FINAL_MAX = 0.30
     CONFIRMATION_WALL_DECAY_MIN = 0.15
 
-    DEFINITIVE_MORAN_FINAL_MIN = 0.30
+    # Sprint 24: DEFINITIVE_MORAN_FINAL_MIN raised 0.30 → 0.45 to close
+    # carry-forward #20b (Schelling threshold ∈ (0.375, 0.5] reaches
+    # P18 DEFINITIVE because moran_final ≈ 0.39, in the old [0.30, 0.75]
+    # window). Phase 1 baseline (sprint24/phase1_baseline.md) shows
+    # voter moran_final ∈ [0.499, 0.663] across L ∈ {64, 128, 256} ×
+    # 5 seeds vs Schelling thr ∈ {0.43, 0.5} moran_final ∈ [0.375,
+    # 0.410] — a 0.089-wide gap with ~0.05 margin on each side of 0.45.
+    DEFINITIVE_MORAN_FINAL_MIN = 0.45
     DEFINITIVE_MORAN_FINAL_MAX = 0.75
     DEFINITIVE_WALL_FINAL_MIN = 0.05
     DEFINITIVE_MINORITY_FINAL_MIN = 0.05
@@ -462,27 +478,48 @@ class P18ConsensusDetector(BaseDetector):
         model_metadata: dict[str, Any] | None,
         timescale: float,
     ) -> bool:
-        """Definitive: all confirmation gates + three-class exclusion bounds.
+        """Definitive: all confirmation gates + three-class exclusions cleared.
 
-        These bounds are calibrated from the Sprint 20 §4.20 characterization
-        to exclude each nearest-neighbor on the lattice_2d substrate:
-          - GH broken_wave: moran_final ~0.87 > 0.75, rejected.
-          - GoL random:     moran_final ~0.27 < 0.30, rejected at screening.
-          - GoL r_pent:     moran_spearman_early ~0.17, rejected at screening.
-          - GH random:      wall_final ~0.036 < 0.05, rejected here.
-          - Schelling P1 (threshold = 0.375): rejected at screening or
-            confirmation, NOT here. The Sprint 21 5-seed characterization
-            (TestSchellingP18ContentLevel) found Schelling's three-state
-            grid {0, 1, 2} yields wall_final ~0.36, well ABOVE the 0.05
-            definitive floor; the actual rejection mechanism is
-            moran_final_qtr ≤ 0.30 (4 of 5 seeds fail screening) or
-            wall_final_qtr ≥ 0.30 (the 5th seed reaches screening but
-            fails the confirmation ceiling).
-          - Schelling P1 (threshold = 0.5): KNOWN FALSE POSITIVE — reaches
-            DEFINITIVE on all 5 characterized seeds with P1 marked
-            "inconclusive" because Schelling's metadata lacks a
-            copy/imitation/voter `update` key. See Sprint 21 carry-forward
-            #20b in REPLICATION_NOTES.md.
+        Two layers of evidence are required:
+
+        (1) METRIC GATES (calibrated from Sprint 20 §4.20 + Sprint 24 C5
+            update):
+              - moran_final_qtr ∈ [0.45, 0.75] (Sprint 24: floor raised
+                from 0.30 to 0.45 to exclude Schelling thr ∈ (0.375, 0.5]
+                whose moran_final ≈ 0.39 sits in the old window)
+              - wall_final_qtr ≥ 0.05 (excludes GH random ~0.036)
+              - minority_fraction_final ≥ 0.05 (excludes GoL decay)
+
+        (2) EXCLUSION GATES (Sprint 24 C2 update):
+              - All three nearest-neighbor exclusions (P13, P15, P1)
+                must return "excluded" via the metric+metadata logic in
+                _check_exclusions. Previously DEFINITIVE was determined
+                by metric gates alone, with the bonus dict's
+                "all_exclusions_cleared" flag hardcoded to True; this
+                made the architectural assertion ("definitive REQUIRES
+                exclusions cleared") cosmetic. C2 makes it real.
+
+        Sprint 24 carry-forward #20b closure:
+          - Schelling thr ∈ (0.375, 0.5]: now rejected by gate (1) at
+            moran_final ≈ 0.39 < 0.45. Even if a future Schelling
+            parameter or a different cause produced moran_final ≥ 0.45,
+            gate (2) would also reject because Schelling's registered
+            metadata lacks a copy/imitation/voter `update` token, so
+            P1 returns "inconclusive", not "excluded".
+
+        Discriminator coverage at the new gates:
+          - GH broken_wave: moran_final ~0.87 > 0.75 → rejected by (1).
+          - GoL random:     moran_final ~0.27 < 0.30 → rejected at screening.
+          - GoL r_pent:     moran_spearman_early ~0.17 → rejected at screening.
+          - GH random:      wall_final ~0.036 < 0.05 → rejected by (1).
+          - Schelling thr=0.375 (canonical): rejected at screening or
+            confirmation as before (Sprint 21).
+          - Schelling thr ∈ {0.43, 0.5}: now rejected by (1) AND (2).
+
+        The voter (canonical positive) at L ∈ {64, 128, 256} × 5 seeds
+        passes (1) with moran_final ∈ [0.499, 0.663] and (2) because
+        voter's metadata has update='asynchronous_copy_neighbor' which
+        contains 'copy', so P1 returns "excluded".
         """
         mfq = primary_result.get("moran_final_qtr_mean", 0.0)
         if not (self.DEFINITIVE_MORAN_FINAL_MIN <= mfq <=
@@ -496,6 +533,15 @@ class P18ConsensusDetector(BaseDetector):
             "minority_fraction_final", 0.0
         ) < self.DEFINITIVE_MINORITY_FINAL_MIN:
             return False
+
+        # Sprint 24 C2: also require all three nearest-neighbor exclusions
+        # to be cleared (not "inconclusive" or "not_excluded").
+        _, exclusion_results = self._check_exclusions(
+            state_history, model_metadata, timescale
+        )
+        for excluded_pattern in self.excluded_patterns:
+            if exclusion_results.get(excluded_pattern) != "excluded":
+                return False
         return True
 
     def _check_exclusions(

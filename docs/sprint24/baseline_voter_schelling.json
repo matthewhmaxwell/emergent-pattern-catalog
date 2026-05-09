@@ -1,0 +1,3526 @@
+{
+  "schema_version": 1,
+  "head_commit_target": "3285f3cf918a2f5174fe9b36ac0fb79c44bda2eb",
+  "detector_constants_at_baseline": {
+    "SCREENING_MORAN_SPEARMAN_MIN": 0.7,
+    "SCREENING_MORAN_FINAL_MIN": 0.3,
+    "SCREENING_MORAN_GROWTH_MIN": 0.2,
+    "CONFIRMATION_WALL_SPEARMAN_MAX": -0.4,
+    "CONFIRMATION_WALL_FINAL_MAX": 0.3,
+    "CONFIRMATION_WALL_DECAY_MIN": 0.15,
+    "DEFINITIVE_MORAN_FINAL_MIN": 0.3,
+    "DEFINITIVE_MORAN_FINAL_MAX": 0.75,
+    "DEFINITIVE_WALL_FINAL_MIN": 0.05,
+    "DEFINITIVE_MINORITY_FINAL_MIN": 0.05
+  },
+  "voter_runs": [
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.9,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9387829912023459,
+        "moran_final_qtr_mean": 0.49922963311278146,
+        "moran_initial": -0.01056616157183578,
+        "moran_final": 0.4410443918685516,
+        "moran_growth": 0.45161055344038736
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9393217389729273,
+        "wall_final_qtr_mean": 0.153326416015625,
+        "wall_initial": 0.505126953125,
+        "wall_final": 0.1226806640625,
+        "wall_decay": 0.3824462890625,
+        "minority_fraction_final": 0.12548828125
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9387829912023459,
+        "moran_final_qtr_mean": 0.49922963311278146,
+        "moran_initial": -0.01056616157183578,
+        "moran_final": 0.4410443918685516,
+        "moran_growth": 0.45161055344038736,
+        "wall_spearman_early": -0.9393217389729273,
+        "wall_final_qtr_mean": 0.153326416015625,
+        "wall_initial": 0.505126953125,
+        "wall_final": 0.1226806640625,
+        "wall_decay": 0.3824462890625,
+        "minority_fraction_final": 0.12548828125,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 5.25455243971663,
+        "raw_value": 0.9387829912023459,
+        "null_mean": 0.0045904006837707585,
+        "null_std": 0.17778728088380344,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 64,
+        "cols": 64,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 1.41,
+        "detect": 0.69
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.9,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9824046920821112,
+        "moran_final_qtr_mean": 0.6630526452812748,
+        "moran_initial": 0.01192307829862415,
+        "moran_final": 0.5935699076503622,
+        "moran_growth": 0.5816468293517381
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9889102781887201,
+        "wall_final_qtr_mean": 0.1561279296875,
+        "wall_initial": 0.4940185546875,
+        "wall_final": 0.2008056640625,
+        "wall_decay": 0.293212890625,
+        "minority_fraction_final": 0.445556640625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9824046920821112,
+        "moran_final_qtr_mean": 0.6630526452812748,
+        "moran_initial": 0.01192307829862415,
+        "moran_final": 0.5935699076503622,
+        "moran_growth": 0.5816468293517381,
+        "wall_spearman_early": -0.9889102781887201,
+        "wall_final_qtr_mean": 0.1561279296875,
+        "wall_initial": 0.4940185546875,
+        "wall_final": 0.2008056640625,
+        "wall_decay": 0.293212890625,
+        "minority_fraction_final": 0.445556640625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 5.7828660288430465,
+        "raw_value": 0.9824046920821112,
+        "null_mean": -0.009190011641786643,
+        "null_std": 0.17147115267380353,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 64,
+        "cols": 64,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 1.4,
+        "detect": 0.7
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.9,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8962609970674487,
+        "moran_final_qtr_mean": 0.5388518711581493,
+        "moran_initial": -0.0016262768180677924,
+        "moran_final": 0.47596466648702274,
+        "moran_growth": 0.47759094330509055
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9683805374737734,
+        "wall_final_qtr_mean": 0.19703369140625,
+        "wall_initial": 0.500732421875,
+        "wall_final": 0.1884765625,
+        "wall_decay": 0.312255859375,
+        "minority_fraction_final": 0.235107421875
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8962609970674487,
+        "moran_final_qtr_mean": 0.5388518711581493,
+        "moran_initial": -0.0016262768180677924,
+        "moran_final": 0.47596466648702274,
+        "moran_growth": 0.47759094330509055,
+        "wall_spearman_early": -0.9683805374737734,
+        "wall_final_qtr_mean": 0.19703369140625,
+        "wall_initial": 0.500732421875,
+        "wall_final": 0.1884765625,
+        "wall_decay": 0.312255859375,
+        "minority_fraction_final": 0.235107421875,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 5.221936204070728,
+        "raw_value": 0.8962609970674487,
+        "null_mean": 0.003004391458760077,
+        "null_std": 0.1710585060216469,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 42,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 64,
+        "cols": 64,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 1.38,
+        "detect": 0.69
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.9,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.970307917888563,
+        "moran_final_qtr_mean": 0.5478965609894313,
+        "moran_initial": -0.010883668391567828,
+        "moran_final": 0.4770011762520894,
+        "moran_growth": 0.4878848446436572
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.972408140170658,
+        "wall_final_qtr_mean": 0.165587158203125,
+        "wall_initial": 0.5052490234375,
+        "wall_final": 0.1571044921875,
+        "wall_decay": 0.34814453125,
+        "minority_fraction_final": 0.18408203125
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.970307917888563,
+        "moran_final_qtr_mean": 0.5478965609894313,
+        "moran_initial": -0.010883668391567828,
+        "moran_final": 0.4770011762520894,
+        "moran_growth": 0.4878848446436572,
+        "wall_spearman_early": -0.972408140170658,
+        "wall_final_qtr_mean": 0.165587158203125,
+        "wall_initial": 0.5052490234375,
+        "wall_final": 0.1571044921875,
+        "wall_decay": 0.34814453125,
+        "minority_fraction_final": 0.18408203125,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 5.426928857500782,
+        "raw_value": 0.970307917888563,
+        "null_mean": -0.007331378299120231,
+        "null_std": 0.18014595766009495,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 200,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 64,
+        "cols": 64,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 1.41,
+        "detect": 0.7
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.9,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9523460410557184,
+        "moran_final_qtr_mean": 0.5272000661797015,
+        "moran_initial": 0.0007207477847674974,
+        "moran_final": 0.49730570595028895,
+        "moran_growth": 0.49658495816552145
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9526166294247966,
+        "wall_final_qtr_mean": 0.2010693359375,
+        "wall_initial": 0.4996337890625,
+        "wall_final": 0.2198486328125,
+        "wall_decay": 0.27978515625,
+        "minority_fraction_final": 0.322998046875
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9523460410557184,
+        "moran_final_qtr_mean": 0.5272000661797015,
+        "moran_initial": 0.0007207477847674974,
+        "moran_final": 0.49730570595028895,
+        "moran_growth": 0.49658495816552145,
+        "wall_spearman_early": -0.9526166294247966,
+        "wall_final_qtr_mean": 0.2010693359375,
+        "wall_initial": 0.4996337890625,
+        "wall_final": 0.2198486328125,
+        "wall_decay": 0.27978515625,
+        "minority_fraction_final": 0.322998046875,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 5.843133680703743,
+        "raw_value": 0.9523460410557184,
+        "null_mean": -0.018186607524425646,
+        "null_std": 0.1660979709886175,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 500,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 64,
+        "cols": 64,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 1.39,
+        "detect": 0.72
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9493131868131867,
+        "moran_final_qtr_mean": 0.5976007429683833,
+        "moran_initial": -0.006664592400795851,
+        "moran_final": 0.609936899109668,
+        "moran_growth": 0.6166014915104638
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9604844435768861,
+        "wall_final_qtr_mean": 0.1868902587890625,
+        "wall_initial": 0.503326416015625,
+        "wall_final": 0.184814453125,
+        "wall_decay": 0.318511962890625,
+        "minority_fraction_final": 0.38555908203125
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9493131868131867,
+        "moran_final_qtr_mean": 0.5976007429683833,
+        "moran_initial": -0.006664592400795851,
+        "moran_final": 0.609936899109668,
+        "moran_growth": 0.6166014915104638,
+        "wall_spearman_early": -0.9604844435768861,
+        "wall_final_qtr_mean": 0.1868902587890625,
+        "wall_initial": 0.503326416015625,
+        "wall_final": 0.184814453125,
+        "wall_decay": 0.318511962890625,
+        "minority_fraction_final": 0.38555908203125,
+        "n_early": 64.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 7.815160634719271,
+        "raw_value": 0.9493131868131867,
+        "null_mean": 0.0004599462514035384,
+        "null_std": 0.12141186661556919,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 128,
+      "seed": 0,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 128,
+        "cols": 128,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 5.11,
+        "detect": 1.02
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9153388278388278,
+        "moran_final_qtr_mean": 0.5792829932341682,
+        "moran_initial": 0.004315320942821428,
+        "moran_final": 0.570162971840831,
+        "moran_growth": 0.5658476508980096
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.913598901098901,
+        "wall_final_qtr_mean": 0.20831939697265625,
+        "wall_initial": 0.497833251953125,
+        "wall_final": 0.21014404296875,
+        "wall_decay": 0.287689208984375,
+        "minority_fraction_final": 0.42547607421875
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9153388278388278,
+        "moran_final_qtr_mean": 0.5792829932341682,
+        "moran_initial": 0.004315320942821428,
+        "moran_final": 0.570162971840831,
+        "moran_growth": 0.5658476508980096,
+        "wall_spearman_early": -0.913598901098901,
+        "wall_final_qtr_mean": 0.20831939697265625,
+        "wall_initial": 0.497833251953125,
+        "wall_final": 0.21014404296875,
+        "wall_decay": 0.287689208984375,
+        "minority_fraction_final": 0.42547607421875,
+        "n_early": 64.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 7.30087762982862,
+        "raw_value": 0.9153388278388278,
+        "null_mean": 0.0007827599536142278,
+        "null_std": 0.1252665931762346,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 128,
+      "seed": 1,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 128,
+        "cols": 128,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 5.13,
+        "detect": 1.1
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9674450549450548,
+        "moran_final_qtr_mean": 0.5175019866587244,
+        "moran_initial": -0.009710608187962698,
+        "moran_final": 0.5256276751814508,
+        "moran_growth": 0.5353382833694135
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9700091575091574,
+        "wall_final_qtr_mean": 0.2377093505859375,
+        "wall_initial": 0.504852294921875,
+        "wall_final": 0.236541748046875,
+        "wall_decay": 0.268310546875,
+        "minority_fraction_final": 0.47393798828125
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9674450549450548,
+        "moran_final_qtr_mean": 0.5175019866587244,
+        "moran_initial": -0.009710608187962698,
+        "moran_final": 0.5256276751814508,
+        "moran_growth": 0.5353382833694135,
+        "wall_spearman_early": -0.9700091575091574,
+        "wall_final_qtr_mean": 0.2377093505859375,
+        "wall_initial": 0.504852294921875,
+        "wall_final": 0.236541748046875,
+        "wall_decay": 0.268310546875,
+        "minority_fraction_final": 0.47393798828125,
+        "n_early": 64.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 8.500846913162151,
+        "raw_value": 0.9674450549450548,
+        "null_mean": -0.0006856627459642533,
+        "null_std": 0.11388638421332223,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 128,
+      "seed": 42,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 128,
+        "cols": 128,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 5.08,
+        "detect": 1.08
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.906547619047619,
+        "moran_final_qtr_mean": 0.543595784774659,
+        "moran_initial": -0.0019532593724032395,
+        "moran_final": 0.5409313412764053,
+        "moran_growth": 0.5428846006488085
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.906730769230769,
+        "wall_final_qtr_mean": 0.22793975830078125,
+        "wall_initial": 0.5009765625,
+        "wall_final": 0.2294921875,
+        "wall_decay": 0.271484375,
+        "minority_fraction_final": 0.49322509765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.906547619047619,
+        "moran_final_qtr_mean": 0.543595784774659,
+        "moran_initial": -0.0019532593724032395,
+        "moran_final": 0.5409313412764053,
+        "moran_growth": 0.5428846006488085,
+        "wall_spearman_early": -0.906730769230769,
+        "wall_final_qtr_mean": 0.22793975830078125,
+        "wall_initial": 0.5009765625,
+        "wall_final": 0.2294921875,
+        "wall_decay": 0.271484375,
+        "minority_fraction_final": 0.49322509765625,
+        "n_early": 64.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 7.108453192596464,
+        "raw_value": 0.906547619047619,
+        "null_mean": -0.004879709904835535,
+        "null_std": 0.12821739192173576,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 128,
+      "seed": 200,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 128,
+        "cols": 128,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 5.23,
+        "detect": 1.03
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9821428571428571,
+        "moran_final_qtr_mean": 0.5835133341159221,
+        "moran_initial": -0.00970327127402554,
+        "moran_final": 0.5967402094759081,
+        "moran_growth": 0.6064434807499337
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9798759131668943,
+        "wall_final_qtr_mean": 0.20768707275390624,
+        "wall_initial": 0.50482177734375,
+        "wall_final": 0.20086669921875,
+        "wall_decay": 0.303955078125,
+        "minority_fraction_final": 0.46923828125
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9821428571428571,
+        "moran_final_qtr_mean": 0.5835133341159221,
+        "moran_initial": -0.00970327127402554,
+        "moran_final": 0.5967402094759081,
+        "moran_growth": 0.6064434807499337,
+        "wall_spearman_early": -0.9798759131668943,
+        "wall_final_qtr_mean": 0.20768707275390624,
+        "wall_initial": 0.50482177734375,
+        "wall_final": 0.20086669921875,
+        "wall_decay": 0.303955078125,
+        "minority_fraction_final": 0.46923828125,
+        "n_early": 64.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 7.77122798284813,
+        "raw_value": 0.9821428571428571,
+        "null_mean": -0.0004010436799381509,
+        "null_std": 0.12643354473596283,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 128,
+      "seed": 500,
+      "n_steps": 400,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 128,
+        "cols": 128,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 5.13,
+        "detect": 1.1
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9895829582958295,
+        "moran_final_qtr_mean": 0.5679472957976496,
+        "moran_initial": -0.0005361160117017756,
+        "moran_final": 0.5815354275620931,
+        "moran_growth": 0.5820715435737949
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9913111311131113,
+        "wall_final_qtr_mean": 0.21349629720052082,
+        "wall_initial": 0.5002670288085938,
+        "wall_final": 0.206512451171875,
+        "wall_decay": 0.29375457763671875,
+        "minority_fraction_final": 0.4429931640625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9895829582958295,
+        "moran_final_qtr_mean": 0.5679472957976496,
+        "moran_initial": -0.0005361160117017756,
+        "moran_final": 0.5815354275620931,
+        "moran_growth": 0.5820715435737949,
+        "wall_spearman_early": -0.9913111311131113,
+        "wall_final_qtr_mean": 0.21349629720052082,
+        "wall_initial": 0.5002670288085938,
+        "wall_final": 0.206512451171875,
+        "wall_decay": 0.29375457763671875,
+        "minority_fraction_final": 0.4429931640625,
+        "n_early": 100.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 10.148983759252443,
+        "raw_value": 0.9895829582958295,
+        "null_mean": 0.009304850082998247,
+        "null_std": 0.09658879464844437,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [
+        "run length (301) < 5\u03c4 (640)"
+      ],
+      "L": 256,
+      "seed": 0,
+      "n_steps": 300,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 256,
+        "cols": 256,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 15.39,
+        "detect": 2.33
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9930033003300328,
+        "moran_final_qtr_mean": 0.5603498662746614,
+        "moran_initial": 0.0007018289126904141,
+        "moran_final": 0.5605039945348418,
+        "moran_growth": 0.5598021656221513
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9920072007200719,
+        "wall_final_qtr_mean": 0.21975809733072918,
+        "wall_initial": 0.4996490478515625,
+        "wall_final": 0.219390869140625,
+        "wall_decay": 0.2802581787109375,
+        "minority_fraction_final": 0.4798431396484375
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9930033003300328,
+        "moran_final_qtr_mean": 0.5603498662746614,
+        "moran_initial": 0.0007018289126904141,
+        "moran_final": 0.5605039945348418,
+        "moran_growth": 0.5598021656221513,
+        "wall_spearman_early": -0.9920072007200719,
+        "wall_final_qtr_mean": 0.21975809733072918,
+        "wall_initial": 0.4996490478515625,
+        "wall_final": 0.219390869140625,
+        "wall_decay": 0.2802581787109375,
+        "minority_fraction_final": 0.4798431396484375,
+        "n_early": 100.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 10.812676282746692,
+        "raw_value": 0.9930033003300328,
+        "null_mean": 0.01028484758023541,
+        "null_std": 0.09088577397973874,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [
+        "run length (301) < 5\u03c4 (640)"
+      ],
+      "L": 256,
+      "seed": 1,
+      "n_steps": 300,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 256,
+        "cols": 256,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 15.12,
+        "detect": 2.45
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9945034503450345,
+        "moran_final_qtr_mean": 0.5576655142457408,
+        "moran_initial": -0.00011063001888339977,
+        "moran_final": 0.5619999873478517,
+        "moran_growth": 0.5621106173667352
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9948034491835218,
+        "wall_final_qtr_mean": 0.2194709269205729,
+        "wall_initial": 0.5000381469726562,
+        "wall_final": 0.2177886962890625,
+        "wall_decay": 0.28224945068359375,
+        "minority_fraction_final": 0.4628143310546875
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9945034503450345,
+        "moran_final_qtr_mean": 0.5576655142457408,
+        "moran_initial": -0.00011063001888339977,
+        "moran_final": 0.5619999873478517,
+        "moran_growth": 0.5621106173667352,
+        "wall_spearman_early": -0.9948034491835218,
+        "wall_final_qtr_mean": 0.2194709269205729,
+        "wall_initial": 0.5000381469726562,
+        "wall_final": 0.2177886962890625,
+        "wall_decay": 0.28224945068359375,
+        "minority_fraction_final": 0.4628143310546875,
+        "n_early": 100.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 9.74180475392381,
+        "raw_value": 0.9945034503450345,
+        "null_mean": 0.013359567112490143,
+        "null_std": 0.10071479648956819,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [
+        "run length (301) < 5\u03c4 (640)"
+      ],
+      "L": 256,
+      "seed": 42,
+      "n_steps": 300,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 256,
+        "cols": 256,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 15.08,
+        "detect": 2.57
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9922832283228321,
+        "moran_final_qtr_mean": 0.5315436706979343,
+        "moran_initial": 0.0011901846166608712,
+        "moran_final": 0.5187474567697856,
+        "moran_growth": 0.5175572721531247
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9925352535253524,
+        "wall_final_qtr_mean": 0.23403564453125,
+        "wall_initial": 0.4994049072265625,
+        "wall_final": 0.24028778076171875,
+        "wall_decay": 0.25911712646484375,
+        "minority_fraction_final": 0.4812469482421875
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9922832283228321,
+        "moran_final_qtr_mean": 0.5315436706979343,
+        "moran_initial": 0.0011901846166608712,
+        "moran_final": 0.5187474567697856,
+        "moran_growth": 0.5175572721531247,
+        "wall_spearman_early": -0.9925352535253524,
+        "wall_final_qtr_mean": 0.23403564453125,
+        "wall_initial": 0.4994049072265625,
+        "wall_final": 0.24028778076171875,
+        "wall_decay": 0.25911712646484375,
+        "minority_fraction_final": 0.4812469482421875,
+        "n_early": 100.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 10.389423960133806,
+        "raw_value": 0.9922832283228321,
+        "null_mean": 0.01095016034266743,
+        "null_std": 0.0944550026782742,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [
+        "run length (301) < 5\u03c4 (640)"
+      ],
+      "L": 256,
+      "seed": 200,
+      "n_steps": 300,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 256,
+        "cols": 256,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 15.2,
+        "detect": 2.59
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9933993399339933,
+        "moran_final_qtr_mean": 0.5544078648339746,
+        "moran_initial": -0.002052997646434283,
+        "moran_final": 0.5401885598335417,
+        "moran_growth": 0.542241557479976
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9933993399339933,
+        "wall_final_qtr_mean": 0.22274017333984375,
+        "wall_initial": 0.501007080078125,
+        "wall_final": 0.22989654541015625,
+        "wall_decay": 0.27111053466796875,
+        "minority_fraction_final": 0.4968414306640625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9933993399339933,
+        "moran_final_qtr_mean": 0.5544078648339746,
+        "moran_initial": -0.002052997646434283,
+        "moran_final": 0.5401885598335417,
+        "moran_growth": 0.542241557479976,
+        "wall_spearman_early": -0.9933993399339933,
+        "wall_final_qtr_mean": 0.22274017333984375,
+        "wall_initial": 0.501007080078125,
+        "wall_final": 0.22989654541015625,
+        "wall_decay": 0.27111053466796875,
+        "minority_fraction_final": 0.4968414306640625,
+        "n_early": 100.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "excluded"
+      },
+      "effect_size": {
+        "cohens_d": 9.98129462589924,
+        "raw_value": 0.9933993399339933,
+        "null_mean": 0.010056885085493473,
+        "null_std": 0.09851852807720402,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [
+        "run length (301) < 5\u03c4 (640)"
+      ],
+      "L": 256,
+      "seed": 500,
+      "n_steps": 300,
+      "model": "voter",
+      "model_metadata_used": {
+        "model": "voter",
+        "rows": 256,
+        "cols": 256,
+        "neighborhood": "moore",
+        "boundary": "periodic",
+        "substrate": "lattice_2d",
+        "update": "asynchronous_copy_neighbor",
+        "has_movement": false
+      },
+      "timing_s": {
+        "run": 14.95,
+        "detect": 2.61
+      }
+    }
+  ],
+  "schelling_runs": [
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8609784410912186,
+        "moran_final_qtr_mean": 0.20575335978053186,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.20575335978053183,
+        "moran_growth": 0.21622347887376356
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8609784410912186,
+        "moran_final_qtr_mean": 0.20575335978053186,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.20575335978053183,
+        "moran_growth": 0.21622347887376356,
+        "wall_spearman_early": -0.9221929747606773,
+        "wall_final_qtr_mean": 0.39825439453125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.39825439453125,
+        "wall_decay": 0.1878662109375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.3,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.41,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8609784410912186,
+        "moran_final_qtr_mean": 0.20575335978053186,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.20575335978053183,
+        "moran_growth": 0.21622347887376356
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8609784410912186,
+        "moran_final_qtr_mean": 0.20575335978053186,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.20575335978053183,
+        "moran_growth": 0.21622347887376356,
+        "wall_spearman_early": -0.9221929747606773,
+        "wall_final_qtr_mean": 0.39825439453125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.39825439453125,
+        "wall_decay": 0.1878662109375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.41,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.7406277231560666,
+        "moran_final_qtr_mean": 0.2247353549555883,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2247353549555883,
+        "moran_growth": 0.22321684551720541
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.7406277231560666,
+        "moran_final_qtr_mean": 0.2247353549555883,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2247353549555883,
+        "moran_growth": 0.22321684551720541,
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.39190673828125,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.39190673828125,
+        "wall_decay": 0.1898193359375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.3,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.7406277231560666,
+        "moran_final_qtr_mean": 0.2247353549555883,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2247353549555883,
+        "moran_growth": 0.22321684551720541
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.7406277231560666,
+        "moran_final_qtr_mean": 0.2247353549555883,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2247353549555883,
+        "moran_growth": 0.22321684551720541,
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.39190673828125,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.39190673828125,
+        "wall_decay": 0.1898193359375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8811701923704849,
+        "moran_final_qtr_mean": 0.2218809195909182,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.22188091959091816,
+        "moran_growth": 0.21936335777490074
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8811701923704849,
+        "moran_final_qtr_mean": 0.2218809195909182,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.22188091959091816,
+        "moran_growth": 0.21936335777490074,
+        "wall_spearman_early": -0.9221929747606773,
+        "wall_final_qtr_mean": 0.37860107421875,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.37860107421875,
+        "wall_decay": 0.2052001953125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.3,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.13,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8811701923704849,
+        "moran_final_qtr_mean": 0.2218809195909182,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.22188091959091816,
+        "moran_growth": 0.21936335777490074
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8811701923704849,
+        "moran_final_qtr_mean": 0.2218809195909182,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.22188091959091816,
+        "moran_growth": 0.21936335777490074,
+        "wall_spearman_early": -0.9221929747606773,
+        "wall_final_qtr_mean": 0.37860107421875,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.37860107421875,
+        "wall_decay": 0.2052001953125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.13,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8415716150143664,
+        "moran_final_qtr_mean": 0.20304164618409518,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.2030416461840952,
+        "moran_growth": 0.20052408436807778
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8415716150143664,
+        "moran_final_qtr_mean": 0.20304164618409518,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.2030416461840952,
+        "moran_growth": 0.20052408436807778,
+        "wall_spearman_early": -0.847196515268961,
+        "wall_final_qtr_mean": 0.38848876953125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.38848876953125,
+        "wall_decay": 0.1953125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.3,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.16,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8415716150143664,
+        "moran_final_qtr_mean": 0.20304164618409518,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.2030416461840952,
+        "moran_growth": 0.20052408436807778
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8415716150143664,
+        "moran_final_qtr_mean": 0.20304164618409518,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.2030416461840952,
+        "moran_growth": 0.20052408436807778,
+        "wall_spearman_early": -0.847196515268961,
+        "wall_final_qtr_mean": 0.38848876953125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.38848876953125,
+        "wall_decay": 0.1953125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.16,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8292515679867888,
+        "moran_final_qtr_mean": 0.25898857933163,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.25898857933163005,
+        "moran_growth": 0.24319789306989645
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8292515679867888,
+        "moran_final_qtr_mean": 0.25898857933163,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.25898857933163005,
+        "moran_growth": 0.24319789306989645,
+        "wall_spearman_early": -0.9067602087907997,
+        "wall_final_qtr_mean": 0.37542724609375,
+        "wall_initial": 0.578125,
+        "wall_final": 0.37542724609375,
+        "wall_decay": 0.20269775390625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.3,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8292515679867888,
+        "moran_final_qtr_mean": 0.25898857933163,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.25898857933163005,
+        "moran_growth": 0.24319789306989645
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8292515679867888,
+        "moran_final_qtr_mean": 0.25898857933163,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.25898857933163005,
+        "moran_growth": 0.24319789306989645,
+        "wall_spearman_early": -0.9067602087907997,
+        "wall_final_qtr_mean": 0.37542724609375,
+        "wall_initial": 0.578125,
+        "wall_final": 0.37542724609375,
+        "wall_decay": 0.20269775390625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.3,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.19
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8630821076619501,
+        "moran_final_qtr_mean": 0.26355567591510237,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.2635556759151023,
+        "moran_growth": 0.27402579500833407
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8630821076619501,
+        "moran_final_qtr_mean": 0.26355567591510237,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.2635556759151023,
+        "moran_growth": 0.27402579500833407,
+        "wall_spearman_early": -0.889000984538417,
+        "wall_final_qtr_mean": 0.36859130859375,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.36859130859375,
+        "wall_decay": 0.217529296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.375,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.21,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8630821076619501,
+        "moran_final_qtr_mean": 0.26355567591510237,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.2635556759151023,
+        "moran_growth": 0.27402579500833407
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8630821076619501,
+        "moran_final_qtr_mean": 0.26355567591510237,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.2635556759151023,
+        "moran_growth": 0.27402579500833407,
+        "wall_spearman_early": -0.889000984538417,
+        "wall_final_qtr_mean": 0.36859130859375,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.36859130859375,
+        "wall_decay": 0.217529296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.21,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.82238104995444,
+        "moran_final_qtr_mean": 0.2849639411501284,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2849639411501284,
+        "moran_growth": 0.2834454317117455
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.82238104995444,
+        "moran_final_qtr_mean": 0.2849639411501284,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2849639411501284,
+        "moran_growth": 0.2834454317117455,
+        "wall_spearman_early": -0.9356102655031934,
+        "wall_final_qtr_mean": 0.3724365234375,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.3724365234375,
+        "wall_decay": 0.20928955078125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.375,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.17,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.82238104995444,
+        "moran_final_qtr_mean": 0.2849639411501284,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2849639411501284,
+        "moran_growth": 0.2834454317117455
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.82238104995444,
+        "moran_final_qtr_mean": 0.2849639411501284,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.2849639411501284,
+        "moran_growth": 0.2834454317117455,
+        "wall_spearman_early": -0.9356102655031934,
+        "wall_final_qtr_mean": 0.3724365234375,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.3724365234375,
+        "wall_decay": 0.20928955078125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.17,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "SCREENING",
+      "detected": true,
+      "tier_value": "screening",
+      "confidence": 0.6,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8696158183670833,
+        "moran_final_qtr_mean": 0.3012342227287483,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.3012342227287482,
+        "moran_growth": 0.2987166609127308
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.35577392578125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.35577392578125,
+        "wall_decay": 0.22802734375,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8696158183670833,
+        "moran_final_qtr_mean": 0.3012342227287483,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.3012342227287482,
+        "moran_growth": 0.2987166609127308,
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.35577392578125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.35577392578125,
+        "wall_decay": 0.22802734375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {
+        "cohens_d": 5.181737013820698,
+        "raw_value": 0.8696158183670833,
+        "null_mean": 0.02119837779953721,
+        "null_std": 0.1637322462148604,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.375,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.22,
+        "detect": 0.44
+      }
+    },
+    {
+      "tier": "SCREENING",
+      "detected": true,
+      "tier_value": "screening",
+      "confidence": 0.6,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.8696158183670833,
+        "moran_final_qtr_mean": 0.3012342227287483,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.3012342227287482,
+        "moran_growth": 0.2987166609127308
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.35577392578125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.35577392578125,
+        "wall_decay": 0.22802734375,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.8696158183670833,
+        "moran_final_qtr_mean": 0.3012342227287483,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.3012342227287482,
+        "moran_growth": 0.2987166609127308,
+        "wall_spearman_early": -0.8696158183670833,
+        "wall_final_qtr_mean": 0.35577392578125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.35577392578125,
+        "wall_decay": 0.22802734375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {
+        "cohens_d": 5.181737013820698,
+        "raw_value": 0.8696158183670833,
+        "null_mean": 0.02119837779953721,
+        "null_std": 0.1637322462148604,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.22,
+        "detect": 0.44
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.7218378793604819,
+        "moran_final_qtr_mean": 0.23915025354717254,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.23915025354717254,
+        "moran_growth": 0.23663269173115511
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.7218378793604819,
+        "moran_final_qtr_mean": 0.23915025354717254,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.23915025354717254,
+        "moran_growth": 0.23663269173115511,
+        "wall_spearman_early": -0.9471944992211678,
+        "wall_final_qtr_mean": 0.3592529296875,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.3592529296875,
+        "wall_decay": 0.22454833984375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.375,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.15,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.7218378793604819,
+        "moran_final_qtr_mean": 0.23915025354717254,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.23915025354717254,
+        "moran_growth": 0.23663269173115511
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.7218378793604819,
+        "moran_final_qtr_mean": 0.23915025354717254,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.23915025354717254,
+        "moran_growth": 0.23663269173115511,
+        "wall_spearman_early": -0.9471944992211678,
+        "wall_final_qtr_mean": 0.3592529296875,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.3592529296875,
+        "wall_decay": 0.22454833984375,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.15,
+        "detect": 0.18
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.6098909513513123,
+        "moran_final_qtr_mean": 0.24814172494588352,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.2481417249458835,
+        "moran_growth": 0.23235103868414989
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.6098909513513123,
+        "moran_final_qtr_mean": 0.24814172494588352,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.2481417249458835,
+        "moran_growth": 0.23235103868414989,
+        "wall_spearman_early": -0.93674536684978,
+        "wall_final_qtr_mean": 0.36492919921875,
+        "wall_initial": 0.578125,
+        "wall_final": 0.36492919921875,
+        "wall_decay": 0.21319580078125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.375,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.18,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "BELOW_SCREENING",
+      "detected": false,
+      "tier_value": "screening",
+      "confidence": 0.0,
+      "null_p": 1.0,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.6098909513513123,
+        "moran_final_qtr_mean": 0.24814172494588352,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.2481417249458835,
+        "moran_growth": 0.23235103868414989
+      },
+      "secondary_metrics": {},
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.6098909513513123,
+        "moran_final_qtr_mean": 0.24814172494588352,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.2481417249458835,
+        "moran_growth": 0.23235103868414989,
+        "wall_spearman_early": -0.93674536684978,
+        "wall_final_qtr_mean": 0.36492919921875,
+        "wall_initial": 0.578125,
+        "wall_final": 0.36492919921875,
+        "wall_decay": 0.21319580078125,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [],
+      "exclusion_results": {},
+      "effect_size": {},
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.375,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.18,
+        "detect": 0.2
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703,
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.238584557446884,
+        "raw_value": 0.9307781197294787,
+        "null_mean": 0.014081452072825313,
+        "null_std": 0.17498938073902573,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.43,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.53
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703,
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.238584557446884,
+        "raw_value": 0.9307781197294787,
+        "null_mean": 0.014081452072825313,
+        "null_std": 0.17498938073902573,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.53
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773,
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.35096716758399,
+        "raw_value": 0.9460170189932368,
+        "null_mean": 0.0072136847051335025,
+        "null_std": 0.1754455418779894,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.43,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.54
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773,
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.35096716758399,
+        "raw_value": 0.9460170189932368,
+        "null_mean": 0.0072136847051335025,
+        "null_std": 0.1754455418779894,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.54
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854,
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.090034914038299,
+        "raw_value": 0.9237411037762102,
+        "null_mean": 0.014408391940683442,
+        "null_std": 0.17864960205431799,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.43,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.18,
+        "detect": 0.49
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854,
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.090034914038299,
+        "raw_value": 0.9237411037762102,
+        "null_mean": 0.014408391940683442,
+        "null_std": 0.17864960205431799,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.18,
+        "detect": 0.49
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283,
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.240306581282652,
+        "raw_value": 0.9311575645398046,
+        "null_mean": 0.01417674579078956,
+        "null_std": 0.17498610139038254,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.43,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.14,
+        "detect": 0.52
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283,
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.240306581282652,
+        "raw_value": 0.9311575645398046,
+        "null_mean": 0.01417674579078956,
+        "null_std": 0.17498610139038254,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.14,
+        "detect": 0.52
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179,
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.054482463083846,
+        "raw_value": 0.9217552485004546,
+        "null_mean": 0.011278402597337879,
+        "null_std": 0.18013255611289938,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.43,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.5
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179,
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.054482463083846,
+        "raw_value": 0.9217552485004546,
+        "null_mean": 0.011278402597337879,
+        "null_std": 0.18013255611289938,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.43,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.5
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703,
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.238584557446884,
+        "raw_value": 0.9307781197294787,
+        "null_mean": 0.014081452072825313,
+        "null_std": 0.17498938073902573,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.5,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.51
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9307781197294787,
+        "moran_final_qtr_mean": 0.3753068204419385,
+        "moran_initial": -0.01047011909323174,
+        "moran_final": 0.3753068204419385,
+        "moran_growth": 0.3857769395351703,
+        "wall_spearman_early": -0.9573952014959692,
+        "wall_final_qtr_mean": 0.2764892578125,
+        "wall_initial": 0.58612060546875,
+        "wall_final": 0.2764892578125,
+        "wall_decay": 0.30963134765625,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.238584557446884,
+        "raw_value": 0.9307781197294787,
+        "null_mean": 0.014081452072825313,
+        "null_std": 0.17498938073902573,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 0,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.51
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773,
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.35096716758399,
+        "raw_value": 0.9460170189932368,
+        "null_mean": 0.0072136847051335025,
+        "null_std": 0.1754455418779894,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.5,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.12,
+        "detect": 0.52
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9460170189932368,
+        "moran_final_qtr_mean": 0.3770194816607407,
+        "moran_initial": 0.001518509438382873,
+        "moran_final": 0.3770194816607406,
+        "moran_growth": 0.37550097222235773,
+        "wall_spearman_early": -0.994955097876525,
+        "wall_final_qtr_mean": 0.27117919921875,
+        "wall_initial": 0.58172607421875,
+        "wall_final": 0.27117919921875,
+        "wall_decay": 0.310546875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.35096716758399,
+        "raw_value": 0.9460170189932368,
+        "null_mean": 0.0072136847051335025,
+        "null_std": 0.1754455418779894,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 1,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.12,
+        "detect": 0.52
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854,
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.090034914038299,
+        "raw_value": 0.9237411037762102,
+        "null_mean": 0.014408391940683442,
+        "null_std": 0.17864960205431799,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.5,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.19,
+        "detect": 0.5
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9237411037762102,
+        "moran_final_qtr_mean": 0.40071129518750276,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.4007112951875028,
+        "moran_growth": 0.3981937333714854,
+        "wall_spearman_early": -0.9834323916947367,
+        "wall_final_qtr_mean": 0.2745361328125,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.2745361328125,
+        "wall_decay": 0.30926513671875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.090034914038299,
+        "raw_value": 0.9237411037762102,
+        "null_mean": 0.014408391940683442,
+        "null_std": 0.17864960205431799,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 2,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.19,
+        "detect": 0.5
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283,
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.240306581282652,
+        "raw_value": 0.9311575645398046,
+        "null_mean": 0.01417674579078956,
+        "null_std": 0.17498610139038254,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.5,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.49
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9311575645398046,
+        "moran_final_qtr_mean": 0.4095600448179803,
+        "moran_initial": 0.0025175618160174244,
+        "moran_final": 0.40956004481798025,
+        "moran_growth": 0.40704248300196283,
+        "wall_spearman_early": -0.966066487089789,
+        "wall_final_qtr_mean": 0.27337646484375,
+        "wall_initial": 0.58380126953125,
+        "wall_final": 0.27337646484375,
+        "wall_decay": 0.3104248046875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.240306581282652,
+        "raw_value": 0.9311575645398046,
+        "null_mean": 0.01417674579078956,
+        "null_std": 0.17498610139038254,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 3,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.2,
+        "detect": 0.49
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179,
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.054482463083846,
+        "raw_value": 0.9217552485004546,
+        "null_mean": 0.011278402597337879,
+        "null_std": 0.18013255611289938,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": true,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "with_metadata",
+      "model_metadata_used": {
+        "threshold": 0.5,
+        "density": 0.9
+      },
+      "timing_s": {
+        "run": 3.25,
+        "detect": 0.53
+      }
+    },
+    {
+      "tier": "DEFINITIVE",
+      "detected": true,
+      "tier_value": "definitive",
+      "confidence": 0.85,
+      "null_p": 0.005,
+      "null_type": "NullType.SHUFFLE",
+      "primary_metric": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179
+      },
+      "secondary_metrics": {
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625
+      },
+      "trajectory_metrics": {
+        "moran_spearman_early": 0.9217552485004546,
+        "moran_final_qtr_mean": 0.3860109530594515,
+        "moran_initial": 0.015790686261733605,
+        "moran_final": 0.38601095305945154,
+        "moran_growth": 0.3702202667977179,
+        "wall_spearman_early": -0.9847629483871378,
+        "wall_final_qtr_mean": 0.27813720703125,
+        "wall_initial": 0.578125,
+        "wall_final": 0.27813720703125,
+        "wall_decay": 0.29998779296875,
+        "minority_fraction_final": 0.10009765625,
+        "n_early": 32.0
+      },
+      "exclusions_checked": [
+        "P13",
+        "P15",
+        "P1"
+      ],
+      "exclusion_results": {
+        "P13": "excluded",
+        "P15": "excluded",
+        "P1": "inconclusive"
+      },
+      "effect_size": {
+        "cohens_d": 5.054482463083846,
+        "raw_value": 0.9217552485004546,
+        "null_mean": 0.011278402597337879,
+        "null_std": 0.18013255611289938,
+        "note": "positive_d_means_stronger_monotonic_Moran_growth_than_shuffled"
+      },
+      "metadata_available": false,
+      "warnings": [],
+      "L": 64,
+      "seed": 4,
+      "n_steps": 300,
+      "density": 0.9,
+      "threshold": 0.5,
+      "model": "schelling",
+      "metadata_path": "none_metadata",
+      "model_metadata_used": null,
+      "timing_s": {
+        "run": 3.25,
+        "detect": 0.53
+      }
+    }
+  ]
+}

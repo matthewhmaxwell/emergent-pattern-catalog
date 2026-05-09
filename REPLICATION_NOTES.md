@@ -4318,3 +4318,254 @@ finding at non-canonical Schelling parameters that becomes carry-forward
 - #20b (new Sprint 21 carry-forward): Schelling × P18 false positive
   at threshold = 0.5 — recovery requires detector calibration work
   that should be its own science sprint.
+
+## Sprint 24 — close carry-forward #20b (Schelling × P18 at thr ∈ (0.375, 0.5])
+
+**Goal.** Close Sprint 21 carry-forward #20b. The Sprint 21 audit
+documented that Schelling at threshold = 0.5 reaches P18 DEFINITIVE
+on all 5 characterized seeds with P1 marked "inconclusive" (a
+metric-level false positive). Sprint 21 enumerated four candidate
+fixes and deferred to a future science sprint. Sprint 24 is that
+sprint.
+
+**Workflow (Option A from Sprint 23 transfer prompt).**
+
+  - Phase 1 (look-before-touching): characterize voter and Schelling
+    against the unmodified Sprint 23 detector, save baseline JSON,
+    grade candidate fixes via synthetic dry-run on the saved metrics.
+  - Phase 2 (implementation + verification): apply chosen candidate
+    in code; re-run baseline against modified detector to verify
+    predictions; run full pre-flight test bundle.
+  - Phase 3 (documentation): update detector card, paper §4.20,
+    REPLICATION_NOTES, ship via the Claude.ai → Claude Code workflow.
+
+**Phase 1 baseline characterization.**
+
+Voter (canonical positive): L ∈ {64, 128, 256} × seeds {0, 1, 42,
+200, 500} = 15 runs at the existing `TestSprint20SlowReplication`
+n_steps convention {64: 400, 128: 400, 256: 300}. All 15 reach
+DEFINITIVE with P1 = excluded. `null_p ≤ 0.005` everywhere.
+
+Schelling (negative across parameter regimes): thresholds {0.30,
+0.375, 0.43, 0.5} × seeds {0, 1, 2, 3, 4} = 20 runs at L = 64,
+density = 0.9, n_steps = 300.
+
+Phase 1 baseline data (`docs/sprint24/baseline_voter_schelling.json`,
+~50 KB, 35 runs × ~30 metric fields each):
+
+| Schelling threshold | tier outcome (5 seeds) | moran_final_qtr | wall_final_qtr | P1 exclusion |
+|---|---|---|---|---|
+| 0.30  | 5/5 BELOW_SCREENING | 0.20–0.26 | n/a | n/a |
+| 0.375 | 4 BELOW_SCREENING + 1 SCREENING | 0.24–0.30 | 0.36 (the SCREENING seed) | inconclusive |
+| 0.43  | 5/5 DEFINITIVE | 0.375–0.410 | 0.27 ± 0.003 | inconclusive |
+| 0.5   | 5/5 DEFINITIVE | 0.375–0.410 | 0.27 ± 0.003 | inconclusive |
+
+**Finding A.** Confirmed Sprint 21 carry-forward #20b: all 5 seeds
+at threshold = 0.5 reach DEFINITIVE with P1 = inconclusive. The
+metric numbers match the Sprint 21 estimates (moran ≈ 0.39, wall
+≈ 0.27).
+
+**Finding B (NEW).** Threshold = 0.43 is dynamically equivalent to
+threshold = 0.5 at Schelling's full neighborhood. The 8-neighbor
+`same_frac` values are {0/8, 1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8}
+= {0, 0.125, 0.25, 0.375, 0.5, …} and skip the half-open interval
+[0.43, 0.5). Phase 1 confirms bit-for-bit identical metric outcomes
+across all 5 seeds. The false positive therefore generalizes from
+{0.5} to the half-open interval (0.375, 0.5] — broader than the
+Sprint 21 carry-forward suggested and a stronger argument for a
+real fix.
+
+**Finding C.** Confirmed Sprint 21 mechanism at canonical threshold
+= 0.375: 4/5 seeds fail screening (`moran_final_qtr ≤ 0.30`); 1/5
+(seed = 2) scrapes through screening with `moran_final_qtr` = 0.301
+but stops at SCREENING because `wall_final_qtr` = 0.356 fails the
+0.30 confirmation ceiling. No regression.
+
+**Finding D.** Voter `wall_final_qtr_mean` creeps with L:
+- L = 64:  range [0.153, 0.201], mean 0.175
+- L = 128: range [0.187, 0.238], mean 0.214
+- L = 256: range [0.213, 0.234], mean 0.222
+
+Schelling thr ∈ {0.43, 0.5} has `wall_final_qtr` ≈ 0.275. The voter
+L = 128 max (0.238) sits only 0.037 below Schelling, meaning the
+Sprint 21 candidate "tighten `CONFIRMATION_WALL_FINAL_MAX` from
+0.30 to 0.25" has only 0.012 margin at voter L = 128 against a 0.25
+ceiling.
+
+**Finding E.** The cleanest empirical separation between voter and
+Schelling thr ∈ {0.43, 0.5} is on `moran_final_qtr_mean`, not
+`wall_final_qtr_mean`. Voter ∈ [0.499, 0.663] across 15 runs; Schelling
+thr ∈ {0.43, 0.5} ∈ [0.375, 0.410] across 10 runs. **Gap = 0.089**,
+midpoint 0.45, with ~0.05 margin on each side. This metric was not
+in the Sprint 21 candidate enumeration.
+
+**Phase 1 candidate-fix dry-run grading.**
+
+Six candidates were graded against the saved baseline metrics
+without modifying any detector code (synthetic threshold rules
+applied to already-collected primary/secondary/exclusion fields):
+
+| Candidate | Voter | Sch thr=0.43 | Sch thr=0.5 | Verdict |
+|---|---|---|---|---|
+| C1 (`wall_final` ceiling 0.30 → 0.25) | 15/15 DEF | 5/5 SCREENING | 5/5 SCREENING | thin margin (+0.012 at L = 128) |
+| C2 (P1-aware DEFINITIVE downgrade) | 15/15 DEF | 5/5 CONFIRMATION | 5/5 CONFIRMATION | architectural; doesn't change confidence below DEF |
+| C3 (Schelling 'update'='move' token alone) | 15/15 DEF | 5/5 DEF (no change) | 5/5 DEF (no change) | NO EFFECT — `_check_definitive` doesn't consult exclusions |
+| C2+C3 | 15/15 DEF | 5/5 CONFIRMATION | 5/5 CONFIRMATION | same outcome as C2 alone |
+| C4 = C1+C2 | 15/15 DEF | 5/5 SCREENING | 5/5 SCREENING | C1 thin margin survives |
+| C5 (`moran_final` floor 0.30 → 0.45) | 15/15 DEF | 5/5 CONFIRMATION | 5/5 CONFIRMATION | clean +0.049 margin both sides |
+| **C6 = C5+C2** | **15/15 DEF** | **5/5 CONFIRMATION** | **5/5 CONFIRMATION** | **clean margin + architectural defense in depth** |
+
+**Important architectural finding (C3 = no-op).** C3 alone — adding
+an `update = 'move'` token to Schelling's registered metadata —
+does NOT close the false positive. The reason: `_check_definitive`
+in the Sprint 23 detector is metric-only, with the bonus dict's
+`all_exclusions_cleared` flag at `epc/base_detector.py:333` hardcoded
+to `True` ("Updated after exclusion check" comment that no later
+code honors). The architectural assertion "definitive REQUIRES
+exclusions cleared" was cosmetic. C3 is meaningful only as plumbing
+for C2 (which is the actual gate fix). Sprint 21 enumerated C3 as
+a standalone candidate; Phase 1 dry-run grading showed it has no
+effect.
+
+**Recommendation: C6.** Combination of C5 (raise moran floor) and
+C2 (P1-aware definitive downgrade). Cleanest empirical margin on
+voter; honest tier outcome for Schelling thr ∈ {0.43, 0.5}
+(CONFIRMATION rather than the dishonest "fails confirmation"
+SCREENING demotion of C1/C4); architectural defense in depth via
+C2. Robust against future Schelling parameters that might shift
+metrics. The marginal cost of C2 over C5 alone is ~5 lines of
+code and is worth it for the architectural fix.
+
+**Phase 2 implementation.**
+
+`epc/detectors/p18_consensus.py`:
+  - `DEFINITIVE_MORAN_FINAL_MIN = 0.45` (was 0.30) — Decision 57
+  - `_check_definitive` rewritten to call `_check_exclusions`
+    after the metric gates and to require every entry in
+    `excluded_patterns` to return `"excluded"` — Decision 58
+  - Top-of-file detection-tiers docstring updated with the new
+    moran window [0.45, 0.75] and the explicit-exclusions clause
+  - `_check_definitive` docstring rewritten to describe the
+    two-layer (metric + exclusion) gate structure
+
+`tests/test_voter_p18_e2e.py`:
+  - New `TestSprint24Schelling0p5Regression` test class with 30
+    parametrized tests:
+      - `test_schelling_high_threshold_does_not_reach_definitive`:
+        2 thresholds × 5 seeds = 10 tests, asserts `tier !=
+        DEFINITIVE` (loose regression pin)
+      - `test_schelling_high_threshold_pinned_at_confirmation`:
+        2 × 5 = 10 tests, asserts `tier == CONFIRMATION` (tight
+        architectural pin on the C6 design intent)
+      - `test_schelling_high_threshold_p1_inconclusive`: 2 × 5 = 10
+        tests, asserts `exclusion_results['P1'] == "inconclusive"`
+        (architectural invariant pin on the metadata absence
+        that drives C2)
+  - File header docstring updated with the new test class entry
+
+`docs/detector_cards.md`:
+  - Changelog header bumped to v0.6.3 (Sprint 24)
+  - P18 Detection tiers spec updated: `moran_final_qtr_mean ∈ [0.45, 0.75]`
+    and explicit P13/P15/P1 exclusion clause inside DEFINITIVE
+  - Discriminator table: added threshold = 0.43 row; updated
+    threshold = 0.5 row from "KNOWN FALSE POSITIVE / DEFINITIVE"
+    to "Sprint 24 closure / CONFIRMATION"; updated rejection-
+    mechanism column on both rows
+  - Sprint 21 carry-forward #20b paragraph replaced with Sprint 24
+    closure paragraph
+  - Decisions 57 and 58 added (constants change + architectural
+    change)
+  - P1 exclusion bullet updated to describe its new role as a
+    hard gate inside `_check_definitive`
+
+`docs/paper_section4_draft.md` §4.20:
+  - "Sprint 24 update: #20b closed via combined gate fix (C6)"
+    paragraph added after the Sprint 21 caveat. Reports Phase 1
+    Findings B and E, the C6 fix, and post-fix tier outcomes.
+
+`docs/sprint24/phase1_baseline.md` (new):
+  - Full Phase 1 analysis document: characterization design,
+    findings A–E, candidate-fix grading table, recommendation
+    rationale, rejected alternatives.
+
+**Phase 2 verification.**
+
+Empirical re-run of Phase 1 baseline against the C6-modified
+detector:
+  - Voter: 15/15 DEFINITIVE (no regression)
+  - Schelling thr = 0.30: 5/5 BELOW_SCREENING (unchanged)
+  - Schelling thr = 0.375: 4 BELOW_SCREENING + 1 SCREENING (unchanged
+    from Sprint 21 baseline)
+  - Schelling thr = 0.43: 5/5 CONFIRMATION (was 5/5 DEFINITIVE)
+  - Schelling thr = 0.5: 5/5 CONFIRMATION (was 5/5 DEFINITIVE)
+
+Tier outcomes match the Phase 1 dry-run predictions exactly.
+
+**Phase 2 test suite.** All 175 pre-flight bundle tests pass under
+the modified detector. The expanded voter+P18 test file goes from
+74 collected (66 fast + 8 slow) to 104 collected (96 fast + 8 slow,
++30 from `TestSprint24Schelling0p5Regression`). Pre-flight bundle
+total goes from 175 to 205 fast tests.
+
+**Test counts at Sprint 24 HEAD (predicted; actual will be confirmed
+by Claude Code post-push):**
+
+| Bucket | Sprint 23 | Sprint 24 | Δ |
+|---|---|---|---|
+| Total tests collected | 543 | 573 | +30 |
+| Fast (`-m "not slow"`) | 478 | 508 | +30 |
+| Slow (`-m "slow"`) | 65 | 65 | 0 |
+| Test files | 30 | 30 | 0 |
+| `test_voter_p18_e2e.py` (fast) | 66 | 96 | +30 |
+| Pre-flight bundle | 175 | 205 | +30 |
+
+**Carry-forward summary at Sprint 24 close.**
+- #20b (Sprint 21 carry-forward): **CLOSED** — see C6 implementation
+  above. Schelling thr ∈ (0.375, 0.5] now correctly reaches
+  CONFIRMATION not DEFINITIVE; voter retains 15/15 DEFINITIVE.
+
+**Sprint 24 newly surfaced findings worth tracking.**
+
+  - **Sprint 24 #27 (architectural, latent):** the
+    `bonuses["all_exclusions_cleared"] = True` hardcoded assignment
+    at `epc/base_detector.py:333` was a latent contract bug — it
+    asserted exclusions cleared without actually checking. Sprint
+    24 fixed this for P18 specifically by having
+    `P18ConsensusDetector._check_definitive` consult
+    `_check_exclusions` directly. The same pattern likely applies
+    to other detectors that override `_check_definitive`: P10
+    (chimera), P2 (MIPS), P28 (wealth condensation) all set
+    `bonuses["all_exclusions_cleared"] = True` in their own code,
+    suggesting they too may not consult exclusion outcomes. A
+    future hygiene sprint could audit all detectors for this
+    pattern. Not blocking; not in scope for Sprint 24.
+  - **Sprint 24 #28 (science):** the moran-floor / wall-ceiling
+    margin tradeoff is a general phenomenon. Future detectors
+    should prefer the cleanest-separation metric for definitive
+    gates rather than the metric that happens to be canonically
+    associated with the pattern. The Phase 1 dry-run grading
+    workflow (apply candidate threshold rules to a saved baseline
+    JSON without touching detector code) is the durable artifact
+    of this sprint and should be reused for future detector
+    calibration work.
+  - **Sprint 24 #29 (process):** the dry-run grading approach (six
+    candidates evaluated against one shared baseline in a single
+    characterization pass) was significantly faster than the
+    Sprint 21 enumeration's "characterize each candidate
+    separately" workflow. Recommend codifying as the preferred
+    approach for any future detector-calibration carry-forward.
+
+**Files added/changed (Sprint 24).**
+
+| Type | Path | Status |
+|---|---|---|
+| Modified | `epc/detectors/p18_consensus.py` | Decisions 57 + 58, docstrings |
+| Modified | `tests/test_voter_p18_e2e.py` | +TestSprint24Schelling0p5Regression (30 tests), header |
+| Modified | `docs/detector_cards.md` | v0.6.3, table, paragraphs, Decisions 57/58, P1 bullet |
+| Modified | `docs/paper_section4_draft.md` | §4.20 Sprint 24 update paragraph |
+| Modified | `REPLICATION_NOTES.md` | this section |
+| Added | `docs/sprint24/phase1_baseline.md` | Phase 1 analysis |
+| Added | `docs/sprint24/baseline_voter_schelling.json` | 35-run baseline data archive |
+| Added | `docs/sprint24/candidate_grades.json` | dry-run grading detail |
+| Added | `scripts/sprint24_baseline.py` | reproducibility: characterization driver |
+| Added | `scripts/sprint24_grade_candidates.py` | reproducibility: candidate dry-run grader |

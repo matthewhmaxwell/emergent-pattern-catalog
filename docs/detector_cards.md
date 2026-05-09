@@ -1,6 +1,18 @@
-# Detector Specification Cards v0.6.2
+# Detector Specification Cards v0.6.3
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
+
+v0.6.3 (Sprint 24): P18 card updated to close carry-forward #20b
+(Schelling × P18 false positive). The DEFINITIVE tier now requires
+moran_final_qtr ∈ [0.45, 0.75] (raised from [0.30, 0.75]) AND
+explicit P13/P15/P1 exclusion clearance inside _check_definitive
+(previously the bonus dict's all_exclusions_cleared flag was
+hardcoded True without consulting the actual exclusion result).
+Schelling at thresholds 0.43 and 0.5 now reaches CONFIRMATION
+rather than DEFINITIVE — the honest tier outcome for "metrics
+consistent with coarsening, but nearest-neighbor exclusions
+cannot be cleared." See Decisions 57 and 58 below, Sprint 24
+section in REPLICATION_NOTES.md, and docs/sprint24/phase1_baseline.md.
 
 v0.6.2 (Sprint 22): P18 card rewritten to match implemented detector
 (VoterModel + P18ConsensusDetector). Replaces the v0.5.2 spec-level
@@ -1373,7 +1385,7 @@ At each permutation, randomly permute the time indices of the Moran's I trajecto
 
 - *Screening:* `moran_spearman_early > 0.70` AND `moran_final_qtr_mean > 0.30` AND `moran_growth > 0.20`.
 - *Confirmation:* screening AND null p < 0.01 AND `wall_spearman_early < −0.40` AND `wall_final_qtr_mean < 0.30` AND `wall_decay > 0.15`.
-- *Definitive:* confirmation AND `moran_final_qtr_mean ∈ [0.30, 0.75]` AND `wall_final_qtr_mean > 0.05` AND `minority_fraction_final > 0.05` AND P13 / P15 / P1 nearest-neighbor exclusions all cleared.
+- *Definitive:* confirmation AND `moran_final_qtr_mean ∈ [0.45, 0.75]` (Sprint 24: floor raised from 0.30) AND `wall_final_qtr_mean > 0.05` AND `minority_fraction_final > 0.05` AND P13 / P15 / P1 nearest-neighbor exclusions all return `"excluded"` (Sprint 24: explicitly enforced inside `_check_definitive`; previously the `all_exclusions_cleared` bonus was hardcoded True).
 
 **Canonical-positive measurements (Sprint 20):**
 
@@ -1391,17 +1403,22 @@ At each permutation, randomly permute the time indices of the Moran's I trajecto
 | GoL random (P15 decay) | 5 | 0.27 ± 0.02 | 0.08 ± 0.04 | screening reject | `moran_final_qtr ≤ 0.30` screening floor |
 | GoL r-pentomino (P15 chaos) | 5 | 0.30 (const) | 0.08 (const) | screening reject | `moran_spearman_early ≈ 0.17 ≤ 0.70` screening floor |
 | Schelling P1 (threshold = 0.375, canonical) | 5 | 0.27 ± 0.02 | 0.36 ± 0.01 | SCREENING (4 of 5 fail; 1 reaches but fails confirmation ceiling) | empirical: `moran_final_qtr ≤ 0.30` for 4/5; the remaining seed fails the `wall_final_qtr < 0.30` confirmation ceiling because Schelling's three-state grid {0, 1, 2} produces a geometry-imposed wall floor near 0.36 |
-| Schelling P1 (threshold = 0.5, **KNOWN FALSE POSITIVE**) | 5 | 0.39 | 0.27 | DEFINITIVE | metric gates admit; P1 exclusion returns "inconclusive" because Schelling metadata lacks copy/imitation/voter `update` key. **Sprint 21 carry-forward #20b** |
+| Schelling P1 (threshold = 0.43) | 5 | 0.39 ± 0.01 | 0.27 ± 0.003 | CONFIRMATION (Sprint 24 closure of #20b) | metric gates admit screening AND confirmation, but post-Sprint-24 `moran_final_qtr ≤ 0.45` definitive-floor rejects the DEFINITIVE tier; P1 also returns `"inconclusive"` so the explicit exclusion check inside `_check_definitive` rejects independently. Bit-for-bit identical metrics to threshold = 0.5 because Schelling's 8-neighbor `same_frac` values {0/8, …, 8/8} skip the half-open interval [0.43, 0.5) |
+| Schelling P1 (threshold = 0.5) | 5 | 0.39 ± 0.01 | 0.27 ± 0.003 | CONFIRMATION (Sprint 24 closure of #20b) | same metric profile as threshold = 0.43; same dual-gate rejection. Pre-Sprint-24 reached DEFINITIVE — see "Sprint 24 closure" paragraph below |
 
 **Sprint 21 finding — corrections to the Sprint 20 narrative.** The Sprint 20 §4.20 docstring originally claimed Schelling rejection via "wall_final ≈ 0.02 < 0.05 floor" and "moran_growth < 0.20 floor". Both were empirically wrong: Schelling at threshold = 0.375 has `wall_final_qtr ≈ 0.36` (well above the 0.05 floor) and `moran_growth ∈ [0.23, 0.30]` (all above the 0.20 floor). The actual rejection mechanism is `moran_final_qtr ≤ 0.30` (4/5 seeds) or the `wall_final_qtr < 0.30` confirmation ceiling (the 5th seed). Documented in REPLICATION_NOTES.md Sprint 21 section.
 
-**Sprint 21 carry-forward #20b — false positive at Schelling threshold = 0.5.** The strong-segregation Schelling parameter (threshold = 0.5, sometimes cited in textbook expositions) reaches DEFINITIVE on all 5 characterized seeds with P1 marked "inconclusive". This contradicts the unconditional Class 4 pure-metric discrimination claim of §6.10: pure-metric discrimination is **valid against the parameter ensemble it was calibrated against**, not unconditional. Recovery requires detector-calibration work — tighten `CONFIRMATION_WALL_FINAL_MAX` from 0.30 to ≈ 0.25, add a P1-aware definitive downgrade when the P1 exclusion is "inconclusive", or require Schelling's registry to carry an explicit `update = 'move'` token — and is deferred to a follow-up science sprint. Any candidate fix must be characterized against threshold ∈ {0.30, 0.375, 0.5} and against voter to ensure no regression.
+**Sprint 21 carry-forward #20b — CLOSED in Sprint 24.** The strong-segregation Schelling parameter (threshold = 0.5, sometimes cited in textbook expositions) reached DEFINITIVE on all 5 characterized seeds with P1 marked "inconclusive" under the Sprint 21–23 detector state. Sprint 24 Phase 1 baseline characterization (`docs/sprint24/phase1_baseline.md`) extended the audit to threshold = 0.43 and discovered bit-for-bit identical metric outcomes vs threshold = 0.5 — the false positive generalizes to the half-open interval τ ∈ (0.375, 0.5] because Schelling's 8-neighbor `same_frac` values are {0/8, …, 8/8} and skip [0.43, 0.5). The Sprint 24 fix (C6) closes #20b at two independent gates: (1) raise `DEFINITIVE_MORAN_FINAL_MIN` from 0.30 to 0.45 (Decision 57); (2) make `_check_definitive` consult `_check_exclusions` and require all three nearest-neighbor exclusions to return `"excluded"` (Decision 58). Voter retains 15/15 DEFINITIVE across L ∈ {64, 128, 256} × 5 seeds with ≥ 0.05 margin on the new moran floor. Schelling at thresholds 0.43 and 0.5 now reaches CONFIRMATION (5/5 each) — the honest tier outcome for "metrics consistent with coarsening, but nearest-neighbor exclusions cannot be cleared." See `tests/test_voter_p18_e2e.py::TestSprint24Schelling0p5Regression` (30 parametrized tests).
+
+**Decision 57 (Sprint 24): raise DEFINITIVE_MORAN_FINAL_MIN from 0.30 to 0.45.** Sprint 24 Phase 1 dry-run grading of six candidates (against the saved 35-run baseline JSON) found that `moran_final_qtr_mean` provides the cleanest empirical separation between voter and Schelling at the false-positive parameters: voter ∈ [0.499, 0.663] across 15 runs vs Schelling thr ∈ {0.43, 0.5} ∈ [0.375, 0.410] across 10 runs — a 0.089-wide gap with clean midpoint at 0.45. The alternative (tighten `CONFIRMATION_WALL_FINAL_MAX` from 0.30 to 0.25) had only a 0.012 margin at voter L = 128 and traded a known false positive for a probable future false negative as voter `wall_final` creeps with L. The new definitive window [0.45, 0.75] preserves all four other discriminator rejections (GH broken-wave at 0.87, GoL random at 0.27, GoL r-pent at 0.30, GH random rejected by `wall_final < 0.05`).
+
+**Decision 58 (Sprint 24): _check_definitive must consult _check_exclusions.** Pre-Sprint-24, the DEFINITIVE tier was determined by metric gates alone, with the bonus dictionary's `all_exclusions_cleared` flag at `epc/base_detector.py:333` hardcoded to `True` — making the architectural assertion "definitive REQUIRES exclusions cleared" cosmetic rather than enforced. Sprint 24 modifies `P18ConsensusDetector._check_definitive` to call `_check_exclusions` and require every entry in `excluded_patterns` to return `"excluded"` (i.e., not `"inconclusive"` or `"not_excluded"`). This provides defense in depth: even if a future Schelling parameter or a different lattice_2d-with-grid model produced `moran_final_qtr ≥ 0.45`, the metadata-keyed P1 exclusion would still hold the DEFINITIVE tier back when the model lacks a copy/imitation/voter `update` token. The other two P18 detector gates (P13 and P15) are metric-keyed and already returned `"excluded"` for voter at canonical parameters; this decision ratifies the existing successful behavior rather than tightening it.
 
 **Nearest-neighbor exclusions (Sprint 20 implementation):**
 
 - **P13** (excitable wave): metric-based. Excluded when `wall_final_qtr > 0.05 AND moran_final_qtr < 0.75` (rejects GH spiral at wall ~0.02 and Moran ~0.87).
 - **P15** (persistent computation): metric-based. Excluded when `moran_final_qtr ≥ 0.30 AND minority_fraction_final ≥ 0.05` (rejects GoL-like decay-to-sparse).
-- **P1** (similarity aggregation): metadata-keyed. Returns "excluded" only if `model_metadata['update']` contains 'copy', 'imitation', or 'voter'; otherwise returns "inconclusive". For canonical Schelling at threshold = 0.375 the metric gates alone reject below CONFIRMATION (Sprint 21 5-seed audit), so the inconclusive P1 outcome does not yield a false-positive DEFINITIVE. For Schelling at threshold = 0.5 the metric gates DO admit; this is carry-forward #20b.
+- **P1** (similarity aggregation): metadata-keyed. Returns `"excluded"` only if `model_metadata['update']` contains 'copy', 'imitation', or 'voter'; otherwise returns `"inconclusive"`. Sprint 24: this exclusion outcome is now consulted by `_check_definitive` as a hard gate (Decision 58). For canonical Schelling at threshold = 0.375 the metric gates alone reject below CONFIRMATION (Sprint 21 5-seed audit), so the inconclusive P1 outcome is not the load-bearing rejection. For Schelling at thresholds 0.43 and 0.5 the metric gates pass through CONFIRMATION; under Sprint 24 the new `moran_final_qtr ≥ 0.45` floor (Decision 57) rejects the DEFINITIVE tier on the metric path, AND the explicit P1-must-be-excluded check (Decision 58) rejects independently — defense in depth. Sprint 21 carry-forward #20b is closed.
 - **P21, P22, P20** (other Cluster F neighbors): not currently implemented as metric exclusions. P18's lattice_2d substrate constraint already separates it from the scalar-decision substrates these patterns target; the Cluster F overlap is a substrate-level rather than metric-level distinction.
 
 **Co-occurrence:**
