@@ -4,25 +4,26 @@ We have presented a systematic catalog of 32 emergent behavioral
 competencies in agent-based systems, accompanied by a quantitative
 detection toolkit with tier-gated significance, null-model testing,
 exclusion logic, and an architectural framework for same-substrate
-same-observable pattern discrimination. Validation across 17 canonical
-models on seven substrates — lattice_1d, lattice_2d, lattice_2d_continuous,
-continuous_2d, oscillator, opinion_space, and scalar_wealth — produces
-a transfer matrix with no false positives across substrate boundaries,
-clean within-cluster discrimination including the first 2×2 within-
-substrate block (Kuramoto × P9 and Kuramoto-nonlocal × P10), and
-several unexpected co-occurrences (P1 × P27 on Nowak-May, P1 × P11 on
-Lotka-Volterra) that illuminated the relationship between spatial
-structure and collective dynamics.
+same-observable pattern discrimination. Validation across 19 canonical
+model families (20 registered models, with two Zhang sorting variants
+folded as one display row) on seven substrates — lattice_1d, lattice_2d,
+lattice_2d_continuous, continuous_2d, oscillator, opinion_space, and
+scalar_wealth — produces a transfer matrix with no false positives
+across substrate boundaries, clean within-cluster discrimination
+including the first 2×2 within-substrate block (Kuramoto × P9 and
+Kuramoto-nonlocal × P10), and several unexpected co-occurrences
+(P1 × P27 on Nowak-May, P1 × P11 on Lotka-Volterra) that illuminated
+the relationship between spatial structure and collective dynamics.
 
-The catalog is not complete — fifteen patterns await detectors, and
+The catalog is not complete — thirteen patterns await detectors, and
 three pattern clusters (Resilience, parts of Structure Formation, parts
 of Decision-Making) have only partial coverage. But the infrastructure
 is in place: a common detector architecture, a substrate-aware
-orchestration layer with 19 models × 18 registered detectors and 65
-substrate-compatible pairs at Sprint 19, a growing test suite of 235
-fast tests plus 41 heavy and 16 slow tests across 28 test files, and a
-set of methodological patterns that crystallized across the eighteen
-development sprints.
+orchestration layer with 20 models × 19 registered detectors and 79
+substrate-compatible pairs at Sprint 22, a fast-test suite of
+approximately 478 tests plus 65 slow-marked tests across 30 test files,
+and a set of methodological patterns that crystallized across the
+twenty-two development sprints.
 
 Four of those patterns are worth stating explicitly as the paper's
 structural contributions, beyond the catalog itself:
@@ -110,6 +111,9 @@ its organizing principles are established.
 Abrams, D.M. & Strogatz, S.H. (2004). Chimera states for coupled
 oscillators. *Physical Review Letters* 93, 174102.
 
+Arthur, W.B. (1994). Inductive reasoning and bounded rationality.
+*American Economic Review* 84(2), 406–411.
+
 Bak, P., Tang, C. & Wiesenfeld, K. (1987). Self-organized criticality:
 an explanation of the 1/f noise. *Physical Review Letters* 59(4),
 381–384.
@@ -117,12 +121,20 @@ an explanation of the 1/f noise. *Physical Review Letters* 59(4),
 Ball, P. (2009). *Nature's Patterns: A Tapestry in Three Parts.*
 Oxford University Press.
 
+Ben-Naim, E., Vazquez, F. & Redner, S. (2011). Dynamics of confident
+voting. *Journal of Statistical Mechanics: Theory and Experiment* 2011,
+P10002.
+
 Bette, H.M., Habel, L., Emig, T. & Schreckenberg, M. (2017).
 Mechanisms of jamming in the Nagel-Schreckenberg model for traffic
 flow. *Physical Review E* 95, 012311.
 
 Boghosian, B.M. (2014). Kinetics of wealth and the Pareto law.
 *Physical Review E* 89, 042804.
+
+Bonabeau, E. (1996). Quantitative study of the fixed threshold model
+for the regulation of division of labour in insect societies.
+*Proceedings of the Royal Society B* 263(1376), 1565–1569.
 
 Camazine, S., Deneubourg, J.-L., Franks, N.R., Sneyd, J., Theraulaz,
 G. & Bonabeau, E. (2001). *Self-Organization in Biological Systems.*
@@ -139,9 +151,18 @@ Chakraborti, A. & Chakrabarti, B.K. (2000). Statistical mechanics of
 money: how saving propensity affects its distribution. *European
 Physical Journal B* 17, 167–170.
 
+Challet, D. & Zhang, Y.-C. (1997). Emergence of cooperation and
+organization in an evolutionary game. *Physica A* 246(3–4), 407–418.
+
+Clifford, P. & Sudbury, A. (1973). A model for spatial conflict.
+*Biometrika* 60(3), 581–588.
+
 Couzin, I.D., Krause, J., Franks, N.R. & Levin, S.A. (2005).
 Effective leadership and decision-making in animal groups on the
 move. *Nature* 433, 513–516.
+
+Cox, J.T. (1989). Coalescing random walks and voter model consensus
+times on the torus in Z^d. *Annals of Probability* 17(4), 1333–1366.
 
 D'Orsogna, M.R., Chuang, Y.L., Bertozzi, A.L. & Chayes, L.S. (2006).
 Self-propelled particles with soft-core interactions: patterns,
@@ -151,6 +172,10 @@ Datta, A. & Acharyya, M. (2022). Modelling the spread of an epidemic
 in presence of vaccination using cellular automata. *International
 Journal of Modern Physics C* 33(6), 2250077.
 
+Dornic, I., Chaté, H., Chave, J. & Hinrichsen, H. (2001). Critical
+coarsening without surface tension: the universality class of the
+voter model. *Physical Review Letters* 87, 045701.
+
 Dragulescu, A. & Yakovenko, V.M. (2001). Statistical mechanics of
 money. *European Physical Journal B* 17, 723–729.
 
@@ -158,9 +183,21 @@ Fily, Y. & Marchetti, M.C. (2012). Athermal phase separation of
 self-propelled particles with no alignment. *Physical Review Letters*
 108, 235702.
 
+Fuks, H. & Lawniczak, A.T. (2002). Individual-based lattice models
+for spatial epidemiological simulations. *Discrete Dynamics in
+Nature and Society* 6, 191–200.
+
 Gardner, M. (1970). Mathematical games: the fantastic combinations
 of John Conway's new solitaire game "Life." *Scientific American*
 223(4), 120–123.
+
+Giuggioli, L., Potts, J.R. & Harris, S. (2011). Animal interactions
+and the emergence of territoriality. *PLoS Computational Biology*
+7(3), e1002008.
+
+Grassberger, P. (1983). On the critical behavior of the general
+epidemic process and dynamical percolation. *Mathematical
+Biosciences* 63(2), 157–172.
 
 Greenberg, J.M. & Hastings, S.P. (1978). Spatial patterns for
 discrete models of diffusion in excitable media. *SIAM Journal on
@@ -169,6 +206,10 @@ Applied Mathematics* 34(3), 515–523.
 Hegselmann, R. & Krause, U. (2002). Opinion dynamics and bounded
 confidence models, analysis, and simulation. *Journal of Artificial
 Societies and Social Simulation* 5(3), 2.
+
+Holley, R. & Liggett, T.M. (1975). Ergodic theorems for weakly
+interacting infinite systems and the voter model. *Annals of
+Probability* 3(4), 643–663.
 
 Kuramoto, Y. (1975). Self-entrainment of a population of coupled
 non-linear oscillators. In *International Symposium on Mathematical

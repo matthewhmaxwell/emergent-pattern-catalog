@@ -139,15 +139,21 @@ detector expects continuous-space positions and headings; applying it to a
 lattice cellular automaton is meaningless. The orchestration layer prevents
 these cross-substrate mismatches through a two-level compatibility check.
 
-The first level is **substrate type matching.** Six substrate types are
-defined: lattice_1d (chimeric sorting), lattice_2d (cellular automata,
-Schelling, Nowak-May, SIR, RPS), continuous_2d (Vicsek, D'Orsogna),
-oscillator (Kuramoto), opinion_space (Hegselmann-Krause), and
-predator_prey (lattice Lotka-Volterra). The predator_prey substrate is
-operationally lattice_2d but carries additional type information (prey,
-predator, empty) that enables the P11 bilateral-coupling detector and
-distinguishes it from cyclic-competition systems. Each detector declares
-which substrate types it is compatible with.
+The first level is **substrate type matching.** Seven substrate types are
+defined: lattice_1d (Zhang sorting; Nagel-Schreckenberg traffic),
+lattice_2d (Schelling, Nowak-May, SIR, RPS, lattice Lotka-Volterra,
+voter, plus the cellular-automata models Greenberg-Hastings, Game of
+Life, BTW sandpile), lattice_2d_continuous (Gray-Scott reaction-
+diffusion, distinguished from lattice_2d by the `n_unique_values ≥ 50`
+content prerequisite that separates continuous-field models from
+integer-state cellular automata), continuous_2d (Vicsek, D'Orsogna,
+active Brownian particles), oscillator (all-to-all Kuramoto, non-local
+Kuramoto), opinion_space (Hegselmann-Krause), and scalar_wealth
+(Yard-Sale wealth exchange). LV's prey/predator/empty type information
+distinguishes it from cyclic-competition systems via the
+`n_unique_species_observed == 2` content prerequisite of P11 rather
+than via a dedicated substrate. Each detector declares which substrate
+types it is compatible with.
 
 The second level is **observable matching.** Within a compatible
 substrate, the detector requires specific state keys. P27 (spatial
@@ -162,17 +168,20 @@ distinguishes it from conservation-locked two-state systems like
 Nowak-May and — combined with the `n_unique_species_observed == 2`
 gate — separates it from three-species cyclic systems like RPS.
 
-Of 169 possible model × detector pairs in the current inventory
-(13 distinct model families × 13 detectors), 50 are audited as
-substrate-compatible, observable-compatible, and empirically tested.
-The remaining 119 cells are correctly eliminated by substrate mismatch
-(112) or by detector-substrate incompatibility (7, primarily P31 which
-requires lattice_1d). Of the 50 audited cells, 37 are pinned in the
-cross-detection regression suite (`tests/test_cross_detection_matrix.py`
-`EXPECTED_OUTCOMES`) and the other 13 are canonical positives pinned
-in dedicated end-to-end test files. This block-diagonal structure
-ensures that detectors operate only in domains where their metrics
-are meaningful.
+Of 380 possible model × detector pairs in the current inventory
+(20 registered models × 19 detectors), 79 are substrate-compatible
+and observable-compatible. The remaining 301 cells are correctly
+eliminated by substrate mismatch (274) or by detector-observable
+incompatibility (27, primarily P31 which requires `lattice_1d` with
+`cell_types`, P14 which requires `avalanche_sizes`, and P27 which
+requires `coop_fraction`). The cross-detection regression suite
+(`tests/test_cross_detection_matrix.py::EXPECTED_OUTCOMES`) pins 195
+audited model–detector outcomes — covering compatible-and-tested
+cells, expected substrate-mismatch rejections, and observable-
+prerequisite rejections — and the 19 canonical DEFINITIVE positives
+are pinned separately in dedicated end-to-end test files. This
+block-diagonal structure ensures that detectors operate only in
+domains where their metrics are meaningful.
 
 ## 3.5 Key Boundary Tests
 
@@ -258,7 +267,18 @@ distribution rather than the one-sided p-value. The p-value is
 reported as a diagnostic only. This pattern — a null model that is
 intentionally too strong for clean p-values, with effect-size gating as
 the compensating discriminator — may recur for other detectors whose
-primary metric is a phase-relationship rather than a magnitude.
+primary metric is a phase-relationship rather than a magnitude. P18
+(Sprint 20) encountered the same circular-shift autocorrelation
+preservation issue on its Moran's I trajectory; rather than switching
+to effect-size gating, P18 resolved it by replacing the circular-shift
+null with a full random permutation that destroys both the trend and
+the autocorrelation, achieving p < 0.01 reliably across all canonical
+voter seeds. The two resolutions — Cohen's-d gating with the
+autocorrelation-preserving null, or full random permutation that
+destroys autocorrelation — are both legitimate; the choice depends on
+whether the autocorrelation structure is itself part of the pattern's
+substrate (P11) or merely a property of the test statistic (P18).
+See §6.10 (Decision 54) for the P18 reasoning.
 
 These are not arbitrary choices — in multiple cases, underpowered initial
 tests produced incorrect results that were only resolved by increasing

@@ -149,11 +149,11 @@ specification testing would have missed.
 Several limitations constrain the current work.
 
 **Coverage.** The catalog defines 32 patterns and the current
-implementation covers 18 of them (P1, P2, P3, P5, P6, P8, P9, P10,
+implementation covers 19 of them (P1, P2, P3, P5, P6, P8, P9, P10,
 P11, P12, P13, P14, P15, P18, P21, P22, P27, P28, P31) across 19
 model families on seven substrates (lattice_1d, lattice_2d,
 lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
-scalar_wealth). Fourteen patterns await detectors, including P4
+scalar_wealth). Thirteen patterns await detectors, including P4
 (territoriality), P7 (lane formation), P16 (associative memory), P17
 (distributed sensing), P19 (leadership), P20 (quorum sensing), P23
 (anti-coordination), P24 (homeostatic regulation), P25 (canalized
@@ -227,10 +227,9 @@ mechanism is known by assertion rather than inferred from data).
 
 Four directions seem most productive.
 
-**Continuing the detector coverage expansion.** Fifteen patterns await
+**Continuing the detector coverage expansion.** Thirteen patterns await
 detectors. Wave 1 candidates — patterns that can be implemented on
-existing substrates — include P18 (consensus, canonical on voter
-models over the lattice_2d substrate), P23 (anti-coordination, El
+existing substrates — include P23 (anti-coordination, El
 Farol / Minority Game on a new scalar or decision substrate), P24
 (homeostatic regulation, on existing Kuramoto oscillator substrate
 with phase targets), P26 (stochastic resonance, on existing lattice_2d

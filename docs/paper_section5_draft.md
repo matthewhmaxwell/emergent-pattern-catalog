@@ -4,7 +4,7 @@ The detection toolkit's value lies not only in confirming that canonical
 models produce their expected patterns, but in revealing which patterns
 appear — and which do not — when detectors are applied systematically
 across the full model inventory. This section reports the consolidated
-transfer matrix at 173 audited cross-detection pairs plus 19 canonical
+transfer matrix at 195 audited cross-detection pairs plus 19 canonical
 DEFINITIVE positives pinned in dedicated end-to-end tests, analyzes its
 block-diagonal structure by substrate, and examines four cross-model
 findings — co-occurrence of aggregation with reciprocity on Nowak-May,
@@ -54,7 +54,9 @@ and the prose figures here to match.
 The cross-detection-matrix regression table
 (`tests/test_cross_detection_matrix.py::EXPECTED_OUTCOMES`) pins the
 non-canonical cells and has grown from 27 audited pairs at Sprint 10
-to 173 at Sprint 20. Canonical positives — the ~19 "on-diagonal"
+to 195 by Sprint 22 (Sprint 20 added voter and Sprint 21 added the
+Schelling discriminator rows that take the count above the test's
+≥ 173 lower bound). Canonical positives — the 19 "on-diagonal"
 model × primary-detector DEFINITIVE cells — are pinned separately in
 dedicated end-to-end test files (`test_vicsek_validation.py`,
 `test_kuramoto_p10_e2e.py`, `test_lv_p11_e2e.py`,
@@ -406,7 +408,7 @@ P29 for novel substrate variants — is the primary future-work plan.
 
 ## 5.8 Dimensional Coverage
 
-The 14 model implementations (13 distinct model families) span 8 of
+The 20 registered models (19 distinct model families) span 8 of
 11 ontological dimensions with at
 least two distinct values each. Coverage gaps concentrate in three
 dimensions: *interaction type* (no indirect-stigmergic models, such as

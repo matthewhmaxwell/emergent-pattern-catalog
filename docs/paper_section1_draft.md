@@ -125,23 +125,36 @@ Detectors declare their substrate compatibility and their observable
 scope (whether they operate on state history alone or require model
 metadata), enabling systematic dispatch across the model inventory.
 
-We validate the toolkit by implementing 14 model files across 13
-distinct canonical model families (Zhang cell-view sorting has
-sequential and threaded variants of the same model) spanning eight
-pattern clusters, verifying that (a) each model replicates published
-quantitative results and (b) each detector produces the correct tier
-assignment on both positive and negative controls. The resulting
-transfer matrix contains 50 audited model × detector cells across
-13 × 13 = 169 possible pairs (of which 119 are substrate-incompatible
-or observable-incompatible and correctly eliminated without empirical
-testing). Of the 50 audited cells, 37 are pinned in the cross-detection
-regression suite that guards against regressions on non-canonical
-(cross-pattern) outcomes; the other 13 are canonical positives pinned
-in dedicated end-to-end test files. Every canonical positive reaches
-at least confirmation tier on its primary detector and every
-cross-pattern negative control is correctly rejected by substrate
-match, observable match, prerequisite guard, or primary-metric
-screening.
+We validate the toolkit by implementing 20 registered models across
+19 distinct canonical model families (Zhang cell-view sorting has
+sequential and threaded variants of the same family that share
+substrate, observables, and primary patterns and are folded as a
+single display row in the consolidated transfer matrix) spanning
+nine pattern clusters and seven substrates (lattice_1d, lattice_2d,
+lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
+and scalar_wealth). Each model replicates published quantitative
+results and each of 19 implemented detectors produces the correct
+tier assignment on both positive and negative controls. The
+resulting transfer matrix contains 79 substrate-and-observable
+compatible cells out of 380 registry cells (19 displayed rows × 19
+detector columns yields 361 cells in the folded display); the
+remaining 301 registry cells (284 in the displayed table) are
+correctly eliminated without empirical testing — 274 by substrate
+mismatch and 27 by detector–observable incompatibility. Of the 79
+audited cells, 19 produce canonical DEFINITIVE detections (one per
+primary model family), pinned in dedicated end-to-end test files;
+the other 195 audited model–detector outcomes — covering screening
+admits, screening rejections, and confirmation-tier co-occurrences
+— are pinned in the cross-detection regression suite. Every
+canonical positive reaches at least confirmation tier on its
+primary detector and every cross-pattern negative control is
+correctly rejected by substrate match, observable match,
+prerequisite guard, or primary-metric screening. The transfer
+matrix figures cited here are programmatically derived from the
+model and detector registries by `scripts/count_transfer_matrix.py`
+and pinned by `tests/test_transfer_matrix_counts.py` so that any
+future registry change that drifts from the cited numbers fails the
+test suite before propagating silently into the manuscript.
 
 ## 1.4 Scope and Limitations
 
@@ -163,19 +176,25 @@ depend on knowing the generative mechanism is precisely what is needed
 when the long-term goal is to apply these methods to systems whose rules
 are unknown.
 
-*Fourteen model files, not an exhaustive census.* The transfer matrix
-at the time of writing covers 14 model files (13 distinct model
-families) across the substrate
-types lattice_1d (chimeric sorting), lattice_2d (seven cellular
-automata: Greenberg-Hastings, Game of Life, Schelling, Nowak-May, BTW
-sandpile, SIR epidemic, spatial rock-paper-scissors), continuous_2d
-(Vicsek, D'Orsogna), oscillator (Kuramoto), opinion_space
-(Hegselmann-Krause), and the new predator_prey substrate (lattice
-Lotka-Volterra). Several documented patterns — Turing patterns (P3),
-lane formation (P7), quorum sensing (P20), associative memory (P16),
-and others — do not yet have canonical-model implementations in our
-toolkit. We treat the current matrix as a working core, not a closed
-table, and identify dimensional-coverage gaps in Section 5.
+*Twenty model families, not an exhaustive census.* The transfer matrix
+at the time of writing covers 20 registered models (19 distinct model
+families, with two Zhang sorting variants folded as one) across the
+seven substrate types lattice_1d (Zhang sorting; Nagel-Schreckenberg
+traffic), lattice_2d (nine cellular automata: Greenberg-Hastings, Game
+of Life, Schelling, Nowak-May, BTW sandpile, SIR epidemic, spatial
+rock-paper-scissors, lattice Lotka-Volterra, voter model),
+lattice_2d_continuous (Gray-Scott reaction-diffusion), continuous_2d
+(Vicsek, D'Orsogna, active Brownian particles), oscillator (all-to-all
+Kuramoto, non-local Kuramoto), opinion_space (Hegselmann-Krause), and
+scalar_wealth (Yard-Sale wealth exchange). Several documented patterns —
+lane formation (P7), territoriality (P4), associative memory (P16),
+distributed sensing (P17), leadership (P19), quorum sensing (P20),
+anti-coordination (P23), homeostatic regulation (P24), canalized
+restoration (P25), stochastic resonance (P26), trail formation (P29),
+autopoiesis (P30), and emergent specialization (P32) — do not yet have
+canonical-model implementations in our toolkit. We treat the current
+matrix as a working core, not a closed table, and identify
+dimensional-coverage gaps in Section 5.
 
 ## 1.5 Organization
 
@@ -185,18 +204,19 @@ and a survey of the 32 atomic patterns organized by cluster. Section 3
 specifies the detection toolkit: design principles, detector
 architecture, null-model taxonomy, substrate-aware dispatch, key
 boundary tests, and statistical power requirements. Section 4 reports
-replication studies for the 14 canonical model implementations
-(13 distinct model families), verifying each against
-published results and reporting detector tier assignments on positive
-and negative controls. Section 5 presents the consolidated transfer
-matrix over 50 audited cells (37 in the cross-detection regression
-table plus 13 canonical positives pinned in dedicated e2e files),
-analyzes its block-diagonal structure by
-substrate, and examines three cases — P1 co-occurrence with P27 on
-Nowak-May, the asymmetric P1 signature on SIR versus RPS, and the
-bilateral-versus-cyclic exclusion between P11 and P12 — that sharpen
-pattern definitions beyond their initial specifications. Section 6
-reports findings that were not anticipated at the outset: the P31
+replication studies for the 19 canonical model families, verifying
+each against published results and reporting detector tier assignments
+on positive and negative controls. Section 5 presents the consolidated
+transfer matrix over 214 audited cells (195 in the cross-detection
+regression suite plus 19 canonical positives pinned in dedicated
+end-to-end files), analyzes its block-diagonal structure by substrate,
+and examines four cross-model findings — P1 co-occurrence with P27 on
+Nowak-May, the asymmetric P1 signature on SIR versus RPS, the
+bilateral-versus-cyclic exclusion between P11 and P12, and the
+same-substrate content-level discrimination of voter coarsening from
+the four other lattice_2d-with-grid patterns — that sharpen pattern
+definitions beyond their initial specifications. Section 6 reports
+findings that were not anticipated at the outset: the P31
 non-redundancy result, the boundary-conditioned transfer entropy
 technique, and resolved false positives that refined operational
 definitions. Section 7 discusses implications for the Diverse
@@ -205,9 +225,9 @@ contributions, limitations, and future work. Section 8 concludes.
 
 All source code, parameter files, detector specifications, and test
 suites are available at [repository URL]. The complete inventory
-includes 14 model implementations (13 distinct model families),
-13 detectors, 50 audited model × detector cells (37 in the
-cross-detection regression suite and 13 canonical positives in
-dedicated e2e files), and 135 fast canonical regression tests (plus
-several
-slow-marked tests for higher-power replications).
+includes 20 model implementations (19 distinct model families),
+19 detectors, 214 audited model × detector cells (195 in the
+cross-detection regression suite and 19 canonical positives in
+dedicated e2e files), and a fast-test suite of approximately 478
+canonical regression tests (plus several slow-marked tests for
+higher-power replications and finite-size studies).
