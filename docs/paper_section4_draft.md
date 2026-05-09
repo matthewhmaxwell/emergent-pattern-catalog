@@ -1,14 +1,17 @@
 # Section 4: Replication Studies
 
-To validate the detection toolkit, we implemented 14 canonical model
-files covering 13 distinct model families (Zhang cell-view sorting has
-sequential and threaded variants of the same model) spanning eight
+To validate the detection toolkit, we implemented 20 canonical model
+files covering 19 distinct model families (Zhang cell-view sorting has
+sequential and threaded variants of the same family that are folded as
+a single display row in the consolidated matrix) spanning nine
 pattern clusters and verified that (a) each model
 reproduces published quantitative results and (b) the corresponding
 detectors produce correct tier assignments on both positive and
 negative controls. This section reports results for each model family,
-followed by a consolidated cross-model transfer matrix with 37 audited
-model × detector pairs.
+followed by a consolidated cross-model transfer matrix with 195 audited
+model × detector pairs in the cross-detection regression suite plus 19
+canonical DEFINITIVE positives pinned in dedicated end-to-end test
+files.
 
 All models, metrics, and detectors are implemented in Python/NumPy
 without heavy-framework dependencies. Source code, parameter files, and
@@ -1555,6 +1558,23 @@ expected for a coexistence-phase fixed point of the continuum
 Abrams–Strogatz PDE. Long-run stability at T = 200 shows r_global =
 0.582 ± 0.032 (stationary across 200 time units); the chimera is a
 genuine attractor, not a long transient.
+
+**Seed-robust basin floor at N = 64.** The N-scaling result above
+holds at seed 0 only. A Sprint 19 retest at N = 64 across the five
+anchored chimera-basin seeds {0, 1, 42, 200, 500} found that *none
+except seed 0 reach DEFINITIVE*: pos_vel_ac[4] falls in
+[−0.008, 0.59] for the remaining four seeds, all of which land at
+SCREENING. The Sprint 18 single-seed result holds for that one initial
+condition but does not generalize across the chimera-basin ensemble.
+N = 128 is the true seed-robust lower bound: at N = 128 all five
+anchored seeds reach DEFINITIVE (table above), and finite-size
+robustness at N = 128 is pinned by `TestFiniteSizeRobustness` in
+`tests/test_kuramoto_p10_e2e.py`. This is consistent with the
+broader theme of this section — chimera basin widths depend on β, N,
+and IC; below some N-floor the basin is no longer reliably reachable
+for arbitrary seeds. The Sprint 18 single-seed claim was a measurement,
+not an existence proof, and we now restrict the seed-robust DEFINITIVE
+claim to N ≥ 128.
 
 **Within-substrate content-level rejection (Kuramoto × P10).** The
 hardest negative is ordinary all-to-all Kuramoto run through P10. At

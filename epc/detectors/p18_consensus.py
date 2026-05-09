@@ -19,7 +19,7 @@ Detection tiers (from Sprint 20 characterization, §4.20):
              cluster-formation transient of voter dynamics.
 
   Confirmation: persistent monotonic decay of boundary (wall) density over
-             the full run AND wall density plateaus below 0.35 AND shuffle
+             the full run AND wall density plateaus below 0.30 AND shuffle
              null p-value < 0.01. Distinguishes active coarsening from
              static-structured models.
 
@@ -32,11 +32,16 @@ Detection tiers (from Sprint 20 characterization, §4.20):
                - minority fraction stays above 0.05 at end (excludes GoL
                  decay-to-sparse-still-life)
 
-Null model: circular time-shuffle on the Moran's I trajectory. Under the
-voter model, Moran's I is monotonically non-decreasing in early time;
-shuffling time indices destroys this trend while preserving the marginal
-distribution of Moran values. The test statistic is the early-time Spearman
-ρ(t, Moran). Under H0 (no trend), null Spearman is centered at 0.
+Null model: full random permutation of the Moran's I trajectory time
+indices (ADR 54, Sprint 20). Under H0 (no temporal trend), the early-time
+Spearman ρ(t, Moran) is centered at 0; under voter dynamics it sits at
+~+0.9. An earlier circular-shift null preserved Moran's I autocorrelation
+(Moran values change by < 0.05 between consecutive timesteps), inflating
+the null distribution at large positive Spearman and pushing voter
+p-values to ~0.04 instead of the strict < 0.01 confirmation gate. Full
+random permutation destroys both the directed trend and the
+autocorrelation, giving p < 0.01 reliably across all 10 voter seeds while
+all four lattice_2d discriminators get p ≈ 1.
 
 References:
   Clifford, P. & Sudbury, A. (1973). "A model for spatial conflict."

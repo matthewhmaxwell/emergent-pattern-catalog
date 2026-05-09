@@ -2,6 +2,15 @@
 
 Bridge document from pattern taxonomy (v0.4) to detection toolkit.
 
+v0.6.2 (Sprint 22): P18 card rewritten to match implemented detector
+(VoterModel + P18ConsensusDetector). Replaces the v0.5.2 spec-level
+stub with empirically-enriched canonical positive (voter L=64, 1500
+sweeps), Decisions 54/55/56 (full random permutation null,
+early-window Spearman wall metric, async-only calibration), exact
+tier gates, six-row discriminator rejection table, and the Sprint 21
+carry-forward #20b note (Schelling threshold=0.5 false positive).
+See ADRs 54/55/56 and REPLICATION_NOTES.md Sprint 20/21.
+
 v0.6.0 (Sprint 16): P2 card completely rewritten to match implemented
 detector (ABP + P2MIPSDetector). The pre-existing recipe based on
 Hartigan dip on density histograms was shown empirically (Phase 1c/d)
@@ -1326,43 +1335,87 @@ CI_group scales with N above individual baseline.
 
 ### P18 — Collective consensus / decision-making
 
-**Observable scope:** Model-metadata assisted (option quality needed for accuracy measurement)
+**Observable scope:** State-history only (operates on a 2D opinion grid).
+
+**Canonical positive:** Voter model on a 2D Moore-neighborhood lattice with random imitation dynamics (Clifford & Sudbury 1973; Holley & Liggett 1975), L = 64, 1500 sweeps, 10 random-init seeds at p_up = 0.5. Sprint 20 implementation: `epc.models.voter.VoterModel`.
 
 **Required raw observables:**
-- `choice[t]`: (N,) in {1..K}
-- `quality`: (K,) (if available)
-- `f_k(t)`: commitment fractions
+- `state_history`: list of snapshots each with `grid` (2D int array, K = 2 or more discrete opinion states)
+- ≥ 2 distinct states observed across the history
 
 **Preprocessing:**
-1. f_k(t) per option. 2. Consensus: max f_k > 0.9. 3. Accuracy if quality known.
+1. Compute Moran's I and wall density at each timestep using the Moore-neighborhood metric on a periodic lattice (the same neighborhood that defines the model's update rule, for consistency).
+2. Define an early-time window t ≤ τ_early = 0.10 · T_total. The early window captures the rapid coarsening transient where Moran's I grows monotonically and wall density drops monotonically; the late plateau is dominated by martingale random-walk drift in the magnetization and is not informative for trend detection (Decision 55, see below).
+3. Aggregate metrics: early-window Spearman ρ(t, Moran's I) and ρ(t, wall density); final-quarter means; minority-fraction-final.
 
-**Primary metric: Convergence to consensus**
-t_consensus, accuracy, final committed fraction.
+**Primary metrics:**
+- `moran_spearman_early`: Spearman ρ of (t, Moran's I) over t ≤ τ_early. Captures the rapid initial growth of spatial correlation as opinion clusters coarsen.
+- `moran_final_qtr_mean`: mean Moran's I over final quarter of run. Captures the plateau level distinguishing voter coarsening from GoL-random decay.
+- `moran_growth`: moran_final_qtr_mean − moran_initial.
 
 **Secondary metrics:**
-- Sensitivity (accuracy vs Δq)
-- Wisdom-of-crowds gain
+- `wall_spearman_early`: Spearman ρ of (t, wall density) over t ≤ τ_early. Captures the persistent coarsening trend (rapid early decay).
+- `wall_final_qtr_mean`: plateau wall density. Distinguishes active coarsening from static-structured neighbors.
+- `wall_decay`: wall_initial − wall_final_qtr_mean.
+- `minority_fraction_final`: minority opinion share at end of run. Excludes GoL-style decay-to-sparse-still-life.
 
-**Null models:**
-- *Independent-choice:* random, accuracy = 1/K.
-- *Majority-rule:* Condorcet baseline.
+**Null model: full random permutation (SHUFFLE)**
+
+At each permutation, randomly permute the time indices of the Moran's I trajectory and recompute the early-window Spearman ρ. Test statistic: `moran_spearman_early`. Random permutation destroys both the directed trend and the autocorrelation of Moran's I.
+
+**Decision 54 (Sprint 20):** the original circular-shift null preserved Moran's I autocorrelation (Moran values change by < 0.05 between consecutive timesteps), inflating the null distribution at large positive Spearman. Voter p-values came out at ~0.04 instead of below the strict 0.01 confirmation gate. Full random permutation gives p < 0.01 reliably on all 10 voter seeds while all four lattice_2d discriminators get p ≈ 1. Echoes Sprint 11 ADR 36 in a different detector context.
+
+**Decision 55 (Sprint 20):** the secondary wall metric uses *early-window* Spearman, not full-window. Voter wall density has two regimes: sharp drop from 0.50 to ~0.27 over t ∈ [0, τ], then slow random-walk drift at the plateau. Full-window Spearman is dominated by the late-regime random walk and can flip positive on individual seeds (seed 3 at L = 64 produced full-window Spearman = +0.046, failing the < −0.40 gate). Early-window Spearman is reliably ≤ −0.83 on all voter seeds at L ∈ {64, 128, 256}.
+
+**Decision 56 (Sprint 20):** all P18 detector gates are calibrated against the canonical async dynamics (one elementary update per micro-step, N elementary updates per sweep). A checkerboard parallelization prototype gave ~4× speedup at L = 256 with matching late-time exponents but early-time wall trajectories that differed by > 3σ at t = 10 sweeps. Since the gates depend on early-time trajectories (via Decisions 54 and 55), the parallel dynamics is not used in characterization, calibration, or slow-test pinning.
 
 **Detection tiers:**
-- *Screening:* max f_k > 0.8 in ≥ 70% of trials
-- *Confirmation:* max f_k > 0.9 in ≥ 90% AND accuracy > independent null (p < 0.01)
-- *Definitive:* Confirmation + P20/P21/P22 exclusions all cleared
 
-**Common false positives:**
-- P21 (multimodal). P22 (one-way spread). P20 (density trigger).
+- *Screening:* `moran_spearman_early > 0.70` AND `moran_final_qtr_mean > 0.30` AND `moran_growth > 0.20`.
+- *Confirmation:* screening AND null p < 0.01 AND `wall_spearman_early < −0.40` AND `wall_final_qtr_mean < 0.30` AND `wall_decay > 0.15`.
+- *Definitive:* confirmation AND `moran_final_qtr_mean ∈ [0.30, 0.75]` AND `wall_final_qtr_mean > 0.05` AND `minority_fraction_final > 0.05` AND P13 / P15 / P1 nearest-neighbor exclusions all cleared.
 
-**Nearest-neighbor exclusions:**
-- P21: Multimodal final → P21. Unimodal → P18.
-- P22: Bidirectional influence → P18. One-way → P22.
-- P20: Quality-triggered → P18. Density-triggered → P20.
+**Canonical-positive measurements (Sprint 20):**
+
+| Configuration | n_seeds | moran_final_qtr | moran_sp_early | wall_final_qtr | wall_sp_early | tier |
+|---|---|---|---|---|---|---|
+| voter L = 64, 1500 sweeps  | 10 | 0.54 ± 0.05 | +0.89 ± 0.07 | 0.21 ± 0.04 | −0.94 ± 0.05 | DEFINITIVE |
+| voter L = 128, 800 sweeps  | 10 | 0.56 ± 0.03 | +0.96 ± 0.04 | 0.22 ± 0.01 | −0.94 ± 0.04 | DEFINITIVE |
+
+**Common false positives and how P18 rejects them:**
+
+| Discriminator | n_seeds | moran_final_qtr | wall_final_qtr | tier reached | rejection mechanism |
+|---|---|---|---|---|---|
+| GH random (P13 transient) | 5 | 0.63 ± 0.04 | 0.011 ± 0.007 | CONFIRMATION | `wall_final_qtr < 0.05` definitive floor — wall collapses once excitation extinguishes |
+| GH broken-wave (P13 spiral) | 5 | 0.87 (const) | 0.02 (const) | screening reject | pre-organized: zero early-window Moran trend |
+| GoL random (P15 decay) | 5 | 0.27 ± 0.02 | 0.08 ± 0.04 | screening reject | `moran_final_qtr ≤ 0.30` screening floor |
+| GoL r-pentomino (P15 chaos) | 5 | 0.30 (const) | 0.08 (const) | screening reject | `moran_spearman_early ≈ 0.17 ≤ 0.70` screening floor |
+| Schelling P1 (threshold = 0.375, canonical) | 5 | 0.27 ± 0.02 | 0.36 ± 0.01 | SCREENING (4 of 5 fail; 1 reaches but fails confirmation ceiling) | empirical: `moran_final_qtr ≤ 0.30` for 4/5; the remaining seed fails the `wall_final_qtr < 0.30` confirmation ceiling because Schelling's three-state grid {0, 1, 2} produces a geometry-imposed wall floor near 0.36 |
+| Schelling P1 (threshold = 0.5, **KNOWN FALSE POSITIVE**) | 5 | 0.39 | 0.27 | DEFINITIVE | metric gates admit; P1 exclusion returns "inconclusive" because Schelling metadata lacks copy/imitation/voter `update` key. **Sprint 21 carry-forward #20b** |
+
+**Sprint 21 finding — corrections to the Sprint 20 narrative.** The Sprint 20 §4.20 docstring originally claimed Schelling rejection via "wall_final ≈ 0.02 < 0.05 floor" and "moran_growth < 0.20 floor". Both were empirically wrong: Schelling at threshold = 0.375 has `wall_final_qtr ≈ 0.36` (well above the 0.05 floor) and `moran_growth ∈ [0.23, 0.30]` (all above the 0.20 floor). The actual rejection mechanism is `moran_final_qtr ≤ 0.30` (4/5 seeds) or the `wall_final_qtr < 0.30` confirmation ceiling (the 5th seed). Documented in REPLICATION_NOTES.md Sprint 21 section.
+
+**Sprint 21 carry-forward #20b — false positive at Schelling threshold = 0.5.** The strong-segregation Schelling parameter (threshold = 0.5, sometimes cited in textbook expositions) reaches DEFINITIVE on all 5 characterized seeds with P1 marked "inconclusive". This contradicts the unconditional Class 4 pure-metric discrimination claim of §6.10: pure-metric discrimination is **valid against the parameter ensemble it was calibrated against**, not unconditional. Recovery requires detector-calibration work — tighten `CONFIRMATION_WALL_FINAL_MAX` from 0.30 to ≈ 0.25, add a P1-aware definitive downgrade when the P1 exclusion is "inconclusive", or require Schelling's registry to carry an explicit `update = 'move'` token — and is deferred to a follow-up science sprint. Any candidate fix must be characterized against threshold ∈ {0.30, 0.375, 0.5} and against voter to ensure no regression.
+
+**Nearest-neighbor exclusions (Sprint 20 implementation):**
+
+- **P13** (excitable wave): metric-based. Excluded when `wall_final_qtr > 0.05 AND moran_final_qtr < 0.75` (rejects GH spiral at wall ~0.02 and Moran ~0.87).
+- **P15** (persistent computation): metric-based. Excluded when `moran_final_qtr ≥ 0.30 AND minority_fraction_final ≥ 0.05` (rejects GoL-like decay-to-sparse).
+- **P1** (similarity aggregation): metadata-keyed. Returns "excluded" only if `model_metadata['update']` contains 'copy', 'imitation', or 'voter'; otherwise returns "inconclusive". For canonical Schelling at threshold = 0.375 the metric gates alone reject below CONFIRMATION (Sprint 21 5-seed audit), so the inconclusive P1 outcome does not yield a false-positive DEFINITIVE. For Schelling at threshold = 0.5 the metric gates DO admit; this is carry-forward #20b.
+- **P21, P22, P20** (other Cluster F neighbors): not currently implemented as metric exclusions. P18's lattice_2d substrate constraint already separates it from the scalar-decision substrates these patterns target; the Cluster F overlap is a substrate-level rather than metric-level distinction.
 
 **Co-occurrence:**
-- *Allowed:* P19 (leadership-guided consensus), P17 (sensing-informed consensus)
-- *Excluded:* P21 (consensus vs fragmentation, same decision variable), P22 (deliberation vs cascade)
+- *Allowed:* P19 (leadership-guided consensus), P17 (sensing-informed consensus) — neither is implemented yet; future work.
+- *Excluded:* P21 (consensus vs fragmentation, same decision variable), P22 (deliberation vs cascade).
+
+**Implementation:** `epc.detectors.p18_consensus.P18ConsensusDetector`. Metric computation inline (no separate metric module). Default `n_permutations = 199`; `seed = 42`.
+
+**References:**
+- Clifford, P. & Sudbury, A. (1973). "A model for spatial conflict." Biometrika 60(3), 581–588.
+- Holley, R. & Liggett, T. M. (1975). "Ergodic theorems for weakly interacting infinite systems and the voter model." Ann. Prob. 3(4), 643–663.
+- Cox, J. T. (1989). "Coalescing random walks and voter model consensus times on the torus in Z^d." Ann. Prob. 17(4), 1333–1366.
+- Dornic, I., Chaté, H., Chave, J., & Hinrichsen, H. (2001). "Critical coarsening without surface tension: the universality class of the voter model." Phys. Rev. Lett. 87, 045701.
+- Ben-Naim, E., Vazquez, F., & Redner, S. (2011). "Dynamics of confident voting." [arXiv: 1111.3883]
 
 ---
 

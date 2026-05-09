@@ -444,6 +444,30 @@ class TestTransferMatrixCompleteness:
       "screening"    — detector passes screening only (not confirmation+)
       "rejected"     — detector correctly does not pass screening
       "not_detected" — detector cannot run / produces no signal (e.g., no step_fn)
+
+    Naming convention (Sprint 22 D3):
+      EXPECTED_OUTCOMES keys are *documentation labels*, not registry
+      keys. They never reach MODEL_REGISTRY[...] or
+      check_compatibility(...) at runtime — this file does no such
+      calls against EXPECTED_OUTCOMES. The labels exist to identify
+      which model + detector combination a row of expected behavior
+      pertains to, in the conventions of REPLICATION_NOTES.md and the
+      paper drafts.
+
+      Most label keys match their registry keys verbatim. The one
+      deliberate exception is `lotka_volterra_lattice`: the registry
+      uses the bare name `lotka_volterra` (a stable user-facing API
+      name), while module paths, `model_name` metadata, EXPECTED_OUTCOMES
+      labels, and prose references all use the `_lattice`-suffixed
+      form to distinguish Mobilia–Georgiev–Täuber's stochastic spatial
+      model from the well-mixed ODE that the bare name evokes in the
+      broader literature. See `epc/orchestration.py`'s comment block
+      above the `lotka_volterra` registry entry for the full rationale.
+
+      The two namespaces are kept separate by construction: the
+      audit confirmed zero `MODEL_REGISTRY[...]` or
+      `check_compatibility(...)` calls in this file consume
+      EXPECTED_OUTCOMES keys.
     """
 
     EXPECTED_OUTCOMES = {

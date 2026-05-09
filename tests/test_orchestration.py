@@ -1,13 +1,16 @@
 """Orchestration layer tests — substrate-aware detector dispatch.
 
-Tests the compatibility matrix: 7 substrate types, 19 models × 18 detectors,
-65 compatible pairs (Sprint 19 added the lotka_volterra model + P11 detector
-that were shipped in Sprint 11 but never registered in the orchestration
-layer — closes the oldest carry-forward). Verifies substrate filtering,
-observable guards, canonical positive/negative assignments, and that
-Sprint 5 models (Nowak-May, HK) are correctly registered.
+Tests the compatibility matrix: 7 substrate types, 20 models × 19 detectors,
+79 compatible pairs (Sprint 20 added the voter model + P18 consensus
+detector; Sprint 19 had previously added lotka_volterra + P11 to close the
+oldest carry-forward). Counts are pinned by
+`tests/test_transfer_matrix_counts.py` (Sprint 22) and the canonical
+breakdown is emitted by `scripts/count_transfer_matrix.py`. Verifies
+substrate filtering, observable guards, canonical positive/negative
+assignments, and that Sprint 5 models (Nowak-May, HK) are correctly
+registered.
 
-Architecture decision #25 (updated Sprint 19).
+Architecture decision #25 (updated Sprint 20).
 """
 
 import pytest

@@ -200,6 +200,19 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
         metadata_keys=['mobility', 'exchange_rate', 'selection_rate',
                        'reproduction_rate', 'neighborhood', 'dominance_map'],
     ),
+    # NAMING SPLIT (Sprint 22 D3, deliberate, documented):
+    # The registry key here is the bare name `lotka_volterra` for a
+    # stable user-facing API. Everywhere else — module path, the
+    # `model_name` metadata field, EXPECTED_OUTCOMES labels in
+    # tests/test_cross_detection_matrix.py, and references in
+    # REPLICATION_NOTES.md and the paper drafts — uses the suffixed
+    # `lotka_volterra_lattice` form. The `_lattice` suffix is meaningful:
+    # it distinguishes Mobilia–Georgiev–Täuber (2007)'s stochastic
+    # spatial model from the well-mixed Lotka–Volterra ODE that the
+    # bare name evokes in the broader literature. The two namespaces
+    # never collide at runtime: EXPECTED_OUTCOMES keys are documentation
+    # labels only (no MODEL_REGISTRY[...] or check_compatibility(...)
+    # calls in the test file), so the split is safe.
     'lotka_volterra': ModelRegistration(
         name='lotka_volterra',
         substrate_type='lattice_2d',
