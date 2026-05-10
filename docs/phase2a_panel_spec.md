@@ -136,3 +136,36 @@ The `verdict` field uses the v1.1 verdict labels above.
 1. Sprint 32 (code-led): Apply v1.1 spec. Re-run the panel against P18 and P9 under v1.1. Both should PASS or PASS-with-weakness; if either does not, the spec is wrong, not the detectors. Same "do not modify the detector to make it pass" rule from Sprint 30.
 2. After P18 and P9 both pass v1.1 cleanly, Sprint 33+ runs v1.1 against the remaining 13 PARTIAL detectors in batches.
 3. v1.0 results in `analysis/outputs/p<i>_phase2a_panel.json` from Sprint 30 are archived to `analysis/outputs/archive/v1_0/` rather than overwritten. The v1.1 results overwrite the active panel files.
+
+---
+
+## Note on substrate-type ground truth (Sprint 32 addendum)
+
+The substrate-type taxonomy used by the harness is computed from
+`epc.orchestration.MODEL_REGISTRY` (each model's `substrate_type` field on
+its single canonical-positive registration), with two explicit overrides
+per the v1.1 spec table — `P18` (voter; registry: `lattice_2d`) and
+`P21` (Hegselmann-Krause; registry: `opinion_space`) are reclassified
+to the spec's new `network` substrate type so they can serve as each
+other's catalog mate under v1.1's substrate-typed Class B selection.
+
+The substrate-type table in §"Class B" of this spec is **illustrative,
+not authoritative**. It enumerates patterns (including some not yet
+implemented in the registry — P17 Berdahl, P19 Couzin) and assigns some
+implemented patterns to substrate types that differ from their registry
+classifications (P3 listed as `lattice_2d` though the registry uses
+`lattice_2d_continuous`; P11 listed as `continuous_2d` though the
+registry uses `lattice_2d`; P28 listed as `lattice_2d` though the
+registry uses `scalar_wealth`). Where the spec table and the registry
+disagree for an *implemented* pattern, **the registry wins** and the
+spec table should be read as forward-looking guidance rather than as
+an override.
+
+The two explicit `network` overrides for P18 and P21 are the only
+deliberate exceptions to "registry wins" — they are encoded in
+`epc.phase2a.catalog._build_substrate_type_by_pattern` as a single
+pair of dict assignments after the registry-derived map is built, so
+they are easy to grep, audit, and revisit in any future v1.x revision.
+
+This addendum **does not** bump the panel version (still v1.1). It
+clarifies an interpretive ambiguity surfaced by Sprint 31 deviation #1.

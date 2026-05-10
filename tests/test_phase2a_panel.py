@@ -244,6 +244,44 @@ def test_catalog_loader_unknown_substrate_raises():
         catalog_mod.load_native_substrate("P99_does_not_exist")
 
 
+def test_p21_generator_deterministic():
+    """Same seed → byte-identical opinion trajectory (closes C-p21-generator)."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P21_hegselmann_krause"])
+    a = catalog_mod._gen_p21_hegselmann_krause(p)
+    b = catalog_mod._gen_p21_hegselmann_krause(p)
+    assert a["kind"] == "opinions"
+    assert np.array_equal(a["opinions"], b["opinions"])
+
+
+def test_p21_canonical_positive_is_fragmented():
+    """ε=0.2 should produce a multimodal final opinion distribution (not consensus)."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P21_hegselmann_krause"])
+    native = catalog_mod._gen_p21_hegselmann_krause(p)
+    final = native["opinions"][-1]
+    sorted_op = np.sort(final)
+    n_clusters = int(np.sum(np.diff(sorted_op) > 0.1)) + 1
+    assert n_clusters >= 2, f"expected ≥2 clusters at ε=0.2, got {n_clusters}"
+    # And not trivial single-spike consensus.
+    assert (final.max() - final.min()) > 0.2, f"opinion spread too small: {final.max() - final.min()}"
+
+
+def test_p21_native_kind_is_opinions():
+    """P21 generator's output 'kind' field marks it as opinion-vector substrate."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P21_hegselmann_krause"])
+    native = catalog_mod._gen_p21_hegselmann_krause(p)
+    assert native["kind"] == "opinions"
+    assert "n_agents" in native and native["n_agents"] == p["n_agents"]
+    assert "epsilon" in native and native["epsilon"] == p["epsilon"]
+
+
+def test_p18_class_b_now_includes_p21_generator():
+    """After Sprint 32 P21 generator landed, P18's network catalog-mate is loadable."""
+    r = catalog_mod.class_b_for_pattern("P18")
+    assert "P21_hegselmann_krause" in r["catalog_mates"]
+    # And the substrate id is now backed by a real generator.
+    assert "P21_hegselmann_krause" in catalog_mod._GENERATORS
+
+
 # --- Failed-regime registry ------------------------------------------------
 
 def test_p18_failed_regime_is_class_c_n_a():

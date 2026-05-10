@@ -33,6 +33,11 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P27_nowak_may":    {"rows": 50, "cols": 50, "b": 1.8, "init_coop_fraction": 0.5, "n_steps": 100, "seed": 0},
     "P31_zhang_sorting": {"n": 64, "algorithm": "bubble", "n_frozen": 10, "seed": 0},
     "P12_rps":          {"rows": 32, "cols": 32, "mobility": 1e-3, "n_steps": 800, "seed": 0},
+    # ε=0.2 is the canonical fragmented regime per Sprint 5 replication notes:
+    # produces 2 stable opinion clusters from uniform IC (vs consensus at ε=0.5,
+    # 4 clusters at ε=0.1). N=400 chosen so the grid adapter reshapes cleanly
+    # to a 20×20 occupancy field for the P18 panel under the v1.1 network override.
+    "P21_hegselmann_krause": {"n_agents": 400, "epsilon": 0.2, "init_mode": "uniform", "n_steps": 100, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -150,6 +155,30 @@ def _gen_p31_zhang_sorting(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "sequence", "arrays": arrays}
 
 
+def _gen_p21_hegselmann_krause(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Hegselmann-Krause canonical fragmented opinion dynamics.
+
+    Thin wrapper over ``epc.models.hegselmann_krause.HegselmannKrauseModel``.
+    Default ε=0.2 produces ~2 stable opinion clusters from uniform IC — the
+    canonical fragmented outcome cited in Sprint 5 replication notes
+    (vs consensus at ε≥0.5 and many small clusters at ε≤0.1).
+    """
+    from epc.models.hegselmann_krause import HegselmannKrauseModel
+
+    model = HegselmannKrauseModel(
+        n_agents=p["n_agents"], epsilon=p["epsilon"],
+        init_mode=p["init_mode"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    opinions = np.stack([np.asarray(s["opinions"], dtype=np.float32) for s in history])
+    return {
+        "kind": "opinions",
+        "opinions": opinions,
+        "n_agents": p["n_agents"],
+        "epsilon": p["epsilon"],
+    }
+
+
 def _gen_p12_rps(p: Dict[str, Any]) -> Dict[str, Any]:
     from epc.models.rps_spatial import RPSSpatialModel
     model = RPSSpatialModel(rows=p["rows"], cols=p["cols"], mobility=p["mobility"], seed=p["seed"])
@@ -170,6 +199,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P27_nowak_may": _gen_p27_nowak_may,
     "P31_zhang_sorting": _gen_p31_zhang_sorting,
     "P12_rps": _gen_p12_rps,
+    "P21_hegselmann_krause": _gen_p21_hegselmann_krause,
 }
 
 
@@ -291,6 +321,23 @@ def _adapt_to_grid(native: Dict[str, Any], target_steps: int = 200, target_shape
         binarized = (sel[:, : side * side] > N // 2).astype(np.int8).reshape(target_steps, side, side)
         return [{"grid": binarized[t], "grid_dims": (side, side), "step": t} for t in range(target_steps)]
 
+    if kind == "opinions":
+        # HK opinions ∈ [0, 1]: reshape per-step opinion vector to a near-square
+        # grid and binarize at 0.5. Captures the bimodal cluster structure on a
+        # binary grid that grid-format detectors (e.g., P18) can read.
+        opinions = native["opinions"]
+        T, N = opinions.shape
+        side = int(np.floor(np.sqrt(N)))
+        if side * side > N:
+            side -= 1
+        if T >= target_steps:
+            sel = opinions[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(opinions, (reps, 1))[:target_steps]
+        binarized = (sel[:, : side * side] >= 0.5).astype(np.int8).reshape(target_steps, side, side)
+        return [{"grid": binarized[t], "grid_dims": (side, side), "step": t} for t in range(target_steps)]
+
     raise ValueError(f"no grid adapter for kind: {kind}")
 
 
@@ -394,6 +441,18 @@ def _adapt_to_phases(native: Dict[str, Any], target_steps: int = 600, target_n: 
         # Map sorted index to phase.
         denom = max(arrays.max() - arrays.min(), 1e-9)
         theta_t = ((arrays - arrays.min()) / denom) * 2.0 * np.pi
+        return _wrap(theta_t)
+
+    if kind == "opinions":
+        # HK opinions ∈ [0, 1]: map directly to phases via × 2π.
+        opinions = _resize_steps(native["opinions"]).astype(float)
+        T, N = opinions.shape
+        if N >= target_n:
+            opinions = opinions[:, :target_n]
+        else:
+            reps = target_n // N + 1
+            opinions = np.tile(opinions, (1, reps))[:, :target_n]
+        theta_t = opinions * 2.0 * np.pi
         return _wrap(theta_t)
 
     raise ValueError(f"no phases adapter for kind: {kind}")

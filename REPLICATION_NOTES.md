@@ -1017,6 +1017,27 @@ values 0/1 → phases {0, π}) with high mean order parameter r — a panel
 adapter artifact rather than a P9 quality issue. This is the panel-design
 issue that motivates the Sprint 31 panel-spec revision.
 
+## Phase-2a Panel Result (v1.1) — Sprint 32
+
+Output: `analysis/outputs/p9_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.1, Sprint 31).
+
+| Class | TNR | n | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 0.800 | 10 | 8 / 10 rejected; gating |
+| Catalog (substrate-typed: oscillator) | 1.000 | 3 (1 mate + 2 supps) | advisory only (n<5) |
+| Failed-regime sub-K_c (Class C) | **1.000** | 10 | gating |
+| **Overall** | **0.913** | 23 | |
+
+- Class B composition (substrate-type=oscillator): catalog mate `P10_chimera`; B' supplements `incoherent_phases`, `subcritical_kuramoto`.
+- Cohen's d (5 positive seeds vs 23-substrate negative pool): **3.445**.
+- **Verdict: PARTIAL** (overall TNR 0.913 < 0.95 PASS threshold; Cohen's d ≥ 0.5 keeps it above FAIL).
+
+**v1.0 → v1.1 delta.** Catalog TNR jumped from **0.400 → 1.000** (the substrate-typed Class B fix worked exactly as predicted: P10 chimera and the two oscillator B' supplements all correctly rejected). Failed-regime TNR remained perfect (10/10). Overall TNR improved from 0.733 → 0.913 but did not reach the 0.95 PASS gate.
+
+The two remaining false positives are both in synthetic Class A: `constant_field` (all phases = 0 → trivially r=1, mathematically synchronized) and `permutation_shuffled_positive` (cell-permuted positive trajectory; permutation preserves the Kuramoto order parameter so r is unchanged). Both substrates are degenerate synchronization states — the Kuramoto order parameter genuinely *is* high — so the detector's behavior is arguably correct, but the panel's Class A is supposed to test against null substrates that *do not* exhibit the pattern. Per Sprint 30 rule, the detector was **not** modified to engineer a PASS. **Logged as carry-forward C-class-a-oscillator-degenerate** for chat-led panel-spec revision (likely v1.2 scope).
+
+The depth_gap.md row for P9 stays at PARTIAL on dim4 pending C-class-a-oscillator-degenerate resolution.
+
 ---
 
 # Nowak-May Spatial PD Replication Notes (Sprint 5)
@@ -4629,6 +4650,24 @@ The audit's existing AT-DEPTH classification for P18 dim4 (six-row
 discriminator rejection table including Schelling false-positive closure,
 Sprint 24 #20b) is unchanged by this panel result — the panel is an
 additional, narrower lens on the same dimension.
+
+## Phase-2a Panel Result (v1.1) — Sprint 32
+
+Output: `analysis/outputs/p18_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.1, Sprint 31).
+
+| Class | TNR | n | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 1.000 | 10 | gating |
+| Catalog (substrate-typed: network) | 1.000 | 3 (1 mate + 2 supps) | advisory only (n<5) |
+| Failed-regime (Class C) | **N/A** | 0 | voter has no parameter regime that suppresses consensus |
+| **Overall** | **1.000** | 13 | |
+
+- Class B composition (substrate-type=network, v1.1 spec override): catalog mate `P21_hegselmann_krause`; B' supplements `random_graph_evolution`, `network_random_walks`.
+- Class C: declared N/A per `epc/phase2a/failed_regimes/p18_voter.py`. Reason: voter model on a finite lattice always reaches consensus eventually; no parameter regime suppresses the canonical pattern from non-trivial initial conditions (Sprint 31 spec §"Class C N/A list").
+- Cohen's d (5 positive seeds vs 13-substrate negative pool): **+inf** (positives uniformly score 0.5; negatives uniformly score 0.0 → degenerate-perfect discrimination).
+- **Verdict: PASS** (overall TNR ≥ 0.95, Cohen's d ≥ 1.0, no gating class below 0.90).
+
+**v1.0 → v1.1 delta.** Synthetic TNR remained perfect (10/10). Catalog TNR jumped from 0.900 → 1.000 (the only v1.0 catalog firing — P3_gray_scott — is no longer a Class B mate under the substrate-typed network selection). The PARTIAL Class C result from v1.0 (init-fraction proxy regimes; 4/10) is now correctly recognised as a true-positive-in-disguise and the class is declared N/A — eliminating the largest source of v1.0's PARTIAL verdict. The depth_gap.md row for P18 stays AT-DEPTH on dim4 (now positively confirmed by the v1.1 panel result).
 
 ## Sprint 25 — close #27 contract bug audit + codify Sprint 23/24 process
 

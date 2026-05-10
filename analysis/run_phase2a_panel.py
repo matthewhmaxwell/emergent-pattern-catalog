@@ -117,13 +117,20 @@ def main(argv: Optional[List[str]] = None) -> int:
     if which in ("p9", "both"):
         summaries["P9"] = run_p9()
 
+    def _fmt(x):
+        return "  N/A " if x is None else f"{x:>5.3f}"
+
     print()
-    print("=" * 72)
-    print(f"{'pattern':<8} {'overall_tnr':>11} {'syn_tnr':>8} {'cat_tnr':>8} {'fai_tnr':>8} {'cohens_d':>9} {'verdict':<22}")
-    print("=" * 72)
+    print("=" * 80)
+    print(f"{'pattern':<8} {'overall':>7} {'syn':>6} {'cat':>6} {'fai':>6} {'d':>6} {'verdict':<22}")
+    print("=" * 80)
     for pid, summary in summaries.items():
         s = summary["summary"]
-        print(f"{pid:<8} {s['overall_tnr']:>11.3f} {s['synthetic_tnr']:>8.3f} {s['catalog_tnr']:>8.3f} {s['failed_regime_tnr']:>8.3f} {s['cohens_d_positive_vs_panel']:>9.3f} {s['verdict']:<22}")
+        print(
+            f"{pid:<8} {_fmt(s['overall_tnr']):>7} {_fmt(s['synthetic_tnr']):>6} "
+            f"{_fmt(s['catalog_tnr']):>6} {_fmt(s['failed_regime_tnr']):>6} "
+            f"{_fmt(s['cohens_d_positive_vs_panel']):>6} {s['verdict']:<22}"
+        )
 
     return 0
 
