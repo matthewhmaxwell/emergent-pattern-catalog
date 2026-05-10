@@ -1,0 +1,1442 @@
+{
+  "sprint": 27,
+  "phase": "1n",
+  "purpose": "multi-seed (A, beta) phase boundary refinement; addresses Sprint 26 #31",
+  "config": {
+    "N": 128,
+    "T": 50,
+    "dt": 0.025,
+    "record_dt": 1.0,
+    "init_mode": "asymmetric_gaussian",
+    "A_grid": [
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      1.0
+    ],
+    "beta_boundary": [
+      0.18,
+      0.2,
+      0.22
+    ],
+    "beta_bulk": [
+      0.05,
+      0.1
+    ],
+    "seeds": [
+      0,
+      1,
+      42,
+      200,
+      500
+    ],
+    "tail_frames_for_classification": 10,
+    "chim_band": [
+      0.4,
+      0.85
+    ],
+    "sync_threshold": 0.95
+  },
+  "grid": {
+    "A=0.95_beta=0.05": {
+      "A": 0.95,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5910366012897379,
+          "r_std": 0.043554922319048645,
+          "classification": "chimera",
+          "wall_s": 3.016106605529785
+        },
+        "1": {
+          "r_mean": 0.5972457603810616,
+          "r_std": 0.03609791610502297,
+          "classification": "chimera",
+          "wall_s": 3.044343948364258
+        },
+        "42": {
+          "r_mean": 0.5877194685492568,
+          "r_std": 0.017569381972301183,
+          "classification": "chimera",
+          "wall_s": 3.0605287551879883
+        },
+        "200": {
+          "r_mean": 0.5917699288761379,
+          "r_std": 0.035090537544543915,
+          "classification": "chimera",
+          "wall_s": 3.03426194190979
+        },
+        "500": {
+          "r_mean": 0.5905843015503965,
+          "r_std": 0.026017056461414115,
+          "classification": "chimera",
+          "wall_s": 3.003039836883545
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.96_beta=0.05": {
+      "A": 0.96,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5883081409237758,
+          "r_std": 0.0211147327455637,
+          "classification": "chimera",
+          "wall_s": 3.0859391689300537
+        },
+        "1": {
+          "r_mean": 0.5954351488362596,
+          "r_std": 0.013124793643563346,
+          "classification": "chimera",
+          "wall_s": 3.2053394317626953
+        },
+        "42": {
+          "r_mean": 0.5868068166512793,
+          "r_std": 0.03757224631604375,
+          "classification": "chimera",
+          "wall_s": 3.1132688522338867
+        },
+        "200": {
+          "r_mean": 0.5843385548698112,
+          "r_std": 0.028058039641882443,
+          "classification": "chimera",
+          "wall_s": 3.136934757232666
+        },
+        "500": {
+          "r_mean": 0.6005253882047025,
+          "r_std": 0.022475076387199346,
+          "classification": "chimera",
+          "wall_s": 3.1841890811920166
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.97_beta=0.05": {
+      "A": 0.97,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5822243714461253,
+          "r_std": 0.028206023272765602,
+          "classification": "chimera",
+          "wall_s": 3.118506908416748
+        },
+        "1": {
+          "r_mean": 0.5900372909812615,
+          "r_std": 0.013420288878333414,
+          "classification": "chimera",
+          "wall_s": 3.0576939582824707
+        },
+        "42": {
+          "r_mean": 0.5842869654508867,
+          "r_std": 0.033200229180618615,
+          "classification": "chimera",
+          "wall_s": 3.1262707710266113
+        },
+        "200": {
+          "r_mean": 0.5888653827695762,
+          "r_std": 0.022024111430507885,
+          "classification": "chimera",
+          "wall_s": 3.13411545753479
+        },
+        "500": {
+          "r_mean": 0.5895035024917058,
+          "r_std": 0.02621101635313206,
+          "classification": "chimera",
+          "wall_s": 3.1201705932617188
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.98_beta=0.05": {
+      "A": 0.98,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5763245814924715,
+          "r_std": 0.022075847578665375,
+          "classification": "chimera",
+          "wall_s": 3.074246406555176
+        },
+        "1": {
+          "r_mean": 0.5802292704515151,
+          "r_std": 0.03673619012785941,
+          "classification": "chimera",
+          "wall_s": 3.137941360473633
+        },
+        "42": {
+          "r_mean": 0.5870233679707207,
+          "r_std": 0.022475582740075425,
+          "classification": "chimera",
+          "wall_s": 3.073974132537842
+        },
+        "200": {
+          "r_mean": 0.583978867926478,
+          "r_std": 0.0180054159846227,
+          "classification": "chimera",
+          "wall_s": 3.0181803703308105
+        },
+        "500": {
+          "r_mean": 0.5842051314539826,
+          "r_std": 0.03166671534847297,
+          "classification": "chimera",
+          "wall_s": 3.0483808517456055
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.99_beta=0.05": {
+      "A": 0.99,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5826345919485654,
+          "r_std": 0.03081751458755603,
+          "classification": "chimera",
+          "wall_s": 3.0660741329193115
+        },
+        "1": {
+          "r_mean": 0.5762897100286304,
+          "r_std": 0.015194694472659347,
+          "classification": "chimera",
+          "wall_s": 3.1017279624938965
+        },
+        "42": {
+          "r_mean": 0.5903641953555295,
+          "r_std": 0.03168357019073281,
+          "classification": "chimera",
+          "wall_s": 3.0351855754852295
+        },
+        "200": {
+          "r_mean": 0.5821182996190322,
+          "r_std": 0.03041195070502348,
+          "classification": "chimera",
+          "wall_s": 3.07597279548645
+        },
+        "500": {
+          "r_mean": 0.5744251040586582,
+          "r_std": 0.025955477536729065,
+          "classification": "chimera",
+          "wall_s": 3.0089786052703857
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=1.00_beta=0.05": {
+      "A": 1.0,
+      "beta": 0.05,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5780133813506578,
+          "r_std": 0.018306388081691327,
+          "classification": "chimera",
+          "wall_s": 3.0555036067962646
+        },
+        "1": {
+          "r_mean": 0.5728938477246983,
+          "r_std": 0.04789544389250974,
+          "classification": "chimera",
+          "wall_s": 3.0670089721679688
+        },
+        "42": {
+          "r_mean": 0.5811207964830946,
+          "r_std": 0.026662973386550742,
+          "classification": "chimera",
+          "wall_s": 3.0821468830108643
+        },
+        "200": {
+          "r_mean": 0.5899049906115228,
+          "r_std": 0.052453263416326765,
+          "classification": "chimera",
+          "wall_s": 3.046142578125
+        },
+        "500": {
+          "r_mean": 0.5847322922850433,
+          "r_std": 0.03405583860721132,
+          "classification": "chimera",
+          "wall_s": 2.9761691093444824
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.95_beta=0.10": {
+      "A": 0.95,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 0.6107133434833253,
+          "r_std": 0.024163017240658505,
+          "classification": "chimera",
+          "wall_s": 2.992182970046997
+        },
+        "1": {
+          "r_mean": 0.6186959929579647,
+          "r_std": 0.01889213742694506,
+          "classification": "chimera",
+          "wall_s": 3.028818130493164
+        },
+        "42": {
+          "r_mean": 0.6146893844347586,
+          "r_std": 0.01477356718566025,
+          "classification": "chimera",
+          "wall_s": 2.979168653488159
+        },
+        "200": {
+          "r_mean": 0.6173004945433073,
+          "r_std": 0.030925897708933777,
+          "classification": "chimera",
+          "wall_s": 2.9395570755004883
+        },
+        "500": {
+          "r_mean": 0.6154633958661517,
+          "r_std": 0.02816112978777979,
+          "classification": "chimera",
+          "wall_s": 3.020404815673828
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.96_beta=0.10": {
+      "A": 0.96,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 0.6133460719945554,
+          "r_std": 0.04191197425477147,
+          "classification": "chimera",
+          "wall_s": 2.9545512199401855
+        },
+        "1": {
+          "r_mean": 0.6188247285911677,
+          "r_std": 0.036459778121344794,
+          "classification": "chimera",
+          "wall_s": 2.9810447692871094
+        },
+        "42": {
+          "r_mean": 0.6149092279374655,
+          "r_std": 0.027450398034168072,
+          "classification": "chimera",
+          "wall_s": 2.941502809524536
+        },
+        "200": {
+          "r_mean": 0.6043570318019551,
+          "r_std": 0.030736757485269252,
+          "classification": "chimera",
+          "wall_s": 2.95924711227417
+        },
+        "500": {
+          "r_mean": 0.5978226198309426,
+          "r_std": 0.026157536078803893,
+          "classification": "chimera",
+          "wall_s": 2.9571282863616943
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.97_beta=0.10": {
+      "A": 0.97,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 0.5969513092339636,
+          "r_std": 0.02107423367390791,
+          "classification": "chimera",
+          "wall_s": 3.0458598136901855
+        },
+        "1": {
+          "r_mean": 0.6010382436592846,
+          "r_std": 0.03123086508412205,
+          "classification": "chimera",
+          "wall_s": 3.0166518688201904
+        },
+        "42": {
+          "r_mean": 0.6091781539593697,
+          "r_std": 0.031704376758701566,
+          "classification": "chimera",
+          "wall_s": 2.996384382247925
+        },
+        "200": {
+          "r_mean": 0.6068724954798317,
+          "r_std": 0.03861976415952439,
+          "classification": "chimera",
+          "wall_s": 3.082045793533325
+        },
+        "500": {
+          "r_mean": 0.5974772287532903,
+          "r_std": 0.039592011718438194,
+          "classification": "chimera",
+          "wall_s": 3.133561611175537
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.98_beta=0.10": {
+      "A": 0.98,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 0.6024539658410705,
+          "r_std": 0.01835651281883715,
+          "classification": "chimera",
+          "wall_s": 3.008059024810791
+        },
+        "1": {
+          "r_mean": 0.5936971444120014,
+          "r_std": 0.0311418003689429,
+          "classification": "chimera",
+          "wall_s": 3.0928568840026855
+        },
+        "42": {
+          "r_mean": 0.6024393940749826,
+          "r_std": 0.039304354587517853,
+          "classification": "chimera",
+          "wall_s": 3.015033483505249
+        },
+        "200": {
+          "r_mean": 0.5902344736099177,
+          "r_std": 0.03111061984756336,
+          "classification": "chimera",
+          "wall_s": 2.985917329788208
+        },
+        "500": {
+          "r_mean": 0.5937829664270196,
+          "r_std": 0.017961161381718646,
+          "classification": "chimera",
+          "wall_s": 2.925607204437256
+        }
+      },
+      "classifications": [
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 1.0,
+      "basin_fraction_sync": 0.0,
+      "cell_class": "chimera_only"
+    },
+    "A=0.99_beta=0.10": {
+      "A": 0.99,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.447553722489536e-16,
+          "classification": "sync",
+          "wall_s": 2.4503209590911865
+        },
+        "1": {
+          "r_mean": 0.6052914688694196,
+          "r_std": 0.05441462861239,
+          "classification": "chimera",
+          "wall_s": 2.974567174911499
+        },
+        "42": {
+          "r_mean": 0.5973835575319019,
+          "r_std": 0.026850575886729632,
+          "classification": "chimera",
+          "wall_s": 3.0269176959991455
+        },
+        "200": {
+          "r_mean": 0.5978869929993199,
+          "r_std": 0.03289329596377312,
+          "classification": "chimera",
+          "wall_s": 2.9383344650268555
+        },
+        "500": {
+          "r_mean": 0.5960167275263509,
+          "r_std": 0.02720985206035081,
+          "classification": "chimera",
+          "wall_s": 3.0584609508514404
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 0.8,
+      "basin_fraction_sync": 0.2,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=1.00_beta=0.10": {
+      "A": 1.0,
+      "beta": 0.1,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 7.850462293418876e-17,
+          "classification": "sync",
+          "wall_s": 2.319697380065918
+        },
+        "1": {
+          "r_mean": 0.5995976390572307,
+          "r_std": 0.05539750322423147,
+          "classification": "chimera",
+          "wall_s": 3.048354387283325
+        },
+        "42": {
+          "r_mean": 0.5933293279307972,
+          "r_std": 0.04230702497305445,
+          "classification": "chimera",
+          "wall_s": 2.9617292881011963
+        },
+        "200": {
+          "r_mean": 0.5886537620456005,
+          "r_std": 0.02950610872982419,
+          "classification": "chimera",
+          "wall_s": 3.0006847381591797
+        },
+        "500": {
+          "r_mean": 0.6068037338649603,
+          "r_std": 0.03984704143520652,
+          "classification": "chimera",
+          "wall_s": 2.932279109954834
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "chimera"
+      ],
+      "basin_fraction_chimera": 0.8,
+      "basin_fraction_sync": 0.2,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.95_beta=0.18": {
+      "A": 0.95,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.2658490090568387e-16,
+          "classification": "sync",
+          "wall_s": 2.371511697769165
+        },
+        "1": {
+          "r_mean": 0.6555925589022122,
+          "r_std": 0.023047569746319385,
+          "classification": "chimera",
+          "wall_s": 2.8158493041992188
+        },
+        "42": {
+          "r_mean": 0.6522860776472734,
+          "r_std": 0.02756866160628153,
+          "classification": "chimera",
+          "wall_s": 2.8335413932800293
+        },
+        "200": {
+          "r_mean": 0.6580343239814117,
+          "r_std": 0.06830724198148794,
+          "classification": "chimera",
+          "wall_s": 2.7986249923706055
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.351639986038208
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.96_beta=0.18": {
+      "A": 0.96,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 9.288792252416251e-17,
+          "classification": "sync",
+          "wall_s": 2.343768358230591
+        },
+        "1": {
+          "r_mean": 0.6535992125504348,
+          "r_std": 0.02391333603962001,
+          "classification": "chimera",
+          "wall_s": 2.86029314994812
+        },
+        "42": {
+          "r_mean": 0.6495764061629435,
+          "r_std": 0.04218714649094818,
+          "classification": "chimera",
+          "wall_s": 2.8512511253356934
+        },
+        "200": {
+          "r_mean": 0.6478257401375657,
+          "r_std": 0.04903594781599365,
+          "classification": "chimera",
+          "wall_s": 2.840264081954956
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.5700924586837752e-16,
+          "classification": "sync",
+          "wall_s": 2.257065534591675
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.97_beta=0.18": {
+      "A": 0.97,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.3597399555105182e-16,
+          "classification": "sync",
+          "wall_s": 2.490753173828125
+        },
+        "1": {
+          "r_mean": 0.6440848737443956,
+          "r_std": 0.03257058639168539,
+          "classification": "chimera",
+          "wall_s": 2.94364070892334
+        },
+        "42": {
+          "r_mean": 0.6461245292183675,
+          "r_std": 0.034281272736439106,
+          "classification": "chimera",
+          "wall_s": 2.8712081909179688
+        },
+        "200": {
+          "r_mean": 0.636259409312109,
+          "r_std": 0.024024280917183,
+          "classification": "chimera",
+          "wall_s": 2.762387275695801
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.6467268631127714e-16,
+          "classification": "sync",
+          "wall_s": 2.208275079727173
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.98_beta=0.18": {
+      "A": 0.98,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.1102230246251565e-16,
+          "classification": "sync",
+          "wall_s": 2.2945237159729004
+        },
+        "1": {
+          "r_mean": 0.6347832037530649,
+          "r_std": 0.0368460535746381,
+          "classification": "chimera",
+          "wall_s": 2.850395917892456
+        },
+        "42": {
+          "r_mean": 0.6410907877807066,
+          "r_std": 0.06519660566188726,
+          "classification": "chimera",
+          "wall_s": 2.8791239261627197
+        },
+        "200": {
+          "r_mean": 0.636262881257841,
+          "r_std": 0.05833916965222325,
+          "classification": "chimera",
+          "wall_s": 2.9291083812713623
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.2658490090568387e-16,
+          "classification": "sync",
+          "wall_s": 2.225950002670288
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.99_beta=0.18": {
+      "A": 0.99,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.530336829712622e-16,
+          "classification": "sync",
+          "wall_s": 2.351498603820801
+        },
+        "1": {
+          "r_mean": 0.6323223532620682,
+          "r_std": 0.04276563045932212,
+          "classification": "chimera",
+          "wall_s": 2.8371176719665527
+        },
+        "42": {
+          "r_mean": 0.6314811516770313,
+          "r_std": 0.036831910406058016,
+          "classification": "chimera",
+          "wall_s": 2.8874573707580566
+        },
+        "200": {
+          "r_mean": 0.6441924641881719,
+          "r_std": 0.035812590891527066,
+          "classification": "chimera",
+          "wall_s": 2.9067203998565674
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.1644117316690923e-16,
+          "classification": "sync",
+          "wall_s": 2.373406171798706
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=1.00_beta=0.18": {
+      "A": 1.0,
+      "beta": 0.18,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 7.021666937153402e-17,
+          "classification": "sync",
+          "wall_s": 2.4871063232421875
+        },
+        "1": {
+          "r_mean": 0.618353547152873,
+          "r_std": 0.06385011412210327,
+          "classification": "chimera",
+          "wall_s": 3.011793851852417
+        },
+        "42": {
+          "r_mean": 0.6361309698465725,
+          "r_std": 0.06559966401511363,
+          "classification": "chimera",
+          "wall_s": 2.898909330368042
+        },
+        "200": {
+          "r_mean": 0.6287852642642692,
+          "r_std": 0.0438727119575367,
+          "classification": "chimera",
+          "wall_s": 2.948477029800415
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.2658490090568387e-16,
+          "classification": "sync",
+          "wall_s": 2.2853000164031982
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "chimera",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.6,
+      "basin_fraction_sync": 0.4,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.95_beta=0.20": {
+      "A": 0.95,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.4895204919483638e-16,
+          "classification": "sync",
+          "wall_s": 2.3184711933135986
+        },
+        "1": {
+          "r_mean": 0.679915216070754,
+          "r_std": 0.016626736409424088,
+          "classification": "chimera",
+          "wall_s": 2.7875211238861084
+        },
+        "42": {
+          "r_mean": 0.6575775719219575,
+          "r_std": 0.022944197707615726,
+          "classification": "chimera",
+          "wall_s": 2.801050901412964
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.2476933002471924
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.2161883888976234e-16,
+          "classification": "sync",
+          "wall_s": 2.279876947402954
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.96_beta=0.20": {
+      "A": 0.96,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.60886601221371e-16,
+          "classification": "sync",
+          "wall_s": 2.351933002471924
+        },
+        "1": {
+          "r_mean": 0.650739157972629,
+          "r_std": 0.03357457135322865,
+          "classification": "chimera",
+          "wall_s": 2.866415023803711
+        },
+        "42": {
+          "r_mean": 0.660469012459328,
+          "r_std": 0.035524285843283224,
+          "classification": "chimera",
+          "wall_s": 2.885430335998535
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 9.930136612989092e-17,
+          "classification": "sync",
+          "wall_s": 2.2458431720733643
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 9.288792252416251e-17,
+          "classification": "sync",
+          "wall_s": 2.2417850494384766
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.97_beta=0.20": {
+      "A": 0.97,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.2161883888976234e-16,
+          "classification": "sync",
+          "wall_s": 2.289698600769043
+        },
+        "1": {
+          "r_mean": 0.6526640669772142,
+          "r_std": 0.04700556568733307,
+          "classification": "chimera",
+          "wall_s": 2.9873006343841553
+        },
+        "42": {
+          "r_mean": 0.6552508531414484,
+          "r_std": 0.057764978351212526,
+          "classification": "chimera",
+          "wall_s": 2.8569679260253906
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.2161883888976234e-16,
+          "classification": "sync",
+          "wall_s": 2.308495044708252
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 9.930136612989092e-17,
+          "classification": "sync",
+          "wall_s": 2.329148054122925
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.98_beta=0.20": {
+      "A": 0.98,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.2161883888976234e-16,
+          "classification": "sync",
+          "wall_s": 2.2350265979766846
+        },
+        "1": {
+          "r_mean": 0.6498199259700322,
+          "r_std": 0.02809887121115433,
+          "classification": "chimera",
+          "wall_s": 2.904683828353882
+        },
+        "42": {
+          "r_mean": 0.6539981187886574,
+          "r_std": 0.03885145901985317,
+          "classification": "chimera",
+          "wall_s": 2.928187608718872
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.1102230246251565e-16,
+          "classification": "sync",
+          "wall_s": 2.299771547317505
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.530336829712622e-16,
+          "classification": "sync",
+          "wall_s": 2.3365187644958496
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.99_beta=0.20": {
+      "A": 0.99,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.4043333874306804e-16,
+          "classification": "sync",
+          "wall_s": 2.3696835041046143
+        },
+        "1": {
+          "r_mean": 0.6577670266924922,
+          "r_std": 0.04574296237358444,
+          "classification": "chimera",
+          "wall_s": 2.8501458168029785
+        },
+        "42": {
+          "r_mean": 0.6445366523275791,
+          "r_std": 0.021766590219103234,
+          "classification": "chimera",
+          "wall_s": 2.860028028488159
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 6.080941944488117e-17,
+          "classification": "sync",
+          "wall_s": 2.2371108531951904
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.1102230246251565e-16,
+          "classification": "sync",
+          "wall_s": 2.318540334701538
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=1.00_beta=0.20": {
+      "A": 1.0,
+      "beta": 0.2,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.396277666091919
+        },
+        "1": {
+          "r_mean": 0.6471431623371985,
+          "r_std": 0.044083094776679405,
+          "classification": "chimera",
+          "wall_s": 2.8227336406707764
+        },
+        "42": {
+          "r_mean": 0.6519461671470548,
+          "r_std": 0.04433387030747432,
+          "classification": "chimera",
+          "wall_s": 2.9056265354156494
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.4895204919483638e-16,
+          "classification": "sync",
+          "wall_s": 2.2042150497436523
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.3597399555105182e-16,
+          "classification": "sync",
+          "wall_s": 2.296837091445923
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "chimera",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.4,
+      "basin_fraction_sync": 0.6,
+      "cell_class": "mixed_chimera_sync"
+    },
+    "A=0.95_beta=0.22": {
+      "A": 0.95,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.790180836524724e-16,
+          "classification": "sync",
+          "wall_s": 2.2552459239959717
+        },
+        "1": {
+          "r_mean": 1.0,
+          "r_std": 1.2658490090568387e-16,
+          "classification": "sync",
+          "wall_s": 2.340933084487915
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 1.4895204919483638e-16,
+          "classification": "sync",
+          "wall_s": 2.2351255416870117
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.1644117316690923e-16,
+          "classification": "sync",
+          "wall_s": 2.2939417362213135
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.890641683868921e-16,
+          "classification": "sync",
+          "wall_s": 2.231362819671631
+        }
+      },
+      "classifications": [
+        "sync",
+        "sync",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.0,
+      "basin_fraction_sync": 1.0,
+      "cell_class": "sync_only"
+    },
+    "A=0.96_beta=0.22": {
+      "A": 0.96,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.60886601221371e-16,
+          "classification": "sync",
+          "wall_s": 2.3380322456359863
+        },
+        "1": {
+          "r_mean": 1.0,
+          "r_std": 9.930136612989092e-17,
+          "classification": "sync",
+          "wall_s": 2.3612842559814453
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 9.288792252416251e-17,
+          "classification": "sync",
+          "wall_s": 2.4038643836975098
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 2.016820280180126e-16,
+          "classification": "sync",
+          "wall_s": 2.3068299293518066
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.2904226779937744
+        }
+      },
+      "classifications": [
+        "sync",
+        "sync",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.0,
+      "basin_fraction_sync": 1.0,
+      "cell_class": "sync_only"
+    },
+    "A=0.97_beta=0.22": {
+      "A": 0.97,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.447553722489536e-16,
+          "classification": "sync",
+          "wall_s": 2.306992530822754
+        },
+        "1": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.4038307666778564
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 1.2658490090568387e-16,
+          "classification": "sync",
+          "wall_s": 2.297132730484009
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 2.135556627277529e-16,
+          "classification": "sync",
+          "wall_s": 2.2652153968811035
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.1644117316690923e-16,
+          "classification": "sync",
+          "wall_s": 2.254035472869873
+        }
+      },
+      "classifications": [
+        "sync",
+        "sync",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.0,
+      "basin_fraction_sync": 1.0,
+      "cell_class": "sync_only"
+    },
+    "A=0.98_beta=0.22": {
+      "A": 0.98,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.6467268631127714e-16,
+          "classification": "sync",
+          "wall_s": 2.2895894050598145
+        },
+        "1": {
+          "r_mean": 1.0,
+          "r_std": 1.1644117316690923e-16,
+          "classification": "sync",
+          "wall_s": 2.3137385845184326
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 1.4895204919483638e-16,
+          "classification": "sync",
+          "wall_s": 2.285085678100586
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.5700924586837752e-16,
+          "classification": "sync",
+          "wall_s": 2.2650322914123535
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.3597399555105182e-16,
+          "classification": "sync",
+          "wall_s": 2.2018983364105225
+        }
+      },
+      "classifications": [
+        "sync",
+        "sync",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.0,
+      "basin_fraction_sync": 1.0,
+      "cell_class": "sync_only"
+    },
+    "A=0.99_beta=0.22": {
+      "A": 0.99,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.3597399555105182e-16,
+          "classification": "sync",
+          "wall_s": 2.27388858795166
+        },
+        "1": {
+          "r_mean": 1.0,
+          "r_std": 9.288792252416251e-17,
+          "classification": "sync",
+          "wall_s": 2.462920904159546
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 1.3136335981433191e-16,
+          "classification": "sync",
+          "wall_s": 2.3045380115509033
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.4895204919483638e-16,
+          "classification": "sync",
+          "wall_s": 2.2976386547088623
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.6467268631127714e-16,
+          "classification": "sync",
+          "wall_s": 2.2002811431884766
+        }
+      },
+      "classifications": [
+        "sync",
+        "sync",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.0,
+      "basin_fraction_sync": 1.0,
+      "cell_class": "sync_only"
+    },
+    "A=1.00_beta=0.22": {
+      "A": 1.0,
+      "beta": 0.22,
+      "seeds": {
+        "0": {
+          "r_mean": 1.0,
+          "r_std": 1.7199501139797033e-16,
+          "classification": "sync",
+          "wall_s": 2.346513271331787
+        },
+        "1": {
+          "r_mean": 0.6643956337400969,
+          "r_std": 0.05443589746477957,
+          "classification": "chimera",
+          "wall_s": 2.877119779586792
+        },
+        "42": {
+          "r_mean": 1.0,
+          "r_std": 1.4043333874306804e-16,
+          "classification": "sync",
+          "wall_s": 2.2849795818328857
+        },
+        "200": {
+          "r_mean": 1.0,
+          "r_std": 1.2161883888976234e-16,
+          "classification": "sync",
+          "wall_s": 2.3057754039764404
+        },
+        "500": {
+          "r_mean": 1.0,
+          "r_std": 1.790180836524724e-16,
+          "classification": "sync",
+          "wall_s": 2.191502332687378
+        }
+      },
+      "classifications": [
+        "sync",
+        "chimera",
+        "sync",
+        "sync",
+        "sync"
+      ],
+      "basin_fraction_chimera": 0.2,
+      "basin_fraction_sync": 0.8,
+      "cell_class": "mixed_chimera_sync"
+    }
+  },
+  "cell_class_counts": {
+    "chimera_only": 10,
+    "mixed_chimera_sync": 15,
+    "sync_only": 5
+  },
+  "bulk_summary": {
+    "min": 0.8,
+    "mean": 0.9666666666666668,
+    "max": 1.0,
+    "n_cells": 12
+  },
+  "boundary_summary": {
+    "min": 0.0,
+    "mean": 0.34444444444444444,
+    "max": 0.6,
+    "n_cells": 18
+  },
+  "wall_time_s": 132.83468413352966
+}

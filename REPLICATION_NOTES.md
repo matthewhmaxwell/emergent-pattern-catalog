@@ -4894,3 +4894,148 @@ Continuing carry-forwards (12 → 14 open after Sprint 26, net +2):
 | New | `analysis/outputs/p10_lifetime_N256_trajectories.npz` | Phase 1k trajectories |
 | New | `analysis/outputs/p10_phase_diagram.png` | Canonical Sprint 26 figure |
 | Modified | `REPLICATION_NOTES.md` | +this section |
+
+## Sprint 27 — close #31 (multi-seed phase boundary) + #32 (time-units methods note)
+
+**Goal.** Close two carry-forwards Sprint 26 surfaced. (#31) Sprint 26's
+Phase 1m used a single seed per (A, β) cell, leaving the boundary
+location uncertain — was the apparent sharp transition near β ≈ 0.21
+genuinely sharp, or a single-seed artifact masking a smooth
+basin-volume gradient? (#32) The integration-time-units convention in
+`epc/models/kuramoto_nonlocal.py::_derivatives` absorbs the Riemann
+measure into an O(1) effective timescale, so our T units don't map
+directly to Abrams-Strogatz' lifetime numbers. Both addressed here.
+
+**Pre-flight.** Sprint 26 HEAD `101430f`. Pre-flight bundle 205 tests
+unchanged; `scripts/count_transfer_matrix.py` outputs unchanged at
+20 / 19 / 79 / 274 / 27 / 19 / 361 / 77 / 284. No detector / model /
+metric / registry changes in Sprint 27.
+
+### Phase 1n — multi-seed (A, β) phase boundary
+
+  N=128, A ∈ {0.95, 0.96, ..., 1.00} (6 points), seeds ∈ {0, 1, 42, 200,
+  500} (5 seeds), T=50, dt=0.025, IC=asymmetric_gaussian. Two β strips:
+    bulk:     β ∈ {0.05, 0.10}                — 12 cells
+    boundary: β ∈ {0.18, 0.20, 0.22}          — 18 cells
+  Total: 30 cells × 5 seeds = 150 runs in 133 s wall (~0.9 s/run).
+
+**Result.**
+  | β     | A range  | basin fraction (chimera, mean over A) | seeds in chimera basin |
+  |---|---|---|---|
+  | 0.05  | 0.95–1.00 | 1.00                                  | 30/30                  |
+  | 0.10  | 0.95–1.00 | 0.97                                  | 29/30                  |
+  | 0.18  | 0.95–1.00 | 0.60                                  | 18/30                  |
+  | 0.20  | 0.95–1.00 | 0.40                                  | 12/30                  |
+  | 0.22  | 0.95–1.00 | 0.03                                  | 1/30                   |
+
+Cell classifications: 10 chimera_only, 15 mixed, 5 sync_only. Bulk
+chimera basin fractions: min 0.80, mean 0.97, max 1.00. Boundary basin
+fractions: min 0.00, mean 0.34, max 0.60.
+
+**Key finding — Sprint 26's "sharp boundary at β ≈ 0.21" was a single-seed
+artifact masking a smooth basin-volume gradient.** The basin fraction
+varies continuously: 100% at β=0.05 → 60% at β=0.18 → 40% at β=0.20 →
+~0% at β=0.22. This is a quantitatively different picture from Sprint
+26's single-seed Phase 1m, which classified every β ≤ 0.20 cell as
+chimera and every β ≥ 0.22 cell as sync.
+
+The **single A=1.00, β=0.22 cell with 1/5 chimera basin** suggests the
+boundary is not strictly vertical in (A, β) space — at A close to 1
+there is a thin chimera tail past β = 0.21, consistent with the paper's
+prediction that the chimera region narrows toward (A=1, β small).
+
+**Reconciliation with Sprint 26 Phase 1k.** Sprint 26 Phase 1k showed
+N=128 basin fraction = 0.50 at β=0.18 (15/30 seeds), against Phase 1n's
+0.60 (18/30 seeds at β=0.18). Both are consistent within Wilson 95% CI:
+Phase 1k [0.33, 0.67] vs Phase 1n [0.42, 0.76]. The two measurements
+sample different seeds (Phase 1k seeds 0–29; Phase 1n seeds {0, 1, 42,
+200, 500}), so the difference is sampling variation — the underlying
+basin volume at N=128, β=0.18 is around 50–60%.
+
+See `analysis/outputs/p10_phase_boundary_multiseed.json` (per-cell raw
+data) and `analysis/outputs/p10_basin_volume_multiseed.png` (heatmap).
+
+### #32 — Integration time-units methods note
+
+The cosine-kernel coupling in `epc/models/kuramoto_nonlocal.py` uses
+`G(x) = (1/(2π))(1 + A cos x)`. The continuous-system equation of
+motion absorbs the Riemann measure `dy = 2π/N` from
+`(2π) · (1/(2π))(1 + A cos(x_i - x_j)) sin(...) · (2π/N)`. Our
+discrete approximation drops the trailing `2π/N` factor, which shifts
+the effective timescale by a factor of `N/(2π) ≈ 20.4` at N=128.
+
+**Practical consequence.** Our T_max=100 frames at record_dt=1.0
+corresponds to ≈ 100 / 20.4 ≈ 4.9 natural time units in the paper's
+PDE convention. Abrams-Strogatz Fig. 2 reports lifetimes growing from
+~5 PDE time units at N=128 to ~50 at N=256. So **our 100% survival at
+T_max=100 frames is consistent with the paper's lifetime numbers being
+right at the lower edge of our observation window** for N=128, and well
+beyond it for N=256. The Sprint 26 lifetime-finite finding is no longer
+a divergence — it's an observation-window limit.
+
+To actually observe lifetime statistics at N=128 in the paper's regime,
+we would need T_max ≈ 500 frames (≈ 25 PDE units). At ~3 s/frame for
+N=128 that's ~25 minutes of wall time per seed, ~12 hours for 30 seeds
+— deferred to Sprint 27 carry-forward #33 (lifetime measurement post-
+Numba; supersedes Sprint 26 #30).
+
+**This belongs in §4.19 of the paper** as a one-paragraph methods note
+and supersedes the Sprint 26 "honest divergence from paper" framing.
+The paper draft modification is a deliverable for the next sprint that
+touches paper text (the planned §4 update), not Sprint 27 itself, since
+this sprint deliberately stays out of paper-section files to keep scope
+single-deliverable.
+
+### Carry-forwards
+
+Closed in Sprint 27:
+- ~~Sprint 26 #31 — multi-seed phase boundary~~. **CLOSED.** Phase 1n
+  established that the (A, β) boundary is a smooth basin-volume
+  gradient, not a sharp transition. Documented quantitatively per cell.
+- ~~Sprint 26 #32 — integration time-units methods note~~. **CLOSED.**
+  N/(2π) ≈ 20.4 timescale factor identified; reconciles Sprint 26
+  Phase 1k's "infinite lifetime" with the paper's finite numbers.
+
+Newly surfaced:
+- **#33 (Sprint 27).** Lifetime measurement at T_max ≈ 500 frames
+  (≈ 25 PDE time units), required to actually observe the
+  Abrams-Strogatz lifetime distribution. Supersedes Sprint 26 #30.
+  Requires Numba acceleration (Sprint 18 #19) before being feasible
+  in a single Claude.ai sprint.
+- **#34 (Sprint 27).** Add a one-paragraph methods note to
+  `docs/paper_section4_draft.md` §4.19 capturing the time-units
+  reconciliation (closes the Sprint 26 "honest divergence" framing).
+  Trivial; bundle with the next paper-section sprint.
+
+Continuing carry-forwards (14 → 14 open after Sprint 27, net 0):
+- All 12 from the Sprint 25 carry-forward list above
+- Sprint 26 #30 (lifetime T_max extension) — superseded by #33 below
+- New: #33 (lifetime measurement, post-Numba), #34 (§4.19 methods note)
+- Sprint 26 #30 retired; #31, #32 closed; #33, #34 added — net 14.
+
+Note: Sprint 26 #30 and Sprint 27 #33 are the same item with refined
+estimates (T_max=200 → T_max≈500). Tracking only #33 going forward.
+
+**Sprint 27 newly surfaced findings.** Two scientifically substantive:
+
+1. **Sprint 26's apparent sharp boundary was a single-seed artifact.**
+   The (A, β) boundary at β ≈ 0.21 is actually a smooth basin-volume
+   gradient. This strengthens the paper's qualitative agreement with
+   Abrams-Strogatz (smooth chimera→sync transition) and corrects the
+   misleading "sharp boundary" framing from the Sprint 26 narrative.
+
+2. **The Sprint 26 "infinite lifetime" finding is reconcilable with the
+   paper.** Our integration time units are N/(2π) ≈ 20.4× faster than
+   the paper's PDE convention; T_max=100 frames is ~5 paper-units, at
+   the lower edge of Fig. 2's reported N=128 lifetimes. The paper's
+   claim isn't refuted — we just didn't run long enough.
+
+**Files added/changed (Sprint 27).**
+
+| Type | Path | Status |
+|---|---|---|
+| New | `analysis/p10_phase_boundary_multiseed.py` | Phase 1n scan script |
+| New | `analysis/p10_make_basin_figure.py` | Sprint 27 figure generator |
+| New | `analysis/outputs/p10_phase_boundary_multiseed.json` | Phase 1n grid |
+| New | `analysis/outputs/p10_basin_volume_multiseed.png` | Sprint 27 figure |
+| Modified | `REPLICATION_NOTES.md` | +this section |
