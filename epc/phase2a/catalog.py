@@ -38,6 +38,13 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     # 4 clusters at ε=0.1). N=400 chosen so the grid adapter reshapes cleanly
     # to a 20×20 occupancy field for the P18 panel under the v1.1 network override.
     "P21_hegselmann_krause": {"n_agents": 400, "epsilon": 0.2, "init_mode": "uniform", "n_steps": 100, "seed": 0},
+    # P11 LV: predator-prey lattice in coexistence regime per Mobilia-Georgiev-Täuber 2007.
+    # Default rates produce sustained oscillations, not extinction.
+    "P11_lotka_volterra": {"rows": 50, "cols": 50, "predation_rate": 2.0, "prey_reproduction_rate": 1.0, "predator_death_rate": 1.0, "init_prey_fraction": 0.3, "init_predator_fraction": 0.3, "n_steps": 100, "seed": 0},
+    # P13 GH: 3-state excitable CA producing spiral waves at random init density.
+    "P13_greenberg_hastings": {"rows": 64, "cols": 64, "n_states": 3, "threshold": 1, "init_mode": "random", "init_density": 0.3, "n_steps": 100, "seed": 0},
+    # P22 SIR: lattice epidemic at canonical infection regime (above percolation threshold).
+    "P22_sir_epidemic": {"rows": 64, "cols": 64, "infection_prob": 0.4, "recovery_prob": 0.1, "init_mode": "single_seed", "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -155,6 +162,52 @@ def _gen_p31_zhang_sorting(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "sequence", "arrays": arrays}
 
 
+def _gen_p11_lotka_volterra(p: Dict[str, Any]) -> Dict[str, Any]:
+    """LV lattice in coexistence regime (Mobilia-Georgiev-Täuber 2007)."""
+    from epc.models.lotka_volterra_lattice import LotkaVolterraLattice
+
+    model = LotkaVolterraLattice(
+        rows=p["rows"], cols=p["cols"],
+        predation_rate=p["predation_rate"],
+        prey_reproduction_rate=p["prey_reproduction_rate"],
+        predator_death_rate=p["predator_death_rate"],
+        init_prey_fraction=p["init_prey_fraction"],
+        init_predator_fraction=p["init_predator_fraction"],
+        seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_categorical", "grids": grids, "n_states": int(grids.max() + 1)}
+
+
+def _gen_p13_greenberg_hastings(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Greenberg-Hastings excitable CA producing spiral waves."""
+    from epc.models.greenberg_hastings import GreenbergHastings
+
+    model = GreenbergHastings(
+        rows=p["rows"], cols=p["cols"], n_states=p["n_states"],
+        threshold=p["threshold"], init_mode=p["init_mode"],
+        init_density=p["init_density"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_categorical", "grids": grids, "n_states": p["n_states"]}
+
+
+def _gen_p22_sir_epidemic(p: Dict[str, Any]) -> Dict[str, Any]:
+    """SIR lattice epidemic above percolation threshold."""
+    from epc.models.sir_epidemic import SIREpidemicModel
+
+    model = SIREpidemicModel(
+        rows=p["rows"], cols=p["cols"],
+        infection_prob=p["infection_prob"], recovery_prob=p["recovery_prob"],
+        init_mode=p["init_mode"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_categorical", "grids": grids, "n_states": 3}  # S=0, I=1, R=2
+
+
 def _gen_p21_hegselmann_krause(p: Dict[str, Any]) -> Dict[str, Any]:
     """Hegselmann-Krause canonical fragmented opinion dynamics.
 
@@ -200,6 +253,9 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P31_zhang_sorting": _gen_p31_zhang_sorting,
     "P12_rps": _gen_p12_rps,
     "P21_hegselmann_krause": _gen_p21_hegselmann_krause,
+    "P11_lotka_volterra": _gen_p11_lotka_volterra,
+    "P13_greenberg_hastings": _gen_p13_greenberg_hastings,
+    "P22_sir_epidemic": _gen_p22_sir_epidemic,
 }
 
 
@@ -458,6 +514,96 @@ def _adapt_to_phases(native: Dict[str, Any], target_steps: int = 600, target_n: 
     raise ValueError(f"no phases adapter for kind: {kind}")
 
 
+def _adapt_to_avalanches(native: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to avalanches-history format.
+
+    The avalanches "history" is a single-element list containing an
+    ``avalanche_sizes`` array. The conversion derives an avalanche-size
+    distribution from the substrate's intrinsic dynamics:
+
+    - For grid substrates (binary or categorical): per-step "activity" =
+      number of cells that changed between consecutive frames; the sequence
+      of non-zero activity counts is treated as the avalanche-size array.
+    - For continuous fields: per-step count of cells whose squared change
+      exceeds a small threshold.
+    - For static substrates (sandpile final grid alone, no time): synthesize
+      a small sub-power-law distribution from the height histogram.
+    - For phase / particle / sequence / opinions substrates: per-step
+      L2-change as activity, then non-zero values as the avalanche array.
+
+    None of these are designed to *fool* P14 — they're honest projections
+    that produce non-power-law distributions for non-SOC substrates. P14
+    should reject all of them.
+    """
+    kind = native["kind"]
+
+    if kind in ("grid_binary", "grid_categorical"):
+        grids = native["grids"]
+        deltas = np.array([int(np.sum(grids[t] != grids[t - 1])) for t in range(1, len(grids))])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    if kind == "field_continuous":
+        fields = native["fields"]
+        deltas = np.array([
+            int(np.sum((fields[t] - fields[t - 1]) ** 2 > 0.01))
+            for t in range(1, len(fields))
+        ])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    if kind == "static_grid_int":
+        # No time dynamics. Derive a "size" distribution from the height
+        # histogram so there is something for the detector to fit.
+        g = native["grid"]
+        sizes = np.bincount(g.flatten().astype(int))
+        sizes = sizes[sizes > 0].astype(np.int64)
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes, "step": 0}]
+
+    if kind == "phases":
+        theta = native["theta"]
+        deltas = np.array([
+            int(np.sum(np.abs(np.angle(np.exp(1j * (theta[t] - theta[t - 1])))) > 0.1))
+            for t in range(1, len(theta))
+        ])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    if kind == "particles":
+        h = native["headings"]
+        deltas = np.array([int(np.sum(np.abs(h[t] - h[t - 1]) > 0.1)) for t in range(1, len(h))])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    if kind == "sequence":
+        arrays = native["arrays"]
+        deltas = np.array([int(np.sum(arrays[t] != arrays[t - 1])) for t in range(1, len(arrays))])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    if kind == "opinions":
+        ops = native["opinions"]
+        deltas = np.array([int(np.sum(np.abs(ops[t] - ops[t - 1]) > 0.01)) for t in range(1, len(ops))])
+        sizes = deltas[deltas > 0]
+        if sizes.size == 0:
+            sizes = np.array([1], dtype=np.int64)
+        return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
+
+    raise ValueError(f"no avalanches adapter for kind: {kind}")
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -476,6 +622,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_grid(native, target_steps=target_steps, target_shape=target_shape)
     if target_format == "phases":
         return _adapt_to_phases(native, target_steps=target_steps, target_n=target_n, cadence=cadence)
+    if target_format == "avalanches":
+        return _adapt_to_avalanches(native)
     raise ValueError(f"unknown target_format: {target_format}")
 
 

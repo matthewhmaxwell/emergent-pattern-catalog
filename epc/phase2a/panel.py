@@ -227,6 +227,9 @@ def run_panel(
         class_a_kwargs["shape"] = target_shape
     elif detector_format == "phases":
         class_a_kwargs["n"] = target_n
+    elif detector_format == "avalanches":
+        # Avalanche-format generators only take n_avalanches; n_steps unused.
+        class_a_kwargs = {}
 
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):
         s = int(rng.integers(0, 2**31 - 1))

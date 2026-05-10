@@ -464,6 +464,26 @@ population discrepancy is an irreducible finite-grid effect (no way to
 have "glider escapes to infinity" on a finite BC), not an implementation
 error.
 
+## Phase-2a Panel Result (v1.1) — Sprint 33 (P15 GoL)
+
+Output: `analysis/outputs/p15_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.1, Sprint 31).
+
+| Class | TNR | n | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 1.000 | 10 | gating |
+| Catalog (substrate-typed: lattice_2d) | **1.000** | 7 (all 7 lattice_2d catalog mates) | gating |
+| Failed-regime (Class C) | **N/A** | 0 | GoL is deterministic; canonical positive is a fixed IC; no parameter regime gates emergence |
+| **Overall** | **1.000** | 17 | |
+
+- Class B composition (substrate-type=lattice_2d): 7 catalog mates — `P11_lotka_volterra`, `P12_rps`, `P13_greenberg_hastings`, `P14_btw_sandpile`, `P1_schelling`, `P22_sir_epidemic`, `P27_nowak_may`. Three of these (P11, P13, P22) had their native generators added this sprint to enable the lattice_2d Class B composition. All 7 correctly rejected.
+- Class C: declared N/A per `epc/phase2a/failed_regimes/p15_gol.py` (Sprint 31 spec §"Class C N/A list"; same pattern as P18 voter and P31 Zhang sorting).
+- Cohen's d: **8.282** (5 positive seeds at canonical dense-random GoL L=40 density=0.37 reach DEFINITIVE/SCREENING; all negatives score 0.0).
+- **Verdict: PASS** (overall TNR 1.000 ≥ 0.95, Cohen's d 8.282 ≥ 1.0, no gating class below 0.90).
+
+**Sprint 33 sanity-check role.** P15 was already AT-DEPTH on dim4 per the audit (multi-checkpoint reproducibility + multi-substrate discriminator rejection table). This v1.1 panel result is positive confirmation that the lattice_2d Class B composition and Class C N/A handling work cleanly for an already-AT-DEPTH pattern — the panel doesn't break a pattern that meets the bar by other means. The depth_gap.md row stays AT-DEPTH; v1.1 panel result added to the notes.
+
+The canonical positive used here (`init_mode="random", init_density=0.37, L=40, n_steps=300`) matches `tests/test_p15_generalized.py::test_gol_dense_definitive` rather than R-pentomino, because P15's structural-diversity screening requires the dense regime (R-pentomino is too sparse for the multi-variation reproducibility test).
+
 ---
 
 # Sprint 2 Transfer Entropy Validation (Summary)
@@ -822,6 +842,34 @@ alternative secondary metric.
 | Subcritical with dissipation | ✅ Exponential at p_diss=0.2 |
 | Duration scaling | ✅ T ~ s^0.64 |
 | 1/f noise in activity | ✅ β=1.41 in energy signal (Sprint 5 fix; was -0.17 on activity) |
+
+## Phase-2a Panel Result (v1.1) — Sprint 33 (P14 BTW)
+
+Output: `analysis/outputs/p14_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.1, Sprint 31).
+
+| Class | TNR | n | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 0.800 | 10 | gating; 2 false positives (`permutation_shuffled`, `time_shuffled`) |
+| Catalog (substrate-typed: lattice_2d) | **1.000** | 7 | gating; all 7 lattice_2d catalog mates rejected via per-step activity-derived avalanche distribution |
+| Failed-regime (Class C: dissipative sandpile) | 0.900 | 10 | gating; 1 false positive at `p_diss=0.350` (mid-range dissipation borderline) |
+| **Overall** | **0.889** | 27 | |
+
+- Class B composition (substrate-type=lattice_2d): 7 catalog mates as a full lattice_2d set. Native generators for P11, P13, P22 added this sprint (Sprint 33 Part A); no synthetic supplements needed since lattice_2d has ≥3 catalog mates.
+- Class C: 10 dissipative-sandpile regimes at L=32, n_drive=10000, p_diss ∈ linspace(0.05, 0.5, 10). Per `epc/phase2a/failed_regimes/p14_btw.py`.
+- Cohen's d: **4.779** (5 positive seeds at canonical BTW L=32 n_drive=10000 reach CONFIRMATION at confidence 0.700; pooled negative pool largely scores 0.0).
+- **Verdict: PARTIAL** (overall TNR 0.889 < 0.95 PASS gate; Cohen's d 4.779 ≥ 0.5 keeps it above FAIL).
+
+**v1.0 → v1.1 delta (n/a — first P14 panel run).** This is P14's first panel run; the v1.0 panel never ran for P14 because the v1.0 catalog adapters didn't support avalanche-format substrates. Sprint 33 added the avalanches detector format (single-element history with `avalanche_sizes` array), avalanche-format Class A synthetic branches in `epc/phase2a/synthetic.py`, and `_adapt_to_avalanches` in `epc/phase2a/catalog.py` (per-step grid-activity → avalanche-size distribution).
+
+**Failure-mode analysis (input to Sprint 34 v1.2 spec revision):**
+
+1. **Class A (2/10 false positives):** `permutation_shuffled` and `time_shuffled` both PERMUTE the canonical positive's `avalanche_sizes` array — preserving the marginal distribution. P14 (correctly) sees a power-law and fires. This is the **same C-class-a-degenerate failure mode that Sprint 32 surfaced for oscillator-detector P9** (`constant`/`permutation_shuffled` at constant phases preserves r=1). Generalizes across formats: any time-series detector that reads aggregate distribution properties is fooled by within-substrate permutation. **C-class-a-degenerate carries over from Sprint 32; v1.2 must address it across all formats.**
+
+2. **Class C (1/10 false positive at p_diss=0.350):** mid-range dissipation produces an avalanche distribution that retains enough heavy-tailed structure to occasionally pass P14's screening (power-law preferred over exponential in the LR test). At lower p_diss the system is too critical-like; at higher p_diss the cutoff is sharp. This is a finite-statistics edge effect specific to L=32 / n_drive=10,000 — likely resolvable by either (a) tightening the p_diss range to avoid the borderline, or (b) increasing n_drive for cleaner statistics. **Logged as P14-specific carry-forward C-p14-class-c-borderline (low priority; one borderline cell of 10).**
+
+3. **Catalog (0/7 false positives):** the substrate-typed Class B fix continues to work cleanly. All 7 lattice_2d catalog-mates (Schelling, Gray-Scott, LV, RPS, GH, GoL, NM, SIR) feed P14 a per-step activity distribution that is decisively non-power-law → P14 rejects each. This is a positive validation of the v1.1 substrate-typed approach for the lattice_2d substrate.
+
+The depth_gap.md row for P14 stays at PARTIAL on dim4 pending v1.2 closure of C-class-a-degenerate. Detector NOT modified per Sprint 30 rule.
 
 ---
 

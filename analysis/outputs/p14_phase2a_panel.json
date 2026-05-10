@@ -1,0 +1,345 @@
+{
+  "pattern_id": "P14",
+  "head_commit": "89f35bf677649dcb25767a145bc9d5169146c074",
+  "panel_version": "1.1",
+  "detector_format": "avalanches",
+  "elapsed_seconds": 4.71,
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+    ],
+    "mean_score": 0.7000000000000001,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.7000000000000001,
+        "verdict": "confirmation",
+        "detected": true
+      },
+      {
+        "seed_index": 1,
+        "score": 0.7000000000000001,
+        "verdict": "confirmation",
+        "detected": true
+      },
+      {
+        "seed_index": 2,
+        "score": 0.7000000000000001,
+        "verdict": "confirmation",
+        "detected": true
+      },
+      {
+        "seed_index": 3,
+        "score": 0.7000000000000001,
+        "verdict": "confirmation",
+        "detected": true
+      },
+      {
+        "seed_index": 4,
+        "score": 0.7000000000000001,
+        "verdict": "confirmation",
+        "detected": true
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "seed": 1843824992,
+      "score": 0.49999999999999994,
+      "verdict": "screening",
+      "detected": true
+    },
+    {
+      "substrate": "time_shuffled",
+      "seed": 184566854,
+      "score": 0.49999999999999994,
+      "verdict": "screening",
+      "detected": true
+    },
+    {
+      "substrate": "constant",
+      "seed": 1497586438,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 432652533,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 202244314,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "P11_lotka_volterra",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P12_rps",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P13_greenberg_hastings",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P15_gol",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P1_schelling",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P22_sir_epidemic",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P27_nowak_may",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "failed_regime": [
+    {
+      "substrate": "p_diss=0.050",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.05
+      },
+      "seed": 300,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.100",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.1
+      },
+      "seed": 301,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.150",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.15000000000000002
+      },
+      "seed": 302,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.200",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.2
+      },
+      "seed": 303,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.250",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.25
+      },
+      "seed": 304,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.300",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.3
+      },
+      "seed": 305,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.350",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.35000000000000003
+      },
+      "seed": 306,
+      "score": 0.35,
+      "verdict": "screening",
+      "detected": true
+    },
+    {
+      "substrate": "p_diss=0.400",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.4
+      },
+      "seed": 307,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.450",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.45
+      },
+      "seed": 308,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "p_diss=0.500",
+      "params": {
+        "L": 32,
+        "n_drive": 10000,
+        "n_burn": 1000,
+        "p_diss": 0.5
+      },
+      "seed": 309,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "class_b_composition": {
+    "substrate_type": "lattice_2d",
+    "catalog_mates": [
+      "P11_lotka_volterra",
+      "P12_rps",
+      "P13_greenberg_hastings",
+      "P15_gol",
+      "P1_schelling",
+      "P22_sir_epidemic",
+      "P27_nowak_may"
+    ],
+    "synthetic_supplements": []
+  },
+  "class_c_status": "populated",
+  "class_c_n_a_reason": null,
+  "summary": {
+    "n_negatives": 27,
+    "overall_tnr": 0.8888888888888888,
+    "synthetic": {
+      "n": 10,
+      "tnr": 0.8,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 7,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "failed_regime": {
+      "n": 10,
+      "tnr": 0.9,
+      "advisory": false
+    },
+    "synthetic_tnr": 0.8,
+    "catalog_tnr": 1.0,
+    "catalog_tnr_advisory": false,
+    "failed_regime_tnr": 0.9,
+    "cohens_d_positive_vs_panel": 4.778895043609751,
+    "verdict": "PARTIAL"
+  }
+}

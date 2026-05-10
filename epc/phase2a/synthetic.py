@@ -26,6 +26,18 @@ GRID_DEFAULT_STEPS = 200
 PHASES_DEFAULT_N = 300
 PHASES_DEFAULT_STEPS = 600
 PHASES_DEFAULT_CADENCE = 10  # matches Kuramoto record_every=10 — keeps n_T_osc comparable
+AVALANCHES_DEFAULT_N = 300   # default count of synthetic avalanche-size samples
+AVALANCHES_DEFAULT_MAX_SIZE = 100
+
+
+def _wrap_avalanches(sizes: np.ndarray) -> List[Dict[str, Any]]:
+    """Wrap an avalanche-size array into a one-element history dict.
+
+    P14's detector consumes a flat array of avalanche sizes rather than a
+    state-history list. We package it as a single-step "history" so the
+    panel runner's iteration model still works.
+    """
+    return [{"avalanche_sizes": sizes.astype(np.int64), "step": 0}]
 
 
 def _grid_history_from_array(arr: np.ndarray, cadence: int = 1) -> List[Dict[str, Any]]:
@@ -62,6 +74,8 @@ def random_uniform_field(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
+    max_size: int = AVALANCHES_DEFAULT_MAX_SIZE,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """1. Random uniform field — i.i.d. uniform on the natural range."""
@@ -72,6 +86,8 @@ def random_uniform_field(
     if format == "phases":
         theta_t = rng.uniform(0.0, 2.0 * np.pi, size=(n_steps, n))
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        return _wrap_avalanches(rng.integers(1, max_size + 1, size=n_avalanches))
     raise ValueError(f"unknown format: {format}")
 
 
@@ -82,6 +98,7 @@ def random_gaussian_field(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """2. Random Gaussian field — i.i.d. Gaussian thresholded to substrate range."""
@@ -94,6 +111,9 @@ def random_gaussian_field(
         z = rng.standard_normal(size=(n_steps, n))
         theta_t = np.mod(z * np.pi, 2.0 * np.pi)
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        sizes = np.clip(rng.normal(50, 15, size=n_avalanches), 1, None).astype(np.int64)
+        return _wrap_avalanches(sizes)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -104,6 +124,7 @@ def random_binary_field(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """3. Random binary field — i.i.d. Bernoulli(0.5)."""
@@ -116,6 +137,9 @@ def random_binary_field(
         bits = rng.integers(0, 2, size=(n_steps, n))
         theta_t = bits.astype(float) * np.pi
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Avalanche sizes ∈ {1, 2}: trivially not power-law.
+        return _wrap_avalanches(rng.integers(1, 3, size=n_avalanches))
     raise ValueError(f"unknown format: {format}")
 
 
@@ -126,6 +150,7 @@ def spatial_white_noise_series(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """4. Spatial white noise time series — independent random fields per step.
@@ -140,6 +165,10 @@ def spatial_white_noise_series(
     if format == "phases":
         theta_t = rng.uniform(0.0, 2.0 * np.pi, size=(n_steps, n))
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Exponential-distributed sizes — the canonical null for SOC tests.
+        sizes = (rng.exponential(scale=20.0, size=n_avalanches) + 1).astype(np.int64)
+        return _wrap_avalanches(sizes)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -150,6 +179,7 @@ def temporal_white_noise_per_cell(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """5. Temporal white noise per cell — each cell evolves as independent walk.
@@ -176,6 +206,10 @@ def temporal_white_noise_per_cell(
             theta = np.mod(theta + steps[t], 2.0 * np.pi)
             theta_t[t] = theta
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Poisson-distributed sizes (memoryless count process).
+        sizes = (rng.poisson(lam=20.0, size=n_avalanches) + 1).astype(np.int64)
+        return _wrap_avalanches(sizes)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -210,6 +244,13 @@ def permutation_shuffled_positive(
         T = len(positive)
         theta_t = np.broadcast_to(last_theta, (T, last_theta.size)).copy()
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Permute the canonical positive's avalanche-size array.
+        # NOTE: permutation preserves the marginal distribution → degenerate
+        # case (same as oscillator C-class-a-degenerate from Sprint 32).
+        sizes = positive[0]["avalanche_sizes"].copy()
+        rng.shuffle(sizes)
+        return _wrap_avalanches(sizes)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -227,6 +268,12 @@ def time_shuffled_positive(
     if positive is None:
         raise ValueError("time_shuffled_positive requires `positive` kwarg")
     rng = np.random.default_rng(seed)
+    if format == "avalanches":
+        # For avalanches the "positive" is a single-element history with a
+        # 1-D sizes array; shuffling the array order is the natural analog.
+        sizes = positive[0]["avalanche_sizes"].copy()
+        rng.shuffle(sizes)
+        return _wrap_avalanches(sizes)
     indices = np.arange(len(positive))
     rng.shuffle(indices)
     return [dict(positive[i], step=t) for t, i in enumerate(indices)]
@@ -239,6 +286,7 @@ def constant_field(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     value: int = 1,
     **_: Any,
 ) -> List[Dict[str, Any]]:
@@ -252,6 +300,8 @@ def constant_field(
     if format == "phases":
         theta_t = np.zeros((n_steps, n))
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        return _wrap_avalanches(np.full(n_avalanches, max(value, 1), dtype=np.int64))
     raise ValueError(f"unknown format: {format}")
 
 
@@ -262,6 +312,7 @@ def linear_gradient_field(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """9. Linear gradient — smooth monotonic spatial gradient (no emergence)."""
@@ -276,6 +327,9 @@ def linear_gradient_field(
         theta_static = np.linspace(0.0, 2.0 * np.pi, n, endpoint=False)
         theta_t = np.broadcast_to(theta_static, (n_steps, n)).copy()
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Arithmetic progression — strictly monotonic, not power-law.
+        return _wrap_avalanches(np.arange(1, n_avalanches + 1, dtype=np.int64))
     raise ValueError(f"unknown format: {format}")
 
 
@@ -286,6 +340,7 @@ def periodic_checkerboard(
     shape: tuple = GRID_DEFAULT_SHAPE,
     n_steps: int = GRID_DEFAULT_STEPS,
     n: int = PHASES_DEFAULT_N,
+    n_avalanches: int = AVALANCHES_DEFAULT_N,
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """10. Periodic boundary checkerboard — alternating values, deterministic."""
@@ -301,6 +356,10 @@ def periodic_checkerboard(
         theta_static = (idx % 2).astype(float) * np.pi
         theta_t = np.broadcast_to(theta_static, (n_steps, n)).copy()
         return _phases_history_from_array(theta_t)
+    if format == "avalanches":
+        # Alternating two values — bimodal, definitely not power-law.
+        sizes = np.tile([5, 10], n_avalanches // 2 + 1)[:n_avalanches].astype(np.int64)
+        return _wrap_avalanches(sizes)
     raise ValueError(f"unknown format: {format}")
 
 

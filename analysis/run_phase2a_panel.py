@@ -21,6 +21,8 @@ import numpy as np
 from epc.phase2a.panel import run_panel
 from epc.phase2a.failed_regimes import p18_voter as p18_failed
 from epc.phase2a.failed_regimes import p9_kuramoto as p9_failed
+from epc.phase2a.failed_regimes import p15_gol as p15_failed
+from epc.phase2a.failed_regimes import p14_btw as p14_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -34,6 +36,50 @@ def build_p18_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
         runs.append(m.run(n_steps=400))
         if seed == 0:
             metadata = m.get_metadata()
+    return runs, metadata
+
+
+def build_p15_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P15 canonical positive: dense random GoL (density=0.37, L=40, n_steps=300).
+
+    Per ``tests/test_p15_generalized.py::test_gol_dense_definitive`` this is the
+    canonical positive that reaches DEFINITIVE under P15's multi-variation
+    reproducibility test. R-pentomino is too sparse for P15's structural-
+    diversity screening.
+    """
+    from epc.models.game_of_life import GameOfLife
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = GameOfLife(
+            rows=40, cols=40, init_mode="random", init_density=0.37,
+            boundary="periodic", seed=42 + seed,
+        )
+        runs.append(m.run(n_steps=300, record_every=1))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def build_p14_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P14 canonical positive: BTW sandpile at L=32, n_drive=10000.
+
+    Each seed produces an avalanche-size array; we wrap as a single-element
+    "history" so the panel runner's iteration model still works.
+    """
+    from epc.models.btw_sandpile import run_sandpile, BTWSandpileParams
+    runs: List[List[Dict[str, Any]]] = []
+    for seed in range(n_seeds):
+        params = BTWSandpileParams(L=32, n_drive=10_000, n_burn=1_000, seed=seed)
+        result = run_sandpile(params)
+        runs.append([{
+            "avalanche_sizes": result.avalanche_sizes,
+            "avalanche_durations": result.avalanche_durations,
+            "activity": result.activity,
+            "energy": result.energy_history,
+            "step": 0,
+        }])
+    metadata = {"is_self_tuned": True, "model": "btw_sandpile"}
     return runs, metadata
 
 
@@ -57,6 +103,38 @@ def make_p18_detector_fn(n_permutations: int = 99, seed: int = 42):
     detector = P18ConsensusDetector(n_permutations=n_permutations, seed=seed)
     def fn(history, metadata=None):
         return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def make_p15_detector_fn(seed: int = 42, n_variations: int = 8):
+    """P15 detector with the canonical GoL step_fn so positives reach DEFINITIVE
+    via the multi-variation reproducibility test (Sprint 8 generalization)."""
+    from epc.detectors.p15_persistent_computation import (
+        P15PersistentComputationDetector, make_step_fn_for_gol,
+    )
+    step_fn = make_step_fn_for_gol()
+    detector = P15PersistentComputationDetector(
+        step_fn=step_fn, n_variations=n_variations, seed=seed,
+    )
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def make_p14_detector_fn():
+    """P14 detector wrapper: unwrap the single-element avalanches "history"
+    and pass arrays directly to detect_p14."""
+    from epc.detectors.p14_soc import detect_p14
+    def fn(history, metadata=None):
+        h0 = history[0] if isinstance(history, list) else history
+        return detect_p14(
+            avalanche_sizes=h0["avalanche_sizes"],
+            avalanche_durations=h0.get("avalanche_durations"),
+            activity=h0.get("activity"),
+            energy=h0.get("energy"),
+            null_sizes=h0.get("null_sizes"),
+            is_self_tuned=metadata.get("is_self_tuned", True) if metadata else True,
+        )
     return fn
 
 
@@ -89,6 +167,40 @@ def run_p18(out_path: str = "analysis/outputs/p18_phase2a_panel.json", verbose: 
     )
 
 
+def run_p15(out_path: str = "analysis/outputs/p15_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P15 panel → {out_path}")
+    positives, metadata = build_p15_positives(n_seeds=5)
+    detector_fn = make_p15_detector_fn(seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P15",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p15_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
+def run_p14(out_path: str = "analysis/outputs/p14_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P14 panel → {out_path}")
+    positives, metadata = build_p14_positives(n_seeds=5)
+    detector_fn = make_p14_detector_fn()
+    return run_panel(
+        detector_fn,
+        pattern_id="P14",
+        detector_format="avalanches",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p14_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def run_p9(out_path: str = "analysis/outputs/p9_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P9 panel → {out_path}")
     positives, metadata = build_p9_positives(n_seeds=5)
@@ -116,6 +228,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P18"] = run_p18()
     if which in ("p9", "both"):
         summaries["P9"] = run_p9()
+    if which in ("p15",):
+        summaries["P15"] = run_p15()
+    if which in ("p14",):
+        summaries["P14"] = run_p14()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

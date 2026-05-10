@@ -1,0 +1,214 @@
+{
+  "pattern_id": "P15",
+  "head_commit": "89f35bf677649dcb25767a145bc9d5169146c074",
+  "panel_version": "1.1",
+  "detector_format": "grid",
+  "elapsed_seconds": 1.69,
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.85,
+      0.85,
+      0.85,
+      0.5,
+      0.5
+    ],
+    "mean_score": 0.71,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 1,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 2,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 3,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      },
+      {
+        "seed_index": 4,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "seed": 1843824992,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "time_shuffled",
+      "seed": 184566854,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "constant",
+      "seed": 1497586438,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 432652533,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 202244314,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "P11_lotka_volterra",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P12_rps",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P13_greenberg_hastings",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P14_btw_sandpile",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P1_schelling",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P22_sir_epidemic",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P27_nowak_may",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "failed_regime": [],
+  "class_b_composition": {
+    "substrate_type": "lattice_2d",
+    "catalog_mates": [
+      "P11_lotka_volterra",
+      "P12_rps",
+      "P13_greenberg_hastings",
+      "P14_btw_sandpile",
+      "P1_schelling",
+      "P22_sir_epidemic",
+      "P27_nowak_may"
+    ],
+    "synthetic_supplements": []
+  },
+  "class_c_status": "N/A",
+  "class_c_n_a_reason": "Game of Life is fully deterministic; the canonical positive (R-pentomino at L=64) is a fixed initial condition with no parameter that gates pattern emergence (v1.1 spec \u00a7Class C N/A list).",
+  "summary": {
+    "n_negatives": 17,
+    "overall_tnr": 1.0,
+    "synthetic": {
+      "n": 10,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 7,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "failed_regime": {
+      "n": 0,
+      "tnr": null,
+      "advisory": true
+    },
+    "synthetic_tnr": 1.0,
+    "catalog_tnr": 1.0,
+    "catalog_tnr_advisory": false,
+    "failed_regime_tnr": null,
+    "cohens_d_positive_vs_panel": 8.281608177981221,
+    "verdict": "PASS"
+  }
+}

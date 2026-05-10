@@ -282,6 +282,39 @@ def test_p18_class_b_now_includes_p21_generator():
     assert "P21_hegselmann_krause" in catalog_mod._GENERATORS
 
 
+# Sprint 33 — three new lattice_2d generators (P11, P13, P22) needed for P14/P15 Class B.
+
+@pytest.mark.parametrize("sid", ["P11_lotka_volterra", "P13_greenberg_hastings", "P22_sir_epidemic"])
+def test_lattice_2d_generator_registered(sid):
+    """Sprint 33: each new lattice_2d catalog-mate has a generator in _GENERATORS."""
+    assert sid in catalog_mod._GENERATORS
+    assert sid in catalog_mod.SUBSTRATE_PARAMS
+
+
+@pytest.mark.parametrize("sid", ["P11_lotka_volterra", "P13_greenberg_hastings", "P22_sir_epidemic"])
+def test_lattice_2d_generator_returns_grid_categorical(sid):
+    """Each new generator returns kind=grid_categorical with stacked int8 grids."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS[sid])
+    native = catalog_mod._GENERATORS[sid](p)
+    assert native["kind"] == "grid_categorical"
+    assert native["grids"].dtype == np.int8
+    assert native["grids"].ndim == 3  # (T, rows, cols)
+
+
+def test_p14_class_b_fully_loadable_after_sprint_33():
+    """All P14 catalog-mates now have generators (no missing)."""
+    r = catalog_mod.class_b_for_pattern("P14")
+    missing = [m for m in r["catalog_mates"] if m not in catalog_mod._GENERATORS]
+    assert missing == [], f"P14 catalog-mates without generators: {missing}"
+
+
+def test_p15_class_b_fully_loadable_after_sprint_33():
+    """All P15 catalog-mates now have generators (no missing)."""
+    r = catalog_mod.class_b_for_pattern("P15")
+    missing = [m for m in r["catalog_mates"] if m not in catalog_mod._GENERATORS]
+    assert missing == [], f"P15 catalog-mates without generators: {missing}"
+
+
 # --- Failed-regime registry ------------------------------------------------
 
 def test_p18_failed_regime_is_class_c_n_a():
