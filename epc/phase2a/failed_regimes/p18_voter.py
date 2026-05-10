@@ -1,67 +1,46 @@
-"""P18 (voter) failed regimes: 10 highly-biased-init voter runs.
+"""P18 (voter) — Class C declared N/A under Phase-2a spec v1.1.
 
-The voter model on a finite lattice always reaches consensus eventually
-— there is no parameter value that suppresses the consensus end-state.
-However, the P18 detector's screening signature is the *coarsening
-dynamics* (rapid early growth of Moran's I, persistent wall-density
-decay, ≥30% Moran plateau). When the system is initialised with a
-strong bias toward one opinion (init_fraction ≥ ~0.93), there are no
-substantial domains to coarsen — minority cells flip immediately into
-the majority and the trajectory shows no Moran growth.
+The voter model on a finite lattice always reaches consensus eventually:
+no parameter regime suppresses the canonical pattern from non-trivial
+initial conditions. v1.0's Sprint 30 prototype (this file pre-revision)
+used high-bias initial conditions (init_fraction ∈ [0.93, 0.999]) as a
+proxy and found ~60% of those substrates still trip the detector — they
+are true positives in disguise rather than failed-regime negatives.
 
-Empirically the detector rejects (screening fail) for init_fraction
-≥ 0.93 on L=64 (sub-threshold ``moran_spearman_early`` ≈ 0.50; below
-the gate of 0.70). Below ~0.91 the detector still fires — these are
-genuine canonical voter runs, just with biased starts.
+Per v1.1 spec §"Class C N/A list", P18 joins P15 (GoL) and P31 (Zhang
+sorting) as patterns whose Class C is N/A. The panel runs Classes A
+and B (and B' supplements) only; the PASS criterion adjusts proportionally.
 
-The 10 regimes here use init_fraction ∈ linspace(0.93, 0.999, 10),
-giving a clean failed-regime sweep along the model's only available
-"no-coarsening" axis. See ``docs/sprint_returns/sprint_30_return.md``
-for the design discussion.
+The v1.0 init-fraction config is preserved in
+``docs/archive/phase2a_panel_spec_v1_0.md`` and
+``analysis/outputs/archive/v1_0/p18_phase2a_panel.json`` for reference.
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List
 
-import numpy as np
-
-
-L = 64
-N_STEPS = 200
-INIT_FRACTIONS = list(np.linspace(0.93, 0.999, 10))
-
 
 CONFIG: Dict[str, Any] = {
-    "substrate_id": "P18_voter_biased_init",
+    "substrate_id": "P18_voter_class_c",
     "format": "grid",
-    "description": (
-        "10 voter regimes at L=64, n_steps=200, init_mode=biased with "
-        "init_fraction ∈ linspace(0.93, 0.999, 10). High bias suppresses "
-        "the early Moran's I growth that P18 screening keys on; the "
-        "system reaches trivial consensus without exhibiting coarsening "
-        "dynamics. Voter has no parameter regime that suppresses "
-        "consensus itself, so we vary the initial-condition regime."
+    "status": "N/A",
+    "n_a_reason": (
+        "Voter model on a finite lattice always reaches consensus eventually; "
+        "no parameter regime suppresses the canonical pattern from non-trivial "
+        "initial conditions (v1.1 spec §Class C N/A list)."
     ),
-    "regimes": [
-        {
-            "label": f"init_frac={frac:.3f}",
-            "params": {"rows": L, "cols": L, "init_mode": "biased", "init_fraction": float(frac), "n_steps": N_STEPS},
-            "seed": 200 + i,
-        }
-        for i, frac in enumerate(INIT_FRACTIONS)
-    ],
+    "regimes": [],  # empty by design — Class C N/A
 }
 
 
 def build_substrate(regime: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Run a biased-init voter regime and return grid-history."""
-    from epc.models.voter import VoterModel
+    """Should never be called when ``CONFIG['status'] == 'N/A'``.
 
-    p = regime["params"]
-    model = VoterModel(
-        rows=p["rows"], cols=p["cols"],
-        init_mode=p["init_mode"], init_fraction=p["init_fraction"],
-        seed=regime["seed"],
+    Kept for interface symmetry with other failed-regime modules. The panel
+    runner checks ``CONFIG['status']`` and skips Class C when N/A.
+    """
+    raise RuntimeError(
+        "P18 Class C is declared N/A under v1.1; build_substrate must not be called. "
+        "If the panel runner reaches this code path, the Class C N/A handling has regressed."
     )
-    return model.run(n_steps=p["n_steps"])

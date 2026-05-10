@@ -1,14 +1,18 @@
-"""Phase-2a panel runner.
+"""Phase-2a panel runner (v1.1).
 
 The harness runs a detector against:
-- 5 seeds of its canonical positive (positive distribution),
-- 10 synthetic substrates (Class A),
-- 10 catalog-derived non-positives (Class B; 1 self-replacement → P12 fallback),
-- 10 pattern-specific failed regimes (Class C),
+- N seeds of its canonical positive (positive distribution; recommended 5),
+- 10 synthetic substrates (Class A, fixed),
+- substrate-typed catalog-derived non-positives + Class B' synthetic
+  supplements (Class B; variable size driven by
+  :func:`epc.phase2a.catalog.class_b_for_pattern`),
+- pattern-specific failed regimes if Class C is populated for the pattern,
+  OR skipped entirely if Class C is declared N/A in the failed-regime config.
 
-scores each, computes per-class TNR, overall TNR, and Cohen's d between
-positive and pooled-negative score distributions, and writes the result to
-a JSON file matching the schema in ``docs/phase2a_panel_spec.md``.
+It scores each substrate, computes per-class TNR, overall TNR, and Cohen's d
+between the positive and pooled-negative score distributions, and writes the
+result to a JSON file matching the schema in
+``docs/phase2a_panel_spec.md`` (v1.1).
 
 A detector is a callable ``(history, metadata) -> result`` where ``result``
 exposes ``.detected`` (bool) and ``.confidence`` (float).
@@ -27,7 +31,13 @@ import numpy as np
 
 from epc.phase2a import PANEL_VERSION
 from epc.phase2a import catalog as catalog_mod
+from epc.phase2a import structured as structured_mod
 from epc.phase2a import synthetic as synth_mod
+
+
+# Class size below which per-class TNR is reported as advisory only and does
+# not gate the PASS verdict (v1.1 spec §"PASS criterion").
+ADVISORY_CLASS_SIZE = 5
 
 
 # --- Score / verdict helpers ------------------------------------------------
@@ -55,10 +65,7 @@ def _verdict(result: Any) -> str:
 # --- Stats ------------------------------------------------------------------
 
 def compute_tnr(verdicts: List[bool]) -> float:
-    """TNR = fraction of negatives correctly rejected (detected==False).
-
-    ``verdicts`` is a list of ``detected`` booleans on negative substrates.
-    """
+    """TNR = fraction of negatives correctly rejected (detected==False)."""
     if not verdicts:
         return float("nan")
     n_correct = sum(1 for v in verdicts if v is False)
@@ -68,8 +75,15 @@ def compute_tnr(verdicts: List[bool]) -> float:
 def cohens_d(positive_scores: List[float], negative_scores: List[float]) -> float:
     """Cohen's d between two independent score distributions.
 
-    d = (mean_pos − mean_neg) / pooled_std
-    pooled_std = sqrt(((n_pos−1)·var_pos + (n_neg−1)·var_neg) / (n_pos + n_neg − 2))
+    d = (mean_pos − mean_neg) / pooled_std with sample-variance pooling.
+
+    When both score arrays are effectively constant (pooled variance below
+    the degeneracy threshold ``1e-12``) the comparison is undefined in the
+    standard formula. We disambiguate from the difference of means:
+    +inf / -inf for non-zero mean separation, 0 when means are also equal.
+    The degeneracy threshold absorbs ULP-level numerical noise that
+    accumulates in ``np.var`` on long constant arrays — without it,
+    constant-vs-constant inputs spuriously produce non-trivial finite d.
     """
     pos = np.asarray(positive_scores, dtype=float)
     neg = np.asarray(negative_scores, dtype=float)
@@ -78,29 +92,70 @@ def cohens_d(positive_scores: List[float], negative_scores: List[float]) -> floa
     var_pos = float(np.var(pos, ddof=1))
     var_neg = float(np.var(neg, ddof=1))
     pooled_var = ((pos.size - 1) * var_pos + (neg.size - 1) * var_neg) / (pos.size + neg.size - 2)
-    if pooled_var <= 0.0:
-        return float("inf") if pos.mean() > neg.mean() else float("-inf")
-    return (float(pos.mean()) - float(neg.mean())) / float(np.sqrt(pooled_var))
+    mean_diff = float(pos.mean()) - float(neg.mean())
+    if pooled_var <= 1e-12:
+        if abs(mean_diff) <= 1e-9:
+            return 0.0
+        return float("inf") if mean_diff > 0 else float("-inf")
+    return mean_diff / float(np.sqrt(pooled_var))
 
 
 def overall_verdict(
     overall_tnr: float,
-    per_class_tnr: Dict[str, float],
+    per_class_tnr_gating: Dict[str, float],
+    cohens_d_value: Optional[float] = None,
+    *,
     overall_tnr_threshold: float = 0.95,
     weak_class_threshold: float = 0.90,
+    cohens_d_pass_threshold: float = 1.0,
+    cohens_d_partial_threshold: float = 0.5,
 ) -> str:
-    """Apply the spec's PASS criteria.
+    """v1.1 verdict labels (spec §"PASS criterion").
 
-    PASS               : overall_tnr ≥ 0.95 and every reported class ≥ 0.90.
-    PASS-with-weakness : overall_tnr ≥ 0.95 but some class < 0.90.
-    PARTIAL            : overall_tnr < 0.95.
+    - **PASS** — overall_tnr ≥ 0.95 AND every gating class ≥ 0.90 AND d ≥ 1.0.
+    - **PASS-with-weakness** — overall_tnr ≥ 0.95 AND d ≥ 1.0 but a gating class < 0.90.
+    - **PARTIAL** — overall_tnr < 0.95 (or d < 1.0 with TNR ≥ 0.95) AND d ≥ 0.5.
+    - **FAIL** — overall_tnr < 0.95 AND d < 0.5.
+
+    ``per_class_tnr_gating`` only contains classes large enough to gate
+    (≥ ADVISORY_CLASS_SIZE substrates); advisory-only classes are excluded
+    by the caller.
     """
+    # None → nan so it fails every threshold; ±inf are kept as-is so a
+    # truly degenerate-perfect or degenerate-broken detector still gates correctly.
+    if cohens_d_value is None:
+        cohens_d_value = float("nan")
+
     if overall_tnr >= overall_tnr_threshold:
-        weak = [c for c, t in per_class_tnr.items() if t < weak_class_threshold]
-        if weak:
-            return "PASS-with-weakness"
-        return "PASS"
-    return "PARTIAL"
+        if cohens_d_value >= cohens_d_pass_threshold:
+            weak = [c for c, t in per_class_tnr_gating.items() if t < weak_class_threshold]
+            return "PASS-with-weakness" if weak else "PASS"
+        # TNR passes but effect size is below the PASS gate — treat as PARTIAL
+        # if there is at least signal (d ≥ partial threshold), else FAIL.
+        if cohens_d_value >= cohens_d_partial_threshold:
+            return "PARTIAL"
+        return "FAIL"
+
+    # overall_tnr below the PASS gate — verdict split by Cohen's d.
+    if cohens_d_value >= cohens_d_partial_threshold:
+        return "PARTIAL"
+    return "FAIL"
+
+
+def _per_class(
+    detected_list: List[bool],
+    *,
+    advisory_size: int = ADVISORY_CLASS_SIZE,
+) -> Dict[str, Any]:
+    """Compute per-class TNR + advisory status."""
+    n = len(detected_list)
+    if n == 0:
+        return {"n": 0, "tnr": None, "advisory": True}
+    return {
+        "n": n,
+        "tnr": compute_tnr(detected_list),
+        "advisory": n < advisory_size,
+    }
 
 
 # --- Runner -----------------------------------------------------------------
@@ -135,7 +190,7 @@ def run_panel(
     *,
     pattern_id: str,
     detector_format: str,
-    canonical_positive_runs: List[Dict[str, Any]],
+    canonical_positive_runs: List[List[Dict[str, Any]]],
     canonical_metadata: Optional[Dict[str, Any]] = None,
     failed_regime_module: Any,
     output_path: Optional[str] = None,
@@ -145,11 +200,7 @@ def run_panel(
     seed: int = 42,
     verbose: bool = False,
 ) -> Dict[str, Any]:
-    """Run the Phase-2a panel against ``detector_fn`` and return summary dict.
-
-    ``canonical_positive_runs`` is a list of pre-built canonical-positive
-    histories (one per seed). Recommended size: 5.
-    """
+    """Run the v1.1 Phase-2a panel against ``detector_fn`` and return summary."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
 
@@ -171,7 +222,7 @@ def run_panel(
 
     # 2) Class A — synthetic.
     synthetic_results: List[Dict[str, Any]] = []
-    class_a_kwargs = {"n_steps": target_steps}
+    class_a_kwargs: Dict[str, Any] = {"n_steps": target_steps}
     if detector_format == "grid":
         class_a_kwargs["shape"] = target_shape
     elif detector_format == "phases":
@@ -194,10 +245,14 @@ def run_panel(
         if verbose:
             print(f"  [syn {i:2d} {sub_id:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
 
-    # 3) Class B — catalog-derived (with self-replacement → fallback).
+    # 3) Class B (v1.1) — substrate-typed catalog mates + Class B' supplements.
+    class_b = catalog_mod.class_b_for_pattern(pattern_id)
+    catalog_mates: List[str] = class_b["catalog_mates"]
+    synthetic_supplements: List[str] = class_b["synthetic_supplements"]
+    class_b_substrate_type: Optional[str] = class_b["substrate_type"]
+
     catalog_results: List[Dict[str, Any]] = []
-    catalog_ids = catalog_mod.catalog_ids_for_pattern(pattern_id)
-    for i, sub_id in enumerate(catalog_ids):
+    for sub_id in catalog_mates:
         history = catalog_mod.load_catalog_substrate_for_format(
             sub_id, detector_format,
             target_steps=target_steps, target_shape=target_shape, target_n=target_n,
@@ -205,49 +260,87 @@ def run_panel(
         result = _run_one(detector_fn, history, canonical_metadata)
         catalog_results.append({
             "substrate": sub_id,
+            "kind": "catalog_mate",
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result),
         })
         if verbose:
-            print(f"  [cat {i:2d} {sub_id:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
-
-    # 4) Class C — failed regimes.
-    failed_results: List[Dict[str, Any]] = []
-    config = failed_regime_module.CONFIG
-    for i, regime in enumerate(config["regimes"]):
-        history = failed_regime_module.build_substrate(regime)
+            print(f"  [cat {sub_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
+    for supp_id in synthetic_supplements:
+        builder = structured_mod.SUPPLEMENT_BUILDERS[supp_id]
+        s = int(rng.integers(0, 2**31 - 1))
+        history = builder(s)
         result = _run_one(detector_fn, history, canonical_metadata)
-        failed_results.append({
-            "substrate": regime["label"],
-            "params": regime["params"],
-            "seed": regime["seed"],
+        catalog_results.append({
+            "substrate": supp_id,
+            "kind": "synthetic_supplement",
+            "seed": s,
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result),
         })
         if verbose:
-            print(f"  [fai {i:2d} {regime['label']:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
+            print(f"  [sup {supp_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
+
+    # 4) Class C — failed regimes (with N/A escape hatch).
+    fr_config = getattr(failed_regime_module, "CONFIG", {})
+    class_c_status = "populated"
+    class_c_n_a_reason: Optional[str] = None
+    failed_results: List[Dict[str, Any]] = []
+
+    if fr_config.get("status") == "N/A":
+        class_c_status = "N/A"
+        class_c_n_a_reason = fr_config.get("n_a_reason", "")
+        if verbose:
+            print(f"  [class C N/A] {class_c_n_a_reason}")
+    else:
+        for regime in fr_config.get("regimes", []):
+            history = failed_regime_module.build_substrate(regime)
+            result = _run_one(detector_fn, history, canonical_metadata)
+            failed_results.append({
+                "substrate": regime["label"],
+                "params": regime["params"],
+                "seed": regime["seed"],
+                "score": _score(result),
+                "verdict": _verdict(result),
+                "detected": _detected(result),
+            })
+            if verbose:
+                print(f"  [fai {regime['label']:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
 
     # 5) Aggregates.
     syn_detected = [r["detected"] for r in synthetic_results]
     cat_detected = [r["detected"] for r in catalog_results]
     fai_detected = [r["detected"] for r in failed_results]
-    all_neg_detected = syn_detected + cat_detected + fai_detected
-    all_neg_scores = [r["score"] for r in synthetic_results + catalog_results + failed_results]
+    syn_scores = [r["score"] for r in synthetic_results]
+    cat_scores = [r["score"] for r in catalog_results]
+    fai_scores = [r["score"] for r in failed_results]
 
-    syn_tnr = compute_tnr(syn_detected)
-    cat_tnr = compute_tnr(cat_detected)
-    fai_tnr = compute_tnr(fai_detected)
+    if class_c_status == "N/A":
+        all_neg_detected = syn_detected + cat_detected
+        all_neg_scores = syn_scores + cat_scores
+    else:
+        all_neg_detected = syn_detected + cat_detected + fai_detected
+        all_neg_scores = syn_scores + cat_scores + fai_scores
+
+    syn_class = _per_class(syn_detected)
+    cat_class = _per_class(cat_detected)
+    fai_class = _per_class(fai_detected) if class_c_status == "populated" else {"n": 0, "tnr": None, "advisory": True}
+
     overall_tnr = compute_tnr(all_neg_detected)
     d = cohens_d(positive_scores, all_neg_scores)
 
-    per_class = {
-        "synthetic_tnr": syn_tnr,
-        "catalog_tnr": cat_tnr,
-        "failed_regime_tnr": fai_tnr,
-    }
-    verdict = overall_verdict(overall_tnr, per_class)
+    # Build the gating class dict (only ≥ ADVISORY_CLASS_SIZE classes count).
+    per_class_gating: Dict[str, float] = {}
+    if syn_class["tnr"] is not None and not syn_class["advisory"]:
+        per_class_gating["synthetic_tnr"] = syn_class["tnr"]
+    if cat_class["tnr"] is not None and not cat_class["advisory"]:
+        per_class_gating["catalog_tnr"] = cat_class["tnr"]
+    if fai_class["tnr"] is not None and not fai_class["advisory"]:
+        per_class_gating["failed_regime_tnr"] = fai_class["tnr"]
+
+    verdict = overall_verdict(overall_tnr, per_class_gating, d)
 
     summary = {
         "pattern_id": pattern_id,
@@ -264,12 +357,23 @@ def run_panel(
         "synthetic": synthetic_results,
         "catalog": catalog_results,
         "failed_regime": failed_results,
+        "class_b_composition": {
+            "substrate_type": class_b_substrate_type,
+            "catalog_mates": catalog_mates,
+            "synthetic_supplements": synthetic_supplements,
+        },
+        "class_c_status": class_c_status,
+        "class_c_n_a_reason": class_c_n_a_reason,
         "summary": {
             "n_negatives": len(all_neg_detected),
             "overall_tnr": overall_tnr,
-            "synthetic_tnr": syn_tnr,
-            "catalog_tnr": cat_tnr,
-            "failed_regime_tnr": fai_tnr,
+            "synthetic": syn_class,
+            "catalog": cat_class,
+            "failed_regime": fai_class,
+            "synthetic_tnr": syn_class["tnr"],
+            "catalog_tnr": cat_class["tnr"],
+            "catalog_tnr_advisory": cat_class["advisory"],
+            "failed_regime_tnr": fai_class["tnr"],
             "cohens_d_positive_vs_panel": d,
             "verdict": verdict,
         },

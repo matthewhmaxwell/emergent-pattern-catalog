@@ -421,12 +421,11 @@ def load_catalog_substrate_for_format(
 
 
 def catalog_ids_for_pattern(pattern_id: str) -> List[str]:
-    """Return the 10 catalog substrate ids for a pattern, swapping self for fallback.
+    """v1.0 Class B selection: 10 fixed catalog ids with self-replacement fallback.
 
-    ``pattern_id`` is the one being tested (e.g. ``"P9"`` or ``"P18"``).
-    Removes the pattern's own canonical positive (e.g. ``"P9_kuramoto"``)
-    and substitutes ``FALLBACK_ID`` (``"P12_rps"``) so the result is always
-    10 non-self positives.
+    Retained for backward compatibility. v1.1 panel runs use
+    :func:`class_b_for_pattern` instead, which returns substrate-typed mates
+    + Class B' synthetic supplements.
     """
     self_id = next((sid for sid in CATALOG_IDS_FIXED if sid.startswith(pattern_id + "_")), None)
     out = list(CATALOG_IDS_FIXED)
@@ -434,3 +433,112 @@ def catalog_ids_for_pattern(pattern_id: str) -> List[str]:
         out.remove(self_id)
         out.append(FALLBACK_ID)
     return out
+
+
+# === v1.1 substrate-typed Class B ============================================
+
+# Pattern → catalog substrate id used as the canonical positive in the panel.
+# Add an entry here when a pattern's catalog substrate is implemented in
+# SUBSTRATE_PARAMS / _GENERATORS above. Patterns listed here without a generator
+# can still appear in class_b_for_pattern's catalog_mates output (purely a
+# declarative assignment); their actual loading would fail until a generator
+# is added.
+PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
+    "P1": "P1_schelling",
+    "P2": "P2_abp",                          # declarative; generator NOT yet implemented
+    "P3": "P3_gray_scott",
+    "P5": "P5_vicsek",
+    "P6": "P6_dorsogna",                     # declarative; generator NOT yet implemented
+    "P8": "P8_nagel_schreckenberg",          # declarative; generator NOT yet implemented
+    "P9": "P9_kuramoto",
+    "P10": "P10_chimera",
+    "P11": "P11_lotka_volterra",             # declarative; generator NOT yet implemented
+    "P12": "P12_rps",
+    "P13": "P13_greenberg_hastings",         # declarative; generator NOT yet implemented
+    "P14": "P14_btw_sandpile",
+    "P15": "P15_gol",
+    "P18": "P18_voter",
+    "P21": "P21_hegselmann_krause",          # declarative; generator NOT yet implemented
+    "P22": "P22_sir_epidemic",               # declarative; generator NOT yet implemented
+    "P27": "P27_nowak_may",
+    "P28": "P28_yard_sale",                  # declarative; generator NOT yet implemented
+    "P31": "P31_zhang_sorting",
+}
+
+
+def _build_substrate_type_by_pattern() -> Dict[str, str]:
+    """Map pattern_id → substrate_type, sourced from MODEL_REGISTRY.
+
+    For each pattern, we prefer the substrate_type of the model whose
+    primary_patterns is exactly ``[pattern_id]`` (most specific). If no such
+    model exists (e.g. multi-pattern Zhang sorting carries both P1 and P31),
+    we fall back to the first model in the registry that lists the pattern.
+
+    v1.1 spec overrides:
+        P18 (voter)  registry → lattice_2d  → reclassified to "network"
+        P21 (HK)     registry → opinion_space → reclassified to "network"
+
+    The registry remains the source of truth for actual model dispatch; the
+    "network" reclassification is a Class-B-taxonomy choice in the v1.1 spec
+    treating voter and HK as opinion-dynamics-on-graph regardless of their
+    underlying state representation. Documented in
+    docs/sprint_returns/sprint_31_return.md.
+    """
+    from epc.orchestration import MODEL_REGISTRY
+
+    canonical: Dict[str, str] = {}
+    # Pass 1: single-pattern models (most specific).
+    for model in MODEL_REGISTRY.values():
+        if len(model.primary_patterns) == 1:
+            canonical[model.primary_patterns[0]] = model.substrate_type
+    # Pass 2: multi-pattern models fill in any gaps.
+    for model in MODEL_REGISTRY.values():
+        for pid in model.primary_patterns:
+            canonical.setdefault(pid, model.substrate_type)
+    # v1.1 spec overrides.
+    canonical["P18"] = "network"
+    canonical["P21"] = "network"
+    return canonical
+
+
+SUBSTRATE_TYPE_BY_PATTERN: Dict[str, str] = _build_substrate_type_by_pattern()
+
+
+def class_b_for_pattern(pattern_id: str) -> Dict[str, Any]:
+    """v1.1 Class B composition for ``pattern_id`` — substrate-typed.
+
+    Returns
+    -------
+    dict
+        ``{"catalog_mates": [...substrate_ids...],
+           "synthetic_supplements": [...supplement_ids...],
+           "substrate_type": <type str or None>}``
+
+    Class B contains the canonical substrate ids of all *other* patterns
+    sharing this pattern's substrate type (capped at 10). When fewer than
+    3 catalog mates are available, Class B' synthetic supplements are added
+    from :data:`epc.phase2a.structured.SUPPLEMENTS_BY_SUBSTRATE_TYPE`.
+    """
+    from epc.phase2a.structured import SUPPLEMENTS_BY_SUBSTRATE_TYPE
+
+    sub_type = SUBSTRATE_TYPE_BY_PATTERN.get(pattern_id)
+    if sub_type is None:
+        return {"catalog_mates": [], "synthetic_supplements": [], "substrate_type": None}
+
+    mates: List[str] = []
+    for pid, sid in PATTERN_TO_SUBSTRATE_ID.items():
+        if pid == pattern_id:
+            continue
+        if SUBSTRATE_TYPE_BY_PATTERN.get(pid) == sub_type:
+            mates.append(sid)
+    mates.sort()
+    if len(mates) > 10:
+        mates = mates[:10]
+
+    supplements = list(SUPPLEMENTS_BY_SUBSTRATE_TYPE.get(sub_type, [])) if len(mates) < 3 else []
+
+    return {
+        "catalog_mates": mates,
+        "synthetic_supplements": supplements,
+        "substrate_type": sub_type,
+    }
