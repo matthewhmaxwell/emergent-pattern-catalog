@@ -991,6 +991,32 @@ distribution (γ=0.5). Mean-field O(N) reformulation, RK4 integration (dt=0.05).
 | K = 8K_c | 0.963 | 119 | 0.005 | DEFINITIVE ✅ |
 | K < K_c | 0.087 | — | 0.185 | None ✅ |
 
+## Phase-2a Panel Result (v1.0) — Sprint 30
+
+Output: `analysis/outputs/p9_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md`.
+
+| Class | TNR | n |
+|---|---|---|
+| Synthetic (Class A) | 0.800 | 10 |
+| Catalog-derived (Class B) | 0.400 | 10 |
+| Failed-regime sub-K_c (Class C) | **1.000** | 10 |
+| **Overall** | **0.733** | 30 |
+
+- Cohen's d (canonical positive K=8K_c × 5 seeds vs pooled panel): **1.739**.
+- **Verdict: PARTIAL** (overall TNR 0.733 < 0.95 PASS threshold).
+
+Per Sprint 30 brief, the detector was **not** modified to make this pass.
+Logged as carry-forward for chat review (see `docs/sprint_returns/sprint_30_return.md`).
+
+The Class C result (10/10 sub-critical Kuramoto regimes correctly rejected
+across K ∈ linspace(0.05·K_c, 0.5·K_c)) confirms the documented K_c=2γ
+specificity of the detector within its native substrate. The Class A and
+Class B losses are concentrated in substrates where the harness's
+grid→phases adapter produces bimodal phase distributions (binary cell
+values 0/1 → phases {0, π}) with high mean order parameter r — a panel
+adapter artifact rather than a P9 quality issue. This is the panel-design
+issue that motivates the Sprint 31 panel-spec revision.
+
 ---
 
 # Nowak-May Spatial PD Replication Notes (Sprint 5)
@@ -4569,6 +4595,40 @@ by Claude Code post-push):**
 | Added | `docs/sprint24/candidate_grades.json` | dry-run grading detail |
 | Added | `scripts/sprint24_baseline.py` | reproducibility: characterization driver |
 | Added | `scripts/sprint24_grade_candidates.py` | reproducibility: candidate dry-run grader |
+
+## Phase-2a Panel Result (v1.0) — Sprint 30 (P18 voter)
+
+Output: `analysis/outputs/p18_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md`.
+
+| Class | TNR | n |
+|---|---|---|
+| Synthetic (Class A) | 1.000 | 10 |
+| Catalog-derived (Class B) | 0.900 | 10 |
+| Failed-regime biased-init (Class C) | 0.400 | 10 |
+| **Overall** | **0.767** | 30 |
+
+- Cohen's d (canonical positive L=64 × 5 seeds vs pooled panel): **1.901**.
+- **Verdict: PARTIAL** (overall TNR 0.767 < 0.95 PASS threshold).
+
+Per Sprint 30 brief, the detector was **not** modified to make this pass.
+Logged as carry-forward for chat review (see `docs/sprint_returns/sprint_30_return.md`).
+
+The Class A and Class B results are clean (1.000 / 0.900 — only the Gray-Scott
+adapter substrate triggers screening). The Class C loss is the Sprint 30
+panel-design issue: voter has no parameter regime that suppresses consensus,
+so Class C uses high-bias initial conditions (init_fraction ∈ [0.93, 0.999])
+as a proxy for "no canonical pattern". Empirically the screening firing rate
+across 10 seeded biased-init regimes is ~60%, not 0% — biased-init voter
+still produces enough early Moran's I growth on most seeds to clear the
+0.70 Spearman gate. This is an honest finding about P18's specificity at
+the trivial-consensus corner, not a panel runner bug. Whether Class C
+should be redesigned (e.g., entirely different "voter-like" model from
+outside the catalog) is the Sprint 31 panel-spec revision question.
+
+The audit's existing AT-DEPTH classification for P18 dim4 (six-row
+discriminator rejection table including Schelling false-positive closure,
+Sprint 24 #20b) is unchanged by this panel result — the panel is an
+additional, narrower lens on the same dimension.
 
 ## Sprint 25 — close #27 contract bug audit + codify Sprint 23/24 process
 

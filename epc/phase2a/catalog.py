@@ -1,0 +1,436 @@
+"""Class B — catalog-derived non-positives for the Phase-2a panel.
+
+Loads the canonical positives of 10 catalog patterns (per spec) and adapts
+each to the detector's expected substrate format. Caches the native-form
+catalog substrates to disk so multiple panel runs do not re-simulate.
+"""
+
+from __future__ import annotations
+
+import os
+import pickle
+from typing import Any, Callable, Dict, List
+
+import numpy as np
+
+
+CACHE_DIR = "analysis/outputs/phase2a_catalog_cache"
+
+# Reduced-cost canonical positives for panel use. Each must produce a substrate
+# that exhibits the named pattern qualitatively but is small enough to keep
+# panel runs tractable. Sizes intentionally smaller than the published
+# canonical positives — the panel tests detector specificity, not pattern
+# replication accuracy.
+SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
+    "P1_schelling":     {"grid_size": 32, "density": 0.9, "threshold": 0.375, "n_steps": 80, "seed": 0},
+    "P3_gray_scott":    {"rows": 64, "cols": 64, "feed_rate": 0.037, "kill_rate": 0.060, "n_steps": 400, "seed": 0},
+    "P5_vicsek":        {"n_particles": 200, "box_size": 7.0, "speed": 0.03, "noise": 0.1, "n_steps": 200, "seed": 0},
+    "P9_kuramoto":      {"N": 200, "K": 8.0, "gamma": 0.5, "dt": 0.05, "n_steps": 1500, "record_every": 10, "seed": 0},
+    "P10_chimera":      {"N": 128, "A": 0.995, "beta": 0.05, "n_steps": 800, "seed": 0},
+    "P14_btw_sandpile": {"L": 32, "n_drive": 5_000, "n_burn": 1_000, "seed": 0},
+    "P15_gol":          {"rows": 64, "cols": 64, "init_mode": "r_pentomino", "n_steps": 200, "seed": 0},
+    "P18_voter":        {"rows": 32, "cols": 32, "n_steps": 200, "seed": 0},
+    "P27_nowak_may":    {"rows": 50, "cols": 50, "b": 1.8, "init_coop_fraction": 0.5, "n_steps": 100, "seed": 0},
+    "P31_zhang_sorting": {"n": 64, "algorithm": "bubble", "n_frozen": 10, "seed": 0},
+    "P12_rps":          {"rows": 32, "cols": 32, "mobility": 1e-3, "n_steps": 800, "seed": 0},
+}
+
+CATALOG_IDS_FIXED = [
+    "P1_schelling", "P3_gray_scott", "P5_vicsek", "P9_kuramoto", "P10_chimera",
+    "P14_btw_sandpile", "P15_gol", "P18_voter", "P27_nowak_may", "P31_zhang_sorting",
+]
+FALLBACK_ID = "P12_rps"
+
+
+# --- Native-form generators (one per substrate) -----------------------------
+
+def _gen_p1_schelling(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.schelling import run_schelling
+    history = run_schelling(
+        grid_size=p["grid_size"], density=p["density"],
+        threshold=p["threshold"], n_steps=p["n_steps"], seed=p["seed"],
+    )
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_categorical", "grids": grids, "n_states": int(grids.max() + 1)}
+
+
+def _gen_p3_gray_scott(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.gray_scott import GrayScott
+    model = GrayScott(
+        rows=p["rows"], cols=p["cols"],
+        feed_rate=p["feed_rate"], kill_rate=p["kill_rate"], seed=p["seed"],
+    )
+    model.setup()
+    record_every = max(1, p["n_steps"] // 100)
+    fields = []
+    for t in range(p["n_steps"]):
+        state = model.step()
+        if t % record_every == 0:
+            fields.append(np.asarray(state.get("field", state.get("v", model._v)), dtype=np.float32))
+    return {"kind": "field_continuous", "fields": np.stack(fields)}
+
+
+def _gen_p5_vicsek(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.vicsek import VicsekModel
+    model = VicsekModel(
+        n_particles=p["n_particles"], box_size=p["box_size"],
+        speed=p["speed"], noise=p["noise"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    headings = np.stack([np.asarray(s["headings"], dtype=np.float32) for s in history])
+    positions = np.stack([np.asarray(s["positions"], dtype=np.float32) for s in history])
+    return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
+
+
+def _gen_p9_kuramoto(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.kuramoto import KuramotoModel, KuramotoParams
+    model = KuramotoModel(KuramotoParams(
+        N=p["N"], K=p["K"], gamma=p["gamma"], dt=p["dt"], seed=p["seed"],
+    ))
+    history = model.run(n_steps=p["n_steps"], record_every=p["record_every"])
+    theta = np.stack([np.asarray(s["theta"], dtype=np.float32) for s in history])
+    return {"kind": "phases", "theta": theta, "gamma": p["gamma"], "dt": p["dt"]}
+
+
+def _gen_p10_chimera(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.kuramoto_nonlocal import KuramotoNonlocal, KuramotoNonlocalParams
+    params = KuramotoNonlocalParams(N=p["N"], A=p["A"], beta=p["beta"], seed=p["seed"])
+    model = KuramotoNonlocal(params)
+    n_frames = max(50, p["n_steps"] // 10)
+    history = model.run(n_frames=n_frames)
+    theta = np.stack([np.asarray(s["theta"], dtype=np.float32) for s in history])
+    return {"kind": "phases", "theta": theta, "gamma": 0.5, "dt": 0.05}
+
+
+def _gen_p14_btw_sandpile(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.btw_sandpile import run_sandpile, BTWSandpileParams
+    params = BTWSandpileParams(L=p["L"], n_drive=p["n_drive"], n_burn=p["n_burn"], seed=p["seed"])
+    result = run_sandpile(params)
+    final_grid = np.asarray(result.final_grid, dtype=np.int8)
+    return {"kind": "static_grid_int", "grid": final_grid}
+
+
+def _gen_p15_gol(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.game_of_life import GameOfLife
+    model = GameOfLife(
+        rows=p["rows"], cols=p["cols"],
+        init_mode=p["init_mode"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_binary", "grids": grids}
+
+
+def _gen_p18_voter(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.voter import VoterModel
+    model = VoterModel(rows=p["rows"], cols=p["cols"], seed=p["seed"])
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_binary", "grids": grids}
+
+
+def _gen_p27_nowak_may(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.nowak_may import NowakMayModel
+    model = NowakMayModel(
+        rows=p["rows"], cols=p["cols"], b=p["b"],
+        init_coop_fraction=p["init_coop_fraction"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_binary", "grids": grids}
+
+
+def _gen_p31_zhang_sorting(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.cell_view_sorting import CellViewSorting
+    model = CellViewSorting(
+        n=p["n"], algorithm=p["algorithm"], n_frozen=p["n_frozen"], seed=p["seed"],
+    )
+    history = model.run_to_completion(max_rounds=200)
+    arrays = np.stack([np.asarray(s["array"], dtype=np.int32) for s in history])
+    return {"kind": "sequence", "arrays": arrays}
+
+
+def _gen_p12_rps(p: Dict[str, Any]) -> Dict[str, Any]:
+    from epc.models.rps_spatial import RPSSpatialModel
+    model = RPSSpatialModel(rows=p["rows"], cols=p["cols"], mobility=p["mobility"], seed=p["seed"])
+    history = model.run(n_steps=p["n_steps"])
+    grids = np.stack([np.asarray(s["grid"], dtype=np.int8) for s in history])
+    return {"kind": "grid_categorical", "grids": grids, "n_states": 4}
+
+
+_GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
+    "P1_schelling": _gen_p1_schelling,
+    "P3_gray_scott": _gen_p3_gray_scott,
+    "P5_vicsek": _gen_p5_vicsek,
+    "P9_kuramoto": _gen_p9_kuramoto,
+    "P10_chimera": _gen_p10_chimera,
+    "P14_btw_sandpile": _gen_p14_btw_sandpile,
+    "P15_gol": _gen_p15_gol,
+    "P18_voter": _gen_p18_voter,
+    "P27_nowak_may": _gen_p27_nowak_may,
+    "P31_zhang_sorting": _gen_p31_zhang_sorting,
+    "P12_rps": _gen_p12_rps,
+}
+
+
+# --- Cache ------------------------------------------------------------------
+
+def _cache_path(substrate_id: str) -> str:
+    return os.path.join(CACHE_DIR, f"{substrate_id}.pkl")
+
+
+def load_native_substrate(substrate_id: str) -> Dict[str, Any]:
+    """Load a catalog substrate in its native format. Cached on disk."""
+    path = _cache_path(substrate_id)
+    if os.path.exists(path):
+        with open(path, "rb") as f:
+            return pickle.load(f)
+    if substrate_id not in _GENERATORS:
+        raise KeyError(f"unknown catalog substrate: {substrate_id}")
+    native = _GENERATORS[substrate_id](SUBSTRATE_PARAMS[substrate_id])
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    with open(path, "wb") as f:
+        pickle.dump(native, f)
+    return native
+
+
+# --- Adapters ---------------------------------------------------------------
+
+def _adapt_to_grid(native: Dict[str, Any], target_steps: int = 200, target_shape: tuple = (32, 32)) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to grid-history format.
+
+    The adapter favors preservation of the substrate's intrinsic structure over
+    cosmetic resizing. When trajectory length differs we replay/truncate.
+    """
+    kind = native["kind"]
+
+    if kind in ("grid_binary", "grid_categorical"):
+        grids = native["grids"]
+        # Binarize categorical to {0, 1} via majority threshold (cell != background 0).
+        if kind == "grid_categorical":
+            grids = (grids != 0).astype(np.int8)
+        T = grids.shape[0]
+        # Take last target_steps frames (or pad by replay).
+        if T >= target_steps:
+            sel = grids[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(grids, (reps, 1, 1))[:target_steps]
+        return [
+            {"grid": sel[t].astype(np.int8), "grid_dims": sel.shape[1:], "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "field_continuous":
+        fields = native["fields"]
+        T = fields.shape[0]
+        if T >= target_steps:
+            sel = fields[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(fields, (reps, 1, 1))[:target_steps]
+        # Threshold at per-step median to get a binary grid.
+        med = np.median(sel.reshape(target_steps, -1), axis=1)[:, None, None]
+        binarized = (sel > med).astype(np.int8)
+        return [
+            {"grid": binarized[t], "grid_dims": binarized.shape[1:], "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "particles":
+        # Bin particle positions into an occupancy grid each step.
+        H, W = target_shape
+        positions = native["positions"]
+        box = native["box_size"]
+        T = positions.shape[0]
+        if T >= target_steps:
+            sel = positions[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(sel := positions, (reps, 1, 1))[:target_steps]
+        out = np.zeros((target_steps, H, W), dtype=np.int8)
+        for t in range(target_steps):
+            xy = np.clip((sel[t] / box) * np.array([H, W]), 0, [H - 1, W - 1]).astype(int)
+            out[t, xy[:, 0], xy[:, 1]] = 1
+        return [{"grid": out[t], "grid_dims": (H, W), "step": t} for t in range(target_steps)]
+
+    if kind == "phases":
+        # Project phases onto a grid via sign(cos(θ)). Reshape N → √N × √N.
+        theta = native["theta"]
+        T, N = theta.shape
+        side = int(np.floor(np.sqrt(N)))
+        if side * side > N:
+            side -= 1
+        if T >= target_steps:
+            sel = theta[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(theta, (reps, 1))[:target_steps]
+        binarized = (np.cos(sel[:, : side * side]) > 0).astype(np.int8).reshape(target_steps, side, side)
+        return [{"grid": binarized[t], "grid_dims": (side, side), "step": t} for t in range(target_steps)]
+
+    if kind == "static_grid_int":
+        # Sandpile final grid: replicate as a static trajectory.
+        g = native["grid"]
+        binarized = (g >= 2).astype(np.int8)  # threshold at z_c-2
+        H, W = binarized.shape
+        return [{"grid": binarized.copy(), "grid_dims": (H, W), "step": t} for t in range(target_steps)]
+
+    if kind == "sequence":
+        # Sorted-array sequence: reshape each frame into a near-square grid.
+        arrays = native["arrays"]
+        T, N = arrays.shape
+        side = int(np.floor(np.sqrt(N)))
+        if side * side > N:
+            side -= 1
+        if T >= target_steps:
+            sel = arrays[-target_steps:]
+        else:
+            reps = target_steps // T + 1
+            sel = np.tile(arrays, (reps, 1))[:target_steps]
+        binarized = (sel[:, : side * side] > N // 2).astype(np.int8).reshape(target_steps, side, side)
+        return [{"grid": binarized[t], "grid_dims": (side, side), "step": t} for t in range(target_steps)]
+
+    raise ValueError(f"no grid adapter for kind: {kind}")
+
+
+def _adapt_to_phases(native: Dict[str, Any], target_steps: int = 600, target_n: int = 300, cadence: int = 10) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to phases-history format.
+
+    ``cadence`` sets the recorded ``step`` interval (default 10) so the
+    detector's n_T_osc estimate matches the canonical positive's cadence.
+    """
+    kind = native["kind"]
+
+    def _wrap(theta_t: np.ndarray) -> List[Dict[str, Any]]:
+        T = theta_t.shape[0]
+        out: List[Dict[str, Any]] = []
+        for t in range(T):
+            theta = theta_t[t]
+            r = float(np.abs(np.mean(np.exp(1j * theta))))
+            out.append({"theta": theta.copy(), "r": r, "step": t * cadence})
+        return out
+
+    def _resize_steps(arr: np.ndarray) -> np.ndarray:
+        T = arr.shape[0]
+        if T >= target_steps:
+            return arr[-target_steps:]
+        reps = target_steps // T + 1
+        return np.tile(arr, (reps,) + (1,) * (arr.ndim - 1))[:target_steps]
+
+    if kind == "phases":
+        theta = _resize_steps(native["theta"])
+        # Truncate / pad to target_n.
+        T, N = theta.shape
+        if N >= target_n:
+            theta = theta[:, :target_n]
+        else:
+            reps = target_n // N + 1
+            theta = np.tile(theta, (1, reps))[:, :target_n]
+        return _wrap(theta)
+
+    if kind == "particles":
+        # Use particle headings as phases (Vicsek's natural mapping).
+        h = _resize_steps(native["headings"])
+        T, N = h.shape
+        if N >= target_n:
+            h = h[:, :target_n]
+        else:
+            reps = target_n // N + 1
+            h = np.tile(h, (1, reps))[:, :target_n]
+        return _wrap(np.mod(h, 2.0 * np.pi))
+
+    if kind in ("grid_binary", "grid_categorical"):
+        grids = native["grids"]
+        if kind == "grid_categorical":
+            grids = (grids != 0).astype(np.int8)
+        sel = _resize_steps(grids)
+        T = sel.shape[0]
+        flat = sel.reshape(T, -1).astype(float)
+        if flat.shape[1] >= target_n:
+            flat = flat[:, :target_n]
+        else:
+            reps = target_n // flat.shape[1] + 1
+            flat = np.tile(flat, (1, reps))[:, :target_n]
+        # Map cell value 0/1 → phase 0 or π.
+        theta_t = flat * np.pi
+        return _wrap(theta_t)
+
+    if kind == "field_continuous":
+        fields = _resize_steps(native["fields"])
+        T = fields.shape[0]
+        flat = fields.reshape(T, -1).astype(float)
+        if flat.shape[1] >= target_n:
+            flat = flat[:, :target_n]
+        else:
+            reps = target_n // flat.shape[1] + 1
+            flat = np.tile(flat, (1, reps))[:, :target_n]
+        # Normalize to [0, 2π).
+        lo, hi = flat.min(), flat.max()
+        denom = max(hi - lo, 1e-9)
+        theta_t = ((flat - lo) / denom) * 2.0 * np.pi
+        return _wrap(theta_t)
+
+    if kind == "static_grid_int":
+        g = native["grid"].astype(float)
+        flat = g.flatten()
+        if flat.size >= target_n:
+            flat = flat[:target_n]
+        else:
+            reps = target_n // flat.size + 1
+            flat = np.tile(flat, reps)[:target_n]
+        theta_static = ((flat - flat.min()) / max(flat.max() - flat.min(), 1e-9)) * 2.0 * np.pi
+        theta_t = np.broadcast_to(theta_static, (target_steps, target_n)).copy()
+        return _wrap(theta_t)
+
+    if kind == "sequence":
+        arrays = _resize_steps(native["arrays"]).astype(float)
+        T, N = arrays.shape
+        if N >= target_n:
+            arrays = arrays[:, :target_n]
+        else:
+            reps = target_n // N + 1
+            arrays = np.tile(arrays, (1, reps))[:, :target_n]
+        # Map sorted index to phase.
+        denom = max(arrays.max() - arrays.min(), 1e-9)
+        theta_t = ((arrays - arrays.min()) / denom) * 2.0 * np.pi
+        return _wrap(theta_t)
+
+    raise ValueError(f"no phases adapter for kind: {kind}")
+
+
+def load_catalog_substrate_for_format(
+    substrate_id: str,
+    target_format: str,
+    *,
+    target_steps: int = 200,
+    target_shape: tuple = (32, 32),
+    target_n: int = 300,
+    cadence: int = 10,
+) -> List[Dict[str, Any]]:
+    """Load a catalog substrate and adapt it to ``target_format``.
+
+    Always loads from disk cache where possible; the adapter step is fast.
+    """
+    native = load_native_substrate(substrate_id)
+    if target_format == "grid":
+        return _adapt_to_grid(native, target_steps=target_steps, target_shape=target_shape)
+    if target_format == "phases":
+        return _adapt_to_phases(native, target_steps=target_steps, target_n=target_n, cadence=cadence)
+    raise ValueError(f"unknown target_format: {target_format}")
+
+
+def catalog_ids_for_pattern(pattern_id: str) -> List[str]:
+    """Return the 10 catalog substrate ids for a pattern, swapping self for fallback.
+
+    ``pattern_id`` is the one being tested (e.g. ``"P9"`` or ``"P18"``).
+    Removes the pattern's own canonical positive (e.g. ``"P9_kuramoto"``)
+    and substitutes ``FALLBACK_ID`` (``"P12_rps"``) so the result is always
+    10 non-self positives.
+    """
+    self_id = next((sid for sid in CATALOG_IDS_FIXED if sid.startswith(pattern_id + "_")), None)
+    out = list(CATALOG_IDS_FIXED)
+    if self_id is not None:
+        out.remove(self_id)
+        out.append(FALLBACK_ID)
+    return out
