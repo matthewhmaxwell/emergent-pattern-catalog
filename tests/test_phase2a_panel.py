@@ -34,8 +34,11 @@ from epc.phase2a.panel import (
 
 # --- Spec-compliance metadata ----------------------------------------------
 
-def test_panel_version_constant_is_one_one():
-    assert PANEL_VERSION == "1.1"
+def test_panel_version_constant_is_current():
+    """Sprint 34: PANEL_VERSION is the active spec version."""
+    # Updated each spec-revision sprint. test_panel_version_constant_is_one_two
+    # added in Sprint 34 has the explicit "1.2" check.
+    assert PANEL_VERSION in ("1.2",)
 
 
 def test_synthetic_generators_count_is_ten():
@@ -315,6 +318,222 @@ def test_p15_class_b_fully_loadable_after_sprint_33():
     assert missing == [], f"P15 catalog-mates without generators: {missing}"
 
 
+# Sprint 34 — primary-metric invariance flags (Phase-2a v1.2 §Change 1+2)
+
+from epc.phase2a.detector_invariance import (
+    DETECTOR_INVARIANCE_FLAGS,
+    get_flags,
+    is_permutation_invariant,
+    is_time_shuffle_invariant,
+)
+from epc.phase2a.panel import (
+    SKIP_VERDICT,
+    PERM_SHUFFLED_SUBSTRATE,
+    TIME_SHUFFLED_SUBSTRATE,
+)
+
+
+def test_panel_version_constant_is_one_two():
+    """Sprint 34: PANEL_VERSION bumped to 1.2."""
+    from epc.phase2a import PANEL_VERSION
+    assert PANEL_VERSION == "1.2"
+
+
+@pytest.mark.parametrize("pid, perm, time", [
+    ("P9",  True,  True),
+    ("P1",  False, False),
+    ("P14", True,  True),
+    ("P15", False, False),
+    ("P5",  True,  False),
+    ("P11", False, True),
+    ("P18", True,  True),
+    ("P21", True,  True),
+    ("P28", True,  True),
+    ("P27", False, True),   # provisional per spec Change 2
+])
+def test_invariance_flags_match_v1_2_spec_table(pid, perm, time):
+    """Spec v1.2 §Change 2 authoritative flag values per pattern."""
+    f = get_flags(pid)
+    assert f.permutation_invariant is perm, f"{pid} perm_inv: spec={perm} got={f.permutation_invariant}"
+    assert f.time_shuffle_invariant is time, f"{pid} time_inv: spec={time} got={f.time_shuffle_invariant}"
+
+
+def test_invariance_flags_unknown_pattern_returns_safe_default():
+    """Unknown pattern → both False (conservative; runs every substrate)."""
+    f = get_flags("PX_unknown")
+    assert f.permutation_invariant is False
+    assert f.time_shuffle_invariant is False
+
+
+def test_invariance_lookup_helpers():
+    """Module exports get_flags + helper booleans."""
+    assert is_permutation_invariant("P9") is True
+    assert is_time_shuffle_invariant("P9") is True
+    assert is_permutation_invariant("P1") is False
+
+
+# --- Harness skip-logic + JSON schema (v1.2) -------------------------------
+
+
+class _CountingStub:
+    """Discriminating stub that ALSO counts how many positive vs negative calls it gets."""
+    def __init__(self, n_positive: int):
+        self.n_positive = n_positive
+        self.calls = 0
+
+    def __call__(self, history, metadata=None):
+        idx = self.calls
+        self.calls += 1
+        if idx < self.n_positive:
+            return _StubResult(detected=True, confidence=0.9)
+        return _StubResult(detected=False, confidence=0.0)
+
+
+def _stub_failed_module_minimal():
+    return _MinimalFailedRegime
+
+
+def test_panel_skips_permutation_shuffled_for_perm_invariant_detector(tmp_path):
+    """v1.2 §Change 1: detector with perm_inv=True → permutation_shuffled is skipped."""
+    out = str(tmp_path / "perm_inv_panel.json")
+    pos = [synth_mod.random_binary_field("grid", s, n_steps=10, shape=(4, 4)) for s in (0, 1)]
+    summary = run_panel(
+        _CountingStub(n_positive=2),
+        pattern_id="P9",   # perm_inv=True, time_inv=True
+        detector_format="grid",
+        canonical_positive_runs=pos,
+        canonical_metadata={},
+        failed_regime_module=_MinimalFailedRegime,
+        output_path=out,
+        target_steps=10,
+        target_shape=(4, 4),
+        verbose=False,
+    )
+    syn = summary["synthetic"]
+    # Both permutation_shuffled and time_shuffled should be skipped for P9.
+    skipped = [s for s in syn if s["verdict"] == SKIP_VERDICT]
+    assert len(skipped) == 2, f"expected 2 skips for P9, got {len(skipped)}"
+    skipped_ids = {s["substrate"] for s in skipped}
+    assert skipped_ids == {PERM_SHUFFLED_SUBSTRATE, TIME_SHUFFLED_SUBSTRATE}
+    # Skip reasons must reference the correct flag.
+    for s in skipped:
+        if s["substrate"] == PERM_SHUFFLED_SUBSTRATE:
+            assert s["skip_reason"] == "primary_metric_permutation_invariant"
+        else:
+            assert s["skip_reason"] == "primary_metric_time_shuffle_invariant"
+
+
+def test_panel_runs_all_class_a_for_non_invariant_detector(tmp_path):
+    """v1.2 §Change 1: detector with both flags False → all 10 Class A substrates run."""
+    out = str(tmp_path / "non_inv_panel.json")
+    pos = [synth_mod.random_binary_field("grid", s, n_steps=10, shape=(4, 4)) for s in (0, 1)]
+    summary = run_panel(
+        _CountingStub(n_positive=2),
+        pattern_id="P1",   # perm_inv=False, time_inv=False
+        detector_format="grid",
+        canonical_positive_runs=pos,
+        canonical_metadata={},
+        failed_regime_module=_MinimalFailedRegime,
+        output_path=out,
+        target_steps=10,
+        target_shape=(4, 4),
+        verbose=False,
+    )
+    skipped = [s for s in summary["synthetic"] if s["verdict"] == SKIP_VERDICT]
+    assert skipped == []
+    assert summary["summary"]["class_a_size_total"] == 10
+    assert summary["summary"]["class_a_size_evaluated"] == 10
+
+
+def test_panel_partial_skip_for_perm_only_invariant(monkeypatch, tmp_path):
+    """perm_inv=True + time_inv=False → only permutation_shuffled is skipped.
+
+    Uses a temporary stub pattern (no implemented catalog mates) so the panel
+    runner doesn't try to load unimplemented continuous_2d generators when
+    exercising P5's class B.
+    """
+    from epc.phase2a.detector_invariance import (
+        DETECTOR_INVARIANCE_FLAGS, InvarianceFlags,
+    )
+    monkeypatch.setitem(
+        DETECTOR_INVARIANCE_FLAGS,
+        "STUB_PERM_ONLY",
+        InvarianceFlags(True, False, "stub", rationale="test only"),
+    )
+
+    out = str(tmp_path / "perm_only_panel.json")
+    pos = [synth_mod.random_binary_field("grid", s, n_steps=10, shape=(4, 4)) for s in (0, 1)]
+    summary = run_panel(
+        _CountingStub(n_positive=2),
+        pattern_id="STUB_PERM_ONLY",
+        detector_format="grid",
+        canonical_positive_runs=pos,
+        canonical_metadata={},
+        failed_regime_module=_MinimalFailedRegime,
+        output_path=out,
+        target_steps=10,
+        target_shape=(4, 4),
+        verbose=False,
+    )
+    skipped = [s for s in summary["synthetic"] if s["verdict"] == SKIP_VERDICT]
+    assert len(skipped) == 1
+    assert skipped[0]["substrate"] == PERM_SHUFFLED_SUBSTRATE
+    assert summary["summary"]["class_a_size_evaluated"] == 9
+
+
+def test_panel_tnr_uses_evaluated_denominator_not_total():
+    """v1.2 §Harness output: TNR is computed over evaluated Class A only.
+
+    Hand-constructed: 8 evaluated (2 skipped), 7 correctly rejected, 1 false
+    positive → TNR_syn = 7/8 = 0.875, NOT 7/10 = 0.7.
+    """
+    # Directly compute compute_tnr on the 8-element evaluated list.
+    evaluated = [False] * 7 + [True] * 1
+    tnr = compute_tnr(evaluated)
+    assert tnr == pytest.approx(7.0 / 8.0, rel=1e-9)
+
+
+def test_panel_json_includes_class_a_size_fields(tmp_path):
+    """Spec v1.2 §"Harness output": summary block includes class_a_size_{total,evaluated}."""
+    out = str(tmp_path / "schema_panel.json")
+    pos = [synth_mod.random_binary_field("grid", s, n_steps=10, shape=(4, 4)) for s in (0, 1)]
+    run_panel(
+        _CountingStub(n_positive=2),
+        pattern_id="P14",   # both flags True → 2 skipped
+        detector_format="grid",
+        canonical_positive_runs=pos,
+        canonical_metadata={},
+        failed_regime_module=_MinimalFailedRegime,
+        output_path=out,
+        target_steps=10,
+        target_shape=(4, 4),
+        verbose=False,
+    )
+    with open(out) as f:
+        on_disk = json.load(f)
+    assert on_disk["panel_version"] == "1.2"
+    assert on_disk["summary"]["class_a_size_total"] == 10
+    assert on_disk["summary"]["class_a_size_evaluated"] == 8
+    # Schema: detector_invariance metadata at top level.
+    assert "detector_invariance" in on_disk
+    assert on_disk["detector_invariance"]["permutation_invariant"] is True
+    assert on_disk["detector_invariance"]["time_shuffle_invariant"] is True
+    # Skipped substrates have the canonical skip_reason format.
+    skipped = [s for s in on_disk["synthetic"] if s["verdict"] == SKIP_VERDICT]
+    assert all("skip_reason" in s for s in skipped)
+
+
+def test_p27_time_shuffle_flag_is_provisional_per_spec():
+    """P27's time_shuffle_invariant=True is provisional per v1.2 §Change 2 + carry-forward
+    C-p27-time-shuffle-invariance. The flag value is True per the spec table; the
+    *test* exists to make the provisional status explicit in code.
+    """
+    f = get_flags("P27")
+    assert f.permutation_invariant is False
+    assert f.time_shuffle_invariant is True
+    assert "Provisional" in f.rationale or "C-p27-time-shuffle-invariance" in f.rationale
+
+
 # --- Failed-regime registry ------------------------------------------------
 
 def test_p18_failed_regime_is_class_c_n_a():
@@ -429,8 +648,8 @@ def test_panel_writes_json_with_v1_1_schema(tmp_path):
     assert os.path.isfile(out)
     with open(out) as f:
         on_disk = json.load(f)
-    # v1.1 schema additions.
-    assert on_disk["panel_version"] == "1.1"
+    # v1.1+ schema fields (still present in v1.2).
+    assert on_disk["panel_version"] == "1.2"
     assert "class_b_composition" in on_disk
     assert set(on_disk["class_b_composition"].keys()) >= {"catalog_mates", "synthetic_supplements", "substrate_type"}
     assert "class_c_status" in on_disk

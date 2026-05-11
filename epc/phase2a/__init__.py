@@ -3,6 +3,6 @@
 See `docs/phase2a_panel_spec.md` for the canonical specification.
 """
 
-PANEL_VERSION = "1.1"
+PANEL_VERSION = "1.2"
 
 __all__ = ["PANEL_VERSION"]

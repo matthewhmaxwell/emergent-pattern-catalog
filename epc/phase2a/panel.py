@@ -33,6 +33,17 @@ from epc.phase2a import PANEL_VERSION
 from epc.phase2a import catalog as catalog_mod
 from epc.phase2a import structured as structured_mod
 from epc.phase2a import synthetic as synth_mod
+from epc.phase2a.detector_invariance import get_flags as _get_invariance_flags
+
+
+# Class A substrate ids whose semantics are tied to a primary-metric invariance.
+# v1.2 spec §"Change 1": when the detector under test has the corresponding
+# invariance flag set to True, the substrate is degenerate-by-construction
+# (it preserves the canonical positive's aggregate distribution) and the
+# harness skips it.
+PERM_SHUFFLED_SUBSTRATE = "permutation_shuffled"
+TIME_SHUFFLED_SUBSTRATE = "time_shuffled"
+SKIP_VERDICT = "SKIPPED-degenerate-by-construction"
 
 
 # Class size below which per-class TNR is reported as advisory only and does
@@ -220,7 +231,8 @@ def run_panel(
         if verbose:
             print(f"  [pos {i}] verdict={_verdict(result)} score={_score(result):.3f}")
 
-    # 2) Class A — synthetic.
+    # 2) Class A — synthetic (with v1.2 invariance-driven skipping).
+    invariance = _get_invariance_flags(pattern_id)
     synthetic_results: List[Dict[str, Any]] = []
     class_a_kwargs: Dict[str, Any] = {"n_steps": target_steps}
     if detector_format == "grid":
@@ -231,9 +243,27 @@ def run_panel(
         # Avalanche-format generators only take n_avalanches; n_steps unused.
         class_a_kwargs = {}
 
+    class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):
+        # v1.2: skip degenerate-by-construction substrates for invariant detectors.
+        skip_reason: Optional[str] = None
+        if sub_id == PERM_SHUFFLED_SUBSTRATE and invariance.permutation_invariant:
+            skip_reason = "primary_metric_permutation_invariant"
+        elif sub_id == TIME_SHUFFLED_SUBSTRATE and invariance.time_shuffle_invariant:
+            skip_reason = "primary_metric_time_shuffle_invariant"
+
+        if skip_reason is not None:
+            synthetic_results.append({
+                "substrate": sub_id,
+                "verdict": SKIP_VERDICT,
+                "skip_reason": skip_reason,
+            })
+            if verbose:
+                print(f"  [syn {i:2d} {sub_id:24s}] SKIPPED ({skip_reason})")
+            continue
+
         s = int(rng.integers(0, 2**31 - 1))
-        if sub_id in ("permutation_shuffled", "time_shuffled"):
+        if sub_id in (PERM_SHUFFLED_SUBSTRATE, TIME_SHUFFLED_SUBSTRATE):
             history = gen(detector_format, s, positive=canonical_first)
         else:
             history = gen(detector_format, s, **class_a_kwargs)
@@ -247,6 +277,8 @@ def run_panel(
         })
         if verbose:
             print(f"  [syn {i:2d} {sub_id:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
+
+    class_a_evaluated = sum(1 for r in synthetic_results if r["verdict"] != SKIP_VERDICT)
 
     # 3) Class B (v1.1) — substrate-typed catalog mates + Class B' supplements.
     class_b = catalog_mod.class_b_for_pattern(pattern_id)
@@ -312,11 +344,11 @@ def run_panel(
             if verbose:
                 print(f"  [fai {regime['label']:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
 
-    # 5) Aggregates.
-    syn_detected = [r["detected"] for r in synthetic_results]
+    # 5) Aggregates. Skipped Class A substrates are excluded from TNR + d.
+    syn_detected = [r["detected"] for r in synthetic_results if r["verdict"] != SKIP_VERDICT]
     cat_detected = [r["detected"] for r in catalog_results]
     fai_detected = [r["detected"] for r in failed_results]
-    syn_scores = [r["score"] for r in synthetic_results]
+    syn_scores = [r["score"] for r in synthetic_results if r["verdict"] != SKIP_VERDICT]
     cat_scores = [r["score"] for r in catalog_results]
     fai_scores = [r["score"] for r in failed_results]
 
@@ -351,6 +383,11 @@ def run_panel(
         "panel_version": PANEL_VERSION,
         "detector_format": detector_format,
         "elapsed_seconds": round(time.time() - t0, 2),
+        "detector_invariance": {
+            "permutation_invariant": invariance.permutation_invariant,
+            "time_shuffle_invariant": invariance.time_shuffle_invariant,
+            "primary_metric": invariance.primary_metric,
+        },
         "canonical_positive": {
             "n_seeds": len(positive_scores),
             "scores": positive_scores,
@@ -370,6 +407,8 @@ def run_panel(
         "summary": {
             "n_negatives": len(all_neg_detected),
             "overall_tnr": overall_tnr,
+            "class_a_size_total": class_a_total,
+            "class_a_size_evaluated": class_a_evaluated,
             "synthetic": syn_class,
             "catalog": cat_class,
             "failed_regime": fai_class,

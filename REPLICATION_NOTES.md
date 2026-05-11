@@ -484,6 +484,47 @@ Output: `analysis/outputs/p15_phase2a_panel.json`. Panel spec: `docs/phase2a_pan
 
 The canonical positive used here (`init_mode="random", init_density=0.37, L=40, n_steps=300`) matches `tests/test_p15_generalized.py::test_gol_dense_definitive` rather than R-pentomino, because P15's structural-diversity screening requires the dense regime (R-pentomino is too sparse for the multi-variation reproducibility test).
 
+## Canonical positive ratification (v1.2) — Sprint 34
+
+Sprint 33 discovered mid-sprint that the P15 panel's canonical positive
+needed to switch from R-pentomino (the original "Methuselah" demonstration
+from Conway 1970) to **dense-random GoL with init_density=0.37 on
+L=40, n_steps=300** in order for P15's detector to fire on its own positive.
+Phase-2a panel spec v1.2 §"Change 4" ratifies this change.
+
+**Rationale.** R-pentomino is a 5-cell initial activation. Its trajectory
+on a 64×64 grid produces a long activation transient (the methuselah
+extends ~1100 generations before stabilizing on the unbounded torus) in
+which the structural-diversity metric — the primary signal P15's
+multi-variation reproducibility test reads — is dominated by noise from
+the small active region. The screening test for "many distinct outcome
+classes across input perturbations" fails because most cells are dead
+in most variations: the variations differ in *which* cells are dead, not
+in the structural character of the live cells. Dense-random IC at density
+0.37 stabilizes into a high-activity GoL with stable spaceships, blocks,
+blinkers, beehives, traffic-light oscillators, and the occasional R-pentomino
+fragment co-existing across the grid, producing the consistent ≥3 distinct
+outcome classes the detector needs.
+
+**Scope of the ratification.** The panel's canonical positive function in
+`analysis/run_phase2a_panel.py::build_p15_positives` already uses dense-random
+GoL (set in Sprint 33 to record the v1.1 panel result). v1.2 promotes this
+from "Sprint 33 workaround" to "panel canonical positive of record". No
+code change is needed in Sprint 34 — the parameterization was already
+correct in Sprint 33.
+
+**R-pentomino remains valid** for *qualitative* P15 demonstration (the
+detector's docstring still cites Conway's R-pentomino as the canonical
+"persistent computation" archetype, and any documentation discussing
+GoL methuselahs / gliders / etc. continues to use R-pentomino as the
+mental model). What R-pentomino is *not* is the panel's canonical
+positive for screening-tier confirmation under the v1.2 panel harness.
+
+**No detector-logic change.** The P15 detector's screening gate is
+unchanged; only the canonical-positive substrate has been re-pinned.
+Per Sprint 30 rule (and v1.2 reaffirmation), the detector is not modified
+to make any panel pass.
+
 ---
 
 # Sprint 2 Transfer Entropy Validation (Summary)

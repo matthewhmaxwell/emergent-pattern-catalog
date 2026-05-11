@@ -1,171 +1,108 @@
-# Phase-2a Standard Negative Panel — Specification v1.1
+# Phase-2a Standard Negative Panel — Specification v1.2
 
-This is a revision of v1.0 (`docs/phase2a_panel_spec.md`, dated Sprint 30). v1.1 supersedes v1.0; the v1.0 file should be archived to `docs/archive/phase2a_panel_spec_v1_0.md` rather than deleted.
+This is a revision of v1.1 (`docs/phase2a_panel_spec.md`, dated Sprint 31). v1.2 supersedes v1.1. The v1.1 file is archived to `docs/archive/phase2a_panel_spec_v1_1.md`.
 
-The Sprint 30 prototype runs (P18 voter, P9 Kuramoto) both returned PARTIAL under v1.0. Investigation revealed two structural issues with the v1.0 spec rather than detector quality issues. v1.1 fixes both.
+The Sprint 32 P9 Kuramoto result and the Sprint 33 P14 BTW result both surfaced the same failure mode: two substrates in Class A (`permutation_shuffled_positive` and `time_shuffled_positive`) preserve aggregate distributions over the canonical positive, so detectors whose primary metric is order-invariant correctly fire on them — making the substrates degenerate tests for those detectors.
+
+v1.2 closes carry-forward C-class-a-permutation-degenerate by allowing detectors to declare invariance properties of their primary metric. The harness skips degenerate-by-construction substrates accordingly.
 
 ---
 
 ## What changed and why
 
-### Change 1 — Class B is now substrate-typed
+### Change 1 — Detectors declare primary-metric invariance flags
 
-**v1.0 problem:** Class B specified "10 catalog-derived non-positives... run for the same duration and grid size as the detector under test (where compatible)." The "where compatible" was doing too much work. Vicsek headings adapted to Kuramoto phases retain alignment; a binary GoL grid mapped to phases via `value × π` gives near-uniform phases. In each case the adapted substrate genuinely *is* the pattern, so the detector firing isn't a false positive — it's correctly detecting structure that the cross-format adaptation introduced.
+**v1.1 problem:** Class A contained `permutation_shuffled_positive` (shuffles cells of the canonical positive's final state) and `time_shuffled_positive` (shuffles timesteps of the canonical positive's trajectory). Both substrates preserve aggregate statistics. Detectors whose primary metric is an aggregate statistic (Kuramoto r, sandpile power-law exponent, voter consensus fraction, opinion-distribution dip test) fire on them — *correctly*. The substrate is degenerate-by-construction for those detectors. Forcing a TNR computation on degenerate substrates produced misleading PARTIAL verdicts in Sprint 32 (P9) and Sprint 33 (P14).
 
-**v1.1 fix:** Each pattern's Class B contains only catalog-derived substrates that share its native substrate type. The catalog already maintains four substrate types in the orchestrator's substrate-aware dispatch system (`lattice_1d`, `lattice_2d`, `continuous_2d`, `oscillator`); v1.1 inherits that taxonomy. A pattern's Class B substrates are drawn from the canonical positives of *other* patterns whose models target the same substrate type.
+**v1.2 fix:** Each detector declares two invariance flags in its metadata:
 
-This shrinks Class B per pattern (from a fixed 10 to a variable 0–N depending on substrate type membership). For patterns whose substrate type has fewer than 3 catalog-mates, Class B is supplemented with synthetic structured substrates (see Class B' below). For patterns whose substrate type has no catalog-mates at all, Class B is reported as N/A and the panel runs on Classes A and C only.
+- `primary_metric_permutation_invariant: bool` — True when the detector's primary metric is invariant to spatial permutations of cell positions. Examples: Kuramoto r, voter consensus fraction max f_k, sandpile avalanche-size power-law exponent, opinion-distribution dip test.
+- `primary_metric_time_shuffle_invariant: bool` — True when the detector's primary metric is invariant to temporal shuffling of timesteps. Examples: any detector that reduces a trajectory to a final-state statistic or an unordered set of events (sandpile avalanche-size distribution).
 
-### Change 2 — Class C has an N/A escape hatch
+When the harness runs the panel against a detector:
 
-**v1.0 problem:** Class C ("the detector's own model run in 10 parameter regimes that do NOT produce the target pattern") assumes every pattern has a parameter regime that suppresses it. Some patterns don't. The voter model has no parameter that suppresses consensus; running it long enough always reaches consensus from any initial condition that isn't trivially balanced. The Sprint 30 P18 prototype used extreme initial conditions (0.93–0.999) as a proxy, which trips the detector ~60% of the time — but those substrates start in or near consensus, so the detector firing is a true positive in disguise, not a failure of specificity.
+- If `primary_metric_permutation_invariant` is True, the harness skips `permutation_shuffled_positive` and excludes it from TNR computation. The substrate appears in the panel JSON output with `verdict: "SKIPPED-degenerate-by-construction"` and a `skip_reason` field.
+- If `primary_metric_time_shuffle_invariant` is True, the harness skips `time_shuffled_positive` similarly.
+- Per-class TNR is computed over substrates that actually ran, not over the original Class A size. The panel JSON records both `class_a_size_total` and `class_a_size_evaluated`.
 
-**v1.1 fix:** Class C is N/A for patterns that lack a parameter regime suppressing the pattern. The catalog enumerates these patterns up front (see "Class C N/A list" below). For these patterns the panel runs on Classes A and B only. The PASS criterion adjusts proportionally — see "PASS criterion" below.
+Defaults are `False` for both flags. If a detector doesn't declare them, both substrates run, and if the detector turns out to be invariant under one or both, a degenerate-by-construction FAIL will surface — which is the correct signal to add the flag.
 
-### Change 3 — PASS criterion adjusts for class N/A and per-class minimum size
+### Change 2 — Documented detector-flag assignments (initial)
 
-**v1.0 problem:** The 30-substrate panel was a fixed assumption. With Class B varying by substrate type and Class C sometimes N/A, panel sizes range from ~15 (one class N/A) to 30+ (full). The PASS criterion in v1.0 was "≥95% TNR overall." This stays. But per-class size now matters for whether per-class TNR is meaningful.
+The catalog enumerates the initial flag assignments for currently-implemented detectors. This is the authoritative source for harness configuration; detector cards should reference this section.
 
-**v1.1 fix:** PASS criterion stays at ≥95% TNR overall and per-class TNR is reported only when that class has ≥5 substrates. Classes with <5 substrates are reported as "N≤4 — TNR: x/N (advisory only)" and do not gate PASS.
+| Pattern | Detector primary metric | `permutation_invariant` | `time_shuffle_invariant` | Rationale |
+|---|---|---|---|---|
+| P1 (Schelling) | Moran's I + same-type neighbor fraction | False | False | Spatial autocorrelation depends on adjacency. |
+| P3 (Gray-Scott) | Spot/stripe morphology metrics | False | False | Pattern formation requires spatial coherence. |
+| P5 (Vicsek) | Heading order parameter φ = |⟨e^iθ⟩| over headings | True | False | Aggregate over headings; final-state metric, not trajectory. |
+| P6 (D'Orsogna mill) | Group rotational dynamics | False | False | Trajectory-shape detector. |
+| P9 (Kuramoto) | Order parameter r = |⟨e^iφ⟩| | True | True | Aggregate over phases, final-state. |
+| P10 (chimera) | Local coherence partitioning | False | False | Spatial structure required (coherent vs incoherent regions). |
+| P11 (LV) | Population oscillation period / amplitude | False | True | Time-series shape matters (spatial doesn't for well-mixed); but trajectory order matters. |
+| P12 (RPS) | Spiral morphology / species lag | False | False | Spatial + temporal structure. |
+| P13 (GH) | Wavefront propagation speed | False | False | Spatial + temporal structure. |
+| P14 (BTW) | Avalanche-size power-law exponent | True | True | Aggregate over event list, order-free. |
+| P15 (GoL) | TE across collisions + functional reproducibility | False | False | Information transfer depends on adjacency + ordering. |
+| P17 (Berdahl) | Collective chemotactic index | False | False | Direction + trajectory matter. |
+| P18 (voter) | Convergence to consensus (max f_k) | True | True | Aggregate fraction, final-state. |
+| P19 (Couzin) | Influence asymmetry TE ratio | False | False | Spatial + temporal information flow. |
+| P21 (HK) | Dip test on opinion distribution | True | True | Distributional, final-state. |
+| P22 (SIR) | Cascade size / propagation speed | False | False | Network-temporal structure. |
+| P27 (Nowak-May) | Cooperation fraction time-series | False | True | Spatial structure matters; temporal order also matters for stability — but flag as time_shuffle_invariant pending detector audit. |
+| P28 (Yard-Sale) | Wealth-distribution Gini / cluster index | True | True | Distributional + time-aggregated. |
+| P31 (Zhang) | DG monotonicity / avg_wandering_range | False | False | Sequence ordering is the signal. |
 
----
+This table is illustrative for the implementation; the *authoritative* source is the per-detector code declaration. Harness reads flags from detector metadata, not from this table.
 
-## Composition (v1.1)
+**P27 caveat:** the flag for P27 is provisional. If Sprint 35's P27 panel run reveals the time-shuffle invariance assumption is wrong, change the flag and re-run — same `do not modify the detector to make it pass` rule still applies.
 
-The panel for pattern P_i contains substrates from up to three classes. The composition for P_i is determined by P_i's substrate type and Class C eligibility.
+### Change 3 — Verdict labels handle skipped substrates
 
-### Class A — Synthetic null substrates (10, fixed across all patterns)
+The verdict labels (PASS / PASS-with-weakness / PARTIAL / FAIL) are unchanged in v1.2. But the TNR denominators may now be smaller when substrates are skipped. The PASS criterion (≥95% TNR overall, soft expectation ≥90% per class with ≥5 evaluated substrates) operates on *evaluated* substrates only.
 
-Unchanged from v1.0. The 10 synthetic substrates listed in v1.0 §Class A apply identically.
+If skipping reduces Class A's evaluated size below 5, per-class TNR for Class A is reported as `class_a_tnr_advisory` rather than gating PASS — same rule as v1.1's small-class handling.
 
-### Class B — Substrate-typed catalog-derived non-positives (variable, 0–N)
+### Change 4 — Ratify P15 canonical positive
 
-**Substrate-type taxonomy (inherited from ADR #25):**
+Sprint 33 discovered mid-sprint that P15's canonical positive needed to switch from R-pentomino to dense-random GoL (init_density=0.37) for the detector to fire. R-pentomino is too sparse to produce the structural-diversity signal P15's screening relies on.
 
-| Substrate type | Patterns whose canonical positive uses this substrate type |
-|---|---|
-| `lattice_1d` | P31 (Zhang sorting) |
-| `lattice_2d` | P1 (Schelling), P3 (Gray-Scott), P12 (RPS), P13 (GH excitable), P14 (BTW sandpile), P15 (GoL), P22 (SIR-on-grid), P27 (Nowak-May), P28 (Yard-Sale-on-grid), and any other lattice-based positives |
-| `continuous_2d` | P5 (Vicsek), P6 (D'Orsogna mill), P11 (LV continuous), P17 (Berdahl), P19 (Couzin), and any other particle/continuous positives |
-| `oscillator` | P9 (Kuramoto), P10 (chimera) |
-| `network` | P18 (voter on graph), P21 (Hegselmann-Krause) — opinion dynamics on graphs |
+v1.2 ratifies this change. The P15 canonical positive of record is now **dense-random GoL at init_density=0.37**. R-pentomino remains a valid positive for *qualitative* P15 demonstration (it produces gliders, blocks, and blinkers) but is not the panel's canonical positive.
 
-If the audit reveals additional substrate types in implemented patterns, this table extends. Default rule: if a pattern's substrate type is ambiguous or hybrid, assign it to its primary substrate type and note the hybrid in the panel run output.
+This change is documented in this spec and should be reflected in `REPLICATION_NOTES.md`'s P15 section with rationale: R-pentomino's small initial activation produces a high-variance state trajectory where the structural-diversity metric is dominated by noise during the early activation transient. Dense-random IC produces a stable high-activity GoL with diverse structures consistently across seeds.
 
-**Class B membership rule:** for pattern P_i with substrate type T, Class B contains the canonical positives of all *other* implemented patterns with substrate type T, up to a maximum of 10. If fewer than 3 such patterns exist, Class B is supplemented from Class B' below.
+### Change 5 — Carry-forward changes
 
-**Class B' — Synthetic structured non-pattern substrates (substrate-typed):** when Class B has fewer than 3 catalog-mates, supplement with substrate-typed structured-but-non-pattern substrates. For example: a `continuous_2d` pattern with no catalog-mates gets a Class B' of randomly-walking particles (no alignment), uniform random positions with random walks, etc. — substrates that are "live" in the right substrate but lack the target pattern. Document the chosen Class B' substrates in the panel run JSON.
-
-**Class B membership table (computed from current catalog):**
-
-| Pattern | Substrate type | Class B catalog-mates (count) | Class B' supplement needed? |
-|---|---|---|---|
-| P1 (Schelling) | lattice_2d | 8 | no |
-| P3 (Gray-Scott) | lattice_2d | 8 | no |
-| P5 (Vicsek) | continuous_2d | 4 | no |
-| P6 (D'Orsogna mill) | continuous_2d | 4 | no |
-| P9 (Kuramoto) | oscillator | 1 (P10) | yes (need ≥2 supplements) |
-| P10 (chimera) | oscillator | 1 (P9) | yes (need ≥2 supplements) |
-| P11 (LV) | continuous_2d | 4 | no |
-| P12 (RPS) | lattice_2d | 8 | no |
-| P13 (GH) | lattice_2d | 8 | no |
-| P14 (BTW) | lattice_2d | 8 | no |
-| P15 (GoL) | lattice_2d | 8 | no |
-| P17 (Berdahl) | continuous_2d | 4 | no |
-| P18 (voter) | network | 1 (P21) | yes (need ≥2 supplements) |
-| P19 (Couzin) | continuous_2d | 4 | no |
-| P21 (HK) | network | 1 (P18) | yes (need ≥2 supplements) |
-| P22 (SIR) | lattice_2d | 8 | no |
-| P27 (Nowak-May) | lattice_2d | 8 | no |
-| P28 (Yard-Sale) | lattice_2d | 8 | no |
-| P31 (Zhang) | lattice_1d | 0 | yes (need 3 — full Class B') |
-
-The membership counts assume all 19 implemented patterns are in their listed substrate types. Code should compute this table programmatically from the registry rather than copying from this spec — the spec table is illustrative.
-
-### Class C — Failed-regime substrates (10, pattern-specific) OR N/A
-
-Unchanged from v1.0 in form: 10 failed-regime substrates per pattern, specified by the pattern-specific config in `epc/phase2a/failed_regimes/<pattern_id>.py`.
-
-**Class C N/A list:** patterns for which Class C is N/A because no parameter regime suppresses the pattern:
-
-| Pattern | Reason for N/A |
-|---|---|
-| P15 (GoL) | Deterministic; canonical positive (R-pentomino) is a fixed initial condition. No parameter to vary. |
-| P18 (voter) | No parameter regime suppresses consensus given non-trivial initial conditions. |
-| P31 (Zhang sorting) | Algorithm always sorts; no parameter regime that prevents convergence to sorted state. |
-
-This list may extend as further patterns are characterized. A pattern's Class C is N/A when both of these hold: (a) the model has no parameter whose value gates whether the pattern emerges, and (b) all reasonable initial conditions reach the pattern. Default to required if uncertain — the burden is on showing that no parameter regime exists.
-
-For patterns where Class C is N/A, the panel runs on Classes A and B (or A only, if both B and C are N/A — which would itself be a finding worth flagging).
+- **C-class-a-permutation-degenerate**: CLOSED by Change 1.
+- **C-p14-class-c-borderline** (Sprint 33): remains OPEN, low priority, separate from v1.2.
+- **C-p27-time-shuffle-invariance** (NEW): the P27 flag in Change 2 is provisional and must be validated in Sprint 35+.
 
 ---
 
-## PASS criterion (v1.1)
+## Composition (v1.2)
 
-A detector passes Dim 4 against the v1.1 panel when:
-
-1. **Overall TNR ≥ 95%** across all substrates in the panel for that pattern. (At most 1 false positive per 20 substrates.)
-2. **Per-class TNR is reported** for every class with ≥5 substrates. Classes with <5 are reported as "TNR: x/N (advisory)".
-3. **Per-class TNR ≥ 90% is the soft expectation** for classes with ≥5 substrates. PASS-with-weakness if any class drops below 90%.
-4. **Effect size on the primary metric: Cohen's d ≥ 1.0** between the canonical positive and the pooled non-N/A panel.
-
-Verdicts:
-- **PASS** — meets (1)–(4) cleanly.
-- **PASS-with-weakness** — meets (1) and (4) but a class with ≥5 substrates is below 90%.
-- **PARTIAL** — fails (1) but Cohen's d ≥ 0.5 (detector has signal but specificity is below the bar).
-- **FAIL** — fails (1) and Cohen's d < 0.5 (detector lacks signal against this panel).
+Same as v1.1 for Classes B and C. Class A composition is unchanged at 10 substrates, but per-detector evaluation may skip 1–2 of them based on the invariance flags.
 
 ---
 
-## Harness output (v1.1)
+## PASS criterion (v1.2)
 
-The JSON schema gains two fields:
+Unchanged from v1.1. PASS / PASS-with-weakness / PARTIAL / FAIL with ≥95% TNR overall and ≥1.0 Cohen's d.
 
-- `panel_version`: `"1.1"` (was `"1.0"`).
-- `class_b_composition`: `{"catalog_mates": [...], "synthetic_supplements": [...]}` — explicit record of which substrates were drawn from the catalog vs. synthesized as Class B' supplements.
-- `class_c_status`: `"populated"` or `"N/A"` with `n_a_reason` if N/A.
+---
 
-Per-class TNR fields handle the variable-size case: `synthetic_tnr`, `catalog_tnr` (or `catalog_tnr_advisory` if N<5), `failed_regime_tnr` (or `null` if N/A).
+## Harness output (v1.2)
 
-The `verdict` field uses the v1.1 verdict labels above.
+Schema additions:
+
+- `panel_version: "1.2"`.
+- `class_a_size_total: 10` and `class_a_size_evaluated: N` (N ≤ 10).
+- Substrates that were skipped appear with `verdict: "SKIPPED-degenerate-by-construction"` and `skip_reason: "primary_metric_permutation_invariant" | "primary_metric_time_shuffle_invariant"`.
 
 ---
 
 ## Migration path
 
-1. Sprint 32 (code-led): Apply v1.1 spec. Re-run the panel against P18 and P9 under v1.1. Both should PASS or PASS-with-weakness; if either does not, the spec is wrong, not the detectors. Same "do not modify the detector to make it pass" rule from Sprint 30.
-2. After P18 and P9 both pass v1.1 cleanly, Sprint 33+ runs v1.1 against the remaining 13 PARTIAL detectors in batches.
-3. v1.0 results in `analysis/outputs/p<i>_phase2a_panel.json` from Sprint 30 are archived to `analysis/outputs/archive/v1_0/` rather than overwritten. The v1.1 results overwrite the active panel files.
-
----
-
-## Note on substrate-type ground truth (Sprint 32 addendum)
-
-The substrate-type taxonomy used by the harness is computed from
-`epc.orchestration.MODEL_REGISTRY` (each model's `substrate_type` field on
-its single canonical-positive registration), with two explicit overrides
-per the v1.1 spec table — `P18` (voter; registry: `lattice_2d`) and
-`P21` (Hegselmann-Krause; registry: `opinion_space`) are reclassified
-to the spec's new `network` substrate type so they can serve as each
-other's catalog mate under v1.1's substrate-typed Class B selection.
-
-The substrate-type table in §"Class B" of this spec is **illustrative,
-not authoritative**. It enumerates patterns (including some not yet
-implemented in the registry — P17 Berdahl, P19 Couzin) and assigns some
-implemented patterns to substrate types that differ from their registry
-classifications (P3 listed as `lattice_2d` though the registry uses
-`lattice_2d_continuous`; P11 listed as `continuous_2d` though the
-registry uses `lattice_2d`; P28 listed as `lattice_2d` though the
-registry uses `scalar_wealth`). Where the spec table and the registry
-disagree for an *implemented* pattern, **the registry wins** and the
-spec table should be read as forward-looking guidance rather than as
-an override.
-
-The two explicit `network` overrides for P18 and P21 are the only
-deliberate exceptions to "registry wins" — they are encoded in
-`epc.phase2a.catalog._build_substrate_type_by_pattern` as a single
-pair of dict assignments after the registry-derived map is built, so
-they are easy to grep, audit, and revisit in any future v1.x revision.
-
-This addendum **does not** bump the panel version (still v1.1). It
-clarifies an interpretive ambiguity surfaced by Sprint 31 deviation #1.
+1. Sprint 34 (this spec, code-led application): land the spec, archive v1.1, update harness to read detector invariance flags, add the flags to existing detectors per the table above. NO new panel runs.
+2. Sprint 35 (code-led): re-run P9 and P14 under v1.2. Both expected to PASS. Then begin lattice_2d batch (3–4 patterns per sprint).
+3. Subsequent sprints: continue the batch across all PARTIAL patterns until all dim 4 cells are PASS or PASS-with-weakness.
