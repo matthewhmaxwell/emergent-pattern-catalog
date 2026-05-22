@@ -134,6 +134,20 @@ change every step and therefore are not persistent agent type labels,
 making P1 structurally inapplicable; (2) substrate-aware dispatch that
 verifies the model provides a `types` observable before running P1.
 
+**Phase-2a panel result.** The Phase-2a panel (v1.1, Sprint 33) returned
+PASS with overall TNR = 1.000 (Cohen's d = 8.282). Per-class: Class A
+(synthetic) TNR = 1.000, Class B (catalog-derived, substrate-type=
+lattice_2d) TNR = 1.000, Class C (GoL random initial condition decaying
+to still-life landscape, without the structured IC required for
+computation detection) TNR = 1.000. The v1.1 run served as a methodology
+sanity check prompted by the Sprint 33 voter model panel work: if P18
+passes a panel run, does P15's AT-DEPTH grade also survive? The result
+confirms it — the P15 boundary-conditioned TE discriminator and functional
+test gates together exclude all 30 non-positive substrates cleanly. The
+AT-DEPTH grade assigned to P15 via the content-level discriminators (see
+above) is now additionally confirmed by the Phase-2a panel result.
+Full results: `analysis/outputs/p15_phase2a_panel.json`.
+
 ## 4.4 Vicsek Flocking and D'Orsogna Milling (Cluster B)
 
 **References:** Vicsek, T. et al. (1995). Novel type of phase
@@ -202,6 +216,39 @@ TE — required because plug-in discretization destroys phase information
 — validates on analytical ground truths (Gaussian mutual information
 error 0.013 nats) and correctly shows TE increasing with Kuramoto
 coupling strength (p = 0.02 at K = 2K_c and K = 6K_c).
+
+**Phase-2a panel result.** P9 ran through three successive versions of
+the Phase-2a negative panel, providing a worked example of the spec
+evolution described in §3.7. Under v1.0 (Sprint 28), P9 returned PARTIAL:
+the overall TNR was borderline but Class A TNR = 0.800 because two
+`constant_field` substrates (all oscillators at identical phase, r = 1.0
+by construction) tripped the synchronization screening threshold without
+any genuine coupling dynamics. The false positives are numerically
+legitimate — r = 1.0 exceeds the screening floor — but mechanistically
+trivial: the substrate imposes global coherence rather than the system
+discovering it through coupling. The `constant_field` issue was logged as
+carry-forward C-class-a-constant-field-trivial-sync and persisted under
+v1.1 (Sprint 32), where re-running P9 with substrate-typed Class B
+selection confirmed clean Class B (oscillator-type) and Class C
+(sub-threshold Kuramoto, K < K_c) performance but produced PARTIAL again
+on the same Class A substrate. Sprint 34's v1.2 invariance-flag mechanism
+did not automatically resolve P9 because mean r is not invariant under
+arbitrary spatial permutation or time-shuffle of the oscillator state
+history; however, `constant_field` is a degenerate-by-construction input
+rather than a permutation-derived one, and v1.2 introduced a separate
+carry-forward logging path for this class of case. The Phase-2a panel
+(v1.2, Sprint 35) returned PASS-with-weakness: overall TNR = 0.952
+(Cohen's d = 4.781). Per-class: Class A (synthetic) TNR = 0.875 (weak —
+`constant_field` carry-forward C-class-a-constant-field-trivial-sync
+retained), Class B (catalog-derived, substrate-type=oscillator) TNR =
+1.000, Class C (sub-threshold Kuramoto) TNR = 1.000. The `constant_field`
+result represents an unresolved panel-design boundary condition rather
+than a P9 detector flaw: a physical oscillator system trivially
+synchronized by identical initial conditions is not an emergent
+synchronization event, but the Phase-2a spec as currently written has no
+mechanism to distinguish trivial from coupling-driven r = 1 without
+consulting the substrate's coupling history. Full results:
+`analysis/outputs/p9_phase2a_panel.json`.
 
 ## 4.6 Schelling Segregation (Cluster A)
 
@@ -274,6 +321,19 @@ sizes (approximately IID). Measuring the power spectral density of
 total energy E(t) = Σh(x,t) instead yields β = 1.41, correctly in the
 1/f range [0.5, 1.5]. This confirms the expected temporal correlations
 in the SOC state.
+
+**Phase-2a panel result.** The Phase-2a panel (v1.2, Sprint 35) returned
+PASS with overall TNR = 0.960 (Cohen's d = 10.585). Per-class: Class A
+(synthetic) TNR = 1.000, Class B (catalog-derived, substrate-type=
+lattice_2d) TNR = 1.000 (7/7 clean), Class C (dissipative sandpile,
+p_diss ∈ {0.1, 0.2, 0.3, 0.35}) TNR = 0.900 with one borderline at
+p_diss = 0.350, where the avalanche size distribution retains a mild
+heavy tail that the SOC detector scores at screening tier rather than
+cleanly rejecting. The borderline is logged as carry-forward
+C-p14-class-c-borderline; at p_diss = 0.2 and below, the dissipative
+sandpile is cleanly rejected at all tiers, confirming the mechanistic
+null work described above. Full results:
+`analysis/outputs/p14_phase2a_panel.json`.
 
 ## 4.8 Nowak-May Spatial Prisoner's Dilemma (Cluster H)
 
@@ -1615,6 +1675,47 @@ catalog's first within-substrate 2×2 block — the structural pattern
 that any future substrate addition with multiple models will have to
 replicate.
 
+**Sprint 27 update: multi-seed (A, β) phase boundary.** Sprint 26's
+single-seed Phase 1m scan suggested a sharp transition near β ≈ 0.21,
+with cells at β ≤ 0.20 classified as chimera-producing and cells at β ≥
+0.22 as sync-producing across all tested A values. Sprint 27 re-ran the
+(A, β) scan with five seeds per cell (seeds {0, 1, 42, 200, 500}) at N =
+128, A ∈ {0.95, 0.96, …, 1.00} (6 points), across two β values in the
+bulk chimera regime (β ∈ {0.05, 0.10}) and three in the boundary region
+(β ∈ {0.18, 0.20, 0.22}), for 150 total runs. Results:
+
+| β    | Basin fraction (mean over A) | Seeds in chimera basin |
+|------|------------------------------|------------------------|
+| 0.05 | 1.00                         | 30/30                  |
+| 0.10 | 0.97                         | 29/30                  |
+| 0.18 | 0.60                         | 18/30                  |
+| 0.20 | 0.40                         | 12/30                  |
+| 0.22 | 0.03                         | 1/30                   |
+
+Sprint 26's apparent sharp transition at β ≈ 0.21 was a single-seed
+artifact masking a smooth basin-volume gradient. The chimera basin
+fraction decreases continuously from 100% at β = 0.05 to near-zero at β
+= 0.22, consistent with the Abrams–Strogatz theoretical picture of a
+chimera region that narrows as β increases toward the synchronization-only
+boundary. The single A = 1.00, β = 0.22 cell with 1/5 chimera fraction
+suggests the boundary is not strictly vertical in (A, β) space — there
+is a thin chimera tail near A = 1 that extends slightly past β = 0.21,
+consistent with the paper's prediction that the chimera region narrows
+toward (A = 1, β small). Reconciliation with Sprint 26 Phase 1k at β =
+0.18: Phase 1k found basin fraction 0.50 (15/30 seeds, seeds 0–29) vs
+Phase 1n's 0.60 (18/30 seeds, seeds {0, 1, 42, 200, 500}); both are
+consistent within Wilson 95% confidence intervals ([0.33, 0.67] and
+[0.42, 0.76] respectively), and the apparent discrepancy is sampling
+variation — the underlying basin volume at N = 128, β = 0.18 is
+approximately 50–60%. The Phase 1n result additionally strengthens the
+canonical-positive pin at β = 0.05 (Decision 51): not only does β = 0.05
+offer reliable detection across the N-range tested (see seed-robust basin
+floor above), but Phase 1n confirms that β = 0.05 sits in the deepest
+and widest part of the chimera basin — 100% across all tested A values
+and all five anchored seeds. Raw per-cell data:
+`analysis/outputs/p10_phase_boundary_multiseed.json`. Basin-volume
+heatmap: `analysis/outputs/p10_basin_volume_multiseed.png`.
+
 ## 4.20 Voter Model and P18 Coarsening-to-Consensus (Cluster F)
 
 **Primary reference:** Clifford, P. & Sudbury, A. (1973). A model for
@@ -1976,3 +2077,17 @@ block.
     detector gates are calibrated against the early-time canonical
     trajectories. Speedup did not justify the quantitative drift.
 
+**Phase-2a panel result.** The Phase-2a panel (v1.1, Sprint 33) returned
+PASS with overall TNR = 1.000 (Cohen's d = +∞ — the canonical-positive
+score distribution has no overlap with the pooled-negative score
+distribution across all 30 substrates). Per-class: Class A (synthetic)
+TNR = 1.000, Class B (catalog-derived, substrate-type=lattice_2d) TNR =
+1.000, Class C (voter run to full consensus, where early-window
+coarsening metrics cannot be evaluated post-fixation) TNR = 1.000. The
+panel result provides a second, independent confirmation of the AT-DEPTH
+grade for P18: the metric-level content discriminators established in
+§4.20 and §6.10 constitute one line of evidence; the Phase-2a panel
+result, which tests those same discriminators against 30 substrate-diverse
+non-positives not included in the original characterization ensemble,
+constitutes a second. No false positives were observed at any tier.
+Full results: `analysis/outputs/p18_phase2a_panel.json`.

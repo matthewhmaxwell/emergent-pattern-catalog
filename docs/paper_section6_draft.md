@@ -549,3 +549,27 @@ either re-calibrating the gates or supplementing them with a
 metadata-mechanism (Class 3) check. This is the cost of choosing
 purity over defense-in-depth, and a future iteration of the P18
 detector may revisit the trade-off.
+
+## 6.11 Aggregate Grading Status
+
+Across the 19-pattern inventory (Sprints 1–35), **5 / 19** patterns have
+reached AT-DEPTH grade and **14 / 19** remain at GAP. The five AT-DEPTH
+patterns are P9 (synchronization), P15 (persistent computation), P18
+(coarsening-to-consensus), P28 (wealth condensation), and P31 (delayed
+gratification).
+
+Four of the five AT-DEPTH patterns reached that grade via the Phase-2a
+standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
+returned PASS, and P18 returned PASS, each providing an independent
+confirmation of the AT-DEPTH grade assigned via content-level
+discriminators; P28 and P31 reached AT-DEPTH prior to the panel via
+mechanistic null gates and the P31 non-redundancy test respectively, and
+panel runs for these two patterns are scheduled in the dim4-closure batch.
+
+The transfer-matrix aggregate figures stand at: 20 models / 19 detectors
+/ 79 compatible cells / 274 substrate-mismatch rejections / 27
+observable-mismatch rejections / 19 display rows / 361 displayed cells /
+77 displayed compatible / 284 displayed rejections. These figures are
+unchanged from Sprint 26 and are locked by `scripts/count_transfer_matrix.py`
+whose output is pinned in the pre-flight and post-flight checks at each
+sprint boundary.

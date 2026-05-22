@@ -284,3 +284,119 @@ These are not arbitrary choices — in multiple cases, underpowered initial
 tests produced incorrect results that were only resolved by increasing
 statistical power (Section 4.14). We now treat minimum permutation counts
 as hard requirements, not suggestions.
+
+## 3.7 Phase-2a Standard Negative Panel
+
+### Motivation
+
+The cross-detection matrix (§3.4) provides broad coverage — every audited
+cell is tested against every other model in the catalog. However, the
+matrix has a structural limitation: it tests each detector only against
+models already in the catalog, which were selected for their diversity of
+emergent behaviors rather than for their diversity as non-positives. A
+detector may pass the full cross-detection matrix while failing badly
+against substrate types not represented in the catalog. Sprint 28's audit
+documented that dim4 (broad negative sweep — testing specificity against
+substrate-diverse non-positives) was the dominant coverage gap across 15
+of 19 patterns. The cross-detection matrix is necessary but not sufficient
+for specificity: it tests against known-pattern positives rather than
+known-pattern negatives drawn from a broad substrate space, and a detector
+that produces no false positives against its catalog neighbors can still
+produce false positives at scale against novel substrates.
+
+### Panel Composition
+
+The Phase-2a standard negative panel consists of 30 substrates organized
+into three classes of 10. **Class A** substrates are synthetic null
+substrates, held fixed across all patterns: they include maximally
+randomized grids, uniform-state configurations, temporally shuffled
+trajectories, periodic synthetic signals, and other substrates constructed
+to exercise the detector's primary and secondary metrics in the absence of
+any emergent pattern. Class A is substrate-type-agnostic and provides a
+universal baseline across all 19 detectors. **Class B** substrates are
+catalog-derived non-positives, selected per substrate type under v1.1 of
+the panel spec. For each pattern, Class B draws from models in the catalog
+that share the same substrate type as the canonical positive but do not
+exhibit the target pattern — for example, a lattice_2d detector is tested
+against other lattice_2d models (Schelling, BTW, GoL, SIR, etc.) running
+in parameter regimes where the target pattern is absent. The
+substrate-typed selection ensures Class B exercises the detector against
+the same observable types it was designed for, catching specificity
+failures that cross-substrate tests miss. **Class C** substrates are
+pattern-specific failed-regime substrates: parameter configurations of the
+canonical positive model in which the target pattern is absent or
+suppressed — for example, the Kuramoto model below K_c for P9
+synchronization, or the BTW sandpile with dissipation for P14 SOC. Class
+C has an N/A escape hatch introduced in v1.1: if the canonical model has
+no parameter regime in which the target pattern is cleanly suppressed
+(because the pattern is topologically enforced or structurally inherent),
+the Class C slot is marked N/A with a logged explanation.
+
+### PASS Criterion and Invariance Flags
+
+The panel's primary criterion is overall true-negative rate (TNR) ≥ 0.95
+across all 30 non-positive substrates. Per-class TNRs are additionally
+reported, with an advisory weak-class threshold of 0.90 that triggers a
+PASS-with-weakness verdict rather than a hard fail; a per-class TNR below
+0.90 triggers FAIL regardless of overall. A secondary criterion, Cohen's
+d ≥ 1.0 between the canonical-positive score distribution and the
+pooled-negative score distribution, ensures that passing verdicts reflect
+genuine distributional separation rather than fortuitously low
+false-positive rates on the specific 30 substrates sampled. The
+5-substrate gating floor makes per-class TNRs advisory below 5 substrates
+(Class C N/A reduces the effective Class C size).
+
+Version 1.2, introduced in Sprint 34, adds two invariance flags per
+detector: `primary_metric_permutation_invariant` and
+`primary_metric_time_shuffle_invariant`. For detectors whose primary
+metric is invariant under spatial permutation or temporal shuffling of the
+input, Class A substrates constructed by permutation or time-shuffling
+will trivially produce the same primary metric value as the canonical
+positive — making false-positive classification a certainty rather than a
+failure of specificity. The v1.2 invariance flags allow the panel to skip
+these degenerate-by-construction Class A substrates for the affected
+detector, preventing spurious FAIL verdicts where the panel design itself
+is the source of the false positive. The flags do not skip Class B or
+Class C substrates, nor do they apply to detectors with
+permutation-sensitive primary metrics.
+
+### Spec Evolution as Methodology Contribution
+
+The v1.0 → v1.1 → v1.2 trajectory of the Phase-2a panel spec is itself a
+methodological story. The v1.0 panel was prototype-run against seven
+patterns in Sprint 28 and surfaced two systemic issues: (1) cross-format
+adapter contamination — Class B substrates were constructed with a
+different history-format adapter than the canonical positive, causing
+metric artifacts that appeared as false positives attributable to the
+detector rather than to substrate construction; (2) substrate-type
+conflation — Class B drew from the full catalog regardless of substrate
+type, so a lattice_1d detector was tested against continuous_2d history
+objects that its observable prerequisites would correctly reject. Sprint
+30 resolved both issues in v1.1: Class B became substrate-typed and the
+cross-format adapter was standardized. Sprint 32's P9 and P18 re-runs
+under v1.1 then revealed a second generation of issues: both detectors
+encountered Class A substrates (`constant_field` for P9, `all_same_state`
+for P18) that their primary metrics flag as trivially maximal — not
+because a pattern is present, but because the substrate is constructed to
+be maximally uniform. These are degenerate-by-construction false positives
+where the detector is not wrong to flag them but the panel spec is wrong
+to present them as evidence of poor specificity. Sprint 34's v1.2
+invariance flags resolve this by allowing affected detectors to annotate
+which primary metrics are susceptible to degenerate Class A substrates, so
+the panel can skip those slots rather than score them as failures. The
+v1.0 → v1.1 → v1.2 evolution was not designed up-front; it emerged from
+running the panel against real detectors and encountering failure modes
+that the spec did not anticipate. This is an honest account of how a
+methodology under active development refines itself through use.
+
+### Reproducibility Note
+
+The Phase-2a standard negative panel spec is versioned in
+`docs/phase2a_panel_spec.md`. The
+panel harness — substrate construction, detector dispatch, TNR computation,
+and JSON output — lives in `epc/phase2a/`. Results from v1.0 and v1.1
+runs are archived under `analysis/outputs/archive/`. Per-pattern panel
+outputs for all completed runs are at
+`analysis/outputs/p<i>_phase2a_panel.json`, where `<i>` is the pattern
+number. Panel design decisions are recorded as Architecture Decision
+Records in `REPLICATION_NOTES.md` alongside the per-sprint run sections.
