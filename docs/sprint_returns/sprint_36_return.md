@@ -203,3 +203,5 @@ compute-intensive even without the `slow` mark). All 585 passed.
 
 - **Commit:** `e005295`
 - **Tag:** `v0.36.0` (pushed to origin)
+
+**Decision: GO** — paper-catchup sprint completed cleanly, no panel verdict to declare; chain proceeds to Sprint 37 (continuous_2d generator additions).
