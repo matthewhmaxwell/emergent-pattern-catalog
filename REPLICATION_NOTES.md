@@ -912,6 +912,25 @@ Output: `analysis/outputs/p14_phase2a_panel.json`. Panel spec: `docs/phase2a_pan
 
 The depth_gap.md row for P14 stays at PARTIAL on dim4 pending v1.2 closure of C-class-a-degenerate. Detector NOT modified per Sprint 30 rule.
 
+## Phase-2a Panel Result (v1.2) — Sprint 35
+
+Output: `analysis/outputs/p14_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | **1.000** | 8 / 8 | gating; clean after SKIPPING permutation_shuffled + time_shuffled |
+| Catalog (substrate-typed: lattice_2d) | 1.000 | 7 / 7 | gating |
+| Failed-regime (Class C: dissipative sandpile) | 0.900 | 9 / 10 | gating; 1 borderline at `p_diss=0.350` (carry-forward C-p14-class-c-borderline from Sprint 33, low priority) |
+| **Overall** | **0.960** | 24 / 25 | ≥ 0.95 PASS gate |
+
+- v1.2 invariance flags for P14: `permutation_invariant=True, time_shuffle_invariant=True` (the avalanche-size power-law exponent τ is invariant under both shuffles). Two Class A degenerates SKIPPED with verdict `SKIPPED-degenerate-by-construction`; evaluated Class A = 8, **all 8 correctly rejected**.
+- Class B composition unchanged from v1.1: 7 lattice_2d catalog mates (P1, P11, P12, P13, P15, P22, P27). All correctly rejected.
+- Class C: 10 dissipative-sandpile regimes; 1 borderline false positive at `p_diss=0.350` persists from Sprint 33 (mid-range dissipation retains enough heavy-tailed structure to occasionally pass P14's screening). The Class C TNR of 0.900 is **exactly at the weak-class threshold** (≥ 0.90 = not weak) — borderline-passes per v1.2 verdict logic.
+- Cohen's d: **10.585** (positives reach CONFIRMATION at confidence 0.700; pooled negatives mostly 0.0; one borderline at 0.350).
+- **Verdict: PASS** (overall TNR 0.960 ≥ 0.95; Cohen's d ≥ 1.0; no class below 0.90 weak threshold).
+
+**v1.1 → v1.2 delta.** Overall TNR 0.889 → 0.960 (crosses the 0.95 PASS gate). The two Class A degenerates that drove the v1.1 PARTIAL are SKIPPED. The Class C borderline at p_diss=0.350 persists but doesn't gate the verdict (Class C still ≥ 0.90). The depth_gap.md row for P14 moves to dim4 = PASS; grade moves to AT-DEPTH on the strength of v1.2 panel + existing dim1/dim3 PASS (note: dim2 is still PARTIAL per Sprint 28 audit — τ from single 100k-event run with no ≥5-seed bootstrap dispersion reported — so P14 grade is **GAP-narrowed** rather than AT-DEPTH).
+
 ---
 
 # Sprint 5: Full-Power TE Benchmark (60×60, 99 perms)
@@ -1105,6 +1124,24 @@ grid→phases adapter produces bimodal phase distributions (binary cell
 values 0/1 → phases {0, π}) with high mean order parameter r — a panel
 adapter artifact rather than a P9 quality issue. This is the panel-design
 issue that motivates the Sprint 31 panel-spec revision.
+
+## Phase-2a Panel Result (v1.2) — Sprint 35
+
+Output: `analysis/outputs/p9_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 0.875 | 7 / 8 | **weak class** (<0.90); only false positive is `constant_field` |
+| Catalog (substrate-typed: oscillator) | 1.000 | 3 / 3 | advisory (n<5) |
+| Failed-regime sub-K_c (Class C) | **1.000** | 10 / 10 | gating |
+| **Overall** | **0.952** | 20 / 21 | ≥ 0.95 PASS gate |
+
+- v1.2 invariance flags for P9: `permutation_invariant=True, time_shuffle_invariant=True` (the Kuramoto order parameter `r = |⟨e^{iθ}⟩|` is permutation- and time-shuffle-invariant). The two degenerate Class A substrates (`permutation_shuffled`, `time_shuffled`) are now SKIPPED with verdict `SKIPPED-degenerate-by-construction`; the evaluated Class A is 8 substrates (one of which — `constant_field` — still trips).
+- Class B composition unchanged from v1.1: oscillator catalog mate `P10_chimera` + supplements `incoherent_phases`, `subcritical_kuramoto`.
+- Cohen's d: **4.781** (computed over 5 positive seeds × 21 evaluated negatives).
+- **Verdict: PASS-with-weakness** (overall TNR 0.952 ≥ 0.95; Cohen's d ≥ 1.0; Class A 0.875 < 0.90 weak-class threshold → flagged as weakness, not gating failure).
+
+**v1.1 → v1.2 delta.** Overall TNR 0.913 → 0.952 (crosses the 0.95 PASS gate). The two Class A degenerates that drove the v1.1 PARTIAL are now correctly SKIPPED. The remaining false positive — `constant_field` — produces θ_i ≡ 0 for all i, giving r = 1 trivially. Like the permutation/shuffle cases, constant_field is mathematically synchronized — but unlike them it is *not* a within-substrate transformation of the canonical positive, so the v1.2 invariance flags don't catch it. **New carry-forward C-class-a-constant-field-trivial-sync** logged for chat-led review (v1.3 candidate). The depth_gap.md row for P9 moves to dim4 = PASS-with-weakness; grade moves to AT-DEPTH (all four dimensions now PASS or PASS-with-weakness).
 
 ## Phase-2a Panel Result (v1.1) — Sprint 32
 
