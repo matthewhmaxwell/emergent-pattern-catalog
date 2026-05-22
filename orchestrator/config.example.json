@@ -1,0 +1,38 @@
+{
+  "_comment": "Filled in by Claude Code on 2026-05-21 (Mac session). VPS: ai-server (root@100.90.46.93). Repo cloned to TODO_REPO_PATH. Python venv at TODO_INSTALL_DIR/.venv. claude binary path assumes a working /usr/bin/claude (current Claude Code install on VPS is corrupted \u2014 pending reinstall per the escalation in NOTIFY_USER.txt).",
+  "repo_path": "TODO_REPO_PATH",
+  "main_branch": "main",
+  "poll_interval_sec": 300,
+  "working_dir": "TODO_WORKING_DIR",
+  "state_file": "TODO_WORKING_DIR/state.json",
+  "log_file": "TODO_WORKING_DIR/orchestrator.log",
+  "anthropic_api_key_env": "ANTHROPIC_API_KEY",
+  "anthropic_model": "claude-sonnet-4-6",
+  "anthropic_max_tokens": 16000,
+  "claude_code_cmd": [
+    "/usr/bin/claude",
+    "-p",
+    "{prompt}"
+  ],
+  "claude_code_uses_stdin": false,
+  "claude_code_cwd": null,
+  "notify_method": "file",
+  "notify_file": "TODO_WORKING_DIR/NOTIFY_USER.txt",
+  "notify_webhook_url": null,
+  "notify_email_to": null,
+  "notify_email_from": null,
+  "notify_email_smtp_host": null,
+  "notify_email_smtp_port": 587,
+  "notify_email_smtp_user": null,
+  "notify_email_smtp_password_env": null,
+  "auto_dispatch_on": [
+    "GO"
+  ],
+  "escalate_on": [
+    "GO-LIMITED",
+    "NO-GO"
+  ],
+  "escalate_if_chat_led": true,
+  "max_chained_sprints": 25,
+  "poll_interval_sec_active": 60
+}

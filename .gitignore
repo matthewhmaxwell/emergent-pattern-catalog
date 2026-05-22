@@ -34,3 +34,5 @@ outputs/
 
 # Env
 .env
+
+# Orchestrator live config (held at /opt/epc-orchestrator/config.json on VPS)

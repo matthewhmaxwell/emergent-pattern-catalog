@@ -1,0 +1,33 @@
+[Unit]
+Description=EPC Sprint Orchestrator
+Documentation=file:///opt/epc-orchestrator/SETUP.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Filled in by Claude Code (Mac session, 2026-05-21): root owns the EPC clone
+# at /root/emergent-pattern-catalog AND owns the (pending-reinstall) Claude
+# Code auth on this VPS. Running as root is consistent with the user-deployed
+# services on this host (Caddy, Immich, etc.) and avoids a chown dance for
+# the repo + ~/.claude state dir.
+User=root
+Group=root
+
+WorkingDirectory=/opt/epc-orchestrator
+ExecStart=/opt/epc-orchestrator/.venv/bin/python /opt/epc-orchestrator/epc_orchestrator.py --daemon
+Restart=on-failure
+RestartSec=30s
+
+# API key — populated by the user after they create one. The service refuses
+# to start until /etc/epc-orchestrator/env exists and contains ANTHROPIC_API_KEY.
+EnvironmentFile=/etc/epc-orchestrator/env
+
+MemoryMax=2G
+TasksMax=64
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
