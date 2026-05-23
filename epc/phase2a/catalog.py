@@ -45,6 +45,10 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P13_greenberg_hastings": {"rows": 64, "cols": 64, "n_states": 3, "threshold": 1, "init_mode": "random", "init_density": 0.3, "n_steps": 100, "seed": 0},
     # P22 SIR: lattice epidemic at canonical infection regime (above percolation threshold).
     "P22_sir_epidemic": {"rows": 64, "cols": 64, "infection_prob": 0.4, "recovery_prob": 0.1, "init_mode": "single_seed", "n_steps": 200, "seed": 0},
+    # P2 ABP: Fily-Marchetti 2012 MIPS regime. n=200, phi≈0.61, Pe=100 → well into phase-separated regime.
+    "P2_abp": {"n_particles": 200, "box_size": 16.0, "v0": 0.3, "rho_star": 10.0, "D_r": 3e-3, "r_cg": 1.0, "dt": 0.1, "n_steps": 200, "seed": 0},
+    # P6 D'Orsogna: Carrillo 2009 canonical milling regime. ring init → milling immediate.
+    "P6_dorsogna": {"n_particles": 100, "C_a": 0.5, "C_r": 1.0, "l_a": 3.0, "l_r": 0.5, "alpha": 1.0, "beta": 0.5, "dt": 0.05, "init_mode": "ring", "init_radius": 5.0, "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -240,6 +244,39 @@ def _gen_p12_rps(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "grid_categorical", "grids": grids, "n_states": 4}
 
 
+def _gen_p2_active_brownian(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Fily-Marchetti 2012 MIPS in the canonical phase-separated regime."""
+    from epc.models.active_brownian_particles import ActiveBrownianParticles
+    model = ActiveBrownianParticles(
+        n_particles=p["n_particles"], box_size=p["box_size"],
+        v0=p["v0"], rho_star=p.get("rho_star", 10.0),
+        D_r=p.get("D_r", 3e-3), r_cg=p.get("r_cg", 1.0),
+        dt=p.get("dt", 0.1), seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    headings = np.stack([np.asarray(s["headings"], dtype=np.float32) for s in history])
+    positions = np.stack([np.asarray(s["positions"], dtype=np.float32) for s in history])
+    return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
+
+
+def _gen_p6_dorsogna(p: Dict[str, Any]) -> Dict[str, Any]:
+    """D'Orsogna 2006 canonical milling regime (ring init → immediate milling)."""
+    from epc.models.dorsogna_spp import DOrsognaSPPModel
+    model = DOrsognaSPPModel(
+        n_particles=p["n_particles"], C_a=p["C_a"], C_r=p["C_r"],
+        l_a=p["l_a"], l_r=p["l_r"], alpha=p["alpha"], beta=p["beta"],
+        dt=p["dt"], init_mode=p.get("init_mode", "ring"),
+        init_radius=p.get("init_radius", 5.0), seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    headings = np.stack([np.asarray(s["headings"], dtype=np.float32) for s in history])
+    positions = np.stack([np.asarray(s["positions"], dtype=np.float32) for s in history])
+    # D'Orsogna is open-space; derive box_size from actual position extent.
+    half_ext = float(np.max(np.abs(positions))) + 2.0
+    box_size = 2.0 * half_ext
+    return {"kind": "particles", "headings": headings, "positions": positions, "box_size": box_size}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -256,6 +293,8 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P11_lotka_volterra": _gen_p11_lotka_volterra,
     "P13_greenberg_hastings": _gen_p13_greenberg_hastings,
     "P22_sir_epidemic": _gen_p22_sir_epidemic,
+    "P2_abp": _gen_p2_active_brownian,
+    "P6_dorsogna": _gen_p6_dorsogna,
 }
 
 
@@ -652,10 +691,10 @@ def catalog_ids_for_pattern(pattern_id: str) -> List[str]:
 # is added.
 PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P1": "P1_schelling",
-    "P2": "P2_abp",                          # declarative; generator NOT yet implemented
+    "P2": "P2_abp",                          # generator added Sprint 37
     "P3": "P3_gray_scott",
     "P5": "P5_vicsek",
-    "P6": "P6_dorsogna",                     # declarative; generator NOT yet implemented
+    "P6": "P6_dorsogna",                     # generator added Sprint 37
     "P8": "P8_nagel_schreckenberg",          # declarative; generator NOT yet implemented
     "P9": "P9_kuramoto",
     "P10": "P10_chimera",

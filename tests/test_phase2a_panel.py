@@ -685,6 +685,70 @@ def test_panel_class_c_n_a_skipped_in_summary(tmp_path):
     assert summary["summary"]["failed_regime_tnr"] is None
 
 
+# --- Sprint 37: continuous_2d catalog generators (P2 ABP + P6 D'Orsogna) ---
+
+def test_gen_p2_active_brownian_deterministic():
+    """Same seed → byte-identical ABP trajectory."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P2_abp"])
+    a = catalog_mod._gen_p2_active_brownian(p)
+    b = catalog_mod._gen_p2_active_brownian(p)
+    assert a["kind"] == "particles"
+    assert np.array_equal(a["headings"], b["headings"])
+    assert np.array_equal(a["positions"], b["positions"])
+
+
+def test_gen_p6_dorsogna_deterministic():
+    """Same seed → byte-identical D'Orsogna trajectory."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P6_dorsogna"])
+    a = catalog_mod._gen_p6_dorsogna(p)
+    b = catalog_mod._gen_p6_dorsogna(p)
+    assert a["kind"] == "particles"
+    assert np.array_equal(a["headings"], b["headings"])
+    assert np.array_equal(a["positions"], b["positions"])
+
+
+def test_gen_p2_active_brownian_output_format():
+    """P2 generator returns kind='particles' schema with correct shapes."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P2_abp"])
+    native = catalog_mod._gen_p2_active_brownian(p)
+    assert native["kind"] == "particles"
+    assert native["headings"].ndim == 2           # (T, N)
+    assert native["positions"].ndim == 3          # (T, N, 2)
+    assert native["headings"].shape[0] == native["positions"].shape[0]
+    assert native["positions"].shape[2] == 2
+    assert "box_size" in native and native["box_size"] > 0
+
+
+def test_gen_p6_dorsogna_output_format():
+    """P6 generator returns kind='particles' schema with correct shapes."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P6_dorsogna"])
+    native = catalog_mod._gen_p6_dorsogna(p)
+    assert native["kind"] == "particles"
+    assert native["headings"].ndim == 2           # (T, N)
+    assert native["positions"].ndim == 3          # (T, N, 2)
+    assert native["headings"].shape[0] == native["positions"].shape[0]
+    assert native["positions"].shape[2] == 2
+    assert "box_size" in native and native["box_size"] > 0
+
+
+def test_class_b_p5_contains_p2_abp_and_p6_dorsogna():
+    """Sprint 37: class_b_for_pattern('P5') includes both new continuous_2d mates."""
+    r = catalog_mod.class_b_for_pattern("P5")
+    assert r["substrate_type"] == "continuous_2d"
+    assert "P2_abp" in r["catalog_mates"]
+    assert "P6_dorsogna" in r["catalog_mates"]
+
+
+def test_continuous_2d_supplements_registered():
+    """Sprint 37: SUPPLEMENTS_BY_SUBSTRATE_TYPE has both new continuous_2d builders."""
+    sup = structured_mod.SUPPLEMENTS_BY_SUBSTRATE_TYPE.get("continuous_2d", [])
+    assert "uncorrelated_random_walks" in sup
+    assert "independent_brownian_motion" in sup
+    # Builders callable and in SUPPLEMENT_BUILDERS
+    assert "uncorrelated_random_walks" in structured_mod.SUPPLEMENT_BUILDERS
+    assert "independent_brownian_motion" in structured_mod.SUPPLEMENT_BUILDERS
+
+
 def test_panel_always_fire_stub_yields_fail_verdict(tmp_path):
     """Always-fire stub: TNR=0, no signal → FAIL under v1.1 verdict labels."""
     out = str(tmp_path / "stub_fire_panel.json")

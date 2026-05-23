@@ -114,11 +114,78 @@ def network_random_walks(
     return out
 
 
+# --- Continuous-2d supplements ----------------------------------------------
+
+def uncorrelated_random_walks(
+    seed: int,
+    *,
+    n: int = 200,
+    box_size: float = 16.0,
+    speed: float = 0.03,
+    n_steps: int = 200,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """N particles with i.i.d. uniform headings redrawn each step — no coupling.
+
+    Polarization r ≈ 1/√N. Same output shape as Vicsek/ABP history.
+    A correctly-specific flocking or milling detector should not fire.
+    """
+    rng = np.random.default_rng(seed)
+    positions = rng.uniform(0.0, box_size, size=(n, 2))
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        headings = rng.uniform(-np.pi, np.pi, size=n)
+        velocities = speed * np.column_stack([np.cos(headings), np.sin(headings)])
+        positions = (positions + velocities) % box_size
+        out.append({
+            "positions": positions.copy(),
+            "headings": headings.copy(),
+            "velocities": velocities.copy(),
+            "speeds": np.full(n, speed, dtype=np.float64),
+            "step": t,
+        })
+    return out
+
+
+def independent_brownian_motion(
+    seed: int,
+    *,
+    n: int = 200,
+    box_size: float = 16.0,
+    sigma: float = 0.1,
+    n_steps: int = 200,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """N independent Brownian particles — no interactions.
+
+    Each particle takes an i.i.d. Gaussian displacement per step.
+    Tests against trivial diffusive motion that could spuriously trigger
+    collective-motion detectors.
+    """
+    rng = np.random.default_rng(seed)
+    positions = rng.uniform(0.0, box_size, size=(n, 2))
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        displacements = rng.normal(0.0, sigma, size=(n, 2))
+        positions = (positions + displacements) % box_size
+        speeds = np.linalg.norm(displacements, axis=1)
+        headings = np.arctan2(displacements[:, 1], displacements[:, 0])
+        out.append({
+            "positions": positions.copy(),
+            "headings": headings.copy(),
+            "velocities": displacements.copy(),
+            "speeds": speeds,
+            "step": t,
+        })
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "oscillator": ["incoherent_phases", "subcritical_kuramoto"],
     "network": ["random_graph_evolution", "network_random_walks"],
+    "continuous_2d": ["uncorrelated_random_walks", "independent_brownian_motion"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -126,4 +193,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "subcritical_kuramoto": subcritical_kuramoto,
     "random_graph_evolution": random_graph_evolution,
     "network_random_walks": network_random_walks,
+    "uncorrelated_random_walks": uncorrelated_random_walks,
+    "independent_brownian_motion": independent_brownian_motion,
 }

@@ -4,6 +4,11 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 37 (2026-05-23)
+- epc/phase2a/catalog.py: added _gen_p2_active_brownian + _gen_p6_dorsogna; updated PATTERN_TO_SUBSTRATE_ID for continuous_2d Class B coverage.
+- epc/phase2a/structured.py: added uncorrelated_random_walks + independent_brownian_motion continuous_2d B' supplements (C-supplements progress).
+- 6 new tests in tests/test_phase2a_panel.py.
+
 ## Sprint 36 (2026-05-22, paper catchup Sprints 27–35)
 - §3.7 added: Phase-2a standard negative panel methodology (motivation,
   panel composition, PASS criterion + invariance flags, spec evolution as
