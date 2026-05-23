@@ -167,6 +167,6 @@ All other open carry-forwards unchanged from Sprint 38:
 - **Commit:** `v0.39.0` (pending test verification)
 - **Tag:** `v0.39.0`
 
-**Decision: GO-LIMITED**
+**Decision: GO** (was GO-LIMITED; chat reviewed Sprint 39 findings 2026-05-23 and queued Sprint 40 fix-sprint addressing both root causes — P22 Class C param correction + P27 observable-prerequisite guard; chain may proceed)
 
 Both P22 and P27 returned below PASS under v1.2 panel. Sprint 30 rule applied throughout — no detector or panel composition changes made. Two carry-forwards opened (C-p22-class-c-above-percolation, C-p27-panel-screening-leak). `escalate_to_user=true` set in orchestrator state. A chat-led sprint is required to redesign the Class C failed-regime params for P22 and to redesign the P27 panel approach (model-native format or revised screening criterion) before this batch can close. Sprint 40 (P1 Schelling + P3 Gray-Scott) may proceed autonomously once a human has reviewed these findings, or immediately if the orchestrator is configured to proceed past GO-LIMITED.
