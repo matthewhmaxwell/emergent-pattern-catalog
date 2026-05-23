@@ -1199,6 +1199,34 @@ P27 DEFINITIVE at b=1.8: f_C=0.408, Moran's I=0.497, p=0.005,
 PD structure verified (T>R>P≥S). Negative controls: b=2.0 → none
 (C extinct), b=1.0 → not definitive (no dilemma, all cooperate).
 
+## Phase-2a Panel Result (v1.2) — Sprint 39 (P27 Nowak-May)
+
+Output: `analysis/outputs/p27_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | 0.111 | 1 / 9 | gating; 8 false positives at screening tier |
+| Catalog (substrate-typed: lattice_2d) | 0.286 | 2 / 7 | gating; 5 false positives at screening tier |
+| Failed-regime (Class C: b ∈ [2.0, 2.5]) | **1.000** | 10 / 10 | gating; all extinction regimes correctly rejected |
+| **Overall** | **0.500** | 13 / 26 | below 0.95 PASS gate |
+
+- v1.2 invariance flags for P27: `permutation_invariant=False, time_shuffle_invariant=True` (provisional per ADR; C-p27-time-shuffle-invariance carry-forward). One Class A substrate (`time_shuffled`) SKIPPED with verdict `SKIPPED-degenerate-by-construction`; 9 evaluated.
+- Canonical positive (NowakMay 50×50, b=1.8): 3/5 seeds reach SCREENING (conf=0.600); 2/5 get NONE (f_C → 0 on those seeds). Seeds 1 and 3 exhibit stochastic cooperation collapse on the 50×50 grid — a finite-size effect absent at the canonical 100×100 scale.
+- Class B composition (substrate-type=lattice_2d): 7 catalog mates (P1, P11, P12, P13, P14, P15, P22). 5/7 false positives at SCREENING tier. Root cause: `detect_p27` screens on `fc_mean > 0.02 AND n_gen > 100`. Generic lattice_2d substrates (e.g., GoL with ~80% empty cells) have large fractions of zero-valued cells, which the panel's grid-augmentation adapter maps to `coop_fraction`. This trips P27's screening threshold even though the underlying dynamics are not cooperative.
+- Class C (10 extinction regimes at b ∈ linspace(2.0, 2.5, 10)): all correctly rejected (f_C → 0 for b ≥ 2.0). Class C TNR = 1.000.
+- Cohen's d: **0.198** (canonical positives only reach SCREENING with confidence ≈ 0.4 mean; false-positive negatives also score 0.4-0.6 at screening — distributions overlap).
+- **Verdict: FAIL** (overall TNR 0.500; Cohen's d 0.198 < 0.5 PARTIAL gate).
+
+**Failure-mode analysis (carry-forward C-p27-panel-screening-leak):**
+
+Two linked problems caused the FAIL:
+
+1. **Screening-tier specificity failure.** `detect_p27` was designed for NowakMay native histories (pre-computed `coop_fraction`, `moran_i`). When the panel runner adapts generic lattice_2d substrates via `_augment_history_p27` (which computes `coop_fraction = (grid==0).mean()`), the semantic mapping is wrong: empty cells in GoL, GH, Schelling, RPS, and BTW are not cooperators. Grids with many zero-valued cells (GoL ≈80% empty, GH ≈70% resting) satisfy `fc_mean > 0.02` trivially. The confirmation tier's `well_mixed > 0.5` check (via `pd_verified=False → well_mixed=0.5`) would correctly filter most of these, but the screening tier gates `detected=True` for any `fc_mean > 0.02 AND n_gen > 100`.
+
+2. **Canonical positive finite-size fragility.** At 50×50 (panel scale), 2/5 seeds exhibit stochastic cooperation extinction (f_C → 0). The canonical 100×100 grid is needed for consistent SCREENING. Resolution: use rows=100, cols=100 for the canonical positive.
+
+**Sprint 39 escalate flag:** Both P22 and P27 returned below PASS. Per Sprint 30 rule, detector and panel composition unchanged. `C-p27-time-shuffle-invariance` flag stays provisional (panel FAILed; no clean validation data). Carry-forward: `C-p27-panel-screening-leak`.
+
 ---
 
 # Hegselmann-Krause Replication Notes (Sprint 5)
@@ -1395,6 +1423,32 @@ epidemic models (Grassberger 1983).
 
 SIR × P22: DEFINITIVE (conf=0.850, Moran_I_time=0.987, d=109.5, p=0.005).
 See test_sir_p22_e2e.py::TestSIRP22Canonical for full metrics.
+
+## Phase-2a Panel Result (v1.2) — Sprint 39 (P22 SIR)
+
+Output: `analysis/outputs/p22_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | **0.900** | 9 / 10 | gating; 1 false positive (`time_shuffled`) |
+| Catalog (substrate-typed: lattice_2d) | 0.714 | 5 / 7 | gating; 2 false positives (LV, RPS) |
+| Failed-regime (Class C: p ∈ [0.05, 0.18]) | 0.000 | 0 / 10 | gating; **all 10 detected** |
+| **Overall** | **0.519** | 14 / 27 | below 0.95 PASS gate |
+
+- v1.2 invariance flags for P22: `permutation_invariant=False, time_shuffle_invariant=False`. No Class A substrates skipped.
+- Canonical positive (SIR 64×64, infection_prob=0.4, recovery_prob=0.1, single_seed): all 5 seeds detected at SCREENING tier (conf=0.500). Note: the canonical test suite achieves DEFINITIVE at 80×80 (see P22 Detection Result above); the panel-scale 64×64 positives reach SCREENING only.
+- Class B (substrate-typed: lattice_2d): 7 catalog mates. 5/7 correctly rejected; false positives on `P11_lotka_volterra` and `P12_rps` (both have persistent spatial activity that satisfies P22's cascade-size and Moran's I prerequisites when adapted via the grid format).
+- **Class C: all 10 failed-regime runs detected at SCREENING tier.** Root cause: `infection_prob ∈ linspace(0.05, 0.18, 10)` values are ALL above the Moore-neighborhood percolation threshold p_c ≈ 0.038 (at q=0.1). The epidemic DOES spread from the single seed, producing a detectable cascade. The brief described these as "below percolation threshold ~0.2" — the ~0.2 figure is not the Moore-neighborhood physical p_c; it may be the threshold where the cascade grows large enough for CONFIRMATION (which P22 still does not reach for these seeds, but SCREENING suffices for `detected=True`).
+- Cohen's d: **1.094** (canonical positives at SCREENING conf=0.500; pooled negatives largely at 0.0 or 0.5 — bimodal).
+- **Verdict: PARTIAL** (overall TNR 0.519 < 0.95; Cohen's d 1.094 ≥ 0.5 → above FAIL gate).
+
+**Failure-mode analysis (carry-forward C-p22-class-c-above-percolation):**
+
+The sole gating failure is Class C TNR = 0.000. The failed-regime parameters (infection_prob ∈ [0.05, 0.18]) are above the actual Moore-neighborhood percolation threshold (p_c ≈ 0.038 at q=0.1). P22 correctly identifies these as information cascades. The brief's "below percolation threshold ~0.2" appears to reference an effective CONFIRMATION threshold — the cascade spreads but too slowly/sparsely to confirm — not the physical percolation threshold. However, P22's SCREENING tier fires on these cascades (they are real cascades), pushing Class C TNR to 0.000.
+
+Per Sprint 30 rule: the failed-regime parameters are not modified. Carry-forward: `C-p22-class-c-above-percolation`. Resolution path: redesign Class C to use genuinely sub-percolation regimes (e.g., infection_prob < 0.038 for Moore, or use Von Neumann neighborhood where p_c ≈ 0.10 and values 0.05–0.09 are truly sub-critical).
+
+**Sprint 39 escalate flag:** Both P22 and P27 returned below PASS. Per Sprint 30 rule, detector and panel composition unchanged. Escalating to chat-led review for both patterns before proceeding to Sprint 40 (P1 Schelling + P3 Gray-Scott).
 
 ## P13 Boundary Test
 

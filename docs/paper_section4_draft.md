@@ -363,6 +363,23 @@ though the underlying mechanism is payoff imitation rather than
 preference-driven relocation. P1 and P27 mark each other as
 co-occurrence candidates rather than mutually excluding.
 
+**Phase-2a panel (Sprint 39).** The v1.2 panel returned FAIL for P27
+(overall TNR = 0.500, Cohen's d = 0.198). Two linked problems were
+identified. First, P27's screening criterion (`f_C > 0.02 AND n_gen >
+100`) fires on any lattice substrate with ≥2% of grid cells in state 0
+— a generic condition met by GoL empty cells, GH resting cells, and
+most other lattice_2d models after grid-format adaptation. The
+confirmation tier's well-mixed baseline gate (`f_C > 0.52` for non-PD
+substrates) would correctly reject these, but since `detected = (tier ≠
+NONE)`, SCREENING suffices for a false positive. Second, the canonical
+positive (50×50, b=1.8) showed stochastic cooperation collapse at 2 of
+5 seeds — a finite-size effect absent at the canonical 100×100 scale.
+These findings are logged as carry-forward C-p27-panel-screening-leak
+for a chat-led sprint before the next dim4 closure attempt. The
+C-p27-time-shuffle-invariance flag remains provisional pending a clean
+panel run. Detector unchanged per Sprint 30 rule.
+`analysis/outputs/p27_phase2a_panel.json`.
+
 ## 4.9 Hegselmann-Krause Bounded-Confidence Opinion Dynamics (Cluster F)
 
 The Hegselmann-Krause model (2002) places N agents with continuous
@@ -476,6 +493,24 @@ sprint plan initially proposed a peak→sustained swap, which the
 characterization showed would not have distinguished SIR from RPS
 (sustained = 0.175 vs 0.562 — both nonzero, both ambiguous). The
 peak→final swap emerged from the empirical data, not from the plan.
+
+**Phase-2a panel (Sprint 39).** The v1.2 panel returned PARTIAL for P22
+(overall TNR = 0.519, Cohen's d = 1.094). Class A synthetic TNR = 0.900
+(one false positive: `time_shuffled`); Class B catalog TNR = 0.714 (two
+false positives: Lotka-Volterra and RPS, whose persistent spatial
+activity satisfies P22's cascade prerequisites). Class C TNR = 0.000:
+all 10 sub-percolation regimes (infection_prob ∈ [0.05, 0.18]) were
+detected at SCREENING. The root cause is that these infection_prob
+values lie above the Moore-neighborhood percolation threshold (p_c ≈
+0.038 at q=0.1): the epidemic genuinely spreads from the single seed,
+and P22's screening tier correctly identifies the cascade. The label
+"sub-percolation" applies only to an effective CONFIRMATION threshold,
+not the physical bond percolation threshold. This finding is logged as
+carry-forward C-p22-class-c-above-percolation; the failed-regime design
+must be revised in a chat-led sprint (e.g., using infection_prob <
+0.038, or Von Neumann neighborhood where p_c ≈ 0.10 and values 0.05–
+0.09 are genuinely sub-critical). Detector unchanged per Sprint 30 rule.
+`analysis/outputs/p22_phase2a_panel.json`.
 
 ## 4.11 Spatial Rock-Paper-Scissors and P12 Cyclic Dominance (Cluster C)
 

@@ -1,14 +1,18 @@
-"""Run the Phase-2a panel against P18 and/or P9 and write JSON outputs.
+"""Run the Phase-2a panel against P18, P9, P22, P27, etc. and write JSON outputs.
 
 Usage::
 
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p18
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p9
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py both
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p22
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p27
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
     analysis/outputs/p9_phase2a_panel.json
+    analysis/outputs/p22_phase2a_panel.json
+    analysis/outputs/p27_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -23,6 +27,8 @@ from epc.phase2a.failed_regimes import p18_voter as p18_failed
 from epc.phase2a.failed_regimes import p9_kuramoto as p9_failed
 from epc.phase2a.failed_regimes import p15_gol as p15_failed
 from epc.phase2a.failed_regimes import p14_btw as p14_failed
+from epc.phase2a.failed_regimes import p27_nowak_may as p27_failed
+from epc.phase2a.failed_regimes import p22_sir as p22_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -219,6 +225,138 @@ def run_p9(out_path: str = "analysis/outputs/p9_phase2a_panel.json", verbose: bo
     )
 
 
+def build_p27_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P27 canonical positive: Nowak-May at b=1.8 (chaotic coexistence regime).
+
+    L=50 grid, n_steps=200 so n_gen > 100 satisfies P27 screening prerequisite.
+    """
+    from epc.models.nowak_may import NowakMayModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = NowakMayModel(rows=50, cols=50, b=1.8, init_coop_fraction=0.5, seed=seed)
+        runs.append(m.run(n_steps=200))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def build_p22_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P22 canonical positive: SIR epidemic above percolation threshold.
+
+    infection_prob=0.4 is well above threshold; single_seed init produces
+    the characteristic circular wavefront and epidemic curve.
+    """
+    from epc.models.sir_epidemic import SIREpidemicModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = SIREpidemicModel(
+            rows=64, cols=64,
+            infection_prob=0.4, recovery_prob=0.1,
+            init_mode="single_seed", seed=seed,
+        )
+        runs.append(m.run(n_steps=200))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def _augment_history_p27(history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Add coop_fraction and moran_i to grid history items that lack them.
+
+    detect_p27 was designed for NowakMay histories which pre-compute
+    coop_fraction (fraction of cooperator=0 cells) and moran_i. When
+    the panel runner passes generic grid-format histories (Class A/B
+    catalog substrates adapted via _adapt_to_grid), these keys are absent.
+    We compute them here from the raw grid so the detector receives a
+    well-formed input regardless of substrate origin.
+
+    Interpretation: cooperator ≡ grid cell == 0 (NowakMay convention).
+    """
+    if not history:
+        return history
+    # If first item already has coop_fraction, no augmentation needed.
+    if "coop_fraction" in history[0]:
+        return history
+
+    augmented = []
+    for h in history:
+        item = dict(h)
+        grid = np.asarray(item.get("grid", np.zeros((1, 1), dtype=np.int8)))
+        # Cooperator fraction: fraction of 0-valued cells
+        item["coop_fraction"] = float((grid == 0).mean())
+        # Moran's I of cooperator indicator
+        indicator = (grid == 0).astype(float)
+        x = indicator - indicator.mean()
+        var = float(np.mean(x ** 2))
+        if var < 1e-12:
+            item["moran_i"] = 0.0
+        else:
+            cross = 0.0
+            W = 0
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1),
+                            (-1, -1), (-1, 1), (1, -1), (1, 1)]:
+                shifted = np.roll(np.roll(x, -dr, axis=0), -dc, axis=1)
+                cross += float(np.sum(x * shifted))
+                W += x.size
+            item["moran_i"] = float(cross / (W * var)) if W > 0 else 0.0
+        augmented.append(item)
+    return augmented
+
+
+def make_p27_detector_fn(n_permutations: int = 99, seed: int = 42):
+    from epc.detectors.p27_spatial_reciprocity import detect_p27
+    def fn(history, metadata=None):
+        aug = _augment_history_p27(history)
+        return detect_p27(aug, model_metadata=metadata, n_permutations=n_permutations)
+    return fn
+
+
+def make_p22_detector_fn(n_permutations: int = 99, seed: int = 42):
+    from epc.detectors.p22_information_cascade import P22CascadeDetector
+    detector = P22CascadeDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p27(out_path: str = "analysis/outputs/p27_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P27 panel → {out_path}")
+    positives, metadata = build_p27_positives(n_seeds=5)
+    detector_fn = make_p27_detector_fn(n_permutations=99, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P27",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p27_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
+def run_p22(out_path: str = "analysis/outputs/p22_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P22 panel → {out_path}")
+    positives, metadata = build_p22_positives(n_seeds=5)
+    detector_fn = make_p22_detector_fn(n_permutations=99, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P22",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p22_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -232,6 +370,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P15"] = run_p15()
     if which in ("p14",):
         summaries["P14"] = run_p14()
+    if which in ("p27",):
+        summaries["P27"] = run_p27()
+    if which in ("p22",):
+        summaries["P22"] = run_p22()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"
