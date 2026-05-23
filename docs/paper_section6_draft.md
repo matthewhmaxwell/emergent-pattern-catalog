@@ -552,23 +552,29 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–39), **5 / 19** patterns have
-reached AT-DEPTH grade and **14 / 19** remain at GAP. The five AT-DEPTH
+Across the 19-pattern inventory (Sprints 1–40), **6 / 19** patterns have
+reached AT-DEPTH grade and **13 / 19** remain at GAP. The six AT-DEPTH
 patterns are P9 (synchronization), P15 (persistent computation), P18
-(coarsening-to-consensus), P28 (wealth condensation), and P31 (delayed
-gratification).
+(coarsening-to-consensus), P27 (spatial reciprocity), P28 (wealth
+condensation), and P31 (delayed gratification).
 
-Four of the five AT-DEPTH patterns reached that grade via the Phase-2a
+Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
 standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
-returned PASS, and P18 returned PASS, each providing an independent
-confirmation of the AT-DEPTH grade assigned via content-level
-discriminators; P28 and P31 reached AT-DEPTH prior to the panel via
+returned PASS, P18 returned PASS, and P27 returned PASS (Sprint 40),
+each providing an independent confirmation of the AT-DEPTH grade assigned
+via content-level discriminators; P28 and P31 reached AT-DEPTH prior to
+the panel via
 mechanistic null gates and the P31 non-redundancy test respectively.
 Sprint 39 ran panels for P22 (SIR cascade) and P27 (Nowak-May spatial
 reciprocity), returning PARTIAL and FAIL respectively; neither pattern
-advanced to AT-DEPTH. The Sprint 39 findings revealed two panel design
-issues requiring a chat-led redesign sprint before these patterns can
-close their dim4 gap (see §4.8, §4.10 for details).
+advanced to AT-DEPTH. Sprint 40 re-ran both panels after targeted fixes.
+P27 advanced to PASS (TNR = 1.000, Cohen's d = 2.95) via an observable-
+prerequisite guard (see §3.5, §4.8); P22 improved from overall TNR 0.519
+→ 0.889 (Class C fixed: failed-regime TNR 0.000 → 1.000) but remains
+PARTIAL due to pre-existing catalog false positives (Lotka-Volterra and
+RPS). P27 now has PASS/PASS/PASS/PASS across all four dimensions and
+advances to AT-DEPTH; P22 remains GAP pending a discrimination sprint
+to address the catalog false positives (see §4.10).
 
 The transfer-matrix aggregate figures stand at: 20 models / 19 detectors
 / 79 compatible cells / 274 substrate-mismatch rejections / 27

@@ -160,6 +160,54 @@ def test_transfer_matrix_row():
     print(f"\n  ✅ Transfer matrix row correct")
 
 
+def test_p27_short_circuits_without_coop_fraction_observable():
+    """P27 must short-circuit (detected=False) when coop_fraction is absent.
+
+    Sprint 40: prerequisite guard prevents spurious screening-tier fires on
+    generic lattice_2d substrates that lack the cooperator/defector distinction
+    P27 was designed for (e.g. GH, voter, RPS grids with zero-valued cells).
+    """
+    from epc.detectors.p27_spatial_reciprocity import detect_p27
+
+    rng = np.random.default_rng(0)
+    # Build a generic grid history without coop_fraction key
+    history = []
+    for step in range(150):
+        grid = rng.integers(0, 3, size=(20, 20))
+        history.append({"step": step, "grid": grid, "grid_dims": (20, 20)})
+
+    result = detect_p27(history, model_metadata=None, n_permutations=19)
+
+    assert result.detected is False, (
+        f"P27 should not detect on grid without coop_fraction, got tier={result.tier}"
+    )
+    assert any("coop_fraction" in w for w in result.warnings), (
+        f"Warning about missing coop_fraction expected, got: {result.warnings}"
+    )
+
+
+def test_p27_still_fires_on_nowak_may_canonical():
+    """P27 prerequisite guard must not regress on native Nowak-May domain.
+
+    Sprint 40: after adding the prerequisite guard, verify Nowak-May b=1.8
+    (canonical positive) still reaches DEFINITIVE tier — no regression.
+    """
+    from epc.models.nowak_may import NowakMayModel
+    from epc.detectors.p27_spatial_reciprocity import detect_p27
+
+    m = NowakMayModel(rows=100, cols=100, b=1.8, init_mode="random",
+                      init_coop_fraction=0.5, seed=42)
+    h = m.run(n_steps=1500)
+    meta = m.get_metadata()
+
+    result = detect_p27(h, model_metadata=meta, n_permutations=199)
+
+    assert result.detected, "P27 canonical positive must still be detected after guard"
+    assert result.tier == "definitive", (
+        f"Expected definitive tier for Nowak-May b=1.8, got {result.tier}"
+    )
+
+
 if __name__ == "__main__":
     print("TEST 1: Nowak-May physics")
     test_nowak_may_physics()

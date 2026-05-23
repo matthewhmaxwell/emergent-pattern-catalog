@@ -239,6 +239,27 @@ prerequisites were identified by testing the proposed primary metric
 against every existing two-species lattice model before locking the
 detector, not against the planned negatives alone.
 
+**P27 coop_fraction observable prerequisite (Sprint 40).** P27's primary
+metric — the late-stage cooperation fraction (`f_C`) and its spatial
+autocorrelation — is definitionally absent on substrates that do not
+track a cooperator/defector distinction. However, the v1.2 panel
+(Sprint 39) found that P27 fired at SCREENING on 8/9 generic lattice_2d
+substrates: because the panel runner pre-computed `coop_fraction =
+(grid == 0).mean()` to avoid a KeyError, any substrate with ≥2%
+zero-valued cells (GoL, GH, RPS, voter, etc.) satisfied the screening
+criterion `f_C > 0.02 AND n_gen > 100`. Sprint 40 added a hard
+prerequisite guard at the top of `detect_p27`: if the state history
+lacks the `coop_fraction` key (which `NowakMayModel` always provides
+natively), the detector short-circuits immediately with
+`detected=False, confidence=0.0`. Concurrently the panel runner's
+synthetic augmentation of `coop_fraction` was removed. This guard is
+the P27 analog of P11's `total_std` conservation prerequisite: a
+content-level domain restriction that prevents out-of-domain misfires
+without altering the detector's behavior on its native substrate
+(Nowak-May with the cooperator/defector observable). After the fix, the
+Phase-2a panel v1.2 returned PASS for P27 (TNR = 1.000, Cohen's d =
+2.95, Sprint 40).
+
 ## 3.6 Statistical Power Requirements
 
 Permutation-based significance testing imposes minimum sample sizes that we

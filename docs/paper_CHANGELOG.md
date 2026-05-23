@@ -4,6 +4,17 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 40 (2026-05-23)
+- epc/phase2a/failed_regimes/p22_sir.py: corrected infection_prob range from [0.05, 0.18] to [0.005, 0.030] (all below Moore p_c≈0.038); updated docstring and description.
+- epc/detectors/p27_spatial_reciprocity.py: added Sprint 40 prerequisite guard — short-circuits if `coop_fraction` absent from history; prevents out-of-domain fires on generic lattice_2d substrates.
+- analysis/run_phase2a_panel.py: _augment_history_p27 converted to pass-through (no longer adds synthetic coop_fraction to generic grid histories).
+- tests/test_nowak_may_p27_e2e.py: added 2 new regression tests (short-circuit without coop_fraction; no regression on Nowak-May canonical).
+- §3.5: appended P27 observable-prerequisite paragraph alongside existing P11 discussion.
+- §4.8 P27 Nowak-May: appended Phase-2a panel re-run paragraph (Sprint 40 PASS: TNR=1.000, d=2.950; C-p27-panel-screening-leak CLOSED; C-p27-time-shuffle-invariance VALIDATED).
+- §4.10 P22 SIR: appended Phase-2a panel re-run paragraph (Sprint 40 PARTIAL: TNR=0.889, d=2.981; Class C fixed fai TNR 0.000→1.000; catalog FPs remain; C-p22-class-c-above-percolation CLOSED).
+- §6.11 aggregate: updated AT-DEPTH count 5→6 (P27 advances); updated 5→6 AT-DEPTH patterns list; updated Sprint 39 finding note to Sprint 40.
+- docs/depth_gap.md: P27 row dim4 PARTIAL→PASS, grade GAP→AT-DEPTH; P22 row dim4 note updated (Sprint 40 PARTIAL, TNR=0.889); aggregate AT-DEPTH 5→6, GAP 14→13.
+
 ## Sprint 39 (2026-05-23)
 - analysis/run_phase2a_panel.py: added run_p27() + run_p22() + _augment_history_p27() adapter; failed-regime imports for p27_nowak_may and p22_sir.
 - epc/phase2a/failed_regimes/p27_nowak_may.py: 10 extinction regimes at b ∈ linspace(2.0, 2.5, 10) (Sprint 39 Class C for P27).

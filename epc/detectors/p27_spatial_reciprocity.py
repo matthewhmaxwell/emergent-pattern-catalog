@@ -71,6 +71,33 @@ def detect_p27(
 
     n_gen = history[-1].get("step", len(history) - 1)
 
+    # Sprint 40 prerequisite guard: P27's primary metric (clustering ratio of
+    # cooperators vs defectors) is meaningless on substrates that don't track
+    # a cooperator/defector distinction. Without this guard the detector
+    # screening-tier-fires on generic lattice_2d substrates (e.g., GH, voter,
+    # RPS) whenever ≥2% of cells are zero — a Sprint 39 panel finding. This
+    # guard is the P27 analog of the P11 total_std conservation prerequisite
+    # (paper §3.5): a content-level domain restriction that prevents out-of-
+    # domain misfires without changing the detector's behavior within its
+    # native domain (Nowak-May with coop_fraction observable).
+    #
+    # Note: we check the history for coop_fraction presence ONLY (not
+    # model_metadata["model"]) because the Phase-2a panel runner passes
+    # canonical_metadata (nowak_may) to all substrates including catalog mates
+    # and synthetic substrates — making the model name check unreliable.
+    # NowakMayModel always adds coop_fraction to its state dicts; generic
+    # grid histories never have it. Presence of the key is the correct signal.
+    has_coop_fraction = all("coop_fraction" in state for state in history)
+    if not has_coop_fraction:
+        return P27DetectorResult(
+            detected=False, tier="screening", confidence=0.0,
+            coop_fraction=0.0, moran_i=0.0, moran_i_p=1.0,
+            pd_verified=False, well_mixed_baseline=0.0,
+            n_generations=n_gen,
+            warnings=["P27 requires coop_fraction observable or model_name='nowak_may' "
+                      "metadata; absent → not applicable to this substrate"],
+        )
+
     # --- Cooperation fraction (late-stage average) ---
     late_start = max(1, len(history) * 3 // 4)
     late_fcs = [h["coop_fraction"] for h in history[late_start:]]

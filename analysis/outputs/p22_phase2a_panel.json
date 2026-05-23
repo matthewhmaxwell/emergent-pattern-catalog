@@ -1,9 +1,9 @@
 {
   "pattern_id": "P22",
-  "head_commit": "ae0abec848699e52cc0e9de070a2be53f66f4836",
+  "head_commit": "77eb4cf95915912a3bc0940e98aee2781207005e",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 8.91,
+  "elapsed_seconds": 3.07,
   "detector_invariance": {
     "permutation_invariant": false,
     "time_shuffle_invariant": false,
@@ -177,154 +177,154 @@
   ],
   "failed_regime": [
     {
-      "substrate": "p=0.050",
+      "substrate": "p=0.005",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.05,
+        "infection_prob": 0.005,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 400,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.064",
+      "substrate": "p=0.008",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.06444444444444444,
+        "infection_prob": 0.0077777777777777776,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 401,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.079",
+      "substrate": "p=0.011",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.0788888888888889,
+        "infection_prob": 0.010555555555555554,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 402,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.093",
+      "substrate": "p=0.013",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.09333333333333334,
+        "infection_prob": 0.013333333333333332,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 403,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.108",
+      "substrate": "p=0.016",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.10777777777777778,
+        "infection_prob": 0.01611111111111111,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 404,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.122",
+      "substrate": "p=0.019",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.12222222222222223,
+        "infection_prob": 0.01888888888888889,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 405,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.137",
+      "substrate": "p=0.022",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.13666666666666666,
+        "infection_prob": 0.021666666666666664,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 406,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.151",
+      "substrate": "p=0.024",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.15111111111111114,
+        "infection_prob": 0.024444444444444442,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 407,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.166",
+      "substrate": "p=0.027",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.16555555555555557,
+        "infection_prob": 0.02722222222222222,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 408,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
-      "substrate": "p=0.180",
+      "substrate": "p=0.030",
       "params": {
         "rows": 64,
         "cols": 64,
-        "infection_prob": 0.18,
+        "infection_prob": 0.03,
         "recovery_prob": 0.1,
         "init_mode": "single_seed",
         "n_steps": 200
       },
       "seed": 409,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     }
   ],
   "class_b_composition": {
@@ -344,7 +344,7 @@
   "class_c_n_a_reason": null,
   "summary": {
     "n_negatives": 27,
-    "overall_tnr": 0.5185185185185185,
+    "overall_tnr": 0.8888888888888888,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 10,
     "synthetic": {
@@ -359,14 +359,14 @@
     },
     "failed_regime": {
       "n": 10,
-      "tnr": 0.0,
+      "tnr": 1.0,
       "advisory": false
     },
     "synthetic_tnr": 0.9,
     "catalog_tnr": 0.7142857142857143,
     "catalog_tnr_advisory": false,
-    "failed_regime_tnr": 0.0,
-    "cohens_d_positive_vs_panel": 1.0938835388564894,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": 2.981423969999719,
     "verdict": "PARTIAL"
   }
 }

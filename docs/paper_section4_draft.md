@@ -380,6 +380,23 @@ C-p27-time-shuffle-invariance flag remains provisional pending a clean
 panel run. Detector unchanged per Sprint 30 rule.
 `analysis/outputs/p27_phase2a_panel.json`.
 
+**Phase-2a panel re-run (Sprint 40).** Two targeted fixes resolved both
+Sprint 39 issues. (1) The prerequisite guard was added to `detect_p27`:
+if the state history lacks the `coop_fraction` key, the detector
+short-circuits immediately before the screening check. (2) The panel
+runner's `_augment_history_p27` was converted to a pass-through (no
+longer artificially computes `coop_fraction` from zero-cell counts for
+non-Nowak-May substrates). After these changes the v1.2 panel returned
+**PASS** (overall TNR = 1.000, Cohen's d = 2.950). Class A synthetic
+TNR = 1.000 (9/9 rejected; `time_shuffled` correctly skipped per
+`time_shuffle_invariant=True`); Class B catalog TNR = 1.000 (7/7
+rejected); Class C failed-regime TNR = 1.000 (10/10 rejected, b ∈
+[2.0, 2.5]). Canonical positive: 3/5 seeds at SCREENING (finite-size
+fragility at 50×50 noted; not a blocking finding since majority still
+detect). Carry-forwards C-p27-panel-screening-leak CLOSED;
+C-p27-time-shuffle-invariance VALIDATED (correctly skipped).
+`analysis/outputs/p27_phase2a_panel.json`.
+
 ## 4.9 Hegselmann-Krause Bounded-Confidence Opinion Dynamics (Cluster F)
 
 The Hegselmann-Krause model (2002) places N agents with continuous
@@ -510,6 +527,21 @@ carry-forward C-p22-class-c-above-percolation; the failed-regime design
 must be revised in a chat-led sprint (e.g., using infection_prob <
 0.038, or Von Neumann neighborhood where p_c ≈ 0.10 and values 0.05–
 0.09 are genuinely sub-critical). Detector unchanged per Sprint 30 rule.
+`analysis/outputs/p22_phase2a_panel.json`.
+
+**Phase-2a panel re-run (Sprint 40).** The v1.2 panel was re-run after
+correcting the Class C parameter range to `infection_prob ∈
+linspace(0.005, 0.030, 10)` — all values strictly below the
+Moore-neighbourhood percolation threshold p_c ≈ 0.038. Class C TNR
+recovered from 0.000 → 1.000: all 10 sub-threshold regimes correctly
+produce no detectable cascade (epidemic dies out from single seed).
+Overall panel result: PARTIAL (TNR = 0.889, Cohen's d = 2.981). Class A
+synthetic TNR remains 0.900 (one false positive: `time_shuffled`); Class
+B catalog TNR remains 0.714 (two false positives: Lotka-Volterra and RPS
+whose persistent spatial activity satisfies P22's screening threshold).
+The Class B false positives are pre-existing and out of scope for Sprint
+40; they are carry-forwards for a future chat-led detector discrimination
+sprint. Carry-forward C-p22-class-c-above-percolation is CLOSED.
 `analysis/outputs/p22_phase2a_panel.json`.
 
 ## 4.11 Spatial Rock-Paper-Scissors and P12 Cyclic Dominance (Cluster C)

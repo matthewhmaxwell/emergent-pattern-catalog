@@ -1,18 +1,17 @@
 """P22 (SIR) failed regimes: 10 sub-percolation epidemic regimes.
 
-Per Sprint 39 brief: infection_prob = linspace(0.05, 0.18, 10) — these
-are sub-percolation regimes where the epidemic fails to spread widely.
-Below the effective cascade detection threshold (~0.2) the epidemic
-dies out or remains too localised to produce a statistically detectable
-information cascade, so the P22 detector should reject all regimes.
+Sprint 40 correction: infection_prob = linspace(0.005, 0.030, 10).
+All values are strictly below the Moore-neighbourhood percolation threshold
+p_c ≈ 0.038 (q=0.1, single_seed init). At sub-threshold infection
+probabilities the epidemic from a single seed almost surely dies out
+within a few steps; no global spread occurs.
 
-The SIR CA physical percolation threshold is p_c ≈ 0.038 (Moore, q=0.1).
-At p ∈ [0.05, 0.18] the epidemic may technically percolate, but the
-effective detection threshold for P22 (which requires ≥5% of susceptibles
-infected AND significant spatial clustering Moran's I > random) is higher:
-cascades in this range are too small, slow, or spatially diffuse to satisfy
-both criteria simultaneously. In practice these regimes produce tiny halos
-around the initial seed that die out well before reaching the detection floor.
+Sprint 39 used linspace(0.05, 0.18, 10) — a brief-author error.
+Those values are all above p_c ≈ 0.038, so every "failed" regime
+was actually a genuine cascade, which caused Class C TNR = 0.000.
+The fix is to use infection_prob ∈ [0.005, 0.030], entirely below the
+percolation threshold, so the epidemic reliably fails to spread and
+P22 correctly rejects all regimes.
 """
 
 from __future__ import annotations
@@ -26,17 +25,19 @@ ROWS = 64
 COLS = 64
 RECOVERY_PROB = 0.1
 
-INFECTION_PROB_VALUES = list(np.linspace(0.05, 0.18, 10))
+INFECTION_PROB_VALUES = list(np.linspace(0.005, 0.030, 10))
 
 
 CONFIG: Dict[str, Any] = {
     "substrate_id": "P22_sir_subpercolation",
     "format": "grid",
     "description": (
-        "10 SIR epidemic regimes at infection_prob ∈ linspace(0.05, 0.18, 10) "
+        "10 SIR epidemic regimes at infection_prob ∈ linspace(0.005, 0.030, 10) "
         "on 64×64 lattice, recovery_prob=0.1, single_seed init. "
-        "Below effective cascade detection threshold ~0.2; "
-        "epidemic fails to spread widely enough for P22 to detect."
+        "All values below Moore-neighbourhood percolation threshold p_c ≈ 0.038 "
+        "(q=0.1); epidemic from single seed dies out, no global spread → P22 rejects. "
+        "Sprint 40 correction: Sprint 39 used [0.05, 0.18] which was above p_c, "
+        "causing genuine cascades in the 'failed' class (brief-author error)."
     ),
     "regimes": [
         {

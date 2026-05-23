@@ -263,46 +263,19 @@ def build_p22_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
 
 
 def _augment_history_p27(history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Add coop_fraction and moran_i to grid history items that lack them.
+    """Pass-through: Sprint 40 removed the coop_fraction augmentation.
 
-    detect_p27 was designed for NowakMay histories which pre-compute
-    coop_fraction (fraction of cooperator=0 cells) and moran_i. When
-    the panel runner passes generic grid-format histories (Class A/B
-    catalog substrates adapted via _adapt_to_grid), these keys are absent.
-    We compute them here from the raw grid so the detector receives a
-    well-formed input regardless of substrate origin.
-
-    Interpretation: cooperator ≡ grid cell == 0 (NowakMay convention).
+    Previously this function computed coop_fraction = (grid == 0).mean()
+    for any grid history that lacked the key, so that detect_p27 would not
+    crash on generic substrates. Sprint 40 added a prerequisite guard
+    directly in detect_p27 that short-circuits before accessing coop_fraction
+    when the key is absent. Augmenting every grid history was the root cause
+    of P27's spurious screening-tier fires on non-Nowak-May substrates
+    (Sprint 39 panel finding: TNR_A=0.111). With the guard in place,
+    non-Nowak-May histories are caught early and returned as not-applicable;
+    augmentation is neither necessary nor correct here.
     """
-    if not history:
-        return history
-    # If first item already has coop_fraction, no augmentation needed.
-    if "coop_fraction" in history[0]:
-        return history
-
-    augmented = []
-    for h in history:
-        item = dict(h)
-        grid = np.asarray(item.get("grid", np.zeros((1, 1), dtype=np.int8)))
-        # Cooperator fraction: fraction of 0-valued cells
-        item["coop_fraction"] = float((grid == 0).mean())
-        # Moran's I of cooperator indicator
-        indicator = (grid == 0).astype(float)
-        x = indicator - indicator.mean()
-        var = float(np.mean(x ** 2))
-        if var < 1e-12:
-            item["moran_i"] = 0.0
-        else:
-            cross = 0.0
-            W = 0
-            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1),
-                            (-1, -1), (-1, 1), (1, -1), (1, 1)]:
-                shifted = np.roll(np.roll(x, -dr, axis=0), -dc, axis=1)
-                cross += float(np.sum(x * shifted))
-                W += x.size
-            item["moran_i"] = float(cross / (W * var)) if W > 0 else 0.0
-        augmented.append(item)
-    return augmented
+    return history
 
 
 def make_p27_detector_fn(n_permutations: int = 99, seed: int = 42):
