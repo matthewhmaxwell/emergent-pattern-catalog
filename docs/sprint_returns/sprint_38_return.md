@@ -199,7 +199,7 @@ keys, matching the lattice_1d sequence idiom.
 - **Commit:** NOT YET COMMITTED (see Environment Issue above)
 - **Tag:** NOT YET TAGGED
 
-**Decision: GO-LIMITED** — All Sprint 38 code is complete and correct; all verifiable
+**Decision: GO** (was GO-LIMITED on Sprint 38; underlying TasksMax issue resolved by ops bump 64→512 + commit/push completed; chain may proceed) — All Sprint 38 code is complete and correct; all verifiable
 acceptance criteria pass; transfer matrix unchanged. Chain is blocked ONLY by a
 transient OS process-exhaustion incident (too many background pytest processes) that
 prevents `git commit` / `git tag` / `git push`. Operator must run the manual recovery
