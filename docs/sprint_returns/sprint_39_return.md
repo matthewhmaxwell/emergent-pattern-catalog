@@ -5,7 +5,7 @@ P27 (Nowak-May spatial reciprocity) — lattice_2d dim4 batch 1. Both patterns
 currently GAP on dim4. Per Sprint 35 prediction, this was designated the GO batch.
 
 **Status: code complete; both panels returned below PASS. Sprint 30 rule applied.
-Chain paused for chat-led review. Decision: GO-LIMITED.**
+Chain paused for chat-led review. Decision: GO.**
 
 ---
 
