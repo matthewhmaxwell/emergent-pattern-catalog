@@ -49,6 +49,10 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P2_abp": {"n_particles": 200, "box_size": 16.0, "v0": 0.3, "rho_star": 10.0, "D_r": 3e-3, "r_cg": 1.0, "dt": 0.1, "n_steps": 200, "seed": 0},
     # P6 D'Orsogna: Carrillo 2009 canonical milling regime. ring init → milling immediate.
     "P6_dorsogna": {"n_particles": 100, "C_a": 0.5, "C_r": 1.0, "l_a": 3.0, "l_r": 0.5, "alpha": 1.0, "beta": 0.5, "dt": 0.05, "init_mode": "ring", "init_radius": 5.0, "n_steps": 200, "seed": 0},
+    # P8 NS: canonical jamming regime per Nagel-Schreckenberg 1992 + Bette et al. 2017.
+    # density=0.3 (deep jam, stopped≈0.43), v_max=5, p_slow=0.3 matching NS 1992.
+    # road_length=100 (panel-scale; qualitative jam pattern present).
+    "P8_nagel_schreckenberg": {"road_length": 100, "density": 0.3, "v_max": 5, "p_slow": 0.3, "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -277,6 +281,27 @@ def _gen_p6_dorsogna(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "particles", "headings": headings, "positions": positions, "box_size": box_size}
 
 
+def _gen_p8_nagel_schreckenberg(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Nagel-Schreckenberg traffic in the canonical deep-jam regime.
+
+    Returns cell-occupancy sequence: arrays[t, cell] = 1 if a car occupies
+    that cell at step t, 0 otherwise. Shape (T, road_length) matching the
+    ``_gen_p31_zhang_sorting`` shape contract.
+    """
+    from epc.models.nagel_schreckenberg import NagelSchreckenberg
+
+    model = NagelSchreckenberg(
+        L=p["road_length"], density=p["density"],
+        v_max=p["v_max"], p_slow=p["p_slow"], seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    L = p["road_length"]
+    arrays = np.zeros((len(history), L), dtype=np.int8)
+    for t, snap in enumerate(history):
+        arrays[t, snap["positions"]] = 1
+    return {"kind": "sequence", "arrays": arrays}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -295,6 +320,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P22_sir_epidemic": _gen_p22_sir_epidemic,
     "P2_abp": _gen_p2_active_brownian,
     "P6_dorsogna": _gen_p6_dorsogna,
+    "P8_nagel_schreckenberg": _gen_p8_nagel_schreckenberg,
 }
 
 
@@ -695,7 +721,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P3": "P3_gray_scott",
     "P5": "P5_vicsek",
     "P6": "P6_dorsogna",                     # generator added Sprint 37
-    "P8": "P8_nagel_schreckenberg",          # declarative; generator NOT yet implemented
+    "P8": "P8_nagel_schreckenberg",          # generator added Sprint 38
     "P9": "P9_kuramoto",
     "P10": "P10_chimera",
     "P11": "P11_lotka_volterra",             # declarative; generator NOT yet implemented

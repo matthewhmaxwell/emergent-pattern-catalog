@@ -768,3 +768,41 @@ def test_panel_always_fire_stub_yields_fail_verdict(tmp_path):
     assert summary["summary"]["overall_tnr"] == 0.0
     # All inputs (positive + negative) score the same constant → no discriminating signal → FAIL.
     assert summary["summary"]["verdict"] == "FAIL"
+
+
+# --- Sprint 38: P8 NS generator + lattice_1d supplements -------------------
+
+def test_gen_p8_nagel_schreckenberg_deterministic():
+    """Sprint 38: same seed → byte-identical NS occupancy trajectory."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P8_nagel_schreckenberg"])
+    a = catalog_mod._gen_p8_nagel_schreckenberg(p)
+    b = catalog_mod._gen_p8_nagel_schreckenberg(p)
+    assert a["kind"] == "sequence"
+    assert np.array_equal(a["arrays"], b["arrays"])
+
+
+def test_gen_p8_nagel_schreckenberg_output_shape():
+    """Sprint 38: P8 generator returns kind='sequence' with shape (T, road_length)."""
+    p = dict(catalog_mod.SUBSTRATE_PARAMS["P8_nagel_schreckenberg"])
+    native = catalog_mod._gen_p8_nagel_schreckenberg(p)
+    assert native["kind"] == "sequence"
+    arrays = native["arrays"]
+    assert arrays.ndim == 2
+    assert arrays.shape[1] == p["road_length"]
+    assert arrays.shape[0] > 0
+
+
+def test_class_b_p31_includes_p8_nagel_schreckenberg():
+    """Sprint 38: class_b_for_pattern('P31') catalog_mates includes P8_nagel_schreckenberg."""
+    r = catalog_mod.class_b_for_pattern("P31")
+    assert r["substrate_type"] == "lattice_1d"
+    assert "P8_nagel_schreckenberg" in r["catalog_mates"]
+
+
+def test_lattice_1d_supplements_registered():
+    """Sprint 38: SUPPLEMENTS_BY_SUBSTRATE_TYPE['lattice_1d'] has both new builders."""
+    sup = structured_mod.SUPPLEMENTS_BY_SUBSTRATE_TYPE.get("lattice_1d", [])
+    assert "independent_lane_traffic" in sup
+    assert "reverse_sorted_sequence" in sup
+    assert "independent_lane_traffic" in structured_mod.SUPPLEMENT_BUILDERS
+    assert "reverse_sorted_sequence" in structured_mod.SUPPLEMENT_BUILDERS

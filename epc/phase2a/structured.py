@@ -180,12 +180,72 @@ def independent_brownian_motion(
     return out
 
 
+# --- Lattice_1d supplements -------------------------------------------------
+
+def independent_lane_traffic(
+    seed: int,
+    *,
+    road_length: int = 100,
+    n_cars: int = 30,
+    n_steps: int = 200,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """N cars on a 1-D ring, each advancing 1 cell per step — no gap lookahead.
+
+    Each car moves forward unconditionally (no slowing-down rule, no
+    randomization). There is no jam formation: stopped_fraction = 0 always.
+    A correctly-specific traffic-jam detector should not fire.
+
+    Returns a list of step snapshots with ``array`` (binary occupancy of
+    length ``road_length``) and ``step`` keys, matching the lattice_1d
+    sequence shape contract.
+    """
+    rng = np.random.default_rng(seed)
+    positions = rng.choice(road_length, size=n_cars, replace=False).astype(np.int32)
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        positions = (positions + 1) % road_length
+        occupancy = np.zeros(road_length, dtype=np.int8)
+        occupancy[positions] = 1
+        out.append({"array": occupancy.copy(), "step": t})
+    return out
+
+
+def reverse_sorted_sequence(
+    seed: int,
+    *,
+    n: int = 64,
+    n_steps: int = 200,
+    noise_scale: float = 0.5,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Sorted-descending integer sequence with small per-step perturbations.
+
+    Initial state: ``[n, n-1, ..., 1]`` (fully reverse-sorted). Each step
+    adds i.i.d. integer noise in ``[-noise_scale, +noise_scale]`` (rounded)
+    — no swap dynamics. Tests that detectors for emergent ordering don't fire
+    on an already-sorted (imposed) sequence.
+
+    Returns a list of step snapshots with ``array`` (int32 values of length
+    ``n``) and ``step`` keys, matching the lattice_1d sequence shape contract.
+    """
+    rng = np.random.default_rng(seed)
+    base = np.arange(n, 0, -1, dtype=np.float32)  # [n, n-1, ..., 1]
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        noise = rng.uniform(-noise_scale, noise_scale, size=n).astype(np.float32)
+        arr = np.round(base + noise).astype(np.int32)
+        out.append({"array": arr.copy(), "step": t})
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "oscillator": ["incoherent_phases", "subcritical_kuramoto"],
     "network": ["random_graph_evolution", "network_random_walks"],
     "continuous_2d": ["uncorrelated_random_walks", "independent_brownian_motion"],
+    "lattice_1d": ["independent_lane_traffic", "reverse_sorted_sequence"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -195,4 +255,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "network_random_walks": network_random_walks,
     "uncorrelated_random_walks": uncorrelated_random_walks,
     "independent_brownian_motion": independent_brownian_motion,
+    "independent_lane_traffic": independent_lane_traffic,
+    "reverse_sorted_sequence": reverse_sorted_sequence,
 }
