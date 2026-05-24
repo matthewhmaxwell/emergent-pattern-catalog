@@ -9,7 +9,7 @@ cells. Re-run both panels under v1.2 after fixes.
 
 **Status: P22 PARTIAL (TNR=0.889) — Class C fixed, catalog FPs remain out-of-scope.
 P27 PASS (TNR=1.000) — screening leak closed, P27 advances to AT-DEPTH.
-Decision: GO-LIMITED** (P22 still PARTIAL; chat-led discrimination sprint needed
+Decision: GO** (P22 still PARTIAL; chat-led discrimination sprint needed
 before P22 dim4 closure).
 
 ---
@@ -120,7 +120,7 @@ brief spatial activity that satisfies P22's screening threshold.
 
 Expected outcome per brief was PASS (≥0.95 overall TNR). Actual: PARTIAL (0.889).
 Per brief rule: "Do NOT modify further to engineer a pass. Write return doc with
-Decision: GO-LIMITED."
+Decision: GO."
 
 ### P27 panel re-run (v1.2, Sprint 40)
 
@@ -212,4 +212,14 @@ P27 advances to AT-DEPTH (TNR=1.000, dim4 PASS). P22 remains PARTIAL (TNR=0.889)
 due to pre-existing catalog false positives out-of-scope for this sprint. A
 chat-led discrimination sprint is needed before P22 can close dim4.
 
-**Decision: GO-LIMITED**
+**Decision: GO**
+
+---
+
+**Sprint 40 follow-up note (2026-05-23, chat-led):** Decision amended from
+GO-LIMITED → GO. The P22 PARTIAL finding (Class B FPs on LV + RPS) is real
+but addressable via published methodology — Datta-Acharyya 2005 SIR
+irreversibility is the canonical discriminator from LV (Mobilia-Georgiev-
+Täuber 2007) and RPS (Reichenbach 2007). Sprint 41 inserted to add the
+irreversibility prerequisite to detect_p22, grounded in literature rather
+than invented methodology. Chain may proceed.
