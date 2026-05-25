@@ -143,3 +143,22 @@ review at the next paper-review checkpoint.
     to panel harness. P21 dim4 remains PARTIAL; AT-DEPTH count unchanged: 10/19.
 - §6: Sprint 48 AT-DEPTH count 10/19 (unchanged; P21 dim4 PARTIAL, escalate).
 - analysis/outputs/p21_phase2a_panel.json: new file (Sprint 48).
+
+## Sprint 49 (2026-05-25)
+- §3.5 (new): Invariance-flag batch update rationale (Sprint 49). Documents mathematical grounding
+    for six new flag assignments (P1 time_shuffle, P2 perm, P5 time_shuffle, P6 perm+time_shuffle,
+    P8 perm+time_shuffle, P21 perm) and P10 exception (adapter artifact vs invariance).
+- §4.27 (new): Sprint 49 panel re-run results for P1, P2, P5, P6, P8, P21:
+    - P1: TNR 0.704→0.731, syn 0.800→0.889; `time_shuffled` SKIPPED; PARTIAL (C-p1-linear-gradient-fp + C-p1-class-c-subthreshold-fp persist).
+    - P2: TNR 0.958→1.000, syn 0.900→1.000; `permutation_shuffled` SKIPPED; clean PASS. C-p2-perm-shuffled-fp CLOSED.
+    - P5: TNR 0.957→1.000, syn 0.889→1.000; both substrates SKIPPED; clean PASS (was PASS-with-weakness). C-p5-time-shuffle-fp CLOSED.
+    - P6: TNR 0.958→1.000, syn 0.900→1.000; both substrates SKIPPED; clean PASS. C-p6-time-shuffle-fp CLOSED.
+    - P8: TNR 0.652→0.714, syn 0.800→1.000; both substrates SKIPPED; PARTIAL (C-p8-class-c-near-onset persists). C-p8-perm-shuffled-fp + C-p8-time-shuffle-fp CLOSED.
+    - P21: TNR 0.913→0.955, syn 0.800→0.889; `permutation_shuffled` SKIPPED; PASS-with-weakness (advances from PARTIAL). C-p21-perm-shuffled-fp CLOSED; C-p21-time-shuffled-fp remains.
+- §6: Sprint 49 AT-DEPTH count 10/19 (unchanged; P21 dim4 PARTIAL→PASS but dims 1–3 PARTIAL).
+- analysis/outputs/p1_phase2a_panel.json: updated (Sprint 49 re-run).
+- analysis/outputs/p2_phase2a_panel.json: updated (Sprint 49 re-run).
+- analysis/outputs/p5_phase2a_panel.json: updated (Sprint 49 re-run).
+- analysis/outputs/p6_phase2a_panel.json: updated (Sprint 49 re-run).
+- analysis/outputs/p8_phase2a_panel.json: updated (Sprint 49 re-run).
+- analysis/outputs/p21_phase2a_panel.json: updated (Sprint 49 re-run).

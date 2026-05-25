@@ -341,13 +341,16 @@ def test_panel_version_constant_is_one_two():
 
 @pytest.mark.parametrize("pid, perm, time", [
     ("P9",  True,  True),
-    ("P1",  False, False),
+    ("P1",  False, True),   # Sprint 49: time_shuffle_inv=True — Moran's I per-frame, temporal order irrelevant. C-p1-time-shuffle-fp.
+    ("P2",  True,  False),  # Sprint 49: perm_inv=True — two_phase_score is spatial-distribution statistic. C-p2-perm-shuffled-fp.
     ("P14", True,  True),
     ("P15", False, False),
-    ("P5",  True,  False),
+    ("P5",  True,  True),   # Sprint 49: time_shuffle_inv=True — each Vicsek frame has high φ independent of order. C-p5-time-shuffle-fp.
+    ("P6",  True,  True),   # Sprint 49: perm_inv=True (|L| sum over particles) + time_shuffle_inv=True. C-p6-time-shuffle-fp.
+    ("P8",  True,  True),   # Sprint 49: both True — stopped_fraction is time-average invariant. C-p8-perm-shuffled-fp + C-p8-time-shuffle-fp.
     ("P11", False, True),
     ("P18", True,  True),
-    ("P21", False, False),  # Sprint 48: corrected from (True,True) per brief Notes — dip test not invariant
+    ("P21", True,  False),  # Sprint 49: perm_inv=True (dip test on histogram, permutation-invariant). C-p21-perm-shuffled-fp closed.
     ("P28", True,  True),
     ("P27", False, True),   # provisional per spec Change 2
 ])
@@ -429,7 +432,7 @@ def test_panel_runs_all_class_a_for_non_invariant_detector(tmp_path):
     pos = [synth_mod.random_binary_field("grid", s, n_steps=10, shape=(4, 4)) for s in (0, 1)]
     summary = run_panel(
         _CountingStub(n_positive=2),
-        pattern_id="P1",   # perm_inv=False, time_inv=False
+        pattern_id="P15",  # perm_inv=False, time_inv=False (Sprint 49: P1 now time_shuffle_inv=True)
         detector_format="grid",
         canonical_positive_runs=pos,
         canonical_metadata={},

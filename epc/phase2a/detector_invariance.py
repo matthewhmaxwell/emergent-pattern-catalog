@@ -31,20 +31,48 @@ class InvarianceFlags:
 
 
 DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
-    "P1":  InvarianceFlags(False, False, "Moran's I + same-type neighbor fraction",
-                            rationale="Spatial autocorrelation depends on adjacency."),
+    # Sprint 49 batch update — flags derived from Sprints 39-48 empirical Class A FP evidence.
+    "P1":  InvarianceFlags(False, True,  "Moran's I + same-type neighbor fraction",
+                            rationale="Spatial autocorrelation depends on adjacency (perm_inv=False). "
+                                      "P1's Moran's I is computed per-frame; each segregated frame has "
+                                      "high I regardless of temporal order → time_shuffled is "
+                                      "degenerate-by-construction. C-p1-time-shuffle-fp (Sprint 43)."),
+    "P2":  InvarianceFlags(True,  False, "two_phase_score (spatial density ratio)",
+                            rationale="P2's two_phase_score is a spatial-distribution statistic "
+                                      "invariant under cell-index permutation (it measures cluster area "
+                                      "fraction, not cell identity) → permutation_shuffled is "
+                                      "degenerate-by-construction. C-p2-perm-shuffled-fp (Sprint 46)."),
     "P3":  InvarianceFlags(False, True,  "radial FFT peak on final field snapshot",
                             rationale="P3 computes spatial FFT per frame; each Gray-Scott frame "
                                       "contains the full Turing pattern regardless of temporal "
                                       "ordering — time_shuffled is degenerate-by-construction."),
-    "P5":  InvarianceFlags(True,  False, "heading order parameter |⟨e^iθ⟩|",
-                            rationale="Aggregate over headings; final-state metric."),
-    "P6":  InvarianceFlags(False, False, "group rotational dynamics",
-                            rationale="Trajectory-shape detector."),
+    "P5":  InvarianceFlags(True,  True,  "heading order parameter |⟨e^iθ⟩|",
+                            rationale="perm_inv=True: mean of unit vectors is invariant under particle "
+                                      "relabelling (aggregate over headings). time_shuffle_inv=True: "
+                                      "each Vicsek frame has high φ independent of temporal order — "
+                                      "time_shuffled is degenerate-by-construction. "
+                                      "C-p5-time-shuffle-fp (Sprint 46)."),
+    "P6":  InvarianceFlags(True,  True,  "group angular momentum |L|",
+                            rationale="perm_inv=True: |L| is a sum over particles, invariant under "
+                                      "particle relabelling. time_shuffle_inv=True: each milled frame "
+                                      "has high |L| regardless of temporal order → time_shuffled is "
+                                      "degenerate-by-construction. C-p6-time-shuffle-fp (Sprint 46)."),
+    "P8":  InvarianceFlags(True,  True,  "stopped_fraction (time-averaged jamming density)",
+                            rationale="P8's stopped_fraction is a time-average statistic invariant "
+                                      "under both cell-index permutation (cells anonymous: NaSch is "
+                                      "translation-invariant) and temporal shuffle (the mean is "
+                                      "preserved by any reordering) → both Class A substrates are "
+                                      "degenerate-by-construction. "
+                                      "C-p8-perm-shuffled-fp + C-p8-time-shuffle-fp (Sprint 47)."),
     "P9":  InvarianceFlags(True,  True,  "Kuramoto order parameter r",
                             rationale="Aggregate over phases, final-state."),
     "P10": InvarianceFlags(False, False, "local-coherence partitioning",
-                            rationale="Coherent vs incoherent regions are spatial."),
+                            rationale="Coherent vs incoherent regions are spatial. "
+                                      "C-p10-perm-shuffled-fp (Sprint 47): the FP arises from "
+                                      "catalog-adapter binarization preserving bimodal phase "
+                                      "structure — this is an adapter artifact, NOT mathematical "
+                                      "permutation invariance of local_r. Flags intentionally "
+                                      "unchanged (Sprint 49 decision: wrong fix to auto-flag)."),
     "P11": InvarianceFlags(False, True,  "population oscillation period / amplitude",
                             rationale="Spatial well-mixed; trajectory order matters."),
     "P12": InvarianceFlags(False, False, "spiral morphology / species lag",
@@ -61,13 +89,17 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Aggregate fraction, final-state."),
     "P19": InvarianceFlags(False, False, "influence-asymmetry TE ratio",
                             rationale="Spatial + temporal information flow."),
-    "P21": InvarianceFlags(False, False, "dip test on opinion distribution",
-                            rationale="Dip test is distributional but permuting opinion values "
-                                      "from the canonical HK positive preserves the bimodal "
-                                      "cluster structure → permutation_shuffled and time_shuffled "
-                                      "are expected FPs (carry-forwards C-p21-perm-shuffled-fp, "
-                                      "C-p21-time-shuffled-fp). Sprint 48: flags corrected from "
-                                      "(True,True) per brief Notes."),
+    "P21": InvarianceFlags(True,  False, "dip test on opinion distribution",
+                            rationale="perm_inv=True: Hartigan dip test operates on the sorted opinion "
+                                      "value histogram — permuting the N=100 opinion values from a "
+                                      "bimodal HK positive preserves the bimodal shape exactly → "
+                                      "permutation_shuffled is degenerate-by-construction. "
+                                      "time_shuffle_inv=False: shuffling temporal order mixes early "
+                                      "unimodal pre-convergence steps with late bimodal steps; the HK "
+                                      "trajectory is NOT time-order-independent, so time_shuffled "
+                                      "remains a meaningful test (not skipped). "
+                                      "C-p21-perm-shuffled-fp (Sprint 48); C-p21-time-shuffled-fp "
+                                      "remains open (HK convergence-timing issue, not invariance)."),
     "P22": InvarianceFlags(False, False, "cascade size / propagation speed",
                             rationale="Network-temporal structure."),
     # P27 time-shuffle flag is PROVISIONAL — see C-p27-time-shuffle-invariance carry-forward.

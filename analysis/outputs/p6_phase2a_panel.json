@@ -1,13 +1,13 @@
 {
   "pattern_id": "P6",
-  "head_commit": "b25c18ed1adb5f19e5b27a03551616b4d0f38b00",
+  "head_commit": "6630f0b0149f97ab0c99b532030e15bd838507b3",
   "panel_version": "1.2",
   "detector_format": "particles",
-  "elapsed_seconds": 95.14,
+  "elapsed_seconds": 86.32,
   "detector_invariance": {
-    "permutation_invariant": false,
-    "time_shuffle_invariant": false,
-    "primary_metric": "group rotational dynamics"
+    "permutation_invariant": true,
+    "time_shuffle_invariant": true,
+    "primary_metric": "group angular momentum |L|"
   },
   "canonical_positive": {
     "n_seeds": 5,
@@ -90,35 +90,31 @@
     },
     {
       "substrate": "permutation_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_permutation_invariant"
+    },
+    {
+      "substrate": "time_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_time_shuffle_invariant"
+    },
+    {
+      "substrate": "constant",
       "seed": 1843824992,
       "score": 0.0,
       "verdict": "none",
       "detected": false
     },
     {
-      "substrate": "time_shuffled",
-      "seed": 184566854,
-      "score": 0.85,
-      "verdict": "definitive",
-      "detected": true
-    },
-    {
-      "substrate": "constant",
-      "seed": 1497586438,
-      "score": 0.0,
-      "verdict": "none",
-      "detected": false
-    },
-    {
       "substrate": "linear_gradient",
-      "seed": 432652533,
+      "seed": 184566854,
       "score": 0.0,
       "verdict": "none",
       "detected": false
     },
     {
       "substrate": "checkerboard",
-      "seed": 202244314,
+      "seed": 1497586438,
       "score": 0.0,
       "verdict": "none",
       "detected": false
@@ -142,7 +138,7 @@
     {
       "substrate": "uncorrelated_random_walks",
       "kind": "synthetic_supplement",
-      "seed": 1130604997,
+      "seed": 432652533,
       "score": 0.0,
       "verdict": "none",
       "detected": false
@@ -150,7 +146,7 @@
     {
       "substrate": "independent_brownian_motion",
       "kind": "synthetic_supplement",
-      "seed": 2095133045,
+      "seed": 202244314,
       "score": 0.0,
       "verdict": "none",
       "detected": false
@@ -372,13 +368,13 @@
   "class_c_status": "populated",
   "class_c_n_a_reason": null,
   "summary": {
-    "n_negatives": 24,
-    "overall_tnr": 0.9583333333333334,
+    "n_negatives": 22,
+    "overall_tnr": 1.0,
     "class_a_size_total": 10,
-    "class_a_size_evaluated": 10,
+    "class_a_size_evaluated": 8,
     "synthetic": {
-      "n": 10,
-      "tnr": 0.9,
+      "n": 8,
+      "tnr": 1.0,
       "advisory": false
     },
     "catalog": {
@@ -391,11 +387,11 @@
       "tnr": 1.0,
       "advisory": false
     },
-    "synthetic_tnr": 0.9,
+    "synthetic_tnr": 1.0,
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": true,
     "failed_regime_tnr": 1.0,
-    "cohens_d_positive_vs_panel": 5.086747487343951,
+    "cohens_d_positive_vs_panel": Infinity,
     "verdict": "PASS"
   }
 }

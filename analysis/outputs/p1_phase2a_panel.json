@@ -1,12 +1,12 @@
 {
   "pattern_id": "P1",
-  "head_commit": "86cfb3d889097b8b7b5cc3cffa1e9b25dae8191d",
+  "head_commit": "6630f0b0149f97ab0c99b532030e15bd838507b3",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 681.61,
+  "elapsed_seconds": 549.08,
   "detector_invariance": {
     "permutation_invariant": false,
-    "time_shuffle_invariant": false,
+    "time_shuffle_invariant": true,
     "primary_metric": "Moran's I + same-type neighbor fraction"
   },
   "canonical_positive": {
@@ -97,28 +97,26 @@
     },
     {
       "substrate": "time_shuffled",
-      "seed": 184566854,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_time_shuffle_invariant"
     },
     {
       "substrate": "constant",
-      "seed": 1497586438,
+      "seed": 184566854,
       "score": 0.0,
       "verdict": "screening",
       "detected": false
     },
     {
       "substrate": "linear_gradient",
-      "seed": 432652533,
+      "seed": 1497586438,
       "score": 0.7000000000000001,
       "verdict": "confirmation",
       "detected": true
     },
     {
       "substrate": "checkerboard",
-      "seed": 202244314,
+      "seed": 432652533,
       "score": 0.0,
       "verdict": "screening",
       "detected": false
@@ -323,13 +321,13 @@
   "class_c_status": "populated",
   "class_c_n_a_reason": null,
   "summary": {
-    "n_negatives": 27,
-    "overall_tnr": 0.7037037037037037,
+    "n_negatives": 26,
+    "overall_tnr": 0.7307692307692307,
     "class_a_size_total": 10,
-    "class_a_size_evaluated": 10,
+    "class_a_size_evaluated": 9,
     "synthetic": {
-      "n": 10,
-      "tnr": 0.8,
+      "n": 9,
+      "tnr": 0.8888888888888888,
       "advisory": false
     },
     "catalog": {
@@ -342,11 +340,11 @@
       "tnr": 0.4,
       "advisory": false
     },
-    "synthetic_tnr": 0.8,
+    "synthetic_tnr": 0.8888888888888888,
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": false,
     "failed_regime_tnr": 0.4,
-    "cohens_d_positive_vs_panel": 1.6244657241348273,
+    "cohens_d_positive_vs_panel": 1.7399633695777985,
     "verdict": "PARTIAL"
   }
 }

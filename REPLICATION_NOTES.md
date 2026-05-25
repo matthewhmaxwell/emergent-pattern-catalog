@@ -5570,3 +5570,49 @@ P11        1.000  1.000  1.000  1.000    inf PASS
 **Note on permutation_shuffled FP (C-p21-perm-shuffled-fp):** P21's Hartigan dip test is purely distributional (uses sorted values only). Permuting agent indices doesn't change the sorted opinion distribution → same bimodal dip statistic → FP at CONFIRMATION. Resolution: set `permutation_invariant=True` in detector_invariance.py once confirmed (requires Sprint 49 or invariance analysis sprint). Note: brief specified (False,False) flags for Sprint 48 run, accepting this FP as expected behaviour.
 
 **Note on time_shuffled FP (C-p21-time-shuffled-fp):** HK canonical positive converges at ~step 25. Steps 0–10 are unimodal (during convergence). When time-shuffled, some early unimodal frames appear at the END of the shuffled trajectory → `_count_clusters` returns 1 for those frames → persistence scan terminates early → persistence < 50 for some seeds → SCREENING only (0.600), not CONFIRMATION. Resolution: same as C-p21-perm-shuffled-fp (set time_shuffle_invariant=True) OR acknowledge as expected weak FP.
+
+## Phase-2a Panel Results (v1.2) — Sprint 49 (Invariance-flag batch update: P1, P2, P5, P6, P8, P21)
+
+**Sprint type:** invariance-flag batch. **Sprint goal:** Apply empirically-observed invariance flags for P1, P2, P5, P6, P8, P21 and re-run all 6 panels under v1.2. No detector logic changes; flags only. **Base HEAD:** Sprint 48 post-commit.
+
+**Invariance flags updated (Sprint 49):**
+
+| Pattern | Before (perm_inv, time_inv) | After (perm_inv, time_inv) | Evidence |
+|---------|---------------------------|---------------------------|----------|
+| P1  | (False, False) | (False, True)  | C-p1-time-shuffle-fp: Moran's I per-frame — each segregated frame has high I regardless of temporal order |
+| P2  | (absent → False, False) | (True, False)  | C-p2-perm-shuffled-fp: two_phase_score is spatial-density statistic invariant to cell-index permutation |
+| P5  | (True, False)  | (True, True)   | C-p5-time-shuffle-fp: mean φ per-frame — each flocked frame has high φ regardless of temporal order |
+| P6  | (False, False) | (True, True)   | C-p6-time-shuffle-fp: |L| per-frame sum — each milled frame has high |L| regardless of temporal order |
+| P8  | (absent → False, False) | (True, True)   | C-p8-perm-shuffled-fp + C-p8-time-shuffle-fp: stopped_fraction is time-average statistic, invariant to both |
+| P21 | (False, False) | (True, False)  | C-p21-perm-shuffled-fp: dip test on sorted histogram — permuting opinion values preserves bimodal shape |
+| P10 | (False, False) | (False, False) | C-p10-perm-shuffled-fp: FP is adapter artifact (binarization), NOT mathematical invariance; no flag change |
+
+**Panel re-run results:**
+
+| Pattern | Overall TNR before | Overall TNR after | syn TNR before | syn TNR after | Cohen's d before | Cohen's d after | Verdict before | Verdict after |
+|---------|-------------------|-------------------|----------------|---------------|-----------------|-----------------|----------------|---------------|
+| P1  | 0.704 | 0.731 | 0.800 | 0.889 | 1.624 | 1.740 | PARTIAL | PARTIAL |
+| P2  | 0.958 | 1.000 | 0.900 | 1.000 | 3.401 | 4.245 | PASS | PASS |
+| P5  | 0.957 | 1.000 | 0.889 | 1.000 | 4.987 | +inf  | PASS-with-weakness | PASS |
+| P6  | 0.958 | 1.000 | 0.900 | 1.000 | 5.087 | +inf  | PASS | PASS |
+| P8  | 0.652 | 0.714 | 0.800 | 1.000 | 1.751 | 1.772 | PARTIAL | PARTIAL |
+| P21 | 0.913 | 0.955 | 0.800 | 0.889 | 4.543 | 5.487 | PARTIAL | PASS-with-weakness |
+
+**Carry-forwards CLOSED by Sprint 49:**
+- C-p1-time-shuffle-fp (time_shuffle_invariant=True; substrate now skipped)
+- C-p2-perm-shuffled-fp (permutation_invariant=True; substrate now skipped)
+- C-p5-time-shuffle-fp (time_shuffle_invariant=True; substrate now skipped)
+- C-p6-time-shuffle-fp (time_shuffle_invariant=True; substrate now skipped)
+- C-p8-perm-shuffled-fp (permutation_invariant=True; substrate now skipped)
+- C-p8-time-shuffle-fp (time_shuffle_invariant=True; substrate now skipped)
+- C-p21-perm-shuffled-fp (permutation_invariant=True; substrate now skipped)
+
+**Carry-forwards remaining open after Sprint 49:**
+- C-p1-linear-gradient-fp: Moran's I responds to gradient structure → `linear_gradient` fires at CONFIRMATION (0.700). Different issue from invariance; out-of-scope.
+- C-p1-class-c-subthreshold-fp: fai TNR=0.400 — Class C low-threshold regimes above empirical critical threshold.
+- C-p8-class-c-near-onset: fai TNR=0.400 — Class C sweep overlaps NS jamming onset at rho≈0.12 (p=0.3). Separate calibration fix needed.
+- C-p10-perm-shuffled-fp: catalog-adapter binarization artifact; not invariance-fixable.
+- C-p21-time-shuffled-fp: HK pre-convergence unimodal steps — temporal shuffle mixes early and late trajectory. Not a mathematical invariance; convergence-timing issue.
+- C-class-a-constant-field-trivial-sync: separate methodology issue.
+
+**Sprint 49 finding:** P21 dim4 advances from PARTIAL → PASS-with-weakness (overall TNR 0.913→0.955, Cohen's d 4.543→5.487). P5 panel strengthens from PASS-with-weakness → clean PASS. P2 and P6 panels strengthen to clean PASS (TNR=1.000). P1 and P8 remain PARTIAL (syn improves; Class C calibration issues out-of-scope). AT-DEPTH count unchanged: **10 / 19**.
