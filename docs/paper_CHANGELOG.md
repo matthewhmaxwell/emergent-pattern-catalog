@@ -4,6 +4,16 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 41 (2026-05-24)
+- epc/detectors/p22_information_cascade.py: added Sprint 41 irreversibility prerequisite guard — `detect()` override + `_check_irreversibility_prereq()` helper. Short-circuits with `detected=False, confidence=0.0` if any cell has a backward (decreasing) state transition. Literature anchor: Datta & Acharyya (2021), Mobilia-Georgiev-Täuber (2007), Reichenbach (2007).
+- tests/test_sir_p22_e2e.py: added 2 regression tests: `test_p22_short_circuits_on_lv_substrate` (guard fires on LV), `test_p22_still_fires_on_sir_canonical` (no regression on SIR DEFINITIVE).
+- analysis/outputs/p22_phase2a_panel.json: re-run; TNR=1.000 (syn=1.000, cat=1.000, fai=1.000), Cohen's d=+∞, verdict=PASS. Class B false positives on LV+RPS eliminated.
+- §3.5: appended P22 irreversibility-prerequisite paragraph alongside existing P11 + P27 guards.
+- §4.10 P22 SIR: appended Phase-2a panel re-run paragraph (Sprint 41 PASS: TNR=1.000, d=+∞; C-p22-class-b-cascade-overlap CLOSED).
+- §6.11 aggregate: updated Sprint 40/41 narrative; AT-DEPTH count unchanged at 6 (P22 dim4→PASS but dims 1–3 still PARTIAL).
+- docs/depth_gap.md: P22 row dim4 PARTIAL→PASS; aggregate Sprint 41 finding note added. AT-DEPTH count remains 6/19.
+- REPLICATION_NOTES.md: appended Phase-2a Panel Result (v1.2) Sprint 41 re-run section to SIR replication notes.
+
 ## Sprint 40 (2026-05-23)
 - epc/phase2a/failed_regimes/p22_sir.py: corrected infection_prob range from [0.05, 0.18] to [0.005, 0.030] (all below Moore p_c≈0.038); updated docstring and description.
 - epc/detectors/p27_spatial_reciprocity.py: added Sprint 40 prerequisite guard — short-circuits if `coop_fraction` absent from history; prevents out-of-domain fires on generic lattice_2d substrates.

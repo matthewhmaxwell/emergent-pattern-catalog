@@ -260,6 +260,24 @@ without altering the detector's behavior on its native substrate
 Phase-2a panel v1.2 returned PASS for P27 (TNR = 1.000, Cohen's d =
 2.95, Sprint 40).
 
+**P22 irreversibility prerequisite (Sprint 41).** Following Datta &
+Acharyya (2021), P22 requires that observed state transitions exhibit
+the irreversible S→I→R flow: once a cell enters the Recovered state
+(integer value 2), it never returns to Susceptible (0) or Infected (1).
+Substrates without this property — e.g., the Mobilia-Georgiev-Täuber
+(2007) LV lattice, where predator death produces the backward transition
+PREDATOR(2)→EMPTY(0), or the Reichenbach (2007) spatial RPS, where cyclic
+dominance sends species through EMPTY(0) repeatedly — trigger a hard
+short-circuit before primary-metric evaluation, returning
+`detected=False, confidence=0.0` at SCREENING tier. The Phase-2a panel
+v1.2 re-run (Sprint 41) confirmed that this guard eliminates the two
+Class B false positives (P11 LV and P12 RPS) that persisted through
+Sprint 40, bringing P22 to TNR = 1.000 (Cohen's d = +∞). This prereq
+is the P22 analog of P11's `total_std` conservation guard and P27's
+`coop_fraction` observable guard: a content-level domain restriction
+grounded in published characterization of the canonical model, not an
+ad-hoc threshold adjustment.
+
 ## 3.6 Statistical Power Requirements
 
 Permutation-based significance testing imposes minimum sample sizes that we

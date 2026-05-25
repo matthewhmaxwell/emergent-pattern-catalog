@@ -544,6 +544,20 @@ The Class B false positives are pre-existing and out of scope for Sprint
 sprint. Carry-forward C-p22-class-c-above-percolation is CLOSED.
 `analysis/outputs/p22_phase2a_panel.json`.
 
+**Phase-2a panel re-run (Sprint 41) — irreversibility prerequisite.** Sprint
+41 adds a literature-anchored content-level prerequisite to `P22CascadeDetector`:
+all per-cell state transitions must be non-decreasing (irreversible). Following
+Datta & Acharyya (2021), the defining feature of SIR is that S→I→R transitions
+never reverse — recovered cells remain recovered. LV (Mobilia-Georgiev-Täuber
+2007) has predator death (state 2→0) and RPS (Reichenbach 2007) has cyclic
+species-to-empty transitions (1→0, 2→0, 3→0), both of which are forbidden
+under the SIR irreversibility convention. The guard scans all consecutive frame
+pairs for any cell where the new state is strictly less than the previous state;
+on detection it short-circuits with `detected=False, confidence=0.0`. The v1.2
+panel re-run (Sprint 41) confirms: TNR = 1.000 across all three classes (syn,
+cat, fai), Cohen's d = +∞. Carry-forward C-p22-class-b-cascade-overlap is
+CLOSED. `analysis/outputs/p22_phase2a_panel.json`.
+
 ## 4.11 Spatial Rock-Paper-Scissors and P12 Cyclic Dominance (Cluster C)
 
 **Primary reference:** Reichenbach, T., Mobilia, M. & Frey, E. (2007).

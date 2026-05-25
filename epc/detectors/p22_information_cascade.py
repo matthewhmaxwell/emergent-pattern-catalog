@@ -65,6 +65,78 @@ class P22CascadeDetector(BaseDetector):
         self.n_permutations = n_permutations
         self._seed = seed
 
+    def detect(
+        self,
+        state_history: list[dict[str, Any]],
+        model_metadata: dict[str, Any] | None = None,
+        timescale: float | None = None,
+    ) -> "DetectorResult":  # type: ignore[override]
+        """Override to add Sprint 41 irreversibility prerequisite short-circuit.
+
+        Must run before the full pipeline to avoid wasting permutation-test
+        CPU on substrates that are definitionally out of domain.
+        """
+        from epc.detector_result import DetectorResult, DetectionTier, NullType
+
+        found_reversible, warning = self._check_irreversibility_prereq(state_history)
+        if found_reversible:
+            return DetectorResult(
+                pattern_id=self.pattern_id,
+                detected=False,
+                tier=DetectionTier.SCREENING,
+                confidence=0.0,
+                primary_metric={},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type=NullType.SHUFFLE,
+                warnings=[warning],
+            )
+        return super().detect(state_history, model_metadata, timescale)
+
+    def _check_irreversibility_prereq(
+        self,
+        state_history: list[dict[str, Any]],
+    ) -> tuple[bool, str]:
+        """Check that all per-cell state transitions are non-decreasing (SIR-irreversible).
+
+        Sprint 41 prerequisite guard: SIR's defining structural feature per
+        Datta & Acharyya (2021) is the IRREVERSIBILITY of S→I→R transitions:
+        once a cell is Recovered, it stays Recovered. LV-on-lattice
+        (Mobilia-Georgiev-Täuber 2007) and spatial RPS (Reichenbach 2007)
+        both feature REVERSIBLE / CYCLIC state transitions — a cell can
+        return to a state it previously left. Without this irreversibility,
+        the cascade-detection primary metric is meaningless because the
+        observed "wavefront" may actually be a cyclic re-visit.
+
+        Implementation: scan the state history for any cell whose state
+        trajectory contains a forbidden backward transition (e.g., I→S=1→0,
+        R→S=2→0, R→I=2→1). If ANY forbidden transition found, the substrate
+        is not SIR-compatible and the detector short-circuits.
+
+        Returns (found_reversible, warning_msg). If found_reversible is True
+        the caller should return a SCREENING-tier DetectorResult immediately.
+        """
+        if len(state_history) < 2:
+            return False, ""
+
+        if "grid" not in state_history[0]:
+            # No grid data — cannot check; allow through to the normal pipeline.
+            return False, ""
+
+        for t in range(1, len(state_history)):
+            prev_grid = state_history[t - 1]["grid"]
+            curr_grid = state_history[t]["grid"]
+            # Forbidden: any cell where integer state DECREASED (i.e., went backward).
+            # SIR's allowed transitions are non-decreasing: S(0)→I(1)→R(2) only.
+            if np.any(curr_grid < prev_grid):
+                return True, (
+                    "P22 requires irreversible S→I→R transitions per Datta-Acharyya (2021); "
+                    "observed cyclic/reversible transitions — substrate is not SIR-compatible"
+                )
+
+        return False, ""
+
     def _estimate_timescale(
         self,
         state_history: list[dict[str, Any]],

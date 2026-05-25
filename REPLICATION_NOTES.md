@@ -1450,6 +1450,46 @@ Per Sprint 30 rule: the failed-regime parameters are not modified. Carry-forward
 
 **Sprint 39 escalate flag:** Both P22 and P27 returned below PASS. Per Sprint 30 rule, detector and panel composition unchanged. Escalating to chat-led review for both patterns before proceeding to Sprint 40 (P1 Schelling + P3 Gray-Scott).
 
+## Phase-2a Panel Result (v1.2) — Sprint 41 re-run (P22 SIR, irreversibility prereq)
+
+Output: `analysis/outputs/p22_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | **1.000** | 10 / 10 | `time_shuffled` now correctly rejected (backward transitions present in time-shuffled grid) |
+| Catalog (substrate-typed: lattice_2d) | **1.000** | 7 / 7 | `P11_lotka_volterra` and `P12_rps` now correctly short-circuit |
+| Failed-regime (Class C: p ∈ [0.005, 0.030]) | **1.000** | 10 / 10 | unchanged from Sprint 40 fix |
+| **Overall** | **1.000** | 27 / 27 | **PASS** |
+
+- Cohen's d: **+∞** (all positives detected at SCREENING conf=0.500; all 27 negatives at conf=0.000 → null variance = 0).
+- **Verdict: PASS** (overall TNR 1.000 ≥ 0.95).
+
+**Fix narrative — literature-anchored irreversibility prerequisite (Sprint 41):**
+
+Sprint 41 adds a content-level domain restriction to `P22CascadeDetector.detect()` grounded in the three canonical papers:
+
+1. **Datta & Acharyya (2021)** — primary SIR reference. The model's defining structural feature is the IRREVERSIBILITY of S→I→R transitions: once Recovered (state 2), a cell stays Recovered forever. This is explicitly documented in the implementation table: "Immunity | Permanent (R never → S)" and in the REPLICATION_NOTES P1/SIR comparison narrative: "SIR's infected cells recover irreversibly; once the wavefront has passed a cell, that cell stays recovered forever."
+
+2. **Mobilia, Georgiev & Täuber (2007)** — canonical LV lattice reference. LV cells transition freely between EMPTY(0)/PREY(1)/PREDATOR(2). Predator death (2→0) and prey predation (1→0) are backward transitions under the SIR irreversibility convention.
+
+3. **Reichenbach, Mobilia & Frey (2007)** — canonical spatial RPS reference. Cyclic dominance produces 3-way reversible cycles; cells in any species state can transition to EMPTY(0) and be re-occupied by a different species.
+
+**Implementation:** `_check_irreversibility_prereq()` scans all consecutive frame pairs for any cell where `curr_state < prev_state` (state decrease). SIR's monotone transitions (0→1→2 only) never trigger this. LV's predator death (2→0) and RPS's species elimination both trigger it immediately. On detection, `detect()` returns a SCREENING-tier `DetectorResult` with `detected=False, confidence=0.0` and a warning citing Datta-Acharyya (2021).
+
+**Before/after Class B comparison:**
+
+| Substrate | Sprint 40 verdict | Sprint 41 verdict | Guard trigger |
+|---|---|---|---|
+| P11_lotka_volterra | FP (screening) | TN (short-circuit) | 2→0 (predator death) |
+| P12_rps | FP (screening) | TN (short-circuit) | 3→0 (species → empty) |
+| P13_greenberg_hastings | TN | TN | guard passes (n_states≥3 GH uses 0→1→…→n−1→0 cycle; 3→0 detected) |
+| P14_btw_sandpile | TN | TN | no grid key → guard skips |
+| P15_gol | TN | TN | binarized 1→0 (GoL cell dies) detected |
+| P1_schelling | TN | TN | binarized 1→0 detected |
+| P27_nowak_may | TN | TN | binarized 1→0 (defection) detected |
+
+**Carry-forward closure:** `C-p22-class-b-cascade-overlap` (Sprint 40, NEW) is **CLOSED** by this sprint. The irreversibility prereq addresses all Class B false positives.
+
 ## P13 Boundary Test
 
 SIR × P13: REJECTED. The n_states=3 hard guard PASSES (SIR has 3 discrete

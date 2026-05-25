@@ -362,17 +362,19 @@ class TestP22CrossDetection:
             f"GoL R-pentomino cascade reach {reach:.4f} should be below 5%"
 
     def test_nowak_may_rejected_by_p22(self):
-        """Nowak-May spatial PD has no cascade — cells update synchronously.
+        """Nowak-May spatial PD has no cascade — rejected by irreversibility guard.
 
-        Nowak-May uses state 0 = defector, state 1 = cooperator. P22 looks for
-        cells transitioning 0→1 (susceptible→infected) and measures spatial
-        correlation of transition times. Nowak-May has transitions but:
-        1. No wavefront-from-seed pattern (fluctuations are scattered)
-        2. Cells flip back and forth, not monotonic 0→1→2
+        Nowak-May uses state 0 = defector, state 1 = cooperator. Cells freely
+        flip between 0 and 1 (cooperator → defector transitions are backward in
+        the SIR irreversibility convention), so P22's Sprint 41 prereq guard fires
+        before computing primary metrics. Rejection is confirmed by:
+        1. detected=False at SCREENING tier with confidence=0.0
+        2. Warning mentions irreversibility (guard fired)
+        3. Primary metric dict is empty (short-circuit before computation)
 
-        Expected: cascade_reach_total ≈ 0 (cells frequently flip back to 0),
-        moran_i_time ≈ 0 (no spatial structure in 0→1 transition timing),
-        fails screening.
+        Original reason for rejection was also valid: no wavefront-from-seed
+        pattern + cells flip back and forth (not monotonic 0→1→2). Sprint 41
+        makes this rejection earlier and cheaper.
         """
         from epc.models.nowak_may import NowakMayModel
 
@@ -388,10 +390,10 @@ class TestP22CrossDetection:
             f"Nowak-May should not register as cascade, got detected=True"
         assert result.tier == DetectionTier.SCREENING, \
             f"Expected screening-level rejection, got {result.tier}"
-        moran = result.primary_metric.get("moran_i_time", 1.0)
-        assert moran < 0.1, \
-            f"Nowak-May moran_i_time {moran:.3f} should be near zero " \
-            f"(no spatial wavefront in cooperation transitions)"
+        # Sprint 41: irreversibility guard fires, primary_metric is empty
+        assert any("irreversib" in w.lower() for w in result.warnings), \
+            f"Nowak-May (1→0 transitions) should trigger irreversibility warning; " \
+            f"got warnings: {result.warnings}"
 
 
 # ============================================================
@@ -831,3 +833,88 @@ class TestSIRQuantitativeReplication:
             assert int(np.sum(grid == 0)) == state["s_count"]
             assert int(np.sum(grid == 1)) == state["i_count"]
             assert int(np.sum(grid == 2)) == state["r_count"]
+
+
+# ============================================================
+# Sprint 41: P22 irreversibility prerequisite guard
+# ============================================================
+
+
+class TestP22IrreversibilityPrereq:
+    """Sprint 41: P22 must short-circuit on substrates with reversible transitions.
+
+    SIR's defining structural feature per Datta & Acharyya (2021) is the
+    IRREVERSIBILITY of S→I→R transitions. LV-on-lattice (Mobilia-Georgiev-
+    Täuber 2007) and spatial RPS (Reichenbach 2007) both have REVERSIBLE/
+    CYCLIC transitions — a cell can return to a state it previously left.
+    P22's primary metric (Moran's I on infection time map) is meaningless
+    for such substrates because 0→1 transitions can be cyclic re-visits.
+
+    The guard scans for any per-cell state DECREASE across consecutive frames.
+    SIR never has any (0→1→2 only); LV has many (predator dies: 2→0).
+    """
+
+    def test_p22_short_circuits_on_lv_substrate(self):
+        """P22 must short-circuit on LV lattice (reversible predator-prey dynamics).
+
+        Mobilia-Georgiev-Täuber (2007) LV: cells freely transition between
+        EMPTY(0), PREY(1), PREDATOR(2). Predator death (2→0) and prey being
+        eaten (1→0) are backward transitions under the SIR irreversibility
+        convention. P22's guard must detect these and return detected=False
+        at SCREENING tier with a warning mentioning irreversibility.
+        """
+        from epc.models.lotka_volterra_lattice import LotkaVolterraLattice
+
+        model = LotkaVolterraLattice(
+            rows=50, cols=50,
+            predation_rate=2.0,
+            prey_reproduction_rate=1.0,
+            predator_death_rate=1.0,
+            init_prey_fraction=0.3,
+            init_predator_fraction=0.3,
+            seed=42,
+        )
+        history = model.run(n_steps=100)
+
+        det = P22CascadeDetector(n_permutations=199, seed=42)
+        result = det.detect(history, model.get_metadata())
+
+        assert result.detected is False, (
+            "P22 should NOT detect cascade in LV (reversible transitions)"
+        )
+        assert result.tier == DetectionTier.SCREENING, (
+            f"LV should short-circuit at SCREENING, got {result.tier}"
+        )
+        assert result.confidence == 0.0, (
+            f"Short-circuit confidence must be 0.0, got {result.confidence}"
+        )
+        assert any("irreversib" in w.lower() for w in result.warnings), (
+            f"Warning must mention irreversibility; got warnings: {result.warnings}"
+        )
+
+    def test_p22_still_fires_on_sir_canonical(self):
+        """P22 must NOT be degraded on SIR — no regression on native domain.
+
+        SIR transitions are strictly non-decreasing (S=0 → I=1 → R=2 only).
+        The irreversibility prereq must pass silently, and P22 must still
+        reach DEFINITIVE tier on a canonical supercritical SIR run.
+        """
+        model = SIREpidemicModel(
+            rows=80, cols=80,
+            infection_prob=0.20, recovery_prob=0.3,
+            init_mode="single_seed", seed=42,
+        )
+        history = model.run(400, record_every=1)
+        meta = model.get_metadata()
+
+        det = P22CascadeDetector(n_permutations=199, seed=42)
+        result = det.detect(history, meta)
+
+        assert result.detected, "P22 must still detect cascade in canonical SIR"
+        assert result.tier >= DetectionTier.DEFINITIVE, (
+            f"SIR canonical must reach DEFINITIVE after Sprint 41 guard, got {result.tier}"
+        )
+        # No irreversibility warning on SIR
+        assert not any("irreversib" in w.lower() for w in result.warnings), (
+            f"SIR should NOT trigger irreversibility warning; got: {result.warnings}"
+        )

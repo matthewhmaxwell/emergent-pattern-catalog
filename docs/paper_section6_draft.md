@@ -552,7 +552,7 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–40), **6 / 19** patterns have
+Across the 19-pattern inventory (Sprints 1–41), **6 / 19** patterns have
 reached AT-DEPTH grade and **13 / 19** remain at GAP. The six AT-DEPTH
 patterns are P9 (synchronization), P15 (persistent computation), P18
 (coarsening-to-consensus), P27 (spatial reciprocity), P28 (wealth
@@ -570,11 +570,14 @@ reciprocity), returning PARTIAL and FAIL respectively; neither pattern
 advanced to AT-DEPTH. Sprint 40 re-ran both panels after targeted fixes.
 P27 advanced to PASS (TNR = 1.000, Cohen's d = 2.95) via an observable-
 prerequisite guard (see §3.5, §4.8); P22 improved from overall TNR 0.519
-→ 0.889 (Class C fixed: failed-regime TNR 0.000 → 1.000) but remains
-PARTIAL due to pre-existing catalog false positives (Lotka-Volterra and
-RPS). P27 now has PASS/PASS/PASS/PASS across all four dimensions and
-advances to AT-DEPTH; P22 remains GAP pending a discrimination sprint
-to address the catalog false positives (see §4.10).
+→ 0.889 (Class C fixed: failed-regime TNR 0.000 → 1.000) but remained
+PARTIAL due to catalog false positives (Lotka-Volterra and RPS). P27 now
+has PASS/PASS/PASS/PASS across all four dimensions and advances to
+AT-DEPTH. Sprint 41 added a literature-anchored irreversibility
+prerequisite to P22 (see §3.5, §4.10), closing the Class B false positives
+and advancing P22 dim4 to PASS (TNR = 1.000, Cohen's d = +∞); however,
+dims 1–3 remain PARTIAL so P22 does not yet reach AT-DEPTH. The AT-DEPTH
+count remains 6 / 19.
 
 The transfer-matrix aggregate figures stand at: 20 models / 19 detectors
 / 79 compatible cells / 274 substrate-mismatch rejections / 27

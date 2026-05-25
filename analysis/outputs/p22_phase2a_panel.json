@@ -1,9 +1,9 @@
 {
   "pattern_id": "P22",
-  "head_commit": "77eb4cf95915912a3bc0940e98aee2781207005e",
+  "head_commit": "e50afaa50e8886c82f1c499010c77842700739c0",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 3.07,
+  "elapsed_seconds": 2.6,
   "detector_invariance": {
     "permutation_invariant": false,
     "time_shuffle_invariant": false,
@@ -98,9 +98,9 @@
     {
       "substrate": "time_shuffled",
       "seed": 184566854,
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
       "substrate": "constant",
@@ -128,16 +128,16 @@
     {
       "substrate": "P11_lotka_volterra",
       "kind": "catalog_mate",
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
       "substrate": "P12_rps",
       "kind": "catalog_mate",
-      "score": 0.5,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
       "substrate": "P13_greenberg_hastings",
@@ -344,17 +344,17 @@
   "class_c_n_a_reason": null,
   "summary": {
     "n_negatives": 27,
-    "overall_tnr": 0.8888888888888888,
+    "overall_tnr": 1.0,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 10,
     "synthetic": {
       "n": 10,
-      "tnr": 0.9,
+      "tnr": 1.0,
       "advisory": false
     },
     "catalog": {
       "n": 7,
-      "tnr": 0.7142857142857143,
+      "tnr": 1.0,
       "advisory": false
     },
     "failed_regime": {
@@ -362,11 +362,11 @@
       "tnr": 1.0,
       "advisory": false
     },
-    "synthetic_tnr": 0.9,
-    "catalog_tnr": 0.7142857142857143,
+    "synthetic_tnr": 1.0,
+    "catalog_tnr": 1.0,
     "catalog_tnr_advisory": false,
     "failed_regime_tnr": 1.0,
-    "cohens_d_positive_vs_panel": 2.981423969999719,
-    "verdict": "PARTIAL"
+    "cohens_d_positive_vs_panel": Infinity,
+    "verdict": "PASS"
   }
 }
