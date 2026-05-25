@@ -7,12 +7,14 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py both
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p22
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p27
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p1
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
     analysis/outputs/p9_phase2a_panel.json
     analysis/outputs/p22_phase2a_panel.json
     analysis/outputs/p27_phase2a_panel.json
+    analysis/outputs/p1_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -29,6 +31,7 @@ from epc.phase2a.failed_regimes import p15_gol as p15_failed
 from epc.phase2a.failed_regimes import p14_btw as p14_failed
 from epc.phase2a.failed_regimes import p27_nowak_may as p27_failed
 from epc.phase2a.failed_regimes import p22_sir as p22_failed
+from epc.phase2a.failed_regimes import p1_schelling as p1_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -330,6 +333,54 @@ def run_p22(out_path: str = "analysis/outputs/p22_phase2a_panel.json", verbose: 
     )
 
 
+def build_p1_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P1 canonical positive: Schelling segregation at threshold=0.375, 64×64.
+
+    threshold=0.375 is the canonical segregating regime per Schelling (1971).
+    n_steps=200 ensures the system reaches a stable segregated configuration.
+    Returns a dummy metadata dict (run_schelling is a function with no get_metadata).
+    """
+    from epc.models.schelling import run_schelling
+    runs: List[List[Dict[str, Any]]] = []
+    for seed in range(n_seeds):
+        runs.append(run_schelling(
+            grid_size=64, density=0.9, threshold=0.375,
+            n_steps=200, seed=seed,
+        ))
+    metadata: Dict[str, Any] = {
+        "model": "schelling_segregation",
+        "model_class": "schelling",
+        "substrate_type": "lattice_2d",
+    }
+    return runs, metadata
+
+
+def make_p1_detector_fn(n_permutations: int = 999):
+    from epc.detectors.p1_aggregation import P1AggregationDetector
+    detector = P1AggregationDetector(n_permutations=n_permutations)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p1(out_path: str = "analysis/outputs/p1_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P1 panel → {out_path}")
+    positives, metadata = build_p1_positives(n_seeds=5)
+    detector_fn = make_p1_detector_fn(n_permutations=999)
+    return run_panel(
+        detector_fn,
+        pattern_id="P1",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p1_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -347,6 +398,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P27"] = run_p27()
     if which in ("p22",):
         summaries["P22"] = run_p22()
+    if which in ("p1",):
+        summaries["P1"] = run_p1()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

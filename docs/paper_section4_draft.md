@@ -2172,3 +2172,42 @@ result, which tests those same discriminators against 30 substrate-diverse
 non-positives not included in the original characterization ensemble,
 constitutes a second. No false positives were observed at any tier.
 Full results: `analysis/outputs/p18_phase2a_panel.json`.
+
+### §4.21 Sprint 42 — Phase-2a panel run: P1 Schelling (PARTIAL) and P3 Gray-Scott (paused)
+
+**P1 Schelling — panel result (Sprint 42).**
+
+The Phase-2a panel (v1.2) was run against the P1 aggregation detector using
+Schelling segregation as the canonical positive (threshold=0.375, grid_size=64,
+n_steps=200, 5 seeds). All 5 canonical positive seeds returned CONFIRMATION
+tier (confidence=0.700). The overall panel TNR was 0.593 (PARTIAL per v1.2
+verdict rules; overall_tnr < 0.95). Cohen's d = 1.298 (≥ 0.5, so the
+verdict is PARTIAL rather than FAIL).
+
+Key false positives: (i) Class A `time_shuffled` substrate — because Schelling
+reaches near-stable segregation in the first 20–50 steps of a 200-step run, the
+time-shuffled run's final frame retains high spatial autocorrelation (Moran's I),
+triggering CONFIRMATION; (ii) Class A `linear_gradient` substrate — a spatially
+smooth gradient has high Moran's I and cannot be distinguished from cluster
+spatial structure by the screening/confirmation gates; (iii) Class B P11
+(Lotka-Volterra), P15 (Game of Life), P12 (RPS) — all three produce persistent
+spatial autocorrelation in their lattice_2d configurations, triggering the
+Moran's I gate; (iv) Class C: 6 of 10 sub-threshold Schelling regimes fire
+at CONFIRMATION despite threshold < 0.375, primarily due to accidental initial
+clustering in 32×32 grids at density=0.9.
+
+Per the Sprint 30 rule, no detector or model changes are applied in-sprint.
+Four carry-forwards are opened: C-p1-time-shuffle-fp, C-p1-linear-gradient-fp,
+C-p1-class-b-lattice2d-fp, C-p1-class-c-subthreshold-fp. Full results:
+`analysis/outputs/p1_phase2a_panel.json`.
+
+**P3 Gray-Scott — panel paused (Sprint 42).**
+
+`class_b_for_pattern("P3")` at Sprint 42 HEAD returns `catalog_mates=[]`
+(0 lattice_2d_continuous mates, against a threshold of 3). Per the Sprint 42
+brief, a P3 panel run with fewer than 3 Class B mates is not interpretable —
+the substrate_type lattice_2d_continuous has only one registered member (Gray-Scott
+itself), leaving no class-typed catalog non-positives. The panel is paused
+pending a spec call on the fallback override (likely: use lattice_2d catalog
+mates for the P3 panel). Carry-forward C-lattice_2d_continuous-substrate-undercount
+opened. Full resolution in a subsequent sprint.

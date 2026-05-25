@@ -586,3 +586,11 @@ observable-mismatch rejections / 19 display rows / 361 displayed cells /
 unchanged from Sprint 26 and are locked by `scripts/count_transfer_matrix.py`
 whose output is pinned in the pre-flight and post-flight checks at each
 sprint boundary.
+
+Sprint 42 ran the Phase-2a panel (v1.2) against P1 (Schelling segregation)
+and attempted P3 (Gray-Scott). P1 returned PARTIAL (TNR=0.593, Cohen's
+d=1.298): Moran's I fires on `linear_gradient` and `time_shuffled` synthetic
+substrates (Class A) and on P11/P15/P12 lattice_2d catalog mates (Class B),
+reflecting the broad-spectrum nature of spatial autocorrelation as a primary
+metric. P3 panel was paused due to the lattice_2d_continuous substrate-undercount
+condition (0 Class B mates; threshold is 3). AT-DEPTH count unchanged: **6 / 19**.

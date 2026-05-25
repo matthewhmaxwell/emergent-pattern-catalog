@@ -5358,3 +5358,54 @@ estimates (T_max=200 → T_max≈500). Tracking only #33 going forward.
 | New | `analysis/outputs/p10_phase_boundary_multiseed.json` | Phase 1n grid |
 | New | `analysis/outputs/p10_basin_volume_multiseed.png` | Sprint 27 figure |
 | Modified | `REPLICATION_NOTES.md` | +this section |
+
+## Phase-2a Panel Result (v1.2) — Sprint 42 (P1 Schelling, PARTIAL)
+
+Output: `analysis/outputs/p1_phase2a_panel.json`. Panel spec: `docs/phase2a_panel_spec.md` (v1.2, Sprint 34).
+
+| Class | TNR | n_eval / n_total | Notes |
+|---|---|---|---|
+| Synthetic (Class A) | **0.800** | 8 / 10 | FPs: `time_shuffled` (confirmation 0.700), `linear_gradient` (confirmation 0.700) |
+| Catalog (substrate-typed: lattice_2d) | **0.571** | 4 / 7 | FPs: `P11_lotka_volterra` (confirmation 0.700), `P15_gol` (confirmation 0.700), `P12_rps` (screening 0.600) |
+| Failed-regime (Class C: threshold ∈ [0.05, 0.25]) | **0.400** | 4 / 10 | FPs: threshold=0.050, 0.161, 0.183, 0.206, 0.228, 0.250 (confirmation 0.700) |
+| **Overall** | **0.593** | 16 / 27 | **PARTIAL** |
+
+- Cohen's d: **1.298** (positive mean score 0.700; negative mean score 0.333; pooled std 0.284).
+- Canonical positive: 5 / 5 seeds at CONFIRMATION tier (confidence 0.700). Positive does not reach DEFINITIVE — P1 detector has no DEFINITIVE tier for Schelling since Schelling lacks the multi-seed variance estimate required for the definitive gate.
+- **Verdict: PARTIAL** (overall TNR 0.593 < 0.95 threshold; d=1.298 ≥ 0.5).
+
+**Per-substrate FP breakdown:**
+
+**Class A false positives:**
+
+1. `time_shuffled` — time-shuffles the canonical Schelling run's frames. The final state of the time-shuffled sequence is a random frame drawn from the canonical run. Because Schelling rapidly reaches near-stable segregation (most segregation occurs in the first 20–50 steps of a 200-step run), the time-shuffled final state typically retains high Moran's I. The P1 detector's final-state Moran's I primary metric does not distinguish "final frame of time-shuffled run" from "final frame of genuine run." **Root cause:** P1 primary metric is a spatial snapshot statistic, not a temporal formation detector. The brief anticipated this would be TN based on the spec's general principle; the empirical result shows it is an FP for Schelling because the positive's intermediate frames already exhibit the canonical pattern.
+
+2. `linear_gradient` — a spatially smooth linear gradient has high spatial autocorrelation (adjacent cells have similar values) and therefore high Moran's I. The P1 detector cannot distinguish "gradient spatial structure" from "clustering spatial structure" at the screening/confirmation stages.
+
+**Class B false positives:**
+
+- `P11_lotka_volterra` — predator-prey lattice in coexistence regime generates persistent spatial clusters (spirals + patches) with Moran's I comparable to Schelling.
+- `P15_gol` — Game of Life random-dense initial condition produces persistent localized structures (gliders, blinkers, stable regions) with elevated spatial autocorrelation.
+- `P12_rps` — RPS spiral domains maintain high Moran's I across all timesteps; fires at SCREENING tier (0.600) rather than CONFIRMATION.
+
+**Class C false positives (sub-threshold regimes):**
+
+- threshold=0.050: the most tolerant regime (agents require only 5% same-type neighbours). Initial random placement at density=0.9 can have accidental spatial correlation in small (32×32) grid; with seed=100, the initial configuration has enough incidental clustering to clear the CONFIRMATION gate.
+- threshold=0.161–0.250: at these tolerance values, agents may not move from their initial positions (already satisfied) but the seeded initial placement has enough local correlation that Moran's I remains above the CONFIRMATION threshold throughout the run.
+
+**Sprint 30 rule applies: PARTIAL → no detector/model changes; carry-forwards opened:**
+
+- `C-p1-time-shuffle-fp`: P1 `time_shuffled` Class A false positive — Schelling's intermediate frames already show segregation; temporal ordering does not distinguish pre-pattern from post-pattern in fast-converging models.
+- `C-p1-linear-gradient-fp`: P1 `linear_gradient` Class A false positive — Moran's I responds to gradient spatial structure; spatial gradient is not excluded by the confirmation gate.
+- `C-p1-class-b-lattice2d-fp`: P1 Class B false positives on P11_LV, P15_GoL, P12_RPS — multiple lattice_2d models with persistent spatial autocorrelation trigger the Moran's I gate.
+- `C-p1-class-c-subthreshold-fp`: P1 Class C false positives at lower sub-threshold values — accidental initial clustering in 32×32 grids at density=0.9 clears the confirmation threshold.
+
+## Phase-2a Panel — Sprint 42 P3 Pause (lattice_2d_continuous substrate undercount)
+
+Sprint 42 brief specifies: IF Class B has <3 mates for `lattice_2d_continuous`, pause and log carry-forward (escalate to chat for resolution — likely "use lattice_2d mates as fallback for lattice_2d_continuous").
+
+**Pre-check result:** `class_b_for_pattern("P3")` at Sprint 42 HEAD returns `catalog_mates=[]` (0 lattice_2d_continuous mates). Threshold is 3. Condition fires.
+
+**Action taken:** P3 panel run paused. No `analysis/outputs/p3_phase2a_panel.json` written. `state.json` updated: `in_flight=null`, `last_escalation` populated. Carry-forward `C-lattice_2d_continuous-substrate-undercount` opened.
+
+**Carry-forward:** `C-lattice_2d_continuous-substrate-undercount` — P3 is the only lattice_2d_continuous pattern in the registry; its Class B is empty (0 mates). The brief-recommended resolution is to use lattice_2d catalog mates as a fallback for lattice_2d_continuous. This requires a spec call (chat-led) to decide whether and how to implement the override in `epc/phase2a/catalog.py::class_b_for_pattern()`. Out of scope for Sprint 42 per brief.

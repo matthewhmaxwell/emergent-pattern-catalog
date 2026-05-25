@@ -63,3 +63,9 @@ review at the next paper-review checkpoint.
   figure lock confirmation, note on 4-of-5 AT-DEPTH via panel
 
 ## Sprint 37 (placeholder — first orchestrator-driven sprint will write its own entry)
+
+## Sprint 42
+
+- §4.21 added: P1 Schelling Phase-2a panel v1.2 PARTIAL (TNR=0.593, Cohen's d=1.298);
+  4 carry-forwards opened; P3 Gray-Scott panel paused (lattice_2d_continuous undercount).
+- §6 appended: Sprint 42 AT-DEPTH count unchanged 6/19; P1 PARTIAL finding noted.
