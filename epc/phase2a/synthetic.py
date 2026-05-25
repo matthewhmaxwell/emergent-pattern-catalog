@@ -68,6 +68,20 @@ def _phases_history_from_array(theta_t: np.ndarray, cadence: int = PHASES_DEFAUL
     return out
 
 
+SEQUENCE_DEFAULT_N = 200  # default lattice_1d road/array length
+
+
+def _sequence_history_from_array(arrays: np.ndarray) -> List[Dict[str, Any]]:
+    """Wrap a (T, N) integer array into the standard sequence-history format.
+
+    Each step dict has an ``array`` key (1-D integer array of length N).
+    These histories lack a ``velocities`` key so the P8 traffic-jam detector
+    rejects them at prerequisites — the intended behaviour for null substrates.
+    """
+    T, N = arrays.shape
+    return [{"array": arrays[t].copy(), "step": t} for t in range(T)]
+
+
 def _particles_history_from_random(
     rng: np.random.Generator,
     n: int,
@@ -117,6 +131,9 @@ def random_uniform_field(
         return _wrap_avalanches(rng.integers(1, max_size + 1, size=n_avalanches))
     if format == "particles":
         return _particles_history_from_random(rng, n, n_steps)
+    if format == "sequence":
+        arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -145,6 +162,10 @@ def random_gaussian_field(
         return _wrap_avalanches(sizes)
     if format == "particles":
         return _particles_history_from_random(rng, n, n_steps)
+    if format == "sequence":
+        z = rng.standard_normal(size=(n_steps, n))
+        arr = (z > 0.0).astype(np.int8)
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -173,6 +194,9 @@ def random_binary_field(
         return _wrap_avalanches(rng.integers(1, 3, size=n_avalanches))
     if format == "particles":
         return _particles_history_from_random(rng, n, n_steps)
+    if format == "sequence":
+        arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -204,6 +228,9 @@ def spatial_white_noise_series(
         return _wrap_avalanches(sizes)
     if format == "particles":
         return _particles_history_from_random(rng, n, n_steps)
+    if format == "sequence":
+        arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -247,6 +274,14 @@ def temporal_white_noise_per_cell(
         return _wrap_avalanches(sizes)
     if format == "particles":
         return _particles_history_from_random(rng, n, n_steps)
+    if format == "sequence":
+        flips = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
+        state = rng.integers(0, 2, size=n, dtype=np.int8)
+        out = np.empty((n_steps, n), dtype=np.int8)
+        for t in range(n_steps):
+            state = np.bitwise_xor(state, flips[t])
+            out[t] = state
+        return _sequence_history_from_array(out)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -326,6 +361,23 @@ def permutation_shuffled_positive(
             }
             for t in range(T)
         ]
+    if format == "sequence":
+        # Sequence permutation: shuffle velocities (or array) from the final frame.
+        # For NS-format positives (velocities key present), this preserves
+        # stopped_fraction (permutation-invariant) so P8 may still detect at
+        # SCREENING tier — expected FP per brief (permutation_invariant flag
+        # is missing from detector_invariance.py; carry-forward C-p8-perm-shuffled-fp).
+        snap = positive[-1]
+        if "velocities" in snap:
+            vels = np.asarray(snap["velocities"]).copy()
+            rng.shuffle(vels)
+            T = len(positive)
+            return [dict(positive[t], velocities=vels.copy(), step=t) for t in range(T)]
+        # Fallback: shuffle the 'array' key if present, else produce zeros.
+        arr_last = np.asarray(snap.get("array", np.zeros(SEQUENCE_DEFAULT_N, dtype=np.int8))).copy()
+        rng.shuffle(arr_last)
+        T = len(positive)
+        return [{"array": arr_last.copy(), "step": t} for t in range(T)]
     raise ValueError(f"unknown format: {format}")
 
 
@@ -398,6 +450,9 @@ def constant_field(
                 "step": t,
             })
         return out
+    if format == "sequence":
+        arr = np.full((n_steps, n), value, dtype=np.int8)
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -445,6 +500,10 @@ def linear_gradient_field(
                 "step": t,
             })
         return out
+    if format == "sequence":
+        arr_static = np.arange(n, dtype=np.int32) % 2
+        arr = np.broadcast_to(arr_static.astype(np.int8), (n_steps, n)).copy()
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -494,6 +553,10 @@ def periodic_checkerboard(
                 "step": t,
             })
         return out
+    if format == "sequence":
+        arr_static = (np.arange(n) % 2).astype(np.int8)
+        arr = np.broadcast_to(arr_static, (n_steps, n)).copy()
+        return _sequence_history_from_array(arr)
     raise ValueError(f"unknown format: {format}")
 
 

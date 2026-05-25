@@ -653,3 +653,21 @@ DEFINITIVE (|L| per frame is temporal-order invariant — carry-forward C-p6-tim
 All Class C failed-regime TNRs = 1.000. P5 dim4 advances PARTIAL→PASS with all other dims
 already PASS → P5 advances to **AT-DEPTH**. P2 and P6 dim4 advance PARTIAL→PASS; other dims
 remain PARTIAL. AT-DEPTH count: **9 / 19**.
+
+**Sprint 47 (P8/P10 panels, AT-DEPTH +1).**
+
+Sprint 47 closes the lattice_1d (P8 Nagel-Schreckenberg) and oscillator (P10 chimera)
+dim4 depth-gaps by running the Phase-2a v1.2 panel. P8 returned PARTIAL (TNR = 0.652,
+Cohen's d = 1.751): Class A yields two FPs (`permutation_shuffled` and `time_shuffled`
+both fire at SCREENING — stopped_fraction is time-average-invariant to both operations;
+P8 absent from the invariance registry; carry-forwards C-p8-perm-shuffled-fp and
+C-p8-time-shuffle-fp). Class C yielded 6 FPs for regimes at rho ≥ 0.1167, all at or
+above the NS jamming onset at p_slow=0.3; carry-forward C-p8-class-c-near-onset (restrict
+next sweep to rho ∈ linspace(0.01, 0.09, 10)). P8 dim4 remains PARTIAL; escalate.
+
+P10 returned PASS (TNR = 0.957, Cohen's d = 9.679): all five positives reached DEFINITIVE;
+one Class A FP (`permutation_shuffled` at SCREENING — permuting oscillator indices preserves
+the velocity distribution; carry-forward C-p10-perm-shuffled-fp). Class B catalog mate
+(P9_kuramoto) and Class C (10 ordinary all-to-all Kuramoto above K_c) all correctly rejected.
+P10 dim4 advances PARTIAL→PASS; all four dimensions now PASS → P10 advances to **AT-DEPTH**.
+AT-DEPTH count: **10 / 19**.

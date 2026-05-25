@@ -669,6 +669,89 @@ def _adapt_to_avalanches(native: Dict[str, Any]) -> List[Dict[str, Any]]:
     raise ValueError(f"no avalanches adapter for kind: {kind}")
 
 
+def _adapt_to_sequence(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to sequence-history format.
+
+    Each step dict has an ``array`` key (1-D integer array).  These histories
+    intentionally lack a ``velocities`` key so P8's prerequisite check cleanly
+    rejects them — the correct TNR-preserving behaviour for all non-NS Class B
+    substrates.
+    """
+    kind = native["kind"]
+
+    def _resize_1d(arr: np.ndarray, n: int) -> np.ndarray:
+        """Tile/truncate a 1-D array to length n."""
+        if arr.size >= n:
+            return arr[:n]
+        reps = n // arr.size + 1
+        return np.tile(arr, reps)[:n]
+
+    def _resize_steps(arr: np.ndarray) -> np.ndarray:
+        T = arr.shape[0]
+        if T >= target_steps:
+            return arr[-target_steps:]
+        reps = target_steps // T + 1
+        return np.tile(arr, (reps,) + (1,) * (arr.ndim - 1))[:target_steps]
+
+    if kind == "sequence":
+        arrays = _resize_steps(native["arrays"])
+        return [{"array": arrays[t].copy(), "step": t} for t in range(target_steps)]
+
+    if kind in ("grid_binary", "grid_categorical"):
+        grids = _resize_steps(native["grids"])
+        # Flatten each frame and produce binary int8 occupancy row.
+        return [
+            {"array": grids[t].flatten().astype(np.int8), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "field_continuous":
+        fields = _resize_steps(native["fields"])
+        # Binarise each field frame at its median → integer occupancy row.
+        out = []
+        for t in range(target_steps):
+            f = fields[t].flatten().astype(np.float32)
+            arr = (f > float(np.median(f))).astype(np.int8)
+            out.append({"array": arr, "step": t})
+        return out
+
+    if kind == "phases":
+        theta = _resize_steps(native["theta"])
+        # Map phases to binary (above/below π) → integer occupancy row.
+        return [
+            {"array": (theta[t] < np.pi).astype(np.int8), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "particles":
+        # Bin particle positions into a 1-D road occupancy of length target_steps.
+        road_len = 200
+        positions = _resize_steps(native["positions"])
+        box = native["box_size"]
+        out = []
+        for t in range(target_steps):
+            occupancy = np.zeros(road_len, dtype=np.int8)
+            xs = (positions[t, :, 0] / box * road_len).astype(int) % road_len
+            occupancy[xs] = 1
+            out.append({"array": occupancy, "step": t})
+        return out
+
+    if kind == "static_grid_int":
+        flat = native["grid"].flatten().astype(np.int8)
+        flat_b = (flat >= 2).astype(np.int8)
+        arr = _resize_1d(flat_b, 200)
+        return [{"array": arr.copy(), "step": t} for t in range(target_steps)]
+
+    if kind == "opinions":
+        opinions = _resize_steps(native["opinions"])
+        return [
+            {"array": (opinions[t] >= 0.5).astype(np.int8), "step": t}
+            for t in range(target_steps)
+        ]
+
+    raise ValueError(f"no sequence adapter for kind: {kind}")
+
+
 def _adapt_to_particles(
     native: Dict[str, Any],
     target_steps: int = 200,
@@ -745,6 +828,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_avalanches(native)
     if target_format == "particles":
         return _adapt_to_particles(native, target_steps=target_steps)
+    if target_format == "sequence":
+        return _adapt_to_sequence(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 

@@ -14,6 +14,8 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p5
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p2
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p6
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p8
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p10
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -27,6 +29,8 @@ Outputs:
     analysis/outputs/p5_phase2a_panel.json
     analysis/outputs/p2_phase2a_panel.json
     analysis/outputs/p6_phase2a_panel.json
+    analysis/outputs/p8_phase2a_panel.json
+    analysis/outputs/p10_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -51,6 +55,8 @@ from epc.phase2a.failed_regimes import p11_lotka_volterra as p11_failed
 from epc.phase2a.failed_regimes import p5_vicsek as p5_failed
 from epc.phase2a.failed_regimes import p2_active_brownian as p2_failed
 from epc.phase2a.failed_regimes import p6_dorsogna as p6_failed
+from epc.phase2a.failed_regimes import p8_nagel_schreckenberg as p8_failed
+from epc.phase2a.failed_regimes import p10_chimera as p10_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -770,6 +776,125 @@ def run_p6(out_path: str = "analysis/outputs/p6_phase2a_panel.json", verbose: bo
     )
 
 
+def build_p8_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P8 canonical positive: NS at rho=0.30 (canonical jam regime), p_slow=0.3.
+
+    L=1000 ring, n_steps=2500 (burn_in=1000 + 1500 measurement in the detector).
+    stopped_fraction ≈ 0.15–0.25 at rho=0.30 → exceeds P8 screening floor (0.05)
+    and definitive floor (0.15).
+    """
+    from epc.models.nagel_schreckenberg import NagelSchreckenberg
+    runs: List[List[Dict[str, Any]]] = []
+    for seed in range(n_seeds):
+        m = NagelSchreckenberg(
+            L=1000, density=0.30, v_max=5, p_slow=0.3, seed=seed,
+        )
+        runs.append(m.run(n_steps=2500))
+    metadata: Dict[str, Any] = {
+        "model": "nagel_schreckenberg",
+        "model_class": "traffic_ca",
+        "substrate_type": "lattice_1d",
+    }
+    return runs, metadata
+
+
+def make_p8_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p8_traffic_jamming import P8TrafficJammingDetector
+    detector = P8TrafficJammingDetector(
+        n_permutations=n_permutations, seed=seed, burn_in=1000,
+    )
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p8(out_path: str = "analysis/outputs/p8_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P8 (traffic jamming) Phase-2a panel v1.2.
+
+    detector_format="sequence": Class A synthetic substrates have no 'velocities'
+    key → P8 rejects at prerequisites (correct TNR). Class B catalog mates adapted
+    via _adapt_to_sequence also lack 'velocities' → correct TNR. Class C runs real
+    NS at low density (rho ∈ [0.05, 0.20]) → most below jam onset → P8 rejects.
+
+    Carry-forward C-p8-perm-shuffled-fp: permutation_shuffled Class A substrate
+    copies 'velocities' from the canonical positive → P8 may reach SCREENING tier
+    (stopped_fraction is time-average-invariant). P8 is absent from
+    detector_invariance.py → do not auto-flip; log carry-forward.
+    """
+    print(f"--- Running P8 panel → {out_path}")
+    positives, metadata = build_p8_positives(n_seeds=5)
+    detector_fn = make_p8_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P8",
+        detector_format="sequence",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p8_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_n=1000,
+        verbose=verbose,
+    )
+
+
+def build_p10_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P10 canonical positive: non-local Kuramoto ring at canonical chimera params.
+
+    A=0.995, β=0.05, N=128, asymmetric_gaussian IC per Abrams-Strogatz 2004.
+    n_frames=50: P10 detector requires ≥ 30 post-burn frames (burn_fraction=0.30
+    → 15 burn, 35 measurement) and uses pos_vel_ac[lag=4] as primary metric.
+    metadata['has_nonlocal_coupling']=True is set by get_metadata() → DEFINITIVE
+    tier is accessible.
+    """
+    from epc.models.kuramoto_nonlocal import KuramotoNonlocal
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = KuramotoNonlocal(
+            N=128, A=0.995, beta=0.05,
+            init_mode="asymmetric_gaussian", seed=seed,
+        )
+        runs.append(m.run(n_frames=50))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p10_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p10_chimera import P10ChimeraDetector
+    detector = P10ChimeraDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p10(out_path: str = "analysis/outputs/p10_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P10 (chimera) Phase-2a panel v1.2.
+
+    detector_format="phases": Class A synthetic substrates produce random phase
+    arrays with no coexistence structure → P10 rejects at screening (coexistence
+    gate or pos_vel_ac < 0.55). Class C runs ordinary all-to-all Kuramoto above
+    K_c (no non-local coupling) → full synchronisation, pos_vel_ac drops below
+    floor, coexistence gate fails → P10 rejects.
+    """
+    print(f"--- Running P10 panel → {out_path}")
+    positives, metadata = build_p10_positives(n_seeds=5)
+    detector_fn = make_p10_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P10",
+        detector_format="phases",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p10_failed,
+        output_path=out_path,
+        target_steps=50,
+        target_n=128,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -803,6 +928,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P2"] = run_p2()
     if which in ("p6",):
         summaries["P6"] = run_p6()
+    if which in ("p8",):
+        summaries["P8"] = run_p8()
+    if which in ("p10",):
+        summaries["P10"] = run_p10()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

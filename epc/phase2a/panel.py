@@ -239,6 +239,9 @@ def run_panel(
         class_a_kwargs["shape"] = target_shape
     elif detector_format == "phases":
         class_a_kwargs["n"] = target_n
+    elif detector_format == "sequence":
+        # n = road/array length; target_n is reused as the sequence dimension.
+        class_a_kwargs["n"] = target_n
     elif detector_format == "avalanches":
         # Avalanche-format generators only take n_avalanches; n_steps unused.
         class_a_kwargs = {}

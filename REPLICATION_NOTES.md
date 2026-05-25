@@ -5518,3 +5518,35 @@ P11        1.000  1.000  1.000  1.000    inf PASS
 **Sprint 46 finding:** P6 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS. Dim2 remains PARTIAL (≥5-seed dispersion not documented); grade remains GAP. AT-DEPTH count unchanged. See `analysis/outputs/p6_phase2a_panel.json`.
 
 **Note on `time_shuffled` FP:** Angular momentum |L| = |Σ r_i × v_i| / N is computed per-frame. In a milling trajectory every frame has the swarm in its milled configuration with high |L|, so temporal reordering does not reduce the metric. This parallels the P5 `time_shuffled` FP above. Carry-forward C-p6-time-shuffle-fp opened.
+
+## Phase-2a Panel Result (v1.2) — Sprint 47 (P8 Nagel-Schreckenberg / traffic jamming, PARTIAL)
+
+**Sprint type:** code-led, panel run. **Sprint goal:** Run v1.2 panel for P8 (lattice_1d). **Base HEAD:** Sprint 46 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.900 | 5/5 DEFINITIVE | NagelSchreckenberg(L=1000, density=0.30, v_max=5, p_slow=0.3, n_steps=2500), seeds 0–4 |
+| Class A synthetic | **0.800** | 10 evaluated (2 FP) | `permutation_shuffled` FP at SCREENING (0.500) — stopped_fraction is spatial-order-invariant; `time_shuffled` FP at SCREENING (0.500) — stopped_fraction is time-average-invariant; P8 absent from invariance dict, flags not auto-set; carry-forwards C-p8-perm-shuffled-fp, C-p8-time-shuffle-fp |
+| Class B catalog+supps | **1.000** | 2 (advisory) | P31_zhang_sorting rejected; independent_lane_traffic, reverse_sorted_sequence supps rejected |
+| Class C failed regimes | **0.400** | 10 (6 FP) | rho ∈ {0.0500, 0.0667, 0.0833, 0.1000} correctly rejected; rho=0.1167 reaches CONFIRMATION (0.700); rho ∈ {0.1333, 0.1500, 0.1667, 0.1833, 0.2000} reach DEFINITIVE (0.900) — all ≥ jamming onset at p=0.3 (≈0.12); carry-forward C-p8-class-c-near-onset |
+| **Overall** | **0.652** | 22 negatives | Cohen's d = 1.751 → **PARTIAL** |
+
+**Sprint 47 finding:** P8 panel PARTIAL. dim4 remains PARTIAL; escalate. Three carry-forwards opened: C-p8-perm-shuffled-fp (invariance flag absent), C-p8-time-shuffle-fp (same), C-p8-class-c-near-onset (low-density sweep overlaps jamming onset at p=0.3). AT-DEPTH count unchanged. See `analysis/outputs/p8_phase2a_panel.json`.
+
+**Note on Class C near-onset FPs:** The NS jamming transition at p=0.3 occurs at rho ≈ 0.12 (Nagel & Schreckenberg 1992). The Class C sweep linspace(0.05, 0.20, 10) includes 6 values ≥ 0.1167, all of which lie at or above onset. At onset, stopped_fraction exceeds the screening floor (0.05) and jam_lifetime_p95 exceeds 5 → confirmation fires; at full jam regime (rho ≥ 0.13), all three definitive gates pass. Carry-forward C-p8-class-c-near-onset: restrict the next Class C sweep to rho ∈ linspace(0.01, 0.09, 10) to stay cleanly below the transition.
+
+## Phase-2a Panel Result (v1.2) — Sprint 47 (P10 chimera states / non-local Kuramoto, PASS)
+
+**Sprint type:** code-led, panel run. **Sprint goal:** Run v1.2 panel for P10 (oscillator). **Base HEAD:** Sprint 46 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.950 | 5/5 DEFINITIVE | KuramotoNonlocal(N=128, A=0.995, beta=0.05, init_mode="asymmetric_gaussian"), seeds 0–4, n_frames=50 |
+| Class A synthetic | **0.900** | 10 evaluated (1 FP) | `permutation_shuffled` FP at SCREENING (0.500) — phase ordering invariant under permutation; carry-forward C-p10-perm-shuffled-fp |
+| Class B catalog+supps | **1.000** | 3 (advisory) | P9_kuramoto rejected at screening (no coexistence, pos_vel_ac < 0.55); incoherent_phases, subcritical_kuramoto supps rejected |
+| Class C failed regimes | **1.000** | 10/10 | 10 ordinary all-to-all Kuramoto K ∈ linspace(1.5·K_c, 4.0·K_c) = linspace(1.5, 4.0, 10): full synchronisation (r→1), no coexistence, pos_vel_ac[lag=4] << 0.55 → rejected at screening |
+| **Overall** | **0.957** | 23 negatives | Cohen's d = 9.679 → **PASS** |
+
+**Sprint 47 finding:** P10 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS. All 4 dims now PASS → P10 advances to **AT-DEPTH**. AT-DEPTH count: **10 / 19**. See `analysis/outputs/p10_phase2a_panel.json`.
+
+**Note on `permutation_shuffled` FP (C-p10-perm-shuffled-fp):** The `permutation_shuffled` Class A substrate copies the `theta` array from the last frame of the canonical positive, randomly permutes the per-oscillator phase order, and replicates it across all frames. The P10 detector computes pos_vel_ac[lag=4] on per-oscillator phase velocities; permuting the spatial label of oscillators does not change the global distribution of velocities → the metric reads similarly to the original chimera positive. P10 is in invariance dict with (False, False) but the carry-forward documents the permutation FP explicitly.

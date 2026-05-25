@@ -119,3 +119,19 @@ review at the next paper-review checkpoint.
 - analysis/outputs/p5_phase2a_panel.json: new file (Sprint 46).
 - analysis/outputs/p2_phase2a_panel.json: new file (Sprint 46).
 - analysis/outputs/p6_phase2a_panel.json: new file (Sprint 46).
+
+## Sprint 47 (2026-05-25)
+
+- §4.25 added: Sprint 47 lattice_1d + oscillator dim4 batch panel results.
+  - P8 Nagel-Schreckenberg: PARTIAL (TNR=0.652, Cohen's d=1.751); 2 Class A FPs
+    (permutation_shuffled, time_shuffled — stopped_fraction is time-average-invariant;
+    carry-forwards C-p8-perm-shuffled-fp, C-p8-time-shuffle-fp); 6 Class C near-onset
+    FPs (rho ≥ 0.1167 overlaps jamming transition; carry-forward C-p8-class-c-near-onset);
+    P8 dim4 remains PARTIAL; escalate.
+  - P10 chimera states: PASS (TNR=0.957, Cohen's d=9.679); all 5 positives DEFINITIVE;
+    1 Class A FP (permutation_shuffled at SCREENING; carry-forward C-p10-perm-shuffled-fp);
+    Class C (10 ordinary Kuramoto above K_c) all rejected; P10 dim4 PARTIAL→PASS;
+    all 4 dims PASS → P10 advances to AT-DEPTH. AT-DEPTH count: 10/19.
+- §6: Sprint 47 AT-DEPTH count 10/19 (+1: P10 advances to AT-DEPTH).
+- analysis/outputs/p8_phase2a_panel.json: new file (Sprint 47).
+- analysis/outputs/p10_phase2a_panel.json: new file (Sprint 47).
