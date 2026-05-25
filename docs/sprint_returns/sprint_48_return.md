@@ -98,3 +98,11 @@ No regressions. Test count unchanged (no new tests added; sprint 30 rule in forc
 **Overall:** AT-DEPTH count remains 10 / 19. Sprint 48 is **GO-LIMITED** with the two carry-forwards flagged for escalation.
 
 **Decision: GO-LIMITED**
+
+---
+
+## Chat-led override (post-hoc, 2026-05-25)
+
+The two Sprint 48 P21 carry-forwards (C-p21-perm-shuffled-fp, C-p21-time-shuffled-fp) are degenerate-by-construction Class A FPs that are correctly addressed at the **panel-metadata layer** (invariance flags in `epc/phase2a/detector_invariance.py`), not via detector logic changes. Sprint 49 brief — already queued — performs a literature-anchored invariance-flag batch update covering P21 alongside 5 other patterns (P1, P2, P5, P6, P8) with the same class of carry-forwards. Per Sprint 30 rule, panel-metadata updates are not detector edits.
+
+**Override Decision: GO** — chain proceeds to Sprint 49 (invariance-flag batch).
