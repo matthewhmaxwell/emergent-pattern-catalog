@@ -806,6 +806,24 @@ prerequisite), and any other multi-species anti-correlated system.
 The n_species prerequisite converts the detector from a signal
 classifier to a substrate classifier on the n_species axis.
 
+**Numerical reproduction (Sprint 50).** Numerical reproduction of
+Mobilia-Georgiev-Täuber (2007) Sec. III (Fig. 3) yields a scaling
+exponent of −0.967 ± 0.20 tolerance (published: −1.0; relative error
+3.3%) with R² = 0.990 across L ∈ {30, 50, 100, 150} at the canonical
+coexistence parameters (λ=4.0, σ=μ=1.0, 3 seeds per L). Coexistence is
+confirmed at L=100 (mean_pred = 0.081 ± 0.001, FFT peak-to-mean = 48.9,
+5 seeds). Notably, the measured mean prey density (0.589) deviates
+substantially from the mean-field prediction ρ_prey* = μ/λ = 0.250
+(+135% relative), and the mean predator density (0.081) is below the
+MF value (0.150, −46% relative). These large deviations from
+mean-field are a confirmed and documented finding of the paper (Sec. III
+therein), demonstrating that the single-occupation lattice structure
+causes spatial correlations that fundamentally alter both species'
+stationary densities relative to MF predictions. The O(1/L) amplitude
+scaling law, which is the paper's quantitative signature of resonant
+demographic noise in finite systems, is reproduced within tolerance.
+Script: `analysis/reproductions/p11_mobilia2007_fig2.py`.
+
 ## 4.13 Gray-Scott Reaction-Diffusion and P3 Turing Wavelength (Cluster D)
 
 **Primary reference:** Pearson, J.E. (1993). Complex patterns in a

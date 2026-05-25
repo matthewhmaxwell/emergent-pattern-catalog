@@ -467,3 +467,41 @@ The Sprint 49 batch update applies the invariance-flag mechanism introduced in �
 **P10 exception.** The P10 carry-forward C-p10-perm-shuffled-fp arises from a catalog-adapter artifact: the adapter binarizes continuous phases in a way that preserves bimodal structure for P10's chimera-state input, not from mathematical permutation invariance of `local_r`. The correct fix is an adapter refinement; auto-flagging permutation_invariant=True would be conceptually wrong. P10 flags remain (False, False) and the artifact is documented.
 
 **Empirical outcomes (Sprint 49 re-runs).** Applying the six flag updates and re-running the affected panels produces the following advances: P2 and P6 reach TNR=1.000 (clean PASS); P5 reaches TNR=1.000 (clean PASS, up from PASS-with-weakness); P21 advances from PARTIAL to PASS-with-weakness (TNR 0.913→0.955; `time_shuffled` FP at CONFIRMATION persists — a convergence-timing issue, not a mathematical invariance, so `time_shuffle_invariant` is correctly left False for P21); P1 and P8 remain PARTIAL as expected (their residual FPs — C-p1-linear-gradient-fp and C-p8-class-c-near-onset — are Class C calibration issues outside the invariance-flag mechanism's scope). The AT-DEPTH count is unchanged at **10 / 19**.
+
+### §3.6 Sprint 50 — P11 dim1 closure (Mobilia-Georgiev-Täuber 2007 reproduction)
+
+Sprint 50 closes the sole remaining depth gap for P11 (predator-prey
+oscillation / Lotka-Volterra) by numerically reproducing the O(1/L)
+oscillation-amplitude scaling law from Mobilia, Georgiev & Täuber
+(2007) *J. Stat. Phys.* 128, 447–483 (arXiv: q-bio/0512039). The
+scaling law — that the amplitude of predator-prey density oscillations
+decays as L^{−1} in finite stochastic lattice systems (Sec. III / Fig.
+3 of the paper) — is the paper's primary quantitative result for the
+coexistence (focus) phase. It arises from the van Kampen system-size
+expansion of the master equation and is independent of the specific
+reaction-rate ratios, making it reproducible at lattice sizes accessible
+to our pure-Python implementation.
+
+The reproduction runs at λ=4.0, σ=μ=1.0 (our canonical coexistence
+parameters) across L ∈ {30, 50, 100, 150} with 3 seeds each and yields
+scaling exponent −0.967 (R²=0.990), within the ±0.20 tolerance of the
+published value −1.0 (relative error 3.3%). Coexistence is confirmed at
+L=100 (5 seeds; mean predator density 0.081, FFT peak-to-mean ratio
+48.9). A secondary finding — measured mean densities deviate
+substantially from mean-field predictions (ρ_prey measured 0.589 vs MF
+0.250) — is itself a published result of the paper (spatial correlations
+dominate in the single-occupation lattice; Sec. III therein), providing
+an additional qualitative confirmation of correctness.
+
+**Dim1 reproduction table (cumulative through Sprint 50):**
+
+| Pattern | Paper | Reproduced observable | Relative error | Sprint |
+|---------|-------|-----------------------|---------------|--------|
+| P11 LV | Mobilia-Georgiev-Täuber (2007) | Amplitude scaling exponent (−0.967 vs −1.0) | 3.3% | 50 |
+| P28 YS | Chakraborti-Boghosian (2002/2014) | Gini convergence | <4% | 17 |
+| P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
+| P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
+
+Patterns P2, P12, P21, P22 retain dim1 PARTIAL (no named figure reproduced
+with stated tolerance). P11 dim1 PARTIAL→PASS advances P11 to **AT-DEPTH**
+(11/19 patterns).

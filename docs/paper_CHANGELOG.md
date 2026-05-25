@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 50 (2026-05-25)
+- analysis/reproductions/p11_mobilia2007_fig2.py: new reproduction script for Mobilia-Georgiev-Täuber (2007) O(1/L) amplitude scaling law and coexistence verification.
+- analysis/outputs/p11_mobilia2007_reproduction.json: reproduction output; all_passed=True; scaling exponent=−0.967 (R²=0.990); coexistence confirmed (FFT p2m=48.9).
+- REPLICATION_NOTES.md §Sprint 11: appended "Dim1 Reproduction — Sprint 50" section with parameter table, scaling-law data, and tolerance verdict (PASS).
+- docs/depth_gap.md: P11 row dim1 PARTIAL→PASS, grade GAP→AT-DEPTH; aggregate At-depth 10→11, Gap 9→8; Sprint 50 finding note added; C2 carry-forward updated (P11 removed from dim1 PARTIAL list).
+- §4.12 (P11): appended "Numerical reproduction (Sprint 50)" paragraph: scaling exponent −0.967 vs published −1.0 (3.3% error), R²=0.990; large MF deviation documented as expected published finding.
+- §3.6 Sprint 50: new subsection — dim1 reproduction table, P11 closure description, AT-DEPTH 11/19 milestone.
+- §6.11 aggregate: Sprint 50 paragraph added; AT-DEPTH count updated 10→11; opening sentence updated to 11/19 AT-DEPTH patterns.
+
 ## Sprint 41 (2026-05-24)
 - epc/detectors/p22_information_cascade.py: added Sprint 41 irreversibility prerequisite guard — `detect()` override + `_check_irreversibility_prereq()` helper. Short-circuits with `detected=False, confidence=0.0` if any cell has a backward (decreasing) state transition. Literature anchor: Datta & Acharyya (2021), Mobilia-Georgiev-Täuber (2007), Reichenbach (2007).
 - tests/test_sir_p22_e2e.py: added 2 regression tests: `test_p22_short_circuits_on_lv_substrate` (guard fires on LV), `test_p22_still_fires_on_sir_canonical` (no regression on SIR DEFINITIVE).

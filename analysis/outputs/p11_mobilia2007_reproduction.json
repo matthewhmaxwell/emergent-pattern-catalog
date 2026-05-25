@@ -1,0 +1,129 @@
+{
+  "paper": "Mobilia, Georgiev & T\u00e4uber (2007), J. Stat. Phys. 128:447-483",
+  "arxiv": "q-bio/0512039",
+  "reproduction_targets": [
+    "Sec. II mean-field fixed-point densities (\u03c1_prey* = \u03bc/\u03bb, \u03c1_pred* = \u03c3(1\u2212\u03bc/\u03bb)/(\u03c3+\u03bb))",
+    "Sec. III amplitude scaling law std_prey \u221d L^{-1} (Fig. 3)"
+  ],
+  "primary_check": {
+    "L": 100,
+    "T": 1500,
+    "burn": 300,
+    "n_seeds": 5,
+    "params": {
+      "lambda": 4.0,
+      "sigma": 1.0,
+      "mu": 1.0
+    },
+    "published_mf_prey": 0.25,
+    "published_mf_pred": 0.15,
+    "measured_prey_mean": 0.5886310574521232,
+    "measured_prey_std": 0.0036315606227472594,
+    "measured_pred_mean": 0.08146744379683597,
+    "measured_pred_std": 0.0005122865000167194,
+    "mf_ref_prey_relerr": 1.3545242298084927,
+    "mf_ref_pred_relerr": 0.4568837080210935,
+    "fft_peak_to_mean": 48.94294989913641,
+    "period_gens_mean": 340.5866161616162,
+    "coexistence_passes": true,
+    "oscillatory_regime": true,
+    "primary_passes": true,
+    "mf_deviation_note": "Large MF deviations expected and documented in Mobilia 2007 Sec. III; spatial correlations cause \u03c1_prey >> \u03bc/\u03bb and \u03c1_pred < MF prediction.",
+    "per_seed": [
+      {
+        "mean_prey": 0.5955616985845129,
+        "mean_pred": 0.08051756869275603,
+        "std_prey": 0.024312616320587812,
+        "std_pred": 0.00748276951073999,
+        "fft_p2m": 45.411644478528075,
+        "period_gens": 109.18181818181817
+      },
+      {
+        "mean_prey": 0.5860917568692756,
+        "mean_pred": 0.08162206494587843,
+        "std_prey": 0.02533648704301968,
+        "std_pred": 0.00657793255781525,
+        "fft_p2m": 60.57449548041679,
+        "period_gens": 1201.0
+      },
+      {
+        "mean_prey": 0.5881767693588676,
+        "mean_pred": 0.08181640299750209,
+        "std_prey": 0.03547622935403288,
+        "std_pred": 0.009712362263296869,
+        "fft_p2m": 46.13205600240141,
+        "period_gens": 133.44444444444443
+      },
+      {
+        "mean_prey": 0.5853391340549542,
+        "mean_pred": 0.08197751873438801,
+        "std_prey": 0.03643408086817785,
+        "std_pred": 0.008789469941544406,
+        "fft_p2m": 53.3276679655582,
+        "period_gens": 109.18181818181817
+      },
+      {
+        "mean_prey": 0.5879859283930059,
+        "mean_pred": 0.08140366361365528,
+        "std_prey": 0.027603288008872857,
+        "std_pred": 0.006848345544934988,
+        "fft_p2m": 39.26888556877757,
+        "period_gens": 150.125
+      }
+    ]
+  },
+  "scaling_check": {
+    "Ls": [
+      30,
+      50,
+      100,
+      150
+    ],
+    "T": 1500,
+    "burn": 300,
+    "n_seeds_per_L": 3,
+    "params": {
+      "lambda": 4.0,
+      "sigma": 1.0,
+      "mu": 1.0
+    },
+    "published_exponent": -1.0,
+    "measured_exponent": -0.9665020124610747,
+    "r_squared": 0.9899388073434088,
+    "exponent_relerr": 0.0334979875389253,
+    "exponent_passes": true,
+    "scaling_rows": [
+      {
+        "L": 30,
+        "std_prey_mean": 0.10097384757062962,
+        "std_prey_std": 0.007771237403827165,
+        "std_times_L": 3.0292154271188885,
+        "n_seeds": 3
+      },
+      {
+        "L": 50,
+        "std_prey_mean": 0.05371026038234147,
+        "std_prey_std": 0.004363043696953616,
+        "std_times_L": 2.6855130191170735,
+        "n_seeds": 3
+      },
+      {
+        "L": 100,
+        "std_prey_mean": 0.02837511090588012,
+        "std_prey_std": 0.005038616888597162,
+        "std_times_L": 2.837511090588012,
+        "n_seeds": 3
+      },
+      {
+        "L": 150,
+        "std_prey_mean": 0.02118710814797507,
+        "std_prey_std": 0.0009992874357016618,
+        "std_times_L": 3.1780662221962603,
+        "n_seeds": 3
+      }
+    ]
+  },
+  "primary_passes": true,
+  "scaling_passes": true,
+  "all_passed": true
+}

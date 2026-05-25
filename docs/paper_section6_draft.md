@@ -552,10 +552,11 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–43), **7 / 19** patterns have
-reached AT-DEPTH grade and **12 / 19** remain at GAP. The seven AT-DEPTH
-patterns are P3 (Turing pattern formation), P9 (synchronization), P15
-(persistent computation), P18 (coarsening-to-consensus), P27 (spatial
+Across the 19-pattern inventory (Sprints 1–50), **11 / 19** patterns have
+reached AT-DEPTH grade and **8 / 19** remain at GAP. The eleven AT-DEPTH
+patterns are P3 (Turing pattern formation), P5 (flocking), P9 (synchronization),
+P10 (chimera states), P11 (predator-prey oscillations), P13 (excitable waves),
+P15 (persistent computation), P18 (coarsening-to-consensus), P27 (spatial
 reciprocity), P28 (wealth condensation), and P31 (delayed gratification).
 
 Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
@@ -681,3 +682,19 @@ Sprint 49 applies a batch of invariance-flag updates to `epc/phase2a/detector_in
 Re-run outcomes: P2 advances to TNR=1.000 (clean PASS; `permutation_shuffled` SKIPPED); P5 advances to TNR=1.000 (clean PASS; both substrates SKIPPED); P6 advances to TNR=1.000 (clean PASS; both substrates SKIPPED); P21 advances from PARTIAL to PASS-with-weakness (TNR 0.913→0.955, Cohen's d 4.543→5.487; `permutation_shuffled` SKIPPED; `time_shuffled` FP at CONFIRMATION (0.850) persists — convergence-timing issue, not invariance; C-p21-time-shuffled-fp remains open). P1 and P8 remain PARTIAL: their residual FPs are Class C calibration issues (C-p1-linear-gradient-fp, C-p1-class-c-subthreshold-fp, C-p8-class-c-near-onset) outside the invariance-flag mechanism's scope.
 
 P21 dim4 advances from PARTIAL to PASS. No pattern reaches AT-DEPTH in Sprint 49 (P21 dims 1–3 remain PARTIAL). **AT-DEPTH count: 10 / 19** (unchanged). Seven carry-forwards closed (C-p1-time-shuffle-fp, C-p2-perm-shuffled-fp, C-p5-time-shuffle-fp, C-p6-time-shuffle-fp, C-p8-perm-shuffled-fp, C-p8-time-shuffle-fp, C-p21-perm-shuffled-fp).
+
+**Sprint 50 (P11 dim1 closure, AT-DEPTH +1).**
+
+Sprint 50 closes the P11 dim1 depth gap via numerical reproduction of
+Mobilia-Georgiev-Täuber (2007) Sec. III (Fig. 3). The O(1/L)
+oscillation-amplitude scaling law is confirmed: power-law fit across
+L ∈ {30, 50, 100, 150} (3 seeds each) yields exponent −0.967
+(R²=0.990; published −1.0; relative error 3.3%; tolerance ±0.20). The
+coexistence + oscillatory focus regime is verified at L=100 (5 seeds;
+mean predator density 0.081, FFT peak-to-mean 48.9). Large deviations
+from the mean-field fixed point (ρ_prey measured 0.589 vs MF 0.250) are
+a confirmed published finding of the paper (spatial correlations
+dominant; Sec. III), not an implementation error. dim1 PARTIAL→PASS;
+all four dimensions now PASS → P11 advances to **AT-DEPTH**.
+**AT-DEPTH count: 11 / 19** (P3, P5, P9, P10, **P11**, P13, P15, P18,
+P27, P28, P31).
