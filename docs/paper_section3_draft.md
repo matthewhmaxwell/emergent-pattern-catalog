@@ -278,6 +278,24 @@ is the P22 analog of P11's `total_std` conservation guard and P27's
 grounded in published characterization of the canonical model, not an
 ad-hoc threshold adjustment.
 
+**P1 type-constancy guard extension to CONFIRMATION (Sprint 43).** Following
+Schelling (1971) "Dynamic Models of Segregation", P1 specifically detects
+aggregation of *intrinsic type labels* — agent identities that never change
+across the simulation; only positions change via tolerance-threshold moves.
+The Sprint 42 Phase-2a panel found three Class B false positives at
+CONFIRMATION tier: P11 Lotka-Volterra, P15 Game of Life, and P12 spatial RPS.
+All three are lattice_2d models whose cell identities transition dynamically
+(predator/prey cycling, alive/dead flipping, RPS dominance) — they are
+fundamentally outside P1's domain per Schelling (1971). Sprint 43 extended the
+existing type-constancy guard (previously applied only at DEFINITIVE tier) to
+also gate CONFIRMATION: if the coefficient of variation of non-background type
+counts exceeds 0.01 across the trajectory, the detector short-circuits at
+SCREENING with `detected=False`. Schelling segregation has CV = 0.000
+(agents are perfectly conserved); LV, GoL, and binarized-RPS (catalog adapter
+converts 4-state RPS grid to occupied/empty) have CV ≥ 0.014 > 0.01. The
+Phase-2a panel re-run (Sprint 43) confirmed cat TNR advances from 0.571 to
+1.000, with C-p1-class-b-lattice2d-fp CLOSED.
+
 ## 3.6 Statistical Power Requirements
 
 Permutation-based significance testing imposes minimum sample sizes that we

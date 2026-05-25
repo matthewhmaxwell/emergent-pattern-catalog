@@ -289,6 +289,19 @@ produce p = 0.452 (not confirmed). GoL is correctly rejected by the
 type constancy check (alive/dead states are not persistent agent
 types).
 
+**Phase-2a panel v1.2 (Sprint 43).** Panel re-run with type-constancy
+guard extended to CONFIRMATION tier (per Schelling 1971 — agent type
+labels are intrinsic and conserved). Result: overall TNR = 0.704,
+cat TNR = 1.000 (↑ from 0.571 in Sprint 42); Class B false positives
+P11 LV, P15 GoL, and P12 RPS all now correctly rejected. Residual FPs:
+syn `time_shuffled` (Schelling frames show segregation regardless of
+temporal order) and `linear_gradient` (Moran's I detects gradient
+autocorrelation), fai threshold ∈ [0.050, 0.161–0.250] (empirically
+above critical threshold at density=0.9 / 32×32 grid). Cohen's d =
+1.624. Verdict: PARTIAL. Carry-forward C-p1-class-b-lattice2d-fp
+CLOSED; C-p1-time-shuffle-fp, C-p1-linear-gradient-fp,
+C-p1-class-c-subthreshold-fp remain open.
+
 ## 4.7 BTW Sandpile (Cluster D)
 
 **Reference:** Bak, P., Tang, C. & Wiesenfeld, K. (1987).
@@ -911,6 +924,25 @@ and was updated to return a graceful substrate-warning rejection
 matching the pattern used by P11, P13, and P22. Thirteen new cells
 (one D + seven rej + five rej + zero nd) join the audited transfer
 matrix at Sprints 13–14.
+
+**Phase-2a panel v1.2 (Sprint 43).** First dedicated Phase-2a panel
+run for P3. Class B was previously blocked by zero `lattice_2d_continuous`
+catalog mates (C-lattice_2d_continuous-substrate-undercount). Sprint 43
+added two lattice_2d_continuous supplements: `smooth_random_field`
+(i.i.d. white Gaussian noise; peak_to_mean ≈ 1.39 < 5.0 → rejected at
+screening) and `sinusoidal_traveling_wave` (spatially uniform temporal
+oscillation; field_std = 0 → rejected at prerequisites). Detector
+parameterisation: `stability_stride=5` (ensures ≥5 stability frames
+from 100-snapshot histories; the default stride=50 yields only 2 frames,
+inflating peak_k_cv). Panel result: overall TNR = 1.000, syn = 1.000
+(9/9 evaluated; `time_shuffled` SKIPPED — P3 is time_shuffle_invariant
+since each GS frame contains the complete Turing pattern regardless of
+temporal order), cat = 1.000 (2/2 lattice_2d_continuous supplements
+correctly rejected), fai = N/A (Gray-Scott non-Turing regimes rejected
+at field_std prerequisite, per v1.1 spec §Class C N/A list). Positives:
+all 5 seeds reach DEFINITIVE (p/m ≈ 19.5, Cohen's d = 103, null_p =
+0.005, peak_k_cv = 0.0). Cohen's d = +∞. Verdict: PASS.
+C-lattice_2d_continuous-substrate-undercount CLOSED. P3 advances to AT-DEPTH.
 
 ## 4.14 Nagel-Schreckenberg Traffic CA and P8 Traffic Jamming (Cluster D)
 

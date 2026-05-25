@@ -33,8 +33,10 @@ class InvarianceFlags:
 DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
     "P1":  InvarianceFlags(False, False, "Moran's I + same-type neighbor fraction",
                             rationale="Spatial autocorrelation depends on adjacency."),
-    "P3":  InvarianceFlags(False, False, "spot/stripe morphology metrics",
-                            rationale="Pattern formation requires spatial coherence."),
+    "P3":  InvarianceFlags(False, True,  "radial FFT peak on final field snapshot",
+                            rationale="P3 computes spatial FFT per frame; each Gray-Scott frame "
+                                      "contains the full Turing pattern regardless of temporal "
+                                      "ordering — time_shuffled is degenerate-by-construction."),
     "P5":  InvarianceFlags(True,  False, "heading order parameter |⟨e^iθ⟩|",
                             rationale="Aggregate over headings; final-state metric."),
     "P6":  InvarianceFlags(False, False, "group rotational dynamics",

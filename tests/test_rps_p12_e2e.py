@@ -290,10 +290,13 @@ class TestRPSP1ScreeningLevel:
     """
 
     def test_rps_p1_screening_under_new_primary(self):
-        """RPS at canonical mobility still screens under final-I primary.
+        """Sprint 43: RPS is rejected by P1 type-constancy guard.
 
-        Expected: final_moran ≈ peak_moran ≈ 0.5 (sustained spiral
-        clustering). Screening floor is 0.05, so final > floor passes.
+        Sprint 43 update: RPS cyclic dominance causes cell-type counts to vary
+        (species populations cycle) → CV > 0.01 → type-constancy guard fires
+        before Moran's I is computed. RPS spirals produce sustained spatial
+        autocorrelation, but per Schelling (1971) that is NOT P1's domain:
+        P1 detects aggregation of intrinsic type labels that never change.
         """
         from epc.detectors.p1_aggregation import P1AggregationDetector
 
@@ -312,35 +315,20 @@ class TestRPSP1ScreeningLevel:
         det = P1AggregationDetector(n_permutations=99)
         result = det.detect(history, m.get_metadata())
 
-        assert result.detected, \
-            "Sprint 10: RPS × P1 should still screen (spiral domains are sustained)"
-
-        peak_moran = result.primary_metric.get("morans_i_peak", 0.0)
-        final_moran = result.primary_metric.get("morans_i_final", 0.0)
-        primary_moran = result.primary_metric.get("morans_i", 0.0)
-
-        # RPS spirals are sustained: final ≈ peak (unlike SIR).
-        assert final_moran > 0.4, \
-            f"RPS final Moran should be ≈ 0.5 (sustained spirals), got {final_moran:.3f}"
-        assert peak_moran > 0.4, \
-            f"RPS peak Moran should be ≈ 0.5, got {peak_moran:.3f}"
-        # The peak-final gap should be small (rotating but persistent).
-        gap = peak_moran - final_moran
-        assert gap < 0.15, \
-            f"RPS peak-final gap should be small (sustained), got {gap:.3f}"
-
-        # Primary is now final-state Moran (Sprint 10).
-        assert abs(primary_moran - final_moran) < 1e-6, \
-            f"Sprint 10: primary should equal final, got " \
-            f"primary={primary_moran:.4f}, final={final_moran:.4f}"
+        # Sprint 43: type-constancy guard rejects RPS.
+        assert not result.detected, \
+            "Sprint 43: RPS × P1 should be REJECTED by type-constancy guard"
+        assert result.primary_metric.get("screening_rejection_reason") == "type_constancy_failed"
 
     def test_rps_vs_sir_p1_asymmetry(self):
-        """Sprint 10: same-family models differ — RPS screens, SIR rejects.
+        """Sprint 43: both RPS and SIR are now rejected by P1 type-constancy guard.
 
-        Both RPS and SIR produce high PEAK Moran's I during their
-        characteristic spatial dynamics, but only RPS maintains final
-        Moran near peak. This asymmetry is the scientific motivation
-        for the Sprint 10 primary-metric change.
+        Sprint 10 showed that RPS maintained final Moran near peak while SIR's
+        collapsed — motivating the final-state primary metric. Sprint 43 supersedes
+        this: the type-constancy guard (Schelling 1971) rejects both RPS (cyclic
+        dominance changes cell identity) and SIR (cells transition S→I→R). Neither
+        is in P1's domain of intrinsic-label aggregation. Both now return
+        detected=False with screening_rejection_reason="type_constancy_failed".
         """
         from epc.detectors.p1_aggregation import P1AggregationDetector
 
@@ -368,23 +356,11 @@ class TestRPSP1ScreeningLevel:
         sir_hist = sir.run(400, record_every=1)
         sir_res = det.detect(sir_hist, sir.get_metadata())
 
-        # Both peak high.
-        rps_peak = rps_res.primary_metric["morans_i_peak"]
-        sir_peak = sir_res.primary_metric["morans_i_peak"]
-        assert rps_peak > 0.4, f"RPS peak should be > 0.4, got {rps_peak:.3f}"
-        assert sir_peak > 0.5, f"SIR peak should be > 0.5, got {sir_peak:.3f}"
-
-        # Only RPS maintains final near peak.
-        rps_final = rps_res.primary_metric["morans_i_final"]
-        sir_final = sir_res.primary_metric["morans_i_final"]
-        assert rps_final > 0.4, \
-            f"RPS final should ≈ peak (sustained), got {rps_final:.3f}"
-        assert sir_final < 0.1, \
-            f"SIR final should be near 0 (transient collapsed), got {sir_final:.3f}"
-
-        # Sprint 10 decision outcomes.
-        assert rps_res.detected, "Sprint 10: RPS × P1 should screen"
-        assert not sir_res.detected, "Sprint 10: SIR × P1 should reject"
+        # Sprint 43: both rejected by type-constancy guard.
+        assert not rps_res.detected, "Sprint 43: RPS × P1 rejected by type-constancy"
+        assert not sir_res.detected, "Sprint 43: SIR × P1 rejected by type-constancy"
+        assert rps_res.primary_metric.get("screening_rejection_reason") == "type_constancy_failed"
+        assert sir_res.primary_metric.get("screening_rejection_reason") == "type_constancy_failed"
 
 
 if __name__ == "__main__":

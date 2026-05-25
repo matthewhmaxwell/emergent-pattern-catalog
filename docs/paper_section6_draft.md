@@ -552,11 +552,11 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–41), **6 / 19** patterns have
-reached AT-DEPTH grade and **13 / 19** remain at GAP. The six AT-DEPTH
-patterns are P9 (synchronization), P15 (persistent computation), P18
-(coarsening-to-consensus), P27 (spatial reciprocity), P28 (wealth
-condensation), and P31 (delayed gratification).
+Across the 19-pattern inventory (Sprints 1–43), **7 / 19** patterns have
+reached AT-DEPTH grade and **12 / 19** remain at GAP. The seven AT-DEPTH
+patterns are P3 (Turing pattern formation), P9 (synchronization), P15
+(persistent computation), P18 (coarsening-to-consensus), P27 (spatial
+reciprocity), P28 (wealth condensation), and P31 (delayed gratification).
 
 Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
 standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
@@ -594,3 +594,16 @@ substrates (Class A) and on P11/P15/P12 lattice_2d catalog mates (Class B),
 reflecting the broad-spectrum nature of spatial autocorrelation as a primary
 metric. P3 panel was paused due to the lattice_2d_continuous substrate-undercount
 condition (0 Class B mates; threshold is 3). AT-DEPTH count unchanged: **6 / 19**.
+
+Sprint 43 addressed both patterns. For P3: two `lattice_2d_continuous`
+supplements were added (`smooth_random_field`, `sinusoidal_traveling_wave`),
+unblocking the Class B panel; the P3 detector was parameterised with
+`stability_stride=5` to ensure ≥5 stability frames from 100-snapshot
+histories; and P3 was reclassified as `time_shuffle_invariant=True` (each
+Gray-Scott frame contains the complete stationary Turing pattern regardless of
+temporal order). P3 panel v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞);
+P3 advances to AT-DEPTH. For P1: the type-constancy guard (Schelling 1971) was
+extended to gate CONFIRMATION tier (CV threshold tightened to 0.01), closing
+C-p1-class-b-lattice2d-fp; cat TNR advances to 1.000. Residual syn and fai
+FPs remain unresolved; P1 panel returns PARTIAL (TNR = 0.704). AT-DEPTH count:
+**7 / 19**.

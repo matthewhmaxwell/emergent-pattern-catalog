@@ -806,3 +806,52 @@ def test_lattice_1d_supplements_registered():
     assert "reverse_sorted_sequence" in sup
     assert "independent_lane_traffic" in structured_mod.SUPPLEMENT_BUILDERS
     assert "reverse_sorted_sequence" in structured_mod.SUPPLEMENT_BUILDERS
+
+
+# Sprint 43 — lattice_2d_continuous supplements (for P3 Gray-Scott panel)
+
+def test_lattice_2d_continuous_supplements_registered():
+    """Sprint 43: SUPPLEMENTS_BY_SUBSTRATE_TYPE['lattice_2d_continuous'] has 2 entries."""
+    sup = structured_mod.SUPPLEMENTS_BY_SUBSTRATE_TYPE.get("lattice_2d_continuous", [])
+    assert "smooth_random_field" in sup
+    assert "sinusoidal_traveling_wave" in sup
+    assert len(sup) == 2
+    assert "smooth_random_field" in structured_mod.SUPPLEMENT_BUILDERS
+    assert "sinusoidal_traveling_wave" in structured_mod.SUPPLEMENT_BUILDERS
+
+
+def test_smooth_random_field_deterministic():
+    """Sprint 43: smooth_random_field is deterministic from fixed seed."""
+    a = structured_mod.smooth_random_field(42, rows=8, cols=8, n_steps=5)
+    b = structured_mod.smooth_random_field(42, rows=8, cols=8, n_steps=5)
+    assert len(a) == len(b) == 5
+    for sa, sb in zip(a, b):
+        assert "field" in sa and "field" in sb
+        assert np.array_equal(sa["field"], sb["field"])
+    # Different seeds → different fields.
+    c = structured_mod.smooth_random_field(99, rows=8, cols=8, n_steps=5)
+    assert not np.array_equal(a[0]["field"], c[0]["field"])
+
+
+def test_sinusoidal_traveling_wave_deterministic():
+    """Sprint 43: sinusoidal_traveling_wave is deterministic (seed unused)."""
+    a = structured_mod.sinusoidal_traveling_wave(0, rows=8, cols=8, n_steps=5)
+    b = structured_mod.sinusoidal_traveling_wave(99, rows=8, cols=8, n_steps=5)
+    assert len(a) == len(b) == 5
+    for sa, sb in zip(a, b):
+        assert "field" in sa and "field" in sb
+        # Deterministic regardless of seed.
+        assert np.array_equal(sa["field"], sb["field"])
+    # Field values in [0, 1].
+    assert float(a[0]["field"].min()) >= 0.0
+    assert float(a[0]["field"].max()) <= 1.0
+
+
+def test_class_b_p3_lattice_2d_continuous_has_two_supplements():
+    """Sprint 43: P3 Class B now has 2 lattice_2d_continuous supplements (was 0)."""
+    r = catalog_mod.class_b_for_pattern("P3")
+    assert r["substrate_type"] == "lattice_2d_continuous"
+    assert r["catalog_mates"] == []
+    assert len(r["synthetic_supplements"]) == 2
+    assert "smooth_random_field" in r["synthetic_supplements"]
+    assert "sinusoidal_traveling_wave" in r["synthetic_supplements"]

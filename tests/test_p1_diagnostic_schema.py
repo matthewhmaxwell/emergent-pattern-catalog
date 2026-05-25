@@ -36,11 +36,19 @@ REJECTION_REASONS = {
     "below_magnitude_floor",
     "substrate_mismatch",
     "empty_state_history",
+    "type_constancy_failed",  # Sprint 43: type-constancy guard rejects dynamic-state systems
 }
 
 
 def test_p1_sir_rejects_with_uniform_state_reason():
-    """SIR at t=T_end is uniform recovered → rejection_reason=uniform_state."""
+    """SIR at t=T_end is rejected by P1 (type-constancy guard, Sprint 43).
+
+    Sprint 43: SIR cells transition S→I→R; cell-type counts are NOT
+    conserved (CV >> 0.01). The type-constancy guard short-circuits
+    before Moran's I calculation, returning screening_rejection_reason=
+    "type_constancy_failed". Previously (Sprint 10) the rejection path
+    was "uniform_state" but that path is no longer reached.
+    """
     from epc.models.sir_epidemic import SIREpidemicModel
 
     m = SIREpidemicModel(
@@ -56,13 +64,9 @@ def test_p1_sir_rejects_with_uniform_state_reason():
     assert not result.detected
     assert result.tier == DetectionTier.SCREENING
     assert "screening_rejection_reason" in result.primary_metric
-    assert result.primary_metric["screening_rejection_reason"] == "uniform_state", (
-        f"SIR post-wavefront should report uniform_state rejection, "
+    assert result.primary_metric["screening_rejection_reason"] == "type_constancy_failed", (
+        f"SIR should be rejected by type-constancy guard (Sprint 43), "
         f"got {result.primary_metric['screening_rejection_reason']!r}"
-    )
-    # Diagnostic: peak should be preserved even on screening reject
-    assert result.primary_metric["morans_i_peak"] > 0.5, (
-        "SIR wavefront peak Moran's I should be preserved as diagnostic"
     )
 
 

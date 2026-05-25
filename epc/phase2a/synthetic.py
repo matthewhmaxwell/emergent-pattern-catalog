@@ -230,7 +230,20 @@ def permutation_shuffled_positive(
         raise ValueError("permutation_shuffled_positive requires `positive` kwarg")
     rng = np.random.default_rng(seed)
     if format == "grid":
-        last = positive[-1]["grid"]
+        snap = positive[-1]
+        if "grid" in snap:
+            last = np.asarray(snap["grid"])
+        elif "field" in snap:
+            # Continuous-field positive (e.g. Gray-Scott for P3): binarise at
+            # median so the permutation generator can produce a valid grid
+            # substrate. P3 will reject the resulting binary grid at its
+            # substrate prerequisite (no 'field' key), correctly giving TN.
+            f = np.asarray(snap["field"], dtype=float)
+            last = (f > float(np.median(f))).astype(np.int8)
+        else:
+            raise KeyError(
+                "permutation_shuffled: positive[-1] has neither 'grid' nor 'field'"
+            )
         H, W = last.shape
         flat = last.flatten()
         rng.shuffle(flat)

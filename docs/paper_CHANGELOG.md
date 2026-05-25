@@ -64,6 +64,21 @@ review at the next paper-review checkpoint.
 
 ## Sprint 37 (placeholder — first orchestrator-driven sprint will write its own entry)
 
+## Sprint 43 (2026-05-25)
+
+- epc/detectors/p1_aggregation.py: type-constancy guard extended to CONFIRMATION tier (CV threshold 0.01); literature anchor: Schelling (1971). C-p1-class-b-lattice2d-fp CLOSED.
+- epc/phase2a/structured.py: 2 lattice_2d_continuous supplements added (`smooth_random_field`, `sinusoidal_traveling_wave`). C-lattice_2d_continuous-substrate-undercount CLOSED.
+- epc/phase2a/failed_regimes/p3_gray_scott.py: P3 Class C declared N/A (non-Turing regimes rejected at field_std prerequisite).
+- epc/phase2a/detector_invariance.py: P3 reclassified as `time_shuffle_invariant=True` (spatial FFT per frame; temporal order irrelevant).
+- analysis/run_phase2a_panel.py: `make_p3_detector_fn()` added with `stability_stride=5`; `run_p3()` added.
+- analysis/outputs/p1_phase2a_panel.json: re-run Sprint 43; TNR=0.704 (cat TNR 1.000 ↑ from 0.571), Cohen's d=1.624, PARTIAL.
+- analysis/outputs/p3_phase2a_panel.json: NEW; TNR=1.000, Cohen's d=+∞, PASS. P3 advances to AT-DEPTH.
+- §3.5: appended P1 type-constancy guard extension paragraph (Sprint 43, Schelling 1971).
+- §4.6 P1 Schelling: appended Phase-2a panel re-run paragraph (Sprint 43 PARTIAL: cat 1.000, overall 0.704).
+- §4.13 P3 Gray-Scott: appended Phase-2a panel result paragraph (Sprint 43 PASS: TNR=1.000, d=+∞; P3 AT-DEPTH).
+- §6: updated AT-DEPTH count 6→7/19; Sprint 43 narrative added.
+- docs/depth_gap.md: P3 row dim4 PARTIAL→PASS, grade GAP→AT-DEPTH; P1 notes updated (cat TNR ↑); aggregate counts updated 6→7 AT-DEPTH, 13→12 GAP.
+
 ## Sprint 42
 
 - §4.21 added: P1 Schelling Phase-2a panel v1.2 PARTIAL (TNR=0.593, Cohen's d=1.298);

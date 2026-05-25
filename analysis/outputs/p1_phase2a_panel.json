@@ -1,9 +1,9 @@
 {
   "pattern_id": "P1",
-  "head_commit": "fd6167fd4d126797439f085162f0b92b32fa63be",
+  "head_commit": "86cfb3d889097b8b7b5cc3cffa1e9b25dae8191d",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 748.48,
+  "elapsed_seconds": 681.61,
   "detector_invariance": {
     "permutation_invariant": false,
     "time_shuffle_invariant": false,
@@ -128,16 +128,16 @@
     {
       "substrate": "P11_lotka_volterra",
       "kind": "catalog_mate",
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
       "substrate": "P12_rps",
       "kind": "catalog_mate",
-      "score": 0.6,
+      "score": 0.0,
       "verdict": "screening",
-      "detected": true
+      "detected": false
     },
     {
       "substrate": "P13_greenberg_hastings",
@@ -156,9 +156,9 @@
     {
       "substrate": "P15_gol",
       "kind": "catalog_mate",
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
       "substrate": "P22_sir_epidemic",
@@ -324,7 +324,7 @@
   "class_c_n_a_reason": null,
   "summary": {
     "n_negatives": 27,
-    "overall_tnr": 0.5925925925925926,
+    "overall_tnr": 0.7037037037037037,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 10,
     "synthetic": {
@@ -334,7 +334,7 @@
     },
     "catalog": {
       "n": 7,
-      "tnr": 0.5714285714285714,
+      "tnr": 1.0,
       "advisory": false
     },
     "failed_regime": {
@@ -343,10 +343,10 @@
       "advisory": false
     },
     "synthetic_tnr": 0.8,
-    "catalog_tnr": 0.5714285714285714,
+    "catalog_tnr": 1.0,
     "catalog_tnr_advisory": false,
     "failed_regime_tnr": 0.4,
-    "cohens_d_positive_vs_panel": 1.297616805187268,
+    "cohens_d_positive_vs_panel": 1.6244657241348273,
     "verdict": "PARTIAL"
   }
 }

@@ -531,12 +531,13 @@ class TestSIRP1Rejection:
     """
 
     def test_sir_rejected_by_final_state_moran(self):
-        """SIR transient wavefront does NOT drive P1 screening anymore.
+        """SIR is rejected by P1 — Sprint 43 update: via type-constancy guard.
 
-        Sprint 10: P1 primary is final-state Moran (was peak). SIR's final
-        state is nearly uniform recovered (I ≈ 0.02), which fails the
-        screening floor (0.05). The transient peak (I ≈ 0.89) is retained
-        as a diagnostic.
+        Sprint 10 established that SIR's final-state Moran's I falls below the
+        screening floor (cells are uniform recovered). Sprint 43 supersedes the
+        mechanism: SIR cells transition S→I→R (irreversible but changing
+        identity) so the type-constancy guard fires before Moran's I is computed.
+        The invariant that matters — SIR × P1 = not detected — is preserved.
         """
         from epc.detectors.p1_aggregation import P1AggregationDetector
 
@@ -551,29 +552,11 @@ class TestSIRP1Rejection:
         det = P1AggregationDetector(n_permutations=199)
         result = det.detect(history, meta)
 
-        # Sprint 10 target behavior: rejected.
+        # Core invariant preserved: SIR × P1 = rejected.
         assert not result.detected, \
-            "Sprint 10: SIR × P1 should REJECT (final-state Moran near zero)"
-
-        # Diagnostic: verify the peak/final gap — this is the physics
-        # that motivates the rejection.
-        peak_moran = result.primary_metric.get("morans_i_peak", 0.0)
-        final_moran = result.primary_metric.get("morans_i_final", 1.0)
-        primary_moran = result.primary_metric.get("morans_i", 1.0)
-
-        assert peak_moran > 0.5, \
-            f"Expected high peak Moran's I during epidemic wavefront " \
-            f"(transient clustering), got {peak_moran:.3f}"
-        assert final_moran < 0.1, \
-            f"Expected near-uniform final state after epidemic dies out, " \
-            f"got {final_moran:.3f}"
-        # Primary is now final, not peak
-        assert abs(primary_moran - final_moran) < 1e-6, \
-            f"Sprint 10: primary metric should equal final Moran, " \
-            f"got primary={primary_moran:.4f}, final={final_moran:.4f}"
-        # Primary fails the screening floor
-        assert primary_moran < 0.05, \
-            f"Expected primary Moran < screening floor 0.05, got {primary_moran:.4f}"
+            "SIR × P1 should REJECT (type-constancy guard, Sprint 43)"
+        # Rejection is now via type-constancy, not final-state Moran floor.
+        assert result.primary_metric.get("screening_rejection_reason") == "type_constancy_failed"
 
     def test_sir_final_state_not_aggregated(self):
         """After epidemic, final grid is nearly uniform recovered → no P1.

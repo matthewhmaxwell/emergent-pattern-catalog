@@ -32,6 +32,7 @@ from epc.phase2a.failed_regimes import p14_btw as p14_failed
 from epc.phase2a.failed_regimes import p27_nowak_may as p27_failed
 from epc.phase2a.failed_regimes import p22_sir as p22_failed
 from epc.phase2a.failed_regimes import p1_schelling as p1_failed
+from epc.phase2a.failed_regimes import p3_gray_scott as p3_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -381,6 +382,81 @@ def run_p1(out_path: str = "analysis/outputs/p1_phase2a_panel.json", verbose: bo
     )
 
 
+def build_p3_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P3 canonical positive: Gray-Scott labyrinth at (F=0.037, k=0.060).
+
+    64×64 grid, 400 steps at record_every=4 → 100 snapshots. The (F, k) pair
+    is in the canonical labyrinthine Turing window per Pearson (1993).
+    Each step dict has 'field' (v-concentration 2D array), matching P3's
+    native consumption format.
+    """
+    from epc.models.gray_scott import GrayScott
+
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        model = GrayScott(
+            rows=64, cols=64, feed_rate=0.037, kill_rate=0.060, seed=seed,
+        )
+        model.setup()
+        record_every = 4
+        history: List[Dict[str, Any]] = []
+        for t in range(400):
+            state = model.step()
+            if t % record_every == 0:
+                history.append({
+                    "field": np.asarray(state["field"], dtype=np.float32),
+                    "step": t,
+                })
+        runs.append(history)
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p3_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p3_turing_wavelength import P3TuringWavelengthDetector
+    # stability_stride=5 ensures ≥5 stability frames from a 100-snapshot
+    # history (default stride=50 yields only 2 frames, inflating peak_k_cv).
+    detector = P3TuringWavelengthDetector(
+        n_permutations=n_permutations, seed=seed, stability_stride=5,
+    )
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p3(out_path: str = "analysis/outputs/p3_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P3 (Turing wavelength) Phase-2a panel.
+
+    detector_format="grid" is used so that Class A synthetic substrates
+    (integer-grid format) are passed directly to P3. P3's substrate prerequisite
+    ('field' key required) rejects all Class A grid-format substrates cleanly
+    at SCREENING tier (detected=False) — this is correct and expected behaviour
+    since Class A is designed to test generic null substrates across all
+    detector types.
+
+    Class B uses lattice_2d_continuous supplements (smooth_random_field and
+    sinusoidal_traveling_wave) which produce 'field'-keyed histories and are
+    processed by P3's full pipeline. Class C is N/A per p3_gray_scott.CONFIG.
+    """
+    print(f"--- Running P3 panel → {out_path}")
+    positives, metadata = build_p3_positives(n_seeds=5)
+    detector_fn = make_p3_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P3",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p3_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -400,6 +476,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P22"] = run_p22()
     if which in ("p1",):
         summaries["P1"] = run_p1()
+    if which in ("p3",):
+        summaries["P3"] = run_p3()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

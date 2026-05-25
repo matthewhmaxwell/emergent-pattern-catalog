@@ -213,10 +213,16 @@ class TestNowakMayP1CoOccurrence:
     """
 
     def test_nowak_may_p1_confirmation(self):
-        """Nowak-May at b=1.8 should reach P1 confirmation tier.
+        """Nowak-May at b=1.8 is rejected by P1 type-constancy guard (Sprint 43).
 
-        Expected: Moran's I ≈ 0.9, segregation index ≈ 0.75, p < 0.01.
-        Cooperator/defector clusters are spatially aggregated.
+        Sprint 43: cooperators/defectors flip identity over time (strategy copying)
+        → cell-type counts are NOT conserved (CV >> 0.01). P1's type-constancy
+        guard (Schelling 1971) correctly identifies NM as out of P1's domain and
+        short-circuits with detected=False before Moran's I is computed.
+
+        Previously (Sprint 10) NM reached P1 CONFIRMATION because the spatial
+        clustering of cooperator domains is real; Sprint 43 recognises that this
+        is strategy-aggregation rather than Schelling-type IDENTITY-aggregation.
         """
         from epc.models.nowak_may import NowakMayModel
         from epc.detectors.p1_aggregation import P1AggregationDetector
@@ -228,52 +234,18 @@ class TestNowakMayP1CoOccurrence:
         detector = P1AggregationDetector(n_permutations=199)
         result = detector.detect(history, metadata)
 
-        # Must detect at confirmation or higher
+        # Sprint 43: type-constancy guard rejects NM.
         from epc.detector_result import DetectionTier
-        assert result.detected, (
-            f"P1 should detect aggregation in Nowak-May "
-            f"(tier={result.tier}, I={result.primary_metric.get('morans_i', '?')})"
+        assert not result.detected, (
+            f"Sprint 43: P1 should REJECT Nowak-May (type-constancy guard): "
+            f"tier={result.tier}"
         )
-        assert result.tier in (DetectionTier.CONFIRMATION, DetectionTier.DEFINITIVE), (
-            f"Expected confirmation+, got {result.tier}"
-        )
-
-        # Verify effect sizes.
-        # Sprint 10: primary metric is now final-state Moran's I (was
-        # peak over trajectory). NM b=1.8 shows final I ≈ 0.49, which is
-        # strong aggregation but below the old 0.5 threshold calibrated
-        # against the peak-based primary. We now also verify that the
-        # transient peak Moran (retained as a diagnostic) is >> final.
-        I = result.primary_metric.get("morans_i", 0)
-        assert I > 0.4, f"Moran's I={I:.3f} should be > 0.4 for strong clustering"
-
-        # Final-state Moran is the primary; report it and check it's solid.
-        I_final = result.primary_metric.get("morans_i_final", 0)
-        assert I_final > 0.4, f"Final Moran's I={I_final:.3f} should be > 0.4"
-
-        # Peak transient Moran is reported as a diagnostic — typically
-        # higher than final on NM because cooperator clusters tighten early
-        # then relax toward a shifting equilibrium.
-        I_peak = result.primary_metric.get("morans_i_peak", 0)
-        assert I_peak > I_final, (
-            f"Peak I={I_peak:.3f} should exceed final I={I_final:.3f} "
-            "on Nowak-May (transient cluster tightening)"
+        assert result.tier == DetectionTier.SCREENING
+        assert result.primary_metric.get("screening_rejection_reason") == "type_constancy_failed", (
+            f"Expected type_constancy_failed, got "
+            f"{result.primary_metric.get('screening_rejection_reason')!r}"
         )
 
-        seg = result.secondary_metrics.get("segregation_index", 0)
-        assert seg > 0.5, f"Segregation index={seg:.3f} should be > 0.5"
-
-        assert result.null_p_value < 0.01, (
-            f"Null p={result.null_p_value:.4f} should be < 0.01"
-        )
-
-        # Verify 2 unique types (cooperator + defector)
-        n_types = result.primary_metric.get("n_unique_types", 0)
-        assert n_types == 2, f"Expected 2 types (C/D), got {n_types}"
-
-        print(f"  ✓ Nowak-May × P1: CONFIRMATION "
-              f"(I_final={I_final:.3f}, I_peak={I_peak:.3f}, "
-              f"seg={seg:.3f}, p={result.null_p_value:.4f})")
 
     def test_nowak_may_p1_co_occurrence_with_p27(self):
         """P1 lists P27 as allowed co-occurrence — verify this is consistent."""

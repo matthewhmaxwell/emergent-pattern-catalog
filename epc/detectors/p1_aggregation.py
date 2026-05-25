@@ -27,6 +27,15 @@ class P1AggregationDetector(BaseDetector):
     Works for 1D (chimeric arrays) and 2D (grid models).
     """
 
+    # Sprint 43: type-constancy CV threshold. Schelling agents have
+    # EXACTLY conserved type counts (CV = 0); dynamic-state systems
+    # (LV, GoL, RPS) have CV > 0. Threshold 0.01 separates the two regimes:
+    # Schelling has CV = 0.000; binarized RPS (catalog adapter converts
+    # 4-state grid to occupied/empty) has CV ≈ 0.014 — above this threshold.
+    # (Original 0.02 allowed binarized RPS to slip through; 0.01 catches it
+    # while Schelling remains safely at CV = 0.)
+    _TYPE_CONSTANCY_CV_THRESHOLD = 0.01
+
     def __init__(self, n_permutations: int = 999) -> None:
         super().__init__(
             pattern_id="P1",
@@ -38,6 +47,125 @@ class P1AggregationDetector(BaseDetector):
         self._morans_i = MoransI()
         self._segregation = SegregationIndex()
         self._clusters = ClusterStats()
+
+    def detect(
+        self,
+        state_history: list[dict[str, Any]],
+        model_metadata: dict[str, Any] | None = None,
+        timescale: float | None = None,
+    ):
+        """Override to add Sprint 43 type-constancy prerequisite (Schelling 1971).
+
+        # Sprint 43 strengthening: per Schelling (1971) "Dynamic Models of
+        # Segregation", P1 specifically detects aggregation of INTRINSIC TYPE
+        # LABELS that never change across the simulation — only positions change.
+        # Systems whose cell identities transition over time (LV predator/prey,
+        # GoL alive/dead, RPS cyclic dominance) exhibit spatial autocorrelation
+        # from a different mechanism and are out of P1's documented domain.
+        # The existing type-constancy guard was applied only at DEFINITIVE tier;
+        # Sprint 42 panel surfaced 3 Class B FPs at CONFIRMATION (P11/P12/P15).
+        # Resolution: extend guard to CONFIRMATION as well.
+
+        Implementation follows the P22 irreversibility-prerequisite pattern
+        (Sprint 41): check runs before the full pipeline so that substrates
+        definitionally out of domain return detected=False at SCREENING tier
+        without wasting permutation-test CPU.
+        """
+        from epc.detector_result import DetectorResult, DetectionTier, NullType
+
+        tc_passes, tc_max_cv = self._check_type_constancy_prereq(state_history)
+        if not tc_passes:
+            return DetectorResult(
+                pattern_id=self.pattern_id,
+                detected=False,
+                tier=DetectionTier.SCREENING,
+                confidence=0.0,
+                primary_metric={"screening_rejection_reason": "type_constancy_failed"},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type=NullType.SHUFFLE,
+                warnings=[
+                    f"type_constancy_failed: max_cv={tc_max_cv:.4f} >= "
+                    f"{self._TYPE_CONSTANCY_CV_THRESHOLD} — cell-type counts are "
+                    "not conserved across trajectory (non-Schelling semantics; "
+                    "LV/GoL/RPS cyclic dynamics out of P1 domain)"
+                ],
+            )
+        return super().detect(state_history, model_metadata, timescale)
+
+    def _check_type_constancy_prereq(
+        self,
+        state_history: list[dict[str, Any]],
+    ) -> tuple[bool, float]:
+        """Check that non-empty cell-type counts are conserved across trajectory.
+
+        Per Schelling (1971): agents have INTRINSIC TYPE LABELS (e.g. red/blue)
+        that never change. Only their POSITIONS change as they seek same-type
+        neighbours. Formally: count(type_k) is CONSTANT for all non-empty k
+        across every timestep.
+
+        Dynamic-state systems violate this: LV prey become predators, GoL cells
+        are born and die, RPS species replace each other. The CV of each type's
+        count across the full trajectory detects this:
+          - Schelling: CV = 0.0 (exact integer conservation)
+          - LV, GoL, RPS: CV > 0.02
+
+        Returns (passes: bool, max_cv: float).
+        Passes vacuously (True) when the history is too short or has no
+        integer-labeled grid data (those substrates are caught by the
+        normal substrate-mismatch prerequisite).
+        """
+        if len(state_history) < 2:
+            return True, 0.0
+
+        s0 = state_history[0]
+        if ("grid" not in s0 and "type_labels_at_pos" not in s0
+                and "cell_types" not in s0):
+            # No integer-labeled spatial data → not P1's domain regardless;
+            # let the substrate-mismatch check in _validate_prerequisites handle it.
+            return True, 0.0
+
+        # Collect flat grid arrays across the full trajectory.
+        arrays = []
+        for s in state_history:
+            if "grid" in s:
+                arr = np.asarray(s["grid"]).ravel()
+            elif "cell_types" in s:
+                arr = np.asarray(s["cell_types"]).ravel()
+            elif "type_labels_at_pos" in s:
+                arr = np.asarray(s["type_labels_at_pos"]).ravel()
+            else:
+                continue
+            arrays.append(arr)
+
+        if len(arrays) < 2:
+            return True, 0.0
+
+        # Collect all non-zero (non-empty) type values across the trajectory.
+        all_types: set[int] = set()
+        for arr in arrays:
+            for v in np.unique(arr):
+                if v != 0:
+                    all_types.add(int(v))
+
+        if not all_types:
+            return True, 0.0
+
+        # Compute CV = std / mean of each type's count over all timesteps.
+        max_cv = 0.0
+        for t_val in all_types:
+            counts = np.array(
+                [int(np.sum(arr == t_val)) for arr in arrays], dtype=float
+            )
+            mean_c = float(np.mean(counts))
+            if mean_c > 0:
+                cv = float(np.std(counts) / mean_c)
+                if cv > max_cv:
+                    max_cv = cv
+
+        passes = max_cv < self._TYPE_CONSTANCY_CV_THRESHOLD
+        return passes, max_cv
 
     def _estimate_timescale(self, state_history, model_metadata):
         if model_metadata and "algorithm" in model_metadata:

@@ -239,6 +239,78 @@ def reverse_sorted_sequence(
     return out
 
 
+# --- Lattice_2d_continuous supplements -------------------------------------
+# Sprint 43: added to give P3 (Gray-Scott) a non-empty Class B pool.
+# P3's substrate type is lattice_2d_continuous; Gray-Scott is the only
+# registered catalog model of that type (0 Class B catalog mates).
+# These supplements produce field_continuous histories — dicts with a
+# 'field' key (2D float32 array) — matching the P3 detector's native
+# consumption format so no cross-format adapter is needed.
+
+
+def smooth_random_field(
+    seed: int,
+    *,
+    rows: int = 64,
+    cols: int = 64,
+    n_steps: int = 100,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Pure i.i.d. white Gaussian noise normalised to [0, 1].
+
+    Each step is an independent draw of Gaussian white noise normalised to
+    [0, 1].  The radial FFT spectrum is flat (no sharp peak): peak_to_mean
+    ≈ 1.25 < 5.0 (P3 screening threshold).  P3 should reject at screening.
+
+    NOTE: a spatially-correlated (Gaussian-filtered) variant was prototyped but
+    produces a spectral peak at the filter's correlation length that falsely
+    passes P3's screening threshold.  Pure white noise is the correct null.
+
+    Produces kind='field_continuous' output matching ``_gen_p3_gray_scott``'s
+    shape contract: each step is ``{"field": np.ndarray(rows, cols), "step": t}``.
+    """
+    rng = np.random.default_rng(seed)
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        noise = rng.standard_normal((rows, cols)).astype(np.float32)
+        lo, hi = float(noise.min()), float(noise.max())
+        denom = max(hi - lo, 1e-9)
+        field = ((noise - lo) / denom).astype(np.float32)
+        out.append({"field": field, "step": t})
+    return out
+
+
+def sinusoidal_traveling_wave(
+    seed: int,
+    *,
+    rows: int = 64,
+    cols: int = 64,
+    n_steps: int = 100,
+    period: float = 50.0,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Spatially-uniform temporal oscillation — every cell has the same value.
+
+    ``field[t, i, j] = 0.5 + 0.5 * sin(2π * t / period)``
+
+    The field is spatially homogeneous at every snapshot: field_std = 0.
+    P3's prerequisite check (field_std >= 0.01) rejects the substrate before
+    the Turing-wavelength pipeline is reached.
+
+    NOTE: a spatially-varying traveling wave (with explicit wavelength) was
+    prototyped first but produced a sharp FFT peak that falsely passed P3's
+    screening threshold.  Spatially-uniform oscillation is the correct null.
+
+    The ``seed`` parameter is accepted but unused (deterministic by construction).
+    """
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        value = float(0.5 + 0.5 * np.sin(2.0 * np.pi * t / period))
+        field = np.full((rows, cols), value, dtype=np.float32)
+        out.append({"field": field, "step": t})
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -246,6 +318,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "network": ["random_graph_evolution", "network_random_walks"],
     "continuous_2d": ["uncorrelated_random_walks", "independent_brownian_motion"],
     "lattice_1d": ["independent_lane_traffic", "reverse_sorted_sequence"],
+    "lattice_2d_continuous": ["smooth_random_field", "sinusoidal_traveling_wave"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -257,4 +330,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "independent_brownian_motion": independent_brownian_motion,
     "independent_lane_traffic": independent_lane_traffic,
     "reverse_sorted_sequence": reverse_sorted_sequence,
+    "smooth_random_field": smooth_random_field,
+    "sinusoidal_traveling_wave": sinusoidal_traveling_wave,
 }
