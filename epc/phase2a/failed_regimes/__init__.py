@@ -12,13 +12,14 @@ The harness reads ``CONFIG["regimes"]`` and calls ``build_substrate`` for
 each regime to feed the detector.
 """
 
-from epc.phase2a.failed_regimes import p18_voter, p9_kuramoto, p12_rps, p13_gh
+from epc.phase2a.failed_regimes import p18_voter, p9_kuramoto, p12_rps, p13_gh, p11_lotka_volterra
 
 REGISTRY = {
     "P18": p18_voter,
     "P9": p9_kuramoto,
     "P12": p12_rps,
     "P13": p13_gh,
+    "P11": p11_lotka_volterra,
 }
 
-__all__ = ["REGISTRY", "p18_voter", "p9_kuramoto", "p12_rps", "p13_gh"]
+__all__ = ["REGISTRY", "p18_voter", "p9_kuramoto", "p12_rps", "p13_gh", "p11_lotka_volterra"]

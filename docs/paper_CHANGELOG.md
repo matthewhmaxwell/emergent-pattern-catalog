@@ -96,3 +96,10 @@ review at the next paper-review checkpoint.
 - §4.21 added: P1 Schelling Phase-2a panel v1.2 PARTIAL (TNR=0.593, Cohen's d=1.298);
   4 carry-forwards opened; P3 Gray-Scott panel paused (lattice_2d_continuous undercount).
 - §6 appended: Sprint 42 AT-DEPTH count unchanged 6/19; P1 PARTIAL finding noted.
+
+## Sprint 45 (2026-05-25)
+
+- §4.23 added: P11 Lotka-Volterra Phase-2a panel v1.2 PASS (TNR=1.000, Cohen's d=+∞);
+  all 5 positives DEFINITIVE (0.900); P11 dim4 PARTIAL→PASS; grade remains GAP (dim1).
+- §6: Sprint 45 AT-DEPTH count unchanged 8/19; P11 dim4 PASS finding noted.
+- analysis/outputs/p11_phase2a_panel.json: new file (Sprint 45).

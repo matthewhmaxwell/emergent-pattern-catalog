@@ -5447,3 +5447,26 @@ P13        1.000  1.000  1.000  1.000    inf PASS
 - Cohen's d = +inf (positives score=0.500, all negatives score=0.000)
 
 **Sprint 44 finding:** P13 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2. All other dims were already PASS (dim1: GH canonical reference reproduced; dim2: multi-seed; dim3: methods note). P13 advances to AT-DEPTH. Note: canonical positives reach SCREENING tier (not CONFIRMATION/DEFINITIVE) with n_steps=300 on 50×50; the panel PASS criterion (TNR ≥ 0.95, Cohen's d ≥ 1.0) is satisfied regardless of positive tier — class separation is sharp (positives 0.500 vs all negatives 0.000). See `analysis/outputs/p13_phase2a_panel.json`.
+
+## Phase-2a Panel Result (v1.2) — Sprint 45 (P11 Lotka-Volterra, PASS)
+
+**Date:** 2026-05-25
+**Detector:** P11PredatorPreyDetector (n_permutations=199)
+**Canonical positive:** LotkaVolterraLattice (rows=100, cols=100, predation_rate=4.0, prey_reproduction_rate=1.0, predator_death_rate=1.0, n_steps=1200), 5 seeds
+
+```
+pattern  overall    syn    cat    fai      d verdict
+P11        1.000  1.000  1.000  1.000    inf PASS
+```
+
+- All 5 positives: DEFINITIVE, confidence=0.900 (rho_anti < -0.7, fft_peak_to_mean > 12, cohens_d < -1.5)
+- Class A synthetic TNR = 1.000 (9/9 evaluated; `time_shuffled` SKIPPED — P11 primary metric rho_anti = min_{|tau|≥5} Pearson(A(t), B(t+tau)) depends only on inter-species lag structure, not temporal ordering, making it time_shuffle_invariant)
+- Class B catalog TNR = 1.000 (7/7 lattice_2d mates: P1_Schelling, P12_RPS, P13_GH, P14_BTW, P15_GoL, P22_SIR, P27_NowakMay — all correctly rejected at screening via prerequisite failures: Schelling fails species_std=0, NM fails total_std=0, others fail rho_anti threshold)
+- Class C failed regimes TNR = 1.000 (10/10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10), predation_rate=2.0, n_steps=400 on 50×50; all regimes at μ ≥ λ = 2.0 result in predator extinction → only prey remain → n_species prerequisite fails → P11 rejects at screening with score=0.000)
+- Cohen's d = +inf (positives score=0.900, all negatives score=0.000)
+
+**Sprint 45 finding:** P11 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2. Grade remains GAP (dim1 PARTIAL: Mobilia-Georgiev-Täuber 2007 cited but no specific Fig/table reproduced with stated tolerance; dim2–dim3 already PASS). See `analysis/outputs/p11_phase2a_panel.json`.
+
+**Note on Class C design:** The failed regimes use predation_rate=2.0 (canonical Mobilia 2007 rate, σ=μ=1.0 convention) rather than the canonical positive's predation_rate=4.0. At predator_death_rate=μ ≥ predation_rate=λ=2.0, predators die at or faster than they can reproduce via predation on a finite lattice. All 10 regimes (μ ∈ {2.0, 2.33, ..., 5.0}) produce predator extinction before step 400, with the prey-only absorbing state reached faster at higher μ. P11's n_species prerequisite (requires exactly 2 non-zero species) catches all cases.
+
+**Note on conditional re-runs (Part B):** P1 PARTIAL (Sprint 43) was examined. The P1 dim4 FPs (time_shuffle, linear_gradient, Class C subthreshold) are rooted in spec-revision issues (detector calibration, Class A substrate semantics), not chain-resolved fixes. No autonomous re-run performed; P1 carry-forwards remain open (C-p1-time-shuffle-fp, C-p1-linear-gradient-fp, C-p1-class-c-subthreshold-fp).

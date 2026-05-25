@@ -2274,3 +2274,11 @@ low-density init regimes at density ∈ linspace(0.01, 0.10) — below the excit
 for spiral nucleation). Class separation is sharp: positives at 0.500 vs all negatives at
 0.000, yielding Cohen's d = +∞. Overall TNR = 1.000. Verdict: **PASS**. P13 dim4 advances
 from PARTIAL to PASS; all four dimensions now PASS → P13 advances to **AT-DEPTH**.
+
+### §4.23 Sprint 45 — Phase-2a panel run: P11 Lotka-Volterra (PASS)
+
+**P11 Lotka-Volterra — Phase-2a panel v1.2 (Sprint 45).**
+
+The P11 predator-prey oscillation detector (Sprint 11) detects bilateral anti-phase oscillations between two species on a lattice via the cross-correlation lag metric rho_anti = min_{|tau|≥5} Pearson(A(t), B(t+tau)). The panel was run against five seeds of LotkaVolterraLattice at canonical coexistence parameters (predation_rate=4.0, prey_reproduction_rate=1.0, predator_death_rate=1.0, L=100, n_steps=1200; Mobilia-Georgiev-Täuber 2007).
+
+All five positives reached DEFINITIVE (confidence = 0.900; rho_anti < −0.7, fft_peak_to_mean > 12, Cohen's d < −1.5). Class A synthetic TNR = 1.000 (9/9 evaluated; `time_shuffled` SKIPPED — rho_anti measures lag-structure between two species, not temporal order, making P11 time_shuffle_invariant). Class B catalog TNR = 1.000 (7/7 lattice_2d mates: Schelling fails species_std = 0; Nowak-May fails total_std = 0 via strict conservation; SIR, GoL, RPS, BTW, and NM fail rho_anti screening threshold). Class C failed-regime TNR = 1.000 (10/10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10), predation_rate = 2.0 — all collapse to prey-only, failing the n_species ≥ 2 prerequisite). Overall TNR = 1.000, Cohen's d = +∞. Verdict: **PASS**. P11 dim4 advances from PARTIAL to PASS. Grade remains GAP (dim1: Mobilia-Georgiev-Täuber 2007 cited but no specific Fig/table reproduced with stated tolerance).

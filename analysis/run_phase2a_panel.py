@@ -10,6 +10,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p1
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p12
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p13
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p11
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -19,6 +20,7 @@ Outputs:
     analysis/outputs/p1_phase2a_panel.json
     analysis/outputs/p12_phase2a_panel.json
     analysis/outputs/p13_phase2a_panel.json
+    analysis/outputs/p11_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -39,6 +41,7 @@ from epc.phase2a.failed_regimes import p1_schelling as p1_failed
 from epc.phase2a.failed_regimes import p3_gray_scott as p3_failed
 from epc.phase2a.failed_regimes import p12_rps as p12_failed
 from epc.phase2a.failed_regimes import p13_gh as p13_failed
+from epc.phase2a.failed_regimes import p11_lotka_volterra as p11_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -527,6 +530,59 @@ def run_p13(out_path: str = "analysis/outputs/p13_phase2a_panel.json", verbose: 
     )
 
 
+def build_p11_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P11 canonical positive: LV at coexistence focus regime (λ=4, σ=μ=1, L=100).
+
+    Canonical parameters from Sprint 11 characterization: L=100, predation_rate=4.0,
+    prey_reproduction_rate=1.0, predator_death_rate=1.0. n_steps=1200 satisfies the
+    ≥1200-generation requirement for DEFINITIVE tier (rho_anti ∈ [-0.72, -0.86] across
+    tested seeds, fft_peak_to_mean > 12). predation_rate=4.0 (not the Mobilia 2007
+    default of 2.0) is the canonical positive per test_lv_p11_e2e.py::TestLVDetectedByP11.
+    """
+    from epc.models.lotka_volterra_lattice import LotkaVolterraLattice
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = LotkaVolterraLattice(
+            rows=100, cols=100,
+            predation_rate=4.0,
+            prey_reproduction_rate=1.0,
+            predator_death_rate=1.0,
+            seed=seed,
+        )
+        history = m.run(n_steps=1200)
+        runs.append(history)
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p11_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p11_predator_prey_oscillation import P11PredatorPreyDetector
+    detector = P11PredatorPreyDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p11(out_path: str = "analysis/outputs/p11_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P11 panel → {out_path}")
+    positives, metadata = build_p11_positives(n_seeds=5)
+    detector_fn = make_p11_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P11",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p11_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
 def run_p3(out_path: str = "analysis/outputs/p3_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     """Run P3 (Turing wavelength) Phase-2a panel.
 
@@ -579,6 +635,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P1"] = run_p1()
     if which in ("p3",):
         summaries["P3"] = run_p3()
+    if which in ("p11",):
+        summaries["P11"] = run_p11()
     if which in ("p12",):
         summaries["P12"] = run_p12()
     if which in ("p13",):

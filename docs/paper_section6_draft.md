@@ -625,3 +625,15 @@ grids accumulate wavefront statistics sufficient for the CV gate but not yet 50+
 spiral-tip rotations; the class separation is sharp (0.500 vs. 0.000), yielding
 Cohen's d = +∞. P13 dim4 advances PARTIAL→PASS; all four dimensions now PASS →
 P13 advances to AT-DEPTH. AT-DEPTH count: **8 / 19**.
+
+**Sprint 45 (P11 panel, AT-DEPTH +0).**
+
+The P11 predator-prey oscillation detector (Sprint 11) was subjected to the Phase-2a
+panel v1.2 with five seeds of LotkaVolterraLattice at canonical coexistence parameters
+(predation_rate = 4.0, μ = σ = 1.0, L = 100, 1200 steps). Panel v1.2 returned PASS
+(TNR = 1.000, Cohen's d = +∞): all five positives reached DEFINITIVE (confidence =
+0.900); 10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10)
+(at/above the mean-field extinction boundary μ ≥ λ = 2.0) and 7 catalog lattice_2d
+mates were all correctly rejected. P11 dim4 advances from PARTIAL to PASS. Grade
+remains GAP (dim1 PARTIAL: no specific Fig/table from Mobilia-Georgiev-Täuber 2007
+reproduced with stated tolerance). AT-DEPTH count unchanged: **8 / 19**.
