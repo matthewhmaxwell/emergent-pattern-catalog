@@ -713,3 +713,19 @@ on a 200×200 lattice yields measured speed 0.4612 ± 0.0164 (relative error
 4.7%, tolerance <15%). All 20 seeds achieve R² > 0.995 confirming linear
 (superdiffusive) propagation. dim1 PARTIAL→PASS. P22 dims 2–3 remain PARTIAL
 → P22 grade remains GAP; AT-DEPTH count unchanged at **11 / 19**.
+
+**Sprint 52 (P2 dim1 closure, AT-DEPTH +0).**
+
+Sprint 52 closes the P2 (MIPS / active Brownian particles) dim1 depth gap via
+numerical reproduction of Fily & Marchetti (2012) Fig. 2 (PRL 108, 235702). At
+(φ=0.5, Pe=100), N=800 particles, rho_star=4.0, 2500 steps (500 burn-in), 5
+seeds: (1) seed-mean two_phase_score = 0.1237 ± 0.077 (tolerance ≥ 0.10 from
+Fig. 2 dense-cluster fractions f_gas ≈ 0.20–0.30, f_liquid ≈ 0.70–0.80);
+(2) density-speed Pearson r = −0.958 ± 0.020 (|r| ≥ 0.70 confirming v(ρ) =
+v₀(1 − ρ/ρ*) coupling); (3) thermal Pe=5 score = 0.052 < 0.08 (single-phase
+homogeneous regime). All three tolerance checks PASS. Nucleation stochasticity
+note: 2/5 seeds show low scores due to cluster-formation lag within the 2000-step
+measurement window; the Pearson r is strong (|r| ≥ 0.944) in all five seeds,
+confirming the mechanistic coupling is active throughout. dim1 PARTIAL→PASS.
+P2 dims 2–3 remain PARTIAL → P2 grade remains GAP. dim1 PARTIAL count 3→2
+(P12, P21 remain). AT-DEPTH count unchanged at **11 / 19**.

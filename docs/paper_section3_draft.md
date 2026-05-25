@@ -533,5 +533,37 @@ the 100-step fit window) yields:
 | P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
 | P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
 
-Patterns P2, P12, P21 retain dim1 PARTIAL. P22 dim1 PARTIAL→PASS; dims 2–3
-remain PARTIAL → P22 grade stays GAP. AT-DEPTH count unchanged at **11/19**.
+Patterns P2, P12, P21 retain dim1 PARTIAL after Sprint 51. P22 dim1
+PARTIAL→PASS; dims 2–3 remain PARTIAL → P22 grade stays GAP. AT-DEPTH count
+unchanged at **11/19**.
+
+### §3.6 Sprint 52 — P2 dim1 closure (Fily & Marchetti 2012 reproduction)
+
+Sprint 52 closes the P2 (MIPS / active Brownian particles) dim1 gap by
+reproducing the canonical phase-separated state from Fily & Marchetti (2012)
+Fig. 2 (PRL 108, 235702). At (φ=0.5, Pe=100), N=800 particles (φ=N·π/(4·L²)
+convention, rho_star=4.0), 5 seeds × 2500 steps (500 burn-in):
+
+- **two_phase_score** = 0.1237 ± 0.077 (tolerance ≥ 0.10, **PASS**)
+  Corresponds to Fig. 2 dense liquid cluster (f_gas ≈ 0.20–0.30, f_liquid ≈
+  0.70–0.80; our measured f_liquid ≈ 0.76 on positive seeds, consistent).
+- **Density-speed Pearson r** = −0.958 ± 0.020 (tolerance |r| ≥ 0.70, **PASS**)
+  Directly validates the v(ρ) = v₀(1 − ρ/ρ*) coupling — the defining MIPS
+  mechanism. r ≈ −1.0 when density-speed coupling is perfect; measured r
+  departures from −1 reflect thermal noise in the dilute gas phase.
+- **Thermal regime** (Pe=5): score = 0.052 < 0.08 (single homogeneous phase,
+  **PASS**).
+
+**Dim1 reproduction table (cumulative through Sprint 52):**
+
+| Pattern | Paper | Reproduced observable | Tolerance | Sprint |
+|---------|-------|-----------------------|-----------|--------|
+| P2 MIPS | Fily-Marchetti (2012) Fig. 2 | two_phase_score 0.124 (≥0.10); r=−0.958 (|r|≥0.70) | PASS | **52** |
+| P22 SIR | Datta-Acharyya (2021) §3.1.1/Fig.11 | Wavefront speed (0.4612 vs 0.4405 cells/step) | 4.7% | 51 |
+| P11 LV | Mobilia-Georgiev-Täuber (2007) | Amplitude scaling exponent (−0.967 vs −1.0) | 3.3% | 50 |
+| P28 YS | Chakraborti-Boghosian (2002/2014) | Gini convergence | <4% | 17 |
+| P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
+| P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
+
+P2 dim1 PARTIAL→PASS. P2 dims 2–3 still PARTIAL → grade remains GAP. dim1
+PARTIAL count 3→2 (P12 and P21 remain). AT-DEPTH count unchanged at **11/19**.

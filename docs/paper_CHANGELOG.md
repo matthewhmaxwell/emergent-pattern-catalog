@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 52 (2026-05-25)
+- analysis/reproductions/p2_filymarchetti2012.py: new reproduction script for Fily & Marchetti (2012) PRL 108, 235702 Fig. 2 canonical MIPS state. N=800, φ=0.5, Pe=100 (MIPS) and Pe=5 (thermal), 5 seeds × 2500 steps.
+- analysis/outputs/p2_filymarchetti2012_reproduction.json: passes_tolerance=True; Pe=100 two_phase_score=0.1237±0.077 (≥0.10 PASS); Pe=100 Pearson r=−0.958±0.020 (|r|≥0.70 PASS); Pe=5 score=0.052<0.08 PASS.
+- REPLICATION_NOTES.md §Sprint 16: appended "Dim1 Reproduction — Sprint 52" section with parameter table, per-seed results, and PASS verdict for all three tolerance checks.
+- docs/depth_gap.md: P2 row dim1 PARTIAL→PASS; dim1 PARTIAL count 3→2 (P12, P21 remain); Sprint 52 finding added; C2 carry-forward updated (P2 removed). AT-DEPTH count unchanged: 11/19.
+- §4.15 (P2 MIPS): appended "Numerical reproduction (Sprint 52)" paragraph with measured-vs-published table.
+- §3.6 Sprint 52: new subsection — dim1 reproduction table (cumulative through Sprint 52), P2 closure description.
+- §6 aggregate: Sprint 52 paragraph added; AT-DEPTH count unchanged at 11/19 (P2 dims 2–3 still PARTIAL).
+
 ## Sprint 51 (2026-05-25)
 - analysis/reproductions/p22_dattaacharyya2005.py: new reproduction script for Datta & Acharyya (2021) §3.1.1/Fig.11 wavefront speed. Implements paper's exact fixed-duration CA (t_τ=4, p2=0.10 re-infection) inline.
 - analysis/outputs/p22_dattaacharyya2005_reproduction.json: reproduction output; passes_tolerance=True; measured speed=0.4612±0.0164 vs published 0.4405±0.0008 (rel error 4.7%).
