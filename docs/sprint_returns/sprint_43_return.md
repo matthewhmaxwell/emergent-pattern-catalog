@@ -127,7 +127,19 @@ None new. Sprint 42's open carry-forwards (C-p1-time-shuffle-fp, C-p1-linear-gra
 
 ---
 
-**Decision: GO-LIMITED**
+**Decision: GO**
 
 P3: PASS → AT-DEPTH confirmed. C-lattice_2d_continuous-substrate-undercount CLOSED.
 P1: PARTIAL (TNR=0.704) — cat TNR 1.000 via type-constancy guard, C-p1-class-b-lattice2d-fp CLOSED. Residual syn + fai FPs not resolved; further investigation required for failed regime calibration.
+
+---
+
+**Sprint 43 follow-up note (2026-05-25, chat-led):** Decision amended GO-LIMITED → GO. Sprint 43 successfully closed the panel-meaningful finding (P1 Class B catalog overlap: TNR 0.571 → 1.000, C-p1-class-b-lattice2d-fp CLOSED). Residual P1 PARTIAL is driven by:
+
+- **Class A `time_shuffled` + `linear_gradient` FPs**: same C-class-a-permutation-degenerate pattern documented as open carry-forward for P9 since Sprint 35. P1 joins that bucket. Fixable by adding P1 to `detector_invariance.py` with `time_shuffle_invariant=True` (quick patch deferred to a batched-cleanup sprint later).
+- **Class C calibration**: brief-author error (thresholds [0.05–0.25] not all sub-critical at density=0.9 on 32×32). Same error class as Sprint 39 P22 percolation threshold. Requires literature lookup of Schelling 1971s actual sub-critical regime characterization at higher density
+
+
+---
+
+**Sprint 43 follow-up note (2026-05-25, chat-led):** Decision amended GO-LIMITED -> GO. Sprint 43 successfully closed the panel-meaningful finding (P1 Class B catalog overlap: TNR 0.571 -> 1.000, C-p1-class-b-lattice2d-fp CLOSED). Residual P1 PARTIAL driven by Class A degenerate substrates (`time_shuffled` + `linear_gradient`; same C-class-a-permutation-degenerate pattern documented open for P9 since Sprint 35) and Class C calibration error (thresholds [0.05-0.25] not all sub-critical at density=0.9; same brief-author error class as Sprint 39 P22 percolation threshold). Both residuals logged as new carry-forwards (C-p1-time-shuffle-invariance-flag, C-p1-class-c-threshold-calibration) rather than triggering another chat-fix sprint. Cost-benefit: another iteration would consume ~2 hours to move TNR 0.704 -> maybe 0.85, still not PASS without literature dive. P1 row stays GAP on dim4. AT-DEPTH count stays 7/19 (P3 added this sprint). Chain proceeds to Sprint 44.
