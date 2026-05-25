@@ -135,3 +135,11 @@ review at the next paper-review checkpoint.
 - §6: Sprint 47 AT-DEPTH count 10/19 (+1: P10 advances to AT-DEPTH).
 - analysis/outputs/p8_phase2a_panel.json: new file (Sprint 47).
 - analysis/outputs/p10_phase2a_panel.json: new file (Sprint 47).
+
+## Sprint 48 (2026-05-25)
+- §4.26: P21 (Hegselmann-Krause polarization) Phase-2a panel v1.2 PARTIAL (TNR=0.913, d=4.543):
+    all 5 positives DEFINITIVE; Class A 2 FPs (permutation_shuffled at CONFIRMATION,
+    time_shuffled at SCREENING); Class B+C TNR=1.000. `opinions` detector_format added
+    to panel harness. P21 dim4 remains PARTIAL; AT-DEPTH count unchanged: 10/19.
+- §6: Sprint 48 AT-DEPTH count 10/19 (unchanged; P21 dim4 PARTIAL, escalate).
+- analysis/outputs/p21_phase2a_panel.json: new file (Sprint 48).

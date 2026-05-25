@@ -671,3 +671,5 @@ the velocity distribution; carry-forward C-p10-perm-shuffled-fp). Class B catalo
 (P9_kuramoto) and Class C (10 ordinary all-to-all Kuramoto above K_c) all correctly rejected.
 P10 dim4 advances PARTIAL→PASS; all four dimensions now PASS → P10 advances to **AT-DEPTH**.
 AT-DEPTH count: **10 / 19**.
+
+Sprint 48 ran the Phase-2a panel v1.2 against P21 (Hegselmann-Krause opinion dynamics / polarization). The panel required new `opinions` detector_format plumbing added to the harness (synthetic.py, catalog.py, panel.py). All five canonical positives reached DEFINITIVE tier (confidence = 0.950). Class B and C TNR = 1.000. Class A TNR = 0.800 due to two expected FPs (`permutation_shuffled` at CONFIRMATION, `time_shuffled` at SCREENING; both carry-forwards C-p21-perm-shuffled-fp and C-p21-time-shuffled-fp document the invariance issue). Overall TNR = 0.913, Cohen's d = 4.543 → PARTIAL. P21 dim4 remains PARTIAL; AT-DEPTH count unchanged at **10 / 19**.

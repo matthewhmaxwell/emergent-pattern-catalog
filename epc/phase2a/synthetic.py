@@ -69,6 +69,18 @@ def _phases_history_from_array(theta_t: np.ndarray, cadence: int = PHASES_DEFAUL
 
 
 SEQUENCE_DEFAULT_N = 200  # default lattice_1d road/array length
+OPINIONS_DEFAULT_N = 100  # default number of agents for opinions format
+
+
+def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
+    """Wrap a (T, N) float array into the standard opinions-history format.
+
+    Each step dict has an ``opinions`` key (1-D float array ∈ [0, 1] of
+    length N).  These are the null substrates for P21's dip-test-based
+    polarization detector — they should be unimodal so the detector rejects.
+    """
+    T, N = ops.shape
+    return [{"opinions": ops[t].astype(np.float64), "step": t} for t in range(T)]
 
 
 def _sequence_history_from_array(arrays: np.ndarray) -> List[Dict[str, Any]]:
@@ -134,6 +146,10 @@ def random_uniform_field(
     if format == "sequence":
         arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Uniform opinions ∈ [0,1] — unimodal, P21 dip-test should reject.
+        ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -166,6 +182,11 @@ def random_gaussian_field(
         z = rng.standard_normal(size=(n_steps, n))
         arr = (z > 0.0).astype(np.int8)
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Gaussian opinions clipped to [0,1] — unimodal centred at 0.5.
+        z = rng.standard_normal(size=(n_steps, OPINIONS_DEFAULT_N))
+        ops = np.clip(z * 0.2 + 0.5, 0.0, 1.0)
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -197,6 +218,11 @@ def random_binary_field(
     if format == "sequence":
         arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Continuous uniform opinions — NOT binary {0,1} which would be bimodal.
+        # "Binary" here means the grid representation; opinions are continuous [0,1].
+        ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -231,6 +257,10 @@ def spatial_white_noise_series(
     if format == "sequence":
         arr = rng.integers(0, 2, size=(n_steps, n), dtype=np.int8)
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Fresh i.i.d. uniform opinions each step — no temporal autocorrelation.
+        ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -282,6 +312,14 @@ def temporal_white_noise_per_cell(
             state = np.bitwise_xor(state, flips[t])
             out[t] = state
         return _sequence_history_from_array(out)
+    if format == "opinions":
+        # Each agent's opinion performs an independent random walk clamped to [0,1].
+        ops = np.empty((n_steps, OPINIONS_DEFAULT_N))
+        state_op = rng.uniform(0.0, 1.0, size=OPINIONS_DEFAULT_N)
+        for t in range(n_steps):
+            state_op = np.clip(state_op + rng.normal(0.0, 0.05, OPINIONS_DEFAULT_N), 0.0, 1.0)
+            ops[t] = state_op
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -378,6 +416,16 @@ def permutation_shuffled_positive(
         rng.shuffle(arr_last)
         T = len(positive)
         return [{"array": arr_last.copy(), "step": t} for t in range(T)]
+    if format == "opinions":
+        # Permute the final state's opinion values (preserves distribution).
+        # For HK bimodal positives this IS degenerate: shuffled opinions keep
+        # the same bimodal distribution → dip test fires → expected FP.
+        # Carry-forward: C-p21-perm-shuffled-fp.
+        snap = positive[-1]
+        last_ops = np.asarray(snap.get("opinions", np.zeros(OPINIONS_DEFAULT_N))).copy()
+        rng.shuffle(last_ops)
+        T = len(positive)
+        return [{"opinions": last_ops.copy(), "step": t} for t in range(T)]
     raise ValueError(f"unknown format: {format}")
 
 
@@ -453,6 +501,10 @@ def constant_field(
     if format == "sequence":
         arr = np.full((n_steps, n), value, dtype=np.int8)
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # All agents share a single opinion at 0.5 — trivially unimodal.
+        ops = np.full((n_steps, OPINIONS_DEFAULT_N), 0.5, dtype=np.float64)
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -504,6 +556,11 @@ def linear_gradient_field(
         arr_static = np.arange(n, dtype=np.int32) % 2
         arr = np.broadcast_to(arr_static.astype(np.int8), (n_steps, n)).copy()
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Opinions linearly spaced from 0 to 1 — uniform distribution, unimodal.
+        ops_static = np.linspace(0.0, 1.0, OPINIONS_DEFAULT_N, endpoint=True)
+        ops = np.broadcast_to(ops_static, (n_steps, OPINIONS_DEFAULT_N)).copy()
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -557,6 +614,16 @@ def periodic_checkerboard(
         arr_static = (np.arange(n) % 2).astype(np.int8)
         arr = np.broadcast_to(arr_static, (n_steps, n)).copy()
         return _sequence_history_from_array(arr)
+    if format == "opinions":
+        # Opinions alternating between two monotone halves (0→0.5 then 0.5→1).
+        # Produces a flat uniform distribution, not bimodal — P21 should reject.
+        half = OPINIONS_DEFAULT_N // 2
+        ops_static = np.concatenate([
+            np.linspace(0.0, 0.5, half, endpoint=False),
+            np.linspace(0.5, 1.0, OPINIONS_DEFAULT_N - half, endpoint=True),
+        ])
+        ops = np.broadcast_to(ops_static, (n_steps, OPINIONS_DEFAULT_N)).copy()
+        return _opinions_history_from_array(ops)
     raise ValueError(f"unknown format: {format}")
 
 

@@ -5550,3 +5550,23 @@ P11        1.000  1.000  1.000  1.000    inf PASS
 **Sprint 47 finding:** P10 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS. All 4 dims now PASS → P10 advances to **AT-DEPTH**. AT-DEPTH count: **10 / 19**. See `analysis/outputs/p10_phase2a_panel.json`.
 
 **Note on `permutation_shuffled` FP (C-p10-perm-shuffled-fp):** The `permutation_shuffled` Class A substrate copies the `theta` array from the last frame of the canonical positive, randomly permutes the per-oscillator phase order, and replicates it across all frames. The P10 detector computes pos_vel_ac[lag=4] on per-oscillator phase velocities; permuting the spatial label of oscillators does not change the global distribution of velocities → the metric reads similarly to the original chimera positive. P10 is in invariance dict with (False, False) but the carry-forward documents the permutation FP explicitly.
+
+## Phase-2a Panel Result (v1.2) — Sprint 48 (P21 polarization/fragmentation / HK, PARTIAL)
+
+**Sprint type:** code-led, panel run (singleton). **Sprint goal:** Run v1.2 panel for P21 (opinion_space / network override). **Base HEAD:** Sprint 47 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.950 | 5/5 DEFINITIVE | HK(n_agents=100, ε=0.2, init_mode="uniform"), seeds 0–4, extended to 201 steps; 2 clusters ~0.30 and ~0.70, persistence ≥ 170 |
+| Class A synthetic | **0.800** | 10 evaluated, 2 FPs | `permutation_shuffled` FP at CONFIRMATION (0.850) — HK bimodal distribution preserved by permutation (carry-forward C-p21-perm-shuffled-fp); `time_shuffled` FP at SCREENING (0.600) — pre-convergence steps in shuffled trajectory reduce persistence below confirmation threshold (carry-forward C-p21-time-shuffled-fp). Flags corrected (True,True)→(False,False) |
+| Class B catalog+supps | **1.000** | 3 (advisory) | P18_voter rank-adapted to opinions → uniform distribution → correctly rejected; random_graph_evolution + network_random_walks grid-format → rank-adapted to opinions → uniform → correctly rejected |
+| Class C failed regimes | **1.000** | 10/10 | 10 high-ε consensus regimes ε ∈ linspace(0.45, 0.60, 10), seeds 400–409: all converge to single cluster within ~10 steps → n_clusters=1, dip_p high → correctly rejected |
+| **Overall** | **0.913** | 23 negatives | Cohen's d = 4.543 → **PARTIAL** |
+
+**Sprint 48 finding:** P21 dim4 remains PARTIAL. `opinions` detector_format added to panel harness (synthetic.py, catalog.py, panel.py). Sprint 30 rule in force; no detector/model changes. AT-DEPTH count unchanged: **10 / 19**. PARTIAL → escalate. See `analysis/outputs/p21_phase2a_panel.json`.
+
+**Note on `opinions` format plumbing (Sprint 48):** The P21 detector reads `history[-1]["opinions"]` natively. The panel harness previously had no `opinions` detector_format. Sprint 48 adds: (1) `opinions` cases to all 10 Class A synthetic generators (unimodal continuous distributions — NOT bimodal {0,1}); (2) `_adapt_to_opinions()` in catalog.py using a rank transform to [0,1] (uniform distribution → unimodal for all non-HK substrates); (3) `_adapt_supplement_history_to_opinions()` in panel.py for network supplement adaptation; (4) `opinions` case in panel.py's class_a_kwargs dispatch. `C-p21-format-clarification` carry-forward NOT opened — format is working correctly via rank transform.
+
+**Note on permutation_shuffled FP (C-p21-perm-shuffled-fp):** P21's Hartigan dip test is purely distributional (uses sorted values only). Permuting agent indices doesn't change the sorted opinion distribution → same bimodal dip statistic → FP at CONFIRMATION. Resolution: set `permutation_invariant=True` in detector_invariance.py once confirmed (requires Sprint 49 or invariance analysis sprint). Note: brief specified (False,False) flags for Sprint 48 run, accepting this FP as expected behaviour.
+
+**Note on time_shuffled FP (C-p21-time-shuffled-fp):** HK canonical positive converges at ~step 25. Steps 0–10 are unimodal (during convergence). When time-shuffled, some early unimodal frames appear at the END of the shuffled trajectory → `_count_clusters` returns 1 for those frames → persistence scan terminates early → persistence < 50 for some seeds → SCREENING only (0.600), not CONFIRMATION. Resolution: same as C-p21-perm-shuffled-fp (set time_shuffle_invariant=True) OR acknowledge as expected weak FP.

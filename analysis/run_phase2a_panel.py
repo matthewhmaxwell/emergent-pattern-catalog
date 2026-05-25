@@ -16,6 +16,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p6
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p8
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p10
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p21
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -31,6 +32,7 @@ Outputs:
     analysis/outputs/p6_phase2a_panel.json
     analysis/outputs/p8_phase2a_panel.json
     analysis/outputs/p10_phase2a_panel.json
+    analysis/outputs/p21_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -57,6 +59,7 @@ from epc.phase2a.failed_regimes import p2_active_brownian as p2_failed
 from epc.phase2a.failed_regimes import p6_dorsogna as p6_failed
 from epc.phase2a.failed_regimes import p8_nagel_schreckenberg as p8_failed
 from epc.phase2a.failed_regimes import p10_chimera as p10_failed
+from epc.phase2a.failed_regimes import p21_hk as p21_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -895,6 +898,81 @@ def run_p10(out_path: str = "analysis/outputs/p10_phase2a_panel.json", verbose: 
     )
 
 
+def build_p21_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P21 canonical positive: HK at ε=0.2 (canonical fragmented regime, HK 2002).
+
+    100 agents, uniform IC, n_steps=200.  At ε=0.2, HK converges to 2 stable
+    opinion clusters (≈ 0.30 and ≈ 0.70) within ~20–30 steps from uniform IC,
+    then stays frozen.
+
+    The HK model breaks early on convergence, so we extend the history to 201
+    items by calling ``step()`` for the remaining iterations after convergence
+    (which returns the unchanged converged state).  This gives persistence ≥ 100
+    in P21's backwards-count scan, satisfying the DEFINITIVE-tier threshold.
+
+    Seeds 0–4: distinct from Class C seeds (400–409).
+    """
+    from epc.models.hegselmann_krause import HegselmannKrauseModel
+
+    TARGET_LEN = 201  # step 0 … step 200 = 201 history items
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = HegselmannKrauseModel(n_agents=100, epsilon=0.2, init_mode="uniform", seed=seed)
+        history = m.run(n_steps=200)
+        # After convergence the model's step() still returns the frozen state —
+        # extend so persistence ≥ 100 is achievable.
+        while len(history) < TARGET_LEN:
+            history.append(m.step())
+        runs.append(history)
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p21_detector_fn(n_boot: int = 1000):
+    """P21 detector wrapper for the panel harness."""
+    from epc.detectors.p21_polarization import detect_p21
+
+    def fn(history, metadata=None):
+        return detect_p21(history, model_metadata=metadata, n_boot=n_boot)
+
+    return fn
+
+
+def run_p21(out_path: str = "analysis/outputs/p21_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P21 (polarization/fragmentation) Phase-2a panel v1.2.
+
+    detector_format="opinions": canonical positive histories are native HK format
+    (each step dict has ``opinions`` key).  Class A synthetic generators produce
+    unimodal continuous opinions → P21 rejects.  Class B P18_voter catalog mate
+    is adapted via rank transform (grid → uniform opinions → P21 rejects).
+    Network supplements (random_graph_evolution, network_random_walks) are also
+    adapted via rank transform in the panel harness.  Class C runs HK at
+    high ε (0.45–0.60) → consensus → P21 rejects.
+
+    P21 invariance flags: (False, False) per brief Notes — permutation_shuffled
+    and time_shuffled are NOT skipped.  Both preserve the HK bimodal distribution
+    → expected FPs at DEFINITIVE tier; documented as carry-forwards
+    C-p21-perm-shuffled-fp and C-p21-time-shuffled-fp.
+    """
+    print(f"--- Running P21 panel → {out_path}")
+    positives, metadata = build_p21_positives(n_seeds=5)
+    detector_fn = make_p21_detector_fn(n_boot=1000)
+    return run_panel(
+        detector_fn,
+        pattern_id="P21",
+        detector_format="opinions",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p21_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_n=100,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -932,6 +1010,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P8"] = run_p8()
     if which in ("p10",):
         summaries["P10"] = run_p10()
+    if which in ("p21",):
+        summaries["P21"] = run_p21()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

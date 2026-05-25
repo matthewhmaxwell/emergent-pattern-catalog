@@ -669,6 +669,118 @@ def _adapt_to_avalanches(native: Dict[str, Any]) -> List[Dict[str, Any]]:
     raise ValueError(f"no avalanches adapter for kind: {kind}")
 
 
+def _rank_to_uniform(arr: np.ndarray) -> np.ndarray:
+    """Map array values to uniform [0, 1] via rank transform.
+
+    For any distribution of values, the rank transform produces a uniform
+    distribution.  This is used to convert non-opinion substrates (grids,
+    phases, etc.) into opinion vectors that P21's dip test will correctly
+    classify as unimodal → TN.  The canonical HK positive is passed directly
+    to the detector (not through this adapter) so the bimodal HK opinions are
+    preserved.
+    """
+    n = len(arr)
+    if n <= 1:
+        return arr.astype(float)
+    order = np.argsort(arr)
+    result = np.empty(n, dtype=float)
+    result[order] = np.arange(n, dtype=float) / (n - 1)
+    return result
+
+
+def _adapt_to_opinions(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+    target_n: int = 100,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to opinions-history format.
+
+    Each step dict has an ``opinions`` key (1-D float array ∈ [0, 1] of
+    length ``target_n``).
+
+    Non-opinion substrates (grids, phases, particles, etc.) are mapped via a
+    rank transform to a uniform distribution — P21's dip test should reject
+    all of these (uniform is not bimodal).  Opinion substrates (HK) are
+    passed through directly.
+
+    Resize/tile logic mirrors the other adapters.
+    """
+    kind = native["kind"]
+
+    def _resize_steps(arr: np.ndarray) -> np.ndarray:
+        T = arr.shape[0]
+        if T >= target_steps:
+            return arr[-target_steps:]
+        reps = target_steps // T + 1
+        return np.tile(arr, (reps,) + (1,) * (arr.ndim - 1))[:target_steps]
+
+    def _to_ops(flat: np.ndarray) -> np.ndarray:
+        """Resize a 1-D array to target_n and rank-transform to [0, 1]."""
+        if flat.size >= target_n:
+            flat = flat[:target_n]
+        else:
+            reps = target_n // flat.size + 1
+            flat = np.tile(flat, reps)[:target_n]
+        return _rank_to_uniform(flat.astype(float))
+
+    if kind == "opinions":
+        # Identity path: resize only.
+        ops = _resize_steps(native["opinions"])
+        T, N = ops.shape
+        if N >= target_n:
+            ops_out = ops[:, :target_n]
+        else:
+            reps = target_n // N + 1
+            ops_out = np.tile(ops, (1, reps))[:, :target_n]
+        return [{"opinions": ops_out[t].astype(float), "step": t} for t in range(target_steps)]
+
+    if kind in ("grid_binary", "grid_categorical"):
+        grids = _resize_steps(native["grids"])
+        return [
+            {"opinions": _to_ops(grids[t].flatten().astype(float)), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "field_continuous":
+        fields = _resize_steps(native["fields"])
+        return [
+            {"opinions": _to_ops(fields[t].flatten().astype(float)), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "phases":
+        theta = _resize_steps(native["theta"])
+        # Map phases [0, 2π) → [0, 1], then rank-transform.
+        ops_raw = (theta % (2.0 * np.pi)) / (2.0 * np.pi)
+        return [
+            {"opinions": _to_ops(ops_raw[t]), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "particles":
+        positions = _resize_steps(native["positions"])
+        box = native["box_size"]
+        # Use x-position normalised to [0, 1] as proxy opinion.
+        return [
+            {"opinions": _to_ops(positions[t, :, 0] / max(box, 1e-9)), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "sequence":
+        arrays = _resize_steps(native["arrays"])
+        return [
+            {"opinions": _to_ops(arrays[t].astype(float)), "step": t}
+            for t in range(target_steps)
+        ]
+
+    if kind == "static_grid_int":
+        flat = native["grid"].flatten().astype(float)
+        flat_ops = _to_ops(flat)
+        return [{"opinions": flat_ops.copy(), "step": t} for t in range(target_steps)]
+
+    raise ValueError(f"no opinions adapter for kind: {kind}")
+
+
 def _adapt_to_sequence(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
     """Convert a native catalog substrate to sequence-history format.
 
@@ -830,6 +942,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_particles(native, target_steps=target_steps)
     if target_format == "sequence":
         return _adapt_to_sequence(native, target_steps=target_steps)
+    if target_format == "opinions":
+        return _adapt_to_opinions(native, target_steps=target_steps, target_n=target_n)
     raise ValueError(f"unknown target_format: {target_format}")
 
 

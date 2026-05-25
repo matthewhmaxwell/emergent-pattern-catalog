@@ -347,7 +347,7 @@ def test_panel_version_constant_is_one_two():
     ("P5",  True,  False),
     ("P11", False, True),
     ("P18", True,  True),
-    ("P21", True,  True),
+    ("P21", False, False),  # Sprint 48: corrected from (True,True) per brief Notes — dip test not invariant
     ("P28", True,  True),
     ("P27", False, True),   # provisional per spec Change 2
 ])

@@ -61,8 +61,13 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Aggregate fraction, final-state."),
     "P19": InvarianceFlags(False, False, "influence-asymmetry TE ratio",
                             rationale="Spatial + temporal information flow."),
-    "P21": InvarianceFlags(True,  True,  "dip test on opinion distribution",
-                            rationale="Distributional, final-state."),
+    "P21": InvarianceFlags(False, False, "dip test on opinion distribution",
+                            rationale="Dip test is distributional but permuting opinion values "
+                                      "from the canonical HK positive preserves the bimodal "
+                                      "cluster structure → permutation_shuffled and time_shuffled "
+                                      "are expected FPs (carry-forwards C-p21-perm-shuffled-fp, "
+                                      "C-p21-time-shuffled-fp). Sprint 48: flags corrected from "
+                                      "(True,True) per brief Notes."),
     "P22": InvarianceFlags(False, False, "cascade size / propagation speed",
                             rationale="Network-temporal structure."),
     # P27 time-shuffle flag is PROVISIONAL — see C-p27-time-shuffle-invariance carry-forward.

@@ -51,6 +51,48 @@ SKIP_VERDICT = "SKIPPED-degenerate-by-construction"
 ADVISORY_CLASS_SIZE = 5
 
 
+def _adapt_supplement_history_to_opinions(
+    history: List[Dict[str, Any]],
+    target_n: int = 100,
+) -> List[Dict[str, Any]]:
+    """Adapt a supplement's grid-format history to opinions format.
+
+    Network supplements (random_graph_evolution, network_random_walks) return
+    grid-format histories.  P21's detector requires ``opinions`` key.  This
+    adapter flattens each grid frame and applies a rank transform to [0, 1] so
+    the resulting distribution is uniform (unimodal) — P21 should reject.
+    """
+    import numpy as _np
+
+    def _rank_uniform(arr: _np.ndarray) -> _np.ndarray:
+        n = len(arr)
+        if n <= 1:
+            return arr.astype(float)
+        order = _np.argsort(arr)
+        result = _np.empty(n, dtype=float)
+        result[order] = _np.arange(n, dtype=float) / (n - 1)
+        return result
+
+    adapted = []
+    for snap in history:
+        if "opinions" in snap:
+            adapted.append(snap)
+            continue
+        if "grid" in snap:
+            flat = _np.asarray(snap["grid"]).flatten().astype(float)
+        else:
+            # Fallback: uniform null.
+            flat = _np.linspace(0.0, 1.0, max(target_n, 4))
+        if len(flat) >= target_n:
+            flat = flat[:target_n]
+        else:
+            reps = target_n // len(flat) + 1
+            flat = _np.tile(flat, reps)[:target_n]
+        opinions = _rank_uniform(flat)
+        adapted.append({"opinions": opinions, "step": snap.get("step", 0)})
+    return adapted
+
+
 # --- Score / verdict helpers ------------------------------------------------
 
 def _score(result: Any) -> float:
@@ -245,6 +287,9 @@ def run_panel(
     elif detector_format == "avalanches":
         # Avalanche-format generators only take n_avalanches; n_steps unused.
         class_a_kwargs = {}
+    elif detector_format == "opinions":
+        # Opinions generators use their own OPINIONS_DEFAULT_N; n_steps still applies.
+        pass  # n_steps already in class_a_kwargs
 
     class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):
@@ -309,6 +354,11 @@ def run_panel(
         builder = structured_mod.SUPPLEMENT_BUILDERS[supp_id]
         s = int(rng.integers(0, 2**31 - 1))
         history = builder(s)
+        # Supplement builders return their substrate type's native format (e.g.
+        # "network" supplements return grid-format histories).  For opinions-
+        # format detectors adapt via rank transform → uniform → unimodal → TN.
+        if detector_format == "opinions" and history and "opinions" not in history[0]:
+            history = _adapt_supplement_history_to_opinions(history, target_n=target_n)
         result = _run_one(detector_fn, history, canonical_metadata)
         catalog_results.append({
             "substrate": supp_id,
