@@ -97,7 +97,7 @@ No regressions. Test count unchanged (no new tests added; sprint 30 rule in forc
 
 **Overall:** AT-DEPTH count remains 10 / 19. Sprint 48 is **GO-LIMITED** with the two carry-forwards flagged for escalation.
 
-**Decision: GO-LIMITED**
+~~Decision: GO-LIMITED~~ (superseded by chat-led override below)
 
 ---
 
