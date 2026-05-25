@@ -64,6 +64,18 @@ review at the next paper-review checkpoint.
 
 ## Sprint 37 (placeholder — first orchestrator-driven sprint will write its own entry)
 
+## Sprint 44 (2026-05-25)
+
+- epc/phase2a/failed_regimes/p12_rps.py: NEW; Class C 10 high-mobility extinction regimes (mobility ∈ linspace(5e-3, 5e-2, 10)).
+- epc/phase2a/failed_regimes/p13_gh.py: NEW; Class C 10 low-density init regimes (density ∈ linspace(0.01, 0.10, 10)).
+- epc/phase2a/failed_regimes/__init__.py: p12_rps + p13_gh registered.
+- analysis/run_phase2a_panel.py: `build_p12_positives()`, `make_p12_detector_fn()`, `run_p12()`, `build_p13_positives()`, `make_p13_detector_fn()`, `run_p13()` added.
+- analysis/outputs/p12_phase2a_panel.json: NEW; TNR=1.000, Cohen's d=+∞, PASS. P12 dim4 PARTIAL→PASS.
+- analysis/outputs/p13_phase2a_panel.json: NEW; TNR=1.000, Cohen's d=+∞, PASS. P13 advances to AT-DEPTH.
+- §4.22 added: P12 RPS Phase-2a panel v1.2 PASS + P13 GH Phase-2a panel v1.2 PASS.
+- §6: updated AT-DEPTH count 7→8/19; Sprint 44 narrative added.
+- docs/depth_gap.md: P12 row dim4 PARTIAL→PASS (grade stays GAP: dim1+dim2 PARTIAL); P13 row dim4 PARTIAL→PASS, grade GAP→AT-DEPTH; aggregate counts updated 7→8 AT-DEPTH, 12→11 GAP.
+
 ## Sprint 43 (2026-05-25)
 
 - epc/detectors/p1_aggregation.py: type-constancy guard extended to CONFIRMATION tier (CV threshold 0.01); literature anchor: Schelling (1971). C-p1-class-b-lattice2d-fp CLOSED.

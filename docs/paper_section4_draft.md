@@ -2243,3 +2243,34 @@ itself), leaving no class-typed catalog non-positives. The panel is paused
 pending a spec call on the fallback override (likely: use lattice_2d catalog
 mates for the P3 panel). Carry-forward C-lattice_2d_continuous-substrate-undercount
 opened. Full resolution in a subsequent sprint.
+
+### §4.22 Sprint 44 — Phase-2a panel runs: P12 spatial RPS (PASS) and P13 Greenberg-Hastings (PASS)
+
+**P12 spatial RPS — Phase-2a panel v1.2 (Sprint 44).**
+
+The P12 cyclic-dominance detector (Sprint 9) uses a neighbor-conditional replacement ratio
+ρ(X, Y) to distinguish intransitive cyclic dominance from clock-driven excitable dynamics.
+The Phase-2a panel was run against five seeds of RPSSpatialModel at mobility = 10⁻⁴ (below
+M_c ≈ 4.5×10⁻⁴; Reichenbach et al. 2007) on a 50×50 lattice for 200 steps.
+
+All five positives reached CONFIRMATION (confidence = 0.700; log₁₀(min ρ) > 2.0, null
+p < 0.005). Class A synthetic TNR = 1.000 (10/10); Class B catalog TNR = 1.000 (7/7
+lattice_2d mates); Class C failed-regime TNR = 1.000 (10/10 high-mobility extinction
+regimes at mobility ∈ linspace(5×10⁻³, 5×10⁻²)). All Class C regimes are ≥ 11× M_c,
+well into the extinction phase where coexistence collapses and cyclic dominance vanishes.
+Overall TNR = 1.000, Cohen's d = +∞. Verdict: **PASS**. P12 dim4 advances from PARTIAL to
+PASS. Grade remains GAP (dim1: λ ∝ √M scaling unresolved; dim2: mostly single-seed).
+
+**P13 Greenberg-Hastings — Phase-2a panel v1.2 (Sprint 44).**
+
+The P13 excitable-wave detector (Sprint 2) uses wavefront propagation speed CV as the
+primary screening metric. The panel was run against five seeds of GreenbergHastings at
+canonical spiral-forming parameters (n_states = 8, threshold = 1, Moore neighbourhood,
+init_density = 0.3, 50×50, 300 steps). All five positives reached SCREENING (confidence =
+0.500); CONFIRMATION requires ≥ 50 spiral-tip rotations, which demands longer trajectories
+than 300 steps at 50×50. Class A synthetic TNR = 1.000 (10/10); Class B catalog TNR = 1.000
+(7/7, including P12_RPS which P13 correctly rejects via CV); Class C TNR = 1.000 (10/10
+low-density init regimes at density ∈ linspace(0.01, 0.10) — below the excitation threshold
+for spiral nucleation). Class separation is sharp: positives at 0.500 vs all negatives at
+0.000, yielding Cohen's d = +∞. Overall TNR = 1.000. Verdict: **PASS**. P13 dim4 advances
+from PARTIAL to PASS; all four dimensions now PASS → P13 advances to **AT-DEPTH**.

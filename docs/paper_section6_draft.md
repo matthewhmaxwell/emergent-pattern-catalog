@@ -607,3 +607,21 @@ extended to gate CONFIRMATION tier (CV threshold tightened to 0.01), closing
 C-p1-class-b-lattice2d-fp; cat TNR advances to 1.000. Residual syn and fai
 FPs remain unresolved; P1 panel returns PARTIAL (TNR = 0.704). AT-DEPTH count:
 **7 / 19**.
+
+Sprint 44 ran Phase-2a panels for P12 (spatial RPS, cyclic dominance) and P13
+(Greenberg-Hastings, excitable waves) — both lattice_2d dim4 batch 3. P12 panel
+v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞): all five RPSSpatialModel
+positives at mobility = 10⁻⁴ reached CONFIRMATION (confidence = 0.700); 10
+high-mobility extinction regimes at mobility ∈ [5×10⁻³, 5×10⁻²] (11–111× M_c)
+and 7 catalog lattice_2d mates were all correctly rejected. P12 dim4 advances
+from PARTIAL to PASS; grade remains GAP (dim1: λ ∝ √M wavelength scaling not
+replicated, carry-forward C3 open; dim2: single-seed characterisation). P13 panel
+v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞): all five GreenbergHastings
+positives (n_states = 8, threshold = 1, Moore neighbourhood, density = 0.3)
+reached SCREENING (confidence = 0.500); 10 low-density init regimes at density ∈
+[0.01, 0.10] and 7 catalog mates were all correctly rejected. Positives at
+SCREENING rather than CONFIRMATION reflects that 300-step trajectories on 50×50
+grids accumulate wavefront statistics sufficient for the CV gate but not yet 50+
+spiral-tip rotations; the class separation is sharp (0.500 vs. 0.000), yielding
+Cohen's d = +∞. P13 dim4 advances PARTIAL→PASS; all four dimensions now PASS →
+P13 advances to AT-DEPTH. AT-DEPTH count: **8 / 19**.

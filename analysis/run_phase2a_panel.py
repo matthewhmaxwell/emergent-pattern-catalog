@@ -8,6 +8,8 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p22
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p27
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p1
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p12
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p13
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -15,6 +17,8 @@ Outputs:
     analysis/outputs/p22_phase2a_panel.json
     analysis/outputs/p27_phase2a_panel.json
     analysis/outputs/p1_phase2a_panel.json
+    analysis/outputs/p12_phase2a_panel.json
+    analysis/outputs/p13_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -33,6 +37,8 @@ from epc.phase2a.failed_regimes import p27_nowak_may as p27_failed
 from epc.phase2a.failed_regimes import p22_sir as p22_failed
 from epc.phase2a.failed_regimes import p1_schelling as p1_failed
 from epc.phase2a.failed_regimes import p3_gray_scott as p3_failed
+from epc.phase2a.failed_regimes import p12_rps as p12_failed
+from epc.phase2a.failed_regimes import p13_gh as p13_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -426,6 +432,101 @@ def make_p3_detector_fn(n_permutations: int = 199, seed: int = 42):
     return fn
 
 
+def build_p12_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P12 canonical positive: spatial RPS at coexistence mobility (M=1e-4).
+
+    M=1e-4 is well below M_c ≈ 4.5e-4 (Reichenbach 2007): three-species
+    coexistence is maintained and cyclic dominance spirals form. 50×50
+    lattice; n_steps=200 gives sufficient trajectory for neighbor-conditional
+    replacement ratio ρ to accumulate statistics.
+    """
+    from epc.models.rps_spatial import RPSSpatialModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = RPSSpatialModel(rows=50, cols=50, mobility=1e-4, seed=seed)
+        runs.append(m.run(n_steps=200))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p12_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p12_cyclic_dominance import P12CyclicDominanceDetector
+    detector = P12CyclicDominanceDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p12(out_path: str = "analysis/outputs/p12_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P12 panel → {out_path}")
+    positives, metadata = build_p12_positives(n_seeds=5)
+    detector_fn = make_p12_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P12",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p12_failed,
+        output_path=out_path,
+        target_steps=200,
+        target_shape=(32, 32),
+        verbose=verbose,
+    )
+
+
+def build_p13_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P13 canonical positive: Greenberg-Hastings at spiral-forming parameters.
+
+    n_states=8, threshold=1, moore neighbourhood, init_density=0.3, 50×50.
+    This is the canonical GH regime that produces persistent spiral waves
+    (Greenberg & Hastings 1978; Fisch, Gravner & Griffeath 1991).
+    n_steps=300 ensures ≥ 5 × T_prop propagation timescales for the
+    wavefront-speed CV metric to stabilise.
+    """
+    from epc.models.greenberg_hastings import GreenbergHastings
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = GreenbergHastings(
+            rows=50, cols=50, n_states=8, threshold=1,
+            neighborhood="moore", boundary="periodic",
+            init_mode="random", init_density=0.3, seed=seed,
+        )
+        runs.append(m.run(n_steps=300))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p13_detector_fn(n_null_runs: int = 99):
+    from epc.detectors.p13_excitable_waves import P13ExcitableWaveDetector
+    detector = P13ExcitableWaveDetector(n_null_runs=n_null_runs)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p13(out_path: str = "analysis/outputs/p13_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P13 panel → {out_path}")
+    positives, metadata = build_p13_positives(n_seeds=5)
+    detector_fn = make_p13_detector_fn(n_null_runs=99)
+    return run_panel(
+        detector_fn,
+        pattern_id="P13",
+        detector_format="grid",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p13_failed,
+        output_path=out_path,
+        target_steps=300,
+        target_shape=(50, 50),
+        verbose=verbose,
+    )
+
+
 def run_p3(out_path: str = "analysis/outputs/p3_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     """Run P3 (Turing wavelength) Phase-2a panel.
 
@@ -478,6 +579,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P1"] = run_p1()
     if which in ("p3",):
         summaries["P3"] = run_p3()
+    if which in ("p12",):
+        summaries["P12"] = run_p12()
+    if which in ("p13",):
+        summaries["P13"] = run_p13()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

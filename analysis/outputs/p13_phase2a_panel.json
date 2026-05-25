@@ -1,0 +1,372 @@
+{
+  "pattern_id": "P13",
+  "head_commit": "1f122661a413e11e86edc26ca81203c8748e1765",
+  "panel_version": "1.2",
+  "detector_format": "grid",
+  "elapsed_seconds": 88.92,
+  "detector_invariance": {
+    "permutation_invariant": false,
+    "time_shuffle_invariant": false,
+    "primary_metric": "wavefront propagation speed"
+  },
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "mean_score": 0.5,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      },
+      {
+        "seed_index": 1,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      },
+      {
+        "seed_index": 2,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      },
+      {
+        "seed_index": 3,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      },
+      {
+        "seed_index": 4,
+        "score": 0.5,
+        "verdict": "screening",
+        "detected": true
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "seed": 1843824992,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "time_shuffled",
+      "seed": 184566854,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "constant",
+      "seed": 1497586438,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 432652533,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 202244314,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "P11_lotka_volterra",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P12_rps",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P14_btw_sandpile",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P15_gol",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P1_schelling",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P22_sir_epidemic",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "P27_nowak_may",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "failed_regime": [
+    {
+      "substrate": "density=0.010",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.01,
+        "n_steps": 200
+      },
+      "seed": 130,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.020",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.020000000000000004,
+        "n_steps": 200
+      },
+      "seed": 131,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.030",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.030000000000000006,
+        "n_steps": 200
+      },
+      "seed": 132,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.040",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.04000000000000001,
+        "n_steps": 200
+      },
+      "seed": 133,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.050",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.05000000000000001,
+        "n_steps": 200
+      },
+      "seed": 134,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.060",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.06000000000000001,
+        "n_steps": 200
+      },
+      "seed": 135,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.070",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.07,
+        "n_steps": 200
+      },
+      "seed": 136,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.080",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.08,
+        "n_steps": 200
+      },
+      "seed": 137,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.090",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.09000000000000001,
+        "n_steps": 200
+      },
+      "seed": 138,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "density=0.100",
+      "params": {
+        "rows": 50,
+        "cols": 50,
+        "n_states": 8,
+        "threshold": 1,
+        "init_density": 0.1,
+        "n_steps": 200
+      },
+      "seed": 139,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "class_b_composition": {
+    "substrate_type": "lattice_2d",
+    "catalog_mates": [
+      "P11_lotka_volterra",
+      "P12_rps",
+      "P14_btw_sandpile",
+      "P15_gol",
+      "P1_schelling",
+      "P22_sir_epidemic",
+      "P27_nowak_may"
+    ],
+    "synthetic_supplements": []
+  },
+  "class_c_status": "populated",
+  "class_c_n_a_reason": null,
+  "summary": {
+    "n_negatives": 27,
+    "overall_tnr": 1.0,
+    "class_a_size_total": 10,
+    "class_a_size_evaluated": 10,
+    "synthetic": {
+      "n": 10,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 7,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "failed_regime": {
+      "n": 10,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "synthetic_tnr": 1.0,
+    "catalog_tnr": 1.0,
+    "catalog_tnr_advisory": false,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": Infinity,
+    "verdict": "PASS"
+  }
+}

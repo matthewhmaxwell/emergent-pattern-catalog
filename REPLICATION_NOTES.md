@@ -5409,3 +5409,41 @@ Sprint 42 brief specifies: IF Class B has <3 mates for `lattice_2d_continuous`, 
 **Action taken:** P3 panel run paused. No `analysis/outputs/p3_phase2a_panel.json` written. `state.json` updated: `in_flight=null`, `last_escalation` populated. Carry-forward `C-lattice_2d_continuous-substrate-undercount` opened.
 
 **Carry-forward:** `C-lattice_2d_continuous-substrate-undercount` — P3 is the only lattice_2d_continuous pattern in the registry; its Class B is empty (0 mates). The brief-recommended resolution is to use lattice_2d catalog mates as a fallback for lattice_2d_continuous. This requires a spec call (chat-led) to decide whether and how to implement the override in `epc/phase2a/catalog.py::class_b_for_pattern()`. Out of scope for Sprint 42 per brief.
+
+## Phase-2a Panel Result (v1.2) — Sprint 44 (P12 spatial RPS, PASS)
+
+**Date:** 2026-05-25
+**Detector:** P12CyclicDominanceDetector (n_permutations=199, seed=42)
+**Canonical positive:** RPSSpatialModel (rows=50, cols=50, mobility=1e-4, n_steps=200), 5 seeds
+
+```
+pattern  overall    syn    cat    fai      d verdict
+P12        1.000  1.000  1.000  1.000    inf PASS
+```
+
+- All 5 positives: CONFIRMATION, confidence=0.700 (log10(min ρ) > 2.0, p < 0.005)
+- Class A synthetic TNR = 1.000 (10/10; perm_invariant=False, time_shuffle_invariant=False — both substrates tested)
+- Class B catalog TNR = 1.000 (7/7 lattice_2d mates: P11_LV, P13_GH, P14_BTW, P15_GoL, P1_Schelling, P22_SIR, P27_NowakMay — all correctly rejected)
+- Class C failed regimes TNR = 1.000 (10/10 high-mobility extinction regimes at mobility ∈ linspace(5e-3, 5e-2, 10); all regimes above M_c ≈ 4.5×10⁻⁴, cyclic coexistence collapses → P12 rejects at screening)
+- Cohen's d = +inf (positives score=0.700, all negatives score=0.000)
+
+**Sprint 44 finding:** P12 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2. AT-DEPTH not reached (dim1 PARTIAL: λ ∝ √M not replicated; dim2 PARTIAL: single-seed characterization). Grade remains GAP with dim4 now PASS. See `analysis/outputs/p12_phase2a_panel.json`.
+
+## Phase-2a Panel Result (v1.2) — Sprint 44 (P13 Greenberg-Hastings, PASS)
+
+**Date:** 2026-05-25
+**Detector:** P13ExcitableWaveDetector (n_null_runs=99)
+**Canonical positive:** GreenbergHastings (rows=50, cols=50, n_states=8, threshold=1, moore, random, density=0.3, n_steps=300), 5 seeds
+
+```
+pattern  overall    syn    cat    fai      d verdict
+P13        1.000  1.000  1.000  1.000    inf PASS
+```
+
+- All 5 positives: SCREENING, confidence=0.500 (persistent wavefront CV < 0.20 satisfied; CONFIRMATION spiral/target rotation counting requires longer runs for 50+ rotations)
+- Class A synthetic TNR = 1.000 (10/10; perm_invariant=False, time_shuffle_invariant=False)
+- Class B catalog TNR = 1.000 (7/7 lattice_2d mates: P11_LV, P12_RPS, P14_BTW, P15_GoL, P1_Schelling, P22_SIR, P27_NowakMay — all correctly rejected at screening)
+- Class C failed regimes TNR = 1.000 (10/10 low-density init regimes at density ∈ linspace(0.01, 0.10, 10); sparse initial seeds insufficient for spiral nucleation → wavefront persistence fails → P13 rejects at screening)
+- Cohen's d = +inf (positives score=0.500, all negatives score=0.000)
+
+**Sprint 44 finding:** P13 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2. All other dims were already PASS (dim1: GH canonical reference reproduced; dim2: multi-seed; dim3: methods note). P13 advances to AT-DEPTH. Note: canonical positives reach SCREENING tier (not CONFIRMATION/DEFINITIVE) with n_steps=300 on 50×50; the panel PASS criterion (TNR ≥ 0.95, Cohen's d ≥ 1.0) is satisfied regardless of positive tier — class separation is sharp (positives 0.500 vs all negatives 0.000). See `analysis/outputs/p13_phase2a_panel.json`.
