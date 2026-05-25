@@ -190,7 +190,7 @@ Matrix counts: **20 / 19 / 79 / 274 / 27 / 19 / 361 / 77 / 284** (unchanged — 
 
 ---
 
-**Decision: GO-LIMITED**
+**Decision: GO**
 
 P1 panel returned PARTIAL (TNR=0.593, Cohen's d=1.298) per Sprint 30 rule — 4 carry-forwards opened, no detector changes applied. P3 panel paused due to lattice_2d_continuous substrate-undercount (0 Class B mates). Recommend human review before Sprint 43 to:
 
@@ -198,3 +198,7 @@ P1 panel returned PARTIAL (TNR=0.593, Cohen's d=1.298) per Sprint 30 rule — 4 
 2. Decide on `class_b_for_pattern("P3")` fallback spec: use lattice_2d mates for lattice_2d_continuous, or add more lattice_2d_continuous models first?
 
 Sprint 43 brief (lattice_2d dim4 batch 3: P12 RPS + P13 GH) does not depend on P3 resolution and can proceed independently.
+
+---
+
+**Sprint 42 follow-up note (2026-05-25, chat-led):** Decision amended GO-LIMITED → GO. Both findings (P1 Class B catalog FPs, P3 substrate-undercount pause) are addressable; Sprint 43 fix-sprint inserted to address both: (1) tighten P1 type-constancy guard to gate CONFIRMATION per Schelling 1971; (2) add 2 lattice_2d_continuous B' supplements (smooth_random_field, sinusoidal_traveling_wave). Chain may proceed.
