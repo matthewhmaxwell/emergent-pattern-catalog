@@ -698,3 +698,18 @@ dominant; Sec. III), not an implementation error. dim1 PARTIAL→PASS;
 all four dimensions now PASS → P11 advances to **AT-DEPTH**.
 **AT-DEPTH count: 11 / 19** (P3, P5, P9, P10, **P11**, P13, P15, P18,
 P27, P28, P31).
+
+**Sprint 51 (P22 dim1 closure, AT-DEPTH +0).**
+
+Sprint 51 closes the P22 (information cascade / SIR epidemic CA) dim1 depth
+gap via numerical reproduction of Datta & Acharyya (2021) §3.1.1 / Fig. 11
+(arXiv:2104.10456). The paper's most quantitative claim is the wavefront
+speed (linear-fit slope of R(t)): 0.4405 ± 0.0008 cells/step. The paper
+uses a fixed-duration SIR CA (t_τ=4 deterministic steps per infection, Von
+Neumann neighbourhood, p0=0.25, p1=0.97, p2=0.10 re-infection) rather than
+stochastic geometric recovery. The paper's exact CA rules were implemented
+inline in `analysis/reproductions/p22_dattaacharyya2005.py`; running 20 seeds
+on a 200×200 lattice yields measured speed 0.4612 ± 0.0164 (relative error
+4.7%, tolerance <15%). All 20 seeds achieve R² > 0.995 confirming linear
+(superdiffusive) propagation. dim1 PARTIAL→PASS. P22 dims 2–3 remain PARTIAL
+→ P22 grade remains GAP; AT-DEPTH count unchanged at **11 / 19**.

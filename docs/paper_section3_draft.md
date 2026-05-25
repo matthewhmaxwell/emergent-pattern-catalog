@@ -505,3 +505,33 @@ an additional qualitative confirmation of correctness.
 Patterns P2, P12, P21, P22 retain dim1 PARTIAL (no named figure reproduced
 with stated tolerance). P11 dim1 PARTIAL→PASS advances P11 to **AT-DEPTH**
 (11/19 patterns).
+
+### §3.6 Sprint 51 — P22 dim1 closure (Datta-Acharyya 2021 reproduction)
+
+Sprint 51 closes the P22 (information cascade / SIR) dim1 gap by reproducing
+the wavefront speed measurement from Datta & Acharyya (2021) §3.1.1 / Fig. 11
+(arXiv:2104.10456; *Int. J. Mod. Phys. C* 33, 2250094). The paper uses a
+fixed-duration SIR CA (t_τ=4 steps per infection, per-neighbour infection
+probability p0=0.25, Von Neumann neighbourhood, re-infection probability
+p2=0.10) on a 500×500 lattice with a single seed at the centre. The most
+specific numerical claim is the linear-fit slope of the wavefront radius
+R(t): **0.4405 ± 0.0008 cells/step**.
+
+Because `epc.models.sir_epidemic` uses stochastic geometric recovery rather
+than the paper's fixed infection duration, the exact paper CA was implemented
+inline in `analysis/reproductions/p22_dattaacharyya2005.py`. Running 20 seeds
+on a 200×200 lattice (L=200 adequate; wavefront traverses only ~44 cells in
+the 100-step fit window) yields:
+
+**Dim1 reproduction table (cumulative through Sprint 51):**
+
+| Pattern | Paper | Reproduced observable | Relative error | Sprint |
+|---------|-------|-----------------------|---------------|--------|
+| P22 SIR | Datta-Acharyya (2021) §3.1.1/Fig.11 | Wavefront speed (0.4612 vs 0.4405 cells/step) | 4.7% | **51** |
+| P11 LV | Mobilia-Georgiev-Täuber (2007) | Amplitude scaling exponent (−0.967 vs −1.0) | 3.3% | 50 |
+| P28 YS | Chakraborti-Boghosian (2002/2014) | Gini convergence | <4% | 17 |
+| P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
+| P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
+
+Patterns P2, P12, P21 retain dim1 PARTIAL. P22 dim1 PARTIAL→PASS; dims 2–3
+remain PARTIAL → P22 grade stays GAP. AT-DEPTH count unchanged at **11/19**.

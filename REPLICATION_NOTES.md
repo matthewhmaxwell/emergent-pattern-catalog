@@ -1515,14 +1515,64 @@ when both have ≥3 discrete states, via wavefront speed and persistence.
 
 ## Open Items (SIR)
 
-1. Compare wavefront speed quantitatively against Datta & Acharyya's reported
-   values (their paper reports speed measurements; we should match).
+1. ~~Compare wavefront speed quantitatively against Datta & Acharyya's reported
+   values (their paper reports speed measurements; we should match).~~ **CLOSED
+   Sprint 51** — see Dim1 Reproduction section below.
 2. Test finite-size scaling of p_c (run at L=50, 100, 200 to see if p_c
    converges as L → ∞).
 3. Compare final epidemic size R_∞ against mean-field SIR ODE prediction
    at various R0 — expect systematic lattice undercount near criticality.
 4. The von Neumann transition at p=0.12 shows 17/20 percolation, lower than
    p=0.11 at 18/20. This is noise at 20 seeds — more trials would stabilize.
+
+## Dim1 Reproduction — Sprint 51
+
+**Paper:** Datta, A. & Acharyya, M. (2021/2022). "Modelling the Spread of an
+Epidemic in Presence of Vaccination using Cellular Automata." arXiv:2104.10456;
+*Int. J. Mod. Phys. C* 33, 2250094.
+
+**Anchor:** §3.1.1 Velocity of Epidemic Spread / Fig. 11 — wavefront radius
+R(t) vs. time on a 500×500 lattice, single seed at centre. The paper fits
+R(t) = slope × t and reports:
+
+> **Published slope (wavefront speed): 0.4405 ± 0.0008 cells/step**
+
+**Parameters (Table 1 + §3.1.1):**
+
+| Parameter | Paper | Reproduction |
+|---|---|---|
+| p0 (per-neighbour infection prob) | 0.25 | 0.25 |
+| p1 (recovery probability) | 0.97 | 0.97 |
+| p2 (re-infection probability) | 0.10 | 0.10 |
+| t_τ (fixed infection duration) | 4 steps | 4 steps (fixed-duration CA) |
+| Neighbourhood | Von Neumann | Von Neumann |
+| Lattice | 500×500 | 200×200 |
+| Initial condition | Single seed at centre | Single seed at centre |
+| Seeds | N/A (single run shown) | 20 |
+
+*Lattice note:* The paper uses N=500; we use N=200 because wavefront speed
+is a local property. At speed 0.44, the wavefront travels only ~44 cells in
+the 100-step fit window, far from the L/2=100 boundary.
+
+*Model note:* The paper's fixed-duration recovery (t_τ=4 deterministic) was
+implemented inline in `analysis/reproductions/p22_dattaacharyya2005.py`
+rather than via `epc.models.sir_epidemic` (which uses stochastic geometric
+recovery). The inline CA implements the exact rules from §2.1 of the paper,
+including re-infection of recovered cells (p2=0.10).
+
+**Results (20 seeds, L=200, fit steps 5–100):**
+
+| Observable | Published | Measured | Abs error | Rel error | Tolerance | Verdict |
+|---|---|---|---|---|---|---|
+| Wavefront speed (cells/step) | 0.4405 ± 0.0008 | 0.4612 ± 0.0164 | 0.0207 | 4.7% | <0.05 abs OR <15% rel | **PASS** |
+
+Seed-level R² values all exceed 0.995 (linear fit quality), confirming the
+paper's claim that R(t) ∝ t (superdiffusive epidemic spread, not diffusive).
+
+**Output:** `analysis/outputs/p22_dattaacharyya2005_reproduction.json`
+
+**dim1 status:** PARTIAL → **PASS**. Open Item #1 (wavefront speed comparison
+against paper) is now closed.
 
 ---
 

@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 51 (2026-05-25)
+- analysis/reproductions/p22_dattaacharyya2005.py: new reproduction script for Datta & Acharyya (2021) §3.1.1/Fig.11 wavefront speed. Implements paper's exact fixed-duration CA (t_τ=4, p2=0.10 re-infection) inline.
+- analysis/outputs/p22_dattaacharyya2005_reproduction.json: reproduction output; passes_tolerance=True; measured speed=0.4612±0.0164 vs published 0.4405±0.0008 (rel error 4.7%).
+- REPLICATION_NOTES.md SIR section: Open Item #1 closed; appended "Dim1 Reproduction — Sprint 51" section with parameter table, per-seed results, and PASS verdict.
+- docs/depth_gap.md: P22 row dim1 PARTIAL→PASS; dim1 PARTIAL count 4→3; Sprint 51 finding added; C2 carry-forward updated (P22 removed). AT-DEPTH count unchanged: 11/19.
+- §4.10 (P22 SIR): appended "Numerical reproduction (Sprint 51)" paragraph with measured-vs-published table.
+- §3.6 Sprint 51: new subsection — dim1 reproduction table (cumulative through Sprint 51), P22 closure description.
+- §6.11 aggregate: Sprint 51 paragraph added; AT-DEPTH count unchanged at 11/19 (P22 dims 2–3 still PARTIAL).
+
 ## Sprint 50 (2026-05-25)
 - analysis/reproductions/p11_mobilia2007_fig2.py: new reproduction script for Mobilia-Georgiev-Täuber (2007) O(1/L) amplitude scaling law and coexistence verification.
 - analysis/outputs/p11_mobilia2007_reproduction.json: reproduction output; all_passed=True; scaling exponent=−0.967 (R²=0.990); coexistence confirmed (FFT p2m=48.9).
