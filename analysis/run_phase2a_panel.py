@@ -11,6 +11,9 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p12
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p13
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p11
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p5
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p2
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p6
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -21,6 +24,9 @@ Outputs:
     analysis/outputs/p12_phase2a_panel.json
     analysis/outputs/p13_phase2a_panel.json
     analysis/outputs/p11_phase2a_panel.json
+    analysis/outputs/p5_phase2a_panel.json
+    analysis/outputs/p2_phase2a_panel.json
+    analysis/outputs/p6_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -42,6 +48,9 @@ from epc.phase2a.failed_regimes import p3_gray_scott as p3_failed
 from epc.phase2a.failed_regimes import p12_rps as p12_failed
 from epc.phase2a.failed_regimes import p13_gh as p13_failed
 from epc.phase2a.failed_regimes import p11_lotka_volterra as p11_failed
+from epc.phase2a.failed_regimes import p5_vicsek as p5_failed
+from epc.phase2a.failed_regimes import p2_active_brownian as p2_failed
+from epc.phase2a.failed_regimes import p6_dorsogna as p6_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -614,6 +623,153 @@ def run_p3(out_path: str = "analysis/outputs/p3_phase2a_panel.json", verbose: bo
     )
 
 
+def build_p5_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P5 canonical positive: Vicsek at low noise (η=0.1), N=300, n_steps=5000.
+
+    box_size=7.0, speed=0.03 → T_cross=233 steps. Second-half measurement
+    window ≈ 2500 steps ≈ 10.7 T_cross ≥ 10 T_cross for CONFIRMATION.
+    """
+    from epc.models.vicsek import VicsekModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = VicsekModel(
+            n_particles=300, box_size=7.0, speed=0.03,
+            noise=0.1, interaction_radius=1.0, dt=1.0,
+            init_mode="random", seed=seed,
+        )
+        runs.append(m.run(n_steps=5000))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p5_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p5_flocking import P5FlockingDetector
+    detector = P5FlockingDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p5(out_path: str = "analysis/outputs/p5_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P5 panel → {out_path}")
+    positives, metadata = build_p5_positives(n_seeds=5)
+    detector_fn = make_p5_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P5",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p5_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
+def build_p2_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P2 canonical positive: ABP at phi=0.5, Pe=100 (Fily-Marchetti 2012 MIPS regime).
+
+    N=800, v0=1.0, D_r=0.01 → Pe=100 ≥ 50 (above MIPS onset).
+    n_steps=2500 with P2's burn_in=200 → 2300 measurement frames ≥ 300 prerequisite.
+    """
+    from epc.models.active_brownian_particles import ActiveBrownianParticles
+    phi = 0.5
+    N = 800
+    v0 = 1.0
+    D_r = 0.01   # Pe = v0/D_r = 100
+    box_size = float(np.sqrt(N * np.pi / 4.0 / phi))  # ≈ 35.4
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = ActiveBrownianParticles(
+            n_particles=N, box_size=box_size, v0=v0,
+            D_r=D_r, rho_star=4.0, r_cg=1.0, dt=0.05,
+            init_mode="uniform", seed=seed,
+        )
+        runs.append(m.run(n_steps=2500))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p2_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p2_mips import P2MIPSDetector
+    detector = P2MIPSDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p2(out_path: str = "analysis/outputs/p2_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P2 panel → {out_path}")
+    positives, metadata = build_p2_positives(n_seeds=5)
+    detector_fn = make_p2_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P2",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p2_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
+def build_p6_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P6 canonical positive: D'Orsogna at canonical milling parameters.
+
+    Carrillo et al. 2009 params: N=100, C_a=0.5, C_r=1.0, l_a=3.0, l_r=0.5,
+    α=1.0, β=0.5. ring init → immediate milling. v_eq=√(α/β)=√2≈1.414,
+    T_cross=2*init_radius/v_eq≈7.07 time units. dt=0.05 → T_cross≈141 steps.
+    n_steps=3000 → measurement half ≈ 1500 steps × dt=0.05 = 75 time units
+    ≈ 10.6 T_cross ≥ 10 T_cross for CONFIRMATION.
+    """
+    from epc.models.dorsogna_spp import DOrsognaSPPModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = DOrsognaSPPModel(
+            n_particles=100, C_a=0.5, C_r=1.0,
+            l_a=3.0, l_r=0.5, alpha=1.0, beta=0.5,
+            dt=0.05, init_mode="ring", init_radius=5.0,
+            seed=seed,
+        )
+        runs.append(m.run(n_steps=3000))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p6_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p6_milling import P6MillingDetector
+    detector = P6MillingDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p6(out_path: str = "analysis/outputs/p6_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P6 panel → {out_path}")
+    positives, metadata = build_p6_positives(n_seeds=5)
+    detector_fn = make_p6_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P6",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p6_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -641,6 +797,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P12"] = run_p12()
     if which in ("p13",):
         summaries["P13"] = run_p13()
+    if which in ("p5",):
+        summaries["P5"] = run_p5()
+    if which in ("p2",):
+        summaries["P2"] = run_p2()
+    if which in ("p6",):
+        summaries["P6"] = run_p6()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

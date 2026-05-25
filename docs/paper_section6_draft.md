@@ -637,3 +637,19 @@ panel v1.2 with five seeds of LotkaVolterraLattice at canonical coexistence para
 mates were all correctly rejected. P11 dim4 advances from PARTIAL to PASS. Grade
 remains GAP (dim1 PARTIAL: no specific Fig/table from Mobilia-Georgiev-Täuber 2007
 reproduced with stated tolerance). AT-DEPTH count unchanged: **8 / 19**.
+
+**Sprint 46 (P5/P2/P6 panels, AT-DEPTH +1).**
+
+Sprint 46 completes the continuous_2d dim4 batch by running the Phase-2a v1.2 panel
+against P5 (Vicsek flocking), P2 (ABP / MIPS), and P6 (D'Orsogna milling). P5 returned
+PASS-with-weakness (TNR = 0.957, Cohen's d = 4.987): all five positives reached DEFINITIVE;
+the `time_shuffled` Class A substrate fires at DEFINITIVE (φ is per-frame invariant to temporal
+order — carry-forward C-p5-time-shuffle-fp). P2 returned PASS (TNR = 0.958, Cohen's d = 3.401):
+three of five positives reached DEFINITIVE; the `permutation_shuffled` substrate fires at
+SCREENING (two_phase_score is spatial-distribution invariant to particle-index permutation;
+carry-forward C-p2-perm-shuffled-fp per brief instruction not to auto-flip flag). P6 returned
+PASS (TNR = 0.958, Cohen's d = 5.087): all five positives DEFINITIVE; `time_shuffled` fires at
+DEFINITIVE (|L| per frame is temporal-order invariant — carry-forward C-p6-time-shuffle-fp).
+All Class C failed-regime TNRs = 1.000. P5 dim4 advances PARTIAL→PASS with all other dims
+already PASS → P5 advances to **AT-DEPTH**. P2 and P6 dim4 advance PARTIAL→PASS; other dims
+remain PARTIAL. AT-DEPTH count: **9 / 19**.

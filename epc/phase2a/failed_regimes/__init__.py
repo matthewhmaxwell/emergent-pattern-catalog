@@ -13,6 +13,7 @@ each regime to feed the detector.
 """
 
 from epc.phase2a.failed_regimes import p18_voter, p9_kuramoto, p12_rps, p13_gh, p11_lotka_volterra
+from epc.phase2a.failed_regimes import p5_vicsek, p2_active_brownian, p6_dorsogna
 
 REGISTRY = {
     "P18": p18_voter,
@@ -20,6 +21,13 @@ REGISTRY = {
     "P12": p12_rps,
     "P13": p13_gh,
     "P11": p11_lotka_volterra,
+    "P5": p5_vicsek,
+    "P2": p2_active_brownian,
+    "P6": p6_dorsogna,
 }
 
-__all__ = ["REGISTRY", "p18_voter", "p9_kuramoto", "p12_rps", "p13_gh", "p11_lotka_volterra"]
+__all__ = [
+    "REGISTRY",
+    "p18_voter", "p9_kuramoto", "p12_rps", "p13_gh", "p11_lotka_volterra",
+    "p5_vicsek", "p2_active_brownian", "p6_dorsogna",
+]

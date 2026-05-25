@@ -5470,3 +5470,51 @@ P11        1.000  1.000  1.000  1.000    inf PASS
 **Note on Class C design:** The failed regimes use predation_rate=2.0 (canonical Mobilia 2007 rate, σ=μ=1.0 convention) rather than the canonical positive's predation_rate=4.0. At predator_death_rate=μ ≥ predation_rate=λ=2.0, predators die at or faster than they can reproduce via predation on a finite lattice. All 10 regimes (μ ∈ {2.0, 2.33, ..., 5.0}) produce predator extinction before step 400, with the prey-only absorbing state reached faster at higher μ. P11's n_species prerequisite (requires exactly 2 non-zero species) catches all cases.
 
 **Note on conditional re-runs (Part B):** P1 PARTIAL (Sprint 43) was examined. The P1 dim4 FPs (time_shuffle, linear_gradient, Class C subthreshold) are rooted in spec-revision issues (detector calibration, Class A substrate semantics), not chain-resolved fixes. No autonomous re-run performed; P1 carry-forwards remain open (C-p1-time-shuffle-fp, C-p1-linear-gradient-fp, C-p1-class-c-subthreshold-fp).
+
+## Phase-2a Panel Result (v1.2) — Sprint 46 (P5 Vicsek / flocking, PASS-with-weakness)
+
+**Sprint type:** code-led, panel run. **Sprint goal:** Run v1.2 panel for P5 (continuous_2d). **Base HEAD:** Sprint 45 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.850 | 5/5 DEFINITIVE | VicsekModel(N=300, box_size=7.0, noise=0.1, n_steps=5000), seeds 0–4 |
+| Class A synthetic | **0.889** | 8 evaluated (1 SKIPPED: `permutation_shuffled`; 1 FP: `time_shuffled`) | `time_shuffled` fires at DEFINITIVE — each Vicsek frame has high φ independent of temporal order (carry-forward C-p5-time-shuffle-fp) |
+| Class B catalog+supps | **1.000** | 4 (advisory) | P2_abp, P6_dorsogna rejected; uncorrelated_random_walks, independent_brownian_motion rejected |
+| Class C failed regimes | **1.000** | 10/10 | 10 high-noise regimes: noise ∈ linspace(0.70, 1.50, 10); all above order-disorder transition |
+| **Overall** | **0.957** | 22 negatives | Cohen's d = 4.987 → **PASS-with-weakness** |
+
+**Sprint 46 finding:** P5 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS-with-weakness. dim4 was the only remaining PARTIAL dimension; all 4 dims now PASS → P5 advances to **AT-DEPTH**. AT-DEPTH count: **9 / 19**. See `analysis/outputs/p5_phase2a_panel.json`.
+
+**Note on `time_shuffled` FP:** Polar order parameter φ = |⟨e^iθ⟩| measures per-frame mean heading alignment. In a flocked trajectory every frame has high φ, so temporal reordering does not affect the metric. This is the same structure as C-class-a-constant-field-trivial-sync (Sprint 35): a degenerate substrate that is informationally indistinguishable from the positive for the primary metric. Carry-forward C-p5-time-shuffle-fp opened; time_shuffle_invariant flag is `False` in detector_invariance.py but the substrate triggers anyway — resolution requires spec decision (out of scope Sprint 30 rule).
+
+## Phase-2a Panel Result (v1.2) — Sprint 46 (P2 ABP / MIPS, PASS)
+
+**Sprint type:** code-led, panel run. **Sprint goal:** Run v1.2 panel for P2 (continuous_2d). **Base HEAD:** Sprint 45 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.690 | 3/5 DEFINITIVE | ABP(N=800, phi=0.5, Pe=100, v0=1.0, D_r=0.01, box≈35.4, n_steps=2500), seeds 0–4; seeds 0–1 at screening (MIPS burn-in is seed-dependent) |
+| Class A synthetic | **0.900** | 10 evaluated (1 FP: `permutation_shuffled`) | `permutation_shuffled` fires at SCREENING (0.600) — two_phase_score is spatial-distribution invariant (carry-forward C-p2-perm-shuffled-fp; permutation_invariant flag not set per brief §DO NOT AUTO-FLIP) |
+| Class B catalog+supps | **1.000** | 4 (advisory) | P5_vicsek, P6_dorsogna rejected; uncorrelated_random_walks, independent_brownian_motion rejected |
+| Class C failed regimes | **1.000** | 10/10 | 10 low-Pe regimes: Pe ∈ linspace(0.50, 10.00, 10); N=400, phi=0.5, n_steps=600; all below MIPS threshold |
+| **Overall** | **0.958** | 24 negatives | Cohen's d = 3.401 → **PASS** |
+
+**Sprint 46 finding:** P2 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS. Dims 1–3 remain PARTIAL; grade remains GAP. AT-DEPTH count unchanged. See `analysis/outputs/p2_phase2a_panel.json`.
+
+**Note on carry-forward C-p2-perm-shuffled-fp:** two_phase_score = min(f_gas, f_liquid) is a spatial density statistic computed on a coarse grid. Shuffling particle indices (headings/identities) without changing positions leaves the density field unchanged, so two_phase_score is invariant to permutation. The `permutation_invariant` flag for P2 is currently absent from `epc/phase2a/detector_invariance.py` (defaults to False). Brief instructs: DO NOT auto-flip; flag in carry-forward for spec review. When flag is set True, permutation_shuffled will be SKIPPED and Class A TNR will rise to 1.000.
+
+## Phase-2a Panel Result (v1.2) — Sprint 46 (P6 D'Orsogna / milling, PASS)
+
+**Sprint type:** code-led, panel run. **Sprint goal:** Run v1.2 panel for P6 (continuous_2d). **Base HEAD:** Sprint 45 post-commit.
+
+| Class | TNR | n | Notes |
+|-------|-----|---|-------|
+| Positives (5 seeds) | mean_score=0.850 | 5/5 DEFINITIVE | DOrsognaSPPModel(N=100, C_a=0.5, C_r=1.0, l_a=3.0, l_r=0.5, alpha=1.0, beta=0.5, dt=0.05, ring init, n_steps=3000), seeds 0–4 |
+| Class A synthetic | **0.900** | 10 evaluated (1 FP: `time_shuffled`) | `time_shuffled` fires at DEFINITIVE (0.850) — milled trajectory frames retain |L|>0 independent of temporal order (carry-forward C-p6-time-shuffle-fp) |
+| Class B catalog+supps | **1.000** | 4 (advisory) | P5_vicsek, P2_abp rejected; uncorrelated_random_walks, independent_brownian_motion rejected |
+| Class C failed regimes | **1.000** | 10/10 | 10 mismatched-radii regimes: l_a ∈ linspace(0.10, 0.49, 10) with l_r=0.5 fixed (l_a ≤ l_r throughout → no milling forms → |L|≈0) |
+| **Overall** | **0.958** | 24 negatives | Cohen's d = 5.087 → **PASS** |
+
+**Sprint 46 finding:** P6 dim4 advances from PARTIAL → PASS via Phase-2a panel v1.2 PASS. Dim2 remains PARTIAL (≥5-seed dispersion not documented); grade remains GAP. AT-DEPTH count unchanged. See `analysis/outputs/p6_phase2a_panel.json`.
+
+**Note on `time_shuffled` FP:** Angular momentum |L| = |Σ r_i × v_i| / N is computed per-frame. In a milling trajectory every frame has the swarm in its milled configuration with high |L|, so temporal reordering does not reduce the metric. This parallels the P5 `time_shuffled` FP above. Carry-forward C-p6-time-shuffle-fp opened.

@@ -28,6 +28,9 @@ PHASES_DEFAULT_STEPS = 600
 PHASES_DEFAULT_CADENCE = 10  # matches Kuramoto record_every=10 — keeps n_T_osc comparable
 AVALANCHES_DEFAULT_N = 300   # default count of synthetic avalanche-size samples
 AVALANCHES_DEFAULT_MAX_SIZE = 100
+PARTICLES_DEFAULT_N = 200
+PARTICLES_DEFAULT_BOX = 16.0
+PARTICLES_DEFAULT_SPEED = 0.03
 
 
 def _wrap_avalanches(sizes: np.ndarray) -> List[Dict[str, Any]]:
@@ -65,6 +68,30 @@ def _phases_history_from_array(theta_t: np.ndarray, cadence: int = PHASES_DEFAUL
     return out
 
 
+def _particles_history_from_random(
+    rng: np.random.Generator,
+    n: int,
+    n_steps: int,
+    box_size: float = PARTICLES_DEFAULT_BOX,
+    speed: float = PARTICLES_DEFAULT_SPEED,
+) -> List[Dict[str, Any]]:
+    """Null particle substrate: random positions + random headings, no interactions."""
+    positions = rng.uniform(0.0, box_size, (n, 2))
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        headings = rng.uniform(-np.pi, np.pi, n)
+        velocities = speed * np.column_stack([np.cos(headings), np.sin(headings)])
+        positions = (positions + velocities) % box_size
+        out.append({
+            "positions": positions.copy(),
+            "headings": headings.copy(),
+            "velocities": velocities.copy(),
+            "speeds": np.full(n, speed, dtype=np.float64),
+            "step": t,
+        })
+    return out
+
+
 # --- Generators (10) ---------------------------------------------------------
 
 def random_uniform_field(
@@ -88,6 +115,8 @@ def random_uniform_field(
         return _phases_history_from_array(theta_t)
     if format == "avalanches":
         return _wrap_avalanches(rng.integers(1, max_size + 1, size=n_avalanches))
+    if format == "particles":
+        return _particles_history_from_random(rng, n, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -114,6 +143,8 @@ def random_gaussian_field(
     if format == "avalanches":
         sizes = np.clip(rng.normal(50, 15, size=n_avalanches), 1, None).astype(np.int64)
         return _wrap_avalanches(sizes)
+    if format == "particles":
+        return _particles_history_from_random(rng, n, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -140,6 +171,8 @@ def random_binary_field(
     if format == "avalanches":
         # Avalanche sizes ∈ {1, 2}: trivially not power-law.
         return _wrap_avalanches(rng.integers(1, 3, size=n_avalanches))
+    if format == "particles":
+        return _particles_history_from_random(rng, n, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -169,6 +202,8 @@ def spatial_white_noise_series(
         # Exponential-distributed sizes — the canonical null for SOC tests.
         sizes = (rng.exponential(scale=20.0, size=n_avalanches) + 1).astype(np.int64)
         return _wrap_avalanches(sizes)
+    if format == "particles":
+        return _particles_history_from_random(rng, n, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -210,6 +245,8 @@ def temporal_white_noise_per_cell(
         # Poisson-distributed sizes (memoryless count process).
         sizes = (rng.poisson(lam=20.0, size=n_avalanches) + 1).astype(np.int64)
         return _wrap_avalanches(sizes)
+    if format == "particles":
+        return _particles_history_from_random(rng, n, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -264,6 +301,31 @@ def permutation_shuffled_positive(
         sizes = positive[0]["avalanche_sizes"].copy()
         rng.shuffle(sizes)
         return _wrap_avalanches(sizes)
+    if format == "particles":
+        # Particle permutation: shuffle headings in the final frame, keep positions.
+        # Destroys velocity alignment while preserving the spatial configuration.
+        # NOTE: for density-based detectors (P2 MIPS), this is degenerate by
+        # construction — local density is unchanged — carry-forward C-p2-perm-shuffled-fp.
+        snap = positive[-1]
+        positions = np.asarray(snap["positions"], dtype=np.float64).copy()
+        speeds_arr = np.asarray(snap.get("speeds", np.full(len(positions), PARTICLES_DEFAULT_SPEED)))
+        headings_last = np.asarray(snap["headings"], dtype=np.float64).copy()
+        rng.shuffle(headings_last)
+        velocities = np.column_stack([
+            speeds_arr * np.cos(headings_last),
+            speeds_arr * np.sin(headings_last),
+        ])
+        T = len(positive)
+        return [
+            {
+                "positions": positions.copy(),
+                "headings": headings_last.copy(),
+                "velocities": velocities.copy(),
+                "speeds": speeds_arr.copy(),
+                "step": t,
+            }
+            for t in range(T)
+        ]
     raise ValueError(f"unknown format: {format}")
 
 
@@ -307,6 +369,7 @@ def constant_field(
 
     Catches detectors that fire on triviality.
     """
+    rng = np.random.default_rng(seed)
     if format == "grid":
         arr = np.full((n_steps, *shape), value, dtype=np.int8)
         return _grid_history_from_array(arr)
@@ -315,6 +378,26 @@ def constant_field(
         return _phases_history_from_array(theta_t)
     if format == "avalanches":
         return _wrap_avalanches(np.full(n_avalanches, max(value, 1), dtype=np.int64))
+    if format == "particles":
+        # Constant field: all particles move in the same direction (θ=0).
+        # Produces φ=1.0 — a known degenerate substrate for flocking detectors
+        # (analogous to the P9 constant_field trivial-sync carry-forward).
+        positions = rng.uniform(0.0, PARTICLES_DEFAULT_BOX, (n, 2))
+        headings = np.zeros(n, dtype=np.float64)
+        velocities = PARTICLES_DEFAULT_SPEED * np.column_stack([
+            np.cos(headings), np.sin(headings)
+        ])
+        out = []
+        for t in range(n_steps):
+            positions = (positions + velocities) % PARTICLES_DEFAULT_BOX
+            out.append({
+                "positions": positions.copy(),
+                "headings": headings.copy(),
+                "velocities": velocities.copy(),
+                "speeds": np.full(n, PARTICLES_DEFAULT_SPEED, dtype=np.float64),
+                "step": t,
+            })
+        return out
     raise ValueError(f"unknown format: {format}")
 
 
@@ -329,6 +412,7 @@ def linear_gradient_field(
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """9. Linear gradient — smooth monotonic spatial gradient (no emergence)."""
+    rng = np.random.default_rng(seed)
     if format == "grid":
         H, W = shape
         col = np.arange(W) / max(1, W - 1)
@@ -343,6 +427,24 @@ def linear_gradient_field(
     if format == "avalanches":
         # Arithmetic progression — strictly monotonic, not power-law.
         return _wrap_avalanches(np.arange(1, n_avalanches + 1, dtype=np.int64))
+    if format == "particles":
+        # Linear gradient: headings spread uniformly over [0, 2π) → φ≈0.
+        positions = rng.uniform(0.0, PARTICLES_DEFAULT_BOX, (n, 2))
+        headings_static = np.linspace(-np.pi, np.pi, n, endpoint=False)
+        velocities = PARTICLES_DEFAULT_SPEED * np.column_stack([
+            np.cos(headings_static), np.sin(headings_static)
+        ])
+        out = []
+        for t in range(n_steps):
+            positions = (positions + velocities) % PARTICLES_DEFAULT_BOX
+            out.append({
+                "positions": positions.copy(),
+                "headings": headings_static.copy(),
+                "velocities": velocities.copy(),
+                "speeds": np.full(n, PARTICLES_DEFAULT_SPEED, dtype=np.float64),
+                "step": t,
+            })
+        return out
     raise ValueError(f"unknown format: {format}")
 
 
@@ -357,6 +459,7 @@ def periodic_checkerboard(
     **_: Any,
 ) -> List[Dict[str, Any]]:
     """10. Periodic boundary checkerboard — alternating values, deterministic."""
+    rng = np.random.default_rng(seed)
     if format == "grid":
         H, W = shape
         rows = np.arange(H)[:, None]
@@ -373,6 +476,24 @@ def periodic_checkerboard(
         # Alternating two values — bimodal, definitely not power-law.
         sizes = np.tile([5, 10], n_avalanches // 2 + 1)[:n_avalanches].astype(np.int64)
         return _wrap_avalanches(sizes)
+    if format == "particles":
+        # Checkerboard: alternating headings 0 and π → φ≈0 (antiparallel).
+        positions = rng.uniform(0.0, PARTICLES_DEFAULT_BOX, (n, 2))
+        headings_static = np.where(np.arange(n) % 2 == 0, 0.0, np.pi)
+        velocities = PARTICLES_DEFAULT_SPEED * np.column_stack([
+            np.cos(headings_static), np.sin(headings_static)
+        ])
+        out = []
+        for t in range(n_steps):
+            positions = (positions + velocities) % PARTICLES_DEFAULT_BOX
+            out.append({
+                "positions": positions.copy(),
+                "headings": headings_static.copy(),
+                "velocities": velocities.copy(),
+                "speeds": np.full(n, PARTICLES_DEFAULT_SPEED, dtype=np.float64),
+                "step": t,
+            })
+        return out
     raise ValueError(f"unknown format: {format}")
 
 

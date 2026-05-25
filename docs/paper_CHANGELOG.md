@@ -103,3 +103,19 @@ review at the next paper-review checkpoint.
   all 5 positives DEFINITIVE (0.900); P11 dim4 PARTIAL→PASS; grade remains GAP (dim1).
 - §6: Sprint 45 AT-DEPTH count unchanged 8/19; P11 dim4 PASS finding noted.
 - analysis/outputs/p11_phase2a_panel.json: new file (Sprint 45).
+
+## Sprint 46 (2026-05-25)
+
+- §4.24 added: Sprint 46 continuous_2d dim4 batch panel results.
+  - P5 Vicsek: PASS-with-weakness (TNR=0.957, Cohen's d=4.987); all 5 positives DEFINITIVE;
+    `time_shuffled` FP at DEFINITIVE (φ is per-frame temporal-order invariant); P5 dim4 PARTIAL→PASS;
+    all 4 dims PASS → P5 advances to AT-DEPTH.
+  - P2 ABP/MIPS: PASS (TNR=0.958, Cohen's d=3.401); 3/5 positives DEFINITIVE; `permutation_shuffled`
+    FP at SCREENING (two_phase_score is spatial-distribution invariant; flag not auto-set per brief);
+    P2 dim4 PARTIAL→PASS; grade remains GAP.
+  - P6 D'Orsogna/milling: PASS (TNR=0.958, Cohen's d=5.087); all 5 DEFINITIVE; `time_shuffled` FP
+    at DEFINITIVE (|L| per frame is temporal-order invariant); P6 dim4 PARTIAL→PASS; grade remains GAP.
+- §6: Sprint 46 AT-DEPTH count 9/19 (+1: P5 advances to AT-DEPTH).
+- analysis/outputs/p5_phase2a_panel.json: new file (Sprint 46).
+- analysis/outputs/p2_phase2a_panel.json: new file (Sprint 46).
+- analysis/outputs/p6_phase2a_panel.json: new file (Sprint 46).

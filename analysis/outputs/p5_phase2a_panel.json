@@ -1,0 +1,339 @@
+{
+  "pattern_id": "P5",
+  "head_commit": "b25c18ed1adb5f19e5b27a03551616b4d0f38b00",
+  "panel_version": "1.2",
+  "detector_format": "particles",
+  "elapsed_seconds": 93.57,
+  "detector_invariance": {
+    "permutation_invariant": true,
+    "time_shuffle_invariant": false,
+    "primary_metric": "heading order parameter |\u27e8e^i\u03b8\u27e9|"
+  },
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.85,
+      0.85,
+      0.85,
+      0.85,
+      0.85
+    ],
+    "mean_score": 0.85,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 1,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 2,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 3,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 4,
+        "score": 0.85,
+        "verdict": "definitive",
+        "detected": true
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_permutation_invariant"
+    },
+    {
+      "substrate": "time_shuffled",
+      "seed": 1843824992,
+      "score": 0.85,
+      "verdict": "definitive",
+      "detected": true
+    },
+    {
+      "substrate": "constant",
+      "seed": 184566854,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 1497586438,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 432652533,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "P2_abp",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "P6_dorsogna",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "uncorrelated_random_walks",
+      "kind": "synthetic_supplement",
+      "seed": 202244314,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "independent_brownian_motion",
+      "kind": "synthetic_supplement",
+      "seed": 1130604997,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "failed_regime": [
+    {
+      "substrate": "noise=0.700",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 0.7,
+        "n_steps": 200
+      },
+      "seed": 200,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=0.789",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 0.7888888888888889,
+        "n_steps": 200
+      },
+      "seed": 201,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=0.878",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 0.8777777777777778,
+        "n_steps": 200
+      },
+      "seed": 202,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=0.967",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 0.9666666666666666,
+        "n_steps": 200
+      },
+      "seed": 203,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.056",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.0555555555555556,
+        "n_steps": 200
+      },
+      "seed": 204,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.144",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.1444444444444444,
+        "n_steps": 200
+      },
+      "seed": 205,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.233",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.2333333333333334,
+        "n_steps": 200
+      },
+      "seed": 206,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.322",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.3222222222222222,
+        "n_steps": 200
+      },
+      "seed": 207,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.411",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.411111111111111,
+        "n_steps": 200
+      },
+      "seed": 208,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    },
+    {
+      "substrate": "noise=1.500",
+      "params": {
+        "n_particles": 300,
+        "box_size": 7.0,
+        "speed": 0.03,
+        "noise": 1.5,
+        "n_steps": 200
+      },
+      "seed": 209,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false
+    }
+  ],
+  "class_b_composition": {
+    "substrate_type": "continuous_2d",
+    "catalog_mates": [
+      "P2_abp",
+      "P6_dorsogna"
+    ],
+    "synthetic_supplements": [
+      "uncorrelated_random_walks",
+      "independent_brownian_motion"
+    ]
+  },
+  "class_c_status": "populated",
+  "class_c_n_a_reason": null,
+  "summary": {
+    "n_negatives": 23,
+    "overall_tnr": 0.9565217391304348,
+    "class_a_size_total": 10,
+    "class_a_size_evaluated": 9,
+    "synthetic": {
+      "n": 9,
+      "tnr": 0.8888888888888888,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 4,
+      "tnr": 1.0,
+      "advisory": true
+    },
+    "failed_regime": {
+      "n": 10,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "synthetic_tnr": 0.8888888888888888,
+    "catalog_tnr": 1.0,
+    "catalog_tnr_advisory": true,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": 4.986939463979016,
+    "verdict": "PASS-with-weakness"
+  }
+}

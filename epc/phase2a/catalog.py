@@ -669,6 +669,60 @@ def _adapt_to_avalanches(native: Dict[str, Any]) -> List[Dict[str, Any]]:
     raise ValueError(f"no avalanches adapter for kind: {kind}")
 
 
+def _adapt_to_particles(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to particle-history list format.
+
+    Supports ``kind="particles"`` natively.  Other kinds produce random-walk
+    null trajectories so that detectors with an observable guard (checking for
+    ``positions``/``velocities`` keys) still receive a valid history and can
+    return ``detected=False`` cleanly.
+    """
+    kind = native.get("kind", "")
+    if kind == "particles":
+        headings_arr = np.asarray(native["headings"], dtype=np.float32)  # (T, N)
+        positions_arr = np.asarray(native["positions"], dtype=np.float32)  # (T, N, 2)
+        T, N = headings_arr.shape
+        # Derive velocities as unit vectors along heading direction (speed=1).
+        velocities_arr = np.stack(
+            [np.cos(headings_arr), np.sin(headings_arr)], axis=-1
+        )  # (T, N, 2)
+        # Sub-sample or tile to reach target_steps.
+        if T >= target_steps:
+            idx = np.linspace(0, T - 1, target_steps, dtype=int)
+        else:
+            idx = np.array(list(range(T)) * (target_steps // T + 1))[:target_steps]
+        history = []
+        for step_i, t in enumerate(idx):
+            history.append({
+                "positions": positions_arr[t],
+                "velocities": velocities_arr[t],
+                "headings": headings_arr[t],
+                "speeds": np.ones(N, dtype=np.float32),
+                "step": step_i,
+            })
+        return history
+    # Fallback: random null particles so observable guards can reject cleanly.
+    rng = np.random.default_rng(0)
+    N = 200
+    box = 16.0
+    positions = rng.uniform(0, box, size=(target_steps, N, 2)).astype(np.float32)
+    headings = rng.uniform(-np.pi, np.pi, size=(target_steps, N)).astype(np.float32)
+    velocities = np.stack([np.cos(headings), np.sin(headings)], axis=-1)
+    return [
+        {
+            "positions": positions[t],
+            "velocities": velocities[t],
+            "headings": headings[t],
+            "speeds": np.ones(N, dtype=np.float32),
+            "step": t,
+        }
+        for t in range(target_steps)
+    ]
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -689,6 +743,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_phases(native, target_steps=target_steps, target_n=target_n, cadence=cadence)
     if target_format == "avalanches":
         return _adapt_to_avalanches(native)
+    if target_format == "particles":
+        return _adapt_to_particles(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
