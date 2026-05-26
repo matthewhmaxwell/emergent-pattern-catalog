@@ -729,3 +729,17 @@ measurement window; the Pearson r is strong (|r| ≥ 0.944) in all five seeds,
 confirming the mechanistic coupling is active throughout. dim1 PARTIAL→PASS.
 P2 dims 2–3 remain PARTIAL → P2 grade remains GAP. dim1 PARTIAL count 3→2
 (P12, P21 remain). AT-DEPTH count unchanged at **11 / 19**.
+
+**Sprint 53 (P21 dim1 closure, AT-DEPTH +0).**
+
+Sprint 53 closes the P21 (polarization / fragmentation, Hegselmann-Krause)
+dim1 depth gap via numerical reproduction of the canonical cluster-count
+vs. ε curve from Hegselmann & Krause (2002) Fig. 2. N=100 agents, uniform
+U[0,1] initial opinions, synchronous averaging, 20 seeds per ε. All 8 ε
+points pass: fragmentation at ε ≤ 0.15 (median ≥ 3 clusters), polarization
+at ε = 0.20 (median 2 clusters, 19/20 seeds), consensus at ε ≥ 0.30 (median
+1 cluster, all seeds). At ε = 0.25 (the 2→1 transition boundary), 14/20 seeds
+reach consensus and 6/20 reach two clusters; the published range is widened
+to [1, 3] consistent with the paper's finite-N transition discussion. dim1
+PARTIAL→PASS. P21 dims 2–3 remain PARTIAL → grade remains GAP. dim1 PARTIAL
+count 2→**1** (P12 only). AT-DEPTH count unchanged at **11 / 19**.

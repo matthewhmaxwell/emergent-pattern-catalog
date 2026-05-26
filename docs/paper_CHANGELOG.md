@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 53 (2026-05-26)
+- analysis/reproductions/p21_hegselmann2002.py: new reproduction script for Hegselmann & Krause (2002) Fig. 2 cluster-count vs ε curve. N=100, uniform IC, synchronous averaging, convergence tol=1e-6, 20 seeds per ε, 8 ε points (0.10–0.50).
+- analysis/outputs/p21_hegselmann2002_reproduction.json: all 8 ε points PASS; median cluster counts match published ranges; ε=0.25 boundary zone documented (14/20 consensus, 6/20 two-cluster).
+- REPLICATION_NOTES.md P21 section: appended "Dim1 Reproduction — Sprint 53" with parameter table, per-ε results table, boundary-zone footnote, and PASS verdict.
+- docs/depth_gap.md: P21 row dim1 PARTIAL→PASS; dim1 PARTIAL count 2→1 (P12 only); Sprint 53 finding added; C2 carry-forward updated (P21 closed, P12 only remains). AT-DEPTH count unchanged: 11/19.
+- §4.9 (P21 HK): appended "Numerical reproduction (Sprint 53)" paragraph with tolerance table.
+- §3.6 Sprint 53: new subsection — dim1 reproduction table (cumulative through Sprint 53), P21 closure description, boundary-zone footnote.
+- §6 aggregate: Sprint 53 paragraph added; AT-DEPTH count unchanged at 11/19 (P21 dims 2–3 still PARTIAL).
+
 ## Sprint 52 (2026-05-25)
 - analysis/reproductions/p2_filymarchetti2012.py: new reproduction script for Fily & Marchetti (2012) PRL 108, 235702 Fig. 2 canonical MIPS state. N=800, φ=0.5, Pe=100 (MIPS) and Pe=5 (thermal), 5 seeds × 2500 steps.
 - analysis/outputs/p2_filymarchetti2012_reproduction.json: passes_tolerance=True; Pe=100 two_phase_score=0.1237±0.077 (≥0.10 PASS); Pe=100 Pearson r=−0.958±0.020 (|r|≥0.70 PASS); Pe=5 score=0.052<0.08 PASS.

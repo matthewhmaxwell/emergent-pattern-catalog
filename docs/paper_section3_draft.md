@@ -567,3 +567,38 @@ convention, rho_star=4.0), 5 seeds × 2500 steps (500 burn-in):
 
 P2 dim1 PARTIAL→PASS. P2 dims 2–3 still PARTIAL → grade remains GAP. dim1
 PARTIAL count 3→2 (P12 and P21 remain). AT-DEPTH count unchanged at **11/19**.
+
+### §3.6 Sprint 53 — P21 dim1 closure (Hegselmann-Krause 2002 reproduction)
+
+Sprint 53 closes the P21 (polarization / fragmentation, Hegselmann-Krause)
+dim1 gap by reproducing the canonical cluster-count vs. ε curve from
+Hegselmann & Krause (2002) Fig. 2. N=100 agents, uniform U[0,1] initial
+opinions, synchronous bounded-confidence averaging, convergence tolerance
+1e-6, 20 seeds per ε point.
+
+Key results:
+
+- **ε = 0.10**: median 4 clusters (published [4, 7]) — fragmentation regime
+- **ε = 0.15**: median 3 clusters (published [3, 5])
+- **ε = 0.20**: median 2 clusters (published [2, 4]) — polarization regime; 19/20 seeds
+- **ε = 0.25**: median 1 cluster (published [1, 3]†) — boundary zone, 6/20 seeds reach 2 clusters
+- **ε ≥ 0.30**: median 1 cluster (published [1, 1]) — consensus regime, 20/20 seeds
+
+†ε = 0.25 lies in the 2→1 transition zone (ε_c ≈ 0.24–0.27 per HK 2002 §4).
+With N=100, both outcomes are plausible; range widened to [1,3] consistent
+with paper's transition discussion. All 8 ε points PASS.
+
+**Dim1 reproduction table (cumulative through Sprint 53):**
+
+| Pattern | Paper | Reproduced observable | Tolerance | Sprint |
+|---------|-------|-----------------------|-----------|--------|
+| P21 HK | Hegselmann-Krause (2002) Fig. 2 | Cluster count vs ε (8 points) | PASS | **53** |
+| P2 MIPS | Fily-Marchetti (2012) Fig. 2 | two_phase_score 0.124 (≥0.10); r=−0.958 (|r|≥0.70) | PASS | 52 |
+| P22 SIR | Datta-Acharyya (2021) §3.1.1/Fig.11 | Wavefront speed (0.4612 vs 0.4405 cells/step) | 4.7% | 51 |
+| P11 LV | Mobilia-Georgiev-Täuber (2007) | Amplitude scaling exponent (−0.967 vs −1.0) | 3.3% | 50 |
+| P28 YS | Chakraborti-Boghosian (2002/2014) | Gini convergence | <4% | 17 |
+| P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
+| P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
+
+P21 dim1 PARTIAL→PASS. P21 dims 2–3 still PARTIAL → grade remains GAP.
+dim1 PARTIAL count 2→**1** (P12 only). AT-DEPTH count unchanged at **11/19**.

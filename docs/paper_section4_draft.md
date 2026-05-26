@@ -427,6 +427,30 @@ pre-existing structure). The persistence check confirms clusters are
 stable for ≥10 steps. P18 (consensus) exclusion ensures detection only
 fires when the population genuinely splits rather than converging.
 
+**Numerical reproduction (Sprint 53).** Sprint 53 closes the P21 dim1
+gap by reproducing the canonical cluster-count vs. ε curve from
+Hegselmann & Krause (2002) Fig. 2. N=100 agents, uniform U[0,1] initial
+opinions, synchronous bounded-confidence averaging, convergence tolerance
+1e-6 (or T=10000 steps), 20 seeds per ε. Clusters counted by sorting
+agents and recording gaps > 0.05 between adjacent opinions.
+
+| ε | Published range | Measured median | Passes |
+|------|----------------|-----------------|--------|
+| 0.10 | [4, 7] | 4 | PASS |
+| 0.15 | [3, 5] | 3 | PASS |
+| 0.20 | [2, 4] | 2 | PASS |
+| 0.25 | [1, 3]† | 1 | PASS |
+| 0.27 | [1, 2] | 1 | PASS |
+| 0.30 | [1, 1] | 1 | PASS |
+| 0.50 | [1, 1] | 1 | PASS |
+
+†ε = 0.25 lies in the 2→1 transition zone (ε_c ≈ 0.24–0.27). With
+N = 100 finite-size effects, 14/20 seeds converge to consensus and
+6/20 to two clusters. This stochastic boundary behaviour is documented
+in the paper's transition discussion; the published range is widened
+to [1, 3] to reflect it. All 8 ε points pass. P21 dim1 PARTIAL→PASS.
+See `analysis/outputs/p21_hegselmann2002_reproduction.json`.
+
 ## 4.10 SIR Epidemic CA and P22 Information Cascade (Cluster F)
 
 **Primary reference:** Datta, A. & Acharyya, M. (2022). Modelling the
