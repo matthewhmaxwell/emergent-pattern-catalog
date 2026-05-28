@@ -602,3 +602,37 @@ with paper's transition discussion. All 8 ε points PASS.
 
 P21 dim1 PARTIAL→PASS. P21 dims 2–3 still PARTIAL → grade remains GAP.
 dim1 PARTIAL count 2→**1** (P12 only). AT-DEPTH count unchanged at **11/19**.
+
+### §3.6 Sprint 54 — P12 dim1 reproduction attempt (Reichenbach-Mobilia-Frey 2007)
+
+Sprint 54 attempts to close the last remaining dim1 gap (P12, spatial RPS)
+by reproducing Reichenbach, Mobilia & Frey (2007) Fig. 2c: spiral wavelength
+λ ~ M^(1/2) in the coexistence regime. L=100 lattice, σ=μ=1, M ∈
+{3×10⁻⁴, 4×10⁻⁴, 5×10⁻⁴}, 10 seeds per M, radial ACF wavelength estimator
+(λ = r_zero / 0.383 where r_zero is the ACF first zero crossing).
+
+Measured wavelengths:
+- M=3×10⁻⁴: λ = 60.8 ± 7.7 (expected 65.3)
+- M=4×10⁻⁴: λ = 66.9 ± 8.0 (expected 75.4)
+- M=5×10⁻⁴: λ = 73.4 ± 7.1 (expected 84.3)
+
+Log-log slope = **0.37** (target 0.5 ± 0.1, tolerance [0.4, 0.6]).
+**Tolerance not met.** Wavelengths qualitatively match the formula (within 15%,
+rank order correct), but the narrow M range (1.67×) with ~10% per-point variance
+is insufficient to confirm the exponent. P12 dim1 remains PARTIAL.
+
+**Dim1 reproduction table (cumulative through Sprint 54):**
+
+| Pattern | Paper | Reproduced observable | Tolerance | Sprint |
+|---------|-------|-----------------------|-----------|--------|
+| P2 MIPS | Fily-Marchetti (2012) Fig. 2 | two_phase_score 0.124 (≥0.10); r=−0.958 (|r|≥0.70) | PASS | 52 |
+| P21 HK | Hegselmann-Krause (2002) Fig. 2 | Cluster count vs ε (8 points) | PASS | 53 |
+| P22 SIR | Datta-Acharyya (2021) §3.1.1/Fig.11 | Wavefront speed (0.4612 vs 0.4405 cells/step) | 4.7% | 51 |
+| P11 LV | Mobilia-Georgiev-Täuber (2007) | Amplitude scaling exponent (−0.967 vs −1.0) | 3.3% | 50 |
+| P28 YS | Chakraborti-Boghosian (2002/2014) | Gini convergence | <4% | 17 |
+| P31 Zhang | Zhang et al. (2024) | Swap counts + insertion DG | <4% | 16 |
+| P3 GS | Pearson (1993) | Turing wavelength (T=8000 regime) | N/A (detector-level) | 13 |
+| **P12 RPS** | **Reichenbach-Mobilia-Frey (2007) Fig. 2c** | **Spiral λ(M) slope = 0.37** | **OUTSIDE [0.4,0.6]** | **54** |
+
+P12 dim1 remains PARTIAL (slope 0.37, outside tolerance). Grade stays GAP.
+dim1 PARTIAL count unchanged: **1** (P12 only). AT-DEPTH count unchanged at **11/19**.

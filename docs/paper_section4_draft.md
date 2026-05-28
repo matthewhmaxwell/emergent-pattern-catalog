@@ -650,13 +650,30 @@ selection:* in a striped A/B lattice with ε = 0 and µ ≈ 0, A cells
 (which nothing dominates in this two-species subset) are never killed;
 B cells drop >50% in 20 generations.
 
-We did not replicate the spiral-wavelength scaling law λ ∝ √M. A full
-replication would require Fourier analysis or spiral-tip tracking at
-multiple mobilities with long runs, and the resulting fit constant
-depends on finite-size effects not controlled in our small L ≤ 60 test
-configurations. The P12 detector does not key off wavelength; the more
-diagnostic observable is the neighbor-conditional transition ratio
-described below.
+**Numerical reproduction (Sprint 54).** We attempted to replicate the
+spiral-wavelength scaling law λ ∝ M^(1/2) from Reichenbach Fig. 2c.
+On an L=100 lattice (σ=μ=1, von Neumann neighbourhood), we measured
+characteristic spiral wavelength via the radial autocorrelation
+function (ACF) first zero crossing: the 2D radial ACF of a spiral
+density field approximately follows J₀(2πr/λ), so the first zero at
+r_zero = 0.383 λ gives λ = r_zero / 0.383. Three mobility values
+(M ∈ {3×10⁻⁴, 4×10⁻⁴, 5×10⁻⁴}), 10 seeds each, 500-generation
+equilibration, 200-generation measurement window.
+
+| M | Measured λ | Expected 0.8L√(M/M_c) |
+|---|------------|----------------------|
+| 3×10⁻⁴ | 60.8 ± 7.7 | 65.3 |
+| 4×10⁻⁴ | 66.9 ± 8.0 | 75.4 |
+| 5×10⁻⁴ | 73.4 ± 7.1 | 84.3 |
+
+The measured wavelengths are qualitatively consistent with the formula
+(within 15% of expected, rank order correct), but the log-log slope
+(0.37) falls just outside the ±0.1 tolerance band around the published
+exponent 0.5. The narrow M range tested (1.67×) provides insufficient
+log-log leverage to confirm the exponent given ~10% per-point variance.
+A wider sweep spanning at least two decades in M (e.g., 10⁻⁵ to 5×10⁻⁴)
+would tighten the slope estimate; this is deferred to a future sprint.
+Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json`.
 
 **P12 detection.** The P12 cyclic-dominance detector's primary metric is
 the `intransitivity_score`, defined as log₁₀ of the minimum

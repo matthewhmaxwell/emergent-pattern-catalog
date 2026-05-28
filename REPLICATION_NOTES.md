@@ -1784,12 +1784,12 @@ Four pieces of evidence that P12 is well-designed:
 
 ## Open Items (RPS)
 
-1. **λ ∝ √M scaling not quantitatively replicated.** A test that measures
-   spiral wavelength at multiple mobilities and verifies the √M law would
-   deepen the model validation. This would need Fourier transform of the
-   spatial grid + peak-finding at the dominant wavenumber, ideally at
-   L ≥ 100 and ≥ 200 generations per mobility. Candidate for a future
-   slow-marked test.
+1. **λ ∝ √M scaling: Sprint 54 attempted, tolerance not met.** See Dim1
+   Reproduction section below. Slope 0.37 measured vs target 0.5 ± 0.1;
+   outside [0.4, 0.6] tolerance. Root cause: 3 M values in a narrow
+   1.67× range near M_c give insufficient log-log leverage. A wider
+   M sweep (e.g., [1e-5, 1e-4, 1e-3]) spanning 2 decades would tighten
+   the slope estimate but requires substantially more compute.
 2. **M_c not pinned precisely.** Our 3-point mobility sweep confirms the
    coexistence/extinction phase separation qualitatively but does not
    measure M_c itself. The paper's value is M_c ≈ (4.5 ± 0.5) × 10⁻⁴ for
@@ -1798,6 +1798,62 @@ Four pieces of evidence that P12 is well-designed:
    at L = 100 which is adequate for tests but would be slow for precise
    M_c measurement. A Numba/Cython inner loop is a possible future
    optimization, though it would add a build dependency.
+
+## Dim1 Reproduction — Sprint 54 (Reichenbach-Mobilia-Frey 2007)
+
+**Paper:** Reichenbach, T., Mobilia, M. & Frey, E. (2007). "Mobility promotes
+and jeopardizes biodiversity in rock-paper-scissors games." Nature 448, 1046–1049.
+
+**Figure target:** Fig. 2c — spiral wavelength λ ~ M^(1/2) in the coexistence
+regime.
+
+**Method:** L=100 lattice (σ=μ=1, von Neumann neighbourhood). Wavelength
+estimated via radial ACF first zero crossing of the species-A density field
+(λ = r_zero / 0.383, where 0.383 is the J₀ first-zero factor). T_eq=500
+generations equilibration, T_measure=200 generations measurement with stride
+20 (10 snapshots). N_seeds=10 per M value. Log-log fit over 3 M values.
+
+**Simulation parameters:**
+
+| Parameter | Value |
+|-----------|-------|
+| Lattice L | 100 |
+| σ (selection rate) | 1.0 |
+| μ (reproduction rate) | 1.0 |
+| M values | [3×10⁻⁴, 4×10⁻⁴, 5×10⁻⁴] |
+| T_eq (generations) | 500 |
+| T_measure (generations) | 200 |
+| Measurement stride | 20 |
+| Seeds per M | 10 |
+| Wavelength estimator | Radial ACF first zero |
+
+**Per-M results:**
+
+| M | Measured λ | Std | n_valid | Expected (0.8×L×√(M/M_c)) |
+|---|------------|-----|---------|--------------------------|
+| 3×10⁻⁴ | 60.8 | 7.7 | 10/10 | 65.3 |
+| 4×10⁻⁴ | 66.9 | 8.0 | 10/10 | 75.4 |
+| 5×10⁻⁴ | 73.4 | 7.1 | 10/10 | 84.3 |
+
+**Log-log fit:** slope = **0.366** (target 0.5, tolerance [0.4, 0.6])
+
+**Verdict: OUTSIDE TOLERANCE — dim1 stays PARTIAL.**
+
+The measured slope is 0.034 below the lower tolerance bound. The 1.67×
+M range (3e-4 to 5e-4) provides insufficient log-log leverage to
+precisely pin the exponent given ~10% per-point wavelength variance
+(std/mean ≈ 0.11). The wavelengths are qualitatively consistent with
+the published formula (all within ~15% of expected), and the rank order
+(λ increases with M) is correct, but the slope cannot be confirmed
+within [0.4, 0.6] with this parameter configuration.
+
+**Carry-forward:** A wider M sweep spanning [1e-5, 1e-4, 5e-4] (100×
+range) or increased N_seeds (≥20 per M point) would reduce slope
+uncertainty and likely yield slope ∈ [0.4, 0.6]. See dim1 carry-forward
+C3 (originally Sprint 9, now Sprint 55+ candidate).
+
+**Artifact:** `analysis/outputs/p12_reichenbach2007_reproduction.json`
+**Script:** `analysis/reproductions/p12_reichenbach2007.py`
 
 
 # Sprint 10 — P1 Primary Metric: Empirical Characterization

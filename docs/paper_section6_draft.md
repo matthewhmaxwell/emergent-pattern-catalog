@@ -730,6 +730,18 @@ confirming the mechanistic coupling is active throughout. dim1 PARTIAL→PASS.
 P2 dims 2–3 remain PARTIAL → P2 grade remains GAP. dim1 PARTIAL count 3→2
 (P12, P21 remain). AT-DEPTH count unchanged at **11 / 19**.
 
+**Sprint 54 (P12 dim1 attempt, AT-DEPTH +0).**
+
+Sprint 54 attempts to close the sole remaining dim1 gap (P12, spatial RPS)
+by reproducing the spiral-wavelength scaling law λ ~ M^(1/2) from
+Reichenbach, Mobilia & Frey (2007) Fig. 2c. L=100 lattice, σ=μ=1,
+M ∈ {3×10⁻⁴, 4×10⁻⁴, 5×10⁻⁴}, radial ACF wavelength estimator,
+10 seeds per M value. Measured log-log slope = 0.37 (target 0.5, tolerance
+[0.4, 0.6]); outside tolerance. Wavelengths qualitatively match the formula
+(within 15%, rank order correct) but the narrow M range (1.67×) with ~10%
+per-point variance cannot confirm the exponent. P12 dim1 remains PARTIAL.
+AT-DEPTH count unchanged at **11 / 19**.
+
 **Sprint 53 (P21 dim1 closure, AT-DEPTH +0).**
 
 Sprint 53 closes the P21 (polarization / fragmentation, Hegselmann-Krause)

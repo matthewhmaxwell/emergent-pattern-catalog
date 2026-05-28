@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 54 (2026-05-28)
+- analysis/reproductions/p12_reichenbach2007.py: reproduction script for Reichenbach-Mobilia-Frey (2007) Fig. 2c spiral wavelength λ ~ M^(1/2). L=100, σ=μ=1, M ∈ {3e-4, 4e-4, 5e-4}, 10 seeds, radial ACF estimator, T_eq=500, T_meas=200, stride=20.
+- analysis/outputs/p12_reichenbach2007_reproduction.json: passes_tolerance=False; measured slope=0.366 (target 0.5, tolerance [0.4, 0.6]); wavelengths qualitatively match formula (within 15%); tolerance failure due to narrow M range (1.67×) with ~10% per-point variance.
+- REPLICATION_NOTES.md P12 section: updated Open Item #1, appended "Dim1 Reproduction — Sprint 54" with parameter table, per-M results, slope result, and PARTIAL verdict with carry-forward reasoning.
+- docs/depth_gap.md: P12 row dim1 note updated (Sprint 54 attempt, slope 0.37, outside tolerance); Sprint 54 finding added; C2/C3 carry-forwards updated. dim1 PARTIAL count unchanged: 1. AT-DEPTH count unchanged: 11/19.
+- §4.11 (P12 RPS): replaced "We did not replicate..." with "Numerical reproduction (Sprint 54)" paragraph including measured-vs-published table and tolerance verdict (outside [0.4, 0.6]).
+- §3.6 Sprint 54: new subsection — dim1 reproduction attempt description, per-M results, cumulative dim1 table (P12 row added as OUTSIDE tolerance).
+- §6 aggregate: Sprint 54 paragraph added; AT-DEPTH count unchanged at 11/19.
+
 ## Sprint 53 (2026-05-26)
 - analysis/reproductions/p21_hegselmann2002.py: new reproduction script for Hegselmann & Krause (2002) Fig. 2 cluster-count vs ε curve. N=100, uniform IC, synchronous averaging, convergence tol=1e-6, 20 seeds per ε, 8 ε points (0.10–0.50).
 - analysis/outputs/p21_hegselmann2002_reproduction.json: all 8 ε points PASS; median cluster counts match published ranges; ε=0.25 boundary zone documented (14/20 consensus, 6/20 two-cluster).
