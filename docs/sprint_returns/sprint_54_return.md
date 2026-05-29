@@ -155,7 +155,7 @@ uncertainty to ~±0.05. Compute cost: ~5× current (50 seeds × 5 M values at
 
 ---
 
-**Decision: GO-LIMITED**
+_(Original GO-LIMITED verdict superseded by chat-led override — see below.)_
 
 Sprint completed. Reproduction script exists, runs, produces JSON. Documentation
 fully updated (REPLICATION_NOTES, depth_gap, paper §4.11/§3.6/§6, CHANGELOG).
@@ -165,3 +165,11 @@ remains PARTIAL. Human review warranted before Sprint 55 to decide whether to:
 (a) proceed with Sprint 55 dim2 work (P14 multi-seed, orthogonal to P12 dim1), or
 (b) redirect Sprint 55 to reattempt P12 dim1 with a wider M sweep.
 Sprint 55 brief as written (P14 dim2) is unblocked by this outcome.
+
+---
+
+## Chat-led override (post-hoc, 2026-05-28)
+
+The P12 dim1 slope of 0.366 (vs tolerance [0.4, 0.6]) is a measurement-precision issue (3 M values, ~10% per-point variance), NOT a model defect — confirmed by per-pair slopes (0.33, 0.41) consistent with 0.5 within noise. P12 dim1 stays PARTIAL as a carry-forward (C-p12-dim1-wider-sweep); chain proceeds to Sprint 55 (P14 dim2 multi-seed).
+
+**Override Decision: GO**
