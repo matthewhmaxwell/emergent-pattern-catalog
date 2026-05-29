@@ -1,0 +1,202 @@
+{
+  "sprint": 55,
+  "description": "P14 BTW sandpile multi-seed \u03c4 extension",
+  "params": {
+    "L": 32,
+    "n_drive": 30000,
+    "n_burn": 3000,
+    "n_seeds": 20,
+    "seed_base": 100
+  },
+  "primary_observable": "tau (MLE power-law exponent, xmin=1)",
+  "per_seed": [
+    {
+      "seed": 100,
+      "tau": 1.2894735258891283,
+      "tau_logbin": 1.219232488662327,
+      "n_nonzero_avalanches": 12736,
+      "max_avalanche_size": 2203,
+      "lr_vs_exponential": 24.052666363826972,
+      "lr_vs_exponential_p": 7.8283673632606e-128
+    },
+    {
+      "seed": 101,
+      "tau": 1.2931310328649865,
+      "tau_logbin": 1.24482873100772,
+      "n_nonzero_avalanches": 12815,
+      "max_avalanche_size": 2448,
+      "lr_vs_exponential": 26.111896564617126,
+      "lr_vs_exponential_p": 2.6712570812385797e-150
+    },
+    {
+      "seed": 102,
+      "tau": 1.2932147183054454,
+      "tau_logbin": 1.202880845545884,
+      "n_nonzero_avalanches": 12865,
+      "max_avalanche_size": 1982,
+      "lr_vs_exponential": 26.733504284980558,
+      "lr_vs_exponential_p": 1.9205864517173453e-157
+    },
+    {
+      "seed": 103,
+      "tau": 1.2905686723513958,
+      "tau_logbin": 1.2775921447917948,
+      "n_nonzero_avalanches": 12881,
+      "max_avalanche_size": 2838,
+      "lr_vs_exponential": 24.01400502572921,
+      "lr_vs_exponential_p": 1.9856234278091486e-127
+    },
+    {
+      "seed": 104,
+      "tau": 1.2921727996891421,
+      "tau_logbin": 1.2326075540063897,
+      "n_nonzero_avalanches": 12757,
+      "max_avalanche_size": 2293,
+      "lr_vs_exponential": 25.882139903486923,
+      "lr_vs_exponential_p": 1.0582259893409093e-147
+    },
+    {
+      "seed": 105,
+      "tau": 1.2909521742040175,
+      "tau_logbin": 1.2339454697531245,
+      "n_nonzero_avalanches": 12684,
+      "max_avalanche_size": 2328,
+      "lr_vs_exponential": 24.870833541445613,
+      "lr_vs_exponential_p": 1.5392492820024321e-136
+    },
+    {
+      "seed": 106,
+      "tau": 1.2927674184689906,
+      "tau_logbin": 1.24706188838761,
+      "n_nonzero_avalanches": 12849,
+      "max_avalanche_size": 2507,
+      "lr_vs_exponential": 25.9954187922407,
+      "lr_vs_exponential_p": 5.579469571219224e-149
+    },
+    {
+      "seed": 107,
+      "tau": 1.2907663322477618,
+      "tau_logbin": 1.2226873620261483,
+      "n_nonzero_avalanches": 12696,
+      "max_avalanche_size": 2613,
+      "lr_vs_exponential": 24.55676238034403,
+      "lr_vs_exponential_p": 3.662324235864913e-133
+    },
+    {
+      "seed": 108,
+      "tau": 1.2898176773806929,
+      "tau_logbin": 1.240861165634712,
+      "n_nonzero_avalanches": 12720,
+      "max_avalanche_size": 2486,
+      "lr_vs_exponential": 24.14242011862196,
+      "lr_vs_exponential_p": 8.969071836931127e-129
+    },
+    {
+      "seed": 109,
+      "tau": 1.2902412474380782,
+      "tau_logbin": 1.1920289607936096,
+      "n_nonzero_avalanches": 12570,
+      "max_avalanche_size": 2200,
+      "lr_vs_exponential": 25.193622784325665,
+      "lr_vs_exponential_p": 4.705099522221796e-140
+    },
+    {
+      "seed": 110,
+      "tau": 1.2929200571159705,
+      "tau_logbin": 1.249594768121666,
+      "n_nonzero_avalanches": 12751,
+      "max_avalanche_size": 2540,
+      "lr_vs_exponential": 26.277793727253023,
+      "lr_vs_exponential_p": 3.440971987551445e-152
+    },
+    {
+      "seed": 111,
+      "tau": 1.2909727042374235,
+      "tau_logbin": 1.2437620188125549,
+      "n_nonzero_avalanches": 12722,
+      "max_avalanche_size": 2555,
+      "lr_vs_exponential": 25.09393033500879,
+      "lr_vs_exponential_p": 5.7930502037242174e-139
+    },
+    {
+      "seed": 112,
+      "tau": 1.2909650292069097,
+      "tau_logbin": 1.2582597208618271,
+      "n_nonzero_avalanches": 12757,
+      "max_avalanche_size": 2629,
+      "lr_vs_exponential": 24.62027763604731,
+      "lr_vs_exponential_p": 7.662683797696033e-134
+    },
+    {
+      "seed": 113,
+      "tau": 1.2919132737091603,
+      "tau_logbin": 1.2114237334019975,
+      "n_nonzero_avalanches": 12884,
+      "max_avalanche_size": 2120,
+      "lr_vs_exponential": 25.07354130396422,
+      "lr_vs_exponential_p": 9.668781584315623e-139
+    },
+    {
+      "seed": 114,
+      "tau": 1.2924251276596062,
+      "tau_logbin": 1.2353169074818677,
+      "n_nonzero_avalanches": 12695,
+      "max_avalanche_size": 2358,
+      "lr_vs_exponential": 26.173107216733055,
+      "lr_vs_exponential_p": 5.379524897849939e-151
+    },
+    {
+      "seed": 115,
+      "tau": 1.2920422560618077,
+      "tau_logbin": 1.2004348500964221,
+      "n_nonzero_avalanches": 12885,
+      "max_avalanche_size": 1868,
+      "lr_vs_exponential": 25.644120135443895,
+      "lr_vs_exponential_p": 4.917347037575372e-145
+    },
+    {
+      "seed": 116,
+      "tau": 1.2895300641300458,
+      "tau_logbin": 1.227091188755568,
+      "n_nonzero_avalanches": 12675,
+      "max_avalanche_size": 2732,
+      "lr_vs_exponential": 23.497375787124096,
+      "lr_vs_exponential_p": 4.338652238133429e-122
+    },
+    {
+      "seed": 117,
+      "tau": 1.291300204126209,
+      "tau_logbin": 1.2176940458352887,
+      "n_nonzero_avalanches": 12757,
+      "max_avalanche_size": 2200,
+      "lr_vs_exponential": 25.23432154456288,
+      "lr_vs_exponential_p": 1.6834755234173572e-140
+    },
+    {
+      "seed": 118,
+      "tau": 1.2914990022504538,
+      "tau_logbin": 1.2236159032484444,
+      "n_nonzero_avalanches": 12757,
+      "max_avalanche_size": 2230,
+      "lr_vs_exponential": 25.9590824344879,
+      "lr_vs_exponential_p": 1.4359432534718092e-148
+    },
+    {
+      "seed": 119,
+      "tau": 1.2909953170580732,
+      "tau_logbin": 1.2802023708751007,
+      "n_nonzero_avalanches": 12734,
+      "max_avalanche_size": 2885,
+      "lr_vs_exponential": 24.7288731321692,
+      "lr_vs_exponential_p": 5.2331471644321724e-135
+    }
+  ],
+  "aggregate": {
+    "tau_mean": 1.291383431719765,
+    "tau_std": 0.0011628358380611373,
+    "tau_cv": 0.0009004574547720208,
+    "tau_min": 1.2894735258891283,
+    "tau_max": 1.2932147183054454
+  },
+  "elapsed_seconds": 599.3355898857117
+}

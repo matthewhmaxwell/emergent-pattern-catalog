@@ -552,12 +552,13 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–50), **11 / 19** patterns have
-reached AT-DEPTH grade and **8 / 19** remain at GAP. The eleven AT-DEPTH
+Across the 19-pattern inventory (Sprints 1–55), **12 / 19** patterns have
+reached AT-DEPTH grade and **7 / 19** remain at GAP. The twelve AT-DEPTH
 patterns are P3 (Turing pattern formation), P5 (flocking), P9 (synchronization),
 P10 (chimera states), P11 (predator-prey oscillations), P13 (excitable waves),
-P15 (persistent computation), P18 (coarsening-to-consensus), P27 (spatial
-reciprocity), P28 (wealth condensation), and P31 (delayed gratification).
+P14 (self-organized criticality), P15 (persistent computation), P18
+(coarsening-to-consensus), P27 (spatial reciprocity), P28 (wealth condensation),
+and P31 (delayed gratification).
 
 Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
 standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
@@ -741,6 +742,18 @@ M ∈ {3×10⁻⁴, 4×10⁻⁴, 5×10⁻⁴}, radial ACF wavelength estimator,
 (within 15%, rank order correct) but the narrow M range (1.67×) with ~10%
 per-point variance cannot confirm the exponent. P12 dim1 remains PARTIAL.
 AT-DEPTH count unchanged at **11 / 19**.
+
+**Sprint 55 (P14 dim2 closure, AT-DEPTH +1).**
+
+Sprint 55 closes the P14 (BTW sandpile, self-organized criticality) dim2 depth gap
+via a 20-seed multi-seed extension (L=32, n_drive=30,000, n_burn=3,000). The
+power-law exponent τ = 1.2914 ± 0.0012 (CV = 0.09%) across all 20 seeds,
+confirming that the SOC signature is robust to stochastic variation. The
+narrow spread (τ ∈ [1.2895, 1.2932]) reflects the deterministic self-organization
+of BTW dynamics: once the critical state is reached, the avalanche power-law is
+seed-insensitive. dim2 PARTIAL→PASS; all four dimensions now PASS → P14 advances
+to **AT-DEPTH**. **AT-DEPTH count: 12 / 19** (P3, P5, P9, P10, P11, P13, **P14**,
+P15, P18, P27, P28, P31).
 
 **Sprint 53 (P21 dim1 closure, AT-DEPTH +0).**
 

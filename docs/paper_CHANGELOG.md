@@ -4,6 +4,14 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 55 (2026-05-29)
+- analysis/p14_multiseed.py: new multi-seed analysis script for P14 BTW sandpile. L=32, n_drive=30,000, n_burn=3,000, 20 seeds (seeds 100–119).
+- analysis/outputs/p14_multiseed.json: τ = 1.2914 ± 0.0012 (CV = 0.09%) across 20 seeds. All seeds detect SOC at CONFIRMATION tier.
+- REPLICATION_NOTES.md P14 (BTW) section: appended "Dim2 Multi-seed Extension — Sprint 55" with per-seed τ table and aggregate statistics. dim2 PARTIAL→PASS verdict.
+- docs/depth_gap.md: P14 row dim2 PARTIAL→PASS, grade GAP→AT-DEPTH; AT-DEPTH count 11→12; Gap count 8→7; Sprint 55 finding added; C4 carry-forward CLOSED.
+- §4.7 (P14 BTW sandpile): appended "Multi-seed robustness (Sprint 55)" paragraph with τ ± std, CV, range.
+- §6 aggregate: Sprint 55 paragraph added; AT-DEPTH count 11→12/19; aggregate sentence updated.
+
 ## Sprint 54 (2026-05-28)
 - analysis/reproductions/p12_reichenbach2007.py: reproduction script for Reichenbach-Mobilia-Frey (2007) Fig. 2c spiral wavelength λ ~ M^(1/2). L=100, σ=μ=1, M ∈ {3e-4, 4e-4, 5e-4}, 10 seeds, radial ACF estimator, T_eq=500, T_meas=200, stride=20.
 - analysis/outputs/p12_reichenbach2007_reproduction.json: passes_tolerance=False; measured slope=0.366 (target 0.5, tolerance [0.4, 0.6]); wavelengths qualitatively match formula (within 15%); tolerance failure due to narrow M range (1.67×) with ~10% per-point variance.
