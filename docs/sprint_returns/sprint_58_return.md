@@ -198,13 +198,13 @@ Pass:   False
 
 ---
 
-_(Original GO-LIMITED verdict superseded by chat-led override - see below.)_
+_(Original GO-LIMITED verdict superseded by operator-led override - see below.)_
 
-Sprint completed cleanly with all code/documentation tasks executed correctly, regression suite green, and sprint=58 JSON on disk. The sprint surfaced an important physical finding (formula regime breakdown at M ≪ M_c) that substantially changes the strategy for C2/C3 closure. The carry-forwards C2 and C3 have been updated with the new diagnosis. A human read is warranted before the next sprint because: (1) the dim1 closure strategy needs reassessment given the formula-regime finding, and (2) it should be determined whether a near-M_c dense sweep (Sprint 59) is the correct path or whether a chat-led review of the Reichenbach 2007 SI would sharpen the approach.
+Sprint completed cleanly with all code/documentation tasks executed correctly, regression suite green, and sprint=58 JSON on disk. The sprint surfaced an important physical finding (formula regime breakdown at M ≪ M_c) that substantially changes the strategy for C2/C3 closure. The carry-forwards C2 and C3 have been updated with the new diagnosis. A human read is warranted before the next sprint because: (1) the dim1 closure strategy needs reassessment given the formula-regime finding, and (2) it should be determined whether a near-M_c dense sweep (Sprint 59) is the correct path or whether a operator-led review of the Reichenbach 2007 SI would sharpen the approach.
 
 ---
 
-## Chat-led override (post-hoc, 2026-05-29)
+## Operator-led override (post-hoc, 2026-05-29)
 
 P12 dim1 (Reichenbach-Mobilia-Frey 2007, lambda proportional to sqrt(M)) has now been
 attempted twice: Sprint 54 slope=0.366; Sprint 58 wide-sweep slope=0.107 (target 0.5).
