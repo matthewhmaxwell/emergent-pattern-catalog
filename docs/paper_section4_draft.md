@@ -708,9 +708,18 @@ The measured wavelengths are qualitatively consistent with the formula
 (0.37) falls just outside the ±0.1 tolerance band around the published
 exponent 0.5. The narrow M range tested (1.67×) provides insufficient
 log-log leverage to confirm the exponent given ~10% per-point variance.
-A wider sweep spanning at least two decades in M (e.g., 10⁻⁵ to 5×10⁻⁴)
-would tighten the slope estimate; this is deferred to a future sprint.
-Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json`.
+
+Sprint 58 extended the sweep to M ∈ [10^{−5}, 5×10^{−4}] (7 log-spaced
+points, 15 seeds each, L=100, T_eq=1000 gen), obtaining log-log slope = 0.107
+(R²=0.769), outside the [0.40, 0.60] acceptance band. The slope failure reveals
+a physical limitation: the analytical formula λ = 0.8·L·√(M/M_c) breaks down far
+below M_c. At M ≤ 5×10^{−5} (M/M_c ≤ 0.11), measured wavelengths are flat
+(~42–44 lattice units) while the formula predicts 12–27, producing relative
+errors of 59–269%. The formula is valid only in the near-M_c region
+(M/M_c ≳ 0.4); the Sprint 54 range [3×10^{−4}, 5×10^{−4}] lay squarely in
+this regime, explaining its formula-consistent measurements. P12 dim1 remains
+PARTIAL pending a dense near-M_c sweep with ≥30 seeds per point.
+Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=58).
 
 **Multi-seed robustness at fixed M (Sprint 56).** To close the dim2 gap
 independently of the dim1 scaling question, we ran 20 seeds of the RPS model

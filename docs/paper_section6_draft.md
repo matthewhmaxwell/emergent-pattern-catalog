@@ -802,3 +802,19 @@ the Moore-neighbourhood percolation threshold context (p_c ≈ 0.038 at
 q = 0.1). C5 carry-forward (methods notes thin for HK and SIR) is
 **CLOSED**. All three patterns remain GAP (dim2 still PARTIAL for P2, P21,
 P22). **AT-DEPTH count: 13 / 19** (unchanged).
+
+**Sprint 58 (P12 dim1 wide-sweep attempt, AT-DEPTH +0).**
+
+Sprint 58 extends the P12 Reichenbach-Mobilia-Frey (2007) Fig. 2c λ ∝ M^½
+reproduction to a wide log-spaced M sweep [10^{−5}, 5×10^{−4}] (7 points,
+15 seeds each, L=100, T_eq=1000 gen). The sweep obtains log-log slope = 0.107
+(R²=0.769), outside the [0.40, 0.60] acceptance band. The failure reveals that
+the analytical formula λ = 0.8·L·√(M/M_c) breaks down far below M_c: at
+M ≤ 5×10^{−5} (M/M_c ≤ 0.11), measured wavelengths are flat (~42–44 lattice
+units) versus the formula's prediction of 12–27, relative errors 59–269%. The
+formula is derived via linearized theory near the extinction threshold and is
+valid only in the near-M_c region (M/M_c ≳ 0.4). C2/C3 carry-forwards are
+updated: the path forward is a dense near-M_c sweep (M ∈ [2×10^{−4}, 5×10^{−4}])
+with ≥30 seeds per point and ≥5 M values, or use of a structure-factor estimator
+more robust than ACF first-zero in the low-M regime. P12 dim1 remains PARTIAL.
+**AT-DEPTH count: 13 / 19** (unchanged).

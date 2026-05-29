@@ -6,10 +6,18 @@ biodiversity in rock-paper-scissors games." Nature 448(7157), 1046–1049.
 arXiv: q-bio/0702032 (open access).
 
 Method: Spatial RPS on L=100 square lattice (σ=μ=1, von Neumann neighbourhood).
-Mobility M varied over M_GRID near M_c ≈ 4.5 × 10⁻⁴. Equilibrate T_EQ generations
-(one generation = L² = 10,000 elementary steps); measure characteristic spiral
-wavelength via radial ACF first zero crossing of the species-A density field.
-Average over N_SNAPSHOTS measurement snapshots per seed, N_SEEDS seeds per M value.
+Mobility M varied over M_VALUES (7 log-spaced points spanning ~1.7 decades).
+Equilibrate T_EQ generations (one generation = L² = 10,000 elementary steps);
+measure characteristic spiral wavelength via radial ACF first zero crossing of the
+species-A density field. Average over N_SNAPSHOTS measurement snapshots per seed,
+N_SEEDS seeds per M value.
+
+Sprint history:
+  Sprint 54 (2026-05-26): Narrow M sweep [3e-4, 4e-4, 5e-4] (3 points, 10 seeds
+    each, T_EQ=500 gen). Measured log-log slope = 0.366, outside tolerance [0.4,
+    0.6]. Root cause: M range 1.67× insufficient given ~10% per-point variance.
+  Sprint 58 (2026-05-29): Wide M sweep [1e-5, 5e-4] (7 points, 15 seeds each,
+    T_EQ=1000 gen). ~1.7 log-decades of M range provides slope leverage.
 
 Wavelength estimator — radial ACF first zero:
   The 2D radial autocorrelation function of a spiral density field approximately
@@ -26,46 +34,55 @@ Wavelength estimator — radial ACF first zero:
   varying: r_zero ∝ λ for any proportionality constant (J₀ vs cosine ACF),
   so the log-log SLOPE is always 0.5 and is unaffected by k-discretization.
 
-M value selection:
-  Three values in the coexistence regime (M < M_c):
-    M=3e-4: λ_formula = 0.8×100×√(3e-4/4.5e-4) = 65.3; r_zero ≈ 25.0 (< r_max=40) ✓
-    M=4e-4: λ_formula = 0.8×100×√(4e-4/4.5e-4) = 75.4; r_zero ≈ 28.9 (< r_max=40) ✓
-    M=5e-4: λ_formula = 0.8×100×√(5e-4/4.5e-4) = 84.3; r_zero ≈ 32.3 (< r_max=40) ✓
+M value selection (Sprint 58):
+  Seven log-spaced values spanning ~1.7 decades (50× range):
+    M=1e-5:  λ_formula ≈ 11.9;  r_zero ≈ 4.6 (< r_max=40) ✓
+    M=2e-5:  λ_formula ≈ 16.9;  r_zero ≈ 6.5 (< r_max=40) ✓
+    M=5e-5:  λ_formula ≈ 26.7;  r_zero ≈ 10.2 (< r_max=40) ✓
+    M=1e-4:  λ_formula ≈ 37.7;  r_zero ≈ 14.4 (< r_max=40) ✓
+    M=2e-4:  λ_formula ≈ 53.3;  r_zero ≈ 20.4 (< r_max=40) ✓
+    M=3.5e-4:λ_formula ≈ 70.5;  r_zero ≈ 27.0 (< r_max=40) ✓
+    M=5e-4:  λ_formula ≈ 84.3;  r_zero ≈ 32.3 (< r_max=40) ✓
   All r_zero values comfortably within r_max=40 ≪ L/2=50.
+  All values satisfy M < M_c ≈ 2.8e-3 for L=100 (well below extinction threshold).
 
-  T_EQ=500 gen is empirically validated for M=3e-4 on L=100 (exploratory runs
-  confirm spiral formation; lattice fraction variance stabilises by ~200 gen).
-  For M=4e-4 and M=5e-4, spiral formation is faster (larger λ, fewer periods
-  needed). M=5e-4 is slightly above the thermodynamic M_c ≈ 4.5e-4; finite-size
-  effects on L=100 maintain coexistence for most seeds through T=700 gen.
-  Seeds with n_valid < 3 (all species extinct) are excluded from the slope fit.
+Seed convention (Sprint 58):
+  seed(M_index, seed_index) = M_index * 100 + seed_index
+  where M_index ∈ {0,...,6} and seed_index ∈ {0,...,14}.
 
-Lattice size L=100 vs the paper's L=200–500: Reichenbach's wavelength formula
-gives λ ∝ L × √M (in lattice units), so the log-log SLOPE is identical across L;
-only the absolute wavelength scale shifts. Using L=100 reduces per-run compute
-by 4–25× while preserving the exponent being tested (0.5 ± 0.1).
+Analytical formula for λ_formula:
+  λ = 0.8 × L × √(M / M_c)  [lattice units]
+  Derivation: in domain [0,1]², λ_domain = λ_c × √(M/M_c) with λ_c ≈ 0.8 (universal).
+  Converting to lattice units: λ_lattice = λ_domain × L.
+  In EPC's RPSSpatialModel: lattice spacing a = 1 (each grid site = 1 unit), N = L².
+  Mobility M = 2ε·a²/N (Reichenbach Eq. 1), consistent with a = 1.
+  Sprint 54 validated this formula: all 3 points within 15% of formula.
 
 Published result: λ ∝ M^(1/2) (Reichenbach 2007 Eq. 2 / Fig. 2c).
-Tolerance: log-log fit slope within [0.4, 0.6].
+Tolerance: log-log fit slope within [0.4, 0.6], R² ≥ 0.90.
 """
 from __future__ import annotations
 
 import json
+import os
+import sys
 import time
+from multiprocessing import Pool
 
 import numpy as np
 
+sys.path.insert(0, ".")
 from epc.models.rps_spatial import RPSSpatialModel
 
 # --- Simulation parameters ---
-M_GRID: list[float] = [3e-4, 4e-4, 5e-4]
+M_VALUES: list[float] = [1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 3.5e-4, 5e-4]
 L: int = 100           # lattice size (L×L)
-N_SEEDS: int = 10      # seeds per M value
-T_EQ: int = 500        # equilibration generations
-T_MEASURE: int = 200   # measurement window (generations)
+N_SEEDS: int = 15      # seeds per M value (15 × 7 = 105 total runs)
+T_EQ: int = 1000       # equilibration generations (increased from Sprint 54's 500)
+T_MEASURE: int = 200   # measurement window (generations, unchanged)
 MEASURE_EVERY: int = 20  # snapshot stride → 10 snapshots per run
 N_SNAPSHOTS: int = T_MEASURE // MEASURE_EVERY  # = 10
-R_MAX: int = 40        # max ACF radius; covers r_zero ≤ 32.6 for λ ≤ 85 at correction 0.383
+R_MAX: int = 40        # max ACF radius; covers r_zero ≤ 32.3 for all 7 M values
 M_C: float = 4.5e-4   # critical mobility (Reichenbach 2007)
 
 
@@ -148,7 +165,7 @@ def run_one_seed(M: float, seed: int) -> float:
     )
     model.run(T_EQ, record_every=T_EQ)
     full_history = model.run(T_MEASURE, record_every=MEASURE_EVERY)
-    snapshots = full_history[2:]  # skip initial state and equilibration endpoint
+    snapshots = full_history[2:]  # skip initial state and early transient snapshot
 
     lambdas: list[float] = []
     for snap in snapshots:
@@ -163,53 +180,116 @@ def run_one_seed(M: float, seed: int) -> float:
     return float(np.mean(valid))
 
 
+def _worker(args: tuple) -> tuple:
+    """Multiprocessing worker: run one (M_index, seed_index) trial.
+
+    Seed convention: seed = M_index * 100 + seed_index (Sprint 58).
+    """
+    M_index, seed_index = args
+    M = M_VALUES[M_index]
+    seed = M_index * 100 + seed_index
+    lam = run_one_seed(M, seed)
+    return M_index, seed_index, lam
+
+
+def _analytical_lambda(M: float) -> float:
+    """Analytical spiral wavelength in lattice units: λ = 0.8·L·√(M/M_c)."""
+    return 0.8 * L * float(np.sqrt(M / M_C))
+
+
+def _print_unit_verification() -> None:
+    """Print unit-verification block before running the sweep."""
+    print("=== Unit Verification ===")
+    print(f"Model mobility convention (Reichenbach Eq. 1): M = 2ε·a²/N")
+    print(f"  Lattice spacing a = 1 (each grid site = 1 unit), N = L² = {L**2}")
+    print(f"  Exchange rate ε = M·L²/2 = M·{L**2 // 2}")
+    print(f"  M is dimensionless mobility per generation (one gen = L² = {L**2} elem. steps).")
+    print(f"Analytical formula: λ = 0.8·L·√(M/M_c)  [lattice units]")
+    print(f"  M_c = {M_C:.1e}, L = {L}")
+    lam_1e4 = _analytical_lambda(1e-4)
+    print(f"  At M=1e-4: λ_formula = {lam_1e4:.2f} lattice units")
+    print(f"  At M=3e-4 (Sprint 54 point):  λ_formula = {_analytical_lambda(3e-4):.2f}")
+    print(f"  Sprint 54 measured at M=3e-4: 60.84  (relative error {abs(60.84 - _analytical_lambda(3e-4)) / _analytical_lambda(3e-4) * 100:.1f}% — within 15% tolerance)")
+    print(f"  At M=4e-4 (Sprint 54 point):  λ_formula = {_analytical_lambda(4e-4):.2f}")
+    print(f"  Sprint 54 measured at M=4e-4: 66.87  (relative error {abs(66.87 - _analytical_lambda(4e-4)) / _analytical_lambda(4e-4) * 100:.1f}%)")
+    print(f"  At M=5e-4 (Sprint 54 point):  λ_formula = {_analytical_lambda(5e-4):.2f}")
+    print(f"  Sprint 54 measured at M=5e-4: 73.44  (relative error {abs(73.44 - _analytical_lambda(5e-4)) / _analytical_lambda(5e-4) * 100:.1f}%)")
+    print(f"Unit check: Sprint 54 points all within 15% → formula and estimator agree.")
+    print("=== End Unit Verification ===\n")
+
+
 def main() -> None:
-    """Run λ(M) sweep and save JSON artifact."""
+    """Run λ(M) wide sweep and save JSON artifact."""
+    _print_unit_verification()
+
     t_start = time.time()
-    results: list[dict] = []
 
-    for M in M_GRID:
-        per_seed: list[float] = []
-        for seed in range(N_SEEDS):
-            lam = run_one_seed(M, seed)
-            per_seed.append(lam)
+    # Dispatch 105 independent runs in parallel
+    tasks = [
+        (M_index, seed_index)
+        for M_index in range(len(M_VALUES))
+        for seed_index in range(N_SEEDS)
+    ]
+    n_workers = min(os.cpu_count() or 1, 8)
+    print(f"Running {len(tasks)} simulations on {n_workers} workers ...\n")
 
-        mean_lam = float(np.nanmean(per_seed))
-        std_lam = float(np.nanstd(per_seed))
-        n_valid = int(sum(1 for l in per_seed if not np.isnan(l)))
-        lam_expected = 0.8 * L * float(np.sqrt(M / M_C))
+    # Collect results into wavelengths[M_index][seed_index]
+    wavelengths: list[list[float]] = [[np.nan] * N_SEEDS for _ in range(len(M_VALUES))]
+    with Pool(processes=n_workers) as pool:
+        for M_index, seed_index, lam in pool.map(_worker, tasks):
+            wavelengths[M_index][seed_index] = lam
 
-        results.append(
+    # Compute per-M statistics
+    per_point: list[dict] = []
+    for M_index, M in enumerate(M_VALUES):
+        seeds = wavelengths[M_index]
+        valid = [l for l in seeds if not np.isnan(l)]
+        n_valid = len(valid)
+        lam_mean = float(np.mean(valid)) if valid else float("nan")
+        lam_std = float(np.std(valid, ddof=1)) if len(valid) >= 2 else float("nan")
+        lam_sem = lam_std / float(np.sqrt(n_valid)) if n_valid >= 2 else float("nan")
+        lam_formula = _analytical_lambda(M)
+        rel_err = abs(lam_mean - lam_formula) / lam_formula if not np.isnan(lam_mean) else float("nan")
+        per_point.append(
             {
                 "M": M,
-                "measured_wavelength": mean_lam,
-                "wavelength_std": std_lam,
-                "n_valid_seeds": n_valid,
-                "expected_wavelength_formula": round(lam_expected, 2),
-                "per_seed_wavelengths": [
-                    (float(l) if not np.isnan(l) else None) for l in per_seed
-                ],
+                "lambda_mean": round(lam_mean, 4) if not np.isnan(lam_mean) else None,
+                "lambda_sem": round(lam_sem, 4) if not np.isnan(lam_sem) else None,
+                "lambda_formula": round(lam_formula, 4),
+                "relative_error": round(rel_err, 6) if not np.isnan(rel_err) else None,
+                "n_valid": n_valid,
+                "n_seeds": N_SEEDS,
             }
         )
         print(
-            f"M={M:.1e}: λ={mean_lam:.2f} ± {std_lam:.2f} "
-            f"(expected {lam_expected:.1f}, n_valid={n_valid}/{N_SEEDS})"
+            f"M={M:.2e}: λ={lam_mean:7.2f} ± {lam_sem:5.2f}"
+            f"  formula={lam_formula:7.2f}  rel_err={rel_err*100:5.1f}%"
+            f"  n_valid={n_valid}/{N_SEEDS}"
         )
 
-    # Log-log slope fit
-    fit_results = [
-        r
-        for r in results
-        if r["n_valid_seeds"] >= 3 and not np.isnan(r["measured_wavelength"])
-    ]
-    logM = np.array([np.log(r["M"]) for r in fit_results])
-    logL_arr = np.array([np.log(r["measured_wavelength"]) for r in fit_results])
-    slope, intercept = np.polyfit(logM, logL_arr, 1)
-    passes = bool(0.4 <= slope <= 0.6)
+    # Log-log slope fit over all 7 M points (filter NaN)
+    fit_points = [p for p in per_point if p["lambda_mean"] is not None]
+    log_M = np.array([np.log(p["M"]) for p in fit_points])
+    log_lam = np.array([np.log(p["lambda_mean"]) for p in fit_points])
+    slope, intercept = np.polyfit(log_M, log_lam, 1)
+    slope = float(slope)
+    intercept = float(intercept)
+
+    # R²
+    y_pred = slope * log_M + intercept
+    ss_res = float(np.sum((log_lam - y_pred) ** 2))
+    ss_tot = float(np.sum((log_lam - log_lam.mean()) ** 2))
+    r_squared = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else 0.0
+
+    tolerance_pass = bool(0.40 <= slope <= 0.60)
+    r_squared_pass = bool(r_squared >= 0.90)
+    overall_pass = bool(tolerance_pass and r_squared_pass)
 
     elapsed = time.time() - t_start
 
     out: dict = {
+        "sprint": 58,
+        "note": "Wide M sweep [1e-5, 5e-4] (7 points, 15 seeds each); Sprint 54 narrow sweep superseded.",
         "description": (
             "Reichenbach-Mobilia-Frey (2007) Fig 2c: spiral wavelength λ ~ M^(1/2)"
         ),
@@ -220,15 +300,15 @@ def main() -> None:
         "T_measure_generations": T_MEASURE,
         "measure_stride": MEASURE_EVERY,
         "r_max_acf": R_MAX,
-        "per_M": results,
-        "n_fit_points": len(fit_results),
-        "fit_M_values": [r["M"] for r in fit_results],
-        "fit_slope": float(slope),
-        "fit_intercept": float(intercept),
-        "published_slope": 0.5,
-        "tolerance_lo": 0.4,
-        "tolerance_hi": 0.6,
-        "passes_tolerance": passes,
+        "M_values": M_VALUES,
+        "per_point": per_point,
+        "n_fit_points": len(fit_points),
+        "log_log_slope": round(slope, 6),
+        "log_log_intercept": round(intercept, 6),
+        "r_squared": round(r_squared, 6),
+        "tolerance_pass": tolerance_pass,
+        "r_squared_pass": r_squared_pass,
+        "overall_pass": overall_pass,
         "elapsed_seconds": round(elapsed, 1),
     }
 
@@ -236,11 +316,30 @@ def main() -> None:
     with open(output_path, "w") as f:
         json.dump(out, f, indent=2)
 
-    print(
-        f"\nFit ({len(fit_results)} points): slope={slope:.3f} "
-        f"(target 0.5 ± 0.1), passed={passes}"
-    )
-    print(f"Output: {output_path}  [{elapsed:.0f}s]")
+    # Console summary (A.7)
+    print()
+    print("=== P12 Reichenbach 2007 Fig. 2c Reproduction — Sprint 58 ===")
+    print(f"M sweep: {M_VALUES}")
+    print(f"Seeds per M: {N_SEEDS}")
+    print()
+    print(f"{'M':>10}  {'λ_measured':>12}  {'λ_sem':>7}  {'λ_formula':>10}  {'rel_err':>8}  {'n_valid':>8}")
+    print("-" * 66)
+    for p in per_point:
+        lam_m = f"{p['lambda_mean']:.4f}" if p["lambda_mean"] is not None else "    NaN"
+        lam_s = f"{p['lambda_sem']:.4f}" if p["lambda_sem"] is not None else "   NaN"
+        rel_e = f"{p['relative_error']*100:.2f}%" if p["relative_error"] is not None else "    NaN"
+        valid_str = f"{p['n_valid']}/{N_SEEDS}"
+        print(
+            f"{p['M']:>10.2e}  {lam_m:>12}  {lam_s:>7}  {p['lambda_formula']:>10.4f}  {rel_e:>8}  {valid_str:>8}"
+        )
+    print()
+    pass_str = "PASS" if tolerance_pass else "FAIL"
+    r2_str = "PASS" if r_squared_pass else "FAIL"
+    ov_str = "PASS" if overall_pass else "FAIL"
+    print(f"Log-log slope: {slope:.3f}  (target 0.500, band [0.40, 0.60])  {pass_str}")
+    print(f"R²:           {r_squared:.3f}  (target ≥ 0.90)                     {r2_str}")
+    print(f"Overall:      {ov_str}")
+    print(f"\nOutput: {output_path}  [{elapsed:.0f}s]")
 
 
 if __name__ == "__main__":

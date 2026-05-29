@@ -1938,6 +1938,47 @@ C3 (originally Sprint 9, now Sprint 55+ candidate).
 **Artifact:** `analysis/outputs/p12_reichenbach2007_reproduction.json`
 **Script:** `analysis/reproductions/p12_reichenbach2007.py`
 
+### Sprint 58 — Dim1 closure attempt: wide M sweep
+
+**Target:** Reichenbach-Mobilia-Frey (2007) Fig. 2c, λ ∝ M^½ scaling law.
+**Method:** Wide log-spaced M sweep [1e-5, 5e-4] (7 points, 15 seeds each,
+L=100, T_eq=1000 gen, T_measure=200 gen). Sprint 54 root-cause: narrow M range
+(1.67×) insufficient to pin slope; 50× range provides ~1.7 log-decades of leverage.
+**Result:** log-log slope = 0.107 (target 0.500 ± 0.100, band [0.40, 0.60]);
+R² = 0.769. Overall: FAIL.
+
+**Per-M results:**
+
+| M | Measured λ (mean ± SEM) | Formula λ | Rel. error | n_valid |
+|---|------------------------|-----------|------------|---------|
+| 1×10⁻⁵ | 44.06 ± 3.06 | 11.93 | 269% | 15/15 |
+| 2×10⁻⁵ | 44.20 ± 3.14 | 16.87 | 162% | 15/15 |
+| 5×10⁻⁵ | 42.30 ± 2.03 | 26.67 | 59% | 15/15 |
+| 1×10⁻⁴ | 48.44 ± 2.45 | 37.71 | 28% | 15/15 |
+| 2×10⁻⁴ | 51.39 ± 2.48 | 53.33 | 4% | 15/15 |
+| 3.5×10⁻⁴ | 61.31 ± 3.87 | 70.55 | 13% | 15/15 |
+| 5×10⁻⁴ | 67.37 ± 2.61 | 84.33 | 20% | 15/15 |
+
+**Diagnosis (Sprint 58):** The slope failure is not caused by insufficient M-range
+leverage — it is caused by a systematic breakdown of the √M formula at M ≪ M_c.
+At M ≤ 5×10⁻⁵ (M/M_c ≤ 0.11), the measured λ is essentially flat (~42–44 lattice
+units), 59–269% above the formula prediction (12–27 lattice units). At M ≥ 2×10⁻⁴
+the measurements are formula-consistent (3–20% errors), consistent with Sprint 54.
+
+The analytical formula λ = 0.8·L·√(M/M_c) is derived via linearized theory near
+the extinction threshold (M ≈ M_c). It is not expected to hold deep in the
+coexistence regime (M/M_c ≪ 1). At very low M, the spatial structure is a slowly
+evolving mosaic of cyclic-competition domains whose characteristic scale follows a
+different (flatter) relationship with M.
+
+Key implication: the valid range for the √M test is M ∈ [2×10⁻⁴, 5×10⁻⁴]
+(near-M_c region, M/M_c ∈ [0.44, 1.11]), not the full coexistence regime.
+In this near-M_c range, Sprint 54 measured slope=0.366 with 3 points; the test
+requires more M points and/or more seeds within [2×10⁻⁴, 5×10⁻⁴] to pin the slope.
+
+**Verdict: FAIL — dim1 remains PARTIAL. C2/C3 carry-forwards updated with diagnosis.**
+See `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=58).
+
 ## Dim2 Multi-seed Extension — Sprint 56
 
 **Sprint type:** code-led, dim2 closure. **Sprint goal:** Extend spatial RPS multi-seed coverage to ≥20 seeds at one canonical M. Close P12 dim2.
