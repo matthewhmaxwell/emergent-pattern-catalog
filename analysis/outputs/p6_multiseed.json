@@ -1,0 +1,152 @@
+{
+  "sprint": 56,
+  "description": "P6 D'Orsogna milling multi-seed |L| extension",
+  "params": {
+    "n_particles": 100,
+    "C_a": 0.5,
+    "C_r": 1.0,
+    "l_a": 3.0,
+    "l_r": 0.5,
+    "alpha": 1.0,
+    "beta": 0.5,
+    "dt": 0.05,
+    "init_mode": "random",
+    "init_radius": 5.0,
+    "warmup_steps": 2500,
+    "measure_steps": 500,
+    "measure_every": 100,
+    "n_seeds": 20,
+    "seed_base": 100
+  },
+  "primary_observable": "|L| (normalised angular momentum, frame-averaged over steady-state window)",
+  "per_seed": [
+    {
+      "seed": 100,
+      "L_abs_mean": 0.9398852665086986,
+      "L_abs_std": 0.05210454204311268,
+      "n_frames": 5
+    },
+    {
+      "seed": 101,
+      "L_abs_mean": 0.9964194987956594,
+      "L_abs_std": 0.0005190136937330748,
+      "n_frames": 5
+    },
+    {
+      "seed": 102,
+      "L_abs_mean": 0.8841893160919284,
+      "L_abs_std": 0.12618349533804446,
+      "n_frames": 5
+    },
+    {
+      "seed": 103,
+      "L_abs_mean": 0.9952217174739122,
+      "L_abs_std": 0.0013240374746512878,
+      "n_frames": 5
+    },
+    {
+      "seed": 104,
+      "L_abs_mean": 0.9970014272002734,
+      "L_abs_std": 0.0005445083551089229,
+      "n_frames": 5
+    },
+    {
+      "seed": 105,
+      "L_abs_mean": 0.996124446094996,
+      "L_abs_std": 0.0006607731900786164,
+      "n_frames": 5
+    },
+    {
+      "seed": 106,
+      "L_abs_mean": 0.9963870554390576,
+      "L_abs_std": 0.0005818060886038463,
+      "n_frames": 5
+    },
+    {
+      "seed": 107,
+      "L_abs_mean": 0.9960025909710609,
+      "L_abs_std": 0.0010275365503465469,
+      "n_frames": 5
+    },
+    {
+      "seed": 108,
+      "L_abs_mean": 0.9955128411681038,
+      "L_abs_std": 0.0007691090418813594,
+      "n_frames": 5
+    },
+    {
+      "seed": 109,
+      "L_abs_mean": 0.9962941330466816,
+      "L_abs_std": 0.0004898826991859058,
+      "n_frames": 5
+    },
+    {
+      "seed": 110,
+      "L_abs_mean": 0.9951347096300426,
+      "L_abs_std": 0.0004298181751581946,
+      "n_frames": 5
+    },
+    {
+      "seed": 111,
+      "L_abs_mean": 0.9313226625376334,
+      "L_abs_std": 0.006363858889524936,
+      "n_frames": 5
+    },
+    {
+      "seed": 112,
+      "L_abs_mean": 0.9771911512476669,
+      "L_abs_std": 0.01915776387529054,
+      "n_frames": 5
+    },
+    {
+      "seed": 113,
+      "L_abs_mean": 0.9957445543424015,
+      "L_abs_std": 0.0005640153993798851,
+      "n_frames": 5
+    },
+    {
+      "seed": 114,
+      "L_abs_mean": 0.9961168685726971,
+      "L_abs_std": 0.0005040481285463692,
+      "n_frames": 5
+    },
+    {
+      "seed": 115,
+      "L_abs_mean": 0.9957059017725826,
+      "L_abs_std": 0.0011356785805538673,
+      "n_frames": 5
+    },
+    {
+      "seed": 116,
+      "L_abs_mean": 0.9646545894378402,
+      "L_abs_std": 0.008914308832991148,
+      "n_frames": 5
+    },
+    {
+      "seed": 117,
+      "L_abs_mean": 0.9964746914909968,
+      "L_abs_std": 0.0005980305862947756,
+      "n_frames": 5
+    },
+    {
+      "seed": 118,
+      "L_abs_mean": 0.9955684365727221,
+      "L_abs_std": 0.0009526667905053126,
+      "n_frames": 5
+    },
+    {
+      "seed": 119,
+      "L_abs_mean": 0.9956984739145096,
+      "L_abs_std": 0.0004358082211149979,
+      "n_frames": 5
+    }
+  ],
+  "aggregate": {
+    "L_abs_mean": 0.9818325166154731,
+    "L_abs_std": 0.03005196946818369,
+    "L_abs_cv": 0.030608040536055404,
+    "L_abs_min": 0.8841893160919284,
+    "L_abs_max": 0.9970014272002734
+  },
+  "elapsed_seconds": 623.4755299091339
+}

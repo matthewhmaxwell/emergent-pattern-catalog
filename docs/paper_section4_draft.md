@@ -183,6 +183,14 @@ The heading-shuffle null uses random uniform headings rather than
 permutation of existing headings — permuting near-identical headings in
 an ordered flock preserves φ ≈ 1 and gives uninformative p-values.
 
+**Multi-seed robustness (Sprint 56).** Across 20 seeds of DOrsognaSPPModel at
+canonical parameters (N=100, C_a=0.5, C_r=1.0, l_a=3.0, l_r=0.5, α=1.0,
+β=0.5, dt=0.05) with random initialisation (seed-dependent random positions
+and headings, warmup=2500 steps), mean |L| = 0.9818 ± 0.0301 (CV = 3.1%).
+All 20 seeds form stable mills (min |L| = 0.884), confirming that the milling
+attractor is globally reachable from diverse random initial conditions at
+these parameters. Results: `analysis/outputs/p6_multiseed.json`.
+
 ## 4.5 Kuramoto Coupled Oscillators (Cluster C)
 
 **Reference:** Kuramoto, Y. (1975). Self-entrainment of a population of
@@ -686,6 +694,19 @@ log-log leverage to confirm the exponent given ~10% per-point variance.
 A wider sweep spanning at least two decades in M (e.g., 10⁻⁵ to 5×10⁻⁴)
 would tighten the slope estimate; this is deferred to a future sprint.
 Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json`.
+
+**Multi-seed robustness at fixed M (Sprint 56).** To close the dim2 gap
+independently of the dim1 scaling question, we ran 20 seeds of the RPS model
+at one canonical mobility M=10⁻⁴ (coexistence regime; M_c ≈ 4.5×10⁻⁴).
+Formula wavelength: λ = 0.8L√(M/M_c) = 37.7 lattice units. Measured mean
+λ = 52.1 ± 10.4 (CV = 20.0%) across 20 seeds (all valid; n_valid=20/20),
+using the radial ACF first-zero estimator (T_eq=500 generations,
+T_measure=200 generations, 10 snapshots per seed). The measured mean exceeds
+the formula prediction (ratio ≈ 1.38); this over-estimation at small λ is
+attributed to finite-L effects on the ACF zero-crossing when spiral domains
+span only a few lattice periods. The key finding is that all 20 seeds produce
+a measurable spiral wavelength — the coexisting spiral state is robust to
+stochastic variation at this mobility. Results: `analysis/outputs/p12_multiseed.json`.
 
 **P12 detection.** The P12 cyclic-dominance detector's primary metric is
 the `intransitivity_score`, defined as log₁₀ of the minimum

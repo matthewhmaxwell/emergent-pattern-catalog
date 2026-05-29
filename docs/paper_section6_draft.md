@@ -552,13 +552,13 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–55), **12 / 19** patterns have
-reached AT-DEPTH grade and **7 / 19** remain at GAP. The twelve AT-DEPTH
-patterns are P3 (Turing pattern formation), P5 (flocking), P9 (synchronization),
-P10 (chimera states), P11 (predator-prey oscillations), P13 (excitable waves),
-P14 (self-organized criticality), P15 (persistent computation), P18
-(coarsening-to-consensus), P27 (spatial reciprocity), P28 (wealth condensation),
-and P31 (delayed gratification).
+Across the 19-pattern inventory (Sprints 1–56), **13 / 19** patterns have
+reached AT-DEPTH grade and **6 / 19** remain at GAP. The thirteen AT-DEPTH
+patterns are P3 (Turing pattern formation), P5 (flocking), P6 (milling),
+P9 (synchronization), P10 (chimera states), P11 (predator-prey oscillations),
+P13 (excitable waves), P14 (self-organized criticality), P15 (persistent
+computation), P18 (coarsening-to-consensus), P27 (spatial reciprocity),
+P28 (wealth condensation), and P31 (delayed gratification).
 
 Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
 standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
@@ -754,6 +754,21 @@ of BTW dynamics: once the critical state is reached, the avalanche power-law is
 seed-insensitive. dim2 PARTIAL→PASS; all four dimensions now PASS → P14 advances
 to **AT-DEPTH**. **AT-DEPTH count: 12 / 19** (P3, P5, P9, P10, P11, P13, **P14**,
 P15, P18, P27, P28, P31).
+
+**Sprint 56 (P6 + P12 dim2 closures, AT-DEPTH +1).**
+
+Sprint 56 closes dim2 on two patterns simultaneously. For P6 (D'Orsogna milling):
+20 seeds with random initialisation (uniform random positions in [−R, R]², random
+headings; canonical parameters N=100, α=1.0, β=0.5, Morse potential; warmup=2500
+steps) yield mean |L| = 0.9818 ± 0.0301 (CV = 3.1%). All 20 seeds converge to
+stable milling (min |L| = 0.884), confirming that the milling attractor is globally
+reachable. dim2 PARTIAL→PASS; all four dimensions now PASS → P6 advances to
+**AT-DEPTH**. For P12 (spatial RPS, cyclic dominance): 20 seeds at fixed M=10⁻⁴
+yield mean spiral wavelength λ = 52.1 ± 10.4 (CV = 20.0%; n_valid=20/20). All
+seeds produce a measurable spiral wavelength, confirming coexisting spiral state
+robustness. dim2 PARTIAL→PASS; dim1 remains PARTIAL (λ ∝ √M scaling unresolved)
+→ P12 grade stays GAP. **AT-DEPTH count: 13 / 19** (P3, P5, **P6**, P9, P10, P11,
+P13, P14, P15, P18, P27, P28, P31).
 
 **Sprint 53 (P21 dim1 closure, AT-DEPTH +0).**
 

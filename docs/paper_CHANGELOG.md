@@ -4,6 +4,18 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 56 (2026-05-29)
+- analysis/p6_multiseed.py: new multi-seed analysis script for P6 D'Orsogna milling. N=100, random init, warmup=2500 steps, measure=500 steps, 20 seeds (seeds 100–119).
+- analysis/p12_multiseed.py: new multi-seed analysis script for P12 spatial RPS. L=100, M=1e-4, T_eq=500 gen, T_measure=200 gen, 20 seeds (seeds 100–119).
+- analysis/outputs/p6_multiseed.json: |L| = 0.9818 ± 0.0301 (CV = 3.1%) across 20 seeds. All seeds form stable mills (min |L| = 0.884).
+- analysis/outputs/p12_multiseed.json: λ = 52.1 ± 10.4 (CV = 20.0%) across 20 seeds. All 20 seeds valid.
+- REPLICATION_NOTES.md P6 section: appended "Dim2 Multi-seed Extension — Sprint 56" with per-seed |L| table and aggregate statistics. dim2 PARTIAL→PASS verdict.
+- REPLICATION_NOTES.md P12 section: appended "Dim2 Multi-seed Extension — Sprint 56" with per-seed λ table and aggregate statistics. dim2 PARTIAL→PASS verdict.
+- docs/depth_gap.md: P6 row dim2 PARTIAL→PASS, grade GAP→AT-DEPTH; P12 row dim2 PARTIAL→PASS, grade stays GAP (dim1 still PARTIAL); AT-DEPTH count 12→13; Gap count 7→6; Sprint 56 finding added.
+- §4.4 (P6 D'Orsogna milling): appended "Multi-seed robustness (Sprint 56)" paragraph with |L| ± std, CV.
+- §4.11 (P12 spatial RPS): appended "Multi-seed robustness at fixed M (Sprint 56)" paragraph with λ ± std, CV.
+- §6 aggregate: Sprint 56 paragraph added; AT-DEPTH count 12→13/19; aggregate sentence updated to include P6.
+
 ## Sprint 55 (2026-05-29)
 - analysis/p14_multiseed.py: new multi-seed analysis script for P14 BTW sandpile. L=32, n_drive=30,000, n_burn=3,000, 20 seeds (seeds 100–119).
 - analysis/outputs/p14_multiseed.json: τ = 1.2914 ± 0.0012 (CV = 0.09%) across 20 seeds. All seeds detect SOC at CONFIRMATION tier.
