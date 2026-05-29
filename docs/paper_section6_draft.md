@@ -783,3 +783,22 @@ reach consensus and 6/20 reach two clusters; the published range is widened
 to [1, 3] consistent with the paper's finite-N transition discussion. dim1
 PARTIAL→PASS. P21 dims 2–3 remain PARTIAL → grade remains GAP. dim1 PARTIAL
 count 2→**1** (P12 only). AT-DEPTH count unchanged at **11 / 19**.
+
+**Sprint 57 (P2 + P21 + P22 dim3 closure, AT-DEPTH +0).**
+
+Sprint 57 is a pure documentation sprint closing the dim3 (methods note)
+depth gap for three patterns simultaneously: P2 (activity-induced phase
+separation / MIPS), P21 (polarization / fragmentation, Hegselmann-Krause),
+and P22 (information cascade / SIR). Full methods notes are authored in
+`docs/methods_notes/` (p2_methods.md, p21_methods.md, p22_methods.md).
+P2's note documents the Fily-Marchetti ABP overdamped Langevin equations,
+the two_phase_coexistence_score primary metric, the Hartigan-dip failure
+(ADR 44), and the FFT structure-factor relationship. P21's note documents
+the synchronous HK update rule, L∞ convergence criterion, and sorted-gap
+cluster counting (gap = ε/2). P22's note documents S/I/R state encoding
+(0/1/2), independent-neighbours infection, the Sprint 41 irreversibility
+prerequisite (S→I→R monotone, eliminates LV/RPS false positives), and
+the Moore-neighbourhood percolation threshold context (p_c ≈ 0.038 at
+q = 0.1). C5 carry-forward (methods notes thin for HK and SIR) is
+**CLOSED**. All three patterns remain GAP (dim2 still PARTIAL for P2, P21,
+P22). **AT-DEPTH count: 13 / 19** (unchanged).

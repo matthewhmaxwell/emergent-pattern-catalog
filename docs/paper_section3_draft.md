@@ -183,6 +183,23 @@ are pinned separately in dedicated end-to-end test files. This
 block-diagonal structure ensures that detectors operate only in
 domains where their metrics are meaningful.
 
+Implementation choices and observable-extraction conventions for each
+detector are documented in per-pattern methods notes (Sprint 57). Three
+notes cover patterns with recently closed dim3 gaps: for P2 (MIPS), the
+note documents the Fily-Marchetti ABP model equations, the
+`two_phase_coexistence_score = min(f_gas, f_liquid)` primary metric, why
+Hartigan dip is unusable on this substrate (ADR 44), and the relationship
+between the EPC phase-fraction approach and the structure-factor /
+pair-correlation methods used in the MIPS physics literature (see
+`docs/methods_notes/p2_methods.md`). For P21 (Hegselmann-Krause), the note
+documents the synchronous update rule, the L∞ convergence criterion
+(`||x(t+1) − x(t)||∞ < tol`), and cluster counting via sorted-gap detection
+with threshold ε/2 (see `docs/methods_notes/p21_methods.md`). For P22 (SIR
+epidemic CA), the note documents the S/I/R state encoding (0/1/2), the
+independent-neighbours infection probability, the Sprint 41 irreversibility
+prerequisite, and the percolation threshold context (Moore-neighbourhood
+p_c ≈ 0.038 at q = 0.1) (see `docs/methods_notes/p22_methods.md`).
+
 ## 3.5 Key Boundary Tests
 
 Three boundary tests illustrate the toolkit's discrimination capabilities

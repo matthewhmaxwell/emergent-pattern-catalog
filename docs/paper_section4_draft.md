@@ -88,6 +88,12 @@ tier (p = 0.005, 199 null trajectories) on both spiral and
 random-initialization runs. Wavefront speed CV < 0.15 and persistent
 spiral tip trajectories satisfy the confirmation criteria.
 
+See `docs/methods_notes/p22_methods.md` §5 for the boundary test that
+distinguishes P13 (reentrant excitable waves, persistent activity) from P22
+(SIR single-pass cascade, activity extinguishes): both models have n_states = 3
+and produce wavefronts, but P13 requires the refractory → resting cycle that
+is absent in SIR.
+
 ## 4.3 Conway's Game of Life (Cluster E)
 
 **Reference:** Gardner, M. (1970). The fantastic combinations of John
@@ -471,6 +477,10 @@ in the paper's transition discussion; the published range is widened
 to [1, 3] to reflect it. All 8 ε points pass. P21 dim1 PARTIAL→PASS.
 See `analysis/outputs/p21_hegselmann2002_reproduction.json`.
 
+Full implementation details — synchronous update rule, L∞ convergence
+criterion, sorted-gap cluster counting (gap = ε/2), and the ε_c
+finite-size boundary — are documented in `docs/methods_notes/p21_methods.md`.
+
 ## 4.10 SIR Epidemic CA and P22 Information Cascade (Cluster F)
 
 **Primary reference:** Datta, A. & Acharyya, M. (2022). Modelling the
@@ -638,6 +648,13 @@ Eq. (1): R ∝ t. The slight upward bias (measured > published) is consistent
 with our periodic boundary conditions vs. the paper's open boundaries, which
 effectively reflect the wavefront slightly. `analysis/outputs/p22_dattaacharyya2005_reproduction.json`.
 P22 dim1 PARTIAL → **PASS**.
+
+Full implementation details — S/I/R encoding (0/1/2), independent-neighbours
+infection probability, irreversibility prerequisite (Sprint 41), percolation
+threshold context (p_c ≈ 0.038 Moore at q=0.1), and the model difference
+between the Sprint 51 reproduction (fixed t_τ=4) and the canonical
+`epc.models.sir_epidemic` (stochastic geometric recovery) — are documented
+in `docs/methods_notes/p22_methods.md`.
 
 ## 4.11 Spatial Rock-Paper-Scissors and P12 Cyclic Dominance (Cluster C)
 
@@ -1368,6 +1385,14 @@ Nucleation stochasticity note: 2/5 seeds at Pe=100 show low two_phase_score
 window; 3/5 seeds show clear MIPS (score 0.075–0.199). The Pearson r is strong
 in all seeds (|r| ≥ 0.944) confirming the v(ρ) mechanism is active throughout.
 P2 dim1 PARTIAL → **PASS**.
+
+Full implementation details — overdamped Langevin equations, parameter
+conventions (v₀, D_r, ρ*, r_cg), Euler-Maruyama integration, why Hartigan
+dip is unusable on discrete particle-density distributions (ADR 44), the
+three-part confirmation gate, mechanistic-null metadata flags (ADR 43), and
+the relationship between the EPC phase-fraction approach and the structure-factor
+methods used in MIPS physics literature — are documented in
+`docs/methods_notes/p2_methods.md`.
 
 ## 4.16 Consolidated Transfer Matrix
 

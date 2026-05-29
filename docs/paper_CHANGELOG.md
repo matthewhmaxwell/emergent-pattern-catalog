@@ -4,6 +4,21 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 57 (2026-05-29)
+- docs/methods_notes/p2_methods.md: new methods note for P2 (MIPS / ABP). Documents Fily-Marchetti overdamped Langevin equations, two_phase_coexistence_score primary metric, Hartigan-dip unusability (ADR 44), FFT structure-factor context, burn-in / nucleation-lag requirements, mechanistic-null metadata flags (ADR 43), known limitations.
+- docs/methods_notes/p21_methods.md: new methods note for P21 (polarization / Hegselmann-Krause). Documents synchronous HK update rule, L∞ convergence criterion (1e-8 default / 1e-6 reproduction), sorted-gap cluster counting (gap = ε/2), ε_c boundary zone, C-p21-time-shuffled-fp context, known limitations.
+- docs/methods_notes/p22_methods.md: new methods note for P22 (information cascade / SIR CA). Documents S/I/R encoding (0/1/2), synchronous update, independent-neighbours infection probability, irreversibility prereq (Sprint 41), percolation threshold context (p_c ≈ 0.038 Moore at q=0.1), model difference between Sprint 51 reproduction and epc.models.sir_epidemic, known limitations.
+- REPLICATION_NOTES.md P2/Sprint 52 section: appended "Dim3 Methods Note — Sprint 57" with coverage summary and `docs/methods_notes/p2_methods.md` reference. dim3 PARTIAL→PASS verdict.
+- REPLICATION_NOTES.md P21/Sprint 53 section: appended "Dim3 Methods Note — Sprint 57" with coverage summary and `docs/methods_notes/p21_methods.md` reference. dim3 PARTIAL→PASS verdict.
+- REPLICATION_NOTES.md P22/Sprint 51 section: appended "Dim3 Methods Note — Sprint 57" with coverage summary and `docs/methods_notes/p22_methods.md` reference. dim3 PARTIAL→PASS verdict.
+- docs/depth_gap.md: P2 row dim3 PARTIAL→PASS; P21 row dim3 PARTIAL→PASS (effort L→M); P22 row dim3 PARTIAL→PASS (effort L→M); Sprint 57 finding added; C5 carry-forward CLOSED. AT-DEPTH count unchanged: 13/19 (all three still have dim2 PARTIAL).
+- §3.4: added 3-sentence methods-note overview referencing p2/p21/p22_methods.md.
+- §4.2 (GH/P13): added cross-reference to p22_methods.md §5 for P13/SIR boundary test.
+- §4.9 (P21 HK): added cross-reference to p21_methods.md for implementation details.
+- §4.10 (P22 SIR): added cross-reference to p22_methods.md for implementation details.
+- §4.15 (P2 ABP): added cross-reference to p2_methods.md for implementation details.
+- §6: Sprint 57 paragraph added; AT-DEPTH count 13/19 unchanged; C5 CLOSED noted.
+
 ## Sprint 56 (2026-05-29)
 - analysis/p6_multiseed.py: new multi-seed analysis script for P6 D'Orsogna milling. N=100, random init, warmup=2500 steps, measure=500 steps, 20 seeds (seeds 100–119).
 - analysis/p12_multiseed.py: new multi-seed analysis script for P12 spatial RPS. L=100, M=1e-4, T_eq=500 gen, T_measure=200 gen, 20 seeds (seeds 100–119).
