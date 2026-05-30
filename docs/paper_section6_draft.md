@@ -880,3 +880,24 @@ seeds). Panel re-run: overall TNR = 1.000, syn = 1.000, cat = 1.000,
 fai = 1.000, Cohen's d = +∞. P8 dim4 PARTIAL→PASS; all four dimensions now
 PASS → P8 advances to AT-DEPTH.
 **AT-DEPTH count: 18 / 19** (+1: P8). Remaining gap: P12 (dim1).
+
+**Sprint 63 (P12 dim1 final attempt — accepted limitation, AT-DEPTH +0).**
+
+Sprint 63 is the fourth and final attempt at the P12 Reichenbach (2007) Fig. 2c
+λ ∝ √M scaling-law reproduction. Using L=200 (4× cells vs L=100) with a
+zero-padded FFT structure-factor ring-peak estimator (replacing the ACF first-zero
+method), the sweep yields slope = 0.161 (R² = 0.792), outside the [0.40, 0.60]
+acceptance band. The per-M data reveal a fundamental constraint: the linearized
+√M formula is valid only for M/M_c ∈ [0.44, 1.00], but in this narrow range
+spiral wavelengths approach L (even at L=200), and near-M_c extinction effects
+flatten the curve. Only 2 of 5 M values fall in the usable regime — insufficient
+for slope determination. The scaling-law reproduction is accepted as a
+**documented finite-size measurement limitation**: P12 is validated via Phase-2a
+panel PASS (Sprint 44), dim2 multi-seed PASS (Sprint 56), and qualitative spiral
+presence across all tested M values. Carry-forwards C2/C3 reclassified as
+closed-as-documented-limitation (accepted). P12 dim1 remains PARTIAL; grade
+remains GAP. This is a deliberate stopping point — the scaling law requires
+L ≥ 500 with many points in the narrow formula-valid window, beyond this
+project's compute budget.
+**AT-DEPTH count: 18 / 19** (unchanged). P12 dim1 is the sole remaining gap,
+accepted as a documented limitation.

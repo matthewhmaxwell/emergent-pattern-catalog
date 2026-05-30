@@ -2064,6 +2064,47 @@ Both options require substantially more compute (~4–16× for L=200).
 
 See `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=59).
 
+### Sprint 63 — Dim1 final attempt: L=200 FFT-ring estimator
+
+**Target:** Reichenbach-Mobilia-Frey (2007) Fig. 2c, λ ∝ M^½ scaling law.
+**Method:** L=200 lattice (4× cells vs L=100), zero-padded FFT structure-factor
+ring-peak wavelength estimator (replaces ACF first-zero). 5 M values spanning ~1
+decade in [5×10⁻⁵, 5×10⁻⁴], 15 seeds each, T_eq=2500 gen, T_measure=300 gen.
+FFT estimator validated on synthetic ring-pattern fields: all 4 test wavelengths
+(20, 40, 80, 120 lattice units) measured within 10% relative error.
+**Result:** log-log slope = 0.161 (target 0.500, band [0.40, 0.60]);
+R² = 0.792 (target ≥ 0.90); n_fit_points = 5. Overall: FAIL.
+
+**Per-M results:**
+
+| M | M/M_c | λ_measured ± SEM | n_valid | note |
+|----------|-------|-------------------|---------|------|
+| 5.00e-05 | 0.111 | 110.12 ± 6.59 | 15/15 | below formula-valid regime |
+| 1.00e-04 | 0.222 | 101.21 ± 5.91 | 15/15 | below formula-valid regime |
+| 2.00e-04 | 0.444 | 122.83 ± 7.49 | 15/15 | near formula-valid boundary |
+| 3.50e-04 | 0.778 | 146.56 ± 8.47 | 15/15 | formula-valid |
+| 5.00e-04 | 1.111 | 147.80 ± 6.76 | 15/15 | at/above M_c |
+
+**Diagnosis (Sprint 63):** The non-monotonic λ(M) at low M (110 at M=5e-5 >
+101 at M=1e-4) confirms the √M formula breaks down far from M_c (consistent
+with Sprint 58 diagnosis). The flattening at M=5e-4 (λ≈148 ≈ λ at M=3.5e-4)
+indicates extinction-regime effects at/above M_c. Only two M values
+(2e-4, 3.5e-4) lie in the formula-valid regime M/M_c ∈ [0.44, 1.00],
+insufficient for a meaningful slope fit. The FFT estimator itself is validated
+(synthetic test PASS) but the underlying physics limits the usable M range
+at any lattice size.
+
+**Verdict: FAIL — dim1 remains PARTIAL.** This is the fourth and final attempt
+(Sprints 54, 58, 59, 63). The λ ∝ √M scaling law is not cleanly recoverable
+within this project's compute and lattice-size budget. P12 is validated via
+Phase-2a panel PASS (Sprint 44, TNR=1.000) + dim2 multi-seed PASS (Sprint 56,
+CV=20%) + qualitative spiral presence across all tested M values. The
+scaling-law reproduction is accepted as a **documented finite-size measurement
+limitation**. Carry-forward C-p12-dim1-L-limited reclassified as
+**closed-as-documented-limitation (accepted)**.
+
+See `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=63).
+
 ## Dim2 Multi-seed Extension — Sprint 56
 
 **Sprint type:** code-led, dim2 closure. **Sprint goal:** Extend spatial RPS multi-seed coverage to ≥20 seeds at one canonical M. Close P12 dim2.

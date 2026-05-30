@@ -1,0 +1,85 @@
+{
+  "sprint": 63,
+  "L": 200,
+  "estimator": "fft_ring_peak",
+  "m_c": 0.00045,
+  "m_c_note": "M_c = 4.5000e-04 (L-independent, Reichenbach 2007, sigma=mu=1)",
+  "M_values": [
+    5e-05,
+    0.0001,
+    0.0002,
+    0.00035,
+    0.0005
+  ],
+  "n_fit_points": 5,
+  "per_point": [
+    {
+      "M": 5e-05,
+      "lambda_mean": 110.1173,
+      "lambda_sem": 6.5938,
+      "n_valid": 15,
+      "n_seeds": 15
+    },
+    {
+      "M": 0.0001,
+      "lambda_mean": 101.2071,
+      "lambda_sem": 5.9146,
+      "n_valid": 15,
+      "n_seeds": 15
+    },
+    {
+      "M": 0.0002,
+      "lambda_mean": 122.8277,
+      "lambda_sem": 7.486,
+      "n_valid": 15,
+      "n_seeds": 15
+    },
+    {
+      "M": 0.00035,
+      "lambda_mean": 146.558,
+      "lambda_sem": 8.4682,
+      "n_valid": 15,
+      "n_seeds": 15
+    },
+    {
+      "M": 0.0005,
+      "lambda_mean": 147.7998,
+      "lambda_sem": 6.7622,
+      "n_valid": 15,
+      "n_seeds": 15
+    }
+  ],
+  "log_log_slope": 0.161157,
+  "log_log_intercept": 6.21461,
+  "r_squared": 0.792056,
+  "tolerance_pass": false,
+  "r_squared_pass": false,
+  "overall_pass": false,
+  "n_seeds": 15,
+  "T_eq": 2500,
+  "T_measure": 300,
+  "elapsed_seconds": 8344.3,
+  "sprint_history": [
+    {
+      "sprint": 54,
+      "L": 100,
+      "estimator": "acf_first_zero",
+      "slope": 0.366,
+      "note": "M range too narrow"
+    },
+    {
+      "sprint": 58,
+      "L": 100,
+      "estimator": "acf_first_zero",
+      "slope": 0.107,
+      "note": "formula breaks down at M << M_c"
+    },
+    {
+      "sprint": 59,
+      "L": 100,
+      "estimator": "acf_first_zero",
+      "slope": null,
+      "note": "dense near-M_c sweep"
+    }
+  ]
+}

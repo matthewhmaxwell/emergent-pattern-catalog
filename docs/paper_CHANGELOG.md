@@ -4,6 +4,14 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 63 (2026-05-30)
+- analysis/reproductions/p12_reichenbach2007.py: rewritten for L=200, zero-padded FFT ring-peak estimator (replaces ACF first-zero). 5 M values, 15 seeds each, T_eq=2500 gen.
+- analysis/outputs/p12_reichenbach2007_reproduction.json: overwritten (sprint=63). Slope=0.161, R²=0.792, FAIL. Accepted as documented finite-size measurement limitation.
+- REPLICATION_NOTES.md: Sprint 63 Dim1 final-attempt section added with per-M table and accepted-limitation verdict.
+- docs/depth_gap.md: P12 dim1 notes updated with Sprint 63 result. C2/C3 carry-forwards reclassified as closed-as-documented-limitation.
+- §4.11 paper_section4_draft.md: Sprint 63 L=200 FFT paragraph appended. Accepted-limitation conclusion documented.
+- §6 paper_section6_draft.md: Sprint 63 paragraph added. AT-DEPTH count 18/19 unchanged.
+
 ## Sprint 62 (2026-05-30)
 - epc/phase2a/failed_regimes/p8_nagel_schreckenberg.py: Class C regime correction — density range linspace(0.05,0.20,10) → linspace(0.02,0.07,10). Original densities ρ≥0.1167 above empirical jamming onset ρ_c≈0.10 at v_max=5, p=0.3 (brief-author error).
 - analysis/outputs/p8_phase2a_panel.json: re-run — overall TNR 0.714→1.000, fai 0.400→1.000, Cohen's d 1.772→+inf. Verdict PARTIAL→PASS.

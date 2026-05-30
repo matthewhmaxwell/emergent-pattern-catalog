@@ -771,6 +771,24 @@ law requires L ≥ 200 (Reichenbach et al. used L = 256) to keep λ/L below the 
 where boundary-induced ACF compression becomes significant. P12 dim1 remains PARTIAL.
 Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=59).
 
+Sprint 63 attempted the L=200 path with a zero-padded FFT structure-factor ring-peak
+estimator (replacing ACF first-zero). The FFT estimator was validated on synthetic
+ring-pattern fields (all 4 test wavelengths within 10%). Five M values spanning ~1
+decade in [5×10^{−5}, 5×10^{−4}] (15 seeds each, T_eq=2500 gen) yield slope = 0.161
+(R² = 0.792), again outside [0.40, 0.60]. The per-M results reveal a fundamental
+constraint: only M values with M/M_c ∈ [0.44, 1.00] follow the linearized √M formula,
+but in this range the wavelength λ approaches L (even at L=200), producing extinction
+effects that flatten the top of the curve. The low-M points (M/M_c < 0.4) show
+non-monotonic behaviour (λ=110 at M=5×10^{−5} vs 101 at M=10^{−4}), confirming
+formula breakdown. Only 2 of 5 M values lie in the usable regime — insufficient for
+slope determination. The scaling-law reproduction is accepted as a **documented
+finite-size measurement limitation**: P12 is validated by its Phase-2a panel PASS
+(Sprint 44, TNR=1.000), dim2 multi-seed PASS (Sprint 56, CV=20%), and qualitative
+spiral presence across all tested M values. The λ ∝ √M exponent requires lattice
+sizes L ≥ 500 with many M values in the narrow formula-valid window — beyond this
+project's compute budget.
+Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=63).
+
 **Multi-seed robustness at fixed M (Sprint 56).** To close the dim2 gap
 independently of the dim1 scaling question, we ran 20 seeds of the RPS model
 at one canonical mobility M=10⁻⁴ (coexistence regime; M_c ≈ 4.5×10⁻⁴).
