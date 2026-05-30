@@ -181,6 +181,28 @@ Pass:   False
 
 ---
 
-**Decision: GO-LIMITED**
+_(Original GO-LIMITED verdict superseded by operator override - see below.)_
 
 Sprint completed cleanly with all code/documentation tasks executed correctly, regression suite green (607 passed), and sprint=59 JSON on disk. The dim1 reproduction FAILED for the third consecutive sprint (slopes: 0.37, 0.107, 0.244 across Sprints 54, 58, 59). Sprint 59 definitively identifies the root cause as finite-size ACF compression at L=100 (R²=0.918 confirms clean linear fit at the wrong slope). GO-LIMITED because: (1) the Sprint 58 operator override already accepted P12 dim1 as L-limited and reclassified the carry-forward as deferred/do-not-auto-retry — this sprint provides additional confirming evidence but does not change the resolution; (2) further automated attempts at L=100 will not succeed; closure requires L ≥ 200 (compute-intensive, operator decision). The chain should NOT auto-retry P12 dim1 at L=100.
+
+---
+
+## Operator override (post-hoc, 2026-05-30)
+
+Sprint 59 was a third P12 dim1 attempt (near-M_c dense sweep at L=100, slope=0.244).
+Combined with Sprint 54 (0.366) and Sprint 58 (0.107), THREE independent L=100
+wavelength-scaling attempts now consistently fail the [0.40,0.60] tolerance, and all
+three diagnose the same cause: the ACF-first-zero estimator is finite-size biased when
+the spiral wavelength approaches L (lambda/L > 0.5). This is a measurement limitation,
+NOT a model defect - the P12 model is validated via its Phase-2a panel PASS + dim2
+multi-seed closure (Sprint 56) + qualitative spiral presence.
+
+This auto-drafted sprint also (a) ignored the Sprint 58 do-not-auto-retry note and
+(b) displaced the intended P2 dim2 work. Resolution: P2 dim2 is folded into the queued
+Sprint 60 dim2 batch. The single remaining deliberate P12 attempt (L=200 + FFT-ring
+estimator, which directly addresses the diagnosed finite-size bias) is queued as
+Sprint 63; if it also misses tolerance, P12 dim1 is accepted as a documented
+measurement-limitation. The chain proceeds on the fully-queued Milestone A briefs
+(60-64); no further auto-drafting until the Milestone A review gate.
+
+**Override Decision: GO**
