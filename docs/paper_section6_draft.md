@@ -818,3 +818,18 @@ updated: the path forward is a dense near-M_c sweep (M ∈ [2×10^{−4}, 5×10^
 with ≥30 seeds per point and ≥5 M values, or use of a structure-factor estimator
 more robust than ACF first-zero in the low-M regime. P12 dim1 remains PARTIAL.
 **AT-DEPTH count: 13 / 19** (unchanged).
+
+**Sprint 59 (P12 dim1 near-M_c dense sweep, AT-DEPTH +0).**
+
+Sprint 59 narrows the P12 Reichenbach (2007) Fig. 2c reproduction to the formula-valid
+near-M_c regime: M ∈ [2×10^{−4}, 5×10^{−4}] (7 points, 30 seeds each, L=100), with the
+log-log fit restricted to M ∈ [2×10^{−4}, 4.5×10^{−4}]. The fit yields slope = 0.244
+(R² = 0.918, n_fit_points = 6), outside the [0.40, 0.60] acceptance band. The R² is now
+above 0.90 (confirming a clean linear relationship in log-log space), but the measured
+slope is roughly half the published exponent (0.5). The systematic bias is attributed
+to finite-size ACF compression: the radial ACF first-zero estimator underestimates λ
+when λ/L > 0.5, and this bias grows nonlinearly with M near M_c. Reproducing the full
+exponent requires L ≥ 200 (the original paper used L = 256) or a structure-factor
+estimator less sensitive to finite-size boundary effects. P12 dim1 remains PARTIAL;
+C2/C3 carry-forwards are updated with the finite-size diagnosis.
+**AT-DEPTH count: 13 / 19** (unchanged).

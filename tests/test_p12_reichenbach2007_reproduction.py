@@ -1,14 +1,14 @@
-"""Tests pinning the Sprint 58 wide-sweep reproduction of Reichenbach 2007 Fig. 2c.
+"""Tests pinning the Sprint 59 near-M_c dense sweep reproduction of Reichenbach 2007 Fig. 2c.
 
-These tests read the pre-computed Sprint 58 output.
+These tests read the pre-computed Sprint 59 output.
 Run `analysis/reproductions/p12_reichenbach2007.py` first if the JSON is absent.
 
-Sprint 54 (narrow sweep, slope=0.366) is superseded by Sprint 58 (wide sweep,
-7 points, 15 seeds each). The output JSON at
-`analysis/outputs/p12_reichenbach2007_reproduction.json` must carry sprint=58.
+Sprint 54 (narrow sweep, slope=0.366) and Sprint 58 (wide sweep, slope=0.107) are
+superseded by Sprint 59 (near-M_c dense sweep, 7 points in [2e-4, 5e-4], 30 seeds).
+The output JSON at `analysis/outputs/p12_reichenbach2007_reproduction.json` must
+carry sprint=59.
 """
 import json
-import os
 import pathlib
 
 import pytest
@@ -25,65 +25,76 @@ def _load() -> dict:
 
 
 # ---------------------------------------------------------------------------
-# B.1 — Sprint 58 log-log slope and R² in acceptance band
+# B.1 — test_sprint59_loglog_slope_in_band (slow)
 # ---------------------------------------------------------------------------
 @pytest.mark.slow
-def test_sprint58_loglog_slope_in_band() -> None:
-    """Slope must lie in [0.40, 0.60] and R² ≥ 0.90 for dim1 closure."""
-    result = _load()
-    assert result["sprint"] == 58, f"Expected sprint=58, got {result['sprint']}"
-    slope = result["log_log_slope"]
-    r2 = result["r_squared"]
-    assert 0.40 <= slope <= 0.60, (
-        f"log_log_slope={slope:.4f} outside acceptance band [0.40, 0.60]. "
-        f"Sprint 58 wide-sweep ({result.get('note', '')})."
+def test_sprint59_loglog_slope_in_band() -> None:
+    """Sprint 59 log-log slope must be in [0.40, 0.60] with R² ≥ 0.90."""
+    d = _load()
+    assert d["sprint"] == 59, f"Expected sprint=59, got {d['sprint']}"
+    assert d["n_fit_points"] >= 4, f"n_fit_points={d['n_fit_points']} < 4"
+    assert d["log_log_slope"] is not None, "log_log_slope is None"
+    assert 0.40 <= d["log_log_slope"] <= 0.60, (
+        f"log_log_slope={d['log_log_slope']:.4f} outside [0.40, 0.60]"
     )
-    assert r2 >= 0.90, f"R²={r2:.4f} below target 0.90."
-    assert result["overall_pass"] is True, (
-        f"overall_pass=False (slope={slope:.4f}, R²={r2:.4f})."
+    assert d["r_squared"] >= 0.90, (
+        f"r_squared={d['r_squared']:.4f} below target 0.90"
     )
+    assert d["overall_pass"] is True, "overall_pass is not True"
 
 
 # ---------------------------------------------------------------------------
-# B.2 — Per-point relative errors and valid-seed counts
+# B.2 — test_sprint59_near_mc_relative_errors (slow)
 # ---------------------------------------------------------------------------
 @pytest.mark.slow
-def test_sprint58_per_point_relative_error() -> None:
-    """Each of the 7 M points must have rel_error < 0.25 and n_valid >= 10."""
-    result = _load()
-    assert result["sprint"] == 58
-    per_point = result["per_point"]
-    assert len(per_point) == 7, f"Expected 7 per-point entries, got {len(per_point)}"
-    failures = []
-    for p in per_point:
-        M = p["M"]
-        rel_err = p.get("relative_error")
-        n_valid = p["n_valid"]
-        if rel_err is None or rel_err >= 0.25:
-            failures.append(
-                f"M={M:.2e}: relative_error={rel_err} (must be < 0.25)"
+def test_sprint59_near_mc_relative_errors() -> None:
+    """Per-point relative errors < 25% for non-extinction points with n_valid ≥ 15."""
+    d = _load()
+    assert d["sprint"] == 59, f"Expected sprint=59, got {d['sprint']}"
+    qualifying = []
+    for p in d["per_point"]:
+        if p["near_extinction"] is False and p["n_valid"] >= 15:
+            qualifying.append(p)
+            assert p["relative_error"] < 0.25, (
+                f"M={p['M']:.2e}: relative_error={p['relative_error']:.4f} ≥ 0.25"
             )
-        if n_valid < 10:
-            failures.append(
-                f"M={M:.2e}: n_valid={n_valid} < 10 (minimum valid-seed requirement)"
-            )
-    assert not failures, "Per-point failures:\n" + "\n".join(failures)
+    assert len(qualifying) >= 4, (
+        f"Only {len(qualifying)} points with near_extinction=False and n_valid≥15; need ≥4"
+    )
 
 
 # ---------------------------------------------------------------------------
-# B.3 — Sprint 54 output superseded (non-slow: only reads JSON)
+# B.3 — test_sprint59_json_schema (NOT slow)
 # ---------------------------------------------------------------------------
-def test_sprint54_output_superseded() -> None:
-    """Output JSON must carry sprint=58, confirming Sprint 54 result is superseded."""
-    result = _load()
-    assert result["sprint"] == 58, (
-        f"Output JSON has sprint={result['sprint']}, expected 58. "
-        "Sprint 54 narrow-sweep result has not been overwritten."
+def test_sprint59_json_schema() -> None:
+    """Output JSON must have Sprint 59 schema with all required keys."""
+    d = _load()
+    assert d["sprint"] == 59, f"Expected sprint=59, got {d['sprint']}"
+
+    # Top-level required keys
+    required_top = [
+        "sprint", "m_c", "M_values", "fit_M_values", "n_fit_points",
+        "per_point", "log_log_slope", "r_squared", "tolerance_pass",
+        "r_squared_pass", "n_fit_points_pass", "overall_pass",
+    ]
+    for key in required_top:
+        assert key in d, f"Missing top-level key: {key}"
+
+    # 7 per_point entries
+    assert len(d["per_point"]) == 7, (
+        f"Expected 7 per_point entries, got {len(d['per_point'])}"
     )
-    assert "per_point" in result, "Missing 'per_point' key in output JSON."
-    assert len(result["per_point"]) == 7, (
-        f"Expected 7 per-point entries (Sprint 58 wide sweep), got {len(result['per_point'])}."
+
+    # Per-point required keys
+    required_pp = [
+        "M", "lambda_mean", "lambda_sem", "lambda_formula",
+        "relative_error", "n_valid", "n_seeds", "near_extinction",
+    ]
+    for i, p in enumerate(d["per_point"]):
+        for key in required_pp:
+            assert key in p, f"per_point[{i}] missing key: {key}"
+
+    # n_seeds check
+    assert d["per_point"][0]["n_seeds"] == 30, (
+        f"Expected n_seeds=30, got {d['per_point'][0]['n_seeds']}"
     )
-    assert "log_log_slope" in result, "Missing 'log_log_slope' key (Sprint 54 used 'fit_slope')."
-    assert "r_squared" in result, "Missing 'r_squared' key."
-    assert "overall_pass" in result, "Missing 'overall_pass' key."

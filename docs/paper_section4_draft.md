@@ -721,6 +721,18 @@ this regime, explaining its formula-consistent measurements. P12 dim1 remains
 PARTIAL pending a dense near-M_c sweep with ≥30 seeds per point.
 Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=58).
 
+Sprint 59 further narrowed the sweep to the formula-valid near-M_c regime:
+M ∈ [2×10^{−4}, 5×10^{−4}] (7 points, 30 seeds each, L=100, T_eq=1000 gen), with
+the log-log fit restricted to M ∈ [2×10^{−4}, 4.5×10^{−4}] (excluding M = 5×10^{−4}
+above M_c). The fit yields slope = 0.244 (R² = 0.918, n_fit_points = 6), still outside
+the [0.40, 0.60] acceptance band. The systematic deviation is now clearly attributable
+to finite-size ACF bias: the ACF first-zero estimator underestimates λ by 2% at
+M = 2×10^{−4} (λ/L ≈ 0.53) but by 21% at M = M_c (λ/L ≈ 0.80), compressing the
+measured slope to roughly half the published exponent. Reproducing the full √M scaling
+law requires L ≥ 200 (Reichenbach et al. used L = 256) to keep λ/L below the regime
+where boundary-induced ACF compression becomes significant. P12 dim1 remains PARTIAL.
+Artifact: `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=59).
+
 **Multi-seed robustness at fixed M (Sprint 56).** To close the dim2 gap
 independently of the dim1 scaling question, we ran 20 seeds of the RPS model
 at one canonical mobility M=10⁻⁴ (coexistence regime; M_c ≈ 4.5×10⁻⁴).

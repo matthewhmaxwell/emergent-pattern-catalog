@@ -1979,6 +1979,52 @@ requires more M points and/or more seeds within [2×10⁻⁴, 5×10⁻⁴] to pi
 **Verdict: FAIL — dim1 remains PARTIAL. C2/C3 carry-forwards updated with diagnosis.**
 See `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=58).
 
+### Sprint 59 — Dim1 closure attempt: dense near-M_c sweep
+
+**Target:** Reichenbach-Mobilia-Frey (2007) Fig. 2c, λ ∝ M^½ scaling law.
+**Method:** Dense near-M_c sweep M ∈ [2×10⁻⁴, 5×10⁻⁴] (7 points, 30 seeds each,
+L=100, T_eq=1000 gen, T_measure=200 gen). Fit restricted to formula-valid sub-range
+M ∈ [2×10⁻⁴, 4.5×10⁻⁴] with n_valid ≥ 15 (M = 5×10⁻⁴ excluded from fit as above M_c).
+**Result:** log-log slope = 0.244 (target 0.500 ± 0.100, band [0.40, 0.60]);
+R² = 0.918 (≥ 0.90 PASS); n_fit_points = 6 (≥ 4 PASS). Overall: FAIL.
+
+**Per-M results:**
+
+| M | M/M_c | λ_measured ± SEM | λ_formula | rel_err | n_valid | in_fit |
+|----------|-------|-------------------|-----------|---------|---------|--------|
+| 2.00e-04 | 0.444 | 52.28 ± 1.82 | 53.33 | 2.0% | 30/30 | Y |
+| 2.50e-04 | 0.556 | 55.48 ± 1.79 | 59.63 | 7.0% | 30/30 | Y |
+| 3.00e-04 | 0.667 | 55.06 ± 1.28 | 65.32 | 15.7% | 30/30 | Y |
+| 3.50e-04 | 0.778 | 61.02 ± 1.75 | 70.55 | 13.5% | 30/30 | Y |
+| 4.00e-04 | 0.889 | 61.86 ± 1.52 | 75.42 | 18.0% | 30/30 | Y |
+| 4.50e-04 | 1.000 | 63.27 ± 1.90 | 80.00 | 20.9% | 30/30 | Y |
+| 5.00e-04 | 1.111 | 65.53 ± 1.68 | 84.33 | 22.3% | 30/30 | excl. |
+
+**Diagnosis (Sprint 59):** The slope failure is NOT caused by insufficient statistics
+(all 30 seeds valid at every M point, R² = 0.918 indicates a clean linear fit) or by
+including low-M points (the fit is restricted to the formula-valid near-M_c regime).
+The ACF first-zero wavelength estimator systematically underestimates λ at L=100: at
+M = 2×10⁻⁴ the estimator reports 52.3 (formula 53.3, 2% error), but at M = 4.5×10⁻⁴
+it reports 63.3 (formula 80.0, 21% error). The underestimation grows with M because
+spiral wavelengths near M_c approach the lattice size (λ_formula = 80 at M = M_c vs
+L = 100), and the ACF zero-crossing is compressed by periodic boundary effects when
+λ/L > 0.5. This compression flattens the λ(M) curve relative to the true √M scaling,
+producing a measured slope (0.244) that is roughly half the published exponent (0.5).
+
+The slope ∉ [0.40, 0.60] but R² ≥ 0.90: this matches the brief's FAIL-path diagnosis
+for systematic deviation. The ACF estimator at L=100 cannot resolve the √M exponent
+because of finite-size bias that grows nonlinearly with λ/L.
+
+**Verdict: FAIL — dim1 remains PARTIAL.** C2/C3 carry-forwards updated below.
+
+**Path forward (updated):** (a) Increase lattice size to L ≥ 200 (Reichenbach 2007's
+original L = 256), which would reduce λ/L to ≤ 0.31 at M = M_c and largely eliminate
+the finite-size ACF bias. (b) Alternatively, use a structure-factor (FFT ring radius)
+estimator which may be less sensitive to boundary-induced ACF compression at λ/L > 0.5.
+Both options require substantially more compute (~4–16× for L=200).
+
+See `analysis/outputs/p12_reichenbach2007_reproduction.json` (sprint=59).
+
 ## Dim2 Multi-seed Extension — Sprint 56
 
 **Sprint type:** code-led, dim2 closure. **Sprint goal:** Extend spatial RPS multi-seed coverage to ≥20 seeds at one canonical M. Close P12 dim2.

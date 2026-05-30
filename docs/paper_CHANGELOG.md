@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 59 (2026-05-29)
+- analysis/reproductions/p12_reichenbach2007.py: rewritten for near-M_c dense sweep — M ∈ [2e-4, 5e-4] (7 points, 30 seeds each), fit_mask restricting slope fit to M ∈ [2e-4, 4.5e-4] with n_valid ≥ 15, updated JSON schema (sprint=59, m_c, fit_M_values, n_fit_points, near_extinction, n_fit_points_pass, fit_exclusion_note). spiral_wavelength() and run_one_seed() unchanged.
+- analysis/outputs/p12_reichenbach2007_reproduction.json: overwritten — sprint=59, slope=0.244, R²=0.918, n_fit_points=6, overall_pass=False. Sprint 58 result superseded.
+- tests/test_p12_reichenbach2007_reproduction.py: rewritten — B.1 (slow: slope/R²/overall_pass/n_fit_points), B.2 (slow: per-point rel_error for non-extinction points), B.3 (non-slow: sprint=59 JSON schema).
+- REPLICATION_NOTES.md P12/Sprint 59 subsection: added with per-M table (7 points), slope=0.244, R²=0.918, FAIL verdict, and finite-size ACF bias diagnosis.
+- docs/depth_gap.md: P12 dim1 note appended with Sprint 59 result (slope=0.244, FAIL, ACF finite-size diagnosis); Sprint 59 finding added to Aggregate findings; C2/C3 carry-forwards updated with finite-size bias path forward. AT-DEPTH count unchanged: 13/19.
+- §4.11 (P12/RPS) paper_section4_draft.md: appended Sprint 59 paragraph after Sprint 58 paragraph. Documents slope=0.244, R²=0.918, finite-size ACF compression, path forward (L≥200).
+- §6 paper_section6_draft.md: Sprint 59 paragraph added after Sprint 58 paragraph. AT-DEPTH count unchanged at 13/19.
+
 ## Sprint 58 (2026-05-29)
 - analysis/reproductions/p12_reichenbach2007.py: extended in-place — wide M sweep [1e-5, 5e-4] (7 points, 15 seeds, T_eq=1000 gen, parallel Pool, updated JSON schema with log_log_slope/r_squared/per_point/sprint=58, unit verification block).
 - analysis/outputs/p12_reichenbach2007_reproduction.json: overwritten — sprint=58, slope=0.107, R²=0.769, overall_pass=False. Sprint 54 narrow-sweep result superseded.
