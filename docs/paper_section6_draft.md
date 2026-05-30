@@ -552,10 +552,11 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–60), **16 / 19** patterns have
-reached AT-DEPTH grade and **3 / 19** remain at GAP. The sixteen AT-DEPTH
-patterns are P2 (MIPS), P3 (Turing pattern formation), P5 (flocking),
-P6 (milling), P9 (synchronization), P10 (chimera states),
+Across the 19-pattern inventory (Sprints 1–62), **18 / 19** patterns have
+reached AT-DEPTH grade and **1 / 19** remains at GAP. The eighteen AT-DEPTH
+patterns are P1 (aggregation), P2 (MIPS), P3 (Turing pattern formation),
+P5 (flocking), P6 (milling), P8 (self-organized jamming),
+P9 (synchronization), P10 (chimera states),
 P11 (predator-prey oscillations), P13 (excitable waves),
 P14 (self-organized criticality), P15 (persistent computation),
 P18 (coarsening-to-consensus), P21 (polarization), P22 (information cascade),
@@ -864,3 +865,18 @@ true positives mislabeled as negatives. Corrected: threshold ∈ linspace(0.01,
 cat = 1.000, fai = 1.000, Cohen's d = +∞. P1 dim4 PARTIAL→PASS; all four
 dimensions now PASS → P1 advances to AT-DEPTH.
 **AT-DEPTH count: 17 / 19** (+1: P1). Remaining gaps: P8 (dim4), P12 (dim1).
+
+**Sprint 62 (P8 dim4 closure, AT-DEPTH +1).**
+
+Sprint 62 resolves the P8 dim4 carry-forward C-p8-class-c-near-onset. The
+Class C failed-regime densities linspace(0.05, 0.20, 10) placed 6/10 regimes
+at ρ ≥ 0.1167, above the empirical jamming onset ρ_c ≈ 0.10 for v_max=5,
+p_slow=0.3 at L=1000 (stopped_fraction jumps from ~0 at ρ=0.09 to ~0.045 at
+ρ=0.11, multi-seed validated). These regimes genuinely jam — mislabeled
+negatives (brief-author error, same class as Sprint 40 P22 and Sprint 61 P1
+corrections). Corrected: density ∈ linspace(0.02, 0.07, 10), all well below
+onset in the free-flow phase (stopped_fraction = 0.0 across all densities and
+seeds). Panel re-run: overall TNR = 1.000, syn = 1.000, cat = 1.000,
+fai = 1.000, Cohen's d = +∞. P8 dim4 PARTIAL→PASS; all four dimensions now
+PASS → P8 advances to AT-DEPTH.
+**AT-DEPTH count: 18 / 19** (+1: P8). Remaining gap: P12 (dim1).

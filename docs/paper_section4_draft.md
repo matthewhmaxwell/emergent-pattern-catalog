@@ -1260,6 +1260,13 @@ stopped-fraction > 0.15 with jam-lifetime-max > 20 for DEFINITIVE.
 | 123  | 0.182   | 13     | 63     | 0.005  | > 1e6     | DEFINITIVE |
 | 2024 | 0.185   | 14     | 68     | 0.005  | > 1e6     | DEFINITIVE |
 
+**Phase-2a panel (Sprint 62).** The Phase-2a v1.2 panel returned PASS after
+a Class C regime correction: the original density range linspace(0.05, 0.20,
+10) placed 6/10 regimes at or above the jamming onset (ρ_c ≈ 0.10 for
+v_max=5, p=0.3), making them genuine positives mislabeled as negatives.
+Corrected to linspace(0.02, 0.07, 10), all in the free-flow phase. Panel
+re-run: overall TNR = 1.000, Cohen's d = +∞. P8 AT-DEPTH.
+
 **Transfer-matrix additions.** Nagel-Schreckenberg × P8 is the
 Sprint 15 positive (DEFINITIVE). Every other model × P8 rejects: Zhang
 at observable-prereq (no `velocities`); all lattice_2d, continuous_2d,

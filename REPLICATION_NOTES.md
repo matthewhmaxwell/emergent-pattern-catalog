@@ -6313,3 +6313,46 @@ C-p1-class-c-subthreshold-fp **CLOSED**.
 All 5 canonical positives reach CONFIRMATION (confidence 0.700). All 26 negatives correctly rejected. No false positives remain.
 
 **Sprint 61 finding:** P1 dim4 PARTIAL→PASS; all four dimensions now PASS → P1 advances to **AT-DEPTH**. AT-DEPTH count: **17 / 19** (+1: P1). Remaining gaps: P8 (dim4), P12 (dim1).
+
+## Phase-2a Panel Results (v1.2) — Sprint 62 (P8 dim4 closure: Class C regime correction)
+
+**Sprint type:** chat-led design + code-led execution. **Sprint goal:** Resolve P8 dim4 carry-forward C-p8-class-c-near-onset (Class C regime miscalibration — densities above jamming onset). **Base HEAD:** Sprint 61 post-commit (`9461c99`).
+
+**Diagnosis — jamming onset calibration.**
+
+Empirical density sweep at L=1000, v_max=5, p_slow=0.3 (canonical parameters): stopped_fraction averaged over 1500 measurement steps (after 1000 burn-in), 5 seeds per density. Results:
+
+| ρ | mean stopped_fraction | phase |
+|---|---|---|
+| 0.080 | 0.000000 | free flow |
+| 0.085 | 0.000006 | free flow |
+| 0.090 | 0.000212 | free flow |
+| 0.095 | 0.000569 | free flow |
+| 0.100 | 0.001907 | onset |
+| 0.105 | 0.014734 | jammed |
+| 0.110 | 0.032556 | jammed |
+| 0.115 | 0.057638 | jammed |
+| 0.120 | 0.088960 | jammed |
+
+Jamming onset ρ_c ≈ 0.10: stopped_fraction is negligible below ρ=0.095 and jumps to measurable values (~0.015) by ρ=0.105. The original Class C density range linspace(0.05, 0.20, 10) placed 6/10 regimes at ρ ≥ 0.1167 — well above onset. These regimes genuinely jam and were mislabeled negatives (brief-author error, same class as Sprint 40 P22 correction and Sprint 61 P1 correction).
+
+**Fix — Class C regime correction.**
+
+Density range: linspace(0.05, 0.20, 10) → linspace(0.02, 0.07, 10). All 10 corrected densities sit entirely in the free-flow phase (max stopped_fraction = 0.0 across all seeds). These are genuine negatives: same-model runs that do NOT exhibit spontaneous jamming.
+
+C-p8-class-c-near-onset **CLOSED**.
+
+**Panel re-run results (Sprint 62):**
+
+| Metric | Before (Sprint 49) | After (Sprint 62) |
+|--------|--------------------|--------------------|
+| Overall TNR | 0.714 | **1.000** |
+| syn TNR | 1.000 | 1.000 |
+| cat TNR | 1.000 | 1.000 |
+| fai TNR | 0.400 | **1.000** |
+| Cohen's d | 1.772 | **+inf** |
+| Verdict | PARTIAL | **PASS** |
+
+All 5 canonical positives reach DEFINITIVE (confidence 0.900). All 21 negatives correctly rejected. No false positives remain.
+
+**Sprint 62 finding:** P8 dim4 PARTIAL→PASS; all four dimensions now PASS → P8 advances to **AT-DEPTH**. AT-DEPTH count: **18 / 19** (+1: P8). Remaining gap: P12 (dim1).

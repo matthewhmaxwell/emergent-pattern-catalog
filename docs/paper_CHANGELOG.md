@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 62 (2026-05-30)
+- epc/phase2a/failed_regimes/p8_nagel_schreckenberg.py: Class C regime correction — density range linspace(0.05,0.20,10) → linspace(0.02,0.07,10). Original densities ρ≥0.1167 above empirical jamming onset ρ_c≈0.10 at v_max=5, p=0.3 (brief-author error).
+- analysis/outputs/p8_phase2a_panel.json: re-run — overall TNR 0.714→1.000, fai 0.400→1.000, Cohen's d 1.772→+inf. Verdict PARTIAL→PASS.
+- REPLICATION_NOTES.md: Sprint 62 P8 panel re-run section added with jamming-onset calibration table.
+- docs/depth_gap.md: P8 dim4 PARTIAL→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 17→18.
+- §4.14 paper_section4_draft.md: Sprint 62 panel re-run paragraph appended. P8 AT-DEPTH.
+- §6.11 paper_section6_draft.md: Sprint 62 paragraph added. AT-DEPTH count 17→18.
+- Carry-forward CLOSED: C-p8-class-c-near-onset.
+
 ## Sprint 61 (2026-05-30)
 - epc/detectors/p1_aggregation.py: added multi-cluster prerequisite (Schelling 1971) — rejects substrates where every non-empty type forms a single contiguous block (monotonic spatial partition). Uses scipy.ndimage.label, 8-connected. Gradient rejected; canonical Schelling positive (10–20 components/type) unaffected.
 - epc/phase2a/failed_regimes/p1_schelling.py: Class C regime correction — threshold range linspace(0.05,0.25,10) → linspace(0.01,0.10,10), grid_size 32→50. Original thresholds 0.161–0.250 above empirical critical threshold ≈0.13 at density=0.9 (brief-author error).

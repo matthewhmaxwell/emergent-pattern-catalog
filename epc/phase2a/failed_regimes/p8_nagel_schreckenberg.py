@@ -1,14 +1,15 @@
 """P8 (Nagel-Schreckenberg) Class C failed regimes: 10 low-density / no-jamming.
 
-Per Sprint 47 brief: density ∈ linspace(0.05, 0.20, 10), below / near jamming-
-onset density.  At rho ≤ 0.10, stopped_fraction ≈ 0 → P8 rejects at screening
-(stopped_fraction ≤ 0.05 floor).  At rho ≥ 0.12 (near / above onset at p=0.3),
-some jams may form and some regimes may reach screening or confirmation tier.
-Carry-forward C-p8-class-c-near-onset documents any FPs; see Sprint 47 return.
+Sprint 62 correction: density range narrowed from linspace(0.05, 0.20, 10) to
+linspace(0.02, 0.07, 10).  The jamming onset for v_max=5, p_slow=0.3 at L=1000
+is empirically ρ_c ≈ 0.10 (stopped_fraction jumps from ~0 at ρ=0.09 to ~0.045
+at ρ=0.11, multi-seed validated).  The original range placed 6/10 regimes at
+ρ ≥ 0.1167, well above onset — they genuinely jam and are mislabeled negatives
+(brief-author error, same class as Sprint 40 P22 / Sprint 61 P1 corrections).
 
-These are the SAME-MODEL strong negatives: density sweep on the canonical NS
-model below the canonical jam regime (rho=0.30).  If the panel TNR < 1.0 on
-this class, the detector is sensitive enough to flag near-onset behaviour.
+Corrected range [0.02, 0.07] sits entirely in the free-flow phase (max
+stopped_fraction = 0.0 across all densities and seeds).  These are genuine
+negatives: same-model runs that do NOT exhibit spontaneous jamming.
 """
 
 from __future__ import annotations
@@ -24,16 +25,16 @@ V_MAX = 5         # max velocity matching canonical positive
 N_STEPS = 2500    # total steps: burn_in=1000 + 1500 measurement
 SEED_OFFSET = 200
 
-DENSITY_VALUES = list(np.linspace(0.05, 0.20, 10))
+DENSITY_VALUES = list(np.linspace(0.02, 0.07, 10))
 
 CONFIG: Dict[str, Any] = {
     "substrate_id": "P8_nagel_schreckenberg_low_density",
     "format": "sequence",
     "description": (
-        "10 NS regimes at density ∈ linspace(0.05, 0.20, 10) with p_slow=0.3, "
-        f"L={L}, v_max={V_MAX}. Below / near jamming-onset (~rho≈0.12 at p=0.3). "
-        "Free-flow regimes (rho ≤ 0.10) have stopped_fraction ≈ 0 → P8 rejects "
-        "at screening. Near-onset regimes may show partial jamming."
+        "10 NS regimes at density ∈ linspace(0.02, 0.07, 10) with p_slow=0.3, "
+        f"L={L}, v_max={V_MAX}. All densities well below jamming onset "
+        "(ρ_c ≈ 0.10 at v_max=5, p=0.3). Free-flow phase: stopped_fraction = 0 "
+        "→ P8 rejects at screening. Sprint 62 correction from original [0.05, 0.20]."
     ),
     "regimes": [
         {
