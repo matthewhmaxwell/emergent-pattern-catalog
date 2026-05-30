@@ -1,0 +1,170 @@
+{
+  "sprint": 60,
+  "description": "P22 SIR wavefront speed multi-seed extension",
+  "params": {
+    "model_L": 200,
+    "paper_p0": 0.25,
+    "paper_p1": 0.97,
+    "paper_p2": 0.1,
+    "paper_t_tau": 4,
+    "n_steps": 110,
+    "fit_range": [
+      5,
+      100
+    ],
+    "n_seeds": 20,
+    "seed_base": 100
+  },
+  "primary_observable": "wavefront speed (cells/step, linear fit R(t) over steps 5-100)",
+  "per_seed": [
+    {
+      "seed": 100,
+      "speed": null,
+      "r2": null,
+      "n_fit_points": 3,
+      "skipped": true
+    },
+    {
+      "seed": 101,
+      "speed": 0.44587239335232,
+      "r2": 0.9975733473933521,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 102,
+      "speed": 0.4652306052823396,
+      "r2": 0.9981509453554619,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 103,
+      "speed": 0.4625969511264097,
+      "r2": 0.9982905902742133,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 104,
+      "speed": 0.49364516412022397,
+      "r2": 0.9974824543519527,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 105,
+      "speed": 0.43268692530932534,
+      "r2": 0.9970375581911352,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 106,
+      "speed": 0.4899795630503156,
+      "r2": 0.9983827510448552,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 107,
+      "speed": 0.45372715066913855,
+      "r2": 0.9984829136635124,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 108,
+      "speed": 0.44223237620569117,
+      "r2": 0.9966170349429602,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 109,
+      "speed": 0.474170251518097,
+      "r2": 0.9976933695345639,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 110,
+      "speed": 0.4533278576701802,
+      "r2": 0.9980592979343531,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 111,
+      "speed": 0.465904960441715,
+      "r2": 0.998065119811027,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 112,
+      "speed": 0.47101254407223064,
+      "r2": 0.9957843049586783,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 113,
+      "speed": 0.4426743358418024,
+      "r2": 0.9976635706411651,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 114,
+      "speed": 0.45103060517336285,
+      "r2": 0.9977550049369021,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 115,
+      "speed": 0.4470466676482513,
+      "r2": 0.9989112270811022,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 116,
+      "speed": 0.4654185496742839,
+      "r2": 0.9976774000753964,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 117,
+      "speed": 0.45819361554700005,
+      "r2": 0.9978302826614682,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 118,
+      "speed": 0.4569910589590799,
+      "r2": 0.9981299019032807,
+      "n_fit_points": 96,
+      "skipped": false
+    },
+    {
+      "seed": 119,
+      "speed": 0.4803642420132394,
+      "r2": 0.9982699200354959,
+      "n_fit_points": 96,
+      "skipped": false
+    }
+  ],
+  "aggregate": {
+    "speed_mean": 0.4606371482986846,
+    "speed_std": 0.01626865996873806,
+    "speed_cv": 0.03531773333701953,
+    "speed_min": 0.43268692530932534,
+    "speed_max": 0.49364516412022397,
+    "n_valid_seeds": 19
+  },
+  "elapsed_seconds": 10.150698900222778
+}

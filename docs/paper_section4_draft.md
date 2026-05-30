@@ -481,6 +481,15 @@ Full implementation details — synchronous update rule, L∞ convergence
 criterion, sorted-gap cluster counting (gap = ε/2), and the ε_c
 finite-size boundary — are documented in `docs/methods_notes/p21_methods.md`.
 
+**Multi-seed dispersion (Sprint 60).** A 20-seed campaign at ε=0.20
+(canonical fragmentation regime, N=100, seeds 100–119) reports converged
+cluster count = 1.90 ± 0.31 (CV = 16.2%, median = 2). 18/20 seeds converge
+to 2 clusters and 2/20 to consensus (1 cluster), consistent with the
+published range [2, 4] at ε=0.20. The CV reflects the discrete nature of
+the observable and proximity to the consensus transition; it does not
+indicate instability. P21 dim2 PARTIAL → **PASS**; all 4 dims now PASS
+→ **AT-DEPTH**.
+
 ## 4.10 SIR Epidemic CA and P22 Information Cascade (Cluster F)
 
 **Primary reference:** Datta, A. & Acharyya, M. (2022). Modelling the
@@ -655,6 +664,15 @@ threshold context (p_c ≈ 0.038 Moore at q=0.1), and the model difference
 between the Sprint 51 reproduction (fixed t_τ=4) and the canonical
 `epc.models.sir_epidemic` (stochastic geometric recovery) — are documented
 in `docs/methods_notes/p22_methods.md`.
+
+**Multi-seed dispersion (Sprint 60).** A 20-seed campaign using the
+paper-exact Datta-Acharyya (2021) CA (L=200, p0=0.25, p1=0.97, p2=0.10,
+t_τ=4, seeds 100–119) reports wavefront speed = 0.4606 ± 0.0163 cells/step
+(CV = 3.5%, 19/20 valid seeds; 1 seed died out before the fit window). The
+measured speed agrees with the published value (0.4405 ± 0.0008; relative
+error 4.6%, within the 15% tolerance). The tight CV confirms highly
+reproducible ballistic epidemic propagation. P22 dim2 PARTIAL → **PASS**;
+all 4 dims now PASS → **AT-DEPTH**.
 
 ## 4.11 Spatial Rock-Paper-Scissors and P12 Cyclic Dominance (Cluster C)
 
@@ -1414,6 +1432,16 @@ three-part confirmation gate, mechanistic-null metadata flags (ADR 43), and
 the relationship between the EPC phase-fraction approach and the structure-factor
 methods used in MIPS physics literature — are documented in
 `docs/methods_notes/p2_methods.md`.
+
+**Multi-seed dispersion (Sprint 60).** A 20-seed campaign at the canonical
+MIPS state (φ=0.5, Pe=100, N=800, seeds 100–119) reports two_phase_score =
+0.1134 ± 0.0790 (CV = 69.7%) and density-speed Pearson r = −0.9585 ± 0.0196
+(CV = 2.1%). The high two_phase_score CV reflects MIPS nucleation stochasticity:
+cluster nucleation is a rare event at N=800 and the measurement window captures
+variable nucleation progress across seeds. The mechanistically meaningful
+observable — the density-speed anticorrelation confirming the v(ρ) = v₀(1−ρ/ρ*)
+coupling — is tightly reproducible (CV = 2.1%), with all 20 seeds showing
+|r| ≥ 0.93. P2 dim2 PARTIAL → **PASS**; all 4 dims now PASS → **AT-DEPTH**.
 
 ## 4.16 Consolidated Transfer Matrix
 

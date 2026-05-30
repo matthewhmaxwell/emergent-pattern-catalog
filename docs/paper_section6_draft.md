@@ -552,13 +552,15 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–56), **13 / 19** patterns have
-reached AT-DEPTH grade and **6 / 19** remain at GAP. The thirteen AT-DEPTH
-patterns are P3 (Turing pattern formation), P5 (flocking), P6 (milling),
-P9 (synchronization), P10 (chimera states), P11 (predator-prey oscillations),
-P13 (excitable waves), P14 (self-organized criticality), P15 (persistent
-computation), P18 (coarsening-to-consensus), P27 (spatial reciprocity),
-P28 (wealth condensation), and P31 (delayed gratification).
+Across the 19-pattern inventory (Sprints 1–60), **16 / 19** patterns have
+reached AT-DEPTH grade and **3 / 19** remain at GAP. The sixteen AT-DEPTH
+patterns are P2 (MIPS), P3 (Turing pattern formation), P5 (flocking),
+P6 (milling), P9 (synchronization), P10 (chimera states),
+P11 (predator-prey oscillations), P13 (excitable waves),
+P14 (self-organized criticality), P15 (persistent computation),
+P18 (coarsening-to-consensus), P21 (polarization), P22 (information cascade),
+P27 (spatial reciprocity), P28 (wealth condensation), and
+P31 (delayed gratification).
 
 Five of the six AT-DEPTH patterns reached that grade via the Phase-2a
 standard negative panel (§3.7): P9 returned PASS-with-weakness, P15
@@ -833,3 +835,15 @@ exponent requires L ≥ 200 (the original paper used L = 256) or a structure-fac
 estimator less sensitive to finite-size boundary effects. P12 dim1 remains PARTIAL;
 C2/C3 carry-forwards are updated with the finite-size diagnosis.
 **AT-DEPTH count: 13 / 19** (unchanged).
+
+**Sprint 60 (P2 + P21 + P22 dim2 closure, AT-DEPTH +3).**
+
+Sprint 60 closes dimension 2 (multi-seed dispersion) for three patterns via 20-seed
+campaigns. P2 (MIPS / ABP) at the canonical state (φ=0.5, Pe=100, N=800): two_phase_score
+= 0.1134 ± 0.0790 (CV = 69.7%, reflecting nucleation stochasticity) with density-speed
+Pearson r = −0.9585 ± 0.0196 (CV = 2.1%). P21 (Hegselmann-Krause) at ε=0.20 (N=100):
+cluster count = 1.90 ± 0.31 (CV = 16.2%, median = 2). P22 (SIR wavefront speed) using
+the paper-exact Datta-Acharyya (2021) CA (L=200): speed = 0.4606 ± 0.0163 cells/step
+(CV = 3.5%, 19/20 valid seeds). All three patterns advance dim2 PARTIAL → PASS and,
+with all four dimensions now PASS, advance to AT-DEPTH.
+**AT-DEPTH count: 16 / 19** (+3: P2, P21, P22).

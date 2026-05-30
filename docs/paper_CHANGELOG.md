@@ -4,6 +4,20 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 60 (2026-05-30)
+- analysis/p2_multiseed.py: new 20-seed multi-seed script for P2 MIPS (two_phase_score + density-speed r at Pe=100, φ=0.5, N=800).
+- analysis/p21_multiseed.py: new 20-seed multi-seed script for P21 HK opinion (cluster_count at ε=0.20, N=100).
+- analysis/p22_multiseed.py: new 20-seed multi-seed script for P22 SIR wavefront speed (paper-exact Datta-Acharyya CA, L=200).
+- analysis/outputs/p2_multiseed.json: P2 aggregate — score=0.1134±0.0790 (CV=69.7%), r=−0.9585±0.0196 (CV=2.1%).
+- analysis/outputs/p21_multiseed.json: P21 aggregate — cluster_count=1.90±0.31 (CV=16.2%, median=2).
+- analysis/outputs/p22_multiseed.json: P22 aggregate — speed=0.4606±0.0163 (CV=3.5%, 19/20 valid).
+- REPLICATION_NOTES.md: P2, P21, P22 Dim2 Multi-Seed Extension sections added. dim2 PARTIAL→PASS for all three.
+- docs/depth_gap.md: P2, P21, P22 dim2→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 13→16. Sprint 60 finding added.
+- §4.15 (P2) paper_section4_draft.md: appended Sprint 60 multi-seed dispersion paragraph. P2 AT-DEPTH.
+- §4.9 (P21) paper_section4_draft.md: appended Sprint 60 multi-seed dispersion paragraph. P21 AT-DEPTH.
+- §4.10 (P22) paper_section4_draft.md: appended Sprint 60 multi-seed dispersion paragraph. P22 AT-DEPTH.
+- §6 paper_section6_draft.md: updated AT-DEPTH count 13→16, Sprint 60 paragraph added. P2, P21, P22 listed.
+
 ## Sprint 59 (2026-05-29)
 - analysis/reproductions/p12_reichenbach2007.py: rewritten for near-M_c dense sweep — M ∈ [2e-4, 5e-4] (7 points, 30 seeds each), fit_mask restricting slope fit to M ∈ [2e-4, 4.5e-4] with n_valid ≥ 15, updated JSON schema (sprint=59, m_c, fit_M_values, n_fit_points, near_extinction, n_fit_points_pass, fit_exclusion_note). spiral_wavelength() and run_one_seed() unchanged.
 - analysis/outputs/p12_reichenbach2007_reproduction.json: overwritten — sprint=59, slope=0.244, R²=0.918, n_fit_points=6, overall_pass=False. Sprint 58 result superseded.

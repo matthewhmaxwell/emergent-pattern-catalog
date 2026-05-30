@@ -1,0 +1,171 @@
+{
+  "sprint": 60,
+  "description": "P2 MIPS multi-seed two_phase_score extension",
+  "params": {
+    "n_particles": 800,
+    "phi": 0.5,
+    "peclet": 100,
+    "rho_star": 4.0,
+    "v0": 1.0,
+    "dt": 0.05,
+    "n_steps_total": 2500,
+    "n_burn": 500,
+    "record_every": 5,
+    "n_seeds": 20,
+    "seed_base": 100
+  },
+  "primary_observable": "two_phase_score = min(f_gas, f_liquid)",
+  "per_seed": [
+    {
+      "seed": 100,
+      "two_phase_score": 0.29402431421446384,
+      "two_phase_score_std": 0.14061428247160213,
+      "density_speed_r": -0.9342240889979126,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 101,
+      "two_phase_score": 0.20935785536159598,
+      "two_phase_score_std": 0.11519033390145289,
+      "density_speed_r": -0.9435227425648497,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 102,
+      "two_phase_score": 0.061564837905236924,
+      "two_phase_score_std": 0.048981902587419475,
+      "density_speed_r": -0.9585147620814264,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 103,
+      "two_phase_score": 0.13836970074812968,
+      "two_phase_score_std": 0.09618184025543969,
+      "density_speed_r": -0.937928182968773,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 104,
+      "two_phase_score": 0.13514650872817954,
+      "two_phase_score_std": 0.08690381797615951,
+      "density_speed_r": -0.9381803258022604,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 105,
+      "two_phase_score": 0.0004675810473815461,
+      "two_phase_score_std": 0.0015616615884204968,
+      "density_speed_r": -0.9999467755585394,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 106,
+      "two_phase_score": 0.08742518703241894,
+      "two_phase_score_std": 0.10395758541402665,
+      "density_speed_r": -0.9754376735436442,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 107,
+      "two_phase_score": 0.11929239401496261,
+      "two_phase_score_std": 0.0971427951093144,
+      "density_speed_r": -0.9568841196357856,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 108,
+      "two_phase_score": 0.16880299251870323,
+      "two_phase_score_std": 0.12624455679640467,
+      "density_speed_r": -0.9486003833307365,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 109,
+      "two_phase_score": 0.06977556109725687,
+      "two_phase_score_std": 0.051711175167017794,
+      "density_speed_r": -0.952585909589633,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 110,
+      "two_phase_score": 0.08509663341645886,
+      "two_phase_score_std": 0.05551646973069686,
+      "density_speed_r": -0.9424224308418633,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 111,
+      "two_phase_score": 0.1594357855361596,
+      "two_phase_score_std": 0.10279918211171137,
+      "density_speed_r": -0.9462567810624499,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 112,
+      "two_phase_score": 0.004576059850374065,
+      "two_phase_score_std": 0.010935418008419334,
+      "density_speed_r": -0.9973124675217678,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 113,
+      "two_phase_score": 0.16004675810473817,
+      "two_phase_score_std": 0.13413248266991798,
+      "density_speed_r": -0.9613266539886104,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 114,
+      "two_phase_score": 0.029822319201995007,
+      "two_phase_score_std": 0.03573795082311334,
+      "density_speed_r": -0.9742999969413979,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 115,
+      "two_phase_score": 0.03240960099750624,
+      "two_phase_score_std": 0.039320864536155894,
+      "density_speed_r": -0.9726669943813089,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 116,
+      "two_phase_score": 0.1329426433915212,
+      "two_phase_score_std": 0.10026414062244846,
+      "density_speed_r": -0.948201229996695,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 117,
+      "two_phase_score": 0.14479738154613467,
+      "two_phase_score_std": 0.11007405237774891,
+      "density_speed_r": -0.9550509984466924,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 118,
+      "two_phase_score": 0.22421446384039903,
+      "two_phase_score_std": 0.14876619596742321,
+      "density_speed_r": -0.9405615575650876,
+      "n_snapshots": 401
+    },
+    {
+      "seed": 119,
+      "two_phase_score": 0.01128428927680798,
+      "two_phase_score_std": 0.01614966364870161,
+      "density_speed_r": -0.985485537504934,
+      "n_snapshots": 401
+    }
+  ],
+  "aggregate": {
+    "score_mean": 0.11344264339152121,
+    "score_std": 0.07901059711584241,
+    "score_cv": 0.6964805716238072,
+    "score_min": 0.0004675810473815461,
+    "score_max": 0.29402431421446384,
+    "r_mean": -0.9584704806162184,
+    "r_std": 0.019643015020373713,
+    "r_cv": 0.020494126233021652
+  },
+  "elapsed_seconds": 266.24575567245483
+}

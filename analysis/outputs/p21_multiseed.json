@@ -1,0 +1,124 @@
+{
+  "sprint": 60,
+  "description": "P21 HK opinion multi-seed cluster_count extension",
+  "params": {
+    "n_agents": 100,
+    "epsilon": 0.2,
+    "t_max": 10000,
+    "merge_gap": 0.05,
+    "n_seeds": 20,
+    "seed_base": 100
+  },
+  "primary_observable": "converged cluster count (histogram bin-merge, gap=0.05)",
+  "per_seed": [
+    {
+      "seed": 100,
+      "cluster_count": 2,
+      "n_steps_converged": 8
+    },
+    {
+      "seed": 101,
+      "cluster_count": 2,
+      "n_steps_converged": 10
+    },
+    {
+      "seed": 102,
+      "cluster_count": 2,
+      "n_steps_converged": 6
+    },
+    {
+      "seed": 103,
+      "cluster_count": 2,
+      "n_steps_converged": 6
+    },
+    {
+      "seed": 104,
+      "cluster_count": 2,
+      "n_steps_converged": 5
+    },
+    {
+      "seed": 105,
+      "cluster_count": 2,
+      "n_steps_converged": 5
+    },
+    {
+      "seed": 106,
+      "cluster_count": 2,
+      "n_steps_converged": 7
+    },
+    {
+      "seed": 107,
+      "cluster_count": 2,
+      "n_steps_converged": 7
+    },
+    {
+      "seed": 108,
+      "cluster_count": 2,
+      "n_steps_converged": 7
+    },
+    {
+      "seed": 109,
+      "cluster_count": 2,
+      "n_steps_converged": 6
+    },
+    {
+      "seed": 110,
+      "cluster_count": 2,
+      "n_steps_converged": 8
+    },
+    {
+      "seed": 111,
+      "cluster_count": 2,
+      "n_steps_converged": 7
+    },
+    {
+      "seed": 112,
+      "cluster_count": 2,
+      "n_steps_converged": 7
+    },
+    {
+      "seed": 113,
+      "cluster_count": 1,
+      "n_steps_converged": 10
+    },
+    {
+      "seed": 114,
+      "cluster_count": 1,
+      "n_steps_converged": 14
+    },
+    {
+      "seed": 115,
+      "cluster_count": 2,
+      "n_steps_converged": 5
+    },
+    {
+      "seed": 116,
+      "cluster_count": 2,
+      "n_steps_converged": 8
+    },
+    {
+      "seed": 117,
+      "cluster_count": 2,
+      "n_steps_converged": 5
+    },
+    {
+      "seed": 118,
+      "cluster_count": 2,
+      "n_steps_converged": 6
+    },
+    {
+      "seed": 119,
+      "cluster_count": 2,
+      "n_steps_converged": 9
+    }
+  ],
+  "aggregate": {
+    "cluster_count_mean": 1.9,
+    "cluster_count_std": 0.3077935056255462,
+    "cluster_count_cv": 0.16199658190818222,
+    "cluster_count_min": 1,
+    "cluster_count_max": 2,
+    "cluster_count_median": 2
+  },
+  "elapsed_seconds": 0.3712151050567627
+}
