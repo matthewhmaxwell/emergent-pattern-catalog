@@ -145,7 +145,7 @@ No new carry-forwards opened. Remaining gaps unchanged:
 
 ## Final commit hash and tag
 
-**Commit:** (pending)
+**Commit:** `dba0b11` (main), `9b56e5d` (return doc)
 **Tag:** `v0.60.0`
 
 ---

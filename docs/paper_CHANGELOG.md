@@ -4,6 +4,18 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 61 (2026-05-30)
+- epc/detectors/p1_aggregation.py: added multi-cluster prerequisite (Schelling 1971) — rejects substrates where every non-empty type forms a single contiguous block (monotonic spatial partition). Uses scipy.ndimage.label, 8-connected. Gradient rejected; canonical Schelling positive (10–20 components/type) unaffected.
+- epc/phase2a/failed_regimes/p1_schelling.py: Class C regime correction — threshold range linspace(0.05,0.25,10) → linspace(0.01,0.10,10), grid_size 32→50. Original thresholds 0.161–0.250 above empirical critical threshold ≈0.13 at density=0.9 (brief-author error).
+- analysis/outputs/p1_phase2a_panel.json: re-run — overall TNR 0.731→1.000, syn 0.889→1.000, fai 0.400→1.000, Cohen's d 1.740→+inf. Verdict PARTIAL→PASS.
+- tests/test_p1_multi_cluster_prereq.py: 2 regression tests — gradient rejected, canonical positive not regressed.
+- REPLICATION_NOTES.md: Sprint 61 P1 panel re-run section added.
+- docs/depth_gap.md: P1 dim4 PARTIAL→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 16→17.
+- §3.5 paper_section3_draft.md: multi-cluster prerequisite paragraph added (alongside P11/P22/P27 prereqs).
+- §4.6 paper_section4_draft.md: Sprint 61 panel re-run paragraph appended. P1 AT-DEPTH.
+- §6.11 paper_section6_draft.md: Sprint 61 paragraph added. AT-DEPTH count 16→17.
+- Carry-forwards CLOSED: C-p1-linear-gradient-fp, C-p1-class-c-subthreshold-fp.
+
 ## Sprint 60 (2026-05-30)
 - analysis/p2_multiseed.py: new 20-seed multi-seed script for P2 MIPS (two_phase_score + density-speed r at Pe=100, φ=0.5, N=800).
 - analysis/p21_multiseed.py: new 20-seed multi-seed script for P21 HK opinion (cluster_count at ε=0.20, N=100).

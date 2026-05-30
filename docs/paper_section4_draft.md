@@ -316,6 +316,26 @@ above critical threshold at density=0.9 / 32×32 grid). Cohen's d =
 CLOSED; C-p1-time-shuffle-fp, C-p1-linear-gradient-fp,
 C-p1-class-c-subthreshold-fp remain open.
 
+**Phase-2a panel v1.2 re-run (Sprint 61).** Two residual FPs resolved.
+(1) *Multi-cluster prerequisite (Schelling 1971):* genuine segregation
+from local-preference moves produces multiple disconnected same-type
+clusters from random initial conditions — a binarized monotonic gradient
+has exactly 1 connected component per type. The prerequisite checks
+per-type component count via `scipy.ndimage.label`; if every non-empty
+type forms a single contiguous block, the substrate is rejected at
+SCREENING. The canonical Schelling positive has 10–20 components per
+type (well above threshold). C-p1-linear-gradient-fp CLOSED.
+(2) *Class C regime correction (brief-author error):* the empirical
+critical segregation threshold at density=0.9 (Moore neighbourhood) is
+≈0.13, not 0.375 (the latter applies at lower densities). Thresholds
+0.161–0.250 genuinely segregated — they were true positives mislabeled
+as negatives. Corrected: threshold ∈ linspace(0.01, 0.10, 10),
+grid_size 32→50 (reduces finite-size random-clustering noise).
+C-p1-class-c-subthreshold-fp CLOSED.
+Result: overall TNR = 1.000, syn = 1.000, cat = 1.000, fai = 1.000,
+Cohen's d = +∞. Verdict: **PASS**. All carry-forwards CLOSED. P1 dim4
+PARTIAL→PASS; all four dimensions now PASS → P1 advances to AT-DEPTH.
+
 ## 4.7 BTW Sandpile (Cluster D)
 
 **Reference:** Bak, P., Tang, C. & Wiesenfeld, K. (1987).

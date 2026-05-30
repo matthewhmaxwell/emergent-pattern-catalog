@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
+from scipy import ndimage
 
 from epc.base_detector import BaseDetector
 from epc.detector_result import DetectionTier, NullType
@@ -92,6 +93,30 @@ class P1AggregationDetector(BaseDetector):
                     "LV/GoL/RPS cyclic dynamics out of P1 domain)"
                 ],
             )
+
+        # Sprint 61: multi-cluster prerequisite (Schelling 1971).
+        mc_passes, mc_max_comp = self._check_multi_cluster_prereq(state_history)
+        if not mc_passes:
+            return DetectorResult(
+                pattern_id=self.pattern_id,
+                detected=False,
+                tier=DetectionTier.SCREENING,
+                confidence=0.0,
+                primary_metric={"screening_rejection_reason": "multi_cluster_failed"},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type=NullType.SHUFFLE,
+                warnings=[
+                    f"multi_cluster_failed: max_components_per_type={mc_max_comp} "
+                    "— every type forms a single contiguous block (monotonic "
+                    "spatial partition, not multi-cluster Schelling aggregation). "
+                    "Per Schelling (1971), genuine segregation from local-preference "
+                    "moves produces MULTIPLE disconnected same-type clusters, not "
+                    "a single monotonic split."
+                ],
+            )
+
         return super().detect(state_history, model_metadata, timescale)
 
     def _check_type_constancy_prereq(
@@ -166,6 +191,59 @@ class P1AggregationDetector(BaseDetector):
 
         passes = max_cv < self._TYPE_CONSTANCY_CV_THRESHOLD
         return passes, max_cv
+
+    def _check_multi_cluster_prereq(
+        self,
+        state_history: list[dict[str, Any]],
+    ) -> tuple[bool, int]:
+        """Check that aggregation exhibits multiple disconnected same-type clusters.
+
+        Sprint 61 prerequisite, grounded in Schelling (1971): genuine
+        similarity-driven segregation from local-preference moves produces
+        MULTIPLE disconnected same-type clusters from a random initial
+        condition. A substrate where every non-empty type forms a single
+        contiguous block (e.g., a monotonic left-right gradient binarized
+        at 0.5) exhibits high Moran's I from spatial structure alone, not
+        from an aggregation process.
+
+        Computed on the final-state grid via scipy.ndimage.label (non-periodic
+        adjacency). Non-periodic counting is conservative: on a periodic
+        Schelling torus, boundary-wrapping clusters may be split into
+        multiple components, making the check easier to pass.
+
+        Returns (passes: bool, max_components: int).
+        Passes vacuously (True) when the state has no 2D grid data.
+        """
+        if len(state_history) < 1:
+            return True, 0
+
+        state = state_history[-1]
+        if "grid" not in state and "type_labels_at_pos" not in state:
+            return True, 0
+        if "grid_dims" not in state:
+            return True, 0
+
+        rows, cols = state["grid_dims"]
+        if "grid" in state:
+            grid = np.asarray(state["grid"], dtype=int).reshape(rows, cols)
+        else:
+            grid = np.asarray(state["type_labels_at_pos"], dtype=int).reshape(rows, cols)
+
+        # 8-connected structure for ndimage.label
+        struct = np.ones((3, 3), dtype=int)
+
+        max_components = 0
+        for t_val in np.unique(grid):
+            if t_val == 0:
+                continue  # skip empty cells (Schelling convention)
+            mask = (grid == t_val).astype(np.int8)
+            _, n_comp = ndimage.label(mask, structure=struct)
+            if n_comp > max_components:
+                max_components = n_comp
+
+        # Reject if every non-empty type forms a single contiguous block
+        passes = max_components > 1
+        return passes, max_components
 
     def _estimate_timescale(self, state_history, model_metadata):
         if model_metadata and "algorithm" in model_metadata:

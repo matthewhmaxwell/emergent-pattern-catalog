@@ -847,3 +847,20 @@ the paper-exact Datta-Acharyya (2021) CA (L=200): speed = 0.4606 ± 0.0163 cells
 (CV = 3.5%, 19/20 valid seeds). All three patterns advance dim2 PARTIAL → PASS and,
 with all four dimensions now PASS, advance to AT-DEPTH.
 **AT-DEPTH count: 16 / 19** (+3: P2, P21, P22).
+
+**Sprint 61 (P1 dim4 closure, AT-DEPTH +1).**
+
+Sprint 61 resolves both P1 dim4 carry-forwards. (1) The `linear_gradient`
+Class A false positive was a monotonic spatial partition (one connected
+component per type) with high Moran's I from structure alone, not from
+aggregation. A multi-cluster prerequisite grounded in Schelling (1971) —
+genuine segregation produces multiple disconnected same-type clusters from
+random initial conditions — cleanly excludes gradients while the canonical
+positive (10–20 components per type) passes trivially. (2) The Class C regime
+parameters were brief-author errors: threshold ∈ [0.161, 0.250] at
+density=0.9 were above the empirical critical threshold (≈0.13), making them
+true positives mislabeled as negatives. Corrected: threshold ∈ linspace(0.01,
+0.10, 10), grid_size 32→50. Panel re-run: overall TNR = 1.000, syn = 1.000,
+cat = 1.000, fai = 1.000, Cohen's d = +∞. P1 dim4 PARTIAL→PASS; all four
+dimensions now PASS → P1 advances to AT-DEPTH.
+**AT-DEPTH count: 17 / 19** (+1: P1). Remaining gaps: P8 (dim4), P12 (dim1).

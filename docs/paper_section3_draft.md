@@ -313,6 +313,20 @@ converts 4-state RPS grid to occupied/empty) have CV ≥ 0.014 > 0.01. The
 Phase-2a panel re-run (Sprint 43) confirmed cat TNR advances from 0.571 to
 1.000, with C-p1-class-b-lattice2d-fp CLOSED.
 
+**P1 multi-cluster prerequisite (Sprint 61).** A second content-level
+prerequisite addresses the `linear_gradient` Class A false positive: a
+binarized monotonic gradient (left half type 0, right half type 1) has high
+Moran's I from spatial structure alone, yet contains no multi-cluster
+aggregation process. Per Schelling (1971), genuine segregation from
+local-preference moves produces *multiple disconnected same-type clusters*
+from random initial conditions. The prerequisite computes per-type connected
+component counts on the final-state grid via `scipy.ndimage.label`
+(8-connected, non-periodic); if every non-empty type forms a single
+contiguous block, the substrate is rejected as a monotonic spatial partition.
+The canonical Schelling positive has 10–20 components per type; the gradient
+has exactly 1. This is the P1 analog of the P22 irreversibility and P11
+conservation prerequisites.
+
 ## 3.6 Statistical Power Requirements
 
 Permutation-based significance testing imposes minimum sample sizes that we

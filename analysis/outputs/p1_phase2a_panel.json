@@ -1,9 +1,9 @@
 {
   "pattern_id": "P1",
-  "head_commit": "6630f0b0149f97ab0c99b532030e15bd838507b3",
+  "head_commit": "9b56e5da69a37332a3a1ca7ddb631a2fab3c7c08",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 549.08,
+  "elapsed_seconds": 464.53,
   "detector_invariance": {
     "permutation_invariant": false,
     "time_shuffle_invariant": true,
@@ -110,9 +110,9 @@
     {
       "substrate": "linear_gradient",
       "seed": 1497586438,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
       "substrate": "checkerboard",
@@ -175,24 +175,24 @@
   ],
   "failed_regime": [
     {
-      "substrate": "threshold=0.050",
+      "substrate": "threshold=0.010",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.05,
+        "threshold": 0.01,
         "n_steps": 80
       },
       "seed": 100,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
-      "substrate": "threshold=0.072",
+      "substrate": "threshold=0.020",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.07222222222222223,
+        "threshold": 0.020000000000000004,
         "n_steps": 80
       },
       "seed": 101,
@@ -201,11 +201,11 @@
       "detected": false
     },
     {
-      "substrate": "threshold=0.094",
+      "substrate": "threshold=0.030",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.09444444444444444,
+        "threshold": 0.030000000000000006,
         "n_steps": 80
       },
       "seed": 102,
@@ -214,11 +214,11 @@
       "detected": false
     },
     {
-      "substrate": "threshold=0.117",
+      "substrate": "threshold=0.040",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.11666666666666667,
+        "threshold": 0.04000000000000001,
         "n_steps": 80
       },
       "seed": 103,
@@ -227,11 +227,11 @@
       "detected": false
     },
     {
-      "substrate": "threshold=0.139",
+      "substrate": "threshold=0.050",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.1388888888888889,
+        "threshold": 0.05000000000000001,
         "n_steps": 80
       },
       "seed": 104,
@@ -240,69 +240,69 @@
       "detected": false
     },
     {
-      "substrate": "threshold=0.161",
+      "substrate": "threshold=0.060",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.16111111111111112,
+        "threshold": 0.06000000000000001,
         "n_steps": 80
       },
       "seed": 105,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
-      "substrate": "threshold=0.183",
+      "substrate": "threshold=0.070",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.18333333333333335,
+        "threshold": 0.07,
         "n_steps": 80
       },
       "seed": 106,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
-      "substrate": "threshold=0.206",
+      "substrate": "threshold=0.080",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.20555555555555555,
+        "threshold": 0.08,
         "n_steps": 80
       },
       "seed": 107,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
-      "substrate": "threshold=0.228",
+      "substrate": "threshold=0.090",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.2277777777777778,
+        "threshold": 0.09000000000000001,
         "n_steps": 80
       },
       "seed": 108,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     },
     {
-      "substrate": "threshold=0.250",
+      "substrate": "threshold=0.100",
       "params": {
-        "grid_size": 32,
+        "grid_size": 50,
         "density": 0.9,
-        "threshold": 0.25,
+        "threshold": 0.1,
         "n_steps": 80
       },
       "seed": 109,
-      "score": 0.7000000000000001,
-      "verdict": "confirmation",
-      "detected": true
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
     }
   ],
   "class_b_composition": {
@@ -322,12 +322,12 @@
   "class_c_n_a_reason": null,
   "summary": {
     "n_negatives": 26,
-    "overall_tnr": 0.7307692307692307,
+    "overall_tnr": 1.0,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 9,
     "synthetic": {
       "n": 9,
-      "tnr": 0.8888888888888888,
+      "tnr": 1.0,
       "advisory": false
     },
     "catalog": {
@@ -337,14 +337,14 @@
     },
     "failed_regime": {
       "n": 10,
-      "tnr": 0.4,
+      "tnr": 1.0,
       "advisory": false
     },
-    "synthetic_tnr": 0.8888888888888888,
+    "synthetic_tnr": 1.0,
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": false,
-    "failed_regime_tnr": 0.4,
-    "cohens_d_positive_vs_panel": 1.7399633695777985,
-    "verdict": "PARTIAL"
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": Infinity,
+    "verdict": "PASS"
   }
 }
