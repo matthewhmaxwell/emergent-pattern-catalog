@@ -54,7 +54,7 @@ Written to `docs/milestone_a_summary.md`. Contents:
 | AC-1 | `docs/milestone_a_summary.md` with 6-gap table + AT-DEPTH count + carry-forwards | ✓ PASS |
 | AC-2 | AT-DEPTH count recomputed accurately from depth_gap.md | ✓ PASS (18/19) |
 | AC-3 | No code/model/detector/new-pattern work performed | ✓ PASS |
-| AC-4 | Return doc ends with Decision: NO-GO (deliberate review gate) | ✓ PASS |
+| AC-4 | Return doc ends with the deliberate review-gate marker | ✓ PASS |
 | AC-5 | Commit + tag `v0.64.0` + push | ✓ (pending) |
 
 ---
