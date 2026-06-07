@@ -1,0 +1,92 @@
+{
+  "reproduction": "p7_helbing1995",
+  "target": "Lane formation from mixed initial condition in counterflow",
+  "reference": "Helbing & Molnar 1995; Nowak & Schadschneider 2012",
+  "parameters": {
+    "corridor_width": 20.0,
+    "corridor_height": 4.0,
+    "n_agents": 200,
+    "density": 2.5,
+    "desired_speed": 1.0,
+    "repulsion_amplitude": 5.0,
+    "repulsion_range": 0.3,
+    "tau": 0.5,
+    "dt": 0.05,
+    "n_steps": 3000,
+    "n_bins": 10,
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1011
+    ]
+  },
+  "seed_results": [
+    {
+      "seed": 42,
+      "phi_init": 0.4718437496658849,
+      "phi_final": 0.8475510047027783,
+      "phi_gain": 0.37570725503689345,
+      "throughput_init": 0.9846883313355512,
+      "throughput_final": 0.9976565714082779,
+      "throughput_fraction": 0.9976565714082779
+    },
+    {
+      "seed": 123,
+      "phi_init": 0.424932612290034,
+      "phi_final": 0.8852473150570754,
+      "phi_gain": 0.46031470276704145,
+      "throughput_init": 0.9852471391756381,
+      "throughput_final": 0.9976812870931401,
+      "throughput_fraction": 0.9976812870931401
+    },
+    {
+      "seed": 456,
+      "phi_init": 0.4317725236562184,
+      "phi_final": 0.9140230006454261,
+      "phi_gain": 0.4822504769892077,
+      "throughput_init": 0.9834150158659185,
+      "throughput_final": 0.99892453134117,
+      "throughput_fraction": 0.99892453134117
+    },
+    {
+      "seed": 789,
+      "phi_init": 0.6314420843148032,
+      "phi_final": 0.9866126547442747,
+      "phi_gain": 0.35517057042947153,
+      "throughput_init": 0.9879966531031562,
+      "throughput_final": 0.9982064770060277,
+      "throughput_fraction": 0.9982064770060277
+    },
+    {
+      "seed": 1011,
+      "phi_init": 0.5280747361165555,
+      "phi_final": 0.9694522874786033,
+      "phi_gain": 0.4413775513620478,
+      "throughput_init": 0.9861590883301722,
+      "throughput_final": 0.9967574723840722,
+      "throughput_fraction": 0.9967574723840722
+    }
+  ],
+  "aggregate": {
+    "phi_init_mean": 0.49761314120869915,
+    "phi_final_mean": 0.9205772525256316,
+    "phi_final_std": 0.051717383843652105,
+    "phi_gain": 0.42296411131693246,
+    "throughput_init_mean": 0.9855012455620873,
+    "throughput_final_mean": 0.9978452678465375,
+    "throughput_final_std": 0.0007128922427972828,
+    "throughput_fraction_of_v0": 0.9978452678465375
+  },
+  "tolerances": {
+    "phi_final_threshold": 0.5,
+    "phi_final_pass": true,
+    "phi_gain_threshold": 0.2,
+    "phi_gain_pass": true,
+    "throughput_threshold": 0.4,
+    "throughput_level_pass": true,
+    "throughput_gain_pass": true
+  },
+  "passes_tolerance": true
+}

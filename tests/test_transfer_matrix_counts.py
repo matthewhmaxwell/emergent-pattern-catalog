@@ -53,17 +53,17 @@ DISPLAY_FOLDS = _module.DISPLAY_FOLDS
 # changes, run `python scripts/count_transfer_matrix.py` to get the new
 # values, update this dict, and update §5.1 in the paper draft.
 EXPECTED: dict[str, int] = {
-    'n_models': 20,
-    'n_detectors': 19,
-    'n_total_cells': 380,
-    'n_compatible': 79,
-    'n_substrate_mismatch': 274,
+    'n_models': 21,
+    'n_detectors': 20,
+    'n_total_cells': 420,
+    'n_compatible': 86,
+    'n_substrate_mismatch': 307,
     'n_missing_observable': 27,
-    'n_total_rejections': 301,
-    'n_displayed_rows': 19,
-    'n_displayed_cells': 361,
-    'n_displayed_compatible': 77,
-    'n_displayed_rejections': 284,
+    'n_total_rejections': 334,
+    'n_displayed_rows': 20,
+    'n_displayed_cells': 400,
+    'n_displayed_compatible': 84,
+    'n_displayed_rejections': 316,
 }
 
 

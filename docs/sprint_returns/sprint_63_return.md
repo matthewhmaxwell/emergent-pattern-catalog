@@ -142,7 +142,7 @@ The scaling-law reproduction is a **documented finite-size measurement limitatio
 
 ## Final commit hash and tag
 
-**Commit:** (pending)
+**Commit:** `485ba41` (main), `87c7589` (return doc)
 **Tag:** `v0.63.0`
 
 ---

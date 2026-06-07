@@ -2600,3 +2600,32 @@ Flags added: `permutation_invariant=True`, `time_shuffle_invariant=True`. Justif
 
 **P21 Hegselmann-Krause / polarization (Sprint 49 re-run).**
 Flag added: `permutation_invariant=True`. Justification: Hartigan's dip test (Hartigan & Hartigan 1985) operates on the *sorted* value array; permuting agent opinion indices does not change the sorted distribution, so the dip statistic is identical to the original bimodal positive. `time_shuffle_invariant` left False: the HK trajectory is NOT temporally symmetric — early unimodal steps (t < ~25, pre-convergence) differ meaningfully from late bimodal steps, so the `time_shuffled` substrate remains a valid test. Result: `permutation_shuffled` SKIPPED; syn TNR advances from 0.800 to 0.889. C-p21-perm-shuffled-fp CLOSED. `time_shuffled` FP at CONFIRMATION (0.850) persists — C-p21-time-shuffled-fp remains open (HK convergence-timing issue, not invariance). Overall TNR 0.913 → 0.955, Cohen's d 4.543 → 5.487. Verdict: **PASS-with-weakness** (advances from PARTIAL). P21 dim4 PARTIAL → PASS. AT-DEPTH count unchanged: **10 / 19** (dims 1–3 still PARTIAL).
+
+## 4.21 Counterflow Social-Force and P7 Lane Formation (Cluster B)
+
+*Sprint 65 — new implementation.*
+
+**Model.** A minimal counterflow social-force model (Helbing & Molnár 1995):
+N agents split into two equal populations with opposing desired velocities
+(+x and −x) in a 2D corridor (periodic in x, reflecting walls in y).
+Short-range exponential repulsion drives lateral segregation into same-direction
+lanes. Overdamped dynamics (first-order) with parameters: v₀ = 1.0, A = 5.0,
+B = 0.3, τ = 0.5, dt = 0.05, corridor 20 × 4, N = 200 (ρ = 2.5/m²).
+
+**Detector.** The P7 detector uses the lane order parameter (Nowak &
+Schadschneider 2012): lateral strips are scored for directional purity and
+averaged. Three-tier logic: screening (φ > 0.4), confirmation (temporal
+stability + encounter reduction + label-shuffle null p < 0.01), definitive
+(throughput gain > 10%).
+
+**Results.** At the canonical regime (ρ = 2.5), φ rises from ~0.50 (random
+initial) to 0.92 ± 0.05 (steady state). Multi-seed (n = 20): φ = 0.897 ± 0.091
+(CV = 10.2%). All seeds produce stable lanes. Throughput reaches 99.8% of
+free-flow speed in the formed state. dim1 reproduction PASS (φ_final ∈ [0.5, 1.0],
+gain > 0.2). dim4 (Phase-2a panel) pending Sprint 66.
+
+**Distinctness from P5/P6.** P5 (Vicsek flocking) converges all agents to a
+single heading; P7 maintains two persistent opposing streams. P6 (milling)
+produces circular vortex motion; P7 produces linear counterflow lanes. The
+substrate overlap (continuous_2d) means P7's catalog-mate discrimination vs
+P5/P6 will be a key dim4 test.
