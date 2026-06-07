@@ -57,6 +57,16 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "particle relabelling. time_shuffle_inv=True: each milled frame "
                                       "has high |L| regardless of temporal order → time_shuffled is "
                                       "degenerate-by-construction. C-p6-time-shuffle-fp (Sprint 46)."),
+    "P7":  InvarianceFlags(True,  False, "lane order parameter (lateral directional segregation)",
+                            rationale="perm_inv=True: lane order parameter φ_lane is a spatial-strip "
+                                      "statistic (Nowak & Schadschneider 2012) — it bins agents by "
+                                      "y-position and measures directional purity per strip; permuting "
+                                      "agent indices does not change strip membership or label counts → "
+                                      "permutation_shuffled is degenerate-by-construction. "
+                                      "time_shuffle_inv=False: P7 confirmation requires temporal "
+                                      "stability (CV < 0.3 over measurement window) and definitive "
+                                      "requires throughput gain vs early transient; shuffling temporal "
+                                      "order destroys both metrics → time_shuffled is a meaningful test."),
     "P8":  InvarianceFlags(True,  True,  "stopped_fraction (time-averaged jamming density)",
                             rationale="P8's stopped_fraction is a time-average statistic invariant "
                                       "under both cell-index permutation (cells anonymous: NaSch is "

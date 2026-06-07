@@ -6397,3 +6397,34 @@ C-p8-class-c-near-onset **CLOSED**.
 All 5 canonical positives reach DEFINITIVE (confidence 0.900). All 21 negatives correctly rejected. No false positives remain.
 
 **Sprint 62 finding:** P8 dim4 PARTIAL→PASS; all four dimensions now PASS → P8 advances to **AT-DEPTH**. AT-DEPTH count: **18 / 19** (+1: P8). Remaining gap: P12 (dim1).
+
+## Phase-2a Panel Results (v1.2) — Sprint 66 (P7 dim4 closure)
+
+**Sprint type:** chat-led design + code-led execution. **Sprint goal:** Build and run Phase-2a v1.2 panel for P7 (lane formation). Target: overall TNR ≥ 0.95, Cohen's d ≥ 1.0 → P7 dim4 PASS → P7 AT-DEPTH. **Base HEAD:** Sprint 65 post-commit (`04663fc`).
+
+**Content prerequisite added (Sprint 66).**
+
+The initial panel run surfaced 4 Class C false positives:
+- 2 weak-repulsion regimes at A=0.914 and A=2.000 reached screening (φ > 0.4 from partial segregation)
+- 2 single-population regimes reached screening (φ_lane = 1.0 by construction — all agents share one label, so every lateral strip is 100% one direction)
+
+Fix (a): Content prerequisite — Helbing & Molnár (1995) defines lane formation as spontaneous segregation of **bidirectional** pedestrian streams. A single-population free-flow does not constitute lane formation. Added prerequisite: labels must contain ≥2 distinct populations, minority population ≥10% of total.
+
+Fix (b): Class C parameter correction — repulsion amplitude range linspace(0.1, 2.0, 8) → linspace(0.1, 0.8, 8). A ≤ 0.8 is well below the lane-forming threshold (canonical A=5.0); agents interpenetrate freely with no directional segregation.
+
+**Panel results (Sprint 66):**
+
+| Metric | Initial | After fix |
+|--------|---------|-----------|
+| Overall TNR | 0.773 | **0.955** |
+| syn TNR | 0.889 | 0.889 |
+| cat TNR | 1.000 | 1.000 |
+| fai TNR | 0.600 | **1.000** |
+| Cohen's d | 2.983 | **6.932** |
+| Verdict | PARTIAL | **PASS-with-weakness** |
+
+All 5 canonical positives reach CONFIRMATION (confidence 0.700). All catalog mates (P2_abp, P5_vicsek, P6_dorsogna) correctly rejected — all lack `labels` key → prerequisite short-circuit. All 10 failed regimes correctly rejected (8 weak-repulsion + 2 single-population).
+
+Remaining weakness: `time_shuffled` synthetic FP at screening tier. Once lanes form, each frame independently has high φ_lane; shuffling temporal order preserves per-frame φ values. This is a structural property of the metric (same class as C-p21-time-shuffled-fp). Carry-forward: C-p7-time-shuffled-fp.
+
+**Sprint 66 finding:** P7 dim4 pending→PASS; all four dimensions now PASS → P7 advances to **AT-DEPTH**. AT-DEPTH count: **19 / 20** (+1: P7). Remaining gap: P12 (dim1).

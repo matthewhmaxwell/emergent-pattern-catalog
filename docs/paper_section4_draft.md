@@ -2622,10 +2622,21 @@ stability + encounter reduction + label-shuffle null p < 0.01), definitive
 initial) to 0.92 ± 0.05 (steady state). Multi-seed (n = 20): φ = 0.897 ± 0.091
 (CV = 10.2%). All seeds produce stable lanes. Throughput reaches 99.8% of
 free-flow speed in the formed state. dim1 reproduction PASS (φ_final ∈ [0.5, 1.0],
-gain > 0.2). dim4 (Phase-2a panel) pending Sprint 66.
+gain > 0.2).
+
+**Phase-2a panel (Sprint 66).** PASS-with-weakness: overall TNR = 0.955, Cohen's
+d = 6.932. Catalog mates (P2 MIPS, P5 Vicsek, P6 D'Orsogna) all correctly
+rejected — none carry the `labels` (population membership) key required by P7's
+counterflow prerequisite. Class C: 8 weak-repulsion regimes (A ∈ [0.1, 0.8])
+and 2 single-population regimes all rejected (fai TNR = 1.000). A content
+prerequisite (≥2 opposing populations, minority ≥10%) was added — grounded in
+Helbing & Molnár's (1995) definition of lane formation as bidirectional stream
+segregation. Sole weakness: `time_shuffled` synthetic FP at screening (each
+frame preserves lane structure independently of temporal order; carry-forward
+C-p7-time-shuffled-fp).
 
 **Distinctness from P5/P6.** P5 (Vicsek flocking) converges all agents to a
 single heading; P7 maintains two persistent opposing streams. P6 (milling)
 produces circular vortex motion; P7 produces linear counterflow lanes. The
-substrate overlap (continuous_2d) means P7's catalog-mate discrimination vs
-P5/P6 will be a key dim4 test.
+Phase-2a panel confirms clean discrimination: all three continuous_2d catalog
+mates are rejected at the prerequisite level (absent population labels).

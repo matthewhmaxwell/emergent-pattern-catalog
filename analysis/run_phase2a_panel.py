@@ -17,6 +17,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p8
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p10
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p21
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p7
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -33,6 +34,7 @@ Outputs:
     analysis/outputs/p8_phase2a_panel.json
     analysis/outputs/p10_phase2a_panel.json
     analysis/outputs/p21_phase2a_panel.json
+    analysis/outputs/p7_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -60,6 +62,7 @@ from epc.phase2a.failed_regimes import p6_dorsogna as p6_failed
 from epc.phase2a.failed_regimes import p8_nagel_schreckenberg as p8_failed
 from epc.phase2a.failed_regimes import p10_chimera as p10_failed
 from epc.phase2a.failed_regimes import p21_hk as p21_failed
+from epc.phase2a.failed_regimes import p7_lane_formation as p7_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -973,6 +976,61 @@ def run_p21(out_path: str = "analysis/outputs/p21_phase2a_panel.json", verbose: 
     )
 
 
+def build_p7_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P7 canonical positive: lane formation in counterflow at canonical params.
+
+    Helbing-Molnár 1995 social-force dynamics: N=200 agents in a 20×4 corridor,
+    A=5.0 repulsion, B=0.3 range, τ=0.5, dt=0.05. n_steps=400 ensures full
+    lane formation after transient mixing (~200 steps).
+    """
+    from epc.models.lane_formation import LaneFormationModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = LaneFormationModel(
+            n_agents=200, corridor_width=20.0, corridor_height=4.0,
+            desired_speed=1.0, repulsion_amplitude=5.0, repulsion_range=0.3,
+            tau=0.5, dt=0.05, seed=seed,
+        )
+        runs.append(m.run(n_steps=400))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p7_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p7_lane_formation import P7LaneFormationDetector
+    detector = P7LaneFormationDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p7(out_path: str = "analysis/outputs/p7_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P7 (lane formation) Phase-2a panel v1.2.
+
+    detector_format="particles": P7 operates on continuous-2d agent systems
+    with positions, velocities, and population labels. Class B contains other
+    continuous_2d catalog mates (P2_abp, P5_vicsek, P6_dorsogna) which lack
+    'labels' → P7 short-circuits at prerequisite check (detected=False).
+    Class C runs counterflow at weak repulsion or single-population regimes.
+    """
+    print(f"--- Running P7 panel → {out_path}")
+    positives, metadata = build_p7_positives(n_seeds=5)
+    detector_fn = make_p7_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P7",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p7_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1012,6 +1070,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P10"] = run_p10()
     if which in ("p21",):
         summaries["P21"] = run_p21()
+    if which in ("p7",):
+        summaries["P7"] = run_p7()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

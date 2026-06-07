@@ -552,10 +552,10 @@ detector may revisit the trade-off.
 
 ## 6.11 Aggregate Grading Status
 
-Across the 19-pattern inventory (Sprints 1–62), **18 / 19** patterns have
-reached AT-DEPTH grade and **1 / 19** remains at GAP. The eighteen AT-DEPTH
+Across the 20-pattern inventory (Sprints 1–66), **19 / 20** patterns have
+reached AT-DEPTH grade and **1 / 20** remains at GAP. The nineteen AT-DEPTH
 patterns are P1 (aggregation), P2 (MIPS), P3 (Turing pattern formation),
-P5 (flocking), P6 (milling), P8 (self-organized jamming),
+P5 (flocking), P6 (milling), P7 (lane formation), P8 (self-organized jamming),
 P9 (synchronization), P10 (chimera states),
 P11 (predator-prey oscillations), P13 (excitable waves),
 P14 (self-organized criticality), P15 (persistent computation),
@@ -901,3 +901,24 @@ L ≥ 500 with many points in the narrow formula-valid window, beyond this
 project's compute budget.
 **AT-DEPTH count: 18 / 19** (unchanged). P12 dim1 is the sole remaining gap,
 accepted as a documented limitation.
+
+**Sprint 65 (P7 implementation, AT-DEPTH +0).**
+New pattern P7 (lane formation in counterflow) implemented: Helbing & Molnár
+(1995) social-force model + Nowak & Schadschneider (2012) lane order parameter
+detector. dim1 PASS (φ_final = 0.92, gain = 0.42, throughput = 99.8%), dim2 PASS
+(20-seed: φ = 0.897 ± 0.091, CV = 10.2%), dim3 PASS (methods note). dim4 pending.
+Pattern inventory: 20 models × 20 detectors. P7 grade: GAP (dim4 pending).
+**AT-DEPTH count: 18 / 20** (inventory grew 19→20; AT-DEPTH unchanged).
+
+**Sprint 66 (P7 dim4 closure, AT-DEPTH +1).**
+Phase-2a panel v1.2 for P7 (lane formation): PASS-with-weakness.
+Overall TNR = 0.955, Cohen's d = 6.932. All 5 positives reach CONFIRMATION
+(0.700). Catalog mates (P2, P5, P6) correctly rejected — none carry population
+labels. Class C: 8 weak-repulsion regimes (A ∈ [0.1, 0.8]) + 2 single-population
+regimes, all rejected (fai TNR = 1.000). Content prerequisite added: counterflow
+requires ≥2 opposing populations with minority ≥10% (Helbing & Molnár 1995).
+Sole weakness: `time_shuffled` synthetic FP at screening — each frame preserves
+per-frame φ_lane independently of temporal ordering (carry-forward
+C-p7-time-shuffled-fp; same class as C-p21-time-shuffled-fp).
+dim4 pending→PASS; all four dimensions PASS → P7 advances to **AT-DEPTH**.
+**AT-DEPTH count: 19 / 20** (+1: P7). Remaining gap: P12 (dim1).

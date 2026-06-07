@@ -303,3 +303,12 @@ review at the next paper-review checkpoint.
 - analysis/outputs/p6_phase2a_panel.json: updated (Sprint 49 re-run).
 - analysis/outputs/p8_phase2a_panel.json: updated (Sprint 49 re-run).
 - analysis/outputs/p21_phase2a_panel.json: updated (Sprint 49 re-run).
+
+## Sprint 66 (2026-06-07)
+- §4.21: P7 (lane formation) Phase-2a panel v1.2 PASS-with-weakness added:
+    overall TNR=0.955, Cohen's d=6.932. Content prerequisite (counterflow requires
+    ≥2 opposing populations, Helbing & Molnár 1995). Class C: 8 weak-repulsion
+    (A ∈ [0.1, 0.8]) + 2 single-population regimes. Catalog mates P2/P5/P6
+    rejected at prerequisite (no labels). C-p7-time-shuffled-fp carry-forward opened.
+- §6: Sprint 66 AT-DEPTH count 19/20 (+1: P7 advances to AT-DEPTH).
+- analysis/outputs/p7_phase2a_panel.json: new file (Sprint 66).

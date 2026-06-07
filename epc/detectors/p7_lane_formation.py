@@ -304,6 +304,52 @@ class P7LaneFormationDetector:
                 warnings=[f"missing_keys: {missing}"],
             )
 
+        # Content prerequisite: lane formation requires counterflow — at least
+        # two sub-populations with opposing directions (Helbing & Molnár 1995).
+        # A single-population system has φ_lane = 1.0 by construction (every
+        # strip is 100% one label), which is not lane formation.
+        mid_idx = len(history) // 2
+        sample_labels = history[mid_idx]["labels"]
+        unique_labels = np.unique(sample_labels)
+        if len(unique_labels) < 2:
+            return DetectorResult(
+                pattern_id="P7",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"lane_order_parameter": 0.0},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type="label_shuffle",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=metadata is not None,
+                warnings=["prerequisite_fail: counterflow requires ≥2 populations"],
+            )
+        # Minority population must be ≥ 10% of total (avoids degenerate
+        # near-unidirectional flows that trivially produce high φ).
+        label_counts = np.array([np.sum(sample_labels == lbl) for lbl in unique_labels])
+        minority_frac = float(label_counts.min()) / float(label_counts.sum())
+        if minority_frac < 0.10:
+            return DetectorResult(
+                pattern_id="P7",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"lane_order_parameter": 0.0},
+                secondary_metrics={},
+                effect_size={},
+                null_p_value=1.0,
+                null_type="label_shuffle",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=metadata is not None,
+                warnings=[f"prerequisite_fail: minority_frac={minority_frac:.3f} < 0.10"],
+            )
+
         # Measurement window: use last 50% of history (after transient)
         n_states = len(history)
         warmup = n_states // 2
