@@ -4,6 +4,16 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 68 (2026-06-08)
+- epc/phase2a/failed_regimes/p17_collective_sensing.py: new — Class C failed regimes (5 social_off + 5 field_too_strong).
+- epc/phase2a/detector_invariance.py: P17 permutation_invariant False→True (group CI is CoM-based, agent-index invariant).
+- epc/phase2a/catalog.py: +1 substrate (P17_collective_sensing) + generator + PATTERN_TO_SUBSTRATE_ID entry.
+- analysis/run_phase2a_panel.py: P17 panel wiring — history-based CI adapter with 3 literature-grounded prerequisites (field_samples, individual SNR, social cohesion).
+- analysis/outputs/p17_phase2a_panel.json: Phase-2a v1.2 panel — TNR=1.000, Cohen's d=11.117, verdict=PASS.
+- docs/depth_gap.md: P17 dim4 pending→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 19→20, gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 68 P17 Phase-2a section added.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 67 (2026-06-08)
 - epc/models/collective_sensing.py: new model — Berdahl et al. (2013) collective gradient sensing. Speed-modulation mechanism in periodic 2D domain with Gaussian scalar field.
 - epc/detectors/p17_collective_sensing.py: new detector — group-size-scaling CI test (N-sweep + α=0 null).

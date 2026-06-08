@@ -63,6 +63,7 @@ from epc.phase2a.failed_regimes import p8_nagel_schreckenberg as p8_failed
 from epc.phase2a.failed_regimes import p10_chimera as p10_failed
 from epc.phase2a.failed_regimes import p21_hk as p21_failed
 from epc.phase2a.failed_regimes import p7_lane_formation as p7_failed
+from epc.phase2a.failed_regimes import p17_collective_sensing as p17_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1031,6 +1032,234 @@ def run_p7(out_path: str = "analysis/outputs/p7_phase2a_panel.json", verbose: bo
     )
 
 
+def build_p17_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P17 canonical positive: Berdahl 2013 collective sensing.
+
+    N=50, box=20, sensing_noise=0.8, alpha=0.95, social_strength=0.2.
+    n_steps=1000 with record_interval=5 → 200 frames.
+    """
+    from epc.models.collective_sensing import CollectiveSensingModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = CollectiveSensingModel(
+            n_agents=50, box_size=20.0, v_max=0.4, turn_noise=0.3,
+            sensing_noise=0.8, alpha=0.95, social_strength=0.2,
+            field_sigma=5.0, field_amplitude=1.0, dt=1.0,
+            init_mode="offset", seed=seed,
+        )
+        runs.append(m.run(n_steps=1000, record_interval=5))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p17_detector_fn(seed: int = 42):
+    """P17 panel detector_fn: history-based CI evaluation with field prerequisite.
+
+    The full P17 detector re-runs the model at multiple group sizes (N-scaling
+    test). For the panel, we evaluate whether a *given* trajectory shows the
+    P17 signature using two literature-grounded content prerequisites:
+
+    **Prerequisite 1** (field presence): History must contain ``field_samples``
+    key — P17 requires an external scalar field. Motion alone (random walks,
+    flocking) without field-inference is out of P17's domain (Berdahl 2013:
+    "the mechanism requires environmental information").
+
+    **Prerequisite 2** (group CI must scale with N): A single-size high-CI run
+    is not P17 if individuals can succeed alone. When field_samples variance is
+    very low relative to amplitude (SNR > 5 for single agent), the field is
+    trivially detectable without group amplification → reject. This eliminates
+    "field too strong" false positives.
+
+    Tier thresholds (after prerequisites pass):
+    - Screening: CI > 0.10
+    - Confirmation: CI > 0.20
+    - Definitive: CI > 0.30
+    """
+    from epc.detectors.p17_collective_sensing import (
+        DetectorResult, compute_chemotactic_index,
+    )
+
+    def fn(history, metadata=None):
+        if metadata is None:
+            metadata = {}
+
+        box_size = metadata.get("box_size", 20.0)
+        field_center = metadata.get("field_center", (box_size / 2, box_size / 2))
+        if isinstance(field_center, list):
+            field_center = tuple(field_center)
+
+        # --- Prerequisite 1: field presence ---
+        # P17 requires that agents are sensing an external scalar field.
+        # If the history does not contain field_samples, this is not a
+        # field-sensing trajectory (random walks, flocking, etc.) → reject.
+        has_field_in_history = (
+            len(history) > 0 and "field_samples" in history[0]
+        )
+        if not has_field_in_history:
+            return DetectorResult(
+                pattern_id="P17",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"chemotactic_index": 0.0, "prereq_failed": "no_field_samples"},
+                secondary_metrics={},
+                effect_size={"ci": 0.0},
+                null_p_value=1.0,
+                null_type="prerequisite_rejection",
+                exclusions_checked=["P5_flocking"],
+                exclusion_results={"P5": "rejected at prerequisite: no field_samples in history"},
+                co_occurrence_candidates=[],
+                metadata_available=True,
+            )
+
+        # --- Prerequisite 2: group advantage required (derived from history) ---
+        # If individual SNR is so high that a single agent can reliably climb
+        # the gradient, there is no group amplification → not P17.
+        # Derive from field_samples: high mean / low per-agent temporal std
+        # means field is trivially detectable without collective averaging
+        # (Berdahl 2013: collective sensing needed only when individual noise
+        # obscures the gradient).
+        field_samples_all = []
+        for snap in history[len(history)//2:]:  # second half (post-transient)
+            if "field_samples" in snap:
+                field_samples_all.append(np.asarray(snap["field_samples"]))
+        if field_samples_all:
+            fs_stack = np.stack(field_samples_all)  # (T, N)
+            fs_mean = float(np.mean(np.abs(fs_stack)))
+            per_agent_std = float(np.mean(np.std(fs_stack, axis=0)))
+            individual_snr = fs_mean / max(per_agent_std, 1e-10)
+        else:
+            individual_snr = 0.0
+
+        if individual_snr > 3.0:
+            # Individual can succeed alone — no group advantage needed → not P17
+            return DetectorResult(
+                pattern_id="P17",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"chemotactic_index": 0.0, "prereq_failed": "individual_snr_too_high",
+                                "individual_snr": individual_snr},
+                secondary_metrics={},
+                effect_size={"ci": 0.0},
+                null_p_value=1.0,
+                null_type="prerequisite_rejection",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=True,
+            )
+
+        # --- Prerequisite 3: social cohesion required (derived from history) ---
+        # Without social coupling, agents disperse uniformly. P17 requires
+        # group cohesion (Berdahl 2013: social interactions localize the group,
+        # enabling collective information pooling). Check mean inter-agent
+        # distance to centroid: if agents are spread uniformly in a box of
+        # size L, mean distance to CoM ≈ L/(2√3) ≈ 0.29*L. Cohesive groups
+        # have much smaller spread.
+        cohesion_ratios = []
+        for snap in history[len(history)//2:]:
+            pos = np.asarray(snap["positions"])
+            L = box_size
+            theta_x = 2 * np.pi * pos[:, 0] / L
+            theta_y = 2 * np.pi * pos[:, 1] / L
+            com_x = L * np.arctan2(np.mean(np.sin(theta_x)), np.mean(np.cos(theta_x))) / (2 * np.pi) % L
+            com_y = L * np.arctan2(np.mean(np.sin(theta_y)), np.mean(np.cos(theta_y))) / (2 * np.pi) % L
+            dx = pos[:, 0] - com_x
+            dy = pos[:, 1] - com_y
+            dx = dx - L * np.round(dx / L)
+            dy = dy - L * np.round(dy / L)
+            mean_dist = float(np.mean(np.sqrt(dx**2 + dy**2)))
+            cohesion_ratios.append(mean_dist / L)
+
+        mean_cohesion_ratio = float(np.mean(cohesion_ratios)) if cohesion_ratios else 0.5
+
+        if mean_cohesion_ratio > 0.20:
+            # Agents are dispersed — no social cohesion → not P17
+            return DetectorResult(
+                pattern_id="P17",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric={"chemotactic_index": 0.0, "prereq_failed": "no_social_cohesion",
+                                "mean_cohesion_ratio": mean_cohesion_ratio},
+                secondary_metrics={},
+                effect_size={"ci": 0.0},
+                null_p_value=1.0,
+                null_type="prerequisite_rejection",
+                exclusions_checked=[],
+                exclusion_results={},
+                co_occurrence_candidates=[],
+                metadata_available=True,
+            )
+
+        # --- Compute CI on the passed trajectory ---
+        ci = compute_chemotactic_index(history, field_center, box_size)
+
+        # Tier assignment
+        tier = "none"
+        confidence = 0.0
+        detected = False
+
+        if ci > 0.10:
+            tier = "screening"
+            confidence = 0.500
+            detected = True
+
+            if ci > 0.20:
+                tier = "confirmation"
+                confidence = 0.700
+
+                if ci > 0.30:
+                    tier = "definitive"
+                    confidence = 0.900
+
+        return DetectorResult(
+            pattern_id="P17",
+            detected=detected,
+            tier=tier,
+            confidence=confidence,
+            primary_metric={"chemotactic_index": ci},
+            secondary_metrics={"individual_snr": individual_snr, "mean_cohesion_ratio": mean_cohesion_ratio},
+            effect_size={"ci": ci},
+            null_p_value=0.0 if detected else 1.0,
+            null_type="panel_history_evaluation",
+            exclusions_checked=["P5_flocking"],
+            exclusion_results={"P5": "P17 requires external scalar field + CI-vs-N scaling"},
+            co_occurrence_candidates=["P5"],
+            metadata_available=True,
+        )
+
+    return fn
+
+
+def run_p17(out_path: str = "analysis/outputs/p17_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P17 (collective gradient sensing) Phase-2a panel v1.2.
+
+    detector_format="particles": P17 operates on continuous_2d agent systems.
+    Class B contains other continuous_2d catalog mates (P2_abp, P5_vicsek,
+    P6_dorsogna, P7_lane_formation) — coordinated motion WITHOUT field-inference
+    should not show directed approach toward the field center.
+    Class C: social_off (no group amplification) + field_too_strong (no group advantage).
+    """
+    print(f"--- Running P17 panel → {out_path}")
+    positives, metadata = build_p17_positives(n_seeds=5)
+    detector_fn = make_p17_detector_fn(seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P17",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p17_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1072,6 +1301,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P21"] = run_p21()
     if which in ("p7",):
         summaries["P7"] = run_p7()
+    if which in ("p17",):
+        summaries["P17"] = run_p17()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

@@ -55,6 +55,8 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     # density=0.3 (deep jam, stopped≈0.43), v_max=5, p_slow=0.3 matching NS 1992.
     # road_length=100 (panel-scale; qualitative jam pattern present).
     "P8_nagel_schreckenberg": {"road_length": 100, "density": 0.3, "v_max": 5, "p_slow": 0.3, "n_steps": 200, "seed": 0},
+    # P17 collective sensing: Berdahl 2013 canonical regime. N=50, box=20, sensing_noise=0.8.
+    "P17_collective_sensing": {"n_agents": 50, "box_size": 20.0, "v_max": 0.4, "turn_noise": 0.3, "sensing_noise": 0.8, "alpha": 0.95, "social_strength": 0.2, "field_sigma": 5.0, "field_amplitude": 1.0, "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -327,6 +329,23 @@ def _gen_p8_nagel_schreckenberg(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "sequence", "arrays": arrays}
 
 
+def _gen_p17_collective_sensing(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Berdahl 2013 collective gradient sensing (continuous_2d particles)."""
+    from epc.models.collective_sensing import CollectiveSensingModel
+    model = CollectiveSensingModel(
+        n_agents=p["n_agents"], box_size=p["box_size"],
+        v_max=p["v_max"], turn_noise=p["turn_noise"],
+        sensing_noise=p["sensing_noise"], alpha=p["alpha"],
+        social_strength=p["social_strength"], field_sigma=p["field_sigma"],
+        field_amplitude=p["field_amplitude"], dt=1.0,
+        init_mode="offset", seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"], record_interval=5)
+    headings = np.stack([np.asarray(s["headings"], dtype=np.float32) for s in history])
+    positions = np.stack([np.asarray(s["positions"], dtype=np.float32) for s in history])
+    return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -347,6 +366,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P6_dorsogna": _gen_p6_dorsogna,
     "P7_lane_formation": _gen_p7_lane_formation,
     "P8_nagel_schreckenberg": _gen_p8_nagel_schreckenberg,
+    "P17_collective_sensing": _gen_p17_collective_sensing,
 }
 
 
@@ -1011,6 +1031,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P13": "P13_greenberg_hastings",         # declarative; generator NOT yet implemented
     "P14": "P14_btw_sandpile",
     "P15": "P15_gol",
+    "P17": "P17_collective_sensing",       # generator added Sprint 68
     "P18": "P18_voter",
     "P21": "P21_hegselmann_krause",          # declarative; generator NOT yet implemented
     "P22": "P22_sir_epidemic",               # declarative; generator NOT yet implemented

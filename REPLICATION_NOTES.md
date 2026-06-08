@@ -6428,3 +6428,43 @@ All 5 canonical positives reach CONFIRMATION (confidence 0.700). All catalog mat
 Remaining weakness: `time_shuffled` synthetic FP at screening tier. Once lanes form, each frame independently has high φ_lane; shuffling temporal order preserves per-frame φ values. This is a structural property of the metric (same class as C-p21-time-shuffled-fp). Carry-forward: C-p7-time-shuffled-fp.
 
 **Sprint 66 finding:** P7 dim4 pending→PASS; all four dimensions now PASS → P7 advances to **AT-DEPTH**. AT-DEPTH count: **19 / 20** (+1: P7). Remaining gap: P12 (dim1).
+
+---
+
+## Phase-2a Panel Result (v1.2) — Sprint 68 (P17 Collective Gradient Sensing)
+
+**Pattern:** P17 — Distributed sensing / collective gradient detection
+**Reference:** Berdahl et al. (2013), Science 339(6119), 574–576
+**Panel version:** v1.2
+**detector_format:** particles (continuous_2d)
+**Invariance flags:** permutation_invariant=True, time_shuffle_invariant=False
+
+### Panel results
+
+| Metric | Value |
+|--------|-------|
+| Overall TNR | **1.000** |
+| syn TNR | 1.000 |
+| cat TNR | 1.000 |
+| fai TNR | 1.000 |
+| Cohen's d | 11.117 |
+| Verdict | **PASS** |
+
+### Prerequisites (literature-grounded)
+
+Three content prerequisites gate detection before CI evaluation:
+
+1. **Field presence** (`field_samples` in history): P17 requires an external scalar field (Berdahl 2013: "the mechanism requires environmental information"). Rejects Class A (random walks) and Class B (P5 flocking, P6 milling, P2 MIPS, P7 lanes) — none have field_samples in their history.
+
+2. **Group advantage required** (individual SNR ≤ 3.0): If individual signal-to-noise is high enough that a single agent can reliably climb the gradient, there is no need for collective information pooling → not P17. Computed from field_samples temporal statistics in the history. Rejects "field too strong" Class C regimes (amplitude >> noise).
+
+3. **Social cohesion required** (mean distance-to-CoM / L ≤ 0.20): Without social coupling, agents disperse uniformly. P17 requires group localization for effective noise averaging (Berdahl 2013: "social interactions enable collective sensing"). Rejects "social_off" Class C regimes where agents spread across the domain.
+
+### Class breakdown
+
+- **Class A** (9 evaluated, 1 skipped): All rejected at prerequisite 1 (no field_samples). `permutation_shuffled` skipped (degenerate-by-construction per invariance flag).
+- **Class B** (4 catalog mates: P2_abp, P5_vicsek, P6_dorsogna, P7_lane_formation): All rejected at prerequisite 1 (no field_samples). Key discrimination: P5 Vicsek flocking shows coordinated motion but has no external field → correctly rejected.
+- **Class C** (10 regimes): 5 social_off regimes rejected at prerequisite 3 (cohesion ratio > 0.20); 5 field_too_strong regimes rejected at prerequisite 2 (individual SNR > 3.0).
+- **Positives** (5 seeds): 3 DEFINITIVE (0.900), 1 CONFIRMATION (0.700), 1 SCREENING (0.500). Mean score: 0.780.
+
+**Sprint 68 finding:** P17 dim4 pending→PASS; all four dimensions now PASS → P17 advances to **AT-DEPTH**. AT-DEPTH count: **20 / 21** (+1: P17). Remaining gap: P12 (dim1).

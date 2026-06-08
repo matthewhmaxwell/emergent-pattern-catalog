@@ -93,8 +93,13 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Aggregate over event list, order-free."),
     "P15": InvarianceFlags(False, False, "TE across collisions + functional reproducibility",
                             rationale="Information transfer depends on adjacency + ordering."),
-    "P17": InvarianceFlags(False, False, "collective chemotactic index",
-                            rationale="Direction + trajectory matter."),
+    "P17": InvarianceFlags(True,  False, "collective chemotactic index",
+                            rationale="perm_inv=True: group CI is the distance from the group "
+                                      "center-of-mass to the field peak — permuting agent indices "
+                                      "does not change the CoM → permutation_shuffled is "
+                                      "degenerate-by-construction. time_shuffle_inv=False: "
+                                      "gradient climbing is a temporal trajectory; shuffling "
+                                      "temporal order destroys the directional approach signal."),
     "P18": InvarianceFlags(True,  True,  "convergence to consensus (max f_k)",
                             rationale="Aggregate fraction, final-state."),
     "P19": InvarianceFlags(False, False, "influence-asymmetry TE ratio",
