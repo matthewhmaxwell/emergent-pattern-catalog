@@ -4,6 +4,15 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 70 (2026-06-08)
+- epc/phase2a/failed_regimes/p19_informed_minority.py: new — Class C failed regimes (5 rho_zero + 5 bias_zero).
+- epc/phase2a/catalog.py: +1 substrate (P19_informed_minority) + generator + PATTERN_TO_SUBSTRATE_ID entry.
+- analysis/run_phase2a_panel.py: P19 panel wiring — detect_p19 wrapper with early-window leadership content prerequisite (Couzin 2005: informed minority must lead during convergence).
+- analysis/outputs/p19_phase2a_panel.json: Phase-2a v1.2 panel — TNR=0.960, Cohen's d=5.418, verdict=PASS.
+- docs/depth_gap.md: P19 dim4 pending→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 20→21, gap count 2→1. Completes Milestone B Wave 1.
+- REPLICATION_NOTES.md: Sprint 70 P19 Phase-2a dim4 section added.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 69 (2026-06-08)
 - epc/models/informed_minority.py: new model — Couzin et al. (2005) informed-minority flocking. Vicsek-style alignment + ω-weighted bias toward preferred direction for informed fraction ρ.
 - epc/detectors/p19_emergent_leadership.py: new detector — group directional accuracy + label-shuffle influence asymmetry (directional pull) + guidance efficacy.

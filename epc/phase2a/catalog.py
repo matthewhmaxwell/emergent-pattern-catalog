@@ -57,6 +57,8 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P8_nagel_schreckenberg": {"road_length": 100, "density": 0.3, "v_max": 5, "p_slow": 0.3, "n_steps": 200, "seed": 0},
     # P17 collective sensing: Berdahl 2013 canonical regime. N=50, box=20, sensing_noise=0.8.
     "P17_collective_sensing": {"n_agents": 50, "box_size": 20.0, "v_max": 0.4, "turn_noise": 0.3, "sensing_noise": 0.8, "alpha": 0.95, "social_strength": 0.2, "field_sigma": 5.0, "field_amplitude": 1.0, "n_steps": 200, "seed": 0},
+    # P19 informed minority: Couzin 2005 minority-guided flock at canonical params.
+    "P19_informed_minority": {"n_particles": 200, "box_size": 10.0, "speed": 0.03, "noise": 0.1, "interaction_radius": 1.0, "informed_fraction": 0.1, "bias_weight": 0.3, "preferred_direction": 0.0, "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -346,6 +348,24 @@ def _gen_p17_collective_sensing(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
 
 
+def _gen_p19_informed_minority(p: Dict[str, Any]) -> Dict[str, Any]:
+    """Couzin 2005 informed-minority flock (continuous_2d particles)."""
+    from epc.models.informed_minority import InformedMinorityModel
+    model = InformedMinorityModel(
+        n_particles=p["n_particles"], box_size=p["box_size"],
+        speed=p["speed"], noise=p["noise"],
+        interaction_radius=p["interaction_radius"],
+        informed_fraction=p["informed_fraction"],
+        bias_weight=p["bias_weight"],
+        preferred_direction=p["preferred_direction"],
+        seed=p["seed"],
+    )
+    history = model.run(n_steps=p["n_steps"])
+    headings = np.stack([np.asarray(s["headings"], dtype=np.float32) for s in history])
+    positions = np.stack([np.asarray(s["positions"], dtype=np.float32) for s in history])
+    return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -367,6 +387,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P7_lane_formation": _gen_p7_lane_formation,
     "P8_nagel_schreckenberg": _gen_p8_nagel_schreckenberg,
     "P17_collective_sensing": _gen_p17_collective_sensing,
+    "P19_informed_minority": _gen_p19_informed_minority,
 }
 
 
@@ -1033,6 +1054,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P15": "P15_gol",
     "P17": "P17_collective_sensing",       # generator added Sprint 68
     "P18": "P18_voter",
+    "P19": "P19_informed_minority",       # generator added Sprint 70
     "P21": "P21_hegselmann_krause",          # declarative; generator NOT yet implemented
     "P22": "P22_sir_epidemic",               # declarative; generator NOT yet implemented
     "P27": "P27_nowak_may",

@@ -6506,3 +6506,50 @@ preferred direction, which is the mechanistic signature of minority guidance.
 
 **Sprint 69 finding:** P19 implemented end-to-end. dim1-3 PASS; dim4 pending (Sprint 70).
 Patterns audited 21→22; AT-DEPTH count: **20 / 22** (P12 + P19 are GAPs).
+
+### Sprint 70 — P19 dim4: Phase-2a panel v1.2
+
+**Panel results:** overall TNR = 0.960, Cohen's d = 5.418. **PASS.**
+
+| Class | Size | TN | FP | TNR |
+|-------|------|----|----|-----|
+| A (synthetic) | 10 | 10 | 0 | 1.000 |
+| B (catalog) | 5 | 5 | 0 | 1.000 |
+| C (failed) | 10 | 9 | 1 | 0.900 |
+| **Overall** | **25** | **24** | **1** | **0.960** |
+
+**Content prerequisite (Sprint 70):** Early-window informed→naive leadership gap.
+P19 requires that informed agents' mean heading is closer to θ_pref than naive
+agents' heading during the convergence phase (first 10–40% of trajectory). This
+is the defining P19 mechanism: the informed minority has a persistent directional
+bias from the start and leads the alignment process (Couzin et al. 2005).
+
+This prerequisite eliminates:
+- **time_shuffled** FP: scrambled temporal order destroys the early-window
+  leadership signature (informed agents do not systematically lead naive agents
+  when frames are randomly reordered).
+- **bias_zero** FP (most seeds): when bias_weight=0, informed agents have no
+  genuine bias and do not lead during convergence.
+
+**Remaining Class C FP:** `bias_zero_seed=410` reaches confirmation (0.700) —
+the flock happened to align toward θ_pref=0 by chance AND the 20 "informed"
+agents happened to lead during early convergence by random partition. This is a
+1/25 FP rate (4%), within acceptable bounds for TNR ≥ 0.95.
+Carry-forward: C-p19-bias-zero-chance-alignment.
+
+**Class B mates (continuous_2d):** P2_abp, P5_vicsek, P6_dorsogna,
+P7_lane_formation, P17_collective_sensing — all lack `informed_mask` in
+history → rejected at detector prerequisite. P5 (Vicsek) is the key
+discrimination: directional flocking with high φ but no informed subset
+and no asymmetric influence → correctly rejected.
+
+**Invariance flags:** permutation_invariant=False, time_shuffle_invariant=False
+(influence asymmetry depends on informed/naive partition identity and temporal
+order of heading alignment). Both flags unchanged from Sprint 69.
+
+**Positives:** 4/5 seeds reach DEFINITIVE (0.900); seed 1 reaches SCREENING
+(0.500) — pull p-value marginal at this seed's convergence trajectory.
+
+**Sprint 70 finding:** P19 dim4 pending→PASS; all four dimensions now PASS →
+P19 advances to **AT-DEPTH**. AT-DEPTH count: **21 / 22** (+1: P19).
+Remaining gap: P12 (dim1). Completes Milestone B Wave 1.

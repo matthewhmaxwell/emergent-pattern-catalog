@@ -2640,3 +2640,71 @@ single heading; P7 maintains two persistent opposing streams. P6 (milling)
 produces circular vortex motion; P7 produces linear counterflow lanes. The
 Phase-2a panel confirms clean discrimination: all three continuous_2d catalog
 mates are rejected at the prerequisite level (absent population labels).
+
+## 4.22 Informed-Minority Flocking and P19 Emergent Leadership (Cluster I)
+
+**Primary reference:** Couzin, I.D., Krause, J., Franks, N.R. & Levin, S.A.
+(2005). Effective leadership and decision-making in animal groups on the move.
+*Nature*, 433(7025), 513–516.
+
+**Model.** Vicsek-style alignment dynamics (Section 4.8) augmented with an
+informed minority: a fraction ρ of agents carries a weighted bias (strength ω)
+toward a fixed preferred direction θ_pref, while the remaining (1−ρ) agents
+align purely via local interactions. The model implements synchronous position
+and heading updates with metric neighbor interaction (cKDTree). Informed agents
+update headings as θ = arg[(1−ω)⟨e^{iθ}⟩_neighbors + ω·e^{iθ_pref}] + noise;
+naive agents follow standard Vicsek dynamics.
+
+**Canonical parameters:** N=200, L=10.0, v₀=0.03, η=0.1, r=1.0, ρ=0.1,
+ω=0.3, θ_pref=0.0 (Sprint 69).
+
+**Detector: P19 emergent leadership.** Three-tier detection:
+- *Screening:* Group directional accuracy > 0.3 (alignment with θ_pref in the
+  second half of the trajectory).
+- *Confirmation:* Label-shuffle influence asymmetry — informed agents' mean
+  heading is closer to θ_pref than naive agents' mean heading, significantly
+  more often than expected under label permutation (p < 0.05). The directional
+  pull metric directly measures the mechanistic signature of minority guidance.
+- *Definitive:* Guidance efficacy (accuracy/ρ) > 2.0 AND genuine minority
+  (ρ ≤ 0.25) AND p < 0.01.
+
+**Architecture decision.** Transfer entropy (KSG estimator) was evaluated but
+rejected for confirmation: TE on group mean heading time series collapses to
+zero in the converged Vicsek regime because both informed and naive means are
+constant in steady state. The label-shuffle directional pull metric captures the
+same mechanistic signature — asymmetric influence from minority to majority —
+more robustly via per-timestep evaluation of cos(θ_inf − θ_pref) −
+cos(θ_naive − θ_pref).
+
+**dim1 reproduction (Sprint 69).** Couzin et al. (2005) Fig. 2a:
+accuracy vs. informed fraction ρ. Spearman ρ = 1.0 (p < 0.001);
+accuracy(ρ=0.0) = 0.125 (chance-level); accuracy(ρ=0.05) = 1.000;
+accuracy(ρ=0.5) = 1.000. All five tolerance checks PASS. Accuracy
+saturates more abruptly than the published figure because η=0.1 is low
+relative to alignment strength (carry-forward C-p19-abrupt-saturation).
+
+**dim2 multi-seed (Sprint 69).** 20 seeds at ρ=0.1: accuracy = 1.000 ± 0.000
+(CV = 0.0%); influence pull = 0.0013 ± 0.0020 (CV = 156% — absolute pull
+values are small in steady state, but sign is consistently positive).
+
+**Phase-2a panel (Sprint 70).** PASS: overall TNR = 0.960, Cohen's d = 5.418.
+Class A (synthetic): 10/10 rejected. Class B (catalog): P2 (MIPS), P5 (Vicsek),
+P6 (D'Orsogna), P7 (lane formation), P17 (collective sensing) — all lack
+`informed_mask` in history → rejected at detector prerequisite. Class C (failed
+regimes): 5 rho_zero (ρ=0, no informed agents → chance accuracy) + 5 bias_zero
+(ω=0, informed agents have no preference → no directional pull); 9/10 rejected.
+One bias_zero regime (seed 410) reaches confirmation by chance alignment —
+carry-forward C-p19-bias-zero-chance-alignment. Content prerequisite added
+(Sprint 70): early-window informed→naive leadership gap required — in the
+convergence phase (10–40% of trajectory), informed agents' alignment with θ_pref
+must exceed naive agents' alignment, verifying that the minority leads the
+process (Couzin 2005).
+
+**Distinctness from P5/P17/P18.** P5 (Vicsek flocking) produces directional
+alignment but without a designated informed subset — all agents are equivalent.
+P17 (collective sensing, Berdahl 2013) requires an external scalar field;
+influence flows from environmental information through the group, not from a
+minority subset. P18 (voter consensus) involves symmetric opinion pooling, not
+minority→majority directional steering. The Phase-2a panel confirms clean
+discrimination against all continuous_2d catalog mates via the informed_mask
+prerequisite.

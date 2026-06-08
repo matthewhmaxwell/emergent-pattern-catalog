@@ -18,6 +18,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p10
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p21
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p7
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p19
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -35,6 +36,7 @@ Outputs:
     analysis/outputs/p10_phase2a_panel.json
     analysis/outputs/p21_phase2a_panel.json
     analysis/outputs/p7_phase2a_panel.json
+    analysis/outputs/p19_phase2a_panel.json
 """
 
 from __future__ import annotations
@@ -64,6 +66,7 @@ from epc.phase2a.failed_regimes import p10_chimera as p10_failed
 from epc.phase2a.failed_regimes import p21_hk as p21_failed
 from epc.phase2a.failed_regimes import p7_lane_formation as p7_failed
 from epc.phase2a.failed_regimes import p17_collective_sensing as p17_failed
+from epc.phase2a.failed_regimes import p19_informed_minority as p19_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1260,6 +1263,171 @@ def run_p17(out_path: str = "analysis/outputs/p17_phase2a_panel.json", verbose: 
     )
 
 
+def build_p19_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P19 canonical positive: Couzin 2005 informed-minority flock.
+
+    N=200, ρ=0.1, ω=0.3, preferred_direction=0.0, noise=0.1.
+    n_steps=500 ensures convergence and stable directional alignment.
+    """
+    from epc.models.informed_minority import InformedMinorityModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = InformedMinorityModel(
+            n_particles=200, box_size=10.0, speed=0.03,
+            noise=0.1, interaction_radius=1.0,
+            informed_fraction=0.1, bias_weight=0.3,
+            preferred_direction=0.0, seed=seed,
+        )
+        runs.append(m.run(n_steps=500))
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p19_detector_fn(n_permutations: int = 199, seed: int = 42):
+    """P19 detector wrapper for the panel harness.
+
+    The P19 detector requires 'informed_mask' in history and 'preferred_direction'
+    + 'informed_fraction' in metadata. For Class A/B substrates that lack these
+    keys, the detector short-circuits at the prerequisite check (detected=False,
+    tier="none") — correct TNR behavior.
+
+    For Class B mates (P5 Vicsek, P2 ABP, P6 D'Orsogna, P7 lane formation,
+    P17 collective sensing): these are leaderless coordination or symmetric
+    interaction systems without an informed minority. P19 requires:
+    1. 'informed_mask' key in history (absent in all Class B mates → reject)
+    2. Asymmetric influence: informed minority→majority (label-shuffle pull)
+
+    **Content prerequisite (Sprint 70)**: Influence must be asymmetric
+    minority→majority — symmetric pooling or leaderless coordination that
+    happens to align with θ_pref by chance is NOT P19 (Couzin et al. 2005).
+
+    The defining P19 mechanism is that informed agents have a *persistent
+    directional bias* from the start of the trajectory. During the convergence
+    phase, informed agents' headings are closer to θ_pref than naive agents'
+    headings — the minority leads. Leaderless Vicsek flocking (bias_weight=0)
+    or time-shuffled trajectories show no such early-window informed→naive
+    leadership gap.
+
+    Prerequisite check: In the early convergence window (10%–40% of trajectory),
+    informed agents' mean cos(heading - θ_pref) must exceed naive agents' mean
+    cos(heading - θ_pref). This verifies that the informed agents lead the
+    alignment process, not just co-align with the group by Vicsek dynamics.
+    """
+    from epc.detectors.p19_emergent_leadership import detect_p19, DetectorResult
+
+    def _check_early_leadership(
+        history: list, metadata: dict,
+    ) -> bool:
+        """Return True if informed agents lead naive agents in the early window.
+
+        Checks that informed agents' mean alignment with θ_pref exceeds naive
+        agents' alignment in the early convergence window (10%–40% of trajectory).
+        This is the defining P19 signature: the minority leads from the start
+        because they have a genuine directional bias (Couzin 2005).
+        """
+        if not history or "informed_mask" not in history[0]:
+            return False
+
+        informed_mask = history[0]["informed_mask"]
+        if not np.any(informed_mask) or np.all(informed_mask):
+            return False
+
+        naive_mask = ~informed_mask
+        preferred_direction = metadata.get("preferred_direction", 0.0)
+
+        T = len(history)
+        early_start = max(1, T // 10)
+        early_end = max(early_start + 2, int(T * 0.4))
+        early_end = min(early_end, T)
+
+        informed_accs = []
+        naive_accs = []
+        for t in range(early_start, early_end):
+            if "headings" not in history[t]:
+                return False
+            h = history[t]["headings"]
+            inf_h = h[informed_mask]
+            nai_h = h[naive_mask]
+            inf_mean = np.arctan2(np.mean(np.sin(inf_h)), np.mean(np.cos(inf_h)))
+            nai_mean = np.arctan2(np.mean(np.sin(nai_h)), np.mean(np.cos(nai_h)))
+            informed_accs.append(float(np.cos(inf_mean - preferred_direction)))
+            naive_accs.append(float(np.cos(nai_mean - preferred_direction)))
+
+        if not informed_accs:
+            return False
+
+        mean_inf_acc = float(np.mean(informed_accs))
+        mean_nai_acc = float(np.mean(naive_accs))
+
+        # Informed agents must lead: their early-window alignment with θ_pref
+        # exceeds naive agents' alignment.
+        return mean_inf_acc > mean_nai_acc
+
+    def fn(history, metadata=None):
+        if metadata is None:
+            metadata = {}
+        result = detect_p19(history, metadata, n_permutations=n_permutations, seed=seed)
+
+        # If the base detector fires, apply the content prerequisite.
+        if result.detected and not _check_early_leadership(history, metadata):
+            return DetectorResult(
+                pattern_id="P19",
+                detected=False,
+                tier="none",
+                confidence=0.0,
+                primary_metric=result.primary_metric,
+                secondary_metrics={
+                    **result.secondary_metrics,
+                    "prereq_failed": "no_early_leadership",
+                },
+                effect_size=result.effect_size,
+                null_p_value=result.null_p_value,
+                null_type="content_prerequisite_rejection",
+                exclusions_checked=result.exclusions_checked,
+                exclusion_results=result.exclusion_results,
+                co_occurrence_candidates=result.co_occurrence_candidates,
+                metadata_available=result.metadata_available,
+                warnings=result.warnings + [
+                    "Content prerequisite failed: informed agents do not lead "
+                    "naive agents in early convergence window (Couzin 2005: "
+                    "informed minority must have persistent directional bias)"
+                ],
+                notes="Rejected by panel content prerequisite: no early-window leadership",
+            )
+
+        return result
+
+    return fn
+
+
+def run_p19(out_path: str = "analysis/outputs/p19_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P19 (emergent leadership) Phase-2a panel v1.2.
+
+    detector_format="particles": P19 operates on continuous_2d agent systems.
+    Class A synthetic substrates lack 'informed_mask' → P19 rejects at
+    prerequisite (detected=False). Class B contains other continuous_2d
+    catalog mates (P2_abp, P5_vicsek, P6_dorsogna, P7_lane_formation,
+    P17_collective_sensing) — all lack informed_mask → P19 rejects.
+    Class C: rho_zero (no informed agents) + bias_zero (no directional bias).
+    """
+    print(f"--- Running P19 panel → {out_path}")
+    positives, metadata = build_p19_positives(n_seeds=5)
+    detector_fn = make_p19_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P19",
+        detector_format="particles",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p19_failed,
+        output_path=out_path,
+        target_steps=200,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1303,6 +1471,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P7"] = run_p7()
     if which in ("p17",):
         summaries["P17"] = run_p17()
+    if which in ("p19",):
+        summaries["P19"] = run_p19()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

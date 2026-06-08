@@ -922,3 +922,51 @@ per-frame φ_lane independently of temporal ordering (carry-forward
 C-p7-time-shuffled-fp; same class as C-p21-time-shuffled-fp).
 dim4 pending→PASS; all four dimensions PASS → P7 advances to **AT-DEPTH**.
 **AT-DEPTH count: 19 / 20** (+1: P7). Remaining gap: P12 (dim1).
+
+**Sprint 67 (P17 implementation, AT-DEPTH +0).**
+New pattern P17 (distributed sensing / collective gradient detection)
+implemented: Berdahl et al. (2013) speed-modulation model + collective
+chemotactic index detector. dim1 PASS (CI slope vs log(N) = 0.133, Spearman
+ρ = 0.90), dim2 PASS (20-seed CI = 0.394 ± 0.130, CV = 33.0%), dim3 PASS
+(methods note: speed-modulation mechanism, SNR ∝ √N derivation, distinctness
+from P5). dim4 pending. Pattern inventory: 21 models × 21 detectors.
+P17 grade: GAP (dim4 pending).
+**AT-DEPTH count: 19 / 21** (inventory grew 20→21; AT-DEPTH unchanged).
+
+**Sprint 68 (P17 dim4 closure, AT-DEPTH +1).**
+Phase-2a panel v1.2 for P17 (collective sensing): PASS.
+Overall TNR = 1.000, Cohen's d = 11.117. Three literature-grounded
+prerequisites: (1) field_samples present in history (rejects non-field
+substrates), (2) individual SNR ≤ 3.0 (group advantage required — Berdahl
+2013), (3) social cohesion ratio ≤ 0.20 (group must be cohesive). Class A:
+9/9 rejected (1 skipped — permutation_invariant=True). Class B: P2, P5,
+P6, P7 all lack field_samples → prereq rejection. Class C: 5 social_off +
+5 field_too_strong, all rejected.
+dim4 pending→PASS; all four dimensions PASS → P17 advances to **AT-DEPTH**.
+**AT-DEPTH count: 20 / 21** (+1: P17). Remaining gap: P12 (dim1).
+
+**Sprint 69 (P19 implementation, AT-DEPTH +0).**
+New pattern P19 (emergent leadership / minority guidance) implemented: Couzin
+et al. (2005) informed-minority Vicsek model + label-shuffle directional pull
+detector. dim1 PASS (accuracy vs ρ: Spearman ρ = 1.0; all 5 tolerance checks
+PASS), dim2 PASS (20-seed accuracy = 1.000 ± 0.000), dim3 PASS (methods note:
+Vicsek+bias dynamics, pull metric, P5/P17/P18 distinctness). dim4 pending.
+Pattern inventory: 23 models × 22 detectors, 104 compatible pairs.
+P19 grade: GAP (dim4 pending).
+**AT-DEPTH count: 20 / 22** (inventory grew 21→22; AT-DEPTH unchanged).
+
+**Sprint 70 (P19 dim4 closure, AT-DEPTH +1; Wave 1 complete).**
+Phase-2a panel v1.2 for P19 (emergent leadership): PASS.
+Overall TNR = 0.960, Cohen's d = 5.418. Content prerequisite (Sprint 70):
+early-window informed→naive leadership gap — in the convergence phase
+(10–40% of trajectory), informed agents' alignment with θ_pref must exceed
+naive agents' alignment, verifying that the minority leads the process
+(Couzin 2005). Class A: 10/10 rejected (time_shuffled now blocked by
+early-leadership prereq — scrambled temporal order destroys the convergence
+signature). Class B: 5/5 rejected (P2, P5, P6, P7, P17 all lack
+informed_mask → prereq rejection). Class C: 9/10 rejected (5 rho_zero +
+4/5 bias_zero; 1 bias_zero FP at confirmation by chance alignment —
+carry-forward C-p19-bias-zero-chance-alignment).
+dim4 pending→PASS; all four dimensions PASS → P19 advances to **AT-DEPTH**.
+**AT-DEPTH count: 21 / 22** (+1: P19). Remaining gap: P12 (dim1).
+Completes Milestone B Wave 1 (P7 + P17 + P19 all AT-DEPTH).
