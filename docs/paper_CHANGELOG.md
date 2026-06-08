@@ -4,6 +4,19 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 67 (2026-06-08)
+- epc/models/collective_sensing.py: new model — Berdahl et al. (2013) collective gradient sensing. Speed-modulation mechanism in periodic 2D domain with Gaussian scalar field.
+- epc/detectors/p17_collective_sensing.py: new detector — group-size-scaling CI test (N-sweep + α=0 null).
+- epc/orchestration.py: +1 model (collective_sensing, continuous_2d), +1 detector (P17). Counts 22 models × 21 detectors, 95 compatible pairs.
+- tests/test_collective_sensing_p17_e2e.py: 12 tests (10 fast + 2 slow). Determinism, N-scaling, negative controls, registration.
+- tests/test_transfer_matrix_counts.py: EXPECTED updated for 22×21 registry.
+- analysis/reproductions/p17_berdahl2013.py: dim1 reproduction — CI slope vs log(N) = 0.133; N=1 at chance; N=50 positive. All tolerances PASS.
+- analysis/reproductions/p17_multiseed.py: dim2 — 20 seeds, CI = 0.394 ± 0.130 (CV=33%), 100% positive.
+- analysis/outputs/p17_berdahl2013_reproduction.json: dim1 output.
+- analysis/outputs/p17_multiseed.json: dim2 output.
+- docs/methods_notes/p17_methods.md: dim3 — speed-modulation mechanism, SNR∝√N, α=0 null, P5 distinctness.
+- docs/depth_gap.md: P17 row added (dim1-3 PASS, dim4 pending). Patterns audited 20→21; gap count 1→2.
+
 ## Sprint 63 (2026-05-30)
 - analysis/reproductions/p12_reichenbach2007.py: rewritten for L=200, zero-padded FFT ring-peak estimator (replaces ACF first-zero). 5 M values, 15 seeds each, T_eq=2500 gen.
 - analysis/outputs/p12_reichenbach2007_reproduction.json: overwritten (sprint=63). Slope=0.161, R²=0.792, FAIL. Accepted as documented finite-size measurement limitation.
