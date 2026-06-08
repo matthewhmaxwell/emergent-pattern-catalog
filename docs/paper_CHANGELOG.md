@@ -4,6 +4,19 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 69 (2026-06-08)
+- epc/models/informed_minority.py: new model — Couzin et al. (2005) informed-minority flocking. Vicsek-style alignment + ω-weighted bias toward preferred direction for informed fraction ρ.
+- epc/detectors/p19_emergent_leadership.py: new detector — group directional accuracy + label-shuffle influence asymmetry (directional pull) + guidance efficacy.
+- epc/orchestration.py: +1 model (informed_minority, continuous_2d), +1 detector (P19). Counts 23 models × 22 detectors, 104 compatible pairs.
+- tests/test_informed_minority_p19_e2e.py: 19 tests. Determinism, DEFINITIVE on canonical ρ=0.1, ρ=0 negative control, registry.
+- tests/test_transfer_matrix_counts.py: EXPECTED updated for 23×22 registry.
+- analysis/reproductions/p19_couzin2005.py: dim1 reproduction — accuracy rises with ρ (Spearman ρ=1.0); ρ=0 chance-level; ρ=0.025 near-perfect. All 5 tolerances PASS.
+- analysis/reproductions/p19_multiseed.py: dim2 — 20 seeds at ρ=0.1, accuracy = 1.000 ± 0.000 (CV=0%).
+- analysis/outputs/p19_couzin2005_reproduction.json: dim1 output.
+- analysis/outputs/p19_multiseed.json: dim2 output.
+- docs/methods_notes/p19_methods.md: dim3 — Vicsek+informed bias dynamics, label-shuffle null, pull metric, P5/P17/P18 distinctness.
+- docs/depth_gap.md: P19 row added (dim1-3 PASS, dim4 pending). Patterns audited 21→22; gap count 1→2 (P12 + P19).
+
 ## Sprint 68 (2026-06-08)
 - epc/phase2a/failed_regimes/p17_collective_sensing.py: new — Class C failed regimes (5 social_off + 5 field_too_strong).
 - epc/phase2a/detector_invariance.py: P17 permutation_invariant False→True (group CI is CoM-based, agent-index invariant).

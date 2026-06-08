@@ -15,8 +15,8 @@ by substrate type.
 - opinion_space: Hegselmann-Krause
 - scalar_wealth: Yard-Sale (Sprint 17, new)
 
-Architecture decision #25 (updated Sprint 67):
-  22 models × 21 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 69):
+  23 models × 22 detectors — compatible pairs identified by substrate.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
@@ -301,6 +301,17 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_alignment_rule', 'has_attraction_rule',
                        'has_field_sensing', 'has_speed_modulation'],
     ),
+    'informed_minority': ModelRegistration(
+        name='informed_minority',
+        substrate_type='continuous_2d',
+        observables=['positions', 'velocities', 'headings', 'informed_mask'],
+        primary_patterns=['P19'],
+        metadata_keys=['n_particles', 'box_size', 'speed', 'noise',
+                       'interaction_radius', 'dt', 'informed_fraction',
+                       'n_informed', 'bias_weight', 'preferred_direction',
+                       'has_alignment_rule', 'has_attraction_rule',
+                       'has_informed_minority'],
+    ),
 }
 
 # === Detector Registry ===
@@ -430,6 +441,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P17',
         required_substrate=['continuous_2d'],
         required_observables=['positions', 'headings'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P19': DetectorRegistration(
+        pattern_id='P19',
+        required_substrate=['continuous_2d'],
+        required_observables=['headings'],
         observable_scope='model_metadata_assisted',
     ),
 }

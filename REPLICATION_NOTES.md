@@ -6468,3 +6468,41 @@ Three content prerequisites gate detection before CI evaluation:
 - **Positives** (5 seeds): 3 DEFINITIVE (0.900), 1 CONFIRMATION (0.700), 1 SCREENING (0.500). Mean score: 0.780.
 
 **Sprint 68 finding:** P17 dim4 pending→PASS; all four dimensions now PASS → P17 advances to **AT-DEPTH**. AT-DEPTH count: **20 / 21** (+1: P17). Remaining gap: P12 (dim1).
+
+## Sprint 69 — P19 Emergent Leadership / Minority Guidance (Couzin 2005)
+
+**Model:** `epc/models/informed_minority.py` — Vicsek-style flock with informed minority.
+An informed fraction ρ of agents has a weighted bias (ω=0.3) toward a preferred direction;
+naive agents align purely via local Vicsek interactions. N=200, L=10, v₀=0.03, η=0.1, r=1.0.
+
+**Detector:** `epc/detectors/p19_emergent_leadership.py` — three-tier detection:
+- Screening: group accuracy > 0.3 (alignment with preferred direction)
+- Confirmation: label-shuffle influence asymmetry (informed agents closer to preferred dir than naive, p<0.05)
+- Definitive: guidance efficacy > 2 (accuracy/ρ) + minority ρ≤0.25 + p<0.01
+
+**dim1 — Couzin 2005 Fig. 2a reproduction (accuracy vs ρ):**
+Sweep ρ ∈ {0, 0.025, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5}, 10 seeds each, 500 steps.
+Results: Spearman ρ=1.0 (p<0.001). accuracy(ρ=0)=0.125±0.756 (chance-level, |acc|<0.3 ✓);
+accuracy(ρ=0.025)=0.977±0.040; accuracy(ρ=0.05)=1.000; accuracy(ρ=0.1)=1.000 (>0.5 ✓);
+accuracy(ρ=0.5)=1.000 (>0.8 ✓). All 5 tolerance checks PASS.
+Note: accuracy converges to ~1.0 more abruptly than Couzin (2005) Fig. 2a because
+our noise (η=0.1) is low relative to alignment strength; the paper uses higher effective noise.
+
+**dim2 — multi-seed validation (20 seeds at ρ=0.1):**
+accuracy = 1.000 ± 0.000 (CV=0.0%). All 20 seeds achieve near-perfect guidance.
+Influence pull positive across all seeds.
+
+**dim3 — methods note:** `docs/methods_notes/p19_methods.md`. Covers:
+Vicsek+bias dynamics, label-shuffle null (over TE: TE on converged mean headings
+produces zero signal; pull metric captures influence asymmetry more robustly),
+distinctness from P5 (no preferred direction), P17 (environmental sensing),
+P18 (symmetric pooling), P32 (stable roles).
+
+**Architecture decision:** Directional cross-correlation (label-shuffle pull) over
+transfer entropy for the confirmation metric. TE on group mean headings = 0 in
+the converged Vicsek regime because both informed and naive means are constant;
+the pull metric detects that specifically-labeled agents are biased toward the
+preferred direction, which is the mechanistic signature of minority guidance.
+
+**Sprint 69 finding:** P19 implemented end-to-end. dim1-3 PASS; dim4 pending (Sprint 70).
+Patterns audited 21→22; AT-DEPTH count: **20 / 22** (P12 + P19 are GAPs).
