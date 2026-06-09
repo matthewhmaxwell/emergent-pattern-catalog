@@ -311,6 +311,78 @@ def sinusoidal_traveling_wave(
     return out
 
 
+# --- Scalar-timeseries supplements ------------------------------------------
+# Sprint 73: P24 is the only scalar_timeseries pattern (0 Class B catalog
+# mates), so the panel needs structured supplements. These produce scalar
+# trajectories that are NOT homeostatic regulation.
+
+def passive_ou_decay(
+    seed: int,
+    *,
+    n_steps: int = 1000,
+    dt: float = 0.1,
+    setpoint: float = 10.0,
+    gamma: float = 0.5,
+    noise_std: float = 0.5,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Ornstein-Uhlenbeck passive decay: dx/dt = -gamma*(x - setpoint) + noise.
+
+    No external perturbation. The variable relaxes passively toward the fixed
+    point — this is NOT active regulation against sustained perturbation.
+    P24 should reject because perturbation is zero (no onset detected).
+    """
+    rng = np.random.default_rng(seed)
+    x = setpoint + 5.0  # start displaced
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        out.append({
+            "time": t * dt,
+            "x": float(x),
+            "setpoint": setpoint,
+            "perturbation": 0.0,
+            "deviation": float(x - setpoint),
+            "step": t,
+        })
+        dx = -gamma * (x - setpoint) * dt + rng.normal(0, noise_std) * np.sqrt(dt)
+        x = x + dx
+    return out
+
+
+def uncontrolled_random_walk_scalar(
+    seed: int,
+    *,
+    n_steps: int = 1000,
+    dt: float = 0.1,
+    setpoint: float = 10.0,
+    pert_amplitude: float = 5.0,
+    noise_std: float = 0.5,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Uncontrolled random walk under sustained perturbation — no feedback.
+
+    dx = perturbation * dt + noise. Variable drifts linearly post-onset.
+    P24 should reject at screening (growth_ratio >> 2.0).
+    """
+    rng = np.random.default_rng(seed)
+    onset_step = n_steps // 4
+    x = setpoint
+    out: List[Dict[str, Any]] = []
+    for t in range(n_steps):
+        pert = pert_amplitude if t >= onset_step else 0.0
+        out.append({
+            "time": t * dt,
+            "x": float(x),
+            "setpoint": setpoint,
+            "perturbation": pert,
+            "deviation": float(x - setpoint),
+            "step": t,
+        })
+        dx = pert * dt + rng.normal(0, noise_std) * np.sqrt(dt)
+        x = x + dx
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -319,6 +391,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "continuous_2d": ["uncorrelated_random_walks", "independent_brownian_motion"],
     "lattice_1d": ["independent_lane_traffic", "reverse_sorted_sequence"],
     "lattice_2d_continuous": ["smooth_random_field", "sinusoidal_traveling_wave"],
+    "scalar_timeseries": ["passive_ou_decay", "uncontrolled_random_walk_scalar"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -332,4 +405,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "reverse_sorted_sequence": reverse_sorted_sequence,
     "smooth_random_field": smooth_random_field,
     "sinusoidal_traveling_wave": sinusoidal_traveling_wave,
+    "passive_ou_decay": passive_ou_decay,
+    "uncontrolled_random_walk_scalar": uncontrolled_random_walk_scalar,
 }

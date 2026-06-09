@@ -19,6 +19,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p21
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p7
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p19
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p24
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -67,6 +68,7 @@ from epc.phase2a.failed_regimes import p21_hk as p21_failed
 from epc.phase2a.failed_regimes import p7_lane_formation as p7_failed
 from epc.phase2a.failed_regimes import p17_collective_sensing as p17_failed
 from epc.phase2a.failed_regimes import p19_informed_minority as p19_failed
+from epc.phase2a.failed_regimes import p24_homeostasis as p24_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1428,6 +1430,62 @@ def run_p19(out_path: str = "analysis/outputs/p19_phase2a_panel.json", verbose: 
     )
 
 
+def build_p24_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P24 canonical positive: ProportionalHomeostat at gain=5.0 with sustained perturbation.
+
+    gain=5.0 produces rapid regulation; perturbation onset at t=50.0 with
+    amplitude=5.0. 1000 steps at dt=0.1. Deviation ratio < 0.003.
+    """
+    from epc.models.homeostasis import (
+        ProportionalHomeostat, HomeostatParams, PerturbationSchedule,
+    )
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        model = ProportionalHomeostat(HomeostatParams(
+            setpoint=10.0, gain=5.0, dt=0.1, noise_std=0.5, seed=seed,
+        ))
+        schedule = PerturbationSchedule(onset=50.0, amplitude=5.0)
+        runs.append(model.simulate(n_steps=1000, schedule=schedule))
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p24_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p24_homeostasis import P24HomeostasisDetector
+    detector = P24HomeostasisDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p24(out_path: str = "analysis/outputs/p24_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P24 (homeostatic regulation) Phase-2a panel v1.2.
+
+    detector_format="scalar_timeseries": P24 operates on scalar regulated
+    variable time series. Class A synthetic substrates are uncontrolled drift
+    trajectories → P24 rejects at screening (growth_ratio >> 2.0).
+    Class B: 0 catalog mates (only scalar_timeseries pattern); 2 supplements
+    (passive_ou_decay, uncontrolled_random_walk_scalar).
+    Class C: gain_zero (drift) + no_perturbation (trivially at setpoint).
+    """
+    print(f"--- Running P24 panel → {out_path}")
+    positives, metadata = build_p24_positives(n_seeds=5)
+    detector_fn = make_p24_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P24",
+        detector_format="scalar_timeseries",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p24_failed,
+        output_path=out_path,
+        target_steps=1000,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1473,6 +1531,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P17"] = run_p17()
     if which in ("p19",):
         summaries["P19"] = run_p19()
+    if which in ("p24",):
+        summaries["P24"] = run_p24()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

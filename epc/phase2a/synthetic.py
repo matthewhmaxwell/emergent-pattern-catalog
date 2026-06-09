@@ -71,6 +71,12 @@ def _phases_history_from_array(theta_t: np.ndarray, cadence: int = PHASES_DEFAUL
 SEQUENCE_DEFAULT_N = 200  # default lattice_1d road/array length
 OPINIONS_DEFAULT_N = 100  # default number of agents for opinions format
 
+# Scalar timeseries defaults (P24 homeostasis panel)
+SCALAR_TS_DT = 0.1                   # integration timestep
+SCALAR_TS_SETPOINT = 10.0            # regulated-variable setpoint
+SCALAR_TS_PERT_AMPLITUDE = 5.0       # perturbation amplitude
+SCALAR_TS_PERT_ONSET_FRAC = 0.25     # perturbation onset at 25% of trajectory
+
 
 def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
     """Wrap a (T, N) float array into the standard opinions-history format.
@@ -81,6 +87,57 @@ def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
     """
     T, N = ops.shape
     return [{"opinions": ops[t].astype(np.float64), "step": t} for t in range(T)]
+
+
+def _scalar_ts_history(
+    x_arr: np.ndarray,
+    n_steps: int,
+    dt: float = SCALAR_TS_DT,
+    setpoint: float = SCALAR_TS_SETPOINT,
+    pert_amplitude: float = SCALAR_TS_PERT_AMPLITUDE,
+    onset_frac: float = SCALAR_TS_PERT_ONSET_FRAC,
+) -> List[Dict[str, Any]]:
+    """Wrap a 1-D x array into scalar-timeseries history format for P24.
+
+    Perturbation is a sustained step function starting at ``onset_frac`` of
+    the trajectory, matching the ProportionalHomeostat convention.
+    """
+    onset_step = int(n_steps * onset_frac)
+    out: List[Dict[str, Any]] = []
+    for t in range(min(n_steps, len(x_arr))):
+        pert = pert_amplitude if t >= onset_step else 0.0
+        out.append({
+            "time": t * dt,
+            "x": float(x_arr[t]),
+            "setpoint": setpoint,
+            "perturbation": pert,
+            "deviation": float(x_arr[t] - setpoint),
+            "step": t,
+        })
+    return out
+
+
+def _scalar_ts_uncontrolled(
+    rng: np.random.Generator,
+    n_steps: int,
+    noise_std: float = 0.5,
+    dt: float = SCALAR_TS_DT,
+    setpoint: float = SCALAR_TS_SETPOINT,
+    pert_amplitude: float = SCALAR_TS_PERT_AMPLITUDE,
+    onset_frac: float = SCALAR_TS_PERT_ONSET_FRAC,
+) -> np.ndarray:
+    """Generate an uncontrolled scalar trajectory: x drifts under perturbation.
+
+    dx = perturbation(t) * dt + noise — no feedback correction.
+    Deviation from setpoint grows linearly post-onset → growth_ratio >> 2.0.
+    """
+    onset_step = int(n_steps * onset_frac)
+    x = np.full(n_steps, setpoint)
+    for t in range(1, n_steps):
+        pert = pert_amplitude if t >= onset_step else 0.0
+        noise = rng.normal(0, noise_std) * np.sqrt(dt)
+        x[t] = x[t - 1] + pert * dt + noise
+    return x
 
 
 def _sequence_history_from_array(arrays: np.ndarray) -> List[Dict[str, Any]]:
@@ -150,6 +207,10 @@ def random_uniform_field(
         # Uniform opinions ∈ [0,1] — unimodal, P21 dip-test should reject.
         ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Uncontrolled drift under perturbation + uniform noise.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.5)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -187,6 +248,10 @@ def random_gaussian_field(
         z = rng.standard_normal(size=(n_steps, OPINIONS_DEFAULT_N))
         ops = np.clip(z * 0.2 + 0.5, 0.0, 1.0)
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Uncontrolled drift under perturbation + Gaussian noise.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=1.0)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -223,6 +288,10 @@ def random_binary_field(
         # "Binary" here means the grid representation; opinions are continuous [0,1].
         ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Uncontrolled drift with small noise — binary-like steps.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.3)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -261,6 +330,10 @@ def spatial_white_noise_series(
         # Fresh i.i.d. uniform opinions each step — no temporal autocorrelation.
         ops = rng.uniform(0.0, 1.0, size=(n_steps, OPINIONS_DEFAULT_N))
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # i.i.d. uniform x each step (no temporal autocorrelation) + perturbation.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=2.0)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -320,6 +393,10 @@ def temporal_white_noise_per_cell(
             state_op = np.clip(state_op + rng.normal(0.0, 0.05, OPINIONS_DEFAULT_N), 0.0, 1.0)
             ops[t] = state_op
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Random walk under perturbation — noise-dominated drift.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.8)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -426,6 +503,11 @@ def permutation_shuffled_positive(
         rng.shuffle(last_ops)
         T = len(positive)
         return [{"opinions": last_ops.copy(), "step": t} for t in range(T)]
+    if format == "scalar_timeseries":
+        # Scalar timeseries has a single variable — permutation is a no-op.
+        # Return the positive unchanged (degenerate-by-construction, will be
+        # skipped by invariance flag permutation_invariant=True).
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -449,6 +531,13 @@ def time_shuffled_positive(
         sizes = positive[0]["avalanche_sizes"].copy()
         rng.shuffle(sizes)
         return _wrap_avalanches(sizes)
+    if format == "scalar_timeseries":
+        # Shuffle timesteps of the scalar timeseries positive. Preserves
+        # deviation distribution but destroys temporal recovery structure.
+        indices = np.arange(len(positive))
+        rng.shuffle(indices)
+        return [dict(positive[i], step=t, time=t * SCALAR_TS_DT)
+                for t, i in enumerate(indices)]
     indices = np.arange(len(positive))
     rng.shuffle(indices)
     return [dict(positive[i], step=t) for t, i in enumerate(indices)]
@@ -505,6 +594,11 @@ def constant_field(
         # All agents share a single opinion at 0.5 — trivially unimodal.
         ops = np.full((n_steps, OPINIONS_DEFAULT_N), 0.5, dtype=np.float64)
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # x = setpoint for all time, perturbation = 0 → no perturbation onset.
+        # Detector rejects at "No perturbation detected" prerequisite.
+        x = np.full(n_steps, SCALAR_TS_SETPOINT)
+        return _scalar_ts_history(x, n_steps, pert_amplitude=0.0)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -561,6 +655,11 @@ def linear_gradient_field(
         ops_static = np.linspace(0.0, 1.0, OPINIONS_DEFAULT_N, endpoint=True)
         ops = np.broadcast_to(ops_static, (n_steps, OPINIONS_DEFAULT_N)).copy()
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Uncontrolled monotonic drift under perturbation — x drifts at
+        # perturbation rate post-onset. growth_ratio >> 2.0 → screening fails.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.1)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -624,6 +723,11 @@ def periodic_checkerboard(
         ])
         ops = np.broadcast_to(ops_static, (n_steps, OPINIONS_DEFAULT_N)).copy()
         return _opinions_history_from_array(ops)
+    if format == "scalar_timeseries":
+        # Uncontrolled drift with oscillatory noise — x drifts post-onset.
+        # growth_ratio >> 2.0 → screening fails.
+        x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.2)
+        return _scalar_ts_history(x, n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

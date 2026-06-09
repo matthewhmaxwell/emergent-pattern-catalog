@@ -970,3 +970,26 @@ carry-forward C-p19-bias-zero-chance-alignment).
 dim4 pending→PASS; all four dimensions PASS → P19 advances to **AT-DEPTH**.
 **AT-DEPTH count: 21 / 22** (+1: P19). Remaining gap: P12 (dim1).
 Completes Milestone B Wave 1 (P7 + P17 + P19 all AT-DEPTH).
+
+**Sprint 72 (P24 implementation, AT-DEPTH +0).**
+P24 (homeostatic regulation) — first Wave-2 pattern. ProportionalHomeostat +
+IntegralHomeostat models, P24 detector with surrogate uncontrolled null, T1a
+observation-bundle adapter, T1b cross-model generalization. New substrate type:
+scalar_timeseries. dim1: deviation ratio 0.0027 (PASS). dim2: 20-seed CV=0.8%
+(PASS). dim3: methods note (PASS). dim4 pending (Sprint 73).
+**AT-DEPTH count: 21 / 23** (inventory grew 22→23; AT-DEPTH unchanged).
+
+**Sprint 73 (P24 dim4 closure, AT-DEPTH +1; Wave 2 first pattern).**
+P24 Phase-2a panel v1.2: PASS (TNR=1.000, Cohen's d=+inf). New
+`scalar_timeseries` format added to all 10 Class A generators. Invariance
+flags: permutation_invariant=True (single scalar variable — permutation
+is degenerate), time_shuffle_invariant=True (deviation integral is
+order-invariant for constant dt; confirmed by Sprint 73 first-run FP).
+Class A: 8/8 evaluated substrates rejected (uncontrolled drift → screening
+fail). Class B: 0 catalog mates + 2 scalar_timeseries supplements
+(passive_ou_decay, uncontrolled_random_walk_scalar) both rejected. Class C:
+2/2 (gain_zero_drift, no_perturbation) both rejected. All 5 positives
+DEFINITIVE (0.900).
+dim4 pending→PASS; all four dimensions PASS → P24 advances to **AT-DEPTH**.
+**AT-DEPTH count: 22 / 23** (+1: P24). Remaining gap: P12 (dim1).
+Completes Wave 2 first pattern.

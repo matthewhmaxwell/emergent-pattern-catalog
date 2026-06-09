@@ -6553,3 +6553,83 @@ order of heading alignment). Both flags unchanged from Sprint 69.
 **Sprint 70 finding:** P19 dim4 pending→PASS; all four dimensions now PASS →
 P19 advances to **AT-DEPTH**. AT-DEPTH count: **21 / 22** (+1: P19).
 Remaining gap: P12 (dim1). Completes Milestone B Wave 1.
+
+---
+
+## Sprint 72–73 — P24 Homeostatic Regulation (Milestone B Wave 2)
+
+**Pattern:** P24 — active homeostatic regulation of a scalar variable near a
+set-point despite sustained external perturbation via negative feedback.
+
+**Reference:** Ashby, W. R. (1956). *An Introduction to Cybernetics*. Chapman
+& Hall.
+
+### Sprint 72 (dim1–dim3)
+
+**Model:** `ProportionalHomeostat` (dx/dt = −gain × (x − sp) + perturbation).
+At gain=5.0, perturbation=5.0, setpoint=10.0: steady-state deviation =
+perturbation/gain = 1.0. Second variant: `IntegralHomeostat` (PID with P=0,
+I=gain, D=0) for T1b cross-model testing.
+
+**Detector:** Surrogate uncontrolled null — compares deviation integral of
+observed trajectory vs surrogates integrating dx = perturbation × dt (no
+feedback). Screening: growth_ratio ≤ 2.0 (bounded deviation). Confirmation:
+p < 0.01 and ratio < 0.5. Definitive: ratio < 0.3 and d > 1.0.
+
+**dim1:** Deviation ratio = 0.0027 (tolerance < 0.30, PASS). DEFINITIVE
+(confidence=0.90). Controlled integral = 149.75; uncontrolled = 56,175.03.
+
+**dim2:** 20-seed campaign: deviation integral = 149.59 ± 1.20 (CV=0.8%),
+deviation ratio = 0.0027 ± 0.00003 (CV=1.2%), all 20 seeds DEFINITIVE.
+
+**dim3:** Methods note covers proportional/integral controller dynamics,
+perturbation schedule, Euler integration, surrogate null model, T1a
+observation contract, T1b cross-model generalization (integral controller
+also DEFINITIVE).
+
+### Sprint 73 (dim4 — Phase-2a panel)
+
+**Panel format:** `scalar_timeseries` — new detector format for the Phase-2a
+harness. Each substrate is a list of dicts with keys {time, x, setpoint,
+perturbation, deviation, step}.
+
+**Class A synthetic substrates (8/10 evaluated):**
+- `random_uniform` through `temporal_white_noise` (5 generators): all produce
+  uncontrolled drift trajectories (x = ∫perturbation·dt + noise). Deviation
+  from setpoint grows linearly post-onset → growth_ratio >> 2.0 → rejected
+  at screening. TN.
+- `permutation_shuffled`: SKIPPED (permutation_invariant=True). Scalar series
+  has a single variable — permutation is a no-op (degenerate-by-construction).
+- `time_shuffled`: SKIPPED (time_shuffle_invariant=True). The primary metric
+  (deviation integral ∫|x−sp|dt) sums absolute deviations with constant dt —
+  invariant under temporal reordering. Sprint 73 first run confirmed FP at
+  DEFINITIVE tier; flag corrected from False→True.
+- `constant`: x = setpoint, perturbation = 0 → rejected at "No perturbation
+  detected" prerequisite. TN.
+- `linear_gradient`, `checkerboard`: uncontrolled drift under perturbation →
+  growth_ratio >> 2.0 → rejected at screening. TN.
+
+**Class B (0 catalog mates + 2 supplements):**
+- P24 is the sole `scalar_timeseries` pattern → 0 catalog mates.
+- `passive_ou_decay`: OU process relaxing to fixed point with NO perturbation
+  → rejected at prerequisite (perturbation = 0). TN.
+- `uncontrolled_random_walk_scalar`: random walk under sustained perturbation
+  with no feedback → growth_ratio >> 2.0 → rejected at screening. TN.
+
+**Class C (2 failed regimes):**
+- `gain_zero_drift`: gain = 0, sustained perturbation → x drifts linearly →
+  growth_ratio >> 2.0 → rejected at screening. TN.
+- `no_perturbation`: gain = 5.0 but perturbation = 0 → rejected at "No
+  perturbation detected" prerequisite. TN.
+
+**Invariance flags:** permutation_invariant=True (scalar series, single
+variable), time_shuffle_invariant=True (deviation integral order-invariant).
+
+**Positives:** All 5 seeds reach DEFINITIVE (0.900).
+
+**Summary:** TNR=1.000 (overall), syn=1.000 (8/8), cat=1.000 (advisory; 2),
+fai=1.000 (2/2). Cohen's d=+inf. Verdict: **PASS**.
+
+**Sprint 73 finding:** P24 dim4 pending→PASS; all four dimensions now PASS →
+P24 advances to **AT-DEPTH**. AT-DEPTH count: **22 / 23** (+1: P24).
+Remaining gap: P12 (dim1). Completes Wave 2 first pattern.

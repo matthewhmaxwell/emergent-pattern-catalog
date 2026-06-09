@@ -117,6 +117,15 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "remains open (HK convergence-timing issue, not invariance)."),
     "P22": InvarianceFlags(False, False, "cascade size / propagation speed",
                             rationale="Network-temporal structure."),
+    "P24": InvarianceFlags(True,  True,  "deviation integral / recovery trajectory",
+                            rationale="perm_inv=True: scalar time series has a single regulated "
+                                      "variable — permuting 'agents' is N/A (degenerate-by-construction "
+                                      "for a single scalar). time_shuffle_inv=True: the primary metric "
+                                      "(deviation integral ∫|x−sp|dt) is a sum of absolute deviations "
+                                      "weighted by constant dt — invariant under temporal reordering. "
+                                      "The growth_ratio gates only screening; post-screening metrics "
+                                      "are order-invariant → time_shuffled is degenerate-by-construction. "
+                                      "Sprint 73 panel run confirmed: time_shuffled FP at definitive."),
     # P27 time-shuffle flag is PROVISIONAL — see C-p27-time-shuffle-invariance carry-forward.
     # If Sprint 35+ P27 panel run reveals the assumption is wrong, change the flag and re-run.
     "P27": InvarianceFlags(False, True,  "cooperation fraction time-series",

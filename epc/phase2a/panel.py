@@ -290,6 +290,9 @@ def run_panel(
     elif detector_format == "opinions":
         # Opinions generators use their own OPINIONS_DEFAULT_N; n_steps still applies.
         pass  # n_steps already in class_a_kwargs
+    elif detector_format == "scalar_timeseries":
+        # Scalar-timeseries generators use their own defaults; n_steps applies.
+        pass  # n_steps already in class_a_kwargs
 
     class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):

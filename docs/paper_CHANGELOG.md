@@ -4,6 +4,20 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 73 (2026-06-09)
+- epc/phase2a/synthetic.py: added `scalar_timeseries` format to all 10 Class A generators. Uncontrolled drift trajectories (dx = perturbation·dt + noise) produce growth_ratio >> 2.0 → P24 rejects at screening.
+- epc/phase2a/detector_invariance.py: +P24 invariance flags (permutation_invariant=True, time_shuffle_invariant=True). First run confirmed time_shuffled FP at DEFINITIVE; flag corrected to True (deviation integral is order-invariant for constant dt).
+- epc/phase2a/catalog.py: +1 substrate (P24_proportional_homeostat) + generator + PATTERN_TO_SUBSTRATE_ID entry + scalar_timeseries format adapter.
+- epc/phase2a/structured.py: +2 scalar_timeseries supplements (passive_ou_decay, uncontrolled_random_walk_scalar).
+- epc/phase2a/failed_regimes/p24_homeostasis.py: new — Class C failed regimes (gain_zero_drift, no_perturbation).
+- epc/phase2a/panel.py: scalar_timeseries format dispatch in Class A kwargs.
+- analysis/run_phase2a_panel.py: P24 panel wiring (build_p24_positives, make_p24_detector_fn, run_p24).
+- analysis/outputs/p24_phase2a_panel.json: Phase-2a v1.2 panel — TNR=1.000, Cohen's d=+inf, verdict=PASS.
+- docs/depth_gap.md: P24 dim4 pending→PASS, grade GAP→AT-DEPTH. AT-DEPTH count 21→22, gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 73 P24 Phase-2a dim4 section added.
+- docs/paper_section4_draft.md: §4.28 Phase-2a panel results appended.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 72 (2026-06-09)
 - epc/models/homeostasis.py: new model — Ashby (1956) proportional + integral homeostat. Scalar regulated variable with negative-feedback control under external perturbation.
 - epc/detectors/p24_homeostasis.py: new detector — deviation-integral vs surrogate uncontrolled null, growth-ratio screening, T1a observation-bundle adapter.

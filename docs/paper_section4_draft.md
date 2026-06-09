@@ -2736,3 +2736,13 @@ Deviation ratio = 0.0027 (tolerance < 0.30). 20-seed multi-seed: CV = 0.8%.
 **T1b cross-model:** Integral controller also reaches DEFINITIVE, confirming the
 detector recognizes the phenomenon (homeostatic regulation) rather than the
 specific controller implementation.
+
+**Phase-2a panel (Sprint 73):** PASS (TNR=1.000, Cohen's d=+inf). New
+`scalar_timeseries` format wired into the panel harness. Class A: 8/8 evaluated
+substrates rejected (2 SKIPPED: permutation_invariant=True because scalar
+series has a single variable; time_shuffle_invariant=True because the deviation
+integral is order-invariant for constant dt). Class B: 0 catalog mates (P24 is
+the sole scalar_timeseries pattern) + 2 supplements (passive OU decay, uncontrolled
+random walk) both rejected. Class C: gain=0 drift rejected at screening,
+no-perturbation rejected at prerequisite. All 5 positives DEFINITIVE (0.900).
+P24 advances to AT-DEPTH.

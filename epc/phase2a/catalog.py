@@ -59,6 +59,8 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P17_collective_sensing": {"n_agents": 50, "box_size": 20.0, "v_max": 0.4, "turn_noise": 0.3, "sensing_noise": 0.8, "alpha": 0.95, "social_strength": 0.2, "field_sigma": 5.0, "field_amplitude": 1.0, "n_steps": 200, "seed": 0},
     # P19 informed minority: Couzin 2005 minority-guided flock at canonical params.
     "P19_informed_minority": {"n_particles": 200, "box_size": 10.0, "speed": 0.03, "noise": 0.1, "interaction_radius": 1.0, "informed_fraction": 0.1, "bias_weight": 0.3, "preferred_direction": 0.0, "n_steps": 200, "seed": 0},
+    # P24 proportional homeostat: canonical regulated regime (gain=5.0, sustained perturbation).
+    "P24_proportional_homeostat": {"gain": 5.0, "setpoint": 10.0, "dt": 0.1, "noise_std": 0.5, "n_steps": 1000, "pert_onset": 50.0, "pert_amplitude": 5.0, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -366,6 +368,27 @@ def _gen_p19_informed_minority(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "particles", "headings": headings, "positions": positions, "box_size": float(p["box_size"])}
 
 
+def _gen_p24_proportional_homeostat(p: Dict[str, Any]) -> Dict[str, Any]:
+    """ProportionalHomeostat canonical regulated trajectory (scalar_timeseries)."""
+    from epc.models.homeostasis import (
+        ProportionalHomeostat, HomeostatParams, PerturbationSchedule,
+    )
+    model = ProportionalHomeostat(HomeostatParams(
+        setpoint=p["setpoint"], gain=p["gain"], dt=p["dt"],
+        noise_std=p["noise_std"], seed=p["seed"],
+    ))
+    schedule = PerturbationSchedule(
+        onset=p["pert_onset"], amplitude=p["pert_amplitude"],
+    )
+    history = model.simulate(n_steps=p["n_steps"], schedule=schedule)
+    x_arr = np.array([h["x"] for h in history], dtype=np.float32)
+    time_arr = np.array([h["time"] for h in history], dtype=np.float32)
+    return {"kind": "scalar_timeseries", "x": x_arr, "time": time_arr,
+            "setpoint": float(p["setpoint"]),
+            "pert_onset": float(p["pert_onset"]),
+            "pert_amplitude": float(p["pert_amplitude"])}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -388,6 +411,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P8_nagel_schreckenberg": _gen_p8_nagel_schreckenberg,
     "P17_collective_sensing": _gen_p17_collective_sensing,
     "P19_informed_minority": _gen_p19_informed_minority,
+    "P24_proportional_homeostat": _gen_p24_proportional_homeostat,
 }
 
 
@@ -985,6 +1009,66 @@ def _adapt_to_particles(
     ]
 
 
+def _adapt_to_scalar_timeseries(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to scalar_timeseries format.
+
+    Non-scalar-timeseries substrates are mapped to an uncontrolled random walk
+    driven by a constant perturbation — the P24 detector should reject because
+    deviation grows unboundedly (growth_ratio >> 2.0). Scalar-timeseries
+    natives (P24's own canonical positive appearing as a Class B mate for
+    other scalar_timeseries detectors) are passed through directly.
+    """
+    kind = native["kind"]
+    dt = 0.1
+    setpoint = 10.0
+    pert_amp = 5.0
+    onset_step = target_steps // 4
+
+    if kind == "scalar_timeseries":
+        # Native scalar timeseries — pass through with step-count trimming.
+        x_arr = np.asarray(native["x"], dtype=float)
+        time_arr = np.asarray(native["time"], dtype=float)
+        sp = float(native.get("setpoint", setpoint))
+        pa = float(native.get("pert_amplitude", pert_amp))
+        po = float(native.get("pert_onset", onset_step * dt))
+        T = min(len(x_arr), target_steps)
+        out: List[Dict[str, Any]] = []
+        for t in range(T):
+            pert = pa if time_arr[t] >= po else 0.0
+            out.append({
+                "time": float(time_arr[t]),
+                "x": float(x_arr[t]),
+                "setpoint": sp,
+                "perturbation": pert,
+                "deviation": float(x_arr[t] - sp),
+                "step": t,
+            })
+        return out
+
+    # Non-scalar substrate: generate an uncontrolled drift trajectory.
+    # The trajectory drifts under perturbation → P24 rejects at screening.
+    rng = np.random.default_rng(42)
+    x = np.full(target_steps, setpoint)
+    for t in range(1, target_steps):
+        pert = pert_amp if t >= onset_step else 0.0
+        x[t] = x[t - 1] + pert * dt + rng.normal(0, 0.5) * np.sqrt(dt)
+    out = []
+    for t in range(target_steps):
+        pert = pert_amp if t >= onset_step else 0.0
+        out.append({
+            "time": t * dt,
+            "x": float(x[t]),
+            "setpoint": setpoint,
+            "perturbation": pert,
+            "deviation": float(x[t] - setpoint),
+            "step": t,
+        })
+    return out
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1011,6 +1095,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_sequence(native, target_steps=target_steps)
     if target_format == "opinions":
         return _adapt_to_opinions(native, target_steps=target_steps, target_n=target_n)
+    if target_format == "scalar_timeseries":
+        return _adapt_to_scalar_timeseries(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1060,6 +1146,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P27": "P27_nowak_may",
     "P28": "P28_yard_sale",                  # declarative; generator NOT yet implemented
     "P31": "P31_zhang_sorting",
+    "P24": "P24_proportional_homeostat",  # Sprint 73; generator below
 }
 
 
