@@ -183,6 +183,63 @@ class TestP24CrossModel:
         )
 
 
+class TestP23CrossModel:
+    """P23 anti-coordination detector — T1b cross-model generalization test.
+
+    The detector must fire on the El Farol Bar variant (Arthur 1994), which
+    it was NOT tuned on. This is the minimum evidence that the detector
+    recognizes the *phenomenon* (anti-coordination / load balancing), not
+    its *implementation* (Minority Game strategy lookup tables).
+    """
+
+    def test_p23_on_el_farol_detected(self):
+        """P23 must detect on El Farol (independent implementation)."""
+        from epc.models.minority_game import ElFarolBar, ElFarolParams
+        from epc.detectors.p23_anticoordination import P23AnticoordinationDetector
+
+        ef = ElFarolBar(ElFarolParams(
+            n_agents=100, capacity=60, n_rounds=1000, seed=42,
+        ))
+        history = ef.simulate()
+        det = P23AnticoordinationDetector(n_permutations=199, seed=42)
+        result = det.detect(history, ef.get_metadata())
+        assert result.detected, (
+            f"P23 not detected on El Farol: {result.notes}"
+        )
+        assert result.tier.value in ("confirmation", "definitive"), (
+            f"Expected confirmation+, got {result.tier.value}: {result.notes}"
+        )
+
+    def test_p23_both_models_detected(self):
+        """Both MG and El Farol should be detected."""
+        from epc.models.minority_game import (
+            MinorityGame, MinorityGameParams,
+            ElFarolBar, ElFarolParams,
+        )
+        from epc.detectors.p23_anticoordination import P23AnticoordinationDetector
+
+        det = P23AnticoordinationDetector(n_permutations=199, seed=42)
+
+        # Minority Game
+        mg = MinorityGame(MinorityGameParams(
+            n_agents=101, memory=6, n_rounds=1000, seed=42,
+        ))
+        mg_result = det.detect(mg.simulate(), mg.get_metadata())
+
+        # El Farol
+        ef = ElFarolBar(ElFarolParams(
+            n_agents=100, capacity=60, n_rounds=1000, seed=42,
+        ))
+        ef_result = det.detect(ef.simulate(), ef.get_metadata())
+
+        assert mg_result.tier.value == "definitive", (
+            f"MG not definitive: {mg_result.summary()}"
+        )
+        assert ef_result.detected, (
+            f"El Farol not detected: {ef_result.summary()}"
+        )
+
+
 class TestP26CrossModel:
     """P26 stochastic resonance detector — T1b cross-model generalization test.
 

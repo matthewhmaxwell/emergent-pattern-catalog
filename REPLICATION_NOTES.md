@@ -6732,3 +6732,58 @@ in the coherent response estimator). The prereq is literature-grounded
 (TNR=1.000, d=+inf). dim4 pending→PASS; all 4 dims PASS → **P26 AT-DEPTH**.
 AT-DEPTH count: **23 / 24** (+1: P26). Remaining gap: P12 (dim1).
 Completes Wave 2 second pattern.
+
+## Sprint 76 — P23 Anti-coordination / Emergent Load Balancing
+
+**Pattern:** P23 — agents dynamically distribute across options to avoid
+overcrowding, producing attendance variance below the random-choice baseline.
+
+**Model:** Minority Game (Challet & Zhang 1997). N=101 agents, S=2 strategies,
+memory m controls the information set size. Control parameter α = 2^m / N.
+El Farol Bar (Arthur 1994) variant: N=100, capacity=60, linear predictors.
+
+**Detector:** P23AnticoordinationDetector. Primary metrics: scaled variance
+σ²/N vs random-choice baseline p̂(1−p̂), lag-1 autocorrelation. Null model:
+random-choice surrogate (i.i.d. Binomial(N, p̂)). Tier criteria: screening
+(mean attendance near capacity), confirmation (variance below baseline OR
+negative autocorrelation, p < 0.01), definitive (both simultaneously).
+
+**New substrate:** `choice_timeseries` — 10th substrate type. Two models
+registered (minority_game, el_farol). Registry: 27 models × 25 detectors,
+108 compatible pairs.
+
+**T1a:** Attendance/choice time series observation bundle. Adapter in
+`epc/detectors/p23_anticoordination.py::extract_observation_bundle()`.
+
+**T1b:** El Farol Bar (independent implementation) detected at confirmation
+tier — validates phenomenon recognition vs implementation specificity.
+
+### dim1 — Savit curve reproduction
+
+**Anchor:** Savit, Manuca & Riolo (1999). Adaptive competition, market
+efficiency, and phase transitions. PRL, 82(10), 2203–2206.
+
+**Reproduction:** σ²/N vs α = 2^m / N for m=1..11, N=101, 10 seeds per point,
+n_rounds=3000, burn-in=600.
+
+**Results:**
+- Interior minimum at α ≈ 0.32 (m=5): σ²/N = 0.077
+- Random baseline: σ²/N = 0.25
+- Symmetric phase (m=1): σ²/N ≈ 1.45 (>> baseline)
+- All three tolerance checks PASS (interior minimum, below baseline,
+  symmetric phase above baseline)
+
+### dim2 — Multi-seed stability
+
+25 seeds at α ≈ 0.63 (m=6, N=101, n_rounds=2000, burn-in=400):
+- σ²/N: mean=0.075, std=0.006, CV=8.7%
+- All 25 seeds detected (23 confirmation, 2 definitive)
+
+### dim3 — Methods note
+
+`docs/methods_notes/p23_methods.md`: Minority Game and El Farol dynamics,
+surrogate null design, dual-metric detection, Savit curve anchor, limitations.
+
+**Sprint 76 finding:** P23 implemented with dim1–dim3 PASS, dim4 pending
+(Sprint 77). AT-DEPTH count: **23 / 25** (inventory grew 24→25; P23 GAP
+pending dim4).

@@ -1,0 +1,117 @@
+{
+  "reproduction": "p23_savit_curve",
+  "pattern": "P23",
+  "anchor": "Savit, Manuca & Riolo (1999) \u2014 \u03c3\u00b2/N vs \u03b1 = 2^m/N",
+  "parameters": {
+    "N": 101,
+    "m_range": [
+      1,
+      11
+    ],
+    "n_rounds": 3000,
+    "burn_in": 600,
+    "n_seeds": 10
+  },
+  "curve": [
+    {
+      "memory": 1,
+      "alpha": 0.019802,
+      "scaled_variance_mean": 1.449443,
+      "scaled_variance_std": 0.502836,
+      "n_seeds": 10
+    },
+    {
+      "memory": 2,
+      "alpha": 0.039604,
+      "scaled_variance_mean": 1.250031,
+      "scaled_variance_std": 0.484161,
+      "n_seeds": 10
+    },
+    {
+      "memory": 3,
+      "alpha": 0.079208,
+      "scaled_variance_mean": 0.810946,
+      "scaled_variance_std": 0.190846,
+      "n_seeds": 10
+    },
+    {
+      "memory": 4,
+      "alpha": 0.158416,
+      "scaled_variance_mean": 0.528212,
+      "scaled_variance_std": 0.186129,
+      "n_seeds": 10
+    },
+    {
+      "memory": 5,
+      "alpha": 0.316832,
+      "scaled_variance_mean": 0.076658,
+      "scaled_variance_std": 0.03353,
+      "n_seeds": 10
+    },
+    {
+      "memory": 6,
+      "alpha": 0.633663,
+      "scaled_variance_mean": 0.078166,
+      "scaled_variance_std": 0.010002,
+      "n_seeds": 10
+    },
+    {
+      "memory": 7,
+      "alpha": 1.267327,
+      "scaled_variance_mean": 0.115232,
+      "scaled_variance_std": 0.009198,
+      "n_seeds": 10
+    },
+    {
+      "memory": 8,
+      "alpha": 2.534653,
+      "scaled_variance_mean": 0.157465,
+      "scaled_variance_std": 0.006971,
+      "n_seeds": 10
+    },
+    {
+      "memory": 9,
+      "alpha": 5.069307,
+      "scaled_variance_mean": 0.20108,
+      "scaled_variance_std": 0.010535,
+      "n_seeds": 10
+    },
+    {
+      "memory": 10,
+      "alpha": 10.138614,
+      "scaled_variance_mean": 0.218583,
+      "scaled_variance_std": 0.009,
+      "n_seeds": 10
+    },
+    {
+      "memory": 11,
+      "alpha": 20.277228,
+      "scaled_variance_mean": 0.236518,
+      "scaled_variance_std": 0.005455,
+      "n_seeds": 10
+    }
+  ],
+  "minimum": {
+    "alpha": 0.316832,
+    "memory": 5,
+    "scaled_variance": 0.076658
+  },
+  "random_baseline": 0.25,
+  "tolerance_checks": {
+    "interior_minimum": {
+      "min_index": 4,
+      "n_points": 11,
+      "pass": true
+    },
+    "below_random_baseline": {
+      "min_sv": 0.076658,
+      "threshold": 0.25,
+      "pass": true
+    },
+    "symmetric_phase_above_baseline": {
+      "max_sv_small_alpha": 1.449443,
+      "pass": true
+    }
+  },
+  "passes_tolerance": true
+}

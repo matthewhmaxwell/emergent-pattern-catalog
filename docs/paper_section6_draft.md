@@ -1016,3 +1016,14 @@ performance is not SR). Class A: 8/8 TN. Class B: 2/2 TN (advisory).
 Class C: 2/2 TN (suprathreshold_signal, extreme_noise_only). All 5 positives
 DEFINITIVE (0.900).
 **AT-DEPTH count: 23 / 24** (+1: P26). Remaining gap: P12 (dim1).
+
+**Sprint 76 (P23 anti-coordination / emergent load balancing — Milestone B Wave 2).**
+Implemented P23 end-to-end: Minority Game (Challet & Zhang 1997) + El Farol Bar
+(Arthur 1994) models, P23AnticoordinationDetector with random-choice surrogate null.
+New substrate type: choice_timeseries. T1a observation-bundle adapter for
+attendance/choice time series. T1b cross-model: El Farol detected at confirmation
+(independent implementation validates phenomenon recognition). dim1: Savit curve
+reproduced (σ²/N vs α, interior minimum at α≈0.32, σ²/N=0.077 << baseline 0.25).
+dim2: 25-seed campaign (σ²/N = 0.075 ± 0.006, CV=8.7%, all detected). dim3:
+methods note. dim4 pending (Sprint 77).
+**AT-DEPTH count: 23 / 25** (inventory grew 24→25; P23 GAP pending dim4).

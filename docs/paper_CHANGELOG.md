@@ -415,3 +415,14 @@ review at the next paper-review checkpoint.
     rejected at prerequisite (no labels). C-p7-time-shuffled-fp carry-forward opened.
 - §6: Sprint 66 AT-DEPTH count 19/20 (+1: P7 advances to AT-DEPTH).
 - analysis/outputs/p7_phase2a_panel.json: new file (Sprint 66).
+
+## Sprint 76 (2026-06-09) — P23 anti-coordination / emergent load balancing
+
+- §4.23 new subsection: P23 Minority Game / El Farol implementation, Savit curve,
+  random-choice surrogate null, T1a/T1b OOD-readiness.
+- §6: Sprint 76 AT-DEPTH count 23/25 (inventory grew 24→25; P23 added as GAP).
+- docs/observation_schema.md: attendance/choice time series bundle added.
+- docs/depth_gap.md: P23 row added, pattern count 24→25, gap count 1→2.
+- docs/methods_notes/p23_methods.md: new file.
+- analysis/outputs/p23_savit_reproduction.json: dim1 Savit curve (PASS).
+- analysis/outputs/p23_multiseed.json: dim2 25-seed campaign.

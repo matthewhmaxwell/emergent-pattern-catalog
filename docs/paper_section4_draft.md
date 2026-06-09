@@ -2797,3 +2797,43 @@ failed regimes rejected (suprathreshold_signal, extreme_noise_only — both lack
 inverted-U). Content prerequisite: inverted-U shape gates screening. Invariance
 flags: permutation_invariant=True, time_shuffle_invariant=True. dim4 PASS;
 all 4 dims PASS → AT-DEPTH.
+
+### §4.23 Sprint 76 — P23 Anti-coordination / Emergent Load Balancing (Milestone B Wave 2)
+
+**Model:** Minority Game (Challet & Zhang 1997) — N=101 agents, S=2 strategies
+per agent, binary choice with minority-wins rule. Control parameter α = 2^m / N.
+El Farol Bar (Arthur 1994) variant for T1b cross-model: N=100 agents, capacity=60,
+linear predictors.
+
+**Detector:** P23AnticoordinationDetector. Primary metrics: scaled variance σ²/N
+of attendance (compared to random-choice baseline p̂(1−p̂)), and lag-1 autocorrelation.
+Null model: random-choice surrogate (i.i.d. Binomial(N, p̂) draws). Screening requires
+mean attendance near capacity (within 20%). Confirmation requires σ²/N below baseline
+or negative autocorrelation (p < 0.01 vs surrogate). Definitive requires both.
+
+**T1a contract:** Attendance/choice time series bundle (round, attendance, n_agents,
+capacity). Documented in `docs/observation_schema.md`.
+
+**T1b cross-model:** El Farol Bar (independent implementation using linear predictors
+rather than strategy lookup tables) detected at confirmation tier — validates that
+the detector recognizes the phenomenon (anti-coordination), not the implementation
+(Minority Game strategy mechanics).
+
+**dim1 (Savit curve):** σ²/N vs α = 2^m / N for m=1..11, N=101, 10 seeds per point.
+Interior minimum at α ≈ 0.32 (m=5) with σ²/N = 0.077, well below the random baseline
+of 0.25. Symmetric (maladaptive) phase at small α shows σ²/N up to 1.45. Qualitatively
+matches Savit, Manuca & Riolo (1999, Fig. 1). Three tolerance checks PASS.
+
+**dim2 (multi-seed):** 25 seeds at α ≈ 0.63 (m=6, N=101): σ²/N = 0.075 ± 0.006
+(CV = 8.7%). All 25 seeds detected (23 confirmation, 2 definitive).
+
+**dim3 (methods note):** Authored in `docs/methods_notes/p23_methods.md`. Covers
+Minority Game dynamics, El Farol variant, random-choice surrogate null design,
+dual-metric (variance + autocorrelation) detection, Savit curve anchor, and
+limitations (autocorrelation not consistently negative at all efficient-phase seeds).
+
+**New substrate:** `choice_timeseries` — 10th substrate type. Two models
+(minority_game, el_farol) registered. Registry: 27 models × 25 detectors =
+675 cells, 108 compatible pairs.
+
+**dim4:** Pending (Sprint 77).

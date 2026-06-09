@@ -80,6 +80,41 @@ per-level coherent response.
 
 ---
 
+## Attendance/choice time series bundle (P23)
+
+**Detector:** `epc/detectors/p23_anticoordination.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key           | Type              | Description |
+|---------------|-------------------|-------------|
+| `round`       | `ndarray(T,)`     | Round number (or time index) |
+| `attendance`  | `ndarray(T,)`     | Number of agents choosing side 1 (or attending) at each round |
+| `n_agents`    | `int`             | Total number of agents |
+| `capacity`    | `float`           | Capacity threshold (N/2 for symmetric MG, stated capacity for El Farol) |
+
+**Input format:** list of dicts, each containing keys `'attendance'` and
+`'n_agents'` (both integer). Optional: `'round'` (int), `'capacity'` (int).
+The adapter extracts and stacks these into aligned numpy arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p23_anticoordination import P23AnticoordinationDetector
+
+# Any system producing dicts with attendance and n_agents works:
+history = [{'round': t, 'attendance': a, 'n_agents': N}
+           for t, a in enumerate(attendance_series)]
+
+detector = P23AnticoordinationDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `MinorityGame`, `ElFarolBar`
+(`epc/models/minority_game.py`) — both produce history dicts matching this
+schema. The Minority Game reports binary-choice attendance (side 1 count);
+El Farol reports bar attendance count.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

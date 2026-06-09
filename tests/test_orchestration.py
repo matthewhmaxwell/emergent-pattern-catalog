@@ -62,36 +62,36 @@ class TestSubstrateCounts:
 
     def test_five_substrate_types_total(self):
         substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
-        assert len(substrates) == 9, f"Expected 9 substrate types, got {substrates}"
+        assert len(substrates) == 10, f"Expected 10 substrate types, got {substrates}"
 
 
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 25, \
-            f"Expected 25 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 27, \
+            f"Expected 27 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 24, \
-            f"Expected 24 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 25, \
+            f"Expected 25 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 106, \
-            f"Expected 106 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 108, \
+            f"Expected 108 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 600, f"Expected 600 cells (25x24), got {total}"
+        assert total == 675, f"Expected 675 cells (27x25), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 600 - len(pairs)
-        assert mismatches == 494, f"Expected 494 mismatches, got {mismatches}"
+        mismatches = 675 - len(pairs)
+        assert mismatches == 567, f"Expected 567 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -112,6 +112,8 @@ class TestCanonicalPairs:
         ('kuramoto_nonlocal', 'P10'),
         ('lotka_volterra', 'P11'),
         ('voter', 'P18'),
+        ('minority_game', 'P23'),
+        ('el_farol', 'P23'),
     ])
     def test_canonical_pair_compatible(self, model_name, detector_id):
         result = check_compatibility(model_name, detector_id)
@@ -514,3 +516,42 @@ class TestSprint20Registrations:
         voter_dets = {d for m, d in get_compatible_pairs() if m == 'voter'}
         assert voter_dets == {'P1', 'P11', 'P12', 'P13', 'P15', 'P18', 'P22'}, \
             f"Expected voter to pair with 7 detectors, got {voter_dets}"
+
+
+class TestSprint76Registrations:
+    """Sprint 76: minority_game + el_farol models + P23 detector."""
+
+    def test_minority_game_registered(self):
+        assert 'minority_game' in MODEL_REGISTRY
+        m = MODEL_REGISTRY['minority_game']
+        assert m.substrate_type == 'choice_timeseries'
+        assert 'attendance' in m.observables
+        assert 'P23' in m.primary_patterns
+
+    def test_el_farol_registered(self):
+        assert 'el_farol' in MODEL_REGISTRY
+        m = MODEL_REGISTRY['el_farol']
+        assert m.substrate_type == 'choice_timeseries'
+        assert 'attendance' in m.observables
+        assert 'P23' in m.primary_patterns
+
+    def test_p23_registered(self):
+        assert 'P23' in DETECTOR_REGISTRY
+        d = DETECTOR_REGISTRY['P23']
+        assert 'choice_timeseries' in d.required_substrate
+        assert 'attendance' in d.required_observables
+        assert d.observable_scope == 'model_metadata_assisted'
+
+    def test_minority_game_p23_compatible(self):
+        r = check_compatibility('minority_game', 'P23')
+        assert r.compatible, f"minority_game × P23 should be compatible: {r.reason}"
+
+    def test_el_farol_p23_compatible(self):
+        r = check_compatibility('el_farol', 'P23')
+        assert r.compatible, f"el_farol × P23 should be compatible: {r.reason}"
+
+    def test_p23_only_choice_timeseries_models(self):
+        """P23 should only pair with choice_timeseries models."""
+        p23_models = {m for m, d in get_compatible_pairs() if d == 'P23'}
+        assert p23_models == {'minority_game', 'el_farol'}, \
+            f"Expected P23 to pair with minority_game and el_farol, got {p23_models}"

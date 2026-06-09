@@ -1,0 +1,209 @@
+{
+  "reproduction": "p23_multiseed",
+  "pattern": "P23",
+  "parameters": {
+    "N": 101,
+    "memory": 6,
+    "alpha": 0.633663,
+    "n_rounds": 2000,
+    "burn_in": 400,
+    "n_seeds": 25
+  },
+  "scaled_variance": {
+    "mean": 0.074588,
+    "std": 0.006497,
+    "cv": 0.0871,
+    "min": 0.061554,
+    "max": 0.086237
+  },
+  "lag1_autocorrelation": {
+    "mean": 0.00909,
+    "std": 0.066707
+  },
+  "detection": {
+    "tiers": {
+      "confirmation": 23,
+      "definitive": 2
+    },
+    "confidence_mean": 0.69,
+    "confidence_std": 0.0677,
+    "all_detected": true
+  },
+  "per_seed": [
+    {
+      "seed": 100,
+      "scaled_variance": 0.075443,
+      "lag1_autocorrelation": -0.040077,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 101,
+      "scaled_variance": 0.078228,
+      "lag1_autocorrelation": 0.131521,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 102,
+      "scaled_variance": 0.076282,
+      "lag1_autocorrelation": -0.114955,
+      "tier": "definitive",
+      "confidence": 0.9
+    },
+    {
+      "seed": 103,
+      "scaled_variance": 0.075989,
+      "lag1_autocorrelation": -0.039002,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 104,
+      "scaled_variance": 0.061554,
+      "lag1_autocorrelation": -0.083012,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 105,
+      "scaled_variance": 0.082441,
+      "lag1_autocorrelation": 0.034785,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 106,
+      "scaled_variance": 0.066197,
+      "lag1_autocorrelation": -0.096266,
+      "tier": "definitive",
+      "confidence": 0.9
+    },
+    {
+      "seed": 107,
+      "scaled_variance": 0.073146,
+      "lag1_autocorrelation": -0.038467,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 108,
+      "scaled_variance": 0.064449,
+      "lag1_autocorrelation": 0.000839,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 109,
+      "scaled_variance": 0.085194,
+      "lag1_autocorrelation": -0.015494,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 110,
+      "scaled_variance": 0.074416,
+      "lag1_autocorrelation": 0.084778,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 111,
+      "scaled_variance": 0.086237,
+      "lag1_autocorrelation": -0.036122,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 112,
+      "scaled_variance": 0.079012,
+      "lag1_autocorrelation": 0.089648,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 113,
+      "scaled_variance": 0.062423,
+      "lag1_autocorrelation": 0.051501,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 114,
+      "scaled_variance": 0.070675,
+      "lag1_autocorrelation": -0.01814,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 115,
+      "scaled_variance": 0.073009,
+      "lag1_autocorrelation": -0.003563,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 116,
+      "scaled_variance": 0.077148,
+      "lag1_autocorrelation": 0.01094,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 117,
+      "scaled_variance": 0.082868,
+      "lag1_autocorrelation": 0.023507,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 118,
+      "scaled_variance": 0.074087,
+      "lag1_autocorrelation": 0.053992,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 119,
+      "scaled_variance": 0.072639,
+      "lag1_autocorrelation": -0.02821,
+      "tier": "confirmation",
+      "confidence": 0.7
+    },
+    {
+      "seed": 120,
+      "scaled_variance": 0.076151,
+      "lag1_autocorrelation": 0.149815,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 121,
+      "scaled_variance": 0.080776,
+      "lag1_autocorrelation": 0.038934,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 122,
+      "scaled_variance": 0.069051,
+      "lag1_autocorrelation": 0.085104,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 123,
+      "scaled_variance": 0.074479,
+      "lag1_autocorrelation": 0.013984,
+      "tier": "confirmation",
+      "confidence": 0.65
+    },
+    {
+      "seed": 124,
+      "scaled_variance": 0.072809,
+      "lag1_autocorrelation": -0.028795,
+      "tier": "confirmation",
+      "confidence": 0.7
+    }
+  ]
+}
