@@ -4,7 +4,7 @@
 **Base HEAD (sprint start):** `c43932a` (Sprint 70 follow-up)
 **Sprint goal:** Summarize Wave 1 (P7, P17, P19), recount AT-DEPTH + implemented, HALT for operator review.
 **Tag:** `v0.71.0`
-**Sprint type:** Chat-led checkpoint. Documentation-only.
+**Sprint type:** Operator-led checkpoint. Documentation-only.
 
 ---
 
@@ -69,6 +69,20 @@ Written to `docs/milestone_b_wave1_summary.md`. Contains:
 
 ---
 
-**Decision: NO-GO**
+_(Original NO-GO review gate cleared by operator - see below.)_
 
 Milestone B Wave 1 complete; chain paused for operator review before Wave 2 (P24/P26/P23). Deliberate review gate, not a failure.
+
+---
+
+## Operator release (post-hoc, Wave 1 gate cleared)
+
+Wave 1 reviewed and accepted: P7/P17/P19 all reached AT-DEPTH (22 implemented, 21 AT-DEPTH).
+dim1 anchors verified — P17 (Spearman rho=0.90, p=0.037) and P19 (Couzin Fig 2a, monotone rho=1.0)
+are tight quantitative reproductions; P7 is a qualitative phenomenology reproduction via a published
+metric (noted for a later tightening pass, not a blocker). Wave 2 (contained dynamical systems:
+P24 homeostasis, P26 stochastic resonance, P23 minority game) is queued as Sprints 72-77 with
+OOD-readiness (T1a observation contract + T1b cross-model test) baked in, and a Wave-2 review gate
+at Sprint 78. The chain proceeds.
+
+**Override Decision: GO**
