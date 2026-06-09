@@ -23,6 +23,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p26
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p23
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p16
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p25
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -75,6 +76,7 @@ from epc.phase2a.failed_regimes import p24_homeostasis as p24_failed
 from epc.phase2a.failed_regimes import p26_stochastic_resonance as p26_failed
 from epc.phase2a.failed_regimes import p23_anticoordination as p23_failed
 from epc.phase2a.failed_regimes import p16_hopfield as p16_failed
+from epc.phase2a.failed_regimes import p25_equifinality as p25_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1663,6 +1665,62 @@ def run_p16(out_path: str = "analysis/outputs/p16_phase2a_panel.json", verbose: 
     )
 
 
+def build_p25_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P25 canonical positive: CanalizedLandscape at default params.
+
+    10-dimensional gradient-flow landscape with quartic potential.
+    basin_strength=2.0, ic_spread=5.0, 20 ICs, 200 steps. All ICs
+    converge to the target via nonlinear dynamics.
+    """
+    from epc.models.canalization import CanalizedLandscape, CanalizedLandscapeParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        params = CanalizedLandscapeParams(
+            n_dims=10, basin_strength=2.0, ic_spread=5.0,
+            n_ics=20, n_steps=200, seed=seed,
+        )
+        model = CanalizedLandscape(params)
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p25_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p25_equifinality import P25EquifinalityDetector
+    detector = P25EquifinalityDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p25(out_path: str = "analysis/outputs/p25_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P25 (equifinality) Phase-2a panel v1.2.
+
+    detector_format="canalization_bundle": P25 operates on multi-IC observation
+    bundles (state, step, trial, ic, target, distance_to_target, converged).
+    Class A synthetic substrates are random non-converging trajectories → P25
+    rejects at screening (convergence ratio ≥ 0.1).
+    Class B: 0 catalog mates (only canalization_landscape pattern); 2 supplements
+    (diffusive_multi_ic, homeostatic_regulation_bundle).
+    Class C: narrow_basin (basin_volume < 0.8) + divergent_dynamics (ratio >> 0.1).
+    """
+    print(f"--- Running P25 panel → {out_path}")
+    positives, metadata = build_p25_positives(n_seeds=5)
+    detector_fn = make_p25_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P25",
+        detector_format="canalization_bundle",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p25_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1716,6 +1774,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P23"] = run_p23()
     if which in ("p16",):
         summaries["P16"] = run_p16()
+    if which in ("p25",):
+        summaries["P25"] = run_p25()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

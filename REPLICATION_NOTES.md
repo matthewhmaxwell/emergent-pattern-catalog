@@ -6942,3 +6942,29 @@ Reference: Waddington, C. H. (1957). The Strategy of the Genes. Allen & Unwin.
 
 Sprint 81 finding: P25 dims 1–3 PASS. dim4 pending (Sprint 82). P25 added
 to depth_gap as GAP (dim4 pending). AT-DEPTH count remains 25 / 27.
+
+## Replication Result 5: dim4 Phase-2a Panel (Sprint 82)
+
+- Panel version: v1.2
+- Detector format: canalization_bundle
+- Invariance flags: permutation_invariant=True, time_shuffle_invariant=True
+- Content prerequisite: basin_volume ≥ 0.5 at screening (Waddington 1957)
+- 5 canonical positives: all DEFINITIVE (confidence 0.90)
+- Class A (synthetic nulls): 8/8 evaluated rejected (2 skipped as degenerate)
+  - random_uniform, random_gaussian, random_binary, spatial_white_noise,
+    temporal_white_noise, constant, linear_gradient, checkerboard: all score=0.000
+  - permutation_shuffled: SKIPPED (permutation_invariant)
+  - time_shuffled: SKIPPED (time_shuffle_invariant)
+- Class B (catalog mates + supplements): 0 catalog mates, 2/2 supplements rejected
+  - diffusive_multi_ic: score=0.000 (ratio >> 0.1, screening fails)
+  - homeostatic_regulation_bundle: score=0.000 (basin_volume < 0.5 due to
+    noise-induced fluctuation around setpoint → screening prerequisite fails)
+- Class C (failed regimes): 2/2 rejected
+  - narrow_basin: score=0.000 (only near-target ICs converge)
+  - divergent_dynamics: score=0.000 (ICs repelled from target)
+- Overall TNR: 1.000
+- Cohen's d (positive vs negative): +inf (all negatives scored 0.000)
+- Verdict: **PASS**
+
+Sprint 82 finding: P25 dim4 PASS. All 4 dims PASS → P25 **AT-DEPTH**.
+AT-DEPTH count: 26 / 27 (P12 sole remaining GAP).

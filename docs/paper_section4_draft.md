@@ -2947,3 +2947,22 @@ gate, T1b GRN cross-model. **T1b.** MultiBasinGRN DEFINITIVE (0.90).
 **New substrate:** `canalization_landscape` — 12th substrate type. Two models
 (canalized_landscape, multi_basin_grn) registered. Registry: 31 models ×
 27 detectors = 837 cells, 112 compatible pairs.
+
+**dim4 (Sprint 82).** Phase-2a panel v1.2 PASS (TNR = 1.000, Cohen's d = +∞).
+New `canalization_bundle` detector format for multi-IC observation bundles.
+Invariance: convergence variance ratio is permutation-invariant over the IC
+ensemble (aggregate statistic) and time-shuffle-degenerate (observation bundle
+sorts by step labels, preserving IC/final extraction). Both shuffled Class A
+substrates skipped. Content prerequisite added at screening: basin volume ≥ 0.5
+(Waddington 1957: equifinality requires that a meaningful fraction of the IC
+range converges to the target, not just that the variance ratio is low). This
+prerequisite discriminates P25 from noisy homeostatic regulation (P24), where
+the regulated variable fluctuates near the setpoint without reliably converging
+within the convergence threshold. Class A: 8/8 evaluated synthetics rejected
+(random walks, constant, divergent — all fail screening via convergence ratio
+≥ 0.1 or basin volume < 0.5). Class B: 0 catalog mates (unique substrate type);
+2 supplements rejected (diffusive_multi_ic: ratio >> 0.1; homeostatic_regulation_bundle:
+basin volume < 0.5 due to noise-induced fluctuation around setpoint). Class C:
+2 failed regimes rejected (narrow_basin: basin volume << 0.8; divergent_dynamics:
+ratio >> 0.1). 5 canonical positives all DEFINITIVE (0.90). P25 dim4
+pending → PASS; all 4 dims PASS → **AT-DEPTH**.

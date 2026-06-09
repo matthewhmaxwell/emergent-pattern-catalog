@@ -302,6 +302,9 @@ def run_panel(
     elif detector_format == "noise_sweep":
         # Noise-sweep generators use their own defaults; n_steps unused.
         class_a_kwargs = {}
+    elif detector_format == "canalization_bundle":
+        # Canalization-bundle generators use their own defaults (n_ics, n_dims).
+        pass  # n_steps already in class_a_kwargs
 
     class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):

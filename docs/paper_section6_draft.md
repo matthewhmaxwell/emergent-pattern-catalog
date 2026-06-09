@@ -1062,3 +1062,15 @@ dim2: 20 seeds, all DEFINITIVE. dim3: methods note. T1b: MultiBasinGRN
 DEFINITIVE. Registry: 31 models × 27 detectors = 837 cells, 112 compatible
 pairs. dim4 pending (Sprint 82).
 **AT-DEPTH count: 25 / 27** (P12, P25 GAP — P25 dim4 pending).
+
+**Sprint 82 — P25 equifinality dim4 Phase-2a panel.** Panel v1.2 PASS
+(TNR=1.000, d=+inf). New `canalization_bundle` detector format for multi-IC
+observation bundles. Invariance: convergence variance ratio permutation-invariant
+over IC ensemble (aggregate statistic) + time-shuffle degenerate (step labels
+preserved during extraction). Content prerequisite: basin_volume ≥ 0.5 at
+screening (Waddington 1957: equifinality requires wide-IC convergence),
+discriminating from noisy homeostatic regulation (P24). Class A: 8/8 rejected.
+Class B: 2/2 supplements rejected (diffusive_multi_ic, homeostatic_regulation_bundle).
+Class C: 2/2 failed regimes rejected (narrow_basin, divergent_dynamics). 5
+positives DEFINITIVE. P25 dim4 pending→PASS; all 4 dims PASS → **AT-DEPTH**.
+**AT-DEPTH count: 26 / 27** (P12 sole remaining GAP).

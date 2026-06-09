@@ -94,6 +94,11 @@ STATE_VECTOR_DEFAULT_P = 5           # default number of stored patterns
 STATE_VECTOR_DEFAULT_TRIALS = 5      # default number of retrieval trials
 STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL = 10  # default steps per trial
 
+# Canalization bundle defaults (P25 equifinality panel)
+CANAL_DEFAULT_N_ICS = 20             # default number of initial conditions
+CANAL_DEFAULT_N_DIMS = 10            # default state-space dimensionality
+CANAL_DEFAULT_N_STEPS = 200          # default steps per trajectory
+
 
 def _noise_sweep_history(
     x_per_level: List[np.ndarray],
@@ -227,6 +232,52 @@ def _state_vector_null_history(
                 'stored_patterns': stored_patterns.copy(),
                 'converged': step == n_steps_per_trial - 1,
             })
+    return history
+
+
+def _canalization_bundle_null(
+    rng: np.random.Generator,
+    n_ics: int = CANAL_DEFAULT_N_ICS,
+    n_dims: int = CANAL_DEFAULT_N_DIMS,
+    n_steps: int = CANAL_DEFAULT_N_STEPS,
+    dynamics: str = "random_walk",
+) -> List[Dict[str, Any]]:
+    """Null canalization bundle: non-converging multi-IC trajectories.
+
+    Generates observation-bundle-format histories where ICs do NOT converge
+    to a common target. P25 should reject at screening (convergence variance
+    ratio ≥ 0.1) or at observation-bundle extraction (missing keys → no detect).
+
+    Parameters
+    ----------
+    dynamics : str
+        "random_walk" — pure diffusion (default).
+        "constant" — ICs stay in place (no dynamics, spread preserved).
+        "divergent" — ICs actively repel from target.
+    """
+    target = rng.standard_normal(n_dims)
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_ics):
+        x = rng.standard_normal(n_dims) * 5.0
+        ic = x.copy()
+        for step in range(n_steps):
+            dist = float(np.linalg.norm(x - target))
+            history.append({
+                'state': x.copy(),
+                'step': step,
+                'trial': trial,
+                'ic': ic.copy(),
+                'target': target.copy(),
+                'distance_to_target': dist,
+                'converged': dist < 0.1,
+            })
+            if dynamics == "random_walk":
+                x = x + rng.standard_normal(n_dims) * 0.1
+            elif dynamics == "divergent":
+                delta = x - target
+                norm = np.linalg.norm(delta) + 1e-12
+                x = x + 0.05 * delta / norm + rng.standard_normal(n_dims) * 0.05
+            # "constant" → x unchanged
     return history
 
 
@@ -371,6 +422,8 @@ def random_uniform_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -421,6 +474,8 @@ def random_gaussian_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -473,6 +528,8 @@ def random_binary_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -527,6 +584,8 @@ def spatial_white_noise_series(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -608,6 +667,8 @@ def temporal_white_noise_per_cell(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="divergent")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -740,6 +801,11 @@ def permutation_shuffled_positive(
             new_h['stored_patterns'] = np.asarray(h['stored_patterns'])[:, perm].copy()
             out.append(new_h)
         return out
+    if format == "canalization_bundle":
+        # Permute trial indices in the positive — convergence variance ratio
+        # is invariant under IC relabelling → degenerate-by-construction.
+        # Will be skipped by permutation_invariant=True.
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -868,6 +934,8 @@ def constant_field(
                     'stored_patterns': stored_patterns.copy(), 'converged': True,
                 })
         return history
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="constant")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -939,6 +1007,8 @@ def linear_gradient_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="divergent")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1033,6 +1103,8 @@ def periodic_checkerboard(
                     'stored_patterns': stored_patterns.copy(), 'converged': True,
                 })
         return history
+    if format == "canalization_bundle":
+        return _canalization_bundle_null(rng, dynamics="constant")
     raise ValueError(f"unknown format: {format}")
 
 

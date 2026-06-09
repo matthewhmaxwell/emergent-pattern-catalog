@@ -61,6 +61,8 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P19_informed_minority": {"n_particles": 200, "box_size": 10.0, "speed": 0.03, "noise": 0.1, "interaction_radius": 1.0, "informed_fraction": 0.1, "bias_weight": 0.3, "preferred_direction": 0.0, "n_steps": 200, "seed": 0},
     # P24 proportional homeostat: canonical regulated regime (gain=5.0, sustained perturbation).
     "P24_proportional_homeostat": {"gain": 5.0, "setpoint": 10.0, "dt": 0.1, "noise_std": 0.5, "n_steps": 1000, "pert_onset": 50.0, "pert_amplitude": 5.0, "seed": 0},
+    # P25 canalized landscape: canonical equifinality regime (wide ICs → convergence).
+    "P25_canalized_landscape": {"n_dims": 10, "basin_strength": 2.0, "ic_spread": 5.0, "n_ics": 20, "n_steps": 200, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -389,6 +391,19 @@ def _gen_p24_proportional_homeostat(p: Dict[str, Any]) -> Dict[str, Any]:
             "pert_amplitude": float(p["pert_amplitude"])}
 
 
+def _gen_p25_canalized_landscape(p: Dict[str, Any]) -> Dict[str, Any]:
+    """CanalizedLandscape canonical equifinality trajectory (canalization_bundle)."""
+    from epc.models.canalization import CanalizedLandscape, CanalizedLandscapeParams
+    params = CanalizedLandscapeParams(
+        n_dims=p["n_dims"], basin_strength=p["basin_strength"],
+        ic_spread=p["ic_spread"], n_ics=p["n_ics"],
+        n_steps=p["n_steps"], seed=p["seed"],
+    )
+    model = CanalizedLandscape(params)
+    history = model.simulate()
+    return {"kind": "canalization_bundle", "history": history}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -412,6 +427,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P17_collective_sensing": _gen_p17_collective_sensing,
     "P19_informed_minority": _gen_p19_informed_minority,
     "P24_proportional_homeostat": _gen_p24_proportional_homeostat,
+    "P25_canalized_landscape": _gen_p25_canalized_landscape,
 }
 
 
@@ -1103,6 +1119,37 @@ def _adapt_to_state_vector(
     return history
 
 
+def _adapt_to_canalization_bundle(
+    native: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to canalization_bundle format.
+
+    For native canalization_bundle substrates, returns the stored history
+    directly. For all other substrate types, generates random non-converging
+    multi-IC trajectories — P25 should reject at screening (high convergence
+    ratio) or at observation-bundle extraction (missing keys).
+    """
+    if native.get("kind") == "canalization_bundle":
+        return native["history"]
+    # Non-canalization substrates: random diffusive trajectories.
+    rng = np.random.default_rng(42)
+    n_dims, n_ics, n_steps = 10, 20, 200
+    target = rng.standard_normal(n_dims)
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_ics):
+        x = rng.standard_normal(n_dims) * 5.0
+        ic = x.copy()
+        for step in range(n_steps):
+            dist = float(np.linalg.norm(x - target))
+            history.append({
+                'state': x.copy(), 'step': step, 'trial': trial,
+                'ic': ic.copy(), 'target': target.copy(),
+                'distance_to_target': dist, 'converged': dist < 0.1,
+            })
+            x = x + rng.standard_normal(n_dims) * 0.1
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1133,6 +1180,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_scalar_timeseries(native, target_steps=target_steps)
     if target_format == "state_vector":
         return _adapt_to_state_vector(native, target_steps=target_steps)
+    if target_format == "canalization_bundle":
+        return _adapt_to_canalization_bundle(native)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1186,6 +1235,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P26": "P26_bistable_double_well",  # Sprint 75; noise_sweep_timeseries
     "P23": "P23_minority_game",  # Sprint 77; choice_timeseries
     "P16": "P16_hopfield",  # Sprint 80; state_vector (attractor_network)
+    "P25": "P25_canalized_landscape",  # Sprint 82; canalization_bundle
 }
 
 

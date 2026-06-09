@@ -294,20 +294,35 @@ class P25EquifinalityDetector:
             'convergence_variance_ratio': conv_ratio,
         }
 
-        # ── SCREENING: convergence ratio < 0.1 ──
-        screening_pass = conv_ratio < 0.1
-        if not screening_pass:
-            return self._no_detection(
-                primary_metric=primary,
-                warnings=warnings + [
-                    f"Convergence ratio too high ({conv_ratio:.4f} ≥ 0.1)"
-                ],
-                metadata_available=metadata_available,
-            )
-
-        # ── Secondary metrics ──
+        # ── Secondary metrics (computed early for screening gate) ──
         basin_vol = _basin_volume(converged)
         relax_time = _median_relaxation_time(steps_to_conv, n_steps)
+
+        # ── SCREENING: convergence ratio < 0.1 AND basin volume ≥ 0.5 ──
+        # Equifinality (Waddington 1957) requires convergence from a wide
+        # IC range: a meaningful fraction of ICs must actually reach the
+        # target (basin_vol ≥ 0.5), not just that the variance ratio is
+        # low. This prerequisite distinguishes equifinality from noisy
+        # regulation (P24) where the regulated variable hovers near the
+        # setpoint but does not reliably converge within the convergence
+        # threshold.
+        screening_pass = conv_ratio < 0.1 and basin_vol >= 0.5
+        if not screening_pass:
+            fail_reasons = []
+            if conv_ratio >= 0.1:
+                fail_reasons.append(
+                    f"Convergence ratio too high ({conv_ratio:.4f} ≥ 0.1)"
+                )
+            if basin_vol < 0.5:
+                fail_reasons.append(
+                    f"Basin volume too low ({basin_vol:.3f} < 0.5); "
+                    "equifinality requires a wide IC range to converge"
+                )
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=warnings + fail_reasons,
+                metadata_available=metadata_available,
+            )
 
         # Get perturbation info from metadata
         perturbation_time = None

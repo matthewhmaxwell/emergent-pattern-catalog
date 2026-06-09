@@ -641,6 +641,64 @@ def single_attractor_network(
     return history
 
 
+# --- Canalization-landscape supplements (P25 equifinality) ------------------
+
+def diffusive_multi_ic(seed: int) -> List[Dict[str, Any]]:
+    """Pure diffusion from random ICs — no convergence to common target.
+
+    P25 should reject at screening: Var(finals) ≥ Var(ICs) (ratio ≥ 1.0).
+    """
+    rng = np.random.default_rng(seed)
+    n_dims, n_ics, n_steps = 10, 20, 200
+    target = rng.standard_normal(n_dims)
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_ics):
+        x = rng.standard_normal(n_dims) * 5.0
+        ic = x.copy()
+        for step in range(n_steps):
+            dist = float(np.linalg.norm(x - target))
+            history.append({
+                'state': x.copy(), 'step': step, 'trial': trial,
+                'ic': ic.copy(), 'target': target.copy(),
+                'distance_to_target': dist, 'converged': dist < 0.1,
+            })
+            x = x + rng.standard_normal(n_dims) * 0.2
+    return history
+
+
+def homeostatic_regulation_bundle(seed: int) -> List[Dict[str, Any]]:
+    """Homeostatic regulation (P24) repackaged as canalization bundle.
+
+    A regulated scalar variable tracks a setpoint under perturbation.
+    This is mechanistically different from equifinality (cybernetic regulation
+    vs geometric basin convergence). Packaged as multi-trial canalization
+    bundle where each "trial" is a scalar trajectory. P25 may detect
+    convergence (all trials reach setpoint) but the mechanism is regulation,
+    not basin-driven canalization. This tests P25's discrimination from P24.
+    """
+    rng = np.random.default_rng(seed)
+    n_trials, n_steps = 20, 200
+    setpoint = 10.0
+    gain = 5.0
+    dt = 0.05
+    history: List[Dict[str, Any]] = []
+    target_arr = np.array([setpoint])
+    for trial in range(n_trials):
+        x_val = rng.uniform(0.0, 20.0)
+        ic_arr = np.array([x_val])
+        for step in range(n_steps):
+            state_arr = np.array([x_val])
+            dist = abs(x_val - setpoint)
+            history.append({
+                'state': state_arr.copy(), 'step': step, 'trial': trial,
+                'ic': ic_arr.copy(), 'target': target_arr.copy(),
+                'distance_to_target': dist, 'converged': dist < 0.1,
+            })
+            # Proportional control + noise
+            x_val += gain * (setpoint - x_val) * dt + rng.normal(0, 0.5) * np.sqrt(dt)
+    return history
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -653,6 +711,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "noise_sweep_timeseries": ["monotone_suprathreshold_sweep", "flat_noise_only_sweep"],
     "choice_timeseries": ["consensus_herding_attendance", "random_choice_attendance"],
     "attractor_network": ["random_weights_network", "single_attractor_network"],
+    "canalization_landscape": ["diffusive_multi_ic", "homeostatic_regulation_bundle"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -674,4 +733,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "random_choice_attendance": random_choice_attendance,
     "random_weights_network": random_weights_network,
     "single_attractor_network": single_attractor_network,
+    "diffusive_multi_ic": diffusive_multi_ic,
+    "homeostatic_regulation_bundle": homeostatic_regulation_bundle,
 }

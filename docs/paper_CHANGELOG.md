@@ -4,6 +4,24 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 82 (2026-06-09)
+
+- §4.25 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=+inf). Invariance
+  flags, content prerequisite (basin_volume ≥ 0.5), per-class results.
+- §6: Sprint 82 entry added. AT-DEPTH count 25→26/27 (P25 GAP→AT-DEPTH).
+- docs/depth_gap.md: P25 row updated (pending→PASS, GAP→AT-DEPTH), AT-DEPTH
+  count 25→26, gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 82 P25 dim4 section added.
+- epc/phase2a/detector_invariance.py: P25 flags added (perm=True, time=True).
+- epc/phase2a/synthetic.py: canalization_bundle format added to all 10 generators.
+- epc/phase2a/structured.py: 2 canalization_landscape supplements.
+- epc/phase2a/failed_regimes/p25_equifinality.py: new file (2 regimes).
+- epc/phase2a/catalog.py: P25 substrate generator + PATTERN_TO_SUBSTRATE_ID entry.
+- epc/detectors/p25_equifinality.py: content prerequisite (basin_volume ≥ 0.5)
+  at screening (Waddington 1957: wide-IC convergence required).
+- analysis/run_phase2a_panel.py: P25 panel runner wired.
+- analysis/outputs/p25_phase2a_panel.json: dim4 panel output (PASS).
+
 ## Sprint 81 (2026-06-09)
 - epc/models/canalization.py: NEW — CanalizedLandscape (gradient-flow + quartic potential), MultiBasinGRN (sigmoidal GRN with Hebbian weights), DiffusiveDynamics (negative control), TrivialCollapse (negative control).
 - epc/detectors/p25_equifinality.py: NEW — P25 equifinality detector with convergence variance ratio, IC-distribution surrogate null, trivial-collapse gate, T1a observation-bundle adapter.

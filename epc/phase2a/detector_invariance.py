@@ -145,6 +145,16 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "trial (all post-convergence steps identical), so "
                                       "time_shuffled preserves the signal → degenerate-by-"
                                       "construction."),
+    "P25": InvarianceFlags(True,  True,  "convergence variance ratio Var(finals)/Var(ICs)",
+                            rationale="perm_inv=True: convergence variance ratio is computed "
+                                      "over the IC ensemble — permuting trial indices does not "
+                                      "change per-dimension variances → permutation_shuffled is "
+                                      "degenerate-by-construction. time_shuffle_inv=True: "
+                                      "the observation bundle sorts records by (trial, step); "
+                                      "ICs and finals are the first/last records per trial. "
+                                      "Shuffling temporal order of list entries preserves step "
+                                      "labels, so sorted extraction recovers original ICs/finals → "
+                                      "time_shuffled is degenerate-by-construction."),
     "P23": InvarianceFlags(True,  True,  "σ²/N of attendance + lag-1 autocorrelation",
                             rationale="perm_inv=True: σ²/N is computed over attendance counts, "
                                       "which are scalar sums over agents — permuting agent indices "
