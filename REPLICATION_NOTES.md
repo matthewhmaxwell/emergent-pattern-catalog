@@ -6633,3 +6633,61 @@ fai=1.000 (2/2). Cohen's d=+inf. Verdict: **PASS**.
 **Sprint 73 finding:** P24 dim4 pending→PASS; all four dimensions now PASS →
 P24 advances to **AT-DEPTH**. AT-DEPTH count: **22 / 23** (+1: P24).
 Remaining gap: P12 (dim1). Completes Wave 2 first pattern.
+
+---
+
+## P26 Stochastic Resonance
+
+### Sprint 74 (dim1 + dim2 + dim3)
+
+**Reference:** Gammaitoni, L., Hänggi, P., Jung, P., & Marchesoni, F. (1998).
+Stochastic resonance. *Rev. Mod. Phys.* 70(1), 223–287.
+Collins, J. J., Chow, C. C., & Imhoff, T. T. (1995). Stochastic resonance
+without tuning. *Nature*, 376(6537), 236–238.
+
+**Model:** Bistable double-well — overdamped particle in V(x) = −ax²/2 + bx⁴/4,
+driven by subthreshold periodic signal A·sin(2πft) + Gaussian noise √(2D)·ξ(t).
+Parameters: a=4.0, b=1.0 (barrier=4.0), A=1.0, f=0.005, dt=0.01, n_steps=20000,
+n_trials=20. Wells at x=±2, barrier at x=0. Second model: ThresholdUnit
+(threshold=1.0, signal_amplitude=0.7) for T1b cross-model generalization.
+
+**Detector:** Coherent response |⟨x · signal⟩| — absolute mean of x times the
+driving signal. Performance metric is sensitive to both amplitude and phase of
+the response. At zero noise, x stays in one well → tiny oscillation → small
+metric. At optimal noise, synchronized inter-well hopping → large metric. At
+high noise, random hopping → metric ≈ 0. Null model: time-shuffle x at peak
+noise level (199 permutations), destroying temporal synchronization while
+preserving the marginal distribution. Three tiers: screening (gain > 0.02),
+confirmation (inverted-U shape + p < 0.05), definitive (gain > 0.05, decline
+> 0.02, d > 1.0, p ≤ 0.005 + subthreshold metadata gate).
+
+**T1a observation contract:** Five aligned arrays — time, x, signal,
+noise_level, noise_level_idx. Any system producing these keys is testable
+without modification.
+
+**dim1:** Bistable double-well (seed=42, n_trials=20, n_steps=20000):
+- Peak noise: D = 1.5 (interior, idx=7 of 15)
+- Peak coherent response: 0.918
+- Zero-noise coherent response: 0.063
+- Gain over zero: 0.855 (tolerance > 0.05, PASS)
+- Decline after peak: 0.811 (tolerance > 0.02, PASS)
+- Interior argmax: PASS
+- Detector tier: DEFINITIVE (confidence=0.90, p ≤ 0.005)
+- All 4 tolerance checks PASS.
+
+**dim2:** 20-seed campaign — see `analysis/outputs/p26_multiseed.json`.
+
+**dim3:** Methods note covers bistable double-well dynamics, ThresholdUnit
+variant, coherent response metric (why not Pearson correlation, FFT SNR, or
+period-averaged amplitude), time-shuffle null (why not noise-level shuffle,
+phase-randomization, or circular shift), multi-trial averaging design, tier
+criteria, and four key design decisions.
+
+**T1b cross-model:** ThresholdUnit (threshold=1.0, amplitude=0.7) tested with
+the same P26 detector: DEFINITIVE (p ≤ 0.005). Confirms detector recognizes
+the *phenomenon* (stochastic resonance), not the specific implementation
+(bistable double-well vs threshold unit).
+
+**Sprint 74 finding:** P26 added to inventory. dim1-3 PASS, dim4 pending.
+AT-DEPTH count: **22 / 24** (inventory grew 23→24; AT-DEPTH unchanged).
+Second Wave-2 pattern.

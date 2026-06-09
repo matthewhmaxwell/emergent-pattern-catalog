@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-8 substrate types:
+9 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -15,9 +15,10 @@ by substrate type.
 - opinion_space: Hegselmann-Krause
 - scalar_wealth: Yard-Sale (Sprint 17, new)
 - scalar_timeseries: Proportional/Integral Homeostat (Sprint 72)
+- noise_sweep_timeseries: BistableDoubleWell/ThresholdUnit (Sprint 74)
 
-Architecture decision #25 (updated Sprint 72):
-  24 models × 23 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 74):
+  25 models × 24 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -326,6 +327,16 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'controller_type', 'has_active_feedback',
                        'has_perturbation', 'model_class'],
     ),
+    'bistable_double_well': ModelRegistration(
+        name='bistable_double_well',
+        substrate_type='noise_sweep_timeseries',
+        observables=['x', 'signal', 'noise_level', 'noise_level_idx', 'time'],
+        primary_patterns=['P26'],
+        metadata_keys=['a', 'b', 'signal_amplitude', 'signal_frequency',
+                       'barrier_height', 'dt', 'n_steps', 'seed',
+                       'has_subthreshold_signal', 'has_noise_sweep',
+                       'model_class'],
+    ),
 }
 
 # === Detector Registry ===
@@ -467,6 +478,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P24',
         required_substrate=['scalar_timeseries'],
         required_observables=['x', 'setpoint', 'perturbation'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P26': DetectorRegistration(
+        pattern_id='P26',
+        required_substrate=['noise_sweep_timeseries'],
+        required_observables=['x', 'signal', 'noise_level'],
         observable_scope='model_metadata_assisted',
     ),
 }

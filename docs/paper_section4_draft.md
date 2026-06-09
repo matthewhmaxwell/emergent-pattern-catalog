@@ -2746,3 +2746,44 @@ the sole scalar_timeseries pattern) + 2 supplements (passive OU decay, uncontrol
 random walk) both rejected. Class C: gain=0 drift rejected at screening,
 no-perturbation rejected at prerequisite. All 5 positives DEFINITIVE (0.900).
 P24 advances to AT-DEPTH.
+
+### §4.26 Sprint 74 — P26 Stochastic Resonance (Milestone B Wave 2)
+
+**Pattern:** P26 — noise improves system performance at an intermediate
+optimal level, producing an inverted-U performance-vs-noise curve. The
+defining signature is that too little noise yields no signal detection,
+too much noise destroys the signal, but a sweet spot amplifies it.
+
+**Model:** `BistableDoubleWell` — overdamped particle in V(x) = −ax²/2 + bx⁴/4,
+driven by a subthreshold periodic signal A·sin(2πft) plus Gaussian noise of
+intensity D. With a=4, b=1 (barrier height 4.0), A=1.0, f=0.005. At zero noise
+the particle stays in one well with tiny intra-well oscillation. At optimal
+noise (D ≈ 1.5) the Kramers escape rate matches the signal frequency, producing
+inter-well hopping synchronized with the signal. At high noise, hopping is
+random and unsynchronized. A second variant (`ThresholdUnit` — binary threshold
+detector with subthreshold signal) provides an independent implementation for
+T1b cross-model generalization.
+
+**Detector:** Coherent response metric |⟨x · signal⟩| — the absolute value of
+the time-averaged product of x and the driving signal. This metric is sensitive
+to both amplitude and phase: at zero noise, x tracks signal phase with
+negligible amplitude → small metric; at optimal noise, large synchronized
+inter-well hopping → large metric; at high noise, random hopping → metric
+averages to ~0. Null model: time-shuffle x at peak noise level, destroying
+temporal synchronization while preserving the marginal distribution. Screening:
+gain > 0.02. Confirmation: inverted-U shape (interior peak with rise and fall),
+p < 0.05. Definitive: gain > 0.05, decline > 0.02, Cohen's d > 1.0,
+p ≤ 0.005, metadata confirms subthreshold signal.
+
+**T1a observation contract:** The detector reads a noise-sweep observation
+bundle via `extract_observation_bundle()` — five aligned arrays (time, x,
+signal, noise_level, noise_level_idx). Any system producing these keys is
+testable without modification.
+
+**Reproduction:** Peak noise D = 1.5, peak coherent response = 0.918,
+zero-noise = 0.063, gain = 0.855 (tolerance > 0.05), decline = 0.811
+(tolerance > 0.02). Interior peak at idx 7 of 15. DEFINITIVE (confidence=0.90).
+
+**T1b cross-model:** Threshold unit also reaches DEFINITIVE, confirming the
+detector recognizes the phenomenon (stochastic resonance) rather than the
+specific implementation (bistable double-well vs binary threshold).

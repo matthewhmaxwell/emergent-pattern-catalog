@@ -43,6 +43,43 @@ result = detector.detect(history)
 
 ---
 
+## Noise-sweep-timeseries bundle (P26)
+
+**Detector:** `epc/detectors/p26_stochastic_resonance.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key              | Type              | Description |
+|------------------|-------------------|-------------|
+| `time`           | `ndarray(T,)`     | Timestamps (monotonically increasing within each noise level) |
+| `x`              | `ndarray(T,)`     | System output at each timestep |
+| `signal`         | `ndarray(T,)`     | Driving signal value at each timestep |
+| `noise_level`    | `ndarray(T,)`     | Noise intensity D for this timestep |
+| `noise_level_idx`| `ndarray(T,)`     | Integer index of the noise level (for grouping) |
+
+**Input format:** list of dicts, each containing keys `'time'`, `'x'`,
+`'signal'`, `'noise_level'`, `'noise_level_idx'` (all numeric scalars).
+The adapter extracts and stacks these into aligned numpy arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p26_stochastic_resonance import P26StochasticResonanceDetector
+
+# Any system producing dicts with these five keys works:
+history = [{'time': t, 'x': x_val, 'signal': s, 'noise_level': D, 'noise_level_idx': idx}
+           for t, x_val, s, D, idx in zip(times, xs, signals, noise_levels, indices)]
+
+detector = P26StochasticResonanceDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `BistableDoubleWell`, `ThresholdUnit`
+(`epc/models/stochastic_resonance.py`) — both produce history dicts matching
+this schema. The bundle concatenates all noise levels and trials into a single
+flat sequence; the detector groups by `noise_level_idx` to compute the
+per-level coherent response.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

@@ -993,3 +993,14 @@ DEFINITIVE (0.900).
 dim4 pending→PASS; all four dimensions PASS → P24 advances to **AT-DEPTH**.
 **AT-DEPTH count: 22 / 23** (+1: P24). Remaining gap: P12 (dim1).
 Completes Wave 2 first pattern.
+
+**Sprint 74 (P26 implementation, AT-DEPTH +0).**
+P26 (stochastic resonance) — second Wave-2 pattern. BistableDoubleWell +
+ThresholdUnit models, P26 detector with coherent-response metric and
+time-shuffle null, T1a noise-sweep observation-bundle adapter, T1b
+cross-model generalization. New substrate type: noise_sweep_timeseries.
+dim1: gain = 0.855 over zero noise (PASS). dim2: 20-seed campaign: peak
+coherent response = 0.897 ± 0.049 (CV=5.4%), gain = 0.833 ± 0.049 (CV=5.8%),
+all 20 seeds DEFINITIVE (PASS). dim3: methods note (PASS). dim4 pending
+(future sprint).
+**AT-DEPTH count: 22 / 24** (inventory grew 23→24; AT-DEPTH unchanged).

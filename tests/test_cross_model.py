@@ -181,3 +181,59 @@ class TestP24CrossModel:
         assert i_result.tier.value == "definitive", (
             f"Integral not definitive: {i_result.summary()}"
         )
+
+
+class TestP26CrossModel:
+    """P26 stochastic resonance detector — T1b cross-model generalization test.
+
+    The detector must fire on a SECOND, independent SR implementation
+    (threshold unit) that it was NOT tuned on. This is the minimum
+    evidence that the detector recognizes the *phenomenon* (stochastic
+    resonance), not its *implementation* (bistable double-well).
+    """
+
+    def test_p26_on_threshold_unit_detected(self):
+        """P26 must detect on threshold unit (independent implementation)."""
+        from epc.models.stochastic_resonance import ThresholdUnit, ThresholdUnitParams
+        from epc.detectors.p26_stochastic_resonance import P26StochasticResonanceDetector
+
+        params = ThresholdUnitParams(seed=42)
+        model = ThresholdUnit(params)
+        history = model.simulate()
+        det = P26StochasticResonanceDetector(n_permutations=199, seed=42)
+        result = det.detect(history, model.get_metadata())
+        assert result.detected, (
+            f"P26 not detected on threshold unit: {result.notes}"
+        )
+        assert result.tier.value in ("confirmation", "definitive"), (
+            f"Expected confirmation+, got {result.tier.value}"
+        )
+
+    def test_p26_both_models_definitive(self):
+        """Both SR implementations should reach definitive tier."""
+        from epc.models.stochastic_resonance import (
+            BistableDoubleWell, ThresholdUnit,
+            DoubleWellParams, ThresholdUnitParams,
+        )
+        from epc.detectors.p26_stochastic_resonance import P26StochasticResonanceDetector
+
+        det = P26StochasticResonanceDetector(n_permutations=199, seed=42)
+
+        # Double-well
+        dw_params = DoubleWellParams(seed=42, n_trials=20, n_steps=20000)
+        dw_model = BistableDoubleWell(dw_params)
+        dw_hist = dw_model.simulate()
+        dw_result = det.detect(dw_hist, dw_model.get_metadata())
+
+        # Threshold unit
+        tu_params = ThresholdUnitParams(seed=42)
+        tu_model = ThresholdUnit(tu_params)
+        tu_hist = tu_model.simulate()
+        tu_result = det.detect(tu_hist, tu_model.get_metadata())
+
+        assert dw_result.tier.value == "definitive", (
+            f"Double-well not definitive: {dw_result.tier.value}"
+        )
+        assert tu_result.tier.value == "definitive", (
+            f"Threshold unit not definitive: {tu_result.tier.value}"
+        )

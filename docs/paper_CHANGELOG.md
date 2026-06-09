@@ -4,6 +4,21 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 74 (2026-06-09)
+- epc/models/stochastic_resonance.py: new model — bistable double-well (Gammaitoni 1998 / Collins 1995) + threshold unit (T1b). Multi-trial noise-sweep design: n_trials independent runs per noise level.
+- epc/detectors/p26_stochastic_resonance.py: new detector — coherent response |⟨x·signal⟩|, time-shuffle null at peak noise level, three-tier inverted-U detection.
+- epc/orchestration.py: +1 model (bistable_double_well, noise_sweep_timeseries), +1 detector (P26). Counts 25 models × 24 detectors, 106 compatible pairs. New substrate: noise_sweep_timeseries.
+- tests/test_stochastic_resonance_p26_e2e.py: 12 tests. Determinism, DEFINITIVE on canonical double-well, suprathreshold negative control, T1a observation bundle, threshold unit T1b.
+- tests/test_cross_model.py: +2 T1b cross-model tests (P26 threshold unit generalization).
+- analysis/reproductions/p26_collins.py: dim1 reproduction — gain 0.855 (> 0.05 tolerance), interior peak, DEFINITIVE.
+- analysis/reproductions/p26_multiseed.py: dim2 — 20-seed campaign.
+- docs/methods_notes/p26_methods.md: dim3 — coherent response metric, time-shuffle null, multi-trial design, design decisions.
+- docs/observation_schema.md: +1 noise-sweep-timeseries bundle schema (P26).
+- docs/depth_gap.md: +P26 row (dim1-3 PASS, dim4 pending). Implemented count 23→24.
+- REPLICATION_NOTES.md: Sprint 74 P26 section added.
+- docs/paper_section4_draft.md: §4.26 P26 stochastic resonance.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 73 (2026-06-09)
 - epc/phase2a/synthetic.py: added `scalar_timeseries` format to all 10 Class A generators. Uncontrolled drift trajectories (dx = perturbation·dt + noise) produce growth_ratio >> 2.0 → P24 rejects at screening.
 - epc/phase2a/detector_invariance.py: +P24 invariance flags (permutation_invariant=True, time_shuffle_invariant=True). First run confirmed time_shuffled FP at DEFINITIVE; flag corrected to True (deviation integral is order-invariant for constant dt).
