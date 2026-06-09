@@ -62,36 +62,36 @@ class TestSubstrateCounts:
 
     def test_five_substrate_types_total(self):
         substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
-        assert len(substrates) == 10, f"Expected 10 substrate types, got {substrates}"
+        assert len(substrates) == 11, f"Expected 11 substrate types, got {substrates}"
 
 
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 27, \
-            f"Expected 27 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 29, \
+            f"Expected 29 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 25, \
-            f"Expected 25 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 26, \
+            f"Expected 26 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 108, \
-            f"Expected 108 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 110, \
+            f"Expected 110 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 675, f"Expected 675 cells (27x25), got {total}"
+        assert total == 754, f"Expected 754 cells (29x26), got {total}"
 
     def test_mismatch_count(self):
         pairs = get_compatible_pairs()
-        mismatches = 675 - len(pairs)
-        assert mismatches == 567, f"Expected 567 mismatches, got {mismatches}"
+        mismatches = 754 - len(pairs)
+        assert mismatches == 644, f"Expected 644 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
@@ -114,6 +114,8 @@ class TestCanonicalPairs:
         ('voter', 'P18'),
         ('minority_game', 'P23'),
         ('el_farol', 'P23'),
+        ('hopfield', 'P16'),
+        ('boolean_grn', 'P16'),
     ])
     def test_canonical_pair_compatible(self, model_name, detector_id):
         result = check_compatibility(model_name, detector_id)

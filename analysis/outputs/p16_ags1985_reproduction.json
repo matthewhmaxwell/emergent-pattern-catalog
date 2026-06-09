@@ -1,0 +1,134 @@
+{
+  "reproduction": "p16_ags1985",
+  "pattern": "P16",
+  "reference": "Amit, Gutfreund & Sompolinsky (1985) PRL 55(14)",
+  "parameters": {
+    "N": 500,
+    "n_seeds": 10,
+    "corruption": 0.2,
+    "alpha_sweep": [
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.2,
+      0.22,
+      0.25
+    ]
+  },
+  "results": [
+    {
+      "alpha": 0.02,
+      "P": 10,
+      "mean_overlap": 1.0,
+      "std_overlap": 0.0,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.04,
+      "P": 20,
+      "mean_overlap": 1.0,
+      "std_overlap": 0.0,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.06,
+      "P": 30,
+      "mean_overlap": 0.9997999999999999,
+      "std_overlap": 0.00026832815729994523,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.08,
+      "P": 40,
+      "mean_overlap": 0.99856,
+      "std_overlap": 0.001540908822740683,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.1,
+      "P": 50,
+      "mean_overlap": 0.99192,
+      "std_overlap": 0.010901449444913253,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.12,
+      "P": 60,
+      "mean_overlap": 0.9311200000000002,
+      "std_overlap": 0.06808037602716366,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.14,
+      "P": 70,
+      "mean_overlap": 0.8007200000000001,
+      "std_overlap": 0.07252007722003609,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.16,
+      "P": 80,
+      "mean_overlap": 0.6148399999999999,
+      "std_overlap": 0.08797062236906138,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.18,
+      "P": 90,
+      "mean_overlap": 0.43635999999999997,
+      "std_overlap": 0.06273307261724073,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.2,
+      "P": 100,
+      "mean_overlap": 0.37296000000000007,
+      "std_overlap": 0.04273348101898556,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.22,
+      "P": 110,
+      "mean_overlap": 0.34879999999999994,
+      "std_overlap": 0.03682390527904393,
+      "n_seeds": 10
+    },
+    {
+      "alpha": 0.25,
+      "P": 125,
+      "mean_overlap": 0.3086,
+      "std_overlap": 0.033177462229652205,
+      "n_seeds": 10
+    }
+  ],
+  "tolerance_checks": {
+    "transition_alpha": {
+      "measured": 0.1728686687584043,
+      "target": 0.138,
+      "tolerance": [
+        0.1,
+        0.2
+      ],
+      "passes": true
+    },
+    "low_load_overlap": {
+      "measured": 0.9997999999999999,
+      "alpha": 0.06,
+      "threshold": 0.9,
+      "passes": true
+    },
+    "high_load_failure": {
+      "measured": 0.37296000000000007,
+      "alpha": 0.2,
+      "threshold": 0.5,
+      "passes": true
+    }
+  },
+  "passes_tolerance": true
+}

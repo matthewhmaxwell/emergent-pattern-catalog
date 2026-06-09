@@ -294,3 +294,61 @@ class TestP26CrossModel:
         assert tu_result.tier.value == "definitive", (
             f"Threshold unit not definitive: {tu_result.tier.value}"
         )
+
+
+class TestP16CrossModel:
+    """P16 associative memory detector — T1b cross-model generalization test.
+
+    The detector must fire on a SECOND, independent attractor system
+    (Boolean GRN) that it was NOT tuned on. This is the minimum
+    evidence that the detector recognizes the *phenomenon* (associative
+    memory / pattern completion), not its *implementation* (Hopfield).
+    """
+
+    def test_p16_on_boolean_grn_detected(self):
+        """P16 must detect on Boolean GRN (independent implementation)."""
+        from epc.models.hopfield import BooleanGRN, BooleanGRNParams
+        from epc.detectors.p16_associative_memory import P16AssociativeMemoryDetector
+
+        params = BooleanGRNParams(N=50, P=4, corruption=0.2, seed=42)
+        model = BooleanGRN(params)
+        history = model.simulate(n_cues=4, cue_pattern_indices=[0, 1, 2, 3])
+        det = P16AssociativeMemoryDetector(n_permutations=199, seed=42)
+        result = det.detect(history, model.get_metadata())
+        assert result.detected, (
+            f"P16 not detected on Boolean GRN: {result.notes}"
+        )
+        assert result.tier.value in ("confirmation", "definitive"), (
+            f"Expected confirmation+, got {result.tier.value}"
+        )
+
+    def test_p16_both_models_detected(self):
+        """Both Hopfield and Boolean GRN should be detected."""
+        from epc.models.hopfield import (
+            HopfieldNetwork, HopfieldParams,
+            BooleanGRN, BooleanGRNParams,
+        )
+        from epc.detectors.p16_associative_memory import P16AssociativeMemoryDetector
+
+        det = P16AssociativeMemoryDetector(n_permutations=199, seed=42)
+
+        # Hopfield
+        hop = HopfieldNetwork(HopfieldParams(N=100, P=5, corruption=0.2, seed=42))
+        hop_result = det.detect(
+            hop.simulate(n_cues=5, cue_pattern_indices=[0, 1, 2, 3, 4]),
+            hop.get_metadata(),
+        )
+
+        # Boolean GRN
+        grn = BooleanGRN(BooleanGRNParams(N=50, P=4, corruption=0.2, seed=42))
+        grn_result = det.detect(
+            grn.simulate(n_cues=4, cue_pattern_indices=[0, 1, 2, 3]),
+            grn.get_metadata(),
+        )
+
+        assert hop_result.tier.value == "definitive", (
+            f"Hopfield not definitive: {hop_result.summary()}"
+        )
+        assert grn_result.detected, (
+            f"Boolean GRN not detected: {grn_result.summary()}"
+        )

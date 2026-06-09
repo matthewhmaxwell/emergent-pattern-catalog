@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-10 substrate types:
+11 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -17,6 +17,7 @@ by substrate type.
 - scalar_timeseries: Proportional/Integral Homeostat (Sprint 72)
 - noise_sweep_timeseries: BistableDoubleWell/ThresholdUnit (Sprint 74)
 - choice_timeseries: MinorityGame/ElFarolBar (Sprint 76)
+- attractor_network: Hopfield, BooleanGRN (Sprint 79)
 
 Architecture decision #25 (updated Sprint 76):
   27 models × 25 detectors — compatible pairs identified by substrate.
@@ -356,6 +357,25 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'history_length', 'seed', 'model_class',
                        'has_strategy_adaptation', 'has_capacity_threshold'],
     ),
+    'hopfield': ModelRegistration(
+        name='hopfield',
+        substrate_type='attractor_network',
+        observables=['state', 'overlap', 'stored_patterns'],
+        primary_patterns=['P16'],
+        metadata_keys=['N', 'P', 'alpha', 'corruption', 'max_steps', 'seed',
+                       'model_class', 'has_multiple_attractors',
+                       'has_content_addressable_memory', 'update_mode'],
+    ),
+    'boolean_grn': ModelRegistration(
+        name='boolean_grn',
+        substrate_type='attractor_network',
+        observables=['state', 'overlap', 'stored_patterns'],
+        primary_patterns=['P16'],
+        metadata_keys=['N', 'P', 'alpha', 'corruption', 'max_steps', 'seed',
+                       'model_class', 'has_multiple_attractors',
+                       'has_content_addressable_memory', 'update_mode',
+                       'network_type'],
+    ),
 }
 
 # === Detector Registry ===
@@ -509,6 +529,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P23',
         required_substrate=['choice_timeseries'],
         required_observables=['attendance'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P16': DetectorRegistration(
+        pattern_id='P16',
+        required_substrate=['attractor_network'],
+        required_observables=['state', 'stored_patterns'],
         observable_scope='model_metadata_assisted',
     ),
 }

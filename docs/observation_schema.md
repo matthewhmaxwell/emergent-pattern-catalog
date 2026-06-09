@@ -115,6 +115,43 @@ El Farol reports bar attendance count.
 
 ---
 
+## Attractor-network state-vector bundle (P16)
+
+**Detector:** `epc/detectors/p16_associative_memory.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key               | Type              | Description |
+|-------------------|-------------------|-------------|
+| `state`           | `ndarray(N,)`     | Binary neuron states (±1) at each timestep |
+| `step`            | `int`             | Update sweep number within the current trial |
+| `trial`           | `int`             | Trial index (which cue presentation) |
+| `cue_pattern_idx` | `int`             | Index of the stored pattern used as cue |
+| `overlap`         | `float`           | Overlap m = (1/N) Σ ξ_i s_i with the cued pattern |
+| `stored_patterns` | `ndarray(P, N)`   | The P stored template patterns |
+| `converged`       | `bool`            | Whether the network has reached a fixed point |
+
+**Input format:** list of dicts, each containing the keys above. The adapter
+groups records by `trial` and extracts per-trial state trajectories, overlaps,
+and convergence status. The stored patterns array is read from the first record.
+
+**Usage example:**
+```python
+from epc.detectors.p16_associative_memory import P16AssociativeMemoryDetector
+
+# Any system producing dicts with these keys works:
+history = [{'state': s, 'step': t, 'trial': tr, 'cue_pattern_idx': idx,
+            'overlap': m, 'stored_patterns': patterns, 'converged': conv}
+           for ...]
+
+detector = P16AssociativeMemoryDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `HopfieldNetwork`, `BooleanGRN`
+(`epc/models/hopfield.py`) — both produce history dicts matching this schema.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

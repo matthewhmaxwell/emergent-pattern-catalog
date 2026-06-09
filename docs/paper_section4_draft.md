@@ -2849,3 +2849,51 @@ Class C: 2/2 failed regimes rejected (`random_agents` σ²/N at baseline,
 variance (σ² > 0) + variance strictly below random baseline at confirmation
 (Savit et al. 1999). 5 positives: 4 confirmation, 1 definitive. All 4 dims
 PASS → P23 **AT-DEPTH**.
+
+### §4.16 P16 — Associative memory / pattern completion (Hopfield)
+
+**Model:** Standard Hopfield network (Hopfield, 1982). N binary neurons (±1), P
+random stored patterns via Hebbian weights (w_ij = (1/N) Σ_μ ξ_i^μ ξ_j^μ, zero
+diagonal), asynchronous sign-update dynamics. Canonical positive: N=100, P=5
+(α=0.05), 20% cue corruption. T1b cross-model: Boolean gene-regulatory network
+with identical attractor structure.
+
+**Detector:** P16 pattern completion accuracy — overlap of converged state with
+nearest stored pattern, averaged across cue trials. Screening: completion above
+max(0.5, chance + 0.2). Confirmation: accuracy > 0.7, recall > 0.5, null p < 0.01.
+Definitive: multiple (≥2) distinct patterns selectively recalled from their
+respective cues, accuracy > 0.8, null p < 0.01.
+
+**Null model:** Random-weights surrogate. Replace Hebbian weights with weights
+from P random (non-stored) patterns; attempt retrieval of original stored patterns.
+Null mean overlap ≈ 0.17 (N=100), Cohen's d ≈ 12.
+
+**Canonical result:** All 5 patterns selectively recalled with mean overlap 0.956.
+Detector reaches DEFINITIVE (confidence=0.90). Random-weights negative control:
+not detected. T1b Boolean GRN: DEFINITIVE.
+
+**T1a contract:** Attractor-network state-vector bundle (state, step, trial,
+cue_pattern_idx, overlap, stored_patterns, converged). Documented in
+`docs/observation_schema.md`.
+
+**T1b cross-model:** Boolean GRN with 4 designed attractor states (N=50) detected
+at DEFINITIVE — validates that the detector recognizes associative memory, not
+Hopfield-specific dynamics.
+
+**dim1 (AGS1985 capacity):** α sweep at N=500, 10 seeds per point. Perfect
+retrieval at α ≤ 0.10 (overlap ≈ 1.0). Sharp breakdown: overlap drops from 0.93
+(α=0.12) to 0.37 (α=0.20). Transition midpoint α ≈ 0.173 (finite-size shifted
+from N→∞ value 0.138; tolerance [0.10, 0.20] PASS). Low-load overlap 1.000 > 0.90
+(PASS). High-load overlap 0.373 < 0.50 (PASS). All three tolerance checks PASS.
+
+**dim2 (multi-seed):** 20 seeds at α=0.05 (N=100, P=5): completion accuracy =
+1.000 ± 0.000 (CV=0.0%). All 20 seeds DEFINITIVE.
+
+**dim3 (methods note):** Authored in `docs/methods_notes/p16_methods.md`. Covers
+Hopfield and BooleanGRN dynamics, T1a observation contract, three-tier detection
+pipeline, random-weights null model, AGS1985 capacity reproduction, and the
+finite-size shift documented at N=500.
+
+**New substrate:** `attractor_network` — 11th substrate type. Two models
+(hopfield, boolean_grn) registered. Registry: 29 models × 26 detectors =
+754 cells, 110 compatible pairs.
