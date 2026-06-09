@@ -123,3 +123,61 @@ class TestP6OnModels:
             assert r.tier.value == "screening", (
                 f"P6 unexpectedly confirmed on standard Vicsek: {r.summary()}"
             )
+
+
+class TestP24CrossModel:
+    """P24 homeostasis detector — T1b cross-model generalization test.
+
+    The detector must fire on a SECOND, independent homeostat implementation
+    (integral controller) that it was NOT tuned on. This is the minimum
+    evidence that the detector recognizes the *phenomenon* (homeostatic
+    regulation), not its *implementation* (proportional control).
+    """
+
+    def test_p24_on_integral_homeostat_detected(self):
+        """P24 must detect on integral controller (independent implementation)."""
+        from epc.models.homeostasis import IntegralHomeostat, HomeostatParams, PerturbationSchedule
+        from epc.detectors.p24_homeostasis import P24HomeostasisDetector
+
+        params = HomeostatParams(gain=2.0, setpoint=10.0, seed=42, dt=0.1)
+        schedule = PerturbationSchedule(onset=50.0, amplitude=5.0)
+        model = IntegralHomeostat(params)
+        history = model.simulate(2000, schedule=schedule)
+        det = P24HomeostasisDetector(n_permutations=199, seed=42)
+        result = det.detect(history, model.get_metadata())
+        assert result.detected, (
+            f"P24 not detected on integral homeostat: {result.summary()}"
+        )
+        assert result.tier.value in ("confirmation", "definitive"), (
+            f"Expected confirmation+, got {result.tier.value}: {result.summary()}"
+        )
+
+    def test_p24_integral_vs_proportional_both_definitive(self):
+        """Both controller types should reach definitive tier."""
+        from epc.models.homeostasis import (
+            ProportionalHomeostat, IntegralHomeostat,
+            HomeostatParams, PerturbationSchedule,
+        )
+        from epc.detectors.p24_homeostasis import P24HomeostasisDetector
+
+        schedule = PerturbationSchedule(onset=50.0, amplitude=5.0)
+        det = P24HomeostasisDetector(n_permutations=199, seed=42)
+
+        # Proportional
+        p_params = HomeostatParams(gain=5.0, setpoint=10.0, seed=42, dt=0.1)
+        p_model = ProportionalHomeostat(p_params)
+        p_hist = p_model.simulate(2000, schedule=schedule)
+        p_result = det.detect(p_hist, p_model.get_metadata())
+
+        # Integral
+        i_params = HomeostatParams(gain=2.0, setpoint=10.0, seed=42, dt=0.1)
+        i_model = IntegralHomeostat(i_params)
+        i_hist = i_model.simulate(2000, schedule=schedule)
+        i_result = det.detect(i_hist, i_model.get_metadata())
+
+        assert p_result.tier.value == "definitive", (
+            f"Proportional not definitive: {p_result.summary()}"
+        )
+        assert i_result.tier.value == "definitive", (
+            f"Integral not definitive: {i_result.summary()}"
+        )

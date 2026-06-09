@@ -2708,3 +2708,31 @@ minority subset. P18 (voter consensus) involves symmetric opinion pooling, not
 minority→majority directional steering. The Phase-2a panel confirms clean
 discrimination against all continuous_2d catalog mates via the informed_mask
 prerequisite.
+
+### §4.28 Sprint 72 — P24 Homeostatic regulation (Milestone B Wave 2)
+
+**Pattern:** P24 — a scalar regulated variable maintained near a set-point
+despite sustained external perturbation, through active negative feedback.
+First Wave-2 pattern (contained dynamical systems).
+
+**Model:** `ProportionalHomeostat` — dx/dt = −gain × (x − setpoint) + perturbation(t).
+With gain = 0 the system drifts linearly under perturbation; with gain > 0 the
+deviation is bounded at perturbation/gain. A second variant (`IntegralHomeostat`,
+PID with P=0, I=gain, D=0) provides an independent implementation for T1b
+cross-model generalization.
+
+**Detector:** Surrogate uncontrolled null — generate trajectories by integrating
+dx = perturbation × dt (no feedback), compare deviation integral against observed.
+Screening: deviation growth ratio ≤ 2.0 (bounded). Confirmation: p < 0.01.
+Definitive: deviation ratio < 0.3, Cohen's d > 1.0.
+
+**T1a observation contract:** The detector reads a scalar-regulated-variable
+observation bundle via `extract_observation_bundle()` — four aligned arrays
+(time, x, setpoint, perturbation). Any system producing these keys is testable.
+
+**Reproduction:** Controlled deviation integral = 149.75; uncontrolled = 56,175.
+Deviation ratio = 0.0027 (tolerance < 0.30). 20-seed multi-seed: CV = 0.8%.
+
+**T1b cross-model:** Integral controller also reaches DEFINITIVE, confirming the
+detector recognizes the phenomenon (homeostatic regulation) rather than the
+specific controller implementation.

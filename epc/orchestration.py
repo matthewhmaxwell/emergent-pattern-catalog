@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-7 substrate types:
+8 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -14,9 +14,14 @@ by substrate type.
 - oscillator: Kuramoto, Kuramoto-nonlocal
 - opinion_space: Hegselmann-Krause
 - scalar_wealth: Yard-Sale (Sprint 17, new)
+- scalar_timeseries: Proportional/Integral Homeostat (Sprint 72)
 
-Architecture decision #25 (updated Sprint 69):
-  23 models × 22 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 72):
+  24 models × 23 detectors — compatible pairs identified by substrate.
+  Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
+  substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
+  the T1a observation-bundle adapter (scalar-regulated-variable bundle)
+  to read time series of (time, x, setpoint, perturbation). See ADR 57.
   Gray-Scott (Sprint 13) occupies the lattice_2d_continuous substrate;
   P3 (Sprint 13) is restricted to it by registration. Nagel-Schreckenberg
   (Sprint 15) shares lattice_1d with Zhang but is the only lattice_1d
@@ -312,6 +317,15 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_alignment_rule', 'has_attraction_rule',
                        'has_informed_minority'],
     ),
+    'proportional_homeostat': ModelRegistration(
+        name='proportional_homeostat',
+        substrate_type='scalar_timeseries',
+        observables=['x', 'setpoint', 'perturbation', 'time', 'deviation'],
+        primary_patterns=['P24'],
+        metadata_keys=['gain', 'setpoint', 'dt', 'noise_std', 'seed',
+                       'controller_type', 'has_active_feedback',
+                       'has_perturbation', 'model_class'],
+    ),
 }
 
 # === Detector Registry ===
@@ -447,6 +461,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P19',
         required_substrate=['continuous_2d'],
         required_observables=['headings'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P24': DetectorRegistration(
+        pattern_id='P24',
+        required_substrate=['scalar_timeseries'],
+        required_observables=['x', 'setpoint', 'perturbation'],
         observable_scope='model_metadata_assisted',
     ),
 }

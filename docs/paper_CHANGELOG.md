@@ -4,6 +4,20 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 72 (2026-06-09)
+- epc/models/homeostasis.py: new model — Ashby (1956) proportional + integral homeostat. Scalar regulated variable with negative-feedback control under external perturbation.
+- epc/detectors/p24_homeostasis.py: new detector — deviation-integral vs surrogate uncontrolled null, growth-ratio screening, T1a observation-bundle adapter.
+- epc/orchestration.py: +1 model (proportional_homeostat, scalar_timeseries), +1 detector (P24). Counts 24 models × 23 detectors, 105 compatible pairs. New substrate: scalar_timeseries.
+- tests/test_homeostasis_p24_e2e.py: 13 tests. Determinism, DEFINITIVE on canonical gain=5, gain=0 negative control, T1a observation bundle, pulse perturbation, metadata interaction.
+- tests/test_cross_model.py: +2 T1b cross-model tests (P24 integral controller generalization).
+- analysis/outputs/p24_homeostasis_reproduction.json: dim1 reproduction — deviation ratio 0.0027 (< 0.30 tolerance).
+- analysis/outputs/p24_multiseed.json: dim2 — 20-seed campaign, deviation integral CV=0.8%, all DEFINITIVE.
+- docs/methods_notes/p24_methods.md: dim3 — surrogate null, T1a contract, proportional vs integral control.
+- docs/observation_schema.md: new — T1a scalar-regulated-variable bundle schema.
+- docs/depth_gap.md: +P24 row (dim1–3 PASS, dim4 pending). Implemented count 22→23, gap count 1→2.
+- docs/paper_section4_draft.md: §4.28 stub — P24 characterization.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 70 (2026-06-08)
 - epc/phase2a/failed_regimes/p19_informed_minority.py: new — Class C failed regimes (5 rho_zero + 5 bias_zero).
 - epc/phase2a/catalog.py: +1 substrate (P19_informed_minority) + generator + PATTERN_TO_SUBSTRATE_ID entry.

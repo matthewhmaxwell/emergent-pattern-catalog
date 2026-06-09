@@ -1,0 +1,34 @@
+{
+  "reproduction": "p24_homeostasis",
+  "pattern": "P24",
+  "anchor": "Ashby (1956) \u2014 negative-feedback homeostat",
+  "parameters": {
+    "gain_controlled": 5.0,
+    "gain_uncontrolled": 0.0,
+    "setpoint": 10.0,
+    "perturbation_amplitude": 5.0,
+    "perturbation_onset": 50.0,
+    "dt": 0.1,
+    "n_steps": 2000,
+    "seed": 42
+  },
+  "deviation_integral_controlled": 149.75,
+  "deviation_integral_uncontrolled": 56175.025,
+  "deviation_ratio": 0.002666,
+  "ss_deviation_controlled": 1.0,
+  "ss_deviation_uncontrolled": 649.75,
+  "detector_tier": "definitive",
+  "detector_confidence": 0.9,
+  "tolerance_checks": {
+    "ratio_lt_0.30": {
+      "value": 0.002666,
+      "threshold": 0.3,
+      "pass": true
+    },
+    "detector_confirmation_plus": {
+      "tier": "definitive",
+      "pass": true
+    }
+  },
+  "passes_tolerance": true
+}
