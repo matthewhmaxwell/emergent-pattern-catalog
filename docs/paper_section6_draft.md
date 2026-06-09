@@ -1074,3 +1074,16 @@ Class B: 2/2 supplements rejected (diffusive_multi_ic, homeostatic_regulation_bu
 Class C: 2/2 failed regimes rejected (narrow_basin, divergent_dynamics). 5
 positives DEFINITIVE. P25 dim4 pending→PASS; all 4 dims PASS → **AT-DEPTH**.
 **AT-DEPTH count: 26 / 27** (P12 sole remaining GAP).
+
+**Sprint 83 — P20 quorum sensing / threshold-activated response.** New pattern
+P20 implemented end-to-end: AutoinducerQuorum model (mean-field bacterial QS
+ODE with positive-feedback hysteresis), P20QuorumSensingDetector (step-function
+R² primary metric, density-shuffle null), FractionThresholdModel (T1b cross-
+model), GradedResponseModel (negative control). New substrate type
+`density_sweep_timeseries` (13th). T1a observation bundle: density-sweep
+with up/down sweeps for hysteresis detection. dim1: step R²=1.000, hysteresis
+width=1.190, DEFINITIVE. dim2: 20 seeds all DEFINITIVE. dim3: methods note.
+T1b: FractionThresholdModel DEFINITIVE. Negative control (graded response)
+rejected at screening. Registry: 33 models × 28 detectors = 924 cells, 114
+compatible pairs. dim4 pending (Sprint 84).
+**AT-DEPTH count: 26 / 28** (P12, P20 GAP — P20 dim4 pending).

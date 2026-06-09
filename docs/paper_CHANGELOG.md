@@ -4,6 +4,22 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 83 (2026-06-09)
+
+- epc/models/quorum_sensing.py: NEW — AutoinducerQuorum (canonical), FractionThresholdModel (T1b), GradedResponseModel (negative control).
+- epc/detectors/p20_quorum_sensing.py: NEW — P20 quorum sensing detector with step-function R² metric, density-shuffle null, hysteresis analysis, T1a adapter.
+- epc/orchestration.py: +density_sweep_timeseries substrate (13th), +autoinducer_quorum model, +fraction_threshold model, +P20 detector. Registry: 33 models × 28 detectors = 924 cells, 114 compatible pairs.
+- tests/test_quorum_sensing_p20_e2e.py: NEW — 15 tests (canonical positive, negative control, T1a bundle, determinism).
+- tests/test_cross_model.py: +TestP20OnModels (3 T1b tests: autoinducer, fraction_threshold, graded rejection).
+- analysis/reproductions/p20_quorum.py: NEW (dim1).
+- analysis/reproductions/p20_multiseed.py: NEW (dim2).
+- analysis/outputs/p20_quorum_reproduction.json: dim1 output (PASS).
+- analysis/outputs/p20_multiseed.json: dim2 output (20 seeds, all DEFINITIVE).
+- docs/methods_notes/p20_methods.md: NEW (dim3).
+- docs/observation_schema.md: density-sweep-timeseries bundle (P20).
+- docs/depth_gap.md: P20 row added (dims 1–3 PASS, dim4 pending → GAP). Audited 27→28, gap 1→2.
+- §4 paper draft: P20 section added.
+
 ## Sprint 82 (2026-06-09)
 
 - §4.25 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=+inf). Invariance

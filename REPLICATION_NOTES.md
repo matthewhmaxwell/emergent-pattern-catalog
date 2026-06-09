@@ -6968,3 +6968,49 @@ to depth_gap as GAP (dim4 pending). AT-DEPTH count remains 25 / 27.
 
 Sprint 82 finding: P25 dim4 PASS. All 4 dims PASS → P25 **AT-DEPTH**.
 AT-DEPTH count: 26 / 27 (P12 sole remaining GAP).
+
+---
+
+## P20 Quorum Sensing / Threshold-Activated Response (Sprint 83)
+
+Reference: Waters, C. M. & Bassler, B. L. (2005). Quorum sensing:
+cell-to-cell communication in bacteria. Annual Review of Cell and
+Developmental Biology, 21, 319–346.
+
+**Model:** AutoinducerQuorum — mean-field bacterial quorum-sensing ODE.
+Autoinducer concentration C depends on density × production rate, with
+enhanced production when agents are ON (positive feedback). Agents switch
+ON at C > 1.5, OFF at C < 1.0. Density swept up (0.1→3.0, 40 levels)
+then down (3.0→0.1), 300 equilibration steps per level.
+
+**Detector:** P20QuorumSensingDetector — step-function R² primary metric
+(best-fit step function to equilibrium fraction_on vs density curve).
+Density-shuffle null: permute fraction values across density levels,
+re-fit step function. Hysteresis via 0.5-crossing detection on up/down
+sweeps. T1a adapter reads density-sweep observation bundle.
+
+**dim1 (Sprint 83):**
+- Step-function R² = 1.000 (tolerance > 0.9: PASS)
+- Critical density = 1.401
+- Hysteresis width = 1.190 (tolerance > 0.1: PASS)
+- Activation density = 1.401, deactivation density = 0.212
+- Detector: DEFINITIVE (confidence 0.90)
+- All 3 tolerance checks PASS.
+
+**dim2 (Sprint 83):**
+- 20-seed campaign (seeds 42–61):
+  - Step R²: 1.000 ± 0.000 (CV ≈ 0%)
+  - Critical density: 1.401 ± 0.000
+  - Hysteresis width: 1.190 ± 0.000
+  - All 20 seeds DEFINITIVE
+  - CV ≈ 0%: high-SNR regime; noise (σ=0.02) negligible vs threshold gap (0.5)
+
+**T1b cross-model (Sprint 83):**
+- FractionThresholdModel: DEFINITIVE (confidence 0.90)
+  - Step R² = 1.000, hysteresis width = 0.892
+  - Independent mechanism: fraction-threshold with density-dependent seeding
+- GradedResponseModel: NOT detected (negative control)
+  - Rejected at screening: no OFF→ON transition (f_high − f_low = 0.37 < 0.5)
+
+Sprint 83 finding: P20 dims 1–3 PASS. dim4 pending (Sprint 84).
+AT-DEPTH count: 26 / 28 (P12, P20 GAP).

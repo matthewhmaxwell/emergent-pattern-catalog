@@ -392,3 +392,41 @@ class TestP25OnModels:
         det = P25EquifinalityDetector(n_permutations=99, seed=42)
         r = det.detect(h, model.get_metadata())
         assert not r.detected, f"P25 false positive on diffusive: {r.summary()}"
+
+
+class TestP20OnModels:
+    """P20 quorum sensing detector across model families (T1b)."""
+
+    def test_p20_on_autoinducer_quorum_detected(self):
+        """P20 should detect on canonical AutoinducerQuorum."""
+        from epc.models.quorum_sensing import AutoinducerQuorum, AutoinducerParams
+        from epc.detectors.p20_quorum_sensing import P20QuorumSensingDetector
+
+        model = AutoinducerQuorum(AutoinducerParams(seed=42))
+        h = model.simulate()
+        det = P20QuorumSensingDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P20 not detected on AutoinducerQuorum: {r.summary()}"
+        assert r.tier.value == "definitive"
+
+    def test_p20_on_fraction_threshold_detected(self):
+        """P20 should detect on FractionThresholdModel (T1b cross-model)."""
+        from epc.models.quorum_sensing import FractionThresholdModel, FractionThresholdParams
+        from epc.detectors.p20_quorum_sensing import P20QuorumSensingDetector
+
+        model = FractionThresholdModel(FractionThresholdParams(seed=42))
+        h = model.simulate()
+        det = P20QuorumSensingDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P20 not detected on FractionThreshold: {r.summary()}"
+
+    def test_p20_on_graded_not_detected(self):
+        """P20 should NOT detect on graded response (no threshold)."""
+        from epc.models.quorum_sensing import GradedResponseModel
+        from epc.detectors.p20_quorum_sensing import P20QuorumSensingDetector
+
+        model = GradedResponseModel(seed=42)
+        h = model.simulate()
+        det = P20QuorumSensingDetector(n_permutations=99, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert not r.detected, f"P20 false positive on graded: {r.summary()}"

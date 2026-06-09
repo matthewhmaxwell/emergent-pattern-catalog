@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-12 substrate types:
+13 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -19,9 +19,10 @@ by substrate type.
 - choice_timeseries: MinorityGame/ElFarolBar (Sprint 76)
 - attractor_network: Hopfield, BooleanGRN (Sprint 79)
 - canalization_landscape: CanalizedLandscape, MultiBasinGRN (Sprint 81)
+- density_sweep_timeseries: AutoinducerQuorum, FractionThreshold (Sprint 83)
 
-Architecture decision #25 (updated Sprint 76):
-  27 models × 25 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 83):
+  33 models × 28 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -396,6 +397,29 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'model_class', 'has_canalized_basin',
                        'has_perturbation_recovery'],
     ),
+    'autoinducer_quorum': ModelRegistration(
+        name='autoinducer_quorum',
+        substrate_type='density_sweep_timeseries',
+        observables=['density', 'concentration', 'collective_state',
+                     'fraction_on', 'sweep_direction'],
+        primary_patterns=['P20'],
+        metadata_keys=['n_agents', 'activation_threshold', 'deactivation_threshold',
+                       'base_production', 'enhanced_production', 'degradation_rate',
+                       'dt', 'seed', 'model_class',
+                       'has_threshold_activation', 'has_hysteresis',
+                       'has_positive_feedback'],
+    ),
+    'fraction_threshold': ModelRegistration(
+        name='fraction_threshold',
+        substrate_type='density_sweep_timeseries',
+        observables=['density', 'concentration', 'collective_state',
+                     'fraction_on', 'sweep_direction'],
+        primary_patterns=['P20'],
+        metadata_keys=['n_agents', 'activation_fraction', 'deactivation_fraction',
+                       'noise_std', 'signal_coupling', 'dt', 'seed',
+                       'model_class', 'has_threshold_activation', 'has_hysteresis',
+                       'has_positive_feedback'],
+    ),
 }
 
 # === Detector Registry ===
@@ -561,6 +585,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P25',
         required_substrate=['canalization_landscape'],
         required_observables=['state', 'ic', 'target'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P20': DetectorRegistration(
+        pattern_id='P20',
+        required_substrate=['density_sweep_timeseries'],
+        required_observables=['density', 'collective_state'],
         observable_scope='model_metadata_assisted',
     ),
 }

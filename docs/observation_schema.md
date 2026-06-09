@@ -191,6 +191,43 @@ so the detector can compute IC-to-final convergence statistics.
 
 ---
 
+## Density-sweep-timeseries bundle (P20)
+
+**Detector:** `epc/detectors/p20_quorum_sensing.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key                | Type              | Description |
+|--------------------|-------------------|-------------|
+| `density`          | `ndarray(T,)`     | Agent density at each timestep |
+| `concentration`    | `ndarray(T,)`     | Signal / autoinducer concentration |
+| `collective_state` | `ndarray(T,)` int | Binary collective state (0=OFF, 1=ON) |
+| `fraction_on`      | `ndarray(T,)`     | Fraction of agents in ON state |
+| `density_idx`      | `ndarray(T,)` int | Index of current density level |
+| `sweep_direction`  | `list[str]`       | 'up' or 'down' for each timestep |
+
+**Input format:** list of dicts, each containing keys `'density'`,
+`'concentration'`, `'collective_state'`, `'fraction_on'`, `'density_idx'`,
+`'sweep_direction'`. The adapter extracts and stacks these into aligned
+numpy arrays (except sweep_direction which remains a list).
+
+**Usage example:**
+```python
+history = [{'density': 0.5, 'concentration': 0.2, 'collective_state': 0,
+            'fraction_on': 0.0, 'step': 0, 'density_idx': 0,
+            'sweep_direction': 'up'},
+           ...]
+
+detector = P20QuorumSensingDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `AutoinducerQuorum`, `FractionThresholdModel`
+(`epc/models/quorum_sensing.py`) — both produce history dicts matching
+this schema. The bundle captures density-sweep data with up and down
+sweeps to enable hysteresis detection.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

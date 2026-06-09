@@ -2966,3 +2966,42 @@ basin volume < 0.5 due to noise-induced fluctuation around setpoint). Class C:
 2 failed regimes rejected (narrow_basin: basin volume << 0.8; divergent_dynamics:
 ratio >> 0.1). 5 canonical positives all DEFINITIVE (0.90). P25 dim4
 pending → PASS; all 4 dims PASS → **AT-DEPTH**.
+
+### §4.20 Sprint 83 — P20 Quorum Sensing / Threshold-Activated Response (Milestone B Wave 3)
+
+**Pattern.** P20 detects quorum sensing: a sharp collective behavioral switch
+triggered when agent density crosses a critical threshold, with hysteresis
+between activation and deactivation. Distinct from P18 (graded consensus) and
+P14 (avalanche criticality): P20 is a binary on/off population toggle.
+Canonical: Waters & Bassler (2005); Nealson, Platt & Hastings (1970).
+
+**Model.** AutoinducerQuorum implements a mean-field bacterial quorum-sensing
+ODE: autoinducer concentration C depends on density × production rate, with
+enhanced production when agents are ON (positive feedback). Agents switch ON
+at C > 1.5, OFF at C < 1.0. The positive-feedback asymmetry creates
+hysteresis: activation density (1.40) > deactivation density (0.21). A second
+model (FractionThresholdModel) provides T1b cross-model validation via
+fraction-threshold dynamics with density-dependent seeding.
+
+**Detector.** P20QuorumSensingDetector uses step-function R² as primary
+sharpness metric: fit the best step function f(d) = f_low/f_high to the
+equilibrium fraction_on vs density curve. R² close to 1.0 indicates a sharp
+switch; gradual responses have low R². Density-shuffle null: permute fraction
+values across density levels and re-fit; genuine transitions have R² far
+exceeding shuffled. Hysteresis measured via 0.5-crossing detection on up- vs
+down-sweep. Three tiers: screening (OFF→ON transition), confirmation (R² >
+0.7 + null p < 0.05), definitive (hysteresis + Cohen's d > 1.0 + metadata).
+
+**Negative control.** GradedResponseModel (linear fraction = slope × density)
+correctly rejected at screening (no OFF→ON transition: f_high − f_low < 0.5).
+
+**dim1.** Step R² = 1.000 (tolerance > 0.9 PASS), hysteresis width = 1.190
+(tolerance > 0.1 PASS), DEFINITIVE (confidence 0.90). **dim2.** 20-seed
+campaign: R² = 1.000 ± 0.000, all 20 DEFINITIVE. **dim3.** Methods note
+covers autoinducer ODE, step-function R² metric, density-shuffle null,
+hysteresis analysis, FractionThreshold T1b. **T1b.** FractionThresholdModel
+DEFINITIVE (0.90).
+
+**New substrate:** `density_sweep_timeseries` — 13th substrate type. Two models
+(autoinducer_quorum, fraction_threshold) registered. Registry: 33 models ×
+28 detectors = 924 cells, 114 compatible pairs.
