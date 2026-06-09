@@ -2771,9 +2771,10 @@ negligible amplitude → small metric; at optimal noise, large synchronized
 inter-well hopping → large metric; at high noise, random hopping → metric
 averages to ~0. Null model: time-shuffle x at peak noise level, destroying
 temporal synchronization while preserving the marginal distribution. Screening:
-gain > 0.02. Confirmation: inverted-U shape (interior peak with rise and fall),
-p < 0.05. Definitive: gain > 0.05, decline > 0.02, Cohen's d > 1.0,
-p ≤ 0.005, metadata confirms subthreshold signal.
+inverted-U shape required (interior peak + gain > 0.02 + rise + fall);
+monotone or flat performance-vs-noise is not SR (Gammaitoni 1998).
+Confirmation: inverted-U + p < 0.05. Definitive: gain > 0.05, decline > 0.02,
+Cohen's d > 1.0, p ≤ 0.005, metadata confirms subthreshold signal.
 
 **T1a observation contract:** The detector reads a noise-sweep observation
 bundle via `extract_observation_bundle()` — five aligned arrays (time, x,
@@ -2787,3 +2788,12 @@ zero-noise = 0.063, gain = 0.855 (tolerance > 0.05), decline = 0.811
 **T1b cross-model:** Threshold unit also reaches DEFINITIVE, confirming the
 detector recognizes the phenomenon (stochastic resonance) rather than the
 specific implementation (bistable double-well vs binary threshold).
+
+**Phase-2a panel (Sprint 75):** TNR=1.000, Cohen's d=+inf, verdict PASS.
+8/8 evaluated Class A substrates correctly rejected (2 SKIPPED: permutation
+and time-shuffle degenerate-by-construction). 2 Class B supplements rejected
+(monotone_suprathreshold at screening, flat_noise_only at screening). 2 Class C
+failed regimes rejected (suprathreshold_signal, extreme_noise_only — both lack
+inverted-U). Content prerequisite: inverted-U shape gates screening. Invariance
+flags: permutation_invariant=True, time_shuffle_invariant=True. dim4 PASS;
+all 4 dims PASS → AT-DEPTH.

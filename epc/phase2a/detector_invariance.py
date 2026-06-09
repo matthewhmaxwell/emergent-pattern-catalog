@@ -134,6 +134,15 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Distributional + time-aggregated."),
     "P31": InvarianceFlags(False, False, "DG monotonicity / avg_wandering_range",
                             rationale="Sequence ordering is the signal."),
+    "P26": InvarianceFlags(True,  True,  "coherent response |⟨x·signal⟩| over noise sweep",
+                            rationale="perm_inv=True: noise-sweep timeseries has a single scalar "
+                                      "variable x — permuting 'agents' is N/A (degenerate-by-construction "
+                                      "for a single scalar, same as P24). time_shuffle_inv=True: "
+                                      "time_shuffled preserves per-noise-level (x, signal) pairs "
+                                      "(noise_level_idx travels with each dict), and coherent response "
+                                      "|mean(x·signal)| is order-invariant within each group → "
+                                      "the inverted-U curve is identical after shuffling. "
+                                      "Sprint 75 panel run confirmed: time_shuffled FP at definitive."),
 }
 
 

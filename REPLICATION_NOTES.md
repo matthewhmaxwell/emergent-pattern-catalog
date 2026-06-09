@@ -6691,3 +6691,44 @@ the *phenomenon* (stochastic resonance), not the specific implementation
 **Sprint 74 finding:** P26 added to inventory. dim1-3 PASS, dim4 pending.
 AT-DEPTH count: **22 / 24** (inventory grew 23→24; AT-DEPTH unchanged).
 Second Wave-2 pattern.
+
+### Sprint 75 (dim4 Phase-2a panel)
+
+Phase-2a panel v1.2 run against P26 stochastic resonance detector.
+
+**Panel composition:**
+- detector_format: `noise_sweep` (new format, Sprint 75)
+- Class A: 10 synthetic substrates (8 evaluated, 2 SKIPPED via invariance flags)
+- Class B: 0 catalog mates (only noise_sweep_timeseries pattern) + 2 supplements
+  (monotone_suprathreshold_sweep, flat_noise_only_sweep)
+- Class C: 2 failed regimes (suprathreshold_signal, extreme_noise_only)
+
+**Invariance flags:** permutation_invariant=True (scalar noise-sweep has single
+variable; permutation is degenerate-by-construction). time_shuffle_invariant=True
+(time_shuffled preserves per-noise-level (x, signal) pairs via noise_level_idx;
+coherent response |mean(x·signal)| is order-invariant within each group —
+Sprint 75 first-run confirmed: time_shuffled FP at DEFINITIVE, fixed by flag).
+
+**Content prerequisite (Sprint 75):** Inverted-U shape required at screening.
+SR is defined by performance rising then falling across the noise sweep
+(Gammaitoni 1998). Monotone or flat performance-vs-noise is not SR. This
+gates screening: gain_over_zero > 0.02 AND is_interior_peak AND has_rise
+AND has_fall. First-run FP analysis: without this prereq, 5/9 Class A
+substrates produced spurious gain_over_zero > 0.02 from look-elsewhere
+effects (noise variance scales with noise level, creating random fluctuations
+in the coherent response estimator). The prereq is literature-grounded
+(Sprint 30 rule compliant).
+
+**Results:**
+- Overall TNR: 1.000 (12/12 negatives correctly rejected)
+- Class A TNR: 1.000 (8/8 evaluated)
+- Class B TNR: 1.000 (2/2; advisory, n < 5)
+- Class C TNR: 1.000 (2/2; advisory, n < 5)
+- Cohen's d: +inf (all 5 positives score 0.900, all negatives score 0.000)
+- Verdict: **PASS**
+- All 5 canonical positives reach DEFINITIVE (confidence=0.900)
+
+**Sprint 75 finding:** P26 dim4 closure. Phase-2a panel v1.2 PASS
+(TNR=1.000, d=+inf). dim4 pending→PASS; all 4 dims PASS → **P26 AT-DEPTH**.
+AT-DEPTH count: **23 / 24** (+1: P26). Remaining gap: P12 (dim1).
+Completes Wave 2 second pattern.

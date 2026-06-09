@@ -383,6 +383,79 @@ def uncontrolled_random_walk_scalar(
     return out
 
 
+# --- Noise-sweep supplements ------------------------------------------------
+
+def monotone_suprathreshold_sweep(
+    seed: int,
+    *,
+    n_levels: int = 10,
+    n_steps: int = 2000,
+    dt: float = 0.01,
+    signal_freq: float = 0.005,
+    signal_amp: float = 1.0,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Suprathreshold signal: x tracks signal at ALL noise levels.
+
+    x = 5.0 * signal + noise. The large amplitude means coherent response
+    is high at all noise levels (monotone), no inverted-U → P26 rejects
+    at confirmation (no interior peak) or screening (monotone gain).
+    """
+    rng = np.random.default_rng(seed)
+    noise_levels = np.linspace(0.0, 10.0, n_levels)
+    out: List[Dict[str, Any]] = []
+    for nl_idx, D in enumerate(noise_levels):
+        for step_i in range(n_steps):
+            t = step_i * dt
+            signal = signal_amp * np.sin(2.0 * np.pi * signal_freq * t)
+            x = 5.0 * signal + rng.normal(0.0, max(D, 0.01))
+            out.append({
+                'time': t,
+                'x': float(x),
+                'signal': float(signal),
+                'noise_level': float(D),
+                'noise_level_idx': nl_idx,
+                'step': step_i,
+            })
+    return out
+
+
+def flat_noise_only_sweep(
+    seed: int,
+    *,
+    n_levels: int = 10,
+    n_steps: int = 4000,
+    dt: float = 0.01,
+    signal_freq: float = 0.005,
+    signal_amp: float = 1.0,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Pure noise output: x = Gaussian noise, constant variance at all levels.
+
+    x ~ N(0, 1) regardless of noise level → coherent response ⟨x·signal⟩ ≈ 0
+    at every level → flat performance curve → P26 rejects at screening.
+    Constant variance avoids spurious inverted-U from look-elsewhere effects
+    when noise magnitude scales with noise level.
+    """
+    rng = np.random.default_rng(seed)
+    noise_levels = np.linspace(0.0, 10.0, n_levels)
+    out: List[Dict[str, Any]] = []
+    for nl_idx, D in enumerate(noise_levels):
+        for step_i in range(n_steps):
+            t = step_i * dt
+            signal = signal_amp * np.sin(2.0 * np.pi * signal_freq * t)
+            x = rng.normal(0.0, 1.0)  # constant variance, not D-dependent
+            out.append({
+                'time': t,
+                'x': float(x),
+                'signal': float(signal),
+                'noise_level': float(D),
+                'noise_level_idx': nl_idx,
+                'step': step_i,
+            })
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -392,6 +465,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "lattice_1d": ["independent_lane_traffic", "reverse_sorted_sequence"],
     "lattice_2d_continuous": ["smooth_random_field", "sinusoidal_traveling_wave"],
     "scalar_timeseries": ["passive_ou_decay", "uncontrolled_random_walk_scalar"],
+    "noise_sweep_timeseries": ["monotone_suprathreshold_sweep", "flat_noise_only_sweep"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -407,4 +481,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "sinusoidal_traveling_wave": sinusoidal_traveling_wave,
     "passive_ou_decay": passive_ou_decay,
     "uncontrolled_random_walk_scalar": uncontrolled_random_walk_scalar,
+    "monotone_suprathreshold_sweep": monotone_suprathreshold_sweep,
+    "flat_noise_only_sweep": flat_noise_only_sweep,
 }

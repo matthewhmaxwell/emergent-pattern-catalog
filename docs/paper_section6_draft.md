@@ -1004,3 +1004,15 @@ coherent response = 0.897 ± 0.049 (CV=5.4%), gain = 0.833 ± 0.049 (CV=5.8%),
 all 20 seeds DEFINITIVE (PASS). dim3: methods note (PASS). dim4 pending
 (future sprint).
 **AT-DEPTH count: 22 / 24** (inventory grew 23→24; AT-DEPTH unchanged).
+
+**Sprint 75 (P26 dim4 closure, AT-DEPTH +1; Wave 2 second pattern).**
+P26 (stochastic resonance) Phase-2a panel v1.2 PASS (TNR=1.000, d=+inf).
+New `noise_sweep` detector format. Invariance flags: permutation_invariant=True
+(scalar noise-sweep, single variable), time_shuffle_invariant=True (coherent
+response order-invariant within noise-level groups; confirmed by Sprint 75
+first-run FP). Content prerequisite: inverted-U shape at screening (Gammaitoni
+1998: SR requires interior peak with rise-then-fall; monotone or flat
+performance is not SR). Class A: 8/8 TN. Class B: 2/2 TN (advisory).
+Class C: 2/2 TN (suprathreshold_signal, extreme_noise_only). All 5 positives
+DEFINITIVE (0.900).
+**AT-DEPTH count: 23 / 24** (+1: P26). Remaining gap: P12 (dim1).

@@ -20,6 +20,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p7
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p19
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p24
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p26
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -69,6 +70,7 @@ from epc.phase2a.failed_regimes import p7_lane_formation as p7_failed
 from epc.phase2a.failed_regimes import p17_collective_sensing as p17_failed
 from epc.phase2a.failed_regimes import p19_informed_minority as p19_failed
 from epc.phase2a.failed_regimes import p24_homeostasis as p24_failed
+from epc.phase2a.failed_regimes import p26_stochastic_resonance as p26_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1486,6 +1488,64 @@ def run_p24(out_path: str = "analysis/outputs/p24_phase2a_panel.json", verbose: 
     )
 
 
+def build_p26_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P26 canonical positive: BistableDoubleWell with subthreshold signal.
+
+    Uses reduced parameters for panel tractability: n_steps=10000 (half
+    a signal period at f=0.005), n_trials=10, 15 noise levels.
+    """
+    from epc.models.stochastic_resonance import BistableDoubleWell, DoubleWellParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        model = BistableDoubleWell(DoubleWellParams(
+            a=4.0, b=1.0,
+            signal_amplitude=1.0,
+            signal_frequency=0.005,
+            dt=0.01,
+            n_steps=10000,
+            n_trials=10,
+            seed=seed,
+        ))
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p26_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p26_stochastic_resonance import P26StochasticResonanceDetector
+    detector = P26StochasticResonanceDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p26(out_path: str = "analysis/outputs/p26_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P26 (stochastic resonance) Phase-2a panel v1.2.
+
+    detector_format="noise_sweep": P26 operates on noise-sweep timeseries.
+    Class A synthetic substrates are pure-noise or monotone-response
+    trajectories → P26 rejects at screening (no inverted-U).
+    Class B: 0 catalog mates (only noise_sweep_timeseries pattern); 2
+    supplements (monotone_suprathreshold_sweep, flat_noise_only_sweep).
+    Class C: suprathreshold_signal + extreme_noise_only.
+    """
+    print(f"--- Running P26 panel → {out_path}")
+    positives, metadata = build_p26_positives(n_seeds=5)
+    detector_fn = make_p26_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P26",
+        detector_format="noise_sweep",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p26_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1533,6 +1593,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P19"] = run_p19()
     if which in ("p24",):
         summaries["P24"] = run_p24()
+    if which in ("p26",):
+        summaries["P26"] = run_p26()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

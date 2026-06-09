@@ -77,6 +77,102 @@ SCALAR_TS_SETPOINT = 10.0            # regulated-variable setpoint
 SCALAR_TS_PERT_AMPLITUDE = 5.0       # perturbation amplitude
 SCALAR_TS_PERT_ONSET_FRAC = 0.25     # perturbation onset at 25% of trajectory
 
+# Noise-sweep timeseries defaults (P26 stochastic resonance panel)
+NOISE_SWEEP_N_LEVELS = 10            # number of noise levels in sweep
+NOISE_SWEEP_STEPS_PER_LEVEL = 2000   # timesteps per noise level
+NOISE_SWEEP_SIGNAL_FREQ = 0.005      # signal frequency (Hz)
+NOISE_SWEEP_SIGNAL_AMP = 1.0         # signal amplitude
+NOISE_SWEEP_DT = 0.01                # integration timestep
+
+
+def _noise_sweep_history(
+    x_per_level: List[np.ndarray],
+    noise_levels: np.ndarray,
+    dt: float = NOISE_SWEEP_DT,
+    signal_freq: float = NOISE_SWEEP_SIGNAL_FREQ,
+    signal_amp: float = NOISE_SWEEP_SIGNAL_AMP,
+) -> List[Dict[str, Any]]:
+    """Wrap per-level x arrays into noise-sweep-timeseries history for P26.
+
+    Parameters
+    ----------
+    x_per_level : list of 1-D arrays, one per noise level
+    noise_levels : 1-D array of noise level values
+    """
+    out: List[Dict[str, Any]] = []
+    for nl_idx, (x_arr, D) in enumerate(zip(x_per_level, noise_levels)):
+        for step_i, x_val in enumerate(x_arr):
+            t = step_i * dt
+            signal = signal_amp * np.sin(2.0 * np.pi * signal_freq * t)
+            out.append({
+                'time': t,
+                'x': float(x_val),
+                'signal': float(signal),
+                'noise_level': float(D),
+                'noise_level_idx': nl_idx,
+                'step': step_i,
+            })
+    return out
+
+
+def _default_null_noise_levels(n_levels: int = NOISE_SWEEP_N_LEVELS) -> np.ndarray:
+    """Default noise levels for null noise-sweep substrates."""
+    return np.linspace(0.0, 10.0, n_levels)
+
+
+def _noise_sweep_pure_noise(
+    rng: np.random.Generator,
+    n_levels: int = NOISE_SWEEP_N_LEVELS,
+    n_steps: int = NOISE_SWEEP_STEPS_PER_LEVEL,
+    scale_func: str = "linear",
+) -> List[Dict[str, Any]]:
+    """Generate noise-sweep substrate where x = noise only (no signal correlation).
+
+    At all noise levels, x is i.i.d. noise → coherent response ≈ 0 everywhere
+    → no inverted-U → P26 rejects at screening.
+    """
+    noise_levels = _default_null_noise_levels(n_levels)
+    x_per_level = []
+    for D in noise_levels:
+        if scale_func == "linear":
+            x = rng.normal(0.0, max(D, 0.01), size=n_steps)
+        elif scale_func == "uniform":
+            x = rng.uniform(-max(D, 0.01), max(D, 0.01), size=n_steps)
+        else:
+            x = rng.normal(0.0, 1.0, size=n_steps)
+        x_per_level.append(x)
+    return _noise_sweep_history(x_per_level, noise_levels)
+
+
+def _noise_sweep_monotone(
+    rng: np.random.Generator,
+    n_levels: int = NOISE_SWEEP_N_LEVELS,
+    n_steps: int = NOISE_SWEEP_STEPS_PER_LEVEL,
+    direction: str = "increasing",
+) -> List[Dict[str, Any]]:
+    """Generate noise-sweep substrate with monotone performance vs noise.
+
+    x = amplitude * signal + noise, where amplitude increases (or decreases)
+    monotonically with noise level → no interior peak → P26 rejects.
+    """
+    noise_levels = _default_null_noise_levels(n_levels)
+    x_per_level = []
+    dt = NOISE_SWEEP_DT
+    for i, D in enumerate(noise_levels):
+        if direction == "increasing":
+            amp = (i + 1) / n_levels * 5.0
+        else:
+            amp = (n_levels - i) / n_levels * 5.0
+        x = np.zeros(n_steps)
+        for step_i in range(n_steps):
+            t = step_i * dt
+            signal = NOISE_SWEEP_SIGNAL_AMP * np.sin(
+                2.0 * np.pi * NOISE_SWEEP_SIGNAL_FREQ * t
+            )
+            x[step_i] = amp * signal + rng.normal(0.0, max(D, 0.01))
+        x_per_level.append(x)
+    return _noise_sweep_history(x_per_level, noise_levels)
+
 
 def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
     """Wrap a (T, N) float array into the standard opinions-history format.
@@ -211,6 +307,8 @@ def random_uniform_field(
         # Uncontrolled drift under perturbation + uniform noise.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.5)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        return _noise_sweep_pure_noise(rng, scale_func="uniform")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -252,6 +350,8 @@ def random_gaussian_field(
         # Uncontrolled drift under perturbation + Gaussian noise.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=1.0)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        return _noise_sweep_pure_noise(rng, scale_func="linear")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -292,6 +392,12 @@ def random_binary_field(
         # Uncontrolled drift with small noise — binary-like steps.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.3)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        # Binary: x ∈ {-1, +1} i.i.d. at all noise levels → no signal correlation.
+        noise_levels = _default_null_noise_levels()
+        x_per_level = [rng.choice([-1.0, 1.0], size=NOISE_SWEEP_STEPS_PER_LEVEL)
+                        for _ in noise_levels]
+        return _noise_sweep_history(x_per_level, noise_levels)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -334,6 +440,12 @@ def spatial_white_noise_series(
         # i.i.d. uniform x each step (no temporal autocorrelation) + perturbation.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=2.0)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        # Fresh i.i.d. Gaussian x each step, same variance at all noise levels.
+        noise_levels = _default_null_noise_levels()
+        x_per_level = [rng.normal(0.0, 1.0, size=NOISE_SWEEP_STEPS_PER_LEVEL)
+                        for _ in noise_levels]
+        return _noise_sweep_history(x_per_level, noise_levels)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -397,6 +509,15 @@ def temporal_white_noise_per_cell(
         # Random walk under perturbation — noise-dominated drift.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.8)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        # Random walk x at each noise level — noise-dominated, no signal correlation.
+        noise_levels = _default_null_noise_levels()
+        x_per_level = []
+        for D in noise_levels:
+            x = np.cumsum(rng.normal(0.0, max(D, 0.01) * 0.01,
+                                      size=NOISE_SWEEP_STEPS_PER_LEVEL))
+            x_per_level.append(x)
+        return _noise_sweep_history(x_per_level, noise_levels)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -508,6 +629,10 @@ def permutation_shuffled_positive(
         # Return the positive unchanged (degenerate-by-construction, will be
         # skipped by invariance flag permutation_invariant=True).
         return list(positive)
+    if format == "noise_sweep":
+        # Noise-sweep has a single scalar x — permutation is a no-op.
+        # Degenerate-by-construction (will be skipped by permutation_invariant=True).
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -537,6 +662,15 @@ def time_shuffled_positive(
         indices = np.arange(len(positive))
         rng.shuffle(indices)
         return [dict(positive[i], step=t, time=t * SCALAR_TS_DT)
+                for t, i in enumerate(indices)]
+    if format == "noise_sweep":
+        # Shuffle timesteps across ALL noise levels. Each dict retains its
+        # original noise_level/noise_level_idx, so the detector still groups
+        # correctly — but within each level, x and signal are decorrelated
+        # because they come from random timesteps → coherent response ≈ 0.
+        indices = np.arange(len(positive))
+        rng.shuffle(indices)
+        return [dict(positive[i], step=t, time=t * NOISE_SWEEP_DT)
                 for t, i in enumerate(indices)]
     indices = np.arange(len(positive))
     rng.shuffle(indices)
@@ -599,6 +733,11 @@ def constant_field(
         # Detector rejects at "No perturbation detected" prerequisite.
         x = np.full(n_steps, SCALAR_TS_SETPOINT)
         return _scalar_ts_history(x, n_steps, pert_amplitude=0.0)
+    if format == "noise_sweep":
+        # Constant x = 0 at all noise levels → coherent response = 0 → screening fails.
+        noise_levels = _default_null_noise_levels()
+        x_per_level = [np.zeros(NOISE_SWEEP_STEPS_PER_LEVEL) for _ in noise_levels]
+        return _noise_sweep_history(x_per_level, noise_levels)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -660,6 +799,10 @@ def linear_gradient_field(
         # perturbation rate post-onset. growth_ratio >> 2.0 → screening fails.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.1)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        # Monotonically increasing performance: x = k * signal at each level,
+        # where k increases with noise → no interior peak → screening fails.
+        return _noise_sweep_monotone(rng, direction="increasing")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -728,6 +871,10 @@ def periodic_checkerboard(
         # growth_ratio >> 2.0 → screening fails.
         x = _scalar_ts_uncontrolled(rng, n_steps, noise_std=0.2)
         return _scalar_ts_history(x, n_steps)
+    if format == "noise_sweep":
+        # Monotonically decreasing performance: x = k * signal at each level,
+        # where k decreases with noise → no interior peak → screening fails.
+        return _noise_sweep_monotone(rng, direction="decreasing")
     raise ValueError(f"unknown format: {format}")
 
 

@@ -266,15 +266,34 @@ class P26StochasticResonanceDetector:
             'gain_over_zero': u_check['gain_over_zero'],
         }
 
-        # ── SCREENING: some nonzero noise outperforms zero noise ──
-        screening_pass = u_check['gain_over_zero'] > 0.02
+        # ── SCREENING: inverted-U required ──
+        # SR is defined by an inverted-U performance-vs-noise curve
+        # (Gammaitoni 1998): performance must RISE from zero noise to an
+        # INTERIOR peak, then FALL at higher noise. Monotone or flat
+        # performance-vs-noise is not SR — it is suprathreshold detection
+        # or pure noise. This prerequisite gates screening.
+        screening_pass = (
+            u_check['gain_over_zero'] > 0.02
+            and u_check['is_interior_peak']
+            and u_check['has_rise']
+            and u_check['has_fall']
+        )
 
         if not screening_pass:
+            reasons: List[str] = []
+            if u_check['gain_over_zero'] <= 0.02:
+                reasons.append(
+                    f"No noise benefit (gain={u_check['gain_over_zero']:.4f})"
+                )
+            if not u_check['is_interior_peak']:
+                reasons.append("No interior peak (argmax at boundary)")
+            if not u_check['has_rise']:
+                reasons.append("No rise phase (performance flat or declining)")
+            if not u_check['has_fall']:
+                reasons.append("No fall phase (performance flat or rising)")
             return self._no_detection(
                 primary_metric=primary,
-                warnings=warnings + [
-                    f"No noise benefit (gain={u_check['gain_over_zero']:.4f})"
-                ],
+                warnings=warnings + reasons,
                 metadata_available=metadata_available,
             )
 

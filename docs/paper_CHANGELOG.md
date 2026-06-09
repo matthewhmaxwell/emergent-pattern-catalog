@@ -4,6 +4,21 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 75 (2026-06-09)
+- epc/detectors/p26_stochastic_resonance.py: inverted-U screening prerequisite added — SR requires interior peak with rise-then-fall (Gammaitoni 1998); monotone or flat performance-vs-noise rejected at screening.
+- epc/phase2a/detector_invariance.py: +P26 flags (permutation_invariant=True, time_shuffle_invariant=True).
+- epc/phase2a/synthetic.py: +noise_sweep format branches for all 10 Class A generators.
+- epc/phase2a/structured.py: +2 noise_sweep supplements (monotone_suprathreshold_sweep, flat_noise_only_sweep).
+- epc/phase2a/failed_regimes/p26_stochastic_resonance.py: Class C — 2 failed regimes (suprathreshold_signal, extreme_noise_only).
+- epc/phase2a/catalog.py: +P26 substrate entry (P26_bistable_double_well).
+- analysis/run_phase2a_panel.py: +P26 panel runner.
+- analysis/outputs/p26_phase2a_panel.json: panel results — PASS (TNR=1.000, d=+inf).
+- docs/depth_gap.md: P26 dim4→PASS, GAP→AT-DEPTH. AT-DEPTH count 22→23, Gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 75 P26 dim4 section added.
+- docs/paper_section4_draft.md: §4.26 updated with Phase-2a panel results.
+- docs/paper_section6_draft.md: Sprint 75 entry.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 74 (2026-06-09)
 - epc/models/stochastic_resonance.py: new model — bistable double-well (Gammaitoni 1998 / Collins 1995) + threshold unit (T1b). Multi-trial noise-sweep design: n_trials independent runs per noise level.
 - epc/detectors/p26_stochastic_resonance.py: new detector — coherent response |⟨x·signal⟩|, time-shuffle null at peak noise level, three-tier inverted-U detection.
