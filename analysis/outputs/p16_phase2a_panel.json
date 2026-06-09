@@ -1,0 +1,206 @@
+{
+  "pattern_id": "P16",
+  "head_commit": "efca51ebd2424ae0be45bdbf192d10196579c115",
+  "panel_version": "1.2",
+  "detector_format": "state_vector",
+  "elapsed_seconds": 7.61,
+  "detector_invariance": {
+    "permutation_invariant": true,
+    "time_shuffle_invariant": true,
+    "primary_metric": "completion accuracy (overlap with stored patterns)"
+  },
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+    ],
+    "mean_score": 0.9,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 1,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 2,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 3,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true
+      },
+      {
+        "seed_index": 4,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_permutation_invariant"
+    },
+    {
+      "substrate": "time_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_time_shuffle_invariant"
+    },
+    {
+      "substrate": "constant",
+      "seed": 1843824992,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 184566854,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 1497586438,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "random_weights_network",
+      "kind": "synthetic_supplement",
+      "seed": 432652533,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "single_attractor_network",
+      "kind": "synthetic_supplement",
+      "seed": 202244314,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "failed_regime": [
+    {
+      "substrate": "over_capacity",
+      "params": {
+        "N": 100,
+        "P": 100,
+        "corruption": 0.2,
+        "max_steps": 100
+      },
+      "seed": 42,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    },
+    {
+      "substrate": "single_pattern",
+      "params": {
+        "N": 100,
+        "P": 1,
+        "corruption": 0.2,
+        "max_steps": 100
+      },
+      "seed": 42,
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false
+    }
+  ],
+  "class_b_composition": {
+    "substrate_type": "attractor_network",
+    "catalog_mates": [],
+    "synthetic_supplements": [
+      "random_weights_network",
+      "single_attractor_network"
+    ]
+  },
+  "class_c_status": "populated",
+  "class_c_n_a_reason": null,
+  "summary": {
+    "n_negatives": 12,
+    "overall_tnr": 1.0,
+    "class_a_size_total": 10,
+    "class_a_size_evaluated": 8,
+    "synthetic": {
+      "n": 8,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 2,
+      "tnr": 1.0,
+      "advisory": true
+    },
+    "failed_regime": {
+      "n": 2,
+      "tnr": 1.0,
+      "advisory": true
+    },
+    "synthetic_tnr": 1.0,
+    "catalog_tnr": 1.0,
+    "catalog_tnr_advisory": true,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": Infinity,
+    "verdict": "PASS"
+  }
+}

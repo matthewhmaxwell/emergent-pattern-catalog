@@ -1039,3 +1039,14 @@ random_choice). Class C: 2/2 failed regimes rejected (random_agents, herding).
 P23 dim4 pending→PASS; all 4 dims PASS → **AT-DEPTH**. Milestone B Wave 2
 (P24, P26, P23) complete.
 **AT-DEPTH count: 24 / 25** (P12 sole remaining GAP).
+
+**Sprint 80 — P16 associative memory dim4 Phase-2a panel.** Panel v1.2 PASS
+(TNR=1.000, d=+inf). New `state_vector` detector format for attractor-network
+histories. Invariance: completion accuracy invariant under consistent neuron-index
+permutation (Hopfield 1982); converged fixed-point state replicated across post-
+convergence steps → both shuffled substrates skipped. Content prerequisite: ≥2
+distinct selectively-retrievable stored patterns; single-pattern (P=1) convergence
+and single-attractor collapse rejected. Over-capacity (α=1.0) rejected at screening
+(best-overlap 0.464 < 0.500). 5 positives DEFINITIVE. P16 dim4 pending→PASS;
+all 4 dims PASS → **AT-DEPTH**. Milestone B Wave 3 first dim4 closure.
+**AT-DEPTH count: 25 / 26** (P12 sole remaining GAP).

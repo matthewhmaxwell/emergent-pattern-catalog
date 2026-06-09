@@ -6827,3 +6827,59 @@ is not anti-coordination. This prerequisite rejects trivially constant fields
 **Sprint 77 finding:** P23 dim4 PASS. All 4 dims PASS → P23 advances
 GAP→AT-DEPTH. AT-DEPTH count: **24 / 25** (P12 is the sole remaining GAP).
 Milestone B Wave 2 (P24, P26, P23) complete.
+
+---
+
+### Sprint 80 — P16 Associative memory / pattern completion: Phase-2a panel
+
+**Pattern:** P16 (Hopfield associative memory).
+**Sprint type:** dim4 Phase-2a panel (Milestone B, Wave 3).
+**Detector format:** `state_vector` (attractor-network state-vector trajectory
+with stored template patterns).
+
+**Invariance flags:**
+- `permutation_invariant: True` — completion accuracy (1/N)|Σ ξ_i s_i| is
+  invariant under a consistent permutation of neuron indices applied to both
+  state and stored patterns (Hopfield 1982). `permutation_shuffled` SKIPPED.
+- `time_shuffle_invariant: True` — P16 operates on fixed-point (converged)
+  states; the converged state appears in multiple history entries per trial
+  (all post-convergence steps identical), so time_shuffled preserves the
+  signal. `time_shuffled` SKIPPED.
+
+**Content prerequisite (Sprint 80):** P16 requires ≥2 distinct selectively-
+retrievable stored patterns. Single-pattern convergence (P=1) is a trivial
+fixed point, not content-addressable memory. Single-attractor collapse (all
+trials converge to the same pattern regardless of cue) is also rejected.
+Literature grounding: Hopfield (1982) §II — content-addressable memory
+requires multiple stable memories selectively recalled from their
+respective cues.
+
+**Canonical positive:** Hopfield network at low load (N=100, P=5, α=0.05),
+20%-corrupted cues, 5 seeds × 5 patterns. All 5 seeds reach DEFINITIVE
+(confidence=0.900): 5/5 distinct patterns selectively recalled, completion
+accuracy ≈ 1.0, null p < 0.005.
+
+**Class A (synthetic):** 8/8 evaluated correctly rejected (TNR=1.000).
+All random-state null substrates produce completion accuracy at chance
+(overlap ≈ 0.2 for N=100) → screening fails.
+
+**Class B (supplements):** 2/2 correctly rejected (TNR=1.000, advisory).
+- `random_weights_network`: random (non-Hebbian) weights → no recall.
+- `single_attractor_network`: single stored pattern embedded; all trials
+  converge to same attractor → single-attractor prerequisite rejects.
+
+**Class C (failed regimes):** 2/2 correctly rejected (TNR=1.000).
+- `over_capacity` (α=1.0, P=100, N=100): spin-glass phase, mean
+  best-overlap = 0.464 < 0.500 screening threshold.
+- `single_pattern` (P=1): multi-pattern prerequisite rejects (P < 2).
+
+**Results:**
+- Overall TNR: **1.000** (12/12 evaluated negatives correctly rejected).
+- Per-class: syn=1.000 (8/8), cat=1.000 (2/2, advisory), fai=1.000 (2/2).
+- Cohen's d: **+inf** (positive mean=0.900, all negatives 0.000).
+- Verdict: **PASS**.
+- 5 canonical positives: all DEFINITIVE (score=0.900).
+
+**Sprint 80 finding:** P16 dim4 PASS. All 4 dims PASS → P16 advances
+GAP→AT-DEPTH. AT-DEPTH count: **25 / 26** (P12 is the sole remaining GAP).
+Milestone B Wave 3 (P16) first dim4 closure.

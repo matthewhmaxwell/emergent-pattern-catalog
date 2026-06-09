@@ -88,6 +88,12 @@ NOISE_SWEEP_SIGNAL_FREQ = 0.005      # signal frequency (Hz)
 NOISE_SWEEP_SIGNAL_AMP = 1.0         # signal amplitude
 NOISE_SWEEP_DT = 0.01                # integration timestep
 
+# State-vector (attractor-network) defaults (P16 associative memory panel)
+STATE_VECTOR_DEFAULT_N = 100         # default number of neurons
+STATE_VECTOR_DEFAULT_P = 5           # default number of stored patterns
+STATE_VECTOR_DEFAULT_TRIALS = 5      # default number of retrieval trials
+STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL = 10  # default steps per trial
+
 
 def _noise_sweep_history(
     x_per_level: List[np.ndarray],
@@ -187,6 +193,41 @@ def _choice_ts_history(
         {'round': int(t), 'attendance': int(a), 'n_agents': n_agents}
         for t, a in enumerate(attendance)
     ]
+
+
+def _state_vector_null_history(
+    rng: np.random.Generator,
+    N: int = STATE_VECTOR_DEFAULT_N,
+    P: int = STATE_VECTOR_DEFAULT_P,
+    n_trials: int = STATE_VECTOR_DEFAULT_TRIALS,
+    n_steps_per_trial: int = STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL,
+) -> List[Dict[str, Any]]:
+    """Null state-vector history: random ±1 states with no associative memory.
+
+    Generates a format-compatible attractor-network history where states are
+    i.i.d. random (no convergence to stored patterns). The P16 detector should
+    reject: completion accuracy ≈ chance overlap √(1/N).
+    """
+    stored_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_trials):
+        cue_idx = trial % P
+        for step in range(n_steps_per_trial):
+            state = rng.choice([-1, 1], size=N).astype(np.int8)
+            overlap = float(
+                np.dot(stored_patterns[cue_idx].astype(np.int32),
+                       state.astype(np.int32)) / N
+            )
+            history.append({
+                'state': state,
+                'step': step,
+                'trial': trial,
+                'cue_pattern_idx': cue_idx,
+                'overlap': overlap,
+                'stored_patterns': stored_patterns.copy(),
+                'converged': step == n_steps_per_trial - 1,
+            })
+    return history
 
 
 def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
@@ -328,6 +369,8 @@ def random_uniform_field(
         # i.i.d. Binomial(N, 0.5) attendance — random-choice null.
         att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -376,6 +419,8 @@ def random_gaussian_field(
         att = np.clip(rng.normal(CHOICE_TS_N_AGENTS / 2, np.sqrt(CHOICE_TS_N_AGENTS) / 2,
                                   size=n_steps).round().astype(int), 0, CHOICE_TS_N_AGENTS)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -426,6 +471,8 @@ def random_binary_field(
         # Bernoulli(0.5) binary attendance — random-choice null.
         att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -478,6 +525,8 @@ def spatial_white_noise_series(
         # i.i.d. Binomial attendance redrawn each step — no temporal autocorrelation.
         att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -557,6 +606,8 @@ def temporal_white_noise_per_cell(
             0, CHOICE_TS_N_AGENTS,
         ).astype(int)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -677,6 +728,18 @@ def permutation_shuffled_positive(
         # (σ²/N is permutation-invariant). Degenerate-by-construction; will be
         # skipped by permutation_invariant=True.
         return list(positive)
+    if format == "state_vector":
+        # Consistent permutation of neuron indices across state AND stored_patterns.
+        # Overlap = (1/N)|Σ ξ_{π(i)} s_{π(i)}| = (1/N)|Σ ξ_i s_i| — preserved.
+        # Degenerate-by-construction; will be skipped by permutation_invariant=True.
+        perm = rng.permutation(len(positive[0]['state']))
+        out: List[Dict[str, Any]] = []
+        for h in positive:
+            new_h = dict(h)
+            new_h['state'] = np.asarray(h['state'])[perm].copy()
+            new_h['stored_patterns'] = np.asarray(h['stored_patterns'])[:, perm].copy()
+            out.append(new_h)
+        return out
     raise ValueError(f"unknown format: {format}")
 
 
@@ -788,6 +851,23 @@ def constant_field(
         # fails (variance at zero is below baseline, but trivially so).
         att = np.full(n_steps, CHOICE_TS_N_AGENTS // 2, dtype=int)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        # All neurons fixed to +1 — trivially not content-addressable.
+        N = STATE_VECTOR_DEFAULT_N
+        P = STATE_VECTOR_DEFAULT_P
+        stored_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+        state = np.ones(N, dtype=np.int8)
+        history: List[Dict[str, Any]] = []
+        for trial in range(STATE_VECTOR_DEFAULT_TRIALS):
+            for step in range(STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL):
+                overlap = float(np.dot(stored_patterns[trial % P].astype(np.int32),
+                                       state.astype(np.int32)) / N)
+                history.append({
+                    'state': state.copy(), 'step': step, 'trial': trial,
+                    'cue_pattern_idx': trial % P, 'overlap': overlap,
+                    'stored_patterns': stored_patterns.copy(), 'converged': True,
+                })
+        return history
     raise ValueError(f"unknown format: {format}")
 
 
@@ -857,6 +937,8 @@ def linear_gradient_field(
         # Linear ramp attendance from 0 to N — monotonic drift, not anti-coordination.
         att = np.linspace(0, CHOICE_TS_N_AGENTS, n_steps).round().astype(int)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        return _state_vector_null_history(rng)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -934,6 +1016,23 @@ def periodic_checkerboard(
         half = CHOICE_TS_N_AGENTS
         att = np.tile([0, half], n_steps // 2 + 1)[:n_steps].astype(int)
         return _choice_ts_history(att)
+    if format == "state_vector":
+        # Alternating ±1 blocks — structured but no memory.
+        N = STATE_VECTOR_DEFAULT_N
+        P = STATE_VECTOR_DEFAULT_P
+        stored_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+        state = np.array([1 if i % 2 == 0 else -1 for i in range(N)], dtype=np.int8)
+        history: List[Dict[str, Any]] = []
+        for trial in range(STATE_VECTOR_DEFAULT_TRIALS):
+            for step in range(STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL):
+                overlap = float(np.dot(stored_patterns[trial % P].astype(np.int32),
+                                       state.astype(np.int32)) / N)
+                history.append({
+                    'state': state.copy(), 'step': step, 'trial': trial,
+                    'cue_pattern_idx': trial % P, 'overlap': overlap,
+                    'stored_patterns': stored_patterns.copy(), 'converged': True,
+                })
+        return history
     raise ValueError(f"unknown format: {format}")
 
 

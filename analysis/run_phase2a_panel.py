@@ -22,6 +22,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p24
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p26
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p23
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p16
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -73,6 +74,7 @@ from epc.phase2a.failed_regimes import p19_informed_minority as p19_failed
 from epc.phase2a.failed_regimes import p24_homeostasis as p24_failed
 from epc.phase2a.failed_regimes import p26_stochastic_resonance as p26_failed
 from epc.phase2a.failed_regimes import p23_anticoordination as p23_failed
+from epc.phase2a.failed_regimes import p16_hopfield as p16_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1605,6 +1607,62 @@ def run_p23(out_path: str = "analysis/outputs/p23_phase2a_panel.json", verbose: 
     )
 
 
+def build_p16_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P16 canonical positive: Hopfield network at low load (N=100, P=5).
+
+    Well below α_c ≈ 0.138 (α = 0.05). All 5 patterns should be selectively
+    retrieved from 20%-corrupted cues. Each seed runs all 5 patterns.
+    """
+    from epc.models.hopfield import HopfieldNetwork, HopfieldParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        params = HopfieldParams(N=100, P=5, corruption=0.2, max_steps=100, seed=seed)
+        model = HopfieldNetwork(params)
+        history = model.simulate(
+            n_cues=5,
+            corruption=0.2,
+            cue_pattern_indices=list(range(5)),
+        )
+        runs.append(history)
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p16_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p16_associative_memory import P16AssociativeMemoryDetector
+    detector = P16AssociativeMemoryDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p16(out_path: str = "analysis/outputs/p16_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P16 (associative memory) Phase-2a panel v1.2.
+
+    detector_format="state_vector": P16 operates on attractor-network state-vector
+    trajectories with stored template patterns. Class A synthetic substrates are
+    random ±1 state histories → P16 rejects (no content-addressable recall).
+    Class B: 0 catalog mates (only attractor_network pattern); 2 supplements
+    (random_weights_network, single_attractor_network).
+    Class C: over_capacity (α=0.5, spin-glass) + single_pattern (P=1, trivial).
+    """
+    print(f"--- Running P16 panel → {out_path}")
+    positives, metadata = build_p16_positives(n_seeds=5)
+    detector_fn = make_p16_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P16",
+        detector_format="state_vector",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p16_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1656,6 +1714,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P26"] = run_p26()
     if which in ("p23",):
         summaries["P23"] = run_p23()
+    if which in ("p16",):
+        summaries["P16"] = run_p16()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

@@ -1069,6 +1069,40 @@ def _adapt_to_scalar_timeseries(
     return out
 
 
+def _adapt_to_state_vector(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to state_vector format.
+
+    Non-state-vector substrates are mapped to random ±1 state histories with
+    random stored patterns — the P16 detector should reject because there is
+    no content-addressable recall.
+    """
+    rng = np.random.default_rng(42)
+    N, P = 100, 5
+    stored_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+    history: List[Dict[str, Any]] = []
+    for trial in range(P):
+        cue_idx = trial
+        for step in range(10):
+            state = rng.choice([-1, 1], size=N).astype(np.int8)
+            overlap = float(
+                np.dot(stored_patterns[cue_idx].astype(np.int32),
+                       state.astype(np.int32)) / N
+            )
+            history.append({
+                'state': state,
+                'step': step,
+                'trial': trial,
+                'cue_pattern_idx': cue_idx,
+                'overlap': overlap,
+                'stored_patterns': stored_patterns.copy(),
+                'converged': step == 9,
+            })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1097,6 +1131,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_opinions(native, target_steps=target_steps, target_n=target_n)
     if target_format == "scalar_timeseries":
         return _adapt_to_scalar_timeseries(native, target_steps=target_steps)
+    if target_format == "state_vector":
+        return _adapt_to_state_vector(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1149,6 +1185,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P24": "P24_proportional_homeostat",  # Sprint 73; generator below
     "P26": "P26_bistable_double_well",  # Sprint 75; noise_sweep_timeseries
     "P23": "P23_minority_game",  # Sprint 77; choice_timeseries
+    "P16": "P16_hopfield",  # Sprint 80; state_vector (attractor_network)
 }
 
 

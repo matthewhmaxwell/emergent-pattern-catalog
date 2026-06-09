@@ -320,6 +320,43 @@ class P16AssociativeMemoryDetector:
                 metadata_available=metadata_available,
             )
 
+        # ── Multi-pattern prerequisite (Sprint 80) ──
+        # P16 requires ≥2 distinct selectively-retrievable stored patterns
+        # (IC-cued recall selects the matching template). A single stored
+        # pattern or single-attractor convergence is NOT content-addressable
+        # memory — it is a trivial fixed point.
+        if P < 2:
+            return self._no_detection(
+                warnings=[
+                    f"P16 requires ≥2 stored patterns (P={P}). "
+                    "Single-pattern convergence is not content-addressable memory."
+                ],
+                metadata_available=metadata_available,
+            )
+
+        # Quick selective-recall pre-check: if all converged trials settle to
+        # the same pattern (regardless of cue), this is single-attractor
+        # convergence, not multi-pattern recall. Reject at screening.
+        converged_trials = [t for t in trials if t['converged']]
+        if len(converged_trials) >= 2:
+            best_patterns = set()
+            for trial in converged_trials:
+                final = trial['states'][-1]
+                overlaps = np.array([
+                    float(np.dot(pat.astype(np.int32), final.astype(np.int32)) / N)
+                    for pat in stored_patterns
+                ])
+                best_patterns.add(int(np.argmax(np.abs(overlaps))))
+            if len(best_patterns) < 2:
+                return self._no_detection(
+                    warnings=[
+                        f"All converged trials settle to the same attractor "
+                        f"(pattern {best_patterns.pop()}). P16 requires ≥2 "
+                        f"distinct selectively-retrievable stored patterns."
+                    ],
+                    metadata_available=metadata_available,
+                )
+
         # ── Primary metric: completion accuracy ──
         completion_overlaps = []
         for trial in trials:

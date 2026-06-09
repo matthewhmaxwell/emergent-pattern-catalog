@@ -4,6 +4,22 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 80 (2026-06-09)
+- epc/detectors/p16_associative_memory.py: multi-pattern prerequisite added — P16 requires ≥2 distinct selectively-retrievable stored patterns (Hopfield 1982); single-pattern convergence and single-attractor collapse rejected at screening.
+- epc/phase2a/detector_invariance.py: +P16 flags (permutation_invariant=True, time_shuffle_invariant=True).
+- epc/phase2a/synthetic.py: +state_vector format branches for all 10 Class A generators + permutation_shuffled.
+- epc/phase2a/structured.py: +2 attractor_network supplements (random_weights_network, single_attractor_network).
+- epc/phase2a/failed_regimes/p16_hopfield.py: Class C — 2 failed regimes (over_capacity α=1.0, single_pattern P=1).
+- epc/phase2a/catalog.py: +P16 substrate entry (P16_hopfield) + state_vector format adapter.
+- epc/phase2a/panel.py: +state_vector format kwargs.
+- analysis/run_phase2a_panel.py: +P16 panel runner.
+- analysis/outputs/p16_phase2a_panel.json: panel results — PASS (TNR=1.000, d=+inf).
+- docs/depth_gap.md: P16 dim4→PASS, GAP→AT-DEPTH. AT-DEPTH count 24→25, Gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 80 P16 dim4 section added.
+- docs/paper_section4_draft.md: §4.16 updated with Phase-2a panel results.
+- docs/paper_section6_draft.md: Sprint 80 entry.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 75 (2026-06-09)
 - epc/detectors/p26_stochastic_resonance.py: inverted-U screening prerequisite added — SR requires interior peak with rise-then-fall (Gammaitoni 1998); monotone or flat performance-vs-noise rejected at screening.
 - epc/phase2a/detector_invariance.py: +P26 flags (permutation_invariant=True, time_shuffle_invariant=True).

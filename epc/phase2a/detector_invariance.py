@@ -134,6 +134,17 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Distributional + time-aggregated."),
     "P31": InvarianceFlags(False, False, "DG monotonicity / avg_wandering_range",
                             rationale="Sequence ordering is the signal."),
+    "P16": InvarianceFlags(True,  True,  "completion accuracy (overlap with stored patterns)",
+                            rationale="perm_inv=True: completion accuracy = (1/N)|Σ ξ_i s_i| "
+                                      "is invariant under a consistent permutation of neuron "
+                                      "indices applied to both state and stored patterns "
+                                      "(Hopfield 1982, §II) → permutation_shuffled is "
+                                      "degenerate-by-construction. time_shuffle_inv=True: "
+                                      "P16 operates on fixed-point (converged) states; the "
+                                      "converged state appears in multiple history entries per "
+                                      "trial (all post-convergence steps identical), so "
+                                      "time_shuffled preserves the signal → degenerate-by-"
+                                      "construction."),
     "P23": InvarianceFlags(True,  True,  "σ²/N of attendance + lag-1 autocorrelation",
                             rationale="perm_inv=True: σ²/N is computed over attendance counts, "
                                       "which are scalar sums over agents — permuting agent indices "

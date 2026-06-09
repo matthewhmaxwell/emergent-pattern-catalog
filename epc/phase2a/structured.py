@@ -506,6 +506,141 @@ def random_choice_attendance(
     return out
 
 
+# --- Attractor-network supplements ------------------------------------------
+
+def random_weights_network(
+    seed: int,
+    *,
+    N: int = 100,
+    P: int = 5,
+    corruption: float = 0.2,
+    n_trials: int = 5,
+    max_steps: int = 50,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Random-weights attractor network — no content-addressable memory.
+
+    Generates P random stored patterns and a random (non-Hebbian) weight matrix.
+    Attempts retrieval from corrupted cues using the random weights. Completion
+    accuracy should be at chance (overlap ≈ √(1/N)). P16 should not fire.
+    """
+    rng = np.random.default_rng(seed)
+    stored_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+
+    # Random weight matrix (NOT Hebbian — no pattern storage)
+    random_patterns = rng.choice([-1, 1], size=(P, N)).astype(np.int8)
+    W = np.zeros((N, N), dtype=np.float64)
+    for mu in range(P):
+        W += np.outer(random_patterns[mu], random_patterns[mu])
+    W /= N
+    np.fill_diagonal(W, 0.0)
+
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_trials):
+        cue_idx = trial % P
+        target = stored_patterns[cue_idx]
+        state = target.copy()
+        n_flip = int(corruption * N)
+        flip_idx = rng.choice(N, size=n_flip, replace=False)
+        state[flip_idx] *= -1
+
+        for step in range(max_steps):
+            overlap = float(np.dot(target.astype(np.int32),
+                                   state.astype(np.int32)) / N)
+            converged = False
+            if step > 0:
+                converged = np.array_equal(state, old_state)  # type: ignore[name-defined]
+
+            history.append({
+                'state': state.copy(),
+                'step': step,
+                'trial': trial,
+                'cue_pattern_idx': cue_idx,
+                'overlap': overlap,
+                'stored_patterns': stored_patterns.copy(),
+                'converged': converged,
+            })
+
+            if converged:
+                break
+
+            old_state = state.copy()
+            order = rng.permutation(N)
+            for i in order:
+                h_i = float(np.dot(W[i], state))
+                if h_i > 0:
+                    state[i] = 1
+                elif h_i < 0:
+                    state[i] = -1
+    return history
+
+
+def single_attractor_network(
+    seed: int,
+    *,
+    N: int = 100,
+    corruption: float = 0.2,
+    n_trials: int = 5,
+    max_steps: int = 50,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Single-attractor network — convergence to ONE pattern, not multi-pattern recall.
+
+    Stores ONE pattern via Hebbian weights. All cue trials converge to the same
+    attractor (trivial, not content-addressable memory over multiple distinct
+    patterns). P16 definitive requires ≥2 distinct patterns selectively recalled.
+    """
+    rng = np.random.default_rng(seed)
+    # Single pattern stored
+    single_pattern = rng.choice([-1, 1], size=N).astype(np.int8)
+    # Create multiple "stored patterns" but only the first is real
+    stored_patterns = rng.choice([-1, 1], size=(5, N)).astype(np.int8)
+    stored_patterns[0] = single_pattern
+
+    # Hebbian weights from single pattern only
+    W = np.outer(single_pattern, single_pattern).astype(np.float64) / N
+    np.fill_diagonal(W, 0.0)
+
+    history: List[Dict[str, Any]] = []
+    for trial in range(n_trials):
+        cue_idx = trial % 5  # Cue different patterns
+        target = stored_patterns[cue_idx]
+        state = target.copy()
+        n_flip = int(corruption * N)
+        flip_idx = rng.choice(N, size=n_flip, replace=False)
+        state[flip_idx] *= -1
+
+        for step in range(max_steps):
+            overlap = float(np.dot(target.astype(np.int32),
+                                   state.astype(np.int32)) / N)
+            converged = False
+            if step > 0:
+                converged = np.array_equal(state, old_state)  # type: ignore[name-defined]
+
+            history.append({
+                'state': state.copy(),
+                'step': step,
+                'trial': trial,
+                'cue_pattern_idx': cue_idx,
+                'overlap': overlap,
+                'stored_patterns': stored_patterns.copy(),
+                'converged': converged,
+            })
+
+            if converged:
+                break
+
+            old_state = state.copy()
+            order = rng.permutation(N)
+            for i in order:
+                h_i = float(np.dot(W[i], state))
+                if h_i > 0:
+                    state[i] = 1
+                elif h_i < 0:
+                    state[i] = -1
+    return history
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -517,6 +652,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "scalar_timeseries": ["passive_ou_decay", "uncontrolled_random_walk_scalar"],
     "noise_sweep_timeseries": ["monotone_suprathreshold_sweep", "flat_noise_only_sweep"],
     "choice_timeseries": ["consensus_herding_attendance", "random_choice_attendance"],
+    "attractor_network": ["random_weights_network", "single_attractor_network"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -536,4 +672,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "flat_noise_only_sweep": flat_noise_only_sweep,
     "consensus_herding_attendance": consensus_herding_attendance,
     "random_choice_attendance": random_choice_attendance,
+    "random_weights_network": random_weights_network,
+    "single_attractor_network": single_attractor_network,
 }

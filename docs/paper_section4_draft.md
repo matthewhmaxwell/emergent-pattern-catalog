@@ -2894,6 +2894,19 @@ Hopfield and BooleanGRN dynamics, T1a observation contract, three-tier detection
 pipeline, random-weights null model, AGS1985 capacity reproduction, and the
 finite-size shift documented at N=500.
 
+**dim4 (Phase-2a panel):** Panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf).
+`state_vector` format. 2 invariance flags (permutation + time_shuffle); both
+SKIPPED — overlap invariant under consistent neuron relabeling (Hopfield 1982);
+converged state replicated across post-convergence steps. 8/8 Class A evaluated
+correctly rejected. 2 Class B supplements correctly rejected: `random_weights_network`
+(no Hebbian storage, overlap at chance), `single_attractor_network` (single-attractor
+prerequisite). 2 Class C failed regimes correctly rejected: `over_capacity` (α=1.0,
+spin-glass phase, mean best-overlap 0.464 < 0.500), `single_pattern` (P=1, multi-
+pattern prerequisite). Content prerequisite (Sprint 80): P16 requires ≥2 distinct
+selectively-retrievable stored patterns — single-pattern convergence or single-
+attractor collapse is not content-addressable memory. 5 positives DEFINITIVE (0.900).
+All 4 dims PASS → P16 **AT-DEPTH**.
+
 **New substrate:** `attractor_network` — 11th substrate type. Two models
 (hopfield, boolean_grn) registered. Registry: 29 models × 26 detectors =
 754 cells, 110 compatible pairs.
