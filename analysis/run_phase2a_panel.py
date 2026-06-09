@@ -21,6 +21,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p19
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p24
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p26
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p23
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -71,6 +72,7 @@ from epc.phase2a.failed_regimes import p17_collective_sensing as p17_failed
 from epc.phase2a.failed_regimes import p19_informed_minority as p19_failed
 from epc.phase2a.failed_regimes import p24_homeostasis as p24_failed
 from epc.phase2a.failed_regimes import p26_stochastic_resonance as p26_failed
+from epc.phase2a.failed_regimes import p23_anticoordination as p23_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1546,6 +1548,63 @@ def run_p26(out_path: str = "analysis/outputs/p26_phase2a_panel.json", verbose: 
     )
 
 
+def build_p23_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P23 canonical positive: MinorityGame in efficient regime (m=6, α≈0.63).
+
+    Uses N=101, m=6, S=2, 3000 rounds to produce clear anti-coordination
+    signal (σ²/N well below random baseline, negative autocorrelation).
+    """
+    from epc.models.minority_game import MinorityGame, MinorityGameParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        model = MinorityGame(MinorityGameParams(
+            n_agents=101,
+            memory=6,
+            n_strategies=2,
+            n_rounds=3000,
+            seed=seed,
+        ))
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p23_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p23_anticoordination import P23AnticoordinationDetector
+    detector = P23AnticoordinationDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p23(out_path: str = "analysis/outputs/p23_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P23 (anti-coordination) Phase-2a panel v1.2.
+
+    detector_format="choice_timeseries": P23 operates on attendance/choice
+    time series. Class A synthetic substrates are random-choice attendance
+    trajectories → P23 rejects (σ²/N at or above random baseline).
+    Class B: 0 catalog mates (only choice_timeseries pattern); 2 supplements
+    (consensus_herding_attendance, random_choice_attendance).
+    Class C: random_agents (no adaptation) + herding_regime (σ² above baseline).
+    """
+    print(f"--- Running P23 panel → {out_path}")
+    positives, metadata = build_p23_positives(n_seeds=5)
+    detector_fn = make_p23_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P23",
+        detector_format="choice_timeseries",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p23_failed,
+        output_path=out_path,
+        target_steps=500,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1595,6 +1654,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P24"] = run_p24()
     if which in ("p26",):
         summaries["P26"] = run_p26()
+    if which in ("p23",):
+        summaries["P23"] = run_p23()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

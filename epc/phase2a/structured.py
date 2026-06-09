@@ -456,6 +456,56 @@ def flat_noise_only_sweep(
     return out
 
 
+# --- Choice-timeseries supplements ------------------------------------------
+
+def consensus_herding_attendance(
+    seed: int,
+    *,
+    n_agents: int = 101,
+    n_rounds: int = 500,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Herding/consensus attendance: agents converge to one shared choice.
+
+    Simulates a simple majority-imitation process where agents copy the
+    majority choice with probability 0.7 each round. Attendance drifts
+    toward 0 or N (consensus), producing σ²/N ABOVE the random baseline
+    (herding, not anti-coordination). P23 should reject — σ² is above
+    random baseline, and there is positive autocorrelation (persistence).
+    """
+    rng = np.random.default_rng(seed)
+    att = n_agents // 2
+    out: List[Dict[str, Any]] = []
+    for t in range(n_rounds):
+        out.append({'round': t, 'attendance': int(att), 'n_agents': n_agents})
+        # Each agent copies majority with p=0.7, else random
+        majority_side = 1 if att > n_agents // 2 else 0
+        p_choose_1 = 0.7 if majority_side == 1 else 0.3
+        att = int(rng.binomial(n_agents, p_choose_1))
+    return out
+
+
+def random_choice_attendance(
+    seed: int,
+    *,
+    n_agents: int = 101,
+    n_rounds: int = 500,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Random-choice attendance: i.i.d. Binomial(N, 0.5) each round.
+
+    No strategy adaptation, no temporal structure. σ²/N ≈ 0.25 (random
+    baseline). P23 should reject — variance is AT the random baseline,
+    not below it.
+    """
+    rng = np.random.default_rng(seed)
+    out: List[Dict[str, Any]] = []
+    for t in range(n_rounds):
+        att = int(rng.binomial(n_agents, 0.5))
+        out.append({'round': t, 'attendance': att, 'n_agents': n_agents})
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -466,6 +516,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "lattice_2d_continuous": ["smooth_random_field", "sinusoidal_traveling_wave"],
     "scalar_timeseries": ["passive_ou_decay", "uncontrolled_random_walk_scalar"],
     "noise_sweep_timeseries": ["monotone_suprathreshold_sweep", "flat_noise_only_sweep"],
+    "choice_timeseries": ["consensus_herding_attendance", "random_choice_attendance"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -483,4 +534,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "uncontrolled_random_walk_scalar": uncontrolled_random_walk_scalar,
     "monotone_suprathreshold_sweep": monotone_suprathreshold_sweep,
     "flat_noise_only_sweep": flat_noise_only_sweep,
+    "consensus_herding_attendance": consensus_herding_attendance,
+    "random_choice_attendance": random_choice_attendance,
 }

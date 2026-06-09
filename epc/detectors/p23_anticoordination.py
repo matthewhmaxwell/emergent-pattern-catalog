@@ -265,12 +265,28 @@ class P23AnticoordinationDetector:
             'n_rounds_analyzed': T,
         }
 
+        # ── Content prerequisite (Sprint 77 Phase-2a fix) ──
+        # Anti-coordination requires BOTH reduced variance AND anti-persistence.
+        # Neither alone is sufficient: reduced variance could be trivial
+        # (constant attendance), and negative autocorrelation could arise from
+        # deterministic oscillation with extreme variance (not coordination).
+        # Ref: Savit, Manuca & Riolo 1999 — the efficient phase is characterized
+        # by the joint signature of σ²/N < p̂(1−p̂) AND anti-persistent dynamics.
+        # Also: σ² = 0 (degenerate constant attendance) is not anti-coordination.
+        nondegenerate = sv > 0
+
         # ── Tier determination ──
-        # Confirmation: variance below baseline OR negative autocorrelation,
-        # with surrogate null rejection at p < 0.01
+        # Confirmation requires non-degenerate attendance (σ² > 0) and variance
+        # strictly below the random-choice baseline. Given these prerequisites,
+        # either variance significance (p_sv) or autocorrelation significance
+        # (p_ac1) suffices for confirmation.
         confirmation_pass = (
-            (variance_below_baseline and p_sv < 0.01)
-            or (negative_autocorrelation and p_ac1 < 0.01)
+            nondegenerate
+            and variance_below_baseline
+            and (
+                p_sv < 0.01
+                or (negative_autocorrelation and p_ac1 < 0.01)
+            )
         )
 
         # Definitive: BOTH variance below baseline AND negative autocorrelation

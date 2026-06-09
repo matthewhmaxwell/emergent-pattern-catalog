@@ -2836,4 +2836,16 @@ limitations (autocorrelation not consistently negative at all efficient-phase se
 (minority_game, el_farol) registered. Registry: 27 models × 25 detectors =
 675 cells, 108 compatible pairs.
 
-**dim4:** Pending (Sprint 77).
+**dim4 (Phase-2a panel, Sprint 77):** Phase-2a v1.2 panel **PASS** (TNR=1.000,
+Cohen's d=14.504). Detector format: `choice_timeseries`. Invariance flags:
+`permutation_invariant=True` (attendance is agent-index-invariant scalar sum),
+`time_shuffle_invariant=True` (σ²/N is the primary confirmation signal and is
+preserved by time shuffling — same pattern as P5 Sprint 46, P1 Sprint 43).
+Class A: 8/8 evaluated synthetics correctly rejected (2 skipped by invariance).
+Class B: 0 catalog mates + 2 supplements (`consensus_herding_attendance` herding
+rejected at screening, `random_choice_attendance` i.i.d. rejected at screening).
+Class C: 2/2 failed regimes rejected (`random_agents` σ²/N at baseline,
+`herding_regime` σ²/N above baseline). Content prerequisite: non-degenerate
+variance (σ² > 0) + variance strictly below random baseline at confirmation
+(Savit et al. 1999). 5 positives: 4 confirmation, 1 definitive. All 4 dims
+PASS → P23 **AT-DEPTH**.

@@ -426,3 +426,21 @@ review at the next paper-review checkpoint.
 - docs/methods_notes/p23_methods.md: new file.
 - analysis/outputs/p23_savit_reproduction.json: dim1 Savit curve (PASS).
 - analysis/outputs/p23_multiseed.json: dim2 25-seed campaign.
+
+## Sprint 77 (P23 dim4 Phase-2a panel — Milestone B Wave 2 closure)
+
+- §4.23 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=14.504). Invariance
+  flags, content prerequisite, per-class results.
+- §6: Sprint 77 entry added. AT-DEPTH count 23→24/25 (P23 GAP→AT-DEPTH).
+  Milestone B Wave 2 complete.
+- docs/depth_gap.md: P23 row updated (pending→PASS, GAP→AT-DEPTH), AT-DEPTH
+  count 23→24, gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 77 P23 dim4 section added.
+- epc/phase2a/detector_invariance.py: P23 flags added (perm=True, time=True).
+- epc/phase2a/synthetic.py: choice_timeseries format added to all 10 generators.
+- epc/phase2a/structured.py: 2 choice_timeseries supplements.
+- epc/phase2a/failed_regimes/p23_anticoordination.py: new file (2 regimes).
+- epc/detectors/p23_anticoordination.py: content prerequisite (nondegenerate
+  variance + below-baseline) at confirmation.
+- analysis/run_phase2a_panel.py: P23 panel runner wired.
+- analysis/outputs/p23_phase2a_panel.json: dim4 panel output (PASS).

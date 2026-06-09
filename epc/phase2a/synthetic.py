@@ -77,6 +77,10 @@ SCALAR_TS_SETPOINT = 10.0            # regulated-variable setpoint
 SCALAR_TS_PERT_AMPLITUDE = 5.0       # perturbation amplitude
 SCALAR_TS_PERT_ONSET_FRAC = 0.25     # perturbation onset at 25% of trajectory
 
+# Choice timeseries defaults (P23 anti-coordination panel)
+CHOICE_TS_N_AGENTS = 101             # default agent count (odd for MG symmetry)
+CHOICE_TS_DEFAULT_STEPS = 500        # default number of rounds
+
 # Noise-sweep timeseries defaults (P26 stochastic resonance panel)
 NOISE_SWEEP_N_LEVELS = 10            # number of noise levels in sweep
 NOISE_SWEEP_STEPS_PER_LEVEL = 2000   # timesteps per noise level
@@ -172,6 +176,17 @@ def _noise_sweep_monotone(
             x[step_i] = amp * signal + rng.normal(0.0, max(D, 0.01))
         x_per_level.append(x)
     return _noise_sweep_history(x_per_level, noise_levels)
+
+
+def _choice_ts_history(
+    attendance: np.ndarray,
+    n_agents: int = CHOICE_TS_N_AGENTS,
+) -> List[Dict[str, Any]]:
+    """Wrap an attendance array into choice_timeseries history format."""
+    return [
+        {'round': int(t), 'attendance': int(a), 'n_agents': n_agents}
+        for t, a in enumerate(attendance)
+    ]
 
 
 def _opinions_history_from_array(ops: np.ndarray) -> List[Dict[str, Any]]:
@@ -309,6 +324,10 @@ def random_uniform_field(
         return _scalar_ts_history(x, n_steps)
     if format == "noise_sweep":
         return _noise_sweep_pure_noise(rng, scale_func="uniform")
+    if format == "choice_timeseries":
+        # i.i.d. Binomial(N, 0.5) attendance — random-choice null.
+        att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -352,6 +371,11 @@ def random_gaussian_field(
         return _scalar_ts_history(x, n_steps)
     if format == "noise_sweep":
         return _noise_sweep_pure_noise(rng, scale_func="linear")
+    if format == "choice_timeseries":
+        # Gaussian-rounded Binomial attendance — random-choice null with heavier tails.
+        att = np.clip(rng.normal(CHOICE_TS_N_AGENTS / 2, np.sqrt(CHOICE_TS_N_AGENTS) / 2,
+                                  size=n_steps).round().astype(int), 0, CHOICE_TS_N_AGENTS)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -398,6 +422,10 @@ def random_binary_field(
         x_per_level = [rng.choice([-1.0, 1.0], size=NOISE_SWEEP_STEPS_PER_LEVEL)
                         for _ in noise_levels]
         return _noise_sweep_history(x_per_level, noise_levels)
+    if format == "choice_timeseries":
+        # Bernoulli(0.5) binary attendance — random-choice null.
+        att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -446,6 +474,10 @@ def spatial_white_noise_series(
         x_per_level = [rng.normal(0.0, 1.0, size=NOISE_SWEEP_STEPS_PER_LEVEL)
                         for _ in noise_levels]
         return _noise_sweep_history(x_per_level, noise_levels)
+    if format == "choice_timeseries":
+        # i.i.d. Binomial attendance redrawn each step — no temporal autocorrelation.
+        att = rng.binomial(CHOICE_TS_N_AGENTS, 0.5, size=n_steps)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -518,6 +550,13 @@ def temporal_white_noise_per_cell(
                                       size=NOISE_SWEEP_STEPS_PER_LEVEL))
             x_per_level.append(x)
         return _noise_sweep_history(x_per_level, noise_levels)
+    if format == "choice_timeseries":
+        # Random-walk attendance with independent per-step noise.
+        att = np.clip(
+            np.cumsum(rng.choice([-1, 0, 1], size=n_steps)) + CHOICE_TS_N_AGENTS // 2,
+            0, CHOICE_TS_N_AGENTS,
+        ).astype(int)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -633,6 +672,11 @@ def permutation_shuffled_positive(
         # Noise-sweep has a single scalar x — permutation is a no-op.
         # Degenerate-by-construction (will be skipped by permutation_invariant=True).
         return list(positive)
+    if format == "choice_timeseries":
+        # Permute agent indices — for attendance-only time series this is a no-op
+        # (σ²/N is permutation-invariant). Degenerate-by-construction; will be
+        # skipped by permutation_invariant=True.
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -738,6 +782,12 @@ def constant_field(
         noise_levels = _default_null_noise_levels()
         x_per_level = [np.zeros(NOISE_SWEEP_STEPS_PER_LEVEL) for _ in noise_levels]
         return _noise_sweep_history(x_per_level, noise_levels)
+    if format == "choice_timeseries":
+        # All agents choose the same side → attendance = N/2 every round.
+        # Variance = 0, mean_ratio = 1.0 — screening passes but confirmation
+        # fails (variance at zero is below baseline, but trivially so).
+        att = np.full(n_steps, CHOICE_TS_N_AGENTS // 2, dtype=int)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -803,6 +853,10 @@ def linear_gradient_field(
         # Monotonically increasing performance: x = k * signal at each level,
         # where k increases with noise → no interior peak → screening fails.
         return _noise_sweep_monotone(rng, direction="increasing")
+    if format == "choice_timeseries":
+        # Linear ramp attendance from 0 to N — monotonic drift, not anti-coordination.
+        att = np.linspace(0, CHOICE_TS_N_AGENTS, n_steps).round().astype(int)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -875,6 +929,11 @@ def periodic_checkerboard(
         # Monotonically decreasing performance: x = k * signal at each level,
         # where k decreases with noise → no interior peak → screening fails.
         return _noise_sweep_monotone(rng, direction="decreasing")
+    if format == "choice_timeseries":
+        # Alternating high/low attendance — deterministic oscillation, variance > baseline.
+        half = CHOICE_TS_N_AGENTS
+        att = np.tile([0, half], n_steps // 2 + 1)[:n_steps].astype(int)
+        return _choice_ts_history(att)
     raise ValueError(f"unknown format: {format}")
 
 

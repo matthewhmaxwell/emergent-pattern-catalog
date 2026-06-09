@@ -293,6 +293,9 @@ def run_panel(
     elif detector_format == "scalar_timeseries":
         # Scalar-timeseries generators use their own defaults; n_steps applies.
         pass  # n_steps already in class_a_kwargs
+    elif detector_format == "choice_timeseries":
+        # Choice-timeseries generators use their own defaults; n_steps applies.
+        pass  # n_steps already in class_a_kwargs
     elif detector_format == "noise_sweep":
         # Noise-sweep generators use their own defaults; n_steps unused.
         class_a_kwargs = {}

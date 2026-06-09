@@ -1148,6 +1148,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P31": "P31_zhang_sorting",
     "P24": "P24_proportional_homeostat",  # Sprint 73; generator below
     "P26": "P26_bistable_double_well",  # Sprint 75; noise_sweep_timeseries
+    "P23": "P23_minority_game",  # Sprint 77; choice_timeseries
 }
 
 

@@ -134,6 +134,18 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                             rationale="Distributional + time-aggregated."),
     "P31": InvarianceFlags(False, False, "DG monotonicity / avg_wandering_range",
                             rationale="Sequence ordering is the signal."),
+    "P23": InvarianceFlags(True,  True,  "σ²/N of attendance + lag-1 autocorrelation",
+                            rationale="perm_inv=True: σ²/N is computed over attendance counts, "
+                                      "which are scalar sums over agents — permuting agent indices "
+                                      "does not change attendance → permutation_shuffled is "
+                                      "degenerate-by-construction. time_shuffle_inv=True: "
+                                      "σ²/N is the primary confirmation-level signal and is "
+                                      "preserved by time shuffling (it is a distribution statistic). "
+                                      "Lag-1 AC is a secondary signal too weak to reliably gate "
+                                      "confirmation at the efficient phase (AC ≈ −0.01 to −0.05, "
+                                      "p > 0.01 for most seeds). Sprint 77 panel run confirmed: "
+                                      "time_shuffled FP at confirmation via σ²/N alone. Same "
+                                      "pattern as P5 (Sprint 46), P1 (Sprint 43)."),
     "P26": InvarianceFlags(True,  True,  "coherent response |⟨x·signal⟩| over noise sweep",
                             rationale="perm_inv=True: noise-sweep timeseries has a single scalar "
                                       "variable x — permuting 'agents' is N/A (degenerate-by-construction "

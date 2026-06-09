@@ -6787,3 +6787,43 @@ surrogate null design, dual-metric detection, Savit curve anchor, limitations.
 **Sprint 76 finding:** P23 implemented with dim1–dim3 PASS, dim4 pending
 (Sprint 77). AT-DEPTH count: **23 / 25** (inventory grew 24→25; P23 GAP
 pending dim4).
+
+## Sprint 77 — P23 dim4 Phase-2a Panel (Milestone B Wave 2 closure)
+
+**Goal:** Build and run Phase-2a v1.2 panel for P23 (anti-coordination /
+minority game). Close dim4 → AT-DEPTH. Complete Milestone B Wave 2.
+
+**Panel configuration:**
+- Canonical positive: MinorityGame at m=6 (α≈0.63), N=101, 3000 rounds, 5 seeds.
+- detector_format: `choice_timeseries`.
+- Invariance flags: `permutation_invariant=True` (σ²/N is an agent-index-invariant
+  scalar sum), `time_shuffle_invariant=True` (σ²/N is the primary confirmation
+  signal and is a distribution statistic preserved by time shuffling; same
+  pattern as P5 Sprint 46, P1 Sprint 43).
+- Class A: 10 synthetic substrates, 8 evaluated (2 skipped: permutation_shuffled,
+  time_shuffled). All 8 correctly rejected.
+- Class B: 0 catalog mates (choice_timeseries is unique substrate type) + 2
+  synthetic supplements (`consensus_herding_attendance`: herding/majority-imitation
+  rejected at screening; `random_choice_attendance`: i.i.d. Binomial rejected at
+  screening). Both correctly rejected.
+- Class C: 2 failed regimes (`random_agents`: no adaptation, σ²/N at random
+  baseline — rejected at screening; `herding_regime`: majority-imitation with
+  σ²/N above baseline — rejected at screening). Both correctly rejected.
+
+**Content prerequisite (Sprint 77):** Non-degenerate variance (σ² > 0) and
+variance strictly below the random-choice baseline required at confirmation.
+Literature grounding: Savit, Manuca & Riolo (1999) — the efficient phase is
+characterized by σ²/N well below p̂(1−p̂); constant or above-baseline attendance
+is not anti-coordination. This prerequisite rejects trivially constant fields
+(σ²=0) and high-variance oscillations (checkerboard, σ²/N >> baseline).
+
+**Results:**
+- Overall TNR: **1.000** (12/12 evaluated negatives correctly rejected).
+- Per-class: syn=1.000 (8/8), cat=1.000 (2/2, advisory), fai=1.000 (2/2).
+- Cohen's d: **14.504** (positive mean=0.730, negative mean=0.000).
+- Verdict: **PASS**.
+- 5 canonical positives: 4 confirmation (score=0.650–0.700), 1 definitive (score=0.900).
+
+**Sprint 77 finding:** P23 dim4 PASS. All 4 dims PASS → P23 advances
+GAP→AT-DEPTH. AT-DEPTH count: **24 / 25** (P12 is the sole remaining GAP).
+Milestone B Wave 2 (P24, P26, P23) complete.

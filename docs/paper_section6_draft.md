@@ -1027,3 +1027,15 @@ reproduced (σ²/N vs α, interior minimum at α≈0.32, σ²/N=0.077 << baselin
 dim2: 25-seed campaign (σ²/N = 0.075 ± 0.006, CV=8.7%, all detected). dim3:
 methods note. dim4 pending (Sprint 77).
 **AT-DEPTH count: 23 / 25** (inventory grew 24→25; P23 GAP pending dim4).
+
+**Sprint 77 (P23 dim4 Phase-2a panel — Milestone B Wave 2 closure).**
+Phase-2a v1.2 panel for P23 anti-coordination: **PASS** (TNR=1.000, Cohen's
+d=14.504). Invariance flags: perm_inv=True, time_shuffle_inv=True (σ²/N is
+the primary confirmation signal and is a distribution statistic preserved by
+time shuffling). Content prerequisite: nondegenerate variance + variance below
+random baseline at confirmation (Savit et al. 1999). Class A: 8/8 evaluated
+synthetics rejected. Class B: 2/2 supplements rejected (consensus_herding,
+random_choice). Class C: 2/2 failed regimes rejected (random_agents, herding).
+P23 dim4 pending→PASS; all 4 dims PASS → **AT-DEPTH**. Milestone B Wave 2
+(P24, P26, P23) complete.
+**AT-DEPTH count: 24 / 25** (P12 sole remaining GAP).
