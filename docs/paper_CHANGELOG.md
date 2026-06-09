@@ -4,6 +4,25 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 81 (2026-06-09)
+- epc/models/canalization.py: NEW — CanalizedLandscape (gradient-flow + quartic potential), MultiBasinGRN (sigmoidal GRN with Hebbian weights), DiffusiveDynamics (negative control), TrivialCollapse (negative control).
+- epc/detectors/p25_equifinality.py: NEW — P25 equifinality detector with convergence variance ratio, IC-distribution surrogate null, trivial-collapse gate, T1a observation-bundle adapter.
+- epc/orchestration.py: +canalization_landscape substrate (12th), +canalized_landscape model, +multi_basin_grn model, +P25 detector. Registry: 31 models × 27 detectors = 837 cells, 112 compatible pairs.
+- tests/test_canalization_p25_e2e.py: NEW — 9 tests (canonical positive, 2 negative controls, perturbation recovery, determinism, observation bundle).
+- tests/test_cross_model.py: +TestP25OnModels (3 T1b tests: landscape, GRN, diffusive rejection).
+- tests/test_orchestration.py: count updates (29→31 models, 26→27 detectors, 110→112 pairs, 11→12 substrates, 754→837 cells) + P25 canonical pair.
+- tests/test_transfer_matrix_counts.py: EXPECTED counts updated.
+- analysis/reproductions/p25_canalization.py: NEW — dim1 reproduction.
+- analysis/reproductions/p25_multiseed.py: NEW — dim2 20-seed campaign.
+- analysis/outputs/p25_canalization_reproduction.json: dim1 results (passes_tolerance=true).
+- analysis/outputs/p25_multiseed.json: dim2 results (20/20 DEFINITIVE).
+- docs/methods_notes/p25_methods.md: NEW — dim3 methods note.
+- docs/depth_gap.md: +P25 row (GAP, dim4 pending). Audited 26→27. Gap 1→2.
+- docs/observation_schema.md: +canalization observation bundle (P25).
+- docs/paper_section4_draft.md: +§4.25 P25 Sprint 81.
+- docs/paper_section6_draft.md: Sprint 81 entry. AT-DEPTH 25/27.
+- docs/paper_CHANGELOG.md: this entry.
+
 ## Sprint 80 (2026-06-09)
 - epc/detectors/p16_associative_memory.py: multi-pattern prerequisite added — P16 requires ≥2 distinct selectively-retrievable stored patterns (Hopfield 1982); single-pattern convergence and single-attractor collapse rejected at screening.
 - epc/phase2a/detector_invariance.py: +P16 flags (permutation_invariant=True, time_shuffle_invariant=True).

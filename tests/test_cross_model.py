@@ -352,3 +352,43 @@ class TestP16CrossModel:
         assert grn_result.detected, (
             f"Boolean GRN not detected: {grn_result.summary()}"
         )
+
+
+class TestP25OnModels:
+    """P25 equifinality detector across model families (T1b)."""
+
+    def test_p25_on_canalized_landscape_detected(self):
+        """P25 should detect on canonical CanalizedLandscape."""
+        from epc.models.canalization import CanalizedLandscape, CanalizedLandscapeParams
+        from epc.detectors.p25_equifinality import P25EquifinalityDetector
+
+        params = CanalizedLandscapeParams(
+            n_dims=10, n_ics=20, n_steps=200, seed=42,
+        )
+        model = CanalizedLandscape(params)
+        h = model.simulate()
+        det = P25EquifinalityDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P25 not detected on CanalizedLandscape: {r.summary()}"
+
+    def test_p25_on_multi_basin_grn_detected(self):
+        """P25 should detect on MultiBasinGRN (T1b cross-model)."""
+        from epc.models.canalization import MultiBasinGRN
+        from epc.detectors.p25_equifinality import P25EquifinalityDetector
+
+        grn = MultiBasinGRN(n_genes=10, n_ics=20, n_steps=400, seed=42)
+        h = grn.simulate()
+        det = P25EquifinalityDetector(n_permutations=199, seed=42)
+        r = det.detect(h, grn.get_metadata())
+        assert r.detected, f"P25 not detected on MultiBasinGRN: {r.summary()}"
+
+    def test_p25_on_diffusive_not_detected(self):
+        """P25 should NOT detect on diffusive dynamics."""
+        from epc.models.canalization import DiffusiveDynamics
+        from epc.detectors.p25_equifinality import P25EquifinalityDetector
+
+        model = DiffusiveDynamics(n_dims=10, n_ics=20, n_steps=200, seed=42)
+        h = model.simulate()
+        det = P25EquifinalityDetector(n_permutations=99, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert not r.detected, f"P25 false positive on diffusive: {r.summary()}"

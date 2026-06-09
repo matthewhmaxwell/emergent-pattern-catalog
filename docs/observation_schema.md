@@ -152,6 +152,45 @@ result = detector.detect(history)
 
 ---
 
+## Canalization observation bundle (P25)
+
+**Detector:** `epc/detectors/p25_equifinality.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key                  | Type              | Description |
+|----------------------|-------------------|-------------|
+| `state`              | `ndarray(N,)`     | System state vector at each timestep |
+| `step`               | `int`             | Update step number within the current trial |
+| `trial`              | `int`             | Trial index (which initial condition) |
+| `ic`                 | `ndarray(N,)`     | Initial condition for this trial |
+| `target`             | `ndarray(N,)`     | Target attractor macrostate |
+| `distance_to_target` | `float`           | Euclidean distance from state to target |
+| `converged`          | `bool`            | Whether distance < convergence threshold |
+
+**Input format:** list of dicts, each containing the keys above. The
+adapter groups records by `trial` and extracts per-trial ICs, final
+states, convergence status, and steps-to-convergence.
+
+**Usage example:**
+```python
+from epc.detectors.p25_equifinality import P25EquifinalityDetector
+
+# Any system producing dicts with these keys works:
+history = [{'state': s, 'step': t, 'trial': tr, 'ic': ic,
+            'target': tgt, 'distance_to_target': d, 'converged': c}
+           for ...]
+
+detector = P25EquifinalityDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `CanalizedLandscape`, `MultiBasinGRN`
+(`epc/models/canalization.py`) — both produce history dicts matching
+this schema. The bundle captures state trajectories from multiple ICs
+so the detector can compute IC-to-final convergence statistics.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

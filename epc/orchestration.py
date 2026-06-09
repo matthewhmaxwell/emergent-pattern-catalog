@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-11 substrate types:
+12 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -18,6 +18,7 @@ by substrate type.
 - noise_sweep_timeseries: BistableDoubleWell/ThresholdUnit (Sprint 74)
 - choice_timeseries: MinorityGame/ElFarolBar (Sprint 76)
 - attractor_network: Hopfield, BooleanGRN (Sprint 79)
+- canalization_landscape: CanalizedLandscape, MultiBasinGRN (Sprint 81)
 
 Architecture decision #25 (updated Sprint 76):
   27 models × 25 detectors — compatible pairs identified by substrate.
@@ -376,6 +377,25 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_content_addressable_memory', 'update_mode',
                        'network_type'],
     ),
+    'canalized_landscape': ModelRegistration(
+        name='canalized_landscape',
+        substrate_type='canalization_landscape',
+        observables=['state', 'ic', 'target', 'distance_to_target', 'converged'],
+        primary_patterns=['P25'],
+        metadata_keys=['n_dims', 'basin_strength', 'ic_spread', 'n_ics',
+                       'n_steps', 'dt', 'noise_std', 'seed',
+                       'model_class', 'has_canalized_basin',
+                       'has_perturbation_recovery'],
+    ),
+    'multi_basin_grn': ModelRegistration(
+        name='multi_basin_grn',
+        substrate_type='canalization_landscape',
+        observables=['state', 'ic', 'target', 'distance_to_target', 'converged'],
+        primary_patterns=['P25'],
+        metadata_keys=['n_genes', 'n_ics', 'n_steps', 'dt', 'decay', 'seed',
+                       'model_class', 'has_canalized_basin',
+                       'has_perturbation_recovery'],
+    ),
 }
 
 # === Detector Registry ===
@@ -535,6 +555,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P16',
         required_substrate=['attractor_network'],
         required_observables=['state', 'stored_patterns'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P25': DetectorRegistration(
+        pattern_id='P25',
+        required_substrate=['canalization_landscape'],
+        required_observables=['state', 'ic', 'target'],
         observable_scope='model_metadata_assisted',
     ),
 }

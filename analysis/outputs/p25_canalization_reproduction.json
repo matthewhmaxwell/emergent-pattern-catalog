@@ -1,0 +1,38 @@
+{
+  "reproduction": "p25_canalization",
+  "pattern": "P25",
+  "anchor": "Waddington (1957) \u2014 canalized restoration / equifinality",
+  "parameters": {
+    "n_dims": 10,
+    "basin_strength": 2.0,
+    "ic_spread": 5.0,
+    "n_ics": 20,
+    "n_steps": 200,
+    "dt": 0.05,
+    "seed": 42
+  },
+  "ic_variance": 20.250477,
+  "final_variance": 0.0,
+  "convergence_variance_ratio": 0.0,
+  "basin_volume": 1.0,
+  "detector_tier": "definitive",
+  "detector_confidence": 0.9,
+  "detector_p_value": 0.005,
+  "tolerance_checks": {
+    "convergence_ratio_lt_0.10": {
+      "value": 0.0,
+      "threshold": 0.1,
+      "pass": true
+    },
+    "basin_volume_gte_0.80": {
+      "value": 1.0,
+      "threshold": 0.8,
+      "pass": true
+    },
+    "detector_confirmation_plus": {
+      "tier": "definitive",
+      "pass": true
+    }
+  },
+  "passes_tolerance": true
+}

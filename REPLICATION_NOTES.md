@@ -6883,3 +6883,62 @@ All random-state null substrates produce completion accuracy at chance
 **Sprint 80 finding:** P16 dim4 PASS. All 4 dims PASS → P16 advances
 GAP→AT-DEPTH. AT-DEPTH count: **25 / 26** (P12 is the sole remaining GAP).
 Milestone B Wave 3 (P16) first dim4 closure.
+
+
+---
+
+# P25 Canalized Restoration / Equifinality (Sprint 81)
+
+Reference: Waddington, C. H. (1957). The Strategy of the Genes. Allen & Unwin.
+           Huang, S. et al. (2005). PRL 94, 128701.
+
+## Model Implementation
+
+- File: `epc/models/canalization.py`
+- CanalizedLandscape: multi-dimensional gradient-flow with quartic potential.
+  Parameters: n_dims=10, basin_strength=2.0, ic_spread=5.0, n_ics=20,
+  n_steps=200, dt=0.05.
+- MultiBasinGRN: continuous-valued GRN with sigmoidal activation and
+  Hebbian weights. T1b cross-model. Parameters: n_genes=10, n_ics=20,
+  n_steps=400, bias=3.0.
+- Negative controls: DiffusiveDynamics (pure random walk), TrivialCollapse
+  (instant constant map).
+
+## Replication Result 1: Convergence Variance Ratio
+
+- 20 diverse ICs, 200 steps, seed=42
+- IC variance: 20.25
+- Final variance: ≈ 0 (machine precision)
+- Convergence variance ratio: ≈ 0 (tolerance < 0.10, PASS)
+- Basin volume: 1.0 (tolerance ≥ 0.80, PASS)
+- Detector tier: DEFINITIVE (confidence 0.90)
+
+## Replication Result 2: Multi-seed Campaign
+
+- 20 seeds (0–19), same parameters
+- Convergence ratio: 0.000 ± 0.000 (CV ≈ 0%)
+- Basin volume: 1.000 ± 0.000
+- All 20 seeds DEFINITIVE (confidence 0.90)
+
+## Replication Result 3: T1b Cross-Model (MultiBasinGRN)
+
+- MultiBasinGRN: n_genes=10, n_ics=20, n_steps=400, seed=42
+- Convergence ratio ≈ 0, basin volume 1.0, DEFINITIVE (0.90)
+
+## Replication Result 4: Negative Controls
+
+- DiffusiveDynamics: NOT detected (convergence ratio > 0.1, screening fails)
+- TrivialCollapse: NOT detected (relaxation_time ≤ 1, trivial-collapse gate rejects)
+
+## Summary
+
+| Claim | Tolerance | Measured | PASS? |
+|-------|-----------|----------|-------|
+| Convergence ratio < 0.10 | < 0.10 | ≈ 0.0 | ✓ |
+| Basin volume ≥ 0.80 | ≥ 0.80 | 1.0 | ✓ |
+| Detector confirmation+ | confirmation or definitive | definitive | ✓ |
+| Diffusive rejected | not detected | not detected | ✓ |
+| Trivial collapse rejected | not detected | not detected | ✓ |
+
+Sprint 81 finding: P25 dims 1–3 PASS. dim4 pending (Sprint 82). P25 added
+to depth_gap as GAP (dim4 pending). AT-DEPTH count remains 25 / 27.

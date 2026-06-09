@@ -1050,3 +1050,15 @@ and single-attractor collapse rejected. Over-capacity (α=1.0) rejected at scree
 (best-overlap 0.464 < 0.500). 5 positives DEFINITIVE. P16 dim4 pending→PASS;
 all 4 dims PASS → **AT-DEPTH**. Milestone B Wave 3 first dim4 closure.
 **AT-DEPTH count: 25 / 26** (P12 sole remaining GAP).
+
+**Sprint 81 — P25 canalized restoration / equifinality implementation.** New
+P25 detector + CanalizedLandscape + MultiBasinGRN models. New substrate:
+`canalization_landscape` (12th). Convergence variance ratio as primary metric
+with IC-distribution surrogate null. Trivial-collapse gate prevents false
+positives from instant constant maps. Two negative controls: DiffusiveDynamics
+(ICs diverge → screening fails) and TrivialCollapse (instant map → trivial-
+collapse gate rejects). dim1: ratio ≈ 0 PASS, basin 1.0 PASS, DEFINITIVE.
+dim2: 20 seeds, all DEFINITIVE. dim3: methods note. T1b: MultiBasinGRN
+DEFINITIVE. Registry: 31 models × 27 detectors = 837 cells, 112 compatible
+pairs. dim4 pending (Sprint 82).
+**AT-DEPTH count: 25 / 27** (P12, P25 GAP — P25 dim4 pending).

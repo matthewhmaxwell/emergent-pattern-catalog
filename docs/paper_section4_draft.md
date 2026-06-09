@@ -2910,3 +2910,40 @@ All 4 dims PASS → P16 **AT-DEPTH**.
 **New substrate:** `attractor_network` — 11th substrate type. Two models
 (hopfield, boolean_grn) registered. Registry: 29 models × 26 detectors =
 754 cells, 110 compatible pairs.
+
+### §4.25 Sprint 81 — P25 Canalized Restoration / Equifinality (Milestone B Wave 3)
+
+**Pattern.** P25 detects equifinality: a system that converges to the same
+target macrostate from a wide range of initial conditions, beyond what a
+simple dominant attractor predicts. Canonical: Waddington (1957) epigenetic
+landscape; Huang et al. (2005) GRN attractor basins.
+
+**Model.** CanalizedLandscape implements multi-dimensional gradient flow on
+a combined linear + quartic potential. The quartic restoring term creates
+genuine basin structure: far-away ICs experience stronger restoring forces,
+producing nonlinear relaxation with distance-dependent timescales. A second
+model (MultiBasinGRN) provides T1b cross-model validation via a continuous-
+valued gene regulatory network with sigmoidal activation and Hebbian weights.
+
+**Detector.** P25EquifinalityDetector uses convergence variance ratio
+(Var(finals) / Var(ICs)) as primary metric. IC-distribution surrogate null:
+generate surrogate final states by sampling from the IC distribution
+(multivariate Gaussian). Three tiers: screening (ratio < 0.1), confirmation
+(basin volume ≥ 0.8 + null p < 0.01), definitive (restoration after
+perturbation + nontrivial relaxation time). A trivial-collapse gate
+(relaxation_time > 1) prevents false positives from instant constant maps.
+
+**Negative controls.** DiffusiveDynamics (pure random walk; ICs diverge →
+ratio >> 0.1 → screening fails) and TrivialCollapse (instant map to
+constant; ratio = 0 but relaxation_time = 0 → trivial-collapse gate
+rejects). Both correctly rejected.
+
+**dim1.** Convergence ratio ≈ 0 (tolerance < 0.10 PASS), basin volume 1.0
+(tolerance ≥ 0.80 PASS), DEFINITIVE (confidence 0.90). **dim2.** 20-seed
+campaign: ratio 0.000 ± 0.000, all 20 DEFINITIVE. **dim3.** Methods note
+covers gradient-flow + quartic potential, IC-surrogate null, trivial-collapse
+gate, T1b GRN cross-model. **T1b.** MultiBasinGRN DEFINITIVE (0.90).
+
+**New substrate:** `canalization_landscape` — 12th substrate type. Two models
+(canalized_landscape, multi_basin_grn) registered. Registry: 31 models ×
+27 detectors = 837 cells, 112 compatible pairs.
