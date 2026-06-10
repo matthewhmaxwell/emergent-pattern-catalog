@@ -4,6 +4,20 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 92 (2026-06-10)
+
+- epc/models/autopoiesis.py: NEW — AutopoiesisModel (VMU 1974 SCL), NonBondingParticleModel (negative control), DenseClusterModel (negative control).
+- epc/detectors/p30_autopoiesis.py: NEW — P30 autopoiesis detector: association_score primary metric + type-shuffle null + three-tier pipeline + P1 exclusion.
+- epc/orchestration.py: P30 + particle_membrane substrate registered. 42 models × 32 detectors. 17th substrate type. **ALL 32 PATTERNS IMPLEMENTED.**
+- tests/test_autopoiesis_p30_e2e.py: NEW — 25 tests: canonical detection, negative controls, T1a adapter, determinism, state consistency, orchestration.
+- analysis/reproductions/p30_scl.py: NEW — dim1 reproduction (closure=1.0, enrichment=2.0, self-repair=1.10, CONFIRMATION).
+- analysis/reproductions/p30_multiseed.py: NEW — dim2 20-seed campaign.
+- analysis/outputs/p30_scl_reproduction.json: dim1 output (passes_tolerance=True).
+- docs/methods_notes/p30_methods.md: NEW — dim3 methods note.
+- docs/observation_schema.md: particle-membrane bundle (P30) section added.
+- docs/depth_gap.md: P30 row added (dim1–dim3 PASS, dim4 pending). Implemented-count → 32.
+- §4.30 paper draft: P30 section added.
+
 ## Sprint 88 (2026-06-10)
 
 - epc/models/trail_network.py: NEW — AntTrailModel (ACO on complete graph), PhysarumModel (Tero 2010 flux-reinforcement), NoReinforcementModel (negative control).

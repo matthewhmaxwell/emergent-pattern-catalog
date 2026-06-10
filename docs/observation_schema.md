@@ -330,6 +330,40 @@ the detector can compute windowed entropy decline and switching frequency.
 
 ---
 
+## Particle-membrane bundle (P30)
+
+**Detector:** `epc/detectors/p30_autopoiesis.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key             | Type                    | Description |
+|-----------------|-------------------------|-------------|
+| `positions`     | `list[ndarray(N, 2)]`   | Particle positions at each snapshot |
+| `types`         | `list[ndarray(N,)]` int | Particle type (0=substrate, 1=catalyst, 2=link) |
+| `bonds`         | `list[list[tuple]]`     | Bonded link pairs at each snapshot (optional) |
+| `steps`         | `ndarray(T,)` int       | Step number at each snapshot |
+| `box_size`      | `float`                 | Domain side length |
+| `n_particles`   | `int`                   | Total particle count |
+
+**Input format:** list of dicts, each containing keys `'positions'`
+(ndarray (N,2)), `'types'` (ndarray (N,) int), `'bonds'` (list of tuples),
+`'step'` (int), `'box_size'` (float), `'n_particles'` (int).
+The adapter extracts and stacks these into aligned arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p30_autopoiesis import P30AutopoiesisDetector
+history = [{'positions': pos, 'types': typ, 'bonds': bonds,
+            'step': t, 'box_size': 20.0, 'n_particles': 103}, ...]
+detector = P30AutopoiesisDetector(n_permutations=199, seed=42)
+result = detector.detect(history, metadata)
+```
+
+**Native models:** `AutopoiesisModel`, `NonBondingParticleModel`,
+`DenseClusterModel` (`epc/models/autopoiesis.py`) — all produce history
+dicts matching this schema.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

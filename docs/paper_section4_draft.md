@@ -3186,3 +3186,60 @@ of labor (Bonabeau 1996).
 **New substrate:** `task_allocation_timeseries` — 16th substrate type.
 Two models (response_threshold, no_reinforcement) registered. Registry:
 39 models × 31 detectors.
+
+### §4.30 P30 — Spontaneous Boundary Formation (Autopoiesis)
+
+**Pattern.** Agents organize into a closed, semi-permeable boundary that
+maintains an internal micro-environment distinct from the exterior. Distinct
+from P1 (similarity-driven aggregation) in that P30 requires topological
+closure with a functional inside/outside distinction, not merely clustering.
+Distinct from P4 (territorial exclusion) in that P4 creates exclusive
+domains between agents; P30 creates one self-maintaining boundary
+(Varela, Maturana & Uribe 1974).
+
+**Model.** AutopoiesisModel: three particle types in a 2D periodic domain —
+substrate (S, free-diffusing), catalyst (C, near-stationary production
+center), link (L, membrane particle). Production: S within
+`production_radius` of C converts to L with probability `production_rate`.
+Decay: L reverts to S with probability `decay_rate`. Forces: radial spring
+keeps L at `membrane_equilibrium_radius` from nearest C; tangential L-L
+attraction for chain cohesion; short-range steric repulsion. Particle
+counts conserved (S + C + L = const); catalyst count fixed.
+
+**Detector.** P30AutopoiesisDetector uses three-tier detection: screening
+via association_score > 1.5 AND closure_fraction > 0.5 AND mean_n_links
+≥ 3; confirmation via enrichment_ratio > 1.2 + null p < 0.01 +
+persistence > 0.5; definitive via closure > 0.7 + enrichment > 2.0 +
+persistence > 0.8 + link_cv < 0.3. Primary metric: association_score —
+fraction of link particles near catalysts divided by CSR expectation.
+Null model: type-shuffle permutation (keep positions, randomize type
+labels). Exclusion: P1 excluded via association_score (spatial
+co-location of specific types, not generic clustering).
+
+**Canonical positive.** AutopoiesisModel (n_substrate=100, n_catalyst=3,
+box_size=20.0, production_rate=0.15, decay_rate=0.01,
+membrane_equilibrium_radius=3.0, seed=42, 150 steps) → CONFIRMATION
+(association_score=2.30, closure=1.0, enrichment=2.0, p=0.005,
+confidence=0.70, P1 excluded).
+
+**Negative controls.** NonBondingParticleModel (all substrate, Brownian
+diffusion only): association_score ≈ 1.0, not detected. DenseClusterModel
+(P1-like aggregation, no type differentiation): association_score ≈ 0,
+not detected.
+
+**dim1.** VMU 1974 SCL reproduction (seed=42): closure_fraction=1.0
+(>0.5 PASS), enrichment_ratio=2.0 (>1.2 PASS), self-repair
+recovery_fraction=1.10 (>0.7 PASS, post-breach link count recovers to
+110% of pre-breach within 50 steps). All 3 sub-signature checks PASS.
+**dim2.** 20-seed campaign (canonical regime): association_score
+2.211 ± 0.087 (CV=3.9%), closure 0.996 ± 0.013, 20/20 detected,
+14/20 confirmation+, 5/20 definitive. **dim3.** Methods note covers
+SCL particle dynamics, three detection metrics (association, closure,
+enrichment), type-shuffle null, three-tier gates, T1a observation
+contract, limitations (angular-coverage necessary-not-sufficient,
+partial self-repair per escape clause).
+
+**New substrate:** `particle_membrane` — 17th substrate type.
+Three models (autopoiesis, non_bonding_particles, dense_cluster)
+registered. Registry: 42 models × 32 detectors. **ALL 32 PATTERNS
+IMPLEMENTED.**

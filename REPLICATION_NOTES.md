@@ -7220,3 +7220,84 @@ rule (no threshold relaxation).
 
 Sprint 91 finding: P32 dim4 PASS. P32 advances GAP → AT-DEPTH.
 **AT-DEPTH count: 30 / 31.** Sole remaining gap: P12 (dim1).
+
+---
+
+## Sprint 92 — P30 Autopoiesis (Spontaneous Boundary Formation)
+
+**Sprint:** 92 (2026-06-10)
+**Pattern:** P30 — Spontaneous boundary formation (autopoiesis).
+**Reference:** Varela, Maturana & Uribe (1974). Autopoiesis: the
+organization of living systems, its characterization and a model.
+*BioSystems* 5(4), 187–196.
+
+### Model: AutopoiesisModel (`epc/models/autopoiesis.py`)
+
+SCL-style autopoiesis with three particle types in 2D periodic domain:
+- Substrate (S, type=0): free-diffusing resource (diffusion=0.3)
+- Catalyst (C, type=1): near-stationary production center (diffusion=0.002)
+- Link (L, type=2): membrane particle (diffusion=0.01)
+
+Production: S within production_radius (3.0) of C converts to L with
+probability production_rate (0.15). Decay: L reverts to S with probability
+decay_rate (0.01). Radial spring: L attracted to membrane_equilibrium_radius
+(3.0) from nearest C (spring constant=0.5). Tangential L-L attraction
+(strength=0.3) for chain cohesion. Steric repulsion for all pairs within
+repulsion_radius (0.4). Periodic boundary conditions. Total particle count
+conserved (103 = 100 S + 3 C initially).
+
+### Negative controls
+
+1. **NonBondingParticleModel:** All particles type 0, Brownian diffusion only.
+   No production, no type differentiation → association_score ≈ 1.0.
+2. **DenseClusterModel:** All particles attract each other (P1-like).
+   No type differentiation → association_score ≈ 0.
+
+### dim1: VMU 1974 SCL reproduction
+
+`analysis/outputs/p30_scl_reproduction.json`.
+
+Three sub-signatures tested:
+
+| Sub-signature | Metric | Value | Threshold | Result |
+|---------------|--------|-------|-----------|--------|
+| Closure | closure_fraction | 1.000 | > 0.5 | **PASS** |
+| Gradient | enrichment_ratio | 1.997 | > 1.2 | **PASS** |
+| Self-repair | recovery_fraction | 1.102 | > 0.7 | **PASS** |
+
+Detection: CONFIRMATION tier (association_score=2.301, p=0.005,
+confidence=0.70). Self-repair: 30% breach → 50 recovery steps →
+link count recovers to 110% of pre-breach (54 vs 49).
+
+### dim2: 20-seed campaign
+
+`analysis/outputs/p30_multiseed.json`.
+
+| Metric | Mean | Std | CV |
+|--------|------|-----|-----|
+| association_score | 2.211 | 0.087 | 3.9% |
+| closure_fraction | 0.996 | 0.013 | 1.3% |
+| enrichment_ratio | 1.687 | 0.586 | 34.7% |
+
+Detection: 20/20 detected, 14/20 confirmation+, 5/20 definitive.
+All 20 seeds produce detectable autopoiesis. Association score has low
+variance (CV=3.9%), confirming robust membrane formation. Enrichment
+ratio has higher variance (CV=34.7%) due to stochastic catalyst
+positioning relative to the membrane.
+
+### dim3: methods note
+
+`docs/methods_notes/p30_methods.md`. Covers: SCL particle dynamics,
+three detection metrics (association_score, closure_fraction,
+enrichment_ratio), type-shuffle permutation null, three-tier gates,
+T1a observation bundle contract, limitations (angular-coverage
+necessary-not-sufficient for topological closure, partial self-repair
+per escape clause).
+
+### New substrate: particle_membrane (17th)
+
+Three models registered: autopoiesis, non_bonding_particles, dense_cluster.
+Registry: 42 models × 32 detectors. **ALL 32 PATTERNS IMPLEMENTED.**
+
+Sprint 92 finding: P30 dim1–dim3 PASS. dim4 pending (Phase-2a panel).
+**AT-DEPTH count: 30 / 32.** Gaps: P12 (dim1), P30 (dim4).

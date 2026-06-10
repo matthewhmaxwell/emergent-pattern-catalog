@@ -1190,3 +1190,20 @@ rejected. Content prerequisite: entropy decline AND late_coverage ≥ 0.5 —
 single-task collapse is not division of labor (Bonabeau 1996). P32 advances
 GAP → AT-DEPTH.
 **AT-DEPTH count: 30 / 31.** Sole remaining gap: P12 (dim1).
+
+**Sprint 92 (P30 implement, dim1–dim3; Wave 4 final implementation — ALL 32 PATTERNS).**
+P30 spontaneous boundary formation / autopoiesis (Varela, Maturana &
+Uribe 1974). AutopoiesisModel: 3 particle types (substrate, catalyst, link)
+in 2D periodic domain; catalysts convert nearby substrate → links; links
+form a membrane via radial spring + tangential cohesion; links decay back
+to substrate. P30AutopoiesisDetector: three-tier pipeline via
+association_score (primary: link-catalyst spatial co-location / CSR), closure
+fraction, enrichment ratio, type-shuffle permutation null, P1 exclusion.
+New substrate: `particle_membrane` (17th). T1a: particle-membrane
+observation bundle (positions + types + bonds). Negative controls:
+NonBondingParticleModel (no production → not detected),
+DenseClusterModel (P1-like aggregation → not detected). dim1: VMU 1974
+reproduction PASS (closure=1.0, enrichment=2.0, self-repair=1.10).
+dim2: 20-seed campaign. dim3: methods note. dim4: pending (Phase-2a panel).
+**Implemented-count: 32 — ALL 32 PATTERNS.** Registry: 42 models × 32 detectors.
+**AT-DEPTH count: 30 / 32** (P30 dim4 pending → GAP).

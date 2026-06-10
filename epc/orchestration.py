@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-15 substrate types:
+16 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -23,9 +23,10 @@ by substrate type.
 - territorial_agent_field: ScentMarkingTerritory, PheromoneRepulsionTerritory (Sprint 86)
 - trail_network: AntTrailNetwork, PhysarumNetwork (Sprint 88)
 - task_allocation_timeseries: ResponseThreshold, NoReinforcement (Sprint 90)
+- particle_membrane: Autopoiesis (Sprint 92)
 
-Architecture decision #25 (updated Sprint 90):
-  39 models × 31 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 92):
+  40 models × 32 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -484,6 +485,17 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'seed', 'model_class', 'has_threshold_reinforcement',
                        'has_forgetting', 'interaction_type', 'update_mode'],
     ),
+    'autopoiesis': ModelRegistration(
+        name='autopoiesis',
+        substrate_type='particle_membrane',
+        observables=['positions', 'types', 'bonds'],
+        primary_patterns=['P30'],
+        metadata_keys=['n_particles', 'n_catalyst', 'box_size',
+                       'production_rate', 'decay_rate', 'production_radius',
+                       'membrane_equilibrium_radius', 'catalyst_link_attraction',
+                       'link_attraction', 'seed', 'model_class',
+                       'has_production', 'has_decay', 'has_bonding'],
+    ),
 }
 
 # === Detector Registry ===
@@ -673,6 +685,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P32',
         required_substrate=['task_allocation_timeseries'],
         required_observables=['task_assignments'],
+        observable_scope='state_history_only',
+    ),
+    'P30': DetectorRegistration(
+        pattern_id='P30',
+        required_substrate=['particle_membrane'],
+        required_observables=['positions', 'types'],
         observable_scope='state_history_only',
     ),
 }
