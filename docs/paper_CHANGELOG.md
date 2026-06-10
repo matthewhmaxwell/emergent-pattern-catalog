@@ -561,6 +561,31 @@ review at the next paper-review checkpoint.
 - analysis/run_phase2a_panel.py: P23 panel runner wired.
 - analysis/outputs/p23_phase2a_panel.json: dim4 panel output (PASS).
 
+## Sprint 91 (P32 dim4 Phase-2a panel — Milestone B Wave 4)
+
+- §4.32 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=2.683). Content
+  prerequisite (late_coverage ≥ 0.5), per-class results, invariance flags.
+- §6: Sprint 91 entry added. AT-DEPTH count 29→30/31 (P32 GAP→AT-DEPTH).
+- docs/depth_gap.md: P32 row updated (pending→PASS, GAP→AT-DEPTH), AT-DEPTH
+  count 29→30, gap count 2→1.
+- epc/detectors/p32_specialization.py: screening prerequisite added —
+  late_coverage ≥ 0.5 (Bonabeau 1996 content prerequisite). No threshold
+  relaxation.
+- epc/phase2a/detector_invariance.py: P32 flags added (perm_inv=True,
+  time_shuffle_inv=False).
+- epc/phase2a/catalog.py: P32_response_threshold substrate + generator +
+  PATTERN_TO_SUBSTRATE_ID entry + _adapt_to_task_allocation adapter.
+- epc/phase2a/synthetic.py: task_allocation_timeseries format support in all
+  10 Class A generators + _task_allocation_null_history builder.
+- epc/phase2a/structured.py: single_task_collapse_allocation +
+  constant_rebalancing_allocation supplements for task_allocation_timeseries.
+- epc/phase2a/panel.py: task_allocation_timeseries format case in run_panel.
+- epc/phase2a/failed_regimes/p32_specialization.py: NEW — 10 Class C regimes
+  (5 no-reinforcement + 5 high-forgetting).
+- analysis/run_phase2a_panel.py: P32 build/make/run functions + main dispatch.
+- analysis/outputs/p32_phase2a_panel.json: panel output.
+- REPLICATION_NOTES.md: Sprint 91 P32 dim4 section added.
+
 ## Sprint 90 (P32 Emergent specialization / division of labor — Milestone B Wave 4)
 
 - §4.32 NEW: P32 emergent specialization — ResponseThresholdModel (Bonabeau 1996),

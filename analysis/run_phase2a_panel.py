@@ -27,6 +27,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p20
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p4
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p29
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p32
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -83,6 +84,7 @@ from epc.phase2a.failed_regimes import p25_equifinality as p25_failed
 from epc.phase2a.failed_regimes import p20_quorum as p20_failed
 from epc.phase2a.failed_regimes import p4_territoriality as p4_failed
 from epc.phase2a.failed_regimes import p29_trail_network as p29_failed
+from epc.phase2a.failed_regimes import p32_specialization as p32_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1901,6 +1903,66 @@ def run_p29(out_path: str = "analysis/outputs/p29_phase2a_panel.json", verbose: 
     )
 
 
+def build_p32_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P32 canonical positive: ResponseThresholdModel with specialization.
+
+    20 agents, 3 tasks, 500 steps. Threshold reinforcement drives entropy
+    decline and stable role assignment.
+    """
+    from epc.models.division_of_labor import ResponseThresholdModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = ResponseThresholdModel(
+            n_agents=20, n_tasks=3,
+            reinforcement_rate=0.05, forgetting_rate=0.01,
+            stimulus_rate=0.1, initial_threshold=0.5,
+            seed=42 + seed,
+        )
+        m.setup()
+        history: List[Dict[str, Any]] = []
+        for _ in range(500):
+            history.append(m.step())
+        runs.append(history)
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p32_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p32_specialization import P32SpecializationDetector
+    detector = P32SpecializationDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p32(out_path: str = "analysis/outputs/p32_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P32 (specialization / division of labor) Phase-2a panel.
+
+    detector_format: task_allocation_timeseries
+    Class A: random task assignments (all TNs).
+    Class B: 0 catalog mates (sole task_allocation_timeseries pattern);
+    B' supplements: single_task_collapse_allocation, constant_rebalancing_allocation.
+    Class C: no-reinforcement (no entropy decline) + high-forgetting
+    (thresholds drift uniformly, no stable roles).
+    Invariance: permutation_invariant=False, time_shuffle_invariant=False.
+    """
+    print(f"--- Running P32 panel → {out_path}")
+    positives, metadata = build_p32_positives(n_seeds=5)
+    detector_fn = make_p32_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P32",
+        detector_format="task_allocation_timeseries",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p32_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1962,6 +2024,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P4"] = run_p4()
     if which in ("p29",):
         summaries["P29"] = run_p29()
+    if which in ("p32",):
+        summaries["P32"] = run_p32()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

@@ -939,6 +939,65 @@ def uniform_traffic_graph(
     return history
 
 
+def single_task_collapse_allocation(
+    seed: int,
+    n_agents: int = 20,
+    n_tasks: int = 3,
+    n_steps: int = 500,
+) -> List[Dict[str, Any]]:
+    """Single-task collapse — all agents converge to task 0.
+
+    After a brief initial transient (50 steps with random assignments),
+    all agents permanently do task 0. Entropy declines sharply but
+    role_diversity = 1/n_tasks and single_task_collapse = True → P32
+    confirmation rejects.
+    """
+    rng = np.random.default_rng(seed)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        if step < 50:
+            assignments = rng.integers(0, n_tasks, size=n_agents).astype(np.int64)
+        else:
+            assignments = np.zeros(n_agents, dtype=np.int64)
+        history.append({
+            "step": step,
+            "task_assignments": assignments,
+            "thresholds": np.full((n_agents, n_tasks), 0.5, dtype=np.float64),
+            "stimulus": np.full(n_tasks, 0.5, dtype=np.float64),
+            "n_agents": n_agents,
+            "n_tasks": n_tasks,
+        })
+    return history
+
+
+def constant_rebalancing_allocation(
+    seed: int,
+    n_agents: int = 20,
+    n_tasks: int = 3,
+    n_steps: int = 500,
+) -> List[Dict[str, Any]]:
+    """Constant re-balancing — agents continuously switch tasks every step.
+
+    Each agent is assigned a random task at each timestep, independently.
+    Per-agent entropy remains near max throughout (no decline), and
+    switching frequency stays high → P32 screening rejects (no entropy
+    decline) and P23 exclusion would fail (high switching).
+    """
+    rng = np.random.default_rng(seed)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        assignments = rng.integers(0, n_tasks, size=n_agents).astype(np.int64)
+        history.append({
+            "step": step,
+            "task_assignments": assignments,
+            "thresholds": np.full((n_agents, n_tasks), 0.5, dtype=np.float64),
+            "stimulus": np.full(n_tasks, 0.5, dtype=np.float64),
+            "n_agents": n_agents,
+            "n_tasks": n_tasks,
+        })
+    return history
+
+
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "oscillator": ["incoherent_phases", "subcritical_kuramoto"],
     "network": ["random_graph_evolution", "network_random_walks"],
@@ -953,6 +1012,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "density_sweep_timeseries": ["smooth_sigmoid_density_sweep", "always_off_density_sweep"],
     "territorial_agent_field": ["random_walk_territory", "clustering_agents_territory"],
     "trail_network": ["static_mst_graph", "uniform_traffic_graph"],
+    "task_allocation_timeseries": ["single_task_collapse_allocation", "constant_rebalancing_allocation"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -982,4 +1042,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "clustering_agents_territory": clustering_agents_territory,
     "static_mst_graph": static_mst_graph,
     "uniform_traffic_graph": uniform_traffic_graph,
+    "single_task_collapse_allocation": single_task_collapse_allocation,
+    "constant_rebalancing_allocation": constant_rebalancing_allocation,
 }

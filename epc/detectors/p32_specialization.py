@@ -225,9 +225,19 @@ class P32SpecializationDetector(BaseDetector):
         primary_result: dict[str, float],
         timescale: float,
     ) -> bool:
-        """Screening: per-agent entropy decreases over time."""
+        """Screening: per-agent entropy decreases over time WITH maintained coverage.
+
+        Content prerequisite (Sprint 91): P32 requires entropy decline AND
+        maintained population-level task coverage. Single-task collapse
+        (all agents do one task) shows entropy decline but is NOT division
+        of labor — it lacks distinct functional roles. Requiring
+        late_coverage ≥ 0.5 gates out collapse-to-one-task scenarios.
+        Literature basis: Bonabeau et al. 1996 define division of labor as
+        allocation of DIFFERENT tasks across individuals.
+        """
         entropy_decline = primary_result.get("entropy_decline", 0.0)
-        return entropy_decline > 0.1  # at least 0.1 bits decline
+        late_coverage = primary_result.get("late_coverage", 0.0)
+        return entropy_decline > 0.1 and late_coverage >= 0.5
 
     def _compute_secondaries(
         self,

@@ -43,6 +43,11 @@ TN_DEFAULT_N_NODES = 7
 TN_DEFAULT_GRID_SIZE = 100
 TN_DEFAULT_N_STEPS = 50  # snapshots, not simulation steps
 
+# Task-allocation defaults (P32).
+TA_DEFAULT_N_AGENTS = 20
+TA_DEFAULT_N_TASKS = 3
+TA_DEFAULT_N_STEPS = 500
+
 
 def _territorial_agent_field_null_history(
     rng: np.random.Generator,
@@ -115,6 +120,31 @@ def _trail_network_null_history(
             'step': step,
             'n_nodes': n_nodes,
             'grid_size': grid_size,
+        })
+    return history
+
+
+def _task_allocation_null_history(
+    rng: np.random.Generator,
+    n_agents: int = TA_DEFAULT_N_AGENTS,
+    n_tasks: int = TA_DEFAULT_N_TASKS,
+    n_steps: int = TA_DEFAULT_N_STEPS,
+) -> List[Dict[str, Any]]:
+    """Generate a random task-allocation null (no specialization).
+
+    Each agent is assigned a uniformly random task at each timestep.
+    No entropy decline, no role structure → P32 screening rejects.
+    """
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        assignments = rng.integers(0, n_tasks, size=n_agents).astype(np.int64)
+        history.append({
+            "step": step,
+            "task_assignments": assignments,
+            "thresholds": np.full((n_agents, n_tasks), 0.5, dtype=np.float64),
+            "stimulus": np.full(n_tasks, 0.5, dtype=np.float64),
+            "n_agents": n_agents,
+            "n_tasks": n_tasks,
         })
     return history
 
@@ -579,6 +609,8 @@ def random_uniform_field(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -637,6 +669,8 @@ def random_gaussian_field(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -697,6 +731,8 @@ def random_binary_field(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -759,6 +795,8 @@ def spatial_white_noise_series(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -848,6 +886,8 @@ def temporal_white_noise_per_cell(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1013,6 +1053,18 @@ def permutation_shuffled_positive(
         ew_shuffled = ew_shuffled + ew_shuffled.T
         T = len(positive)
         return [dict(h, edge_weights=ew_shuffled.copy()) for h in positive]
+    if format == "task_allocation_timeseries":
+        # Permute agent indices in the positive — changes which agent has
+        # which role but P32 computes per-agent entropy, so the role-to-
+        # agent mapping changes → not degenerate. perm_inv=False.
+        n_agents = positive[0]["n_agents"]
+        perm = rng.permutation(n_agents)
+        shuffled: List[Dict[str, Any]] = []
+        for h in positive:
+            ta = np.asarray(h["task_assignments"]).copy()
+            th = np.asarray(h["thresholds"]).copy()
+            shuffled.append(dict(h, task_assignments=ta[perm], thresholds=th[perm]))
+        return shuffled
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1158,6 +1210,8 @@ def constant_field(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1237,6 +1291,8 @@ def linear_gradient_field(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1339,6 +1395,8 @@ def periodic_checkerboard(
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     if format == "trail_network":
         return _trail_network_null_history(rng, n_steps=n_steps)
+    if format == "task_allocation_timeseries":
+        return _task_allocation_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

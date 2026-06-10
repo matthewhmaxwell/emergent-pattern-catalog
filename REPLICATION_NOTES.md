@@ -7184,3 +7184,39 @@ response_threshold, no_reinforcement.
 
 Sprint 90 finding: P32 dim1–dim3 PASS. dim4 pending (Sprint 91).
 **AT-DEPTH count: 29 / 31.** Gaps: P12 (dim1), P32 (dim4).
+
+## Sprint 91 — P32 dim4 Phase-2a Panel
+
+**Pattern:** P32 — Emergent specialization (division of labor). dim4 closure.
+
+**Phase-2a panel:** `analysis/outputs/p32_phase2a_panel.json`.
+detector_format=task_allocation_timeseries. Verdict: **PASS**.
+
+| Class | TNR | n | Detail |
+|-------|-----|---|--------|
+| Synthetic (A) | 1.000 | 9 evaluated (1 skipped) | `permutation_shuffled` SKIPPED (perm_inv=True); all 9 remaining rejected |
+| Catalog (B) | 1.000 | 2 (advisory, supplements only) | `single_task_collapse_allocation` rejected (low coverage); `constant_rebalancing_allocation` rejected (no entropy decline) |
+| Failed regimes (C) | 1.000 | 10 | 5 no-reinforcement + 5 high-forgetting, all rejected |
+| Overall | 1.000 | 21 | Cohen's d = 2.683 |
+
+**Invariance flags:** permutation_invariant=True (mean per-agent entropy
+is invariant under agent relabelling — degenerate-by-construction).
+time_shuffle_invariant=False (early-vs-late window comparison requires
+temporal ordering).
+
+**Content prerequisite (Sprint 91):** P32 requires per-agent entropy
+decline AND maintained population-level task coverage ≥ 0.5. Single-task
+collapse (all agents do one task) shows entropy decline but is NOT
+division of labor — it lacks distinct functional roles. Literature basis:
+Bonabeau et al. 1996 define division of labor as allocation of DIFFERENT
+tasks across individuals.
+
+**FP resolution:** Initial panel run surfaced two FPs: (1) `permutation_shuffled`
+at confirmation — resolved by correcting perm_inv to True (mean is
+order-invariant over agents); (2) `single_task_collapse_allocation` at
+screening — resolved by adding late_coverage ≥ 0.5 prerequisite at
+screening. Both are literature-grounded content prerequisites per Sprint 30
+rule (no threshold relaxation).
+
+Sprint 91 finding: P32 dim4 PASS. P32 advances GAP → AT-DEPTH.
+**AT-DEPTH count: 30 / 31.** Sole remaining gap: P12 (dim1).

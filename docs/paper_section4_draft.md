@@ -3173,6 +3173,16 @@ dynamics, three-tier criteria, T1a observation contract, T1b cross-model.
 reinforcement: θ *= (1-rate)) also detected — confirms detector
 recognizes the specialization phenomenon, not the additive implementation.
 
+**dim4.** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=2.683):
+syn=1.000 (9/9 evaluated; `permutation_shuffled` SKIPPED — mean
+per-agent entropy is invariant under agent relabelling), cat=1.000
+(advisory; 2 supplements: single_task_collapse rejected at screening
+via late_coverage < 0.5, constant_rebalancing rejected via no entropy
+decline), fai=1.000 (5 no-reinforcement + 5 high-forgetting regimes,
+all rejected). Content prerequisite (Sprint 91): entropy decline AND
+maintained task coverage ≥ 0.5 — single-task collapse is not division
+of labor (Bonabeau 1996).
+
 **New substrate:** `task_allocation_timeseries` — 16th substrate type.
 Two models (response_threshold, no_reinforcement) registered. Registry:
 39 models × 31 detectors.

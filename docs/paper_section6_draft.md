@@ -1177,4 +1177,16 @@ coverage, efficiency). dim2: 20-seed campaign (final entropy 1.210 ± 0.208,
 CV=17.2%). dim3: methods note. dim4: Sprint 91 (Phase-2a panel).
 **Implemented-count: 31.** Registry: 39 models × 31 detectors.
 **AT-DEPTH count: 29 / 31** (P32 dim4 pending → GAP).
-Remaining gaps: P12 (dim1), P32 (dim4).
+
+**Sprint 91 (P32 dim4 Phase-2a panel; Wave 4 seventh panel).**
+P32 dim4 closure. Phase-2a panel v1.2 PASS (TNR=1.000, Cohen's d=2.683).
+detector_format: task_allocation_timeseries. Invariance: perm_inv=True
+(mean per-agent entropy invariant under agent relabelling),
+time_shuffle_inv=False (early-vs-late window comparison). Class A: 9/9
+evaluated rejected (permutation_shuffled skipped). Class B: 0 catalog
+mates + 2 supplements (single_task_collapse_allocation, constant_rebalancing_allocation),
+both rejected. Class C: 5 no-reinforcement + 5 high-forgetting regimes, all
+rejected. Content prerequisite: entropy decline AND late_coverage ≥ 0.5 —
+single-task collapse is not division of labor (Bonabeau 1996). P32 advances
+GAP → AT-DEPTH.
+**AT-DEPTH count: 30 / 31.** Sole remaining gap: P12 (dim1).

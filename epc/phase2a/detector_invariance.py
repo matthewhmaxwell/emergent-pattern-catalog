@@ -167,6 +167,15 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "p > 0.01 for most seeds). Sprint 77 panel run confirmed: "
                                       "time_shuffled FP at confirmation via σ²/N alone. Same "
                                       "pattern as P5 (Sprint 46), P1 (Sprint 43)."),
+    "P32": InvarianceFlags(True,  False, "per-agent entropy decline + role diversity",
+                            rationale="perm_inv=True: entropy_decline = mean of per-agent "
+                                      "entropies — permuting agent indices relabels agents "
+                                      "but preserves the mean → permutation_shuffled is "
+                                      "degenerate-by-construction. "
+                                      "time_shuffle_inv=False: P32 reads task assignments "
+                                      "sequentially to compute entropy trends (early vs late "
+                                      "window); shuffling temporal order destroys the "
+                                      "early-vs-late comparison. Sprint 91 panel."),
     "P29": InvarianceFlags(False, False, "weight-distance correlation + network efficiency",
                             rationale="perm_inv=False: weight-distance correlation depends on "
                                       "node-edge structure — permuting node indices changes edge-to-"

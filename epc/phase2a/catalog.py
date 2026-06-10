@@ -66,6 +66,7 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     # P4 scent-marking territory: canonical Giuggioli 2011 regime (panel-scale: L=32, 5000 steps).
     "P4_scent_marking_territory": {"n_agents": 4, "grid_size": 32, "deposition_rate": 0.1, "decay_rate": 0.03, "repulsion_strength": 2.0, "home_attraction": 2.0, "temperature": 0.5, "n_steps": 5000, "snapshot_interval": 50, "seed": 0},
     "P29_ant_trail_network": {"n_nodes": 7, "n_agents": 40, "grid_size": 100, "alpha": 2.0, "beta": 3.0, "deposition_rate": 10.0, "evaporation_rate": 0.05, "n_steps": 500, "snapshot_interval": 10, "seed": 0},
+    "P32_response_threshold": {"n_agents": 20, "n_tasks": 3, "reinforcement_rate": 0.05, "forgetting_rate": 0.01, "stimulus_rate": 0.1, "initial_threshold": 0.5, "n_steps": 500, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -438,6 +439,24 @@ def _gen_p29_ant_trail_network(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "trail_network", "history": history}
 
 
+def _gen_p32_response_threshold(p: Dict[str, Any]) -> Dict[str, Any]:
+    """ResponseThresholdModel canonical specialization regime (task_allocation_timeseries)."""
+    from epc.models.division_of_labor import ResponseThresholdModel
+    model = ResponseThresholdModel(
+        n_agents=p["n_agents"], n_tasks=p["n_tasks"],
+        reinforcement_rate=p["reinforcement_rate"],
+        forgetting_rate=p["forgetting_rate"],
+        stimulus_rate=p["stimulus_rate"],
+        initial_threshold=p["initial_threshold"],
+        seed=p["seed"],
+    )
+    model.setup()
+    history: List[Dict[str, Any]] = []
+    for _ in range(p["n_steps"]):
+        history.append(model.step())
+    return {"kind": "task_allocation_timeseries", "history": history}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -464,6 +483,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P25_canalized_landscape": _gen_p25_canalized_landscape,
     "P4_scent_marking_territory": _gen_p4_scent_marking_territory,
     "P29_ant_trail_network": _gen_p29_ant_trail_network,
+    "P32_response_threshold": _gen_p32_response_threshold,
 }
 
 
@@ -1300,6 +1320,36 @@ def _adapt_to_trail_network(
     return history
 
 
+def _adapt_to_task_allocation(
+    native: Dict[str, Any],
+    target_steps: int = 500,
+    n_agents: int = 20,
+    n_tasks: int = 3,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to task_allocation_timeseries format.
+
+    For non-task-allocation substrates, generates random uniform task
+    assignments (no entropy decline, no specialization). P32 should reject
+    at screening (entropy constant).
+    """
+    if native.get("kind") == "task_allocation_timeseries":
+        return native["history"]
+    # Non-task-allocation substrates: random task assignments (no specialization).
+    rng = np.random.default_rng(42)
+    history: List[Dict[str, Any]] = []
+    for step in range(target_steps):
+        assignments = rng.integers(0, n_tasks, size=n_agents).astype(np.int64)
+        history.append({
+            "step": step,
+            "task_assignments": assignments,
+            "thresholds": np.full((n_agents, n_tasks), 0.5, dtype=np.float64),
+            "stimulus": np.full(n_tasks, 0.5, dtype=np.float64),
+            "n_agents": n_agents,
+            "n_tasks": n_tasks,
+        })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1338,6 +1388,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_territorial_agent_field(native, target_steps=target_steps)
     if target_format == "trail_network":
         return _adapt_to_trail_network(native, target_steps=target_steps)
+    if target_format == "task_allocation_timeseries":
+        return _adapt_to_task_allocation(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1395,6 +1447,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P20": "P20_autoinducer_quorum",  # Sprint 84; density_sweep_timeseries
     "P4": "P4_scent_marking_territory",  # Sprint 87; territorial_agent_field
     "P29": "P29_ant_trail_network",  # Sprint 88/89; trail_network
+    "P32": "P32_response_threshold",  # Sprint 90/91; task_allocation_timeseries
 }
 
 
