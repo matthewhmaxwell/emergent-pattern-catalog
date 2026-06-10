@@ -65,6 +65,7 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P25_canalized_landscape": {"n_dims": 10, "basin_strength": 2.0, "ic_spread": 5.0, "n_ics": 20, "n_steps": 200, "seed": 0},
     # P4 scent-marking territory: canonical Giuggioli 2011 regime (panel-scale: L=32, 5000 steps).
     "P4_scent_marking_territory": {"n_agents": 4, "grid_size": 32, "deposition_rate": 0.1, "decay_rate": 0.03, "repulsion_strength": 2.0, "home_attraction": 2.0, "temperature": 0.5, "n_steps": 5000, "snapshot_interval": 50, "seed": 0},
+    "P29_ant_trail_network": {"n_nodes": 7, "n_agents": 40, "grid_size": 100, "alpha": 2.0, "beta": 3.0, "deposition_rate": 10.0, "evaporation_rate": 0.05, "n_steps": 500, "snapshot_interval": 10, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -422,6 +423,21 @@ def _gen_p4_scent_marking_territory(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "territorial_agent_field", "history": history}
 
 
+def _gen_p29_ant_trail_network(p: Dict[str, Any]) -> Dict[str, Any]:
+    """AntTrailModel canonical reinforced-network regime (trail_network)."""
+    from epc.models.trail_network import AntTrailModel, AntTrailParams
+    params = AntTrailParams(
+        n_nodes=p["n_nodes"], n_agents=p["n_agents"], grid_size=p["grid_size"],
+        alpha=p["alpha"], beta=p["beta"],
+        deposition_rate=p["deposition_rate"], evaporation_rate=p["evaporation_rate"],
+        n_steps=p["n_steps"], snapshot_interval=p["snapshot_interval"],
+        seed=p["seed"],
+    )
+    model = AntTrailModel(params)
+    history = model.simulate()
+    return {"kind": "trail_network", "history": history}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -447,6 +463,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P24_proportional_homeostat": _gen_p24_proportional_homeostat,
     "P25_canalized_landscape": _gen_p25_canalized_landscape,
     "P4_scent_marking_territory": _gen_p4_scent_marking_territory,
+    "P29_ant_trail_network": _gen_p29_ant_trail_network,
 }
 
 
@@ -1251,6 +1268,38 @@ def _adapt_to_territorial_agent_field(
     return history
 
 
+def _adapt_to_trail_network(
+    native: Dict[str, Any],
+    target_steps: int = 50,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to trail_network format.
+
+    For non-trail-network substrates, generates random edge weights on a
+    complete graph with random node positions (no weight-distance correlation).
+    P29 should reject at screening (correlation ≈ 0).
+    """
+    if native.get("kind") == "trail_network":
+        return native["history"]
+    # Non-trail substrates: random graph with no weight-distance correlation.
+    rng = np.random.default_rng(42)
+    n_nodes, grid_size = 7, 100
+    node_positions = rng.uniform(0.0, float(grid_size), (n_nodes, 2))
+    history: List[Dict[str, Any]] = []
+    for step in range(target_steps):
+        ew = rng.uniform(0.0, 1.0, (n_nodes, n_nodes))
+        ew = (ew + ew.T) / 2.0
+        np.fill_diagonal(ew, 0.0)
+        history.append({
+            'node_positions': node_positions.copy(),
+            'edge_weights': ew,
+            'pheromone_field': np.zeros((grid_size, grid_size), dtype=np.float64),
+            'step': step,
+            'n_nodes': n_nodes,
+            'grid_size': grid_size,
+        })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1287,6 +1336,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_density_sweep(native, target_steps=target_steps)
     if target_format == "territorial_agent_field":
         return _adapt_to_territorial_agent_field(native, target_steps=target_steps)
+    if target_format == "trail_network":
+        return _adapt_to_trail_network(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1343,6 +1394,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P25": "P25_canalized_landscape",  # Sprint 82; canalization_bundle
     "P20": "P20_autoinducer_quorum",  # Sprint 84; density_sweep_timeseries
     "P4": "P4_scent_marking_territory",  # Sprint 87; territorial_agent_field
+    "P29": "P29_ant_trail_network",  # Sprint 88/89; trail_network
 }
 
 

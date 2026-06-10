@@ -7083,3 +7083,62 @@ AT-DEPTH count: 27 / 28 (P12 sole GAP).
 
 Sprint 87 finding: P4 dim4 PASS → **AT-DEPTH** confirmed.
 AT-DEPTH count: 28 / 29 (P12 sole GAP).
+
+---
+
+### Sprint 89 — P29 dim4 Phase-2a panel
+
+P29 trail / network formation dim4 completed via Phase-2a panel v1.2.
+
+**Panel results:**
+- Overall TNR: 1.000 (22/22 negatives correctly rejected)
+- Synthetic (Class A): 10/10 TNR=1.000
+- Catalog (Class B): 2/2 TNR=1.000 (advisory; 0 catalog mates + 2 B' supplements)
+- Failed regime (Class C): 10/10 TNR=1.000
+- Cohen's d: 10.550
+- Verdict: **PASS**
+
+**Positive detection:**
+- 4/5 seeds detected (1 DEFINITIVE at 0.900, 2 SCREENING at 0.600, 1 SCREENING at 0.500)
+- Seed 0 not detected (early correlation exceeds late due to stochastic layout)
+
+**Class A composition (10 synthetic):**
+All 10 evaluated (no invariance skips — perm_inv=False, time_shuffle_inv=False):
+random_uniform, random_gaussian, random_binary, spatial_white_noise,
+temporal_white_noise, permutation_shuffled, time_shuffled, constant,
+linear_gradient, checkerboard — all correctly rejected.
+
+**Class B composition:**
+- Substrate type: trail_network (sole pattern in this type)
+- 0 catalog mates
+- 2 B' supplements:
+  - `static_mst_graph`: precomputed 1/distance weights — rejected at screening
+    (static edge weights, no temporal evolution; fails temporal-dynamics prereq)
+  - `uniform_traffic_graph`: random uniform agent choices — rejected at screening
+    (no weight accumulation; fails weight-accumulation prereq)
+
+**Class C (10 failed regimes):**
+- 5 high-evaporation regimes (evaporation_rate ∈ linspace(0.80, 0.99, 5)):
+  pheromone vanishes within 1–2 steps → no persistent network → rejected
+- 5 no-reinforcement regimes (NoReinforcementModel, seeds 300–304):
+  agents choose edges uniformly at random → uniform weights → rejected
+
+**Content prerequisites (Sprint 89):**
+1. Temporal reinforcement dynamics: edge weights must change over time. Static
+   graphs (precomputed MST, random graph with fixed weights) blocked. Anchored
+   in Tero et al. (2010): "the network evolved from initially uniform
+   conductance to a topology close to the MST."
+2. Weight accumulation: late total edge weight must exceed early by ≥50%.
+   Blocks i.i.d. random-weight-per-step nulls (spatial_white_noise) and
+   time_shuffled positives where late snapshot may be an early-stage network.
+   Anchored in Deneubourg et al. (1990): pheromone reinforcement produces
+   net accumulation on preferred (short) edges.
+
+**Invariance flags:**
+- permutation_invariant=False: weight-distance correlation depends on
+  node-edge correspondence
+- time_shuffle_invariant=False: final snapshot is endpoint of reinforcement
+  trajectory; shuffling temporal order changes which snapshot is "final"
+
+Sprint 89 finding: P29 dim4 PASS → **AT-DEPTH** confirmed.
+AT-DEPTH count: 29 / 30 (P12 sole GAP).

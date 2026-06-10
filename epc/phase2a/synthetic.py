@@ -38,6 +38,11 @@ TAF_DEFAULT_GRID_SIZE = 32
 TAF_DEFAULT_DEPOSIT = 0.1
 TAF_DEFAULT_DECAY = 0.03
 
+# Trail-network defaults (P29).
+TN_DEFAULT_N_NODES = 7
+TN_DEFAULT_GRID_SIZE = 100
+TN_DEFAULT_N_STEPS = 50  # snapshots, not simulation steps
+
 
 def _territorial_agent_field_null_history(
     rng: np.random.Generator,
@@ -81,6 +86,36 @@ def _territorial_agent_field_null_history(
                 'n_agents': N,
                 'grid_size': L,
             })
+    return history
+
+
+def _trail_network_null_history(
+    rng: np.random.Generator,
+    n_nodes: int = TN_DEFAULT_N_NODES,
+    grid_size: int = TN_DEFAULT_GRID_SIZE,
+    n_steps: int = TN_DEFAULT_N_STEPS,
+) -> List[Dict[str, Any]]:
+    """Generate a random trail-network null (no weight-distance correlation).
+
+    Places n_nodes uniformly at random on [0, grid_size]² and assigns i.i.d.
+    uniform edge weights. No reinforcement mechanism → weight and 1/distance
+    are uncorrelated → P29 screening rejects (corr ≈ 0).
+    """
+    node_positions = rng.uniform(0.0, float(grid_size), (n_nodes, 2))
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        edge_weights = rng.uniform(0.0, 1.0, (n_nodes, n_nodes))
+        # Symmetric, zero diagonal
+        edge_weights = (edge_weights + edge_weights.T) / 2.0
+        np.fill_diagonal(edge_weights, 0.0)
+        history.append({
+            'node_positions': node_positions.copy(),
+            'edge_weights': edge_weights,
+            'pheromone_field': np.zeros((grid_size, grid_size), dtype=np.float64),
+            'step': step,
+            'n_nodes': n_nodes,
+            'grid_size': grid_size,
+        })
     return history
 
 
@@ -542,6 +577,8 @@ def random_uniform_field(
         return _canalization_bundle_null(rng, dynamics="random_walk")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -598,6 +635,8 @@ def random_gaussian_field(
         return _canalization_bundle_null(rng, dynamics="random_walk")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -656,6 +695,8 @@ def random_binary_field(
         return _canalization_bundle_null(rng, dynamics="random_walk")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -716,6 +757,8 @@ def spatial_white_noise_series(
         return _canalization_bundle_null(rng, dynamics="random_walk")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -803,6 +846,8 @@ def temporal_white_noise_per_cell(
         return _canalization_bundle_null(rng, dynamics="divergent")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -954,6 +999,20 @@ def permutation_shuffled_positive(
         # consistent agent relabelling → degenerate-by-construction.
         # Will be skipped by permutation_invariant=True.
         return list(positive)
+    if format == "trail_network":
+        # Permute edge weights across edges in the positive's final snapshot.
+        # Destroys weight-distance correlation → P29 screening rejects.
+        snap = positive[-1]
+        ew = np.asarray(snap['edge_weights']).copy()
+        n = ew.shape[0]
+        upper_idx = np.triu_indices(n, k=1)
+        vals = ew[upper_idx].copy()
+        rng.shuffle(vals)
+        ew_shuffled = np.zeros_like(ew)
+        ew_shuffled[upper_idx] = vals
+        ew_shuffled = ew_shuffled + ew_shuffled.T
+        T = len(positive)
+        return [dict(h, edge_weights=ew_shuffled.copy()) for h in positive]
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1097,6 +1156,8 @@ def constant_field(
         return _canalization_bundle_null(rng, dynamics="constant")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1174,6 +1235,8 @@ def linear_gradient_field(
         return _canalization_bundle_null(rng, dynamics="divergent")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1274,6 +1337,8 @@ def periodic_checkerboard(
         return _canalization_bundle_null(rng, dynamics="constant")
     if format == "territorial_agent_field":
         return _territorial_agent_field_null_history(rng, n_steps=n_steps)
+    if format == "trail_network":
+        return _trail_network_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

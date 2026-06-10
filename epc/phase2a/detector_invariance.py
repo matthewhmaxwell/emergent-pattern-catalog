@@ -167,6 +167,15 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "p > 0.01 for most seeds). Sprint 77 panel run confirmed: "
                                       "time_shuffled FP at confirmation via σ²/N alone. Same "
                                       "pattern as P5 (Sprint 46), P1 (Sprint 43)."),
+    "P29": InvarianceFlags(False, False, "weight-distance correlation + network efficiency",
+                            rationale="perm_inv=False: weight-distance correlation depends on "
+                                      "node-edge structure — permuting node indices changes edge-to-"
+                                      "node correspondence, altering the correlation metric. "
+                                      "time_shuffle_inv=False: P29 reads the FINAL snapshot's "
+                                      "edge weights, which are the cumulative result of reinforcement "
+                                      "dynamics — shuffling temporal order changes which snapshot is "
+                                      "'final', potentially presenting an early-stage unreinforced "
+                                      "network → correlation drops. Sprint 89 panel."),
     "P4":  InvarianceFlags(True,  True,  "exclusivity index + boundary persistence",
                             rationale="perm_inv=True: exclusivity index = mean per-cell "
                                       "max(visits_i)/total_visits is invariant under consistent "

@@ -3114,6 +3114,17 @@ reproduction results. **T1b.** PhysarumModel DEFINITIVE (0.90), AntTrailModel
 CONFIRMATION+ (0.70) — confirms detector recognizes the *phenomenon*, not
 the specific implementation.
 
+**dim4** (Sprint 89). Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's
+d=10.550). Class A: 10/10 rejected (no invariance skips). Class B: 0
+catalog mates + 2 supplements (`static_mst_graph` rejected at screening via
+temporal-dynamics prerequisite; `uniform_traffic_graph` rejected at screening
+via weight-accumulation prerequisite). Class C: 5 high-evaporation
+(evaporation_rate ∈ [0.80, 0.99]) + 5 no-reinforcement regimes, all rejected.
+Two content prerequisites (Sprint 89): (1) temporal reinforcement dynamics —
+edge weights must change over time, not static (Tero 2010); (2) weight
+accumulation — late total weight must exceed early by ≥50%
+(Deneubourg 1990: pheromone reinforcement produces net accumulation).
+
 **New substrate:** `trail_network` — 15th substrate type. Two models
 (ant_trail_network, physarum_network) registered. Registry: 37 models ×
 30 detectors.

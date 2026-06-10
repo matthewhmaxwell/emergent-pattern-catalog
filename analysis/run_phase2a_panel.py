@@ -26,6 +26,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p25
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p20
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p4
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p29
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -81,6 +82,7 @@ from epc.phase2a.failed_regimes import p16_hopfield as p16_failed
 from epc.phase2a.failed_regimes import p25_equifinality as p25_failed
 from epc.phase2a.failed_regimes import p20_quorum as p20_failed
 from epc.phase2a.failed_regimes import p4_territoriality as p4_failed
+from epc.phase2a.failed_regimes import p29_trail_network as p29_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1839,6 +1841,66 @@ def run_p4(out_path: str = "analysis/outputs/p4_phase2a_panel.json", verbose: bo
     )
 
 
+# --- P29 Trail / Network Formation ------------------------------------------
+
+def build_p29_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P29 canonical positive: AntTrailModel with pheromone reinforcement.
+
+    7-node complete graph, 40 agents, 500 steps. Emergent near-MST network
+    with positive weight-distance correlation. Each seed uses random layout.
+    """
+    from epc.models.trail_network import AntTrailModel, AntTrailParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        params = AntTrailParams(
+            n_nodes=7, n_agents=40, grid_size=100,
+            alpha=2.0, beta=3.0,
+            deposition_rate=10.0, evaporation_rate=0.05,
+            n_steps=500, snapshot_interval=10,
+            seed=42 + seed,
+        )
+        model = AntTrailModel(params)
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p29_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p29_trail_network import P29TrailNetworkDetector
+    detector = P29TrailNetworkDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p29(out_path: str = "analysis/outputs/p29_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P29 (trail / network formation) Phase-2a panel.
+
+    detector_format: trail_network
+    Class A: random graphs with no weight-distance correlation (all TNs).
+    Class B: 0 catalog mates (sole trail_network pattern); B'
+    supplements: static_mst_graph, uniform_traffic_graph.
+    Class C: high-evaporation (no persistent network) + no-reinforcement
+    (uniform edge weights).
+    Invariance: permutation_invariant=False, time_shuffle_invariant=False.
+    """
+    print(f"--- Running P29 panel → {out_path}")
+    positives, metadata = build_p29_positives(n_seeds=5)
+    detector_fn = make_p29_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P29",
+        detector_format="trail_network",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p29_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1898,6 +1960,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P20"] = run_p20()
     if which in ("p4",):
         summaries["P4"] = run_p4()
+    if which in ("p29",):
+        summaries["P29"] = run_p29()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

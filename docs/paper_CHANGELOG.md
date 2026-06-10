@@ -560,3 +560,25 @@ review at the next paper-review checkpoint.
   variance + below-baseline) at confirmation.
 - analysis/run_phase2a_panel.py: P23 panel runner wired.
 - analysis/outputs/p23_phase2a_panel.json: dim4 panel output (PASS).
+
+## Sprint 89 (P29 dim4 Phase-2a panel — Milestone B Wave 4)
+
+- §4.29 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=10.550). Content
+  prerequisites, per-class results, invariance flags.
+- §6: Sprint 89 entry added. AT-DEPTH count 28→29/30 (P29 GAP→AT-DEPTH).
+- docs/depth_gap.md: P29 row updated (pending→PASS, GAP→AT-DEPTH), AT-DEPTH
+  count 28→29, gap count 2→1.
+- REPLICATION_NOTES.md: Sprint 89 P29 dim4 section added.
+- epc/phase2a/detector_invariance.py: P29 flags added (perm=False, time=False).
+- epc/phase2a/synthetic.py: trail_network format added to all 10 generators.
+- epc/phase2a/structured.py: 2 trail_network supplements (static_mst_graph,
+  uniform_traffic_graph).
+- epc/phase2a/catalog.py: P29 substrate registered (_gen_p29_ant_trail_network,
+  _adapt_to_trail_network, PATTERN_TO_SUBSTRATE_ID).
+- epc/phase2a/panel.py: trail_network detector_format handler added.
+- epc/phase2a/failed_regimes/p29_trail_network.py: new file (10 regimes:
+  5 high-evaporation + 5 no-reinforcement).
+- epc/detectors/p29_trail_network.py: 2 content prerequisites added (temporal
+  reinforcement dynamics + weight accumulation — Tero 2010, Deneubourg 1990).
+- analysis/run_phase2a_panel.py: P29 panel runner wired.
+- analysis/outputs/p29_phase2a_panel.json: dim4 panel output (PASS).

@@ -1140,3 +1140,23 @@ mean_score=0.60). P4 dim4 pending→PASS; all 4 dims PASS → **P4 AT-DEPTH**
 confirmed.
 **AT-DEPTH count: 28 / 29** (unchanged; P4 provisionally AT-DEPTH since
 Sprint 86). Remaining gap: P12 (dim1).
+
+**Sprint 89 (P29 dim4 closure, AT-DEPTH +1; Wave 4 first dim4 closure).**
+P29 trail / network formation (Tero 2010) Phase-2a panel v1.2 PASS
+(TNR=1.000, Cohen's d=10.550). trail_network detector format. Invariance:
+permutation_invariant=False, time_shuffle_invariant=False (10/10 Class A
+evaluated, no skips). Two content prerequisites added (Sprint 89):
+(1) temporal reinforcement dynamics — edge weights must change over time,
+blocking static/precomputed graphs (Tero 2010: conductance evolves from
+uniform to near-MST); (2) weight accumulation — late total edge weight must
+exceed early by ≥50%, blocking i.i.d. random-weight-per-step nulls and
+time-shuffled positives (Deneubourg 1990: pheromone reinforcement produces
+net accumulation on preferred edges). Class A: 10/10 TN. Class B: 0 catalog
+mates + 2 supplements (`static_mst_graph` rejected at screening via
+temporal-dynamics prereq; `uniform_traffic_graph` rejected at screening via
+weight-accumulation prereq). Class C: 5 high-evaporation
+(evaporation_rate ∈ [0.80, 0.99]) + 5 no-reinforcement (NoReinforcementModel),
+all 10 rejected. 4/5 canonical positives detected (1 DEFINITIVE, 2 SCREENING
+at 0.600, 1 SCREENING at 0.500; seed 0 not detected due to stochastic layout).
+P29 dim4 pending→PASS; all 4 dims PASS → **P29 AT-DEPTH** confirmed.
+**AT-DEPTH count: 29 / 30** (+1: P29). Remaining gap: P12 (dim1).

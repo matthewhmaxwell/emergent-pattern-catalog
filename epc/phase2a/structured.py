@@ -868,6 +868,77 @@ def clustering_agents_territory(
 
 # --- Registry ---------------------------------------------------------------
 
+def static_mst_graph(
+    seed: int,
+    n_nodes: int = 7,
+    grid_size: int = 100,
+    n_steps: int = 50,
+) -> List[Dict[str, Any]]:
+    """Static MST-optimal graph — precomputed, not emergent from agent dynamics.
+
+    Places nodes randomly, then sets edge weights equal to 1/distance (the
+    "ideal" weight-distance correlation) STATICALLY. This produces perfect
+    weight-distance correlation but is NOT emergent — it is a precomputed
+    analytical solution. P29 should reject at definitive (no
+    has_pheromone_reinforcement in metadata) or at content prerequisite
+    if the detector checks for emergent dynamics.
+    """
+    rng = np.random.default_rng(seed)
+    node_positions = rng.uniform(0.0, float(grid_size), (n_nodes, 2))
+    # Set edge weights proportional to 1/distance (static optimal).
+    dists = np.sqrt(((node_positions[:, None, :] - node_positions[None, :, :]) ** 2).sum(axis=-1))
+    np.fill_diagonal(dists, 1.0)  # avoid div-by-zero
+    edge_weights = 1.0 / dists
+    np.fill_diagonal(edge_weights, 0.0)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        history.append({
+            'node_positions': node_positions.copy(),
+            'edge_weights': edge_weights.copy(),
+            'pheromone_field': np.zeros((grid_size, grid_size), dtype=np.float64),
+            'step': step,
+            'n_nodes': n_nodes,
+            'grid_size': grid_size,
+        })
+    return history
+
+
+def uniform_traffic_graph(
+    seed: int,
+    n_nodes: int = 7,
+    grid_size: int = 100,
+    n_steps: int = 50,
+) -> List[Dict[str, Any]]:
+    """Uniform-traffic graph — agents choose edges uniformly at random.
+
+    All edges accumulate approximately the same weight regardless of distance.
+    No weight-distance correlation → P29 screening rejects (correlation ≈ 0).
+    """
+    rng = np.random.default_rng(seed)
+    node_positions = rng.uniform(0.0, float(grid_size), (n_nodes, 2))
+    # Simulate uniform random traffic: each step, each of 40 agents picks
+    # a random edge and increments its weight by 1.
+    edge_weights = np.zeros((n_nodes, n_nodes), dtype=np.float64)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        for _ in range(40):  # 40 agents
+            i = rng.integers(0, n_nodes)
+            j = rng.integers(0, n_nodes - 1)
+            if j >= i:
+                j += 1
+            edge_weights[i, j] += 1.0
+            edge_weights[j, i] += 1.0
+        history.append({
+            'node_positions': node_positions.copy(),
+            'edge_weights': edge_weights.copy(),
+            'pheromone_field': np.zeros((grid_size, grid_size), dtype=np.float64),
+            'step': step,
+            'n_nodes': n_nodes,
+            'grid_size': grid_size,
+        })
+    return history
+
+
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "oscillator": ["incoherent_phases", "subcritical_kuramoto"],
     "network": ["random_graph_evolution", "network_random_walks"],
@@ -881,6 +952,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "canalization_landscape": ["diffusive_multi_ic", "homeostatic_regulation_bundle"],
     "density_sweep_timeseries": ["smooth_sigmoid_density_sweep", "always_off_density_sweep"],
     "territorial_agent_field": ["random_walk_territory", "clustering_agents_territory"],
+    "trail_network": ["static_mst_graph", "uniform_traffic_graph"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -908,4 +980,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "always_off_density_sweep": always_off_density_sweep,
     "random_walk_territory": random_walk_territory,
     "clustering_agents_territory": clustering_agents_territory,
+    "static_mst_graph": static_mst_graph,
+    "uniform_traffic_graph": uniform_traffic_graph,
 }

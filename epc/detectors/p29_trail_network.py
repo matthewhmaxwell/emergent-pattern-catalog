@@ -296,12 +296,47 @@ class P29TrailNetworkDetector:
 
         has_metadata = metadata is not None
 
-        # Content prerequisite: need positive edge weights
+        # Content prerequisite 1: need positive edge weights
         if edge_weights.max() <= 0:
             return self._no_detection(
                 edge_weights, node_pos, has_metadata,
                 ['no positive edge weights — no network formed'],
             )
+
+        # Content prerequisite 2: temporal reinforcement dynamics
+        # (Tero 2010: network EVOLVES from uniform/zero conductance to near-MST;
+        # a precomputed static graph or i.i.d. random graph is not emergent).
+        # Require: (a) edge weights change over time (not static), AND
+        # (b) total edge weight increases from early to late (reinforcement
+        # accumulates pheromone/conductance — Tero 2010 §Results: "flow
+        # evolved ... the total tube volume decreased while conductivity of
+        # remaining edges increased").
+        if len(bundle['edge_weights']) >= 3:
+            early_ew = bundle['edge_weights'][0]
+            late_ew = bundle['edge_weights'][-1]
+            early_total = float(np.abs(early_ew).sum())
+            late_total = float(np.abs(late_ew).sum())
+            # (a) Static graph check: weights must change.
+            ew_change = float(np.abs(late_ew - early_ew).sum())
+            if late_total > 0 and ew_change / late_total < 0.01:
+                return self._no_detection(
+                    edge_weights, node_pos, has_metadata,
+                    ['static edge weights — no temporal reinforcement dynamics '
+                     '(Tero 2010: emergent networks require conductance evolution)'],
+                )
+            # (b) Reinforcement accumulation: late total weight must be
+            # substantially larger than early (pheromone/conductance builds up).
+            # For ACO: deposition > evaporation → net accumulation.
+            # For Physarum: winning edges grow while losers decay.
+            # Threshold: late_total > 1.5 * early_total (50% growth minimum).
+            if early_total > 0 and late_total < 1.5 * early_total:
+                return self._no_detection(
+                    edge_weights, node_pos, has_metadata,
+                    [f'insufficient weight accumulation — early_total={early_total:.1f}, '
+                     f'late_total={late_total:.1f}, ratio={late_total/early_total:.2f} '
+                     '(Tero 2010: emergent reinforcement produces net accumulation '
+                     'of conductance on selected edges)'],
+                )
 
         # Compute observed metrics
         obs = _network_metrics(edge_weights, node_pos)
