@@ -1098,3 +1098,45 @@ always_off_density_sweep — both rejected at screening). Class C: 2/2 TN
 response lacks sharp threshold and hysteresis. Invariance: perm_inv=False,
 time_shuffle_inv=True. P20 advances GAP→AT-DEPTH. Completes Wave 3.
 **AT-DEPTH count: 27 / 28** (P12 sole GAP).
+
+**Sprint 85 — Milestone B Wave 3 summary (non-blocking checkpoint).** No new
+code; summary sprint documenting Wave 3 completion status. Wave 3 delivered
+P16, P25, P20 (all AT-DEPTH). AT-DEPTH count unchanged.
+**AT-DEPTH count: 27 / 28**.
+
+**Sprint 86 — P4 territoriality / exclusion boundaries implementation.** New
+pattern P4 (Giuggioli et al. 2011 scent-mediated territorial exclusion).
+ScentMarkingModel (canonical, N=4 agents on L=48 torus, 20000 steps,
+two-stage movement: foreign-scent avoidance + own-scent-weighted softmax),
+PheromoneRepulsionModel (T1b, hard-threshold avoidance), PlainRandomWalkModel
+(negative control). P4 detector: exclusivity index + pairwise overlap +
+boundary persistence + occupancy-scent correlation; cell-level multinomial
+shuffle null. T1a observation bundle: territorial_agent_field format.
+dim1: Giuggioli 2011 reproduction (excl=0.902, overlap=0.034,
+persistence=0.865, d=157.5). dim2: 20-seed campaign. dim3: methods note.
+dim4 pending (Sprint 87). Registry: 35 models × 29 detectors, 116 compatible
+pairs.
+**AT-DEPTH count: 28 / 29** (+1: P4, provisionally AT-DEPTH pending dim4).
+
+**Sprint 87 — P4 dim4 Phase-2a panel.** Phase-2a panel v1.2 **PASS**
+(TNR=1.000, Cohen's d=4.153). New `territorial_agent_field` detector format
+wired into panel harness. Invariance flags: permutation_invariant=True
+(exclusivity invariant under agent-index relabelling),
+time_shuffle_invariant=True (cumulative occupancy preserves ownership
+structure under temporal reordering — corrected from brief's prescribed
+False). Content prerequisite (Sprint 87): scent-mediated exclusion required
+at screening — occ-scent correlation < 0 AND persistence ≥ 0.5
+(Giuggioli 2011: genuine territorial exclusion requires negative
+occupancy-scent coupling). First-run FPs fixed: (1) mixing-adequate null
+histories (3000 internal steps for O(L²) random-walk coverage on L=32 grid),
+(2) content prerequisite gates incidental spatial autocorrelation,
+(3) Class C home_attraction=0 for high-tolerance regimes (prevents
+own-scent self-organization without foreign avoidance). Class A: 8/8 TN
+(permutation_shuffled + time_shuffled SKIPPED). Class B: 0 catalog mates +
+2 supplements (random_walk_territory, clustering_agents_territory — both
+rejected at screening). Class C: 10/10 TN (5 high-tolerance + 5 fast-decay).
+4/5 canonical positives detected (seed 2 fails occ-scent prereq;
+mean_score=0.60). P4 dim4 pending→PASS; all 4 dims PASS → **P4 AT-DEPTH**
+confirmed.
+**AT-DEPTH count: 28 / 29** (unchanged; P4 provisionally AT-DEPTH since
+Sprint 86). Remaining gap: P12 (dim1).

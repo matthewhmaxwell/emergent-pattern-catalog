@@ -382,6 +382,33 @@ class P4TerritorialityDetector:
             'observed_overlap': observed_overlap,
         }
 
+        # ── CONTENT PREREQUISITE (Sprint 87): scent-mediated exclusion ──
+        # P4 requires scent-mediated exclusion (occupancy anti-correlated
+        # with foreign scent) AND persistent boundaries. Incidental low
+        # overlap or clustering from spatial autocorrelation is out of
+        # domain. This prerequisite separates genuine territory formation
+        # from random walks that produce moderate exclusivity on finite
+        # grids purely from spatial locality.
+        if occ_scent_corr >= 0.0:
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=warnings + [
+                    f"Content prerequisite: occupancy-scent correlation "
+                    f"{occ_scent_corr:.4f} >= 0 → no scent-mediated "
+                    f"exclusion detected (incidental overlap out of domain)"
+                ],
+                metadata_available=metadata_available,
+            )
+        if persistence < 0.5:
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=warnings + [
+                    f"Content prerequisite: boundary persistence "
+                    f"{persistence:.3f} < 0.5 → no persistent boundaries"
+                ],
+                metadata_available=metadata_available,
+            )
+
         # ── SCREENING: exclusivity significantly above null ──
         # Require both statistical significance AND absolute threshold.
         # Random walks on finite grids produce moderate exclusivity (~0.7)

@@ -4,6 +4,22 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 87 (2026-06-10)
+
+- epc/phase2a/detector_invariance.py: P4 invariance flags (perm=True, time_shuffle=True).
+- epc/phase2a/synthetic.py: territorial_agent_field format added to all 10 Class A generators + mixing-adequate null history (3000 internal steps).
+- epc/phase2a/structured.py: 2 territorial_agent_field supplements (random_walk_territory, clustering_agents_territory).
+- epc/phase2a/catalog.py: P4→P4_territoriality mapping, _adapt_to_territorial_agent_field adapter.
+- epc/phase2a/panel.py: territorial_agent_field format in run_panel.
+- epc/phase2a/failed_regimes/p4_territoriality.py: NEW — Class C (5 high_tolerance + 5 fast_decay).
+- epc/detectors/p4_territoriality.py: content prerequisite (occ-scent correlation < 0 AND persistence ≥ 0.5).
+- analysis/run_phase2a_panel.py: P4 panel wiring (build_p4_positives, make_p4_detector_fn, run_p4).
+- analysis/outputs/p4_phase2a_panel.json: dim4 output (PASS, TNR=1.000, d=4.153).
+- §4.4 paper draft: P4 dim4 section added.
+- §6: Sprint 85-87 entries added. AT-DEPTH count 28/29 (P4 confirmed AT-DEPTH).
+- docs/depth_gap.md: P4 row updated (pending→PASS), Sprint 87 finding added.
+- REPLICATION_NOTES.md: Sprint 87 P4 dim4 section added.
+
 ## Sprint 84 (2026-06-10)
 
 - epc/phase2a/detector_invariance.py: P20 invariance flags (perm=False, time_shuffle=True).

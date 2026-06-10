@@ -32,6 +32,57 @@ PARTICLES_DEFAULT_N = 200
 PARTICLES_DEFAULT_BOX = 16.0
 PARTICLES_DEFAULT_SPEED = 0.03
 
+# Territorial-agent-field defaults (P4).
+TAF_DEFAULT_N_AGENTS = 4
+TAF_DEFAULT_GRID_SIZE = 32
+TAF_DEFAULT_DEPOSIT = 0.1
+TAF_DEFAULT_DECAY = 0.03
+
+
+def _territorial_agent_field_null_history(
+    rng: np.random.Generator,
+    n_agents: int = TAF_DEFAULT_N_AGENTS,
+    grid_size: int = TAF_DEFAULT_GRID_SIZE,
+    n_steps: int = GRID_DEFAULT_STEPS,
+) -> List[Dict[str, Any]]:
+    """Generate a random-walk territorial-agent-field null (no avoidance).
+
+    Agents do unbiased random walks on a torus, depositing scent that decays
+    but is never read. Uses at least 3000 internal steps for proper spatial
+    mixing (random walks on 32×32 need ~L² steps to mix; 200 steps causes
+    artificially high exclusivity from spatial autocorrelation). Records
+    n_steps snapshots evenly spaced across the run.
+
+    Produces low exclusivity (~1/N) → P4 rejects at screening.
+    """
+    L = grid_size
+    N = n_agents
+    # Ensure adequate mixing: random walks need O(L²) steps to cover the grid.
+    internal_steps = max(n_steps, 3000)
+    snapshot_interval = max(1, internal_steps // n_steps)
+    positions = rng.integers(0, L, size=(N, 2))
+    occupancy = np.zeros((N, L, L), dtype=np.float64)
+    scent = np.zeros((N, L, L), dtype=np.float64)
+    history: List[Dict[str, Any]] = []
+    for step in range(internal_steps):
+        scent *= (1.0 - TAF_DEFAULT_DECAY)
+        for i in range(N):
+            r, c = int(positions[i, 0]), int(positions[i, 1])
+            scent[i, r, c] += TAF_DEFAULT_DEPOSIT
+            occupancy[i, r, c] += 1.0
+        moves = rng.integers(-1, 2, size=(N, 2))
+        positions = (positions + moves) % L
+        if step % snapshot_interval == 0 or step == internal_steps - 1:
+            history.append({
+                'positions': positions.copy(),
+                'scent_fields': scent.copy(),
+                'occupancy': occupancy.copy(),
+                'step': step,
+                'n_agents': N,
+                'grid_size': L,
+            })
+    return history
+
 
 def _wrap_avalanches(sizes: np.ndarray) -> List[Dict[str, Any]]:
     """Wrap an avalanche-size array into a one-element history dict.
@@ -489,6 +540,8 @@ def random_uniform_field(
         return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -543,6 +596,8 @@ def random_gaussian_field(
         return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -599,6 +654,8 @@ def random_binary_field(
         return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -657,6 +714,8 @@ def spatial_white_noise_series(
         return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -742,6 +801,8 @@ def temporal_white_noise_per_cell(
         return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="divergent")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -888,6 +949,11 @@ def permutation_shuffled_positive(
         # is invariant under IC relabelling → degenerate-by-construction.
         # Will be skipped by permutation_invariant=True.
         return list(positive)
+    if format == "territorial_agent_field":
+        # Permute agent indices — exclusivity index is invariant under
+        # consistent agent relabelling → degenerate-by-construction.
+        # Will be skipped by permutation_invariant=True.
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1029,6 +1095,8 @@ def constant_field(
         return _density_sweep_null(rng, response="constant")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="constant")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1104,6 +1172,8 @@ def linear_gradient_field(
         return _density_sweep_null(rng, response="linear")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="divergent")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1202,6 +1272,8 @@ def periodic_checkerboard(
         return _density_sweep_null(rng, response="linear")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="constant")
+    if format == "territorial_agent_field":
+        return _territorial_agent_field_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

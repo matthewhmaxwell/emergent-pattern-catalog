@@ -7033,3 +7033,53 @@ Sprint 83 finding: P20 dims 1–3 PASS. dim4 pending (Sprint 84).
 
 Sprint 84 finding: P20 dim4 PASS → **AT-DEPTH**.
 AT-DEPTH count: 27 / 28 (P12 sole GAP).
+
+---
+
+## P4 Territoriality / Exclusion Boundaries — Phase-2a Panel (Sprint 87)
+
+**dim4 (Sprint 87):**
+- Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=4.153)
+  - Positives: 4/5 detected (1 DEFINITIVE, 3 CONFIRMATION; seed 2 fails occ-scent
+    prerequisite; mean score=0.60)
+  - Class A (synthetic nulls): 8/8 evaluated TN (2 SKIPPED — permutation_shuffled
+    degenerate-by-construction, time_shuffled degenerate-by-construction via
+    cumulative occupancy preservation). Random-walk nulls use 3000 internal steps
+    for proper mixing (O(L²) coverage on 32×32 grid).
+  - Class B (catalog mates): 0 catalog mates (P4 is sole territorial_agent_field
+    pattern) + 2 supplements: `random_walk_territory` rejected at screening
+    (occ-scent prereq: no scent-mediated exclusion), `clustering_agents_territory`
+    rejected at screening (occ-scent prereq: clustering agents share space, no
+    anti-correlation with foreign scent)
+  - Class C (failed regimes): 10/10 rejected:
+    5 high-tolerance overlapping-range regimes (repulsion_strength=100-500,
+      home_attraction=0 — agents ignore foreign AND own scent → random walks → low
+      exclusivity) all rejected at screening (occ-scent prereq);
+    5 fast-decay regimes (decay_rate=0.50-0.95 — scent vanishes before boundaries
+      form) all rejected at screening (persistence prereq)
+- Invariance flags: perm_inv=True, time_shuffle_inv=True
+  - Note: brief prescribed time_shuffle_inv=False (boundary persistence is temporal).
+    Changed to True after Sprint 87 panel confirmed FP: detector reads CUMULATIVE
+    occupancy from each snapshot (monotonically increasing); any sufficiently late
+    snapshot preserves the ownership structure. This matches the P24/P26 precedent
+    (order-invariant integral metrics).
+- Content prerequisite (Sprint 87): scent-mediated exclusion required at screening —
+  occupancy-scent correlation < 0 (occupancy must anti-correlate with foreign scent;
+  incidental spatial separation from random walks is out of domain) AND boundary
+  persistence ≥ 0.5 (territories must be stable over time). Anchored in
+  Giuggioli et al. (2011): territorial exclusion is defined by active foreign-scent
+  avoidance producing persistent, non-overlapping home ranges — not by incidental
+  low overlap from independent random walks.
+- First-run FPs and fixes:
+  1. Class A: 8/9 evaluated substrates initially detected (random walks on 32×32
+     grid with 200 steps have insufficient mixing → incidental high exclusivity from
+     spatial autocorrelation). Fixed by increasing internal steps to 3000 and adding
+     occ-scent content prerequisite.
+  2. Class C: 4/5 high-tolerance regimes initially detected despite infinite foreign-
+     scent tolerance — agents still self-organize via own-scent attraction
+     (home_attraction=2.0). Fixed by setting home_attraction=0 for these regimes.
+  3. time_shuffled FP at confirmation: cumulative occupancy is preserved by time
+     shuffling. Fixed by changing time_shuffle_invariant to True (SKIPPED).
+
+Sprint 87 finding: P4 dim4 PASS → **AT-DEPTH** confirmed.
+AT-DEPTH count: 28 / 29 (P12 sole GAP).

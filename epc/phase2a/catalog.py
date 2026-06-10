@@ -63,6 +63,8 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P24_proportional_homeostat": {"gain": 5.0, "setpoint": 10.0, "dt": 0.1, "noise_std": 0.5, "n_steps": 1000, "pert_onset": 50.0, "pert_amplitude": 5.0, "seed": 0},
     # P25 canalized landscape: canonical equifinality regime (wide ICs → convergence).
     "P25_canalized_landscape": {"n_dims": 10, "basin_strength": 2.0, "ic_spread": 5.0, "n_ics": 20, "n_steps": 200, "seed": 0},
+    # P4 scent-marking territory: canonical Giuggioli 2011 regime (panel-scale: L=32, 5000 steps).
+    "P4_scent_marking_territory": {"n_agents": 4, "grid_size": 32, "deposition_rate": 0.1, "decay_rate": 0.03, "repulsion_strength": 2.0, "home_attraction": 2.0, "temperature": 0.5, "n_steps": 5000, "snapshot_interval": 50, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -404,6 +406,22 @@ def _gen_p25_canalized_landscape(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "canalization_bundle", "history": history}
 
 
+def _gen_p4_scent_marking_territory(p: Dict[str, Any]) -> Dict[str, Any]:
+    """ScentMarkingModel canonical territorial regime (territorial_agent_field)."""
+    from epc.models.territoriality import ScentMarkingModel, ScentMarkingParams
+    params = ScentMarkingParams(
+        n_agents=p["n_agents"], grid_size=p["grid_size"],
+        deposition_rate=p["deposition_rate"], decay_rate=p["decay_rate"],
+        repulsion_strength=p["repulsion_strength"],
+        home_attraction=p["home_attraction"], temperature=p["temperature"],
+        n_steps=p["n_steps"], snapshot_interval=p["snapshot_interval"],
+        seed=p["seed"],
+    )
+    model = ScentMarkingModel(params)
+    history = model.simulate()
+    return {"kind": "territorial_agent_field", "history": history}
+
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -428,6 +446,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P19_informed_minority": _gen_p19_informed_minority,
     "P24_proportional_homeostat": _gen_p24_proportional_homeostat,
     "P25_canalized_landscape": _gen_p25_canalized_landscape,
+    "P4_scent_marking_territory": _gen_p4_scent_marking_territory,
 }
 
 
@@ -1190,6 +1209,48 @@ def _adapt_to_density_sweep(
     return history
 
 
+def _adapt_to_territorial_agent_field(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to territorial_agent_field format.
+
+    For non-territorial substrates, generates random-walk agents on a grid
+    with scent deposition but no avoidance. P4 should reject at screening
+    (low exclusivity).
+    """
+    if native.get("kind") == "territorial_agent_field":
+        return native["history"]
+    # Non-territorial substrates: random walks with no avoidance.
+    # Use 3000 internal steps for proper mixing (O(L²) steps needed).
+    rng = np.random.default_rng(42)
+    N, L = 4, 32
+    internal_steps = max(target_steps, 3000)
+    snapshot_interval = max(1, internal_steps // target_steps)
+    positions = rng.integers(0, L, size=(N, 2))
+    occupancy = np.zeros((N, L, L), dtype=np.float64)
+    scent = np.zeros((N, L, L), dtype=np.float64)
+    history: List[Dict[str, Any]] = []
+    for step in range(internal_steps):
+        scent *= 0.97
+        for i in range(N):
+            r, c = int(positions[i, 0]), int(positions[i, 1])
+            scent[i, r, c] += 0.1
+            occupancy[i, r, c] += 1.0
+        moves = rng.integers(-1, 2, size=(N, 2))
+        positions = (positions + moves) % L
+        if step % snapshot_interval == 0 or step == internal_steps - 1:
+            history.append({
+                'positions': positions.copy(),
+                'scent_fields': scent.copy(),
+                'occupancy': occupancy.copy(),
+                'step': step,
+                'n_agents': N,
+                'grid_size': L,
+            })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1224,6 +1285,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_canalization_bundle(native)
     if target_format == "density_sweep":
         return _adapt_to_density_sweep(native, target_steps=target_steps)
+    if target_format == "territorial_agent_field":
+        return _adapt_to_territorial_agent_field(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1279,6 +1342,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P16": "P16_hopfield",  # Sprint 80; state_vector (attractor_network)
     "P25": "P25_canalized_landscape",  # Sprint 82; canalization_bundle
     "P20": "P20_autoinducer_quorum",  # Sprint 84; density_sweep_timeseries
+    "P4": "P4_scent_marking_territory",  # Sprint 87; territorial_agent_field
 }
 
 

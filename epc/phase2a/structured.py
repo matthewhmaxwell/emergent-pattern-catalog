@@ -777,6 +777,95 @@ def always_off_density_sweep(
     return out
 
 
+# --- Territorial-agent-field supplements (P4) --------------------------------
+
+def random_walk_territory(
+    seed: int,
+    n_agents: int = 4,
+    grid_size: int = 32,
+    n_steps: int = 3000,
+    snapshot_interval: int = 15,
+) -> List[Dict[str, Any]]:
+    """Random-walk agents with scent deposition but NO avoidance.
+
+    Agents deposit scent and the field decays, but movement ignores
+    foreign scent entirely. Uses 3000 steps for proper mixing (random
+    walks need O(L²) steps to cover a 32×32 grid). Home ranges overlap
+    freely → low exclusivity (~1/N) → P4 rejects at screening.
+    """
+    rng = np.random.default_rng(seed)
+    L = grid_size
+    N = n_agents
+    positions = rng.integers(0, L, size=(N, 2))
+    occupancy = np.zeros((N, L, L), dtype=np.float64)
+    scent = np.zeros((N, L, L), dtype=np.float64)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        scent *= 0.97
+        for i in range(N):
+            r, c = int(positions[i, 0]), int(positions[i, 1])
+            scent[i, r, c] += 0.1
+            occupancy[i, r, c] += 1.0
+        moves = rng.integers(-1, 2, size=(N, 2))
+        positions = (positions + moves) % L
+        if step % snapshot_interval == 0 or step == n_steps - 1:
+            history.append({
+                'positions': positions.copy(),
+                'scent_fields': scent.copy(),
+                'occupancy': occupancy.copy(),
+                'step': step,
+                'n_agents': N,
+                'grid_size': L,
+            })
+    return history
+
+
+def clustering_agents_territory(
+    seed: int,
+    n_agents: int = 4,
+    grid_size: int = 32,
+    n_steps: int = 3000,
+    snapshot_interval: int = 15,
+) -> List[Dict[str, Any]]:
+    """Agents attracted to a shared center — aggregation, not exclusion.
+
+    All agents are biased toward grid center, producing spatial clustering
+    (P1-like aggregation). This is the OPPOSITE of territoriality: agents
+    share space rather than defending exclusive ranges. P4 should reject
+    because exclusivity is low (agents co-occupy the same central region).
+    """
+    rng = np.random.default_rng(seed)
+    L = grid_size
+    N = n_agents
+    center = L // 2
+    positions = rng.integers(0, L, size=(N, 2))
+    occupancy = np.zeros((N, L, L), dtype=np.float64)
+    scent = np.zeros((N, L, L), dtype=np.float64)
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        scent *= 0.97
+        for i in range(N):
+            r, c = int(positions[i, 0]), int(positions[i, 1])
+            scent[i, r, c] += 0.1
+            occupancy[i, r, c] += 1.0
+        # Biased walk toward center
+        for i in range(N):
+            dr = np.sign(center - positions[i, 0]) if rng.random() < 0.6 else rng.integers(-1, 2)
+            dc = np.sign(center - positions[i, 1]) if rng.random() < 0.6 else rng.integers(-1, 2)
+            positions[i, 0] = (positions[i, 0] + dr) % L
+            positions[i, 1] = (positions[i, 1] + dc) % L
+        if step % snapshot_interval == 0 or step == n_steps - 1:
+            history.append({
+                'positions': positions.copy(),
+                'scent_fields': scent.copy(),
+                'occupancy': occupancy.copy(),
+                'step': step,
+                'n_agents': N,
+                'grid_size': L,
+            })
+    return history
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -791,6 +880,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "attractor_network": ["random_weights_network", "single_attractor_network"],
     "canalization_landscape": ["diffusive_multi_ic", "homeostatic_regulation_bundle"],
     "density_sweep_timeseries": ["smooth_sigmoid_density_sweep", "always_off_density_sweep"],
+    "territorial_agent_field": ["random_walk_territory", "clustering_agents_territory"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -816,4 +906,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "homeostatic_regulation_bundle": homeostatic_regulation_bundle,
     "smooth_sigmoid_density_sweep": smooth_sigmoid_density_sweep,
     "always_off_density_sweep": always_off_density_sweep,
+    "random_walk_territory": random_walk_territory,
+    "clustering_agents_territory": clustering_agents_territory,
 }

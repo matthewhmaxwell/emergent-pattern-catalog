@@ -3054,6 +3054,20 @@ multinomial null, PheromoneRepulsion T1b, PlainRandomWalk negative control.
 **T1b.** PheromoneRepulsionModel CONFIRMATION (0.70) — independent hard-threshold
 avoidance mechanism, no home-attraction bias.
 
+**dim4 Phase-2a panel (Sprint 87).** Panel v1.2 PASS: TNR = 1.000, Cohen's
+d = 4.153. Detector format: `territorial_agent_field`. Invariance:
+permutation_invariant=True (exclusivity invariant under agent relabelling),
+time_shuffle_invariant=True (cumulative occupancy preserves ownership
+structure). Content prerequisite: scent-mediated exclusion required at
+screening — occupancy-scent correlation < 0 AND boundary persistence ≥ 0.5
+(Giuggioli 2011: active foreign-scent avoidance, not incidental spatial
+separation). Class A: 8/8 evaluated TN (2 SKIPPED). Class B: 0 catalog mates
++ 2 territorial_agent_field B' supplements (random_walk_territory,
+clustering_agents_territory) — both rejected at screening prerequisite.
+Class C: 10/10 TN (5 high-tolerance overlapping-range regimes at
+home_attraction=0 + 5 fast-decay regimes). 4/5 canonical positives detected
+(seed 2 fails occ-scent prerequisite; mean score 0.60).
+
 **New substrate:** `territorial_agent_field` — 14th substrate type. Two models
 (scent_marking_territory, pheromone_repulsion_territory) registered. Registry:
 35 models × 29 detectors.

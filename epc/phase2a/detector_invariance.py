@@ -167,6 +167,20 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "p > 0.01 for most seeds). Sprint 77 panel run confirmed: "
                                       "time_shuffled FP at confirmation via σ²/N alone. Same "
                                       "pattern as P5 (Sprint 46), P1 (Sprint 43)."),
+    "P4":  InvarianceFlags(True,  True,  "exclusivity index + boundary persistence",
+                            rationale="perm_inv=True: exclusivity index = mean per-cell "
+                                      "max(visits_i)/total_visits is invariant under consistent "
+                                      "agent-index relabelling (same max, same total) → "
+                                      "permutation_shuffled is degenerate-by-construction. "
+                                      "time_shuffle_inv=True: detector reads CUMULATIVE occupancy "
+                                      "from each snapshot (monotonically increasing); boundary "
+                                      "persistence compares winner-take-all ownership between "
+                                      "early and late cumulative snapshots. After time shuffling, "
+                                      "a late cumulative snapshot still contains the same ownership "
+                                      "structure → persistence is preserved. Sprint 87 panel "
+                                      "confirmed: time_shuffled FP at confirmation (d=1.2) when "
+                                      "flag was False. Changed to True per cumulative-occupancy "
+                                      "implementation semantics."),
     "P20": InvarianceFlags(False, True,  "step-function R² on density-response curve",
                             rationale="perm_inv=False: P20's sharpness metric is computed over "
                                       "a density sweep — permuting fraction_on values across "

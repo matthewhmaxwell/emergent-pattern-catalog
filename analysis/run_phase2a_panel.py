@@ -25,6 +25,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p16
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p25
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p20
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p4
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -79,6 +80,7 @@ from epc.phase2a.failed_regimes import p23_anticoordination as p23_failed
 from epc.phase2a.failed_regimes import p16_hopfield as p16_failed
 from epc.phase2a.failed_regimes import p25_equifinality as p25_failed
 from epc.phase2a.failed_regimes import p20_quorum as p20_failed
+from epc.phase2a.failed_regimes import p4_territoriality as p4_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1776,6 +1778,67 @@ def run_p20(out_path: str = "analysis/outputs/p20_phase2a_panel.json", verbose: 
     )
 
 
+# --- P4 Territoriality -------------------------------------------------------
+
+def build_p4_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P4 canonical positive: ScentMarkingModel at canonical Giuggioli 2011 regime.
+
+    N=4 agents on 48×48 torus, 20000 steps with snapshots every 100 steps.
+    Produces exclusive, persistent territories with scent-mediated exclusion.
+    """
+    from epc.models.territoriality import ScentMarkingModel, ScentMarkingParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        params = ScentMarkingParams(
+            n_agents=4, grid_size=48,
+            deposition_rate=0.1, decay_rate=0.03,
+            repulsion_strength=2.0, home_attraction=2.0,
+            temperature=0.5,
+            n_steps=20000, snapshot_interval=100,
+            seed=42 + seed,
+        )
+        model = ScentMarkingModel(params)
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p4_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p4_territoriality import P4TerritorialityDetector
+    detector = P4TerritorialityDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p4(out_path: str = "analysis/outputs/p4_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P4 (territoriality) Phase-2a panel.
+
+    detector_format: territorial_agent_field
+    Class A: random-walk agents with scent but no avoidance (all TNs).
+    Class B: 0 catalog mates (sole territorial_agent_field pattern); B'
+    supplements: random_walk_territory, clustering_agents_territory.
+    Class C: high-tolerance (overlapping ranges) + fast-decay (no boundaries).
+    Invariance: permutation_invariant=True → skip permutation_shuffled;
+    time_shuffle_invariant=False → evaluate time_shuffled.
+    """
+    print(f"--- Running P4 panel → {out_path}")
+    positives, metadata = build_p4_positives(n_seeds=5)
+    detector_fn = make_p4_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P4",
+        detector_format="territorial_agent_field",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p4_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1833,6 +1896,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P25"] = run_p25()
     if which in ("p20",):
         summaries["P20"] = run_p20()
+    if which in ("p4",):
+        summaries["P4"] = run_p4()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"
