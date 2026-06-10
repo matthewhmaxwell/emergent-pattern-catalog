@@ -7142,3 +7142,45 @@ linear_gradient, checkerboard — all correctly rejected.
 
 Sprint 89 finding: P29 dim4 PASS → **AT-DEPTH** confirmed.
 AT-DEPTH count: 29 / 30 (P12 sole GAP).
+
+
+## Sprint 90 — P32 Emergent Specialization / Division of Labor
+
+**Pattern:** P32 — Emergent specialization (division of labor). Identical
+agents spontaneously differentiate into distinct functional roles via
+response-threshold reinforcement (Bonabeau, Theraulaz & Deneubourg 1996).
+
+**Model:** ResponseThresholdModel (epc/models/division_of_labor.py).
+N=20 agents, M=3 tasks, reinforcement_rate ξ=0.05, forgetting_rate φ=0.01.
+Response probability: s²/(s² + θ²) per Bonabeau Eq. 1. Performing a task
+decreases threshold; not performing increases it.
+
+**Detector:** P32SpecializationDetector (epc/detectors/p32_specialization.py).
+Primary: per-agent entropy decline (early vs late window). Secondary: role
+diversity, efficiency gain, switching frequency. Null: time-shuffle per-agent
+assignment series. Exclusion: P23 (anti-coordination) via low late switching.
+
+**Canonical positive:** N=20, M=3, ξ=0.05, φ=0.01, 1000 steps, seed=42.
+DEFINITIVE (p=0.002, confidence=0.90, Cohen's d=8.88).
+Entropy decline: 0.58 bits. Role diversity: 1.0. P23: excluded.
+
+**Negative control:** NoReinforcementModel (ξ=0, φ=0). Entropy decline:
+0.035 (below 0.1 screening threshold). Not detected.
+
+**dim1 reproduction:** ξ=0.15, 1000 steps. Late entropy 0.516 < 0.792
+(50% of max, PASS). Coverage=1.0 (PASS). Efficiency gain: 0.344 (PASS).
+
+**dim2 multiseed:** 20 seeds at ξ=0.05. Final entropy 1.210 ± 0.208
+(CV=17.2%). Efficiency gain 0.038 ± 0.042. 4/20 seeds reach confirmation.
+
+**T1b cross-model:** Multiplicative-threshold variant (θ *= (1-rate) instead
+of θ -= rate) also detected. Confirms detector reads the specialization
+signature, not the specific implementation.
+
+**Substrate:** task_allocation_timeseries (16th type). Two models:
+response_threshold, no_reinforcement.
+
+**Registry:** 39 models × 31 detectors. 175 audited transfer-matrix cells.
+
+Sprint 90 finding: P32 dim1–dim3 PASS. dim4 pending (Sprint 91).
+**AT-DEPTH count: 29 / 31.** Gaps: P12 (dim1), P32 (dim4).

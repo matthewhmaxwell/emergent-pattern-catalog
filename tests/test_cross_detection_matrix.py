@@ -856,6 +856,13 @@ class TestTransferMatrixCompleteness:
         ("voter", "P13"): "rejected",     # not excitable; no refractory
         ("voter", "P15"): "rejected",     # stochastic, not deterministic step_fn
         ("voter", "P22"): "rejected",     # no S→I→R cascade structure
+
+        # --- Sprint 90 pairs (ResponseThreshold + P32) ---
+        # P32 occupies the new task_allocation_timeseries substrate.
+        # Only two models share this substrate: response_threshold (canonical)
+        # and no_reinforcement (negative control).
+        ("response_threshold", "P32"): "detected",        # DEFINITIVE specialization
+        ("no_reinforcement", "P32"): "not_detected",      # no reinforcement → no specialization
     }
 
     VALID_OUTCOMES = {"detected", "rejected", "screening", "not_detected"}
@@ -863,10 +870,10 @@ class TestTransferMatrixCompleteness:
     def test_all_pairs_documented(self):
         """Every audited pair has a valid, documented expected outcome.
 
-        Sprint 20: 27 voter+P18 cells added, total ≥ 173.
+        Sprint 90: 2 P32 cells added, total ≥ 175.
         """
-        assert len(self.EXPECTED_OUTCOMES) >= 173, \
-            f"Expected at least 173 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
+        assert len(self.EXPECTED_OUTCOMES) >= 175, \
+            f"Expected at least 175 audited pairs, got {len(self.EXPECTED_OUTCOMES)}"
 
         # Every outcome value is in the valid set
         for pair, outcome in self.EXPECTED_OUTCOMES.items():
@@ -1647,6 +1654,32 @@ class TestTransferMatrixCompleteness:
 
         print(f"  ✓ Sprint 20: all {len(sprint_20_pairs)} pairs covered "
               f"(voter row + P18 column)")
+
+    def test_sprint_90_p32_covered(self):
+        """Sprint 90: P32 specialization — 2 pairs on task_allocation_timeseries.
+
+        P32 occupies the new task_allocation_timeseries substrate with two
+        models: response_threshold (canonical positive, DEFINITIVE) and
+        no_reinforcement (negative control, not_detected). No cross-substrate
+        pairs exist since P32 is restricted to this substrate.
+        """
+        sprint_90_pairs = [
+            ("response_threshold", "P32"),
+            ("no_reinforcement", "P32"),
+        ]
+        for pair in sprint_90_pairs:
+            assert pair in self.EXPECTED_OUTCOMES, \
+                f"Sprint 90 pair {pair} missing from transfer matrix"
+
+        assert self.EXPECTED_OUTCOMES[("response_threshold", "P32")] == "detected", (
+            "response_threshold × P32 must be detected (canonical DEFINITIVE)"
+        )
+        assert self.EXPECTED_OUTCOMES[("no_reinforcement", "P32")] == "not_detected", (
+            "no_reinforcement × P32 should not be detected (no threshold reinforcement)"
+        )
+
+        print(f"  ✓ Sprint 90: all {len(sprint_90_pairs)} pairs covered "
+              f"(P32 column)")
 
 
 # ===================================================================

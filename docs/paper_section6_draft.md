@@ -1160,3 +1160,21 @@ all 10 rejected. 4/5 canonical positives detected (1 DEFINITIVE, 2 SCREENING
 at 0.600, 1 SCREENING at 0.500; seed 0 not detected due to stochastic layout).
 P29 dim4 pending→PASS; all 4 dims PASS → **P29 AT-DEPTH** confirmed.
 **AT-DEPTH count: 29 / 30** (+1: P29). Remaining gap: P12 (dim1).
+
+**Sprint 90 (P32 implement, dim1–dim3; Wave 4 sixth implementation).**
+P32 emergent specialization / division of labor (Bonabeau, Theraulaz &
+Deneubourg 1996). ResponseThresholdModel: N identical agents with per-task
+thresholds; performing a task decreases its threshold (reinforcement),
+not performing increases it (forgetting); over time agents differentiate
+into specialist roles. P32SpecializationDetector: three-tier pipeline via
+per-agent entropy decline (primary), role diversity + coverage (secondary),
+efficiency gain (definitive), time-shuffle null, P23 anti-coordination
+exclusion. New substrate: `task_allocation_timeseries` (16th). T1a:
+per-agent task-assignment observation bundle. T1b: multiplicative-threshold
+variant also detected — confirms detector recognizes the phenomenon, not
+the additive implementation. dim1: Bonabeau 1996 reproduction PASS (entropy,
+coverage, efficiency). dim2: 20-seed campaign (final entropy 1.210 ± 0.208,
+CV=17.2%). dim3: methods note. dim4: Sprint 91 (Phase-2a panel).
+**Implemented-count: 31.** Registry: 39 models × 31 detectors.
+**AT-DEPTH count: 29 / 31** (P32 dim4 pending → GAP).
+Remaining gaps: P12 (dim1), P32 (dim4).

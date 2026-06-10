@@ -524,3 +524,99 @@ class TestP29OnModels:
         det = P29TrailNetworkDetector(n_permutations=99, seed=42)
         r = det.detect(h, model.get_metadata())
         assert not r.detected, f"P29 false positive on no-reinforcement: {r.summary()}"
+
+
+class TestP32OnModels:
+    """P32 specialization detector across model families (Sprint 90 T1b)."""
+
+    def test_p32_on_response_threshold_detected(self):
+        """P32 should detect on canonical ResponseThresholdModel."""
+        from epc.models.division_of_labor import ResponseThresholdModel
+        from epc.detectors.p32_specialization import P32SpecializationDetector
+
+        m = ResponseThresholdModel(
+            n_agents=20, n_tasks=3, reinforcement_rate=0.05,
+            forgetting_rate=0.01, seed=42,
+        )
+        h = m.run(1000)
+        det = P32SpecializationDetector(n_permutations=199, seed=42)
+        r = det.detect(h, m.get_metadata())
+        assert r.detected, f"P32 not detected on ResponseThresholdModel: {r.summary()}"
+
+    def test_p32_on_second_dol_model_detected(self):
+        """T1b: P32 fires on a second division-of-labor model.
+
+        Uses a different reinforcement scheme: instead of additive threshold
+        change, we use a multiplicative scheme where performing a task
+        multiplies the threshold by (1 - rate) and not performing multiplies
+        by (1 + rate). This tests OOD-readiness via the T1a adapter.
+        """
+        import numpy as np
+        # Build a synthetic history mimicking a multiplicative-threshold model
+        # where agents specialize over time
+        rng = np.random.default_rng(123)
+        n_agents, n_tasks, T = 20, 3, 600
+
+        # Simulate multiplicative threshold reinforcement
+        thresholds = np.full((n_agents, n_tasks), 0.5)
+        stimulus = np.full(n_tasks, 0.5)
+        history = []
+
+        for t in range(T):
+            # Response probability
+            s2 = stimulus ** 2
+            th2 = thresholds ** 2
+            denom = s2[np.newaxis, :] + th2
+            denom = np.where(denom > 0, denom, 1e-12)
+            prob = s2[np.newaxis, :] / denom
+
+            rand = rng.random((n_agents, n_tasks))
+            responds = rand < prob
+
+            assignments = np.full(n_agents, -1, dtype=np.int64)
+            for i in range(n_agents):
+                active = np.where(responds[i])[0]
+                if len(active) > 0:
+                    assignments[i] = active[np.argmax(prob[i, active])]
+
+            history.append({
+                "task_assignments": assignments.copy(),
+                "thresholds": thresholds.copy(),
+                "stimulus": stimulus.copy(),
+                "n_agents": n_agents,
+                "n_tasks": n_tasks,
+                "step": t,
+            })
+
+            # Multiplicative threshold update (different from additive)
+            for i in range(n_agents):
+                if assignments[i] >= 0:
+                    task = assignments[i]
+                    thresholds[i, task] *= 0.95  # decrease for performed
+                    thresholds[i, task] = max(0.01, thresholds[i, task])
+                    for j in range(n_tasks):
+                        if j != task:
+                            thresholds[i, j] *= 1.02  # increase for unperformed
+                            thresholds[i, j] = min(1.0, thresholds[i, j])
+
+            workers = np.zeros(n_tasks)
+            for i in range(n_agents):
+                if assignments[i] >= 0:
+                    workers[assignments[i]] += 1
+            stimulus = np.clip(stimulus + 0.1 - 0.1 * workers, 0, 1)
+
+        from epc.detectors.p32_specialization import P32SpecializationDetector
+        det = P32SpecializationDetector(n_permutations=199, seed=42)
+        r = det.detect(history)
+        assert r.detected, f"P32 not detected on multiplicative-threshold model: {r.summary()}"
+
+    def test_p32_on_no_reinforcement_not_detected(self):
+        """P32 should NOT detect on NoReinforcementModel (negative control)."""
+        from epc.models.division_of_labor import NoReinforcementModel
+        from epc.detectors.p32_specialization import P32SpecializationDetector
+
+        m = NoReinforcementModel(n_agents=20, n_tasks=3, seed=42)
+        h = m.run(500)
+        det = P32SpecializationDetector(n_permutations=99, seed=42)
+        r = det.detect(h, m.get_metadata())
+        assert not r.detected, f"P32 false positive on no-reinforcement: {r.summary()}"

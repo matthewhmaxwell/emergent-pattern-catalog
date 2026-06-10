@@ -294,6 +294,42 @@ result = detector.detect(history, metadata)
 
 ---
 
+## Per-agent task-assignment bundle (P32)
+
+**Detector:** `epc/detectors/p32_specialization.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key                | Type              | Description |
+|--------------------|-------------------|-------------|
+| `task_assignments` | `ndarray(T, N)` int | Task index per agent per step (-1 = idle) |
+| `n_agents`         | `int`             | Number of agents |
+| `n_tasks`          | `int`             | Number of task types |
+| `steps`            | `ndarray(T,)` int | Step number at each snapshot |
+
+**Input format:** list of dicts, each containing keys `'task_assignments'`
+(int array of length N, -1 for idle), `'n_agents'` (int), `'n_tasks'` (int),
+and optionally `'step'` (int). The adapter extracts and stacks these into
+aligned numpy arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p32_specialization import P32SpecializationDetector
+
+# Any system producing dicts with these keys works:
+history = [{'task_assignments': a, 'n_agents': N, 'n_tasks': M, 'step': t}
+           for t, a in enumerate(assignment_series)]
+
+detector = P32SpecializationDetector(n_permutations=199, seed=42)
+result = detector.detect(history)
+```
+
+**Native models:** `ResponseThresholdModel`, `NoReinforcementModel`
+(`epc/models/division_of_labor.py`) — both produce history dicts matching
+this schema. The bundle captures per-agent task allocations over time so
+the detector can compute windowed entropy decline and switching frequency.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

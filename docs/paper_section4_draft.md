@@ -3128,3 +3128,51 @@ accumulation — late total weight must exceed early by ≥50%
 **New substrate:** `trail_network` — 15th substrate type. Two models
 (ant_trail_network, physarum_network) registered. Registry: 37 models ×
 30 detectors.
+
+### §4.32 P32 — Emergent Specialization / Division of Labor
+
+**Pattern.** Initially identical agents spontaneously differentiate into
+distinct functional roles that increase collective efficiency, without
+pre-assigned task allocation (Bonabeau, Theraulaz & Deneubourg 1996).
+
+**Model.** ResponseThresholdModel: N agents with per-task response
+thresholds θ_{i,j}. Task demand generates stimulus s_j; agents respond
+with probability s²/(s² + θ²) (Bonabeau Eq. 1). Performing a task
+decreases the agent's threshold (reinforcement rate ξ); not performing
+increases it (forgetting rate φ). Over time, agents differentiate into
+task specialists.
+
+**Detector.** P32SpecializationDetector uses three-tier detection:
+screening via per-agent entropy decline (>0.1 bits), confirmation via
+role diversity (≥0.5) + coverage + null rejection (p<0.01),
+definitive via strong entropy decline (>0.3) + efficiency gain +
+role diversity (≥0.67) + null rejection (p<0.005). Null model:
+time-shuffle per-agent assignment series (preserves marginal frequencies,
+destroys temporal specialization trend). Nearest-neighbor exclusion:
+P23 (anti-coordination) excluded via low late switching frequency (<0.3).
+
+**Canonical positive.** ResponseThresholdModel (N=20, M=3, ξ=0.05,
+φ=0.01, seed=42, 1000 steps) → DEFINITIVE (p=0.002, confidence=0.90,
+Cohen's d=8.88, entropy decline=0.58, role diversity=1.0, P23 excluded).
+
+**Negative control.** NoReinforcementModel (ξ=0, φ=0): entropy decline
+0.035, well below 0.1 screening threshold. Not detected.
+
+**Single-task-collapse guard.** With n_tasks=1, all agents trivially
+do the same task. The role_diversity and single_task_collapse gates
+at confirmation block this degenerate case.
+
+**dim1.** Bonabeau reproduction (ξ=0.15, 1000 steps, seed=42): late
+entropy 0.516 < 0.5 × max (0.792 PASS), coverage=1.0 (PASS),
+late efficiency 0.364 > early 0.020 (PASS). All 3 tolerance checks PASS.
+**dim2.** 20-seed campaign (ξ=0.05, 1000 steps): final entropy
+1.210 ± 0.208 (CV=17.2%), efficiency gain 0.038 ± 0.042. 4/20 seeds
+reach confirmation. **dim3.** Methods note covers response-threshold
+dynamics, three-tier criteria, T1a observation contract, T1b cross-model.
+**T1b.** Multiplicative-threshold variant (structurally different
+reinforcement: θ *= (1-rate)) also detected — confirms detector
+recognizes the specialization phenomenon, not the additive implementation.
+
+**New substrate:** `task_allocation_timeseries` — 16th substrate type.
+Two models (response_threshold, no_reinforcement) registered. Registry:
+39 models × 31 detectors.

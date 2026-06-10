@@ -22,9 +22,10 @@ by substrate type.
 - density_sweep_timeseries: AutoinducerQuorum, FractionThreshold (Sprint 83)
 - territorial_agent_field: ScentMarkingTerritory, PheromoneRepulsionTerritory (Sprint 86)
 - trail_network: AntTrailNetwork, PhysarumNetwork (Sprint 88)
+- task_allocation_timeseries: ResponseThreshold, NoReinforcement (Sprint 90)
 
-Architecture decision #25 (updated Sprint 88):
-  37 models × 30 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 90):
+  39 models × 31 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -463,6 +464,26 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_pheromone_reinforcement', 'has_evaporation',
                        'has_multiple_nodes'],
     ),
+    'response_threshold': ModelRegistration(
+        name='response_threshold',
+        substrate_type='task_allocation_timeseries',
+        observables=['task_assignments', 'thresholds', 'stimulus'],
+        primary_patterns=['P32'],
+        metadata_keys=['n_agents', 'n_tasks', 'reinforcement_rate',
+                       'forgetting_rate', 'stimulus_rate', 'initial_threshold',
+                       'seed', 'model_class', 'has_threshold_reinforcement',
+                       'has_forgetting', 'interaction_type', 'update_mode'],
+    ),
+    'no_reinforcement': ModelRegistration(
+        name='no_reinforcement',
+        substrate_type='task_allocation_timeseries',
+        observables=['task_assignments', 'thresholds', 'stimulus'],
+        primary_patterns=['P32'],
+        metadata_keys=['n_agents', 'n_tasks', 'reinforcement_rate',
+                       'forgetting_rate', 'stimulus_rate', 'initial_threshold',
+                       'seed', 'model_class', 'has_threshold_reinforcement',
+                       'has_forgetting', 'interaction_type', 'update_mode'],
+    ),
 }
 
 # === Detector Registry ===
@@ -647,6 +668,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         required_substrate=['trail_network'],
         required_observables=['node_positions', 'edge_weights'],
         observable_scope='model_metadata_assisted',
+    ),
+    'P32': DetectorRegistration(
+        pattern_id='P32',
+        required_substrate=['task_allocation_timeseries'],
+        required_observables=['task_assignments'],
+        observable_scope='state_history_only',
     ),
 }
 

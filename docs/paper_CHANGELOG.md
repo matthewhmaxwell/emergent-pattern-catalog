@@ -561,6 +561,30 @@ review at the next paper-review checkpoint.
 - analysis/run_phase2a_panel.py: P23 panel runner wired.
 - analysis/outputs/p23_phase2a_panel.json: dim4 panel output (PASS).
 
+## Sprint 90 (P32 Emergent specialization / division of labor — Milestone B Wave 4)
+
+- §4.32 NEW: P32 emergent specialization — ResponseThresholdModel (Bonabeau 1996),
+  per-agent entropy decline + role diversity + efficiency gain detector,
+  three-tier pipeline, time-shuffle null, P23 exclusion.
+- epc/models/division_of_labor.py: NEW — ResponseThresholdModel, NoReinforcementModel,
+  helper functions (compute_per_agent_entropy, compute_windowed_entropy, compute_efficiency).
+- epc/detectors/p32_specialization.py: NEW — P32SpecializationDetector + T1a adapter.
+- epc/orchestration.py: P32 + task_allocation_timeseries substrate registered.
+  39 models × 31 detectors. 16th substrate type.
+- tests/test_division_of_labor_p32_e2e.py: NEW — 17 tests: model determinism,
+  canonical DEFINITIVE, negative controls, T1a adapter, orchestration registration.
+- tests/test_cross_model.py: P32 T1b cross-model tests added (ResponseThreshold,
+  multiplicative-threshold variant, NoReinforcement).
+- tests/test_cross_detection_matrix.py: P32 column added (2 cells), total ≥175.
+- analysis/reproductions/p32_bonabeau1996.py: NEW — dim1 reproduction (all 3
+  tolerance checks PASS).
+- analysis/reproductions/p32_multiseed.py: NEW — dim2 20-seed campaign.
+- analysis/outputs/p32_bonabeau1996_reproduction.json: dim1 output.
+- analysis/outputs/p32_multiseed.json: dim2 output.
+- docs/methods_notes/p32_methods.md: NEW — dim3 methods note.
+- docs/observation_schema.md: per-agent task-assignment bundle (P32) section added.
+- docs/depth_gap.md: P32 row added (dim1–dim3 PASS, dim4 pending). Implemented-count → 31.
+
 ## Sprint 89 (P29 dim4 Phase-2a panel — Milestone B Wave 4)
 
 - §4.29 updated: dim4 Phase-2a panel PASS (TNR=1.000, d=10.550). Content
