@@ -473,3 +473,54 @@ class TestP4OnModels:
         det = P4TerritorialityDetector(n_permutations=199, seed=42)
         r = det.detect(h, model.get_metadata())
         assert not r.detected, f"P4 false positive on random walk: {r.warnings}"
+
+
+class TestP29OnModels:
+    """P29 trail network detector across model families (T1b)."""
+
+    def test_p29_on_ant_trail_detected(self):
+        """P29 should detect on canonical AntTrailModel."""
+        from epc.models.trail_network import AntTrailModel, AntTrailParams
+        from epc.detectors.p29_trail_network import P29TrailNetworkDetector
+
+        model = AntTrailModel(AntTrailParams(
+            n_nodes=7, n_agents=50, grid_size=100,
+            alpha=1.0, beta=2.0, deposition_rate=10.0,
+            evaporation_rate=0.02, n_steps=500, snapshot_interval=50,
+            node_layout="grid", seed=42,
+        ))
+        h = model.simulate()
+        det = P29TrailNetworkDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P29 not detected on AntTrail: {r.summary()}"
+
+    def test_p29_on_physarum_detected(self):
+        """P29 should detect on PhysarumModel (T1b cross-model)."""
+        from epc.models.trail_network import PhysarumModel, PhysarumParams
+        from epc.detectors.p29_trail_network import P29TrailNetworkDetector
+
+        model = PhysarumModel(PhysarumParams(
+            n_nodes=5, grid_size=80,
+            gamma=1.8, decay_rate=0.01,
+            n_steps=2000, snapshot_interval=50,
+            node_layout="grid", seed=42,
+        ))
+        h = model.simulate()
+        det = P29TrailNetworkDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P29 not detected on Physarum: {r.summary()}"
+
+    def test_p29_on_no_reinforcement_not_detected(self):
+        """P29 should NOT detect on NoReinforcementModel."""
+        from epc.models.trail_network import NoReinforcementModel, NoReinforcementParams
+        from epc.detectors.p29_trail_network import P29TrailNetworkDetector
+
+        model = NoReinforcementModel(NoReinforcementParams(
+            n_nodes=7, n_agents=50, grid_size=100,
+            n_steps=500, snapshot_interval=50,
+            node_layout="grid", seed=42,
+        ))
+        h = model.simulate()
+        det = P29TrailNetworkDetector(n_permutations=99, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert not r.detected, f"P29 false positive on no-reinforcement: {r.summary()}"

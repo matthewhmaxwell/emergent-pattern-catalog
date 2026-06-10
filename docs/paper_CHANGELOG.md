@@ -4,6 +4,22 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 88 (2026-06-10)
+
+- epc/models/trail_network.py: NEW — AntTrailModel (ACO on complete graph), PhysarumModel (Tero 2010 flux-reinforcement), NoReinforcementModel (negative control).
+- epc/detectors/p29_trail_network.py: NEW — P29 trail/network formation detector: weight-distance Spearman correlation + edge-weight shuffle null + three-tier pipeline.
+- epc/orchestration.py: P29 + trail_network substrate registered. 37 models × 30 detectors. 15th substrate type.
+- tests/test_trail_network_p29_e2e.py: NEW — 16 tests: deterministic detection, negative control, T1a adapter, metadata, transfer matrix.
+- tests/test_cross_model.py: P29 T1b cross-model tests added (AntTrail, Physarum, NoReinforcement).
+- analysis/reproductions/p29_physarum.py: NEW — dim1 reproduction (length/MST=1.354, DEFINITIVE).
+- analysis/reproductions/p29_multiseed.py: NEW — dim2 20-seed campaign (ratio=1.548±0.112, CV=7.2%).
+- analysis/outputs/p29_physarum_reproduction.json: dim1 output (passes_tolerance=True).
+- analysis/outputs/p29_multiseed.json: dim2 output (19/20 detected).
+- docs/methods_notes/p29_methods.md: NEW — dim3 methods note.
+- docs/observation_schema.md: trail-network bundle (P29) section added.
+- docs/depth_gap.md: P29 row added (dim1–dim3 PASS, dim4 pending). Implemented-count → 30.
+- §4.29 paper draft: P29 section added.
+
 ## Sprint 87 (2026-06-10)
 
 - epc/phase2a/detector_invariance.py: P4 invariance flags (perm=True, time_shuffle=True).

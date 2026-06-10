@@ -1,0 +1,31 @@
+{
+  "pattern": "P29",
+  "model": "PhysarumModel",
+  "reference": "Tero et al. (2010), Science 327(5964), 439-442",
+  "anchor": "Network length within [1.0, 1.5] \u00d7 MST with fault tolerance > 0",
+  "params": {
+    "n_nodes": 5,
+    "gamma": 1.8,
+    "decay_rate": 0.01,
+    "n_steps": 2000,
+    "node_layout": "grid",
+    "seed": 42
+  },
+  "mst_weight": 80.0,
+  "network_length": 108.2843,
+  "length_ratio": 1.3536,
+  "fault_tolerance": 1.0,
+  "weight_dist_corr": 0.8457,
+  "concentration_gini": 0.5146,
+  "n_strong_edges": 5,
+  "connectivity": 1.0,
+  "detector_tier": "definitive",
+  "detector_confidence": 0.9,
+  "detector_p_value": 0.005,
+  "cohens_d": 2.4876,
+  "tolerance_length_ratio": "[1.0, 1.5]",
+  "passes_ratio": true,
+  "passes_fault_tolerance": true,
+  "passes_correlation": true,
+  "passes_tolerance": true
+}

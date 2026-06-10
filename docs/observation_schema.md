@@ -261,6 +261,39 @@ history dicts matching this schema.
 
 ---
 
+## Trail-network bundle (P29)
+
+**Detector:** `epc/detectors/p29_trail_network.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key               | Type                    | Description |
+|-------------------|-------------------------|-------------|
+| `node_positions`  | `list[ndarray(N, 2)]`   | Food/source node coordinates at each snapshot |
+| `edge_weights`    | `list[ndarray(N, N)]`   | Edge weight matrix (pheromone/conductance) at each snapshot |
+| `pheromone_fields` | `list[ndarray(G, G)]`  | 2D visualization field at each snapshot |
+| `steps`           | `ndarray(T,)` int       | Step number at each snapshot |
+| `n_nodes`         | `int`                   | Number of food/source nodes |
+| `grid_size`       | `int`                   | Domain size G |
+
+**Input format:** list of dicts, each containing keys `'node_positions'`,
+`'edge_weights'`, `'pheromone_field'`, `'step'`, `'n_nodes'`, `'grid_size'`.
+The adapter extracts and stacks these into aligned arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p29_trail_network import P29TrailNetworkDetector
+history = [{'node_positions': pos, 'edge_weights': ew,
+            'pheromone_field': pf, 'step': t,
+            'n_nodes': 7, 'grid_size': 100}, ...]
+detector = P29TrailNetworkDetector(n_permutations=199, seed=42)
+result = detector.detect(history, metadata)
+```
+
+**Native models:** `AntTrailModel`, `PhysarumModel`, `NoReinforcementModel`
+(`epc/models/trail_network.py`) — all produce history dicts matching this schema.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

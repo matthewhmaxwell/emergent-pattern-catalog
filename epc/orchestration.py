@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-14 substrate types:
+15 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -21,9 +21,10 @@ by substrate type.
 - canalization_landscape: CanalizedLandscape, MultiBasinGRN (Sprint 81)
 - density_sweep_timeseries: AutoinducerQuorum, FractionThreshold (Sprint 83)
 - territorial_agent_field: ScentMarkingTerritory, PheromoneRepulsionTerritory (Sprint 86)
+- trail_network: AntTrailNetwork, PhysarumNetwork (Sprint 88)
 
-Architecture decision #25 (updated Sprint 86):
-  35 models × 29 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 88):
+  37 models × 30 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -442,6 +443,26 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'has_scent_marking', 'has_foreign_avoidance',
                        'has_home_attraction'],
     ),
+    'ant_trail_network': ModelRegistration(
+        name='ant_trail_network',
+        substrate_type='trail_network',
+        observables=['node_positions', 'pheromone_field', 'edge_weights'],
+        primary_patterns=['P29'],
+        metadata_keys=['n_nodes', 'n_agents', 'grid_size', 'deposition_rate',
+                       'decay_rate', 'pheromone_power', 'n_steps', 'seed',
+                       'model_class', 'has_pheromone_reinforcement',
+                       'has_evaporation', 'has_multiple_nodes'],
+    ),
+    'physarum_network': ModelRegistration(
+        name='physarum_network',
+        substrate_type='trail_network',
+        observables=['node_positions', 'pheromone_field', 'edge_weights'],
+        primary_patterns=['P29'],
+        metadata_keys=['n_nodes', 'grid_size', 'gamma', 'decay_rate',
+                       'n_steps', 'seed', 'model_class',
+                       'has_pheromone_reinforcement', 'has_evaporation',
+                       'has_multiple_nodes'],
+    ),
 }
 
 # === Detector Registry ===
@@ -619,6 +640,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P4',
         required_substrate=['territorial_agent_field'],
         required_observables=['positions', 'scent_fields', 'occupancy'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P29': DetectorRegistration(
+        pattern_id='P29',
+        required_substrate=['trail_network'],
+        required_observables=['node_positions', 'edge_weights'],
         observable_scope='model_metadata_assisted',
     ),
 }

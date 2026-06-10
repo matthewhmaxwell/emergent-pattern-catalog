@@ -3071,3 +3071,49 @@ home_attraction=0 + 5 fast-decay regimes). 4/5 canonical positives detected
 **New substrate:** `territorial_agent_field` — 14th substrate type. Two models
 (scent_marking_territory, pheromone_repulsion_territory) registered. Registry:
 35 models × 29 detectors.
+
+### §4.29 P29: Trail / network formation (Sprint 88)
+
+**Pattern.** P29 detects emergent efficient transport networks: agents
+collectively build connective pathways linking source/food nodes that approach
+the efficiency of the minimum spanning tree (MST) while retaining fault
+tolerance. Distinct from P4 (territoriality): P29 builds CONNECTIVE transport
+networks, P4 makes EXCLUSIVE domains. From P7 (lane formation): P29 trails
+are persistent built paths, not dynamic flow lanes. Canonical: Tero et al.
+(2010), Deneubourg et al. (1990).
+
+**Model.** AntTrailModel implements ant colony optimization on a complete graph
+of N food/source nodes. Edge pheromone reinforces frequently-used routes
+(probability ∝ pheromone^alpha / distance^beta) and evaporates each step.
+PhysarumModel provides T1b cross-model validation via flux-reinforcement
+dynamics (dD/dt = |Q|^gamma - decay·D). Default: n_nodes=7, 500 steps (ACO)
+/ 2000 steps (Physarum). Emergent outcome: sparse efficient network near MST.
+
+**Detector.** P29TrailNetworkDetector reads via T1a observation-bundle adapter
+(trail-network bundle: node_positions, edge_weights, pheromone_field). Primary
+metric: Spearman rank correlation between edge weight and 1/distance — for
+reinforced networks, short edges accumulate more weight (positive correlation).
+Null model: edge-weight shuffle (permute weights across edges, destroying the
+weight-distance correlation). Three tiers: screening (corr > 0.1 + connectivity
+≥ 0.6 + p < 0.10), confirmation (corr > 0.3 + length/MST < 2.0 + p < 0.05
++ d > 1.0), definitive (corr > 0.5 + length/MST < 2.0 + ft > 0 + p ≤ 0.005
++ metadata confirms reinforcement).
+
+**Negative control.** NoReinforcementModel (agents choose next node uniformly,
+uniform deposit per traversal) correctly rejected — correlation = -0.125,
+p = 0.59, no systematic distance preference.
+
+**dim1.** Physarum (grid layout, seed=42): length/MST = 1.354 (tolerance
+[1.0, 1.5] PASS), fault_tolerance = 1.000 (> 0 PASS), weight_dist_corr =
+0.846 (> 0.5 PASS), DEFINITIVE (confidence 0.90, Cohen's d = 2.60).
+**dim2.** 20-seed campaign (random layout): length/MST 1.548 ± 0.112
+(CV=7.2%), 19/20 detected (1 DEFINITIVE, 13 CONFIRMATION, 5 SCREENING).
+**dim3.** Methods note covers ACO + Physarum models, weight-distance
+correlation metric, edge-weight-shuffle null, three-tier criteria,
+reproduction results. **T1b.** PhysarumModel DEFINITIVE (0.90), AntTrailModel
+CONFIRMATION+ (0.70) — confirms detector recognizes the *phenomenon*, not
+the specific implementation.
+
+**New substrate:** `trail_network` — 15th substrate type. Two models
+(ant_trail_network, physarum_network) registered. Registry: 37 models ×
+30 detectors.
