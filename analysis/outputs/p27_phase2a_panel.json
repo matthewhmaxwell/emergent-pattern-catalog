@@ -1,9 +1,9 @@
 {
   "pattern_id": "P27",
-  "head_commit": "77eb4cf95915912a3bc0940e98aee2781207005e",
+  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
   "panel_version": "1.2",
   "detector_format": "grid",
-  "elapsed_seconds": 2.19,
+  "elapsed_seconds": 2.16,
   "detector_invariance": {
     "permutation_invariant": false,
     "time_shuffle_invariant": true,
@@ -24,31 +24,36 @@
         "seed_index": 0,
         "score": 0.6,
         "verdict": "screening",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 1,
         "score": 0.0,
         "verdict": "none",
-        "detected": false
+        "detected": false,
+        "rejection_stage": "METRIC"
       },
       {
         "seed_index": 2,
         "score": 0.6,
         "verdict": "screening",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 3,
         "score": 0.0,
         "verdict": "none",
-        "detected": false
+        "detected": false,
+        "rejection_stage": "METRIC"
       },
       {
         "seed_index": 4,
         "score": 0.6,
         "verdict": "screening",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       }
     ]
   },
@@ -58,42 +63,48 @@
       "seed": 191664963,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "random_gaussian",
       "seed": 1662057957,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "random_binary",
       "seed": 1405681631,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "spatial_white_noise",
       "seed": 942484272,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "temporal_white_noise",
       "seed": 929893137,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "permutation_shuffled",
       "seed": 1843824992,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "time_shuffled",
@@ -105,21 +116,24 @@
       "seed": 184566854,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "linear_gradient",
       "seed": 1497586438,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "checkerboard",
       "seed": 432652533,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "catalog": [
@@ -128,49 +142,56 @@
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P12_rps",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P13_greenberg_hastings",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P14_btw_sandpile",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P15_gol",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P1_schelling",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "P22_sir_epidemic",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "failed_regime": [
@@ -186,7 +207,8 @@
       "seed": 200,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.056",
@@ -200,7 +222,8 @@
       "seed": 201,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.111",
@@ -214,7 +237,8 @@
       "seed": 202,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.167",
@@ -228,7 +252,8 @@
       "seed": 203,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.222",
@@ -242,7 +267,8 @@
       "seed": 204,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.278",
@@ -256,7 +282,8 @@
       "seed": 205,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.333",
@@ -270,7 +297,8 @@
       "seed": 206,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.389",
@@ -284,7 +312,8 @@
       "seed": 207,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.444",
@@ -298,7 +327,8 @@
       "seed": 208,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "b=2.500",
@@ -312,7 +342,8 @@
       "seed": 209,
       "score": 0.0,
       "verdict": "none",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "class_b_composition": {
@@ -355,6 +386,9 @@
     "catalog_tnr_advisory": false,
     "failed_regime_tnr": 1.0,
     "cohens_d_positive_vs_panel": 2.9495762407505253,
+    "effect_size_undefined": false,
+    "effect_size_basis": "tier_confidence",
+    "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
     "verdict": "PASS"
   }
 }

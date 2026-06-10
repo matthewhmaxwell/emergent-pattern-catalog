@@ -1,9 +1,9 @@
 {
   "pattern_id": "P8",
-  "head_commit": "9461c99cb9dca3920662338af7a79dfa6d71bedd",
+  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
   "panel_version": "1.2",
   "detector_format": "sequence",
-  "elapsed_seconds": 26.88,
+  "elapsed_seconds": 33.99,
   "detector_invariance": {
     "permutation_invariant": true,
     "time_shuffle_invariant": true,
@@ -24,31 +24,36 @@
         "seed_index": 0,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 1,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 2,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 3,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 4,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       }
     ]
   },
@@ -58,35 +63,40 @@
       "seed": 191664963,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "random_gaussian",
       "seed": 1662057957,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "random_binary",
       "seed": 1405681631,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "spatial_white_noise",
       "seed": 942484272,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "temporal_white_noise",
       "seed": 929893137,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "permutation_shuffled",
@@ -103,21 +113,24 @@
       "seed": 1843824992,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "linear_gradient",
       "seed": 184566854,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "checkerboard",
       "seed": 1497586438,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     }
   ],
   "catalog": [
@@ -126,7 +139,8 @@
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "independent_lane_traffic",
@@ -134,7 +148,8 @@
       "seed": 432652533,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     },
     {
       "substrate": "reverse_sorted_sequence",
@@ -142,7 +157,8 @@
       "seed": 202244314,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:substrate_mismatch"
     }
   ],
   "failed_regime": [
@@ -158,7 +174,8 @@
       "seed": 200,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0256",
@@ -172,7 +189,8 @@
       "seed": 201,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0311",
@@ -186,7 +204,8 @@
       "seed": 202,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0367",
@@ -200,7 +219,8 @@
       "seed": 203,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0422",
@@ -214,7 +234,8 @@
       "seed": 204,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0478",
@@ -228,7 +249,8 @@
       "seed": 205,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0533",
@@ -242,7 +264,8 @@
       "seed": 206,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0589",
@@ -256,7 +279,8 @@
       "seed": 207,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0644",
@@ -270,7 +294,8 @@
       "seed": 208,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     },
     {
       "substrate": "rho=0.0700",
@@ -284,7 +309,8 @@
       "seed": 209,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_stopped_floor"
     }
   ],
   "class_b_composition": {
@@ -323,7 +349,10 @@
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": true,
     "failed_regime_tnr": 1.0,
-    "cohens_d_positive_vs_panel": Infinity,
-    "verdict": "PASS"
+    "cohens_d_positive_vs_panel": NaN,
+    "effect_size_undefined": true,
+    "effect_size_basis": "tier_confidence",
+    "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
+    "verdict": "TNR-PASS-EFFECT-UNDEFINED"
   }
 }

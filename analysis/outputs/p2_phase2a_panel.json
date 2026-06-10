@@ -1,9 +1,9 @@
 {
   "pattern_id": "P2",
-  "head_commit": "6630f0b0149f97ab0c99b532030e15bd838507b3",
+  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
   "panel_version": "1.2",
   "detector_format": "particles",
-  "elapsed_seconds": 23.49,
+  "elapsed_seconds": 22.71,
   "detector_invariance": {
     "permutation_invariant": true,
     "time_shuffle_invariant": false,
@@ -24,31 +24,36 @@
         "seed_index": 0,
         "score": 0.0,
         "verdict": "screening",
-        "detected": false
+        "detected": false,
+        "rejection_stage": "GUARD:below_two_phase_floor"
       },
       {
         "seed_index": 1,
         "score": 0.6,
         "verdict": "screening",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 2,
         "score": 0.95,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 3,
         "score": 0.95,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 4,
         "score": 0.95,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       }
     ]
   },
@@ -58,35 +63,40 @@
       "seed": 191664963,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "random_gaussian",
       "seed": 1662057957,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "random_binary",
       "seed": 1405681631,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "spatial_white_noise",
       "seed": 942484272,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "temporal_white_noise",
       "seed": 929893137,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "permutation_shuffled",
@@ -98,60 +108,74 @@
       "seed": 1843824992,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "constant",
       "seed": 184566854,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "linear_gradient",
       "seed": 1497586438,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "checkerboard",
       "seed": 432652533,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     }
   ],
   "catalog": [
+    {
+      "substrate": "P17_collective_sensing",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
+    },
+    {
+      "substrate": "P19_informed_minority",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "screening",
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
+    },
     {
       "substrate": "P5_vicsek",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
       "substrate": "P6_dorsogna",
       "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     },
     {
-      "substrate": "uncorrelated_random_walks",
-      "kind": "synthetic_supplement",
-      "seed": 202244314,
+      "substrate": "P7_lane_formation",
+      "kind": "catalog_mate",
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
-    },
-    {
-      "substrate": "independent_brownian_motion",
-      "kind": "synthetic_supplement",
-      "seed": 1130604997,
-      "score": 0.0,
-      "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:run_too_short"
     }
   ],
   "failed_regime": [
@@ -170,7 +194,8 @@
       "seed": 300,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=1.56",
@@ -187,7 +212,8 @@
       "seed": 301,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=2.61",
@@ -204,7 +230,8 @@
       "seed": 302,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=3.67",
@@ -221,7 +248,8 @@
       "seed": 303,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=4.72",
@@ -238,7 +266,8 @@
       "seed": 304,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=5.78",
@@ -255,7 +284,8 @@
       "seed": 305,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=6.83",
@@ -272,7 +302,8 @@
       "seed": 306,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=7.89",
@@ -289,7 +320,8 @@
       "seed": 307,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=8.94",
@@ -306,7 +338,8 @@
       "seed": 308,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     },
     {
       "substrate": "Pe=10.00",
@@ -323,24 +356,25 @@
       "seed": 309,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "GUARD:below_two_phase_floor"
     }
   ],
   "class_b_composition": {
     "substrate_type": "continuous_2d",
     "catalog_mates": [
+      "P17_collective_sensing",
+      "P19_informed_minority",
       "P5_vicsek",
-      "P6_dorsogna"
+      "P6_dorsogna",
+      "P7_lane_formation"
     ],
-    "synthetic_supplements": [
-      "uncorrelated_random_walks",
-      "independent_brownian_motion"
-    ]
+    "synthetic_supplements": []
   },
   "class_c_status": "populated",
   "class_c_n_a_reason": null,
   "summary": {
-    "n_negatives": 23,
+    "n_negatives": 24,
     "overall_tnr": 1.0,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 9,
@@ -350,9 +384,9 @@
       "advisory": false
     },
     "catalog": {
-      "n": 4,
+      "n": 5,
       "tnr": 1.0,
-      "advisory": true
+      "advisory": false
     },
     "failed_regime": {
       "n": 10,
@@ -361,9 +395,12 @@
     },
     "synthetic_tnr": 1.0,
     "catalog_tnr": 1.0,
-    "catalog_tnr_advisory": true,
+    "catalog_tnr_advisory": false,
     "failed_regime_tnr": 1.0,
-    "cohens_d_positive_vs_panel": 4.244801598585465,
+    "cohens_d_positive_vs_panel": 4.32566222812073,
+    "effect_size_undefined": false,
+    "effect_size_basis": "tier_confidence",
+    "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
     "verdict": "PASS"
   }
 }

@@ -125,6 +125,22 @@ def compute_tnr(verdicts: List[bool]) -> float:
     return n_correct / len(verdicts)
 
 
+def _rejection_stage(result):
+    """How a NEGATIVE substrate was handled, to expose guard-gating:
+      FIRED  - detector fired (false positive; the metric did NOT reject it)
+      GUARD:<reason> - rejected by a prerequisite/guard at screening, BEFORE the
+                       discriminating metric ran (this is the audit's core finding)
+      METRIC - reached the discriminating metric and it rejected (genuine work)
+    """
+    if _detected(result):
+        return "FIRED"
+    pm = getattr(result, "primary_metric", None)
+    reason = pm.get("screening_rejection_reason", "none") if isinstance(pm, dict) else "none"
+    if reason and reason != "none":
+        return "GUARD:" + str(reason)
+    return "METRIC"
+
+
 def cohens_d(positive_scores: List[float], negative_scores: List[float]) -> float:
     """Cohen's d between two independent score distributions.
 
@@ -147,9 +163,15 @@ def cohens_d(positive_scores: List[float], negative_scores: List[float]) -> floa
     pooled_var = ((pos.size - 1) * var_pos + (neg.size - 1) * var_neg) / (pos.size + neg.size - 2)
     mean_diff = float(pos.mean()) - float(neg.mean())
     if pooled_var <= 1e-12:
-        if abs(mean_diff) <= 1e-9:
-            return 0.0
-        return float("inf") if mean_diff > 0 else float("-inf")
+        # Degenerate: both score arrays are effectively constant (e.g. _score
+        # returns discrete tier-confidence, so positives are ~constant high and
+        # rejected negatives ~constant 0). A standardized effect size is
+        # UNDEFINED here -- there is no within-group spread to divide by. A
+        # prior version returned +/-inf, which dishonestly reports "perfect
+        # discrimination" and lets the panel auto-PASS its effect-size gate.
+        # Honest value is NaN; the faithful effect size must be recomputed over
+        # the continuous discriminating metric (validation-rebuild Phase 2).
+        return float("nan")
     return mean_diff / float(np.sqrt(pooled_var))
 
 
@@ -175,11 +197,19 @@ def overall_verdict(
     by the caller.
     """
     # None → nan so it fails every threshold; ±inf are kept as-is so a
-    # truly degenerate-perfect or degenerate-broken detector still gates correctly.
+    # (cohens_d now yields NaN for degenerate inputs; handled explicitly below.)
     if cohens_d_value is None:
         cohens_d_value = float("nan")
+    d_undefined = isinstance(cohens_d_value, float) and cohens_d_value != cohens_d_value
 
     if overall_tnr >= overall_tnr_threshold:
+        if d_undefined:
+            # Negatives are correctly rejected (TNR passes the gate) but the
+            # standardized effect size could not be computed over the current
+            # scores. Distinct from PASS (effect-size criterion unmet-because-
+            # undefined, pending continuous-metric recompute) and from FAIL
+            # (detection separation is real).
+            return "TNR-PASS-EFFECT-UNDEFINED"
         if cohens_d_value >= cohens_d_pass_threshold:
             weak = [c for c, t in per_class_tnr_gating.items() if t < weak_class_threshold]
             return "PASS-with-weakness" if weak else "PASS"
@@ -268,7 +298,7 @@ def run_panel(
             "seed_index": i,
             "score": _score(result),
             "verdict": _verdict(result),
-            "detected": _detected(result),
+            "detected": _detected(result), "rejection_stage": _rejection_stage(result),
         })
         if verbose:
             print(f"  [pos {i}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -351,7 +381,7 @@ def run_panel(
             "seed": s,
             "score": _score(result),
             "verdict": _verdict(result),
-            "detected": _detected(result),
+            "detected": _detected(result), "rejection_stage": _rejection_stage(result),
         })
         if verbose:
             print(f"  [syn {i:2d} {sub_id:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -376,7 +406,7 @@ def run_panel(
             "kind": "catalog_mate",
             "score": _score(result),
             "verdict": _verdict(result),
-            "detected": _detected(result),
+            "detected": _detected(result), "rejection_stage": _rejection_stage(result),
         })
         if verbose:
             print(f"  [cat {sub_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -396,7 +426,7 @@ def run_panel(
             "seed": s,
             "score": _score(result),
             "verdict": _verdict(result),
-            "detected": _detected(result),
+            "detected": _detected(result), "rejection_stage": _rejection_stage(result),
         })
         if verbose:
             print(f"  [sup {supp_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -422,7 +452,7 @@ def run_panel(
                 "seed": regime["seed"],
                 "score": _score(result),
                 "verdict": _verdict(result),
-                "detected": _detected(result),
+                "detected": _detected(result), "rejection_stage": _rejection_stage(result),
             })
             if verbose:
                 print(f"  [fai {regime['label']:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -500,6 +530,9 @@ def run_panel(
             "catalog_tnr_advisory": cat_class["advisory"],
             "failed_regime_tnr": fai_class["tnr"],
             "cohens_d_positive_vs_panel": d,
+            "effect_size_undefined": bool(isinstance(d, float) and d != d),
+            "effect_size_basis": "tier_confidence",
+            "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
             "verdict": verdict,
         },
     }

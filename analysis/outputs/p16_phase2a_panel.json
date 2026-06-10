@@ -1,9 +1,9 @@
 {
   "pattern_id": "P16",
-  "head_commit": "efca51ebd2424ae0be45bdbf192d10196579c115",
+  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
   "panel_version": "1.2",
   "detector_format": "state_vector",
-  "elapsed_seconds": 7.61,
+  "elapsed_seconds": 8.41,
   "detector_invariance": {
     "permutation_invariant": true,
     "time_shuffle_invariant": true,
@@ -24,31 +24,36 @@
         "seed_index": 0,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 1,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 2,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 3,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       },
       {
         "seed_index": 4,
         "score": 0.9,
         "verdict": "definitive",
-        "detected": true
+        "detected": true,
+        "rejection_stage": "FIRED"
       }
     ]
   },
@@ -58,35 +63,40 @@
       "seed": 191664963,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "random_gaussian",
       "seed": 1662057957,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "random_binary",
       "seed": 1405681631,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "spatial_white_noise",
       "seed": 942484272,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "temporal_white_noise",
       "seed": 929893137,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "permutation_shuffled",
@@ -103,21 +113,24 @@
       "seed": 1843824992,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "linear_gradient",
       "seed": 184566854,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "checkerboard",
       "seed": 1497586438,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "catalog": [
@@ -127,7 +140,8 @@
       "seed": 432652533,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "single_attractor_network",
@@ -135,7 +149,8 @@
       "seed": 202244314,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "failed_regime": [
@@ -150,7 +165,8 @@
       "seed": 42,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "single_pattern",
@@ -163,7 +179,8 @@
       "seed": 42,
       "score": 0.0,
       "verdict": "screening",
-      "detected": false
+      "detected": false,
+      "rejection_stage": "METRIC"
     }
   ],
   "class_b_composition": {
@@ -200,7 +217,10 @@
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": true,
     "failed_regime_tnr": 1.0,
-    "cohens_d_positive_vs_panel": Infinity,
-    "verdict": "PASS"
+    "cohens_d_positive_vs_panel": NaN,
+    "effect_size_undefined": true,
+    "effect_size_basis": "tier_confidence",
+    "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
+    "verdict": "TNR-PASS-EFFECT-UNDEFINED"
   }
 }
