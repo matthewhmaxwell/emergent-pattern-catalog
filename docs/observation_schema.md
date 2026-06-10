@@ -228,6 +228,39 @@ sweeps to enable hysteresis detection.
 
 ---
 
+## Territorial-agent-field bundle (P4)
+
+**Detector:** `epc/detectors/p4_territoriality.py`
+**Adapter:** `extract_observation_bundle(history) → dict`
+
+| Key             | Type                    | Description |
+|-----------------|-------------------------|-------------|
+| `positions`     | `list[ndarray(N, 2)]`   | Agent positions (row, col) at each snapshot |
+| `scent_fields`  | `list[ndarray(N, L, L)]`| Per-agent scent field at each snapshot |
+| `occupancy`     | `list[ndarray(N, L, L)]`| Cumulative visit counts per agent per cell |
+| `steps`         | `ndarray(T,)` int       | Step number at each snapshot |
+| `n_agents`      | `int`                   | Number of agents |
+| `grid_size`     | `int`                   | Side length L of the torus |
+
+**Input format:** list of dicts, each containing keys `'positions'`,
+`'scent_fields'`, `'occupancy'`, `'step'`, `'n_agents'`, `'grid_size'`.
+The adapter extracts and stacks these into aligned arrays.
+
+**Usage example:**
+```python
+from epc.detectors.p4_territoriality import P4TerritorialityDetector
+history = [{'positions': pos, 'scent_fields': scent, 'occupancy': occ,
+            'step': t, 'n_agents': 4, 'grid_size': 48}, ...]
+detector = P4TerritorialityDetector(n_permutations=199, seed=42)
+result = detector.detect(history, metadata)
+```
+
+**Native models:** `ScentMarkingModel`, `PheromoneRepulsionModel`,
+`PlainRandomWalkModel` (`epc/models/territoriality.py`) — all produce
+history dicts matching this schema.
+
+---
+
 ## Future bundles
 
 As new detectors are added with T1a contracts, their observation bundles

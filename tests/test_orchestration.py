@@ -68,12 +68,12 @@ class TestSubstrateCounts:
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 33, \
-            f"Expected 33 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 35, \
+            f"Expected 35 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 28, \
-            f"Expected 28 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 29, \
+            f"Expected 29 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:

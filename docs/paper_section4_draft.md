@@ -3021,3 +3021,39 @@ step-function R² prerequisite (>0.7) and nonzero hysteresis width cleanly
 separate P20 from P18. Invariance: perm_inv=False (density-label permutation
 destroys step-function fit), time_shuffle_inv=True. P20 dim4 → AT-DEPTH;
 AT-DEPTH count advances to 27/28 (P12 sole GAP).
+
+### §4.4 P4: Territoriality / exclusion boundaries (Sprint 86)
+
+**Model.** ScentMarkingModel: N agents on an L×L torus deposit own-ID scent
+that decays exponentially. Movement uses a two-stage rule: (1) exclude
+neighbors where foreign scent exceeds repulsion_strength × deposition_rate
+(hard avoidance boundary), (2) among allowed cells, select with probability
+proportional to (1 + home_attraction × own_scent)^(1/T). Parameters: N=4,
+L=48, deposition=0.1, decay=0.03, repulsion=2.0, home_attraction=2.0,
+temperature=0.5, 20000 steps. Emergent outcome: stable, non-overlapping home
+ranges with persistent boundaries partitioning the torus.
+
+**Detector.** P4TerritorialityDetector reads via T1a observation-bundle adapter
+(territorial-agent-field bundle: positions, scent_fields, occupancy). Primary
+metrics: exclusivity index (mean per-cell dominant-agent fraction), pairwise
+home-range overlap, boundary persistence, occupancy-vs-foreign-scent
+correlation. Null model: cell-level multinomial shuffle — for each visited cell,
+redistribute total visits uniformly among agents and recompute exclusivity.
+Three tiers: screening (exclusivity > 0.80 + p < 0.10), confirmation
+(persistence > 0.6 + p < 0.05 + Cohen's d > 1.0), definitive (occupancy-scent
+correlation negative + p ≤ 0.005 + metadata confirms foreign avoidance).
+
+**Negative control.** PlainRandomWalkModel (agents deposit scent but ignore it)
+correctly rejected at screening (exclusivity 0.74, below 0.80 threshold).
+
+**dim1.** Exclusivity = 0.902 (tolerance > 0.85 PASS), overlap = 0.034
+(tolerance < 0.10 PASS), persistence = 0.865 (tolerance > 0.70 PASS),
+DEFINITIVE (confidence 0.90, Cohen's d = 157.5). **dim2.** 20-seed campaign.
+**dim3.** Methods note covers two-stage avoidance movement, cell-level
+multinomial null, PheromoneRepulsion T1b, PlainRandomWalk negative control.
+**T1b.** PheromoneRepulsionModel CONFIRMATION (0.70) — independent hard-threshold
+avoidance mechanism, no home-attraction bias.
+
+**New substrate:** `territorial_agent_field` — 14th substrate type. Two models
+(scent_marking_territory, pheromone_repulsion_territory) registered. Registry:
+35 models × 29 detectors.

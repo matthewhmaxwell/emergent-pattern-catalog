@@ -1,0 +1,31 @@
+{
+  "pattern": "P4",
+  "anchor": "Giuggioli, Potts & Harris (2011)",
+  "model": "ScentMarkingModel",
+  "params": {
+    "n_agents": 4,
+    "grid_size": 48,
+    "deposition_rate": 0.1,
+    "decay_rate": 0.03,
+    "repulsion_strength": 2.0,
+    "home_attraction": 2.0,
+    "temperature": 0.5,
+    "n_steps": 20000,
+    "seed": 42
+  },
+  "exclusivity_index": 0.9022717544427887,
+  "pairwise_overlap": 0.033591666666666666,
+  "boundary_persistence": 0.8651877133105802,
+  "detector_tier": "definitive",
+  "detector_confidence": 0.9,
+  "null_p_value": 0.005,
+  "cohens_d": 157.52746650381079,
+  "occupancy_scent_correlation": -0.005012748840135687,
+  "tolerances": {
+    "exclusivity_gt_0.85": true,
+    "overlap_lt_0.10": true,
+    "persistence_gt_0.70": true,
+    "tier_confirmed_or_definitive": true
+  },
+  "passes_tolerance": true
+}

@@ -430,3 +430,46 @@ class TestP20OnModels:
         det = P20QuorumSensingDetector(n_permutations=99, seed=42)
         r = det.detect(h, model.get_metadata())
         assert not r.detected, f"P20 false positive on graded: {r.summary()}"
+
+
+class TestP4OnModels:
+    """P4 territoriality detector across model families (T1b)."""
+
+    def test_p4_on_scent_marking_detected(self):
+        """P4 should detect on canonical ScentMarkingModel."""
+        from epc.models.territoriality import ScentMarkingModel, ScentMarkingParams
+        from epc.detectors.p4_territoriality import P4TerritorialityDetector
+
+        model = ScentMarkingModel(ScentMarkingParams(
+            n_steps=20000, snapshot_interval=100, seed=42,
+        ))
+        h = model.simulate()
+        det = P4TerritorialityDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P4 not detected on ScentMarking: {r.warnings}"
+        assert r.tier.value == "definitive"
+
+    def test_p4_on_pheromone_repulsion_detected(self):
+        """P4 should detect on PheromoneRepulsionModel (T1b cross-model)."""
+        from epc.models.territoriality import PheromoneRepulsionModel, PheromoneRepulsionParams
+        from epc.detectors.p4_territoriality import P4TerritorialityDetector
+
+        model = PheromoneRepulsionModel(PheromoneRepulsionParams(seed=42))
+        h = model.simulate()
+        det = P4TerritorialityDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert r.detected, f"P4 not detected on PheromoneRepulsion: {r.warnings}"
+
+    def test_p4_on_random_walk_not_detected(self):
+        """P4 should NOT detect on PlainRandomWalkModel."""
+        from epc.models.territoriality import PlainRandomWalkModel
+        from epc.detectors.p4_territoriality import P4TerritorialityDetector
+
+        model = PlainRandomWalkModel(
+            n_agents=4, grid_size=48, n_steps=5000,
+            snapshot_interval=50, seed=42,
+        )
+        h = model.simulate()
+        det = P4TerritorialityDetector(n_permutations=199, seed=42)
+        r = det.detect(h, model.get_metadata())
+        assert not r.detected, f"P4 false positive on random walk: {r.warnings}"

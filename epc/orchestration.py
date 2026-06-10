@@ -5,7 +5,7 @@ Maps models to compatible detectors based on substrate type, preventing
 cross-substrate false positives. The transfer matrix is block-diagonal
 by substrate type.
 
-13 substrate types:
+14 substrate types:
 - lattice_1d: Zhang sorting (chimeric), Nagel-Schreckenberg traffic
 - lattice_2d: GH, GoL, BTW sandpile, Schelling, Nowak-May, SIR, RPS,
               Lotka-Volterra, Voter
@@ -20,9 +20,10 @@ by substrate type.
 - attractor_network: Hopfield, BooleanGRN (Sprint 79)
 - canalization_landscape: CanalizedLandscape, MultiBasinGRN (Sprint 81)
 - density_sweep_timeseries: AutoinducerQuorum, FractionThreshold (Sprint 83)
+- territorial_agent_field: ScentMarkingTerritory, PheromoneRepulsionTerritory (Sprint 86)
 
-Architecture decision #25 (updated Sprint 83):
-  33 models × 28 detectors — compatible pairs identified by substrate.
+Architecture decision #25 (updated Sprint 86):
+  35 models × 29 detectors — compatible pairs identified by substrate.
   Proportional Homeostat (Sprint 72) occupies the new scalar_timeseries
   substrate; P24 (Sprint 72) is restricted to scalar_timeseries and uses
   the T1a observation-bundle adapter (scalar-regulated-variable bundle)
@@ -420,6 +421,27 @@ MODEL_REGISTRY: Dict[str, ModelRegistration] = {
                        'model_class', 'has_threshold_activation', 'has_hysteresis',
                        'has_positive_feedback'],
     ),
+    'scent_marking_territory': ModelRegistration(
+        name='scent_marking_territory',
+        substrate_type='territorial_agent_field',
+        observables=['positions', 'scent_fields', 'occupancy'],
+        primary_patterns=['P4'],
+        metadata_keys=['n_agents', 'grid_size', 'deposition_rate', 'decay_rate',
+                       'repulsion_strength', 'home_attraction', 'temperature',
+                       'n_steps', 'seed', 'model_class',
+                       'has_scent_marking', 'has_foreign_avoidance',
+                       'has_home_attraction'],
+    ),
+    'pheromone_repulsion_territory': ModelRegistration(
+        name='pheromone_repulsion_territory',
+        substrate_type='territorial_agent_field',
+        observables=['positions', 'scent_fields', 'occupancy'],
+        primary_patterns=['P4'],
+        metadata_keys=['n_agents', 'grid_size', 'deposition_rate', 'decay_rate',
+                       'avoidance_threshold', 'n_steps', 'seed', 'model_class',
+                       'has_scent_marking', 'has_foreign_avoidance',
+                       'has_home_attraction'],
+    ),
 }
 
 # === Detector Registry ===
@@ -591,6 +613,12 @@ DETECTOR_REGISTRY: Dict[str, DetectorRegistration] = {
         pattern_id='P20',
         required_substrate=['density_sweep_timeseries'],
         required_observables=['density', 'collective_state'],
+        observable_scope='model_metadata_assisted',
+    ),
+    'P4': DetectorRegistration(
+        pattern_id='P4',
+        required_substrate=['territorial_agent_field'],
+        required_observables=['positions', 'scent_fields', 'occupancy'],
         observable_scope='model_metadata_assisted',
     ),
 }
