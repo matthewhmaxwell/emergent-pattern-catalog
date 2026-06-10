@@ -699,6 +699,84 @@ def homeostatic_regulation_bundle(seed: int) -> List[Dict[str, Any]]:
     return history
 
 
+# --- Density-sweep supplements (P20 quorum sensing) -------------------------
+
+def smooth_sigmoid_density_sweep(
+    seed: int,
+    *,
+    n_levels: int = 40,
+    n_steps_per: int = 100,
+    d_min: float = 0.1,
+    d_max: float = 3.0,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Smooth sigmoid density-response: graded transition, NO hysteresis.
+
+    fraction_on = logistic(density; center=1.5, slope=1.0) — gentle sigmoid.
+    Identical up and down sweep curves → hysteresis_width ≈ 0.
+    P20 should reject at confirmation (step-function R² too low, no hysteresis).
+    This is the key P18 (consensus) discrimination case: agreement grows
+    gradually with density, not as a sharp binary toggle.
+    """
+    rng = np.random.default_rng(seed)
+    densities_up = np.linspace(d_min, d_max, n_levels)
+    densities_down = np.linspace(d_max, d_min, n_levels)
+    all_densities = np.concatenate([densities_up, densities_down])
+    out: List[Dict[str, Any]] = []
+    for d_idx, density in enumerate(all_densities):
+        direction = 'up' if d_idx < n_levels else 'down'
+        base_frac = 1.0 / (1.0 + np.exp(-1.0 * (density - 1.5)))
+        for step_i in range(n_steps_per):
+            fraction_on = float(np.clip(
+                base_frac + rng.normal(0.0, 0.03), 0.0, 1.0
+            ))
+            out.append({
+                'density': float(density),
+                'concentration': float(density * fraction_on),
+                'collective_state': 1 if fraction_on > 0.5 else 0,
+                'fraction_on': fraction_on,
+                'step': step_i,
+                'density_idx': d_idx,
+                'sweep_direction': direction,
+            })
+    return out
+
+
+def always_off_density_sweep(
+    seed: int,
+    *,
+    n_levels: int = 40,
+    n_steps_per: int = 100,
+    d_min: float = 0.1,
+    d_max: float = 3.0,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """System remains permanently OFF at all densities.
+
+    fraction_on ≈ 0 regardless of density → no OFF→ON transition →
+    P20 rejects at screening.
+    """
+    rng = np.random.default_rng(seed)
+    densities_up = np.linspace(d_min, d_max, n_levels)
+    densities_down = np.linspace(d_max, d_min, n_levels)
+    all_densities = np.concatenate([densities_up, densities_down])
+    out: List[Dict[str, Any]] = []
+    for d_idx, density in enumerate(all_densities):
+        direction = 'up' if d_idx < n_levels else 'down'
+        for step_i in range(n_steps_per):
+            fraction_on = float(np.clip(rng.normal(0.03, 0.01), 0.0, 0.15))
+            out.append({
+                'density': float(density),
+                'concentration': float(density * fraction_on),
+                'collective_state': 0,
+                'fraction_on': fraction_on,
+                'step': step_i,
+                'density_idx': d_idx,
+                'sweep_direction': direction,
+            })
+    return out
+
+
 # --- Registry ---------------------------------------------------------------
 
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
@@ -712,6 +790,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "choice_timeseries": ["consensus_herding_attendance", "random_choice_attendance"],
     "attractor_network": ["random_weights_network", "single_attractor_network"],
     "canalization_landscape": ["diffusive_multi_ic", "homeostatic_regulation_bundle"],
+    "density_sweep_timeseries": ["smooth_sigmoid_density_sweep", "always_off_density_sweep"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -735,4 +814,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "single_attractor_network": single_attractor_network,
     "diffusive_multi_ic": diffusive_multi_ic,
     "homeostatic_regulation_bundle": homeostatic_regulation_bundle,
+    "smooth_sigmoid_density_sweep": smooth_sigmoid_density_sweep,
+    "always_off_density_sweep": always_off_density_sweep,
 }

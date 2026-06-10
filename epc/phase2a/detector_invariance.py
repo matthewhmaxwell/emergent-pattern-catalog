@@ -167,6 +167,17 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "p > 0.01 for most seeds). Sprint 77 panel run confirmed: "
                                       "time_shuffled FP at confirmation via σ²/N alone. Same "
                                       "pattern as P5 (Sprint 46), P1 (Sprint 43)."),
+    "P20": InvarianceFlags(False, True,  "step-function R² on density-response curve",
+                            rationale="perm_inv=False: P20's sharpness metric is computed over "
+                                      "a density sweep — permuting fraction_on values across "
+                                      "density levels destroys the step-function fit → "
+                                      "permutation_shuffled is a meaningful test. "
+                                      "time_shuffle_inv=True: P20's equilibrium curves are "
+                                      "reconstructed from density_idx and sweep_direction tags "
+                                      "attached to each history dict — shuffling the list order "
+                                      "does not destroy the signal because grouping is tag-based, "
+                                      "not position-based. Sprint 84 panel run confirmed: "
+                                      "time_shuffled FP at definitive."),
     "P26": InvarianceFlags(True,  True,  "coherent response |⟨x·signal⟩| over noise sweep",
                             rationale="perm_inv=True: noise-sweep timeseries has a single scalar "
                                       "variable x — permuting 'agents' is N/A (degenerate-by-construction "

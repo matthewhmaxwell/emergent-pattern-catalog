@@ -1087,3 +1087,14 @@ T1b: FractionThresholdModel DEFINITIVE. Negative control (graded response)
 rejected at screening. Registry: 33 models × 28 detectors = 924 cells, 114
 compatible pairs. dim4 pending (Sprint 84).
 **AT-DEPTH count: 26 / 28** (P12, P20 GAP — P20 dim4 pending).
+
+**Sprint 84 — P20 dim4 Phase-2a panel (Milestone B Wave 3 completion).** Phase-2a
+panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf). All 5 positives DEFINITIVE
+(0.900); all negatives correctly rejected. Class A: 9/9 TN (time_shuffled
+SKIPPED — tag-based grouping makes primary metric time-shuffle-invariant).
+Class B: 0 catalog mates + 2 supplements (smooth_sigmoid_density_sweep,
+always_off_density_sweep — both rejected at screening). Class C: 2/2 TN
+(sub_threshold, graded_response). Key P18 discrimination: graded consensus
+response lacks sharp threshold and hysteresis. Invariance: perm_inv=False,
+time_shuffle_inv=True. P20 advances GAP→AT-DEPTH. Completes Wave 3.
+**AT-DEPTH count: 27 / 28** (P12 sole GAP).

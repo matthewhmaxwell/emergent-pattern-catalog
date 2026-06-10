@@ -24,6 +24,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p23
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p16
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p25
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p20
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -77,6 +78,7 @@ from epc.phase2a.failed_regimes import p26_stochastic_resonance as p26_failed
 from epc.phase2a.failed_regimes import p23_anticoordination as p23_failed
 from epc.phase2a.failed_regimes import p16_hopfield as p16_failed
 from epc.phase2a.failed_regimes import p25_equifinality as p25_failed
+from epc.phase2a.failed_regimes import p20_quorum as p20_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1721,6 +1723,59 @@ def run_p25(out_path: str = "analysis/outputs/p25_phase2a_panel.json", verbose: 
     )
 
 
+def build_p20_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P20 canonical positive: AutoinducerQuorum at default params.
+
+    Up/down density sweep with sharp threshold + hysteresis.
+    """
+    from epc.models.quorum_sensing import AutoinducerQuorum, AutoinducerParams
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        params = AutoinducerParams(seed=seed)
+        model = AutoinducerQuorum(params)
+        runs.append(model.simulate())
+        if seed == 0:
+            metadata = model.get_metadata()
+    return runs, metadata
+
+
+def make_p20_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p20_quorum_sensing import P20QuorumSensingDetector
+    detector = P20QuorumSensingDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, metadata=metadata)
+    return fn
+
+
+def run_p20(out_path: str = "analysis/outputs/p20_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P20 (quorum sensing) Phase-2a panel v1.2.
+
+    detector_format="density_sweep": P20 operates on density-sweep observation
+    bundles (density, concentration, collective_state, fraction_on, density_idx,
+    sweep_direction). Class A synthetic substrates are random/graded density-
+    response curves → P20 rejects at screening (no sharp transition) or
+    confirmation (low step-function R²).
+    Class B: 0 catalog mates (only density_sweep_timeseries pattern); supplements
+    may be added if needed.
+    Class C: sub_threshold (system never activates) + graded_response (smooth
+    sigmoid, no hysteresis — key P18 discrimination case).
+    """
+    print(f"--- Running P20 panel → {out_path}")
+    positives, metadata = build_p20_positives(n_seeds=5)
+    detector_fn = make_p20_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P20",
+        detector_format="density_sweep",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p20_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -1776,6 +1831,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P16"] = run_p16()
     if which in ("p25",):
         summaries["P25"] = run_p25()
+    if which in ("p20",):
+        summaries["P20"] = run_p20()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

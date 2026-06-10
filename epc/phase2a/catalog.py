@@ -1150,6 +1150,46 @@ def _adapt_to_canalization_bundle(
     return history
 
 
+def _adapt_to_density_sweep(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to density_sweep format.
+
+    For non-density-sweep substrates, generates a graded (linear) response
+    sweep — no sharp threshold, no hysteresis. P20 should reject at screening
+    (no OFF→ON transition) or at confirmation (R² too low).
+    """
+    if native.get("kind") == "density_sweep":
+        return native["history"]
+    # Non-density-sweep substrates: graded linear response.
+    rng = np.random.default_rng(42)
+    n_levels = 40
+    d_min, d_max = 0.1, 3.0
+    densities_up = np.linspace(d_min, d_max, n_levels)
+    densities_down = np.linspace(d_max, d_min, n_levels)
+    all_densities = np.concatenate([densities_up, densities_down])
+    n_steps_per = max(target_steps // (2 * n_levels), 10)
+    history: List[Dict[str, Any]] = []
+    for d_idx, density in enumerate(all_densities):
+        direction = 'up' if d_idx < n_levels else 'down'
+        for step_i in range(n_steps_per):
+            # Graded linear response + noise — no sharp transition
+            fraction_on = float(np.clip(
+                0.25 * density / d_max + rng.normal(0.0, 0.05), 0.0, 1.0
+            ))
+            history.append({
+                'density': float(density),
+                'concentration': float(density * fraction_on),
+                'collective_state': 1 if fraction_on > 0.5 else 0,
+                'fraction_on': fraction_on,
+                'step': step_i,
+                'density_idx': d_idx,
+                'sweep_direction': direction,
+            })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1182,6 +1222,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_state_vector(native, target_steps=target_steps)
     if target_format == "canalization_bundle":
         return _adapt_to_canalization_bundle(native)
+    if target_format == "density_sweep":
+        return _adapt_to_density_sweep(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1236,6 +1278,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P23": "P23_minority_game",  # Sprint 77; choice_timeseries
     "P16": "P16_hopfield",  # Sprint 80; state_vector (attractor_network)
     "P25": "P25_canalized_landscape",  # Sprint 82; canalization_bundle
+    "P20": "P20_autoinducer_quorum",  # Sprint 84; density_sweep_timeseries
 }
 
 

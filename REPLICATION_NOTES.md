@@ -7013,4 +7013,23 @@ sweeps. T1a adapter reads density-sweep observation bundle.
   - Rejected at screening: no OFF→ON transition (f_high − f_low = 0.37 < 0.5)
 
 Sprint 83 finding: P20 dims 1–3 PASS. dim4 pending (Sprint 84).
-AT-DEPTH count: 26 / 28 (P12, P20 GAP).
+
+**dim4 (Sprint 84):**
+- Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf)
+  - Positives: 5/5 DEFINITIVE (confidence 0.900)
+  - Class A (synthetic nulls): 9/9 rejected (1 SKIPPED — time_shuffled,
+    degenerate-by-construction: density_idx/sweep_direction tags preserve
+    equilibrium curve under temporal reordering)
+  - Class B (catalog mates): 0 catalog mates (P20 is only density_sweep_timeseries pattern)
+    + 2 supplements: `smooth_sigmoid_density_sweep` rejected at screening (graded response),
+    `always_off_density_sweep` rejected at screening (no transition)
+  - Class C (failed regimes): 2/2 rejected:
+    `sub_threshold` rejected at screening (no OFF→ON transition),
+    `graded_response` rejected at screening (smooth sigmoid, no hysteresis)
+- Invariance flags: perm_inv=False, time_shuffle_inv=True
+- Content prerequisite: sharp step-function transition (R² > 0.7) + nonzero hysteresis width
+  (activation > deactivation density) — graded/smooth consensus is NOT quorum sensing
+  (Waters & Bassler 2005)
+
+Sprint 84 finding: P20 dim4 PASS → **AT-DEPTH**.
+AT-DEPTH count: 27 / 28 (P12 sole GAP).

@@ -3005,3 +3005,19 @@ DEFINITIVE (0.90).
 **New substrate:** `density_sweep_timeseries` — 13th substrate type. Two models
 (autoinducer_quorum, fraction_threshold) registered. Registry: 33 models ×
 28 detectors = 924 cells, 114 compatible pairs.
+
+**dim4 (Sprint 84).** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf).
+All 5 positives DEFINITIVE (0.900); all negatives correctly rejected. Class A:
+9/9 evaluated TN (time_shuffled SKIPPED — density_idx/sweep_direction tags
+preserve equilibrium curve under temporal reordering, degenerate-by-construction).
+Class B: 0 catalog mates (P20 is the sole density_sweep_timeseries pattern);
+2 structured supplements: smooth_sigmoid_density_sweep (graded response,
+rejected at screening), always_off_density_sweep (no transition, rejected at
+screening). Class C: 2/2 TN — sub_threshold (system never activates) rejected
+at screening, graded_response (smooth sigmoid, no hysteresis) rejected at
+screening. Key discrimination: P18 (voter/consensus) produces graded agreement
+resolution without a sharp threshold or hysteresis — not quorum sensing. The
+step-function R² prerequisite (>0.7) and nonzero hysteresis width cleanly
+separate P20 from P18. Invariance: perm_inv=False (density-label permutation
+destroys step-function fit), time_shuffle_inv=True. P20 dim4 → AT-DEPTH;
+AT-DEPTH count advances to 27/28 (P12 sole GAP).

@@ -94,6 +94,12 @@ STATE_VECTOR_DEFAULT_P = 5           # default number of stored patterns
 STATE_VECTOR_DEFAULT_TRIALS = 5      # default number of retrieval trials
 STATE_VECTOR_DEFAULT_STEPS_PER_TRIAL = 10  # default steps per trial
 
+# Density-sweep timeseries defaults (P20 quorum sensing panel)
+DENSITY_SWEEP_N_LEVELS = 40          # density levels per sweep direction
+DENSITY_SWEEP_STEPS_PER_LEVEL = 100  # timesteps per density level
+DENSITY_SWEEP_DENSITY_MIN = 0.1      # min density
+DENSITY_SWEEP_DENSITY_MAX = 3.0      # max density
+
 # Canalization bundle defaults (P25 equifinality panel)
 CANAL_DEFAULT_N_ICS = 20             # default number of initial conditions
 CANAL_DEFAULT_N_DIMS = 10            # default state-space dimensionality
@@ -232,6 +238,63 @@ def _state_vector_null_history(
                 'stored_patterns': stored_patterns.copy(),
                 'converged': step == n_steps_per_trial - 1,
             })
+    return history
+
+
+def _density_sweep_null(
+    rng: np.random.Generator,
+    n_levels: int = DENSITY_SWEEP_N_LEVELS,
+    n_steps: int = DENSITY_SWEEP_STEPS_PER_LEVEL,
+    d_min: float = DENSITY_SWEEP_DENSITY_MIN,
+    d_max: float = DENSITY_SWEEP_DENSITY_MAX,
+    response: str = "random",
+) -> List[Dict[str, Any]]:
+    """Null density-sweep substrate: no sharp threshold, no hysteresis.
+
+    Generates density-sweep-timeseries-format histories where fraction_on
+    is NOT a sharp step function of density. P20 should reject at screening
+    (no OFF→ON transition) or at confirmation (R² too low / null not rejected).
+
+    Parameters
+    ----------
+    response : str
+        "random" — fraction_on is i.i.d. uniform noise at each density level.
+        "linear" — fraction_on increases linearly with density (graded response).
+        "constant" — fraction_on is constant (no transition at all).
+    """
+    densities_up = np.linspace(d_min, d_max, n_levels)
+    densities_down = np.linspace(d_max, d_min, n_levels)
+    all_densities = np.concatenate([densities_up, densities_down])
+    history: List[Dict[str, Any]] = []
+
+    for d_idx, density in enumerate(all_densities):
+        direction = 'up' if d_idx < n_levels else 'down'
+        for step_i in range(n_steps):
+            if response == "random":
+                fraction_on = float(rng.uniform(0.0, 1.0))
+            elif response == "linear":
+                # Graded: fraction_on ~ density / d_max, no sharp transition
+                fraction_on = float(np.clip(
+                    0.25 * density / d_max + rng.normal(0.0, 0.05), 0.0, 1.0
+                ))
+            elif response == "constant":
+                fraction_on = 0.1
+            else:
+                fraction_on = float(rng.uniform(0.0, 1.0))
+
+            concentration = density * fraction_on
+            collective = 1 if fraction_on > 0.5 else 0
+
+            history.append({
+                'density': float(density),
+                'concentration': float(concentration),
+                'collective_state': collective,
+                'fraction_on': fraction_on,
+                'step': step_i,
+                'density_idx': d_idx,
+                'sweep_direction': direction,
+            })
+
     return history
 
 
@@ -422,6 +485,8 @@ def random_uniform_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
@@ -474,6 +539,8 @@ def random_gaussian_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
@@ -528,6 +595,8 @@ def random_binary_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
@@ -584,6 +653,8 @@ def spatial_white_noise_series(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="random_walk")
     raise ValueError(f"unknown format: {format}")
@@ -667,6 +738,8 @@ def temporal_white_noise_per_cell(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="random")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="divergent")
     raise ValueError(f"unknown format: {format}")
@@ -801,6 +874,15 @@ def permutation_shuffled_positive(
             new_h['stored_patterns'] = np.asarray(h['stored_patterns'])[:, perm].copy()
             out.append(new_h)
         return out
+    if format == "density_sweep":
+        # Density-sweep: permute fraction_on values across density levels.
+        # For quorum sensing, this destroys the sharp step-function shape but
+        # preserves the marginal distribution → R² drops → P20 should reject.
+        # Degenerate-by-construction if perm_invariant=True (it's not for P20).
+        shuffled = list(positive)
+        fracs = np.array([h['fraction_on'] for h in shuffled])
+        rng.shuffle(fracs)
+        return [dict(h, fraction_on=float(fracs[i])) for i, h in enumerate(shuffled)]
     if format == "canalization_bundle":
         # Permute trial indices in the positive — convergence variance ratio
         # is invariant under IC relabelling → degenerate-by-construction.
@@ -845,6 +927,15 @@ def time_shuffled_positive(
         rng.shuffle(indices)
         return [dict(positive[i], step=t, time=t * NOISE_SWEEP_DT)
                 for t, i in enumerate(indices)]
+    if format == "density_sweep":
+        # Time-shuffle: reorder timesteps within the density sweep.
+        # This destroys hysteresis (up/down sweep ordering) but preserves
+        # per-density-level equilibrium curves if density_idx is retained.
+        # P20's sharpness metric uses density_idx grouping, so sharpness
+        # may be preserved → NOT time_shuffle_invariant.
+        indices = np.arange(len(positive))
+        rng.shuffle(indices)
+        return [dict(positive[i], step=t) for t, i in enumerate(indices)]
     indices = np.arange(len(positive))
     rng.shuffle(indices)
     return [dict(positive[i], step=t) for t, i in enumerate(indices)]
@@ -934,6 +1025,8 @@ def constant_field(
                     'stored_patterns': stored_patterns.copy(), 'converged': True,
                 })
         return history
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="constant")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="constant")
     raise ValueError(f"unknown format: {format}")
@@ -1007,6 +1100,8 @@ def linear_gradient_field(
         return _choice_ts_history(att)
     if format == "state_vector":
         return _state_vector_null_history(rng)
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="linear")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="divergent")
     raise ValueError(f"unknown format: {format}")
@@ -1103,6 +1198,8 @@ def periodic_checkerboard(
                     'stored_patterns': stored_patterns.copy(), 'converged': True,
                 })
         return history
+    if format == "density_sweep":
+        return _density_sweep_null(rng, response="linear")
     if format == "canalization_bundle":
         return _canalization_bundle_null(rng, dynamics="constant")
     raise ValueError(f"unknown format: {format}")

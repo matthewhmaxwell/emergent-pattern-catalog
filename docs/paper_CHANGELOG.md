@@ -4,6 +4,21 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 84 (2026-06-10)
+
+- epc/phase2a/detector_invariance.py: P20 invariance flags (perm=False, time_shuffle=True).
+- epc/phase2a/synthetic.py: density_sweep format added to all 10 Class A generators.
+- epc/phase2a/structured.py: 2 density_sweep supplements (smooth_sigmoid_density_sweep, always_off_density_sweep).
+- epc/phase2a/catalog.py: P20→P20_autoinducer_quorum mapping, _adapt_to_density_sweep adapter.
+- epc/phase2a/panel.py: density_sweep format in run_panel.
+- epc/phase2a/failed_regimes/p20_quorum.py: NEW — Class C (sub_threshold, graded_response).
+- analysis/run_phase2a_panel.py: P20 panel wiring (build_p20_positives, make_p20_detector_fn, run_p20).
+- analysis/outputs/p20_phase2a_panel.json: dim4 output (PASS, TNR=1.000, d=+inf).
+- §4.20 paper draft: P20 dim4 section added.
+- §6: Sprint 84 entry added. AT-DEPTH count 26→27/28 (P20 GAP→AT-DEPTH).
+- docs/depth_gap.md: P20 row updated (pending→PASS, GAP→AT-DEPTH), AT-DEPTH count 26→27, gap 2→1.
+- REPLICATION_NOTES.md: Sprint 84 P20 dim4 section added.
+
 ## Sprint 83 (2026-06-09)
 
 - epc/models/quorum_sensing.py: NEW — AutoinducerQuorum (canonical), FractionThresholdModel (T1b), GradedResponseModel (negative control).
