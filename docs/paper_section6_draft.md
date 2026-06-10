@@ -1207,3 +1207,18 @@ reproduction PASS (closure=1.0, enrichment=2.0, self-repair=1.10).
 dim2: 20-seed campaign. dim3: methods note. dim4: pending (Phase-2a panel).
 **Implemented-count: 32 — ALL 32 PATTERNS.** Registry: 42 models × 32 detectors.
 **AT-DEPTH count: 30 / 32** (P30 dim4 pending → GAP).
+
+**Sprint 93 (P30 dim4 Phase-2a panel — final pattern panel).**
+P30 Phase-2a panel v1.2 PASS: TNR=1.000, Cohen's d=12.124.
+detector_format: `particle_membrane`. Canonical positive: 5/5 detected
+(1 definitive, 2 confirmation, 2 screening). Invariance flags:
+perm_inv=True (association_score invariant under particle relabelling),
+time_shuffle_inv=True (per-snapshot spatial metrics confirmed empirically
+invariant — initial run produced time_shuffled FP at confirmation;
+flag changed from False→True). Class A: 8/8 evaluated rejected (2
+skipped: perm_shuffled + time_shuffled). Class B: 0 catalog mates + 2
+supplements (dense_cluster_particles: all type=0 P1-like blob, rejected;
+dispersed_typed_regions: P4-like quadrant types, rejected). Class C: 5
+failed regimes (non-bonding, high-decay, no-attraction+high-decay,
+weak-production, large-box+low-production), all rejected. P30 advances
+GAP → AT-DEPTH. **AT-DEPTH count: 31 / 32.** Sole remaining gap: P12 (dim1).

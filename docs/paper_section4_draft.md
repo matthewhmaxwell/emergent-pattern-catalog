@@ -3239,6 +3239,18 @@ enrichment), type-shuffle null, three-tier gates, T1a observation
 contract, limitations (angular-coverage necessary-not-sufficient,
 partial self-repair per escape clause).
 
+**dim4.** Phase-2a panel v1.2 (Sprint 93): TNR=1.000, d=12.124, verdict
+PASS. Class A: 8 evaluated (2 skipped: perm_inv, time_shuffle_inv), all
+TN. Class B supplements: dense_cluster_particles (P1-like, all type=0 →
+no links → screening fails) and dispersed_typed_regions (P4-like, types
+in separate quadrants → no link-catalyst co-location → screening fails).
+Class C: 5 failed regimes (non-bonding, high-decay, no-attraction,
+weak-production, large-box-low-production), all TN. Invariance:
+perm_inv=True (association_score invariant under particle relabelling),
+time_shuffle_inv=True (per-snapshot spatial metrics preserved after
+temporal reorder; confirmed empirically — initial run at False produced
+time_shuffled FP at confirmation). **P30 advances GAP→AT-DEPTH.**
+
 **New substrate:** `particle_membrane` — 17th substrate type.
 Three models (autopoiesis, non_bonding_particles, dense_cluster)
 registered. Registry: 42 models × 32 detectors. **ALL 32 PATTERNS

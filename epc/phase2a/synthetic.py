@@ -48,6 +48,51 @@ TA_DEFAULT_N_AGENTS = 20
 TA_DEFAULT_N_TASKS = 3
 TA_DEFAULT_N_STEPS = 500
 
+# Particle-membrane defaults (P30).
+PM_DEFAULT_N_PARTICLES = 100
+PM_DEFAULT_BOX_SIZE = 20.0
+PM_DEFAULT_N_STEPS = 200
+
+
+def _particle_membrane_null_history(
+    rng: np.random.Generator,
+    n_particles: int = PM_DEFAULT_N_PARTICLES,
+    box_size: float = PM_DEFAULT_BOX_SIZE,
+    n_steps: int = PM_DEFAULT_N_STEPS,
+) -> List[Dict[str, Any]]:
+    """Generate a random particle-membrane null (no membrane structure).
+
+    Particles are uniformly distributed with randomly assigned types
+    (substrate=0, catalyst=1, link=2). No spatial co-location of links
+    near catalysts → association_score ≈ 1.0 → P30 rejects at screening.
+
+    Type proportions approximate the canonical positive: ~80% substrate,
+    ~3% catalyst, ~17% link.
+    """
+    n_cat = max(1, n_particles // 30)  # ~3 catalysts
+    n_link = n_particles // 6           # ~17 links
+    n_sub = n_particles - n_cat - n_link
+
+    base_types = np.concatenate([
+        np.zeros(n_sub, dtype=np.int32),
+        np.ones(n_cat, dtype=np.int32),
+        np.full(n_link, 2, dtype=np.int32),
+    ])
+
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        positions = rng.uniform(0.0, box_size, size=(n_particles, 2))
+        types = base_types.copy()
+        rng.shuffle(types)
+        history.append({
+            'positions': positions.astype(np.float64),
+            'types': types,
+            'box_size': box_size,
+            'step': step,
+            'n_particles': n_particles,
+        })
+    return history
+
 
 def _territorial_agent_field_null_history(
     rng: np.random.Generator,
@@ -611,6 +656,8 @@ def random_uniform_field(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -671,6 +718,8 @@ def random_gaussian_field(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -733,6 +782,8 @@ def random_binary_field(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -797,6 +848,8 @@ def spatial_white_noise_series(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -888,6 +941,8 @@ def temporal_white_noise_per_cell(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1065,6 +1120,12 @@ def permutation_shuffled_positive(
             th = np.asarray(h["thresholds"]).copy()
             shuffled.append(dict(h, task_assignments=ta[perm], thresholds=th[perm]))
         return shuffled
+    if format == "particle_membrane":
+        # Permute particle indices — association_score is a sum over type-
+        # conditioned distances, invariant under consistent particle relabelling
+        # → degenerate-by-construction. Will be skipped by
+        # permutation_invariant=True.
+        return list(positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1212,6 +1273,8 @@ def constant_field(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1293,6 +1356,8 @@ def linear_gradient_field(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1397,6 +1462,8 @@ def periodic_checkerboard(
         return _trail_network_null_history(rng, n_steps=n_steps)
     if format == "task_allocation_timeseries":
         return _task_allocation_null_history(rng, n_steps=n_steps)
+    if format == "particle_membrane":
+        return _particle_membrane_null_history(rng, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

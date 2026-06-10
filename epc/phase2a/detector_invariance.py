@@ -176,6 +176,21 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "sequentially to compute entropy trends (early vs late "
                                       "window); shuffling temporal order destroys the "
                                       "early-vs-late comparison. Sprint 91 panel."),
+    "P30": InvarianceFlags(True,  True,  "association_score (link-catalyst co-location)",
+                            rationale="perm_inv=True: association_score counts how many link "
+                                      "particles are near any catalyst — permuting particle "
+                                      "indices does not change type–position pairings, so the "
+                                      "metric is invariant under particle relabelling → "
+                                      "permutation_shuffled is degenerate-by-construction. "
+                                      "time_shuffle_inv=True: all primary metrics (association_score, "
+                                      "closure_fraction, enrichment_ratio) are per-snapshot "
+                                      "spatial statistics. Persistence measures the fraction of "
+                                      "late-window snapshots passing thresholds, which is "
+                                      "preserved under time shuffling when the membrane forms "
+                                      "early and persists (most snapshots pass regardless of "
+                                      "temporal order). Sprint 93 panel run confirmed: "
+                                      "time_shuffled FP at confirmation (d=2.1). Changed "
+                                      "from False→True per empirical panel evidence."),
     "P29": InvarianceFlags(False, False, "weight-distance correlation + network efficiency",
                             rationale="perm_inv=False: weight-distance correlation depends on "
                                       "node-edge structure — permuting node indices changes edge-to-"

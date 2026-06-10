@@ -1350,6 +1350,42 @@ def _adapt_to_task_allocation(
     return history
 
 
+def _adapt_to_particle_membrane(
+    native: Dict[str, Any],
+    target_steps: int = 200,
+    n_particles: int = 100,
+    box_size: float = 20.0,
+) -> List[Dict[str, Any]]:
+    """Convert a native catalog substrate to particle_membrane format.
+
+    No catalog substrates are natively particle_membrane, so all conversions
+    produce uniformly distributed particles with random type assignments.
+    P30 should reject: association_score ≈ 1.0 (no link-catalyst co-location).
+    """
+    rng = np.random.default_rng(42)
+    n_cat = max(1, n_particles // 30)
+    n_link = n_particles // 6
+    n_sub = n_particles - n_cat - n_link
+    base_types = np.concatenate([
+        np.zeros(n_sub, dtype=np.int32),
+        np.ones(n_cat, dtype=np.int32),
+        np.full(n_link, 2, dtype=np.int32),
+    ])
+    history: List[Dict[str, Any]] = []
+    for step in range(target_steps):
+        positions = rng.uniform(0.0, box_size, size=(n_particles, 2)).astype(np.float64)
+        types = base_types.copy()
+        rng.shuffle(types)
+        history.append({
+            'positions': positions,
+            'types': types,
+            'box_size': box_size,
+            'step': step,
+            'n_particles': n_particles,
+        })
+    return history
+
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1390,6 +1426,8 @@ def load_catalog_substrate_for_format(
         return _adapt_to_trail_network(native, target_steps=target_steps)
     if target_format == "task_allocation_timeseries":
         return _adapt_to_task_allocation(native, target_steps=target_steps)
+    if target_format == "particle_membrane":
+        return _adapt_to_particle_membrane(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1448,6 +1486,7 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
     "P4": "P4_scent_marking_territory",  # Sprint 87; territorial_agent_field
     "P29": "P29_ant_trail_network",  # Sprint 88/89; trail_network
     "P32": "P32_response_threshold",  # Sprint 90/91; task_allocation_timeseries
+    "P30": "P30_autopoiesis",  # Sprint 93; particle_membrane
 }
 
 

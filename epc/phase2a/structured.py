@@ -998,6 +998,91 @@ def constant_rebalancing_allocation(
     return history
 
 
+# --- Particle-membrane supplements (P30) ------------------------------------
+
+def dense_cluster_particles(
+    seed: int,
+    *,
+    n_particles: int = 100,
+    box_size: float = 20.0,
+    n_steps: int = 200,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Dense cluster of undifferentiated particles (P1-like).
+
+    All particles concentrated in a small region with universal attraction
+    (matching DenseClusterModel negative control from Sprint 92).
+    ALL particles are type=0 (substrate) — no link particles exist, so
+    P30 fails the mean_n_links >= 3 screening gate. Tests that mere
+    spatial clustering (P1) without type differentiation is rejected.
+    """
+    rng = np.random.default_rng(seed)
+    center = box_size / 2.0
+    cluster_radius = 2.0
+
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        # All particles in a dense cluster — P1-like aggregation
+        angles = rng.uniform(0.0, 2.0 * np.pi, n_particles)
+        radii = rng.uniform(0.0, cluster_radius, n_particles)
+        positions = np.column_stack([
+            center + radii * np.cos(angles),
+            center + radii * np.sin(angles),
+        ]).astype(np.float64)
+        # All type=0 (substrate) — no type differentiation, no link particles
+        types = np.zeros(n_particles, dtype=np.int32)
+        history.append({
+            'positions': positions,
+            'types': types,
+            'box_size': box_size,
+            'step': step,
+            'n_particles': n_particles,
+        })
+    return history
+
+
+def dispersed_typed_regions(
+    seed: int,
+    *,
+    n_particles: int = 100,
+    box_size: float = 20.0,
+    n_steps: int = 200,
+    **_: Any,
+) -> List[Dict[str, Any]]:
+    """Particles with spatially segregated types but no membrane structure (P4-like).
+
+    Types are assigned by spatial quadrant — exclusive domains, not a
+    self-maintaining membrane. P30 should reject: association_score may
+    be slightly above 1.0 due to type clustering, but closure_fraction ≈ 0
+    (no angular coverage of catalysts by links — they're in separate regions).
+    """
+    rng = np.random.default_rng(seed)
+    half = box_size / 2.0
+
+    history: List[Dict[str, Any]] = []
+    for step in range(n_steps):
+        positions = rng.uniform(0.0, box_size, size=(n_particles, 2)).astype(np.float64)
+        types = np.zeros(n_particles, dtype=np.int32)
+        for i in range(n_particles):
+            x, y = positions[i]
+            if x < half and y < half:
+                types[i] = 0  # substrate quadrant
+            elif x >= half and y < half:
+                types[i] = 1  # catalyst quadrant
+            elif x < half and y >= half:
+                types[i] = 2  # link quadrant
+            else:
+                types[i] = 0  # substrate quadrant
+        history.append({
+            'positions': positions,
+            'types': types,
+            'box_size': box_size,
+            'step': step,
+            'n_particles': n_particles,
+        })
+    return history
+
+
 SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "oscillator": ["incoherent_phases", "subcritical_kuramoto"],
     "network": ["random_graph_evolution", "network_random_walks"],
@@ -1013,6 +1098,7 @@ SUPPLEMENTS_BY_SUBSTRATE_TYPE: Dict[str, List[str]] = {
     "territorial_agent_field": ["random_walk_territory", "clustering_agents_territory"],
     "trail_network": ["static_mst_graph", "uniform_traffic_graph"],
     "task_allocation_timeseries": ["single_task_collapse_allocation", "constant_rebalancing_allocation"],
+    "particle_membrane": ["dense_cluster_particles", "dispersed_typed_regions"],
 }
 
 SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
@@ -1044,4 +1130,6 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "uniform_traffic_graph": uniform_traffic_graph,
     "single_task_collapse_allocation": single_task_collapse_allocation,
     "constant_rebalancing_allocation": constant_rebalancing_allocation,
+    "dense_cluster_particles": dense_cluster_particles,
+    "dispersed_typed_regions": dispersed_typed_regions,
 }

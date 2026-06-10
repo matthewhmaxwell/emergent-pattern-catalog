@@ -28,6 +28,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p4
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p29
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p32
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p30
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -85,6 +86,7 @@ from epc.phase2a.failed_regimes import p20_quorum as p20_failed
 from epc.phase2a.failed_regimes import p4_territoriality as p4_failed
 from epc.phase2a.failed_regimes import p29_trail_network as p29_failed
 from epc.phase2a.failed_regimes import p32_specialization as p32_failed
+from epc.phase2a.failed_regimes import p30_autopoiesis as p30_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -1963,6 +1965,74 @@ def run_p32(out_path: str = "analysis/outputs/p32_phase2a_panel.json", verbose: 
     )
 
 
+def build_p30_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P30 canonical positive: AutopoiesisModel with membrane formation.
+
+    100 substrate + 3 catalyst particles, box=20. Radial spring mechanism
+    drives link particles to form a closed membrane shell around catalysts.
+    """
+    from epc.models.autopoiesis import AutopoiesisModel
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = AutopoiesisModel(
+            n_substrate=100, n_catalyst=3, box_size=20.0,
+            production_rate=0.15, decay_rate=0.01,
+            membrane_equilibrium_radius=3.0,
+            catalyst_link_attraction=0.5,
+            link_attraction=0.3,
+            seed=42 + seed,
+        )
+        m.setup()
+        history: List[Dict[str, Any]] = []
+        for _ in range(300):
+            history.append(m.step())
+        runs.append(history)
+        if seed == 0:
+            metadata = {
+                'model_class': 'autopoiesis',
+                'substrate_type': 'particle_membrane',
+                'production_rate': 0.15,
+                'decay_rate': 0.01,
+                'n_particles': m.n_total,
+                'box_size': 20.0,
+            }
+    return runs, metadata
+
+
+def make_p30_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p30_autopoiesis import P30AutopoiesisDetector
+    detector = P30AutopoiesisDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p30(out_path: str = "analysis/outputs/p30_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """Run P30 (autopoiesis / spontaneous boundary) Phase-2a panel.
+
+    detector_format: particle_membrane
+    Class A: random particles with random type assignments (all TNs).
+    Class B: 0 catalog mates (sole particle_membrane pattern); B'
+    supplements: dense_cluster_particles (P1-like), dispersed_typed_regions (P4-like).
+    Class C: non-bonding, high-decay, no-attraction, weak-production, large-box.
+    Invariance: permutation_invariant=True, time_shuffle_invariant=False.
+    """
+    print(f"--- Running P30 panel → {out_path}")
+    positives, metadata = build_p30_positives(n_seeds=5)
+    detector_fn = make_p30_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P30",
+        detector_format="particle_membrane",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p30_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     which = argv[0] if argv else "both"
@@ -2026,6 +2096,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P29"] = run_p29()
     if which in ("p32",):
         summaries["P32"] = run_p32()
+    if which in ("p30",):
+        summaries["P30"] = run_p30()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"

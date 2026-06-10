@@ -4,6 +4,21 @@ Per-sprint mechanical changes to docs/paper_section*_draft.md files. Updates
 applied by the orchestrator chain. Voice/framing changes flagged for chat-led
 review at the next paper-review checkpoint.
 
+## Sprint 93 (2026-06-10)
+
+- epc/phase2a/failed_regimes/p30_autopoiesis.py: NEW — 5 Class C failed regimes (non-bonding, high-decay, no-attraction, weak-production, large-box).
+- epc/phase2a/detector_invariance.py: P30 invariance flags added (perm_inv=True, time_shuffle_inv=True).
+- epc/phase2a/synthetic.py: `_particle_membrane_null_history()` + format branches in all 10 generators.
+- epc/phase2a/structured.py: 2 Class B supplements (dense_cluster_particles, dispersed_typed_regions).
+- epc/phase2a/catalog.py: `_adapt_to_particle_membrane()` adapter + P30 substrate registration.
+- epc/phase2a/panel.py: `particle_membrane` detector_format branch.
+- analysis/run_phase2a_panel.py: P30 panel entry (build_p30_positives, make_p30_detector_fn, run_p30).
+- analysis/outputs/p30_phase2a_panel.json: Panel output (PASS, TNR=1.000, d=12.124).
+- docs/depth_gap.md: P30 dim4→PASS, GAP→AT-DEPTH. AT-DEPTH: 31/32. Gap: 1 (P12).
+- docs/paper_section4_draft.md: §4.30 dim4 paragraph added.
+- docs/paper_section6_draft.md: Sprint 93 entry added.
+- REPLICATION_NOTES.md: Sprint 93 section added.
+
 ## Sprint 92 (2026-06-10)
 
 - epc/models/autopoiesis.py: NEW — AutopoiesisModel (VMU 1974 SCL), NonBondingParticleModel (negative control), DenseClusterModel (negative control).

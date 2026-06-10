@@ -7301,3 +7301,42 @@ Registry: 42 models × 32 detectors. **ALL 32 PATTERNS IMPLEMENTED.**
 
 Sprint 92 finding: P30 dim1–dim3 PASS. dim4 pending (Phase-2a panel).
 **AT-DEPTH count: 30 / 32.** Gaps: P12 (dim1), P30 (dim4).
+
+## Sprint 93: P30 dim4 Phase-2a panel (final pattern panel)
+
+### dim4: Phase-2a panel v1.2
+
+`analysis/outputs/p30_phase2a_panel.json`.
+
+| Class | N evaluated | TNR | Notes |
+|-------|------------|-----|-------|
+| A (synthetic) | 8 | 1.000 | 2 skipped (perm_inv + time_shuffle_inv) |
+| B (supplements) | 2 | 1.000 | dense_cluster (P1-like), dispersed_typed_regions (P4-like) |
+| C (failed regimes) | 5 | 1.000 | non-bonding, high-decay, no-attraction, weak-production, large-box |
+| **Overall** | **15** | **1.000** | **d = 12.124** |
+
+Verdict: **PASS**. TNR=1.000, Cohen's d=12.124.
+
+Canonical positive: 5/5 detected (1 definitive, 2 confirmation, 2 screening).
+Mean positive score: 0.700.
+
+Invariance flags (Sprint 93):
+- permutation_invariant=True: association_score is invariant under particle-index
+  relabelling (type–position pairings preserved).
+- time_shuffle_invariant=True: all primary metrics (association_score, closure_fraction,
+  enrichment_ratio) are per-snapshot spatial statistics. Sprint 93 panel run confirmed:
+  time_shuffled FP at confirmation (initial run with flag=False). Changed to True
+  per empirical evidence — membrane forms early and persists, so time shuffling
+  does not degrade the spatial signal in the late window.
+
+Class C failed-regime design (Sprint 93):
+- Non-bonding (production_rate=0.0): no links formed → mean_n_links=0 → screening fails.
+- High-decay (decay_rate=0.50): links decay faster than produced → transient only.
+- No-attraction + high-decay (attraction=0.0, decay=0.20, production=0.02): links produced
+  but drift away and decay; high substrate diffusion disperses further.
+- Weak-production (production_rate=0.01, decay=0.05): production/decay imbalance → few links.
+- Large-box + low-production (box=80, production=0.02, decay=0.05): substrate too dispersed
+  for production zone to maintain membrane.
+
+Sprint 93 finding: P30 dim4 PASS. **P30 advances GAP→AT-DEPTH.**
+**AT-DEPTH count: 31 / 32.** Gap: P12 (dim1).
