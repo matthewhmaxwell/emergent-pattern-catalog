@@ -112,3 +112,17 @@ showing P15_candidate (p=0.02, ratio ~13–15×) and P13 excluded; a Greenberg-
 Hastings substrate is rejected (detected=False). Panel: positive 0.71, TNR=1.0,
 verdict PASS (d=8.28). Unlike P13, P15's DEFINITIVE is reachable (its gate is
 rep+diversity+n_variations+TE, not the broken `null_p<0.001`).
+
+### P8 — RESOLVED (commit 1bd91a2, validation-rebuild)
+The detector discriminated on `stopped_fraction` = P(v=0) only, which is **0.61 in
+gridlock-saturation** → DEFINITIVE false positive (high density ≠ emergent jamming;
+the `jam_lifetime` gate doesn't catch it). Added the canonical **phase-coexistence**
+metric: `min(stopped_fraction, free_fraction)` where free = P(v=v_max). Emergent
+stop-and-go requires a jammed phase AND a free-flow phase at once (Sugiyama 2008 —
+the NS jamming transition is a density phase separation); free-flow has no jam
+phase, gridlock has no free phase. Gated screening + confirmation on it
+(threshold 0.03). Calibrated against the real distribution: canonical positive
+(ρ=0.30) coexistence 0.067–0.074 across 5 seeds vs saturation ≤0.013 (ρ≥0.45) — a
+clean ~5× gap. Verified — jam ρ=0.30 → **DEFINITIVE**, free-flow + saturation
+(ρ=0.55, 0.70) **rejected**. Panel: positive 0.9, catalog_tnr=1.0,
+**failed_regime_tnr=1.0** (saturation negatives now rejected), overall_tnr=1.0.
