@@ -70,4 +70,32 @@ never "pull if hard."
 1. **P13** — the canonical TE discriminator already exists in-repo; just wire it in. Highest-confidence, smallest change.
 2. **P15** — same TE machinery; compute TE across collisions.
 3. **P8** — add the spatial backward-wave / fundamental-diagram metric.
-Then Group B (behavioral), then Group C (several likely demote/pull).
+Then Group B (behavioral), then Group C. None are pulled — each is fixed to the
+literature's canonical metric, with tier/depth labels corrected to what the
+detector honestly reaches.
+
+## Fix log
+
+### P13 — RESOLVED (commit 7e6c235, validation-rebuild)
+Four layered defects, all fixed:
+1. **Fake metric → real:** the P15 exclusion now computes boundary-conditioned
+   **transfer entropy on the substrate** (`P13P15Discriminator`, was a
+   `model_name in (...)` string lookup with a "TE deferred" comment). TE not above
+   a spatial-shuffle null (p≈1.0, shuffle-invariant) ⇒ excitable waves ⇒ P13;
+   above ⇒ P15. Verified: Greenberg-Hastings clears as P13, Game-of-Life does not.
+2. **Cosmetic → gating:** the exclusion was computed *after* the tier was fixed and
+   never demoted it. DEFINITIVE now genuinely requires `classification=="P13"`.
+3. **Positive couldn't reach its tier:** canonical positive lengthened 300→900
+   steps so it accrues ≥50 spiral rotations and reaches CONFIRMATION (legitimate —
+   GH spirals genuinely persist; not threshold-gaming).
+4. **Panel null under-resolved:** `run_p13` overrode the detector's 199-run null
+   with 99, flooring `null_p` at 0.01 so CONFIRMATION (`<0.01`) was unreachable in
+   the panel. Restored to 199.
+
+Honest outcome: P13 reaches **CONFIRMATION** with the real TE discriminator
+operative; panel TNR=1.0 (all 7 catalog mates + synthetics rejected). The
+committed **DEFINITIVE** claim was never reachable — it requires `null_p<0.001`
+but a 199-run null floors at 0.005. **Cross-cutting bug shared with P32:** the
+DEFINITIVE `null_p<0.001` gate is unreachable unless the null uses ≥1000 runs;
+to be fixed catalog-wide (raise null resolution or relax the gate to the null's
+resolution) rather than per-pattern.
