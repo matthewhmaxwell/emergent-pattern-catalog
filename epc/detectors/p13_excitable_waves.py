@@ -381,8 +381,35 @@ class P13ExcitableWaveDetector(BaseDetector):
         rotations = secondary_result.get("estimated_rotations", 0)
         if rotations < 100:
             return False
+        if null_p >= 0.001:
+            return False
+        # P15 exclusion (canonical boundary Transfer-Entropy test) must be
+        # cleared for DEFINITIVE: genuine directed information flow across
+        # structure collisions => P15 (persistent computation), not a pure
+        # excitable medium. Computed from the substrate, not model metadata.
+        return self._p15_te(state_history)["classification"] == "P13"
 
-        return null_p < 0.001
+    def _p15_te(self, state_history: list[dict[str, Any]]) -> dict[str, Any]:
+        """Boundary-conditioned Transfer-Entropy P13/P15 discrimination from
+        the substrate. Memoized per detect() call (keyed on history identity).
+        classification: 'P13' (TE not above a spatial-shuffle null => excitable
+        waves, no routing), 'P15_candidate' (directed info flow), or 'inconclusive'.
+        """
+        key = id(state_history)
+        cached = getattr(self, "_p15_te_cache", None)
+        if cached is not None and cached[0] == key:
+            return cached[1]
+        from epc.detectors.p13_p15_discriminator import P13P15Discriminator
+        try:
+            res = P13P15Discriminator(n_permutations=49).discriminate(
+                state_history, model_metadata=None
+            )
+        except Exception as exc:  # never let the exclusion crash detection
+            res = {"classification": "inconclusive", "observed_te": 0.0,
+                   "control_te": 0.0, "te_ratio": 0.0, "p_value": 1.0,
+                   "note": "TE discriminator error: %s" % exc}
+        self._p15_te_cache = (key, res)
+        return res
 
     def _check_exclusions(
         self,
@@ -409,20 +436,21 @@ class P13ExcitableWaveDetector(BaseDetector):
         else:
             results["P12"] = "not_checked"
 
-        # P15: placeholder until TE discriminator is built
-        # For now, use model metadata if available
-        if model_metadata:
-            model_name = model_metadata.get("model_name", "")
-            if model_name in ("greenberg_hastings", "excitable_ca"):
-                # GH is definitionally P13, not P15 (no computation)
-                results["P15"] = "excluded"
-            elif model_name in ("game_of_life", "langton_ca"):
-                results["P15"] = "not_excluded"
-            else:
-                results["P15"] = "inconclusive"
+        # P15: real boundary-conditioned Transfer-Entropy test on the substrate
+        # (replaces the prior model-name string lookup). TE not above a spatial-
+        # shuffle null => no directed routing => P13; above => P15_candidate.
+        te = self._p15_te(state_history)
+        cls = te.get("classification", "inconclusive")
+        if cls == "P13":
+            results["P15"] = "excluded"
+        elif cls == "P15_candidate":
+            results["P15"] = "not_excluded"
         else:
-            # Without metadata, flag for TE test
             results["P15"] = "inconclusive"
+        results["P15_evidence"] = (
+            "boundary_TE obs=%.4f p=%.3f ratio=%.1f"
+            % (te.get("observed_te", 0.0), te.get("p_value", 1.0), te.get("te_ratio", 0.0))
+        )
 
         return checked, results
 

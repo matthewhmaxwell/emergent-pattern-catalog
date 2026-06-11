@@ -543,7 +543,7 @@ def build_p13_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
             neighborhood="moore", boundary="periodic",
             init_mode="random", init_density=0.3, seed=seed,
         )
-        runs.append(m.run(n_steps=300))
+        runs.append(m.run(n_steps=900))  # 900 steps -> >=50 rotations -> reaches CONFIRMATION
         if seed == 0:
             metadata = m.get_metadata()
     return runs, metadata
@@ -560,7 +560,7 @@ def make_p13_detector_fn(n_null_runs: int = 99):
 def run_p13(out_path: str = "analysis/outputs/p13_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P13 panel → {out_path}")
     positives, metadata = build_p13_positives(n_seeds=5)
-    detector_fn = make_p13_detector_fn(n_null_runs=99)
+    detector_fn = make_p13_detector_fn(n_null_runs=199)  # match detector default; 99 floors null_p at 0.01 so CONFIRMATION (<0.01) is unreachable
     return run_panel(
         detector_fn,
         pattern_id="P13",
