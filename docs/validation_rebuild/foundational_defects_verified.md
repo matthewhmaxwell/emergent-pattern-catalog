@@ -99,3 +99,16 @@ but a 199-run null floors at 0.005. **Cross-cutting bug shared with P32:** the
 DEFINITIVE `null_p<0.001` gate is unreachable unless the null uses ≥1000 runs;
 to be fixed catalog-wide (raise null resolution or relax the gate to the null's
 resolution) rather than per-pattern.
+
+### P15 — RESOLVED (commit c4a1cbc, validation-rebuild)
+Same TE machinery as P13, opposite condition. The P13 boundary in P15's
+`_check_exclusions` was a bare `"inconclusive"` placeholder; the named canonical
+metric (Transfer Entropy across collisions, >0 for P15) was never computed.
+Fixed: added the `_p13_te` helper (boundary-TE via `P13P15Discriminator`,
+substrate-based, memoized), made `_check_exclusions` report the real result, and
+gated DEFINITIVE on `classification=="P15_candidate"` (directed information flow).
+Verified — GoL canonical positive reaches **DEFINITIVE** (conf 0.85) with the TE
+showing P15_candidate (p=0.02, ratio ~13–15×) and P13 excluded; a Greenberg-
+Hastings substrate is rejected (detected=False). Panel: positive 0.71, TNR=1.0,
+verdict PASS (d=8.28). Unlike P13, P15's DEFINITIVE is reachable (its gate is
+rep+diversity+n_variations+TE, not the broken `null_p<0.001`).
