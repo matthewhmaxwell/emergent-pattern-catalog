@@ -200,167 +200,166 @@ class P17CollectiveSensingDetector:
         history: list[dict[str, Any]],
         metadata: dict[str, Any],
     ) -> DetectorResult:
-        """Run P17 detection.
+        """Run P17 detection from the SUBSTRATE (no re-simulation).
 
-        Uses model parameters from metadata to run at multiple group sizes
-        and test for the N-scaling signature.
-
-        Args:
-            history: State history from a collective-sensing run (used for
-                     metadata extraction; the actual detection re-runs at
-                     multiple N values).
-            metadata: Model metadata dict.
-
-        Returns:
-            DetectorResult with tier and confidence.
+        Emergent collective gradient sensing (Berdahl et al. 2013): a group
+        climbs a noisy scalar field toward its peak even though individuals
+        cannot sense the gradient alone. Measured entirely from the provided
+        trajectory:
+          1. chemotactic_index: the group centroid's normalized approach to the
+             TRUE field peak (does the group climb?).
+          2. field-sensing null: the group must approach the true peak more than
+             random target locations (p<0.05); flocking / non-social motion
+             (social_off) approaches a random point as much as the true peak.
+          3. emergence: individual sensing must be too noisy to climb alone
+             (individual_SNR low) -- otherwise it is trivial individual sensing,
+             not emergent collective sensing (field_too_strong).
+        Only field_center / field_sigma / field_amplitude / box_size are read
+        from metadata; these describe the ENVIRONMENT, not the detection signal.
         """
         warnings: list[str] = []
+        CLIMB_MIN, DEF_CI_MIN, EMERGENT_SNR_MAX, COHESION_MAX = 0.05, 0.30, 0.5, 0.10
 
-        # Extract parameters from metadata
-        box_size = metadata.get("box_size", 20.0)
-        v_max = metadata.get("v_max", 0.4)
-        turn_noise = metadata.get("turn_noise", 0.3)
-        sensing_noise = metadata.get("sensing_noise", 0.8)
-        alpha = metadata.get("alpha", 0.95)
-        social_strength = metadata.get("social_strength", 0.2)
-        field_sigma = metadata.get("field_sigma", 5.0)
-        field_amplitude = metadata.get("field_amplitude", 1.0)
-        field_center = metadata.get("field_center", (box_size / 2, box_size / 2))
-        if isinstance(field_center, list):
-            field_center = tuple(field_center)
+        box_size = float(metadata.get("box_size", 20.0))
+        field_sigma = float(metadata.get("field_sigma", 5.0))
+        field_amplitude = float(metadata.get("field_amplitude", 1.0))
+        fc = metadata.get("field_center", (box_size / 2, box_size / 2))
+        if isinstance(fc, list):
+            fc = tuple(fc)
+        center = (float(fc[0]), float(fc[1]))
+
+        if not history or "positions" not in history[0]:
+            return self._null_result("no 'positions' in substrate history")
+        L = box_size
+
+        ci_true = compute_chemotactic_index(history, center, L)
 
         rng = np.random.default_rng(self.seed)
-
-        # --- Run at multiple group sizes ---
-        ci_by_n: dict[int, list[float]] = {}
-        for n in self.group_sizes:
-            ci_values = []
-            for _ in range(self.n_seeds):
-                seed_val = int(rng.integers(0, 2**31))
-                ci = _run_group_ci(
-                    n_agents=n,
-                    box_size=box_size,
-                    v_max=v_max,
-                    turn_noise=turn_noise,
-                    sensing_noise=sensing_noise,
-                    alpha=alpha,
-                    social_strength=social_strength,
-                    field_sigma=field_sigma,
-                    field_amplitude=field_amplitude,
-                    n_steps=self.n_steps,
-                    record_interval=self.record_interval,
-                    seed=seed_val,
-                )
-                ci_values.append(ci)
-            ci_by_n[n] = ci_values
-
-        mean_ci = {n: float(np.mean(v)) for n, v in ci_by_n.items()}
-        sorted_ns = sorted(mean_ci.keys())
-        ci_arr = np.array([mean_ci[n] for n in sorted_ns])
-
-        # Baseline (smallest N) and max
-        ci_baseline = mean_ci[sorted_ns[0]]
-        ci_max = mean_ci[sorted_ns[-1]]
-
-        # Slope of CI vs log(N)
-        log_ns = np.log(np.array(sorted_ns, dtype=float))
-        slope = float(np.polyfit(log_ns, ci_arr, 1)[0]) if len(sorted_ns) >= 2 else 0.0
-
-        # Monotonicity (with tolerance for noise)
-        diffs = np.diff(ci_arr)
-        is_monotonic = bool(np.all(diffs >= -0.03))
-
-        # --- Null: alpha=0 (no speed modulation) ---
-        null_slopes: list[float] = []
-        null_rng = np.random.default_rng(self.seed + 10000)
-        for _ in range(self.n_null_runs):
-            null_ci_by_n: dict[int, float] = {}
-            for n in self.group_sizes:
-                seed_val = int(null_rng.integers(0, 2**31))
-                ci_null = _run_group_ci(
-                    n_agents=n,
-                    box_size=box_size,
-                    v_max=v_max,
-                    turn_noise=turn_noise,
-                    sensing_noise=sensing_noise,
-                    alpha=0.0,  # null: no speed modulation
-                    social_strength=social_strength,
-                    field_sigma=field_sigma,
-                    field_amplitude=field_amplitude,
-                    n_steps=self.n_steps,
-                    record_interval=self.record_interval,
-                    seed=seed_val,
-                )
-                null_ci_by_n[n] = ci_null
-            null_ci_vals = np.array([null_ci_by_n[n] for n in sorted_ns])
-            null_slope = float(np.polyfit(log_ns, null_ci_vals, 1)[0])
-            null_slopes.append(null_slope)
-
-        null_slopes_arr = np.array(null_slopes)
-        p_value = float(np.mean(null_slopes_arr >= slope))
-
-        # Effect size
-        null_mean = float(np.mean(null_slopes_arr))
-        null_std = float(np.std(null_slopes_arr))
+        n_rand = max(self.n_null_runs, 99)
+        ci_random = np.array([
+            compute_chemotactic_index(
+                history, (float(rng.uniform(0, L)), float(rng.uniform(0, L))), L)
+            for _ in range(n_rand)
+        ])
+        null_mean = float(ci_random.mean())
+        null_std = float(ci_random.std())
+        p_value = float(np.mean(ci_random >= ci_true))
         if null_std > 1e-10:
-            cohens_d = (slope - null_mean) / null_std
+            cohens_d = (ci_true - null_mean) / null_std
         else:
-            cohens_d = float('inf') if slope > null_mean else 0.0
+            cohens_d = float("inf") if ci_true > null_mean else 0.0
 
-        # --- Tier assignment ---
+        indiv_snr = self._individual_snr(history, center, L, field_sigma, field_amplitude)
+        dispersion = self._dispersion(history, L)
+
+        # Three substrate signatures, all required at screening:
+        #   cohesive (social coupling; rejects social_off),
+        #   climbs toward the true peak (rejects non-sensing),
+        #   emergent (individuals too noisy to sense alone; rejects field_too_strong).
+        cohesive = dispersion < COHESION_MAX
+        emergent = indiv_snr < EMERGENT_SNR_MAX
         tier = "none"
         confidence = 0.0
-
-        ci_gain = ci_max - ci_baseline
-        if ci_gain > 0.05 and ci_max > 0.1:
+        if cohesive and emergent and ci_true > CLIMB_MIN:
             tier = "screening"
             confidence = 0.500
-
-            if slope > 0.02 and p_value < 0.05:
+            if p_value < 0.10:
                 tier = "confirmation"
                 confidence = 0.700
-
-                if is_monotonic and cohens_d > 2.0 and p_value < 0.01 and ci_max > 0.2:
+                if ci_true > DEF_CI_MIN and p_value < 0.05:
                     tier = "definitive"
                     confidence = 0.900
-
         detected = tier != "none"
 
         notes = (
-            f"CI by N: {mean_ci}; slope={slope:.4f}; "
-            f"monotonic={is_monotonic}; p={p_value:.4f}; d={cohens_d:.2f}"
+            f"CI_true={ci_true:.3f} vs random-target mean={null_mean:.3f} "
+            f"(p={p_value:.3f}, d={cohens_d:.2f}); individual_SNR={indiv_snr:.2f} "
+            f"(< {EMERGENT_SNR_MAX} => emergent)"
         )
-
         return DetectorResult(
             pattern_id="P17",
             detected=detected,
             tier=tier,
             confidence=confidence,
             primary_metric={
-                "chemotactic_index_by_N": mean_ci,
-                "ci_at_max_N": ci_max,
-                "ci_baseline_N1": ci_baseline,
+                "chemotactic_index": float(ci_true),
+                "field_sensing_p_value": p_value,
+                "individual_snr": float(indiv_snr),
+                "group_dispersion": float(dispersion),
             },
             secondary_metrics={
-                "ci_slope_vs_logN": slope,
-                "is_monotonic": is_monotonic,
-                "ci_gain": ci_gain,
+                "ci_random_target_mean": null_mean,
+                "ci_random_target_std": null_std,
             },
-            effect_size={
-                "cohens_d": cohens_d,
-                "ci_slope": slope,
-                "null_mean_slope": null_mean,
-                "null_std_slope": null_std,
-            },
+            effect_size={"cohens_d": cohens_d},
             null_p_value=p_value,
-            null_type="alpha_zero_null",
-            exclusions_checked=["P5_flocking"],
+            null_type="random_target_null",
+            exclusions_checked=["P5_flocking", "field_too_strong"],
             exclusion_results={
-                "P5": "P5 detects collective motion without field-inference; "
-                      "P17 requires CI-vs-N scaling which pure flocking lacks"
+                "P5": f"approach to true peak vs random targets p={p_value:.3f} (flocking has no field preference)",
+                "emergent": f"individual_SNR={indiv_snr:.2f} (< {EMERGENT_SNR_MAX} required: individuals cannot sense alone)",
             },
             co_occurrence_candidates=["P5"],
             metadata_available=True,
             warnings=warnings,
             notes=notes,
+        )
+
+    def _dispersion(self, history: list[dict[str, Any]], L: float) -> float:
+        """Mean late-frame agent distance to the periodic group centroid /
+        box size. Low => cohesive collective (social coupling); high =>
+        agents dispersed/independent (social_off)."""
+        vals = []
+        for s in history[len(history) // 2:]:
+            pos = np.asarray(s.get("positions"), dtype=float)
+            if pos.ndim != 2 or pos.shape[0] < 2:
+                continue
+            tx = 2 * np.pi * pos[:, 0] / L
+            ty = 2 * np.pi * pos[:, 1] / L
+            cx = (L * np.arctan2(np.mean(np.sin(tx)), np.mean(np.cos(tx))) / (2 * np.pi)) % L
+            cy = (L * np.arctan2(np.mean(np.sin(ty)), np.mean(np.cos(ty))) / (2 * np.pi)) % L
+            dx = pos[:, 0] - cx; dy = pos[:, 1] - cy
+            dx -= L * np.round(dx / L); dy -= L * np.round(dy / L)
+            vals.append(float(np.mean(np.sqrt(dx * dx + dy * dy))))
+        return (float(np.mean(vals)) / L) if vals else 1.0
+
+    def _individual_snr(
+        self,
+        history: list[dict[str, Any]],
+        center: tuple[float, float],
+        L: float,
+        sigma: float,
+        amp: float,
+    ) -> float:
+        """Spatial spread of the TRUE field across agents / residual sensing
+        noise, from a late frame. Low SNR => individuals cannot sense alone =>
+        group-level climbing is emergent. +inf when per-agent samples missing."""
+        s = history[len(history) * 3 // 4]
+        fs = s.get("field_samples")
+        pos = s.get("positions")
+        if fs is None or pos is None:
+            return float("inf")
+        pos = np.asarray(pos, dtype=float)
+        fs = np.asarray(fs, dtype=float)
+        if pos.ndim != 2 or pos.shape[0] != fs.shape[0] or fs.shape[0] < 3:
+            return float("inf")
+        dx = pos[:, 0] - center[0]
+        dy = pos[:, 1] - center[1]
+        dx -= L * np.round(dx / L)
+        dy -= L * np.round(dy / L)
+        d = np.sqrt(dx * dx + dy * dy)
+        true_field = amp * np.exp(-(d ** 2) / (2.0 * sigma ** 2))
+        resid = float(np.std(fs - true_field))
+        spread = float(np.std(true_field))
+        return spread / (resid + 1e-9)
+
+    def _null_result(self, reason: str) -> DetectorResult:
+        return DetectorResult(
+            pattern_id="P17", detected=False, tier="none", confidence=0.0,
+            primary_metric={"chemotactic_index": 0.0, "field_sensing_p_value": 1.0, "individual_snr": 0.0},
+            secondary_metrics={}, effect_size={"cohens_d": 0.0},
+            null_p_value=1.0, null_type="random_target_null",
+            exclusions_checked=[], exclusion_results={},
+            co_occurrence_candidates=["P5"], metadata_available=True,
+            warnings=[reason], notes=reason,
         )
