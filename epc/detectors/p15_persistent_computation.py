@@ -593,9 +593,36 @@ class P15PersistentComputationDetector(BaseDetector):
         """Definitive: confirmation + n_variations ≥ 8."""
         rep = primary_result.get("reproducibility", 0.0)
         n_out = primary_result.get("n_distinct_outcomes", 0.0)
+        # Canonical P13 boundary: DEFINITIVE requires the substrate to show
+        # directed information flow across collisions (boundary Transfer
+        # Entropy above a spatial-shuffle null => P15_candidate) -- the spec's
+        # named discriminating metric vs P13, computed from the substrate.
         return (rep >= 1.0
                 and n_out >= 3.0
-                and self.n_variations >= 8)
+                and self.n_variations >= 8
+                and self._p13_te(state_history)["classification"] == "P15_candidate")
+
+    def _p13_te(self, state_history: list[dict[str, Any]]) -> dict[str, Any]:
+        """Boundary-conditioned Transfer-Entropy P13/P15 discrimination from
+        the substrate (canonical metric vs a spatial-shuffle null). Memoized
+        per detect() call. 'P15_candidate' => directed info flow (P15); 'P13'
+        => TE not above null (excitable waves); else 'inconclusive'.
+        """
+        key = id(state_history)
+        cached = getattr(self, "_p13_te_cache", None)
+        if cached is not None and cached[0] == key:
+            return cached[1]
+        from epc.detectors.p13_p15_discriminator import P13P15Discriminator
+        try:
+            res = P13P15Discriminator(n_permutations=49).discriminate(
+                state_history, model_metadata=None
+            )
+        except Exception as exc:
+            res = {"classification": "inconclusive", "observed_te": 0.0,
+                   "control_te": 0.0, "te_ratio": 0.0, "p_value": 1.0,
+                   "note": "TE discriminator error: %s" % exc}
+        self._p13_te_cache = (key, res)
+        return res
 
     def _check_exclusions(
         self,
@@ -617,11 +644,18 @@ class P15PersistentComputationDetector(BaseDetector):
         # are diverse (not just "all periodic"). If the model shows
         # outcome diversity beyond period-matching, P13 is excluded.
         # Without step_fn we can't distinguish — return inconclusive.
-        if self.step_fn is not None:
-            # If most outcomes are NOT periodic, P13 is excluded
-            results["P13"] = "inconclusive"  # detailed analysis needs outcomes list
+        te = self._p13_te(state_history)
+        cls = te.get("classification", "inconclusive")
+        if cls == "P15_candidate":
+            results["P13"] = "excluded"  # directed info flow => not pure waves
+        elif cls == "P13":
+            results["P13"] = "not_excluded"  # TE not above null => looks like waves
         else:
-            results["P13"] = "not_checked"
+            results["P13"] = "inconclusive"
+        results["P13_evidence"] = (
+            "boundary_TE obs=%.4f p=%.3f ratio=%.1f"
+            % (te.get("observed_te", 0.0), te.get("p_value", 1.0), te.get("te_ratio", 0.0))
+        )
 
         # P22 exclusion: cascade would die out quickly. If population
         # persists throughout the trajectory, P22 is excluded.
