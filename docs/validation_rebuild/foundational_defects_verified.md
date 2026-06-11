@@ -44,16 +44,26 @@ QA. A pattern here is broken at the detector level, not just the panel level.
 | **P30** | `closure_fraction` fires on random **non-membrane** scatter (=1.0); `association_score` is mere co-location; none of self-production / topological closure / gradient / self-repair implemented | measure real self-production + closed-boundary topology + maintained gradient + self-repair |
 | **P32** | **DEFINITIVE mathematically unreachable** (null-p floor 1/200=0.005, gate requires `<0.005`); efficiency = within-run late-vs-early delta, not cross-condition | fix permutation floor or gate; compute efficiency vs a non-specialized baseline run |
 
-## The deeper pattern (honest read)
+## The deeper pattern — and what it does NOT mean
 
 Several of these are **not "a detector with a bug"** but **"a detector that never
-worked, with validation constructed to hide it"**: P31 (PASS required deleting the
-control; headline never reproduced), P18 (panel PASS manufactured by substrate
-reclassification), P6 (positive only via a separate hardcoded driver), P32
-(DEFINITIVE unreachable by construction), P17 (ignores input). For these, "fix"
-may mean **the pattern fails honestly and must be demoted or pulled** — the
-canonical metric, once actually computed, may not discriminate with the current
-minimal model. We will not know until each is rebuilt and run honestly.
+worked, with validation constructed to pass"**: P31 (PASS required deleting the
+control), P18 (panel PASS via substrate reclassification), P6 (positive only via a
+separate hardcoded driver), P32 (DEFINITIVE unreachable by construction), P17
+(ignores input).
+
+This is a statement about **our implementation**, NOT about the science. Every one
+of the 32 is a **canonical, literature-validated emergent phenomenon** (Schelling
+segregation, Vicsek flocking, SIR, Lotka–Volterra, RPS cycling, Kuramoto sync, BTW
+sandpile SOC, Hopfield, D'Orsogna milling, the voter model, collective sensing, …)
+with established detection criteria and, in most cases, reference implementations
+available (literature + GitHub). **None of these get demoted or pulled.** The
+phenomenon is real and detectable; our detector cheated or measured the wrong
+thing. The fix for each is to implement the literature's canonical detection metric
+faithfully, on the actual substrate, using the published method + reference code as
+ground truth — then confirm it fires on the real positive and rejects genuine
+lookalikes. The bar is **"faithful to the established science,"** not "passes," and
+never "pull if hard."
 
 ## Fix order (user: easiest/highest-confidence first)
 
