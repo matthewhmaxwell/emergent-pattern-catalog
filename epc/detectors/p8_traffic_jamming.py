@@ -150,6 +150,7 @@ class P8TrafficJammingDetector(BaseDetector):
     # Confirmation thresholds (in addition to screening)
     _CONFIRM_JAM_LT_P95_MIN = 5.0
     _CONFIRM_NULL_P_MAX = 0.01
+    _COEXIST_MIN = 0.03  # min(stopped_frac, free_frac) floor; positive ~0.067, saturation <0.013 -> clean gap
 
     # Definitive thresholds (in addition to confirmation)
     _DEF_STOPPED_MIN = 0.15
@@ -320,8 +321,18 @@ class P8TrafficJammingDetector(BaseDetector):
             }
         vh = self._velocity_history
         T, N = vh.shape
+        # Phase coexistence: emergent stop-and-go requires a jammed phase
+        # (v=0) AND a free-flow phase (v=v_max) present at once. Density
+        # saturation is all-jammed (free_fraction ~ 0); free flow is all-moving
+        # (stopped_fraction ~ 0). Only coexistence => emergent jam (the NS
+        # jamming transition is a phase separation; Sugiyama et al. 2008).
+        sf = stopped_fraction(vh)
+        v_free = int(vh.max())
+        free_fraction = float((vh >= v_free).mean()) if v_free >= 1 else 0.0
         return {
-            "stopped_fraction": stopped_fraction(vh),
+            "stopped_fraction": sf,
+            "free_fraction": free_fraction,
+            "phase_coexistence": float(min(sf, free_fraction)),
             "mean_velocity": float(vh.mean()),
             "n_cars": int(N),
             "n_post_burn_steps": int(T),
@@ -347,10 +358,14 @@ class P8TrafficJammingDetector(BaseDetector):
         sf = primary_result.get("stopped_fraction", 0.0)
         if sf <= self._SCREEN_STOPPED_MIN:
             self._screening_rejection_reason = "below_stopped_floor"
-            # Propagate to the primary_result dict that DetectorResult
-            # will carry forward (mutated in-place; safe because
-            # primary_result is a local dict on this turn only).
             primary_result["screening_rejection_reason"] = "below_stopped_floor"
+            return False
+        # Phase-coexistence floor: reject uniform gridlock (density saturation),
+        # which has high stopped_fraction but ~zero free-flow phase. This is the
+        # canonical stop-and-go discriminator the stopped_fraction proxy lacks.
+        if float(primary_result.get("phase_coexistence", 0.0)) < self._COEXIST_MIN:
+            self._screening_rejection_reason = "no_phase_coexistence"
+            primary_result["screening_rejection_reason"] = "no_phase_coexistence"
             return False
         return True
 
@@ -481,6 +496,11 @@ class P8TrafficJammingDetector(BaseDetector):
         if p95 <= self._CONFIRM_JAM_LT_P95_MIN:
             return False
         if null_p >= self._CONFIRM_NULL_P_MAX:
+            return False
+        # Reject uniform gridlock (density saturation): require coexistence of a
+        # jammed AND a free-flow phase -- the canonical discriminator the
+        # stopped_fraction proxy lacks (saturation: high stopped, ~0 free).
+        if float(primary_result.get("phase_coexistence", 0.0)) < self._COEXIST_MIN:
             return False
         return True
 
