@@ -13,14 +13,16 @@ Primary metrics:
     and deactivation density (down-sweep).
 
 Detection tiers:
-  Screening:  Collective state transitions from OFF to ON as density
-              rises (any transition observed).
-  Confirmation: The transition is SHARP (step-function R² > 0.7,
-                distinct from graded response) + sharpness exceeds
+  Screening:  A SHARP OFF→ON transition exists — amplitude jump>0.5 AND
+              the transition occupies <40% of the density range. A graded
+              (P18-consensus) response, even at large amplitude, is rejected
+              here by the sharpness metric.
+  Confirmation: Sharpness is near-ideal (step-function R²>0.85 AND
+                transition band <25% of range) + observed R² exceeds the
                 density-shuffle null.
   Definitive: Hysteresis present (activation density > deactivation
-              density on up- vs down-sweep) + metadata confirms
-              threshold activation.
+              density on up- vs down-sweep, measured from the substrate) +
+              effect size + metadata does not deny threshold activation.
 
 Null model: density-shuffle. Permute density labels on the equilibrium
 fraction_on curve and re-fit the best step function; observed R² should
@@ -48,6 +50,17 @@ from epc.detector_result import (
     NullType,
     compute_confidence,
 )
+
+
+# ── Calibrated sharpness thresholds (validation-rebuild) ─────────────
+# A quorum switch is a SHARP threshold response; a graded/consensus
+# response (P18) is not. Calibrated against the AutoinducerQuorum
+# positive (rel_width 0.0, step_r2 1.0), sharp-but-reversible switches
+# (rel_width 0.08-0.18, step_r2 0.94-0.97) and graded responses with
+# large amplitude (rel_width 0.74-0.95, step_r2 0.80-0.82).
+_SCREEN_MAX_REL_WIDTH = 0.4   # graded ramps rejected at SCREENING by sharpness
+_CONFIRM_MIN_R2 = 0.85        # step-function R^2 must be near-ideal at confirmation
+_CONFIRM_MAX_REL_WIDTH = 0.25 # confirmation tightens the transition-band width
 
 
 # ── T1a: observation-bundle adapter ──────────────────────────────────
@@ -389,7 +402,23 @@ class P20QuorumSensingDetector:
             'transition_width': sharp['transition_width'],
         }
 
-        # ── SCREENING: transition from OFF to ON ──
+        # Relative transition width (sharpness): a sharp switch occupies a
+        # narrow band of the density range; a graded ramp spans most of it.
+        # Computed here (before screening) so the sharpness metric — not an
+        # amplitude guard — is what rejects graded responses.
+        density_range = float(up_dens[-1] - up_dens[0])
+        relative_width = (
+            sharp['transition_width'] / density_range if density_range > 0 else 1.0
+        )
+
+        # ── SCREENING: a SHARP OFF→ON transition (not a graded ramp) ──
+        #   (a) amplitude: f_high - f_low > 0.5 (a real OFF→ON switch)
+        #   (b) sharpness: transition occupies < 40% of the density range.
+        # A graded response with LARGE amplitude (jump>0.5 but wide
+        # transition, e.g. a gentle logistic) is rejected HERE by the
+        # sharpness metric — this is the P18-consensus discrimination case,
+        # and the reason the R^2/width sharpness test is a live gate, not
+        # dead code downstream of an amplitude guard.
         if not step_fit['has_transition']:
             return self._no_detection(
                 primary_metric=primary,
@@ -397,6 +426,18 @@ class P20QuorumSensingDetector:
                     "No OFF→ON transition observed "
                     f"(f_low={step_fit['f_low']:.3f}, f_high={step_fit['f_high']:.3f}, "
                     f"jump={step_fit['f_high'] - step_fit['f_low']:.3f})"
+                ],
+                metadata_available=metadata_available,
+            )
+        if relative_width >= _SCREEN_MAX_REL_WIDTH:
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=warnings + [
+                    "Transition too graded for a quorum switch "
+                    f"(relative_width={relative_width:.3f} >= {_SCREEN_MAX_REL_WIDTH}); "
+                    f"step_r2={step_fit['r2']:.3f}. A sharp threshold response "
+                    "occupies a narrow density band; a graded/consensus response "
+                    "spans the sweep."
                 ],
                 metadata_available=metadata_available,
             )
@@ -448,12 +489,6 @@ class P20QuorumSensingDetector:
         primary['activation_density'] = hyst['activation_density']
         primary['deactivation_density'] = hyst['deactivation_density']
 
-        density_range = float(up_dens[-1] - up_dens[0])
-        relative_width = (
-            sharp['transition_width'] / density_range
-            if density_range > 0 else 1.0
-        )
-
         # ── Secondaries ──
         secondary: Dict[str, Any] = {
             'has_transition': step_fit['has_transition'],
@@ -468,7 +503,7 @@ class P20QuorumSensingDetector:
         }
 
         # ── CONFIRMATION: sharp transition + null rejected ──
-        is_sharp = step_fit['r2'] > 0.7 and relative_width < 0.4
+        is_sharp = step_fit['r2'] > _CONFIRM_MIN_R2 and relative_width < _CONFIRM_MAX_REL_WIDTH
 
         confirmed = (
             step_fit['has_transition']

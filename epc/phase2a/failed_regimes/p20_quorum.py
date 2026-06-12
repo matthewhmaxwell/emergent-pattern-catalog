@@ -40,19 +40,23 @@ CONFIG: Dict[str, Any] = {
         {
             "label": "graded_response",
             "description": (
-                "Smooth sigmoid response to density — no sharp switch, "
-                "no hysteresis. Fraction_on increases gradually (logistic "
-                "with gentle slope). Step-function R² is low. This is the "
-                "key discrimination case against P18 (consensus)."
+                "Smooth sigmoid response to density with LARGE amplitude "
+                "(fraction_on spans ~0.05→0.95, jump>0.5 so it passes the "
+                "amplitude screen) but a GENTLE slope — the transition spans "
+                "most of the density range (relative_width ~0.74). No sharp "
+                "switch, no hysteresis. The detector must reject this at "
+                "screening BY SHARPNESS (relative_width >= 0.4), not by "
+                "amplitude. This is the key P18 (consensus) discrimination "
+                "case and exercises the sharpness gate as a live discriminator."
             ),
             "params": {
                 "n_density_levels": 40,
                 "n_steps_per_density": 100,
                 "density_min": 0.1,
-                "density_max": 3.0,
-                "sigmoid_center": 1.5,
-                "sigmoid_slope": 1.0,  # gentle slope → graded, not sharp
-                "noise_std": 0.05,
+                "density_max": 6.0,
+                "sigmoid_center": 3.0,
+                "sigmoid_slope": 1.0,  # gentle slope, wide span → graded, large amplitude
+                "noise_std": 0.03,
             },
             "seed": 42,
         },
