@@ -109,6 +109,13 @@ def detect_p9(
     # Extract r trajectory
     r_values = np.array([h['r'] for h in state_history])
     N = len(state_history[0]['theta'])
+
+    # Emergence: synchronization must EMERGE from an incoherent start. r_init =
+    # minimum order parameter over the first quarter (the transient). A frozen or
+    # pre-synchronized phase field starts coherent (r_init ~ 1) and is NOT emergent
+    # synchronization even though r_mean ~ 1; sub-critical never reaches high r_mean.
+    _q = max(1, len(r_values) // 4)
+    r_init = float(np.min(r_values[:_q]))
     
     # Use second half as measurement window (after transient)
     mid = len(r_values) // 2
@@ -171,7 +178,7 @@ def detect_p9(
     detected = False
     
     # Screening: r > 0.7 over ≥ 10 T_osc
-    if r_mean > 0.7 and n_T_osc >= 10:
+    if r_mean > 0.7 and n_T_osc >= 10 and r_init < 0.4 and (r_mean - r_init) > 0.3:
         tier = 'screening'
         confidence = 0.35
         detected = True

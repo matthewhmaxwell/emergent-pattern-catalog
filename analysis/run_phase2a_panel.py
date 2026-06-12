@@ -154,7 +154,7 @@ def build_p9_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Di
     for seed in range(n_seeds):
         # n_steps=6000 → 600 records → n_T_osc ≈ 12 ≥ 10 (P9 screening prerequisite).
         m = KuramotoModel(KuramotoParams(N=300, K=8.0, gamma=0.5, dt=0.05, seed=seed))
-        runs.append(m.run(n_steps=6000, record_every=10))
+        runs.append(m.run(n_steps=52000, record_every=10))  # n_T_osc~100 -> reaches confirmation/definitive (sync persists)
         if seed == 0:
             metadata = m.get_metadata()
     return runs, metadata
@@ -202,7 +202,7 @@ def make_p14_detector_fn():
     return fn
 
 
-def make_p9_detector_fn(n_null_runs: int = 99, seed: int = 42):
+def make_p9_detector_fn(n_null_runs: int = 199, seed: int = 42):  # 99 floors p at 0.01; confirmation needs p<0.01
     from epc.detectors.p9_synchronization import detect_p9
     def fn(history, metadata=None):
         return detect_p9(history, n_null_runs=n_null_runs, seed=seed, model_metadata=metadata)
@@ -268,7 +268,7 @@ def run_p14(out_path: str = "analysis/outputs/p14_phase2a_panel.json", verbose: 
 def run_p9(out_path: str = "analysis/outputs/p9_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P9 panel → {out_path}")
     positives, metadata = build_p9_positives(n_seeds=5)
-    detector_fn = make_p9_detector_fn(n_null_runs=99, seed=42)
+    detector_fn = make_p9_detector_fn(n_null_runs=199, seed=42)  # 99 floors p at 0.01; confirmation needs p<0.01
     return run_panel(
         detector_fn,
         pattern_id="P9",
