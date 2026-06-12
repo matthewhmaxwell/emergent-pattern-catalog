@@ -126,3 +126,33 @@ phase, gridlock has no free phase. Gated screening + confirmation on it
 clean ~5× gap. Verified — jam ρ=0.30 → **DEFINITIVE**, free-flow + saturation
 (ρ=0.55, 0.70) **rejected**. Panel: positive 0.9, catalog_tnr=1.0,
 **failed_regime_tnr=1.0** (saturation negatives now rejected), overall_tnr=1.0.
+
+### P17 — RESOLVED (commit 72c9d35) — behavioral cluster
+Detector **ignored its `history` argument entirely** — re-ran CollectiveSensingModel
+from metadata, firing on any substrate (bit-identical output for garbage vs real
+input). Rewrote `detect()` to work from the substrate via three measured signatures:
+**chemotactic index** to the true peak (climb), **cohesion** (group dispersion <
+0.10 — rejects social_off, which disperses), and **emergence** (individual SNR <
+0.5 — rejects field_too_strong, trivially sensable alone). All three at screening,
+calibrated vs the real regimes. Decisive test passes: same metadata + different
+substrates → different verdicts. Panel: positive 0.78, TNR=1.0, mates rejected at
+METRIC stage.
+
+### P9 — RESOLVED (commit 80275cb) — behavioral cluster
+Fired on a **frozen constant phase field** (r=1) because the gate was `r_mean>0.7`
+alone. Added the emergence signature: synchronization must arise from an
+**incoherent start** — `r_init` (min order parameter over the transient) < 0.4 and
+a rise > 0.3. Frozen field (r_init=1) and sub-critical (r_final low) now rejected.
+Also lengthened the positive (n_T_osc≈103) and bumped null-runs 99→199 (the
+**cross-cutting p-floor bug**, which here blocked CONFIRMATION's p<0.01). Verified:
+frozen + sub-critical rejected, positive→confirmation/definitive; panel TNR=1.0.
+
+### P24 — RESOLVED (commit f2d4044) — behavioral cluster
+Fired DEFINITIVE on **feedback-free bounded series** (sine, constant offset,
+relaxation to a wrong target) because it only tested bounded-vs-linear-ramp and a
+self-reported `has_active_feedback` flag. Now requires **measured** homeostasis:
+screening needs regulation (ss_deviation < 30% of perturbation amplitude — the
+`ss_deviation` that was computed but unused), confirmation needs measured active
+feedback (`restoring_slope < 0` from regressing dx/dt on x−setpoint). Dropped the
+metadata flag. Verified: positive→DEFINITIVE, all four feedback-free lookalikes
+rejected even with `has_active_feedback=True`; panel TNR=1.0.
