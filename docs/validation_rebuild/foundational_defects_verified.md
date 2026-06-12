@@ -156,3 +156,23 @@ screening needs regulation (ss_deviation < 30% of perturbation amplitude — the
 feedback (`restoring_slope < 0` from regressing dx/dt on x−setpoint). Dropped the
 metadata flag. Verified: positive→DEFINITIVE, all four feedback-free lookalikes
 rejected even with `has_active_feedback=True`; panel TNR=1.0.
+
+### P26 — RESOLVED (commit 96dab30) — behavioral cluster
+Fired DEFINITIVE on a non-SR inverted-U via a `has_subthreshold_signal` metadata
+flag that "fails open" + a shape proxy. Now verifies the SR **mechanism** from the
+substrate: confirmation requires **noise-driven** (per-level `std(diff(x))`
+Spearman-correlates with the labelled noise sweep > 0.7 — rejects a fake
+constant-noise sweep whose inverted-U comes from a ramped signal) AND **measured
+subthreshold** (zero-noise response < 30% of peak). Dropped the metadata flag.
+Verified: positive noise-corr=1.0, subthreshold-ratio=0.06 → DEFINITIVE; panel TNR=1.0.
+
+### P4 — DEFERRED (task #35) — needs a movement-causality metric, NOT shipped
+P4's metrics (exclusivity, pairwise overlap, occ_scent_corr) **fundamentally cannot
+separate territoriality from a plain random walk**: a random walk scores *equal or
+higher* exclusivity (sparse agents with cumulative occupancy separate regardless of
+scent), and `occ_scent_corr` is noise (RW −0.07 vs positive −0.005). Confirmed across
+N=4..25. The faithful discriminator is scent-mediated **movement causality** (does an
+agent turn away from foreign scent?), which the 100-step cumulative-occupancy
+snapshots don't expose. Needs a finer-grained substrate (per-step move vs foreign
+scent) or a cleverer causal statistic — a gate-threshold tweak would just relabel the
+same fake test. Returning after P19/P23.
