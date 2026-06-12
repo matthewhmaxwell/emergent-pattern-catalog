@@ -284,3 +284,36 @@ left 2/5 positives undetected). Panel: 5/5 DEFINITIVE, overall_tnr 1.0.
 
 ### Group C progress: P6, P7, P20, P32 RESOLVED; P18 honest PARTIAL (task #36); P28, P30 remaining.
 ### Foundational fixes: 15/19 (P13,P15,P8,P17,P9,P24,P26,P19,P23,P21,P31,P6,P7,P20,P32). P4 deferred (#35).
+
+### P28 — RESOLVED (commit 2f40e9a, validation-rebuild)
+DEFINITIVE gated on 4 self-reported metadata booleans (has_conserved_resource /
+has_multiplicative_stake / has_saving_propensity / has_redistribution) -> flipping
+one flag on the SAME trajectory flipped CONFIRMATION<->DEFINITIVE; no panel; no BM
+lookalike. Fix: mechanism now DERIVED from the wealth trajectory. observable_scope
+-> state_history_only. The metadata gate is removed from tiering; DEFINITIVE needs
+the trajectory signature: CONSERVED (total-wealth drift<=1%, now a HARD screening
+gate) + condensation EMERGED from near-equality (Gini grew from ~0) + MONOTONIC
+super-Boltzmann growth. Gini floors raised (screen 0.40->0.65, confirm 0.55->0.75,
+def 0.80->0.85; calibrated: positive 0.974, redistribution 0.586, Boltzmann 0.484,
+saving 0.273). detector_invariance time_shuffle_invariant True->False (now genuinely
+temporal). failed_regimes/p28_wealth.py adds saving/redistribution/Bouchaud-Mezard/
+Boltzmann lookalikes. analysis/validation_rebuild/p28_mechanism_discrimination.py:
+5/5 positives DEFINITIVE; all 4 lookalikes rejected by a MEANINGFUL metric (BM by
+conservation drift 0.20; others by the Gini floor); metadata-flip INVARIANT; time-
+shuffle defeats it. Full Phase-2a harness wiring (scalar_wealth Class A format)
+tracked as task #37.
+
+### P30 — DEFERRED (task #38)
+Detector broken as audited (closure_fraction=1.0 even on random scatter — angular
+gaps computed over ALL box links; association = co-location). Probe: the CURRENT
+canonical positive does NOT form a tight measurable membrane (links at r_med~8.4,
+radial CV~0.36 == random scatter CV~0.38; 3 spread catalysts => no single COM
+shell), so no gate tweak separates positive from random. Faithful fix needs a
+tight-membrane positive regime + per-catalyst local-shell metrics + real
+self-production/closed-topology/maintained-gradient/self-repair. Maintained-gradient
+is the most promising signal (positive grad~1.55 vs random~0.95) but needs the
+regime fixed first. NOT a cosmetic threshold tweak — deferred like P4.
+
+### Group C COMPLETE-as-far-as-faithful: P6, P7, P20, P32, P28 RESOLVED; P18 honest PARTIAL (#36); P30 deferred (#38).
+### Foundational fixes: 16/19 RESOLVED (P13,P15,P8,P17,P9,P24,P26,P19,P23,P21,P31,P6,P7,P20,P32,P28). DEFERRED: P4 (#35), P30 (#38). P18 honest PARTIAL + refinement (#36).
+### Remaining cross-cutting: DEFINITIVE null-floor fix (P32 fixed locally via 999 perms; audit it catalog-wide). Then re-run all panels + rewrite paper (#33).
