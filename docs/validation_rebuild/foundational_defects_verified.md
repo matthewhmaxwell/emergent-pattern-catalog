@@ -238,3 +238,49 @@ swaps — DG is not a trivial restatement of swap-count.)
 **Lesson:** the "fix to the literature's proper metric before judging" rule SAVED a
 pattern the audit had condemned. Confirms the mission framing over the "build-to-pass /
 or-pull" framing.
+
+### P18 — HONEST PARTIAL (commit 87fe0b6, validation-rebuild)
+The v1.1 PASS was MANUFACTURED. (1) detector_invariance mislabeled the metric
+as "convergence to consensus (max f_k)" with time_shuffle_invariant=True,
+wrongly SKIPPING the time_shuffle null; corrected to the real metric
+(time-ordered Moran's-I coarsening trend), neither perm- nor time-invariant.
+(2) catalog.py `canonical["P18"]="network"` reclassified the substrate off
+lattice_2d, swapping hard lattice neighbors for easy network mates; reverted.
+Honest panel after removing the fakery: PARTIAL (overall_tnr 0.944). GOOD: the
+3 hard lattice neighbors (P13/GH, P15/GoL, P1/Schelling) ARE correctly
+rejected. RESIDUAL: P11 LV-lattice fires at screening (predator-prey patterns
+raise Moran's I too) + the positive only screens. Needs a voter-specific
+coarsening-vs-oscillation discriminator (task #36). Manufactured-pass removed;
+honest verdict recorded — not faked back to PASS.
+
+### P20 — RESOLVED (commit 06aed5c, validation-rebuild)
+The R^2-sharpness "discriminator" was DEAD CODE on the panel: the graded
+negative died at screening on AMPLITUDE (jump<0.5), so the sharpness test never
+ran; a large-amplitude graded ramp (jump>0.5) FIRED at screening (verified FP,
+rel_width 0.74). Fixes: SCREENING now requires a SHARP transition (jump>0.5 AND
+relative_width<0.4) so a graded ramp is rejected HERE by the sharpness metric
+(rejection_stage=METRIC). CONFIRMATION uses step_r2>0.85 + rel_width<0.25
+(was the unreachable R^2>0.7). failed_regime graded_response WIDENED to jump>0.5
+to exercise the gate. Hysteresis measured from substrate up/down curves
+(act 1.40 vs deact 0.21); sharp-but-reversible switch correctly capped at
+confirmation. detector_invariance rationale rewritten honestly (density-response
+bundle has no temporal axis -> list-shuffle structurally uninformative, NOT a
+dodge). Panel: 5/5 DEFINITIVE, overall_tnr 1.0. Calibration: positive
+rel_width 0.0/r2 1.0, sharp-no-hyst 0.08-0.18/0.94-0.97, graded 0.74-0.95/0.80-0.82.
+
+### P32 — RESOLVED (commit 2cd3132, validation-rebuild)
+DEFINITIVE was mathematically unreachable (gate null_p<0.005 vs a 1/200=0.005
+floor); efficiency was a within-run late-vs-early coverage delta. Fixes:
+n_permutations 199->999 (floor 0.001) so p<0.005 is genuinely resolved
+(positive p=0.001). Efficiency is now CROSS-CONDITION + demand-based:
+_demand_efficiency_gain compares observed unmet task demand (substrate stimulus)
+vs a de-specialized counterfactual (per-agent time-shuffle) propagated with the
+env demand dynamics; specialization lowers demand +0.36..+0.66 (coverage was a
+poor near-ceiling proxy). observable_scope -> model_metadata_assisted (efficiency
+needs demand params, now exposed); detection stays substrate-only; no-metadata
+caps at confirmation. Positive regime 0.05/500 -> 0.03/1000 + explicit
+specializing-basin seeds (model has a competing flexible-reallocation basin that
+left 2/5 positives undetected). Panel: 5/5 DEFINITIVE, overall_tnr 1.0.
+
+### Group C progress: P6, P7, P20, P32 RESOLVED; P18 honest PARTIAL (task #36); P28, P30 remaining.
+### Foundational fixes: 15/19 (P13,P15,P8,P17,P9,P24,P26,P19,P23,P21,P31,P6,P7,P20,P32). P4 deferred (#35).
