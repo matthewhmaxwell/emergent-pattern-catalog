@@ -253,9 +253,22 @@ def detect_p19(
     mean_accuracy = float(np.mean(accuracies))
     std_accuracy = float(np.std(accuracies))
 
-    # === SCREENING: accuracy above naive baseline ===
+    # === Influence asymmetry (label-shuffle null): the CAUSAL discriminator.
+    #     Informed agents must STEER the group, not merely co-move with a supplied
+    #     preferred direction. A leaderless flock with a random informed-mask gives
+    #     pull ~ 0 and is not significant. Computed BEFORE screening so it gates it.
+    influence = _compute_influence_asymmetry(
+        history, informed_mask, preferred_direction, pull_window,
+        n_permutations=n_permutations, seed=seed,
+    )
+    pull_mean = influence["pull_mean"]
+    pull_p_value = influence["p_value"]
+    pull_significant = (pull_mean > 0.0) and (pull_p_value < 0.01)  # 0.05 let chance-significant leaderless flocks through
+
+    # === SCREENING: group steered toward preferred AND the informed minority
+    #     demonstrably causes it (significant pull) ===
     screening_threshold = 0.3
-    passes_screening = mean_accuracy > screening_threshold
+    passes_screening = (mean_accuracy > screening_threshold) and pull_significant
 
     if not passes_screening:
         return DetectorResult(
@@ -268,32 +281,22 @@ def detect_p19(
                 "group_accuracy_std": std_accuracy,
                 "screening_threshold": screening_threshold,
             },
-            secondary_metrics={"informed_fraction": informed_fraction},
+            secondary_metrics={"informed_fraction": informed_fraction,
+                               "pull_mean": pull_mean, "pull_p_value": pull_p_value},
             effect_size={},
-            null_p_value=1.0,
-            null_type="accuracy_vs_random",
+            null_p_value=pull_p_value,
+            null_type="label_shuffle",
             exclusions_checked=[],
             exclusion_results={},
             co_occurrence_candidates=[],
             metadata_available=bool(metadata),
             warnings=warnings,
-            notes="Screening failed: group accuracy below threshold",
+            notes=("Screening failed: no significant informed-minority influence "
+                   "(accuracy=%.2f, pull_mean=%.3f, p=%.3f)" % (mean_accuracy, pull_mean, pull_p_value)),
         )
 
-    # === CONFIRMATION: influence asymmetry (label-shuffle null) ===
-    influence = _compute_influence_asymmetry(
-        history, informed_mask, preferred_direction, pull_window,
-        n_permutations=n_permutations, seed=seed,
-    )
-
-    pull_mean = influence["pull_mean"]
-    pull_p_value = influence["p_value"]
-
-    # Confirmation requires positive pull AND significance
-    passes_confirmation = (
-        pull_mean > 0.0
-        and pull_p_value < 0.05
-    )
+    # === CONFIRMATION: robust influence (stronger significance) ===
+    passes_confirmation = (pull_p_value < 0.01) and (influence["pull_fraction"] > 0.5)
 
     if not passes_confirmation:
         return DetectorResult(
