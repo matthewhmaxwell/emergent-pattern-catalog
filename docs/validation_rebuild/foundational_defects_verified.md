@@ -209,3 +209,32 @@ signature at the committed config (P9 short run, P13 unreachable tier, P23 weak
 anti-persistence, P4 too-sparse) — the honest discriminator is often a *different but
 real* feature (emergence-from-incoherence, adaptation, etc.) calibrated to what the
 substrate actually shows.
+
+## Group-A leftover
+
+### P21 — RESOLVED (commit c334f50) — PASS-with-weakness
+Named "Hartigan's dip" was an inverted KS-uniformity distance (fired on Gaussians,
+passed on Uniform) doing no real gating work — the sorted-gap cluster count carried
+the discrimination. Replaced with the spec's genuine signature: persistent
+multimodality with **between-cluster distance** > within-cluster spread + nonzero
+variance, and emergence (init not already clustered). Verified: positives→DEFINITIVE
+(between-cluster distance ~0.4), consensus rejected. Panel PASS-with-weakness (one
+synthetic Class-A static-bimodal null persists at confirmation — minor, not the audit defect).
+
+### P31 — VALIDATED (commit 461539e) — the audit's "FAIL" was WRONG
+The audit/re-verification found P31 fails its non-redundancy test (ΔR²≈0 with the
+algorithm-identity control). That was an **artifact of the global monotonicity-scalar
+DG metric**, which collinearly re-encodes the algorithm label. Implemented the spec's
+**per-agent distance-based** DG index (`per_agent_dg_index`: fraction of an element's
+moves that increase its distance to its sorted position) + the honest non-redundancy
+test (numpy Ridge — sklearn isn't installed; algorithm one-hot control in baseline;
+timing-shuffle ablation), in `analysis/validation_rebuild/p31_non_redundancy_test.py`.
+**Result across 2 configs: ΔR² = +0.018 to +0.033 (>0, ~3.5σ for n=60), and the gain
+VANISHES under the timing-shuffle ablation** — satisfying BOTH of the spec's survival
+conditions. P31 is a real pattern (modest ~2-3% R², timing-dependent). Detector primary
+wired to the per-agent metric. (Selection sort: high per-agent DG 0.34 yet only 167
+swaps — DG is not a trivial restatement of swap-count.)
+
+**Lesson:** the "fix to the literature's proper metric before judging" rule SAVED a
+pattern the audit had condemned. Confirms the mission framing over the "build-to-pass /
+or-pull" framing.
