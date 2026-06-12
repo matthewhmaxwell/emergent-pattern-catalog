@@ -145,14 +145,14 @@ class P32SpecializationDetector(BaseDetector):
 
     def __init__(
         self,
-        n_permutations: int = 199,
+        n_permutations: int = 999,  # floor 1/1000=0.001 < 0.005 so DEFINITIVE is reachable
         seed: int = 42,
     ) -> None:
         super().__init__(
             pattern_id="P32",
             excluded_patterns=["P23"],  # anti-coordination: continuous re-balancing
             allowed_co_occurrences=[],
-            observable_scope="state_history_only",
+            observable_scope="model_metadata_assisted",  # demand-efficiency (definitive) needs the task-demand params
         )
         self.n_permutations = n_permutations
         self._seed = seed
@@ -270,30 +270,26 @@ class P32SpecializationDetector(BaseDetector):
         # Check for single-task collapse: all agents have same dominant task
         single_task_collapse = len(unique_roles) <= 1
 
-        # Efficiency: fraction of late timesteps where all tasks are covered
-        late_efficiency = 0
-        for t in range(T - window, T):
-            tasks_covered = set(assignments[t][assignments[t] >= 0])
-            if len(tasks_covered) >= n_tasks:
-                late_efficiency += 1
-        late_efficiency = late_efficiency / window if window > 0 else 0.0
+        # Late-window task coverage (fraction of timesteps all tasks staffed) —
+        # reported for transparency. The cross-condition efficiency claim is
+        # computed separately in _demand_efficiency_gain() (unmet-demand /
+        # stimulus vs a de-specialized baseline), which is the literature-
+        # faithful measure of division-of-labor efficiency.
+        def _coverage_fraction(assign: np.ndarray, lo: int, hi: int) -> float:
+            covered = 0
+            for t in range(lo, hi):
+                if len(set(assign[t][assign[t] >= 0])) >= n_tasks:
+                    covered += 1
+            span = hi - lo
+            return covered / span if span > 0 else 0.0
 
-        # Baseline efficiency (early window)
-        early_efficiency = 0
-        for t in range(min(window, T)):
-            tasks_covered = set(assignments[t][assignments[t] >= 0])
-            if len(tasks_covered) >= n_tasks:
-                early_efficiency += 1
-        early_efficiency = early_efficiency / window if window > 0 else 0.0
-
-        efficiency_gain = late_efficiency - early_efficiency
+        late_coverage_fraction = _coverage_fraction(assignments, T - window, T)
 
         return {
             "role_diversity": role_diversity,
             "single_task_collapse": single_task_collapse,
-            "late_efficiency": late_efficiency,
-            "early_efficiency": early_efficiency,
-            "efficiency_gain": efficiency_gain,
+            "late_coverage_fraction": late_coverage_fraction,
+            "late_efficiency": late_coverage_fraction,  # back-compat alias
             "n_unique_roles": len(unique_roles),
         }
 
@@ -393,13 +389,82 @@ class P32SpecializationDetector(BaseDetector):
             return False
         if primary_result.get("entropy_decline", 0.0) < 0.3:
             return False
-        late_eff = secondary_result.get("late_efficiency", 0.0)
-        eff_gain = secondary_result.get("efficiency_gain", 0.0)
-        if late_eff < 0.3 and eff_gain <= 0.0:
-            return False
         if secondary_result.get("role_diversity", 0.0) < 0.67:
             return False
+        # CROSS-CONDITION efficiency: specialization must lower UNMET TASK
+        # DEMAND (stimulus) relative to a de-specialized counterfactual with
+        # the same per-agent effort but no fixed roles. This is the literature
+        # claim (Bonabeau et al. 1996: division of labor improves collective
+        # efficiency vs generalists), computed from the substrate stimulus
+        # series + the task-demand dynamics (stimulus_rate, service_rate)
+        # carried in model_metadata. Without the demand model the efficiency
+        # benefit cannot be quantified -> cap at confirmation.
+        demand_gain = self._demand_efficiency_gain(state_history, model_metadata)
+        if demand_gain is None or demand_gain <= 0.0:
+            return False
         return True
+
+    def _demand_efficiency_gain(
+        self,
+        state_history: list[dict[str, Any]],
+        model_metadata: dict[str, Any] | None,
+    ) -> float | None:
+        """Cross-condition division-of-labor efficiency.
+
+        Specialization is efficient iff the population keeps UNMET TASK
+        DEMAND (the substrate ``stimulus``) lower than a NON-SPECIALIZED
+        counterfactual: the same per-agent task marginals but no fixed roles
+        (each agent\'s task series shuffled in time, destroying coordinated
+        role-fixedness). The counterfactual stimulus is propagated forward
+        with the environment\'s own demand dynamics —
+        ``s <- clip(s + stimulus_rate - service_rate * workers_per_task, 0, smax)``
+        — read from model_metadata. Returns ``baseline_demand - observed_demand``
+        over the late window (>0 means specialization reduces unmet demand);
+        ``None`` if the demand parameters are unavailable.
+        """
+        if not model_metadata:
+            return None
+        rate = model_metadata.get("stimulus_rate")
+        coef = model_metadata.get("service_rate")
+        smax = model_metadata.get("stimulus_max", 1.0)
+        if rate is None or coef is None:
+            return None
+        if not state_history or "stimulus" not in state_history[0]:
+            return None
+
+        assignments = np.array([h["task_assignments"] for h in state_history])
+        stim = np.array([h["stimulus"] for h in state_history], dtype=float)
+        T, n_agents = assignments.shape
+        n_tasks = stim.shape[1]
+        window = max(T // 4, 10)
+
+        def _workers(assign: np.ndarray) -> np.ndarray:
+            w = np.zeros((assign.shape[0], n_tasks))
+            for t in range(assign.shape[0]):
+                row = assign[t]
+                for k in range(n_tasks):
+                    w[t, k] = np.count_nonzero(row == k)
+            return w
+
+        observed_demand = float(np.mean(np.sum(stim[T - window:T], axis=1)))
+
+        rng = np.random.default_rng(self._seed)
+        s0 = float(np.mean(stim[0]))
+        baseline_runs = []
+        for _ in range(16):
+            shuffled = assignments.copy()
+            for i in range(n_agents):
+                rng.shuffle(shuffled[:, i])
+            w = _workers(shuffled)
+            s = np.full(n_tasks, s0, dtype=float)
+            late = []
+            for t in range(T):
+                s = np.clip(s + rate - coef * w[t], 0.0, smax)
+                if t >= T - window:
+                    late.append(float(np.sum(s)))
+            baseline_runs.append(np.mean(late))
+        baseline_demand = float(np.mean(baseline_runs))
+        return baseline_demand - observed_demand
 
     def _check_exclusions(
         self,

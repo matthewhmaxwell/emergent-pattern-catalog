@@ -186,6 +186,8 @@ class ResponseThresholdModel(BaseModel):
             "reinforcement_rate": self.reinforcement_rate,
             "forgetting_rate": self.forgetting_rate,
             "stimulus_rate": self.stimulus_rate,
+            "service_rate": 0.1,   # per-worker demand reduction (stimulus dynamics)
+            "stimulus_max": 1.0,   # per-task stimulus clip ceiling
             "initial_threshold": self.initial_threshold,
             "interaction_type": "threshold_response",
             "update_mode": "synchronous",
