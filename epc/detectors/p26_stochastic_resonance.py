@@ -109,6 +109,31 @@ def _coherent_response(
     return float(np.abs(np.mean(x_seg * signal_seg)))
 
 
+def _noise_driven_correlation(bundle: Dict[str, np.ndarray]) -> float:
+    """Spearman correlation between the labelled noise level and the actual
+    step-to-step variation std(diff(x)) per level. ~1 for a genuine noise sweep;
+    ~0 for a fake sweep where noise is constant and the inverted-U is driven by a
+    ramped signal instead (the audit's non-SR lookalike)."""
+    x = bundle['x']; nl = bundle['noise_level']; idx = bundle['noise_level_idx']
+    levels = np.unique(idx)
+    lvl_val = []; proxy = []
+    for li in levels:
+        m = idx == li
+        xi = x[m]
+        if xi.size < 3:
+            continue
+        lvl_val.append(float(nl[m][0]))
+        proxy.append(float(np.std(np.diff(xi))))
+    if len(proxy) < 3:
+        return 0.0
+    a = np.asarray(lvl_val); b = np.asarray(proxy)
+    ra = np.argsort(np.argsort(a)).astype(float)
+    rb = np.argsort(np.argsort(b)).astype(float)
+    ra -= ra.mean(); rb -= rb.mean()
+    d = float(np.sqrt((ra**2).sum() * (rb**2).sum()))
+    return float((ra * rb).sum() / d) if d > 1e-12 else 0.0
+
+
 def _compute_performance_curve(
     history_bundle: Dict[str, Any],
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -248,6 +273,13 @@ class P26StochasticResonanceDetector:
         # ── Compute performance curve ──
         noise_levels, performance = _compute_performance_curve(bundle)
 
+        # SR MECHANISM (measured, replacing the self-reported subthreshold flag):
+        #  noise-driven: the inverted-U must arise from ACTUAL increasing noise;
+        #  subthreshold: the zero-noise response must be small vs the peak.
+        noise_driven_corr = _noise_driven_correlation(bundle)
+        _peak_perf = float(performance.max()) if performance.size else 0.0
+        subthreshold_ratio = (float(performance[0]) / _peak_perf) if _peak_perf > 1e-9 else 1.0
+
         n_levels = len(noise_levels)
         if n_levels < 3:
             return self._no_detection(
@@ -356,6 +388,8 @@ class P26StochasticResonanceDetector:
             'decline_after_peak': u_check['decline_after_peak'],
             'performance_curve': performance.tolist(),
             'noise_levels': noise_levels.tolist(),
+            'noise_driven_corr': noise_driven_corr,
+            'subthreshold_ratio': subthreshold_ratio,
         }
 
         # ── CONFIRMATION: inverted-U shape ──
@@ -364,6 +398,8 @@ class P26StochasticResonanceDetector:
             and u_check['has_rise']
             and u_check['has_fall']
             and null_p < 0.05
+            and noise_driven_corr > 0.7
+            and subthreshold_ratio < 0.3
         )
 
         if not confirmed:
@@ -395,15 +431,9 @@ class P26StochasticResonanceDetector:
             and null_p <= 0.005
         )
 
-        # Metadata check: subthreshold signal must be confirmed
-        if definitive and metadata_available:
-            has_subthreshold = metadata.get('has_subthreshold_signal', None)
-            if has_subthreshold is False:
-                definitive = False
-                warnings.append(
-                    "Metadata indicates suprathreshold signal; "
-                    "definitive tier denied"
-                )
+        # Subthreshold is now MEASURED (subthreshold_ratio < 0.3 at confirmation)
+        # and the sweep is verified noise-driven (noise_driven_corr > 0.7),
+        # replacing the self-reported has_subthreshold_signal metadata flag.
 
         if definitive:
             tier = DetectionTier.DEFINITIVE
