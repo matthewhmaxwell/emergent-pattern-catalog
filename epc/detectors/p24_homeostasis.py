@@ -255,6 +255,26 @@ class P24HomeostasisDetector:
             'deviation_growth_ratio': growth_ratio,
         }
 
+        # Measured active negative feedback + regulation (replaces the
+        # self-reported has_active_feedback flag and the bounded-vs-ramp test).
+        # restoring_slope: regress dx/dt on (x - setpoint) over the perturbed
+        # window; slope = -gain, so homeostasis has a negative restoring slope.
+        _devw = (x - setpoint)[onset_idx:n]
+        _dxw = np.gradient(x, time)[onset_idx:n]
+        if len(_devw) > 2 and float(np.std(_devw)) > 1e-9:
+            _A = np.vstack([_devw, np.ones(len(_devw))]).T
+            restoring_slope = float(np.linalg.lstsq(_A, _dxw, rcond=None)[0][0])
+        else:
+            restoring_slope = 0.0
+        pert_amplitude = float(np.max(np.abs(perturbation))) if perturbation.size else 0.0
+        # regulated: variable held within 30%% of the perturbation amplitude of
+        # the setpoint (rejects bounded-but-unregulated lookalikes: sine,
+        # constant offset, relaxation to a wrong target).
+        regulated = (pert_amplitude > 0.0) and (ss_deviation < 0.3 * pert_amplitude)
+        active_feedback = restoring_slope < 0.0
+        primary['restoring_slope'] = restoring_slope
+        primary['pert_amplitude'] = pert_amplitude
+
         peak_dev = float(np.max(np.abs(x[onset_idx:] - setpoint[onset_idx:])))
         if peak_dev < 1e-12:
             return self._no_detection(
@@ -263,12 +283,14 @@ class P24HomeostasisDetector:
             )
 
         # ── SCREENING: deviation is bounded ──
-        screening_pass = growth_ratio <= 2.0
+        screening_pass = (growth_ratio <= 2.0) and regulated
         if not screening_pass:
             return self._no_detection(
                 primary_metric=primary,
                 warnings=warnings + [
-                    f"Deviation not bounded (growth_ratio={growth_ratio:.2f})"
+                    f"Not bounded regulation toward setpoint "
+                    f"(growth_ratio={growth_ratio:.2f}, ss_deviation={ss_deviation:.2f}, "
+                    f"pert_amplitude={pert_amplitude:.2f})"
                 ],
                 metadata_available=metadata_available,
             )
@@ -327,7 +349,7 @@ class P24HomeostasisDetector:
         }
 
         # ── CONFIRMATION: deviation integral < surrogate at p < 0.01 ──
-        confirmed = null_p < 0.01 and dev_ratio < 0.5
+        confirmed = null_p < 0.01 and dev_ratio < 0.5 and active_feedback
 
         if not confirmed:
             bonuses = {
@@ -359,15 +381,8 @@ class P24HomeostasisDetector:
             and null_p <= 0.005
         )
 
-        # Metadata check: active feedback must be confirmed
-        if definitive and metadata_available:
-            has_feedback = metadata.get('has_active_feedback', None)
-            if has_feedback is False:
-                definitive = False
-                warnings.append(
-                    "Metadata indicates no active feedback; "
-                    "definitive tier denied"
-                )
+        # Active feedback is now MEASURED (restoring_slope < 0, required at
+        # confirmation) rather than read from a self-reported metadata flag.
 
         if definitive:
             tier = DetectionTier.DEFINITIVE
