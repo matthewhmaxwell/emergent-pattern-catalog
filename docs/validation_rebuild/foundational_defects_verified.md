@@ -176,3 +176,36 @@ agent turn away from foreign scent?), which the 100-step cumulative-occupancy
 snapshots don't expose. Needs a finer-grained substrate (per-step move vs foreign
 scent) or a cleverer causal statistic — a gate-threshold tweak would just relabel the
 same fake test. Returning after P19/P23.
+
+### P19 — RESOLVED (commit 80407b9) — behavioral cluster
+Screened on group directional accuracy (`cos(group_heading − preferred) > 0.3`),
+which a **leaderless flock trivially passes** if handed its own emergent heading.
+The correct causal metric (`_compute_influence_asymmetry`: informed-vs-naive pull
+with a label-shuffle null) already existed but was only used at confirmation. Moved
+it BEFORE screening and gated screening on a **significant** informed-minority pull
+(p<0.01); confirmation adds consistent leadership (pull_fraction>0.5). Verified:
+leaderless flocks (rho_zero, bias_zero) all rejected; positive PASS; panel TNR=1.0.
+
+### P23 — RESOLVED (commit 094ca57) — behavioral cluster
+Confirmation fired on variance-below-baseline ALONE (an `OR`), so a clamped Gaussian
+(low variance, no coordination) fired DEFINITIVE. The audit suggested requiring
+anti-persistence (`p_ac1<0.01`), but the canonical positives **don't show strong
+anti-persistence at this config** (ac1≈−0.02, p_ac1>0.05) — that fix would reject
+them. The signature this regime *does* exhibit is **adaptation**: attendance variance
+falls over time as agents learn to anti-coordinate (positives 0.54-0.67 late/early;
+a stationary clamped Gaussian ~1.0), measured on the full series (the learning
+transient is in the burn-in). Confirmation now needs variance_below + p_sv<0.01 +
+adaptation_ratio<0.85. Verified: clamped Gaussian rejected, positives→DEFINITIVE;
+panel TNR=1.0.
+
+---
+
+## Behavioral cluster summary (7 patterns)
+**Fixed (6):** P17, P9, P24, P26, P19, P23 — all panel TNR=1.0.
+**Deferred (1):** P4 (task #35) — metrics can't separate territoriality from a random
+walk; needs a movement-causality metric.
+**Recurring theme:** several "canonical positives" only weakly exhibit their textbook
+signature at the committed config (P9 short run, P13 unreachable tier, P23 weak
+anti-persistence, P4 too-sparse) — the honest discriminator is often a *different but
+real* feature (emergence-from-incoherence, adaptation, etc.) calibrated to what the
+substrate actually shows.
