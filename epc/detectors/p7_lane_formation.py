@@ -367,8 +367,20 @@ class P7LaneFormationDetector:
         phi_mean = float(np.mean(phi_values))
         phi_std = float(np.std(phi_values))
 
-        # Screening threshold: phi_lane > 0.4
-        screening_pass = phi_mean > 0.4
+        # Emergence: lanes must FORM from an initially mixed state, not be
+        # pre-segregated. early_phi = lane order over the first frames; genuine
+        # formation rises from a low (mixed) phi to the windowed phi. (Audit: the
+        # end-state phi alone is just label-position correlation, not formation.)
+        n_early = max(1, min(5, len(history)))
+        early_phi = float(np.mean([
+            compute_lane_order_parameter(
+                history[i]["positions"], history[i]["labels"], corridor_height, self.n_bins)
+            for i in range(n_early)
+        ]))
+
+        # Screening: lanes present (phi > 0.4) AND they EMERGED (rose >= 0.15
+        # from a mixed start). A pre-segregated config has no rise and is rejected.
+        screening_pass = phi_mean > 0.4 and (phi_mean - early_phi) >= 0.15
 
         if not screening_pass:
             return DetectorResult(
@@ -389,7 +401,7 @@ class P7LaneFormationDetector:
                 co_occurrence_candidates=[],
                 metadata_available=metadata is not None,
                 warnings=warnings,
-                notes=f"Screening failed: phi_lane={phi_mean:.3f} < 0.4",
+                notes=f"Screening failed: phi_lane={phi_mean:.3f} (>0.4?), emergence rise={phi_mean-early_phi:.3f} from early={early_phi:.3f} (>=0.15?)",
             )
 
         # === CONFIRMATION: temporal stability + encounter reduction + null ===
