@@ -125,7 +125,14 @@ class P31DelayedGratificationDetector(BaseDetector):
 
     def _check_definitive(self, primary_result, secondary_result, null_p, null_type,
                           state_history, model_metadata, timescale):
-        return null_p < 0.001
+        # The single-run condition-comparison null is degenerate (best p=0.005),
+        # so '< 0.001' was unreachable by construction. The DEFINITIVE evidence
+        # for P31 is the MULTI-RUN non-redundancy test (per-agent DG carries
+        # variance beyond the algorithm label), implemented + validated in
+        # analysis/validation_rebuild/p31_non_redundancy_test.py. A single
+        # trajectory cannot reach it, so the detector honestly caps at
+        # CONFIRMATION.
+        return False
 
     def _check_exclusions(self, state_history, model_metadata, timescale):
         return (["P1"], {"P1": "requires_nonredundancy_test"})

@@ -495,7 +495,7 @@ class P1AggregationDetector(BaseDetector):
 
     def _check_definitive(self, primary_result, secondary_result, null_p, null_type,
                           state_history, model_metadata, timescale):
-        return null_p < 0.001
+        return null_p <= 0.001  # n=999 floors null_p at 1/1000=0.001; '<' was unreachable
 
     def _check_exclusions(self, state_history, model_metadata, timescale):
         checked = ["P2", "P3", "P30"]

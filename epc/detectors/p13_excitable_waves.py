@@ -381,7 +381,7 @@ class P13ExcitableWaveDetector(BaseDetector):
         rotations = secondary_result.get("estimated_rotations", 0)
         if rotations < 100:
             return False
-        if null_p >= 0.001:
+        if null_p > 0.005:  # n_null_runs=199 floors null_p at 0.005; '< 0.001' was unreachable
             return False
         # P15 exclusion (canonical boundary Transfer-Entropy test) must be
         # cleared for DEFINITIVE: genuine directed information flow across

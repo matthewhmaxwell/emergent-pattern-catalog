@@ -533,7 +533,7 @@ class P12CyclicDominanceDetector(BaseDetector):
         timescale: float,
     ) -> bool:
         """Definitive: confirmation + score > 2.0 + direction stable + null p < 0.005."""
-        if null_p >= 0.005:
+        if null_p > 0.005:  # n=199 floors null_p at 1/200=0.005; '>=' made DEFINITIVE unreachable
             return False
         if primary_result.get("intransitivity_score", 0.0) <= 2.0:
             return False

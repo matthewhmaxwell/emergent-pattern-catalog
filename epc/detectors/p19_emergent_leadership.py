@@ -72,7 +72,7 @@ def _compute_influence_asymmetry(
     informed_mask: np.ndarray,
     preferred_direction: float,
     window: tuple[int, int],
-    n_permutations: int = 99,
+    n_permutations: int = 199,  # 99 floors p at 0.01 so the p<0.01 gates would be unreachable
     seed: int = 42,
 ) -> dict[str, Any]:
     """Compute influence asymmetry: how much closer are informed agents'
@@ -167,7 +167,7 @@ def _compute_influence_asymmetry(
 def detect_p19(
     history: list[dict[str, Any]],
     metadata: dict[str, Any],
-    n_permutations: int = 99,
+    n_permutations: int = 199,  # 99 floors p at 0.01 so the p<0.01 gates would be unreachable
     seed: int = 42,
 ) -> DetectorResult:
     """Run the P19 emergent leadership / minority guidance detector.
