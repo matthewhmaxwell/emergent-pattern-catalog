@@ -1520,7 +1520,10 @@ def _build_substrate_type_by_pattern() -> Dict[str, str]:
         for pid in model.primary_patterns:
             canonical.setdefault(pid, model.substrate_type)
     # v1.1 spec overrides.
-    canonical["P18"] = "network"
+    # P18 (voter) is a lattice_2d coarsening process. The v1.1 "network" override
+    # was a reclassification that swapped the hard lattice neighbors (P13/GH,
+    # P15/GoL, P1/Schelling) the detector must discriminate for easy network mates.
+    # Reverted to the registry lattice_2d type so Class B holds the real neighbors.
     canonical["P21"] = "network"
     return canonical
 

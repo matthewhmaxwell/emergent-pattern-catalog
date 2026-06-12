@@ -100,8 +100,12 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "degenerate-by-construction. time_shuffle_inv=False: "
                                       "gradient climbing is a temporal trajectory; shuffling "
                                       "temporal order destroys the directional approach signal."),
-    "P18": InvarianceFlags(True,  True,  "convergence to consensus (max f_k)",
-                            rationale="Aggregate fraction, final-state."),
+    "P18": InvarianceFlags(False, False, "time-ordered coarsening: Spearman rho(t, Morans I)",
+                            rationale="The detector primary is the TEMPORAL coarsening trend (rising "
+                                      "Morans I), not a final-state consensus fraction. It depends on "
+                                      "spatial structure AND temporal order, so both permutation_shuffled "
+                                      "and time_shuffled are meaningful tests (neither is invariant). The "
+                                      "prior True/True wrongly SKIPPED the time_shuffled null."),
     "P19": InvarianceFlags(False, False, "influence-asymmetry TE ratio",
                             rationale="Spatial + temporal information flow."),
     "P21": InvarianceFlags(True,  False, "dip test on opinion distribution",
