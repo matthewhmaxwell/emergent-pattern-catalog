@@ -134,8 +134,13 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
     # If Sprint 35+ P27 panel run reveals the assumption is wrong, change the flag and re-run.
     "P27": InvarianceFlags(False, True,  "cooperation fraction time-series",
                             rationale="Provisional per v1.2 spec Change 2; validate in Sprint 35+. C-p27-time-shuffle-invariance."),
-    "P28": InvarianceFlags(True,  True,  "wealth-distribution Gini / cluster index",
-                            rationale="Distributional + time-aggregated."),
+    "P28": InvarianceFlags(True,  False, "emergent monotonic super-Boltzmann Gini growth of a conserved resource",
+                            rationale="perm_inv=True: Gini is invariant to agent relabeling. "
+                                      "time_shuffle_inv=False: the detector now requires condensation to EMERGE "
+                                      "(Gini grows from ~0) with MONOTONIC growth; shuffling frame order destroys "
+                                      "both, so the time_shuffled positive is correctly rejected (verified in "
+                                      "analysis/validation_rebuild/p28_mechanism_discrimination.py). The prior "
+                                      "True was an artifact of scoring only the final-frame Gini."),
     "P31": InvarianceFlags(False, False, "DG monotonicity / avg_wandering_range",
                             rationale="Sequence ordering is the signal."),
     "P16": InvarianceFlags(True,  True,  "completion accuracy (overlap with stored patterns)",

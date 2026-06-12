@@ -4,11 +4,15 @@ Detects spontaneous condensation of a conserved scalar resource into a
 highly skewed distribution under symmetric, fair pairwise-exchange
 dynamics — the Chakraborti-Boghosian Yard-Sale paradox.
 
-Observable scope: model_metadata_assisted. The empirical detection
-runs on state_history (a 'wealth' observable across frames). Metadata
-is used to promote CONFIRMATION -> DEFINITIVE via the mechanistic-null
-flags ``has_conserved_resource``, ``has_multiplicative_stake``,
-``has_saving_propensity``, and ``has_redistribution``.
+Observable scope: state_history_only. The condensation MECHANISM is
+derived from the TRAJECTORY (a 'wealth' observable across frames), not from
+self-reported metadata. (Validation rebuild: the prior version gated
+DEFINITIVE on four metadata booleans has_conserved_resource /
+has_multiplicative_stake / has_saving_propensity / has_redistribution, so
+flipping a flag on the SAME trajectory flipped CONFIRMATION<->DEFINITIVE.)
+The trajectory mechanism = resource CONSERVED (total-wealth drift <= 1%) +
+condensation EMERGED from near-equality (Gini grew from ~0) + MONOTONIC
+super-Boltzmann growth. See analysis/validation_rebuild/p28_mechanism_discrimination.py.
 
 DISCRIMINATION FROM NEIGHBORS:
 
@@ -138,13 +142,13 @@ class P28WealthCondensationDetector(BaseDetector):
     """
 
     # Tier thresholds
-    _SCREEN_GINI_MIN = 0.40
+    _SCREEN_GINI_MIN = 0.65   # super-Boltzmann; rejects redistribution(~0.58)/saving(~0.27)/Boltzmann(~0.5)
     _SCREEN_TOP1PCT_MIN = 0.05
-    _CONFIRM_GINI_MIN = 0.55
+    _CONFIRM_GINI_MIN = 0.75
     _CONFIRM_TOP1PCT_MIN = 0.15
     _CONFIRM_MONOTONIC_MIN = 0.80
     _CONFIRM_NULL_P_MAX = 0.01
-    _DEF_GINI_MIN = 0.80
+    _DEF_GINI_MIN = 0.85
     _DEF_TOP1PCT_MIN = 0.30
 
     # Prerequisites
@@ -153,6 +157,8 @@ class P28WealthCondensationDetector(BaseDetector):
 
     # Conservation tolerance (fraction of mean wealth)
     _CONSERVATION_TOL = 0.01
+    _EMERGENCE_GINI0_MAX = 0.30   # condensation must EMERGE from near-equality
+    _EMERGENCE_DELTA_MIN = 0.20
 
     def __init__(
         self,
@@ -167,7 +173,7 @@ class P28WealthCondensationDetector(BaseDetector):
             # neighbor-pattern conflicts on that substrate at Sprint 17.
             excluded_patterns=[],
             allowed_co_occurrences=[],
-            observable_scope="model_metadata_assisted",
+            observable_scope="state_history_only",  # mechanism now derived from trajectory, not metadata
         )
         if n_permutations < 1:
             raise ValueError("n_permutations must be >= 1")
@@ -313,6 +319,7 @@ class P28WealthCondensationDetector(BaseDetector):
             return {
                 "gini_final": 0.0,
                 "gini_initial": 0.0,
+                "conservation_drift": 1.0,
                 "mean_wealth": 0.0,
                 "n_agents": 0,
                 "n_frames_used": 0,
@@ -323,11 +330,19 @@ class P28WealthCondensationDetector(BaseDetector):
         gini_series = np.array([gini(w) for w in frames], dtype=np.float64)
         self._gini_series = gini_series
 
+        totals = np.array([float(w.sum()) for w in frames], dtype=np.float64)
+        mean_total = float(totals.mean())
+        conservation_drift = (
+            float(np.abs(totals - mean_total).max() / mean_total)
+            if mean_total > 0 else 1.0
+        )
+
         w_final = frames[-1]
         return {
             "gini_final": float(gini_series[-1]),
             "gini_initial": float(gini_series[0]),
             "gini_delta": float(gini_series[-1] - gini_series[0]),
+            "conservation_drift": conservation_drift,
             "mean_wealth": float(w_final.mean()),
             "n_agents": int(w_final.size),
             "n_frames_used": int(len(frames)),
@@ -340,6 +355,23 @@ class P28WealthCondensationDetector(BaseDetector):
         timescale: float,
     ) -> bool:
         if self._screening_rejection_reason != "none":
+            return False
+        # Conservation is a DEFINING prerequisite: P28 condenses a CONSERVED
+        # resource. A non-conserved process (e.g. Bouchaud-Mezard multiplicative
+        # growth) is a DIFFERENT mechanism -> hard reject here (was a non-blocking
+        # warning, which let non-conserved lookalikes through).
+        drift = float(primary_result.get("conservation_drift", 1.0))
+        if drift > self._CONSERVATION_TOL:
+            self._screening_rejection_reason = "resource_not_conserved"
+            primary_result["screening_rejection_reason"] = "resource_not_conserved"
+            return False
+        # Condensation must EMERGE from near-equality (rejects a pre-condensed /
+        # frozen high-Gini input that did not arise from exchange dynamics).
+        g0 = float(primary_result.get("gini_initial", 1.0))
+        gd = float(primary_result.get("gini_delta", 0.0))
+        if g0 > self._EMERGENCE_GINI0_MAX or gd < self._EMERGENCE_DELTA_MIN:
+            self._screening_rejection_reason = "condensation_not_emergent"
+            primary_result["screening_rejection_reason"] = "condensation_not_emergent"
             return False
         gini_final = float(primary_result.get("gini_final", 0.0))
         if gini_final < self._SCREEN_GINI_MIN:
@@ -538,14 +570,28 @@ class P28WealthCondensationDetector(BaseDetector):
         if not (gini_def and top1_def):
             return DetectionTier.CONFIRMATION, bonuses
 
-        mech = self._mechanistic_null_passes(model_metadata)
-        if not mech["passes"]:
+        # Mechanism DERIVED FROM THE TRAJECTORY (no self-reported metadata):
+        #   conserved resource (drift <= tol; gated at screening) + condensation
+        #   EMERGED from near-equality + monotonic Gini growth (still condensing,
+        #   not a plateaued saving/redistribution regime) + super-Boltzmann
+        #   (null already rejected at confirmation). Together these ARE the
+        #   symmetric-conserved-multiplicative-exchange signature. Flipping a
+        #   metadata boolean can no longer move CONFIRMATION <-> DEFINITIVE.
+        conserved = (
+            float(primary_result.get("conservation_drift", 1.0))
+            <= self._CONSERVATION_TOL
+        )
+        emerged = (
+            float(primary_result.get("gini_initial", 1.0)) <= self._EMERGENCE_GINI0_MAX
+            and float(primary_result.get("gini_delta", 0.0)) >= self._EMERGENCE_DELTA_MIN
+        )
+        monotonic = mono >= self._CONFIRM_MONOTONIC_MIN
+        if not (conserved and emerged and monotonic):
             return DetectionTier.CONFIRMATION, bonuses
 
-        # Definitive bonuses
         bonuses["all_exclusions_cleared"] = True
-        bonuses["both_null_types_rejected"] = null_p < 0.01 and mech["passes"]
-        bonuses["finite_size_robustness"] = False  # could be added via multi-N slow test
+        bonuses["both_null_types_rejected"] = null_p < 0.01
+        bonuses["finite_size_robustness"] = False
         return DetectionTier.DEFINITIVE, bonuses
 
     def _all_secondaries_pass(self, secondary_result: dict[str, Any]) -> bool:
