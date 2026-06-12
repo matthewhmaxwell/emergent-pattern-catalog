@@ -48,8 +48,16 @@ class P31DelayedGratificationDetector(BaseDetector):
             errors = []
 
         result = self._dg_metric.compute_from_trace(errors)
+        # Spec metric: per-agent distance-based DG (the monotonicity scalar above
+        # is a global proxy that re-encodes the algorithm label and is kept only
+        # for continuity / the legacy field).
+        from epc.metrics.delayed_gratification import per_agent_dg_index
+        pa = per_agent_dg_index(state_history)
         return {
-            "dg_index": result["dg_index"],
+            "dg_index": pa["mean"],
+            "dg_index_std": pa["std"],
+            "dg_q25": pa["q25"], "dg_q50": pa["q50"], "dg_q75": pa["q75"],
+            "monotonicity_dg": result["dg_index"],
             "n_backtrack_steps": float(result["n_backtrack_steps"]),
             "trace_length": float(result["trace_length"]),
             "initial_error": float(result["initial_error"]),

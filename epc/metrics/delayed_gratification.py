@@ -161,3 +161,39 @@ class DGConditionComparison(BaseMetric):
         }
 
         return results
+
+
+def per_agent_dg_index(state_history: list) -> dict:
+    """Spec per-agent (distance-based) delayed-gratification index.
+
+    For each element, the fraction of its position MOVES that INCREASE its
+    distance to its eventual sorted position -- i.e. it accepts short-term cost
+    (moving away from its goal) en route to the global optimum. Returns the
+    per-agent index array plus distribution statistics. (Zhang et al. cell-view
+    sorting, 2024.) This is the metric the spec names; the older monotonicity
+    scalar (compute_delayed_gratification) is a global trajectory proxy that
+    collinearly re-encodes the algorithm label and is NOT used for the
+    non-redundancy survival test.
+    """
+    import numpy as _np
+    arrays = [_np.asarray(s["array"]) for s in (state_history or []) if "array" in s]
+    if len(arrays) < 2:
+        return {"dg_indices": _np.array([]), "mean": 0.0, "std": 0.0,
+                "q25": 0.0, "q50": 0.0, "q75": 0.0}
+    vals = arrays[0]
+    ideal = {int(v): r for r, v in enumerate(_np.sort(vals))}
+    T = len(arrays)
+    pos = {int(v): _np.empty(T, dtype=int) for v in vals}
+    for t, a in enumerate(arrays):
+        for i, v in enumerate(a):
+            pos[int(v)][t] = i
+    dg = []
+    for v in vals:
+        p = pos[int(v)]
+        d = _np.abs(p - ideal[int(v)])
+        mv = _np.where(_np.diff(p) != 0)[0]
+        dg.append(float(_np.sum(d[mv + 1] > d[mv])) / len(mv) if len(mv) else 0.0)
+    dg = _np.asarray(dg)
+    return {"dg_indices": dg, "mean": float(dg.mean()), "std": float(dg.std()),
+            "q25": float(_np.quantile(dg, 0.25)), "q50": float(_np.quantile(dg, 0.5)),
+            "q75": float(_np.quantile(dg, 0.75))}
