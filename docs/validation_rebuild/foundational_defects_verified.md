@@ -317,3 +317,21 @@ regime fixed first. NOT a cosmetic threshold tweak — deferred like P4.
 ### Group C COMPLETE-as-far-as-faithful: P6, P7, P20, P32, P28 RESOLVED; P18 honest PARTIAL (#36); P30 deferred (#38).
 ### Foundational fixes: 16/19 RESOLVED (P13,P15,P8,P17,P9,P24,P26,P19,P23,P21,P31,P6,P7,P20,P32,P28). DEFERRED: P4 (#35), P30 (#38). P18 honest PARTIAL + refinement (#36).
 ### Remaining cross-cutting: DEFINITIVE null-floor fix (P32 fixed locally via 999 perms; audit it catalog-wide). Then re-run all panels + rewrite paper (#33).
+
+### CROSS-CUTTING null-floor fix — RESOLVED (commit ed256ae, validation-rebuild)
+A permutation/surrogate p from N draws floors at 1/(N+1) (detectors clamp p to
+1/(N+1) when observed beats all nulls). Several DEFINITIVE gates required null_p
+strictly BELOW that floor -> tier mathematically unreachable. Principle landed
+catalog-wide: strongest tier gate must be `<= floor` (beat ALL N nulls) -> p<=0.005
+at N>=199, p<=0.001 at N>=999. Fixes:
+- P1 (n=999): `<0.001`->`<=0.001`; positives now 5/5 DEFINITIVE (were confirmation), TNR 1.0.
+- P12 (n=199): definitive `>=0.005`->`>0.005`; 3/5 DEFINITIVE (2 cap on score>2/direction-stable), PASS.
+- P13 (n=199): `<0.001`->`>0.005`; removes impossible gate, positives honestly stay CONFIRMATION
+  (gated by rotations>=100 / boundary-TE class), TNR 1.0.
+- P31: degenerate single-run null (best p=0.005); DEFINITIVE now returns False -> caps at
+  CONFIRMATION; real DEFINITIVE evidence is the multi-run non-redundancy test.
+- P19: detector default n_perm 99->199 (panel already 199; closes a standalone footgun).
+NOT touched (verified correct): P5/P6 (`<0.001` are confidence bonuses, not gates), P9 (gates
+on cycle count), P20/P24/P25/P26/P29/P4 (already `<=0.005`). Remaining `null_p<0.001` in the
+catalog are CONFIDENCE bonuses (cap score, do not gate tier) — harmless.
+### Paper note: DEFINITIVE depth claims are now honest — P1/P12 reach it; P13/P31 honestly cap at CONFIRMATION.
