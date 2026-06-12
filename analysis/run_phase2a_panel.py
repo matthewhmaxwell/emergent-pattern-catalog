@@ -772,7 +772,7 @@ def build_p6_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Di
         m = DOrsognaSPPModel(
             n_particles=100, C_a=0.5, C_r=1.0,
             l_a=3.0, l_r=0.5, alpha=1.0, beta=0.5,
-            dt=0.05, init_mode="ring", init_radius=5.0,
+            dt=0.05, init_mode="random", init_radius=5.0,  # EMERGENT mill from random IC (not a planted ring)
             seed=seed,
         )
         runs.append(m.run(n_steps=3000))
