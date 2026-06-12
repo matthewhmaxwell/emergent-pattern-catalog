@@ -34,6 +34,7 @@ class P21DetectorResult:
     dip_stat: float                 # Hartigan's dip statistic
     dip_p: float                    # Dip test p-value
     variance: float                 # Final opinion variance
+    between_cluster_distance: float  # Separation between camps (largest opinion gap)
     persistence_steps: int          # Steps with stable multimodality
     from_unimodal: bool             # Started from unimodal initial condition
     full_range_consensus: bool      # Full-range null converged to consensus
@@ -114,7 +115,7 @@ def detect_p21(
         return P21DetectorResult(
             detected=False, tier="none", confidence=0.0,
             n_clusters=0, dip_stat=0.0, dip_p=1.0,
-            variance=0.0, persistence_steps=0,
+            variance=0.0, between_cluster_distance=0.0, persistence_steps=0,
             from_unimodal=False, full_range_consensus=False,
             warnings=["Insufficient history"],
         )
@@ -132,6 +133,12 @@ def detect_p21(
     # --- Variance ---
     variance = float(np.var(final_opinions))
 
+    # Between-cluster distance = largest gap between adjacent sorted opinions =
+    # separation between camps (spec: between-cluster distance exceeding the
+    # confidence bound). Large for genuine polarization; ~0 for consensus.
+    _sorted_op = np.sort(final_opinions)
+    between_cluster_distance = float(np.max(np.diff(_sorted_op))) if len(_sorted_op) > 1 else 0.0
+
     # --- Persistence: how many steps was it multimodal? ---
     persistence = 0
     for h in reversed(history):
@@ -143,8 +150,8 @@ def detect_p21(
 
     # --- Initial condition check: started from unimodal? ---
     init_opinions = history[0]["opinions"]
-    _, init_dip_p = _hartigan_dip(init_opinions, n_boot=200, seed=99)
-    from_unimodal = init_dip_p > 0.05  # could not reject unimodality
+    # Emergence: the IC must not already be clustered (the camps EMERGED).
+    from_unimodal = _count_clusters(init_opinions, gap=gap_threshold) < 2
 
     # --- Full-range null: would consensus occur at ε→∞? ---
     # This is always true for HK with ε > 0.5 (all agents interact)
@@ -154,12 +161,17 @@ def detect_p21(
     n_steps = history[-1].get("step", len(history) - 1)
 
     # --- Classification ---
-    screening = dip_p < 0.05 and n_clusters >= 2
+    # Spec signature: persistent multimodality with camps separated beyond the
+    # within-cluster spread + nonzero variance. The prior gates used an inverted
+    # KS-uniformity distance mislabelled Hartigan dip (fired on Gaussians AND on
+    # consensus); discrimination is now the genuine separation + variance.
+    SEP_MIN, VAR_MIN = 0.10, 0.01
+    screening = n_clusters >= 2 and between_cluster_distance > SEP_MIN
     confirmation = (
         screening
-        and dip_p < 0.01
-        and n_clusters >= 2
+        and variance > VAR_MIN
         and persistence >= 50
+        and from_unimodal  # camps EMERGED (reject a static synthetic bimodal)
     )
     definitive = (
         confirmation
@@ -176,7 +188,7 @@ def detect_p21(
         confidence = min(0.60 + 0.25 * min(n_clusters / 2, 1.0), 0.85)
     elif screening:
         tier = "screening"
-        confidence = min(0.30 + 0.30 * min(dip_stat / 0.05, 1.0), 0.60)
+        confidence = min(0.30 + 0.30 * min(between_cluster_distance / 0.4, 1.0), 0.60)
     else:
         tier = "none"
         confidence = 0.0
@@ -192,6 +204,7 @@ def detect_p21(
         dip_stat=round(dip_stat, 4),
         dip_p=round(dip_p, 4),
         variance=round(variance, 6),
+        between_cluster_distance=round(between_cluster_distance, 4),
         persistence_steps=persistence,
         from_unimodal=from_unimodal,
         full_range_consensus=full_range_consensus,
