@@ -604,6 +604,47 @@ def _particles_history_from_random(
 
 # --- Generators (10) ---------------------------------------------------------
 
+SCALAR_WEALTH_N_AGENTS = 300
+SCALAR_WEALTH_N_FRAMES = 60
+
+
+def _scalar_wealth_null(
+    rng: np.random.Generator,
+    kind: str,
+    n_agents: int = SCALAR_WEALTH_N_AGENTS,
+    n_frames: int = SCALAR_WEALTH_N_FRAMES,
+) -> List[Dict[str, Any]]:
+    """Class A wealth null for P28 (scalar_wealth format).
+
+    Static / non-emergent wealth distributions the condensation detector must
+    reject (no conserved monotonic super-Boltzmann Gini growth from near-
+    equality). uniform/gaussian/binary/white_noise resample i.i.d. each frame
+    (Gini ~ constant over time -> no emergence); constant = equal wealth
+    (Gini 0); gradient = a fixed unequal distribution (high Gini but static ->
+    fails the emergence gate).
+    """
+    base = None
+    if kind == "constant":
+        base = np.ones(n_agents)
+    elif kind == "gradient":
+        base = np.linspace(0.1, 2.0, n_agents)
+    frames: List[Dict[str, Any]] = []
+    for t in range(n_frames):
+        if kind == "uniform":
+            w = rng.uniform(0.5, 1.5, size=n_agents)
+        elif kind == "gaussian":
+            w = np.clip(rng.normal(1.0, 0.3, size=n_agents), 1e-6, None)
+        elif kind == "binary":
+            w = rng.choice(np.array([0.5, 1.5]), size=n_agents)
+        elif kind == "white_noise":
+            w = np.clip(rng.exponential(1.0, size=n_agents), 1e-6, None)
+        else:
+            w = np.clip(base + rng.normal(0.0, 0.005, size=n_agents), 1e-6, None)
+        frames.append({"wealth": np.asarray(w, dtype=np.float64), "step": t})
+    return frames
+
+
+
 def random_uniform_field(
     format: str,
     seed: int,
@@ -658,6 +699,8 @@ def random_uniform_field(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "uniform")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -720,6 +763,8 @@ def random_gaussian_field(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "gaussian")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -784,6 +829,8 @@ def random_binary_field(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "binary")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -850,6 +897,8 @@ def spatial_white_noise_series(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "white_noise")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -943,6 +992,8 @@ def temporal_white_noise_per_cell(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "white_noise")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1126,6 +1177,9 @@ def permutation_shuffled_positive(
         # → degenerate-by-construction. Will be skipped by
         # permutation_invariant=True.
         return list(positive)
+    if format == "scalar_wealth":
+        # Gini is permutation-invariant -> degenerate; skipped via permutation_invariant=True.
+        return list(positive) if positive else []
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1275,6 +1329,14 @@ def constant_field(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "constant")
+    if format == "scalar_wealth":
+        # Shuffle frame order -> destroys emergence + monotonic growth -> P28 rejects.
+        if not positive:
+            return []
+        idx = rng.permutation(len(positive))
+        return [dict(positive[int(i)], step=t) for t, i in enumerate(idx)]
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1358,6 +1420,8 @@ def linear_gradient_field(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "gradient")
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1464,6 +1528,8 @@ def periodic_checkerboard(
         return _task_allocation_null_history(rng, n_steps=n_steps)
     if format == "particle_membrane":
         return _particle_membrane_null_history(rng, n_steps=n_steps)
+    if format == "scalar_wealth":
+        return _scalar_wealth_null(rng, "binary")
     raise ValueError(f"unknown format: {format}")
 
 

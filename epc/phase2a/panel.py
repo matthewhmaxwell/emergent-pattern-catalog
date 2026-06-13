@@ -350,6 +350,9 @@ def run_panel(
     elif detector_format == "particle_membrane":
         # Particle-membrane generators use their own defaults (n_particles, box_size).
         pass  # n_steps already in class_a_kwargs
+    elif detector_format == "scalar_wealth":
+        # Scalar-wealth generators use their own defaults (n_agents, n_frames).
+        pass  # n_steps already in class_a_kwargs
 
     class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):

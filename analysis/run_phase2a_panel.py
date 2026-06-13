@@ -67,6 +67,7 @@ from epc.phase2a.failed_regimes import p1_schelling as p1_failed
 from epc.phase2a.failed_regimes import p3_gray_scott as p3_failed
 from epc.phase2a.failed_regimes import p12_rps as p12_failed
 from epc.phase2a.failed_regimes import p13_gh as p13_failed
+from epc.phase2a.failed_regimes import p28_wealth as p28_failed
 from epc.phase2a.failed_regimes import p11_lotka_volterra as p11_failed
 from epc.phase2a.failed_regimes import p5_vicsek as p5_failed
 from epc.phase2a.failed_regimes import p2_active_brownian as p2_failed
@@ -1756,6 +1757,61 @@ def make_p20_detector_fn(n_permutations: int = 199, seed: int = 42):
     return fn
 
 
+def build_p28_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """P28 canonical positive: pure yard-sale condensation (conserved,
+    multiplicative), with the t=0 equal state recorded so emergence is visible.
+    """
+    from epc.models.yard_sale import YardSale
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        m = YardSale(n_agents=1000, f=0.5, lambda_save=0.0, chi=0.0,
+                     init_mode="equal", seed=seed + 1)
+        s0 = m.setup()
+        frames: List[Dict[str, Any]] = [
+            {"wealth": np.asarray(s0["wealth"], dtype=np.float64).copy(), "step": 0}
+        ]
+        for t in range(100):
+            s = m.step(n_transactions=2000)
+            frames.append({"wealth": np.asarray(s["wealth"], dtype=np.float64).copy(),
+                           "step": t + 1})
+        runs.append(frames)
+        if seed == 0:
+            metadata = m.get_metadata()
+    return runs, metadata
+
+
+def make_p28_detector_fn(n_permutations: int = 199, seed: int = 42):
+    from epc.detectors.p28_wealth_condensation import P28WealthCondensationDetector
+    detector = P28WealthCondensationDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return detector.detect(history, model_metadata=metadata)
+    return fn
+
+
+def run_p28(out_path: str = "analysis/outputs/p28_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
+    """P28 (wealth condensation) Phase-2a panel.
+
+    detector_format=scalar_wealth. Class A: static/non-emergent wealth
+    distributions (rejected by the emergence gate). Class B: 0 catalog mates
+    (scalar_wealth is a unique substrate). Class C: failed_regimes/p28_wealth
+    (saving, redistribution, Bouchaud-Mezard non-conserved, additive Boltzmann).
+    """
+    print(f"--- Running P28 panel → {out_path}")
+    positives, metadata = build_p28_positives(n_seeds=5)
+    detector_fn = make_p28_detector_fn(n_permutations=199, seed=42)
+    return run_panel(
+        detector_fn,
+        pattern_id="P28",
+        detector_format="scalar_wealth",
+        canonical_positive_runs=positives,
+        canonical_metadata=metadata,
+        failed_regime_module=p28_failed,
+        output_path=out_path,
+        verbose=verbose,
+    )
+
+
 def run_p20(out_path: str = "analysis/outputs/p20_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     """Run P20 (quorum sensing) Phase-2a panel v1.2.
 
@@ -2097,6 +2153,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P25"] = run_p25()
     if which in ("p20",):
         summaries["P20"] = run_p20()
+    if which in ("p28",):
+        summaries["P28"] = run_p28()
     if which in ("p4",):
         summaries["P4"] = run_p4()
     if which in ("p29",):
