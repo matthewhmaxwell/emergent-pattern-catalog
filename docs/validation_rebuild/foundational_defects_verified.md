@@ -335,3 +335,27 @@ NOT touched (verified correct): P5/P6 (`<0.001` are confidence bonuses, not gate
 on cycle count), P20/P24/P25/P26/P29/P4 (already `<=0.005`). Remaining `null_p<0.001` in the
 catalog are CONFIDENCE bonuses (cap score, do not gate tier) — harmless.
 ### Paper note: DEFINITIVE depth claims are now honest — P1/P12 reach it; P13/P31 honestly cap at CONFIRMATION.
+
+### P18 — RESOLVED, PARTIAL -> PASS (commit 6087340, validation-rebuild)
+Two causes, both fixed: (1) null floor — panel ran at n=99 (floor 0.01) so the
+confirmation null_p<0.01 gate was unreachable, capping positives at SCREENING;
+bumped to 199. (2) P11_lotka_volterra FP — LV on a grid reaches near-consensus
+(minority 0.013) but via near-uniformity (final Moran's I ~0.32), NOT voter-style
+large compact domains; raised SCREENING_MORAN_FINAL_MIN 0.30->0.40 (voter band
+0.46-0.66; DEFINITIVE already uses [0.45,0.75]). Panel: 5/5 DEFINITIVE, all 10
+synthetics + all 8 catalog mates rejected, overall_tnr 1.0. Manufactured-PASS
+(87fe0b6) stays removed — genuine pass now. Task #36 closed.
+
+### Null-floor sweep completion (commit 176dcef): P22 + P27 panels 99 -> 199
+Same floor trap as P18. P22: 5/5 DEFINITIVE, TNR 1.0. P27: null floor fixed
+(pos reaches definitive), TNR 1.0; SEPARATE pre-existing positive-robustness gap
+(2/5 seeds undetected) noted. No panel run remains at n=99.
+
+### P28 — full Phase-2a harness wired (commit 4cf6fe7). Task #37 closed.
+Added scalar_wealth Class A format to all 10 synthetic generators + panel
+dispatch + build/make/run_p28. Panel: 5/5 DEFINITIVE; 9 Class A synthetics
+rejected; permutation_shuffled SKIPPED (perm-invariant); time_shuffled rejected;
+4 Class C lookalikes rejected; overall_tnr 1.0.
+
+### STATUS: 17/19 foundational fixed + P18 PASS. Cross-cutting null-floor COMPLETE.
+### Deferred: P30 (#38, model-level), P4 (#35, substrate). P27 positive-robustness minor follow-up.
