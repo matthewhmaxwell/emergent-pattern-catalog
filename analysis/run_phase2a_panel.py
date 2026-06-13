@@ -162,7 +162,7 @@ def build_p9_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Di
 
 # --- Detector adapters (history, metadata) → result --------------------------
 
-def make_p18_detector_fn(n_permutations: int = 99, seed: int = 42):
+def make_p18_detector_fn(n_permutations: int = 199, seed: int = 42):  # 99 floors null_p at 0.01 so the p<0.01 confirmation gate was unreachable
     from epc.detectors.p18_consensus import P18ConsensusDetector
     detector = P18ConsensusDetector(n_permutations=n_permutations, seed=seed)
     def fn(history, metadata=None):
@@ -216,7 +216,7 @@ def make_p9_detector_fn(n_null_runs: int = 199, seed: int = 42):  # 99 floors p 
 def run_p18(out_path: str = "analysis/outputs/p18_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P18 panel → {out_path}")
     positives, metadata = build_p18_positives(n_seeds=5)
-    detector_fn = make_p18_detector_fn(n_permutations=99, seed=42)
+    detector_fn = make_p18_detector_fn(n_permutations=199, seed=42)  # 99 floors null_p at 0.01; confirmation needs <0.01
     return run_panel(
         detector_fn,
         pattern_id="P18",

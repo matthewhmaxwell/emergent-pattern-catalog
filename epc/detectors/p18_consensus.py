@@ -136,7 +136,7 @@ class P18ConsensusDetector(BaseDetector):
 
     # Characterization-derived gates (Sprint 20 §4.20; Sprint 24 C5 update)
     SCREENING_MORAN_SPEARMAN_MIN = 0.70
-    SCREENING_MORAN_FINAL_MIN = 0.30
+    SCREENING_MORAN_FINAL_MIN = 0.40  # voter coarsening => large compact domains (final Moran's I 0.46-0.66); rejects P11-LV (near-uniform + scattered minority, Moran's I ~0.32 despite consensus)
     SCREENING_MORAN_GROWTH_MIN = 0.20
 
     CONFIRMATION_WALL_SPEARMAN_MAX = -0.40
