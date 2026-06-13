@@ -355,7 +355,7 @@ def make_p22_detector_fn(n_permutations: int = 99, seed: int = 42):
 def run_p27(out_path: str = "analysis/outputs/p27_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P27 panel → {out_path}")
     positives, metadata = build_p27_positives(n_seeds=5)
-    detector_fn = make_p27_detector_fn(n_permutations=99, seed=42)
+    detector_fn = make_p27_detector_fn(n_permutations=199, seed=42)  # 99 floors null_p at 0.01; moran_p<0.01 gate unreachable
     return run_panel(
         detector_fn,
         pattern_id="P27",
@@ -373,7 +373,7 @@ def run_p27(out_path: str = "analysis/outputs/p27_phase2a_panel.json", verbose: 
 def run_p22(out_path: str = "analysis/outputs/p22_phase2a_panel.json", verbose: bool = True) -> Dict[str, Any]:
     print(f"--- Running P22 panel → {out_path}")
     positives, metadata = build_p22_positives(n_seeds=5)
-    detector_fn = make_p22_detector_fn(n_permutations=99, seed=42)
+    detector_fn = make_p22_detector_fn(n_permutations=199, seed=42)  # 99 floors null_p at 0.01; confirmation null_p<0.01 unreachable
     return run_panel(
         detector_fn,
         pattern_id="P22",
