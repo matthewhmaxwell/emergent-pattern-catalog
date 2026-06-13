@@ -194,6 +194,83 @@ class ScentMarkingModel:
 
         return history
 
+    def simulate_movement_bundle(
+        self,
+        burnin: int = 4000,
+        window: int = 1500,
+        scent_blind: bool = False,
+    ) -> List[Dict[str, Any]]:
+        """Fine per-step movement record for the P4 movement-causality test.
+
+        Runs ``burnin`` steps so territories form, then records, for ``window``
+        steps, each agent's position and the FOREIGN-scent landscape it faced
+        (foreign scent at each torus neighbor + those neighbor cells) and the
+        realized move. The chosen cell (next position) reveals whether movement
+        AVOIDS foreign scent (territorial) or is indifferent (random walk) — the
+        causal signature the coarse cumulative-occupancy snapshots cannot expose.
+
+        ``scent_blind=True`` moves uniformly over neighbors (still depositing
+        scent): the scent-blind random-walk null the avoidance metric must beat.
+        """
+        p = self.params
+        L = p.grid_size
+        N = p.n_agents
+        scent = np.zeros((N, L, L), dtype=np.float64)
+        positions = np.zeros((N, 2), dtype=int)
+        side = int(np.ceil(np.sqrt(N)))
+        spacing = L // side
+        for i in range(N):
+            positions[i, 0] = ((i // side) * spacing + spacing // 2) % L
+            positions[i, 1] = ((i % side) * spacing + spacing // 2) % L
+        threshold = p.repulsion_strength * p.deposition_rate
+        bundle: List[Dict[str, Any]] = []
+        for step in range(burnin + window):
+            scent *= (1.0 - p.decay_rate)
+            for i in range(N):
+                r, c = positions[i]
+                scent[i, r, c] += p.deposition_rate
+            rec = step >= burnin
+            if rec:
+                step_pos = positions.copy()
+                K = len(_neighbors_torus(0, 0, L))
+                nb_foreign = np.zeros((N, K), dtype=np.float64)
+                nb_cells = np.zeros((N, K, 2), dtype=int)
+            for i in range(N):
+                r, c = positions[i]
+                nbrs = _neighbors_torus(r, c, L)
+                foreign = np.array([
+                    sum(scent[k, nr, nc] for k in range(N) if k != i)
+                    for nr, nc in nbrs
+                ])
+                own = np.array([scent[i, nr, nc] for nr, nc in nbrs])
+                if rec:
+                    nb_foreign[i] = foreign
+                    nb_cells[i] = np.array(nbrs, dtype=int)
+                if scent_blind:
+                    choice_cell = nbrs[self.rng.integers(len(nbrs))]
+                else:
+                    allowed = [j for j in range(len(nbrs)) if foreign[j] <= threshold]
+                    if not allowed:
+                        choice_cell = (r, c)
+                    else:
+                        w = (1.0 + p.home_attraction * own[allowed]) ** (
+                            1.0 / max(p.temperature, 0.01)
+                        )
+                        w = w / w.sum()
+                        choice_cell = nbrs[allowed[self.rng.choice(len(allowed), p=w)]]
+                positions[i] = choice_cell
+            if rec:
+                bundle.append({
+                    "positions": step_pos,
+                    "next_positions": positions.copy(),
+                    "neighbor_foreign": nb_foreign,
+                    "neighbor_cells": nb_cells,
+                    "step": step,
+                    "n_agents": N,
+                    "grid_size": L,
+                })
+        return bundle
+
     def get_metadata(self) -> Dict[str, Any]:
         """Return model metadata."""
         p = self.params

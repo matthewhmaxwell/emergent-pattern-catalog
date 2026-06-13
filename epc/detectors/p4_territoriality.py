@@ -256,6 +256,13 @@ class P4TerritorialityDetector:
         RNG seed for reproducibility.
     """
 
+    # Movement-causality thresholds (validation rebuild). Calibrated on the
+    # ScentMarkingModel: territorial avoidance_ratio in [0.00, 0.12], a
+    # scent-blind random walk in [0.94, 1.12].
+    _AVOID_SCREEN_MAX = 0.6   # below this => movement avoids foreign scent
+    _AVOID_DEF_MAX = 0.25     # near-absolute avoidance for DEFINITIVE
+    _MOVE_MIN = 30            # min scent-exposed moves for a reliable ratio
+
     def __init__(
         self,
         n_permutations: int = 199,
@@ -285,6 +292,15 @@ class P4TerritorialityDetector:
         """
         warnings: List[str] = []
         metadata_available = metadata is not None
+
+        # ── Faithful movement-causality path (validation rebuild) ──
+        # If the substrate carries per-step movement records, detect
+        # territoriality from whether MOVEMENT avoids foreign scent (the causal
+        # signature a random walk lacks). The legacy occupancy metrics below
+        # CANNOT separate territoriality from a random walk and are retained
+        # only for backward compatibility.
+        if history and isinstance(history[0], dict) and "neighbor_foreign" in history[0]:
+            return self._detect_movement(history, metadata_available)
 
         # ── Extract observation bundle (T1a) ──
         try:
@@ -517,6 +533,115 @@ class P4TerritorialityDetector:
             null_type=NullType.SHUFFLE,
             metadata_available=metadata_available,
             warnings=warnings,
+        )
+
+    def _avoidance_ratio(self, history):
+        """Movement-causality: foreign scent at the CHOSEN cell vs the mean over
+        available neighbours, summed over moves. Territorial movement avoids
+        foreign scent (ratio << 1); a scent-blind walk is indifferent (~1)."""
+        num = 0.0
+        den = 0.0
+        n_moves = 0
+        for fr in history:
+            nf = np.asarray(fr["neighbor_foreign"], dtype=float)
+            nc = np.asarray(fr["neighbor_cells"])
+            nx = np.asarray(fr["next_positions"])
+            N = int(fr["n_agents"])
+            for i in range(N):
+                match = np.where((nc[i, :, 0] == nx[i, 0]) & (nc[i, :, 1] == nx[i, 1]))[0]
+                if len(match) == 0:
+                    continue
+                mf = float(nf[i].mean())
+                if mf > 1e-9:
+                    num += float(nf[i, match[0]])
+                    den += mf
+                    n_moves += 1
+        ratio = num / den if den > 1e-9 else 0.0
+        return ratio, n_moves
+
+    def _avoidance_null_p(self, history, observed):
+        """Scent-blind null: for each move pick a RANDOM neighbour as the chosen
+        cell and recompute the ratio (centres ~1.0). Territorial observed (low)
+        falls far below. One-sided p = P(null <= observed)."""
+        rng = np.random.default_rng(self.seed)
+        null_ratios = []
+        for _ in range(self.n_permutations):
+            num = 0.0
+            den = 0.0
+            for fr in history:
+                nf = np.asarray(fr["neighbor_foreign"], dtype=float)
+                N = int(fr["n_agents"])
+                K = nf.shape[1]
+                for i in range(N):
+                    mf = float(nf[i].mean())
+                    if mf > 1e-9:
+                        num += float(nf[i, int(rng.integers(K))])
+                        den += mf
+            null_ratios.append(num / den if den > 1e-9 else 1.0)
+        arr = np.array(null_ratios)
+        p = float(np.mean(arr <= observed))
+        p = max(p, 1.0 / (self.n_permutations + 1))
+        return p, float(arr.mean()), float(arr.std())
+
+    def _detect_movement(self, history, metadata_available):
+        """Territoriality via scent-mediated movement causality."""
+        if len(history) < 10:
+            return self._no_detection(
+                warnings=["movement bundle too short (need >= 10 steps)"],
+                metadata_available=metadata_available,
+            )
+        ratio, n_moves = self._avoidance_ratio(history)
+        primary = {"avoidance_ratio": float(ratio), "n_moves": int(n_moves)}
+        if n_moves < self._MOVE_MIN:
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=[f"too few scent-exposed moves ({n_moves} < {self._MOVE_MIN})"],
+                metadata_available=metadata_available,
+            )
+        # SCREENING: movement avoids foreign scent (vs scent-blind ~1.0)
+        if ratio >= self._AVOID_SCREEN_MAX:
+            return self._no_detection(
+                primary_metric=primary,
+                warnings=[
+                    f"no foreign-scent avoidance (avoidance_ratio={ratio:.3f} >= "
+                    f"{self._AVOID_SCREEN_MAX}); movement is indifferent to foreign "
+                    "scent (random-walk-like), not territorial"
+                ],
+                metadata_available=metadata_available,
+            )
+        null_p, null_mean, null_std = self._avoidance_null_p(history, ratio)
+        cohens_d = (null_mean - ratio) / null_std if null_std > 1e-9 else float("nan")
+        effect = {"avoidance_ratio": float(ratio), "null_mean": null_mean,
+                  "null_std": null_std, "cohens_d": cohens_d,
+                  "note": "lower avoidance_ratio = stronger foreign-scent avoidance"}
+        confirmed = null_p < 0.01
+        definitive = confirmed and ratio < self._AVOID_DEF_MAX
+        if definitive:
+            tier = DetectionTier.DEFINITIVE
+            bonuses = {"all_exclusions_cleared": True,
+                       "both_null_types_rejected": null_p <= 0.005,
+                       "finite_size_robustness": n_moves >= 200}
+        elif confirmed:
+            tier = DetectionTier.CONFIRMATION
+            bonuses = {"null_p_0001": null_p < 0.001,
+                       "effect_size_gt_1": isinstance(cohens_d, float) and cohens_d > 1.0,
+                       "all_secondaries": True}
+        else:
+            tier = DetectionTier.SCREENING
+            bonuses = {"secondaries_pass": True, "shuffle_null_p_001": null_p < 0.01}
+        confidence = compute_confidence(tier, bonuses)
+        return DetectorResult(
+            pattern_id=self.pattern_id,
+            detected=True,
+            tier=tier,
+            confidence=confidence,
+            primary_metric=primary,
+            secondary_metrics={"avoidance_ratio": float(ratio), "n_moves": int(n_moves)},
+            effect_size=effect,
+            null_p_value=null_p,
+            null_type=NullType.SHUFFLE,
+            metadata_available=metadata_available,
+            warnings=[],
         )
 
     def _no_detection(
