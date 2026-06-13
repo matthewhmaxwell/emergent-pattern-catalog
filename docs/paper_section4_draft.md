@@ -1,5 +1,14 @@
 # Section 4: Replication Studies
 
+> **⚠ VALIDATION-STATUS CORRECTION (validation rebuild, supersedes this section).**
+> The per-pattern PASS claims and **every numeric Cohen's *d*** below (including
+> "*d* = +∞") predate the validation rebuild. They were computed over a discrete
+> tier-confidence score and are artifacts of a vacuous effect-size gate; 15/32
+> patterns reported *d* = ∞. Discrimination is now reported by **true-negative
+> rate**, and depth is reassessed, in **§4A (Validation — Rebuild and Honest
+> Status)**. The **P4 and P30 "PASS" results are withdrawn** (deferred
+> limitations). Read §4A for the faithful state before relying on any claim here.
+
 To validate the detection toolkit, we implemented 20 canonical model
 files covering 19 distinct model families (Zhang cell-view sorting has
 sequential and threaded variants of the same family that are folded as

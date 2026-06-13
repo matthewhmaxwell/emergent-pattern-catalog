@@ -660,3 +660,19 @@ review at the next paper-review checkpoint.
   reinforcement dynamics + weight accumulation — Tero 2010, Deneubourg 1990).
 - analysis/run_phase2a_panel.py: P29 panel runner wired.
 - analysis/outputs/p29_phase2a_panel.json: dim4 panel output (PASS).
+
+## Validation rebuild (2026-06-13) — honest-status correction
+- NEW §4A (docs/paper_section4A_validation_rebuild.md): authoritative honest
+  validation status. Supersedes per-pattern PASS claims + ALL Cohen's d values
+  in §4/§6 (the d's were over discrete tier-confidence; 15/32 reported d=∞ — a
+  vacuous gate). Discrimination now reported by TNR; verdict
+  TNR-PASS-EFFECT-UNDEFINED explained.
+- §4 + §6: VALIDATION-STATUS CORRECTION banner added at top, pointing to §4A.
+- Honest state: 16 detectors faithfully rebuilt+verified (P6,P7,P8,P9,P13,P15,
+  P17,P18,P19,P20,P21,P23,P24,P26,P28,P32); P1/P12/P22/P27 tier-reachability
+  fixed (null floor); P31 = CONFIRMATION (single-run) + non-redundancy test;
+  P13 honest CONFIRMATION; P2/P3/P5/P10/P11/P14/P16/P25/P29 carried forward
+  (not re-audited at rebuild depth). WITHDRAWN: P4 + P30 "PASS" (deferred
+  limitations — territoriality needs movement-causality; autopoiesis model
+  makes a diffuse cloud not a membrane). P21 PASS-with-weakness; P27 positive
+  seed-fragile (2/5).
