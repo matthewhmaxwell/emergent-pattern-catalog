@@ -106,6 +106,7 @@ class AutopoiesisModel:
         repulsion_radius: float = 0.4,
         repulsion_strength: float = 1.5,
         dt: float = 1.0,
+        max_links: int = -1,  # cap on link count (-1 = uncapped); membrane needs ~ring capacity
         seed: int = 42,
     ) -> None:
         self.n_substrate = n_substrate
@@ -124,6 +125,7 @@ class AutopoiesisModel:
         self.repulsion_radius = repulsion_radius
         self.repulsion_strength = repulsion_strength
         self.dt = dt
+        self.max_links = max_links
         self.seed = seed
         self.rng = np.random.default_rng(seed)
 
@@ -172,6 +174,8 @@ class AutopoiesisModel:
         if len(cat_idx) == 0 or len(sub_idx) == 0:
             return
 
+        if self.max_links > 0 and int(np.sum(self.types == self.TYPE_LINK)) >= self.max_links:
+            return
         cat_pos = self.positions[cat_idx]
         for si in sub_idx:
             delta = self.positions[si] - cat_pos
@@ -180,6 +184,8 @@ class AutopoiesisModel:
             if np.min(dists) < self.production_radius:
                 if self.rng.random() < self.production_rate:
                     self.types[si] = self.TYPE_LINK
+                    if self.max_links > 0 and int(np.sum(self.types == self.TYPE_LINK)) >= self.max_links:
+                        break
 
     def _do_decay(self) -> None:
         """Links stochastically decay back to substrate."""
