@@ -359,3 +359,16 @@ rejected; permutation_shuffled SKIPPED (perm-invariant); time_shuffled rejected;
 
 ### STATUS: 17/19 foundational fixed + P18 PASS. Cross-cutting null-floor COMPLETE.
 ### Deferred: P30 (#38, model-level), P4 (#35, substrate). P27 positive-robustness minor follow-up.
+
+### P4 — RESOLVED, deferral lifted (commit bd85577, validation-rebuild)
+The legacy occupancy metrics couldn't separate territoriality from a random walk.
+Faithful fix: a scent-mediated MOVEMENT-CAUSALITY metric. Model gains
+simulate_movement_bundle (per-step position + neighbour foreign-scent + realized
+move; scent_blind flag = the scent-blind RW null). Detector gains a movement
+path: avoidance_ratio = foreign(chosen)/mean foreign(neighbours); territorial
+<<1, scent-blind RW ~1. Tiers SCREENING<0.6 / CONFIRMATION +null_p<0.01 /
+DEFINITIVE +ratio<0.25. Denser positive (N=9, 48x48) for enough boundary
+contact. Standalone test: 5/5 territorial detected (3 DEFINITIVE, 2 CONFIRMATION),
+5/5 scent-blind RW rejected on identical scent dynamics. Full Phase-2a harness
+wiring (territorial_movement_bundle format) is a mechanical follow-up.
+### Foundational fixes: 18/19 RESOLVED. Only P30 deferred (model-level, #38).
