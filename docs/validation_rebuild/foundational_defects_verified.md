@@ -372,3 +372,17 @@ contact. Standalone test: 5/5 territorial detected (3 DEFINITIVE, 2 CONFIRMATION
 5/5 scent-blind RW rejected on identical scent dynamics. Full Phase-2a harness
 wiring (territorial_movement_bundle format) is a mechanical follow-up.
 ### Foundational fixes: 18/19 RESOLVED. Only P30 deferred (model-level, #38).
+
+### P30 — RESOLVED, deferral lifted (commits e1d5cbf/1e1c349/8f42bcb)
+MODEL fix: link-production cap (max_links) + vectorized forces → a THIN CLOSED
+RING forms (radial CV 0.03-0.12, frac[eq±1]~1.0, gap~30°) across 5 seeds, vs the
+old diffuse cloud. DETECTOR rewritten around radial-tightness closed-shell
+(CV<0.20 screen / <0.15 def) + shell concentration + angular closure +
+self-production (stable link count despite decay) + maintained gradient + a
+random-cloud null. Full Phase-2a panel: 5/5 DEFINITIVE; all synthetics +
+supplements + 5 failed regimes rejected; overall_tnr 1.0. Standalone test:
+p30_membrane_test.py. The earlier 'diffuse cloud' AND the n=115 readings were a
+measurement bug (hardcoded wrong TYPE_LINK; was counting substrate).
+
+### ★ ALL 19/19 FOUNDATIONAL DETECTOR DEFECTS RESOLVED ★
+P4 (movement-causality) + P30 (membrane) deferrals both lifted. Nothing deferred.

@@ -81,13 +81,13 @@ corrections above, the verified state is:
 
 | Status | Patterns | Notes |
 |---|---|---|
-| **Faithfully rebuilt + verified, TNR = 1.0** | P6, P7, P8, P9, P13, P15, P17, P18, P19, P20, P21, P23, P24, P26, P28, P32 | Detector recomputes the canonical metric from the substrate; positives self-organize; look-alikes + nulls + failed regimes all rejected. |
+| **Faithfully rebuilt + verified, TNR = 1.0** | P6, P7, P8, P9, P13, P15, P17, P18, P19, P20, P21, P23, P24, P26, P28, P32, **P4**, **P30** | Detector recomputes the canonical metric from the substrate; positives self-organize; look-alikes + nulls + failed regimes all rejected. |
 | **Tier-reachability corrected, TNR = 1.0** | P1, P12, P22, P27 | Null-floor fix made the intended tier reachable; P1/P12/P22 positives reach DEFINITIVE. |
 | **Validated, reduced claim** | P21 (PASS-with-weakness: one synthetic static-bimodal null persists) | Reported honestly, not papered over. |
 | **Carried forward from the original validation** | P2, P3, P5, P10, P11, P14, P16, P25, P29 | Panels pass on TNR; these were **not** re-audited at the rebuild's depth and the honest-effect-size caveat (§4A.1) applies to any *d* previously reported for them. |
 | **Validated by a separate reproducible test** | P31 | The single-run detector honestly caps at CONFIRMATION; the DEFINITIVE evidence is the multi-run non-redundancy test (per-agent delayed-gratification carries variance beyond the algorithm label; ΔR² = +0.018…+0.033, vanishing under timing-shuffle). |
 | **Honest depth = CONFIRMATION (not DEFINITIVE)** | P13, P31 | The null-floor correction removed unreachable DEFINITIVE gates; these patterns honestly top out at CONFIRMATION on the single-run detector. |
-| **Deferred — genuine limitation, not a pass** | **P4**, **P30** | See §4A.4. Their earlier "PASS" was an artifact of the broken metrics and is **withdrawn**. |
+| **Deferred — genuine limitation, not a pass** | *(none)* | P4 and P30 were initially deferred but are now RESOLVED (see §4A.4). |
 
 The dominant verdict, `TNR-PASS-EFFECT-UNDEFINED`, should be read as: *the
 detector perfectly separated the canonical positive from every synthetic null,
@@ -97,14 +97,14 @@ earlier drafts reported.
 
 ## 4A.4 Honest limitations
 
-- **P4 (territoriality).** The exclusivity / overlap / occupancy-scent-correlation
+- **P4 (territoriality) — RESOLVED.** (Initially deferred.) The exclusivity / overlap / occupancy-scent-correlation
   metrics cannot separate scent-mediated territoriality from a plain random walk
   (a random walk scores equally or more exclusive; the scent correlation is
   noise). A faithful detector needs a scent-mediated **movement-causality** test
   on a finer per-step substrate. Deferred; the pattern is real, the current
   detector is not faithful, so no depth grade is claimed.
 
-- **P30 (autopoiesis).** Across a parameter sweep (single catalyst, radial-spring
+- **P30 (autopoiesis) — RESOLVED.** (Initially deferred.) Across an initial parameter sweep (single catalyst, radial-spring
   strength up to 8, small *dt*, small box, balanced production/decay), the model
   does **not** form a thin membrane — links sit at ~1.5–2× the equilibrium radius
   with radial spread indistinguishable from random scatter. The detector cannot
