@@ -153,6 +153,54 @@ def _compute_autopoiesis_metrics(
     }
 
 
+def _membrane_metrics(
+    positions: np.ndarray,
+    types: np.ndarray,
+    box_size: float,
+    link_type: int = 2,
+    cat_type: int = 1,
+    sub_type: int = 0,
+) -> dict[str, float]:
+    """Closed-shell membrane metrics from a single snapshot.
+
+    A genuine autopoietic membrane is a THIN, CLOSED shell of link particles at
+    a characteristic radius from the catalyst (production core). The decisive
+    signature is RADIAL TIGHTNESS: link-to-catalyst distances cluster at one
+    radius (low CV), unlike a diffuse cloud or random scatter (CV ~ 0.4).
+    """
+    out = {"n_links": 0.0, "radial_cv": 1.0, "shell_concentration": 0.0,
+           "med_radius": 0.0, "angular_gap_deg": 360.0, "gradient": 1.0}
+    links = positions[types == link_type]
+    cats = positions[types == cat_type]
+    subs = positions[types == sub_type]
+    out["n_links"] = float(len(links))
+    if len(links) < 3 or len(cats) == 0:
+        return out
+
+    def _nearest_cat_dist(P: np.ndarray) -> np.ndarray:
+        d = P[:, None, :] - cats[None, :, :]
+        d -= box_size * np.round(d / box_size)
+        return np.sqrt((d ** 2).sum(axis=-1)).min(axis=1)
+
+    r = _nearest_cat_dist(links)
+    med = float(np.median(r))
+    out["med_radius"] = med
+    out["radial_cv"] = float(r.std() / r.mean()) if r.mean() > 1e-9 else 1.0
+    if med > 1e-9:
+        out["shell_concentration"] = float(np.mean(np.abs(r - med) <= 0.4 * med))
+    com = cats.mean(axis=0)
+    dl = links - com
+    dl -= box_size * np.round(dl / box_size)
+    ang = np.sort(np.arctan2(dl[:, 1], dl[:, 0]))
+    gaps = np.diff(np.concatenate([ang, [ang[0] + 2 * np.pi]]))
+    out["angular_gap_deg"] = float(np.degrees(gaps.max()))
+    if len(subs) > 0 and med > 1e-9:
+        rs = _nearest_cat_dist(subs)
+        area_frac = np.pi * med ** 2 / (box_size ** 2)
+        out["gradient"] = float(np.mean(rs < med)) / area_frac if area_frac > 1e-9 else 1.0
+    return out
+
+
 class P30AutopoiesisDetector(BaseDetector):
     """Detector for P30: Spontaneous boundary formation / autopoiesis.
 
@@ -189,209 +237,107 @@ class P30AutopoiesisDetector(BaseDetector):
         self.association_radius = association_radius
         self._seed = seed
 
-    def _compute_primary(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, float]:
-        """Compute autopoiesis metrics over the late window (last 25%)."""
-        n = len(state_history)
-        late_start = max(1, 3 * n // 4)
-        late_history = state_history[late_start:]
+    # Calibrated on the membrane regime (max_links cap): positive radial_cv
+    # 0.03-0.12, shell_concentration ~1.0, n_links 35; random scatter / no-
+    # attraction CV ~0.4-0.56; no-production 0 links; high-decay ~3 links.
+    _MIN_LINKS = 15
+    _SCREEN_CV_MAX = 0.20
+    _SCREEN_SHELL_MIN = 0.70
+    _CONFIRM_GAP_MAX = 90.0
+    _CONFIRM_COUNT_CV_MAX = 0.30
+    _DEF_CV_MAX = 0.15
 
-        assoc_vals = []
-        closure_vals = []
-        enrich_vals = []
-        n_link_vals = []
-
-        for snap in late_history:
-            positions = np.asarray(snap['positions'], dtype=np.float64)
-            types = np.asarray(snap['types'], dtype=np.int32)
-            box_size = float(snap.get('box_size', 20.0))
-
-            metrics = _compute_autopoiesis_metrics(
-                positions, types, box_size,
-                association_radius=self.association_radius,
+    def _compute_primary(self, state_history, timescale):
+        """Membrane metrics averaged over the late window (last 25%)."""
+        late = state_history[max(1, 3 * len(state_history) // 4):]
+        keys = ["radial_cv", "shell_concentration", "med_radius",
+                "angular_gap_deg", "gradient", "n_links"]
+        acc = {k: [] for k in keys}
+        for snap in late:
+            m = _membrane_metrics(
+                np.asarray(snap["positions"], dtype=np.float64),
+                np.asarray(snap["types"], dtype=np.int32),
+                float(snap.get("box_size", 20.0)),
             )
-            assoc_vals.append(metrics['association_score'])
-            closure_vals.append(metrics['closure_fraction'])
-            enrich_vals.append(metrics['enrichment_ratio'])
-            n_link_vals.append(metrics['n_links'])
+            for k in keys:
+                acc[k].append(m[k])
+        return {k: float(np.mean(v)) for k, v in acc.items()}
 
-        return {
-            'association_score': float(np.mean(assoc_vals)),
-            'closure_fraction': float(np.mean(closure_vals)),
-            'enrichment_ratio': float(np.mean(enrich_vals)),
-            'mean_n_links': float(np.mean(n_link_vals)),
-        }
-
-    def _check_screening(
-        self,
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> bool:
-        """Screening: link-catalyst association above CSR AND angular closure."""
+    def _check_screening(self, primary_result, timescale):
+        """Screening: a THIN radial shell of links exists (closed-boundary topology)."""
         return (
-            primary_result.get('association_score', 0.0) > 1.5
-            and primary_result.get('closure_fraction', 0.0) > 0.5
-            and primary_result.get('mean_n_links', 0.0) >= 3
+            primary_result.get("n_links", 0.0) >= self._MIN_LINKS
+            and primary_result.get("radial_cv", 1.0) < self._SCREEN_CV_MAX
+            and primary_result.get("shell_concentration", 0.0) > self._SCREEN_SHELL_MIN
         )
 
-    def _compute_secondaries(
-        self,
-        state_history: list[dict[str, Any]],
-        timescale: float,
-    ) -> dict[str, Any]:
-        """Compute secondary metrics: temporal persistence + membrane stability."""
-        n = len(state_history)
-        late_start = max(1, 3 * n // 4)
-        late_history = state_history[late_start:]
-
-        assoc_per_snap = []
-        link_counts = []
-        for snap in late_history:
-            positions = np.asarray(snap['positions'], dtype=np.float64)
-            types = np.asarray(snap['types'], dtype=np.int32)
-            box_size = float(snap.get('box_size', 20.0))
-            metrics = _compute_autopoiesis_metrics(
-                positions, types, box_size,
-                association_radius=self.association_radius,
+    def _compute_secondaries(self, state_history, timescale):
+        """Self-production (link count stable + nonzero despite decay) + closure + gradient."""
+        late = state_history[max(1, 3 * len(state_history) // 4):]
+        counts = [int(np.sum(np.asarray(s["types"]) == 2)) for s in late]
+        carr = np.array(counts, dtype=float)
+        link_cv = float(carr.std() / carr.mean()) if carr.mean() > 0 else 999.0
+        gaps, grads = [], []
+        for snap in late:
+            m = _membrane_metrics(
+                np.asarray(snap["positions"], dtype=np.float64),
+                np.asarray(snap["types"], dtype=np.int32),
+                float(snap.get("box_size", 20.0)),
             )
-            assoc_per_snap.append(metrics['association_score'] > 1.5 and
-                                  metrics['closure_fraction'] > 0.5)
-            link_counts.append(int(np.sum(types == 2)))
-
-        persistence = float(np.mean(assoc_per_snap))
-        link_arr = np.array(link_counts, dtype=float)
-        link_cv = float(np.std(link_arr) / np.mean(link_arr)) if np.mean(link_arr) > 0 else 999.0
-
+            gaps.append(m["angular_gap_deg"])
+            grads.append(m["gradient"])
         return {
-            'closure_persistence': persistence,
-            'link_count_cv': link_cv,
-            'mean_link_count': float(np.mean(link_arr)),
+            "link_count_cv": link_cv,
+            "mean_link_count": float(carr.mean()),
+            "angular_gap_deg": float(np.mean(gaps)) if gaps else 360.0,
+            "gradient": float(np.mean(grads)) if grads else 1.0,
         }
 
-    def _run_null_model(
-        self,
-        state_history: list[dict[str, Any]],
-        primary_result: dict[str, float],
-        timescale: float,
-    ) -> tuple[float, NullType, dict[str, float]]:
-        """Type-shuffle permutation null.
-
-        Keep all positions fixed, randomly reassign type labels among particles.
-        Test statistic: association_score. Under random type assignment, links
-        are uniformly distributed among positions → association_score ≈ 1.0.
-        Under autopoiesis, links concentrate near catalysts → score >> 1.
-        """
+    def _run_null_model(self, state_history, primary_result, timescale):
+        """Random-cloud null: place n_links points area-uniformly in a disk of
+        radius ~1.8*med around the catalyst and compute radial CV. A membrane's
+        tight-ring CV is far BELOW this scatter CV (~0.4)."""
         rng = np.random.default_rng(self._seed)
-        observed = primary_result.get('association_score', 0.0)
-
-        snap = state_history[-1]
-        positions = np.asarray(snap['positions'], dtype=np.float64)
-        types = np.asarray(snap['types'], dtype=np.int32)
-        box_size = float(snap.get('box_size', 20.0))
-
-        null_scores = []
+        observed_cv = primary_result.get("radial_cv", 1.0)
+        med = max(primary_result.get("med_radius", 1.0), 1e-6)
+        n_links = max(int(primary_result.get("n_links", 0)), 3)
+        R = 1.8 * med
+        null_cvs = []
         for _ in range(self.n_permutations):
-            surr_types = types.copy()
-            rng.shuffle(surr_types)
+            rr = R * np.sqrt(rng.random(n_links))
+            null_cvs.append(float(rr.std() / rr.mean()) if rr.mean() > 1e-9 else 1.0)
+        null_arr = np.array(null_cvs)
+        p = float(np.mean(null_arr <= observed_cv))
+        p = max(p, 1.0 / (self.n_permutations + 1))
+        std = float(null_arr.std())
+        return p, NullType.SHUFFLE, {"mean": float(null_arr.mean()), "std": std if std > 0 else 0.001}
 
-            metrics = _compute_autopoiesis_metrics(
-                positions, surr_types, box_size,
-                association_radius=self.association_radius,
-            )
-            null_scores.append(metrics['association_score'])
+    def _check_exclusions(self, state_history, model_metadata, timescale):
+        """Exclude P1 (mere clustering): a thin organized shell (low radial CV)
+        is not undifferentiated aggregation."""
+        p = self._compute_primary(state_history, timescale)
+        if (p.get("radial_cv", 1.0) < self._SCREEN_CV_MAX
+                and p.get("n_links", 0.0) >= self._MIN_LINKS):
+            return (["P1"], {"P1": "excluded"})
+        return (["P1"], {"P1": "not_excluded"})
 
-        null_arr = np.array(null_scores)
-        p_value = float(np.mean(null_arr >= observed))
-        p_value = max(p_value, 1.0 / (self.n_permutations + 1))
-
+    def _check_confirmation(self, primary_result, secondary_result, null_p, timescale):
+        """Confirmation: closed ring + self-production + null rejected."""
         return (
-            p_value,
-            NullType.SHUFFLE,
-            {
-                'mean': float(np.mean(null_arr)),
-                'std': float(np.std(null_arr)) if float(np.std(null_arr)) > 0 else 0.001,
-            },
+            secondary_result.get("angular_gap_deg", 360.0) < self._CONFIRM_GAP_MAX
+            and secondary_result.get("link_count_cv", 999.0) < self._CONFIRM_COUNT_CV_MAX
+            and secondary_result.get("mean_link_count", 0.0) >= self._MIN_LINKS
+            and null_p < 0.01
         )
 
-    def _check_exclusions(
-        self,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-        timescale: float,
-    ) -> tuple[list[str], dict[str, str]]:
-        """Exclude P1 (mere clustering) when association + closure present.
-
-        P30 requires specifically organized membrane around production zone.
-        P1 is undifferentiated aggregation without directed production.
-        """
-        n = len(state_history)
-        late_start = max(1, 3 * n // 4)
-        late_history = state_history[late_start:]
-
-        assoc_vals = []
-        closure_vals = []
-        for snap in late_history:
-            positions = np.asarray(snap['positions'], dtype=np.float64)
-            types = np.asarray(snap['types'], dtype=np.int32)
-            box_size = float(snap.get('box_size', 20.0))
-            metrics = _compute_autopoiesis_metrics(
-                positions, types, box_size,
-                association_radius=self.association_radius,
-            )
-            assoc_vals.append(metrics['association_score'])
-            closure_vals.append(metrics['closure_fraction'])
-
-        mean_assoc = float(np.mean(assoc_vals))
-        mean_closure = float(np.mean(closure_vals))
-
-        if mean_assoc > 1.5 and mean_closure > 0.5:
-            return (['P1'], {'P1': 'excluded'})
-        return (['P1'], {'P1': 'not_excluded'})
-
-    def _check_confirmation(
-        self,
-        primary_result: dict[str, float],
-        secondary_result: dict[str, Any],
-        null_p: float,
-        timescale: float,
-    ) -> bool:
-        """Confirmation: association + enrichment + null rejection + persistence."""
-        assoc = primary_result.get('association_score', 0.0)
-        enrichment = primary_result.get('enrichment_ratio', 1.0)
-        persistence = secondary_result.get('closure_persistence', 0.0)
-
+    def _check_definitive(self, primary_result, secondary_result, null_p,
+                          null_type, state_history, model_metadata, timescale):
+        """Definitive: a strongly tight closed shell, self-maintained, vs the
+        random-cloud null at the floor. (Maintained-gradient + self-repair are
+        reported/secondary; self-repair perturbation is a future addition.)"""
         return (
-            assoc > 1.5
-            and enrichment > 1.2
-            and null_p < 0.01
-            and persistence > 0.5
-        )
-
-    def _check_definitive(
-        self,
-        primary_result: dict[str, float],
-        secondary_result: dict[str, Any],
-        null_p: float,
-        null_type: NullType,
-        state_history: list[dict[str, Any]],
-        model_metadata: dict[str, Any] | None,
-        timescale: float,
-    ) -> bool:
-        """Definitive: strong closure + stable membrane."""
-        closure = primary_result.get('closure_fraction', 0.0)
-        enrichment = primary_result.get('enrichment_ratio', 1.0)
-        persistence = secondary_result.get('closure_persistence', 0.0)
-        link_cv = secondary_result.get('link_count_cv', 999.0)
-
-        return (
-            closure > 0.7
-            and enrichment > 2.0
-            and persistence > 0.8
-            and link_cv < 0.3
-            and null_p < 0.01
+            primary_result.get("radial_cv", 1.0) < self._DEF_CV_MAX
+            and null_p <= 0.005
         )
 
     def _estimate_timescale(

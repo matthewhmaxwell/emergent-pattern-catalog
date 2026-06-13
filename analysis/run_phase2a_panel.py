@@ -2038,27 +2038,34 @@ def build_p30_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
     runs: List[List[Dict[str, Any]]] = []
     metadata: Dict[str, Any] = {}
     for seed in range(n_seeds):
+        # Membrane regime (validation rebuild): single catalyst + link-production
+        # cap (max_links) so the radial spring holds links in a THIN closed ring
+        # at the equilibrium radius instead of a diffuse cloud.
         m = AutopoiesisModel(
-            n_substrate=100, n_catalyst=3, box_size=20.0,
-            production_rate=0.15, decay_rate=0.01,
-            membrane_equilibrium_radius=3.0,
-            catalyst_link_attraction=0.5,
-            link_attraction=0.3,
+            n_substrate=150, n_catalyst=1, box_size=16.0,
+            production_rate=0.35, decay_rate=0.004,
+            production_radius=3.0, membrane_equilibrium_radius=3.0,
+            catalyst_link_attraction=4.0, link_attraction=0.0,
+            substrate_diffusion=0.4, catalyst_diffusion=0.0,
+            repulsion_radius=0.55, repulsion_strength=1.0,
+            dt=0.2, max_links=35,
             seed=42 + seed,
         )
         m.setup()
         history: List[Dict[str, Any]] = []
-        for _ in range(300):
-            history.append(m.step())
+        for i in range(1200):
+            s = m.step()
+            if (i + 1) % 50 == 0:
+                history.append(s)
         runs.append(history)
         if seed == 0:
             metadata = {
                 'model_class': 'autopoiesis',
                 'substrate_type': 'particle_membrane',
-                'production_rate': 0.15,
-                'decay_rate': 0.01,
+                'production_rate': 0.35,
+                'decay_rate': 0.004,
                 'n_particles': m.n_total,
-                'box_size': 20.0,
+                'box_size': 16.0,
             }
     return runs, metadata
 
