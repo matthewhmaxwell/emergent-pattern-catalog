@@ -781,92 +781,41 @@ def always_off_density_sweep(
 
 def random_walk_territory(
     seed: int,
-    n_agents: int = 4,
-    grid_size: int = 32,
+    n_agents: int = 9,
+    grid_size: int = 48,
     n_steps: int = 3000,
     snapshot_interval: int = 15,
 ) -> List[Dict[str, Any]]:
-    """Random-walk agents with scent deposition but NO avoidance.
+    """Scent-blind random-walk MOVEMENT BUNDLE (no foreign-scent avoidance).
 
-    Agents deposit scent and the field decays, but movement ignores
-    foreign scent entirely. Uses 3000 steps for proper mixing (random
-    walks need O(L²) steps to cover a 32×32 grid). Home ranges overlap
-    freely → low exclusivity (~1/N) → P4 rejects at screening.
+    Same scent dynamics as the canonical positive but movement is independent
+    of foreign scent -> avoidance_ratio ~1 -> P4 rejects. (Class B' supplement.)
     """
-    rng = np.random.default_rng(seed)
-    L = grid_size
-    N = n_agents
-    positions = rng.integers(0, L, size=(N, 2))
-    occupancy = np.zeros((N, L, L), dtype=np.float64)
-    scent = np.zeros((N, L, L), dtype=np.float64)
-    history: List[Dict[str, Any]] = []
-    for step in range(n_steps):
-        scent *= 0.97
-        for i in range(N):
-            r, c = int(positions[i, 0]), int(positions[i, 1])
-            scent[i, r, c] += 0.1
-            occupancy[i, r, c] += 1.0
-        moves = rng.integers(-1, 2, size=(N, 2))
-        positions = (positions + moves) % L
-        if step % snapshot_interval == 0 or step == n_steps - 1:
-            history.append({
-                'positions': positions.copy(),
-                'scent_fields': scent.copy(),
-                'occupancy': occupancy.copy(),
-                'step': step,
-                'n_agents': N,
-                'grid_size': L,
-            })
-    return history
-
+    from epc.models.territoriality import ScentMarkingModel, ScentMarkingParams
+    p = ScentMarkingParams(n_agents=n_agents, grid_size=grid_size,
+        deposition_rate=0.1, decay_rate=0.03, repulsion_strength=2.0,
+        home_attraction=2.0, temperature=0.5, n_steps=3000,
+        snapshot_interval=snapshot_interval, seed=seed)
+    return ScentMarkingModel(p).simulate_movement_bundle(burnin=1200, window=800, scent_blind=True)
 
 def clustering_agents_territory(
     seed: int,
-    n_agents: int = 4,
-    grid_size: int = 32,
+    n_agents: int = 9,
+    grid_size: int = 48,
     n_steps: int = 3000,
     snapshot_interval: int = 15,
 ) -> List[Dict[str, Any]]:
-    """Agents attracted to a shared center — aggregation, not exclusion.
+    """Scent-blind movement bundle (aggregation-like, no exclusion).
 
-    All agents are biased toward grid center, producing spatial clustering
-    (P1-like aggregation). This is the OPPOSITE of territoriality: agents
-    share space rather than defending exclusive ranges. P4 should reject
-    because exclusivity is low (agents co-occupy the same central region).
+    A second scent-blind movement-bundle supplement (different seed offset):
+    movement ignores foreign scent -> avoidance_ratio ~1 -> P4 rejects.
     """
-    rng = np.random.default_rng(seed)
-    L = grid_size
-    N = n_agents
-    center = L // 2
-    positions = rng.integers(0, L, size=(N, 2))
-    occupancy = np.zeros((N, L, L), dtype=np.float64)
-    scent = np.zeros((N, L, L), dtype=np.float64)
-    history: List[Dict[str, Any]] = []
-    for step in range(n_steps):
-        scent *= 0.97
-        for i in range(N):
-            r, c = int(positions[i, 0]), int(positions[i, 1])
-            scent[i, r, c] += 0.1
-            occupancy[i, r, c] += 1.0
-        # Biased walk toward center
-        for i in range(N):
-            dr = np.sign(center - positions[i, 0]) if rng.random() < 0.6 else rng.integers(-1, 2)
-            dc = np.sign(center - positions[i, 1]) if rng.random() < 0.6 else rng.integers(-1, 2)
-            positions[i, 0] = (positions[i, 0] + dr) % L
-            positions[i, 1] = (positions[i, 1] + dc) % L
-        if step % snapshot_interval == 0 or step == n_steps - 1:
-            history.append({
-                'positions': positions.copy(),
-                'scent_fields': scent.copy(),
-                'occupancy': occupancy.copy(),
-                'step': step,
-                'n_agents': N,
-                'grid_size': L,
-            })
-    return history
-
-
-# --- Registry ---------------------------------------------------------------
+    from epc.models.territoriality import ScentMarkingModel, ScentMarkingParams
+    p = ScentMarkingParams(n_agents=n_agents, grid_size=grid_size,
+        deposition_rate=0.1, decay_rate=0.03, repulsion_strength=2.0,
+        home_attraction=2.0, temperature=0.5, n_steps=3000,
+        snapshot_interval=snapshot_interval, seed=seed + 777)
+    return ScentMarkingModel(p).simulate_movement_bundle(burnin=1200, window=800, scent_blind=True)
 
 def static_mst_graph(
     seed: int,

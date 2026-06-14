@@ -1852,16 +1852,18 @@ def build_p4_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Di
     runs: List[List[Dict[str, Any]]] = []
     metadata: Dict[str, Any] = {}
     for seed in range(n_seeds):
+        # Movement-causality regime (validation rebuild): denser (N=9) so agents
+        # share boundaries; per-step movement bundle exposes scent avoidance.
         params = ScentMarkingParams(
-            n_agents=4, grid_size=48,
+            n_agents=9, grid_size=48,
             deposition_rate=0.1, decay_rate=0.03,
             repulsion_strength=2.0, home_attraction=2.0,
             temperature=0.5,
-            n_steps=20000, snapshot_interval=100,
+            n_steps=6000, snapshot_interval=100,
             seed=42 + seed,
         )
         model = ScentMarkingModel(params)
-        runs.append(model.simulate())
+        runs.append(model.simulate_movement_bundle(burnin=3000, window=1500))
         if seed == 0:
             metadata = model.get_metadata()
     return runs, metadata

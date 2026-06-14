@@ -100,43 +100,47 @@ def _territorial_agent_field_null_history(
     grid_size: int = TAF_DEFAULT_GRID_SIZE,
     n_steps: int = GRID_DEFAULT_STEPS,
 ) -> List[Dict[str, Any]]:
-    """Generate a random-walk territorial-agent-field null (no avoidance).
+    """Scent-blind random-walk MOVEMENT BUNDLE null for P4 (territorial movement).
 
-    Agents do unbiased random walks on a torus, depositing scent that decays
-    but is never read. Uses at least 3000 internal steps for proper spatial
-    mixing (random walks on 32×32 need ~L² steps to mix; 200 steps causes
-    artificially high exclusivity from spatial autocorrelation). Records
-    n_steps snapshots evenly spaced across the run.
-
-    Produces low exclusivity (~1/N) → P4 rejects at screening.
+    Agents random-walk on a torus depositing scent (so the foreign-scent field
+    has real structure) but MOVE INDEPENDENTLY of it. The P4 movement-causality
+    detector computes avoidance_ratio = foreign(chosen)/mean(foreign neighbours);
+    scent-blind movement gives ~1 (no avoidance) -> rejected. Records per-step
+    (position, neighbour foreign-scent, neighbour cells, realized move) over a
+    window after a short burn-in, matching the canonical positive's bundle.
     """
-    L = grid_size
-    N = n_agents
-    # Ensure adequate mixing: random walks need O(L²) steps to cover the grid.
-    internal_steps = max(n_steps, 3000)
-    snapshot_interval = max(1, internal_steps // n_steps)
-    positions = rng.integers(0, L, size=(N, 2))
-    occupancy = np.zeros((N, L, L), dtype=np.float64)
+    L = int(grid_size)
+    N = max(int(n_agents), 4)
+    offsets = [(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)]  # von Neumann + stay
     scent = np.zeros((N, L, L), dtype=np.float64)
-    history: List[Dict[str, Any]] = []
-    for step in range(internal_steps):
+    pos = rng.integers(0, L, size=(N, 2))
+    burnin, window = 200, 700
+    bundle: List[Dict[str, Any]] = []
+    for step in range(burnin + window):
         scent *= (1.0 - TAF_DEFAULT_DECAY)
         for i in range(N):
-            r, c = int(positions[i, 0]), int(positions[i, 1])
-            scent[i, r, c] += TAF_DEFAULT_DEPOSIT
-            occupancy[i, r, c] += 1.0
-        moves = rng.integers(-1, 2, size=(N, 2))
-        positions = (positions + moves) % L
-        if step % snapshot_interval == 0 or step == internal_steps - 1:
-            history.append({
-                'positions': positions.copy(),
-                'scent_fields': scent.copy(),
-                'occupancy': occupancy.copy(),
-                'step': step,
-                'n_agents': N,
-                'grid_size': L,
+            scent[i, int(pos[i, 0]), int(pos[i, 1])] += TAF_DEFAULT_DEPOSIT
+        rec = step >= burnin
+        if rec:
+            step_pos = pos.copy()
+            nbf = np.zeros((N, len(offsets)), dtype=np.float64)
+            nbc = np.zeros((N, len(offsets), 2), dtype=int)
+        for i in range(N):
+            r, c = int(pos[i, 0]), int(pos[i, 1])
+            for j, (dr, dc) in enumerate(offsets):
+                nr, nc = (r + dr) % L, (c + dc) % L
+                if rec:
+                    nbc[i, j] = (nr, nc)
+                    nbf[i, j] = float(sum(scent[k, nr, nc] for k in range(N) if k != i))
+            ch = int(rng.integers(len(offsets)))      # scent-blind choice
+            pos[i] = ((r + offsets[ch][0]) % L, (c + offsets[ch][1]) % L)
+        if rec:
+            bundle.append({
+                "positions": step_pos, "next_positions": pos.copy(),
+                "neighbor_foreign": nbf, "neighbor_cells": nbc,
+                "step": step, "n_agents": N, "grid_size": L,
             })
-    return history
+    return bundle
 
 
 def _trail_network_null_history(

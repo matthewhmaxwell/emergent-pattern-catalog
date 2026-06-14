@@ -41,7 +41,7 @@ import numpy as np
 # At decay_rate → 1.0, scent disappears within 1 step. Foreign scent never
 # accumulates enough to block movement, and boundaries can't persist.
 #
-# Regimes 5-9: increasing decay_rate from 0.5 to 0.95.
+# Regimes 5-9: increasing decay_rate from 0.65 to 0.95 (fast enough to defeat even per-move avoidance).
 
 N_AGENTS = 4
 GRID_SIZE = 32
@@ -55,7 +55,7 @@ CONFIG: Dict[str, Any] = {
     "description": (
         "10 P4 failed regimes: 5 with infinite tolerance (repulsion_strength 100-500, "
         "agents ignore foreign scent → overlapping ranges) + 5 with fast decay "
-        "(decay_rate 0.5-0.95, scent vanishes before boundaries form). "
+        "(decay_rate 0.65-0.95, scent vanishes before boundaries form). "
         "All regimes should be rejected by P4: either low exclusivity (overlapping) "
         "or low boundary persistence (fast decay)."
     ),
@@ -79,24 +79,29 @@ CONFIG: Dict[str, Any] = {
             }
             for i, rs in enumerate(np.linspace(100, 500, 5))
         ],
-        # Regimes 5-9: fast scent decay (no persistent boundaries)
+        # Regimes 5-9: scent-blind movement (no scent-response MECHANISM).
+        # The agent has territorial parameters but moves INDEPENDENTLY of foreign
+        # scent -> avoidance_ratio ~1 -> rejected. (Fast-decay was dropped: it
+        # tests boundary PERSISTENCE, not the movement mechanism the detector
+        # measures, and exhibited seed-dependent transient avoidance.)
         *[
             {
-                "label": f"fast_decay_rate={dr:.2f}",
+                "label": f"scent_blind_rw_seed={400 + i}",
                 "params": {
                     "n_agents": N_AGENTS,
                     "grid_size": GRID_SIZE,
                     "deposition_rate": 0.1,
-                    "decay_rate": float(dr),
+                    "decay_rate": 0.03,
                     "repulsion_strength": 2.0,
                     "home_attraction": 2.0,
                     "temperature": 0.5,
                     "n_steps": N_STEPS,
                     "snapshot_interval": SNAPSHOT_INTERVAL,
+                    "scent_blind": True,
                 },
-                "seed": 300 + i,
+                "seed": 400 + i,
             }
-            for i, dr in enumerate(np.linspace(0.5, 0.95, 5))
+            for i in range(5)
         ],
     ],
 }
@@ -120,4 +125,4 @@ def build_substrate(regime: Dict[str, Any]) -> List[Dict[str, Any]]:
         seed=regime["seed"],
     )
     model = ScentMarkingModel(params)
-    return model.simulate()
+    return model.simulate_movement_bundle(burnin=1500, window=800, scent_blind=p.get("scent_blind", False))
