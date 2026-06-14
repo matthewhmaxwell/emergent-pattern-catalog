@@ -2632,7 +2632,7 @@ free-flow speed in the formed state. dim1 reproduction PASS (φ_final ∈ [0.5, 
 gain > 0.2).
 
 **Phase-2a panel (Sprint 66).** PASS-with-weakness: overall TNR = 0.955, Cohen's
-d = 6.932. Catalog mates (P2 MIPS, P5 Vicsek, P6 D'Orsogna) all correctly
+d = [withdrawn; see §4A]. Catalog mates (P2 MIPS, P5 Vicsek, P6 D'Orsogna) all correctly
 rejected — none carry the `labels` (population membership) key required by P7's
 counterflow prerequisite. Class C: 8 weak-repulsion regimes (A ∈ [0.1, 0.8])
 and 2 single-population regimes all rejected (fai TNR = 1.000). A content
@@ -3062,7 +3062,7 @@ multinomial null, PheromoneRepulsion T1b, PlainRandomWalk negative control.
 avoidance mechanism, no home-attraction bias.
 
 **dim4 Phase-2a panel (Sprint 87).** Panel v1.2 PASS: TNR = 1.000, Cohen's
-d = 4.153. Detector format: `territorial_agent_field`. Invariance:
+d = [withdrawn; see §4A]. Detector format: `territorial_agent_field`. Invariance:
 permutation_invariant=True (exclusivity invariant under agent relabelling),
 time_shuffle_invariant=True (cumulative occupancy preserves ownership
 structure). Content prerequisite: scent-mediated exclusion required at
@@ -3122,7 +3122,7 @@ CONFIRMATION+ (0.70) — confirms detector recognizes the *phenomenon*, not
 the specific implementation.
 
 **dim4** (Sprint 89). Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's
-d=10.550). Class A: 10/10 rejected (no invariance skips). Class B: 0
+d=[withdrawn; see §4A]). Class A: 10/10 rejected (no invariance skips). Class B: 0
 catalog mates + 2 supplements (`static_mst_graph` rejected at screening via
 temporal-dynamics prerequisite; `uniform_traffic_graph` rejected at screening
 via weight-accumulation prerequisite). Class C: 5 high-evaporation
@@ -3246,7 +3246,7 @@ enrichment), type-shuffle null, three-tier gates, T1a observation
 contract, limitations (angular-coverage necessary-not-sufficient,
 partial self-repair per escape clause).
 
-**dim4.** Phase-2a panel v1.2 (Sprint 93): TNR=1.000, d=12.124, verdict
+**dim4.** Phase-2a panel v1.2 (Sprint 93): TNR=1.000, d=[withdrawn; see §4A], verdict
 PASS. Class A: 8 evaluated (2 skipped: perm_inv, time_shuffle_inv), all
 TN. Class B supplements: dense_cluster_particles (P1-like, all type=0 →
 no links → screening fails) and dispersed_typed_regions (P4-like, types

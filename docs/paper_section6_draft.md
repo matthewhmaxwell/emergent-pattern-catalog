@@ -603,7 +603,7 @@ sprint boundary.
 
 Sprint 42 ran the Phase-2a panel (v1.2) against P1 (Schelling segregation)
 and attempted P3 (Gray-Scott). P1 returned PARTIAL (TNR=0.593, Cohen's
-d=1.298): Moran's I fires on `linear_gradient` and `time_shuffled` synthetic
+d=[withdrawn; see §4A]): Moran's I fires on `linear_gradient` and `time_shuffled` synthetic
 substrates (Class A) and on P11/P15/P12 lattice_2d catalog mates (Class B),
 reflecting the broad-spectrum nature of spatial autocorrelation as a primary
 metric. P3 panel was paused due to the lattice_2d_continuous substrate-undercount
@@ -1039,7 +1039,7 @@ methods note. dim4 pending (Sprint 77).
 
 **Sprint 77 (P23 dim4 Phase-2a panel — Milestone B Wave 2 closure).**
 Phase-2a v1.2 panel for P23 anti-coordination: **PASS** (TNR=1.000, Cohen's
-d=14.504). Invariance flags: perm_inv=True, time_shuffle_inv=True (σ²/N is
+d=[withdrawn; see §4A]). Invariance flags: perm_inv=True, time_shuffle_inv=True (σ²/N is
 the primary confirmation signal and is a distribution statistic preserved by
 time shuffling). Content prerequisite: nondegenerate variance + variance below
 random baseline at confirmation (Savit et al. 1999). Class A: 8/8 evaluated
@@ -1122,7 +1122,7 @@ PheromoneRepulsionModel (T1b, hard-threshold avoidance), PlainRandomWalkModel
 boundary persistence + occupancy-scent correlation; cell-level multinomial
 shuffle null. T1a observation bundle: territorial_agent_field format.
 dim1: Giuggioli 2011 reproduction (excl=0.902, overlap=0.034,
-persistence=0.865, d=157.5). dim2: 20-seed campaign. dim3: methods note.
+persistence=0.865, d=[withdrawn; see §4A]). dim2: 20-seed campaign. dim3: methods note.
 dim4 pending (Sprint 87). Registry: 35 models × 29 detectors, 116 compatible
 pairs.
 **AT-DEPTH count: 28 / 29** (+1: P4, provisionally AT-DEPTH pending dim4).
