@@ -224,6 +224,17 @@ def compute_spectral_beta(activity: np.ndarray,
     return float(beta)
 
 
+# Maximum allowed disagreement between the MLE exponent (tau) and the
+# independent log-binned PDF slope for the distribution to be accepted as
+# genuinely scale-free at SCREENING. A true power law agrees across both
+# estimators (observed |delta| <= 0.14 on conservative-BTW SOC positives);
+# curved / dissipative-cutoff distributions diverge (|delta| >= 0.28 across
+# all 10 dissipative-sandpile failed regimes), so this gate rejects the
+# SOC->dissipative boundary false positive (e.g. p_diss=0.35: tau_MLE=2.0
+# vs tau_logbin=3.2) that a lenient MLE-only power-law fit lets through.
+_TAU_LOGBIN_CONSISTENCY_MAX = 0.20
+
+
 def detect_p14(
     avalanche_sizes: np.ndarray,
     avalanche_durations: Optional[np.ndarray] = None,
@@ -248,7 +259,15 @@ def detect_p14(
     null_sizes : np.ndarray, optional
         Avalanche sizes from dissipative null model.
     is_self_tuned : bool
-        Whether the model is known to self-tune (metadata check).
+        Whether the model is known to self-tune (model-provenance flag).
+        NOT derivable from an avalanche-size array, so in the Phase-2a
+        discrimination panel it is force-fed True identically to every
+        input and is non-discriminating there (it cannot, and does not,
+        create false positives). Real discrimination is carried by the tau
+        range, the LR-vs-exponential test, the MLE/log-binned
+        slope-consistency screening gate, and the secondary SOC signatures.
+        It gates DEFINITIVE only as an extra provenance requirement when
+        genuine model metadata is supplied.
     tau_range : tuple
         Plausible range for τ.
     
@@ -280,9 +299,27 @@ def detect_p14(
     # === SCREENING ===
     # Power-law fit with τ in plausible range AND preferred over exponential
     exp_preferred = fit.lr_vs_exponential > 0
-    screening_pass = tau_in_range and exp_preferred
+    # Slope-consistency: the MLE exponent must agree with the independent
+    # log-binned PDF slope. A genuine scale-free law is consistent across
+    # estimators; a curved dissipative-cutoff distribution is not. This is
+    # the discriminating gate that lives at SCREENING (where TNR counts any
+    # detection as a false positive), not just as a confidence bonus.
+    slope_consistent = (
+        fit.tau_logbin > 0
+        and abs(fit.tau - fit.tau_logbin) <= _TAU_LOGBIN_CONSISTENCY_MAX
+    )
+    screening_pass = tau_in_range and exp_preferred and slope_consistent
     
     if not screening_pass:
+        if not tau_in_range:
+            warn_list.append(f"tau_out_of_range:{fit.tau:.2f}")
+        elif not exp_preferred:
+            warn_list.append("exponential_not_rejected")
+        else:
+            warn_list.append(
+                f"slope_inconsistent_mle_vs_logbin:"
+                f"{abs(fit.tau - fit.tau_logbin):.2f}"
+            )
         return P14DetectorResult(
             detected=False, tier='none', confidence=0.0,
             fit=fit, tau_in_range=tau_in_range,

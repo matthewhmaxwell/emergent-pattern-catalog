@@ -1,9 +1,9 @@
 {
   "pattern_id": "P14",
-  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
+  "head_commit": "6c971b4c8046be95e2c1f9d9bedc76b918af347b",
   "panel_version": "1.2",
   "detector_format": "avalanches",
-  "elapsed_seconds": 24.41,
+  "elapsed_seconds": 23.03,
   "detector_invariance": {
     "permutation_invariant": true,
     "time_shuffle_invariant": true,
@@ -167,6 +167,14 @@
       "rejection_stage": "METRIC"
     },
     {
+      "substrate": "P18_voter",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC"
+    },
+    {
       "substrate": "P1_schelling",
       "kind": "catalog_mate",
       "score": 0.0,
@@ -285,10 +293,10 @@
         "p_diss": 0.35000000000000003
       },
       "seed": 306,
-      "score": 0.35,
-      "verdict": "screening",
-      "detected": true,
-      "rejection_stage": "FIRED"
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC"
     },
     {
       "substrate": "p_diss=0.400",
@@ -340,6 +348,7 @@
       "P12_rps",
       "P13_greenberg_hastings",
       "P15_gol",
+      "P18_voter",
       "P1_schelling",
       "P22_sir_epidemic",
       "P27_nowak_may"
@@ -349,8 +358,8 @@
   "class_c_status": "populated",
   "class_c_n_a_reason": null,
   "summary": {
-    "n_negatives": 25,
-    "overall_tnr": 0.96,
+    "n_negatives": 26,
+    "overall_tnr": 1.0,
     "class_a_size_total": 10,
     "class_a_size_evaluated": 8,
     "synthetic": {
@@ -359,23 +368,23 @@
       "advisory": false
     },
     "catalog": {
-      "n": 7,
+      "n": 8,
       "tnr": 1.0,
       "advisory": false
     },
     "failed_regime": {
       "n": 10,
-      "tnr": 0.9,
+      "tnr": 1.0,
       "advisory": false
     },
     "synthetic_tnr": 1.0,
     "catalog_tnr": 1.0,
     "catalog_tnr_advisory": false,
-    "failed_regime_tnr": 0.9,
-    "cohens_d_positive_vs_panel": 10.585209807399508,
-    "effect_size_undefined": false,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": NaN,
+    "effect_size_undefined": true,
     "effect_size_basis": "tier_confidence",
     "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
-    "verdict": "PASS"
+    "verdict": "TNR-PASS-EFFECT-UNDEFINED"
   }
 }
