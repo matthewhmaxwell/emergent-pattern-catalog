@@ -14,15 +14,17 @@ from typing import Any, Dict, List
 import numpy as np
 
 
-NOISE_VALUES = list(np.linspace(0.7, 1.5, 10))
+NOISE_VALUES = np.linspace(4.0, 6.0, 10)  # genuinely disordered (phi<0.5); transition at this density is eta~3.5, NOT 0.5
 
 CONFIG: Dict[str, Any] = {
     "substrate_id": "P5_vicsek_high_noise",
     "format": "particles",
     "description": (
-        "10 Vicsek regimes at noise ∈ linspace(0.7, 1.5, 10), "
-        "N=300, box_size=7.0, speed=0.03. All above η_c ≈ 0.5: "
-        "disordered phase, φ ≈ 1/√N << 0.5."
+        "10 Vicsek regimes at noise in linspace(4.0, 6.0, 10), "
+        "N=300, box_size=7.0, speed=0.03. Genuinely DISORDERED "
+        "(phi<0.5; the order-disorder transition at this density is eta~3.5, "
+        "not 0.5 as the prior comment wrongly assumed). 1500 steps clears the "
+        "5xT_cross run-length guard so the polar-order metric actually runs."
     ),
     "regimes": [
         {
@@ -32,7 +34,7 @@ CONFIG: Dict[str, Any] = {
                 "box_size": 7.0,
                 "speed": 0.03,
                 "noise": float(noise),
-                "n_steps": 200,
+                "n_steps": 1500,
             },
             "seed": 200 + i,
         }
