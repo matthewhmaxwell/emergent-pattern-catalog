@@ -641,7 +641,14 @@ def run_p3(out_path: str = "analysis/outputs/p3_phase2a_panel.json", verbose: bo
 
     Class B uses lattice_2d_continuous supplements (smooth_random_field and
     sinusoidal_traveling_wave) which produce 'field'-keyed histories and are
-    processed by P3's full pipeline. Class C is N/A per p3_gray_scott.CONFIG.
+    processed by P3's full pipeline. Class C (validation-rebuild 2026-06-14)
+    is now POPULATED with five non-Turing periodic-field adversaries
+    (imposed static sinusoid / diagonal stripes, rotating spiral, target
+    waves, travelling plane wave) — fields with a strong characteristic
+    wavelength that are NOT Turing patterns. They clear peak-to-mean but are
+    rejected by the detector's stationarity and angular-isotropy gates. This
+    replaces the prior 'Class C N/A' declaration, which masked a false
+    positive: a static imposed sinusoid had reached DEFINITIVE.
     """
     print(f"--- Running P3 panel → {out_path}")
     positives, metadata = build_p3_positives(n_seeds=5)

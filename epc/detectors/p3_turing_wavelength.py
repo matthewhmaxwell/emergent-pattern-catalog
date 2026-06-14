@@ -112,7 +112,9 @@ from epc.base_detector import BaseDetector
 from epc.detector_result import DetectionTier, DetectorResult, NullType
 from epc.metrics.turing_wavelength import (
     count_unique_values,
+    field_stationarity,
     radial_fft_peak_stats,
+    ring_angular_isotropy,
     shuffle_null_distribution,
     wavelength_stability,
 )
@@ -163,6 +165,18 @@ class P3TuringWavelengthDetector(BaseDetector):
     _DEF_PM_MIN = 15.0
     _DEF_COHENS_D_MIN = 30.0
     _DEF_PEAK_K_CV_MAX = 0.05
+
+    # Turing-specificity gates (Phase-2a discrimination). A genuine
+    # Turing pattern is a STATIONARY, ISOTROPIC standing wave selected
+    # by a diffusion-driven instability -- not merely any field with a
+    # dominant wavelength. Without these, an imposed static sinusoid
+    # (anisotropic single wavevector) or a travelling / rotating wave
+    # (non-stationary) clears the peak-to-mean gates as a false positive.
+    # Empirical separation (Gray-Scott labyrinth positive vs imposed
+    # periodicity): angular_entropy 0.86 vs <=0.28; stationarity 0.99
+    # vs <=0.88 (travelling) / 0.07 (spiral).
+    _SCREEN_STATIONARITY_MIN = 0.95
+    _SCREEN_ANG_ENTROPY_MIN = 0.55
 
     def __init__(
         self,
@@ -327,6 +341,9 @@ class P3TuringWavelengthDetector(BaseDetector):
                 "n_unique_values": 0,
                 "radial_mean": 0.0,
                 "peak_value": 0.0,
+                "angular_entropy": 0.0,
+                "radial_concentration": 1.0,
+                "field_stationarity": 0.0,
             }
 
         stats = radial_fft_peak_stats(
@@ -334,6 +351,10 @@ class P3TuringWavelengthDetector(BaseDetector):
             k_min=self.k_min,
             k_max_frac=self.k_max_frac,
         )
+        iso = ring_angular_isotropy(
+            field, k_min=self.k_min, k_max_frac=self.k_max_frac,
+        )
+        stationarity = field_stationarity(self._stability_fields)
         return {
             "peak_to_mean": float(stats["peak_to_mean"]),
             "peak_k": int(stats["peak_k"]),
@@ -347,6 +368,9 @@ class P3TuringWavelengthDetector(BaseDetector):
             "peak_value": float(stats["peak_value"]),
             "k_min_used": int(stats["k_min_used"]),
             "k_max_used": int(stats["k_max_used"]),
+            "angular_entropy": float(iso["angular_entropy"]),
+            "radial_concentration": float(iso["radial_concentration"]),
+            "field_stationarity": float(stationarity),
         }
 
     def _check_screening(
@@ -376,6 +400,25 @@ class P3TuringWavelengthDetector(BaseDetector):
             return False
         if self._N > 0 and peak_k > self._N // 4:
             # Very short wavelength — likely grid discretization artifact
+            return False
+
+        # Turing-specificity gate 1: STATIONARITY. A Turing pattern is a
+        # stationary standing wave; travelling / rotating waves (plane
+        # waves, spirals, target patterns) advect and decorrelate
+        # frame-to-frame, so they are rejected here.
+        if (primary_result.get("field_stationarity", 0.0)
+                < self._SCREEN_STATIONARITY_MIN):
+            return False
+
+        # Turing-specificity gate 2: ISOTROPY. A diffusion-driven
+        # instability selects a wave NUMBER |k*| (an isotropic ring /
+        # finite band), not a single wave VECTOR. An imposed sinusoid or
+        # oriented stripe pattern concentrates power at one or a few
+        # discrete directions and is rejected here. (Targets the
+        # isotropic Turing phases -- labyrinth / spots -- which are the
+        # catalog canonical positive.)
+        if (primary_result.get("angular_entropy", 0.0)
+                < self._SCREEN_ANG_ENTROPY_MIN):
             return False
 
         return True
@@ -482,7 +525,9 @@ class P3TuringWavelengthDetector(BaseDetector):
             return False
 
         cv = secondary_result.get("peak_k_cv", float("inf"))
-        if cv > self._CONFIRM_PEAK_K_CV_MAX:
+        # cv < 0 is the "could not compute stability" sentinel; a Turing
+        # pattern must demonstrate a *stable* wavelength, so reject it.
+        if not (0.0 <= cv <= self._CONFIRM_PEAK_K_CV_MAX):
             return False
 
         if null_p >= self._CONFIRM_NULL_P_MAX:
@@ -510,7 +555,7 @@ class P3TuringWavelengthDetector(BaseDetector):
             return False
 
         cv = secondary_result.get("peak_k_cv", float("inf"))
-        if cv > self._DEF_PEAK_K_CV_MAX:
+        if not (0.0 <= cv <= self._DEF_PEAK_K_CV_MAX):
             return False
 
         return True
@@ -543,7 +588,7 @@ class P3TuringWavelengthDetector(BaseDetector):
     def _all_secondaries_pass(self, secondary_result: dict[str, Any]) -> bool:
         """All secondaries pass if wavelength is stable (low CV)."""
         cv = secondary_result.get("peak_k_cv", float("inf"))
-        return cv < self._CONFIRM_PEAK_K_CV_MAX
+        return 0.0 <= cv <= self._CONFIRM_PEAK_K_CV_MAX
 
     def _check_exclusions(
         self,

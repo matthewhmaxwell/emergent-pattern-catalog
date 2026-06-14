@@ -294,3 +294,115 @@ def count_unique_values(field: np.ndarray) -> int:
     states, usually ≤ 10.
     """
     return int(np.unique(field).size)
+
+# ---------------------------------------------------------------------------
+# Turing-specificity discriminators (Phase-2a validation rebuild).
+#
+# The peak-to-mean / peak_k metrics above answer "is there a dominant spatial
+# wavelength?" — which ANY periodic field has, including imposed sinusoids,
+# oriented stripes and travelling / rotating waves. The two functions below add
+# the structural signatures that distinguish a genuine Turing pattern (a
+# stationary standing wave selected by a diffusion-driven instability) from
+# those impostors:
+#   * ring_angular_isotropy — a Turing instability selects a wave NUMBER |k*|
+#     (an isotropic ring / finite radial band in 2-D Fourier space), not a
+#     single wave VECTOR; an imposed sinusoid concentrates power at one or a
+#     few discrete directions and in a single radial bin.
+#   * field_stationarity — a Turing pattern is stationary in time; travelling
+#     and rotating waves advect, so their consecutive frames decorrelate.
+# ---------------------------------------------------------------------------
+
+
+def ring_angular_isotropy(
+    field: "np.ndarray",
+    k_min: int = 2,
+    k_max_frac: float = 1.0,
+    n_angular_bins: int = 12,
+) -> "dict[str, float]":
+    """Angular isotropy of the dominant spectral ring + radial concentration.
+
+    Returns
+    -------
+    dict with:
+        angular_entropy      : float in [0, 1]. Normalised Shannon entropy of
+                               the power distribution over angular bins within
+                               the dominant radial shell. ~1 for an isotropic
+                               ring (Turing labyrinth/spots); ~0 for a single
+                               oriented sinusoid.
+        radial_concentration : float in (0, 1]. Fraction of the (k >= k_min)
+                               radial power in the single dominant radial bin.
+                               ~1 for a pure single-wavelength sinusoid (delta
+                               peak); lower for a finite-band Turing pattern.
+        dominant_k           : int, dominant radial wavenumber.
+    """
+    f = np.asarray(field, dtype=np.float64)
+    f = f - f.mean()
+    N = min(f.shape)
+    if N < 4 or f.std() < 1e-12:
+        return {"angular_entropy": 0.0, "radial_concentration": 1.0,
+                "dominant_k": 0}
+
+    F = np.fft.fftshift(np.fft.fft2(f))
+    P = np.abs(F) ** 2
+    cr, cc = P.shape[0] // 2, P.shape[1] // 2
+    yy, xx = np.indices(P.shape)
+    rr = np.sqrt((yy - cr) ** 2 + (xx - cc) ** 2)
+    th = np.arctan2(yy - cr, xx - cc)
+    rr_int = rr.astype(int)
+
+    kmax = N // 2
+    radial = np.array([P[rr_int == k].sum() for k in range(kmax)], dtype=np.float64)
+    if k_min < kmax:
+        radial[:k_min] = 0.0
+    if radial.sum() <= 0:
+        return {"angular_entropy": 0.0, "radial_concentration": 1.0,
+                "dominant_k": 0}
+
+    kstar = int(np.argmax(radial))
+    radial_concentration = float(radial[kstar] / radial.sum())
+
+    # Angular power distribution within the dominant shell (kstar +/- 1).
+    shell = (rr_int >= max(k_min, kstar - 1)) & (rr_int <= kstar + 1)
+    angles = np.mod(th[shell], np.pi)  # fold: FFT power is centrosymmetric
+    weights = P[shell]
+    if weights.sum() <= 0:
+        return {"angular_entropy": 0.0,
+                "radial_concentration": radial_concentration,
+                "dominant_k": kstar}
+
+    hist, _ = np.histogram(angles, bins=n_angular_bins, range=(0.0, np.pi),
+                           weights=weights)
+    total = hist.sum()
+    if total <= 0:
+        return {"angular_entropy": 0.0,
+                "radial_concentration": radial_concentration,
+                "dominant_k": kstar}
+    p = hist / total
+    nz = p[p > 0]
+    angular_entropy = float(-(nz * np.log(nz)).sum() / np.log(n_angular_bins))
+    return {
+        "angular_entropy": angular_entropy,
+        "radial_concentration": radial_concentration,
+        "dominant_k": kstar,
+    }
+
+
+def field_stationarity(fields: "list[np.ndarray]") -> float:
+    """Mean frame-to-frame Pearson correlation across a field sequence.
+
+    ~1 for a stationary standing wave (Turing pattern); well below 1 for a
+    travelling/rotating wave (plane wave, spiral, target pattern) that advects
+    between frames. Returns 1.0 when fewer than two frames are supplied —
+    stationarity cannot be disproved from a single snapshot.
+    """
+    arrs = [np.asarray(g, dtype=np.float64).ravel() for g in fields]
+    if len(arrs) < 2:
+        return 1.0
+    corrs = []
+    for a, b in zip(arrs[:-1], arrs[1:]):
+        a = a - a.mean()
+        b = b - b.mean()
+        denom = np.linalg.norm(a) * np.linalg.norm(b)
+        if denom > 0:
+            corrs.append(float(a @ b / denom))
+    return float(np.mean(corrs)) if corrs else 1.0
