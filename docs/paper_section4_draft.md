@@ -150,7 +150,7 @@ making P1 structurally inapplicable; (2) substrate-aware dispatch that
 verifies the model provides a `types` observable before running P1.
 
 **Phase-2a panel result.** The Phase-2a panel (v1.1, Sprint 33) returned
-PASS with overall TNR = 1.000 (Cohen's d = 8.282). Per-class: Class A
+PASS with overall TNR = 1.000 (Cohen's d = [withdrawn; see §4A]). Per-class: Class A
 (synthetic) TNR = 1.000, Class B (catalog-derived, substrate-type=
 lattice_2d) TNR = 1.000, Class C (GoL random initial condition decaying
 to still-life landscape, without the structured IC required for
@@ -261,7 +261,7 @@ history; however, `constant_field` is a degenerate-by-construction input
 rather than a permutation-derived one, and v1.2 introduced a separate
 carry-forward logging path for this class of case. The Phase-2a panel
 (v1.2, Sprint 35) returned PASS-with-weakness: overall TNR = 0.952
-(Cohen's d = 4.781). Per-class: Class A (synthetic) TNR = 0.875 (weak —
+(Cohen's d = [withdrawn; see §4A]). Per-class: Class A (synthetic) TNR = 0.875 (weak —
 `constant_field` carry-forward C-class-a-constant-field-trivial-sync
 retained), Class B (catalog-derived, substrate-type=oscillator) TNR =
 1.000, Class C (sub-threshold Kuramoto) TNR = 1.000. The `constant_field`
@@ -285,8 +285,7 @@ approximately 20 steps.
 
 **P1 detection.** The full P1 aggregation detector reaches CONFIRMATION
 tier (p = 0.001, 999 label-shuffle permutations, confidence 0.700).
-Moran's I = 0.423 against a null mean of −0.0002 produces Cohen's d =
-49.87. Segregation index = 0.652 (well above the 0.4 confirmation
+Moran's I = 0.423 against a null mean of −0.0002 produces Cohen's d = [withdrawn; see §4A]. Segregation index = 0.652 (well above the 0.4 confirmation
 threshold) with sustained_i CV = 0.000 (perfect plateau stability).
 The temporal convergence guard confirms genuine aggregation: I_initial
 = 0.005 → I_late = 0.415, with the guard passing via has_gain AND
@@ -320,8 +319,7 @@ P11 LV, P15 GoL, and P12 RPS all now correctly rejected. Residual FPs:
 syn `time_shuffled` (Schelling frames show segregation regardless of
 temporal order) and `linear_gradient` (Moran's I detects gradient
 autocorrelation), fai threshold ∈ [0.050, 0.161–0.250] (empirically
-above critical threshold at density=0.9 / 32×32 grid). Cohen's d =
-1.624. Verdict: PARTIAL. Carry-forward C-p1-class-b-lattice2d-fp
+above critical threshold at density=0.9 / 32×32 grid). Cohen's d = [withdrawn; see §4A]. Verdict: PARTIAL. Carry-forward C-p1-class-b-lattice2d-fp
 CLOSED; C-p1-time-shuffle-fp, C-p1-linear-gradient-fp,
 C-p1-class-c-subthreshold-fp remain open.
 
@@ -342,7 +340,7 @@ as negatives. Corrected: threshold ∈ linspace(0.01, 0.10, 10),
 grid_size 32→50 (reduces finite-size random-clustering noise).
 C-p1-class-c-subthreshold-fp CLOSED.
 Result: overall TNR = 1.000, syn = 1.000, cat = 1.000, fai = 1.000,
-Cohen's d = +∞. Verdict: **PASS**. All carry-forwards CLOSED. P1 dim4
+Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. All carry-forwards CLOSED. P1 dim4
 PARTIAL→PASS; all four dimensions now PASS → P1 advances to AT-DEPTH.
 
 ## 4.7 BTW Sandpile (Cluster D)
@@ -379,7 +377,7 @@ total energy E(t) = Σh(x,t) instead yields β = 1.41, correctly in the
 in the SOC state.
 
 **Phase-2a panel result.** The Phase-2a panel (v1.2, Sprint 35) returned
-PASS with overall TNR = 0.960 (Cohen's d = 10.585). Per-class: Class A
+PASS with overall TNR = 0.960 (Cohen's d = [withdrawn; see §4A]). Per-class: Class A
 (synthetic) TNR = 1.000, Class B (catalog-derived, substrate-type=
 lattice_2d) TNR = 1.000 (7/7 clean), Class C (dissipative sandpile,
 p_diss ∈ {0.1, 0.2, 0.3, 0.35}) TNR = 0.900 with one borderline at
@@ -432,7 +430,7 @@ preference-driven relocation. P1 and P27 mark each other as
 co-occurrence candidates rather than mutually excluding.
 
 **Phase-2a panel (Sprint 39).** The v1.2 panel returned FAIL for P27
-(overall TNR = 0.500, Cohen's d = 0.198). Two linked problems were
+(overall TNR = 0.500, Cohen's d = [withdrawn; see §4A]). Two linked problems were
 identified. First, P27's screening criterion (`f_C > 0.02 AND n_gen >
 100`) fires on any lattice substrate with ≥2% of grid cells in state 0
 — a generic condition met by GoL empty cells, GH resting cells, and
@@ -455,7 +453,7 @@ short-circuits immediately before the screening check. (2) The panel
 runner's `_augment_history_p27` was converted to a pass-through (no
 longer artificially computes `coop_fraction` from zero-cell counts for
 non-Nowak-May substrates). After these changes the v1.2 panel returned
-**PASS** (overall TNR = 1.000, Cohen's d = 2.950). Class A synthetic
+**PASS** (overall TNR = 1.000, Cohen's d = [withdrawn; see §4A]). Class A synthetic
 TNR = 1.000 (9/9 rejected; `time_shuffled` correctly skipped per
 `time_shuffle_invariant=True`); Class B catalog TNR = 1.000 (7/7
 rejected); Class C failed-regime TNR = 1.000 (10/10 rejected, b ∈
@@ -560,7 +558,7 @@ a well-known feature of spatial epidemic models (Grassberger, 1983).
 cascade) at 80×80, p=0.30, q=0.20, single-seed initialization:
 Moran's I of the infection time-map I(t_peak) = 0.987 (cells that
 became infected near-simultaneously are spatially clustered, the
-signature of a coherent wavefront), Cohen's d = 109.5 versus
+signature of a coherent wavefront), Cohen's d = [withdrawn; see §4A] versus
 spatial-shuffle null, p = 0.005 (n_permutations = 199). Negative
 controls on GoL (R-pentomino reach < 5% of grid), Nowak-May (no
 wavefront; Moran's I of infection time ≈ 0), Schelling (no wavefront;
@@ -617,7 +615,7 @@ characterization showed would not have distinguished SIR from RPS
 peak→final swap emerged from the empirical data, not from the plan.
 
 **Phase-2a panel (Sprint 39).** The v1.2 panel returned PARTIAL for P22
-(overall TNR = 0.519, Cohen's d = 1.094). Class A synthetic TNR = 0.900
+(overall TNR = 0.519, Cohen's d = [withdrawn; see §4A]). Class A synthetic TNR = 0.900
 (one false positive: `time_shuffled`); Class B catalog TNR = 0.714 (two
 false positives: Lotka-Volterra and RPS, whose persistent spatial
 activity satisfies P22's cascade prerequisites). Class C TNR = 0.000:
@@ -640,7 +638,7 @@ linspace(0.005, 0.030, 10)` — all values strictly below the
 Moore-neighbourhood percolation threshold p_c ≈ 0.038. Class C TNR
 recovered from 0.000 → 1.000: all 10 sub-threshold regimes correctly
 produce no detectable cascade (epidemic dies out from single seed).
-Overall panel result: PARTIAL (TNR = 0.889, Cohen's d = 2.981). Class A
+Overall panel result: PARTIAL (TNR = 0.889, Cohen's d = [withdrawn; see §4A]). Class A
 synthetic TNR remains 0.900 (one false positive: `time_shuffled`); Class
 B catalog TNR remains 0.714 (two false positives: Lotka-Volterra and RPS
 whose persistent spatial activity satisfies P22's screening threshold).
@@ -660,7 +658,7 @@ under the SIR irreversibility convention. The guard scans all consecutive frame
 pairs for any cell where the new state is strictly less than the previous state;
 on detection it short-circuits with `detected=False, confidence=0.0`. The v1.2
 panel re-run (Sprint 41) confirms: TNR = 1.000 across all three classes (syn,
-cat, fai), Cohen's d = +∞. Carry-forward C-p22-class-b-cascade-overlap is
+cat, fai), Cohen's d = [withdrawn; see §4A]. Carry-forward C-p22-class-b-cascade-overlap is
 CLOSED. `analysis/outputs/p22_phase2a_panel.json`.
 
 **Numerical reproduction (Sprint 51).** Sprint 51 closes the P22 dim1 gap by
@@ -1106,7 +1104,7 @@ within each v-field snapshot, computing peak-to-mean under the null
 for 199 permutations. The lower bound on the null-p achievable at
 n = 199 is 1/(199 + 1) = 0.005, so the p < 0.01 CONFIRMATION gate is
 achievable but the p < 0.001 DEFINITIVE gate is not. Since P3's effect
-sizes are enormous (Cohen's d ≈ 100), the extra permutations above 99
+sizes are enormous (Cohen's d = [withdrawn; see §4A]), the extra permutations above 99
 are effectively free at 1–2 seconds per detector call. Tier thresholds:
 peak-to-mean > 5.0 for SCREENING; peak-to-mean > 10.0 with d > 10 and
 peak-k coefficient-of-variation < 0.15 and null-p < 0.01 for
@@ -1159,8 +1157,8 @@ since each GS frame contains the complete Turing pattern regardless of
 temporal order), cat = 1.000 (2/2 lattice_2d_continuous supplements
 correctly rejected), fai = N/A (Gray-Scott non-Turing regimes rejected
 at field_std prerequisite, per v1.1 spec §Class C N/A list). Positives:
-all 5 seeds reach DEFINITIVE (p/m ≈ 19.5, Cohen's d = 103, null_p =
-0.005, peak_k_cv = 0.0). Cohen's d = +∞. Verdict: PASS.
+all 5 seeds reach DEFINITIVE (p/m ≈ 19.5, Cohen's d = [withdrawn; see §4A], null_p =
+0.005, peak_k_cv = 0.0). Cohen's d = [withdrawn; see §4A]. Verdict: PASS.
 C-lattice_2d_continuous-substrate-undercount CLOSED. P3 advances to AT-DEPTH.
 
 ## 4.14 Nagel-Schreckenberg Traffic CA and P8 Traffic Jamming (Cluster D)
@@ -1292,7 +1290,7 @@ a Class C regime correction: the original density range linspace(0.05, 0.20,
 10) placed 6/10 regimes at or above the jamming onset (ρ_c ≈ 0.10 for
 v_max=5, p=0.3), making them genuine positives mislabeled as negatives.
 Corrected to linspace(0.02, 0.07, 10), all in the free-flow phase. Panel
-re-run: overall TNR = 1.000, Cohen's d = +∞. P8 AT-DEPTH.
+re-run: overall TNR = 1.000, Cohen's d = [withdrawn; see §4A]. P8 AT-DEPTH.
 
 **Transfer-matrix additions.** Nagel-Schreckenberg × P8 is the
 Sprint 15 positive (DEFINITIVE). Every other model × P8 rejects: Zhang
@@ -2456,7 +2454,7 @@ block.
     trajectories. Speedup did not justify the quantitative drift.
 
 **Phase-2a panel result.** The Phase-2a panel (v1.1, Sprint 33) returned
-PASS with overall TNR = 1.000 (Cohen's d = +∞ — the canonical-positive
+PASS with overall TNR = 1.000 (Cohen's d = [withdrawn; see §4A] — the canonical-positive
 score distribution has no overlap with the pooled-negative score
 distribution across all 30 substrates). Per-class: Class A (synthetic)
 TNR = 1.000, Class B (catalog-derived, substrate-type=lattice_2d) TNR =
@@ -2478,7 +2476,7 @@ The Phase-2a panel (v1.2) was run against the P1 aggregation detector using
 Schelling segregation as the canonical positive (threshold=0.375, grid_size=64,
 n_steps=200, 5 seeds). All 5 canonical positive seeds returned CONFIRMATION
 tier (confidence=0.700). The overall panel TNR was 0.593 (PARTIAL per v1.2
-verdict rules; overall_tnr < 0.95). Cohen's d = 1.298 (≥ 0.5, so the
+verdict rules; overall_tnr < 0.95). Cohen's d = [withdrawn; see §4A] (≥ 0.5, so the
 verdict is PARTIAL rather than FAIL).
 
 Key false positives: (i) Class A `time_shuffled` substrate — because Schelling
@@ -2523,7 +2521,7 @@ p < 0.005). Class A synthetic TNR = 1.000 (10/10); Class B catalog TNR = 1.000 (
 lattice_2d mates); Class C failed-regime TNR = 1.000 (10/10 high-mobility extinction
 regimes at mobility ∈ linspace(5×10⁻³, 5×10⁻²)). All Class C regimes are ≥ 11× M_c,
 well into the extinction phase where coexistence collapses and cyclic dominance vanishes.
-Overall TNR = 1.000, Cohen's d = +∞. Verdict: **PASS**. P12 dim4 advances from PARTIAL to
+Overall TNR = 1.000, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. P12 dim4 advances from PARTIAL to
 PASS. Grade remains GAP (dim1: λ ∝ √M scaling unresolved; dim2: mostly single-seed).
 
 **P13 Greenberg-Hastings — Phase-2a panel v1.2 (Sprint 44).**
@@ -2537,7 +2535,7 @@ than 300 steps at 50×50. Class A synthetic TNR = 1.000 (10/10); Class B catalog
 (7/7, including P12_RPS which P13 correctly rejects via CV); Class C TNR = 1.000 (10/10
 low-density init regimes at density ∈ linspace(0.01, 0.10) — below the excitation threshold
 for spiral nucleation). Class separation is sharp: positives at 0.500 vs all negatives at
-0.000, yielding Cohen's d = +∞. Overall TNR = 1.000. Verdict: **PASS**. P13 dim4 advances
+0.000, yielding Cohen's d = [withdrawn; see §4A]. Overall TNR = 1.000. Verdict: **PASS**. P13 dim4 advances
 from PARTIAL to PASS; all four dimensions now PASS → P13 advances to **AT-DEPTH**.
 
 ### §4.23 Sprint 45 — Phase-2a panel run: P11 Lotka-Volterra (PASS)
@@ -2546,7 +2544,7 @@ from PARTIAL to PASS; all four dimensions now PASS → P13 advances to **AT-DEPT
 
 The P11 predator-prey oscillation detector (Sprint 11) detects bilateral anti-phase oscillations between two species on a lattice via the cross-correlation lag metric rho_anti = min_{|tau|≥5} Pearson(A(t), B(t+tau)). The panel was run against five seeds of LotkaVolterraLattice at canonical coexistence parameters (predation_rate=4.0, prey_reproduction_rate=1.0, predator_death_rate=1.0, L=100, n_steps=1200; Mobilia-Georgiev-Täuber 2007).
 
-All five positives reached DEFINITIVE (confidence = 0.900; rho_anti < −0.7, fft_peak_to_mean > 12, Cohen's d < −1.5). Class A synthetic TNR = 1.000 (9/9 evaluated; `time_shuffled` SKIPPED — rho_anti measures lag-structure between two species, not temporal order, making P11 time_shuffle_invariant). Class B catalog TNR = 1.000 (7/7 lattice_2d mates: Schelling fails species_std = 0; Nowak-May fails total_std = 0 via strict conservation; SIR, GoL, RPS, BTW, and NM fail rho_anti screening threshold). Class C failed-regime TNR = 1.000 (10/10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10), predation_rate = 2.0 — all collapse to prey-only, failing the n_species ≥ 2 prerequisite). Overall TNR = 1.000, Cohen's d = +∞. Verdict: **PASS**. P11 dim4 advances from PARTIAL to PASS. Grade remains GAP (dim1: Mobilia-Georgiev-Täuber 2007 cited but no specific Fig/table reproduced with stated tolerance).
+All five positives reached DEFINITIVE (confidence = 0.900; rho_anti < −0.7, fft_peak_to_mean > 12, Cohen's d < −1.5). Class A synthetic TNR = 1.000 (9/9 evaluated; `time_shuffled` SKIPPED — rho_anti measures lag-structure between two species, not temporal order, making P11 time_shuffle_invariant). Class B catalog TNR = 1.000 (7/7 lattice_2d mates: Schelling fails species_std = 0; Nowak-May fails total_std = 0 via strict conservation; SIR, GoL, RPS, BTW, and NM fail rho_anti screening threshold). Class C failed-regime TNR = 1.000 (10/10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10), predation_rate = 2.0 — all collapse to prey-only, failing the n_species ≥ 2 prerequisite). Overall TNR = 1.000, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. P11 dim4 advances from PARTIAL to PASS. Grade remains GAP (dim1: Mobilia-Georgiev-Täuber 2007 cited but no specific Fig/table reproduced with stated tolerance).
 
 ### §4.24 Sprint 46 — Phase-2a panel runs: P5 Vicsek (PASS-with-weakness), P2 ABP / MIPS (PASS), P6 D'Orsogna / milling (PASS)
 
@@ -2554,15 +2552,15 @@ Sprint 46 completes the continuous_2d dim4 batch, running the Phase-2a v1.2 pane
 
 **P5 Vicsek (flocking) — Phase-2a panel v1.2 (Sprint 46).**
 
-The P5 flocking detector uses polar order parameter φ = |⟨e^{iθ}⟩| as its primary metric (Vicsek et al. 1995). The panel was run against five seeds of VicsekModel at canonical ordered-phase parameters (N=300, box_size=7.0, speed=0.03, noise=0.1, n_steps=5000; ≈10.7 T_cross). All five positives reached DEFINITIVE (confidence = 0.850). Class A synthetic TNR = 0.889 (8/9 evaluated; `permutation_shuffled` SKIPPED — primary metric is permutation-invariant on particle indices; `time_shuffled` fires at DEFINITIVE — each Vicsek frame has high φ independent of temporal order, as all particles are already aligned). Class B catalog+supplement TNR = 1.000 (4 substrates: P2_abp and P6_dorsogna rejected via unaligned headings or low φ; both random-walk supplements rejected). Class C failed-regime TNR = 1.000 (10/10 high-noise regimes, noise ∈ linspace(0.70, 1.50, 10), well above the order-disorder transition). Overall TNR = 0.957, Cohen's d = 4.987. Verdict: **PASS-with-weakness**. P5 dim4 advances from PARTIAL to PASS; all four dimensions now PASS → P5 advances to **AT-DEPTH**.
+The P5 flocking detector uses polar order parameter φ = |⟨e^{iθ}⟩| as its primary metric (Vicsek et al. 1995). The panel was run against five seeds of VicsekModel at canonical ordered-phase parameters (N=300, box_size=7.0, speed=0.03, noise=0.1, n_steps=5000; ≈10.7 T_cross). All five positives reached DEFINITIVE (confidence = 0.850). Class A synthetic TNR = 0.889 (8/9 evaluated; `permutation_shuffled` SKIPPED — primary metric is permutation-invariant on particle indices; `time_shuffled` fires at DEFINITIVE — each Vicsek frame has high φ independent of temporal order, as all particles are already aligned). Class B catalog+supplement TNR = 1.000 (4 substrates: P2_abp and P6_dorsogna rejected via unaligned headings or low φ; both random-walk supplements rejected). Class C failed-regime TNR = 1.000 (10/10 high-noise regimes, noise ∈ linspace(0.70, 1.50, 10), well above the order-disorder transition). Overall TNR = 0.957, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS-with-weakness**. P5 dim4 advances from PARTIAL to PASS; all four dimensions now PASS → P5 advances to **AT-DEPTH**.
 
 **P2 Active Brownian Particles / MIPS — Phase-2a panel v1.2 (Sprint 46).**
 
-The P2 MIPS detector uses two_phase_score = min(f_gas, f_liquid) as its primary metric, where f_gas and f_liquid are the fractions of coarse-grid cells with density below and above phase-boundary thresholds (Fily & Marchetti 2012; Cates & Tailleur 2015). The panel was run against five seeds of ActiveBrownianParticles at canonical MIPS parameters (N=800, φ_packing=0.5, Pe=100, v₀=1.0, D_r=0.01, box≈35.4, n_steps=2500). Three of five positives reached DEFINITIVE (confidence = 0.950); two reached SCREENING (seeds 0–1: MIPS nucleation is seed-dependent and some seeds require longer burn-in to fully phase-separate). Class A synthetic TNR = 0.900 (9/10 negatives rejected; `permutation_shuffled` fires at SCREENING — two_phase_score is a spatial density statistic invariant to particle-index permutation; permutation_invariant flag not set per sprint brief instruction; carry-forward C-p2-perm-shuffled-fp). Class B catalog+supplement TNR = 1.000. Class C failed-regime TNR = 1.000 (10/10 low-Péclet regimes, Pe ∈ linspace(0.50, 10.00, 10); all below MIPS onset threshold). Overall TNR = 0.958, Cohen's d = 3.401. Verdict: **PASS**. P2 dim4 advances from PARTIAL to PASS. Grade remains GAP (dims 1–3 still PARTIAL).
+The P2 MIPS detector uses two_phase_score = min(f_gas, f_liquid) as its primary metric, where f_gas and f_liquid are the fractions of coarse-grid cells with density below and above phase-boundary thresholds (Fily & Marchetti 2012; Cates & Tailleur 2015). The panel was run against five seeds of ActiveBrownianParticles at canonical MIPS parameters (N=800, φ_packing=0.5, Pe=100, v₀=1.0, D_r=0.01, box≈35.4, n_steps=2500). Three of five positives reached DEFINITIVE (confidence = 0.950); two reached SCREENING (seeds 0–1: MIPS nucleation is seed-dependent and some seeds require longer burn-in to fully phase-separate). Class A synthetic TNR = 0.900 (9/10 negatives rejected; `permutation_shuffled` fires at SCREENING — two_phase_score is a spatial density statistic invariant to particle-index permutation; permutation_invariant flag not set per sprint brief instruction; carry-forward C-p2-perm-shuffled-fp). Class B catalog+supplement TNR = 1.000. Class C failed-regime TNR = 1.000 (10/10 low-Péclet regimes, Pe ∈ linspace(0.50, 10.00, 10); all below MIPS onset threshold). Overall TNR = 0.958, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. P2 dim4 advances from PARTIAL to PASS. Grade remains GAP (dims 1–3 still PARTIAL).
 
 **P6 D'Orsogna SPP / milling — Phase-2a panel v1.2 (Sprint 46).**
 
-The P6 milling detector uses normalised angular momentum |L| = |Σ r_i × v_i| / N as its primary metric (D'Orsogna et al. 2006). The panel was run against five seeds of DOrsognaSPPModel at canonical milling parameters (N=100, C_a=0.5, C_r=1.0, l_a=3.0, l_r=0.5, α=1.0, β=0.5, dt=0.05, ring initialisation, n_steps=3000). All five positives reached DEFINITIVE (confidence = 0.850). Class A synthetic TNR = 0.900 (9/10; `time_shuffled` fires at DEFINITIVE — each milled frame retains high |L|, so temporal reordering does not affect the metric; carry-forward C-p6-time-shuffle-fp). Class B catalog+supplement TNR = 1.000. Class C failed-regime TNR = 1.000 (10/10 mismatched-radii regimes, l_a ∈ linspace(0.10, 0.49, 10) with l_r=0.5 fixed; when l_a ≤ l_r attraction range is shorter than repulsion range, no stable orbit forms, |L|≈0). Overall TNR = 0.958, Cohen's d = 5.087. Verdict: **PASS**. P6 dim4 advances from PARTIAL to PASS. Grade remains GAP (dim2 PARTIAL: ≥5-seed parameter-space dispersion not documented).
+The P6 milling detector uses normalised angular momentum |L| = |Σ r_i × v_i| / N as its primary metric (D'Orsogna et al. 2006). The panel was run against five seeds of DOrsognaSPPModel at canonical milling parameters (N=100, C_a=0.5, C_r=1.0, l_a=3.0, l_r=0.5, α=1.0, β=0.5, dt=0.05, ring initialisation, n_steps=3000). All five positives reached DEFINITIVE (confidence = 0.850). Class A synthetic TNR = 0.900 (9/10; `time_shuffled` fires at DEFINITIVE — each milled frame retains high |L|, so temporal reordering does not affect the metric; carry-forward C-p6-time-shuffle-fp). Class B catalog+supplement TNR = 1.000. Class C failed-regime TNR = 1.000 (10/10 mismatched-radii regimes, l_a ∈ linspace(0.10, 0.49, 10) with l_r=0.5 fixed; when l_a ≤ l_r attraction range is shorter than repulsion range, no stable orbit forms, |L|≈0). Overall TNR = 0.958, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. P6 dim4 advances from PARTIAL to PASS. Grade remains GAP (dim2 PARTIAL: ≥5-seed parameter-space dispersion not documented).
 
 ### §4.25 Sprint 47 — Phase-2a panel runs: P8 Nagel-Schreckenberg (PARTIAL) and P10 chimera states (PASS)
 
@@ -2572,13 +2570,13 @@ Sprint 47 closes the lattice_1d (P8) and oscillator (P10) dim4 depth-gaps by run
 
 The P8 traffic-jamming detector (Sprint 13) uses stopped_fraction as its primary screening metric, jam_lifetime_p95 > 5 as the confirmation gate, and stopped_fraction > 0.15 + jam_lifetime_max > 20 as the definitive gate. The panel was run against five seeds of NagelSchreckenberg at canonical jam-phase parameters (L=1000, density=0.30, v_max=5, p_slow=0.3, n_steps=2500; burn_in=1000 inside detector). All five positives reached DEFINITIVE (confidence = 0.900; stopped_fraction ≈ 0.18–0.22 at rho=0.30).
 
-Class A synthetic TNR = 0.800 (8/10; two FPs). The `permutation_shuffled` substrate fires at SCREENING: stopped_fraction is a spatial-occupancy statistic invariant to cell-order permutation, so the permuted substrate triggers the screening gate. The `time_shuffled` substrate also fires at SCREENING for the same reason — stopped_fraction is a time-average-invariant quantity. P8 is absent from the detector_invariance registry; the invariance flags were not auto-set per sprint brief instruction (carry-forwards C-p8-perm-shuffled-fp, C-p8-time-shuffle-fp). Class B catalog + supplement TNR = 1.000 (P31_zhang_sorting rejected; independent_lane_traffic and reverse_sorted_sequence supplements rejected at prerequisites — no velocities key). Class C failed-regime TNR = 0.400 (4/10 regimes below jamming onset correctly rejected; 6/10 at or above onset — rho ∈ {0.1167, 0.1333, 0.1500, 0.1667, 0.1833, 0.2000} fire at CONFIRMATION or DEFINITIVE; carry-forward C-p8-class-c-near-onset). The NS jamming transition at p_slow=0.3 occurs at rho ≈ 0.12 (Nagel & Schreckenberg 1992), so the upper half of the linspace(0.05, 0.20, 10) sweep overlaps the jam-phase. Overall TNR = 0.652, Cohen's d = 1.751. Verdict: **PARTIAL**. P8 dim4 remains PARTIAL; escalate C-p8-class-c-near-onset for a revised Class C sweep restricted to rho ∈ linspace(0.01, 0.09, 10).
+Class A synthetic TNR = 0.800 (8/10; two FPs). The `permutation_shuffled` substrate fires at SCREENING: stopped_fraction is a spatial-occupancy statistic invariant to cell-order permutation, so the permuted substrate triggers the screening gate. The `time_shuffled` substrate also fires at SCREENING for the same reason — stopped_fraction is a time-average-invariant quantity. P8 is absent from the detector_invariance registry; the invariance flags were not auto-set per sprint brief instruction (carry-forwards C-p8-perm-shuffled-fp, C-p8-time-shuffle-fp). Class B catalog + supplement TNR = 1.000 (P31_zhang_sorting rejected; independent_lane_traffic and reverse_sorted_sequence supplements rejected at prerequisites — no velocities key). Class C failed-regime TNR = 0.400 (4/10 regimes below jamming onset correctly rejected; 6/10 at or above onset — rho ∈ {0.1167, 0.1333, 0.1500, 0.1667, 0.1833, 0.2000} fire at CONFIRMATION or DEFINITIVE; carry-forward C-p8-class-c-near-onset). The NS jamming transition at p_slow=0.3 occurs at rho ≈ 0.12 (Nagel & Schreckenberg 1992), so the upper half of the linspace(0.05, 0.20, 10) sweep overlaps the jam-phase. Overall TNR = 0.652, Cohen's d = [withdrawn; see §4A]. Verdict: **PARTIAL**. P8 dim4 remains PARTIAL; escalate C-p8-class-c-near-onset for a revised Class C sweep restricted to rho ∈ linspace(0.01, 0.09, 10).
 
 **P10 chimera states / non-local Kuramoto ring — Phase-2a panel v1.2 (Sprint 47).**
 
 The P10 chimera detector (Sprint 19) detects spatiotemporal coexistence of coherent and incoherent oscillator clusters on a non-local Kuramoto ring. Its primary metric is pos_vel_ac[lag=4] — the ring-autocorrelation of per-oscillator phase velocities at spatial lag 4 — which is ≈ 0.93 in chimera states and < 0.31 in ordinary Kuramoto synchronisation. The DEFINITIVE tier additionally requires has_nonlocal_coupling = True in model metadata (ADR 52). The panel was run against five seeds of KuramotoNonlocal at canonical chimera parameters (N=128, A=0.995, β=0.05, asymmetric_gaussian IC; Abrams & Strogatz 2004). All five positives reached DEFINITIVE (confidence = 0.950; pos_vel_ac[lag=4] ≈ 0.92–0.95, n_persistent_coh ≥ 1, n_persistent_incoh ≥ 1, has_nonlocal_coupling = True).
 
-Class A synthetic TNR = 0.900 (9/10; one FP). The `permutation_shuffled` substrate fires at SCREENING: the permuted substrate copies the theta array from the last chimera frame and permutes oscillator indices, which preserves the global velocity distribution and thus gives pos_vel_ac[lag=4] similar to the original chimera frame. Carry-forward C-p10-perm-shuffled-fp. Class B catalog + supplement TNR = 1.000 (P9_kuramoto catalog mate rejected at screening — ordinary Kuramoto produces full synchronisation with no coexistence, pos_vel_ac << 0.55; incoherent_phases and subcritical_kuramoto supplements both rejected). Class C failed-regime TNR = 1.000 (10/10 ordinary all-to-all Kuramoto regimes at K ∈ linspace(1.5, 4.0) = linspace(1.5·K_c, 4.0·K_c) correctly rejected — full synchronisation at all values, no coexistence windows, pos_vel_ac[lag=4] well below the 0.55 screening floor). Overall TNR = 0.957, Cohen's d = 9.679. Verdict: **PASS**. P10 dim4 advances from PARTIAL to PASS; all four dimensions now PASS → P10 advances to **AT-DEPTH**. AT-DEPTH count: **10 / 19**.
+Class A synthetic TNR = 0.900 (9/10; one FP). The `permutation_shuffled` substrate fires at SCREENING: the permuted substrate copies the theta array from the last chimera frame and permutes oscillator indices, which preserves the global velocity distribution and thus gives pos_vel_ac[lag=4] similar to the original chimera frame. Carry-forward C-p10-perm-shuffled-fp. Class B catalog + supplement TNR = 1.000 (P9_kuramoto catalog mate rejected at screening — ordinary Kuramoto produces full synchronisation with no coexistence, pos_vel_ac << 0.55; incoherent_phases and subcritical_kuramoto supplements both rejected). Class C failed-regime TNR = 1.000 (10/10 ordinary all-to-all Kuramoto regimes at K ∈ linspace(1.5, 4.0) = linspace(1.5·K_c, 4.0·K_c) correctly rejected — full synchronisation at all values, no coexistence windows, pos_vel_ac[lag=4] well below the 0.55 screening floor). Overall TNR = 0.957, Cohen's d = [withdrawn; see §4A]. Verdict: **PASS**. P10 dim4 advances from PARTIAL to PASS; all four dimensions now PASS → P10 advances to **AT-DEPTH**. AT-DEPTH count: **10 / 19**.
 
 **P21 polarization/fragmentation (Hegselmann-Krause) — Phase-2a panel v1.2 (Sprint 48).**
 
@@ -2586,7 +2584,7 @@ The P21 polarization detector identifies persistent multimodality in agent opini
 
 All five positives (HK at ε = 0.2, seeds 0–4, 100 agents, histories extended to 201 steps) reached DEFINITIVE tier (confidence = 0.950): dip_p < 0.001, n_clusters = 2, persistence ≥ 170 (from step ~25 to 200, frozen at converged bimodal state), from_unimodal = True (uniform IC → unimodal at step 0), full_range_consensus = True.
 
-Class A synthetic TNR = 0.800 (8/10; two FPs). The `permutation_shuffled` substrate fires at CONFIRMATION (0.850): Hartigan's dip test is purely distributional (depends only on sorted values), so permuting agent opinion indices preserves the bimodal cluster structure → same dip statistic → confirmation-tier FP. Carry-forward C-p21-perm-shuffled-fp. The `time_shuffled` substrate fires at SCREENING (0.600): the HK canonical positive converges at ~step 25; shuffling the time steps places some pre-convergence unimodal frames at the end of the trajectory, reducing the persistence count below the confirmation threshold (50 steps). Carry-forward C-p21-time-shuffled-fp. Note: P21 invariance flags were corrected from (True, True) to (False, False) in detector_invariance.py per Sprint 48 brief, accepting these FPs as expected behaviour. Class B catalog + supplement TNR = 1.000 (P18_voter grid adapted via rank transform to uniform opinions → unimodal → correctly rejected; random_graph_evolution and network_random_walks supplements similarly adapted). Class C failed-regime TNR = 1.000 (10/10 high-ε consensus regimes at ε ≥ 0.45 all converge to single cluster within ~10 steps → n_clusters = 1 → correctly rejected at tier = none). Overall TNR = 0.913, Cohen's d = 4.543. Verdict: **PARTIAL** (TNR < 0.95 due to two Class A FPs). P21 dim4 remains PARTIAL; AT-DEPTH count unchanged at **10 / 19**. Dims 1–3 (replication, multi-seed, methods note) remain PARTIAL and are scheduled for Sprint 49.
+Class A synthetic TNR = 0.800 (8/10; two FPs). The `permutation_shuffled` substrate fires at CONFIRMATION (0.850): Hartigan's dip test is purely distributional (depends only on sorted values), so permuting agent opinion indices preserves the bimodal cluster structure → same dip statistic → confirmation-tier FP. Carry-forward C-p21-perm-shuffled-fp. The `time_shuffled` substrate fires at SCREENING (0.600): the HK canonical positive converges at ~step 25; shuffling the time steps places some pre-convergence unimodal frames at the end of the trajectory, reducing the persistence count below the confirmation threshold (50 steps). Carry-forward C-p21-time-shuffled-fp. Note: P21 invariance flags were corrected from (True, True) to (False, False) in detector_invariance.py per Sprint 48 brief, accepting these FPs as expected behaviour. Class B catalog + supplement TNR = 1.000 (P18_voter grid adapted via rank transform to uniform opinions → unimodal → correctly rejected; random_graph_evolution and network_random_walks supplements similarly adapted). Class C failed-regime TNR = 1.000 (10/10 high-ε consensus regimes at ε ≥ 0.45 all converge to single cluster within ~10 steps → n_clusters = 1 → correctly rejected at tier = none). Overall TNR = 0.913, Cohen's d = [withdrawn; see §4A]. Verdict: **PARTIAL** (TNR < 0.95 due to two Class A FPs). P21 dim4 remains PARTIAL; AT-DEPTH count unchanged at **10 / 19**. Dims 1–3 (replication, multi-seed, methods note) remain PARTIAL and are scheduled for Sprint 49.
 
 ### §4.27 Sprint 49 — Invariance-flag batch update: P1, P2, P5, P6, P8, P21
 
@@ -2696,7 +2694,7 @@ relative to alignment strength (carry-forward C-p19-abrupt-saturation).
 (CV = 0.0%); influence pull = 0.0013 ± 0.0020 (CV = 156% — absolute pull
 values are small in steady state, but sign is consistently positive).
 
-**Phase-2a panel (Sprint 70).** PASS: overall TNR = 0.960, Cohen's d = 5.418.
+**Phase-2a panel (Sprint 70).** PASS: overall TNR = 0.960, Cohen's d = [withdrawn; see §4A].
 Class A (synthetic): 10/10 rejected. Class B (catalog): P2 (MIPS), P5 (Vicsek),
 P6 (D'Orsogna), P7 (lane formation), P17 (collective sensing) — all lack
 `informed_mask` in history → rejected at detector prerequisite. Class C (failed
@@ -2746,7 +2744,7 @@ Deviation ratio = 0.0027 (tolerance < 0.30). 20-seed multi-seed: CV = 0.8%.
 detector recognizes the phenomenon (homeostatic regulation) rather than the
 specific controller implementation.
 
-**Phase-2a panel (Sprint 73):** PASS (TNR=1.000, Cohen's d=+inf). New
+**Phase-2a panel (Sprint 73):** PASS (TNR=1.000, Cohen's d = [withdrawn; see §4A]). New
 `scalar_timeseries` format wired into the panel harness. Class A: 8/8 evaluated
 substrates rejected (2 SKIPPED: permutation_invariant=True because scalar
 series has a single variable; time_shuffle_invariant=True because the deviation
@@ -2798,7 +2796,7 @@ zero-noise = 0.063, gain = 0.855 (tolerance > 0.05), decline = 0.811
 detector recognizes the phenomenon (stochastic resonance) rather than the
 specific implementation (bistable double-well vs binary threshold).
 
-**Phase-2a panel (Sprint 75):** TNR=1.000, Cohen's d=+inf, verdict PASS.
+**Phase-2a panel (Sprint 75):** TNR=1.000, Cohen's d = [withdrawn; see §4A], verdict PASS.
 8/8 evaluated Class A substrates correctly rejected (2 SKIPPED: permutation
 and time-shuffle degenerate-by-construction). 2 Class B supplements rejected
 (monotone_suprathreshold at screening, flat_noise_only at screening). 2 Class C
@@ -2846,7 +2844,7 @@ limitations (autocorrelation not consistently negative at all efficient-phase se
 675 cells, 108 compatible pairs.
 
 **dim4 (Phase-2a panel, Sprint 77):** Phase-2a v1.2 panel **PASS** (TNR=1.000,
-Cohen's d=14.504). Detector format: `choice_timeseries`. Invariance flags:
+Cohen's d = [withdrawn; see §4A]). Detector format: `choice_timeseries`. Invariance flags:
 `permutation_invariant=True` (attendance is agent-index-invariant scalar sum),
 `time_shuffle_invariant=True` (σ²/N is the primary confirmation signal and is
 preserved by time shuffling — same pattern as P5 Sprint 46, P1 Sprint 43).
@@ -2875,7 +2873,7 @@ respective cues, accuracy > 0.8, null p < 0.01.
 
 **Null model:** Random-weights surrogate. Replace Hebbian weights with weights
 from P random (non-stored) patterns; attempt retrieval of original stored patterns.
-Null mean overlap ≈ 0.17 (N=100), Cohen's d ≈ 12.
+Null mean overlap ≈ 0.17 (N=100), Cohen's d = [withdrawn; see §4A]
 
 **Canonical result:** All 5 patterns selectively recalled with mean overlap 0.956.
 Detector reaches DEFINITIVE (confidence=0.90). Random-weights negative control:
@@ -2903,7 +2901,7 @@ Hopfield and BooleanGRN dynamics, T1a observation contract, three-tier detection
 pipeline, random-weights null model, AGS1985 capacity reproduction, and the
 finite-size shift documented at N=500.
 
-**dim4 (Phase-2a panel):** Panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf).
+**dim4 (Phase-2a panel):** Panel v1.2 **PASS** (TNR=1.000, Cohen's d = [withdrawn; see §4A]).
 `state_vector` format. 2 invariance flags (permutation + time_shuffle); both
 SKIPPED — overlap invariant under consistent neuron relabeling (Hopfield 1982);
 converged state replicated across post-convergence steps. 8/8 Class A evaluated
@@ -2957,7 +2955,7 @@ gate, T1b GRN cross-model. **T1b.** MultiBasinGRN DEFINITIVE (0.90).
 (canalized_landscape, multi_basin_grn) registered. Registry: 31 models ×
 27 detectors = 837 cells, 112 compatible pairs.
 
-**dim4 (Sprint 82).** Phase-2a panel v1.2 PASS (TNR = 1.000, Cohen's d = +∞).
+**dim4 (Sprint 82).** Phase-2a panel v1.2 PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]).
 New `canalization_bundle` detector format for multi-IC observation bundles.
 Invariance: convergence variance ratio is permutation-invariant over the IC
 ensemble (aggregate statistic) and time-shuffle-degenerate (observation bundle
@@ -3015,7 +3013,7 @@ DEFINITIVE (0.90).
 (autoinducer_quorum, fraction_threshold) registered. Registry: 33 models ×
 28 detectors = 924 cells, 114 compatible pairs.
 
-**dim4 (Sprint 84).** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf).
+**dim4 (Sprint 84).** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d = [withdrawn; see §4A]).
 All 5 positives DEFINITIVE (0.900); all negatives correctly rejected. Class A:
 9/9 evaluated TN (time_shuffled SKIPPED — density_idx/sweep_direction tags
 preserve equilibrium curve under temporal reordering, degenerate-by-construction).
@@ -3057,7 +3055,7 @@ correctly rejected at screening (exclusivity 0.74, below 0.80 threshold).
 
 **dim1.** Exclusivity = 0.902 (tolerance > 0.85 PASS), overlap = 0.034
 (tolerance < 0.10 PASS), persistence = 0.865 (tolerance > 0.70 PASS),
-DEFINITIVE (confidence 0.90, Cohen's d = 157.5). **dim2.** 20-seed campaign.
+DEFINITIVE (confidence 0.90, Cohen's d = [withdrawn; see §4A]). **dim2.** 20-seed campaign.
 **dim3.** Methods note covers two-stage avoidance movement, cell-level
 multinomial null, PheromoneRepulsion T1b, PlainRandomWalk negative control.
 **T1b.** PheromoneRepulsionModel CONFIRMATION (0.70) — independent hard-threshold
@@ -3114,7 +3112,7 @@ p = 0.59, no systematic distance preference.
 
 **dim1.** Physarum (grid layout, seed=42): length/MST = 1.354 (tolerance
 [1.0, 1.5] PASS), fault_tolerance = 1.000 (> 0 PASS), weight_dist_corr =
-0.846 (> 0.5 PASS), DEFINITIVE (confidence 0.90, Cohen's d = 2.60).
+0.846 (> 0.5 PASS), DEFINITIVE (confidence 0.90, Cohen's d = [withdrawn; see §4A]).
 **dim2.** 20-seed campaign (random layout): length/MST 1.548 ± 0.112
 (CV=7.2%), 19/20 detected (1 DEFINITIVE, 13 CONFIRMATION, 5 SCREENING).
 **dim3.** Methods note covers ACO + Physarum models, weight-distance
@@ -3162,7 +3160,7 @@ P23 (anti-coordination) excluded via low late switching frequency (<0.3).
 
 **Canonical positive.** ResponseThresholdModel (N=20, M=3, ξ=0.05,
 φ=0.01, seed=42, 1000 steps) → DEFINITIVE (p=0.002, confidence=0.90,
-Cohen's d=8.88, entropy decline=0.58, role diversity=1.0, P23 excluded).
+Cohen's d = [withdrawn; see §4A], entropy decline=0.58, role diversity=1.0, P23 excluded).
 
 **Negative control.** NoReinforcementModel (ξ=0, φ=0): entropy decline
 0.035, well below 0.1 screening threshold. Not detected.
@@ -3182,7 +3180,7 @@ dynamics, three-tier criteria, T1a observation contract, T1b cross-model.
 reinforcement: θ *= (1-rate)) also detected — confirms detector
 recognizes the specialization phenomenon, not the additive implementation.
 
-**dim4.** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d=2.683):
+**dim4.** Phase-2a panel v1.2 **PASS** (TNR=1.000, Cohen's d = [withdrawn; see §4A]):
 syn=1.000 (9/9 evaluated; `permutation_shuffled` SKIPPED — mean
 per-agent entropy is invariant under agent relabelling), cat=1.000
 (advisory; 2 supplements: single_task_collapse rejected at screening

@@ -582,14 +582,14 @@ mechanistic null gates and the P31 non-redundancy test respectively.
 Sprint 39 ran panels for P22 (SIR cascade) and P27 (Nowak-May spatial
 reciprocity), returning PARTIAL and FAIL respectively; neither pattern
 advanced to AT-DEPTH. Sprint 40 re-ran both panels after targeted fixes.
-P27 advanced to PASS (TNR = 1.000, Cohen's d = 2.95) via an observable-
+P27 advanced to PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]) via an observable-
 prerequisite guard (see §3.5, §4.8); P22 improved from overall TNR 0.519
 → 0.889 (Class C fixed: failed-regime TNR 0.000 → 1.000) but remained
 PARTIAL due to catalog false positives (Lotka-Volterra and RPS). P27 now
 has PASS/PASS/PASS/PASS across all four dimensions and advances to
 AT-DEPTH. Sprint 41 added a literature-anchored irreversibility
 prerequisite to P22 (see §3.5, §4.10), closing the Class B false positives
-and advancing P22 dim4 to PASS (TNR = 1.000, Cohen's d = +∞); however,
+and advancing P22 dim4 to PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]); however,
 dims 1–3 remain PARTIAL so P22 does not yet reach AT-DEPTH. The AT-DEPTH
 count remains 6 / 19.
 
@@ -615,7 +615,7 @@ unblocking the Class B panel; the P3 detector was parameterised with
 `stability_stride=5` to ensure ≥5 stability frames from 100-snapshot
 histories; and P3 was reclassified as `time_shuffle_invariant=True` (each
 Gray-Scott frame contains the complete stationary Turing pattern regardless of
-temporal order). P3 panel v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞);
+temporal order). P3 panel v1.2 returned PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]);
 P3 advances to AT-DEPTH. For P1: the type-constancy guard (Schelling 1971) was
 extended to gate CONFIRMATION tier (CV threshold tightened to 0.01), closing
 C-p1-class-b-lattice2d-fp; cat TNR advances to 1.000. Residual syn and fai
@@ -624,20 +624,20 @@ FPs remain unresolved; P1 panel returns PARTIAL (TNR = 0.704). AT-DEPTH count:
 
 Sprint 44 ran Phase-2a panels for P12 (spatial RPS, cyclic dominance) and P13
 (Greenberg-Hastings, excitable waves) — both lattice_2d dim4 batch 3. P12 panel
-v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞): all five RPSSpatialModel
+v1.2 returned PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]): all five RPSSpatialModel
 positives at mobility = 10⁻⁴ reached CONFIRMATION (confidence = 0.700); 10
 high-mobility extinction regimes at mobility ∈ [5×10⁻³, 5×10⁻²] (11–111× M_c)
 and 7 catalog lattice_2d mates were all correctly rejected. P12 dim4 advances
 from PARTIAL to PASS; grade remains GAP (dim1: λ ∝ √M wavelength scaling not
 replicated, carry-forward C3 open; dim2: single-seed characterisation). P13 panel
-v1.2 returned PASS (TNR = 1.000, Cohen's d = +∞): all five GreenbergHastings
+v1.2 returned PASS (TNR = 1.000, Cohen's d = [withdrawn; see §4A]): all five GreenbergHastings
 positives (n_states = 8, threshold = 1, Moore neighbourhood, density = 0.3)
 reached SCREENING (confidence = 0.500); 10 low-density init regimes at density ∈
 [0.01, 0.10] and 7 catalog mates were all correctly rejected. Positives at
 SCREENING rather than CONFIRMATION reflects that 300-step trajectories on 50×50
 grids accumulate wavefront statistics sufficient for the CV gate but not yet 50+
 spiral-tip rotations; the class separation is sharp (0.500 vs. 0.000), yielding
-Cohen's d = +∞. P13 dim4 advances PARTIAL→PASS; all four dimensions now PASS →
+Cohen's d = [withdrawn; see §4A]. P13 dim4 advances PARTIAL→PASS; all four dimensions now PASS →
 P13 advances to AT-DEPTH. AT-DEPTH count: **8 / 19**.
 
 **Sprint 45 (P11 panel, AT-DEPTH +0).**
@@ -645,7 +645,7 @@ P13 advances to AT-DEPTH. AT-DEPTH count: **8 / 19**.
 The P11 predator-prey oscillation detector (Sprint 11) was subjected to the Phase-2a
 panel v1.2 with five seeds of LotkaVolterraLattice at canonical coexistence parameters
 (predation_rate = 4.0, μ = σ = 1.0, L = 100, 1200 steps). Panel v1.2 returned PASS
-(TNR = 1.000, Cohen's d = +∞): all five positives reached DEFINITIVE (confidence =
+(TNR = 1.000, Cohen's d = [withdrawn; see §4A]): all five positives reached DEFINITIVE (confidence =
 0.900); 10 predator-extinction regimes at predator_death_rate ∈ linspace(2.0, 5.0, 10)
 (at/above the mean-field extinction boundary μ ≥ λ = 2.0) and 7 catalog lattice_2d
 mates were all correctly rejected. P11 dim4 advances from PARTIAL to PASS. Grade
@@ -656,13 +656,13 @@ reproduced with stated tolerance). AT-DEPTH count unchanged: **8 / 19**.
 
 Sprint 46 completes the continuous_2d dim4 batch by running the Phase-2a v1.2 panel
 against P5 (Vicsek flocking), P2 (ABP / MIPS), and P6 (D'Orsogna milling). P5 returned
-PASS-with-weakness (TNR = 0.957, Cohen's d = 4.987): all five positives reached DEFINITIVE;
+PASS-with-weakness (TNR = 0.957, Cohen's d = [withdrawn; see §4A]): all five positives reached DEFINITIVE;
 the `time_shuffled` Class A substrate fires at DEFINITIVE (φ is per-frame invariant to temporal
-order — carry-forward C-p5-time-shuffle-fp). P2 returned PASS (TNR = 0.958, Cohen's d = 3.401):
+order — carry-forward C-p5-time-shuffle-fp). P2 returned PASS (TNR = 0.958, Cohen's d = [withdrawn; see §4A]):
 three of five positives reached DEFINITIVE; the `permutation_shuffled` substrate fires at
 SCREENING (two_phase_score is spatial-distribution invariant to particle-index permutation;
 carry-forward C-p2-perm-shuffled-fp per brief instruction not to auto-flip flag). P6 returned
-PASS (TNR = 0.958, Cohen's d = 5.087): all five positives DEFINITIVE; `time_shuffled` fires at
+PASS (TNR = 0.958, Cohen's d = [withdrawn; see §4A]): all five positives DEFINITIVE; `time_shuffled` fires at
 DEFINITIVE (|L| per frame is temporal-order invariant — carry-forward C-p6-time-shuffle-fp).
 All Class C failed-regime TNRs = 1.000. P5 dim4 advances PARTIAL→PASS with all other dims
 already PASS → P5 advances to **AT-DEPTH**. P2 and P6 dim4 advance PARTIAL→PASS; other dims
@@ -672,21 +672,21 @@ remain PARTIAL. AT-DEPTH count: **9 / 19**.
 
 Sprint 47 closes the lattice_1d (P8 Nagel-Schreckenberg) and oscillator (P10 chimera)
 dim4 depth-gaps by running the Phase-2a v1.2 panel. P8 returned PARTIAL (TNR = 0.652,
-Cohen's d = 1.751): Class A yields two FPs (`permutation_shuffled` and `time_shuffled`
+Cohen's d = [withdrawn; see §4A]): Class A yields two FPs (`permutation_shuffled` and `time_shuffled`
 both fire at SCREENING — stopped_fraction is time-average-invariant to both operations;
 P8 absent from the invariance registry; carry-forwards C-p8-perm-shuffled-fp and
 C-p8-time-shuffle-fp). Class C yielded 6 FPs for regimes at rho ≥ 0.1167, all at or
 above the NS jamming onset at p_slow=0.3; carry-forward C-p8-class-c-near-onset (restrict
 next sweep to rho ∈ linspace(0.01, 0.09, 10)). P8 dim4 remains PARTIAL; escalate.
 
-P10 returned PASS (TNR = 0.957, Cohen's d = 9.679): all five positives reached DEFINITIVE;
+P10 returned PASS (TNR = 0.957, Cohen's d = [withdrawn; see §4A]): all five positives reached DEFINITIVE;
 one Class A FP (`permutation_shuffled` at SCREENING — permuting oscillator indices preserves
 the velocity distribution; carry-forward C-p10-perm-shuffled-fp). Class B catalog mate
 (P9_kuramoto) and Class C (10 ordinary all-to-all Kuramoto above K_c) all correctly rejected.
 P10 dim4 advances PARTIAL→PASS; all four dimensions now PASS → P10 advances to **AT-DEPTH**.
 AT-DEPTH count: **10 / 19**.
 
-Sprint 48 ran the Phase-2a panel v1.2 against P21 (Hegselmann-Krause opinion dynamics / polarization). The panel required new `opinions` detector_format plumbing added to the harness (synthetic.py, catalog.py, panel.py). All five canonical positives reached DEFINITIVE tier (confidence = 0.950). Class B and C TNR = 1.000. Class A TNR = 0.800 due to two expected FPs (`permutation_shuffled` at CONFIRMATION, `time_shuffled` at SCREENING; both carry-forwards C-p21-perm-shuffled-fp and C-p21-time-shuffled-fp document the invariance issue). Overall TNR = 0.913, Cohen's d = 4.543 → PARTIAL. P21 dim4 remains PARTIAL; AT-DEPTH count unchanged at **10 / 19**.
+Sprint 48 ran the Phase-2a panel v1.2 against P21 (Hegselmann-Krause opinion dynamics / polarization). The panel required new `opinions` detector_format plumbing added to the harness (synthetic.py, catalog.py, panel.py). All five canonical positives reached DEFINITIVE tier (confidence = 0.950). Class B and C TNR = 1.000. Class A TNR = 0.800 due to two expected FPs (`permutation_shuffled` at CONFIRMATION, `time_shuffled` at SCREENING; both carry-forwards C-p21-perm-shuffled-fp and C-p21-time-shuffled-fp document the invariance issue). Overall TNR = 0.913, Cohen's d = [withdrawn; see §4A] → PARTIAL. P21 dim4 remains PARTIAL; AT-DEPTH count unchanged at **10 / 19**.
 
 **Sprint 49 (invariance-flag batch, AT-DEPTH +0).**
 
@@ -871,7 +871,7 @@ parameters were brief-author errors: threshold ∈ [0.161, 0.250] at
 density=0.9 were above the empirical critical threshold (≈0.13), making them
 true positives mislabeled as negatives. Corrected: threshold ∈ linspace(0.01,
 0.10, 10), grid_size 32→50. Panel re-run: overall TNR = 1.000, syn = 1.000,
-cat = 1.000, fai = 1.000, Cohen's d = +∞. P1 dim4 PARTIAL→PASS; all four
+cat = 1.000, fai = 1.000, Cohen's d = [withdrawn; see §4A]. P1 dim4 PARTIAL→PASS; all four
 dimensions now PASS → P1 advances to AT-DEPTH.
 **AT-DEPTH count: 17 / 19** (+1: P1). Remaining gaps: P8 (dim4), P12 (dim1).
 
@@ -886,7 +886,7 @@ negatives (brief-author error, same class as Sprint 40 P22 and Sprint 61 P1
 corrections). Corrected: density ∈ linspace(0.02, 0.07, 10), all well below
 onset in the free-flow phase (stopped_fraction = 0.0 across all densities and
 seeds). Panel re-run: overall TNR = 1.000, syn = 1.000, cat = 1.000,
-fai = 1.000, Cohen's d = +∞. P8 dim4 PARTIAL→PASS; all four dimensions now
+fai = 1.000, Cohen's d = [withdrawn; see §4A]. P8 dim4 PARTIAL→PASS; all four dimensions now
 PASS → P8 advances to AT-DEPTH.
 **AT-DEPTH count: 18 / 19** (+1: P8). Remaining gap: P12 (dim1).
 
@@ -921,7 +921,7 @@ Pattern inventory: 20 models × 20 detectors. P7 grade: GAP (dim4 pending).
 
 **Sprint 66 (P7 dim4 closure, AT-DEPTH +1).**
 Phase-2a panel v1.2 for P7 (lane formation): PASS-with-weakness.
-Overall TNR = 0.955, Cohen's d = 6.932. All 5 positives reach CONFIRMATION
+Overall TNR = 0.955, Cohen's d = [withdrawn; see §4A]. All 5 positives reach CONFIRMATION
 (0.700). Catalog mates (P2, P5, P6) correctly rejected — none carry population
 labels. Class C: 8 weak-repulsion regimes (A ∈ [0.1, 0.8]) + 2 single-population
 regimes, all rejected (fai TNR = 1.000). Content prerequisite added: counterflow
@@ -944,7 +944,7 @@ P17 grade: GAP (dim4 pending).
 
 **Sprint 68 (P17 dim4 closure, AT-DEPTH +1).**
 Phase-2a panel v1.2 for P17 (collective sensing): PASS.
-Overall TNR = 1.000, Cohen's d = 11.117. Three literature-grounded
+Overall TNR = 1.000, Cohen's d = [withdrawn; see §4A]. Three literature-grounded
 prerequisites: (1) field_samples present in history (rejects non-field
 substrates), (2) individual SNR ≤ 3.0 (group advantage required — Berdahl
 2013), (3) social cohesion ratio ≤ 0.20 (group must be cohesive). Class A:
@@ -966,7 +966,7 @@ P19 grade: GAP (dim4 pending).
 
 **Sprint 70 (P19 dim4 closure, AT-DEPTH +1; Wave 1 complete).**
 Phase-2a panel v1.2 for P19 (emergent leadership): PASS.
-Overall TNR = 0.960, Cohen's d = 5.418. Content prerequisite (Sprint 70):
+Overall TNR = 0.960, Cohen's d = [withdrawn; see §4A]. Content prerequisite (Sprint 70):
 early-window informed→naive leadership gap — in the convergence phase
 (10–40% of trajectory), informed agents' alignment with θ_pref must exceed
 naive agents' alignment, verifying that the minority leads the process
@@ -989,7 +989,7 @@ scalar_timeseries. dim1: deviation ratio 0.0027 (PASS). dim2: 20-seed CV=0.8%
 **AT-DEPTH count: 21 / 23** (inventory grew 22→23; AT-DEPTH unchanged).
 
 **Sprint 73 (P24 dim4 closure, AT-DEPTH +1; Wave 2 first pattern).**
-P24 Phase-2a panel v1.2: PASS (TNR=1.000, Cohen's d=+inf). New
+P24 Phase-2a panel v1.2: PASS (TNR=1.000, Cohen's d = [withdrawn; see §4A]). New
 `scalar_timeseries` format added to all 10 Class A generators. Invariance
 flags: permutation_invariant=True (single scalar variable — permutation
 is degenerate), time_shuffle_invariant=True (deviation integral is
@@ -1098,7 +1098,7 @@ compatible pairs. dim4 pending (Sprint 84).
 **AT-DEPTH count: 26 / 28** (P12, P20 GAP — P20 dim4 pending).
 
 **Sprint 84 — P20 dim4 Phase-2a panel (Milestone B Wave 3 completion).** Phase-2a
-panel v1.2 **PASS** (TNR=1.000, Cohen's d=+inf). All 5 positives DEFINITIVE
+panel v1.2 **PASS** (TNR=1.000, Cohen's d = [withdrawn; see §4A]). All 5 positives DEFINITIVE
 (0.900); all negatives correctly rejected. Class A: 9/9 TN (time_shuffled
 SKIPPED — tag-based grouping makes primary metric time-shuffle-invariant).
 Class B: 0 catalog mates + 2 supplements (smooth_sigmoid_density_sweep,
@@ -1128,7 +1128,7 @@ pairs.
 **AT-DEPTH count: 28 / 29** (+1: P4, provisionally AT-DEPTH pending dim4).
 
 **Sprint 87 — P4 dim4 Phase-2a panel.** Phase-2a panel v1.2 **PASS**
-(TNR=1.000, Cohen's d=4.153). New `territorial_agent_field` detector format
+(TNR=1.000, Cohen's d = [withdrawn; see §4A]). New `territorial_agent_field` detector format
 wired into panel harness. Invariance flags: permutation_invariant=True
 (exclusivity invariant under agent-index relabelling),
 time_shuffle_invariant=True (cumulative occupancy preserves ownership
@@ -1152,7 +1152,7 @@ Sprint 86). Remaining gap: P12 (dim1).
 
 **Sprint 89 (P29 dim4 closure, AT-DEPTH +1; Wave 4 first dim4 closure).**
 P29 trail / network formation (Tero 2010) Phase-2a panel v1.2 PASS
-(TNR=1.000, Cohen's d=10.550). trail_network detector format. Invariance:
+(TNR=1.000, Cohen's d = [withdrawn; see §4A]). trail_network detector format. Invariance:
 permutation_invariant=False, time_shuffle_invariant=False (10/10 Class A
 evaluated, no skips). Two content prerequisites added (Sprint 89):
 (1) temporal reinforcement dynamics — edge weights must change over time,
@@ -1188,7 +1188,7 @@ CV=17.2%). dim3: methods note. dim4: Sprint 91 (Phase-2a panel).
 **AT-DEPTH count: 29 / 31** (P32 dim4 pending → GAP).
 
 **Sprint 91 (P32 dim4 Phase-2a panel; Wave 4 seventh panel).**
-P32 dim4 closure. Phase-2a panel v1.2 PASS (TNR=1.000, Cohen's d=2.683).
+P32 dim4 closure. Phase-2a panel v1.2 PASS (TNR=1.000, Cohen's d = [withdrawn; see §4A]).
 detector_format: task_allocation_timeseries. Invariance: perm_inv=True
 (mean per-agent entropy invariant under agent relabelling),
 time_shuffle_inv=False (early-vs-late window comparison). Class A: 9/9
@@ -1218,7 +1218,7 @@ dim2: 20-seed campaign. dim3: methods note. dim4: pending (Phase-2a panel).
 **AT-DEPTH count: 30 / 32** (P30 dim4 pending → GAP).
 
 **Sprint 93 (P30 dim4 Phase-2a panel — final pattern panel).**
-P30 Phase-2a panel v1.2 PASS: TNR=1.000, Cohen's d=12.124.
+P30 Phase-2a panel v1.2 PASS: TNR=1.000, Cohen's d = [withdrawn; see §4A].
 detector_format: `particle_membrane`. Canonical positive: 5/5 detected
 (1 definitive, 2 confirmation, 2 screening). Invariance flags:
 perm_inv=True (association_score invariant under particle relabelling),
