@@ -166,7 +166,17 @@ def detect_p21(
     # KS-uniformity distance mislabelled Hartigan dip (fired on Gaussians AND on
     # consensus); discrimination is now the genuine separation + variance.
     SEP_MIN, VAR_MIN = 0.10, 0.01
-    screening = n_clusters >= 2 and between_cluster_distance > SEP_MIN
+    # Emergence (from_unimodal) is the DEFINING feature of polarization:
+    # camps form from a non-polarized start. Require it at SCREENING, not
+    # only at confirmation -- the discrimination panel counts ANY detection
+    # (including screening) as a false positive, so a time-shuffled history
+    # whose final frame is bimodal but did NOT emerge from a unimodal IC
+    # would otherwise fire here (the observed P21 synthetic false positive).
+    screening = (
+        n_clusters >= 2
+        and between_cluster_distance > SEP_MIN
+        and from_unimodal
+    )
     confirmation = (
         screening
         and variance > VAR_MIN
