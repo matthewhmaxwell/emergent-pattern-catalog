@@ -174,6 +174,8 @@ class P2MIPSDetector(BaseDetector):
 
     # Tier thresholds (primary metric = min(f_gas, f_liquid))
     _SCREEN_PRIMARY_MIN = 0.03
+    _SCREEN_CV_V_MIN = 0.10           # MIPS: speed varies (dense=slow); constant-speed flocking/milling cv_v~0
+    _SCREEN_DENSITY_SPEED_R_MAX = -0.20  # MIPS: speed anti-correlates with density
     _CONFIRM_PRIMARY_MIN = 0.08
     _DEF_PRIMARY_MIN = 0.15
 
@@ -429,10 +431,15 @@ class P2MIPSDetector(BaseDetector):
             all_rho, self._resolved_rho_star
         )
         score = min(f_gas, f_liq)
+        mean_v = float(all_v.mean()) if all_v.size else 0.0
+        cv_v = float(all_v.std() / mean_v) if mean_v > 1e-9 else 0.0
+        density_speed_r = density_speed_anticorrelation(all_rho, all_v)
         return {
             "two_phase_score": float(score),
             "f_gas": float(f_gas),
             "f_liquid": float(f_liq),
+            "cv_v": float(cv_v),
+            "density_speed_r": float(density_speed_r),
             "mean_rho": float(all_rho.mean()),
             "rho_star_used": float(self._resolved_rho_star),
             "r_cg_used": float(self._resolved_r_cg),
@@ -451,6 +458,18 @@ class P2MIPSDetector(BaseDetector):
         if score <= self._SCREEN_PRIMARY_MIN:
             self._screening_rejection_reason = "below_two_phase_floor"
             primary_result["screening_rejection_reason"] = "below_two_phase_floor"
+            return False
+        # MIPS-SPECIFICITY: phase separation must be DRIVEN by density-dependent
+        # motility (particles slow in dense regions). Constant-speed models —
+        # Vicsek flocking, D'Orsogna milling, collective sensing, informed
+        # minority — produce density variation WITHOUT slowdown (cv_v~0,
+        # density_speed_r~0) and are NOT MIPS. Without this gate they fire at
+        # screening (the run_too_short guard previously hid them).
+        cv_v = primary_result.get("cv_v", 0.0)
+        r = primary_result.get("density_speed_r", 0.0)
+        if cv_v < self._SCREEN_CV_V_MIN and r > self._SCREEN_DENSITY_SPEED_R_MAX:
+            self._screening_rejection_reason = "no_density_dependent_motility"
+            primary_result["screening_rejection_reason"] = "no_density_dependent_motility"
             return False
         return True
 
