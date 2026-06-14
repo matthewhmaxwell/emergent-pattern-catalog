@@ -301,6 +301,7 @@ class P29TrailNetworkDetector:
             return self._no_detection(
                 edge_weights, node_pos, has_metadata,
                 ['no positive edge weights — no network formed'],
+                reason='prereq_no_network',
             )
 
         # Content prerequisite 2: temporal reinforcement dynamics
@@ -321,7 +322,8 @@ class P29TrailNetworkDetector:
             if late_total > 0 and ew_change / late_total < 0.01:
                 return self._no_detection(
                     edge_weights, node_pos, has_metadata,
-                    ['static edge weights — no temporal reinforcement dynamics '
+                    reason='static_no_temporal_reinforcement',
+                    warnings=['static edge weights — no temporal reinforcement dynamics '
                      '(Tero 2010: emergent networks require conductance evolution)'],
                 )
             # (b) Reinforcement accumulation: late total weight must be
@@ -332,7 +334,8 @@ class P29TrailNetworkDetector:
             if early_total > 0 and late_total < 1.5 * early_total:
                 return self._no_detection(
                     edge_weights, node_pos, has_metadata,
-                    [f'insufficient weight accumulation — early_total={early_total:.1f}, '
+                    reason='no_reinforcement_accumulation',
+                    warnings=[f'insufficient weight accumulation — early_total={early_total:.1f}, '
                      f'late_total={late_total:.1f}, ratio={late_total/early_total:.2f} '
                      '(Tero 2010: emergent reinforcement produces net accumulation '
                      'of conductance on selected edges)'],
@@ -403,10 +406,16 @@ class P29TrailNetworkDetector:
         )
 
         if not screening_pass:
+            if obs['weight_dist_corr'] <= 0.1:
+                screen_reason = 'below_weight_distance_corr'
+            elif obs['connectivity'] < 0.6:
+                screen_reason = 'disconnected_strong_edges'
+            else:
+                screen_reason = 'null_not_rejected'
             return self._no_detection(
                 edge_weights, node_pos, has_metadata, warnings,
                 obs=obs, p_value=p_value, cohens_d=cohens_d,
-                null_mean=null_mean, null_std=null_std,
+                null_mean=null_mean, null_std=null_std, reason=screen_reason,
             )
 
         if definitive_pass:
@@ -473,6 +482,7 @@ class P29TrailNetworkDetector:
         cohens_d: float = 0.0,
         null_mean: float = 0.0,
         null_std: float = 0.0,
+        reason: str = "none",
     ) -> DetectorResult:
         """Return a not-detected result."""
         if obs is None:
@@ -483,6 +493,7 @@ class P29TrailNetworkDetector:
             tier=DetectionTier.SCREENING,
             confidence=0.0,
             primary_metric={
+                'screening_rejection_reason': reason,
                 'weight_dist_corr': obs.get('weight_dist_corr', 0.0),
                 'length_ratio': obs.get('length_ratio', float('inf')),
                 'connectivity': obs.get('connectivity', 0.0),
