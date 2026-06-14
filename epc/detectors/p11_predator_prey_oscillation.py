@@ -390,29 +390,34 @@ class P11PredatorPreyDetector(BaseDetector):
         5. |tau_anti| >= _SCREEN_ABS_TAU_MIN.
         6. fft_peak_to_mean > _SCREEN_FFT_MIN.
         """
+        # Prerequisites (GUARDS, prereq_ prefix): cannot compute a meaningful
+        # predator-prey anti-correlation without exactly 2 varying species.
         n_sp = primary_result.get("n_unique_species_observed", 0)
         if n_sp != 2:
+            primary_result["screening_rejection_reason"] = "prereq_n_species_not_2"
+            return False
+        if (primary_result.get("prey_std", 0.0) < self._MIN_SPECIES_STD
+                or primary_result.get("predator_std", 0.0) < self._MIN_SPECIES_STD
+                or primary_result.get("total_std", 0.0) < self._MIN_TOTAL_STD):
+            primary_result["screening_rejection_reason"] = "prereq_species_variance_floor"
             return False
 
-        if primary_result.get("prey_std", 0.0) < self._MIN_SPECIES_STD:
-            return False
-        if primary_result.get("predator_std", 0.0) < self._MIN_SPECIES_STD:
-            return False
-        if primary_result.get("total_std", 0.0) < self._MIN_TOTAL_STD:
-            return False
-
+        # Discriminating METRIC: quarter-period predator-prey anti-correlation
+        # with a spectral peak. Two-species systems that are NOT predator-prey
+        # oscillations (in-phase, independent, or damped to coexistence) are
+        # rejected HERE by the metric.
         rho_anti = primary_result.get("rho_anti", 0.0)
         if rho_anti >= self._SCREEN_RHO_MAX:
+            primary_result["screening_rejection_reason"] = "rho_anti_above_floor"
             return False
-
         tau_anti = primary_result.get("tau_anti", 0)
         if abs(int(tau_anti)) < self._SCREEN_ABS_TAU_MIN:
+            primary_result["screening_rejection_reason"] = "no_quarter_period_lag"
             return False
-
         p2m = primary_result.get("fft_peak_to_mean", 0.0)
         if p2m <= self._SCREEN_FFT_MIN:
+            primary_result["screening_rejection_reason"] = "no_spectral_peak"
             return False
-
         return True
 
     def _compute_secondaries(

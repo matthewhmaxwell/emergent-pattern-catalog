@@ -132,7 +132,7 @@ _GUARD_REASONS = frozenset({
     "run_too_short", "substrate_mismatch", "empty_state_history",
     "non_integer_velocities", "velocity_range_out_of_bounds",
 })
-_GUARD_PREFIXES = ("too_few", "insufficient", "not_enough", "no_data", "missing")
+_GUARD_PREFIXES = ("too_few", "insufficient", "not_enough", "no_data", "missing", "prereq_")
 
 
 def _rejection_stage(result):
