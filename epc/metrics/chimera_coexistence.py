@@ -219,10 +219,12 @@ def pos_vel_ac(
     them); ordinary Kuramoto has each oscillator drifting at its own ω,
     so spatial correlation is weak.
 
-    DEGENERATE CASE: if std(time-averaged velocity) == 0 (full sync, every
-    oscillator at identical mean frequency), the autocorrelation is
-    undefined and we return 1.0. This does NOT promote full-sync to
-    chimera because the coexistence gate rejects full-sync at screening.
+    DEGENERATE CASE: if std(time-averaged velocity) == 0 (full sync / flat
+    field, every oscillator at identical mean frequency), there is NO spatial
+    velocity structure, so the spatial autocorrelation is 0.0. (Previously this
+    returned 1.0 on the assumption an upstream coexistence gate caught full-sync;
+    it did not, so a degenerate permutation-shuffled surrogate scored maximal
+    spatial correlation and fired as a false positive.)
     """
     v_mean = np.mean(vel, axis=0)
     N = len(v_mean)
@@ -231,7 +233,7 @@ def pos_vel_ac(
     centered = v_mean - np.mean(v_mean)
     std = float(np.std(v_mean))
     if std < 1e-9:
-        return 1.0  # degenerate, handled by coexistence gate upstream
+        return 0.0  # flat field => no spatial structure (was 1.0 — a false-positive bug)
     centered = centered / std
     # Circular autocorrelation at lag `lag`
     return float(np.mean(centered * np.roll(centered, -lag)))
