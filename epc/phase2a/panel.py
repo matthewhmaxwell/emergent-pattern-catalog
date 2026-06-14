@@ -125,20 +125,32 @@ def compute_tnr(verdicts: List[bool]) -> float:
     return n_correct / len(verdicts)
 
 
+# Prerequisite GUARDS reject a negative BEFORE the discriminating metric can run
+# (data inadequate: too short, too few, wrong substrate, bad values). A named
+# screening reason that is NOT one of these is the metric itself rejecting.
+_GUARD_REASONS = frozenset({
+    "run_too_short", "substrate_mismatch", "empty_state_history",
+    "non_integer_velocities", "velocity_range_out_of_bounds",
+})
+_GUARD_PREFIXES = ("too_few", "insufficient", "not_enough", "no_data", "missing")
+
+
 def _rejection_stage(result):
     """How a NEGATIVE substrate was handled, to expose guard-gating:
-      FIRED  - detector fired (false positive; the metric did NOT reject it)
-      GUARD:<reason> - rejected by a prerequisite/guard at screening, BEFORE the
-                       discriminating metric ran (this is the audit's core finding)
-      METRIC - reached the discriminating metric and it rejected (genuine work)
+      FIRED         - detector fired (false positive; the metric did NOT reject it)
+      GUARD:<reason> - rejected by a prerequisite/guard BEFORE the discriminating
+                       metric ran (data inadequate) — the audit's core finding
+      METRIC[:<reason>] - the discriminating metric ran and rejected (genuine work)
     """
     if _detected(result):
         return "FIRED"
     pm = getattr(result, "primary_metric", None)
     reason = pm.get("screening_rejection_reason", "none") if isinstance(pm, dict) else "none"
-    if reason and reason != "none":
+    if not reason or reason == "none":
+        return "METRIC"
+    if reason in _GUARD_REASONS or str(reason).startswith(_GUARD_PREFIXES):
         return "GUARD:" + str(reason)
-    return "METRIC"
+    return "METRIC:" + str(reason)
 
 
 def cohens_d(positive_scores: List[float], negative_scores: List[float]) -> float:

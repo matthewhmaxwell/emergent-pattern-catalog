@@ -60,6 +60,10 @@ def particle_local_density(
     if positions.shape[0] == 0:
         return np.zeros(0)
     if box_size is not None:
+        # Periodic BC: wrap into [0, box) — catalog-mate substrates may carry
+        # positions outside the box, which cKDTree(boxsize=...) rejects.
+        positions = np.mod(positions, box_size)
+        positions = np.minimum(positions, box_size * (1.0 - 1e-9))
         tree = cKDTree(positions, boxsize=box_size)
     else:
         tree = cKDTree(positions)

@@ -752,7 +752,7 @@ def run_p2(out_path: str = "analysis/outputs/p2_phase2a_panel.json", verbose: bo
         canonical_metadata=metadata,
         failed_regime_module=p2_failed,
         output_path=out_path,
-        target_steps=200,
+        target_steps=600,  # >= burn_in(200)+MIN_POST_BURN(300) so synthetic+catalog negatives reach the two-phase metric (not the run_too_short guard)
         verbose=verbose,
     )
 
