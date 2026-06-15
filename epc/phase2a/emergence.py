@@ -1,0 +1,167 @@
+"""Generic, substrate-agnostic emergence indicator (Milestone C, T2b).
+
+The "none-of-the-above" primitive: a signal that *something* self-organizing is
+happening, independent of any specific catalogued pattern. Combined with the
+battery's per-pattern calibrated confidences, it yields the three-way verdict:
+  - a specific detector fires            -> MATCH (that pattern)
+  - emergence high, no detector fires    -> EMERGENT-UNCLASSIFIED  (the novel case)
+  - emergence low,  no detector fires    -> NO-EMERGENCE
+
+Principle (self-calibrating, like the detectors' own nulls, lifted to a generic
+structural statistic): the late-window observation is (a) more structured than an
+order-destroying shuffle of itself (null_z) AND (b) more structured than its own
+early window (order_gain). The structure statistic is chosen by data kind.
+
+COVERAGE (validated 2026-06-15, positive vs random-null separation):
+  WORKS — field/grid spatial autocorrelation (P1/P3/P13), phase order (P9/P10
+    Kuramoto r), point clustering (P5 flocking). E_pos ~0.75-0.98 vs E_null
+    ~0.02-0.07.
+  KNOWN GAPS — morphologies whose structure is NOT point-clustering / field-
+    autocorrelation / phase-order in the FINAL frame: rotational (P6 milling),
+    banded (P7 lanes), directional/gradient (P17), transient waves whose final
+    state is uniform (P22 SIR), and distributional/abstract vectors needing a
+    type-aware null (P28 wealth, P16 +/-1 state). A universal indicator over all
+    morphologies needs a battery of generic structure measures (clustering +
+    alignment + rotation + banding + gradient + temporal-wave + distributional
+    concentration), each with an appropriate null -- a T2b continuation, not yet
+    built. Use generic_emergence today for the WORKS morphologies; treat a LOW
+    score on a GAP morphology as INCONCLUSIVE, not "no emergence".
+"""
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
+
+
+def _frame_array(frame: Dict[str, Any]) -> Tuple[Optional[str], Optional[np.ndarray]]:
+    if not isinstance(frame, dict):
+        return None, None
+    for fk in ("field", "grid"):
+        if fk in frame:
+            a = np.asarray(frame[fk], dtype=float)
+            if a.ndim == 2:
+                return "field", a
+    if "positions" in frame:
+        a = np.asarray(frame["positions"], dtype=float)
+        if a.ndim == 2 and a.shape[1] >= 2:
+            return "positions", a[:, :2]
+    for pk in ("phases", "theta"):
+        if pk in frame:
+            return "phases", np.asarray(frame[pk], dtype=float).ravel()
+    for k in ("opinions", "state", "fraction_on", "attendance", "x", "task_assignments", "wealth"):
+        if k in frame:
+            a = np.asarray(frame[k], dtype=float).ravel()
+            if a.size >= 1:
+                return "vector", a
+    return None, None
+
+
+def _moran(field: np.ndarray) -> float:
+    f = field - field.mean()
+    denom = float((f * f).sum())
+    if denom <= 1e-12:
+        return 0.0
+    num = float((f[:-1, :] * f[1:, :]).sum() + (f[:, :-1] * f[:, 1:]).sum())
+    n_pairs = f[:-1, :].size + f[:, :-1].size
+    return (num / n_pairs) / (denom / f.size)
+
+
+def _clustering(pos: np.ndarray) -> float:
+    # inverse mean nearest-neighbour distance, scale-normalised by domain extent
+    n = pos.shape[0]
+    if n < 3:
+        return 0.0
+    d = np.sqrt(((pos[:, None, :] - pos[None, :, :]) ** 2).sum(-1))
+    np.fill_diagonal(d, np.inf)
+    nn = d.min(1)
+    extent = max((float(np.ptp(pos[:, 0])) + float(np.ptp(pos[:, 1]))) / 2.0, 1e-9)
+    return float(extent / (nn.mean() + 1e-9))
+
+
+def _order_vector(v: np.ndarray, bins: int = 16) -> float:
+    h, _ = np.histogram(v, bins=bins)
+    p = h / max(h.sum(), 1)
+    nz = p[p > 0]
+    ent = -(nz * np.log(nz)).sum() / np.log(bins)
+    return 1.0 - float(ent)            # concentration = order
+
+
+def _order_phases(ph: np.ndarray) -> float:
+    return float(abs(np.exp(1j * ph).mean()))   # Kuramoto r
+
+
+def _structure(kind: str, a: np.ndarray) -> float:
+    if kind == "field":
+        return _moran(a)
+    if kind == "positions":
+        return _clustering(a)
+    if kind == "phases":
+        return _order_phases(a)
+    return _order_vector(a)
+
+
+def _shuffle(kind: str, a: np.ndarray, rng) -> np.ndarray:
+    if kind == "field":
+        flat = a.ravel().copy(); rng.shuffle(flat); return flat.reshape(a.shape)
+    if kind == "positions":
+        lo = a.min(0); hi = a.max(0)
+        return rng.uniform(lo, hi, size=a.shape)
+    if kind == "phases":
+        return rng.uniform(-np.pi, np.pi, size=a.shape)
+    flat = a.copy(); rng.shuffle(flat); return flat
+
+
+def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
+                      seed: int = 0) -> Dict[str, Any]:
+    """Return {score in [0,1], kind, order_gain, null_z, n_frames}."""
+    rng = np.random.default_rng(seed)
+    if not history:
+        return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": 0}
+    frames = [(_frame_array(f)) for f in history]
+    frames = [(k, a) for k, a in frames if k is not None]
+    if len(frames) < 2:
+        return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": len(frames)}
+    kind = frames[-1][0]
+    same = [a for k, a in frames if k == kind]
+    w = max(1, len(same) // 5)
+    early = float(np.mean([_structure(kind, a) for a in same[:w]]))
+    late = float(np.mean([_structure(kind, a) for a in same[-w:]]))
+    late_arr = same[-1]
+    nulls = np.array([_structure(kind, _shuffle(kind, late_arr, rng)) for _ in range(n_null)])
+    nmu, nsd = float(nulls.mean()), float(nulls.std())
+    null_z = (late - nmu) / nsd if nsd > 1e-9 else (10.0 if late - nmu > 1e-6 else 0.0)
+    order_gain = late - early
+    # squash: emergence requires BOTH structure-above-null AND (non-negative growth)
+    z_term = 1.0 / (1.0 + np.exp(-(null_z - 2.0)))          # ~0 below 2 SD, ~1 above
+    g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+    score = float(z_term * (0.5 + 0.5 * g_term))             # null-excess gated, growth-weighted
+    return {"score": round(score, 4), "kind": kind, "order_gain": round(order_gain, 4),
+            "null_z": round(float(null_z), 3), "n_frames": len(same)}
+
+
+def three_way_verdict(top_calibrated_confidence: Optional[float],
+                      emergence_score: float,
+                      present_threshold: float = 0.90,
+                      emergence_threshold: float = 0.50) -> Dict[str, Any]:
+    """Combine the battery's best per-pattern calibrated confidence with the
+    generic emergence score into the T2b three-way verdict.
+
+      MATCH                 - a specific detector is calibrated 'present' (>= thr)
+      EMERGENT-UNCLASSIFIED - no detector reaches 'present' but emergence is high
+                              (the novel-pattern / discovery signal)
+      NO-EMERGENCE          - no detector fires and emergence is low
+
+    A low emergence_score is only trustworthy for the morphologies the indicator
+    covers (see module COVERAGE); on a GAP morphology a non-MATCH with low
+    emergence should be surfaced as INCONCLUSIVE by the caller.
+    """
+    tc = top_calibrated_confidence if top_calibrated_confidence is not None else 0.0
+    if tc >= present_threshold:
+        verdict = "MATCH"
+    elif emergence_score >= emergence_threshold:
+        verdict = "EMERGENT-UNCLASSIFIED"
+    else:
+        verdict = "NO-EMERGENCE"
+    return {"verdict": verdict, "top_confidence": round(tc, 4),
+            "emergence_score": round(float(emergence_score), 4)}
