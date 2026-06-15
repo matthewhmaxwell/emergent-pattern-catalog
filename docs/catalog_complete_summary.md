@@ -3,6 +3,15 @@
 **Date:** 2026-06-10 (Sprint 94)
 **Status:** All 32 patterns implemented. 31/32 AT-DEPTH. Milestone B complete.
 
+> **VALIDATION SUPERSEDED (2026-06-14).** The AT-DEPTH and per-pattern validation
+> claims in this summary predate the **validation rebuild** (prompted by an audit
+> that found the original Phase-2a validation substantially unsound). The
+> authoritative, faithful state is **§4A** (`docs/paper_section4A_validation_rebuild.md`):
+> **all 31 Phase-2a panels at TNR = 1.0**, with a faithful continuous Cohen's *d*
+> for every pattern (range 0.5–53.3, median 3.2); P31 validated via its separate
+> non-redundancy test. dim1 anchors changed by the rebuild are annotated inline
+> below; the FP carry-forwards the rebuild closed are moved to Closed.
+
 ---
 
 ## Full 32-Pattern Table
@@ -11,8 +20,8 @@
 |---|---------|-------------------|----------|-------------|------------|
 | P1 | Similarity-driven aggregation | Schelling 1971 | Yes | Quantitative (Moran's I) | — |
 | P2 | Activity-induced phase separation (MIPS) | Fily & Marchetti 2012 | Yes | Quantitative (two_phase_score ≥ 0.10, \|r\| ≥ 0.70) | — |
-| P3 | Turing pattern formation | Gray-Scott (Pearson 1993) | Yes | Quantitative (p/m ratio) | — |
-| P4 | Territoriality / exclusion boundaries | Giuggioli, Potts & Harris 2011 | Yes | Quantitative (exclusivity > 0.85, overlap < 0.10) | — |
+| P3 | Turing pattern formation | Gray-Scott (Pearson 1993) | Yes | Quantitative — stationary + isotropic standing wave (combined Turing discriminant); peak-to-mean alone proven insufficient, see §4A | rebuilt: stationarity + spectral-isotropy gates |
+| P4 | Territoriality / exclusion boundaries | Giuggioli, Potts & Harris 2011 | Yes | Quantitative — scent-avoidance ratio ≪ 1 (movement causality) | rebuilt: cumulative exclusivity/overlap could not separate territoriality from a random walk, see §4A |
 | P5 | Translational alignment / flocking | Vicsek et al. 1995 | Yes | Quantitative (order parameter) | — |
 | P6 | Milling / vortex formation | D'Orsogna et al. 2006 | Yes | Quantitative (\|L\| milling parameter) | — |
 | P7 | Lane formation in counterflow | Helbing & Molnár 1995 | Yes | Quantitative (lane order parameter) | — |
@@ -38,16 +47,17 @@
 | P27 | Spatial reciprocity / emergent cooperation | Nowak & May 1992 | Yes | Quantitative (cooperation fraction) | — |
 | P28 | Wealth condensation / spontaneous inequality | Chakraborti-Boghosian 2002/2014 (Yard-Sale) | Yes | Quantitative (Gini convergence) | — |
 | P29 | Trail / network formation | Tero et al. 2010 (Physarum) | Yes | Quantitative (network efficiency) | — |
-| P30 | Spontaneous boundary formation / autopoiesis | Varela-Maturana-Uribe 1974 (SCL) | Yes | Quantitative (association_score = 2.211 ± 0.087, closure = 0.996) | — |
-| P31 | Delayed gratification | Zhang et al. 2024 | Yes | Quantitative (swap counts within 4%, ΔR² = +0.645) | — |
+| P30 | Spontaneous boundary formation / autopoiesis | Varela-Maturana-Uribe 1974 (SCL) | Yes | Quantitative — membrane radial-tightness CV | rebuilt: prior closure=0.996 returned 1.0 on random scatter (withdrawn); model link-cap added, see §4A |
+| P31 | Delayed gratification | Zhang et al. 2024 | Yes | Quantitative (swap counts within 4%); DEFINITIVE via multi-run non-redundancy ΔR² = +0.018…+0.033, vanishing under timing-shuffle (see §4A) | prior single-number ΔR²=+0.645 withdrawn |
 | P32 | Emergent specialization / division of labor | Bonabeau 1996 | Yes | Quantitative (entropy decline + coverage ≥ 0.5) | — |
 
 ---
 
 ## AT-DEPTH Summary
 
-- **AT-DEPTH: 31 / 32**
-- **GAP: 1 / 32** — P12 (cyclic dominance, dim1 finite-size measurement limitation)
+- **AT-DEPTH: 31 / 32** (literature-reproduction depth; P12 is the lone GAP).
+- **GAP: 1 / 32** — P12 (cyclic dominance, dim1 finite-size measurement limitation).
+- **Discrimination (post-rebuild, authoritative):** 31/31 panels TNR = 1.0; faithful continuous *d* for all (§4A).
 
 ### Per-wave roll-up
 
@@ -68,13 +78,11 @@
 
 | ID | Pattern | Issue | Severity | Notes |
 |----|---------|-------|----------|-------|
-| C-p12-dim1 | P12 | λ ∝ √M scaling-law reproduction fails (slope outside [0.4, 0.6] after 4 attempts) | Accepted limitation | Finite-size measurement limitation at L ≤ 200; formula-valid M range too narrow. P12 validated via panel + dim2 + qualitative spirals. |
-| C-p7-time-shuffled-fp | P7 | time_shuffled FP at screening | Low | Each frame preserves lane structure independently of temporal order; cosmetic. |
-| C-p9-constant-field | P9 | constant_field Class A trips trivial sync | Low | Degenerate substrate; cosmetic. |
-| C-p19-bias-zero-chance-alignment | P19 | 1 Class C bias_zero FP at confirmation | Low | Chance alignment in 1/5 bias_zero regimes. |
-| C-p21-time-shuffled-fp | P21 | time_shuffled FP at confirmation (0.850) | Low | Pre-convergence unimodal steps; cosmetic. |
-| C-p14-class-c-borderline | P14 | 1 borderline at p_diss=0.350 | Low | Near-SOC dissipation regime; cosmetic. |
-| C-p30-enrichment-cv | P30 | Enrichment ratio CV=34.7% across seeds | Informational | Association_score CV=3.9% is robust; enrichment is a secondary metric. |
+| C-p12-dim1 | P12 | λ ∝ √M scaling-law reproduction fails (slope outside [0.4, 0.6] after 4 attempts) | Accepted limitation | Finite-size measurement limitation at L ≤ 200; formula-valid M range too narrow. P12 validated via panel (TNR 1.0) + dim2 + qualitative spirals. |
+| C-pos-seed-fragility | P2, P27, P29 | canonical positive seed-fragile (some seeds below DEFINITIVE) | Informational / calibration | Discrimination is sound (TNR 1.0, finite continuous *d*); the positive regime needs strengthening for a robust depth claim. NOT a false positive. |
+| C-p30-enrichment-cv | P30 | Enrichment ratio CV=34.7% across seeds | Informational | Membrane radial-CV discrimination is robust; enrichment is a secondary metric. |
+
+> All Class A / Class C **false-positive** carry-forwards below (C-p7, C-p9, C-p19, C-p21, C-p14) are **CLOSED** by the 2026-06-14 validation rebuild + full 31-panel sweep: every panel is at TNR = 1.0, i.e. zero false positives anywhere in the catalog.
 
 ### Closed (key closures)
 
@@ -86,6 +94,9 @@
 - C2/C3 (P12 λ scaling) — CLOSED-AS-DOCUMENTED-LIMITATION Sprint 63
 - C4 (P14 multi-seed) — CLOSED Sprint 55
 - C5 (P21/P22 methods notes) — CLOSED Sprint 57
+- C-p21-time-shuffled-fp — CLOSED 2026-06-14 (rebuild: require emergence `from_unimodal` at the screening gate; P21 TNR 1.0)
+- C-p14-class-c-borderline (p_diss=0.350) — CLOSED 2026-06-14 (rebuild: MLE-vs-log-binned slope-consistency screening gate; P14 TNR 1.0)
+- C-p7-time-shuffled-fp / C-p9-constant-field / C-p19-bias-zero — CLOSED 2026-06-14 (no longer fire; P7/P9/P19 all TNR 1.0 in the full sweep)
 
 ---
 
@@ -97,7 +108,7 @@ The cross-detection transfer matrix covers the **original 19 Milestone-A detecto
 - **34 detector files** in `epc/detectors/`
 - **19 registered detectors** in `DETECTOR_REGISTRY`
 - **7 substrate types**: lattice_1d, lattice_2d, lattice_2d_continuous, continuous_2d, oscillator, opinion_space, scalar_wealth
-- **32 Phase-2a panels** (one per pattern), each with TNR ≥ 0.95
+- **31 Phase-2a panels** (P1–P30, P32; P31 via separate non-redundancy test), **all at TNR = 1.0** (2026-06-14 full sweep) with a faithful continuous Cohen's *d* per pattern (see §4A)
 
 ---
 

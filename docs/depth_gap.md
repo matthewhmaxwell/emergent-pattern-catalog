@@ -7,6 +7,17 @@
 **At-depth count:** 31
 **Gap count:** 1 (P12)
 
+> **SUPERSEDED SNAPSHOT (banner added 2026-06-14).** This is a dated pre-rebuild
+> audit matrix. Its per-pattern effect sizes — including every `d=+inf`, the
+> P31 `ΔR²=+0.645`, and values like P30 `d=12.124` / P23 `d=14.504` — are the
+> discredited artifacts the **validation rebuild** replaced (a Cohen's *d* over a
+> discrete tier-confidence or a null with ~0 spread). The AT-DEPTH column here is
+> literature-reproduction depth and remains broadly valid (P12 still the lone
+> GAP), but for the authoritative validation/effect-size state see **§4A**
+> (`docs/paper_section4A_validation_rebuild.md`): all 31 panels TNR = 1.0 with a
+> faithful continuous *d* per pattern (range 0.5–53.3). This file is retained as
+> a historical audit log, not a current results source.
+
 > **Methodology.** Read-only audit. For each pattern, the auditor located the
 > detector card in `docs/detector_cards.md`, the canonical positive model in
 > the codebase, the pattern's section(s) in `REPLICATION_NOTES.md`, and its
