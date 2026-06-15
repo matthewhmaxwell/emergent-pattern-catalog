@@ -41,14 +41,18 @@ to the established science," not "passes a panel."
 
 ## 4A.2 What changed in the methodology
 
-- **Effect size is reported honestly.** `cohens_d` now returns **NaN** for
-  degenerate constant-score comparisons instead of ±∞, and the panel emits a
-  distinct verdict, **`TNR-PASS-EFFECT-UNDEFINED`**, when discrimination is
-  perfect on a discrete tier score. Discrimination is therefore reported by the
-  **true-negative rate (TNR)** against three negative classes — Class A
-  synthetic nulls, Class B catalog-mate look-alikes, Class C failed regimes —
-  not by a standardized effect size. A continuous-metric effect size is reported
-  only where the metric is continuous (e.g. P12 *d* = 26.8; P4 *d* = 12.8; P27 *d* = 2.8; full list in §4A.3).
+- **Effect size is reported honestly.** `cohens_d` over the discrete
+  tier-confidence score returns **NaN** for degenerate constant-score
+  comparisons instead of ±∞ (the panel labels these `TNR-PASS-EFFECT-UNDEFINED`).
+  The reported effect size is instead computed over each pattern's **continuous
+  canonical discriminating metric** — the scalar its screening gate keys on (the
+  literature's statistic for the phenomenon) — as Cohen's *d* of the canonical
+  positive vs. the pooled negative panel, oriented so a positive value means
+  correct separation. Discrimination is reported by both the **true-negative
+  rate (TNR)** against three negative classes — Class A synthetic nulls, Class B
+  catalog-mate look-alikes, Class C failed regimes — and this continuous *d*
+  (full per-pattern table in §4A.3). The discredited ±∞-over-the-discrete-score
+  is never reported.
 
 - **Detection counts at the screening tier.** The panel scores a negative as a
   true negative only if the detector returns *not detected*. A look-alike that
@@ -114,30 +118,58 @@ ones; they are restored as a populated Class C of five non-Turing periodic
 fields (static sinusoid, diagonal stripes, rotating spiral, target waves,
 travelling plane wave), all now rejected.
 
-Effect size is reported in the two regimes defined in §4A.2:
+Effect size is reported over each pattern's **continuous canonical discriminating
+metric** — the scalar its screening gate keys on (the literature's statistic for
+the phenomenon) — as Cohen's *d* of the canonical positive (5 seeds) vs. the
+pooled negative panel, oriented so a positive value means correct separation.
+**All 31 patterns carry a finite, correctly-oriented continuous effect size**
+(range 0.5–53.3, median 3.2); none is saturated or undefined. This retires the
+discrete tier-confidence proxy that the earlier drafts reported as undefined for
+23 patterns.
 
-*(a) Continuous-metric Cohen's d — 8 patterns.* Where the discriminating
-statistic is continuous, the standardized effect size is well-defined
-(positive vs. the pooled negative panel):
+| Pattern | discriminating metric | Cohen's *d* |
+|---|---|---|
+| P1 — similarity-driven aggregation | Moran's I | 36.7 |
+| P2 — activity-induced phase separation (MIPS) | two-phase coexistence score | 2.6 |
+| P3 — Turing wavelength | Turing discriminant ¹ | 5.3 |
+| P4 — territoriality | scent-avoidance ratio | 11.7 |
+| P5 — flocking (alignment) | polar order φ | 3.3 |
+| P6 — milling / vortex | angular momentum \|L\| | 42.2 |
+| P7 — lane formation | lane order parameter | 4.7 |
+| P8 — traffic jamming | stopped fraction | 1.0 |
+| P9 — synchronization | Kuramoto r | 3.9 |
+| P10 — chimera state | position–velocity autocorr. | 4.3 |
+| P11 — predator–prey oscillation | quarter-period anti-corr. ρ | 53.3 |
+| P12 — cyclic dominance | intransitivity score | 9.7 |
+| P13 — excitable spiral / target waves | wavefront-speed CV | 1.9 |
+| P14 — self-organized criticality | slope consistency ¹ | 0.8 |
+| P15 — persistent propagating computation | distinct outcomes | 0.9 |
+| P16 — associative memory | completion accuracy | 7.7 |
+| P17 — collective sensing | chemotactic index | 7.3 |
+| P18 — consensus / coarsening | early-Moran Spearman | 2.5 |
+| P19 — emergent leadership | group accuracy | 2.5 |
+| P20 — quorum sensing | step-response R² | 2.4 |
+| P21 — polarization | between-camp distance | 4.7 |
+| P22 — information cascade | Moran's I over time | 4.3 |
+| P23 — anti-coordination | scaled variance (Fano) | 0.5 |
+| P24 — homeostatic regulation | deviation integral | 6.0 |
+| P25 — equifinality | convergence variance ratio | 1.3 |
+| P26 — stochastic resonance | peak performance | 1.8 |
+| P27 — spatial reciprocity | cooperation fraction | 2.6 |
+| P28 — wealth condensation | final Gini | 3.2 |
+| P29 — trail / network formation | weight–distance corr. | 1.7 |
+| P30 — autopoiesis (boundary formation) | membrane radial CV | 2.2 |
+| P32 — emergent specialization | role-entropy decline | 1.6 |
 
-| Pattern | Cohen's *d* |
-|---|---|
-| P12 — cyclic dominance | 26.8 |
-| P4 — territoriality | 12.8 |
-| P17 — collective sensing | 11.3 |
-| P29 — trail / network formation | 10.6 |
-| P15 — persistent propagating computation | 8.5 |
-| P19 — emergent leadership | 4.7 |
-| P2 — motility-induced phase separation | 4.3 |
-| P27 — spatial reciprocity | 2.8 |
-
-*(b) `TNR-PASS-EFFECT-UNDEFINED` — 23 patterns:* P1, P3, P5, P6, P7, P8, P9,
-P10, P11, P13, P14, P16, P18, P20, P21, P22, P23, P24, P25, P26, P28, P30, P32.
-Discrimination is perfect on a discrete tier score, so the standardized effect
-size is genuinely undefined (zero within-group variance); it is reported as such,
-never as ±∞. Replacing this discrete proxy with each pattern's continuous
-canonical metric — so these too carry a finite *d* — is the principal remaining
-validation task (§4A.4).
+¹ Derived gating scalar: P3 = min(angular_entropy/0.55, field_stationarity/0.95),
+the binding margin of the 2-D Turing gate (a single FFT scalar is insufficient —
+peak-to-mean alone gives *d* = −0.15, since the adversaries are equally peaked);
+P14 = \|τ_MLE − τ_logbin\|, the SOC slope-consistency the gate keys on. For
+lower-is-positive metrics (P4, P11, P13, P14, P23, P25, P30) *d* is oriented so a
+positive value denotes correct separation. The two weakest (P23 = 0.5, P14 =
+0.8) reflect genuinely subtle single-scalar effects — sub-Poissonian variance
+suppression and the SOC slope gap over a diverse avalanche-null panel — and still
+discriminate at TNR = 1.0.
 
 How each pattern reached TNR = 1.0:
 
@@ -148,22 +180,21 @@ How each pattern reached TNR = 1.0:
 | Re-verified, already faithful | P16, P25 |
 | Tier-reachability corrected (null-floor fix made the intended tier reachable) | P1, P12, P22, P27 |
 
-The dominant verdict, `TNR-PASS-EFFECT-UNDEFINED`, should be read as: *the
-detector perfectly separated the canonical positive from every synthetic null,
-catalog look-alike, and failed regime, and a standardized effect size is
-undefined because the tier score is discrete* — not as the inflated or infinite
-*d* the earlier drafts reported.
+The panel still emits the verdict label `TNR-PASS-EFFECT-UNDEFINED` for the
+patterns whose *discrete tier score* is degenerate, but this is now a property of
+the discrete proxy only — the **continuous effect size above is the reported
+*d***, and it is finite and correctly oriented for every pattern. Neither the
+inflated nor the infinite *d* of the earlier drafts is used anywhere.
 
 ## 4A.4 Honest limitations
 
-- **Effect size (principal remaining task).** For the 23 patterns at
-  `TNR-PASS-EFFECT-UNDEFINED`, discrimination is perfect but the reported effect
-  size is over the *discrete tier-confidence score*, which is genuinely undefined
-  at perfect separation. Each panel's `effect_size_note` flags this. The planned
-  follow-up recomputes a *continuous* canonical metric per pattern so every
-  pattern carries a finite, interpretable *d* (as the 8 patterns in §4A.3 already
-  do). This is a reporting-fidelity upgrade, not a correctness gap: the TNR
-  results stand.
+- **Effect size — RESOLVED.** Previously the principal remaining task: the
+  reported *d* was over the discrete tier-confidence score, undefined at perfect
+  separation for 23 patterns. A per-pattern registry of each detector's
+  *continuous* canonical discriminating metric (`epc/phase2a/continuous_metrics.py`)
+  now drives a faithful continuous *d* (positives vs. pooled negatives, oriented),
+  finite for all 31 patterns (§4A.3). The discrete `cohens_d_positive_vs_panel`
+  is retained alongside for provenance; the continuous *d* is the reported value.
 
 - **P4 (territoriality) — RESOLVED.** Initially deferred: the cumulative
   exclusivity / overlap / occupancy-scent-correlation metrics cannot separate
