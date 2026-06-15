@@ -181,7 +181,8 @@ def continuous_cohens_d(
     neg = fill(neg_vals)
     metric = entry["key"]
     dir_str = "higher" if direction > 0 else "lower"
-    base = {"metric": metric, "direction": dir_str, "n_pos": len(pos), "n_neg": len(neg)}
+    base = {"metric": metric, "direction": dir_str, "n_pos": len(pos), "n_neg": len(neg),
+            "pos_values": pos, "neg_values": neg}
     if len(pos) < 2 or len(neg) < 2:
         return {**base, "d": None, "saturated": False}
     pa = np.asarray(pos, dtype=float)

@@ -574,6 +574,8 @@ def run_panel(
             "continuous_n_pos": cont_d["n_pos"],
             "continuous_n_neg": cont_d["n_neg"],
             "continuous_saturated": cont_d.get("saturated", False),
+            "continuous_pos_values": cont_d.get("pos_values"),
+            "continuous_neg_values": cont_d.get("neg_values"),
             "effect_size_note": "cohens_d_positive_vs_panel is over the DISCRETE tier-confidence (NaN at perfect separation); cohens_d_continuous is the faithful effect size over the pattern's CONTINUOUS canonical metric (positives vs pooled negatives, oriented).",
             "verdict": verdict,
         },
