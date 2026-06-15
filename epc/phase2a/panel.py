@@ -298,6 +298,10 @@ def run_panel(
     """Run the v1.1 Phase-2a panel against ``detector_fn`` and return summary."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
+    from epc.phase2a.continuous_metrics import (
+        CONTINUOUS_METRIC, extract_continuous, continuous_cohens_d,
+    )
+    cont_entry = CONTINUOUS_METRIC.get(pattern_id)
 
     # 1) Canonical positive distribution.
     positive_results: List[Dict[str, Any]] = []
@@ -311,6 +315,7 @@ def run_panel(
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result), "rejection_stage": _rejection_stage(result),
+            "cont_metric": extract_continuous(result, cont_entry),
         })
         if verbose:
             print(f"  [pos {i}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -397,6 +402,7 @@ def run_panel(
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result), "rejection_stage": _rejection_stage(result),
+            "cont_metric": extract_continuous(result, cont_entry),
         })
         if verbose:
             print(f"  [syn {i:2d} {sub_id:24s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -422,6 +428,7 @@ def run_panel(
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result), "rejection_stage": _rejection_stage(result),
+            "cont_metric": extract_continuous(result, cont_entry),
         })
         if verbose:
             print(f"  [cat {sub_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -442,6 +449,7 @@ def run_panel(
             "score": _score(result),
             "verdict": _verdict(result),
             "detected": _detected(result), "rejection_stage": _rejection_stage(result),
+            "cont_metric": extract_continuous(result, cont_entry),
         })
         if verbose:
             print(f"  [sup {supp_id:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -468,6 +476,7 @@ def run_panel(
                 "score": _score(result),
                 "verdict": _verdict(result),
                 "detected": _detected(result), "rejection_stage": _rejection_stage(result),
+            "cont_metric": extract_continuous(result, cont_entry),
             })
             if verbose:
                 print(f"  [fai {regime['label']:30s}] verdict={_verdict(result)} score={_score(result):.3f}")
@@ -493,6 +502,18 @@ def run_panel(
 
     overall_tnr = compute_tnr(all_neg_detected)
     d = cohens_d(positive_scores, all_neg_scores)
+
+    # Faithful CONTINUOUS effect size: Cohen's d of the canonical continuous
+    # discriminating metric (positives vs the pooled negative panel), oriented
+    # so a positive value means correct separation. Mirrors the discrete d's
+    # negative composition (failed regimes excluded when Class C is N/A).
+    pos_metric_vals = [r.get('cont_metric') for r in positive_results]
+    neg_metric_vals = (
+        [r['cont_metric'] for r in synthetic_results if r['verdict'] != SKIP_VERDICT]
+        + [r['cont_metric'] for r in catalog_results]
+        + ([r['cont_metric'] for r in failed_results] if class_c_status != 'N/A' else [])
+    )
+    cont_d = continuous_cohens_d(pos_metric_vals, neg_metric_vals, cont_entry)
 
     # Build the gating class dict (only ≥ ADVISORY_CLASS_SIZE classes count).
     per_class_gating: Dict[str, float] = {}
@@ -547,7 +568,13 @@ def run_panel(
             "cohens_d_positive_vs_panel": d,
             "effect_size_undefined": bool(isinstance(d, float) and d != d),
             "effect_size_basis": "tier_confidence",
-            "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
+            "cohens_d_continuous": cont_d["d"],
+            "continuous_metric": cont_d["metric"],
+            "continuous_metric_direction": cont_d["direction"],
+            "continuous_n_pos": cont_d["n_pos"],
+            "continuous_n_neg": cont_d["n_neg"],
+            "continuous_saturated": cont_d.get("saturated", False),
+            "effect_size_note": "cohens_d_positive_vs_panel is over the DISCRETE tier-confidence (NaN at perfect separation); cohens_d_continuous is the faithful effect size over the pattern's CONTINUOUS canonical metric (positives vs pooled negatives, oriented).",
             "verdict": verdict,
         },
     }
