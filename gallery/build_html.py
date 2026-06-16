@@ -24,6 +24,8 @@ header h1{margin:0;font-size:18px}header p{margin:3px 0 0;color:var(--mut);font-
 .bar{display:flex;align-items:center;gap:10px;margin-top:10px;width:300px}
 .bar button{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px}
 .bar button:hover{background:#2d3e54}.bar input[type=range]{flex:1}
+.watch{width:300px;margin-top:12px;padding:10px 12px;background:#10243a;border:1px solid #21466b;border-left:3px solid var(--acc);border-radius:6px;font-size:13px;color:#cfe3f7}
+.watch b{color:var(--acc);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
 .info{flex:1;min-width:280px}
 h2{margin:0 0 2px;font-size:22px}.ref{color:var(--mut);font-style:italic;margin-bottom:14px}
 .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em;margin-top:14px}.v{margin:3px 0 0}
@@ -60,6 +62,7 @@ function show(i){
   } else if(m.asset){
     vizHtml=`<img src="assets/${m.asset}" alt="${m.id}">`;
   } else { vizHtml='<p style=color:#8b98a5>(no visualization)</p>'; }
+  const watchHtml=m.watch?`<div class=watch><b>&#128065; What to look for</b>${m.watch}</div>`:'';
   const det = d.verdict
     ? `<span class=badge style="background:${vc}">${d.verdict}</span>${d.self_recognized?'<span style="margin-left:10px;color:#2f855a">✓ self-recognized</span>':''}
        <div class=row><div><b>top</b><span>${d.top||'—'}</span></div><div><b>tier</b><span>${d.tier||'—'}</span></div>
@@ -67,7 +70,7 @@ function show(i){
        <div><b>generic emergence</b><span>${d.emergence!=null?(+d.emergence).toFixed(2):'—'}</span></div></div>`
     : `<div style=color:#8b98a5>${(d.note)||'—'}</div>`;
   detail.innerHTML=`<div class=cols>
-    <div class=viz>${vizHtml}</div>
+    <div class=viz>${vizHtml}${watchHtml}</div>
     <div class=info>
       <h2>${m.id} · ${m.name}</h2><div class=ref>${m.ref}</div>
       <div class=k>What it is</div><div class=v>${m.summary}</div>

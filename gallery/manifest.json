@@ -21,11 +21,19 @@
     "code_module": "epc.models.schelling",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.009,
+        "send": 0.299,
+        "smin": -0.009,
+        "smax": 0.3,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -54,7 +62,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.071,
+        "send": 0.047,
+        "smin": 0.034,
+        "smax": 0.073,
+        "start_frac": 0.95,
+        "flat": true
+      }
     }
   },
   {
@@ -79,11 +95,19 @@
     "code_module": "epc.models.gray_scott",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 16,
+      "cols": 4,
+      "rows": 4,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.93,
+        "send": 0.986,
+        "smin": 0.93,
+        "smax": 0.987,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -112,7 +136,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 4.148,
+        "send": 2.676,
+        "smin": 2.459,
+        "smax": 5.018,
+        "start_frac": 0.66,
+        "flat": true
+      }
     }
   },
   {
@@ -137,11 +169,19 @@
     "code_module": "epc.models.vicsek",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.013,
+        "send": 1.0,
+        "smin": 0.013,
+        "smax": 1.0,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -170,7 +210,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.103,
+        "send": 0.001,
+        "smin": 0.0,
+        "smax": 0.121,
+        "start_frac": 0.85,
+        "flat": true
+      }
     }
   },
   {
@@ -195,11 +243,19 @@
     "code_module": "epc.models.lane_formation",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.0,
+        "send": 0.0,
+        "smin": 0.0,
+        "smax": 0.011,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -250,7 +306,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.092,
+        "send": 0.916,
+        "smin": 0.092,
+        "smax": 0.949,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -275,11 +339,19 @@
     "code_module": "epc.models.kuramoto_nonlocal",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 33,
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.641,
+        "send": 0.561,
+        "smin": 0.504,
+        "smax": 0.665,
+        "start_frac": 0.85,
+        "flat": true
+      }
     }
   },
   {
@@ -308,7 +380,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.006,
+        "send": 0.341,
+        "smin": -0.006,
+        "smax": 0.389,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -337,7 +417,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.011,
+        "send": 0.559,
+        "smin": 0.011,
+        "smax": 0.578,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -366,7 +454,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.003,
+        "send": 0.654,
+        "smin": -0.003,
+        "smax": 0.907,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -417,7 +513,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.023,
+        "send": 0.279,
+        "smin": 0.023,
+        "smax": 0.405,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -468,7 +572,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.061,
+        "send": 0.048,
+        "smin": 0.006,
+        "smax": 0.278,
+        "start_frac": 0.2,
+        "flat": false
+      }
     }
   },
   {
@@ -497,7 +609,15 @@
       "cols": 6,
       "rows": 6,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.023,
+        "send": 0.456,
+        "smin": -0.023,
+        "smax": 0.573,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -522,11 +642,19 @@
     "code_module": "epc.models.informed_minority",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 30,
       "cols": 6,
-      "rows": 6,
+      "rows": 5,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 0.101,
+        "send": 0.999,
+        "smin": 0.101,
+        "smax": 1.0,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -595,11 +723,19 @@
     "code_module": "epc.models.sir_epidemic",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 28,
       "cols": 6,
-      "rows": 6,
+      "rows": 5,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.0,
+        "send": 0.0,
+        "smin": -0.008,
+        "smax": 0.886,
+        "start_frac": 0.01,
+        "flat": false
+      }
     }
   },
   {
@@ -712,11 +848,19 @@
     "code_module": "epc.models.nowak_may",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": -0.017,
+        "send": 0.0,
+        "smin": -0.017,
+        "smax": 0.965,
+        "start_frac": 0.0,
+        "flat": false
+      }
     }
   },
   {
@@ -789,7 +933,15 @@
       "cols": 5,
       "rows": 5,
       "fw": 300,
-      "fh": 300
+      "fh": 300,
+      "rise": {
+        "s0": 23.121,
+        "send": 22.949,
+        "smin": 22.228,
+        "smax": 24.607,
+        "start_frac": 0.38,
+        "flat": false
+      }
     }
   },
   {
