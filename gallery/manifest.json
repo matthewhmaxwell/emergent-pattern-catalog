@@ -1,0 +1,579 @@
+[
+  {
+    "id": "P1",
+    "name": "Similarity-driven aggregation",
+    "ref": "Schelling 1971",
+    "summary": "Agents relocate when too few neighbours share their type.",
+    "effect": "Mild individual preference produces large segregated clusters.",
+    "viz": "grid_field",
+    "metric": "morans_i",
+    "detector": {
+      "top": "P1",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.7769,
+      "self_recognized": true
+    },
+    "asset": "p1.gif"
+  },
+  {
+    "id": "P2",
+    "name": "Activity-induced phase separation (MIPS)",
+    "ref": "Fily & Marchetti 2012",
+    "summary": "Self-propelled particles slow where crowded (density-dependent motility).",
+    "effect": "Dense and dilute phases coexist with no attractive force.",
+    "viz": "point_cloud",
+    "metric": "two_phase_score",
+    "detector": {
+      "top": "P2",
+      "tier": "none",
+      "confidence": 0.75,
+      "verdict": "EMERGENT-UNCLASSIFIED",
+      "emergence": 0.5368,
+      "self_recognized": true
+    },
+    "asset": "p2.gif"
+  },
+  {
+    "id": "P3",
+    "name": "Turing pattern formation",
+    "ref": "Gray-Scott (Pearson 1993)",
+    "summary": "Reaction-diffusion with a fast inhibitor and slow activator.",
+    "effect": "A stationary labyrinth at a selected wavelength self-organises from near-uniformity.",
+    "viz": "grid_field",
+    "metric": "turing_discriminant",
+    "detector": {
+      "top": "P3",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.7551,
+      "self_recognized": true
+    },
+    "asset": "p3.gif"
+  },
+  {
+    "id": "P4",
+    "name": "Territoriality / exclusion",
+    "ref": "Giuggioli et al. 2011",
+    "summary": "Agents deposit and avoid foreign scent as they move.",
+    "effect": "Exclusive home ranges with sharp boundaries emerge.",
+    "viz": "point_cloud",
+    "metric": "avoidance_ratio",
+    "detector": {
+      "top": "P4",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0105,
+      "self_recognized": true
+    },
+    "asset": "p4.gif"
+  },
+  {
+    "id": "P5",
+    "name": "Flocking / alignment",
+    "ref": "Vicsek et al. 1995",
+    "summary": "Each agent steers toward the mean heading of neighbours.",
+    "effect": "Global polar order (a moving flock) emerges below a noise threshold.",
+    "viz": "point_cloud",
+    "metric": "polarization_mean",
+    "detector": {
+      "top": "P5",
+      "tier": "definitive",
+      "confidence": 0.9565217391304348,
+      "verdict": "MATCH",
+      "emergence": 0.9811,
+      "self_recognized": true
+    },
+    "asset": "p5.gif"
+  },
+  {
+    "id": "P6",
+    "name": "Milling / vortex",
+    "ref": "D'Orsogna et al. 2006",
+    "summary": "Self-propulsion plus attraction-repulsion forces.",
+    "effect": "A rotating mill (nonzero angular momentum) forms.",
+    "viz": "point_cloud",
+    "metric": "angular_momentum_abs_mean",
+    "detector": {
+      "top": "P6",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0003,
+      "self_recognized": true
+    },
+    "asset": "p6.gif"
+  },
+  {
+    "id": "P7",
+    "name": "Lane formation",
+    "ref": "Helbing & Molnar 1995",
+    "summary": "Two opposing streams of agents avoid collisions.",
+    "effect": "Counter-flowing lanes self-organise.",
+    "viz": "point_cloud",
+    "metric": "lane_order_parameter_mean",
+    "detector": {
+      "top": "P7",
+      "tier": "confirmation",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0,
+      "self_recognized": true
+    },
+    "asset": "p7.gif"
+  },
+  {
+    "id": "P8",
+    "name": "Self-organized traffic jams",
+    "ref": "Nagel-Schreckenberg 1992",
+    "summary": "Cars accelerate, brake, and randomly dawdle on a 1-D road.",
+    "effect": "Stop-and-go jams appear spontaneously above a density.",
+    "viz": "timeseries",
+    "metric": "stopped_fraction",
+    "detector": {
+      "top": "P8",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0,
+      "self_recognized": true
+    },
+    "asset": "p8.png"
+  },
+  {
+    "id": "P9",
+    "name": "Synchronization",
+    "ref": "Kuramoto 1975",
+    "summary": "Coupled phase oscillators with a spread of natural frequencies.",
+    "effect": "Above a critical coupling the population phase-locks.",
+    "viz": "phase_circle",
+    "metric": "r_mean",
+    "detector": {
+      "top": "P9",
+      "tier": "definitive",
+      "confidence": 0.9523809523809523,
+      "verdict": "MATCH",
+      "emergence": 0.7513,
+      "self_recognized": true
+    },
+    "asset": "p9.gif"
+  },
+  {
+    "id": "P10",
+    "name": "Chimera states",
+    "ref": "Abrams & Strogatz 2004",
+    "summary": "Non-locally coupled identical oscillators.",
+    "effect": "Coherent and incoherent groups coexist simultaneously.",
+    "viz": "phase_circle",
+    "metric": "pos_vel_ac",
+    "detector": {
+      "top": "P10",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.728,
+      "self_recognized": true
+    },
+    "asset": "p10.gif"
+  },
+  {
+    "id": "P11",
+    "name": "Predator-prey oscillation",
+    "ref": "Mobilia et al. 2007",
+    "summary": "Spatial Lotka-Volterra predation on a lattice.",
+    "effect": "Anti-correlated population cycles with travelling fronts.",
+    "viz": "grid_field",
+    "metric": "rho_anti",
+    "detector": {
+      "top": "P11",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.7602,
+      "self_recognized": true
+    },
+    "asset": "p11.gif"
+  },
+  {
+    "id": "P12",
+    "name": "Cyclic dominance (RPS)",
+    "ref": "Reichenbach et al. 2007",
+    "summary": "Three species in rock-paper-scissors competition on a lattice.",
+    "effect": "Self-sustaining spiral waves maintain coexistence.",
+    "viz": "grid_field",
+    "metric": "intransitivity_score",
+    "detector": {
+      "top": "P12",
+      "tier": "confirmation",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.963,
+      "self_recognized": true
+    },
+    "asset": "p12.gif"
+  },
+  {
+    "id": "P13",
+    "name": "Excitable spiral / target waves",
+    "ref": "Greenberg-Hastings 1978",
+    "summary": "Excitable cells with refractory recovery.",
+    "effect": "Self-sustaining spiral and target waves propagate.",
+    "viz": "grid_field",
+    "metric": "wavefront_speed_cv",
+    "detector": {
+      "top": "P18",
+      "tier": "screening",
+      "confidence": 0.9444444444444444,
+      "verdict": "MATCH",
+      "emergence": 0.7624,
+      "self_recognized": false
+    },
+    "asset": "p13.gif"
+  },
+  {
+    "id": "P14",
+    "name": "Self-organized criticality",
+    "ref": "Bak-Tang-Wiesenfeld 1987",
+    "summary": "A driven sandpile topples when slope exceeds threshold.",
+    "effect": "Avalanches follow a scale-free power law without tuning.",
+    "viz": "distribution",
+    "metric": "slope_consistency",
+    "detector": {
+      "top": "P14",
+      "tier": "confirmation",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0,
+      "self_recognized": true
+    },
+    "asset": "p14.png"
+  },
+  {
+    "id": "P15",
+    "name": "Persistent propagating computation",
+    "ref": "Conway Game of Life",
+    "summary": "Deterministic life-like cellular automaton.",
+    "effect": "Propagating structures carry and transform information.",
+    "viz": "grid_field",
+    "metric": "n_distinct_outcomes",
+    "detector": {
+      "top": "P15",
+      "tier": "definitive",
+      "confidence": 0.8611111111111112,
+      "verdict": "MATCH",
+      "emergence": 0.7837,
+      "self_recognized": true
+    },
+    "asset": "p15.gif"
+  },
+  {
+    "id": "P16",
+    "name": "Associative memory",
+    "ref": "Hopfield 1982",
+    "summary": "A symmetric recurrent net relaxes from a corrupted cue.",
+    "effect": "The network completes the cue to the nearest stored pattern.",
+    "viz": "timeseries",
+    "metric": "mean_completion_accuracy",
+    "detector": {
+      "top": "P16",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0892,
+      "self_recognized": true
+    },
+    "asset": "p16.png"
+  },
+  {
+    "id": "P17",
+    "name": "Collective gradient sensing",
+    "ref": "Berdahl et al. 2013",
+    "summary": "Agents with noisy individual sensing follow social cues.",
+    "effect": "The group climbs a gradient no individual can resolve.",
+    "viz": "point_cloud",
+    "metric": "chemotactic_index",
+    "detector": {
+      "top": "P17",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.1034,
+      "self_recognized": true
+    },
+    "asset": "p17.gif"
+  },
+  {
+    "id": "P18",
+    "name": "Consensus / coarsening",
+    "ref": "Voter model (Holley-Liggett 1975)",
+    "summary": "Each agent copies a random neighbour's opinion.",
+    "effect": "Opinion domains coarsen toward consensus.",
+    "viz": "grid_field",
+    "metric": "moran_spearman_early",
+    "detector": {
+      "top": "P18",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.7777,
+      "self_recognized": true
+    },
+    "asset": "p18.gif"
+  },
+  {
+    "id": "P19",
+    "name": "Emergent leadership",
+    "ref": "Couzin et al. 2005",
+    "summary": "A small informed minority has a preferred direction.",
+    "effect": "The uninformed majority is steered accurately by a few.",
+    "viz": "point_cloud",
+    "metric": "group_accuracy_mean",
+    "detector": {
+      "top": "P19",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.8502,
+      "self_recognized": true
+    },
+    "asset": "p19.gif"
+  },
+  {
+    "id": "P20",
+    "name": "Quorum sensing",
+    "ref": "Waters & Bassler 2005",
+    "summary": "Agents switch ON when local signal crosses a threshold.",
+    "effect": "A sharp, hysteretic collective switch at a critical density.",
+    "viz": "timeseries",
+    "metric": "step_r2",
+    "detector": {
+      "top": "P20",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0894,
+      "self_recognized": true
+    },
+    "asset": "p20.png"
+  },
+  {
+    "id": "P21",
+    "name": "Polarization / fragmentation",
+    "ref": "Hegselmann-Krause 2002",
+    "summary": "Bounded-confidence opinion dynamics.",
+    "effect": "A unimodal population fragments into separated camps.",
+    "viz": "distribution",
+    "metric": "between_cluster_distance",
+    "detector": {
+      "top": "P21",
+      "tier": "definitive",
+      "confidence": 0.9761904761904762,
+      "verdict": "MATCH",
+      "emergence": 0.0985,
+      "self_recognized": true
+    },
+    "asset": "p21.png"
+  },
+  {
+    "id": "P22",
+    "name": "Information cascade / contagion",
+    "ref": "SIR (Datta-Acharyya 2021)",
+    "summary": "Susceptible-infected-recovered spread on a lattice.",
+    "effect": "An epidemic wavefront sweeps the population.",
+    "viz": "grid_field",
+    "metric": "moran_i_time",
+    "detector": {
+      "top": "P22",
+      "tier": "screening",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0598,
+      "self_recognized": true
+    },
+    "asset": "p22.gif"
+  },
+  {
+    "id": "P23",
+    "name": "Anti-coordination / load balancing",
+    "ref": "Minority Game (Savit 1999)",
+    "summary": "Agents win by choosing the minority side.",
+    "effect": "Attendance self-balances with sub-random (efficient) variance.",
+    "viz": "timeseries",
+    "metric": "scaled_variance",
+    "detector": {
+      "top": "P23",
+      "tier": "definitive",
+      "confidence": 0.9166666666666666,
+      "verdict": "MATCH",
+      "emergence": 0.0894,
+      "self_recognized": true
+    },
+    "asset": "p23.png"
+  },
+  {
+    "id": "P24",
+    "name": "Homeostatic regulation",
+    "ref": "Ashby 1956",
+    "summary": "Feedback drives a variable back to its set-point.",
+    "effect": "The regulated variable rejects perturbations and holds set-point.",
+    "viz": "timeseries",
+    "metric": "deviation_integral",
+    "detector": {
+      "top": "P24",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0894,
+      "self_recognized": true
+    },
+    "asset": "p24.png"
+  },
+  {
+    "id": "P25",
+    "name": "Canalized restoration / equifinality",
+    "ref": "Waddington 1957",
+    "summary": "Many initial conditions flow down a canalized landscape.",
+    "effect": "Different starts converge to the same attractor macrostate.",
+    "viz": "timeseries",
+    "metric": "convergence_variance_ratio",
+    "detector": {
+      "top": "P25",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.7504,
+      "self_recognized": true
+    },
+    "asset": "p25.png"
+  },
+  {
+    "id": "P26",
+    "name": "Stochastic resonance",
+    "ref": "Gammaitoni 1998",
+    "summary": "A sub-threshold signal plus tuned noise in a bistable unit.",
+    "effect": "Optimal noise maximises signal detection (inverted-U).",
+    "viz": "timeseries",
+    "metric": "peak_performance",
+    "detector": {
+      "top": "P26",
+      "tier": "definitive",
+      "confidence": 0.9166666666666666,
+      "verdict": "MATCH",
+      "emergence": 0.0894,
+      "self_recognized": true
+    },
+    "asset": "p26.png"
+  },
+  {
+    "id": "P27",
+    "name": "Spatial reciprocity",
+    "ref": "Nowak & May 1992",
+    "summary": "Cooperators and defectors play neighbours on a lattice.",
+    "effect": "Cooperation survives by forming spatial clusters.",
+    "viz": "grid_field",
+    "metric": "coop_fraction",
+    "detector": {
+      "top": "P27",
+      "tier": "screening",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.0604,
+      "self_recognized": true
+    },
+    "asset": "p27.gif"
+  },
+  {
+    "id": "P28",
+    "name": "Wealth condensation",
+    "ref": "Yard-Sale (Chakraborti 2002)",
+    "summary": "Agents repeatedly trade a random fraction of wealth.",
+    "effect": "Wealth spontaneously condenses to extreme inequality.",
+    "viz": "distribution",
+    "metric": "gini_final",
+    "detector": {
+      "top": "P28",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.1142,
+      "self_recognized": true
+    },
+    "asset": "p28.png"
+  },
+  {
+    "id": "P29",
+    "name": "Trail / network formation",
+    "ref": "Tero et al. 2010 (Physarum)",
+    "summary": "Agents reinforce and evaporate trails between nodes.",
+    "effect": "An efficient near-minimal transport network emerges.",
+    "viz": "network",
+    "metric": "weight_dist_corr",
+    "detector": {
+      "top": "P29",
+      "tier": "screening",
+      "confidence": 0.9318181818181818,
+      "verdict": "MATCH",
+      "emergence": 0.0,
+      "self_recognized": true
+    },
+    "asset": "p29.png"
+  },
+  {
+    "id": "P30",
+    "name": "Autopoiesis / boundary formation",
+    "ref": "Varela-Maturana-Uribe 1974",
+    "summary": "Catalysis links substrate particles into a membrane that decays.",
+    "effect": "A self-maintaining closed boundary forms and persists.",
+    "viz": "point_cloud",
+    "metric": "radial_cv",
+    "detector": {
+      "top": "P30",
+      "tier": "definitive",
+      "confidence": 1.0,
+      "verdict": "MATCH",
+      "emergence": 0.1892,
+      "self_recognized": true
+    },
+    "asset": "p30.gif"
+  },
+  {
+    "id": "P31",
+    "name": "Delayed gratification",
+    "ref": "Zhang et al. 2024",
+    "summary": "Agents forgo immediate reward for larger later payoff.",
+    "effect": "Per-agent restraint carries information beyond the policy label.",
+    "viz": "spacetime",
+    "metric": null,
+    "detector": {
+      "top": null,
+      "tier": null,
+      "confidence": null,
+      "verdict": null,
+      "emergence": null,
+      "self_recognized": null,
+      "note": "Validated via a separate multi-run non-redundancy test (no Phase-2a battery panel)."
+    },
+    "asset": "p31.png"
+  },
+  {
+    "id": "P32",
+    "name": "Emergent specialization",
+    "ref": "Bonabeau 1996",
+    "summary": "Response-threshold agents take tasks they sense most.",
+    "effect": "Division of labour emerges as roles differentiate.",
+    "viz": "network",
+    "metric": "entropy_decline",
+    "detector": {
+      "top": "P32",
+      "tier": "definitive",
+      "confidence": 0.9523809523809523,
+      "verdict": "MATCH",
+      "emergence": 0.0903,
+      "self_recognized": true
+    },
+    "asset": "p32.png"
+  }
+]
