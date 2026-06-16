@@ -13,7 +13,7 @@ ANIM={"point_cloud","grid_field","phase_circle"}
 manifest=[]
 for pid_up, info in GALLERY.items():
     pid=pid_up.lower(); t0=time.time()
-    entry={"id":pid_up, **{k:info[k] for k in ("name","ref","summary","effect","viz")}}
+    entry={"id":pid_up, **{k:info[k] for k in ("name","ref","summary","effect","viz","watch")}}
     entry["metric"]=CONTINUOUS_METRIC.get(pid_up,{}).get("key")
     cm=CONF.get(pid,{})
     entry["detector"]={"top":cm.get("top_pattern"),"tier":cm.get("top_tier"),
