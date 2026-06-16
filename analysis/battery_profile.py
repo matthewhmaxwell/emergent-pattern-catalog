@@ -58,26 +58,28 @@ def profile_observation(history: List[Dict[str, Any]],
         row = cal.calibrate(raw) if cal is not None else {
             "pattern_id": pid_up, "calibrated_confidence": None, "verdict": "no-calibrator"}
         row["detected"] = bool(detected)
-        row["detector_tier"] = tier
-        row["tier_rank"] = _TIER_RANK.get(tier, 0)
+        row["detector_tier"] = tier if detected else "none"
+        row["tier_rank"] = _TIER_RANK.get(tier, 0) if detected else 0
+        row["fired_detected"] = bool(detected)
         rows.append(row)
     # Rank by the detector's actual tier (its multi-criterion gate + exclusions
     # disambiguate within-family overlap that a single calibrated scalar cannot),
     # then by calibrated confidence as the comparable magnitude.
-    rows.sort(key=lambda r: (r.get("tier_rank", 0),
+    rows.sort(key=lambda r: (1 if r.get("fired_detected") else 0,
+                             r.get("tier_rank", 0),
                              r.get("calibrated_confidence") or -1.0), reverse=True)
     em = generic_emergence(history, seed=seed)
     top = rows[0] if rows else None
-    # MATCH only if the top detector actually reached confirmation+ via its full
-    # gate; otherwise fall back to the emergence-based three-way verdict.
-    if top is not None and top.get("tier_rank", 0) >= 2:
+    # MATCH iff the top detector ACTUALLY FIRED (det=True) via its full gate; the
+    # tier is the strength. If nothing fired, the verdict is emergence-driven
+    # (EMERGENT-UNCLASSIFIED vs NO-EMERGENCE).
+    if top is not None and top.get("fired_detected"):
         verdict = {"verdict": "MATCH", "pattern_id": top["pattern_id"],
                    "detector_tier": top["detector_tier"],
                    "calibrated_confidence": top.get("calibrated_confidence"),
                    "emergence_score": em["score"]}
     else:
-        verdict = three_way_verdict(top.get("calibrated_confidence") if top else None,
-                                    em["score"])
+        verdict = three_way_verdict(None, em["score"])
     return {"profile": rows, "emergence": em, "verdict": verdict,
             "top": {"pattern_id": top["pattern_id"],
                     "detector_tier": top.get("detector_tier"),
