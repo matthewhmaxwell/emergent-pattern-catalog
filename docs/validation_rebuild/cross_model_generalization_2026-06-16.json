@@ -1,0 +1,51 @@
+{
+  "p16": {
+    "alt": "Hopfield\u2192BooleanGRN",
+    "top": "P16",
+    "tier": "confirmation",
+    "verdict": "MATCH",
+    "generalizes": true
+  },
+  "p24": {
+    "alt": "Proportional\u2192IntegralHomeostat",
+    "top": "P24",
+    "tier": "none",
+    "verdict": "NO-EMERGENCE",
+    "generalizes": true
+  },
+  "p26": {
+    "alt": "DoubleWell\u2192ThresholdUnit",
+    "top": "P26",
+    "tier": "definitive",
+    "verdict": "MATCH",
+    "generalizes": true
+  },
+  "p29": {
+    "alt": "Ant\u2192Physarum",
+    "top": "P29",
+    "tier": "definitive",
+    "verdict": "MATCH",
+    "generalizes": true
+  },
+  "p20": {
+    "alt": "Autoinducer\u2192FractionThreshold",
+    "top": "P20",
+    "tier": "definitive",
+    "verdict": "MATCH",
+    "generalizes": true
+  },
+  "p23": {
+    "alt": "MinorityGame\u2192ElFarol",
+    "top": "P23",
+    "tier": "confirmation",
+    "verdict": "MATCH",
+    "generalizes": true
+  },
+  "p25": {
+    "alt": "Canalized\u2192MultiBasinGRN",
+    "top": "P25",
+    "tier": "definitive",
+    "verdict": "MATCH",
+    "generalizes": true
+  }
+}
