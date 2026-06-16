@@ -1,0 +1,374 @@
+{
+  "p1": {
+    "top_pattern": "P1",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7769,
+    "fired": {
+      "P1": "definitive"
+    },
+    "elapsed": 82.7
+  },
+  "p2": {
+    "top_pattern": "P2",
+    "top_tier": "none",
+    "top_conf": 0.75,
+    "correct": true,
+    "verdict": "EMERGENT-UNCLASSIFIED",
+    "emergence": 0.5368,
+    "fired": {},
+    "elapsed": 81.9
+  },
+  "p3": {
+    "top_pattern": "P3",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7551,
+    "fired": {
+      "P3": "definitive"
+    },
+    "elapsed": 0.5
+  },
+  "p4": {
+    "top_pattern": "P4",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0105,
+    "fired": {
+      "P4": "definitive"
+    },
+    "elapsed": 28.7
+  },
+  "p5": {
+    "top_pattern": "P5",
+    "top_tier": "definitive",
+    "top_conf": 0.9565217391304348,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.9811,
+    "fired": {
+      "P5": "definitive"
+    },
+    "elapsed": 41.1
+  },
+  "p6": {
+    "top_pattern": "P6",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0003,
+    "fired": {
+      "P6": "definitive"
+    },
+    "elapsed": 30.1
+  },
+  "p7": {
+    "top_pattern": "P7",
+    "top_tier": "confirmation",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0,
+    "fired": {
+      "P7": "confirmation"
+    },
+    "elapsed": 22.7
+  },
+  "p8": {
+    "top_pattern": "P8",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0,
+    "fired": {
+      "P8": "definitive"
+    },
+    "elapsed": 6.7
+  },
+  "p9": {
+    "top_pattern": "P9",
+    "top_tier": "definitive",
+    "top_conf": 0.9523809523809523,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7513,
+    "fired": {
+      "P9": "definitive"
+    },
+    "elapsed": 17.7
+  },
+  "p10": {
+    "top_pattern": "P10",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.728,
+    "fired": {
+      "P10": "definitive"
+    },
+    "elapsed": 5.5
+  },
+  "p11": {
+    "top_pattern": "P11",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7602,
+    "fired": {
+      "P11": "definitive"
+    },
+    "elapsed": 72.3
+  },
+  "p12": {
+    "top_pattern": "P12",
+    "top_tier": "confirmation",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.963,
+    "fired": {
+      "P12": "confirmation",
+      "P18": "confirmation"
+    },
+    "elapsed": 35.4
+  },
+  "p13": {
+    "top_pattern": "P18",
+    "top_tier": "screening",
+    "top_conf": 0.9444444444444444,
+    "correct": false,
+    "verdict": "MATCH",
+    "emergence": 0.7624,
+    "fired": {
+      "P18": "screening",
+      "P13": "screening"
+    },
+    "elapsed": 63.3
+  },
+  "p14": {
+    "top_pattern": "P14",
+    "top_tier": "confirmation",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0,
+    "fired": {
+      "P14": "confirmation"
+    },
+    "elapsed": 9.7
+  },
+  "p15": {
+    "top_pattern": "P15",
+    "top_tier": "definitive",
+    "top_conf": 0.8611111111111112,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7837,
+    "fired": {
+      "P15": "definitive"
+    },
+    "elapsed": 42.3
+  },
+  "p16": {
+    "top_pattern": "P16",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0892,
+    "fired": {
+      "P16": "definitive"
+    },
+    "elapsed": 1.4
+  },
+  "p17": {
+    "top_pattern": "P17",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.1034,
+    "fired": {
+      "P17": "definitive"
+    },
+    "elapsed": 0.3
+  },
+  "p18": {
+    "top_pattern": "P18",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7777,
+    "fired": {
+      "P18": "definitive"
+    },
+    "elapsed": 6.7
+  },
+  "p19": {
+    "top_pattern": "P19",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.8502,
+    "fired": {
+      "P19": "definitive"
+    },
+    "elapsed": 8.8
+  },
+  "p20": {
+    "top_pattern": "P20",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0894,
+    "fired": {
+      "P20": "definitive"
+    },
+    "elapsed": 14.8
+  },
+  "p21": {
+    "top_pattern": "P21",
+    "top_tier": "definitive",
+    "top_conf": 0.9761904761904762,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0985,
+    "fired": {
+      "P21": "definitive"
+    },
+    "elapsed": 0.1
+  },
+  "p22": {
+    "top_pattern": "P22",
+    "top_tier": "screening",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0598,
+    "fired": {
+      "P22": "screening"
+    },
+    "elapsed": 0.9
+  },
+  "p23": {
+    "top_pattern": "P23",
+    "top_tier": "definitive",
+    "top_conf": 0.9166666666666666,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0894,
+    "fired": {
+      "P23": "definitive"
+    },
+    "elapsed": 0.5
+  },
+  "p24": {
+    "top_pattern": "P24",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0894,
+    "fired": {
+      "P24": "definitive"
+    },
+    "elapsed": 0.6
+  },
+  "p25": {
+    "top_pattern": "P25",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.7504,
+    "fired": {
+      "P25": "definitive"
+    },
+    "elapsed": 0.5
+  },
+  "p26": {
+    "top_pattern": "P26",
+    "top_tier": "definitive",
+    "top_conf": 0.9166666666666666,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0894,
+    "fired": {
+      "P26": "definitive"
+    },
+    "elapsed": 107.5
+  },
+  "p27": {
+    "top_pattern": "P27",
+    "top_tier": "screening",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0604,
+    "fired": {
+      "P27": "screening"
+    },
+    "elapsed": 1.0
+  },
+  "p28": {
+    "top_pattern": "P28",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.1142,
+    "fired": {
+      "P28": "definitive"
+    },
+    "elapsed": 0.6
+  },
+  "p29": {
+    "top_pattern": "P29",
+    "top_tier": "screening",
+    "top_conf": 0.9318181818181818,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0,
+    "fired": {
+      "P29": "screening"
+    },
+    "elapsed": 1.3
+  },
+  "p30": {
+    "top_pattern": "P30",
+    "top_tier": "definitive",
+    "top_conf": 1.0,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.1892,
+    "fired": {
+      "P30": "definitive"
+    },
+    "elapsed": 20.1
+  },
+  "p32": {
+    "top_pattern": "P32",
+    "top_tier": "definitive",
+    "top_conf": 0.9523809523809523,
+    "correct": true,
+    "verdict": "MATCH",
+    "emergence": 0.0903,
+    "fired": {
+      "P32": "definitive"
+    },
+    "elapsed": 7.0
+  }
+}
