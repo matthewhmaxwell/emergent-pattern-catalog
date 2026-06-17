@@ -52,6 +52,7 @@ details.card>summary.codesum code{text-transform:none}
 details.card[open]>summary.codesum{margin-bottom:10px}
 .about h3{font-size:16px;margin:20px 0 7px;color:#fff;text-transform:none;letter-spacing:0}
 .about ul{margin:0 0 13px;padding-left:20px;color:#cdd9e5}.about li{margin:0 0 7px}
+.about a{color:var(--acc);text-decoration:underline}
 .item.methods-item b{color:#3fae6b}
 .tier{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid var(--line);border-radius:10px;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;vertical-align:middle;cursor:help}
 .disc{margin-top:11px;font-size:13px}.disc .lab{display:block;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;cursor:help}

@@ -137,6 +137,10 @@ harness</b> — not any new claim about nature.</li>
 </ul>
 
 <h3>Reproduce</h3>
-<p>Method and per-pattern detail live in the project's validation note
-(section&nbsp;4A) and the Phase-2a panel outputs in the source repository.</p>
+<p>Everything is open. The models, detectors, the Phase-2a negative-control
+panels and the full validation note (section&nbsp;4A) are in the source
+repository:
+<a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog" target="_blank" rel="noopener">github.com/matthewhmaxwell/emergent-pattern-catalog</a>
+— specifically <a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog/blob/validation-rebuild/docs/paper_section4A_validation_rebuild.md" target="_blank" rel="noopener">the validation note</a>
+and the <a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog/tree/validation-rebuild/analysis/outputs" target="_blank" rel="noopener">per-pattern panel outputs</a>.</p>
 """
