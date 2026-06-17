@@ -62,7 +62,7 @@ GALLERY = {
    summary="A driven sandpile topples when slope exceeds threshold.",
    watch="On these log-log axes a straight line means avalanches come in every size with no typical scale.",
    effect="Avalanches follow a scale-free power law without tuning."),
-"P15": dict(name="Persistent propagating computation", ref="Conway Game of Life", viz="grid_field",
+"P15": dict(name="Persistent propagating computation", ref="Conway 1970 (Game of Life)", viz="grid_field",
    summary="Deterministic life-like cellular automaton.",
    watch="Watch small structures glide and collide, carrying information across the grid.",
    effect="Propagating structures carry and transform information."),

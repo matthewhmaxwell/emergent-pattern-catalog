@@ -478,7 +478,7 @@
   {
     "id": "P15",
     "name": "Persistent propagating computation",
-    "ref": "Conway Game of Life",
+    "ref": "Conway 1970 (Game of Life)",
     "summary": "Deterministic life-like cellular automaton.",
     "effect": "Propagating structures carry and transform information.",
     "viz": "grid_field",
