@@ -423,9 +423,37 @@ def save_animation(frames, out_base, fps=10):
 
 # Per-pattern PER-FRAME structure measure for _select's dwell window — used where the
 # producer's generic default (_s_points/_s_grid/_s_net) tracks the wrong observable
-# (QA defect class DC1). Each callable takes one history frame dict -> float. Empty
-# entries fall back to the producer default. Populated per-pattern in Pass 4b.
-FRAME_MEASURE = {}
+# (QA defect class DC1). Each callable takes one history frame dict -> float (higher =
+# more of the phenomenon present). Empty entries fall back to the producer default.
+def _fld(f):
+    return np.asarray(f.get("field", f.get("grid")), float)
+
+def _m_turing(f):                       # P3: spectral power in the Turing wavelength band (rises as the maze forms)
+    a = _fld(f); a = a - a.mean()
+    if a.ndim != 2 or a.size < 16: return 0.0
+    F = np.abs(np.fft.fftshift(np.fft.fft2(a))); ny, nx = a.shape
+    yy, xx = np.ogrid[:ny, :nx]; r = np.sqrt((yy-ny//2)**2 + (xx-nx//2)**2)
+    rmax = max(r.max(), 1e-9); band = (r > 0.12*rmax) & (r < 0.5*rmax)
+    return float(F[band].sum() / (F.sum() + 1e-9))
+
+def _m_mill(f):                         # P6: |normalised angular momentum| about the centroid (rises as the vortex forms)
+    p = np.asarray(f["positions"], float)[:, :2]; h = _headings(f)
+    if h is None or len(p) < 3: return 0.0
+    r = p - p.mean(0); v = np.c_[np.cos(h), np.sin(h)]
+    L = r[:, 0]*v[:, 1] - r[:, 1]*v[:, 0]
+    return float(abs((L / (np.linalg.norm(r, axis=1) + 1e-9)).mean()))
+
+def _m_lanes(f):                        # P7: lane order = mean per-y-strip directional purity (rises as counterflow segregates)
+    p = np.asarray(f["positions"], float)[:, :2]; h = _headings(f)
+    if h is None or len(p) < 6: return 0.0
+    vx = np.cos(h); y = p[:, 1]; ymin, ymax = y.min(), y.max() + 1e-9
+    bins = ((y - ymin)/(ymax - ymin)*8).astype(int).clip(0, 7)
+    bias = [abs(np.sign(vx[bins == b]).mean()) for b in range(8) if (bins == b).sum() >= 3]
+    return float(np.mean(bias)) if bias else 0.0
+
+FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes}
+# NOTE: P13 (excitable waves) is NOT fixable by a dwell measure — grid snapshots of a
+# rotating wave render near-identically; it needs the space-time raster view (Batch 3 / DC3).
 
 
 def render(history, viz, out_base, title, args=None, measure=None):
