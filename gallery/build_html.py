@@ -33,8 +33,8 @@ header h1{margin:0;font-size:18px}header p{margin:3px 0 0;color:var(--mut);font-
 .bar button{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px}
 .bar button:hover{background:#2d3e54}
 .bar select{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
-a.dl{display:inline-block;margin-top:8px;margin-right:8px;background:#243244;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:5px 12px;text-decoration:none;font-size:13px}
-a.dl:hover{background:#2d3e54}.bar input[type=range]{flex:1}
+.dl{display:inline-block;margin-top:8px;margin-right:8px;background:#243244;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:5px 12px;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
+.dl:hover{background:#2d3e54}.bar input[type=range]{flex:1}
 .watch{width:300px;margin-top:12px;padding:10px 12px;background:#10243a;border:1px solid #21466b;border-left:3px solid var(--acc);border-radius:6px;font-size:13px;color:#cfe3f7}
 .watch b{color:var(--acc);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
 .info{flex:1;min-width:280px}
@@ -61,6 +61,21 @@ details.card[open]>summary.codesum{margin-bottom:10px}
 .foot{margin-top:9px;font-size:12px;color:var(--mut)}.foot .hint{cursor:help;border-bottom:1px dotted var(--line)}
 .mut2{color:var(--mut)}
 .methlink{color:var(--acc);text-decoration:none}.methlink:hover{text-decoration:underline}
+.ovl{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(6,9,13,.93);padding:18px}
+.ovl.open{display:flex}
+.ovl-top{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ovl-cap{font-size:15px;color:var(--ink);font-weight:600}
+.ovl-actions{display:flex;gap:8px;flex:none}
+.ovl-btn{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit;font-size:13px}
+.ovl-btn:hover{background:#2d3e54}
+.ovl-stage{background-repeat:no-repeat;background-color:#fff;border:1px solid var(--line);border-radius:8px;max-width:100%}
+.ovl-bar{display:flex;align-items:center;gap:10px;width:100%;max-width:560px}
+.ovl-cbtn{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font:inherit;font-size:14px}
+.ovl-cbtn:hover{background:#2d3e54}
+.ovl-range{flex:1}
+.ovl-fc{color:var(--mut);font-size:12px;min-width:48px}
+.ovl-sel{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit}
+.ovl-btn:focus-visible,.ovl-cbtn:focus-visible,.ovl-range:focus-visible,.ovl-sel:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#04121f;font-weight:600;padding:8px 14px;border-radius:0 0 6px 0;text-decoration:none}
 .skip:focus{left:0}
 .item:focus-visible,.bar button:focus-visible,.bar select:focus-visible,.bar input[type=range]:focus-visible,a.dl:focus-visible,summary.codesum:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
@@ -78,7 +93,7 @@ details.card[open]>summary.codesum{margin-bottom:10px}
 JS = """
 const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__, METHODS=__METHODS__;
 const list=document.getElementById('list'), detail=document.getElementById('detail');
-let timer=null, suppressHash=false;
+let timer=null, suppressHash=false, paintBigRef=null, lastEnl=null;
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const KW=/\\b(def|return|for|while|if|elif|else|in|and|or|not|import|from|class|with|as|None|True|False|self|lambda|break|continue|np)\\b/g;
 function hl(s){
@@ -99,6 +114,41 @@ function setSelected(key){
   });
 }
 function focusDetail(){const h=detail.querySelector('h2')||detail; h.setAttribute('tabindex','-1'); h.focus();}
+
+// ---- in-page enlarge / fullscreen overlay (no popup window — cannot be blocked) ----
+const ovl=document.createElement('div');
+ovl.id='ovl'; ovl.className='ovl';
+ovl.setAttribute('role','dialog'); ovl.setAttribute('aria-modal','true');
+ovl.setAttribute('aria-label','Enlarged visualization'); ovl.setAttribute('aria-hidden','true');
+ovl.innerHTML=`<div class=ovl-top><span id=ovlcap class=ovl-cap></span><span class=ovl-actions>
+  <button id=ovlfs class=ovl-btn type=button>⛶ Fullscreen</button>
+  <button id=ovlx class=ovl-btn type=button aria-label="Close enlarged view">✕ Close</button></span></div>
+  <div id=ovlstage class=ovl-stage role=img></div>
+  <div class=ovl-bar><button id=ovlpp class=ovl-cbtn type=button aria-label="Pause animation">⏸</button>
+  <button id=ovlrs class=ovl-cbtn type=button aria-label="Reset to first frame">⟲</button>
+  <input id=ovlsl class=ovl-range type=range min=0 value=0 aria-label="Animation frame">
+  <span id=ovlfc class=ovl-fc aria-hidden=true></span>
+  <select id=ovlspd class=ovl-sel aria-label="Playback speed"><option value=0.25>0.25×</option><option value=0.5>0.5×</option><option value=1 selected>1×</option><option value=2>2×</option><option value=4>4×</option></select></div>`;
+document.body.appendChild(ovl);
+const OVL={el:ovl, cap:ovl.querySelector('#ovlcap'), stage:ovl.querySelector('#ovlstage'),
+  pp:ovl.querySelector('#ovlpp'), rs:ovl.querySelector('#ovlrs'), sl:ovl.querySelector('#ovlsl'),
+  fc:ovl.querySelector('#ovlfc'), spd:ovl.querySelector('#ovlspd'), fs:ovl.querySelector('#ovlfs'), x:ovl.querySelector('#ovlx')};
+function fsActive(){return document.fullscreenElement||document.webkitFullscreenElement;}
+function closeOverlay(){
+  if(fsActive() && document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+  ovl.classList.remove('open'); ovl.setAttribute('aria-hidden','true'); paintBigRef=null;
+  if(lastEnl && document.contains(lastEnl)) lastEnl.focus();
+  lastEnl=null;
+}
+OVL.x.onclick=closeOverlay;
+ovl.addEventListener('click', e=>{ if(e.target===ovl) closeOverlay(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && ovl.classList.contains('open')) closeOverlay(); });
+const reqFS=ovl.requestFullscreen||ovl.webkitRequestFullscreen;
+if(!reqFS) OVL.fs.style.display='none';
+OVL.fs.onclick=()=>{ if(!fsActive()){ reqFS&&reqFS.call(ovl); } else if(document.exitFullscreen){ document.exitFullscreen(); } };
+document.addEventListener('fullscreenchange', ()=>{ OVL.fs.textContent=fsActive()?'⛶ Exit fullscreen':'⛶ Fullscreen'; if(ovl.classList.contains('open')&&paintBigRef) paintBigRef(true); });
+window.addEventListener('resize', ()=>{ if(ovl.classList.contains('open')&&paintBigRef) paintBigRef(true); });
+
 function methLink(){return `<div class=foot><a href="#methods" class=methlink onclick="navigate('methods');return false;">How we validate ↗</a></div>`;}
 function detectorHtml(d){
   const vc=VC[d.verdict]||'#718096';
@@ -133,7 +183,7 @@ function detectorHtml(d){
 }
 
 function show(i){
-  clearTimer();
+  clearTimer(); if(ovl.classList.contains('open')) closeOverlay();
   try{
     const m=M[i], d=m.detector||{};
     setSelected(i);
@@ -149,7 +199,7 @@ function show(i){
         <input type=range id=sl min=0 max=${s.frames-1} value=0 aria-label="Animation frame">
         <span id=fc aria-hidden=true style="color:var(--mut);font-size:12px;min-width:48px">0/${s.frames-1}</span>
         <select id=spd aria-label="Playback speed"><option value=0.25>0.25×</option><option value=0.5>0.5×</option><option value=1 selected>1×</option><option value=2>2×</option><option value=4>4×</option></select></div>
-        ${m.mp4?`<a class=dl href="assets/${m.mp4}" download="${mp4name}">⤓ MP4</a>`:''}${m.asset?`<a class=dl href="assets/${m.asset}" download="${pngname}" title="One PNG with all ${s.frames} frames tiled in a grid (a sprite sheet, not a single still)">⤓ Frame sheet (PNG)</a>`:''}`;
+        <button class=dl id=enl type=button title="Open a large, in-page view (supports fullscreen) — no popup window">⛶ Enlarge</button>${m.mp4?`<a class=dl href="assets/${m.mp4}" download="${mp4name}">⤓ MP4</a>`:''}${m.asset?`<a class=dl href="assets/${m.asset}" download="${pngname}" title="One PNG with all ${s.frames} frames tiled in a grid (a sprite sheet, not a single still)">⤓ Frame sheet (PNG)</a>`:''}`;
     } else if(m.asset){
       vizHtml=`<img src="assets/${m.asset}" alt="${m.id} ${esc(m.name)}: ${desc}">`;
     } else { vizHtml='<p style=color:#8b98a5>(no visualization)</p>'; }
@@ -176,19 +226,47 @@ function show(i){
 function initSprite(m){
   const s=m.sprite, stage=document.getElementById('stage'),
     pp=document.getElementById('pp'), rs=document.getElementById('rs'),
-    sl=document.getElementById('sl'), fc=document.getElementById('fc'), spd=document.getElementById('spd');
-  const BASE=110; let cur=0;
-  function setF(k){cur=((k%s.frames)+s.frames)%s.frames;
+    sl=document.getElementById('sl'), fc=document.getElementById('fc'), spd=document.getElementById('spd'),
+    enl=document.getElementById('enl');
+  const BASE=110, rows=Math.ceil(s.frames/s.cols); let cur=0, bigSize=0;
+  function paintBig(resize){
+    if(resize){
+      const avail=Math.min(window.innerWidth-32, window.innerHeight-150);
+      bigSize=Math.max(240, Math.min(avail, 1100));
+      OVL.stage.style.width=bigSize+'px'; OVL.stage.style.height=bigSize+'px';
+      OVL.stage.style.backgroundImage='url(assets/'+m.asset+')';
+      OVL.stage.style.backgroundSize=(s.cols*bigSize)+'px '+(rows*bigSize)+'px';
+    }
+    const c=cur%s.cols, r=Math.floor(cur/s.cols);
+    OVL.stage.style.backgroundPosition='-'+(c*bigSize)+'px -'+(r*bigSize)+'px';
+  }
+  function setF(k){
+    cur=((k%s.frames)+s.frames)%s.frames;
     const c=cur%s.cols, r=Math.floor(cur/s.cols);
     stage.style.backgroundPosition=`-${c*s.fw}px -${r*s.fh}px`;
-    sl.value=cur; fc.textContent=cur+'/'+(s.frames-1);
-    sl.setAttribute('aria-valuetext',(cur+1)+' of '+s.frames);}
-  function play(){clearTimer(); timer=setInterval(()=>setF(cur+1), BASE/parseFloat(spd.value)); pp.textContent='⏸'; pp.setAttribute('aria-label','Pause animation');}
-  function pause(){clearTimer(); pp.textContent='▶'; pp.setAttribute('aria-label','Play animation');}
-  pp.onclick=()=>timer?pause():play();
-  rs.onclick=()=>{pause();setF(0);};
+    sl.value=cur; fc.textContent=cur+'/'+(s.frames-1); sl.setAttribute('aria-valuetext',(cur+1)+' of '+s.frames);
+    if(ovl.classList.contains('open')){ paintBig(false); OVL.sl.value=cur; OVL.fc.textContent=cur+'/'+(s.frames-1); }
+  }
+  function setBars(sym,lab){pp.textContent=sym; pp.setAttribute('aria-label',lab); OVL.pp.textContent=sym; OVL.pp.setAttribute('aria-label',lab);}
+  function play(){clearTimer(); timer=setInterval(()=>setF(cur+1), BASE/parseFloat(spd.value)); setBars('⏸','Pause animation');}
+  function pause(){clearTimer(); setBars('▶','Play animation');}
+  const toggle=()=>timer?pause():play();
+  pp.onclick=OVL.pp.onclick=toggle;
+  rs.onclick=OVL.rs.onclick=()=>{pause();setF(0);};
   sl.oninput=()=>{pause();setF(+sl.value);};
-  spd.onchange=()=>{if(timer)play();};
+  OVL.sl.oninput=()=>{pause();setF(+OVL.sl.value);};
+  spd.onchange=()=>{OVL.spd.value=spd.value; if(timer)play();};
+  OVL.spd.onchange=()=>{spd.value=OVL.spd.value; if(timer)play();};
+  if(enl) enl.onclick=()=>{
+    lastEnl=enl; paintBigRef=paintBig;
+    OVL.cap.textContent=m.id+' · '+m.name;
+    OVL.stage.setAttribute('aria-label', m.id+' '+m.name+' — enlarged animation');
+    OVL.sl.max=s.frames-1; OVL.sl.value=cur; OVL.spd.value=spd.value;
+    OVL.fc.textContent=cur+'/'+(s.frames-1);
+    OVL.pp.textContent=timer?'⏸':'▶'; OVL.pp.setAttribute('aria-label', timer?'Pause animation':'Play animation');
+    ovl.classList.add('open'); ovl.setAttribute('aria-hidden','false');
+    paintBig(true); OVL.x.focus();
+  };
   setF(0);
   if(RM) pause(); else play();
 }
