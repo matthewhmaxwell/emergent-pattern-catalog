@@ -4,6 +4,7 @@ from gallery.registry import GALLERY
 from gallery.anim import render
 from gallery.code_extract import extract_code
 from epc.phase2a.continuous_metrics import CONTINUOUS_METRIC
+from gallery.education import MECHANISM
 ASSETS="gallery/assets"; os.makedirs(ASSETS, exist_ok=True)
 CONF=json.load(open("docs/validation_rebuild/battery_confusion_matrix_2026-06-16.json"))
 from gallery.gallery_runs import GALLERY_RUNS
@@ -17,7 +18,7 @@ man=[]
 for pid_up,info in GALLERY.items():
     pid=pid_up.lower(); t0=time.time()
     e={"id":pid_up,**{k:info[k] for k in ("name","ref","summary","effect","viz","watch")}}
-    e["metric"]=CONTINUOUS_METRIC.get(pid_up,{}).get("key")
+    e["metric"]=CONTINUOUS_METRIC.get(pid_up,{}).get("key"); e["mechanism"]=MECHANISM.get(pid_up,"")
     cm=CONF.get(pid,{})
     e["detector"]={"top":cm.get("top_pattern"),"tier":cm.get("top_tier"),"confidence":cm.get("top_conf"),
                    "verdict":cm.get("verdict"),"emergence":cm.get("emergence"),"self_recognized":cm.get("correct")}

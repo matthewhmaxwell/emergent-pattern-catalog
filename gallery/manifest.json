@@ -30,7 +30,8 @@
       "mp4": "p1.mp4"
     },
     "mp4": "p1.mp4",
-    "contact_sheet": "p1_sprite.png"
+    "contact_sheet": "p1_sprite.png",
+    "mechanism": "Each agent moves only if too few of its immediate neighbours share its type \u2014 a mild local preference, not a wish to segregate. But every move changes other agents' neighbourhoods, triggering more moves; the feedback cascades until the grid sorts into large single-type blocks. Strong global segregation emerges from weak individual preference, with no one intending it."
   },
   {
     "id": "P2",
@@ -63,7 +64,8 @@
       "mp4": "p2.mp4"
     },
     "mp4": "p2.mp4",
-    "contact_sheet": "p2_sprite.png"
+    "contact_sheet": "p2_sprite.png",
+    "mechanism": "Particles slow down where they are crowded. Slower particles linger in dense regions, making those regions denser still \u2014 a positive feedback. With no attraction between particles at all, this density-dependent speed alone splits the system into dense and dilute phases, like a gas condensing purely from how motion responds to crowding."
   },
   {
     "id": "P3",
@@ -96,7 +98,8 @@
       "mp4": "p3.mp4"
     },
     "mp4": "p3.mp4",
-    "contact_sheet": "p3_sprite.png"
+    "contact_sheet": "p3_sprite.png",
+    "mechanism": "Two species diffuse at different rates: a slow, self-amplifying 'activator' and a fast-spreading 'inhibitor'. Activation builds a local peak while the faster inhibitor suppresses the surroundings, stopping peaks from merging. This short-range activation with long-range inhibition selects one characteristic spacing, turning a near-uniform medium into a stationary striped/spotted pattern \u2014 Turing's insight that diffusion can create structure, not just smear it away."
   },
   {
     "id": "P4",
@@ -129,7 +132,8 @@
       "mp4": "p4.mp4"
     },
     "mp4": "p4.mp4",
-    "contact_sheet": "p4_sprite.png"
+    "contact_sheet": "p4_sprite.png",
+    "mechanism": "Each animal deposits scent as it moves and steps away from cells marked by others. Because everyone retreats from foreign scent, overlapping ranges are pushed apart until each settles into its own patch with sharp borders. Exclusive territories emerge from a simple 'avoid the neighbours' smell' rule \u2014 no fighting, no negotiation."
   },
   {
     "id": "P5",
@@ -162,7 +166,8 @@
       "mp4": "p5.mp4"
     },
     "mp4": "p5.mp4",
-    "contact_sheet": "p5_sprite.png"
+    "contact_sheet": "p5_sprite.png",
+    "mechanism": "Each agent steers toward the average heading of its nearby neighbours, plus a little noise. Alignment is contagious: a locally agreed direction spreads neighbour to neighbour until the whole group moves together. Below a noise threshold this local copying tips into global polar order \u2014 a flock \u2014 with no leader and no shared goal."
   },
   {
     "id": "P6",
@@ -195,7 +200,8 @@
       "mp4": "p6.mp4"
     },
     "mp4": "p6.mp4",
-    "contact_sheet": "p6_sprite.png"
+    "contact_sheet": "p6_sprite.png",
+    "mechanism": "Self-propelled particles attract at a distance and repel up close. Balanced, these forces cannot settle into a still clump or a straight march, so the group resolves the tension by circulating. A rotating mill (vortex) emerges purely from the interplay of propulsion with attraction\u2013repulsion."
   },
   {
     "id": "P7",
@@ -228,7 +234,8 @@
       "mp4": "p7.mp4"
     },
     "mp4": "p7.mp4",
-    "contact_sheet": "p7_sprite.png"
+    "contact_sheet": "p7_sprite.png",
+    "mechanism": "In two opposing streams, each person just sidesteps to avoid collisions. Following someone already heading your way is easier than crossing the opposing flow, so people fall in behind like-movers, and this self-reinforces. Orderly counter-flowing lanes emerge from nothing but local collision-avoidance."
   },
   {
     "id": "P8",
@@ -261,7 +268,8 @@
       "mp4": "p8.mp4"
     },
     "mp4": "p8.mp4",
-    "contact_sheet": "p8_sprite.png"
+    "contact_sheet": "p8_sprite.png",
+    "mechanism": "Each driver accelerates in open road, brakes for the car ahead, and occasionally dawdles. One random slow-down forces the follower to brake, then the next, and the disturbance travels backward as a growing jam. Stop-and-go waves emerge above a critical density \u2014 congestion with no crash or bottleneck causing it."
   },
   {
     "id": "P9",
@@ -294,7 +302,8 @@
       "mp4": "p9.mp4"
     },
     "mp4": "p9.mp4",
-    "contact_sheet": "p9_sprite.png"
+    "contact_sheet": "p9_sprite.png",
+    "mechanism": "Each oscillator nudges its rhythm toward its neighbours'. When coupling beats the spread of natural frequencies, a few that happen to align pull others in, recruiting the rest in a cascade until the whole population ticks together. Spontaneous synchrony \u2014 fireflies, applause, pacemaker cells \u2014 emerges from each unit simply adjusting to those around it."
   },
   {
     "id": "P10",
@@ -327,7 +336,8 @@
       "mp4": "p10.mp4"
     },
     "mp4": "p10.mp4",
-    "contact_sheet": "p10_sprite.png"
+    "contact_sheet": "p10_sprite.png",
+    "mechanism": "Identical oscillators, coupled more strongly to nearby ones, surprisingly split: part of the population locks into synchrony while the rest stays incoherent \u2014 and both states persist side by side. This coexistence of order and disorder among identical, symmetrically-coupled units was long thought impossible; it emerges from the non-local coupling alone."
   },
   {
     "id": "P11",
@@ -360,7 +370,8 @@
       "mp4": "p11.mp4"
     },
     "mp4": "p11.mp4",
-    "contact_sheet": "p11_sprite.png"
+    "contact_sheet": "p11_sprite.png",
+    "mechanism": "On a lattice, prey reproduce into empty cells and predators eat adjacent prey, then starve without food. Locally, predators boom where prey are dense, crash the prey, then crash themselves \u2014 letting prey recover. These local cycles couple across space into travelling waves and sustained population oscillations from simple eat / reproduce / die rules."
   },
   {
     "id": "P12",
@@ -393,7 +404,8 @@
       "mp4": "p12.mp4"
     },
     "mp4": "p12.mp4",
-    "contact_sheet": "p12_sprite.png"
+    "contact_sheet": "p12_sprite.png",
+    "mechanism": "Three strains play rock\u2013paper\u2013scissors: each beats one neighbour and loses to another. No strain can win outright, so locally each chases the type it dominates and flees the type that dominates it. This intransitive loop organises space into rotating spiral waves that let all three coexist indefinitely \u2014 diversity maintained by a cycle, not by balance."
   },
   {
     "id": "P13",
@@ -426,7 +438,8 @@
       "mp4": "p13.mp4"
     },
     "mp4": "p13.mp4",
-    "contact_sheet": "p13_sprite.png"
+    "contact_sheet": "p13_sprite.png",
+    "mechanism": "Each cell rests, fires when enough neighbours fire, then briefly cannot fire again (a refractory period). A firing cell excites its neighbours, but the refractory trail behind it blocks back-propagation, so activity only travels forward \u2014 into self-sustaining spiral and target waves. The same rule drives heart tissue and the Belousov\u2013Zhabotinsky reaction."
   },
   {
     "id": "P14",
@@ -459,7 +472,8 @@
       "mp4": "p14.mp4"
     },
     "mp4": "p14.mp4",
-    "contact_sheet": "p14_sprite.png"
+    "contact_sheet": "p14_sprite.png",
+    "mechanism": "Grains drop on a pile; when a site exceeds a threshold slope it topples, spilling onto neighbours and sometimes triggering a chain reaction. The pile self-organises to a critical state where one more grain can set off an avalanche of ANY size \u2014 the avalanche sizes follow a scale-free power law with no characteristic scale. Criticality emerges spontaneously, with no parameter tuned to reach it (self-organized criticality)."
   },
   {
     "id": "P15",
@@ -492,7 +506,8 @@
       "mp4": "p15.mp4"
     },
     "mp4": "p15.mp4",
-    "contact_sheet": "p15_sprite.png"
+    "contact_sheet": "p15_sprite.png",
+    "mechanism": "Cells live or die by counting live neighbours \u2014 three rules, nothing more. Yet stable structures, oscillators, and 'gliders' that travel and collide appear, and their interactions can carry and transform information. Universal computation emerges from a trivially simple update rule: complexity with no complex cause."
   },
   {
     "id": "P16",
@@ -525,7 +540,8 @@
       "mp4": "p16.mp4"
     },
     "mp4": "p16.mp4",
-    "contact_sheet": "p16_sprite.png"
+    "contact_sheet": "p16_sprite.png",
+    "mechanism": "Neurons flip to match the weighted majority of their inputs, where the weights encode several stored patterns. From a corrupted cue the network rolls 'downhill' in an energy landscape whose valleys are the memories, settling into the nearest one. Content-addressable recall \u2014 reconstructing the whole from a fragment \u2014 emerges from simple threshold updates."
   },
   {
     "id": "P17",
@@ -558,7 +574,8 @@
       "mp4": "p17.mp4"
     },
     "mp4": "p17.mp4",
-    "contact_sheet": "p17_sprite.png"
+    "contact_sheet": "p17_sprite.png",
+    "mechanism": "Each agent senses the environmental gradient poorly and noisily, but also tends to move with its neighbours. Averaging over many noisy individuals cancels the error, so the group climbs the gradient far more accurately than any member could alone. 'Many wrongs' become a collective right \u2014 accurate navigation from inaccurate individuals."
   },
   {
     "id": "P18",
@@ -591,7 +608,8 @@
       "mp4": "p18.mp4"
     },
     "mp4": "p18.mp4",
-    "contact_sheet": "p18_sprite.png"
+    "contact_sheet": "p18_sprite.png",
+    "mechanism": "Each agent simply copies the opinion of a random neighbour. Copying makes local agreement self-reinforcing: single-opinion patches grow and merge, their boundaries wandering, until one opinion fills the whole population. Consensus emerges from imitation alone \u2014 no persuasion, no leaders, no goal."
   },
   {
     "id": "P19",
@@ -624,7 +642,8 @@
       "mp4": "p19.mp4"
     },
     "mp4": "p19.mp4",
-    "contact_sheet": "p19_sprite.png"
+    "contact_sheet": "p19_sprite.png",
+    "mechanism": "A small minority knows the preferred direction; everyone else just stays with the group. Because the informed few consistently pull the same way while the uninformed cancel out, the whole group is steered accurately \u2014 and the bigger the group, the smaller the informed fraction needed. Effective leadership emerges with no signalling or designated leaders."
   },
   {
     "id": "P20",
@@ -657,7 +676,8 @@
       "mp4": "p20.mp4"
     },
     "mp4": "p20.mp4",
-    "contact_sheet": "p20_sprite.png"
+    "contact_sheet": "p20_sprite.png",
+    "mechanism": "Each cell releases a shared signal and switches behaviour only once the surrounding signal crosses a threshold. At low density the signal disperses harmlessly; once enough cells accumulate it, they all flip on together, sharply and with hysteresis. A population-scale decision emerges from each cell reading nothing but a local concentration."
   },
   {
     "id": "P21",
@@ -690,7 +710,8 @@
       "mp4": "p21.mp4"
     },
     "mp4": "p21.mp4",
-    "contact_sheet": "p21_sprite.png"
+    "contact_sheet": "p21_sprite.png",
+    "mechanism": "Each person averages opinions only with others already close to their own (bounded confidence). Moderates between two leanings get pulled both ways and thin out, while like-minded clusters tighten. A single continuous spread fragments into separated camps \u2014 polarization emerging from being open-minded, but only toward the similar."
   },
   {
     "id": "P22",
@@ -723,7 +744,8 @@
       "mp4": "p22.mp4"
     },
     "mp4": "p22.mp4",
-    "contact_sheet": "p22_sprite.png"
+    "contact_sheet": "p22_sprite.png",
+    "mechanism": "Each infected cell infects susceptible neighbours with some probability, then recovers and becomes immune. Infection can only advance into still-susceptible territory, so it sweeps outward as a wavefront leaving immunity behind. The epidemic curve and its spatial wave emerge from a purely local infect-then-recover rule."
   },
   {
     "id": "P23",
@@ -756,7 +778,8 @@
       "mp4": "p23.mp4"
     },
     "mp4": "p23.mp4",
-    "contact_sheet": "p23_sprite.png"
+    "contact_sheet": "p23_sprite.png",
+    "mechanism": "Agents repeatedly choose a side and win only if they picked the minority. Since everyone wants to be where others are not, they learn to spread out, and attendance self-balances around capacity with smaller swings than random choosing would give. Efficient load-balancing emerges with no communication and no coordinator."
   },
   {
     "id": "P24",
@@ -789,7 +812,8 @@
       "mp4": "p24.mp4"
     },
     "mp4": "p24.mp4",
-    "contact_sheet": "p24_sprite.png"
+    "contact_sheet": "p24_sprite.png",
+    "mechanism": "A controller measures how far a variable has drifted from its set-point and pushes back in proportion. Negative feedback automatically cancels disturbances, holding the variable steady against perturbations. Stable self-regulation \u2014 the principle behind body temperature and the thermostat \u2014 emerges from 'correct the error' alone."
   },
   {
     "id": "P25",
@@ -822,7 +846,8 @@
       "mp4": "p25.mp4"
     },
     "mp4": "p25.mp4",
-    "contact_sheet": "p25_sprite.png"
+    "contact_sheet": "p25_sprite.png",
+    "mechanism": "Many different starting states flow 'downhill' on a canalized landscape toward the same attractor. Because trajectories are funnelled into shared valleys, the destination is set by the landscape, not the starting point. Robust convergence to one outcome from diverse beginnings \u2014 Waddington's developmental canalization \u2014 emerges from the basins of the dynamics."
   },
   {
     "id": "P26",
@@ -855,7 +880,8 @@
       "mp4": "p26.mp4"
     },
     "mp4": "p26.mp4",
-    "contact_sheet": "p26_sprite.png"
+    "contact_sheet": "p26_sprite.png",
+    "mechanism": "A signal too weak to cross a threshold can be detected once noise is added: the right amount of noise occasionally bumps the system over in time with the signal. Too little noise and nothing crosses; too much and the signal is swamped \u2014 so detection peaks at an intermediate noise level. Noise helping a signal, counter-intuitively, emerges from threshold dynamics."
   },
   {
     "id": "P27",
@@ -888,7 +914,8 @@
       "mp4": "p27.mp4"
     },
     "mp4": "p27.mp4",
-    "contact_sheet": "p27_sprite.png"
+    "contact_sheet": "p27_sprite.png",
+    "mechanism": "Cooperators and defectors play their neighbours and then copy whichever nearby strategy scored best. A lone cooperator is exploited, but cooperators that cluster shield one another and out-earn the defectors around them, so clusters persist and spread. Cooperation survives in a world that rewards defection \u2014 purely because interaction is local (spatial structure)."
   },
   {
     "id": "P28",
@@ -921,7 +948,8 @@
       "mp4": "p28.mp4"
     },
     "mp4": "p28.mp4",
-    "contact_sheet": "p28_sprite.png"
+    "contact_sheet": "p28_sprite.png",
+    "mechanism": "Two agents trade by staking a random fraction of the poorer one's wealth on a fair coin flip. Even though every trade is fair, the multiplicative nature of gambling means losses hurt the poor proportionally more, so wealth drifts toward whoever is already ahead. Extreme inequality condenses from repeated fair exchanges \u2014 no cheating required."
   },
   {
     "id": "P29",
@@ -954,7 +982,8 @@
       "mp4": "p29.mp4"
     },
     "mp4": "p29.mp4",
-    "contact_sheet": "p29_sprite.png"
+    "contact_sheet": "p29_sprite.png",
+    "mechanism": "Agents lay attractant on the paths they use, and the marking evaporates over time. Heavily-used short routes are reinforced faster than they fade, while redundant ones disappear, so the network self-prunes toward a few efficient connections. Near-optimal transport networks (ant trails, slime mould) emerge from reinforce-and-evaporate, with no surveyor."
   },
   {
     "id": "P30",
@@ -987,7 +1016,8 @@
       "mp4": "p30.mp4"
     },
     "mp4": "p30.mp4",
-    "contact_sheet": "p30_sprite.png"
+    "contact_sheet": "p30_sprite.png",
+    "mechanism": "A catalyst stitches substrate particles into links that form a boundary, while those links also decay and must be continually replaced. When production keeps pace with decay, a thin closed membrane self-assembles and maintains itself around the catalyst. A self-producing, self-bounded unit \u2014 a minimal 'cell' \u2014 emerges from local make-and-decay reactions."
   },
   {
     "id": "P31",
@@ -1021,7 +1051,8 @@
       "mp4": "p31.mp4"
     },
     "mp4": "p31.mp4",
-    "contact_sheet": "p31_sprite.png"
+    "contact_sheet": "p31_sprite.png",
+    "mechanism": "Agents sometimes accept a locally worse move now because it unlocks a better outcome later. Foregoing immediate reward, applied locally and repeatedly, lets the collective reach configurations that purely greedy steps cannot. Goal-directed-looking patience emerges from simple per-agent trade-offs rather than any global plan."
   },
   {
     "id": "P32",
@@ -1054,6 +1085,7 @@
       "mp4": "p32.mp4"
     },
     "mp4": "p32.mp4",
-    "contact_sheet": "p32_sprite.png"
+    "contact_sheet": "p32_sprite.png",
+    "mechanism": "Each agent takes whichever task it senses most strongly, and its threshold for that task falls with practice, so it specialises. Because specialists handle their task before others' thresholds are tripped, stable, distinct roles differentiate across the group. Division of labour \u2014 like castes in social insects \u2014 emerges from response thresholds plus learning, with no assignment."
   }
 ]

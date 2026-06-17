@@ -1,6 +1,7 @@
 """Assemble the EPC gallery: master list + detail (viz w/ playbar, info,
 detector readout, core-algorithm code panel). Self-contained; assets in ./assets/."""
 import json, html
+from gallery.education import OVERVIEW_HTML
 
 M = json.load(open("gallery/manifest.json"))
 M.sort(key=lambda e: int(e["id"][1:]))
@@ -14,6 +15,11 @@ header h1{margin:0;font-size:18px}header p{margin:3px 0 0;color:var(--mut);font-
 .wrap{display:flex;height:calc(100vh - 64px)}
 .list{width:290px;overflow-y:auto;border-right:1px solid var(--line);background:var(--panel);flex:none}
 .item{padding:9px 16px;cursor:pointer;border-bottom:1px solid var(--line);font-size:14px}
+.item.about-item b{color:#b7791f}
+.about{max-width:780px;line-height:1.65}
+.about h2{font-size:23px;margin:0 0 14px}
+.about p{margin:0 0 13px;color:#cdd9e5}
+.about b{color:#fff}
 .item:hover{background:#222c38}.item.sel{background:#243244;border-left:3px solid var(--acc)}
 .item b{color:var(--acc);margin-right:6px}.item small{color:var(--mut);display:block;font-size:11px;margin-top:1px}
 .detail{flex:1;overflow-y:auto;padding:22px 26px}
@@ -42,7 +48,7 @@ pre.codeblk{margin:8px 0 0;padding:14px 16px;background:#0b0f14;border:1px solid
 """
 
 JS = """
-const M=__M__, VC=__VC__;
+const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__;
 const list=document.getElementById('list'), detail=document.getElementById('detail');
 let timer=null;
 const KW=/\\b(def|return|for|while|if|elif|else|in|and|or|not|import|from|class|with|as|None|True|False|self|lambda|break|continue|np)\\b/g;
@@ -54,7 +60,7 @@ function hl(s){
 }
 function show(i){
   if(timer){clearInterval(timer);timer=null;}
-  document.querySelectorAll('.item').forEach((e,j)=>e.classList.toggle('sel',j===i));
+  document.querySelectorAll('.item').forEach(el=>el.classList.toggle('sel', el.dataset.idx===String(i)));
   const m=M[i], d=m.detector||{}, vc=VC[d.verdict]||'#718096';
   let vizHtml='';
   if(m.asset_type==='sprite' && m.sprite){
@@ -80,6 +86,7 @@ function show(i){
       <h2>${m.id} · ${m.name}</h2><div class=ref>${m.ref}</div>
       <div class=k>What it is</div><div class=v>${m.summary}</div>
       <div class=k>Emergent effect</div><div class=v>${m.effect}</div>
+      <div class=k>How it emerges</div><div class=v>${m.mechanism||''}</div>
       <div class=k>Canonical metric</div><div class=v><code>${m.metric||'—'}</code></div>
       <div class=card><h3>Detector readout (validated battery)</h3>${det}</div>
     </div></div>
@@ -103,18 +110,27 @@ function show(i){
     setF(0); play();
   }
 }
-M.forEach((m,i)=>{const e=document.createElement('div');e.className='item';
+function showAbout(){
+  document.querySelectorAll('.item').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('about-item').classList.add('sel');
+  if(timer){clearInterval(timer);timer=null;}
+  detail.innerHTML='<div class=about>'+OVERVIEW+'</div>';
+}
+const ab=document.createElement('div'); ab.className='item about-item'; ab.id='about-item';
+ab.innerHTML='<b>\u2726</b>About emergence<small>start here \u2014 what all 32 share</small>'; ab.onclick=showAbout;
+list.appendChild(ab);
+M.forEach((m,i)=>{const e=document.createElement('div');e.className='item';e.dataset.idx=i;
   e.innerHTML=`<b>${m.id}</b>${m.name}<small>${m.ref}</small>`;e.onclick=()=>show(i);list.appendChild(e);});
-show(0);
+showAbout();
 """
 
 page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<meta name=viewport content='width=device-width,initial-scale=1'>"
     "<title>EPC — Model Gallery</title><style>" + CSS + "</style></head><body>"
     "<header><h1>Emergent Pattern Catalog — Model Gallery</h1>"
-    "<p>32 minimal models of emergent behaviour — play the effect, read the simple rule, see the validated detector recognise it.</p></header>"
+    "<p>32 minimal models of emergent behaviour — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, see the simple rule, and watch the validated detector recognise it.</p></header>"
     "<div class=wrap><div class=list id=list></div><div class=detail id=detail></div></div>"
-    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)) + "</script></body></html>")
+    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)) + "</script></body></html>")
 open("gallery/index.html", "w").write(page)
 print("wrote gallery/index.html", len(page), "bytes;",
       sum(1 for e in M if e.get("asset_type") == "sprite"), "playable,",
