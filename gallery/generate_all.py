@@ -25,7 +25,7 @@ for pid_up,info in GALLERY.items():
         runs,meta=build(pid)
         m=render(runs[0], info["viz"], f"{ASSETS}/{pid}", f"{pid_up} {info['name']}", info.get("args"))
         if m:
-            e["asset"]=f"{pid}_sprite.png"; e["asset_type"]="sprite"; e["sprite"]=m; e["gif"]=m.get("gif")
+            e["asset"]=f"{pid}_sprite.png"; e["asset_type"]="sprite"; e["sprite"]=m; e["mp4"]=m.get("mp4"); e["contact_sheet"]=e["asset"]
             print(f"  {pid_up:<4} {info['viz']:<16} OK {m['frames']}f gif={m.get('gif')} ({round(time.time()-t0,1)}s)", flush=True)
         else:
             e["asset"]=None; e["asset_type"]="image"

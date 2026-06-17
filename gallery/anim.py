@@ -334,10 +334,14 @@ def save_animation(frames, out_base, fps=10):
     for i, im in enumerate(frames):
         sheet.paste(im, ((i % cols)*FW, (i//cols)*FH))
     sheet.save(out_base + "_sprite.png", optimize=True)
-    frames[0].save(out_base + ".gif", save_all=True, append_images=frames[1:],
-                   duration=int(1000/fps), loop=0, optimize=True)
-    return {"frames": n, "cols": cols, "rows": rows, "fw": FW, "fh": FH,
-            "gif": out_base.split("/")[-1] + ".gif"}
+    try:
+        import imageio.v2 as imageio
+        imageio.mimwrite(out_base + ".mp4", [np.asarray(im) for im in frames], fps=12,
+                         codec="libx264", macro_block_size=4, ffmpeg_params=["-pix_fmt", "yuv420p"])
+        mp4 = out_base.split("/")[-1] + ".mp4"
+    except Exception:
+        mp4 = None
+    return {"frames": n, "cols": cols, "rows": rows, "fw": FW, "fh": FH, "mp4": mp4}
 
 def render(history, viz, out_base, title, args=None):
     frames = PRODUCERS[viz](history, title, **(args or {}))

@@ -63,7 +63,7 @@ function show(i){
       <div class=bar><button id=pp>⏸</button><button id=rs>⟲</button>
       <input type=range id=sl min=0 max=${s.frames-1} value=0><span id=fc style="color:var(--mut);font-size:12px;min-width:48px">0/${s.frames-1}</span>
       <select id=spd title="playback speed"><option value=0.25>0.25×</option><option value=0.5>0.5×</option><option value=1 selected>1×</option><option value=2>2×</option><option value=4>4×</option></select></div>
-      ${m.gif?`<a class=dl href="assets/${m.gif}" download>\u2913 Download GIF</a>`:''}`;
+      ${m.mp4?`<a class=dl href="assets/${m.mp4}" download>\u2913 MP4</a>`:''}${m.asset?`<a class=dl href="assets/${m.asset}" download>\u2913 All frames (PNG)</a>`:''}`;
   } else if(m.asset){
     vizHtml=`<img src="assets/${m.asset}" alt="${m.id}">`;
   } else { vizHtml='<p style=color:#8b98a5>(no visualization)</p>'; }
