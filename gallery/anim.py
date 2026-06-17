@@ -247,16 +247,17 @@ def network_time(history, title, **_):
     pos = np.asarray(last.get("node_positions",
           np.c_[np.cos(np.linspace(0, 2*np.pi, nn, endpoint=False)),
                 np.sin(np.linspace(0, 2*np.pi, nn, endpoint=False))]), float)
-    wmax = max(np.asarray(last["edge_weights"], float).max(), 1e-9)
+    gwmax = max(max(np.asarray(f["edge_weights"], float).max() for f in fr), 1e-9)  # global, for stable line widths
     out = []
     for f in fr:
-        W = np.asarray(f["edge_weights"], float); fig, ax = _new(title)
+        W = np.asarray(f["edge_weights"], float); wmf = max(W.max(), 1e-9)
+        fig, ax = _new(title)
         for i in range(nn):
             for j in range(i+1, nn):
                 w = max(W[i, j], W[j, i])
-                if w > 0.04*wmax:
+                if w > 0.06*wmf:                      # PER-FRAME threshold: shows the early dense MESH and the later PRUNE
                     ax.plot([pos[i, 0], pos[j, 0]], [pos[i, 1], pos[j, 1]], "-", color="#2b6cb0",
-                            lw=0.3+3.5*w/wmax, alpha=.75)
+                            lw=0.4+3.5*w/gwmax, alpha=.75)
         ax.scatter(pos[:, 0], pos[:, 1], s=70, c="#e53e3e", zorder=3)
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
     return out
@@ -347,12 +348,74 @@ def growing_spacetime(history, title, key="task_assignments", **_):
     return out
 
 
+def pop_time(history, title, keys=("prey_fraction", "predator_fraction"),
+             labels=("prey", "predator"), colors=("#2f9e44", "#e53e3e"), ylabel="population fraction", **_):
+    """Two populations over time — shows the anti-correlated Lotka-Volterra cycle (P11)."""
+    H = [f for f in history if isinstance(f, dict) and keys[0] in f]
+    if len(H) < 2: return []
+    ser = {k: np.array([float(f[k]) for f in H]) for k in keys}
+    L = len(H)
+    if L > 600:
+        ix = np.linspace(0, L-1, 600).astype(int); ser = {k: v[ix] for k, v in ser.items()}; L = 600
+    ymax = max(v.max() for v in ser.values())*1.12 + 1e-9
+    out = []
+    for k in np.linspace(0, L-1, NF).astype(int):
+        fig, ax = _new(title)
+        for key, c, lab in zip(keys, colors, labels):
+            ax.plot(ser[key][:k+1], color=c, lw=1.7, label=lab)
+        ax.set_xlim(0, L); ax.set_ylim(0, ymax); ax.set_xlabel("step"); ax.set_ylabel(ylabel)
+        ax.legend(fontsize=8, loc="upper right"); out.append(_img(fig))
+    return out
+
+def noise_response(history, title, xkey="noise_level", out_key="x", sig_key="signal", **_):
+    """Performance vs noise — the inverted-U signature of stochastic resonance (P26).
+    Aggregates the noise sweep in the run and plots signal-tracking |corr| per noise level."""
+    H = [f for f in history if isinstance(f, dict) and xkey in f and out_key in f and sig_key in f]
+    if len(H) < 10: return []
+    nl = np.array([float(f[xkey]) for f in H]); xo = np.array([float(f[out_key]) for f in H])
+    sg = np.array([float(f[sig_key]) for f in H]); levels = np.unique(nl)
+    if levels.size < 4: return []
+    perf = []
+    for lv in levels:
+        m = nl == lv
+        perf.append(abs(np.corrcoef(xo[m], sg[m])[0, 1]) if (m.sum() > 5 and xo[m].std() > 0 and sg[m].std() > 0) else 0.0)
+    perf = np.nan_to_num(np.array(perf)); pk = int(np.argmax(perf))
+    out = []
+    for k in np.linspace(0, levels.size-1, min(NF, levels.size)).astype(int):
+        fig, ax = _new(title)
+        ax.plot(levels[:k+1], perf[:k+1], "-o", color="#2b6cb0", ms=4)
+        if pk <= k and perf[pk] > 0:
+            ax.scatter([levels[pk]], [perf[pk]], c="#e53e3e", s=60, zorder=3, label="optimal noise")
+            ax.legend(fontsize=8, loc="upper right")
+        ax.set_xlim(levels.min(), levels.max()); ax.set_ylim(0, max(perf.max()*1.15, 0.1))
+        ax.set_xlabel("noise level"); ax.set_ylabel("signal tracking |corr|"); out.append(_img(fig))
+    return out
+
+def phase_space(history, title, **_):
+    """Phase vs spatial position — exposes the chimera (a contiguous coherent arc beside an
+    incoherent arc), which a phase circle cannot distinguish from ordinary partial sync (P10)."""
+    key = "theta" if (history and isinstance(history[-1], dict) and "theta" in history[-1]) else "phases"
+    H = [f for f in history if isinstance(f, dict) and key in f and "positions" in f]
+    if len(H) < 2: return []
+    fr = _select(H, _s_phase)
+    out = []
+    for f in fr:
+        th = np.asarray(f[key], float) % (2*np.pi); pos = np.asarray(f["positions"], float).ravel()
+        o = np.argsort(pos); fig, ax = _new(title)
+        ax.scatter(pos[o], th[o], s=14, c=th[o], cmap="hsv", vmin=0, vmax=2*np.pi)
+        ax.set_xlabel("oscillator position"); ax.set_ylabel("phase θ")
+        ax.set_ylim(-0.2, 2*np.pi+0.2); ax.set_yticks([0, np.pi, 2*np.pi]); ax.set_yticklabels(["0", "π", "2π"])
+        out.append(_img(fig))
+    return out
+
+
 PRODUCERS = {
     "point_cloud": point_cloud, "grid_field": grid_field, "phase_circle": phase_circle,
     "road_1d": road_1d, "vector_grid": vector_grid, "histogram_time": histogram_time,
     "lorenz_time": lorenz_time, "line_grow": line_grow, "multi_line": multi_line,
     "sweep_trace": sweep_trace, "dist_accumulate": dist_accumulate,
     "network_time": network_time, "bars_sort": bars_sort, "growing_spacetime": growing_spacetime,
+    "pop_time": pop_time, "noise_response": noise_response, "phase_space": phase_space,
 }
 
 
@@ -451,7 +514,11 @@ def _m_lanes(f):                        # P7: lane order = mean per-y-strip dire
     bias = [abs(np.sign(vx[bins == b]).mean()) for b in range(8) if (bins == b).sum() >= 3]
     return float(np.mean(bias)) if bias else 0.0
 
-FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes}
+def _m_prune(f):                        # P29: active-edge count — RISES (mesh) then FALLS (prune), so equal-arc sampling catches both
+    W = np.asarray(f["edge_weights"], float); m = max(W.max(), 1e-9)
+    return float((W > 0.1*m).sum())
+
+FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes, "P29": _m_prune}
 # NOTE: P13 (excitable waves) is NOT fixable by a dwell measure — grid snapshots of a
 # rotating wave render near-identically; it needs the space-time raster view (Batch 3 / DC3).
 
