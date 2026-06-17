@@ -11,6 +11,7 @@ from PIL import Image
 FW = FH = 300; DPI = 75
 NF = 35           # current frame target (set per-pattern by render)
 NF_MIN, NF_MAX = 35, 105
+MEASURE = None    # per-pattern per-frame structure measure (set by render via FRAME_MEASURE); overrides the producer default in _select
 
 
 def _img(fig):
@@ -70,32 +71,54 @@ def _s_bars(f):
 
 
 def _select(fr, sfn, n=None):
-    """Hold START, dwell across the TRANSITION window, hold END."""
+    """Hold START briefly, dwell across the TRANSITION window, hold END — but
+    return DISTINCT frames (no duplicate-padding) and backfill across the run so a
+    short transition still yields a smooth, non-repetitive animation. A per-pattern
+    MEASURE (registered in FRAME_MEASURE) overrides the producer's default sfn so the
+    dwell window tracks the actual canonical observable."""
+    sfn = MEASURE or sfn
     if n is None: n = NF
-    if len(fr) <= 6:
+    N = len(fr)
+    if N <= 6:
         return fr
     try:
         S = np.array([sfn(f) for f in fr], float); good = np.isfinite(S)
         if good.sum() < 3 or np.nanstd(S[good]) < 1e-9:
-            return [fr[i] for i in np.linspace(0, len(fr)-1, n).astype(int)]
-        S = np.interp(np.arange(len(S)), np.where(good)[0], S[good])
+            return [fr[i] for i in np.linspace(0, N-1, n).astype(int)]
+        S = np.interp(np.arange(N), np.where(good)[0], S[good])
         smin, smax = S.min(), S.max(); rng = smax - smin
         t_lo = int(np.argmax(S >= smin + 0.1*rng))
         after = np.where(S[t_lo:] >= smin + 0.9*rng)[0]
-        t_settle = t_lo + int(after[0]) if after.size else len(fr)-1
+        t_settle = t_lo + int(after[0]) if after.size else N-1
         tail = S[t_settle:]
         if tail.size and float(tail.min()) < smin + 0.5*rng:   # transient (wave): extend to last active
             la = np.where(S >= smin + 0.1*rng)[0]; t_hi = int(la[-1])
         else:                                                   # rise-and-stay: dwell on the rise only
             t_hi = t_settle
-        if t_hi - t_lo < 2: t_lo, t_hi = 0, len(fr)-1
-        N = len(fr); H = 5
-        idx = ([0]*H + list(np.linspace(0, t_lo, 3, dtype=int))
-               + list(np.linspace(t_lo, t_hi, n-2*H-6, dtype=int))
-               + list(np.linspace(t_hi, N-1, 3, dtype=int)) + [N-1]*H)
+        if t_hi - t_lo < 2: t_lo, t_hi = 0, N-1
+        # Candidate pool: dense across the dwell window + spread over the whole run.
+        pool = sorted(set(
+            [int(x) for x in np.linspace(0, t_lo, 4)]
+            + [int(x) for x in np.linspace(t_lo, t_hi, n)]
+            + [int(x) for x in np.linspace(t_hi, N-1, 8)]
+            + [int(x) for x in np.linspace(0, N-1, n)]))
+        # Keep frames spaced by EQUAL CHANGE in the structure measure (equal-arc-length):
+        # this drops frozen/settled states that render identically and spends the budget
+        # where the system is actually changing — no duplicate padding.
+        eps = 0.012 * rng
+        kept = [pool[0]]
+        for i in pool[1:]:
+            if abs(S[i] - S[kept[-1]]) >= eps:
+                kept.append(i)
+        if kept[-1] != pool[-1]:
+            kept.append(pool[-1])
+        if len(kept) > n:                                      # cap to budget, keep equal-S spread
+            kept = [kept[k] for k in np.linspace(0, len(kept)-1, n).astype(int)]
+        H = 2                                                  # light orientation holds (was 5)
+        idx = [0]*H + kept + [N-1]*H
         return [fr[int(i)] for i in idx]
     except Exception:
-        return [fr[i] for i in np.linspace(0, len(fr)-1, n).astype(int)]
+        return [fr[i] for i in np.linspace(0, N-1, n).astype(int)]
 
 def _evenly(fr, n=None):
     if n is None: n = NF
@@ -398,8 +421,19 @@ def save_animation(frames, out_base, fps=10):
         mp4 = None
     return {"frames": n, "cols": cols, "rows": rows, "fw": FW, "fh": FH, "mp4": mp4}
 
-def render(history, viz, out_base, title, args=None):
-    global NF
-    NF = _adaptive_nframes(history, viz, args or {})
-    frames = PRODUCERS[viz](history, title, **(args or {}))
+# Per-pattern PER-FRAME structure measure for _select's dwell window — used where the
+# producer's generic default (_s_points/_s_grid/_s_net) tracks the wrong observable
+# (QA defect class DC1). Each callable takes one history frame dict -> float. Empty
+# entries fall back to the producer default. Populated per-pattern in Pass 4b.
+FRAME_MEASURE = {}
+
+
+def render(history, viz, out_base, title, args=None, measure=None):
+    global NF, MEASURE
+    MEASURE = measure
+    try:
+        NF = _adaptive_nframes(history, viz, args or {})
+        frames = PRODUCERS[viz](history, title, **(args or {}))
+    finally:
+        MEASURE = None
     return save_animation(frames, out_base, fps=max(10, min(20, NF // 5))) if frames else None

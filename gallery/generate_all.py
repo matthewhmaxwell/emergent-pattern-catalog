@@ -1,7 +1,7 @@
 import json, os, time
 import analysis.run_phase2a_panel as R
 from gallery.registry import GALLERY
-from gallery.anim import render
+from gallery.anim import render, FRAME_MEASURE
 from gallery.code_extract import extract_code
 from epc.phase2a.continuous_metrics import CONTINUOUS_METRIC
 from gallery.education import MECHANISM
@@ -26,7 +26,7 @@ for pid_up,info in GALLERY.items():
     c=extract_code(pid_up); e["code"]=c["source"]; e["code_where"]=c["where"]; e["code_module"]=c["module"]
     try:
         runs,meta=build(pid)
-        m=render(runs[0], info["viz"], f"{ASSETS}/{pid}", f"{pid_up} {info['name']}", info.get("args"))
+        m=render(runs[0], info["viz"], f"{ASSETS}/{pid}", f"{pid_up} {info['name']}", info.get("args"), measure=FRAME_MEASURE.get(pid_up))
         if m:
             e["asset"]=f"{pid}_sprite.png"; e["asset_type"]="sprite"; e["sprite"]=m; e["mp4"]=m.get("mp4"); e["contact_sheet"]=e["asset"]
             print(f"  {pid_up:<4} {info['viz']:<16} OK {m['frames']}f gif={m.get('gif')} ({round(time.time()-t0,1)}s)", flush=True)
