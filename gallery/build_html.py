@@ -23,7 +23,10 @@ header h1{margin:0;font-size:18px}header p{margin:3px 0 0;color:var(--mut);font-
 .viz img{max-width:340px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .bar{display:flex;align-items:center;gap:10px;margin-top:10px;width:300px}
 .bar button{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px}
-.bar button:hover{background:#2d3e54}.bar input[type=range]{flex:1}
+.bar button:hover{background:#2d3e54}
+.bar select{background:#243244;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
+a.dl{display:inline-block;margin-top:8px;background:#243244;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:5px 12px;text-decoration:none;font-size:13px}
+a.dl:hover{background:#2d3e54}.bar input[type=range]{flex:1}
 .watch{width:300px;margin-top:12px;padding:10px 12px;background:#10243a;border:1px solid #21466b;border-left:3px solid var(--acc);border-radius:6px;font-size:13px;color:#cfe3f7}
 .watch b{color:var(--acc);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
 .info{flex:1;min-width:280px}
@@ -58,7 +61,9 @@ function show(i){
     const s=m.sprite;
     vizHtml=`<div class=stage id=stage style="width:${s.fw}px;height:${s.fh}px;background-image:url(assets/${m.asset})"></div>
       <div class=bar><button id=pp>⏸</button><button id=rs>⟲</button>
-      <input type=range id=sl min=0 max=${s.frames-1} value=0><span id=fc style="color:var(--mut);font-size:12px;min-width:54px">0/${s.frames-1}</span></div>`;
+      <input type=range id=sl min=0 max=${s.frames-1} value=0><span id=fc style="color:var(--mut);font-size:12px;min-width:48px">0/${s.frames-1}</span>
+      <select id=spd title="playback speed"><option value=0.25>0.25×</option><option value=0.5>0.5×</option><option value=1 selected>1×</option><option value=2>2×</option><option value=4>4×</option></select></div>
+      ${m.gif?`<a class=dl href="assets/${m.gif}" download>\u2913 Download GIF</a>`:''}`;
   } else if(m.asset){
     vizHtml=`<img src="assets/${m.asset}" alt="${m.id}">`;
   } else { vizHtml='<p style=color:#8b98a5>(no visualization)</p>'; }
@@ -84,16 +89,17 @@ function show(i){
     const s=m.sprite, stage=document.getElementById('stage'),
       pp=document.getElementById('pp'), rs=document.getElementById('rs'),
       sl=document.getElementById('sl'), fc=document.getElementById('fc');
-    let cur=0;
+    const spd=document.getElementById('spd'); const BASE=110; let cur=0;
     function setF(k){cur=((k%s.frames)+s.frames)%s.frames;
       const c=cur%s.cols, r=Math.floor(cur/s.cols);
       stage.style.backgroundPosition=`-${c*s.fw}px -${r*s.fh}px`;
       sl.value=cur; fc.textContent=cur+'/'+(s.frames-1);}
-    function play(){timer=setInterval(()=>setF(cur+1),90); pp.textContent='⏸';}
+    function play(){if(timer)clearInterval(timer); timer=setInterval(()=>setF(cur+1), BASE/parseFloat(spd.value)); pp.textContent='⏸';}
     function pause(){if(timer){clearInterval(timer);timer=null;} pp.textContent='▶';}
     pp.onclick=()=>timer?pause():play();
     rs.onclick=()=>{pause();setF(0);};
     sl.oninput=()=>{pause();setF(+sl.value);};
+    spd.onchange=()=>{if(timer)play();};
     setF(0); play();
   }
 }

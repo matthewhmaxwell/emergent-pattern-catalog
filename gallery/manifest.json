@@ -6,6 +6,7 @@
     "summary": "Agents relocate when too few neighbours share their type.",
     "effect": "Mild individual preference produces large segregated clusters.",
     "viz": "grid_field",
+    "watch": "Watch mixed red/blue cells sort into large same-colour blocks \u2014 nobody is forced, yet sharp neighbourhoods form.",
     "metric": "morans_i",
     "detector": {
       "top": "P1",
@@ -15,27 +16,20 @@
       "emergence": 0.7769,
       "self_recognized": true
     },
-    "asset": "p1_sprite.png",
     "code": "def run_schelling(\n    grid_size: int = 50,\n    density: float = 0.9,\n    threshold: float = 0.375,\n    n_steps: int = 200,\n    seed: int = 42,\n) -> List[Dict]:\n    \"\"\"Run Schelling segregation model.\n\n    Parameters\n    ----------\n    grid_size : int\n        Side length of square grid.\n    density : float\n        Fraction of cells occupied.\n    threshold : float\n        Minimum same-type neighbor fraction for satisfaction.\n        Schelling's original: 3/8 = 0.375 (3 of 8 neighbors).\n    n_steps : int\n        Number of time steps.\n    seed : int\n        RNG seed.\n\n    Returns\n    -------\n    List of state dicts with 'grid' key (2D array: 0=empty, 1=type A, 2=type B).\n    \"\"\"\n    rng = np.random.default_rng(seed)\n\n    N = grid_size * grid_size\n    n_occupied = int(N * density)\n    n_type_a = n_occupied // 2\n    n_type_b = n_occupied - n_type_a\n\n    # Initialize random placement\n    cells = np.zeros(N, dtype=np.int8)\n    cells[:n_type_a] = 1\n    cells[n_type_a:n_type_a + n_type_b] = 2\n    rng.shuffle(cells)\n    grid = cells.reshape((grid_size, grid_size))\n\n    history = [{'grid': grid.copy(), 'grid_dims': (grid_size, grid_size),\n                'n_states': 3, 'step': 0}]\n\n    for step in range(n_steps):\n        # Find unhappy agents\n        padded = np.pad(grid, 1, mode='constant', constant_values=0)\n\n        unhappy = []\n        empty = list(zip(*np.where(grid == 0)))\n\n        for r in range(grid_size):\n            for c in range(grid_size):\n                if grid[r, c] == 0:\n                    continue\n\n                my_type = grid[r, c]\n                neighbors = []\n                for dr in [-1, 0, 1]:\n                    for dc in [-1, 0, 1]:\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "run_schelling()",
     "code_module": "epc.models.schelling",
+    "asset": "p1_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 18,
-      "cols": 5,
-      "rows": 4,
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.009,
-        "send": 0.299,
-        "smin": -0.009,
-        "smax": 0.3,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p1.gif"
     },
-    "watch": "Watch mixed red/blue cells sort into large same-colour blocks \u2014 nobody is forced, yet sharp neighbourhoods form."
+    "gif": "p1.gif"
   },
   {
     "id": "P2",
@@ -44,6 +38,7 @@
     "summary": "Self-propelled particles slow where crowded (density-dependent motility).",
     "effect": "Dense and dilute phases coexist with no attractive force.",
     "viz": "point_cloud",
+    "watch": "Watch evenly-spread particles clump into dense blobs while gaps stay empty \u2014 clustering with no attraction, just crowding.",
     "metric": "two_phase_score",
     "detector": {
       "top": "P2",
@@ -53,10 +48,10 @@
       "emergence": 0.5368,
       "self_recognized": true
     },
-    "asset": "p2_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance one dt under Fily-Marchetti ABP dynamics.\n\n    Order of operations (Euler-Maruyama):\n      1. Compute local densities rho_i at current positions.\n      2. Compute speeds v_i = v0 * max(0, 1 - rho_i / rho_star).\n      3. Update positions: r_i <- r_i + v_i * e(theta_i) * dt.\n      4. Update headings: theta_i <- theta_i + sqrt(2 D_r dt) * eta,\n         eta ~ N(0, 1).\n      5. Wrap positions into [0, L) (periodic).\n    \"\"\"\n    N = self.n_particles\n    L = self.box_size\n\n    # --- Local density via cKDTree with periodic BC ---\n    tree = cKDTree(self.positions, boxsize=L)\n    # count_neighbors with eps=r_cg INCLUDES self (distance 0)\n    counts = tree.query_ball_point(self.positions, r=self.r_cg, return_length=True)\n    counts = np.asarray(counts, dtype=np.float64)\n    area = np.pi * self.r_cg**2\n    rho_local = counts / area  # (N,)\n\n    # --- Density-dependent speed (Fily-Marchetti linear law) ---\n    v_local = self.v0 * np.maximum(0.0, 1.0 - rho_local / self.rho_star)\n\n    # --- Propulsion step ---\n    cos_t = np.cos(self.headings)\n    sin_t = np.sin(self.headings)\n    self.positions[:, 0] += v_local * cos_t * self.dt\n    self.positions[:, 1] += v_local * sin_t * self.dt\n\n    # --- Rotational diffusion step ---\n    eta = self.rng.standard_normal(N)\n    self.headings += np.sqrt(2.0 * self.D_r * self.dt) * eta\n    # Wrap to [-pi, pi)\n    self.headings = (self.headings + np.pi) % (2 * np.pi) - np.pi\n\n    # --- Periodic BC on positions ---\n    self.positions %= L\n\n    self._step_count += 1\n    return self.get_state()",
     "code_where": "ActiveBrownianParticles.step()",
     "code_module": "epc.models.active_brownian_particles",
+    "asset": "p2_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -64,16 +59,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.071,
-        "send": 0.047,
-        "smin": 0.034,
-        "smax": 0.073,
-        "start_frac": 0.95,
-        "flat": true
-      }
+      "gif": "p2.gif"
     },
-    "watch": "Watch evenly-spread particles clump into dense blobs while gaps stay empty \u2014 clustering with no attraction, just crowding."
+    "gif": "p2.gif"
   },
   {
     "id": "P3",
@@ -82,6 +70,7 @@
     "summary": "Reaction-diffusion with a fast inhibitor and slow activator.",
     "effect": "A stationary labyrinth at a selected wavelength self-organises from near-uniformity.",
     "viz": "grid_field",
+    "watch": "Watch the near-uniform field break into a maze of stripes/spots at one repeating spacing.",
     "metric": "turing_discriminant",
     "detector": {
       "top": "P3",
@@ -91,27 +80,20 @@
       "emergence": 0.7551,
       "self_recognized": true
     },
-    "asset": "p3_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    if not self._is_setup:\n        self.setup()\n\n    u, v = self._u, self._v\n    lu = self._laplacian5(u)\n    lv = self._laplacian5(v)\n    uvv = u * v * v\n\n    u_new = u + self.dt * (self.Du * lu - uvv + self.feed_rate * (1.0 - u))\n    v_new = v + self.dt * (self.Dv * lv + uvv - (self.feed_rate + self.kill_rate) * v)\n\n    # Stability clamp. Concentrations are not supposed to leave [0, 1] but\n    # finite-precision drift is occasionally possible; clamp avoids NaN\n    # runaway if user supplies a very unstable (F, k) pair.\n    np.clip(u_new, 0.0, 1.0, out=u_new)\n    np.clip(v_new, 0.0, 1.0, out=v_new)\n\n    self._u = u_new\n    self._v = v_new\n    self._step_count += 1\n    return self._snapshot()",
     "code_where": "GrayScott.step()",
     "code_module": "epc.models.gray_scott",
+    "asset": "p3_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 16,
-      "cols": 4,
-      "rows": 4,
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.93,
-        "send": 0.986,
-        "smin": 0.93,
-        "smax": 0.987,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p3.gif"
     },
-    "watch": "Watch the near-uniform field break into a maze of stripes/spots at one repeating spacing."
+    "gif": "p3.gif"
   },
   {
     "id": "P4",
@@ -120,6 +102,7 @@
     "summary": "Agents deposit and avoid foreign scent as they move.",
     "effect": "Exclusive home ranges with sharp boundaries emerge.",
     "viz": "point_cloud",
+    "watch": "Watch each agent settle into its own patch and stop overlapping its neighbours' ranges.",
     "metric": "avoidance_ratio",
     "detector": {
       "top": "P4",
@@ -129,10 +112,10 @@
       "emergence": 0.0105,
       "self_recognized": true
     },
-    "asset": "p4_sprite.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Run territorial simulation.\n\n    Returns\n    -------\n    list[dict]\n        One dict per snapshot with keys:\n        'positions': ndarray(n_agents, 2) \u2014 (row, col) per agent\n        'scent_fields': ndarray(n_agents, L, L) \u2014 per-agent scent field\n        'step': int\n        'occupancy': ndarray(n_agents, L, L) \u2014 cumulative visit counts\n    \"\"\"\n    p = self.params\n    L = p.grid_size\n    N = p.n_agents\n\n    scent = np.zeros((N, L, L), dtype=np.float64)\n    occupancy = np.zeros((N, L, L), dtype=np.float64)\n\n    # Spread agents evenly across grid\n    positions = np.zeros((N, 2), dtype=int)\n    side = int(np.ceil(np.sqrt(N)))\n    spacing = L // side\n    for i in range(N):\n        positions[i, 0] = ((i // side) * spacing + spacing // 2) % L\n        positions[i, 1] = ((i % side) * spacing + spacing // 2) % L\n\n    history: List[Dict[str, Any]] = []\n\n    for step in range(p.n_steps):\n        # Decay all scent fields\n        scent *= (1.0 - p.decay_rate)\n\n        # Each agent deposits scent\n        for i in range(N):\n            r, c = positions[i]\n            scent[i, r, c] += p.deposition_rate\n            occupancy[i, r, c] += 1.0\n\n        # Move agents via two-stage avoidance + attraction\n        for i in range(N):\n            r, c = positions[i]\n            nbrs = _neighbors_torus(r, c, L)\n\n            # Stage 1: Filter \u2014 exclude cells where foreign scent\n            # exceeds a detection threshold. The threshold is set by\n            # repulsion_strength \u00d7 deposition_rate; cells with active\n            # foreign presence are blocked, but stale marks (decayed\n            # below threshold) become available, creating dynamic\n            # territory expansion at the frontier.\n            threshold = p.repulsion_strength * p.deposition_rate\n            allowed = []\n            weights = []\n            for nr, nc in nbrs:\n                own = scent[i, nr, nc]\n                foreign = sum(\n                    scent[k, nr, nc] for k in range(N) if k != i\n                )\n                if foreign <= threshold:\n                    allowed.append((nr, nc))\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "ScentMarkingModel.simulate()",
     "code_module": "epc.models.territoriality",
+    "asset": "p4_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -140,16 +123,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 4.148,
-        "send": 2.676,
-        "smin": 2.459,
-        "smax": 5.018,
-        "start_frac": 0.66,
-        "flat": true
-      }
+      "gif": "p4.gif"
     },
-    "watch": "Watch each agent settle into its own patch and stop overlapping its neighbours' ranges."
+    "gif": "p4.gif"
   },
   {
     "id": "P5",
@@ -158,6 +134,7 @@
     "summary": "Each agent steers toward the mean heading of neighbours.",
     "effect": "Global polar order (a moving flock) emerges below a noise threshold.",
     "viz": "point_cloud",
+    "watch": "Watch the randomly-pointing arrows swing into one shared direction and move as a single flock.",
     "metric": "polarization_mean",
     "detector": {
       "top": "P5",
@@ -167,27 +144,20 @@
       "emergence": 0.9811,
       "self_recognized": true
     },
-    "asset": "p5_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Execute one synchronous Vicsek update step.\n\n    The update is simultaneous: all particles compute their new heading\n    from the CURRENT configuration, then all positions are updated.\n\n    Uses vectorized sparse-matrix approach for neighbor averaging.\n\n    Returns:\n        State dict after this step.\n    \"\"\"\n    N = self.n_particles\n    L = self.box_size\n    r = self.interaction_radius\n\n    # --- Neighbor finding with periodic boundary conditions ---\n    # Build sparse neighbor matrix: W[i,j] = 1 if |r_i - r_j| \u2264 r\n    tree = cKDTree(self.positions, boxsize=L)\n    W = tree.sparse_distance_matrix(tree, r, output_type=\"coo_matrix\")\n\n    # Convert to CSR for efficient row operations\n    # W.data are distances; we just need the adjacency structure\n    from scipy.sparse import csr_matrix\n    adjacency = csr_matrix(\n        (np.ones(W.nnz, dtype=np.float64), (W.row, W.col)),\n        shape=(N, N),\n    )\n\n    # --- Compute mean heading of neighbors (circular mean) ---\n    # Sum sin(\u03b8) and cos(\u03b8) over neighbors using sparse matrix-vector product\n    sin_h = np.sin(self.headings)\n    cos_h = np.cos(self.headings)\n\n    sum_sin = adjacency @ sin_h   # (N,) sum of sin(\u03b8_j) for neighbors of i\n    sum_cos = adjacency @ cos_h   # (N,) sum of cos(\u03b8_j) for neighbors of i\n\n    # Divide by neighbor count to get mean\n    n_neighbors = np.array(adjacency.sum(axis=1)).ravel()\n    n_neighbors = np.maximum(n_neighbors, 1)  # safety (shouldn't be 0)\n    mean_sin = sum_sin / n_neighbors\n    mean_cos = sum_cos / n_neighbors\n\n    new_headings = np.arctan2(mean_sin, mean_cos)\n\n    # --- Add angular noise: \u0394\u03b8 ~ Uniform[-\u03b7/2, \u03b7/2] ---\n    noise = self.rng.uniform(\n        -self.noise / 2, self.noise / 2, size=N\n    )\n    new_headings += noise\n\n    # --- Update headings (wrap to [-\u03c0, \u03c0) for cleanliness) ---\n    self.headings = (new_headings + np.pi) % (2 * np.pi) - np.pi\n\n    # --- Update positions ---\n    vx = self.speed * np.cos(self.headings) * self.dt\n    vy = self.speed * np.sin(self.headings) * self.dt\n    self.positions[:, 0] += vx\n    self.positions[:, 1] += vy\n\n    # --- Periodic boundary conditions ---\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "VicsekModel.step()",
     "code_module": "epc.models.vicsek",
+    "asset": "p5_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 35,
+      "frames": 36,
       "cols": 6,
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.013,
-        "send": 1.0,
-        "smin": 0.013,
-        "smax": 1.0,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p5.gif"
     },
-    "watch": "Watch the randomly-pointing arrows swing into one shared direction and move as a single flock."
+    "gif": "p5.gif"
   },
   {
     "id": "P6",
@@ -196,6 +166,7 @@
     "summary": "Self-propulsion plus attraction-repulsion forces.",
     "effect": "A rotating mill (nonzero angular momentum) forms.",
     "viz": "point_cloud",
+    "watch": "Watch the swarm curl into a rotating ring (a vortex) circling a hollow centre.",
     "metric": "angular_momentum_abs_mean",
     "detector": {
       "top": "P6",
@@ -205,10 +176,10 @@
       "emergence": 0.0003,
       "self_recognized": true
     },
-    "asset": "p6_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Execute one RK4 integration step.\n\n    Returns:\n        State dict after this step.\n    \"\"\"\n    dt = self.dt\n    x = self.positions\n    v = self.velocities\n\n    # RK4 for dx/dt = v, dv/dt = f(x, v)\n    k1_x = v\n    k1_v = self._compute_forces(x, v)\n\n    k2_x = v + 0.5 * dt * k1_v\n    k2_v = self._compute_forces(x + 0.5 * dt * k1_x, v + 0.5 * dt * k1_v)\n\n    k3_x = v + 0.5 * dt * k2_v\n    k3_v = self._compute_forces(x + 0.5 * dt * k2_x, v + 0.5 * dt * k2_v)\n\n    k4_x = v + dt * k3_v\n    k4_v = self._compute_forces(x + dt * k3_x, v + dt * k3_v)\n\n    self.positions = x + (dt / 6) * (k1_x + 2 * k2_x + 2 * k3_x + k4_x)\n    self.velocities = v + (dt / 6) * (k1_v + 2 * k2_v + 2 * k3_v + k4_v)\n\n    self._step_count += 1\n    return self.get_state()",
     "code_where": "DOrsognaSPPModel.step()",
     "code_module": "epc.models.dorsogna_spp",
+    "asset": "p6_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -216,16 +187,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.103,
-        "send": 0.001,
-        "smin": 0.0,
-        "smax": 0.121,
-        "start_frac": 0.85,
-        "flat": true
-      }
+      "gif": "p6.gif"
     },
-    "watch": "Watch the swarm curl into a rotating ring (a vortex) circling a hollow centre."
+    "gif": "p6.gif"
   },
   {
     "id": "P7",
@@ -234,6 +198,7 @@
     "summary": "Two opposing streams of agents avoid collisions.",
     "effect": "Counter-flowing lanes self-organise.",
     "viz": "point_cloud",
+    "watch": "Watch the two opposing crowds sort into parallel lanes that slide past each other.",
     "metric": "lane_order_parameter_mean",
     "detector": {
       "top": "P7",
@@ -243,27 +208,20 @@
       "emergence": 0.0,
       "self_recognized": true
     },
-    "asset": "p7_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Execute one integration step.\n\n    Updates velocities via driving + social + wall forces, then updates\n    positions with periodic x and clamped y.\n\n    Returns:\n        State dict after this step.\n    \"\"\"\n    W = self.corridor_width\n    H = self.corridor_height\n\n    # Compute forces\n    v_desired = self._desired_velocity()\n    f_social = self._compute_social_force_vectorized()\n    f_wall = self._compute_wall_force()\n\n    # Velocity update: v = v_desired + (f_social + f_wall) / tau\n    # (overdamped first-order: velocity relaxes toward desired + force/tau)\n    self.velocities = v_desired + (f_social + f_wall) * (self.dt / self.tau)\n\n    # Position update\n    self.positions += self.velocities * self.dt\n\n    # Periodic boundary in x\n    self.positions[:, 0] %= W\n\n    # Reflecting walls in y: clamp to [0, H]\n    self.positions[:, 1] = np.clip(self.positions[:, 1], 0.0, H)\n\n    self._step_count += 1\n    return self.get_state()",
     "code_where": "LaneFormationModel.step()",
     "code_module": "epc.models.lane_formation",
+    "asset": "p7_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 35,
+      "frames": 36,
       "cols": 6,
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.0,
-        "send": 0.0,
-        "smin": 0.0,
-        "smax": 0.011,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p7.gif"
     },
-    "watch": "Watch the two opposing crowds sort into parallel lanes that slide past each other."
+    "gif": "p7.gif"
   },
   {
     "id": "P8",
@@ -271,7 +229,8 @@
     "ref": "Nagel-Schreckenberg 1992",
     "summary": "Cars accelerate, brake, and randomly dawdle on a 1-D road.",
     "effect": "Stop-and-go jams appear spontaneously above a density.",
-    "viz": "timeseries",
+    "viz": "road_1d",
+    "watch": "Watch the stopped-car fraction climb as stop-and-go jams appear on their own.",
     "metric": "stopped_fraction",
     "detector": {
       "top": "P8",
@@ -281,12 +240,20 @@
       "emergence": 0.0,
       "self_recognized": true
     },
-    "asset": "p8.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"One parallel-update NS step.\"\"\"\n    assert self._positions is not None and self._velocities is not None, \\\n        \"call setup() first\"\n\n    L = self.L\n    N = self.n_cars\n    v_max = self.v_max\n    positions = self._positions\n    velocities = self._velocities\n\n    # Compute gaps: empty cells between car i and car (i+1) on the ring.\n    if N == 1:\n        gaps = np.array([L - 1], dtype=np.int32)\n    else:\n        next_pos = np.roll(positions, -1)\n        gaps = ((next_pos - positions) % L - 1).astype(np.int32)\n        # On the ring, gaps always in [0, L - N].\n\n    # Rule 1: accelerate\n    v = np.minimum(velocities.astype(np.int32) + 1, v_max)\n    # Rule 2: slow to gap (cars limited by the empty cells ahead)\n    v = np.minimum(v, gaps)\n    # Rule 3: randomize (only cars with v > 0 can be slowed)\n    if self.p_slow > 0.0:\n        rands = self.rng.random(N)\n        mask = (rands < self.p_slow) & (v > 0)\n        v = np.where(mask, v - 1, v)\n    # Rule 4: motion\n    new_positions = (positions + v) % L\n    new_velocities = v.astype(np.int8)\n\n    # After a parallel update, car-order on the ring is preserved\n    # (no car can overtake because rule 2 enforces v <= gap). But the\n    # index-0 car may wrap past position L-1, rotating the array.\n    if N > 1:\n        diffs = np.diff(new_positions)\n        wrap_idx = np.where(diffs < 0)[0]\n        if len(wrap_idx) > 0:\n            # Roll so positions[0] is minimum\n            k = int(wrap_idx[0]) + 1\n            new_positions = np.roll(new_positions, -k)\n            new_velocities = np.roll(new_velocities, -k)\n\n    self._positions = new_positions\n    self._velocities = new_velocities\n    self._step_count += 1\n    return self._snapshot()",
     "code_where": "NagelSchreckenberg.step()",
     "code_module": "epc.models.nagel_schreckenberg",
-    "asset_type": "image",
-    "watch": "Watch the stopped-car fraction climb as stop-and-go jams appear on their own."
+    "asset": "p8_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p8.gif"
+    },
+    "gif": "p8.gif"
   },
   {
     "id": "P9",
@@ -295,6 +262,7 @@
     "summary": "Coupled phase oscillators with a spread of natural frequencies.",
     "effect": "Above a critical coupling the population phase-locks.",
     "viz": "phase_circle",
+    "watch": "Watch dots scattered around the circle bunch into one tight cluster \u2014 the oscillators fall into step (the red arrow grows).",
     "metric": "r_mean",
     "detector": {
       "top": "P9",
@@ -304,10 +272,10 @@
       "emergence": 0.7513,
       "self_recognized": true
     },
-    "asset": "p9_sprite.png",
     "code": "def run(\n    self,\n    n_steps: int = 5000,\n    record_every: int = 10,\n    equilibration: int = 0,\n) -> List[Dict[str, Any]]:\n    \"\"\"Run simulation and return state history.\n\n    Parameters\n    ----------\n    n_steps : int\n        Total integration steps (after equilibration).\n    record_every : int\n        Record state every N steps.\n    equilibration : int\n        Steps to run before recording starts.\n\n    Returns\n    -------\n    List of state dicts with keys:\n        'theta': (N,) array of phases\n        'r': float, order parameter magnitude\n        'psi': float, mean phase\n        'omega': (N,) natural frequencies (constant)\n        'step': int\n    \"\"\"\n    dt = self.params.dt\n    theta = self.theta.copy()\n\n    # Equilibration\n    for _ in range(equilibration):\n        theta = self._rk4_step(theta, dt)\n\n    # Recording\n    history = []\n    for step in range(n_steps):\n        theta = self._rk4_step(theta, dt)\n\n        if step % record_every == 0:\n            r, psi = self._compute_order_parameter(theta)\n            history.append({\n                'theta': theta.copy(),\n                'r': r,\n                'psi': psi,\n                'omega': self.omega.copy(),\n                'step': step,\n            })\n\n    self.theta = theta\n    return history",
     "code_where": "KuramotoModel.run()",
     "code_module": "epc.models.kuramoto",
+    "asset": "p9_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -315,16 +283,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.092,
-        "send": 0.916,
-        "smin": 0.092,
-        "smax": 0.949,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p9.gif"
     },
-    "watch": "Watch dots scattered around the circle bunch into one tight cluster \u2014 the oscillators fall into step (the red arrow grows)."
+    "gif": "p9.gif"
   },
   {
     "id": "P10",
@@ -333,6 +294,7 @@
     "summary": "Non-locally coupled identical oscillators.",
     "effect": "Coherent and incoherent groups coexist simultaneously.",
     "viz": "phase_circle",
+    "watch": "Watch part of the ring lock into a tight clump while the rest stays scattered \u2014 order and disorder at once.",
     "metric": "pos_vel_ac",
     "detector": {
       "top": "P10",
@@ -342,27 +304,20 @@
       "emergence": 0.728,
       "self_recognized": true
     },
-    "asset": "p10_sprite.png",
     "code": "def run(\n    self,\n    n_frames: int = 50,\n    equilibration: float = 0.0,\n) -> list[dict[str, Any]]:\n    \"\"\"Integrate the ring and record `n_frames` snapshots.\n\n    Parameters\n    ----------\n    n_frames : int\n        Number of snapshots to record. Total integrated time is\n        ``n_frames * record_dt + equilibration``.\n    equilibration : float\n        Wall-time to integrate before recording starts. Default 0.\n\n    Returns\n    -------\n    list[dict] of state snapshots with keys\n        'theta'      : (N,) phases mod 2\u03c0\n        'r'          : global order parameter magnitude\n        'psi'        : global mean phase\n        'positions'  : (N,) ring positions in [0, 2\u03c0) (constant)\n        'step'       : int, cumulative integration step count\n        't'          : float, integrated time (post-equilibration)\n    \"\"\"\n    p = self.params\n    dt = p.dt\n    theta = self.theta.copy()\n    steps_per_frame = max(1, int(round(p.record_dt / dt)))\n\n    # Equilibration\n    n_eq = max(0, int(round(equilibration / dt)))\n    for _ in range(n_eq):\n        theta = self._rk4_step(theta, dt)\n\n    history: list[dict[str, Any]] = []\n    step_count = n_eq\n    for frame in range(n_frames):\n        for _ in range(steps_per_frame):\n            theta = self._rk4_step(theta, dt)\n            step_count += 1\n        theta_mod = np.mod(theta, 2 * np.pi)\n        z = np.mean(np.exp(1j * theta_mod))\n        history.append({\n            \"theta\": theta_mod.copy(),\n            \"r\": float(np.abs(z)),\n            \"psi\": float(np.angle(z)),\n            \"positions\": self.x.copy(),\n            \"step\": int(step_count),\n            \"t\": float(step_count * dt),\n        })\n\n    self.theta = theta\n    return history",
     "code_where": "KuramotoNonlocal.run()",
     "code_module": "epc.models.kuramoto_nonlocal",
+    "asset": "p10_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 33,
+      "frames": 36,
       "cols": 6,
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.641,
-        "send": 0.561,
-        "smin": 0.504,
-        "smax": 0.665,
-        "start_frac": 0.85,
-        "flat": true
-      }
+      "gif": "p10.gif"
     },
-    "watch": "Watch part of the ring lock into a tight clump while the rest stays scattered \u2014 order and disorder at once."
+    "gif": "p10.gif"
   },
   {
     "id": "P11",
@@ -371,6 +326,7 @@
     "summary": "Spatial Lotka-Volterra predation on a lattice.",
     "effect": "Anti-correlated population cycles with travelling fronts.",
     "viz": "grid_field",
+    "watch": "Watch predator and prey patches chase each other in travelling waves across the lattice.",
     "metric": "rho_anti",
     "detector": {
       "top": "P11",
@@ -380,10 +336,10 @@
       "emergence": 0.7602,
       "self_recognized": true
     },
-    "asset": "p11_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance by ONE GENERATION = N elementary steps (N = L\u00b2).\"\"\"\n    N = self.rows * self.cols\n\n    # Vectorized draws for the whole generation.\n    site_rows = self.rng.integers(0, self.rows, size=N)\n    site_cols = self.rng.integers(0, self.cols, size=N)\n    nbr_idx = self.rng.integers(0, self._n_neighbors, size=N)\n    reaction_roll = self.rng.random(size=N)\n\n    grid = self._grid  # direct reference; mutated in-place\n    offsets = self._offsets\n    p_death = self._p_death\n    p_birth = self._p_birth\n    # predation is the remainder\n\n    rows = self.rows\n    cols = self.cols\n\n    n_death = 0\n    n_birth = 0\n    n_pred = 0\n\n    EMPTY = self.EMPTY\n    PREY = self.PREY\n    PREDATOR = self.PREDATOR\n\n    for k in range(N):\n        r = int(site_rows[k])\n        c = int(site_cols[k])\n        dr, dc = offsets[nbr_idx[k]]\n        nr = (r + dr) % rows\n        nc = (c + dc) % cols\n\n        s_i = int(grid[r, c])\n        s_j = int(grid[nr, nc])\n\n        roll = reaction_roll[k]\n\n        if roll < p_death:\n            # Predator spontaneous death: A \u2192 \u2205\n            if s_i == PREDATOR:\n                grid[r, c] = EMPTY\n                n_death += 1\n        elif roll < p_death + p_birth:\n            # Prey reproduction: B + \u2205 \u2192 B + B  (at neighbor site)\n            if s_i == PREY and s_j == EMPTY:\n                grid[nr, nc] = PREY\n                n_birth += 1\n        else:\n            # Predation + predator reproduction: A + B \u2192 A + A\n            # The prey at the neighbor site becomes a new predator.\n            if s_i == PREDATOR and s_j == PREY:\n                grid[nr, nc] = PREDATOR\n                n_pred += 1\n\n    self._last_reaction_counts = {\n        \"death\": n_death,\n        \"birth\": n_birth,\n        \"predation\": n_pred,\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "LotkaVolterraLattice.step()",
     "code_module": "epc.models.lotka_volterra_lattice",
+    "asset": "p11_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -391,16 +347,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.006,
-        "send": 0.341,
-        "smin": -0.006,
-        "smax": 0.389,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p11.gif"
     },
-    "watch": "Watch predator and prey patches chase each other in travelling waves across the lattice."
+    "gif": "p11.gif"
   },
   {
     "id": "P12",
@@ -409,6 +358,7 @@
     "summary": "Three species in rock-paper-scissors competition on a lattice.",
     "effect": "Self-sustaining spiral waves maintain coexistence.",
     "viz": "grid_field",
+    "watch": "Watch rotating spiral waves of the three colours endlessly chase one another, so none dies out.",
     "metric": "intransitivity_score",
     "detector": {
       "top": "P12",
@@ -418,10 +368,10 @@
       "emergence": 0.963,
       "self_recognized": true
     },
-    "asset": "p12_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance by ONE GENERATION = N elementary steps (N = L\u00b2).\n\n    Each elementary step:\n      1. Pick random site (i_row, i_col).\n      2. Pick random neighbor direction.\n      3. Propose reaction type with probabilities (p_sel, p_rep, p_exc).\n      4. Execute if compatible; otherwise no-op.\n    \"\"\"\n    N = self.rows * self.cols\n\n    # Vectorized draws for the whole generation.\n    # Site picks: (row, col) pairs\n    site_rows = self.rng.integers(0, self.rows, size=N)\n    site_cols = self.rng.integers(0, self.cols, size=N)\n    # Neighbor direction indices\n    nbr_idx = self.rng.integers(0, self._n_neighbors, size=N)\n    # Reaction-type roll: uniform in [0, 1)\n    reaction_roll = self.rng.random(size=N)\n\n    # We unfortunately cannot vectorize the APPLICATION of updates\n    # (concurrent modifications would violate async semantics). Loop\n    # through and apply sequentially.\n    grid = self._grid  # direct reference; mutated in-place\n    offsets = self._offsets\n    p_sel = self._p_selection\n    p_rep = self._p_reproduction\n    # p_exc boundary: anything >= (p_sel + p_rep) is exchange\n\n    n_sel = 0\n    n_rep = 0\n    n_exc = 0\n\n    rows = self.rows\n    cols = self.cols\n\n    for k in range(N):\n        r = site_rows[k]\n        c = site_cols[k]\n        dr, dc = offsets[nbr_idx[k]]\n        nr = (r + dr) % rows\n        nc = (c + dc) % cols\n\n        s_i = grid[r, c]\n        s_j = grid[nr, nc]\n\n        roll = reaction_roll[k]\n\n        if roll < p_sel:\n            # Selection: if the pair contains a dominance relation,\n            # the dominated species dies (becomes empty).\n            # Check both directions because the paper does \"picker\n            # dominates neighbor\" semantics; to be exactly symmetric\n            # with the undirected physical process, we check for any\n            # dominance relation in the pair.\n            # Canonical Reichenbach: i selects j. So s_i kills s_j\n            # iff s_i dominates s_j.\n            if s_i != self.EMPTY and s_j != self.EMPTY:\n                if self.DOMINATES.get(int(s_i)) == int(s_j):\n                    grid[nr, nc] = self.EMPTY\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "RPSSpatialModel.step()",
     "code_module": "epc.models.rps_spatial",
+    "asset": "p12_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -429,16 +379,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.011,
-        "send": 0.559,
-        "smin": 0.011,
-        "smax": 0.578,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p12.gif"
     },
-    "watch": "Watch rotating spiral waves of the three colours endlessly chase one another, so none dies out."
+    "gif": "p12.gif"
   },
   {
     "id": "P13",
@@ -447,6 +390,7 @@
     "summary": "Excitable cells with refractory recovery.",
     "effect": "Self-sustaining spiral and target waves propagate.",
     "viz": "grid_field",
+    "watch": "Watch self-sustaining spiral and target waves keep sweeping outward.",
     "metric": "wavefront_speed_cv",
     "detector": {
       "top": "P18",
@@ -456,10 +400,10 @@
       "emergence": 0.7624,
       "self_recognized": false
     },
-    "asset": "p13_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Synchronous update of all cells.\"\"\"\n    old = self._grid\n    new = np.zeros_like(old)\n    wavefront = 0\n\n    for r in range(self.rows):\n        for c in range(self.cols):\n            state = old[r, c]\n            if state == 0:\n                # Resting: check if enough neighbors are excited\n                excited_neighbors = self._count_excited_neighbors(old, r, c)\n                if excited_neighbors >= self.threshold:\n                    new[r, c] = 1\n                    wavefront += 1\n                else:\n                    new[r, c] = 0\n            elif state == 1:\n                # Excited \u2192 first refractory\n                new[r, c] = 2\n            else:\n                # Refractory: advance, or return to resting\n                new[r, c] = (state + 1) % self.n_states\n                # Note: if n_states=3, state 2 \u2192 0 (resting)\n\n    self._grid = new\n    self._wavefront_count = wavefront\n    self._step_count += 1\n\n    return self._snapshot()",
     "code_where": "GreenbergHastings.step()",
     "code_module": "epc.models.greenberg_hastings",
+    "asset": "p13_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -467,16 +411,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.003,
-        "send": 0.654,
-        "smin": -0.003,
-        "smax": 0.907,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p13.gif"
     },
-    "watch": "Watch self-sustaining spiral and target waves keep sweeping outward."
+    "gif": "p13.gif"
   },
   {
     "id": "P14",
@@ -484,7 +421,8 @@
     "ref": "Bak-Tang-Wiesenfeld 1987",
     "summary": "A driven sandpile topples when slope exceeds threshold.",
     "effect": "Avalanches follow a scale-free power law without tuning.",
-    "viz": "distribution",
+    "viz": "dist_accumulate",
+    "watch": "On these log-log axes a straight line means avalanches come in every size with no typical scale.",
     "metric": "slope_consistency",
     "detector": {
       "top": "P14",
@@ -494,12 +432,20 @@
       "emergence": 0.0,
       "self_recognized": true
     },
-    "asset": "p14.png",
     "code": "def run_sandpile(params: Optional[BTWSandpileParams] = None) -> SandpileResult:\n    \"\"\"Run BTW sandpile simulation.\n\n    Parameters\n    ----------\n    params : BTWSandpileParams, optional\n        Simulation parameters. Uses defaults if None.\n\n    Returns\n    -------\n    SandpileResult\n        Complete simulation results including avalanche statistics.\n    \"\"\"\n    if params is None:\n        params = BTWSandpileParams()\n\n    L = params.L\n    z_c = params.z_c\n    rng = np.random.default_rng(params.seed)\n\n    # Initialize grid \u2014 random subcritical heights\n    grid = rng.integers(0, z_c, size=(L, L), dtype=np.int32)\n\n    avalanches = []\n    grid_history = []\n    energy_list = []\n    dissipation_list = []\n\n    n_total = params.n_burn + params.n_drive\n\n    for drive_idx in range(n_total):\n        # DRIVE: add one grain to random site\n        r, c = rng.integers(0, L), rng.integers(0, L)\n        grid[r, c] += 1\n\n        # RELAX: topple until stable\n        size = 0\n        duration = 0\n        area_mask = np.zeros((L, L), dtype=bool)\n        dissipated = 0\n\n        while True:\n            unstable = grid >= z_c\n            if not np.any(unstable):\n                break\n\n            duration += 1\n            n_topple = np.sum(unstable)\n            size += n_topple\n            area_mask |= unstable\n\n            # Topple all unstable sites simultaneously\n            topple_count = np.zeros((L, L), dtype=np.int32)\n            topple_count[unstable] = grid[unstable] // z_c\n\n            # Redistribute: each toppling sends 1 grain to each of 4 neighbors\n            redistribute = topple_count * z_c\n            grid -= redistribute\n\n            # Add to neighbors (with boundary dissipation)\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "run_sandpile()",
     "code_module": "epc.models.btw_sandpile",
-    "asset_type": "image",
-    "watch": "On these log-log axes a straight line means avalanches come in every size with no typical scale."
+    "asset": "p14_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p14.gif"
+    },
+    "gif": "p14.gif"
   },
   {
     "id": "P15",
@@ -508,6 +454,7 @@
     "summary": "Deterministic life-like cellular automaton.",
     "effect": "Propagating structures carry and transform information.",
     "viz": "grid_field",
+    "watch": "Watch small structures glide and collide, carrying information across the grid.",
     "metric": "n_distinct_outcomes",
     "detector": {
       "top": "P15",
@@ -517,10 +464,10 @@
       "emergence": 0.7837,
       "self_recognized": true
     },
-    "asset": "p15_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Synchronous B3/S23 update using numpy convolution.\"\"\"\n    # Count live neighbors via convolution\n    kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])\n    neighbor_count = self._convolve2d(self._grid, kernel)\n\n    # Apply B3/S23 rules\n    birth = (self._grid == 0) & (neighbor_count == 3)\n    survive = (self._grid == 1) & ((neighbor_count == 2) | (neighbor_count == 3))\n    self._grid = (birth | survive).astype(int)\n\n    self._step_count += 1\n    return self._snapshot()",
     "code_where": "GameOfLife.step()",
     "code_module": "epc.models.game_of_life",
+    "asset": "p15_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -528,16 +475,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.023,
-        "send": 0.279,
-        "smin": 0.023,
-        "smax": 0.405,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p15.gif"
     },
-    "watch": "Watch small structures glide and collide, carrying information across the grid."
+    "gif": "p15.gif"
   },
   {
     "id": "P16",
@@ -545,7 +485,8 @@
     "ref": "Hopfield 1982",
     "summary": "A symmetric recurrent net relaxes from a corrupted cue.",
     "effect": "The network completes the cue to the nearest stored pattern.",
-    "viz": "timeseries",
+    "viz": "vector_grid",
+    "watch": "Watch the overlap climb toward 1 as the network cleans a corrupted cue back into a stored memory.",
     "metric": "mean_completion_accuracy",
     "detector": {
       "top": "P16",
@@ -555,12 +496,20 @@
       "emergence": 0.0892,
       "self_recognized": true
     },
-    "asset": "p16.png",
     "code": "def simulate(\n    self,\n    n_cues: int = 1,\n    corruption: Optional[float] = None,\n    cue_pattern_indices: Optional[List[int]] = None,\n) -> List[Dict[str, Any]]:\n    \"\"\"Run retrieval from corrupted cues and return state trajectory.\n\n    Parameters\n    ----------\n    n_cues : int\n        Number of cue presentations (each becomes a retrieval trial).\n    corruption : float, optional\n        Override corruption fraction. If None, uses params.corruption.\n    cue_pattern_indices : list[int], optional\n        Which stored patterns to use as cues. If None, uses\n        [params.cue_pattern_idx] repeated n_cues times.\n\n    Returns\n    -------\n    list[dict]\n        State history. Each dict contains:\n        - 'state': np.ndarray of shape (N,), current neuron states\n        - 'step': int, update sweep number\n        - 'trial': int, which cue trial\n        - 'cue_pattern_idx': int, which stored pattern was cued\n        - 'overlap': float, overlap with cued pattern (m = (1/N)\u03a3 \u03be_i s_i)\n        - 'stored_patterns': np.ndarray of shape (P, N), the stored templates\n        - 'converged': bool, whether the network has converged\n    \"\"\"\n    if corruption is None:\n        corruption = self.params.corruption\n\n    if cue_pattern_indices is None:\n        cue_pattern_indices = [self.params.cue_pattern_idx] * n_cues\n\n    history: List[Dict[str, Any]] = []\n\n    for trial, pat_idx in enumerate(cue_pattern_indices):\n        target = self.patterns[pat_idx].copy()\n\n        # Create corrupted cue\n        state = target.copy()\n        n_flip = int(corruption * self.params.N)\n        flip_indices = self.rng.choice(\n            self.params.N, size=n_flip, replace=False,\n        )\n        state[flip_indices] *= -1\n\n        # Record initial state (cast to int32 to avoid int8 overflow for N>127)\n        overlap = float(np.dot(target.astype(np.int32), state.astype(np.int32)) / self.params.N)\n        history.append({\n            'state': state.copy(),\n            'step': 0,\n            'trial': trial,\n            'cue_pattern_idx': pat_idx,\n            'overlap': overlap,\n            'stored_patterns': self.patterns.copy(),\n            'converged': False,\n        })\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "HopfieldNetwork.simulate()",
     "code_module": "epc.models.hopfield",
-    "asset_type": "image",
-    "watch": "Watch the overlap climb toward 1 as the network cleans a corrupted cue back into a stored memory."
+    "asset": "p16_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 3,
+      "cols": 2,
+      "rows": 2,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p16.gif"
+    },
+    "gif": "p16.gif"
   },
   {
     "id": "P17",
@@ -569,6 +518,7 @@
     "summary": "Agents with noisy individual sensing follow social cues.",
     "effect": "The group climbs a gradient no individual can resolve.",
     "viz": "point_cloud",
+    "watch": "Watch the group drift together up the gradient \u2014 steadier than any lone agent could manage.",
     "metric": "chemotactic_index",
     "detector": {
       "top": "P17",
@@ -578,10 +528,10 @@
       "emergence": 0.1034,
       "self_recognized": true
     },
-    "asset": "p17_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance simulation by one timestep.\"\"\"\n    N = self.n_agents\n    L = self.box_size\n\n    # 1. Sense local field + noise\n    true_field = self._evaluate_field(self.positions)\n    noise = self.rng.normal(0, self.sensing_noise, size=N)\n    sensed = true_field + noise\n    self.field_samples = sensed\n\n    # 2. Speed modulation: slow down in high-quality regions\n    # Clamp sensed to [0, amplitude] before normalizing\n    q_norm = np.clip(sensed / self.field_amplitude, 0.0, 1.0)\n    self.speeds = self.v_max * (1.0 - self.alpha * q_norm)\n\n    # 3. Social attraction toward group centroid\n    social_torque = np.zeros(N)\n    if N > 1:\n        com = self._periodic_com()\n        # Periodic vector from each agent to centroid\n        to_com_x = com[0] - self.positions[:, 0]\n        to_com_y = com[1] - self.positions[:, 1]\n        to_com_x = to_com_x - L * np.round(to_com_x / L)\n        to_com_y = to_com_y - L * np.round(to_com_y / L)\n\n        # Angle toward centroid\n        target_heading = np.arctan2(to_com_y, to_com_x)\n        angle_diff = target_heading - self.headings\n        angle_diff = (angle_diff + np.pi) % (2 * np.pi) - np.pi\n        social_torque = self.social_strength * angle_diff\n\n    # 4. Update headings with noise + social torque\n    heading_noise = self.rng.normal(0, self.turn_noise, size=N)\n    self.headings = (self.headings + heading_noise + social_torque) % (2 * np.pi)\n\n    # 5. Move\n    vx = self.speeds * np.cos(self.headings)\n    vy = self.speeds * np.sin(self.headings)\n    self.positions[:, 0] = (self.positions[:, 0] + vx * self.dt) % L\n    self.positions[:, 1] = (self.positions[:, 1] + vy * self.dt) % L\n\n    self._step_count += 1\n    return self.get_state()",
     "code_where": "CollectiveSensingModel.step()",
     "code_module": "epc.models.collective_sensing",
+    "asset": "p17_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -589,16 +539,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.061,
-        "send": 0.048,
-        "smin": 0.006,
-        "smax": 0.278,
-        "start_frac": 0.2,
-        "flat": false
-      }
+      "gif": "p17.gif"
     },
-    "watch": "Watch the group drift together up the gradient \u2014 steadier than any lone agent could manage."
+    "gif": "p17.gif"
   },
   {
     "id": "P18",
@@ -607,6 +550,7 @@
     "summary": "Each agent copies a random neighbour's opinion.",
     "effect": "Opinion domains coarsen toward consensus.",
     "viz": "grid_field",
+    "watch": "Watch opinion patches grow and merge until a single colour takes over (consensus).",
     "metric": "moran_spearman_early",
     "detector": {
       "top": "P18",
@@ -616,10 +560,10 @@
       "emergence": 0.7777,
       "self_recognized": true
     },
-    "asset": "p18_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"One Monte Carlo sweep = R*C site-updates.\n\n    Per site-update: pick uniform random site, pick uniform random neighbor,\n    copy neighbor's opinion onto site. This is the canonical asynchronous\n    voter model dynamics (Clifford & Sudbury 1973; Liggett 1985).\n\n    A parallelized \"checkerboard\" step was trialed but removed: while it\n    yields statistically compatible late-time coarsening exponents, its\n    early-time trajectories differ by several standard deviations from\n    the canonical dynamics. The Sprint 20 characterization therefore\n    uses this canonical step exclusively.\n    \"\"\"\n    R, C = self.rows, self.cols\n    N = R * C\n\n    # Pre-generate randomness for the full sweep\n    site_rs = self.rng.integers(0, R, size=N)\n    site_cs = self.rng.integers(0, C, size=N)\n    nb_idx = self.rng.integers(0, self._n_neighbors, size=N)\n\n    for k in range(N):\n        r = site_rs[k]\n        c = site_cs[k]\n        dr, dc = self._n_offsets[nb_idx[k]]\n        nr = (r + dr) % R\n        nc = (c + dc) % C\n        self.grid[r, c] = self.grid[nr, nc]\n\n    self._step_count += 1\n    return self._state_dict()",
     "code_where": "VoterModel.step()",
     "code_module": "epc.models.voter",
+    "asset": "p18_sprite.png",
     "asset_type": "sprite",
     "sprite": {
       "frames": 36,
@@ -627,16 +571,9 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.023,
-        "send": 0.456,
-        "smin": -0.023,
-        "smax": 0.573,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p18.gif"
     },
-    "watch": "Watch opinion patches grow and merge until a single colour takes over (consensus)."
+    "gif": "p18.gif"
   },
   {
     "id": "P19",
@@ -645,6 +582,7 @@
     "summary": "A small informed minority has a preferred direction.",
     "effect": "The uninformed majority is steered accurately by a few.",
     "viz": "point_cloud",
+    "watch": "Watch the whole group track the heading of a small informed minority.",
     "metric": "group_accuracy_mean",
     "detector": {
       "top": "P19",
@@ -654,27 +592,20 @@
       "emergence": 0.8502,
       "self_recognized": true
     },
-    "asset": "p19_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Execute one synchronous update step.\n\n    Naive agents: pure Vicsek alignment with neighbors.\n    Informed agents: weighted circular mean of neighbor alignment\n    and preferred direction.\n\n    Returns:\n        State dict after this step.\n    \"\"\"\n    N = self.n_particles\n    L = self.box_size\n    r = self.interaction_radius\n\n    # --- Neighbor finding with periodic boundary conditions ---\n    tree = cKDTree(self.positions, boxsize=L)\n    W = tree.sparse_distance_matrix(tree, r, output_type=\"coo_matrix\")\n\n    from scipy.sparse import csr_matrix\n    adjacency = csr_matrix(\n        (np.ones(W.nnz, dtype=np.float64), (W.row, W.col)),\n        shape=(N, N),\n    )\n\n    # --- Compute mean heading of neighbors (circular mean) ---\n    sin_h = np.sin(self.headings)\n    cos_h = np.cos(self.headings)\n\n    sum_sin = adjacency @ sin_h\n    sum_cos = adjacency @ cos_h\n\n    n_neighbors = np.array(adjacency.sum(axis=1)).ravel()\n    n_neighbors = np.maximum(n_neighbors, 1)\n    mean_sin = sum_sin / n_neighbors\n    mean_cos = sum_cos / n_neighbors\n\n    # Social heading from neighbor alignment\n    social_heading = np.arctan2(mean_sin, mean_cos)\n\n    # --- Combine social + preferred direction for informed agents ---\n    new_headings = social_heading.copy()\n\n    if self.n_informed > 0:\n        omega = self.bias_weight\n        informed = self.informed_mask\n\n        # Weighted circular mean: (1-\u03c9) * social + \u03c9 * preferred\n        social_sin = np.sin(social_heading[informed])\n        social_cos = np.cos(social_heading[informed])\n        pref_sin = np.sin(self.preferred_direction)\n        pref_cos = np.cos(self.preferred_direction)\n\n        combined_sin = (1 - omega) * social_sin + omega * pref_sin\n        combined_cos = (1 - omega) * social_cos + omega * pref_cos\n\n        new_headings[informed] = np.arctan2(combined_sin, combined_cos)\n\n    # --- Add angular noise ---\n    noise_vals = self.rng.uniform(-self.noise / 2, self.noise / 2, size=N)\n    new_headings += noise_vals\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "InformedMinorityModel.step()",
     "code_module": "epc.models.informed_minority",
+    "asset": "p19_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 30,
+      "frames": 36,
       "cols": 6,
-      "rows": 5,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 0.101,
-        "send": 0.999,
-        "smin": 0.101,
-        "smax": 1.0,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p19.gif"
     },
-    "watch": "Watch the whole group track the heading of a small informed minority."
+    "gif": "p19.gif"
   },
   {
     "id": "P20",
@@ -682,7 +613,8 @@
     "ref": "Waters & Bassler 2005",
     "summary": "Agents switch ON when local signal crosses a threshold.",
     "effect": "A sharp, hysteretic collective switch at a critical density.",
-    "viz": "timeseries",
+    "viz": "sweep_trace",
+    "watch": "Watch the collective flip ON sharply once density crosses a threshold (and lag on the way back down).",
     "metric": "step_r2",
     "detector": {
       "top": "P20",
@@ -692,12 +624,20 @@
       "emergence": 0.0894,
       "self_recognized": true
     },
-    "asset": "p20.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Run density-sweep simulation (up then down).\n\n    Returns\n    -------\n    list[dict]\n        One dict per timestep per density level, with keys:\n        'density', 'concentration', 'collective_state' (0 or 1),\n        'fraction_on', 'step', 'density_idx', 'sweep_direction'.\n    \"\"\"\n    p = self.params\n    densities = _density_sweep(p.n_density_levels, p.density_min, p.density_max)\n    n_up = p.n_density_levels  # first half is up-sweep\n\n    history: List[Dict[str, Any]] = []\n\n    # Population state\n    n_agents = 200  # fixed population, density controls production\n    agent_on = np.zeros(n_agents, dtype=bool)\n    concentration = 0.0\n\n    for d_idx, density in enumerate(densities):\n        direction = 'up' if d_idx < n_up else 'down'\n\n        for step_i in range(p.n_steps_per_density):\n            f_on = float(np.mean(agent_on))\n            f_off = 1.0 - f_on\n\n            # Production rate: density modulates total autoinducer output\n            total_prod = density * (\n                f_off * p.base_production\n                + f_on * (p.base_production + p.enhanced_production)\n            )\n            # ODE: dC/dt = production - degradation\n            d_conc = total_prod - p.degradation_rate * concentration\n            noise = p.noise_std * self.rng.normal() * np.sqrt(p.dt)\n            concentration = max(0.0, concentration + d_conc * p.dt + noise)\n\n            # Agent switching (individual with noise)\n            for i in range(n_agents):\n                agent_noise = p.noise_std * self.rng.normal()\n                eff_conc = concentration + agent_noise\n                if not agent_on[i]:\n                    if eff_conc > p.activation_threshold:\n                        agent_on[i] = True\n                else:\n                    if eff_conc < p.deactivation_threshold:\n                        agent_on[i] = False\n\n            f_on = float(np.mean(agent_on))\n            collective = 1 if f_on > 0.5 else 0\n\n            history.append({\n                'density': float(density),\n                'concentration': float(concentration),\n                'collective_state': collective,\n                'fraction_on': f_on,\n                'step': step_i,\n                'density_idx': d_idx,\n                'sweep_direction': direction,\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "AutoinducerQuorum.simulate()",
     "code_module": "epc.models.quorum_sensing",
-    "asset_type": "image",
-    "watch": "Watch the collective flip ON sharply once density crosses a threshold (and lag on the way back down)."
+    "asset": "p20_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p20.gif"
+    },
+    "gif": "p20.gif"
   },
   {
     "id": "P21",
@@ -705,7 +645,8 @@
     "ref": "Hegselmann-Krause 2002",
     "summary": "Bounded-confidence opinion dynamics.",
     "effect": "A unimodal population fragments into separated camps.",
-    "viz": "distribution",
+    "viz": "histogram_time",
+    "watch": "Watch one opinion cloud split into two or more separated camps.",
     "metric": "between_cluster_distance",
     "detector": {
       "top": "P21",
@@ -715,12 +656,20 @@
       "emergence": 0.0985,
       "self_recognized": true
     },
-    "asset": "p21.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"One synchronous update round.\"\"\"\n    if self._converged:\n        self._step_count += 1\n        return self._state_dict()\n\n    N = self.n_agents\n    eps = self.epsilon\n    x = self.opinions\n\n    # Compute pairwise distances and find neighbors within epsilon\n    # For moderate N (\u22645000), direct approach is fast enough\n    new_x = np.empty(N)\n    for i in range(N):\n        diffs = np.abs(x - x[i])\n        neighbors = diffs <= eps  # includes self\n        new_x[i] = x[neighbors].mean()\n\n    max_change = np.max(np.abs(new_x - self.opinions))\n    self.opinions = new_x\n    self._step_count += 1\n\n    if max_change < self.convergence_tol:\n        self._converged = True\n\n    return self._state_dict()",
     "code_where": "HegselmannKrauseModel.step()",
     "code_module": "epc.models.hegselmann_krause",
-    "asset_type": "image",
-    "watch": "Watch one opinion cloud split into two or more separated camps."
+    "asset": "p21_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p21.gif"
+    },
+    "gif": "p21.gif"
   },
   {
     "id": "P22",
@@ -729,6 +678,7 @@
     "summary": "Susceptible-infected-recovered spread on a lattice.",
     "effect": "An epidemic wavefront sweeps the population.",
     "viz": "grid_field",
+    "watch": "Watch the infection sweep across the grid as a wavefront, leaving recovered cells behind.",
     "metric": "moran_i_time",
     "detector": {
       "top": "P22",
@@ -738,27 +688,20 @@
       "emergence": 0.0598,
       "self_recognized": true
     },
-    "asset": "p22_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Vectorized synchronous update.\"\"\"\n    old = self._grid\n    new = old.copy()\n\n    # --- Infection: susceptible cells check infected neighbors ---\n    infected_map = (old == self.INFECTED).astype(np.float64)\n\n    # Count infected neighbors for each cell\n    neighbor_count = np.zeros((self.rows, self.cols), dtype=np.float64)\n    for dr, dc in self._offsets:\n        if self.boundary == \"periodic\":\n            shifted = np.roll(np.roll(infected_map, -dr, axis=0), -dc, axis=1)\n        else:\n            shifted = np.zeros_like(infected_map)\n            sr = slice(max(0, dr), min(self.rows, self.rows + dr))\n            sc = slice(max(0, dc), min(self.cols, self.cols + dc))\n            dr_slice = slice(max(0, -dr), min(self.rows, self.rows - dr))\n            dc_slice = slice(max(0, -dc), min(self.cols, self.cols - dc))\n            shifted[dr_slice, dc_slice] = infected_map[sr, sc]\n        neighbor_count += shifted\n\n    susceptible_mask = old == self.SUSCEPTIBLE\n    has_infected_neighbor = neighbor_count > 0\n\n    # Compute infection probability\n    if self.independent_neighbors:\n        # P(infection) = 1 - (1 - p)^n_infected_neighbors\n        # Only compute where susceptible AND has neighbors\n        candidates = susceptible_mask & has_infected_neighbor\n        infection_probs = np.zeros((self.rows, self.cols))\n        infection_probs[candidates] = 1.0 - (\n            (1.0 - self.infection_prob) ** neighbor_count[candidates]\n        )\n    else:\n        # Threshold model: P = p if any neighbor infected\n        infection_probs = np.where(\n            susceptible_mask & has_infected_neighbor,\n            self.infection_prob,\n            0.0,\n        )\n\n    # Draw random numbers and infect\n    rand_infect = self.rng.random((self.rows, self.cols))\n    newly_infected_mask = susceptible_mask & (rand_infect < infection_probs)\n    new[newly_infected_mask] = self.INFECTED\n\n    # --- Recovery: infected cells recover with probability q ---\n    infected_mask = old == self.INFECTED\n    rand_recover = self.rng.random((self.rows, self.cols))\n    newly_recovered_mask = infected_mask & (rand_recover < self.recovery_prob)\n    new[newly_recovered_mask] = self.RECOVERED\n\n    self._newly_infected = int(newly_infected_mask.sum())\n    self._newly_recovered = int(newly_recovered_mask.sum())\n    self._grid = new\n    self._step_count += 1\n\n    return self._snapshot()",
     "code_where": "SIREpidemicModel.step()",
     "code_module": "epc.models.sir_epidemic",
+    "asset": "p22_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 28,
+      "frames": 36,
       "cols": 6,
-      "rows": 5,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.0,
-        "send": 0.0,
-        "smin": -0.008,
-        "smax": 0.886,
-        "start_frac": 0.01,
-        "flat": false
-      }
+      "gif": "p22.gif"
     },
-    "watch": "Watch the infection sweep across the grid as a wavefront, leaving recovered cells behind."
+    "gif": "p22.gif"
   },
   {
     "id": "P23",
@@ -766,7 +709,8 @@
     "ref": "Minority Game (Savit 1999)",
     "summary": "Agents win by choosing the minority side.",
     "effect": "Attendance self-balances with sub-random (efficient) variance.",
-    "viz": "timeseries",
+    "viz": "line_grow",
+    "watch": "Watch attendance hug the capacity line with smaller-than-random swings \u2014 the crowd self-balances.",
     "metric": "scaled_variance",
     "detector": {
       "top": "P23",
@@ -776,12 +720,20 @@
       "emergence": 0.0894,
       "self_recognized": true
     },
-    "asset": "p23.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Run the Minority Game and return attendance time series.\n\n    Returns\n    -------\n    list[dict]\n        Each dict contains:\n        - 'round': int, round number\n        - 'attendance': int, number of agents choosing side 1\n        - 'n_agents': int, total N\n        - 'choices': np.ndarray of shape (N,), agents' choices {0, 1}\n        - 'winning_side': int, 0 or 1\n    \"\"\"\n    records: List[Dict[str, Any]] = []\n\n    for t in range(self.params.n_rounds):\n        mu = self._history_index()\n\n        # Each agent plays their best strategy\n        best_strat = np.argmax(self.scores, axis=1)\n        choices = self.strategies[\n            np.arange(self.N), best_strat, mu\n        ]\n\n        attendance = int(np.sum(choices))\n        winning_side = 0 if attendance > self.N // 2 else 1\n\n        records.append({\n            'round': t,\n            'attendance': attendance,\n            'n_agents': self.N,\n            'choices': choices.copy(),\n            'winning_side': winning_side,\n        })\n\n        # Update strategy scores: +1 for each strategy that would have\n        # predicted the winning side for this history pattern\n        for s in range(self.S):\n            predictions = self.strategies[:, s, mu]\n            self.scores[:, s] += np.where(predictions == winning_side, 1, -1)\n\n        # Update history bits\n        self.history_bits = np.roll(self.history_bits, -1)\n        self.history_bits[-1] = winning_side\n\n    return records",
     "code_where": "MinorityGame.simulate()",
     "code_module": "epc.models.minority_game",
-    "asset_type": "image",
-    "watch": "Watch attendance hug the capacity line with smaller-than-random swings \u2014 the crowd self-balances."
+    "asset": "p23_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p23.gif"
+    },
+    "gif": "p23.gif"
   },
   {
     "id": "P24",
@@ -789,7 +741,8 @@
     "ref": "Ashby 1956",
     "summary": "Feedback drives a variable back to its set-point.",
     "effect": "The regulated variable rejects perturbations and holds set-point.",
-    "viz": "timeseries",
+    "viz": "line_grow",
+    "watch": "Watch the variable get kicked by a perturbation, then driven straight back to its set-point.",
     "metric": "deviation_integral",
     "detector": {
       "top": "P24",
@@ -799,12 +752,20 @@
       "emergence": 0.0894,
       "self_recognized": true
     },
-    "asset": "p24.png",
     "code": "def simulate(\n    self,\n    n_steps: int,\n    schedule: Optional[PerturbationSchedule] = None,\n) -> List[Dict[str, Any]]:\n    \"\"\"Run simulation and return state history.\n\n    Parameters\n    ----------\n    n_steps : int\n        Number of integration steps.\n    schedule : PerturbationSchedule, optional\n        Perturbation schedule. If None, no perturbation.\n\n    Returns\n    -------\n    list[dict]\n        State history with keys: 'time', 'x', 'setpoint',\n        'perturbation', 'deviation', 'step'.\n    \"\"\"\n    if schedule is None:\n        schedule = PerturbationSchedule(onset=float('inf'))\n\n    p = self.params\n    x = self.x\n    history: List[Dict[str, Any]] = []\n\n    for step_i in range(n_steps):\n        t = step_i * p.dt\n        pert = _perturbation_value(t, schedule)\n        deviation = x - p.setpoint\n\n        history.append({\n            'time': t,\n            'x': float(x),\n            'setpoint': p.setpoint,\n            'perturbation': float(pert),\n            'deviation': float(deviation),\n            'step': step_i,\n        })\n\n        # Euler integration\n        dxdt = -p.gain * deviation + pert\n        noise = 0.0\n        if p.noise_std > 0:\n            noise = self.rng.normal(0, p.noise_std)\n        x = x + dxdt * p.dt + noise * np.sqrt(p.dt)\n\n    return history",
     "code_where": "ProportionalHomeostat.simulate()",
     "code_module": "epc.models.homeostasis",
-    "asset_type": "image",
-    "watch": "Watch the variable get kicked by a perturbation, then driven straight back to its set-point."
+    "asset": "p24_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p24.gif"
+    },
+    "gif": "p24.gif"
   },
   {
     "id": "P25",
@@ -812,7 +773,8 @@
     "ref": "Waddington 1957",
     "summary": "Many initial conditions flow down a canalized landscape.",
     "effect": "Different starts converge to the same attractor macrostate.",
-    "viz": "timeseries",
+    "viz": "multi_line",
+    "watch": "Watch very different starting points all funnel down to the same final state.",
     "metric": "convergence_variance_ratio",
     "detector": {
       "top": "P25",
@@ -822,12 +784,20 @@
       "emergence": 0.7504,
       "self_recognized": true
     },
-    "asset": "p25.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Simulate trajectories from diverse ICs.\n\n    Returns\n    -------\n    list[dict]\n        State history with keys: 'state', 'step', 'trial', 'ic',\n        'target', 'distance_to_target', 'converged'.\n    \"\"\"\n    p = self.params\n    rng = np.random.default_rng(p.seed)\n\n    history: List[Dict[str, Any]] = []\n\n    for trial in range(p.n_ics):\n        # Sample IC uniformly in a ball of radius ic_spread\n        direction = rng.standard_normal(p.n_dims)\n        direction /= np.linalg.norm(direction) + 1e-12\n        radius = p.ic_spread * rng.random() ** (1.0 / p.n_dims)\n        x = self.target + direction * radius\n\n        ic = x.copy()\n\n        for step in range(p.n_steps):\n            dist = float(np.linalg.norm(x - self.target))\n            converged = dist < 0.1\n\n            history.append({\n                'state': x.copy(),\n                'step': step,\n                'trial': trial,\n                'ic': ic.copy(),\n                'target': self.target.copy(),\n                'distance_to_target': dist,\n                'converged': converged,\n            })\n\n            # Apply perturbation mid-trajectory if requested\n            if p.perturbation_time is not None and step == p.perturbation_time:\n                pert_dir = rng.standard_normal(p.n_dims)\n                pert_dir /= np.linalg.norm(pert_dir) + 1e-12\n                x = x + pert_dir * p.perturbation_magnitude\n\n            # Dynamics: gradient + nonlinear restoring\n            force_linear = -p.basin_strength * (x - self.target)\n            force_nonlinear = self._nonlinear_force(x)\n            dxdt = force_linear + force_nonlinear\n\n            noise = np.zeros(p.n_dims)\n            if p.noise_std > 0:\n                noise = rng.normal(0, p.noise_std, p.n_dims)\n\n            x = x + dxdt * p.dt + noise * np.sqrt(p.dt)\n\n    return history",
     "code_where": "CanalizedLandscape.simulate()",
     "code_module": "epc.models.canalization",
-    "asset_type": "image",
-    "watch": "Watch very different starting points all funnel down to the same final state."
+    "asset": "p25_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p25.gif"
+    },
+    "gif": "p25.gif"
   },
   {
     "id": "P26",
@@ -835,7 +805,8 @@
     "ref": "Gammaitoni 1998",
     "summary": "A sub-threshold signal plus tuned noise in a bistable unit.",
     "effect": "Optimal noise maximises signal detection (inverted-U).",
-    "viz": "timeseries",
+    "viz": "line_grow",
+    "watch": "Note the response peaks at a middling noise level (the inverted-U) \u2014 not at zero and not at high noise.",
     "metric": "peak_performance",
     "detector": {
       "top": "P26",
@@ -845,12 +816,20 @@
       "emergence": 0.0894,
       "self_recognized": true
     },
-    "asset": "p26.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Run noise-sweep simulation with multiple trials per level.\n\n    For each noise level, runs n_trials independent simulations\n    (each with a fresh random seed derived from the master seed)\n    and concatenates their outputs. The detector averages across\n    trials to get a clean performance estimate.\n\n    Returns\n    -------\n    list[dict]\n        One dict per timestep per trial per noise level, with keys:\n        'time', 'x', 'signal', 'noise_level', 'step',\n        'noise_level_idx'.\n    \"\"\"\n    p = self.params\n    noise_levels = p.noise_levels if p.noise_levels is not None else _default_noise_levels()\n\n    history: List[Dict[str, Any]] = []\n    well_pos = np.sqrt(p.a / p.b)\n\n    for nl_idx, D in enumerate(noise_levels):\n        for trial in range(p.n_trials):\n            # Alternate starting well across trials\n            x = -well_pos if trial % 2 == 0 else well_pos\n\n            for step_i in range(p.n_steps):\n                t = step_i * p.dt\n                signal = p.signal_amplitude * np.sin(\n                    2.0 * np.pi * p.signal_frequency * t\n                )\n\n                history.append({\n                    'time': t,\n                    'x': float(x),\n                    'signal': float(signal),\n                    'noise_level': float(D),\n                    'noise_level_idx': nl_idx,\n                    'step': step_i,\n                })\n\n                # Euler-Maruyama integration\n                drift = p.a * x - p.b * x**3 + signal\n                noise = 0.0\n                if D > 0:\n                    noise = (np.sqrt(2.0 * D)\n                             * self.rng.normal()\n                             * np.sqrt(p.dt))\n                x = x + drift * p.dt + noise\n\n    return history",
     "code_where": "BistableDoubleWell.simulate()",
     "code_module": "epc.models.stochastic_resonance",
-    "asset_type": "image",
-    "watch": "Note the response peaks at a middling noise level (the inverted-U) \u2014 not at zero and not at high noise."
+    "asset": "p26_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p26.gif"
+    },
+    "gif": "p26.gif"
   },
   {
     "id": "P27",
@@ -859,6 +838,7 @@
     "summary": "Cooperators and defectors play neighbours on a lattice.",
     "effect": "Cooperation survives by forming spatial clusters.",
     "viz": "grid_field",
+    "watch": "Watch cooperators survive by huddling into clusters surrounded by defectors.",
     "metric": "coop_fraction",
     "detector": {
       "top": "P27",
@@ -868,27 +848,20 @@
       "emergence": 0.0604,
       "self_recognized": true
     },
-    "asset": "p27_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"One synchronous generation update.\"\"\"\n    R, C = self.rows, self.cols\n    b = self.b\n\n    # Compute total payoff for each cell\n    # Strategy: 0 = C, 1 = D\n    # Payoff from game between i and j:\n    #   C vs C: 1, C vs D: 0, D vs C: b, D vs D: 0\n    # So payoff_i from playing j = (1 - s_i) * (1 - s_j) * 1 + s_i * (1 - s_j) * b\n    #                              = (1-s_j) * [(1-s_i) + s_i * b]\n    #                              = (1-s_j) * [1 + s_i * (b-1)]\n    # Equivalently: each C neighbor gives 1 to C, b to D. Each D neighbor gives 0 to both.\n\n    # Count cooperator neighbors (Moore + self)\n    if self.boundary == \"periodic\":\n        padded = np.pad(self.grid, 1, mode=\"wrap\")\n    else:\n        padded = np.pad(self.grid, 1, mode=\"constant\", constant_values=0)\n\n    # Number of cooperators in Moore neighborhood + self\n    coop_neighbors = np.zeros((R, C), dtype=np.float64)\n    for dr in (-1, 0, 1):\n        for dc in (-1, 0, 1):\n            coop_neighbors += (1 - padded[1 + dr:R + 1 + dr, 1 + dc:C + 1 + dc])\n\n    # Payoff: cooperators get 1 per C-neighbor, defectors get b per C-neighbor\n    payoff = np.where(self.grid == 0, coop_neighbors * 1.0, coop_neighbors * b)\n\n    # Find best strategy in neighborhood: copy highest-payoff neighbor\n    # (ties: keep current strategy)\n    new_grid = self.grid.copy()\n\n    if self.boundary == \"periodic\":\n        padded_payoff = np.pad(payoff, 1, mode=\"wrap\")\n        padded_strat = np.pad(self.grid, 1, mode=\"wrap\")\n    else:\n        padded_payoff = np.pad(payoff, 1, mode=\"constant\", constant_values=-1)\n        padded_strat = np.pad(self.grid, 1, mode=\"constant\", constant_values=0)\n\n    # For each cell, find neighbor with max payoff\n    best_payoff = payoff.copy()  # self payoff\n    best_strat = self.grid.copy()\n\n    for dr in (-1, 0, 1):\n        for dc in (-1, 0, 1):\n            if dr == 0 and dc == 0:\n                continue\n            nb_pay = padded_payoff[1 + dr:R + 1 + dr, 1 + dc:C + 1 + dc]\n            nb_str = padded_strat[1 + dr:R + 1 + dr, 1 + dc:C + 1 + dc]\n\n            # Strict > for update (ties keep current)\n            better = nb_pay > best_payoff\n            best_payoff = np.where(better, nb_pay, best_payoff)\n            best_strat = np.where(better, nb_str, best_strat)\n\n    self.grid = best_strat.astype(np.int8)\n    self._step_count += 1\n    return self._state_dict()",
     "code_where": "NowakMayModel.step()",
     "code_module": "epc.models.nowak_may",
+    "asset": "p27_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 18,
-      "cols": 5,
-      "rows": 4,
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": -0.017,
-        "send": 0.0,
-        "smin": -0.017,
-        "smax": 0.965,
-        "start_frac": 0.0,
-        "flat": false
-      }
+      "gif": "p27.gif"
     },
-    "watch": "Watch cooperators survive by huddling into clusters surrounded by defectors."
+    "gif": "p27.gif"
   },
   {
     "id": "P28",
@@ -896,7 +869,8 @@
     "ref": "Yard-Sale (Chakraborti 2002)",
     "summary": "Agents repeatedly trade a random fraction of wealth.",
     "effect": "Wealth spontaneously condenses to extreme inequality.",
-    "viz": "distribution",
+    "viz": "lorenz_time",
+    "watch": "The Lorenz curve bowing far from the diagonal means wealth has piled up in a few hands.",
     "metric": "gini_final",
     "detector": {
       "top": "P28",
@@ -906,12 +880,20 @@
       "emergence": 0.1142,
       "self_recognized": true
     },
-    "asset": "p28.png",
     "code": "def step(self, n_transactions: int = 1) -> dict[str, Any]:\n    \"\"\"Perform `n_transactions` elementary pair exchanges.\n\n    One \"step\" can bundle many transactions for efficiency; the\n    typical convention in the literature is to measure observables\n    every N transactions (i.e., once per \"sweep\").\n    \"\"\"\n    if not self._is_setup:\n        self.setup()\n\n    N = self.n_agents\n    f = self.f\n    lam = self.lambda_save\n\n    # Pre-generate random pairs for the whole batch.\n    # Using argmax trick to pick j != i: pick any j in [0, N), if j==i, use (j+1) % N.\n    ii = self.rng.integers(0, N, size=n_transactions)\n    jj = self.rng.integers(0, N - 1, size=n_transactions)\n    jj = jj + (jj >= ii).astype(np.int64)\n    # Fair coin for direction\n    direction = self.rng.integers(0, 2, size=n_transactions)  # 0 or 1\n\n    # We must do transactions sequentially because wealth evolves;\n    # vectorizing over batch would double-count reused agents.\n    w = self.wealth  # alias (in-place)\n    for k in range(n_transactions):\n        i = int(ii[k])\n        j = int(jj[k])\n        wi = w[i]\n        wj = w[j]\n        if lam > 0.0:\n            # CC 2000 + YS stake combination: lambda fraction stays,\n            # (1-lambda) fraction of combined pot is split by eps.\n            # We ALSO cap the random portion at the YS stake\n            # structure: the poorer agent's unsaved amount caps it.\n            unsaved_i = (1.0 - lam) * wi\n            unsaved_j = (1.0 - lam) * wj\n            pot = unsaved_i + unsaved_j\n            eps = self.rng.random()\n            new_unsaved_i = pot * eps\n            new_unsaved_j = pot * (1.0 - eps)\n            w[i] = lam * wi + new_unsaved_i\n            w[j] = lam * wj + new_unsaved_j\n        else:\n            # Pure Yard-Sale\n            stake = f * min(wi, wj)\n            if direction[k] == 0:\n                w[i] = wi + stake\n                w[j] = wj - stake\n            else:\n                w[i] = wi - stake\n                w[j] = wj + stake\n\n    self._step_count += n_transactions\n\n    # Optional redistribution (wealth tax)\n    if self.chi > 0 and self.redistribute_every > 0:\n        applied = self._step_count // self.redistribute_every\n        prev_applied = (self._step_count - n_transactions) // self.redistribute_every\n        for _ in range(applied - prev_applied):\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "YardSale.step()",
     "code_module": "epc.models.yard_sale",
-    "asset_type": "image",
-    "watch": "The Lorenz curve bowing far from the diagonal means wealth has piled up in a few hands."
+    "asset": "p28_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p28.gif"
+    },
+    "gif": "p28.gif"
   },
   {
     "id": "P29",
@@ -919,7 +901,8 @@
     "ref": "Tero et al. 2010 (Physarum)",
     "summary": "Agents reinforce and evaporate trails between nodes.",
     "effect": "An efficient near-minimal transport network emerges.",
-    "viz": "network",
+    "viz": "network_time",
+    "watch": "Watch redundant links fade until a lean, efficient network between the nodes remains.",
     "metric": "weight_dist_corr",
     "detector": {
       "top": "P29",
@@ -929,12 +912,20 @@
       "emergence": 0.0,
       "self_recognized": true
     },
-    "asset": "p29.png",
     "code": "def simulate(self) -> List[Dict[str, Any]]:\n    \"\"\"Run ant trail simulation.\n\n    Returns\n    -------\n    list[dict]\n        One dict per snapshot with keys:\n        'node_positions': ndarray(n_nodes, 2)\n        'pheromone_field': ndarray(grid_size, grid_size) \u2014 visualization\n        'edge_weights': ndarray(n_nodes, n_nodes) \u2014 pheromone on each edge\n        'step': int\n        'n_nodes': int\n        'grid_size': int\n    \"\"\"\n    p = self.params\n    rng = self.rng\n    n = p.n_nodes\n\n    nodes = _place_nodes(n, p.grid_size, rng, p.node_layout)\n\n    # Distance matrix\n    diff = nodes[:, None, :] - nodes[None, :, :]\n    dist = np.sqrt((diff ** 2).sum(axis=-1))\n    np.fill_diagonal(dist, 1.0)\n\n    # Initial pheromone: small uniform value\n    pheromone = np.ones((n, n), dtype=np.float64) * 0.1\n    np.fill_diagonal(pheromone, 0.0)\n\n    # Heuristic: 1/distance^beta\n    heuristic = (1.0 / dist) ** p.beta\n    np.fill_diagonal(heuristic, 0.0)\n\n    # Agent positions: current node index\n    agent_node = rng.integers(0, n, size=p.n_agents)\n\n    history: List[Dict[str, Any]] = []\n\n    for step in range(p.n_steps):\n        # Evaporate\n        pheromone *= (1.0 - p.evaporation_rate)\n\n        # Move each agent: choose next node\n        deposit = np.zeros((n, n), dtype=np.float64)\n\n        for a in range(p.n_agents):\n            current = agent_node[a]\n            # Probability: pheromone^alpha * heuristic\n            prob = (pheromone[current] ** p.alpha) * heuristic[current]\n            prob[current] = 0.0  # don't stay\n            total = prob.sum()\n            if total <= 0:\n                # Fallback: uniform random\n                others = [j for j in range(n) if j != current]\n                next_node = rng.choice(others)\n            else:\n                prob /= total\n                next_node = rng.choice(n, p=prob)\n\n            # Deposit pheromone proportional to 1/distance\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "AntTrailModel.simulate()",
     "code_module": "epc.models.trail_network",
-    "asset_type": "image",
-    "watch": "Watch redundant links fade until a lean, efficient network between the nodes remains."
+    "asset": "p29_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p29.gif"
+    },
+    "gif": "p29.gif"
   },
   {
     "id": "P30",
@@ -943,6 +934,7 @@
     "summary": "Catalysis links substrate particles into a membrane that decays.",
     "effect": "A self-maintaining closed boundary forms and persists.",
     "viz": "point_cloud",
+    "watch": "Watch scattered link particles gather into a thin closed shell around the catalyst and hold it.",
     "metric": "radial_cv",
     "detector": {
       "top": "P30",
@@ -952,27 +944,20 @@
       "emergence": 0.1892,
       "self_recognized": true
     },
-    "asset": "p30_sprite.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance one timestep.\"\"\"\n    self._step_count += 1\n    self._do_production()\n    self._do_decay()\n    self._move_particles()\n    return self._get_state()",
     "code_where": "AutopoiesisModel.step()",
     "code_module": "epc.models.autopoiesis",
+    "asset": "p30_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 24,
-      "cols": 5,
-      "rows": 5,
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
       "fw": 300,
       "fh": 300,
-      "rise": {
-        "s0": 23.121,
-        "send": 22.949,
-        "smin": 22.228,
-        "smax": 24.607,
-        "start_frac": 0.38,
-        "flat": false
-      }
+      "gif": "p30.gif"
     },
-    "watch": "Watch scattered link particles gather into a thin closed shell around the catalyst and hold it."
+    "gif": "p30.gif"
   },
   {
     "id": "P31",
@@ -980,7 +965,8 @@
     "ref": "Zhang et al. 2024",
     "summary": "Agents forgo immediate reward for larger later payoff.",
     "effect": "Per-agent restraint carries information beyond the policy label.",
-    "viz": "spacetime",
+    "viz": "bars_sort",
+    "watch": "Each row is one step (time runs downward); watch the colours sort into clean order.",
     "metric": null,
     "detector": {
       "top": null,
@@ -989,14 +975,22 @@
       "verdict": null,
       "emergence": null,
       "self_recognized": null,
-      "note": "Validated via a separate multi-run non-redundancy test (no Phase-2a battery panel)."
+      "note": "Validated via a separate multi-run non-redundancy test (no Phase-2a panel)."
     },
-    "asset": "p31.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"One round: activate all non-frozen cells in random order.\"\"\"\n    if self._converged:\n        return self._snapshot()\n\n    active_indices = np.where(~self._frozen)[0]\n    self.rng.shuffle(active_indices)\n\n    any_swap = False\n    for i in active_indices:\n        swapped = self._cell_action(int(i))\n        if swapped:\n            any_swap = True\n            self._swap_count += 1\n\n    self._step_count += 1\n\n    if not any_swap and self._no_cell_should_move():\n        self._converged = True\n\n    return self._snapshot()",
     "code_where": "CellViewSorting.step()",
     "code_module": "epc.models.cell_view_sorting",
-    "asset_type": "image",
-    "watch": "Each row is one step (time runs downward); watch the colours sort into clean order."
+    "asset": "p31_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p31.gif"
+    },
+    "gif": "p31.gif"
   },
   {
     "id": "P32",
@@ -1004,7 +998,8 @@
     "ref": "Bonabeau 1996",
     "summary": "Response-threshold agents take tasks they sense most.",
     "effect": "Division of labour emerges as roles differentiate.",
-    "viz": "network",
+    "viz": "growing_spacetime",
+    "watch": "Watch agents settle onto consistent task-rows \u2014 stable specialised roles (division of labour).",
     "metric": "entropy_decline",
     "detector": {
       "top": "P32",
@@ -1014,11 +1009,19 @@
       "emergence": 0.0903,
       "self_recognized": true
     },
-    "asset": "p32.png",
     "code": "def step(self) -> dict[str, Any]:\n    \"\"\"Advance one timestep.\n\n    Each agent independently evaluates all tasks. The probability of\n    responding to task j is  s_j^2 / (s_j^2 + \u03b8_{i,j}^2)  where s_j\n    is the stimulus for task j and \u03b8_{i,j} is agent i's threshold for\n    task j (Bonabeau et al. 1996, Eq. 1).\n\n    If an agent responds to a task:\n      - Its threshold for that task DECREASES by reinforcement_rate\n    If an agent does NOT respond to a task:\n      - Its threshold for that task INCREASES by forgetting_rate\n\n    Stimulus accumulates at stimulus_rate per timestep for each task,\n    reduced by the number of agents performing it.\n    \"\"\"\n    assert self._thresholds is not None\n\n    # Compute response probabilities: s^2 / (s^2 + \u03b8^2)\n    s2 = self._stimulus ** 2  # (n_tasks,)\n    th2 = self._thresholds ** 2  # (n_agents, n_tasks)\n    denom = s2[np.newaxis, :] + th2\n    denom = np.where(denom > 0, denom, 1e-12)\n    prob = s2[np.newaxis, :] / denom  # (n_agents, n_tasks)\n\n    # Each agent decides independently for each task\n    rand = self.rng.random((self.n_agents, self.n_tasks))\n    responds = rand < prob  # boolean (n_agents, n_tasks)\n\n    # Assign each agent to at most one task (highest-probability task\n    # among those it responds to; if none, idle)\n    assignments = np.full(self.n_agents, -1, dtype=np.int64)\n    for i in range(self.n_agents):\n        active_tasks = np.where(responds[i])[0]\n        if len(active_tasks) > 0:\n            # Pick the task with highest response probability\n            best = active_tasks[np.argmax(prob[i, active_tasks])]\n            assignments[i] = best\n\n    self._task_assignments = assignments\n\n    # Threshold reinforcement / forgetting\n    for i in range(self.n_agents):\n        if assignments[i] >= 0:\n            task = assignments[i]\n            # Decrease threshold for performed task\n            self._thresholds[i, task] = max(\n                0.01,\n                self._thresholds[i, task] - self.reinforcement_rate,\n            )\n            # Increase threshold for all other tasks\n            for j in range(self.n_tasks):\n                if j != task:\n                    self._thresholds[i, j] = min(\n                        1.0,\n                        self._thresholds[i, j] + self.forgetting_rate,\n                    )\n        else:\n            # Idle agent: all thresholds drift up\n            self._thresholds[i, :] = np.minimum(\n    # \u2026 (truncated; full source in the repo)",
     "code_where": "ResponseThresholdModel.step()",
     "code_module": "epc.models.division_of_labor",
-    "asset_type": "image",
-    "watch": "Watch agents settle onto consistent task-rows \u2014 stable specialised roles (division of labour)."
+    "asset": "p32_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 36,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300,
+      "gif": "p32.gif"
+    },
+    "gif": "p32.gif"
   }
 ]
