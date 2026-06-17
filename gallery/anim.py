@@ -8,7 +8,9 @@ import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from PIL import Image
 
-FW = FH = 300; MAXF = 36; DPI = 75
+FW = FH = 300; DPI = 75
+NF = 35           # current frame target (set per-pattern by render)
+NF_MIN, NF_MAX = 35, 105
 
 
 def _img(fig):
@@ -67,8 +69,9 @@ def _s_bars(f):
     a = np.asarray(f["array"], float); return float((np.diff(a) >= 0).mean())
 
 
-def _select(fr, sfn, n=MAXF):
+def _select(fr, sfn, n=None):
     """Hold START, dwell across the TRANSITION window, hold END."""
+    if n is None: n = NF
     if len(fr) <= 6:
         return fr
     try:
@@ -94,7 +97,8 @@ def _select(fr, sfn, n=MAXF):
     except Exception:
         return [fr[i] for i in np.linspace(0, len(fr)-1, n).astype(int)]
 
-def _evenly(fr, n=MAXF):
+def _evenly(fr, n=None):
+    if n is None: n = NF
     return fr if len(fr) <= n else [fr[i] for i in np.linspace(0, len(fr)-1, n).astype(int)]
 
 def _has(history, key):
@@ -178,7 +182,7 @@ def vector_grid(history, title, key="state", **_):
     fr = _has(hist, key)
     if len(fr) < 2: return []
     nn = np.asarray(fr[0][key]).size; side = int(round(np.sqrt(nn)))
-    fr = fr if len(fr) <= MAXF else [fr[i] for i in np.linspace(0, len(fr)-1, MAXF).astype(int)]
+    fr = fr if len(fr) <= NF else [fr[i] for i in np.linspace(0, len(fr)-1, NF).astype(int)]
     out = []
     for f in fr:
         a = np.asarray(f[key], float).ravel()[:side*side].reshape(side, side)
@@ -256,7 +260,7 @@ def line_grow(history, title, key="x", ref=None, **_):
         rv = [float(f[ref]) for f in history if isinstance(f, dict) and ref in f and np.isscalar(f[ref])]
         refv = float(np.median(rv)) if rv else None
     out = []
-    for k in np.linspace(0, len(ys)-1, MAXF).astype(int):
+    for k in np.linspace(0, len(ys)-1, NF).astype(int):
         fig, ax = _new(title)
         if refv is not None: ax.axhline(refv, ls="--", color="#e53e3e", lw=1, label=ref)
         ax.plot(ys[:k+1], color="#2b6cb0", lw=1.4)
@@ -275,7 +279,7 @@ def multi_line(history, title, key="distance_to_target", group="trial", **_):
     if not series: return []
     Lmax = max(len(v) for v in series.values()); ymax = max(max(v) for v in series.values())
     out = []
-    for k in np.linspace(0, Lmax-1, MAXF).astype(int):
+    for k in np.linspace(0, Lmax-1, NF).astype(int):
         fig, ax = _new(title)
         for v in series.values(): ax.plot(v[:k+1], lw=1.2, alpha=.8)
         ax.set_xlim(0, Lmax); ax.set_ylim(0, ymax*1.05); ax.set_xlabel("step"); ax.set_ylabel(key)
@@ -287,7 +291,7 @@ def sweep_trace(history, title, x="density", y="fraction_on", **_):
     xs = np.array([float(f[x]) for f in fr]); ys = np.array([float(f[y]) for f in fr])
     if xs.size < 2: return []
     out = []
-    for k in np.linspace(0, len(xs)-1, MAXF).astype(int):
+    for k in np.linspace(0, len(xs)-1, NF).astype(int):
         fig, ax = _new(title)
         ax.plot(xs[:k+1], ys[:k+1], "-", color="#2b6cb0", lw=1.5)
         ax.scatter([xs[k]], [ys[k]], c="#e53e3e", s=40, zorder=3)
@@ -299,7 +303,7 @@ def dist_accumulate(history, title, key="avalanche_sizes", **_):
     a = np.asarray(history[0][key], float); a = a[a > 0]
     if a.size < 10: return []
     out = []
-    for fr in np.linspace(0.05, 1.0, MAXF):
+    for fr in np.linspace(0.05, 1.0, NF):
         sub = a[:int(fr*len(a))]; vals, cnts = np.unique(sub.astype(int), return_counts=True)
         fig, ax = _new(title); ax.loglog(vals, cnts, "o", ms=4, color="#2b6cb0")
         ax.set_xlim(1, a.max()*1.1); ax.set_ylim(0.8, None)
@@ -312,7 +316,7 @@ def growing_spacetime(history, title, key="task_assignments", **_):
     L = min(len(r) for r in rows); img = np.array([r[:L] for r in rows])
     if img.shape[0] > 300: img = img[np.linspace(0, img.shape[0]-1, 300).astype(int)]
     out = []
-    for c in np.linspace(2, img.shape[0], MAXF).astype(int):
+    for c in np.linspace(2, img.shape[0], NF).astype(int):
         fig, ax = _new(title)
         ax.imshow(img[:c].T, aspect="auto", cmap="tab10", interpolation="nearest", origin="lower",
                   extent=[0, img.shape[0], 0, img.shape[1]])
@@ -327,6 +331,55 @@ PRODUCERS = {
     "sweep_trace": sweep_trace, "dist_accumulate": dist_accumulate,
     "network_time": network_time, "bars_sort": bars_sort, "growing_spacetime": growing_spacetime,
 }
+
+
+def _motion(history, viz, args):
+    """Mean normalised frame-to-frame change over the recorded run (0..~0.6)."""
+    try:
+        a = args or {}
+        if viz == "grid_field":
+            key = "field" if (history and "field" in history[-1]) else "grid"; fr = _has(history, key)
+        elif viz in ("point_cloud", "road_1d"):
+            key = "positions"; fr = _has(history, key)
+        elif viz == "phase_circle":
+            key = "theta" if (history and "theta" in history[-1]) else "phases"; fr = _has(history, key)
+        elif viz == "vector_grid":
+            key = a.get("key", "state"); fr = _has(history, key)
+        elif viz == "network_time":
+            key = "edge_weights"; fr = _has(history, key)
+        elif viz == "bars_sort":
+            key = a.get("key", "array"); fr = _has(history, key)
+        elif viz in ("histogram_time", "lorenz_time"):
+            key = a.get("key"); fr = _has(history, key)
+        else:
+            return None
+        if len(fr) < 3:
+            return 0.0
+        fr = [fr[i] for i in np.linspace(0, len(fr)-1, min(60, len(fr))).astype(int)]
+        if viz in ("point_cloud", "road_1d"):
+            P = [np.asarray(f["positions"], float) for f in fr]
+            P = [p[:, :2] if p.ndim == 2 else p.reshape(-1, 1) for p in P]
+            ext = max(np.ptp(np.concatenate([p[:, 0] for p in P])), 1e-9)
+            return float(np.mean([np.mean(np.abs(P[i+1][:min(len(P[i]), len(P[i+1]))]
+                          - P[i][:min(len(P[i]), len(P[i+1]))]))
+                          for i in range(len(P)-1)]) / ext)
+        if viz == "phase_circle":
+            T = [np.asarray(f[key], float) for f in fr]
+            return float(np.mean([np.mean(np.abs(((T[i+1]-T[i]+np.pi) % (2*np.pi))-np.pi))
+                          for i in range(len(T)-1)]) / np.pi)
+        A = [np.asarray(f[key], float).ravel() for f in fr]
+        m = min(len(x) for x in A); A = [x[:m] for x in A]
+        rng = max(np.ptp(np.concatenate(A)), 1e-9)
+        return float(np.mean([np.mean(np.abs(A[i+1]-A[i])) for i in range(len(A)-1)]) / rng)
+    except Exception:
+        return None
+
+
+def _adaptive_nframes(history, viz, args):
+    m = _motion(history, viz, args)
+    if m is None:
+        return NF_MIN
+    return int(np.clip(round(NF_MIN + (m / 0.30) * (NF_MAX - NF_MIN)), NF_MIN, NF_MAX))
 
 
 def save_animation(frames, out_base, fps=10):
@@ -346,5 +399,7 @@ def save_animation(frames, out_base, fps=10):
     return {"frames": n, "cols": cols, "rows": rows, "fw": FW, "fh": FH, "mp4": mp4}
 
 def render(history, viz, out_base, title, args=None):
+    global NF
+    NF = _adaptive_nframes(history, viz, args or {})
     frames = PRODUCERS[viz](history, title, **(args or {}))
-    return save_animation(frames, out_base) if frames else None
+    return save_animation(frames, out_base, fps=max(10, min(20, NF // 5))) if frames else None

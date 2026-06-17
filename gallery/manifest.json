@@ -55,9 +55,9 @@
     "asset": "p2_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 48,
+      "cols": 7,
+      "rows": 7,
       "fw": 300,
       "fh": 300,
       "mp4": "p2.mp4"
@@ -88,8 +88,8 @@
     "asset": "p3_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 40,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -121,8 +121,8 @@
     "asset": "p4_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 40,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -154,9 +154,9 @@
     "asset": "p5_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 105,
+      "cols": 11,
+      "rows": 10,
       "fw": 300,
       "fh": 300,
       "mp4": "p5.mp4"
@@ -187,9 +187,9 @@
     "asset": "p6_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 72,
+      "cols": 9,
+      "rows": 8,
       "fw": 300,
       "fh": 300,
       "mp4": "p6.mp4"
@@ -220,8 +220,8 @@
     "asset": "p7_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 39,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -253,8 +253,8 @@
     "asset": "p8_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 38,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -286,9 +286,9 @@
     "asset": "p9_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 78,
+      "cols": 9,
+      "rows": 9,
       "fw": 300,
       "fh": 300,
       "mp4": "p9.mp4"
@@ -319,9 +319,9 @@
     "asset": "p10_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 105,
+      "cols": 11,
+      "rows": 10,
       "fw": 300,
       "fh": 300,
       "mp4": "p10.mp4"
@@ -352,9 +352,9 @@
     "asset": "p11_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 93,
+      "cols": 10,
+      "rows": 10,
       "fw": 300,
       "fh": 300,
       "mp4": "p11.mp4"
@@ -385,9 +385,9 @@
     "asset": "p12_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 65,
+      "cols": 9,
+      "rows": 8,
       "fw": 300,
       "fh": 300,
       "mp4": "p12.mp4"
@@ -418,9 +418,9 @@
     "asset": "p13_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 79,
+      "cols": 9,
+      "rows": 9,
       "fw": 300,
       "fh": 300,
       "mp4": "p13.mp4"
@@ -451,7 +451,7 @@
     "asset": "p14_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -484,9 +484,9 @@
     "asset": "p15_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 53,
+      "cols": 8,
+      "rows": 7,
       "fw": 300,
       "fh": 300,
       "mp4": "p15.mp4"
@@ -550,9 +550,9 @@
     "asset": "p17_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 43,
+      "cols": 7,
+      "rows": 7,
       "fw": 300,
       "fh": 300,
       "mp4": "p17.mp4"
@@ -583,9 +583,9 @@
     "asset": "p18_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 91,
+      "cols": 10,
+      "rows": 10,
       "fw": 300,
       "fh": 300,
       "mp4": "p18.mp4"
@@ -616,8 +616,8 @@
     "asset": "p19_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 41,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -649,7 +649,7 @@
     "asset": "p20_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -715,8 +715,8 @@
     "asset": "p22_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 39,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -748,7 +748,7 @@
     "asset": "p23_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -781,7 +781,7 @@
     "asset": "p24_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -814,7 +814,7 @@
     "asset": "p25_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -847,7 +847,7 @@
     "asset": "p26_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -880,8 +880,8 @@
     "asset": "p27_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 41,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -913,7 +913,7 @@
     "asset": "p28_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -946,7 +946,7 @@
     "asset": "p29_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
@@ -979,9 +979,9 @@
     "asset": "p30_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
-      "rows": 6,
+      "frames": 82,
+      "cols": 10,
+      "rows": 9,
       "fw": 300,
       "fh": 300,
       "mp4": "p30.mp4"
@@ -1013,8 +1013,8 @@
     "asset": "p31_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
-      "cols": 6,
+      "frames": 40,
+      "cols": 7,
       "rows": 6,
       "fw": 300,
       "fh": 300,
@@ -1046,7 +1046,7 @@
     "asset": "p32_sprite.png",
     "asset_type": "sprite",
     "sprite": {
-      "frames": 36,
+      "frames": 35,
       "cols": 6,
       "rows": 6,
       "fw": 300,
