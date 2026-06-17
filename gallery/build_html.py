@@ -3,7 +3,7 @@ detector readout, core-algorithm code panel). Self-contained; assets in ./assets
 Accessible & responsive: keyboard-operable listbox, ARIA on viz/controls,
 deep-linkable via URL hash, single mobile breakpoint, reduced-motion aware."""
 import json, html
-from gallery.education import OVERVIEW_HTML
+from gallery.education import OVERVIEW_HTML, METHODS_HTML
 
 M = json.load(open("gallery/manifest.json"))
 M.sort(key=lambda e: int(e["id"][1:]))
@@ -50,6 +50,16 @@ pre.codeblk{margin:8px 0 0;padding:14px 16px;background:#0b0f14;border:1px solid
 details.card>summary.codesum{cursor:pointer;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
 details.card>summary.codesum code{text-transform:none}
 details.card[open]>summary.codesum{margin-bottom:10px}
+.about h3{font-size:16px;margin:20px 0 7px;color:#fff;text-transform:none;letter-spacing:0}
+.about ul{margin:0 0 13px;padding-left:20px;color:#cdd9e5}.about li{margin:0 0 7px}
+.item.methods-item b{color:#3fae6b}
+.tier{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid var(--line);border-radius:10px;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;vertical-align:middle;cursor:help}
+.disc{margin-top:11px;font-size:13px}.disc .lab{display:block;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;cursor:help}
+.disc strong{color:#7ee2a8}
+.cmline{margin-top:8px;font-size:13px;color:#cfe3f7;cursor:help}
+.foot{margin-top:9px;font-size:12px;color:var(--mut)}.foot .hint{cursor:help;border-bottom:1px dotted var(--line)}
+.mut2{color:var(--mut)}
+.methlink{color:var(--acc);text-decoration:none}.methlink:hover{text-decoration:underline}
 .skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#04121f;font-weight:600;padding:8px 14px;border-radius:0 0 6px 0;text-decoration:none}
 .skip:focus{left:0}
 .item:focus-visible,.bar button:focus-visible,.bar select:focus-visible,.bar input[type=range]:focus-visible,a.dl:focus-visible,summary.codesum:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
@@ -65,7 +75,7 @@ details.card[open]>summary.codesum{margin-bottom:10px}
 """
 
 JS = """
-const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__;
+const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__, METHODS=__METHODS__;
 const list=document.getElementById('list'), detail=document.getElementById('detail');
 let timer=null, suppressHash=false;
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -88,11 +98,43 @@ function setSelected(key){
   });
 }
 function focusDetail(){const h=detail.querySelector('h2')||detail; h.setAttribute('tabindex','-1'); h.focus();}
+function methLink(){return `<div class=foot><a href="#methods" class=methlink onclick="navigate('methods');return false;">How we validate ↗</a></div>`;}
+function detectorHtml(d){
+  const vc=VC[d.verdict]||'#718096';
+  const TG={definitive:'strongest tier — the detector fired its most specific gate',
+            confirmation:'mid tier — a corroborating gate fired',
+            screening:'weakest tier — only a coarse screening gate fired',
+            none:'did not reach a firing tier on this run'};
+  if(!d.verdict) return `<div style=color:#8b98a5>${d.note||'—'}</div>`+methLink();
+  let disc='';
+  if(d.neg_total){
+    const b=d.neg_breakdown||{}, parts=[];
+    if(b.synthetic) parts.push(b.synthetic+' synthetic nulls');
+    if(b.catalog) parts.push(b.catalog+' look-alikes');
+    if(b.failed_regime) parts.push(b.failed_regime+' failed regimes');
+    disc=`<div class=disc><span class=lab title="Negative controls the detector had to reject: structureless nulls, the other catalogue patterns, and the model run where the pattern never forms.">Discrimination · negative controls</span>rejected <strong>${d.neg_rejected}/${d.neg_total}</strong>${parts.length?` <span class=mut2>(${parts.join(' · ')})</span>`:''}</div>`;
+  } else if(d.note){
+    disc=`<div class=disc><span class=lab>Discrimination</span><span class=mut2>${d.note}</span></div>`;
+  }
+  let cm='';
+  if(d.cross_model){
+    const c=d.cross_model;
+    cm = c.verdict==='MATCH'
+      ? `<div class=cmline title="Re-tested on a second, independent implementation it was never tuned on, and still recognised the phenomenon.">✓ Generalises to an independent model <span class=mut2>(${c.alt})</span></div>`
+      : `<div class=cmline title="On an independent model it ranked its own pattern first but stayed below the firing threshold — a disclosed generalisation limit.">~ Ranks top on an independent model <span class=mut2>(${c.alt}, below threshold)</span></div>`;
+  }
+  const ge=d.emergence!=null?(+d.emergence).toFixed(2):'—';
+  const foot=`<div class=foot><span class=hint title="A coarse, cross-pattern emergence index — NOT this detector's verdict. A definitive match can sit beside a low value here; trust the verdict and the panel.">generic emergence index ${ge}</span>`
+    +(d.self_recognized?` · <span class=hint title="Among all 32 detectors run on this pattern, the correct one ranked first. In-sample evidence — the weakest of the three tests.">self-identifies in the 32-detector battery</span>`:'')
+    +`</div>`;
+  return `<span class=badge style="background:${vc}">${d.verdict}</span><span class=tier title="${TG[d.tier]||''}">${d.tier||'—'}</span>`
+    + disc + cm + foot + methLink();
+}
 
 function show(i){
   clearTimer();
   try{
-    const m=M[i], d=m.detector||{}, vc=VC[d.verdict]||'#718096';
+    const m=M[i], d=m.detector||{};
     setSelected(i);
     const desc=esc(m.watch||m.effect);
     let vizHtml='';
@@ -111,12 +153,7 @@ function show(i){
       vizHtml=`<img src="assets/${m.asset}" alt="${m.id} ${esc(m.name)}: ${desc}">`;
     } else { vizHtml='<p style=color:#8b98a5>(no visualization)</p>'; }
     const watchHtml=m.watch?`<div class=watch><b>&#128065; What to look for</b>${m.watch}</div>`:'';
-    const det = d.verdict
-      ? `<span class=badge style="background:${vc}">${d.verdict}</span>${d.self_recognized?'<span style="margin-left:10px;color:#2f855a">✓ self-recognized</span>':''}
-         <div class=row><div><b>top</b><span>${d.top||'—'}</span></div><div><b>tier</b><span>${d.tier||'—'}</span></div>
-         <div><b>calibrated confidence</b><span>${d.confidence!=null?(+d.confidence).toFixed(2):'—'}</span></div>
-         <div><b>generic emergence</b><span>${d.emergence!=null?(+d.emergence).toFixed(2):'—'}</span></div></div>`
-      : `<div style=color:#8b98a5>${(d.note)||'—'}</div>`;
+    const det = detectorHtml(d);
     detail.innerHTML=`<div class=cols>
       <div class=viz>${vizHtml}${watchHtml}</div>
       <div class=info>
@@ -156,11 +193,13 @@ function initSprite(m){
 }
 
 function showAbout(){clearTimer(); setSelected('about'); detail.innerHTML='<div class=about>'+OVERVIEW+'</div>';}
+function showMethods(){clearTimer(); setSelected('methods'); detail.innerHTML='<div class=about>'+METHODS+'</div>';}
 
 function renderKey(k){
-  k=(k||'').trim();
-  if(k.toLowerCase()==='about'){showAbout();return true;}
-  const i=M.findIndex(m=>m.id.toLowerCase()===k.toLowerCase());
+  k=(k||'').trim(); const kl=k.toLowerCase();
+  if(kl==='about'){showAbout();return true;}
+  if(kl==='methods'){showMethods();return true;}
+  const i=M.findIndex(m=>m.id.toLowerCase()===kl);
   if(i>=0){show(i);return true;}
   return false;
 }
@@ -173,7 +212,7 @@ window.addEventListener('hashchange',()=>{ if(suppressHash){suppressHash=false;r
 
 function makeItem(key, nav, htmlStr){
   const e=document.createElement('div');
-  e.className='item'+(key==='about'?' about-item':'');
+  e.className='item'+(key==='about'?' about-item':'')+(key==='methods'?' methods-item':'');
   e.dataset.key=String(key); e.dataset.nav=nav;
   if(key==='about') e.id='about-item';
   e.setAttribute('role','option'); e.setAttribute('aria-selected','false'); e.tabIndex=-1;
@@ -182,6 +221,7 @@ function makeItem(key, nav, htmlStr){
   list.appendChild(e);
 }
 makeItem('about','about','<b>✦</b>About emergence<small>start here — what all 32 share</small>');
+makeItem('methods','methods','<b>✓</b>How models are validated<small>what “validated” means here</small>');
 M.forEach((m,i)=>makeItem(i, m.id, `<b>${m.id}</b>${m.name}<small>${m.ref}</small>`));
 
 list.addEventListener('keydown', e=>{
@@ -210,7 +250,7 @@ page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<div class=wrap><div class=list id=list role=listbox aria-label='Emergent pattern models — use arrow keys to browse, Enter to open'></div>"
     "<main class=detail id=detail tabindex=-1></main></div>"
     "<noscript><p style='padding:20px;color:#8b98a5'>This interactive gallery requires JavaScript to be enabled.</p></noscript>"
-    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)) + "</script></body></html>")
+    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)).replace("__METHODS__", json.dumps(METHODS_HTML)) + "</script></body></html>")
 open("gallery/index.html", "w").write(page)
 print("wrote gallery/index.html", len(page), "bytes;",
       sum(1 for e in M if e.get("asset_type") == "sprite"), "playable,",

@@ -69,3 +69,74 @@ MECHANISM = {
 "P31": "Agents sometimes accept a locally worse move now because it unlocks a better outcome later. Foregoing immediate reward, applied locally and repeatedly, lets the collective reach configurations that purely greedy steps cannot. Goal-directed-looking patience emerges from simple per-agent trade-offs rather than any global plan.",
 "P32": "Each agent takes whichever task it senses most strongly, and its threshold for that task falls with practice, so it specialises. Because specialists handle their task before others' thresholds are tripped, stable, distinct roles differentiate across the group. Division of labour — like castes in social insects — emerges from response thresholds plus learning, with no assignment.",
 }
+
+METHODS_HTML = """
+<h2>How these models are validated</h2>
+<p>The 32 phenomena in this catalogue are <b>established, literature-validated
+science</b> — Schelling segregation, Turing patterns, Kuramoto synchronisation,
+and so on. The science is not what is new here. What is new is a set of
+<b>minimal executable models</b>, each paired with a <b>detector</b> — an
+algorithm that decides, from the raw simulation output alone, whether the named
+pattern is present — and a test of whether that detector actually works.</p>
+<p>"Validated", on every pattern page, means the detector passed the tests
+below. It does <b>not</b> mean the science is novel, and it does <b>not</b> mean
+the detector is infallible. Where it has limits, we show them.</p>
+
+<h3>1 · Negative-control discrimination — the main test</h3>
+<p>A detector that just says "yes" is worthless. So each detector faces a
+<b>panel of negatives it must reject</b>, in three families:</p>
+<ul>
+<li><b>Synthetic nulls</b> — structureless or random inputs with no pattern at all.</li>
+<li><b>Catalogue look-alikes</b> — the <i>other</i> patterns in this catalogue,
+several of which superficially resemble the target.</li>
+<li><b>Failed regimes</b> — the target's own model run in parameter settings
+where the phenomenon does not form.</li>
+</ul>
+<p>Across the 31 patterns with a panel, detectors rejected <b>636 of 636</b>
+negative controls — a true-negative rate of <b>1.0</b>, every panel at 100%.
+Each pattern page shows its own count ("rejected N / N negative controls"). This
+is the evidence that a detector recognises <i>its</i> pattern, not merely "something happened".</p>
+
+<h3>2 · Cross-model generalisation — an instrument, not a lookup table</h3>
+<p>A detector could cheat by memorising quirks of the one model it was built on.
+To check, for seven phenomena we built a <b>second, independent implementation</b>
+(for example, associative memory via a Boolean gene-regulatory network instead of
+a Hopfield net) and tested the detector on the model it was <i>not</i> tuned on.
+All seven still ranked their own pattern first; six fired a firm match. The
+detectors track the <b>phenomenon</b>, not the implementation.</p>
+
+<h3>3 · Self-recognition — necessary but weak</h3>
+<p>Running all 32 detectors over each positive, the correct detector wins for
+<b>30 of 31</b> patterns (one cross-fire between two grid-coarsening patterns).
+We report it for completeness, but it is <b>in-sample</b> evidence — the weakest
+of the three tests, and not a validation on its own.</p>
+
+<h3>Honest caveats</h3>
+<ul>
+<li><b>A withdrawn effect size.</b> An earlier draft reported large Cohen's
+<i>d</i> values, some infinite. Those were an <b>artefact</b> of computing
+<i>d</i> over a discrete confidence score: a cleanly discriminating detector has
+near-zero within-group variance, which inflates <i>d</i> without meaning. We have
+withdrawn those numbers. On the continuous metric, clean separation often makes
+the effect size <b>undefined</b> rather than infinite, and we say so.</li>
+<li><b>"Generic emergence" is not the verdict.</b> Each page also shows a coarse,
+cross-pattern "generic emergence index". It is a rough screen, <b>not</b> the
+pattern-specific result — a detector can fire a definitive match while this index
+is low (associative memory is one). Trust the verdict and the negative-control
+panel, not this number.</li>
+<li><b>Tiers differ.</b> A <b>definitive</b> match is stronger than a
+<b>confirmation</b> or <b>screening</b> one; a few patterns reach only screening
+on a single seed.</li>
+<li><b>Known limits, surfaced not hidden.</b> One pattern (activity-induced phase
+separation) rejects its negatives but does not yet reach a firing tier on its own
+positive — shown as "unclassified". The delayed-gratification / sorting pattern is
+validated by a separate multi-run test, not a panel. An integral-controller
+homeostat is recognised but stays below threshold.</li>
+<li>All of this validates the faithfulness of our <b>detectors and test
+harness</b> — not any new claim about nature.</li>
+</ul>
+
+<h3>Reproduce</h3>
+<p>Method and per-pattern detail live in the project's validation note
+(section&nbsp;4A) and the Phase-2a panel outputs in the source repository.</p>
+"""

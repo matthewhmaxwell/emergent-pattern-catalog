@@ -37,6 +37,8 @@ for pid_up,info in GALLERY.items():
         e["asset"]=None; e["asset_type"]="image"; e["error"]=repr(ex)
         print(f"  {pid_up:<4} {info['viz']:<16} ERR {type(ex).__name__}: {str(ex)[:50]}", flush=True)
     man.append(e)
+from gallery.validation_enrich import enrich
+enrich(man)
 json.dump(man, open("gallery/manifest.json","w"), indent=2)
 print(f"DONE: {sum(1 for e in man if e.get('asset'))}/32 animated")
 open("/tmp/genall_DONE","w").write("done")
