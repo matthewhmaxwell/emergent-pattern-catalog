@@ -102,8 +102,9 @@ def _has(history, key):
 
 
 # ---- snapshot producers (3-phase) -------------------------------------------
-def point_cloud(history, title, **_):
-    fr = _select(_has(history, "positions"), _s_points)
+def point_cloud(history, title, sample="auto", **_):
+    base=_has(history, "positions")
+    fr = _evenly(base) if sample=="even" else _select(base, _s_points)
     if len(fr) < 2: return []
     allp = np.concatenate([np.asarray(f["positions"], float)[:, :2] for f in fr])
     lo, hi = allp.min(0)-1, allp.max(0)+1
@@ -126,9 +127,10 @@ def point_cloud(history, title, **_):
         ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
     return out
 
-def grid_field(history, title, **_):
+def grid_field(history, title, sample="auto", **_):
     key = "field" if (history and "field" in history[-1]) else "grid"
-    fr = _select(_has(history, key), _s_grid)
+    base = _has(history, key)
+    fr = _evenly(base) if sample=="even" else _select(base, _s_grid)
     if len(fr) < 2: return []
     allv = np.concatenate([np.asarray(f[key], float).ravel() for f in fr])
     vmin, vmax = float(allv.min()), float(allv.max()); disc = key == "grid"

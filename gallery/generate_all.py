@@ -6,7 +6,9 @@ from gallery.code_extract import extract_code
 from epc.phase2a.continuous_metrics import CONTINUOUS_METRIC
 ASSETS="gallery/assets"; os.makedirs(ASSETS, exist_ok=True)
 CONF=json.load(open("docs/validation_rebuild/battery_confusion_matrix_2026-06-16.json"))
+from gallery.gallery_runs import GALLERY_RUNS
 def build(pid):
+    if pid in GALLERY_RUNS: return GALLERY_RUNS[pid]()
     if pid=="p31":
         from epc.models.cell_view_sorting import CellViewSorting
         return [CellViewSorting(n=60,algorithm="insertion",seed=1).run_to_completion(max_rounds=400)],{}

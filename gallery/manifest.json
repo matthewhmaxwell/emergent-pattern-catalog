@@ -27,7 +27,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p1.gif"
+      "mp4": "p1.mp4"
     },
     "mp4": "p1.mp4",
     "contact_sheet": "p1_sprite.png"
@@ -60,7 +60,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p2.gif"
+      "mp4": "p2.mp4"
     },
     "mp4": "p2.mp4",
     "contact_sheet": "p2_sprite.png"
@@ -93,7 +93,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p3.gif"
+      "mp4": "p3.mp4"
     },
     "mp4": "p3.mp4",
     "contact_sheet": "p3_sprite.png"
@@ -126,7 +126,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p4.gif"
+      "mp4": "p4.mp4"
     },
     "mp4": "p4.mp4",
     "contact_sheet": "p4_sprite.png"
@@ -159,7 +159,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p5.gif"
+      "mp4": "p5.mp4"
     },
     "mp4": "p5.mp4",
     "contact_sheet": "p5_sprite.png"
@@ -192,7 +192,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p6.gif"
+      "mp4": "p6.mp4"
     },
     "mp4": "p6.mp4",
     "contact_sheet": "p6_sprite.png"
@@ -225,7 +225,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p7.gif"
+      "mp4": "p7.mp4"
     },
     "mp4": "p7.mp4",
     "contact_sheet": "p7_sprite.png"
@@ -258,7 +258,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p8.gif"
+      "mp4": "p8.mp4"
     },
     "mp4": "p8.mp4",
     "contact_sheet": "p8_sprite.png"
@@ -291,7 +291,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p9.gif"
+      "mp4": "p9.mp4"
     },
     "mp4": "p9.mp4",
     "contact_sheet": "p9_sprite.png"
@@ -324,7 +324,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p10.gif"
+      "mp4": "p10.mp4"
     },
     "mp4": "p10.mp4",
     "contact_sheet": "p10_sprite.png"
@@ -357,7 +357,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p11.gif"
+      "mp4": "p11.mp4"
     },
     "mp4": "p11.mp4",
     "contact_sheet": "p11_sprite.png"
@@ -390,7 +390,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p12.gif"
+      "mp4": "p12.mp4"
     },
     "mp4": "p12.mp4",
     "contact_sheet": "p12_sprite.png"
@@ -423,7 +423,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p13.gif"
+      "mp4": "p13.mp4"
     },
     "mp4": "p13.mp4",
     "contact_sheet": "p13_sprite.png"
@@ -456,7 +456,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p14.gif"
+      "mp4": "p14.mp4"
     },
     "mp4": "p14.mp4",
     "contact_sheet": "p14_sprite.png"
@@ -489,7 +489,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p15.gif"
+      "mp4": "p15.mp4"
     },
     "mp4": "p15.mp4",
     "contact_sheet": "p15_sprite.png"
@@ -522,7 +522,7 @@
       "rows": 2,
       "fw": 300,
       "fh": 300,
-      "gif": "p16.gif"
+      "mp4": "p16.mp4"
     },
     "mp4": "p16.mp4",
     "contact_sheet": "p16_sprite.png"
@@ -555,7 +555,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p17.gif"
+      "mp4": "p17.mp4"
     },
     "mp4": "p17.mp4",
     "contact_sheet": "p17_sprite.png"
@@ -588,7 +588,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p18.gif"
+      "mp4": "p18.mp4"
     },
     "mp4": "p18.mp4",
     "contact_sheet": "p18_sprite.png"
@@ -621,7 +621,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p19.gif"
+      "mp4": "p19.mp4"
     },
     "mp4": "p19.mp4",
     "contact_sheet": "p19_sprite.png"
@@ -654,7 +654,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p20.gif"
+      "mp4": "p20.mp4"
     },
     "mp4": "p20.mp4",
     "contact_sheet": "p20_sprite.png"
@@ -687,7 +687,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p21.gif"
+      "mp4": "p21.mp4"
     },
     "mp4": "p21.mp4",
     "contact_sheet": "p21_sprite.png"
@@ -720,7 +720,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p22.gif"
+      "mp4": "p22.mp4"
     },
     "mp4": "p22.mp4",
     "contact_sheet": "p22_sprite.png"
@@ -753,7 +753,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p23.gif"
+      "mp4": "p23.mp4"
     },
     "mp4": "p23.mp4",
     "contact_sheet": "p23_sprite.png"
@@ -786,7 +786,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p24.gif"
+      "mp4": "p24.mp4"
     },
     "mp4": "p24.mp4",
     "contact_sheet": "p24_sprite.png"
@@ -819,7 +819,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p25.gif"
+      "mp4": "p25.mp4"
     },
     "mp4": "p25.mp4",
     "contact_sheet": "p25_sprite.png"
@@ -852,7 +852,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p26.gif"
+      "mp4": "p26.mp4"
     },
     "mp4": "p26.mp4",
     "contact_sheet": "p26_sprite.png"
@@ -885,7 +885,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p27.gif"
+      "mp4": "p27.mp4"
     },
     "mp4": "p27.mp4",
     "contact_sheet": "p27_sprite.png"
@@ -918,7 +918,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p28.gif"
+      "mp4": "p28.mp4"
     },
     "mp4": "p28.mp4",
     "contact_sheet": "p28_sprite.png"
@@ -951,7 +951,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p29.gif"
+      "mp4": "p29.mp4"
     },
     "mp4": "p29.mp4",
     "contact_sheet": "p29_sprite.png"
@@ -984,7 +984,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p30.gif"
+      "mp4": "p30.mp4"
     },
     "mp4": "p30.mp4",
     "contact_sheet": "p30_sprite.png"
@@ -1018,7 +1018,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p31.gif"
+      "mp4": "p31.mp4"
     },
     "mp4": "p31.mp4",
     "contact_sheet": "p31_sprite.png"
@@ -1051,7 +1051,7 @@
       "rows": 6,
       "fw": 300,
       "fh": 300,
-      "gif": "p32.gif"
+      "mp4": "p32.mp4"
     },
     "mp4": "p32.mp4",
     "contact_sheet": "p32_sprite.png"
