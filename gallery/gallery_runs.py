@@ -25,4 +25,14 @@ def _p3():   # Gray-Scott: longer run, fine recording so the labyrinth spreads
             h.append({"field": np.asarray(st["field"], dtype=np.float32), "step": t})
     return [h], {}
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29}
+def _p11():  # Lotka-Volterra: smaller lattice -> larger, more visible anti-correlated population cycles
+    from epc.models.lotka_volterra_lattice import LotkaVolterraLattice
+    m = LotkaVolterraLattice(rows=40, cols=40, predation_rate=4.0,
+        prey_reproduction_rate=1.0, predator_death_rate=1.0, seed=1)
+    return [m.run(n_steps=1200)], m.get_metadata()
+
+# NOTE: P24 keeps the validated PROPORTIONAL homeostat (build_p24). The IntegralHomeostat was
+# tried for zero-offset return but is unstable at every gain (oscillatory divergence); proportional
+# rejects ~80% of the perturbation with a small residual offset — legitimate regulation, shown honestly.
+
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11}
