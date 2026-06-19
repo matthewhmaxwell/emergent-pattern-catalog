@@ -510,6 +510,30 @@ def minority_game(history, title, key="attendance", **_):
         ax.legend(fontsize=7, loc="upper right"); out.append(_img(fig))
     return out
 
+def gradient_climb(history, title, **_):
+    """Swarm climbing a gradient: agents coloured by their NOISY local reading, with the group
+    centroid's trail (red) showing steady net translation up-gradient — 'many wrongs' average into
+    accurate collective navigation no individual achieves (Berdahl, P17)."""
+    H = [f for f in history if isinstance(f, dict) and "positions" in f]
+    if len(H) < 3: return []
+    fr = H if len(H) <= NF else [H[i] for i in np.linspace(0, len(H)-1, NF).astype(int)]
+    allp = np.concatenate([np.asarray(f["positions"], float)[:, :2] for f in fr])
+    lo, hi = allp.min(0) - 1, allp.max(0) + 1
+    cents = np.array([np.asarray(f["positions"], float)[:, :2].mean(0) for f in fr])
+    fs_all = np.concatenate([np.asarray(f.get("field_samples", np.zeros(len(np.asarray(f["positions"])))), float).ravel() for f in fr])
+    vmin, vmax = float(fs_all.min()), float(fs_all.max())
+    out = []
+    for k, f in enumerate(fr):
+        p = np.asarray(f["positions"], float)[:, :2]
+        fsv = np.asarray(f.get("field_samples", np.zeros(len(p))), float).ravel()
+        fig, ax = _new(title)
+        ax.scatter(p[:, 0], p[:, 1], c=fsv, cmap="viridis", vmin=vmin, vmax=vmax, s=18)
+        ax.plot(cents[:k+1, 0], cents[:k+1, 1], "-", color="#e53e3e", lw=2)
+        ax.scatter([cents[k, 0]], [cents[k, 1]], c="#e53e3e", s=70, marker="*", zorder=4)
+        ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_aspect("equal")
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
 def traffic_spacetime(history, title, bins=200, **_):
     """Space-time diagram of a 1-D road (position x time, colour = speed) — a traffic jam is a
     band of stopped cars that propagates BACKWARD as a red diagonal stripe (Nagel-Schreckenberg, P8)."""
@@ -594,7 +618,7 @@ PRODUCERS = {
     "pop_time": pop_time, "noise_response": noise_response, "phase_space": phase_space,
     "spacetime_slice": spacetime_slice, "pca_funnel": pca_funnel,
     "traffic_spacetime": traffic_spacetime, "occupancy_field": occupancy_field, "regulate_time": regulate_time,
-    "leadership": leadership, "minority_game": minority_game,
+    "leadership": leadership, "minority_game": minority_game, "gradient_climb": gradient_climb,
 }
 
 
