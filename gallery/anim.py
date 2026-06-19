@@ -154,18 +154,31 @@ def point_cloud(history, title, sample="auto", **_):
         ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
     return out
 
-def grid_field(history, title, sample="auto", **_):
+def grid_field(history, title, sample="auto", legend=None, empty_idx=None, **_):
     key = "field" if (history and "field" in history[-1]) else "grid"
     base = _has(history, key)
-    fr = _evenly(base) if sample=="even" else _select(base, _s_grid)
+    fr = _evenly(base) if sample == "even" else _select(base, _s_grid)
     if len(fr) < 2: return []
     allv = np.concatenate([np.asarray(f[key], float).ravel() for f in fr])
     vmin, vmax = float(allv.min()), float(allv.max()); disc = key == "grid"
+    if disc:
+        from matplotlib.colors import ListedColormap, BoundaryNorm
+        import matplotlib.patches as mpatches
+        nlev = int(round(vmax)) + 1
+        cols = [plt.cm.tab10(i % 10) for i in range(nlev)]
+        if empty_idx is not None and 0 <= empty_idx < nlev:
+            cols[empty_idx] = (0.91, 0.91, 0.91, 1.0)   # subordinate light grey for empty/idle (QA DC7)
+        lcmap = ListedColormap(cols); norm = BoundaryNorm(np.arange(-0.5, nlev + 0.5, 1), nlev)
     out = []
     for f in fr:
         fig, ax = _new(title)
-        ax.imshow(np.asarray(f[key], float), cmap=("tab10" if disc else "viridis"),
-                  vmin=vmin, vmax=vmax, interpolation="nearest")
+        if disc:                                        # discrete states -> exact per-value tab10 colours (no continuous mis-sampling)
+            ax.imshow(np.asarray(f[key], float), cmap=lcmap, norm=norm, interpolation="nearest")
+            if legend:
+                handles = [mpatches.Patch(color=cols[i], label=legend[i]) for i in range(min(len(legend), nlev))]
+                ax.legend(handles=handles, fontsize=6, loc="upper right", framealpha=.9)
+        else:
+            ax.imshow(np.asarray(f[key], float), cmap="viridis", vmin=vmin, vmax=vmax, interpolation="nearest")
         ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
     return out
 
