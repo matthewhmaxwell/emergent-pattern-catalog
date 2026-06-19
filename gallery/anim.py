@@ -468,6 +468,81 @@ def pca_funnel(history, title, key="state", group="trial", **_):
     return out
 
 
+def traffic_spacetime(history, title, bins=200, **_):
+    """Space-time diagram of a 1-D road (position x time, colour = speed) — a traffic jam is a
+    band of stopped cars that propagates BACKWARD as a red diagonal stripe (Nagel-Schreckenberg, P8)."""
+    H = [f for f in history if isinstance(f, dict) and "positions" in f]
+    if len(H) < 3: return []
+    L = float(H[0].get("L", max(np.asarray(H[0]["positions"]).max(), 1) + 1))
+    vmax = float(max(np.asarray(f.get("velocities", [1])).max() for f in H)) or 1.0
+    Hs = H if len(H) <= 400 else [H[i] for i in np.linspace(0, len(H)-1, 400).astype(int)]
+    rows = []
+    for f in Hs:
+        p = np.asarray(f["positions"], float).ravel()
+        v = np.asarray(f.get("velocities", np.full_like(p, vmax)), float).ravel()
+        b = np.clip((p / L * bins).astype(int), 0, bins-1)
+        row = np.full(bins, np.nan)
+        for bi, vi in zip(b, v):
+            row[bi] = vi if np.isnan(row[bi]) else min(row[bi], vi)   # slowest car in the bin (0 = jam)
+        rows.append(row)
+    img = np.array(rows); T = img.shape[0]
+    out = []
+    for c in np.linspace(max(6, T // NF + 2), T, NF).astype(int):
+        fig, ax = _new(title)
+        ax.imshow(img[:c], aspect="auto", cmap="RdYlGn", vmin=0, vmax=vmax, interpolation="nearest",
+                  origin="lower", extent=[0, L, 0, c])
+        ax.set_xlim(0, L); ax.set_ylim(0, T); ax.set_xlabel("position on road (red = stopped)"); ax.set_ylabel("time ->")
+        out.append(_img(fig))
+    return out
+
+def occupancy_field(history, title, **_):
+    """Per-agent occupancy map — each cell coloured by the agent that visits it most; distinct
+    non-overlapping colour regions are the exclusive home ranges of territoriality (P4)."""
+    from matplotlib.colors import ListedColormap, BoundaryNorm
+    H = [f for f in history if isinstance(f, dict) and "positions" in f]
+    if len(H) < 3: return []
+    G = int(H[0].get("grid_size", int(np.asarray(H[0]["positions"]).max()) + 1))
+    na = int(np.asarray(H[0]["positions"]).shape[0])
+    Hs = H if len(H) <= 300 else [H[i] for i in np.linspace(0, len(H)-1, 300).astype(int)]
+    counts = np.zeros((na, G, G)); snaps = []; every = max(1, len(Hs) // NF)
+    for t, f in enumerate(Hs):
+        P = np.asarray(f["positions"], int)
+        for a in range(min(na, len(P))):
+            counts[a, P[a, 0] % G, P[a, 1] % G] += 1
+        if t % every == 0 or t == len(Hs)-1:
+            tot = counts.sum(0); dom = counts.argmax(0).astype(float); dom[tot == 0] = np.nan
+            snaps.append(dom.copy())
+    lcmap = ListedColormap([plt.cm.tab10(a % 10) for a in range(na)]); norm = BoundaryNorm(np.arange(-0.5, na+0.5, 1), na)
+    out = []
+    for dom in snaps[:NF]:
+        fig, ax = _new(title)
+        ax.imshow(dom.T, cmap=lcmap, norm=norm, interpolation="nearest", origin="lower")
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
+def regulate_time(history, title, key="x", setpoint="setpoint", perturb="perturbation", **_):
+    """State vs set-point over time, with perturbation onsets marked — shows homeostatic regulation
+    driving the variable back toward its set-point after a kick (Ashby, P24)."""
+    H = [f for f in history if isinstance(f, dict) and key in f]
+    if len(H) < 2: return []
+    x = np.array([float(f[key]) for f in H]); sp = np.array([float(f.get(setpoint, 0)) for f in H])
+    pert = np.array([float(f.get(perturb, 0)) for f in H]); L = len(H)
+    if L > 600:
+        ix = np.linspace(0, L-1, 600).astype(int); x, sp, pert = x[ix], sp[ix], pert[ix]; L = 600
+    pon = np.where(np.abs(np.diff(pert)) > 1e-9)[0]
+    ymin = min(x.min(), sp.min()); ymax = max(x.max(), sp.max()); pad = 0.1*(ymax - ymin) + 1e-6
+    out = []
+    for k in np.linspace(0, L-1, NF).astype(int):
+        fig, ax = _new(title)
+        ax.plot(sp[:k+1], "--", color="#e53e3e", lw=1.3, label="set-point")
+        ax.plot(x[:k+1], color="#2b6cb0", lw=1.6, label="state")
+        for po in pon:
+            if po <= k: ax.axvline(po, color="#b7791f", lw=0.9, alpha=.6)
+        ax.set_xlim(0, L); ax.set_ylim(ymin-pad, ymax+pad); ax.set_xlabel("time"); ax.set_ylabel(key)
+        ax.legend(fontsize=8, loc="upper right"); out.append(_img(fig))
+    return out
+
+
 PRODUCERS = {
     "point_cloud": point_cloud, "grid_field": grid_field, "phase_circle": phase_circle,
     "road_1d": road_1d, "vector_grid": vector_grid, "histogram_time": histogram_time,
@@ -476,6 +551,7 @@ PRODUCERS = {
     "network_time": network_time, "bars_sort": bars_sort, "growing_spacetime": growing_spacetime,
     "pop_time": pop_time, "noise_response": noise_response, "phase_space": phase_space,
     "spacetime_slice": spacetime_slice, "pca_funnel": pca_funnel,
+    "traffic_spacetime": traffic_spacetime, "occupancy_field": occupancy_field, "regulate_time": regulate_time,
 }
 
 
