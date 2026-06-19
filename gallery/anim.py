@@ -468,6 +468,48 @@ def pca_funnel(history, title, key="state", group="trial", **_):
     return out
 
 
+def leadership(history, title, **_):
+    """Heading arrows with the INFORMED minority ringed in black and their mean direction drawn as a
+    bold arrow — shows a few informed individuals steering the whole group's travel direction (Couzin, P19)."""
+    base = _has(history, "positions"); fr = _select(base, _s_points)
+    if len(fr) < 2: return []
+    allp = np.concatenate([np.asarray(f["positions"], float)[:, :2] for f in fr])
+    lo, hi = allp.min(0) - 1, allp.max(0) + 1; span = float((hi - lo).mean())
+    out = []
+    for f in fr:
+        p = np.asarray(f["positions"], float)[:, :2]; h = _headings(f)
+        inf = np.asarray(f.get("informed_mask", np.zeros(len(p), bool))).astype(bool)
+        fig, ax = _new(title)
+        ax.quiver(p[:, 0], p[:, 1], np.cos(h), np.sin(h), (h % (2*np.pi)), cmap="hsv", clim=(0, 2*np.pi),
+                  scale=22, scale_units="width", width=0.005, headwidth=3, pivot="mid", alpha=.7)
+        if inf.any():
+            ax.scatter(p[inf, 0], p[inf, 1], s=55, facecolors="none", edgecolors="black", linewidths=1.4, zorder=4)
+            mh = np.angle(np.exp(1j*h[inf]).mean()); c = p.mean(0); s = span*0.22
+            ax.annotate("", xy=(c[0]+s*np.cos(mh), c[1]+s*np.sin(mh)), xytext=(c[0], c[1]),
+                        arrowprops=dict(arrowstyle="-|>", color="black", lw=2.2))
+        ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_aspect("equal")
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
+def minority_game(history, title, key="attendance", **_):
+    """Attendance vs the resource capacity (N/2) with the random-choice baseline band — coordinated
+    play keeps attendance in a TIGHTER band than random (better-than-chance resource use) (P23)."""
+    H = [f for f in history if isinstance(f, dict) and key in f]
+    if len(H) < 2: return []
+    a = np.array([float(f[key]) for f in H]); N = float(H[0].get("n_agents", a.max()*2 or 2))
+    cap = N/2; rstd = np.sqrt(N)/2; L = len(H)
+    if L > 600:
+        a = a[np.linspace(0, L-1, 600).astype(int)]; L = 600
+    out = []
+    for k in np.linspace(0, L-1, NF).astype(int):
+        fig, ax = _new(title)
+        ax.axhspan(cap-2*rstd, cap+2*rstd, color="#cbd5e0", alpha=.5, label="random ±2σ")
+        ax.axhline(cap, ls="--", color="#e53e3e", lw=1.2, label="capacity N/2")
+        ax.plot(a[:k+1], color="#2b6cb0", lw=1.0)
+        ax.set_xlim(0, L); ax.set_ylim(cap-3*rstd, cap+3*rstd); ax.set_xlabel("round"); ax.set_ylabel("attendance")
+        ax.legend(fontsize=7, loc="upper right"); out.append(_img(fig))
+    return out
+
 def traffic_spacetime(history, title, bins=200, **_):
     """Space-time diagram of a 1-D road (position x time, colour = speed) — a traffic jam is a
     band of stopped cars that propagates BACKWARD as a red diagonal stripe (Nagel-Schreckenberg, P8)."""
@@ -552,6 +594,7 @@ PRODUCERS = {
     "pop_time": pop_time, "noise_response": noise_response, "phase_space": phase_space,
     "spacetime_slice": spacetime_slice, "pca_funnel": pca_funnel,
     "traffic_spacetime": traffic_spacetime, "occupancy_field": occupancy_field, "regulate_time": regulate_time,
+    "leadership": leadership, "minority_game": minority_game,
 }
 
 
