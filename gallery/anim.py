@@ -335,16 +335,24 @@ def dist_accumulate(history, title, key="avalanche_sizes", **_):
     return out
 
 def growing_spacetime(history, title, key="task_assignments", **_):
+    import matplotlib.patches as mpatches
     rows = [np.asarray(f[key], float) for f in history if isinstance(f, dict) and key in f]
     if len(rows) < 2: return []
     L = min(len(r) for r in rows); img = np.array([r[:L] for r in rows])
     if img.shape[0] > 300: img = img[np.linspace(0, img.shape[0]-1, 300).astype(int)]
+    from matplotlib.colors import ListedColormap, BoundaryNorm
+    T = img.shape[0]; ntask = int(img.max()) + 1; base = plt.cm.tab10
+    lcmap = ListedColormap([base(t % 10) for t in range(ntask)])         # discrete: each task id -> its exact tab10 colour (matches legend)
+    norm = BoundaryNorm(np.arange(-0.5, ntask + 0.5, 1), ntask)
+    handles = [mpatches.Patch(color=base(t % 10), label=f"task {t}") for t in range(min(ntask, 6))]
     out = []
-    for c in np.linspace(2, img.shape[0], NF).astype(int):
+    for c in np.linspace(max(6, T // NF + 2), T, NF).astype(int):   # start wide enough; grow the raster into a FIXED frame
         fig, ax = _new(title)
-        ax.imshow(img[:c].T, aspect="auto", cmap="tab10", interpolation="nearest", origin="lower",
-                  extent=[0, img.shape[0], 0, img.shape[1]])
-        ax.set_xlim(0, img.shape[0]); ax.set_xlabel("step"); ax.set_ylabel("agent"); out.append(_img(fig))
+        ax.imshow(img[:c].T, aspect="auto", cmap=lcmap, norm=norm, interpolation="nearest",
+                  origin="lower", extent=[0, c, 0, img.shape[1]])        # extent matches accumulated steps -> no first-frame stretch
+        ax.set_xlim(0, T); ax.set_ylim(0, img.shape[1]); ax.set_xlabel("step"); ax.set_ylabel("agent")
+        ax.legend(handles=handles, fontsize=6, loc="upper right", framealpha=.9)
+        out.append(_img(fig))
     return out
 
 
@@ -409,6 +417,57 @@ def phase_space(history, title, **_):
     return out
 
 
+def spacetime_slice(history, title, cmap="inferno", **_):
+    """Space-time raster of a fixed 1-D slice (middle row) over time — travelling waves show as
+    diagonal stripes (propagation), so sustained spiral/target waves are visible (P13)."""
+    key = "field" if (history and isinstance(history[-1], dict) and "field" in history[-1]) else "grid"
+    fr = _has(history, key)
+    if len(fr) < 3: return []
+    grids = [np.asarray(f[key], float) for f in fr]
+    r = grids[0].shape[0] // 2 if grids[0].ndim == 2 else 0
+    sl = np.array([(g[r] if g.ndim == 2 else g.ravel()) for g in grids])      # (T, X)
+    T = sl.shape[0]
+    if T > 400:
+        sl = sl[np.linspace(0, T-1, 400).astype(int)]; T = 400
+    vmin, vmax = float(sl.min()), float(sl.max())
+    out = []
+    for c in np.linspace(max(6, T // NF + 2), T, NF).astype(int):
+        fig, ax = _new(title)
+        ax.imshow(sl[:c], aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax, interpolation="nearest",
+                  origin="lower", extent=[0, sl.shape[1], 0, c])
+        ax.set_xlim(0, sl.shape[1]); ax.set_ylim(0, T); ax.set_xlabel("space (lattice slice)"); ax.set_ylabel("time ->")
+        out.append(_img(fig))
+    return out
+
+def pca_funnel(history, title, key="state", group="trial", **_):
+    """2-D PCA of per-trial trajectories — many different initial conditions (blue) all funnel to
+    the same final state (red): equifinality, which a distance-to-target line collapses away (P25)."""
+    H = [f for f in history if isinstance(f, dict) and key in f and group in f]
+    if len(H) < 4: return []
+    tr = {}
+    for f in H:
+        tr.setdefault(int(f[group]), []).append(np.asarray(f[key], float).ravel())
+    tr = {g: np.array(v) for g, v in list(tr.items()) if len(v) > 1}
+    tr = dict(list(tr.items())[:12])
+    if len(tr) < 2: return []
+    allp = np.vstack(list(tr.values())); mu = allp.mean(0)
+    Vt = np.linalg.svd(allp - mu, full_matrices=False)[2]; comp = Vt[:2]
+    proj = {g: (v - mu) @ comp.T for g, v in tr.items()}
+    P = np.vstack(list(proj.values())); lo, hi = P.min(0) - 0.5, P.max(0) + 0.5
+    Lmax = max(len(p) for p in proj.values())
+    out = []
+    for k in np.linspace(0, Lmax-1, NF).astype(int):
+        fig, ax = _new(title)
+        for p in proj.values():
+            kk = min(int(k), len(p)-1)
+            ax.plot(p[:kk+1, 0], p[:kk+1, 1], lw=1.0, alpha=.65, color="#888")
+            ax.scatter([p[0, 0]], [p[0, 1]], c="#2b6cb0", s=18, zorder=3)
+            ax.scatter([p[kk, 0]], [p[kk, 1]], c="#e53e3e", s=12, zorder=4)
+        ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_xlabel("PC1"); ax.set_ylabel("PC2")
+        out.append(_img(fig))
+    return out
+
+
 PRODUCERS = {
     "point_cloud": point_cloud, "grid_field": grid_field, "phase_circle": phase_circle,
     "road_1d": road_1d, "vector_grid": vector_grid, "histogram_time": histogram_time,
@@ -416,6 +475,7 @@ PRODUCERS = {
     "sweep_trace": sweep_trace, "dist_accumulate": dist_accumulate,
     "network_time": network_time, "bars_sort": bars_sort, "growing_spacetime": growing_spacetime,
     "pop_time": pop_time, "noise_response": noise_response, "phase_space": phase_space,
+    "spacetime_slice": spacetime_slice, "pca_funnel": pca_funnel,
 }
 
 
@@ -518,9 +578,13 @@ def _m_prune(f):                        # P29: active-edge count — RISES (mesh
     W = np.asarray(f["edge_weights"], float); m = max(W.max(), 1e-9)
     return float((W > 0.1*m).sum())
 
-FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes, "P29": _m_prune}
-# NOTE: P13 (excitable waves) is NOT fixable by a dwell measure — grid snapshots of a
-# rotating wave render near-identically; it needs the space-time raster view (Batch 3 / DC3).
+def _m_excited(f):                       # P13: excited-cell count — OSCILLATES with each wave, so equal-arc samples across the wave cycle
+    if "excited_count" in f: return float(f["excited_count"])
+    a = _fld(f); return float((a > 0).mean()) if a.size else 0.0
+
+FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes, "P29": _m_prune, "P13": _m_excited}
+# spacetime_slice (1-D space-time raster) is reserved for genuinely 1-D systems (e.g. P8 traffic,
+# where a backward jam wave reads as a clean diagonal) — a 1-D slice through 2-D spirals does not.
 
 
 def render(history, viz, out_base, title, args=None, measure=None):
