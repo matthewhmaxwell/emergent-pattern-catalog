@@ -242,7 +242,7 @@ P16 (associative memory, Hopfield network on a new connected-graph
 substrate), P17 (distributed sensing), P20 (quorum sensing), P30
 (autopoiesis), and P32 (emergent specialization).
 
-**Discovery mode.** The current workflow is confirmatory: implement a
+**Discovery mode (now realized as the instrument layer of §5A; the EMERGENT-UNCLASSIFIED verdict is the unexpected-detection flag).** The current workflow is confirmatory: implement a
 model, predict which patterns it should exhibit, and verify. A
 complementary discovery mode would run the full detector battery on a
 new model without prior expectations and flag unexpected detections
@@ -258,7 +258,7 @@ false positives. The carry-forward of known-compatible-but-not-audited
 cells in the transfer matrix (e.g., GH × P11, GoL × P11) is the
 low-hanging fruit for this effort.
 
-**Substrate-agnostic detection.** Every Class 1 registry filter and
+**Substrate-agnostic detection (a first substrate-agnostic primitive — the generic-emergence indicator — is realized in §5A.3, with documented coverage gaps).** Every Class 1 registry filter and
 every Class 2 content-level gate encodes substrate-specific knowledge
 (`grid` observable, `velocities` observable, N-point ring topology).
 For application to biological data where the substrate is typically

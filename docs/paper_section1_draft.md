@@ -91,7 +91,7 @@ three.
 
 ## 1.3 Contribution
 
-We present three interlocking artifacts.
+We present four interlocking artifacts.
 
 *A three-layer pattern catalog of 32 atomic emergent behaviors.* Layer 1
 contains 32 atomic patterns across 10 clusters, each defined by an
@@ -124,6 +124,8 @@ capped by tier, and the outcomes of nearest-neighbor exclusion tests.
 Detectors declare their substrate compatibility and their observable
 scope (whether they operate on state history alone or require model
 metadata), enabling systematic dispatch across the model inventory.
+
+*An instrument layer that turns the catalog into a measurement device.* Beyond detecting a pre-specified pattern, the battery can be pointed at a system it was not built on and return a calibrated, cross-pattern-comparable emergent-pattern profile with a three-way verdict — MATCH (a catalogued pattern), EMERGENT-UNCLASSIFIED (self-organization matching none of the detectors, the novelty / discovery signal), or NO-EMERGENCE. We validate this layer on held-out out-of-distribution systems and demonstrate it, read blind, on a multi-agent large-language-model swarm in Section 5A.
 
 We validate the toolkit by implementing 20 registered models across
 19 distinct canonical model families (Zhang cell-view sorting has
