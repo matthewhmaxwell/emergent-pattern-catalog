@@ -35,4 +35,41 @@ def _p11():  # Lotka-Volterra: smaller lattice -> larger, more visible anti-corr
 # tried for zero-offset return but is unstable at every gain (oscillatory divergence); proportional
 # rejects ~80% of the perturbation with a small residual offset — legitimate regulation, shown honestly.
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11}
+def _p16():  # Hopfield: store RECOGNISABLE 10x10 glyphs so recall is a VISIBLE clean-up of a corrupted letter
+    rng = np.random.default_rng(3)
+    def g(rows): return np.array([[1.0 if c == "#" else -1.0 for c in r] for r in rows]).ravel()
+    glyphs = [
+        g(["..######..", ".##....##.", "##......##", "##......##", "##......##",
+           "##......##", "##......##", "##......##", ".##....##.", "..######.."]),   # O
+        g(["##########", "##########", "....##....", "....##....", "....##....",
+           "....##....", "....##....", "....##....", "....##....", "....##...."]),   # T
+        g(["#........#", "##......##", ".##....##.", "..##..##..", "...####...",
+           "...####...", "..##..##..", ".##....##.", "##......##", "#........#"]),   # X
+        g(["....##....", "....##....", "....##....", "##########", "##########",
+           "##########", "....##....", "....##....", "....##....", "....##...."]),   # +
+    ]
+    pats = np.array(glyphs); N = pats.shape[1]
+    W = sum(np.outer(p, p) for p in pats) / N
+    np.fill_diagonal(W, 0.0)
+    target = pats[0].copy(); s = target.copy()
+    s[rng.choice(N, size=int(0.28 * N), replace=False)] *= -1     # 28%-corrupted cue
+    sp = pats.astype(int)
+    def rec(t, conv):
+        return {"state": s.copy().astype(int), "overlap": float((s * target).mean()), "step": t,
+                "trial": 0, "cue_pattern_idx": 0, "converged": conv, "stored_patterns": sp}
+    hist = [rec(0, False)]
+    order = rng.permutation(N); k = 0
+    for t in range(1, 60):
+        for _ in range(6):                                       # 6 async neuron updates per frame -> gradual clean-up
+            i = order[k % N]; k += 1
+            s[i] = 1.0 if (W[i] @ s) >= 0 else -1.0
+        ov = float((s * target).mean()); hist.append(rec(t, ov > 0.999))
+        if ov > 0.9999 and t > 8: break
+    for t in range(len(hist), len(hist) + 4): hist.append(rec(t, True))   # hold the recalled glyph
+    return [hist], {}
+
+def _p12():  # RPS: larger lattice + higher mobility (toward M_c~4.5e-4) -> active swirling cyclic domains, not frozen coarsening
+    from epc.models.rps_spatial import RPSSpatialModel
+    return [RPSSpatialModel(rows=90, cols=90, mobility=3e-4, seed=2).run(n_steps=400)], {}
+
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12}
