@@ -759,7 +759,10 @@ def _m_excited(f):                       # P13: excited-cell count — OSCILLATE
     if "excited_count" in f: return float(f["excited_count"])
     a = _fld(f); return float((a > 0).mean()) if a.size else 0.0
 
-FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes, "P29": _m_prune, "P13": _m_excited}
+FRAME_MEASURE = {"P3": _m_turing, "P6": _m_mill, "P7": _m_lanes, "P29": _m_prune}
+# P13 uses even sampling over a short formation-rich run (see gallery_runs._p13): the established
+# excitable medium is a period-8 limit cycle (only ~8 distinct global states though every cell moves
+# each step), so distinctness lives in the formation transient; the mp4 conveys the sustained sweep.
 # spacetime_slice (1-D space-time raster) is reserved for genuinely 1-D systems (e.g. P8 traffic,
 # where a backward jam wave reads as a clean diagonal) — a 1-D slice through 2-D spirals does not.
 

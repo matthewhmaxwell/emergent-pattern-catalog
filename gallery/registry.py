@@ -56,6 +56,7 @@ GALLERY = {
    watch="Watch the three species form swirling, rotating domains that endlessly chase one another (rock←scissors←paper←rock), so no colour ever wins and all three coexist.",
    effect="Self-sustaining spiral waves maintain coexistence."),
 "P13": dict(name="Excitable spiral / target waves", ref="Greenberg-Hastings 1978", viz="grid_field",
+   args=dict(sample="even"),
    summary="Excitable cells with refractory recovery.",
    watch="Watch curved wavefronts sweep across the lattice and spiral around their cores — as each passes, cells fire then go dark (refractory), so the waves keep regenerating and never settle.",
    effect="Self-sustaining spiral and target waves propagate."),

@@ -72,6 +72,11 @@ def _p12():  # RPS: larger lattice + higher mobility (toward M_c~4.5e-4) -> acti
     from epc.models.rps_spatial import RPSSpatialModel
     return [RPSSpatialModel(rows=90, cols=90, mobility=3e-4, seed=2).run(n_steps=400)], {}
 
+def _p13():  # Excitable waves: shorter formation-rich run (established medium is a period-8 limit cycle -> few distinct frames)
+    from epc.models.greenberg_hastings import GreenbergHastings
+    return [GreenbergHastings(rows=60, cols=60, n_states=8, threshold=1, neighborhood="moore",
+        init_density=0.3, seed=2).run(n_steps=120)], {}
+
 def _p2():   # MIPS: higher packing (phi=0.7) so the active gas clearly phase-separates into dense+dilute domains
     from epc.models.active_brownian_particles import ActiveBrownianParticles
     N = 1000; phi = 0.7; box = float(np.sqrt(N * np.pi / 4.0 / phi))
@@ -83,4 +88,4 @@ def _p27():  # Spatial PD: near-all-cooperator start + chaotic b -> defectors in
     from epc.models.nowak_may import NowakMayModel
     return [NowakMayModel(rows=60, cols=60, b=1.85, init_coop_fraction=0.9, seed=3).run(n_steps=200)], {}
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27}
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27, "p13": _p13}
