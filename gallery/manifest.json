@@ -3,12 +3,12 @@
     "id": "P1",
     "name": "Similarity-driven aggregation",
     "ref": "Schelling 1971",
-    "summary": "Agents relocate when too few neighbours share their type.",
+    "summary": "Agents relocate when too few neighbors share their type.",
     "effect": "Mild individual preference produces large segregated clusters.",
     "viz": "grid_field",
-    "watch": "Watch the two intermixed groups sort into large single-colour blocks (empty cells stay grey) \u2014 nobody is forced, yet sharp segregated neighbourhoods form.",
+    "watch": "Watch the two intermixed groups sort into large single-color blocks (empty cells stay gray) \u2014 nobody is forced, yet sharp segregated neighborhoods form.",
     "metric": "morans_i",
-    "mechanism": "Each agent moves only if too few of its immediate neighbours share its type \u2014 a mild local preference, not a wish to segregate. But every move changes other agents' neighbourhoods, triggering more moves; the feedback cascades until the grid sorts into large single-type blocks. Strong global segregation emerges from weak individual preference, with no one intending it.",
+    "mechanism": "Each agent moves only if too few of its immediate neighbors share its type \u2014 a mild local preference, not a wish to segregate. But every move changes other agents' neighborhoods, triggering more moves; the feedback cascades until the grid sorts into large single-type blocks. Strong global segregation emerges from weak individual preference, with no one intending it.",
     "detector": {
       "top": "P1",
       "tier": "definitive",
@@ -88,7 +88,7 @@
     "name": "Turing pattern formation",
     "ref": "Gray-Scott (Pearson 1993)",
     "summary": "Reaction-diffusion with a fast inhibitor and slow activator.",
-    "effect": "A stationary labyrinth at a selected wavelength self-organises from near-uniformity.",
+    "effect": "A stationary labyrinth at a selected wavelength self-organizes from near-uniformity.",
     "viz": "grid_field",
     "watch": "Watch the near-uniform field break into a maze of stripes/spots at one repeating spacing.",
     "metric": "turing_discriminant",
@@ -132,9 +132,9 @@
     "summary": "Agents deposit and avoid foreign scent as they move.",
     "effect": "Exclusive home ranges with sharp boundaries emerge.",
     "viz": "occupancy_field",
-    "watch": "Watch each cell take the colour of the agent that visits it most \u2014 the colours separate out as agents settle into their own home-range patches and stop sharing ground.",
+    "watch": "Watch each cell take the color of the agent that visits it most \u2014 the colors separate out as agents settle into their own home-range patches and stop sharing ground.",
     "metric": "avoidance_ratio",
-    "mechanism": "Each animal deposits scent as it moves and steps away from cells marked by others. Because everyone retreats from foreign scent, overlapping ranges are pushed apart until each settles into its own patch with sharp borders. Exclusive territories emerge from a simple 'avoid the neighbours' smell' rule \u2014 no fighting, no negotiation.",
+    "mechanism": "Each animal deposits scent as it moves and steps away from cells marked by others. Because everyone retreats from foreign scent, overlapping ranges are pushed apart until each settles into its own patch with sharp borders. Exclusive territories emerge from a simple 'avoid the neighbors' smell' rule \u2014 no fighting, no negotiation.",
     "detector": {
       "top": "P4",
       "tier": "definitive",
@@ -171,12 +171,12 @@
     "id": "P5",
     "name": "Flocking / alignment",
     "ref": "Vicsek et al. 1995",
-    "summary": "Each agent steers toward the mean heading of neighbours.",
+    "summary": "Each agent steers toward the mean heading of neighbors.",
     "effect": "Global polar order (a moving flock) emerges below a noise threshold.",
     "viz": "point_cloud",
     "watch": "Watch the randomly-pointing arrows swing into one shared direction and move as a single flock.",
     "metric": "polarization_mean",
-    "mechanism": "Each agent steers toward the average heading of its nearby neighbours, plus a little noise. Alignment is contagious: a locally agreed direction spreads neighbour to neighbour until the whole group moves together. Below a noise threshold this local copying tips into global polar order \u2014 a flock \u2014 with no leader and no shared goal.",
+    "mechanism": "Each agent steers toward the average heading of its nearby neighbors, plus a little noise. Alignment is contagious: a locally agreed direction spreads neighbor to neighbor until the whole group moves together. Below a noise threshold this local copying tips into global polar order \u2014 a flock \u2014 with no leader and no shared goal.",
     "detector": {
       "top": "P5",
       "tier": "definitive",
@@ -216,7 +216,7 @@
     "summary": "Self-propulsion plus attraction-repulsion forces.",
     "effect": "A rotating mill (nonzero angular momentum) forms.",
     "viz": "point_cloud",
-    "watch": "Watch the swarm curl into a rotating ring (a vortex) circling a hollow centre.",
+    "watch": "Watch the swarm curl into a rotating ring (a vortex) circling a hollow center.",
     "metric": "angular_momentum_abs_mean",
     "mechanism": "Self-propelled particles attract at a distance and repel up close. Balanced, these forces cannot settle into a still clump or a straight march, so the group resolves the tension by circulating. A rotating mill (vortex) emerges purely from the interplay of propulsion with attraction\u2013repulsion.",
     "detector": {
@@ -256,7 +256,7 @@
     "name": "Lane formation",
     "ref": "Helbing & Molnar 1995",
     "summary": "Two opposing streams of agents avoid collisions.",
-    "effect": "Counter-flowing lanes self-organise.",
+    "effect": "Counter-flowing lanes self-organize.",
     "viz": "point_cloud",
     "watch": "Watch the two opposing crowds sort into parallel lanes that slide past each other.",
     "metric": "lane_order_parameter_mean",
@@ -291,7 +291,7 @@
     },
     "mp4": "p7.mp4",
     "contact_sheet": "p7_sprite.png",
-    "where": "Pedestrians spontaneously forming lanes in dense counterflow, and two-way ant trails (society/nature); self-organised lanes in traffic and particle sorting in microfluidic channels (technology)."
+    "where": "Pedestrians spontaneously forming lanes in dense counterflow, and two-way ant trails (society/nature); self-organized lanes in traffic and particle sorting in microfluidic channels (technology)."
   },
   {
     "id": "P8",
@@ -344,7 +344,7 @@
     "viz": "phase_circle",
     "watch": "Watch dots scattered around the circle bunch into one tight cluster \u2014 the oscillators fall into step (the red arrow grows).",
     "metric": "r_mean",
-    "mechanism": "Each oscillator nudges its rhythm toward its neighbours'. When coupling beats the spread of natural frequencies, a few that happen to align pull others in, recruiting the rest in a cascade until the whole population ticks together. Spontaneous synchrony \u2014 fireflies, applause, pacemaker cells \u2014 emerges from each unit simply adjusting to those around it.",
+    "mechanism": "Each oscillator nudges its rhythm toward its neighbors'. When coupling beats the spread of natural frequencies, a few that happen to align pull others in, recruiting the rest in a cascade until the whole population ticks together. Spontaneous synchrony \u2014 fireflies, applause, pacemaker cells \u2014 emerges from each unit simply adjusting to those around it.",
     "detector": {
       "top": "P9",
       "tier": "definitive",
@@ -428,7 +428,7 @@
     "viz": "pop_time",
     "watch": "Watch the prey and predator populations rise and fall in repeating cycles \u2014 each predator peak trailing just behind a prey peak.",
     "metric": "rho_anti",
-    "mechanism": "On a lattice, prey reproduce into empty cells and predators eat adjacent prey, then starve without food. Locally, predators boom where prey are dense, crash the prey, then crash themselves \u2014 letting prey recover. These local cycles couple across space into travelling waves and sustained population oscillations from simple eat / reproduce / die rules.",
+    "mechanism": "On a lattice, prey reproduce into empty cells and predators eat adjacent prey, then starve without food. Locally, predators boom where prey are dense, crash the prey, then crash themselves \u2014 letting prey recover. These local cycles couple across space into traveling waves and sustained population oscillations from simple eat / reproduce / die rules.",
     "detector": {
       "top": "P11",
       "tier": "definitive",
@@ -468,9 +468,9 @@
     "summary": "Three species in rock-paper-scissors competition on a lattice.",
     "effect": "Self-sustaining spiral waves maintain coexistence.",
     "viz": "grid_field",
-    "watch": "Watch the three species form swirling, rotating domains that endlessly chase one another (rock\u2190scissors\u2190paper\u2190rock), so no colour ever wins and all three coexist.",
+    "watch": "Watch the three species form swirling, rotating domains that endlessly chase one another (rock\u2190scissors\u2190paper\u2190rock), so no color ever wins and all three coexist.",
     "metric": "intransitivity_score",
-    "mechanism": "Three strains play rock\u2013paper\u2013scissors: each beats one neighbour and loses to another. No strain can win outright, so locally each chases the type it dominates and flees the type that dominates it. This intransitive loop organises space into rotating spiral waves that let all three coexist indefinitely \u2014 diversity maintained by a cycle, not by balance.",
+    "mechanism": "Three strains play rock\u2013paper\u2013scissors: each beats one neighbor and loses to another. No strain can win outright, so locally each chases the type it dominates and flees the type that dominates it. This intransitive loop organizes space into rotating spiral waves that let all three coexist indefinitely \u2014 diversity maintained by a cycle, not by balance.",
     "detector": {
       "top": "P12",
       "tier": "confirmation",
@@ -512,7 +512,7 @@
     "viz": "grid_field",
     "watch": "Watch curved wavefronts sweep across the lattice and spiral around their cores \u2014 as each passes, cells fire then go dark (refractory), so the waves keep regenerating and never settle.",
     "metric": "wavefront_speed_cv",
-    "mechanism": "Each cell rests, fires when enough neighbours fire, then briefly cannot fire again (a refractory period). A firing cell excites its neighbours, but the refractory trail behind it blocks back-propagation, so activity only travels forward \u2014 into self-sustaining spiral and target waves. The same rule drives heart tissue and the Belousov\u2013Zhabotinsky reaction.",
+    "mechanism": "Each cell rests, fires when enough neighbors fire, then briefly cannot fire again (a refractory period). A firing cell excites its neighbors, but the refractory trail behind it blocks back-propagation, so activity only travels forward \u2014 into self-sustaining spiral and target waves. The same rule drives heart tissue and the Belousov\u2013Zhabotinsky reaction.",
     "detector": {
       "top": "P18",
       "tier": "screening",
@@ -543,7 +543,7 @@
     },
     "mp4": "p13.mp4",
     "contact_sheet": "p13_sprite.png",
-    "where": "Spiral electrical waves in heart tissue (the basis of dangerous arrhythmias) and in neural tissue, plus chemical BZ waves and slime-mould signalling (nature/lab); reaction\u2013diffusion 'unconventional' computing (technology)."
+    "where": "Spiral electrical waves in heart tissue (the basis of dangerous arrhythmias) and in neural tissue, plus chemical BZ waves and slime-mould signaling (nature/lab); reaction\u2013diffusion 'unconventional' computing (technology)."
   },
   {
     "id": "P14",
@@ -554,7 +554,7 @@
     "viz": "dist_accumulate",
     "watch": "On these log-log axes a straight line means avalanches come in every size with no typical scale.",
     "metric": "slope_consistency",
-    "mechanism": "Grains drop on a pile; when a site exceeds a threshold slope it topples, spilling onto neighbours and sometimes triggering a chain reaction. The pile self-organises to a critical state where one more grain can set off an avalanche of ANY size \u2014 the avalanche sizes follow a scale-free power law with no characteristic scale. Criticality emerges spontaneously, with no parameter tuned to reach it (self-organized criticality).",
+    "mechanism": "Grains drop on a pile; when a site exceeds a threshold slope it topples, spilling onto neighbors and sometimes triggering a chain reaction. The pile self-organizes to a critical state where one more grain can set off an avalanche of ANY size \u2014 the avalanche sizes follow a scale-free power law with no characteristic scale. Criticality emerges spontaneously, with no parameter tuned to reach it (self-organized criticality).",
     "detector": {
       "top": "P14",
       "tier": "confirmation",
@@ -596,7 +596,7 @@
     "viz": "grid_field",
     "watch": "Watch the gliders glide steadily across the grid (diagonally) and collide \u2014 small stable structures that carry information through space, the basis of propagating computation.",
     "metric": "n_distinct_outcomes",
-    "mechanism": "Cells live or die by counting live neighbours \u2014 three rules, nothing more. Yet stable structures, oscillators, and 'gliders' that travel and collide appear, and their interactions can carry and transform information. Universal computation emerges from a trivially simple update rule: complexity with no complex cause.",
+    "mechanism": "Cells live or die by counting live neighbors \u2014 three rules, nothing more. Yet stable structures, oscillators, and 'gliders' that travel and collide appear, and their interactions can carry and transform information. Universal computation emerges from a trivially simple update rule: complexity with no complex cause.",
     "detector": {
       "top": "P15",
       "tier": "definitive",
@@ -635,7 +635,7 @@
     "summary": "A symmetric recurrent net relaxes from a corrupted cue.",
     "effect": "The network completes the cue to the nearest stored pattern.",
     "viz": "vector_grid",
-    "watch": "Watch the speckled, 28%-corrupted cue progressively clean up \u2014 neuron by neuron \u2014 back into the crisp stored glyph it most resembles. The noise resolves into a recognisable shape.",
+    "watch": "Watch the speckled, 28%-corrupted cue progressively clean up \u2014 neuron by neuron \u2014 back into the crisp stored glyph it most resembles. The noise resolves into a recognizable shape.",
     "metric": "mean_completion_accuracy",
     "mechanism": "Neurons flip to match the weighted majority of their inputs, where the weights encode several stored patterns. From a corrupted cue the network rolls 'downhill' in an energy landscape whose valleys are the memories, settling into the nearest one. Content-addressable recall \u2014 reconstructing the whole from a fragment \u2014 emerges from simple threshold updates.",
     "detector": {
@@ -674,7 +674,7 @@
     },
     "mp4": "p16.mp4",
     "contact_sheet": "p16_sprite.png",
-    "where": "Memory recall and pattern completion in the brain's attractor networks \u2014 recognising a face from a glimpse (nature); content-addressable memory, denoising, and the modern 'Hopfield' attention layers inside transformers (technology)."
+    "where": "Memory recall and pattern completion in the brain's attractor networks \u2014 recognizing a face from a glimpse (nature); content-addressable memory, denoising, and the modern 'Hopfield' attention layers inside transformers (technology)."
   },
   {
     "id": "P17",
@@ -683,9 +683,9 @@
     "summary": "Agents with noisy individual sensing follow social cues.",
     "effect": "The group climbs a gradient no individual can resolve.",
     "viz": "gradient_climb",
-    "watch": "Watch the swarm climb toward the gradient source (the bright background patch); each agent's own reading (dot colour) stays noisy, yet the group centroid (red trail) tracks up-gradient \u2014 many noisy individuals average into accurate collective navigation.",
+    "watch": "Watch the swarm climb toward the gradient source (the bright background patch); each agent's own reading (dot color) stays noisy, yet the group centroid (red trail) tracks up-gradient \u2014 many noisy individuals average into accurate collective navigation.",
     "metric": "chemotactic_index",
-    "mechanism": "Each agent senses the environmental gradient poorly and noisily, but also tends to move with its neighbours. Averaging over many noisy individuals cancels the error, so the group climbs the gradient far more accurately than any member could alone. 'Many wrongs' become a collective right \u2014 accurate navigation from inaccurate individuals.",
+    "mechanism": "Each agent senses the environmental gradient poorly and noisily, but also tends to move with its neighbors. Averaging over many noisy individuals cancels the error, so the group climbs the gradient far more accurately than any member could alone. 'Many wrongs' become a collective right \u2014 accurate navigation from inaccurate individuals.",
     "detector": {
       "top": "P17",
       "tier": "definitive",
@@ -722,12 +722,12 @@
     "id": "P18",
     "name": "Consensus / coarsening",
     "ref": "Voter model (Holley-Liggett 1975)",
-    "summary": "Each agent copies a random neighbour's opinion.",
+    "summary": "Each agent copies a random neighbor's opinion.",
     "effect": "Opinion domains coarsen toward consensus.",
     "viz": "grid_field",
-    "watch": "Watch opinion patches grow and merge as the boundaries coarsen \u2014 the lattice heads toward consensus, one colour overtaking the rest (near-fixation by the end of the clip).",
+    "watch": "Watch opinion patches grow and merge as the boundaries coarsen \u2014 the lattice heads toward consensus, one color overtaking the rest (near-fixation by the end of the clip).",
     "metric": "moran_spearman_early",
-    "mechanism": "Each agent simply copies the opinion of a random neighbour. Copying makes local agreement self-reinforcing: single-opinion patches grow and merge, their boundaries wandering, until one opinion fills the whole population. Consensus emerges from imitation alone \u2014 no persuasion, no leaders, no goal.",
+    "mechanism": "Each agent simply copies the opinion of a random neighbor. Copying makes local agreement self-reinforcing: single-opinion patches grow and merge, their boundaries wandering, until one opinion fills the whole population. Consensus emerges from imitation alone \u2014 no persuasion, no leaders, no goal.",
     "detector": {
       "top": "P18",
       "tier": "definitive",
@@ -768,7 +768,7 @@
     "viz": "leadership",
     "watch": "Watch the few informed individuals (ringed in black, with the bold arrow as their direction) steer the whole group: the rainbow of headings collapses toward their heading despite them being a small minority.",
     "metric": "group_accuracy_mean",
-    "mechanism": "A small minority knows the preferred direction; everyone else just stays with the group. Because the informed few consistently pull the same way while the uninformed cancel out, the whole group is steered accurately \u2014 and the bigger the group, the smaller the informed fraction needed. Effective leadership emerges with no signalling or designated leaders.",
+    "mechanism": "A small minority knows the preferred direction; everyone else just stays with the group. Because the informed few consistently pull the same way while the uninformed cancel out, the whole group is steered accurately \u2014 and the bigger the group, the smaller the informed fraction needed. Effective leadership emerges with no signaling or designated leaders.",
     "detector": {
       "top": "P19",
       "tier": "definitive",
@@ -810,7 +810,7 @@
     "viz": "sweep_trace",
     "watch": "Watch the collective flip ON sharply once density crosses a threshold (and lag on the way back down).",
     "metric": "step_r2",
-    "mechanism": "Each cell releases a shared signal and switches behaviour only once the surrounding signal crosses a threshold. At low density the signal disperses harmlessly; once enough cells accumulate it, they all flip on together, sharply and with hysteresis. A population-scale decision emerges from each cell reading nothing but a local concentration.",
+    "mechanism": "Each cell releases a shared signal and switches behavior only once the surrounding signal crosses a threshold. At low density the signal disperses harmlessly; once enough cells accumulate it, they all flip on together, sharply and with hysteresis. A population-scale decision emerges from each cell reading nothing but a local concentration.",
     "detector": {
       "top": "P20",
       "tier": "definitive",
@@ -900,7 +900,7 @@
     "viz": "grid_field",
     "watch": "Watch the infection sweep across the grid as a wavefront, leaving recovered cells behind.",
     "metric": "moran_i_time",
-    "mechanism": "Each infected cell infects susceptible neighbours with some probability, then recovers and becomes immune. Infection can only advance into still-susceptible territory, so it sweeps outward as a wavefront leaving immunity behind. The epidemic curve and its spatial wave emerge from a purely local infect-then-recover rule.",
+    "mechanism": "Each infected cell infects susceptible neighbors with some probability, then recovers and becomes immune. Infection can only advance into still-susceptible territory, so it sweeps outward as a wavefront leaving immunity behind. The epidemic curve and its spatial wave emerge from a purely local infect-then-recover rule.",
     "detector": {
       "top": "P22",
       "tier": "screening",
@@ -931,7 +931,7 @@
     },
     "mp4": "p22.mp4",
     "contact_sheet": "p22_sprite.png",
-    "where": "Epidemics of infectious disease and the spread of rumours, memes and fads as travelling waves (nature/society); computer-virus and malware propagation and viral marketing cascades (technology)."
+    "where": "Epidemics of infectious disease and the spread of rumours, memes and fads as traveling waves (nature/society); computer-virus and malware propagation and viral marketing cascades (technology)."
   },
   {
     "id": "P23",
@@ -940,7 +940,7 @@
     "summary": "Agents win by choosing the minority side.",
     "effect": "Attendance self-balances with sub-random (efficient) variance.",
     "viz": "minority_game",
-    "watch": "Watch attendance settle into a persistent band centred on the capacity line (red dashed, half the agents) \u2014 decentralised choices self-balance the two sides round after round instead of running away.",
+    "watch": "Watch attendance settle into a persistent band centered on the capacity line (red dashed, half the agents) \u2014 decentralised choices self-balance the two sides round after round instead of running away.",
     "metric": "scaled_variance",
     "mechanism": "Agents repeatedly choose a side and win only if they picked the minority. Since everyone wants to be where others are not, they learn to spread out, and attendance self-balances around capacity with smaller swings than random choosing would give. Efficient load-balancing emerges with no communication and no coordinator.",
     "detector": {
@@ -1082,7 +1082,7 @@
     "name": "Stochastic resonance",
     "ref": "Gammaitoni 1998",
     "summary": "A sub-threshold signal plus tuned noise in a bistable unit.",
-    "effect": "Optimal noise maximises signal detection (inverted-U).",
+    "effect": "Optimal noise maximizes signal detection (inverted-U).",
     "viz": "noise_response",
     "watch": "Note the response peaks at a middling noise level (the inverted-U) \u2014 not at zero and not at high noise.",
     "metric": "peak_performance",
@@ -1129,12 +1129,12 @@
     "id": "P27",
     "name": "Spatial reciprocity",
     "ref": "Nowak & May 1992",
-    "summary": "Cooperators and defectors play neighbours on a lattice.",
+    "summary": "Cooperators and defectors play neighbors on a lattice.",
     "effect": "Cooperation survives by forming spatial clusters.",
     "viz": "grid_field",
     "watch": "Watch defectors (orange) invade the near-all-cooperator lattice, yet cooperators (blue) survive indefinitely by huddling into clusters \u2014 neither side ever wins.",
     "metric": "coop_fraction",
-    "mechanism": "Cooperators and defectors play their neighbours and then copy whichever nearby strategy scored best. A lone cooperator is exploited, but cooperators that cluster shield one another and out-earn the defectors around them, so clusters persist and spread. Cooperation survives in a world that rewards defection \u2014 purely because interaction is local (spatial structure).",
+    "mechanism": "Cooperators and defectors play their neighbors and then copy whichever nearby strategy scored best. A lone cooperator is exploited, but cooperators that cluster shield one another and out-earn the defectors around them, so clusters persist and spread. Cooperation survives in a world that rewards defection \u2014 purely because interaction is local (spatial structure).",
     "detector": {
       "top": "P27",
       "tier": "screening",
@@ -1254,7 +1254,7 @@
     },
     "mp4": "p29.mp4",
     "contact_sheet": "p29_sprite.png",
-    "where": "Slime-mould and ant transport networks, fungal mycelium, leaf veins and blood vessels \u2014 efficient networks built with no central plan (nature); network design and transport-route optimisation, including Physarum-inspired algorithms (technology)."
+    "where": "Slime-mould and ant transport networks, fungal mycelium, leaf veins and blood vessels \u2014 efficient networks built with no central plan (nature); network design and transport-route optimization, including Physarum-inspired algorithms (technology)."
   },
   {
     "id": "P30",
@@ -1339,11 +1339,11 @@
     "name": "Emergent specialization",
     "ref": "Bonabeau 1996",
     "summary": "Response-threshold agents take tasks they sense most.",
-    "effect": "Division of labour emerges as roles differentiate.",
+    "effect": "Division of labor emerges as roles differentiate.",
     "viz": "growing_spacetime",
-    "watch": "Watch agents settle onto consistent task-rows \u2014 stable specialised roles (division of labour).",
+    "watch": "Watch agents settle onto consistent task-rows \u2014 stable specialised roles (division of labor).",
     "metric": "entropy_decline",
-    "mechanism": "Each agent takes whichever task it senses most strongly, and its threshold for that task falls with practice, so it specialises. Because specialists handle their task before others' thresholds are tripped, stable, distinct roles differentiate across the group. Division of labour \u2014 like castes in social insects \u2014 emerges from response thresholds plus learning, with no assignment.",
+    "mechanism": "Each agent takes whichever task it senses most strongly, and its threshold for that task falls with practice, so it specialises. Because specialists handle their task before others' thresholds are tripped, stable, distinct roles differentiate across the group. Division of labor \u2014 like castes in social insects \u2014 emerges from response thresholds plus learning, with no assignment.",
     "detector": {
       "top": "P32",
       "tier": "definitive",
@@ -1374,6 +1374,6 @@
     },
     "mp4": "p32.mp4",
     "contact_sheet": "p32_sprite.png",
-    "where": "Division of labour and castes in ant and bee colonies via response thresholds, and cell differentiation (biology); task allocation and work scheduling in swarm robotics and distributed systems (technology)."
+    "where": "Division of labor and castes in ant and bee colonies via response thresholds, and cell differentiation (biology); task allocation and work scheduling in swarm robotics and distributed systems (technology)."
   }
 ]

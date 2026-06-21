@@ -165,7 +165,7 @@ function detectorHtml(d){
     if(b.synthetic) parts.push(b.synthetic+' synthetic nulls');
     if(b.catalog) parts.push(b.catalog+' look-alikes');
     if(b.failed_regime) parts.push(b.failed_regime+' failed regimes');
-    disc=`<div class=disc><span class=lab title="Negative controls the detector had to reject: structureless nulls, the other catalogue patterns, and the model run where the pattern never forms.">Discrimination · negative controls</span>rejected <strong>${d.neg_rejected}/${d.neg_total}</strong>${parts.length?` <span class=mut2>(${parts.join(' · ')})</span>`:''}</div>`;
+    disc=`<div class=disc><span class=lab title="Negative controls the detector had to reject: structureless nulls, the other catalog patterns, and the model run where the pattern never forms.">Discrimination · negative controls</span>rejected <strong>${d.neg_rejected}/${d.neg_total}</strong>${parts.length?` <span class=mut2>(${parts.join(' · ')})</span>`:''}</div>`;
   } else if(d.note){
     disc=`<div class=disc><span class=lab>Discrimination</span><span class=mut2>${d.note}</span></div>`;
   }
@@ -173,8 +173,8 @@ function detectorHtml(d){
   if(d.cross_model){
     const c=d.cross_model;
     cm = c.verdict==='MATCH'
-      ? `<div class=cmline title="Re-tested on a second, independent implementation it was never tuned on, and still recognised the phenomenon.">✓ Generalises to an independent model <span class=mut2>(${c.alt})</span></div>`
-      : `<div class=cmline title="On an independent model it ranked its own pattern first but stayed below the firing threshold — a disclosed generalisation limit.">~ Ranks top on an independent model <span class=mut2>(${c.alt}, below threshold)</span></div>`;
+      ? `<div class=cmline title="Re-tested on a second, independent implementation it was never tuned on, and still recognized the phenomenon.">✓ Generalizes to an independent model <span class=mut2>(${c.alt})</span></div>`
+      : `<div class=cmline title="On an independent model it ranked its own pattern first but stayed below the firing threshold — a disclosed generalization limit.">~ Ranks top on an independent model <span class=mut2>(${c.alt}, below threshold)</span></div>`;
   }
   const ge=d.emergence!=null?(+d.emergence).toFixed(2):'—';
   const foot=`<div class=foot><span class=hint title="A coarse, cross-pattern emergence index — NOT this detector's verdict. A definitive match can sit beside a low value here; trust the verdict and the panel.">generic emergence index ${ge}</span>`
@@ -328,7 +328,7 @@ page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<title>EPC — Model Gallery</title><style>" + CSS + "</style></head><body>"
     "<a class=skip href='#detail'>Skip to content</a>"
     "<header><h1>Emergent Pattern Catalog — Model Gallery</h1>"
-    "<p>32 minimal models of emergent behaviour — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, see the simple rule, and watch the validated detector recognise it.</p></header>"
+    "<p>32 minimal models of emergent behavior — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, see the simple rule, and watch the validated detector recognize it.</p></header>"
     "<div class=wrap><div class=list id=list role=listbox aria-label='Emergent pattern models — use arrow keys to browse, Enter to open'></div>"
     "<main class=detail id=detail tabindex=-1></main></div>"
     "<footer class=foot-bar>Cataloged by Matt Maxwell &nbsp;&middot;&nbsp;<img src=assets/email.png alt='contact email' class=email-img></footer>"

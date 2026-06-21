@@ -167,12 +167,12 @@ def grid_field(history, title, sample="auto", legend=None, empty_idx=None, **_):
         nlev = int(round(vmax)) + 1
         cols = [plt.cm.tab10(i % 10) for i in range(nlev)]
         if empty_idx is not None and 0 <= empty_idx < nlev:
-            cols[empty_idx] = (0.91, 0.91, 0.91, 1.0)   # subordinate light grey for empty/idle (QA DC7)
+            cols[empty_idx] = (0.91, 0.91, 0.91, 1.0)   # subordinate light gray for empty/idle (QA DC7)
         lcmap = ListedColormap(cols); norm = BoundaryNorm(np.arange(-0.5, nlev + 0.5, 1), nlev)
     out = []
     for f in fr:
         fig, ax = _new(title)
-        if disc:                                        # discrete states -> exact per-value tab10 colours (no continuous mis-sampling)
+        if disc:                                        # discrete states -> exact per-value tab10 colors (no continuous mis-sampling)
             ax.imshow(np.asarray(f[key], float), cmap=lcmap, norm=norm, interpolation="nearest")
             if legend:
                 handles = [mpatches.Patch(color=cols[i], label=legend[i]) for i in range(min(len(legend), nlev))]
@@ -355,7 +355,7 @@ def growing_spacetime(history, title, key="task_assignments", **_):
     if img.shape[0] > 300: img = img[np.linspace(0, img.shape[0]-1, 300).astype(int)]
     from matplotlib.colors import ListedColormap, BoundaryNorm
     T = img.shape[0]; ntask = int(img.max()) + 1; base = plt.cm.tab10
-    lcmap = ListedColormap([base(t % 10) for t in range(ntask)])         # discrete: each task id -> its exact tab10 colour (matches legend)
+    lcmap = ListedColormap([base(t % 10) for t in range(ntask)])         # discrete: each task id -> its exact tab10 color (matches legend)
     norm = BoundaryNorm(np.arange(-0.5, ntask + 0.5, 1), ntask)
     handles = [mpatches.Patch(color=base(t % 10), label=f"task {t}") for t in range(min(ntask, 6))]
     out = []
@@ -431,7 +431,7 @@ def phase_space(history, title, **_):
 
 
 def spacetime_slice(history, title, cmap="inferno", **_):
-    """Space-time raster of a fixed 1-D slice (middle row) over time — travelling waves show as
+    """Space-time raster of a fixed 1-D slice (middle row) over time — traveling waves show as
     diagonal stripes (propagation), so sustained spiral/target waves are visible (P13)."""
     key = "field" if (history and isinstance(history[-1], dict) and "field" in history[-1]) else "grid"
     fr = _has(history, key)
@@ -524,7 +524,7 @@ def minority_game(history, title, key="attendance", **_):
     return out
 
 def gradient_climb(history, title, **_):
-    """Swarm climbing a gradient: agents coloured by their NOISY local reading, with the group
+    """Swarm climbing a gradient: agents colored by their NOISY local reading, with the group
     centroid's trail (red) showing steady net translation up-gradient — 'many wrongs' average into
     accurate collective navigation no individual achieves (Berdahl, P17)."""
     H = [f for f in history if isinstance(f, dict) and "positions" in f]
@@ -555,7 +555,7 @@ def gradient_climb(history, title, **_):
     return out
 
 def traffic_spacetime(history, title, bins=200, **_):
-    """Space-time diagram of a 1-D road (position x time, colour = speed) — a traffic jam is a
+    """Space-time diagram of a 1-D road (position x time, color = speed) — a traffic jam is a
     band of stopped cars that propagates BACKWARD as a red diagonal stripe (Nagel-Schreckenberg, P8)."""
     H = [f for f in history if isinstance(f, dict) and "positions" in f]
     if len(H) < 3: return []
@@ -602,8 +602,8 @@ def density_field(history, title, bins=40, **_):
     return out
 
 def occupancy_field(history, title, **_):
-    """Per-agent occupancy map — each cell coloured by the agent that visits it most; distinct
-    non-overlapping colour regions are the exclusive home ranges of territoriality (P4)."""
+    """Per-agent occupancy map — each cell colored by the agent that visits it most; distinct
+    non-overlapping color regions are the exclusive home ranges of territoriality (P4)."""
     from matplotlib.colors import ListedColormap, BoundaryNorm
     H = [f for f in history if isinstance(f, dict) and "positions" in f]
     if len(H) < 3: return []
@@ -664,7 +664,7 @@ PRODUCERS = {
 
 
 def _motion(history, viz, args):
-    """Mean normalised frame-to-frame change over the recorded run (0..~0.6)."""
+    """Mean normalized frame-to-frame change over the recorded run (0..~0.6)."""
     try:
         a = args or {}
         if viz == "grid_field":
@@ -743,7 +743,7 @@ def _m_turing(f):                       # P3: spectral power in the Turing wavel
     rmax = max(r.max(), 1e-9); band = (r > 0.12*rmax) & (r < 0.5*rmax)
     return float(F[band].sum() / (F.sum() + 1e-9))
 
-def _m_mill(f):                         # P6: |normalised angular momentum| about the centroid (rises as the vortex forms)
+def _m_mill(f):                         # P6: |normalized angular momentum| about the centroid (rises as the vortex forms)
     p = np.asarray(f["positions"], float)[:, :2]; h = _headings(f)
     if h is None or len(p) < 3: return 0.0
     r = p - p.mean(0); v = np.c_[np.cos(h), np.sin(h)]
