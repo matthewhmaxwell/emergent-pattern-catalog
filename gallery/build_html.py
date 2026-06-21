@@ -212,6 +212,7 @@ function show(i){
         <h3 class=k>What it is</h3><div class=v>${m.summary}</div>
         <h3 class=k>Emergent effect</h3><div class=v>${m.effect}</div>
         <h3 class=k>How it emerges</h3><div class=v>${m.mechanism||''}</div>
+        <h3 class=k>Where you see it</h3><div class=v>${m.where||''}</div>
         <h3 class=k>Canonical metric</h3><div class=v><code>${m.metric||'—'}</code></div>
         <div class=card><h3>Detector readout (validated battery)</h3>${det}</div>
       </div></div>

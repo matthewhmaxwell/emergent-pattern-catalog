@@ -144,3 +144,40 @@ repository:
 — specifically <a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog/blob/validation-rebuild/docs/paper_section4A_validation_rebuild.md" target="_blank" rel="noopener">the validation note</a>
 and the <a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog/tree/validation-rebuild/analysis/outputs" target="_blank" rel="noopener">per-pattern panel outputs</a>.</p>
 """
+
+# Where each phenomenon shows up in the real world (natural / technical / both) — grounds the
+# "simple rules -> complex behaviour" point in concrete instances.
+WHERE = {
+"P1": "Residential and school segregation, and the clustering of like-with-like in social networks — sharp divides emerging from only mild individual preferences (society); echoed in self-sorting of some shaken granular and colloidal mixtures (physics).",
+"P2": "Swimming bacteria and cells in dense tissue piling into clusters (biology); synthetic active matter — self-propelled Janus colloids and microswimmers that jam into dense patches with no glue (lab/technology).",
+"P3": "Animal coat and skin markings — leopard spots, zebra stripes, fish pigmentation — plus sand ripples and banded desert vegetation (nature); the Belousov–Zhabotinsky reaction and patterning in chemical reactors (lab).",
+"P4": "Animal home ranges marked by scent or song — wolves, songbirds, reef fish hold non-overlapping territories (nature); spatial coverage allocation such as cell-tower or sensor footprints (technology).",
+"P5": "Starling murmurations, fish schools and insect swarms (nature); drone swarms and swarm robotics that align direction from local rules alone (technology).",
+"P6": "Fish bait-balls and torus mills, circling army-ant 'death spirals', and bacterial vortices (nature); rotating/orbiting robot swarms (technology).",
+"P7": "Pedestrians spontaneously forming lanes in dense counterflow, and two-way ant trails (society/nature); self-organised lanes in traffic and particle sorting in microfluidic channels (technology).",
+"P8": "Phantom highway jams that form with no accident and crawl backward through the traffic (society); congestion waves in data networks and clogging in granular and pipe flow (technology/physics).",
+"P9": "Synchronously flashing fireflies, chirping crickets, and pacemaker cells in heart and brain (nature); coupled lasers, power-grid generators locking to one frequency, and audiences clapping in unison (technology/society).",
+"P10": "Unihemispheric sleep — dolphins and many birds keep one brain hemisphere awake while the other sleeps (nature); arrays of coupled oscillators, lasers and power grids where synced and desynced groups coexist (technology).",
+"P11": "Boom-and-bust predator–prey cycles such as the lynx–hare record, plus host–parasite and disease cycles (nature); chemical oscillators and ecosystem/epidemic models (technical).",
+"P12": "Rock-paper-scissors strategy cycling in side-blotched lizards and in toxin-producing / resistant / sensitive microbial strains, and reef space competition (nature); a workhorse of evolutionary game theory (technical).",
+"P13": "Spiral electrical waves in heart tissue (the basis of dangerous arrhythmias) and in neural tissue, plus chemical BZ waves and slime-mould signalling (nature/lab); reaction–diffusion 'unconventional' computing (technology).",
+"P14": "Earthquakes, landslides, forest fires and neuronal avalanches in the brain — power-law distributed with no characteristic size (nature); cascading failures in power grids and financial markets (technology/society).",
+"P15": "Chiefly computational: a few local rules give rise to gliders, logic gates and universal computation — the cleanest proof that simple rules can compute anything (technology/theory); echoed in some excitable chemical and physical media (nature).",
+"P16": "Memory recall and pattern completion in the brain's attractor networks — recognising a face from a glimpse (nature); content-addressable memory, denoising, and the modern 'Hopfield' attention layers inside transformers (technology).",
+"P17": "Fish schools and cell collectives that track a faint light, temperature or chemical gradient far better than any member alone (nature); distributed sensor networks and source-seeking robot swarms (technology).",
+"P18": "Adoption of a shared convention, language or opinion across a population, and neutral gene fixation by drift (society/biology); distributed consensus protocols and spin-system relaxation (technology/physics).",
+"P19": "A few informed individuals steering a whole fish school or bee swarm to a resource or nest site (nature); leader–follower coordination and information-limited navigation in robot swarms (technology).",
+"P20": "Bacterial quorum sensing — light, biofilms and virulence switched on only above a density threshold (biology); threshold-triggered distributed systems and social tipping points / bandwagons (technology/society).",
+"P21": "Political and social polarisation into hardened camps with a hollowed-out middle (society); recommendation-driven echo chambers and filter bubbles online (technology).",
+"P22": "Epidemics of infectious disease and the spread of rumours, memes and fads as travelling waves (nature/society); computer-virus and malware propagation and viral marketing cascades (technology).",
+"P23": "The El Farol bar problem and market speculation (the minority choice wins) and drivers picking less-crowded routes (society); distributed load balancing across servers and links (technology).",
+"P24": "Body-temperature, blood-sugar and pH regulation, and ecological balance (biology); thermostats, cruise control, PID controllers and datacenter autoscaling (technology).",
+"P25": "Embryos reaching the same body plan from very different starts, and regeneration after injury — developmental robustness (biology); robust attractor-based control and error-correcting computation (technology).",
+"P26": "Sensory neurons using noise to detect otherwise-imperceptible signals — prey detection in paddlefish and crayfish, human hearing and balance — and noise-paced ice-age cycles (nature); deliberately added noise (dithering) to sharpen detectors and analog-to-digital converters (technology).",
+"P27": "Evolution of cooperation in structured populations — microbial cooperators, cells in tissue, social networks — where cooperators survive by clustering (biology/society); sustaining cooperation in spatial and networked multi-agent systems (technology).",
+"P28": "Extreme wealth and income inequality (Pareto, 'rich get richer') and city-size distributions (society); preferential attachment that concentrates links on a few hub nodes in networks (technology).",
+"P29": "Slime-mould and ant transport networks, fungal mycelium, leaf veins and blood vessels — efficient networks built with no central plan (nature); network design and transport-route optimisation, including Physarum-inspired algorithms (technology).",
+"P30": "The living cell's self-producing membrane and metabolism, and candidate origin-of-life protocells (biology); artificial-life and self-repairing / self-replicating systems (technology).",
+"P31": "Cells reaching target arrangements through purely local moves in morphogenesis and tissue sorting — a window on basal cognition (biology); sorting algorithms that show unexpected 'competencies' like delayed gratification (Levin's algorithmic 'Platonic space') (technology/theory).",
+"P32": "Division of labour and castes in ant and bee colonies via response thresholds, and cell differentiation (biology); task allocation and work scheduling in swarm robotics and distributed systems (technology).",
+}
