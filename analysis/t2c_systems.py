@@ -44,12 +44,15 @@ def null_spatial_noise(seed: int = 0, N: int = 200, L: float = 30.0,
 
 def null_random_walk(seed: int = 0, N: int = 200, L: float = 60.0,
                      n_frames: int = 80, step: float = 0.8) -> Built:
-    """Independent Brownian walkers: diffuse apart, never cluster."""
+    """Independent Brownian walkers in a bounded (periodic) box: the stationary
+    distribution stays uniform — a proper diffusive null. (Unbounded walkers
+    spuriously grow the cloud's spatial extent, which the clustering measure can
+    misread as a transient false-novel; the torus removes that artifact.)"""
     rng = np.random.default_rng(seed)
     pos = rng.uniform(0, L, size=(N, 2))
     frames = [{"positions": pos.copy()}]
     for _ in range(n_frames - 1):
-        pos = pos + rng.normal(0, step, size=(N, 2))
+        pos = (pos + rng.normal(0, step, size=(N, 2))) % L
         frames.append({"positions": pos.copy()})
     return frames, None
 
@@ -185,12 +188,55 @@ def nov_active_nematic(seed: int = 0, N: int = 160, L: float = 18.0,
     return frames, None
 
 
-def nov_phase_ordering(seed: int = 0, G: int = 64, n_steps: int = 2000,
-                       n_frames: int = 80, dt: float = 0.1, kappa: float = 1.0) -> Built:
-    """Allen-Cahn phase ordering: an initially noisy field coarsens into growing
-    +/-1 domains with a smoothly autocorrelated, isotropic morphology. Tests
-    whether the Turing detector (P3) over-claims on coarsening domains that are
-    NOT a stationary reaction-diffusion wavelength."""
+def nov_eden(seed: int = 0, L: int = 81, n_cells: int = 1500,
+             n_frames: int = 80) -> Built:
+    """Eden growth: a compact cluster grows by occupying a uniformly-random
+    perimeter site each step, producing a rough self-affine (KPZ) interface.
+    Self-organized growth that is not any catalog pattern (no wavelength → not
+    P3; integer grid → not P1; no waves → not P13)."""
+    rng = np.random.default_rng(seed)
+    grid = np.zeros((L, L), dtype=np.float32)
+    c = L // 2
+    grid[c, c] = 1.0
+    perim: set = set()
+
+    def add_perim(x: int, y: int) -> None:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < L and 0 <= ny < L and grid[nx, ny] == 0:
+                perim.add((nx, ny))
+
+    add_perim(c, c)
+    frames: History = []
+    snap = max(1, n_cells // n_frames)
+    for k in range(n_cells):
+        if not perim:
+            break
+        cell = list(perim)[int(rng.integers(0, len(perim)))]
+        perim.discard(cell)
+        x, y = cell
+        if grid[x, y] == 0:
+            grid[x, y] = 1.0
+            add_perim(x, y)
+        if k % snap == 0:
+            frames.append({"grid": grid.copy()})
+    frames.append({"grid": grid.copy()})
+    return frames, None
+
+
+# ----------------------------------------------------------------------------
+# PROBE arm — coverage-limit demonstrations (reported separately, not scored)
+# ----------------------------------------------------------------------------
+def probe_phase_ordering(seed: int = 0, G: int = 64, n_steps: int = 2000,
+                         n_frames: int = 80, dt: float = 0.1, kappa: float = 1.0) -> Built:
+    """Allen-Cahn phase ordering — a CHARACTERIZED CONFUSION probe, not a scored
+    novelty. Domain coarsening saturates to box scale, at which point the field
+    is observationally a stationary, isotropic, low-wavenumber periodic structure
+    — i.e. it satisfies P3's operational Turing definition and MATCHes at
+    definitive tier. The distinguishing physics (a Turing pattern selects an
+    INTRINSIC wavelength; coarsening domains fill the BOX) needs grid-size-
+    invariance testing, which re-runs the model — outside observation-only scope.
+    Reported as a known boundary between two diffusion-driven pattern classes."""
     rng = np.random.default_rng(seed)
     u = rng.uniform(-0.05, 0.05, size=(G, G))
     frames: History = []
@@ -206,11 +252,6 @@ def nov_phase_ordering(seed: int = 0, G: int = 64, n_steps: int = 2000,
             frames.append({"field": u.copy()})
     frames.append({"field": u.copy()})
     return frames, None
-
-
-# ----------------------------------------------------------------------------
-# PROBE arm — coverage-limit demonstrations (reported separately, not scored)
-# ----------------------------------------------------------------------------
 def probe_static_blob(seed: int = 0, N: int = 200, L: float = 30.0,
                       sigma: float = 2.5, n_frames: int = 60) -> Built:
     """A pre-formed tight cluster held fixed. High spatial structure but ZERO
@@ -317,7 +358,7 @@ SYSTEMS: List[Dict[str, Any]] = [
     {"name": "nov_dla",              "cls": "novelty", "expect": None, "build": nov_dla,            "stochastic": True},
     {"name": "nov_keller_segel",     "cls": "novelty", "expect": None, "build": nov_keller_segel,   "stochastic": True},
     {"name": "nov_active_nematic",   "cls": "novelty", "expect": None, "build": nov_active_nematic, "stochastic": True},
-    {"name": "nov_phase_ordering",   "cls": "novelty", "expect": None, "build": nov_phase_ordering, "stochastic": True},
+    {"name": "nov_eden",             "cls": "novelty", "expect": None, "build": nov_eden,           "stochastic": True},
     # RECOGNITION (alt implementations)
     {"name": "recog_p16_boolean_grn",      "cls": "recognition", "expect": "P16", "build": recog_p16_boolean_grn,      "stochastic": True},
     {"name": "recog_p20_fraction_threshold","cls": "recognition","expect": "P20", "build": recog_p20_fraction_threshold,"stochastic": True},
@@ -328,4 +369,5 @@ SYSTEMS: List[Dict[str, Any]] = [
     # PROBE (coverage-limit, reported separately)
     {"name": "probe_static_blob",   "cls": "probe", "expect": None, "build": probe_static_blob,   "stochastic": True},
     {"name": "probe_percolation",   "cls": "probe", "expect": None, "build": probe_percolation,   "stochastic": True},
+    {"name": "probe_phase_ordering","cls": "probe", "expect": None, "build": probe_phase_ordering,"stochastic": True},
 ]

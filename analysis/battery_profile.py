@@ -38,7 +38,20 @@ def profile_observation(history: List[Dict[str, Any]],
                         metadata: Optional[Dict[str, Any]] = None,
                         battery: Optional[Battery] = None,
                         detector_fns: Optional[Dict[str, Any]] = None,
-                        seed: int = 0) -> Dict[str, Any]:
+                        seed: int = 0,
+                        match_min_tier: str = "screening") -> Dict[str, Any]:
+    """Profile one observation against the full detector battery.
+
+    match_min_tier : the minimum detector tier a firing must reach to count as a
+        MATCH. Default "screening" preserves the native behavior (used by the
+        self-recognition confusion matrix and the gallery). Set to "confirmation"
+        when pointing the battery at UNKNOWN systems (the T2c-recommended OOD
+        operating point): it folds low-rigor screening-only firings into the
+        emergence-driven verdict, cutting OOD over-claims. NOTE this is not safe
+        as a global default -- P22/P27/P29 self-recognize only at screening, so a
+        forced >=confirmation gate would regress native self-recognition.
+    """
+    min_rank = _TIER_RANK.get(match_min_tier, 1)
     battery = battery if battery is not None else Battery.load()
     detector_fns = detector_fns if detector_fns is not None else build_detector_fns()
     rows: List[Dict[str, Any]] = []
@@ -70,16 +83,25 @@ def profile_observation(history: List[Dict[str, Any]],
                              r.get("calibrated_confidence") or -1.0), reverse=True)
     em = generic_emergence(history, seed=seed)
     top = rows[0] if rows else None
-    # MATCH iff the top detector ACTUALLY FIRED (det=True) via its full gate; the
-    # tier is the strength. If nothing fired, the verdict is emergence-driven
-    # (EMERGENT-UNCLASSIFIED vs NO-EMERGENCE).
-    if top is not None and top.get("fired_detected"):
+    # MATCH iff the top detector ACTUALLY FIRED (det=True) via its full gate AND
+    # reached match_min_tier. The tier is the strength. A firing below
+    # match_min_tier (e.g. a screening-only hit when confirmation is required) is
+    # demoted to the emergence-driven verdict and surfaced as `demoted_match` so
+    # callers can still see the tentative signal. If nothing fired (or all below
+    # the gate), the verdict is emergence-driven (EMERGENT-UNCLASSIFIED vs NO-EMERGENCE).
+    top_match = (top is not None and top.get("fired_detected")
+                 and top.get("tier_rank", 0) >= min_rank)
+    if top_match:
         verdict = {"verdict": "MATCH", "pattern_id": top["pattern_id"],
                    "detector_tier": top["detector_tier"],
                    "calibrated_confidence": top.get("calibrated_confidence"),
                    "emergence_score": em["score"]}
     else:
         verdict = three_way_verdict(None, em["score"])
+        if top is not None and top.get("fired_detected"):
+            # a firing existed but did not clear match_min_tier
+            verdict["demoted_match"] = {"pattern_id": top["pattern_id"],
+                                        "detector_tier": top.get("detector_tier")}
     return {"profile": rows, "emergence": em, "verdict": verdict,
             "top": {"pattern_id": top["pattern_id"],
                     "detector_tier": top.get("detector_tier"),

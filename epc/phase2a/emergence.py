@@ -91,6 +91,23 @@ def _order_phases(ph: np.ndarray) -> float:
     return float(abs(np.exp(1j * ph).mean()))   # Kuramoto r
 
 
+def _order_orient(theta: np.ndarray) -> float:
+    """Orientational order from a set of headings: max of polar and nematic.
+
+    polar  = |<e^{iθ}>|   (1 for a common direction — flocking)
+    nematic= |<e^{2iθ}>|  (1 for a common AXIS, head-tail symmetric — nematic
+             alignment, where +θ and -θ cancel under the polar measure)
+    Taking the max catches both polar swarms and apolar (nematic) order, which a
+    clustering/position measure cannot see. Random headings → ~1/sqrt(N).
+    """
+    th = np.asarray(theta, dtype=float).ravel()
+    if th.size == 0:
+        return 0.0
+    polar = abs(np.exp(1j * th).mean())
+    nematic = abs(np.exp(2j * th).mean())
+    return float(max(polar, nematic))
+
+
 def _structure(kind: str, a: np.ndarray) -> float:
     if kind == "field":
         return _moran(a)
@@ -98,10 +115,14 @@ def _structure(kind: str, a: np.ndarray) -> float:
         return _clustering(a)
     if kind == "phases":
         return _order_phases(a)
+    if kind == "orientation":
+        return _order_orient(a)
     return _order_vector(a)
 
 
 def _shuffle(kind: str, a: np.ndarray, rng) -> np.ndarray:
+    if kind == "orientation":
+        return rng.uniform(-np.pi, np.pi, size=a.shape)
     if kind == "field":
         flat = a.ravel().copy(); rng.shuffle(flat); return flat.reshape(a.shape)
     if kind == "positions":
@@ -112,9 +133,54 @@ def _shuffle(kind: str, a: np.ndarray, rng) -> np.ndarray:
     flat = a.copy(); rng.shuffle(flat); return flat
 
 
+def _orientation_from_frame(frame: Dict[str, Any]) -> Optional[np.ndarray]:
+    """Per-agent headings θ from a velocity field, if present. Returns None when
+    the frame carries no usable velocity/heading information."""
+    if not isinstance(frame, dict):
+        return None
+    for vk in ("velocities", "velocity", "vel"):
+        if vk in frame:
+            v = np.asarray(frame[vk], dtype=float)
+            if v.ndim == 2 and v.shape[1] >= 2:
+                speed = np.hypot(v[:, 0], v[:, 1])
+                if np.any(speed > 1e-9):
+                    return np.arctan2(v[:, 1], v[:, 0])
+    for hk in ("headings", "orientation", "orientations", "angles"):
+        if hk in frame:
+            h = np.asarray(frame[hk], dtype=float).ravel()
+            if h.size:
+                return h
+    return None
+
+
+def _score_series(kind: str, series: List[np.ndarray], rng,
+                  n_null: int) -> Dict[str, float]:
+    """Emergence score for one structure channel: late-window structure vs an
+    order-destroying shuffle (null_z) AND vs the early window (order_gain)."""
+    w = max(1, len(series) // 5)
+    early = float(np.mean([_structure(kind, a) for a in series[:w]]))
+    late = float(np.mean([_structure(kind, a) for a in series[-w:]]))
+    late_arr = series[-1]
+    nulls = np.array([_structure(kind, _shuffle(kind, late_arr, rng)) for _ in range(n_null)])
+    nmu, nsd = float(nulls.mean()), float(nulls.std())
+    null_z = (late - nmu) / nsd if nsd > 1e-9 else (10.0 if late - nmu > 1e-6 else 0.0)
+    order_gain = late - early
+    z_term = 1.0 / (1.0 + np.exp(-(null_z - 2.0)))          # ~0 below 2 SD, ~1 above
+    g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+    score = float(z_term * (0.5 + 0.5 * g_term))             # null-excess gated, growth-weighted
+    return {"score": round(score, 4), "order_gain": round(order_gain, 4),
+            "null_z": round(float(null_z), 3)}
+
+
 def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                       seed: int = 0) -> Dict[str, Any]:
-    """Return {score in [0,1], kind, order_gain, null_z, n_frames}."""
+    """Return {score in [0,1], kind, order_gain, null_z, n_frames}.
+
+    Scores the dominant spatial/phase/vector channel, AND — when the frames carry
+    velocity/heading data — an ORIENTATION channel (polar + nematic order), taking
+    the stronger of the two. The orientation channel catches apolar/nematic order
+    that a clustering measure misses (rods that align without clustering), and can
+    only RAISE the score (no null carries velocities, so no false-novel risk)."""
     rng = np.random.default_rng(seed)
     if not history:
         return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": 0}
@@ -124,20 +190,20 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
         return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": len(frames)}
     kind = frames[-1][0]
     same = [a for k, a in frames if k == kind]
-    w = max(1, len(same) // 5)
-    early = float(np.mean([_structure(kind, a) for a in same[:w]]))
-    late = float(np.mean([_structure(kind, a) for a in same[-w:]]))
-    late_arr = same[-1]
-    nulls = np.array([_structure(kind, _shuffle(kind, late_arr, rng)) for _ in range(n_null)])
-    nmu, nsd = float(nulls.mean()), float(nulls.std())
-    null_z = (late - nmu) / nsd if nsd > 1e-9 else (10.0 if late - nmu > 1e-6 else 0.0)
-    order_gain = late - early
-    # squash: emergence requires BOTH structure-above-null AND (non-negative growth)
-    z_term = 1.0 / (1.0 + np.exp(-(null_z - 2.0)))          # ~0 below 2 SD, ~1 above
-    g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
-    score = float(z_term * (0.5 + 0.5 * g_term))             # null-excess gated, growth-weighted
-    return {"score": round(score, 4), "kind": kind, "order_gain": round(order_gain, 4),
-            "null_z": round(float(null_z), 3), "n_frames": len(same)}
+    prim = _score_series(kind, same, rng, n_null)
+    best = {**prim, "kind": kind, "n_frames": len(same)}
+
+    # Orientation channel (velocity/heading-bearing systems)
+    oris = [_orientation_from_frame(f) for f in history]
+    oris = [o for o in oris if o is not None]
+    if len(oris) >= 2:
+        orie = _score_series("orientation", oris, np.random.default_rng(seed + 1), n_null)
+        if orie["score"] > best["score"]:
+            best = {**orie, "kind": "orientation", "n_frames": len(oris)}
+
+    return {"score": best["score"], "kind": best["kind"],
+            "order_gain": best["order_gain"], "null_z": best["null_z"],
+            "n_frames": best["n_frames"]}
 
 
 def three_way_verdict(top_calibrated_confidence: Optional[float],
