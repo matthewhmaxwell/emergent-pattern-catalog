@@ -86,15 +86,9 @@ def _p24():  # Homeostasis: TRANSIENT pulse (perturbation removed mid-run) so pr
     m = ProportionalHomeostat(HomeostatParams(setpoint=10.0, gain=5.0, dt=0.1, noise_std=0.5, seed=0))
     return [m.simulate(n_steps=1000, schedule=PerturbationSchedule(onset=30.0, offset=70.0, amplitude=5.0))], m.get_metadata()
 
-def _p15():  # Game of Life: glider IC so "propagating computation" is literal — gliders glide across and collide
-    import numpy as np
+def _p15():  # Game of Life: built-in glider-collision IC -> gliders glide across and collide (literal propagating computation)
     from epc.models.game_of_life import GameOfLife
-    R = Cc = 60; g = np.zeros((R, Cc), dtype=int)
-    glider = [(0, 1), (1, 2), (2, 0), (2, 1), (2, 2)]            # canonical SE-moving glider
-    for (r, c) in [(3, 3), (3, 33), (33, 3), (18, 48)]:          # few, well-separated -> visibly glide before colliding
-        for dr, dc in glider:
-            g[(r + dr) % R, (c + dc) % Cc] = 1
-    return [GameOfLife(rows=R, cols=Cc, init_grid=g).run(n_steps=110)], {}
+    return [GameOfLife(rows=60, cols=60, init_mode="glider_collision").run(n_steps=110)], {}
 
 def _p17():  # Collective sensing: FIXED gradient source so "up the gradient" has a visible referent (field drawn by producer)
     from epc.models.collective_sensing import CollectiveSensingModel
