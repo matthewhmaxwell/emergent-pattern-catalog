@@ -115,8 +115,9 @@ mode. Dimensional coverage analysis identifies underexplored regions of
 the space — candidates for future discovery — and the ontology underpins
 the cross-exclusion graph used by the detection toolkit.
 
-*A detection toolkit of 13 quantitative detectors with explicit null
-models, tier-gated significance criteria, and exclusion logic.* Every
+*A detection toolkit of 32 quantitative detectors, one per catalog
+pattern, with explicit null models, tier-gated significance criteria, and
+exclusion logic.* Every
 detector returns a structured `DetectorResult` containing primary and
 secondary metrics, a null p-value under a specified null model, a
 detection tier (screening, confirmation, or definitive), confidence
@@ -127,36 +128,23 @@ metadata), enabling systematic dispatch across the model inventory.
 
 *An instrument layer that turns the catalog into a measurement device.* Beyond detecting a pre-specified pattern, the battery can be pointed at a system it was not built on and return a calibrated, cross-pattern-comparable emergent-pattern profile with a three-way verdict — MATCH (a catalogued pattern), EMERGENT-UNCLASSIFIED (self-organization matching none of the detectors, the novelty / discovery signal), or NO-EMERGENCE. We validate this layer on held-out out-of-distribution systems and demonstrate it, read blind, on a multi-agent large-language-model swarm in Section 5A.
 
-We validate the toolkit by implementing 20 registered models across
-19 distinct canonical model families (Zhang cell-view sorting has
-sequential and threaded variants of the same family that share
-substrate, observables, and primary patterns and are folded as a
-single display row in the consolidated transfer matrix) spanning
-nine pattern clusters and seven substrates (lattice_1d, lattice_2d,
-lattice_2d_continuous, continuous_2d, oscillator, opinion_space,
-and scalar_wealth). Each model replicates published quantitative
-results and each of 19 implemented detectors produces the correct
-tier assignment on both positive and negative controls. The
-resulting transfer matrix contains 79 substrate-and-observable
-compatible cells out of 380 registry cells (19 displayed rows × 19
-detector columns yields 361 cells in the folded display); the
-remaining 301 registry cells (284 in the displayed table) are
-correctly eliminated without empirical testing — 274 by substrate
-mismatch and 27 by detector–observable incompatibility. Of the 79
-audited cells, 19 produce canonical DEFINITIVE detections (one per
-primary model family), pinned in dedicated end-to-end test files;
-the other 195 audited model–detector outcomes — covering screening
-admits, screening rejections, and confirmation-tier co-occurrences
-— are pinned in the cross-detection regression suite. Every
-canonical positive reaches at least confirmation tier on its
-primary detector and every cross-pattern negative control is
-correctly rejected by substrate match, observable match,
-prerequisite guard, or primary-metric screening. The transfer
-matrix figures cited here are programmatically derived from the
-model and detector registries by `scripts/count_transfer_matrix.py`
-and pinned by `tests/test_transfer_matrix_counts.py` so that any
-future registry change that drifts from the cited numbers fails the
-test suite before propagating silently into the manuscript.
+We validate the toolkit on two complementary tracks. First, every one of
+the 32 detectors is exercised on a per-pattern Phase-2a discrimination
+panel that pits its canonical positive — a run that self-organizes from a
+disordered start — against three classes of negative: synthetic nulls,
+catalog-mate look-alikes, and failed regimes. All 31 panels (P1–P30 and
+P32; P31 is validated separately by a multi-run non-redundancy test) reach
+a true-negative rate of 1.0 with a finite, correctly-oriented continuous
+effect size, and no false positive remains anywhere in the catalog
+(Section 4A). Second, a cross-model transfer matrix runs the detectors
+across multiple independent canonical model families, confirming that each
+detector recognizes its *phenomenon* rather than its native
+*implementation* (Section 5). The transfer-matrix cell counts are
+programmatically derived from the model and detector registries by
+`scripts/count_transfer_matrix.py` and pinned by
+`tests/test_transfer_matrix_counts.py`, so that any registry change that
+drifts from the figures reported in Section 5 fails the test suite before
+propagating silently into the manuscript.
 
 ## 1.4 Scope and Limitations
 
@@ -178,25 +166,18 @@ depend on knowing the generative mechanism is precisely what is needed
 when the long-term goal is to apply these methods to systems whose rules
 are unknown.
 
-*Twenty model families, not an exhaustive census.* The transfer matrix
-at the time of writing covers 20 registered models (19 distinct model
-families, with two Zhang sorting variants folded as one) across the
-seven substrate types lattice_1d (Zhang sorting; Nagel-Schreckenberg
-traffic), lattice_2d (nine cellular automata: Greenberg-Hastings, Game
-of Life, Schelling, Nowak-May, BTW sandpile, SIR epidemic, spatial
-rock-paper-scissors, lattice Lotka-Volterra, voter model),
-lattice_2d_continuous (Gray-Scott reaction-diffusion), continuous_2d
-(Vicsek, D'Orsogna, active Brownian particles), oscillator (all-to-all
-Kuramoto, non-local Kuramoto), opinion_space (Hegselmann-Krause), and
-scalar_wealth (Yard-Sale wealth exchange). Several documented patterns —
-lane formation (P7), territoriality (P4), associative memory (P16),
-distributed sensing (P17), leadership (P19), quorum sensing (P20),
-anti-coordination (P23), homeostatic regulation (P24), canalized
-restoration (P25), stochastic resonance (P26), trail formation (P29),
-autopoiesis (P30), and emergent specialization (P32) — do not yet have
-canonical-model implementations in our toolkit. We treat the current
-matrix as a working core, not a closed table, and identify
-dimensional-coverage gaps in Section 5.
+*A complete detector battery on a still-growing model census.* The
+catalog now provides a faithful detector for all 32 patterns, each with a
+canonical positive that self-organizes from a disordered start (Section
+4A). What remains a working core rather than a closed census is the set of
+*independent* model implementations used for cross-model validation: only
+seven patterns currently carry a second, independent canonical model
+confirming phenomenon-level rather than implementation-level recognition
+(Section 5A.5), and the transfer matrix's model inventory — with its
+dimensional-coverage gaps — is treated as an open, growing table in
+Section 5. Detection on substrates whose generative rules are unknown, the
+long-term target, is taken up by the instrument layer of Section 5A and
+remains an active limitation there (Section 5A.8).
 
 ## 1.5 Organization
 
