@@ -14,7 +14,9 @@ CSS = """
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
 header{padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
 header h1{margin:0;font-size:18px}header p{margin:3px 0 0;color:var(--mut);font-size:13px}
-.wrap{display:flex;height:calc(100vh - 64px)}
+.wrap{display:flex;height:calc(100vh - 94px)}
+.foot-bar{height:30px;display:flex;align-items:center;justify-content:center;gap:7px;border-top:1px solid var(--line);background:var(--panel);color:var(--mut);font-size:12px}
+.email-img{height:13px;vertical-align:middle;opacity:.85}
 .list{width:290px;overflow-y:auto;border-right:1px solid var(--line);background:var(--panel);flex:none}
 .item{padding:9px 16px;cursor:pointer;border-bottom:1px solid var(--line);font-size:14px}
 .item.about-item b{color:#b7791f}
@@ -329,6 +331,7 @@ page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<p>32 minimal models of emergent behaviour — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, see the simple rule, and watch the validated detector recognise it.</p></header>"
     "<div class=wrap><div class=list id=list role=listbox aria-label='Emergent pattern models — use arrow keys to browse, Enter to open'></div>"
     "<main class=detail id=detail tabindex=-1></main></div>"
+    "<footer class=foot-bar>Cataloged by Matt Maxwell &nbsp;&middot;&nbsp;<img src=assets/email.png alt='contact email' class=email-img></footer>"
     "<noscript><p style='padding:20px;color:#8b98a5'>This interactive gallery requires JavaScript to be enabled.</p></noscript>"
     "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)).replace("__METHODS__", json.dumps(METHODS_HTML)) + "</script></body></html>")
 open("gallery/index.html", "w").write(page)
