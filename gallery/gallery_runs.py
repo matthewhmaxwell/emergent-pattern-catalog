@@ -72,4 +72,11 @@ def _p12():  # RPS: larger lattice + higher mobility (toward M_c~4.5e-4) -> acti
     from epc.models.rps_spatial import RPSSpatialModel
     return [RPSSpatialModel(rows=90, cols=90, mobility=3e-4, seed=2).run(n_steps=400)], {}
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12}
+def _p2():   # MIPS: higher packing (phi=0.7) so the active gas clearly phase-separates into dense+dilute domains
+    from epc.models.active_brownian_particles import ActiveBrownianParticles
+    N = 1000; phi = 0.7; box = float(np.sqrt(N * np.pi / 4.0 / phi))
+    m = ActiveBrownianParticles(n_particles=N, box_size=box, v0=1.0, D_r=0.01,
+        rho_star=4.0, r_cg=1.0, dt=0.05, init_mode="uniform", seed=1)
+    return [m.run(n_steps=2000)], m.get_metadata()
+
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2}

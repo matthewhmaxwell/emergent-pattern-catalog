@@ -574,6 +574,26 @@ def traffic_spacetime(history, title, bins=200, **_):
         out.append(_img(fig))
     return out
 
+def density_field(history, title, bins=40, **_):
+    """Coarse-grained DENSITY heatmap of continuous particle positions over time — motility-induced
+    phase separation shows as a bright dense droplet emerging from a uniform dilute gas (MIPS, P2)."""
+    H = [f for f in history if isinstance(f, dict) and "positions" in f]
+    if len(H) < 3: return []
+    fr = H if len(H) <= NF else [H[i] for i in np.linspace(0, len(H)-1, NF).astype(int)]
+    allp = np.concatenate([np.asarray(f["positions"], float)[:, :2] for f in fr])
+    L = float(fr[-1].get("box_size", allp.max() + 1))
+    hists = []; hmax = 1e-9
+    for f in fr:
+        p = np.asarray(f["positions"], float)[:, :2]
+        h = np.histogram2d(p[:, 0], p[:, 1], bins=bins, range=[[0, L], [0, L]])[0]
+        hists.append(h); hmax = max(hmax, h.max())
+    out = []
+    for h in hists:
+        fig, ax = _new(title)
+        ax.imshow(h.T, origin="lower", cmap="inferno", vmin=0, vmax=hmax, interpolation="bilinear", extent=[0, L, 0, L])
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
 def occupancy_field(history, title, **_):
     """Per-agent occupancy map — each cell coloured by the agent that visits it most; distinct
     non-overlapping colour regions are the exclusive home ranges of territoriality (P4)."""
@@ -632,6 +652,7 @@ PRODUCERS = {
     "spacetime_slice": spacetime_slice, "pca_funnel": pca_funnel,
     "traffic_spacetime": traffic_spacetime, "occupancy_field": occupancy_field, "regulate_time": regulate_time,
     "leadership": leadership, "minority_game": minority_game, "gradient_climb": gradient_climb,
+    "density_field": density_field,
 }
 
 
