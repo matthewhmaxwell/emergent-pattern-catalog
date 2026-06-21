@@ -81,6 +81,31 @@ def _p13():  # Excitable waves: shorter formation-rich run (established medium i
     return [GreenbergHastings(rows=60, cols=60, n_states=8, threshold=1, neighborhood="moore",
         init_density=0.3, seed=2).run(n_steps=120)], {}
 
+def _p24():  # Homeostasis: TRANSIENT pulse (perturbation removed mid-run) so proportional control visibly RETURNS to set-point
+    from epc.models.homeostasis import ProportionalHomeostat, HomeostatParams, PerturbationSchedule
+    m = ProportionalHomeostat(HomeostatParams(setpoint=10.0, gain=5.0, dt=0.1, noise_std=0.5, seed=0))
+    return [m.simulate(n_steps=1000, schedule=PerturbationSchedule(onset=30.0, offset=70.0, amplitude=5.0))], m.get_metadata()
+
+def _p15():  # Game of Life: glider IC so "propagating computation" is literal — gliders glide across and collide
+    import numpy as np
+    from epc.models.game_of_life import GameOfLife
+    R = Cc = 60; g = np.zeros((R, Cc), dtype=int)
+    glider = [(0, 1), (1, 2), (2, 0), (2, 1), (2, 2)]            # canonical SE-moving glider
+    for (r, c) in [(3, 3), (3, 33), (33, 3), (18, 48)]:          # few, well-separated -> visibly glide before colliding
+        for dr, dc in glider:
+            g[(r + dr) % R, (c + dc) % Cc] = 1
+    return [GameOfLife(rows=R, cols=Cc, init_grid=g).run(n_steps=110)], {}
+
+def _p17():  # Collective sensing: FIXED gradient source so "up the gradient" has a visible referent (field drawn by producer)
+    from epc.models.collective_sensing import CollectiveSensingModel
+    fc, fsig, box = (16.0, 16.0), 4.0, 20.0
+    m = CollectiveSensingModel(n_agents=60, box_size=box, field_center=fc, field_sigma=fsig,
+        field_amplitude=1.0, init_mode="offset", seed=1)
+    run = m.run(n_steps=400)
+    for f in run:
+        f["field_center"] = fc; f["field_sigma"] = fsig; f["box_size"] = box
+    return [run], m.get_metadata()
+
 def _p2():   # MIPS: higher packing (phi=0.7) so the active gas clearly phase-separates into dense+dilute domains
     from epc.models.active_brownian_particles import ActiveBrownianParticles
     N = 1000; phi = 0.7; box = float(np.sqrt(N * np.pi / 4.0 / phi))
@@ -92,4 +117,4 @@ def _p27():  # Spatial PD: near-all-cooperator start + chaotic b -> defectors in
     from epc.models.nowak_may import NowakMayModel
     return [NowakMayModel(rows=60, cols=60, b=1.85, init_coop_fraction=0.9, seed=3).run(n_steps=200)], {}
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27, "p13": _p13, "p31": _p31}
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27, "p13": _p13, "p31": _p31, "p24": _p24, "p15": _p15, "p17": _p17}
