@@ -79,4 +79,8 @@ def _p2():   # MIPS: higher packing (phi=0.7) so the active gas clearly phase-se
         rho_star=4.0, r_cg=1.0, dt=0.05, init_mode="uniform", seed=1)
     return [m.run(n_steps=2000)], m.get_metadata()
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2}
+def _p27():  # Spatial PD: near-all-cooperator start + chaotic b -> defectors invade but cooperators PERSIST in clusters (spatial reciprocity)
+    from epc.models.nowak_may import NowakMayModel
+    return [NowakMayModel(rows=60, cols=60, b=1.85, init_coop_fraction=0.9, seed=3).run(n_steps=200)], {}
+
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27}
