@@ -72,6 +72,10 @@ def _p12():  # RPS: larger lattice + higher mobility (toward M_c~4.5e-4) -> acti
     from epc.models.rps_spatial import RPSSpatialModel
     return [RPSSpatialModel(rows=90, cols=90, mobility=3e-4, seed=2).run(n_steps=400)], {}
 
+def _p31():  # Delayed gratification: run the cell-view sort to COMPLETION so the bars reach clean order (was truncated mid-sort)
+    from epc.models.cell_view_sorting import CellViewSorting
+    return [CellViewSorting(n=60, algorithm="insertion", seed=1).run_to_completion()], {}
+
 def _p13():  # Excitable waves: shorter formation-rich run (established medium is a period-8 limit cycle -> few distinct frames)
     from epc.models.greenberg_hastings import GreenbergHastings
     return [GreenbergHastings(rows=60, cols=60, n_states=8, threshold=1, neighborhood="moore",
@@ -88,4 +92,4 @@ def _p27():  # Spatial PD: near-all-cooperator start + chaotic b -> defectors in
     from epc.models.nowak_may import NowakMayModel
     return [NowakMayModel(rows=60, cols=60, b=1.85, init_coop_fraction=0.9, seed=3).run(n_steps=200)], {}
 
-GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27, "p13": _p13}
+GALLERY_RUNS = {"p3": _p3, "p9": _p9, "p29": _p29, "p11": _p11, "p16": _p16, "p12": _p12, "p2": _p2, "p27": _p27, "p13": _p13, "p31": _p31}
