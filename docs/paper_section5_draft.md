@@ -19,8 +19,11 @@ specifications.
 
 The model registry now contains 40 registered models and 32 registered
 detectors, reflecting the completed catalog — every pattern has a faithful
-detector and a canonical model (§4A) — together with the independent
-cross-model implementations of §5A.5. At the registry level this is
+detector and a canonical model (§4A) — together with eight additional
+implementations: the five independent cross-model alternatives of §5A.5
+(for P16, P20, P23, P25, P29), two within-pattern variants (a second P4
+territoriality model and a P32 baseline), and the threaded Zhang sorting
+variant folded into one display row. At the registry level this is
 40 × 32 = 1280 cells, of which 121 are substrate- and observable-compatible
 and 1159 are correctly eliminated without empirical testing: 1130 by
 substrate mismatch and 29 by detector–observable incompatibility (chiefly
