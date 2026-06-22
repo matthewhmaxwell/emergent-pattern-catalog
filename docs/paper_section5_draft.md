@@ -17,33 +17,41 @@ specifications.
 
 ## 5.1 The Completed Transfer Matrix
 
-The current inventory contains 20 registered models (displayed here as 19
-rows, collapsing the two Zhang sorting variants `zhang_sequential` and
-`zhang_threaded` which share substrate, observables, and primary
-patterns) and 19 registered detectors. Of the 380 registry cells
-(19 display rows × 19 detector columns yields 361 displayed cells;
-the registry-level count of 380 differentiates the two Zhang variants),
-79 registry-level cells are substrate-compatible, observable-compatible,
-and empirically audited (77 of which are displayed in the folded table,
-the remaining 2 being the dropped Zhang variant's compatible cells);
-the remaining 301 registry-level cells (284 in the displayed table)
-are correctly eliminated by substrate mismatch (274 cells: multi-
-substrate boundary) or detector–observable incompatibility (27 cells:
-chiefly P31 which requires `lattice_1d` with `cell_types`, P14 which
-requires `avalanche_sizes`, and P27 which requires `coop_fraction`).
-Of the 79 audited cells, 19 produce canonical DEFINITIVE
-detections (one per primary model family: Zhang × P31, Schelling × P1,
-Vicsek × P5, D'Orsogna × P6, ABP × P2, Kuramoto × P9,
-Kuramoto-nonlocal × P10, GH × P13, GoL × P15 with dense random IC,
-BTW × P14, Nowak-May × P27, HK × P21, SIR × P22, RPS × P12,
-Lotka-Volterra × P11, Gray-Scott × P3, Nagel-Schreckenberg × P8,
-Yard-Sale × P28, Voter × P18), plus several CONFIRMATION and SCREENING
-co-occurrences documented below; the remainder reject at prerequisite
-or screening guard, and a small number run without firing (typically
-P15 on stochastic lattice models where the functional replay test
-fails due to irreproducibility).
+The model registry now contains 40 registered models and 32 registered
+detectors, reflecting the completed catalog — every pattern has a faithful
+detector and a canonical model (§4A) — together with the independent
+cross-model implementations of §5A.5. At the registry level this is
+40 × 32 = 1280 cells, of which 121 are substrate- and observable-compatible
+and 1159 are correctly eliminated without empirical testing: 1130 by
+substrate mismatch and 29 by detector–observable incompatibility (chiefly
+P31, which requires `lattice_1d` with `cell_types`; P14, which requires
+`avalanche_sizes`; and P27, which requires `coop_fraction`). Folding the two
+Zhang sorting variants (`zhang_sequential`, `zhang_threaded`) into a single
+display row gives 39 rows × 32 columns = 1248 displayed cells, 119 of them
+compatible.
 
-The figures in this section are programmatically derived from
+The fully tier-audited transfer matrix presented in this section (Table 1)
+is the validated 20-model / 19-detector core from which the cross-model
+findings below were drawn: 79 compatible cells audited, of which 19 produce
+canonical DEFINITIVE detections (one per primary model family: Zhang × P31,
+Schelling × P1, Vicsek × P5, D'Orsogna × P6, ABP × P2, Kuramoto × P9,
+Kuramoto-nonlocal × P10, GH × P13, GoL × P15 with dense random IC, BTW ×
+P14, Nowak-May × P27, HK × P21, SIR × P22, RPS × P12, Lotka-Volterra × P11,
+Gray-Scott × P3, Nagel-Schreckenberg × P8, Yard-Sale × P28, Voter × P18),
+plus several CONFIRMATION and SCREENING co-occurrences documented below.
+The 20 model implementations registered since — the previously missing
+patterns' canonical models (lane formation, territoriality, collective
+sensing, quorum sensing, homeostasis, trail networks, autopoiesis, and
+others) and the cross-model alternatives of §5A.5 — have their primary
+detections pinned by dedicated end-to-end tests (26 such tests in total)
+and their detectors validated per-pattern in §4A, where all 31 Phase-2a
+discrimination panels reach a true-negative rate of 1.0. Tier-level audit
+of the newly-compatible cross-cells beyond the original 79 is carried
+forward (§7.5); a substrate-agnostic emergent-pattern profile of any single
+observation is additionally available through the instrument battery of §5A.
+
+The registry-level figures above (models, detectors, total and compatible
+cells) are programmatically derived from
 `MODEL_REGISTRY` and `DETECTOR_REGISTRY` by
 `scripts/count_transfer_matrix.py`, with the script's output pinned by
 `tests/test_transfer_matrix_counts.py`. Future registry changes will
@@ -66,7 +74,7 @@ replicated published quantitative results and by null-model
 significance testing); they live in different files for historical
 reasons rather than methodological ones.
 
-**Table 1: Consolidated Transfer Matrix (19 model families × 19 detector slots)**
+**Table 1: Consolidated Transfer Matrix — the audited 20-model / 19-detector core (19 model families × 19 detector slots; the full registry is now 40 models × 32 detectors, see §5.1)**
 
 |                    | P1  | P2  | P3  | P5 | P6 | P8  | P9 | P10 | P11 | P12 | P13 | P14 | P15 | P18 | P21 | P22 | P27 | P28 | P31 |
 |--------------------|-----|-----|-----|----|----|-----|----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
@@ -408,17 +416,20 @@ P29 for novel substrate variants — is the primary future-work plan.
 
 ## 5.8 Dimensional Coverage
 
-The 20 registered models (19 distinct model families) span 8 of
-11 ontological dimensions with at
-least two distinct values each. Coverage gaps concentrate in three
-dimensions: *interaction type* (no indirect-stigmergic models, such as
-ant trail formation or Physarum networks); *memory* (no
-environmental-trace models, though all lattice models have local
-state); and *external driving* (all current models are autonomous —
-none are externally forced, periodically driven, or field-coupled).
-These gaps correspond precisely to the missing pattern clusters
-(G Resilience and I Structure Formation), suggesting that filling in
-the model inventory will naturally expand dimensional coverage.
+The audited 20-model core (19 distinct model families) of Table 1 spans
+8 of 11 ontological dimensions with at least two distinct values each.
+Coverage gaps in that core concentrated in three dimensions:
+*interaction type* (indirect-stigmergic models such as ant-trail
+formation or Physarum networks); *memory* (environmental-trace models);
+and *external driving* (externally forced, periodically driven, or
+field-coupled models). **Several of these gaps have since been closed by
+the expanded 40-model registry (§5.1):** indirect-stigmergic ant-trail
+and Physarum network models, the field-coupled collective-sensing model,
+the externally-driven stochastic-resonance and homeostasis models, and a
+dedicated trail-network substrate are now registered, each with a faithful
+detector validated in §4A. The residual gaps, and the tier-level
+cross-model audit of the newly-compatible cells, are carried forward
+(§7.5).
 
 Within the covered dimensions, the transfer matrix demonstrates that
 detection is robust across dimensional variation. P1 fires correctly

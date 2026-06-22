@@ -17,7 +17,9 @@ script output. The intended response when this test fails is:
   3. If no, revert the registry change.
 
 Sprint 22 D5: addresses Sprint 21 carry-forward #19. The pinned values
-were measured against Sprint 21 D1 HEAD (commit 0e267c5).
+were re-measured against the validation-rebuild branch on 2026-06-21,
+after the catalog was completed to 32 detectors and the model registry grew to
+40 models (the prior Sprint-21 values 35 models / 29 detectors are superseded).
 """
 from __future__ import annotations
 
@@ -53,17 +55,17 @@ DISPLAY_FOLDS = _module.DISPLAY_FOLDS
 # changes, run `python scripts/count_transfer_matrix.py` to get the new
 # values, update this dict, and update §5.1 in the paper draft.
 EXPECTED: dict[str, int] = {
-    'n_models': 35,
-    'n_detectors': 29,
-    'n_total_cells': 1015,
-    'n_compatible': 116,
-    'n_substrate_mismatch': 870,
+    'n_models': 40,
+    'n_detectors': 32,
+    'n_total_cells': 1280,
+    'n_compatible': 121,
+    'n_substrate_mismatch': 1130,
     'n_missing_observable': 29,
-    'n_total_rejections': 899,
-    'n_displayed_rows': 34,
-    'n_displayed_cells': 986,
-    'n_displayed_compatible': 114,
-    'n_displayed_rejections': 872,
+    'n_total_rejections': 1159,
+    'n_displayed_rows': 39,
+    'n_displayed_cells': 1248,
+    'n_displayed_compatible': 119,
+    'n_displayed_rejections': 1129,
 }
 
 
