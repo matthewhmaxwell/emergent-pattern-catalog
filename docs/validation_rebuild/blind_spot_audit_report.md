@@ -72,3 +72,30 @@ not the final frame; needs a dedicated moving-front / full-run detector.
 - For the DISCOVERY phase: treat any "emergent-but-unclassified" hit as a candidate
   *only after* it clears a surrogate null on the firing channel, and report the
   detection channel so the blind classes above are explicitly flagged as low-recall.
+
+## Round-2 update (2026-06-23, af66728) — recall 0.64 → 1.0
+
+Two general-purpose channels were wired into the live `generic_emergence` after
+probe+detector co-design (round-2 workspace `analysis/round2/`):
+
+1. **Ψ_CE synergy / causal emergence** (c0ce695) — recovers synergy (XOR) +
+   connectivity (percolation). Gated at Ψ_CE>0.08; zero null false-positives.
+2. **Spectral-peak oscillation channel, gated to non-phase observations** (af66728)
+   — recovers temporal-oscillation (limit cycle), chaos (coupled-map lattice), and
+   transient-wave (SIR front) in one stroke. The phase-kind gate is the key: phase
+   synchronization is already covered by the order-parameter channel, and the only
+   null that false-fired (uncoupled Kuramoto, osc 17) is phase-kind; every non-phase
+   null is ≤ 9 vs the emergent range 35–64, so threshold 15 cleanly separates.
+
+**Co-design lessons (why the obvious approaches failed):** the coordination-gate
+(collective complexity vs desync surrogate) has the WRONG polarity for
+synchronization — sync *lowers* complexity (clean oscillation), the desync
+surrogate is a more-complex beat; and a naive "is the macro periodic?" detector
+false-fires on trivial independent oscillators. The phase-kind gate resolves it.
+
+**Result:** blind-spot audit (3-seed) **11/11 emergent recall, 0/2 null
+false-positives**; T2c UNCHANGED (null-spec 1.0, STRICT rec 0.83 / nov 1.0 /
+false-MATCH 0). The transient/front family is recovered by detection (the front's
+activity pulse has spectral structure); a dedicated front *classifier* is no longer
+needed for the indicator. STILL OPEN for full comprehensiveness: probes+channels for
+heavy-tail/power-law distributions and network/community emergence (round-2 cont.).
