@@ -220,6 +220,10 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                     best = {"score": round(syn, 4),
                             "order_gain": round(float(psi), 4), "null_z": 0.0,
                             "kind": f"synergy(psi_ce:{feat})", "n_frames": M.shape[0]}
+            # NOTE: a temporal/collective-oscillation channel (mpr_emergence,
+            # oscillation_score in info_channels) is researched but NOT wired —
+            # it needs probe+null co-design (independent-vs-collective oscillation;
+            # mean-field washout for chaos). Deferred to detection round 2.
     except Exception:
         pass
 

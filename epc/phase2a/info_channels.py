@@ -127,6 +127,59 @@ def mpr_complexity(series: Sequence[float], d: int = 4, delay: int = 1) -> Dict[
     return {"H": float(H), "C": float((js / q0 if q0 > 0 else 0.0) * H), "d": d}
 
 
+def mpr_emergence(micro: np.ndarray, n_surr: int = 24, seed: int = 0, d: int = 4
+                  ) -> Tuple[float, float]:
+    """Coordination-gated statistical-complexity channel for COLLECTIVE temporal
+    structure (synchronized oscillation / limit cycles).
+
+    Tests whether the collective signal (mean of components) has ordinal-pattern
+    complexity exceeding surrogates that break cross-component coordination by
+    circularly time-shifting each component independently (preserving each part's
+    own dynamics). A synchronized oscillation collapses under desync → flagged; a
+    smooth-but-uncoordinated signal (e.g. Brownian drift of a mean over independent
+    random walkers) survives → NOT flagged (fixes the plain-shuffle false positive).
+    Returns (z, observed_C). NOTE: the per-component/chaos sub-case (collective
+    complexity vs independent units) is deferred — see blind_spot_audit report.
+    """
+    micro = np.asarray(micro, dtype=float)
+    if micro.ndim != 2 or micro.shape[0] < 16 or micro.shape[1] < 2:
+        return float("nan"), float("nan")
+    rng = np.random.default_rng(seed)
+    T, n = micro.shape
+    c_obs = mpr_complexity(micro.mean(1), d=d)["C"]
+    cs = np.empty(n_surr)
+    for s in range(n_surr):
+        sh = np.empty_like(micro)
+        for j in range(n):
+            sh[:, j] = np.roll(micro[:, j], int(rng.integers(0, T)))
+        cs[s] = mpr_complexity(sh.mean(1), d=d)["C"]
+    mu, sd = float(cs.mean()), float(cs.std())
+    z = (c_obs - mu) / sd if sd > 1e-9 else (5.0 if c_obs - mu > 1e-6 else 0.0)
+    return float(z), float(c_obs)
+
+
+def oscillation_score(series: Sequence[float], kmin: int = 2) -> float:
+    """Sustained-oscillation / limit-cycle detector: peak-to-mean of the power
+    spectrum of the linearly-detrended series, EXCLUDING the lowest `kmin` bins.
+
+    A limit cycle has a prominent interior spectral peak (→ large); Brownian drift
+    has only a 1/f² low-frequency ramp removed by detrending + bin exclusion (→ ~1);
+    white noise is spectrally flat (→ ~few). Distinguishes oscillation from the
+    smooth-drift / noise nulls that fooled raw statistical complexity.
+    """
+    s = np.asarray(series, dtype=float).ravel()
+    if s.size < 16 or np.ptp(s) < 1e-12:
+        return 0.0
+    t = np.arange(s.size)
+    s = s - np.polyval(np.polyfit(t, s, 1), t)        # remove linear trend (drift)
+    ps = np.abs(np.fft.rfft(s)) ** 2
+    hi = max(kmin + 2, len(ps))
+    ps = ps[kmin:hi]
+    if ps.size < 3 or ps.sum() <= 0:
+        return 0.0
+    return float(ps.max() / (ps.mean() + 1e-12))
+
+
 def micro_macro(history: List[Dict[str, Any]], max_parts: int = 24
                 ) -> Tuple[Optional[np.ndarray], Optional[Dict[str, Any]]]:
     """Generic per-component time-series + candidate macro features from any
