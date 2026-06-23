@@ -1375,5 +1375,62 @@
     "mp4": "p32.mp4",
     "contact_sheet": "p32_sprite.png",
     "where": "Division of labor and castes in ant and bee colonies via response thresholds, and cell differentiation (biology); task allocation and work scheduling in swarm robotics and distributed systems (technology)."
+  },
+  {
+    "id": "P33",
+    "name": "Active nematic order",
+    "ref": "Sanchez et al. 2012",
+    "summary": "Apolar self-propelled rods align head-tail-symmetrically; activity injects motile \u00b11/2 defects.",
+    "effect": "Nematic order with self-propelled half-integer defects (active turbulence).",
+    "viz": "director",
+    "watch": "Watch the orientation field form aligned domains threaded by \u00b11/2 topological defects \u2014 apolar order with no single flock direction, unlike polar flocking.",
+    "metric": "coherent_half_defect_density",
+    "detector": {
+      "top": "P33",
+      "tier": "definitive",
+      "confidence": null,
+      "verdict": "TNR 1.0 \u00b7 d=4.8",
+      "emergence": null,
+      "self_recognized": true
+    },
+    "asset": "p33.gif"
+  },
+  {
+    "id": "P34",
+    "name": "Adaptive-network fragmentation",
+    "ref": "Holme & Newman 2006",
+    "summary": "Nodes rewire ties toward same-opinion peers while opinions spread; the network coevolves.",
+    "effect": "Topology coevolves with state and fragments into communities.",
+    "viz": "adjacency_blocks",
+    "watch": "Watch the adjacency matrix (reordered by opinion) split into two clean diagonal blocks \u2014 the network fragments into disconnected same-opinion communities.",
+    "metric": "modularity_gain",
+    "detector": {
+      "top": "P34",
+      "tier": "definitive",
+      "confidence": null,
+      "verdict": "TNR 1.0 \u00b7 d=16.7",
+      "emergence": null,
+      "self_recognized": true
+    },
+    "asset": "p34.gif"
+  },
+  {
+    "id": "P35",
+    "name": "Entropy-driven crystallization",
+    "ref": "Alder & Wainwright 1957",
+    "summary": "Purely repulsive disks order by excluded volume alone \u2014 no attraction, just packing entropy.",
+    "effect": "Hexatic crystalline order emerges from packing alone.",
+    "viz": "hexatic",
+    "watch": "Watch the disks brighten into hexatic (six-fold) crystalline grains as packing tightens \u2014 order from entropy, with no attractive force.",
+    "metric": "psi6_gain",
+    "detector": {
+      "top": "P35",
+      "tier": "definitive",
+      "confidence": null,
+      "verdict": "TNR 1.0 \u00b7 d=8.3",
+      "emergence": null,
+      "self_recognized": true
+    },
+    "asset": "p35.gif"
   }
 ]

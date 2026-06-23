@@ -176,7 +176,84 @@ def render_spacetime(history, out_path, title="", key="array"):
     return out_path
 
 
+def render_director(history, out_path, title=""):
+    """Nematic director field: coarse-grained orientation theta in [0,pi) as a cyclic
+    color map. Nematic domains + ±1/2 topological defects show as color textures and
+    singularities. (P33 active nematic.)"""
+    from scipy.ndimage import uniform_filter
+    frames = _subsample(history, "theta_field")
+    if len(frames) < 2:
+        return None
+    def cg(th):
+        th = np.asarray(th, float)
+        c = uniform_filter(np.cos(2 * th), 3, mode="wrap")
+        s = uniform_filter(np.sin(2 * th), 3, mode="wrap")
+        return (np.arctan2(s, c) / 2.0) % np.pi
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=80)
+    im = ax.imshow(cg(frames[0]["theta_field"]), cmap="twilight",
+                   interpolation="bilinear", vmin=0, vmax=np.pi, animated=True)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_title(title, fontsize=9)
+    def upd(i):
+        im.set_array(cg(frames[i]["theta_field"])); return im,
+    a = animation.FuncAnimation(fig, upd, frames=len(frames), blit=False)
+    a.save(out_path, writer=animation.PillowWriter(fps=_FPS)); plt.close(fig)
+    return out_path
+
+
+def render_adjacency_blocks(history, out_path, title=""):
+    """Adaptive network: adjacency reordered by node state. Coevolution fragments the
+    graph into same-state communities -> two diagonal blocks emerge. (P34.)"""
+    frames = _subsample(history, "adjacency")
+    if len(frames) < 2:
+        return None
+    def reorder(f):
+        A = np.asarray(f["adjacency"], float)
+        if "opinions" in f:
+            order = np.argsort(np.asarray(f["opinions"]))
+            A = A[np.ix_(order, order)]
+        return A
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=80)
+    im = ax.imshow(reorder(frames[0]), cmap="binary", interpolation="nearest", animated=True)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_title(title, fontsize=9)
+    def upd(i):
+        im.set_array(reorder(frames[i])); return im,
+    a = animation.FuncAnimation(fig, upd, frames=len(frames), blit=False)
+    a.save(out_path, writer=animation.PillowWriter(fps=_FPS)); plt.close(fig)
+    return out_path
+
+
+def render_hexatic(history, out_path, title=""):
+    """Entropy crystallization: disks colored by local hexatic order |psi6_i|.
+    Crystalline (high psi6) grains brighten as the packing self-orders. (P35.)"""
+    frames = _subsample(history, "positions")
+    if len(frames) < 2:
+        return None
+    allp = np.concatenate([np.asarray(f["positions"], float) for f in frames])
+    lo, hi = allp.min(0) - 0.5, allp.max(0) + 0.5
+    L = float(allp.max() - allp.min())
+    def psi6(p):
+        p = np.asarray(p, float); rij = p[:, None, :] - p[None, :, :]; rij -= L * np.round(rij / L)
+        d = np.sqrt((rij ** 2).sum(-1)); np.fill_diagonal(d, 1e9); out = np.empty(len(p))
+        for i in range(len(p)):
+            nn = np.argsort(d[i])[:6]
+            out[i] = abs(np.mean(np.exp(6j * np.arctan2(rij[i, nn, 1], rij[i, nn, 0]))))
+        return out
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=80)
+    p0 = np.asarray(frames[0]["positions"], float)
+    sc = ax.scatter(p0[:, 0], p0[:, 1], s=30, c=psi6(p0), cmap="viridis", vmin=0, vmax=1)
+    ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_aspect("equal")
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_title(title, fontsize=9)
+    def upd(i):
+        p = np.asarray(frames[i]["positions"], float)
+        sc.set_offsets(p[:, :2]); sc.set_array(psi6(p)); return sc,
+    a = animation.FuncAnimation(fig, upd, frames=len(frames), blit=False)
+    a.save(out_path, writer=animation.PillowWriter(fps=_FPS)); plt.close(fig)
+    return out_path
+
+
 RENDERERS = {
+    "director": render_director, "adjacency_blocks": render_adjacency_blocks,
+    "hexatic": render_hexatic,
     "point_cloud": render_point_cloud, "grid_field": render_grid_field,
     "phase_circle": render_phase_circle, "timeseries": render_timeseries,
     "distribution": render_distribution, "network": render_network, "spacetime": render_spacetime,
