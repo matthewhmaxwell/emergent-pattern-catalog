@@ -201,6 +201,28 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
         if orie["score"] > best["score"]:
             best = {**orie, "kind": "orientation", "n_frames": len(oris)}
 
+    # Synergy / causal-emergence channel (Psi_CE): catches "greater-than-the-parts"
+    # collective effects (XOR-type, connectivity) that the morphology channels miss.
+    # Psi_CE is intrinsically specific (it subtracts per-part redundancy, so noise
+    # scores negative; the blind-spot audit measured zero null false-positives), so
+    # a small positive threshold is used and it can only RAISE the score.
+    try:
+        from epc.phase2a.info_channels import micro_macro, psi_ce_best
+        M, cands = micro_macro(history)
+        if M is not None:
+            psi, feat = psi_ce_best(M, cands)
+            # Only contribute when Psi_CE is CLEARLY positive (synergy present).
+            # Gating at 0.08 (nulls score strongly negative, ~-1.7) avoids a floor
+            # artifact at Psi_CE≈0 for static/no-dynamics systems.
+            if psi == psi and psi > 0.08:
+                syn = float(min(0.999, 0.55 + 0.44 * (1.0 - np.exp(-(psi - 0.08) * 6.0))))
+                if syn > best["score"]:
+                    best = {"score": round(syn, 4),
+                            "order_gain": round(float(psi), 4), "null_z": 0.0,
+                            "kind": f"synergy(psi_ce:{feat})", "n_frames": M.shape[0]}
+    except Exception:
+        pass
+
     return {"score": best["score"], "kind": best["kind"],
             "order_gain": best["order_gain"], "null_z": best["null_z"],
             "n_frames": best["n_frames"]}
