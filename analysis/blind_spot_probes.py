@@ -246,10 +246,70 @@ def power_law_soc(seed=0) -> Probe:
                 truth="emergent", family="heavy-tail-SOC")
 
 
+def community_network(seed=0, n=90, blocks=3, steps=50, p_in=0.18, p_out=0.008) -> Probe:
+    """Stochastic-block-model network grown over time → emergent COMMUNITY structure
+    (dense intra-block, sparse inter-block). Emits an 'adjacency' observable."""
+    rng = np.random.default_rng(seed)
+    block = np.repeat(np.arange(blocks), int(np.ceil(n / blocks)))[:n]
+    pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    pr = np.array([p_in if block[i] == block[j] else p_out for i, j in pairs])
+    order = rng.permutation(len(pairs))
+    A = np.zeros((n, n)); H, micro, edges = [], [], []
+    per = max(1, len(pairs) // steps)
+    for t in range(steps):
+        for idx in order[t * per:(t + 1) * per]:
+            i, j = pairs[idx]
+            if rng.random() < pr[idx]:
+                A[i, j] = A[j, i] = 1.0
+        H.append({"adjacency": A.copy()}); micro.append(A.sum(1).copy()); edges.append(float(A.sum() / 2))
+    return dict(history=H, micro=np.array(micro), macro=np.array(edges),
+                truth="emergent", family="network-community")
+
+
+def scale_free_network(seed=0, n=90, m0=2) -> Probe:
+    """Barabási-Albert preferential attachment → emergent SCALE-FREE degree
+    distribution (power-law). Emits an 'adjacency' observable."""
+    rng = np.random.default_rng(seed)
+    A = np.zeros((n, n)); deg = np.zeros(n)
+    for i in range(m0 + 1):
+        for j in range(i + 1, m0 + 1):
+            A[i, j] = A[j, i] = 1.0; deg[i] += 1; deg[j] += 1
+    H, micro = [], []
+    for new in range(m0 + 1, n):
+        targets = set()
+        probs = deg[:new] / deg[:new].sum()
+        while len(targets) < m0:
+            targets.add(int(rng.choice(new, p=probs)))
+        for t in targets:
+            A[new, t] = A[t, new] = 1.0; deg[new] += 1; deg[t] += 1
+        H.append({"adjacency": A.copy()}); micro.append(A.sum(1).copy())
+    return dict(history=H, micro=np.array(micro), macro=np.array([a.sum() for a in micro]),
+                truth="emergent", family="network-scale-free")
+
+
+def null_random_graph(seed=0, n=90, p=0.06, steps=50) -> Probe:
+    """Erdős–Rényi random graph grown over time — no community / scale-free
+    structure. The graph channel must NOT fire on it."""
+    rng = np.random.default_rng(seed)
+    pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    order = rng.permutation(len(pairs))
+    A = np.zeros((n, n)); H, micro, edges = [], [], []
+    per = max(1, len(pairs) // steps)
+    for t in range(steps):
+        for idx in order[t * per:(t + 1) * per]:
+            i, j = pairs[idx]
+            if rng.random() < p:
+                A[i, j] = A[j, i] = 1.0
+        H.append({"adjacency": A.copy()}); micro.append(A.sum(1).copy()); edges.append(float(A.sum() / 2))
+    return dict(history=H, micro=np.array(micro), macro=np.array(edges),
+                truth="null", family="null-graph")
+
+
 PROBES = [
     flocking, aggregation, active_nematic,           # positive controls
     vortex_milling, lane_banding, dla_fractal, percolation,
     traveling_wave, limit_cycle, xor_synergy, spatiotemporal_chaos,
     power_law_soc,                                    # heavy-tail / SOC
-    null_noise, null_walk,                            # nulls
+    community_network, scale_free_network,           # network topology
+    null_noise, null_walk, null_random_graph,        # nulls
 ]

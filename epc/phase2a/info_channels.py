@@ -209,6 +209,62 @@ def heavy_tail_score(history: List[Dict[str, Any]]) -> Optional[Tuple[float, flo
     return llr, decades
 
 
+def _spectral_modularity(A: np.ndarray) -> float:
+    """Newman leading-eigenvector 2-partition modularity Q of a binary adjacency
+    matrix. >0 indicates community structure (a lower bound for >2 communities)."""
+    from scipy.linalg import eigh
+    k = A.sum(1)
+    m = A.sum() / 2.0
+    if m <= 0:
+        return 0.0
+    B = A - np.outer(k, k) / (2.0 * m)
+    _, v = eigh(B)
+    s = np.sign(v[:, -1])
+    s[s == 0] = 1.0
+    return float((s @ B @ s) / (4.0 * m))
+
+
+def graph_structure_score(history: List[Dict[str, Any]], n_er: int = 12, seed: int = 0):
+    """Emergent network-topology channel: reads an 'adjacency' observable (a
+    substrate the spatial/phase channels cannot ingest) and tests whether the
+    self-organized graph has structure beyond an Erdős–Rényi random graph of the
+    same size/density — community structure (spectral modularity z vs ER null) or a
+    scale-free degree distribution (power-law degrees). Returns (z_modularity, Q,
+    scale_free) or None."""
+    A = None
+    for f in reversed(history):
+        if isinstance(f, dict) and "adjacency" in f:
+            A = np.asarray(f["adjacency"], dtype=float)
+            break
+    if A is None or A.ndim != 2 or A.shape[0] != A.shape[1]:
+        return None
+    n = A.shape[0]
+    A = ((A + A.T) > 0).astype(float)
+    np.fill_diagonal(A, 0.0)
+    m = A.sum() / 2.0
+    if n < 10 or m < n * 0.5:
+        return None
+    q_obs = _spectral_modularity(A)
+    deg = A.sum(1)
+    cv_obs = float(deg.std() / (deg.mean() + 1e-9))     # degree heterogeneity (hubs)
+    p = 2.0 * m / (n * (n - 1))
+    rng = np.random.default_rng(seed)
+    q_er, cv_er = [], []
+    for _ in range(n_er):
+        R = (rng.random((n, n)) < p).astype(float)
+        R = np.triu(R, 1)
+        R = R + R.T
+        q_er.append(_spectral_modularity(R))
+        dR = R.sum(1)
+        cv_er.append(float(dR.std() / (dR.mean() + 1e-9)))
+    q_er = np.array(q_er); cv_er = np.array(cv_er)
+    zmod = (q_obs - q_er.mean()) / q_er.std() if q_er.std() > 1e-9 else (5.0 if q_obs - q_er.mean() > 1e-6 else 0.0)
+    # scale-free = degree heterogeneity far above an ER (Poisson-degree) null.
+    # More robust at small n than a power-law fit (BA degrees span <2 decades).
+    zcv = (cv_obs - cv_er.mean()) / cv_er.std() if cv_er.std() > 1e-9 else (5.0 if cv_obs - cv_er.mean() > 1e-6 else 0.0)
+    return float(zmod), float(q_obs), bool(zcv > 3.0)
+
+
 def oscillation_score(series: Sequence[float], kmin: int = 2) -> float:
     """Sustained-oscillation / limit-cycle detector: peak-to-mean of the power
     spectrum of the linearly-detrended series, EXCLUDING the lowest `kmin` bins.

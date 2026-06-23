@@ -211,8 +211,8 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
     # scores negative; the blind-spot audit measured zero null false-positives), so
     # a small positive threshold is used and it can only RAISE the score.
     try:
-        from epc.phase2a.info_channels import (heavy_tail_score, micro_macro,
-                                                oscillation_score, psi_ce_best)
+        from epc.phase2a.info_channels import (graph_structure_score, heavy_tail_score,
+                                                micro_macro, oscillation_score, psi_ce_best)
         M, cands = micro_macro(history)
         if M is not None:
             psi, feat = psi_ce_best(M, cands)
@@ -253,6 +253,20 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                     best = {"score": round(hts, 4), "order_gain": round(float(decades), 3),
                             "null_z": 0.0, "kind": "heavy-tail(power-law)",
                             "n_frames": len(history)}
+        # Network-topology channel (reads an 'adjacency' observable — a substrate
+        # the spatial/phase channels cannot ingest): emergent community structure
+        # (spectral modularity vs an ER null) or a scale-free degree distribution.
+        gs = graph_structure_score(history)
+        if gs is not None:
+            zmod, qmod, scale_free = gs
+            if zmod > 3.0 or scale_free:
+                gscore = float(min(0.95, 0.6 + 0.05 * max(zmod - 3.0, 0.0)))
+                if scale_free:
+                    gscore = max(gscore, 0.7)
+                if gscore > best["score"]:
+                    best = {"score": round(gscore, 4), "order_gain": round(float(qmod), 3),
+                            "null_z": round(float(zmod), 3),
+                            "kind": "network(modularity/scale-free)", "n_frames": len(history)}
     except Exception:
         pass
 
