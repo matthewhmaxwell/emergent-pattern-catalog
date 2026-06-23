@@ -4,10 +4,10 @@
 
 ## Outcome summary
 
-- Candidate verdicts: `{'EMERGENT-UNCLASSIFIED': 16, 'MATCH': 6, 'NO-EMERGENCE': 3}`
-- MATCH to a GRADUATED catalog pattern (correct recognition): **3** [('active_nematic', 'P33', 0), ('active_nematic', 'P33', 1), ('active_nematic', 'P33', 2)]
-- EMERGENT-UNCLASSIFIED (correct abstention): **16**
-- false MATCH (over-claim — instrument finding): **3** [('cahn_hilliard_spinodal', 'P3', 0), ('cahn_hilliard_spinodal', 'P3', 1), ('gray_scott_selfrep', 'P3', 1)]
+- Candidate verdicts: `{'EMERGENT-UNCLASSIFIED': 18, 'MATCH': 4, 'NO-EMERGENCE': 3}`
+- MATCH to a GRADUATED catalog pattern (correct recognition): **4** [('active_nematic', 'P33', 0), ('active_nematic', 'P33', 1), ('active_nematic', 'P33', 2), ('gray_scott_selfrep', 'P3', 1)]
+- EMERGENT-UNCLASSIFIED (correct abstention): **18**
+- false MATCH (over-claim — instrument finding): **0** []
 - NO-EMERGENCE (missed — coverage gap): **3** [('swarmalators', 1), ('swarmalators', 2), ('kauffman_rbn_critical', 1)]
 - Null controls: `{'NO-EMERGENCE': 12}` — leaks: []
 
@@ -19,7 +19,7 @@
 | keller_segel_chemotaxis | chemotactic collapse | EMERGENT-UNCLASSIFIED×3 | 1.0 | positions | P11/none | Keller & Segel 1970, J Theor Biol 26:399 |
 | active_nematic | nematic / topological defects | MATCH×3 | 0.834 | orientation | P33/definitive | Doostmohammadi et al. 2018, Nat Commun 9:3246 |
 | eden_kpz_interface | interface roughening (KPZ) | EMERGENT-UNCLASSIFIED×3 | 0.887 | field | P18/screening | Eden 1961; Kardar-Parisi-Zhang 1986, PRL 56:889 |
-| cahn_hilliard_spinodal | conserved phase separation | MATCH×2, EMERGENT-UNCLASSIFIED | 0.861 | field | P3/confirmation, P3/definitive | Cahn & Hilliard 1958, J Chem Phys 28:258 |
+| cahn_hilliard_spinodal | conserved phase separation | EMERGENT-UNCLASSIFIED×3 | 0.861 | field | P3/none | Cahn & Hilliard 1958, J Chem Phys 28:258 |
 | gray_scott_selfrep | self-replicating spots | EMERGENT-UNCLASSIFIED×2, MATCH | 0.714 | field | P3/none, P3/definitive | Pearson 1993, Science 261:189 |
 | swarmalators | space-phase coupling (sync+swarm) | NO-EMERGENCE×2, EMERGENT-UNCLASSIFIED | 0.2 | positions, temporal(spectral-peak) | P11/none | O'Keeffe, Hong & Strogatz 2017, Nat Commun 8:1504 |
 | langton_ant | emergent order from chaos (highway) | EMERGENT-UNCLASSIFIED | 0.794 | field | P18/none | Langton 1986, Physica D 22:120 |

@@ -58,7 +58,12 @@ CANDIDATES: List[Dict[str, Any]] = [
      "build": cahn_hilliard_spinodal, "stochastic": True},
     {"name": "gray_scott_selfrep", "family": "self-replicating spots",
      "ref": "Pearson 1993, Science 261:189",
-     "build": gray_scott_selfrep, "stochastic": True},
+     "build": gray_scott_selfrep, "stochastic": True,
+     # NOT a novel pattern: Gray-Scott in the self-replicating regime settles to a
+     # reaction-diffusion (Turing-class) pattern with an INTRINSIC wavelength, so a
+     # MATCH to P3 is correct recognition (it survives the P3 intrinsic-wavelength
+     # gate, unlike Cahn-Hilliard coarsening). Seeds that don't fully settle abstain.
+     "expect": "P3"},
     {"name": "swarmalators", "family": "space-phase coupling (sync+swarm)",
      "ref": "O'Keeffe, Hong & Strogatz 2017, Nat Commun 8:1504",
      "build": swarmalators, "stochastic": True},
