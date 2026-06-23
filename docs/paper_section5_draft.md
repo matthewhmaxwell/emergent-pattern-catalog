@@ -445,9 +445,9 @@ the expanded 40-model registry (§5.1):** indirect-stigmergic ant-trail
 and Physarum network models, the field-coupled collective-sensing model,
 the externally-driven stochastic-resonance and homeostasis models, and a
 dedicated trail-network substrate are now registered, each with a faithful
-detector validated in §4A. The residual gaps, and the tier-level
-cross-model audit of the newly-compatible cells, are carried forward
-(§7.5).
+detector validated in §4A. The tier-level cross-model audit of all
+newly-compatible cells is now complete (Table 1, §5.1); the residual
+dimensional-coverage gaps are carried forward (§7.5).
 
 Within the covered dimensions, the transfer matrix demonstrates that
 detection is robust across dimensional variation. P1 fires correctly
