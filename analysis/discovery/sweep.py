@@ -95,19 +95,27 @@ def _agg(rows: List[Dict[str, Any]]) -> List[str]:
     return L
 
 
+def _is_recognized(r: Dict[str, Any]) -> bool:
+    """A MATCH to the system's OWN expected pattern (a graduated catalog entry) is a
+    correct recognition, not an over-claim."""
+    return (r["verdict"] == "MATCH" and r.get("expect")
+            and r.get("matched") == r.get("expect"))
+
+
 def summarize(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
-    cand = [r for r in rows if r["family"] != "null"]
-    nulls = [r for r in rows if r["family"] == "null"]
-    by_verdict = Counter(r["verdict"] for r in cand)
-    null_verdict = Counter(r["verdict"] for r in nulls)
-    false_match = [r for r in cand if r["verdict"] == "MATCH"]
+    cand = [r for r in rows if r.get("family") != "null"]
+    nulls = [r for r in rows if r.get("family") == "null"]
+    recognized = [r for r in cand if _is_recognized(r)]
+    false_match = [r for r in cand if r["verdict"] == "MATCH" and not _is_recognized(r)]
     abstained = [r for r in cand if r["verdict"] == "EMERGENT-UNCLASSIFIED"]
     missed = [r for r in cand if r["verdict"] == "NO-EMERGENCE"]
     null_leak = [r for r in nulls if r["verdict"] != "NO-EMERGENCE"]
-    return {"candidate_verdicts": dict(by_verdict),
-            "null_verdicts": dict(null_verdict),
-            "n_abstained": len(abstained), "n_false_match": len(false_match),
-            "n_missed_emergence": len(missed), "n_null_leak": len(null_leak),
+    return {"candidate_verdicts": dict(Counter(r["verdict"] for r in cand)),
+            "null_verdicts": dict(Counter(r["verdict"] for r in nulls)),
+            "n_recognized": len(recognized), "n_abstained": len(abstained),
+            "n_false_match": len(false_match), "n_missed_emergence": len(missed),
+            "n_null_leak": len(null_leak),
+            "recognized": [(r["name"], r["matched"], r["seed"]) for r in recognized],
             "false_match": [(r["name"], r["matched"], r["seed"]) for r in false_match],
             "missed": [(r["name"], r["seed"]) for r in missed],
             "null_leak": [(r["name"], r["verdict"], r["seed"]) for r in null_leak]}
@@ -124,6 +132,8 @@ def write_report(rows: List[Dict[str, Any]], summary: Dict[str, Any],
              "NO-EMERGENCE.\n")
     L.append("## Outcome summary\n")
     L.append(f"- Candidate verdicts: `{summary['candidate_verdicts']}`")
+    L.append(f"- MATCH to a GRADUATED catalog pattern (correct recognition): "
+             f"**{summary.get('n_recognized', 0)}** {summary.get('recognized', [])}")
     L.append(f"- EMERGENT-UNCLASSIFIED (correct abstention): **{summary['n_abstained']}**")
     L.append(f"- false MATCH (over-claim — instrument finding): **{summary['n_false_match']}** "
              f"{summary['false_match']}")
@@ -150,19 +160,27 @@ def main() -> None:
     ap.add_argument("--json", type=str, default="analysis/outputs/ring0_discovery.json")
     ap.add_argument("--md", type=str,
                     default="docs/validation_rebuild/ring0_discovery_sweep.md")
+    ap.add_argument("--report-only", action="store_true",
+                    help="regenerate summary + report from the saved JSON (no re-run)")
     args = ap.parse_args()
     from analysis.discovery.ring0_systems import ALL
+    expect = {s["name"]: s.get("expect") for s in ALL}
     t0 = time.time()
-    rows = run_sweep(ALL, seeds=args.seeds, match_min_tier=args.gate)
+    if args.report_only:
+        rows = json.load(open(args.json))["rows"]
+    else:
+        rows = run_sweep(ALL, seeds=args.seeds, match_min_tier=args.gate)
+    for r in rows:                      # graduated-pattern recognition needs expect
+        r["expect"] = expect.get(r["name"])
     summary = summarize(rows)
     os.makedirs("analysis/outputs", exist_ok=True)
     json.dump({"rows": rows, "summary": summary, "seeds": args.seeds, "gate": args.gate},
               open(args.json, "w"), indent=2, default=str)
     write_report(rows, summary, args.seeds, args.gate, args.md)
-    print(f"\n=== Ring-0 sweep: {summary['n_abstained']} abstained, "
-          f"{summary['n_false_match']} false-MATCH, {summary['n_missed_emergence']} missed, "
-          f"{summary['n_null_leak']} null-leak  (total {round(time.time() - t0, 1)}s)",
-          flush=True)
+    print(f"\n=== Ring-0 sweep: {summary.get('n_recognized', 0)} recognized(graduated), "
+          f"{summary['n_abstained']} abstained, {summary['n_false_match']} false-MATCH, "
+          f"{summary['n_missed_emergence']} missed, {summary['n_null_leak']} null-leak  "
+          f"(total {round(time.time() - t0, 1)}s)", flush=True)
 
 
 if __name__ == "__main__":

@@ -47,7 +47,8 @@ CANDIDATES: List[Dict[str, Any]] = [
      "build": nov_keller_segel, "stochastic": True},
     {"name": "active_nematic", "family": "nematic / topological defects",
      "ref": "Doostmohammadi et al. 2018, Nat Commun 9:3246",
-     "build": active_nematic_field, "stochastic": True},
+     "build": active_nematic_field, "stochastic": True,
+     "expect": "P33"},  # GRADUATED: now a catalog pattern — MATCH P33 is correct recognition
     {"name": "eden_kpz_interface", "family": "interface roughening (KPZ)",
      "ref": "Eden 1961; Kardar-Parisi-Zhang 1986, PRL 56:889",
      "build": nov_eden, "stochastic": True},
