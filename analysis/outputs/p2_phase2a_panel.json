@@ -1,9 +1,9 @@
 {
   "pattern_id": "P2",
-  "head_commit": "322e2a7c4874f1fc922798608579565b953974cd",
+  "head_commit": "0172964273764c2a93bc1c6c7504d4505556ddac",
   "panel_version": "1.2",
   "detector_format": "particles",
-  "elapsed_seconds": 22.71,
+  "elapsed_seconds": 24.52,
   "detector_invariance": {
     "permutation_invariant": true,
     "time_shuffle_invariant": false,
@@ -25,35 +25,40 @@
         "score": 0.0,
         "verdict": "screening",
         "detected": false,
-        "rejection_stage": "GUARD:below_two_phase_floor"
+        "rejection_stage": "METRIC:below_two_phase_floor",
+        "cont_metric": 0.004291666666666667
       },
       {
         "seed_index": 1,
         "score": 0.6,
         "verdict": "screening",
         "detected": true,
-        "rejection_stage": "FIRED"
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.05345833333333333
       },
       {
         "seed_index": 2,
         "score": 0.95,
         "verdict": "definitive",
         "detected": true,
-        "rejection_stage": "FIRED"
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1755625
       },
       {
         "seed_index": 3,
         "score": 0.95,
         "verdict": "definitive",
         "detected": true,
-        "rejection_stage": "FIRED"
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.15245833333333333
       },
       {
         "seed_index": 4,
         "score": 0.95,
         "verdict": "definitive",
         "detected": true,
-        "rejection_stage": "FIRED"
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.15785416666666666
       }
     ]
   },
@@ -64,7 +69,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "random_gaussian",
@@ -72,7 +78,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.001888888888888889
     },
     {
       "substrate": "random_binary",
@@ -80,7 +87,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "spatial_white_noise",
@@ -88,7 +96,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 5.555555555555556e-05
     },
     {
       "substrate": "temporal_white_noise",
@@ -96,7 +105,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "permutation_shuffled",
@@ -109,7 +119,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0029375
     },
     {
       "substrate": "constant",
@@ -117,7 +128,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "linear_gradient",
@@ -125,7 +137,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0003333333333333333
     },
     {
       "substrate": "checkerboard",
@@ -133,7 +146,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.001888888888888889
     }
   ],
   "catalog": [
@@ -143,7 +157,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:no_density_dependent_motility",
+      "cont_metric": 0.095
     },
     {
       "substrate": "P19_informed_minority",
@@ -151,7 +166,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:no_density_dependent_motility",
+      "cont_metric": 0.043666666666666666
     },
     {
       "substrate": "P5_vicsek",
@@ -159,7 +175,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:no_density_dependent_motility",
+      "cont_metric": 0.063
     },
     {
       "substrate": "P6_dorsogna",
@@ -167,7 +184,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:no_density_dependent_motility",
+      "cont_metric": 0.05383333333333333
     },
     {
       "substrate": "P7_lane_formation",
@@ -175,7 +193,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:run_too_short"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.007916666666666667
     }
   ],
   "failed_regime": [
@@ -195,7 +214,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "Pe=1.56",
@@ -213,7 +233,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "Pe=2.61",
@@ -231,7 +252,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.00020833333333333335
     },
     {
       "substrate": "Pe=3.67",
@@ -249,7 +271,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.008458333333333333
     },
     {
       "substrate": "Pe=4.72",
@@ -267,7 +290,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "Pe=5.78",
@@ -285,7 +309,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 4.1666666666666665e-05
     },
     {
       "substrate": "Pe=6.83",
@@ -303,7 +328,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "Pe=7.89",
@@ -321,7 +347,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0
     },
     {
       "substrate": "Pe=8.94",
@@ -339,7 +366,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.0007083333333333334
     },
     {
       "substrate": "Pe=10.00",
@@ -357,7 +385,8 @@
       "score": 0.0,
       "verdict": "screening",
       "detected": false,
-      "rejection_stage": "GUARD:below_two_phase_floor"
+      "rejection_stage": "METRIC:below_two_phase_floor",
+      "cont_metric": 0.00075
     }
   ],
   "class_b_composition": {
@@ -400,7 +429,46 @@
     "cohens_d_positive_vs_panel": 4.32566222812073,
     "effect_size_undefined": false,
     "effect_size_basis": "tier_confidence",
-    "effect_size_note": "effect size is over discrete tier-confidence, not the canonical continuous metric; faithful recompute pending validation-rebuild Phase 2",
+    "cohens_d_continuous": 2.606307724269017,
+    "continuous_metric": "two_phase_score",
+    "continuous_metric_direction": "higher",
+    "continuous_n_pos": 5,
+    "continuous_n_neg": 24,
+    "continuous_saturated": false,
+    "continuous_pos_values": [
+      0.004291666666666667,
+      0.05345833333333333,
+      0.1755625,
+      0.15245833333333333,
+      0.15785416666666666
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.001888888888888889,
+      0.0,
+      5.555555555555556e-05,
+      0.0,
+      0.0029375,
+      0.0,
+      0.0003333333333333333,
+      0.001888888888888889,
+      0.095,
+      0.043666666666666666,
+      0.063,
+      0.05383333333333333,
+      0.007916666666666667,
+      0.0,
+      0.0,
+      0.00020833333333333335,
+      0.008458333333333333,
+      0.0,
+      4.1666666666666665e-05,
+      0.0,
+      0.0,
+      0.0007083333333333334,
+      0.00075
+    ],
+    "effect_size_note": "cohens_d_positive_vs_panel is over the DISCRETE tier-confidence (NaN at perfect separation); cohens_d_continuous is the faithful effect size over the pattern's CONTINUOUS canonical metric (positives vs pooled negatives, oriented).",
     "verdict": "PASS"
   }
 }
