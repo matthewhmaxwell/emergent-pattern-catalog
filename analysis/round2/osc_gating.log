@@ -1,0 +1,11 @@
+source                    truth    kind           osc(mean-micro)
+-----------------------------------------------------------------
+null_spatial_noise        null     positions                 4.67
+null_random_walk          null     positions                 8.85
+null_uncoupled_phases     null     phases                   17.16
+null_frozen_noise         null     positions                  nan
+limit_cycle               emergent field                    48.69
+spatiotemporal_chaos      emergent field                    64.05
+traveling_wave            emergent grid                     34.95
+
+GATE PLAN: run oscillation channel only when kind is NOT phases/theta (phase sync already handled by the order-parameter channel).

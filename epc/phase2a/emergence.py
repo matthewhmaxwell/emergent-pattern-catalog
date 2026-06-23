@@ -207,23 +207,34 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
     # scores negative; the blind-spot audit measured zero null false-positives), so
     # a small positive threshold is used and it can only RAISE the score.
     try:
-        from epc.phase2a.info_channels import micro_macro, psi_ce_best
+        from epc.phase2a.info_channels import micro_macro, oscillation_score, psi_ce_best
         M, cands = micro_macro(history)
         if M is not None:
             psi, feat = psi_ce_best(M, cands)
-            # Only contribute when Psi_CE is CLEARLY positive (synergy present).
-            # Gating at 0.08 (nulls score strongly negative, ~-1.7) avoids a floor
-            # artifact at Psi_CE≈0 for static/no-dynamics systems.
+            # Synergy / causal-emergence channel. Only contribute when Psi_CE is
+            # CLEARLY positive (gate at 0.08; nulls score ~-1.7) to avoid a floor
+            # artifact at Psi_CE≈0 for static systems.
             if psi == psi and psi > 0.08:
                 syn = float(min(0.999, 0.55 + 0.44 * (1.0 - np.exp(-(psi - 0.08) * 6.0))))
                 if syn > best["score"]:
                     best = {"score": round(syn, 4),
                             "order_gain": round(float(psi), 4), "null_z": 0.0,
                             "kind": f"synergy(psi_ce:{feat})", "n_frames": M.shape[0]}
-            # NOTE: a temporal/collective-oscillation channel (mpr_emergence,
-            # oscillation_score in info_channels) is researched but NOT wired —
-            # it needs probe+null co-design (independent-vs-collective oscillation;
-            # mean-field washout for chaos). Deferred to detection round 2.
+            # Temporal channel — sustained oscillation / limit cycle / propagating
+            # or chaotic dynamics, via spectral peak-to-mean of the collective
+            # signal. GATED OFF for phase-kind data: phase synchronization is
+            # already handled by the order-parameter channel, and a raw wrapped-
+            # phase mean produces a spurious peak. Threshold 15 sits well above the
+            # non-phase null maximum (~9, Brownian drift) and below the emergent
+            # range (limit cycle ~49, chaos ~64, front ~35).
+            if kind != "phases":
+                osc = oscillation_score(M.mean(1))
+                if osc > 15.0:
+                    oscore = float(min(0.95, 0.55 + 0.4 * (1.0 - np.exp(-(osc - 15.0) * 0.04))))
+                    if oscore > best["score"]:
+                        best = {"score": round(oscore, 4),
+                                "order_gain": round(float(osc), 4), "null_z": 0.0,
+                                "kind": "temporal(spectral-peak)", "n_frames": M.shape[0]}
     except Exception:
         pass
 

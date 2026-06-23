@@ -1,0 +1,10 @@
+condition               coord_z   C_obs  generic_em
+---------------------------------------------------
+K=4.0  synced(emergent) s0  z=-11.59  C= 0.223  em= 0.074
+K=4.0  synced(emergent) s1  z= -8.38  C= 0.227  em= 0.817
+K=4.0  synced(emergent) s2  z= -5.38  C= 0.229  em= 0.682
+K=0.0  uncoupled(null) s0  z= -5.13  C= 0.234  em= 0.753
+K=0.0  uncoupled(null) s1  z= -5.13  C= 0.224  em= 0.088
+K=0.0  uncoupled(null) s2  z= -4.12  C= 0.230  em= 0.763
+
+WANT: synced z>3 (fires), uncoupled z<3 (does not). Then the coordination-gate temporal channel is safe to wire.

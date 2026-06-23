@@ -165,18 +165,25 @@ def traveling_wave(seed=0, L=60, steps=110) -> Probe:
                 truth="emergent", family="transient-wave")
 
 
-def limit_cycle(seed=0, P=36, steps=200) -> Probe:
-    """Lotka-Volterra patches → global population oscillation (temporal emergence)."""
+def limit_cycle(seed=0, G=6, steps=240, D=0.12) -> Probe:
+    """COUPLED Lotka-Volterra patches (nearest-neighbor diffusion) → the patches
+    SYNCHRONIZE into a collective limit cycle. The coupling is what makes the
+    global oscillation emergent (independent patches would average out); a
+    coordination-gated detector must see this and reject uncoupled oscillators."""
     rng = np.random.default_rng(seed)
-    prey = rng.uniform(0.4, 0.6, P); pred = rng.uniform(0.4, 0.6, P)
-    a, b, c, d, dt = 1.1, 0.4, 0.4, 0.1, 0.1
+    prey = rng.uniform(0.3, 0.7, (G, G)); pred = rng.uniform(0.3, 0.7, (G, G))
+    a, b, c, d, dt = 1.0, 0.5, 0.5, 0.5, 0.05
+
+    def lap(f):
+        return (np.roll(f, 1, 0) + np.roll(f, -1, 0) +
+                np.roll(f, 1, 1) + np.roll(f, -1, 1) - 4 * f)
+
     H, micro, tot = [], [], []
     for _ in range(steps):
-        prey = np.clip(prey + dt * (a * prey - b * prey * pred), 0, 5)
-        pred = np.clip(pred + dt * (-c * pred + d * prey * pred + 0.3 * prey * pred), 0, 5)
-        grid = np.tile(prey.reshape(6, 6), (1, 1)).astype(float)
-        H.append({"field": grid.copy()})
-        micro.append(prey.copy()); tot.append(prey.sum())
+        prey = np.clip(prey + dt * (a * prey - b * prey * pred) + D * lap(prey), 0, 8)
+        pred = np.clip(pred + dt * (-c * pred + d * prey * pred) + D * lap(pred), 0, 8)
+        H.append({"field": prey.copy()})
+        micro.append(prey.ravel().copy()); tot.append(float(prey.sum()))
     return dict(history=H, micro=np.array(micro), macro=np.array(tot),
                 truth="emergent", family="temporal-oscillation")
 
