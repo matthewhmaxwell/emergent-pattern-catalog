@@ -20,9 +20,13 @@ from typing import Any, Dict, List
 
 # The 4 seed systems already validated as out-of-catalog in the T2c novelty arm.
 from analysis.t2c_systems import (
-    nov_dla, nov_keller_segel, nov_active_nematic, nov_eden,
+    nov_dla, nov_keller_segel, nov_eden,
     null_spatial_noise, null_random_walk, null_uncoupled_phases, null_frozen_noise,
 )
+# Active nematic now uses the canonical faithful field model (the P33 model) rather
+# than the original rough agent sketch — it is truly apolar with a sustained ±1/2
+# defect gas, so it demonstrates the closed loop (EMERGENT-UNCLASSIFIED -> MATCH P33).
+from epc.models.active_nematic import active_nematic_field
 
 # New Ring-0 systems (this module).
 from analysis.discovery.ring0_new import (
@@ -43,7 +47,7 @@ CANDIDATES: List[Dict[str, Any]] = [
      "build": nov_keller_segel, "stochastic": True},
     {"name": "active_nematic", "family": "nematic / topological defects",
      "ref": "Doostmohammadi et al. 2018, Nat Commun 9:3246",
-     "build": nov_active_nematic, "stochastic": True},
+     "build": active_nematic_field, "stochastic": True},
     {"name": "eden_kpz_interface", "family": "interface roughening (KPZ)",
      "ref": "Eden 1961; Kardar-Parisi-Zhang 1986, PRL 56:889",
      "build": nov_eden, "stochastic": True},

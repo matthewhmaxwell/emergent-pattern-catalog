@@ -63,9 +63,23 @@ lookalike:
    defect gas (active turbulence); apolar self-propulsion → φ ≈ 0.
 6. **Discriminating detector** ✅ built and validated to the Phase-2a bar.
 
-## Next (integration to close the loop)
-Promote the self-contained module into `epc/models/active_nematic.py`,
-`epc/metrics/nematic_order.py`, `epc/detectors/p33_active_nematic.py` + a standalone
-`analysis/discovery/p33_active_nematic_test.py`; then register P33 in the battery
-(continuous_metrics + calibration) so the instrument MATCHES active nematic instead
-of returning EMERGENT-UNCLASSIFIED — closing the find → verify → catalog loop.
+## Integration — LOOP CLOSED ✅
+Promoted to `epc/models/active_nematic.py`, `epc/metrics/nematic_order.py`,
+`epc/detectors/p33_active_nematic.py` (returns a `DetectorResult`), with the
+standalone validation at `analysis/discovery/p33_active_nematic.py`. P33 is
+registered in the battery: `make_p33_detector_fn` (run_phase2a_panel),
+`PATTERNS += ["p33"]` (battery_profile), `CONTINUOUS_METRIC["P33"]`
+(continuous_metrics), and a calibrator panel JSON
+`analysis/outputs/p33_active_nematic_phase2a_panel.json`.
+
+**The instrument now recognises it.** Pointed at the canonical active-nematic model,
+`profile_observation` returns **MATCH P33 (definitive)** on both seeds — where before
+P33 it returned EMERGENT-UNCLASSIFIED. Regression: polar_flock → EMERGENT-UNCLASSIFIED,
+milling → NO-EMERGENCE, isotropic → NO-EMERGENCE (nothing false-matches P33; P33 is
+inert on non-orientation substrates via its substrate guard). The
+find → verify → catalog loop is closed end-to-end.
+
+## Remaining (catalog housekeeping, not blocking)
+Gallery card + paper Table-1 row for P33 (deferred until more discoveries land, per
+the "wait for new ones" plan); the P3 Turing-vs-coarsening sharpening is a separate
+high-value thread (the other Ring-0 finding).

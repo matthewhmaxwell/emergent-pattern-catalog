@@ -65,6 +65,7 @@ CONTINUOUS_METRIC: Dict[str, Dict[str, Any]] = {
     "P29": {"kind": "dict",   "key": "weight_dist_corr",           "direction": +1, "null": 0.0},
     "P30": {"kind": "dict",   "key": "radial_cv",                  "direction": -1, "null": 1.0},
     "P32": {"kind": "dict",   "key": "entropy_decline",            "direction": +1, "null": 0.0},
+    "P33": {"kind": "dict",   "key": "coherent_half_defect_density","direction": +1, "null": 0.0},
 }
 
 

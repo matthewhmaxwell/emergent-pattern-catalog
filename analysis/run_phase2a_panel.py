@@ -2200,3 +2200,12 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def make_p33_detector_fn(n_permutations: int = 49, seed: int = 42):
+    """P33 active-nematic detector fn for the battery (diagnostic null kept light)."""
+    from epc.detectors.p33_active_nematic import P33ActiveNematicDetector
+    _det = P33ActiveNematicDetector(n_permutations=n_permutations, seed=seed)
+    def fn(history, metadata=None):
+        return _det.detect(history, metadata)
+    return fn

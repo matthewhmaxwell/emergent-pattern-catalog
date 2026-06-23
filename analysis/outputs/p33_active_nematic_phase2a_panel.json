@@ -1,0 +1,57 @@
+{
+  "pattern_id": "P33",
+  "panel_version": "discovery-ring0",
+  "detector_format": "orientation_field",
+  "summary": {
+    "pattern_id": "P33",
+    "continuous_metric": "coherent_half_defect_density",
+    "continuous_metric_direction": "higher",
+    "continuous_pos_values": [
+      0.138916015625,
+      0.1083840762867647,
+      0.12916475183823528,
+      0.04852653952205882,
+      0.10877182904411764
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overall_tnr": 1.0,
+    "n_positive": 5,
+    "n_negative": 20,
+    "positive_tiers": [
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive"
+    ],
+    "cohens_d_continuous": 4.806043892049914,
+    "negative_panel": [
+      "polar_flock",
+      "milling_vortex",
+      "isotropic_noise",
+      "uniform_nematic (defect-free)"
+    ],
+    "note": "Active nematic with \u00b11/2 topological defects; discriminator = coherent half-integer defect density D* gated by local nematic order, low polar order, low angular momentum. Validated TNR 1.0, d=4.81; real P5 Vicsek rejected; finite-size definitive G=64/96/128."
+  }
+}
