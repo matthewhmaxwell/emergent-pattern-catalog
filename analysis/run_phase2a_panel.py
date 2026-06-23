@@ -2218,3 +2218,12 @@ def make_p34_detector_fn(seed: int = 42):
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
+
+
+def make_p35_detector_fn(seed: int = 42):
+    """P35 entropy-crystallization detector fn for the battery."""
+    from epc.detectors.p35_entropy_crystal import P35EntropyCrystalDetector
+    _det = P35EntropyCrystalDetector(seed=seed)
+    def fn(history, metadata=None):
+        return _det.detect(history, metadata)
+    return fn

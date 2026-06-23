@@ -1,0 +1,69 @@
+{
+  "pattern_id": "P35",
+  "panel_version": "discovery-ring1",
+  "detector_format": "positions_timeseries",
+  "summary": {
+    "pattern_id": "P35",
+    "continuous_metric": "psi6_gain",
+    "continuous_metric_direction": "higher",
+    "continuous_pos_values": [
+      0.11822757908136633,
+      0.0925644944512059,
+      0.0771896976719228,
+      0.10282802724855128,
+      0.12627903558241288
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -5.551115123125783e-17,
+      0.0,
+      -5.551115123125783e-17,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overall_tnr": 1.0,
+    "n_positive": 5,
+    "n_negative": 30,
+    "positive_tiers": [
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive"
+    ],
+    "cohens_d_continuous": 8.312022710117558,
+    "negative_panel": [
+      "dilute_gas",
+      "static_crystal",
+      "keller_segel",
+      "active_nematic",
+      "spatial_noise",
+      "random_walk"
+    ],
+    "note": "Entropy-driven crystallization (none_entropy substrate, Ring-1). Discriminator = hexatic-order emergence (local psi6 gain from a disordered fluid), gated by reaching the hexatic floor. Validated TNR 1.0, d=8.31."
+  }
+}
