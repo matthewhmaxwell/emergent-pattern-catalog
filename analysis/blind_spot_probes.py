@@ -305,8 +305,21 @@ def null_random_graph(seed=0, n=90, p=0.06, steps=50) -> Probe:
                 truth="null", family="null-graph")
 
 
+def hexatic_crystal(seed: int = 0):
+    """Entropy-driven crystallization (none_entropy gap): hexatic bond-orientational
+    order emerges from a disordered fluid by excluded-volume packing alone (Alder
+    transition). Recovered by the round-3 psi6-gain channel."""
+    from epc.models.entropy_crystal import hard_disk_crystallization
+    h, _ = hard_disk_crystallization(seed, N=196, L=14.0, eta_end=0.74,
+                                     n_steps=2500, n_frames=80)
+    flat = np.array([np.asarray(f["positions"])[:, 0] for f in h])
+    idx = np.linspace(0, flat.shape[1] - 1, 24).astype(int)
+    return dict(history=h, micro=flat[:, idx], macro=flat.mean(1),
+                truth="emergent", family="hexatic-crystal")
+
+
 PROBES = [
-    flocking, aggregation, active_nematic,           # positive controls
+    flocking, aggregation, active_nematic, hexatic_crystal,   # positive controls
     vortex_milling, lane_banding, dla_fractal, percolation,
     traveling_wave, limit_cycle, xor_synergy, spatiotemporal_chaos,
     power_law_soc,                                    # heavy-tail / SOC

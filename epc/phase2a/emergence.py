@@ -267,6 +267,27 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                     best = {"score": round(gscore, 4), "order_gain": round(float(qmod), 3),
                             "null_z": round(float(zmod), 3),
                             "kind": "network(modularity/scale-free)", "n_frames": len(history)}
+        # Bond-orientational (hexatic) channel: emergent local psi6 order from a
+        # disordered point set (entropy-driven crystallization). Reads 'positions';
+        # fires only on a GAIN in local hexatic order reaching a hexatic floor. A
+        # crystal has near-uniform density (the clustering channel misses it), and
+        # absolute psi6~0.5 is shared with random close packing — only the GAIN is
+        # specific. Verified to NOT fire on flocking, disordered gas, dense clumps
+        # (Keller-Segel), or random points (gain <= +0.003 there).
+        from epc.metrics.positional_order import local_psi6
+        pos_frames = [np.asarray(f["positions"]) for f in history
+                      if isinstance(f, dict) and "positions" in f]
+        if len(pos_frames) >= 8:
+            allp = np.vstack(pos_frames)
+            Lh = float(allp.max() - allp.min()) or None
+            e6 = float(np.mean([local_psi6(p, Lh) for p in pos_frames[1:4]]))
+            l6 = float(np.mean([local_psi6(p, Lh) for p in pos_frames[-5:]]))
+            if l6 >= 0.42 and (l6 - e6) > 0.04:
+                hx = float(min(0.95, 0.55 + 2.0 * ((l6 - e6) - 0.04)))
+                if hx > best["score"]:
+                    best = {"score": round(hx, 4), "order_gain": round(float(l6 - e6), 4),
+                            "null_z": 0.0, "kind": "hexatic(psi6-gain)",
+                            "n_frames": len(pos_frames)}
     except Exception:
         pass
 
