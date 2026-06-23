@@ -2209,3 +2209,12 @@ def make_p33_detector_fn(n_permutations: int = 49, seed: int = 42):
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
+
+
+def make_p34_detector_fn(seed: int = 42):
+    """P34 adaptive-network detector fn for the battery."""
+    from epc.detectors.p34_adaptive_network import P34AdaptiveNetworkDetector
+    _det = P34AdaptiveNetworkDetector(seed=seed)
+    def fn(history, metadata=None):
+        return _det.detect(history, metadata)
+    return fn

@@ -1,0 +1,63 @@
+{
+  "pattern_id": "P34",
+  "panel_version": "discovery-ring1",
+  "detector_format": "adjacency_timeseries",
+  "summary": {
+    "pattern_id": "P34",
+    "continuous_metric": "modularity_gain",
+    "continuous_metric_direction": "higher",
+    "continuous_pos_values": [
+      0.37716137203524003,
+      0.43565380120174035,
+      0.35829246102588014,
+      0.44386900017770786,
+      0.4304610626999543
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overall_tnr": 1.0,
+    "n_positive": 5,
+    "n_negative": 25,
+    "positive_tiers": [
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive"
+    ],
+    "cohens_d_continuous": 16.74036549486752,
+    "negative_panel": [
+      "null_random_rewire",
+      "static_modular",
+      "fixed_network_voter",
+      "er_static",
+      "pre_fragmented"
+    ],
+    "note": "Adaptive-network fragmentation (evolving-network substrate, Ring-1). Discriminator = coevolution-driven modularity gain (Q emerges from a low-modularity connected start), gated by fragmentation + opinion-topology assortativity. Validated TNR 1.0, d=16.74."
+  }
+}
