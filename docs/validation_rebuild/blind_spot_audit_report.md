@@ -99,3 +99,25 @@ false-MATCH 0). The transient/front family is recovered by detection (the front'
 activity pulse has spectral structure); a dedicated front *classifier* is no longer
 needed for the indicator. STILL OPEN for full comprehensiveness: probes+channels for
 heavy-tail/power-law distributions and network/community emergence (round-2 cont.).
+
+## Round-2 continued (2026-06-23, 720d7ce) — heavy-tail + network → recall 14/14
+
+Two more general channels wired (probe suite extended to 14 emergent / 3 nulls):
+3. **Heavy-tail / SOC** (25228d1) — `plaw_llr` + `heavy_tail_score` read raw frames
+   for size observables (avalanche_sizes/activity) or per-step change; fire when the
+   event-size distribution is power-law (LLR>0) over ≥1.3 decades. Required
+   restructuring generic_emergence so the info-theoretic channels run even with NO
+   morphology frame (a sandpile scored 0 on every channel: 0.00 → 0.95).
+4. **Network topology** (720d7ce) — `graph_structure_score` reads an 'adjacency'
+   observable and z-scores spectral modularity (community) and degree heterogeneity
+   (scale-free) against an Erdős–Rényi null. community 0.87, scale-free 0.70, ER null
+   0.00. Self-contained (scipy, no networkx).
+
+**FINAL recall: blind-spot audit 14/14 emergent (3-seed), 0/3 null false-positives;
+T2c UNCHANGED (null-spec 1.0, STRICT rec 0.83 / nov 1.0 / false-MATCH 0).** Live
+generic_emergence channels: morphology (clustering / autocorr / phase / vector) +
+orientation (polar+nematic) + Ψ_CE synergy + gated spectral-peak temporal +
+heavy-tail/SOC + network (modularity / scale-free). The detection net now spans all
+families surfaced by the emergence-channel research, with measured recall and zero
+T2c regression. Completeness remains impossible in principle (open-ended concept);
+this is comprehensive coverage of the known families with honest per-channel reporting.
