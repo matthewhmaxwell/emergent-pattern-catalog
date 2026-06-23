@@ -168,11 +168,19 @@ class P1AggregationDetector(BaseDetector):
             return True, 0.0
 
         # Collect all non-zero (non-empty) type values across the trajectory.
+        # Non-integer labels (e.g. a model that puts a string in 'cell_types')
+        # are not P1 identity types and are skipped; with no integer types the
+        # observation carries no aggregation signal and detection rejects
+        # downstream at the n_unique_types < 2 screening gate.
         all_types: set[int] = set()
         for arr in arrays:
             for v in np.unique(arr):
-                if v != 0:
-                    all_types.add(int(v))
+                try:
+                    iv = int(v)
+                except (ValueError, TypeError):
+                    continue
+                if iv != 0:
+                    all_types.add(iv)
 
         if not all_types:
             return True, 0.0
@@ -265,6 +273,20 @@ class P1AggregationDetector(BaseDetector):
                     "P1 needs integer-labeled spatial data"
                 )
                 return warnings
+            # Non-integer categorical labels (e.g. a string in 'cell_types',
+            # as some value-sorting models emit) are not P1 identity types;
+            # warn so the downstream n_unique_types screening rejection is
+            # documented rather than appearing as a crash.
+            for key in ("grid", "type_labels_at_pos", "cell_types"):
+                if key in s:
+                    try:
+                        np.asarray(s[key]).astype(int)
+                    except (ValueError, TypeError):
+                        warnings.append(
+                            f"'{key}' holds non-integer labels — not P1 identity "
+                            "types; no aggregation signal, rejecting at screening"
+                        )
+                    break
             n = s.get("n", 0)
             if "grid_dims" in s:
                 n = s["grid_dims"][0] * s["grid_dims"][1]
