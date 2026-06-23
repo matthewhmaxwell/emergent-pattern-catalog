@@ -158,6 +158,57 @@ def mpr_emergence(micro: np.ndarray, n_surr: int = 24, seed: int = 0, d: int = 4
     return float(z), float(c_obs)
 
 
+def plaw_llr(sizes: Sequence[float], xmin: float = 1.0) -> Optional[Tuple[float, float, float]]:
+    """Power-law vs exponential log-likelihood ratio (Clauset-style, continuous
+    approx). Returns (alpha, LLR, decades); LLR>0 ⇒ power-law preferred. None when
+    too few events. A heavy-tailed (SOC) distribution gives LLR>0 over ≥~1.3 decades;
+    exponential/uniform distributions give LLR<0."""
+    x = np.asarray([s for s in sizes if s is not None and s >= xmin], dtype=float)
+    if x.size < 30:
+        return None
+    n = x.size
+    denom = np.sum(np.log(x / (xmin * 0.999)))
+    if denom <= 0:
+        return None
+    alpha = 1.0 + n / denom
+    lam = 1.0 / (x.mean() - xmin + 1e-9)
+    ll_pl = np.sum(np.log((alpha - 1.0) / xmin) - alpha * np.log(x / xmin))
+    ll_exp = np.sum(np.log(max(lam, 1e-12)) - lam * (x - xmin))
+    decades = float(np.log10(x.max() / max(x.min(), 1e-9)))
+    return float(alpha), float(ll_pl - ll_exp), decades
+
+
+def heavy_tail_score(history: List[Dict[str, Any]]) -> Optional[Tuple[float, float]]:
+    """Self-organized-criticality / heavy-tail channel: is the system's event-size
+    distribution power-law (heavy-tailed across ≥~1.3 decades) rather than
+    exponential? Derives a size distribution from explicit size observables
+    (avalanche_sizes / activity) or, failing that, from per-step total change of a
+    grid/field. Returns (LLR, decades) or None. Reads RAW frames (these observables
+    are invisible to the spatial/phase channels)."""
+    sizes: List[float] = []
+    for f in history:
+        if isinstance(f, dict) and "avalanche_sizes" in f:
+            v = f["avalanche_sizes"]
+            sizes.extend(list(v) if hasattr(v, "__len__") else [v])
+    if len(sizes) < 30:
+        act = [float(f["activity"]) for f in history if isinstance(f, dict) and "activity" in f]
+        if len(act) >= 30:
+            sizes = act
+    if len(sizes) < 30:
+        arrs = [np.asarray(f.get("grid", f.get("field")), dtype=float)
+                for f in history if isinstance(f, dict) and ("grid" in f or "field" in f)]
+        if len(arrs) >= 8:
+            sizes = [float(np.abs(arrs[i] - arrs[i - 1]).sum()) for i in range(1, len(arrs))]
+    sizes = [float(s) for s in sizes if s is not None and s > 0]
+    if len(sizes) < 30:
+        return None
+    r = plaw_llr(sizes)
+    if r is None:
+        return None
+    _, llr, decades = r
+    return llr, decades
+
+
 def oscillation_score(series: Sequence[float], kmin: int = 2) -> float:
     """Sustained-oscillation / limit-cycle detector: peak-to-mean of the power
     spectrum of the linearly-detrended series, EXCLUDING the lowest `kmin` bins.

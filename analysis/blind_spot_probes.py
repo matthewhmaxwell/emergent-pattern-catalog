@@ -233,9 +233,23 @@ def null_walk(seed=0) -> Probe:
     return dict(history=h, micro=micro, macro=macro, truth="null", family="null-walk")
 
 
+def power_law_soc(seed=0) -> Probe:
+    """Self-organized criticality (BTW sandpile): avalanche sizes are power-law.
+    Its frames carry 'activity'/'avalanche_sizes' (no grid/positions/phases), so it
+    is invisible to every spatial/phase channel — a pure heavy-tail blind-spot test."""
+    import analysis.run_phase2a_panel as R
+    runs, _ = R.build_p14_positives(n_seeds=1)
+    h = runs[0]
+    act = np.array([float(np.sum(np.asarray(f["activity"]))) if "activity" in f else 0.0
+                    for f in h])
+    return dict(history=h, micro=act.reshape(-1, 1), macro=act,
+                truth="emergent", family="heavy-tail-SOC")
+
+
 PROBES = [
     flocking, aggregation, active_nematic,           # positive controls
     vortex_milling, lane_banding, dla_fractal, percolation,
     traveling_wave, limit_cycle, xor_synergy, spatiotemporal_chaos,
+    power_law_soc,                                    # heavy-tail / SOC
     null_noise, null_walk,                            # nulls
 ]

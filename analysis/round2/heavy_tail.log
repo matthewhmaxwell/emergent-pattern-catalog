@@ -1,0 +1,6 @@
+sandpile frame keys: ['activity', 'avalanche_durations', 'avalanche_sizes', 'energy', 'step']
+sandpile (SOC)           generic_em=0.000  alpha=1.34  LLR(pl-exp)=+2477.5  decades=3.38  -> POWER-LAW
+exp-sizes (null)         generic_em=nan  alpha=1.66  LLR(pl-exp)=-1132.0  decades=1.65  -> not-pl
+uniform-sizes (null)     generic_em=nan  alpha=1.33  LLR(pl-exp)=-3545.9  decades=1.70  -> not-pl
+
+WANT: sandpile -> POWER-LAW (LLR>0, ≥1.3 decades); nulls -> not-pl. And note whether generic_em already flags the sandpile.

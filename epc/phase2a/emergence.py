@@ -186,20 +186,24 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
         return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": 0}
     frames = [(_frame_array(f)) for f in history]
     frames = [(k, a) for k, a in frames if k is not None]
-    if len(frames) < 2:
-        return {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": len(frames)}
-    kind = frames[-1][0]
-    same = [a for k, a in frames if k == kind]
-    prim = _score_series(kind, same, rng, n_null)
-    best = {**prim, "kind": kind, "n_frames": len(same)}
-
-    # Orientation channel (velocity/heading-bearing systems)
-    oris = [_orientation_from_frame(f) for f in history]
-    oris = [o for o in oris if o is not None]
-    if len(oris) >= 2:
-        orie = _score_series("orientation", oris, np.random.default_rng(seed + 1), n_null)
-        if orie["score"] > best["score"]:
-            best = {**orie, "kind": "orientation", "n_frames": len(oris)}
+    if len(frames) >= 2:
+        kind = frames[-1][0]
+        same = [a for k, a in frames if k == kind]
+        prim = _score_series(kind, same, rng, n_null)
+        best = {**prim, "kind": kind, "n_frames": len(same)}
+        # Orientation channel (velocity/heading-bearing systems)
+        oris = [_orientation_from_frame(f) for f in history]
+        oris = [o for o in oris if o is not None]
+        if len(oris) >= 2:
+            orie = _score_series("orientation", oris, np.random.default_rng(seed + 1), n_null)
+            if orie["score"] > best["score"]:
+                best = {**orie, "kind": "orientation", "n_frames": len(oris)}
+    else:
+        # No recognized morphology observable (e.g. a sandpile that emits only
+        # 'activity'/'avalanche_sizes'). Fall through — the info-theoretic channels
+        # below, especially heavy-tail which reads raw frames, may still detect it.
+        kind = None
+        best = {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": 0}
 
     # Synergy / causal-emergence channel (Psi_CE): catches "greater-than-the-parts"
     # collective effects (XOR-type, connectivity) that the morphology channels miss.
@@ -207,7 +211,8 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
     # scores negative; the blind-spot audit measured zero null false-positives), so
     # a small positive threshold is used and it can only RAISE the score.
     try:
-        from epc.phase2a.info_channels import micro_macro, oscillation_score, psi_ce_best
+        from epc.phase2a.info_channels import (heavy_tail_score, micro_macro,
+                                                oscillation_score, psi_ce_best)
         M, cands = micro_macro(history)
         if M is not None:
             psi, feat = psi_ce_best(M, cands)
@@ -235,6 +240,19 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                         best = {"score": round(oscore, 4),
                                 "order_gain": round(float(osc), 4), "null_z": 0.0,
                                 "kind": "temporal(spectral-peak)", "n_frames": M.shape[0]}
+        # Heavy-tail / self-organized-criticality channel. Reads RAW frames (size
+        # observables like 'activity'/'avalanche_sizes' are invisible to the
+        # spatial/phase channels — a sandpile scores 0 on all of them). Fires when
+        # the event-size distribution is power-law (LLR>0) over ≥1.3 decades.
+        ht = heavy_tail_score(history)
+        if ht is not None:
+            llr, decades = ht
+            if llr > 0.0 and decades >= 1.3:
+                hts = float(min(0.95, 0.55 + 0.2 * (decades - 1.3)))
+                if hts > best["score"]:
+                    best = {"score": round(hts, 4), "order_gain": round(float(decades), 3),
+                            "null_z": 0.0, "kind": "heavy-tail(power-law)",
+                            "n_frames": len(history)}
     except Exception:
         pass
 
