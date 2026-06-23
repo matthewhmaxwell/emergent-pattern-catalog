@@ -63,8 +63,48 @@ CONFIG: Dict[str, Any] = {
          "params": {"kind": "target_waves"}, "seed": 704},
         {"label": "travelling_plane_wave",
          "params": {"kind": "travelling_plane_wave"}, "seed": 705},
+        # Coarsening adversary (added 2026-06-23, discovery Ring-0 finding):
+        # Cahn-Hilliard conserved spinodal decomposition is isotropic, stationary at
+        # late times, and has a dominant wavelength — it clears peak-to-mean, isotropy
+        # AND the (last-frames) stationarity gate, so the ONLY thing that rejects it is
+        # the intrinsic-wavelength test: a CONSERVED order parameter keeps a
+        # bicontinuous multi-domain structure that coarsens SLOWLY (L~t^(1/3)), so its
+        # dominant wavelength GROWS over the trajectory (no intrinsic scale).
+        #
+        # KNOWN LIMIT (not included as a must-reject negative): NON-conserved phase
+        # ordering (Allen-Cahn) eliminates the minority phase and collapses to ~2
+        # domains almost immediately, i.e. a box-scale (peak_k=2) stationary isotropic
+        # field. That is observationally indistinguishable from a low-wavenumber Turing
+        # pattern without GRID-SIZE INVARIANCE (re-run at 2x: a Turing wavelength is
+        # fixed, a coarsening one fills the larger box) — which re-runs the model and is
+        # outside this detector's observation-only scope. Documented, not papered over.
+        {"label": "cahn_hilliard_coarsening",
+         "params": {"kind": "cahn_hilliard"}, "seed": 706},
     ],
 }
+
+
+def _periodic_laplacian(f: np.ndarray) -> np.ndarray:
+    return (np.roll(f, 1, 0) + np.roll(f, -1, 0)
+            + np.roll(f, 1, 1) + np.roll(f, -1, 1) - 4.0 * f)
+
+
+def _cahn_hilliard(N: int, rng: np.random.Generator, dt: float = 0.01,
+                   kappa: float = 1.0, M: float = 1.0, n_steps: int = 30000,
+                   n_snap: int = 100) -> List[np.ndarray]:
+    """Conserved (Cahn-Hilliard 1958) spinodal decomposition: bicontinuous domains
+    that COARSEN as L(t)~t^(1/3) -- no intrinsic wavelength.
+    dc/dt = M grad^2 (c^3 - c - kappa grad^2 c)."""
+    c = rng.normal(0.0, 0.02, size=(N, N))
+    snaps: List[np.ndarray] = []
+    step = max(1, n_steps // n_snap)
+    for t in range(n_steps):
+        mu = c ** 3 - c - kappa * _periodic_laplacian(c)
+        c = c + dt * M * _periodic_laplacian(mu)
+        if t % step == 0:
+            snaps.append(c.copy())
+    snaps.append(c.copy())
+    return snaps
 
 
 def build_substrate(regime: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -72,6 +112,14 @@ def build_substrate(regime: Dict[str, Any]) -> List[Dict[str, Any]]:
     kind = regime["params"]["kind"]
     rng = np.random.default_rng(regime.get("seed", 0))
     N = N_GRID
+
+    # Coarsening adversaries: integrate the PDE and record snapshots spanning the
+    # whole coarsening so the dominant wavelength GROWS across the trajectory
+    # (the intrinsic-wavelength gate's discriminator). No truncation downstream.
+    if kind == "cahn_hilliard":
+        snaps = _cahn_hilliard(N, rng, n_snap=N_SNAP)
+        return [{"field": s.astype(np.float32), "step": i} for i, s in enumerate(snaps)]
+
     x = np.arange(N)
     X, Y = np.meshgrid(x, x)
     cx = cy = N / 2.0

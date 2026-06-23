@@ -116,6 +116,7 @@ from epc.metrics.turing_wavelength import (
     radial_fft_peak_stats,
     ring_angular_isotropy,
     shuffle_null_distribution,
+    wavelength_growth,
     wavelength_stability,
 )
 
@@ -177,6 +178,17 @@ class P3TuringWavelengthDetector(BaseDetector):
     # vs <=0.88 (travelling) / 0.07 (spiral).
     _SCREEN_STATIONARITY_MIN = 0.95
     _SCREEN_ANG_ENTROPY_MIN = 0.55
+
+    # Turing-specificity gate 3: INTRINSIC WAVELENGTH (reject coarsening). A Turing
+    # pattern locks an intrinsic wavelength selected by the instability; conserved /
+    # non-conserved coarsening (Cahn-Hilliard spinodal, Allen-Cahn phase ordering)
+    # has NO intrinsic scale -- its dominant wavelength grows monotonically as
+    # L(t) ~ t^(1/n). Reject a field whose wavelength grows BOTH substantially
+    # (ratio > 1.30) AND monotonically (spearman_rho > 0.50) over the trajectory.
+    # Empirical separation: Turing/Gray-Scott ratio <= 0.86 / rho <= 0; Cahn-
+    # Hilliard ratio 1.67-2.22 / rho +0.83..+0.96.
+    _SCREEN_WL_GROWTH_MAX = 1.30
+    _SCREEN_WL_RHO_MAX = 0.50
 
     def __init__(
         self,
@@ -270,6 +282,33 @@ class P3TuringWavelengthDetector(BaseDetector):
                         break
         return fields
 
+    def _collect_trajectory_fields(
+        self,
+        state_history: list[dict[str, Any]],
+        n_traj: int = 12,
+        skip_frac: float = 0.15,
+    ) -> list[np.ndarray]:
+        """Evenly-spaced fields across the WHOLE trajectory (after an initial
+        transient) for the wavelength-vs-time intrinsic-scale test. Unlike the
+        last-N stability frames, this spans the full run so monotonic coarsening
+        (slow at late times) is still visible against an early reference.
+        """
+        fields_all: list[np.ndarray] = []
+        for snap in state_history:
+            for key in ("field", "field_v"):
+                if key in snap:
+                    arr = np.asarray(snap[key])
+                    if arr.ndim == 2:
+                        fields_all.append(arr)
+                    break
+        if len(fields_all) < 4:
+            return fields_all
+        start = int(skip_frac * len(fields_all))
+        if len(fields_all) - start < n_traj:
+            return fields_all[start:]
+        idx = np.linspace(start, len(fields_all) - 1, n_traj).astype(int)
+        return [fields_all[i] for i in idx]
+
     # ------------------------------------------------------------------
     # Pipeline methods
     # ------------------------------------------------------------------
@@ -344,6 +383,8 @@ class P3TuringWavelengthDetector(BaseDetector):
                 "angular_entropy": 0.0,
                 "radial_concentration": 1.0,
                 "field_stationarity": 0.0,
+                "wavelength_growth_ratio": 1.0,
+                "wavelength_growth_rho": 0.0,
             }
 
         stats = radial_fft_peak_stats(
@@ -355,6 +396,10 @@ class P3TuringWavelengthDetector(BaseDetector):
             field, k_min=self.k_min, k_max_frac=self.k_max_frac,
         )
         stationarity = field_stationarity(self._stability_fields)
+        growth = wavelength_growth(
+            self._collect_trajectory_fields(state_history),
+            k_min=self.k_min, k_max_frac=self.k_max_frac,
+        )
         return {
             "peak_to_mean": float(stats["peak_to_mean"]),
             "peak_k": int(stats["peak_k"]),
@@ -371,6 +416,8 @@ class P3TuringWavelengthDetector(BaseDetector):
             "angular_entropy": float(iso["angular_entropy"]),
             "radial_concentration": float(iso["radial_concentration"]),
             "field_stationarity": float(stationarity),
+            "wavelength_growth_ratio": float(growth["growth_ratio"]),
+            "wavelength_growth_rho": float(growth["spearman_rho"]),
         }
 
     def _check_screening(
@@ -419,6 +466,16 @@ class P3TuringWavelengthDetector(BaseDetector):
         # catalog canonical positive.)
         if (primary_result.get("angular_entropy", 0.0)
                 < self._SCREEN_ANG_ENTROPY_MIN):
+            return False
+
+        # Turing-specificity gate 3: INTRINSIC WAVELENGTH (reject coarsening). A
+        # diffusion-driven instability selects a fixed wavelength; conserved /
+        # non-conserved coarsening (Cahn-Hilliard, Allen-Cahn) has no intrinsic
+        # scale and its dominant wavelength grows monotonically in time. Reject a
+        # field whose wavelength grows BOTH substantially AND monotonically.
+        gr = primary_result.get("wavelength_growth_ratio", 1.0)
+        rho = primary_result.get("wavelength_growth_rho", 0.0)
+        if gr > self._SCREEN_WL_GROWTH_MAX and rho > self._SCREEN_WL_RHO_MAX:
             return False
 
         return True

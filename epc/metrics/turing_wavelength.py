@@ -387,6 +387,49 @@ def ring_angular_isotropy(
     }
 
 
+def wavelength_growth(
+    fields: "list[np.ndarray]",
+    k_min: int = 2,
+    k_max_frac: float = 1.0,
+) -> "dict[str, float]":
+    """Trend of the dominant wavelength across a trajectory — the intrinsic-scale
+    discriminator.
+
+    A Turing pattern locks an INTRINSIC wavelength at onset (selected by the
+    diffusion-driven instability), so its dominant wavelength is flat — or DECLINES
+    as the system selects k* down from a large-scale initial transient. Conserved or
+    non-conserved coarsening (Cahn-Hilliard spinodal decomposition, Allen-Cahn phase
+    ordering) has NO intrinsic length scale: domains grow as L(t) ~ t^(1/n), so the
+    dominant wavelength grows monotonically in time.
+
+    Returns
+    -------
+    dict with:
+        growth_ratio  : float — median wavelength over the late half / early half.
+                        ~1 (or <1) for Turing; >1 for coarsening.
+        spearman_rho  : float — rank correlation of wavelength vs time. ~0 or
+                        negative for Turing/selection; ~+1 for monotonic coarsening.
+        n             : int — number of usable frames.
+    """
+    lams: list[float] = []
+    for f in fields:
+        s = radial_fft_peak_stats(f, k_min=k_min, k_max_frac=k_max_frac)
+        lam = s["wavelength_pixels"]
+        if lam == lam and lam > 0:  # finite, positive
+            lams.append(float(lam))
+    if len(lams) < 4:
+        return {"growth_ratio": 1.0, "spearman_rho": 0.0, "n": float(len(lams))}
+    a = np.asarray(lams, dtype=float)
+    half = len(a) // 2
+    early = float(np.median(a[:half]))
+    late = float(np.median(a[half:]))
+    ratio = late / early if early > 0 else 1.0
+    ranks = np.argsort(np.argsort(a)).astype(float)
+    t = np.arange(len(a), dtype=float)
+    rho = float(np.corrcoef(ranks, t)[0, 1]) if np.std(ranks) > 0 else 0.0
+    return {"growth_ratio": float(ratio), "spearman_rho": rho, "n": float(len(a))}
+
+
 def field_stationarity(fields: "list[np.ndarray]") -> float:
     """Mean frame-to-frame Pearson correlation across a field sequence.
 
