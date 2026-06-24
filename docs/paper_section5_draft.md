@@ -434,6 +434,9 @@ P29 for novel substrate variants — is the primary future-work plan.
 
 ## 5.8 Dimensional Coverage
 
+> **[NEXT PASS - predictive-validation result, write up here + in section 7.5]** The two empty ontology cells identified by coverage analysis (substrate = evolving-network; interaction = none/entropy-driven) were each treated as a PREDICTION and found to host established emergent phenomena absent from the catalog (P34 adaptive-network fragmentation, Holme & Newman 2006; P35 entropy-driven crystallization, the Alder transition 1957), each then validated to TNR 1.0. The ontology's gaps are predictive - the periodic-table property: two predictions made, two confirmed. Honesty guardrails the claim must carry: this validates the method AGAINST THE EXISTING LITERATURE (coverage discovery), not a novel-to-science find; n=2 is suggestive not conclusive; the axes are descriptive tags, not a proven generative axis like atomic number; the decisive test - a gap that lands on a phenomenon absent from the literature - is the open frontier. Source: docs/validation_rebuild/discovery_phase_summary.md.
+
+
 The audited 20-model core (19 distinct model families) of Table 1 spans
 8 of 11 ontological dimensions with at least two distinct values each.
 Coverage gaps in that core concentrated in three dimensions:

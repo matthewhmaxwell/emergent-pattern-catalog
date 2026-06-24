@@ -102,6 +102,42 @@ change from the initial state is what isolates the phenomenon. This holds across
   recall 15/15, 0 null false-positives; T2c null-spec 1.0, false-MATCH 0.0 — no
   regression. The net now covers the hexatic family for future systems too.
 
+## Predictive validation of the ontology  (★ write up in the next paper pass)
+
+The headline scientific result of the discovery phase — flagged for §5.8 / §7.5.
+
+A descriptive taxonomy's empty cells could be empty for trivial reasons (physically
+unrealizable combinations, or artifacts of the classification scheme), carrying no
+predictive content. Ring 1 is a first test of whether this ontology's gaps are instead
+*predictive*:
+
+1. The 11-dimension ontology was constructed to *describe* the 32 catalog patterns
+   (post-hoc, descriptive).
+2. Coverage analysis (`coverage_map.py`) identified two ENTIRELY EMPTY ontology values:
+   `substrate = evolving network` and `interaction = none / entropy-driven`.
+3. We treated each empty cell as a *prediction* — "an emergent pattern should exist
+   here" — and built a canonical minimal system in the cell.
+4. Both cells turned out to host **established, independently-discovered emergent
+   phenomena** the catalog had simply missed: adaptive-network fragmentation
+   (Holme & Newman 2006) and entropy-driven crystallization (the Alder transition,
+   1957). Each then passed the full Phase-2a discrimination bar (TNR 1.0).
+
+This is the **periodic-table property**: the ontology's gaps predict *real* phenomena,
+not artifacts — evidence that the dimensions carve emergence at meaningful joints, and
+that the instrument can grow its own catalog by coverage analysis. **Two predictions
+made; two confirmed.**
+
+Honesty guardrails the paper claim MUST carry:
+- This validates the method *against the existing literature* — the predictions were
+  confirmed against phenomena already known to science (coverage discovery), not a
+  discovery of anything novel-to-science.
+- n = 2 confirmed predictions is suggestive, not conclusive; the ontology axes are
+  descriptive tags, not a proven generative axis (unlike atomic number in Mendeleev's
+  table). More empty cells should be tested to strengthen the claim.
+- The decisive future test — a gap prediction that lands on a phenomenon ABSENT from
+  the literature (genuine novelty), via generative-family novelty search — is the open
+  frontier, with the honest prior that genuine novelty is rare.
+
 ## State
 
 Catalog **32 → 35**; battery **34 detectors**; all validated, committed, pushed
