@@ -35,6 +35,9 @@ CODE_MAP = {
  "P30":("epc.models.autopoiesis","AutopoiesisModel"),
  "P31":("epc.models.cell_view_sorting","CellViewSorting"),
  "P32":("epc.models.division_of_labor","ResponseThresholdModel"),
+ "P33":("epc.models.active_nematic","active_nematic_field"),
+ "P34":("epc.models.adaptive_network","adaptive_voter"),
+ "P35":("epc.models.entropy_crystal","hard_disk_crystallization"),
 }
 _METHODS = ["step","_step","update","_update","_transaction","_round","simulate","run","run_to_completion"]
 

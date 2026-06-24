@@ -1393,7 +1393,10 @@
       "emergence": null,
       "self_recognized": true
     },
-    "asset": "p33.gif"
+    "asset": "p33.gif",
+    "code": "def active_nematic_field(seed: int = 0, G: int = 64, eta: float = 0.18,\n                         n_steps: int = 400, n_frames: int = 60,\n                         speed: float = 1.0, init_mode: str = \"random\") -> Built:\n    \"\"\"Canonical active nematic. eta\u22480.18 = active-turbulent regime (locally ordered\n    + sustained \u00b11/2 defect gas). init_mode='aligned' starts defect-free (the\n    ordered-nematic negative).\"\"\"\n    rng = np.random.default_rng(seed)\n    if init_mode == \"aligned\":\n        theta = (np.full((G, G), PI / 3.0) + 0.02 * rng.standard_normal((G, G))) % PI\n    else:\n        theta = rng.uniform(0, PI, size=(G, G))\n    xs, ys = np.meshgrid(np.arange(G), np.arange(G), indexing=\"ij\")\n    pos = np.column_stack([xs.ravel(), ys.ravel()]).astype(float)\n    frames: List[Dict[str, Any]] = []\n    snap = max(1, n_steps // n_frames)\n    for t in range(n_steps):\n        m = (np.exp(2j * np.roll(theta, 1, 0)) + np.exp(2j * np.roll(theta, -1, 0))\n             + np.exp(2j * np.roll(theta, 1, 1)) + np.exp(2j * np.roll(theta, -1, 1)))\n        theta = (np.angle(m) / 2.0 + eta * rng.standard_normal((G, G))) % PI\n        if t % snap == 0:\n            ang = (theta.ravel() + rng.integers(0, 2, size=(G, G)).ravel() * PI)\n            vel = speed * np.column_stack([np.cos(ang), np.sin(ang)])\n            frames.append({\"theta_field\": theta.copy(), \"velocities\": vel,\n                           \"positions\": pos.copy(), \"headings\": ang, \"box_size\": float(G)})\n    return frames, {\"model\": \"active_nematic_field\", \"eta\": eta, \"box_size\": float(G),\n                    \"init_mode\": init_mode}",
+    "code_where": "active_nematic_field()",
+    "code_module": "epc.models.active_nematic"
   },
   {
     "id": "P34",
@@ -1412,7 +1415,10 @@
       "emergence": null,
       "self_recognized": true
     },
-    "asset": "p34.gif"
+    "asset": "p34.gif",
+    "code": "def adaptive_voter(seed: int = 0, N: int = 200, mean_deg: int = 4, phi: float = 0.99,\n                   max_steps: int = 400000, n_frames: int = 80) -> Built:\n    \"\"\"Adaptive voter -> fragmentation transition (the evolving-network positive).\"\"\"\n    rng = np.random.default_rng(seed)\n    op = rng.integers(0, 2, N)\n    p = mean_deg / (N - 1)\n    A = (np.triu(rng.random((N, N)), 1) < p).astype(np.int8)\n    A = A + A.T\n    frames: List[Dict[str, Any]] = []\n    snap = max(1, max_steps // n_frames)\n    for step in range(max_steps):\n        i = int(rng.integers(N))\n        nbrs = np.nonzero(A[i])[0]\n        if nbrs.size == 0:\n            if step % snap == 0:\n                frames.append({\"adjacency\": A.astype(float).copy(), \"opinions\": op.copy()})\n            continue\n        j = int(nbrs[rng.integers(nbrs.size)])\n        if op[i] != op[j]:\n            if rng.random() < phi:\n                same = np.nonzero(op == op[i])[0]\n                same = same[(same != i)]\n                if same.size:\n                    l = int(same[rng.integers(same.size)])\n                    A[i, j] = A[j, i] = 0\n                    A[i, l] = A[l, i] = 1\n            else:\n                op[i] = op[j]\n        if step % snap == 0:\n            frames.append({\"adjacency\": A.astype(float).copy(), \"opinions\": op.copy()})\n    frames.append({\"adjacency\": A.astype(float).copy(), \"opinions\": op.copy()})\n    return frames, {\"model\": \"adaptive_voter\", \"phi\": phi, \"N\": N, \"mean_deg\": mean_deg}",
+    "code_where": "adaptive_voter()",
+    "code_module": "epc.models.adaptive_network"
   },
   {
     "id": "P35",
@@ -1431,6 +1437,9 @@
       "emergence": null,
       "self_recognized": true
     },
-    "asset": "p35.gif"
+    "asset": "p35.gif",
+    "code": "def hard_disk_crystallization(seed: int = 0, N: int = 196, L: float = 14.0,\n                              eta_end: float = 0.74, n_steps: int = 2500,\n                              n_frames: int = 80, dt: float = 0.05,\n                              noise0: float = 0.16) -> Built:\n    \"\"\"Entropy/packing-driven crystallization (the none_entropy positive).\"\"\"\n    rng = np.random.default_rng(seed)\n    pos = rng.uniform(0, L, size=(N, 2))\n    d_end = 2.0 * np.sqrt(eta_end * L * L / (N * np.pi))\n    d0 = 0.30 * d_end\n    frames: List[Dict[str, Any]] = []\n    snap = max(1, n_steps // n_frames)\n    for step in range(n_steps):\n        frac = step / n_steps\n        d = d0 + (d_end - d0) * frac\n        F = _step_forces(pos, d, L)\n        pos = (pos + dt * F + rng.normal(0, noise0 * (1.0 - frac), size=(N, 2))) % L\n        if step % snap == 0:\n            frames.append({\"positions\": pos.copy()})\n    frames.append({\"positions\": pos.copy()})\n    return frames, {\"model\": \"hard_disk_crystallization\", \"eta_end\": eta_end,\n                    \"N\": N, \"box_size\": L}",
+    "code_where": "hard_disk_crystallization()",
+    "code_module": "epc.models.entropy_crystal"
   }
 ]
