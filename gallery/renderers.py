@@ -251,9 +251,67 @@ def render_hexatic(history, out_path, title=""):
     return out_path
 
 
+def render_wealth_tail(history, out_path, title=""):
+    """Heterogeneous kinetic exchange: the wealth survival function P(W>=w) on log-log
+    axes. From an equal start it spreads and grows a straight-line POWER-LAW (Pareto)
+    tail at the high-wealth end. (P36.)"""
+    frames = _subsample(history, "wealth")
+    if len(frames) < 2:
+        return None
+    allw = np.concatenate([np.asarray(f["wealth"], float) for f in frames])
+    allw = allw[allw > 0]
+    if allw.size == 0:
+        return None
+    n_all = allw.size
+    xmin, xmax = float(allw.min()) * 0.7, float(allw.max()) * 1.4
+
+    def ccdf(w):
+        w = np.sort(np.asarray(w, float)); w = w[w > 0]
+        return w, 1.0 - np.arange(len(w)) / max(len(w), 1)
+
+    fig, ax = plt.subplots(figsize=(4.2, 4), dpi=80)
+    x0, y0 = ccdf(frames[0]["wealth"])
+    (ln,) = ax.loglog(x0, y0, color="#2b6cb0", lw=1.8)
+    ax.set_xlim(xmin, xmax); ax.set_ylim(0.5 / n_all, 1.3)
+    ax.set_xlabel("wealth  w"); ax.set_ylabel("P(W ≥ w)")
+    ax.set_title(title, fontsize=9)
+
+    def upd(i):
+        x, y = ccdf(frames[i]["wealth"]); ln.set_data(x, y); return ln,
+    a = animation.FuncAnimation(fig, upd, frames=len(frames), blit=False)
+    a.save(out_path, writer=animation.PillowWriter(fps=_FPS)); plt.close(fig)
+    return out_path
+
+
+def render_population_dynamics(history, out_path, title=""):
+    """Field-mediated resource competition: species abundances unfold over time and
+    never settle to a fixed point — sustained oscillation/chaos with all species
+    coexisting (Huisman-Weissing). (P37.)"""
+    frames = [f for f in history if isinstance(f, dict) and "abundances" in f]
+    if len(frames) < 3:
+        return None
+    A = np.array([np.asarray(f["abundances"], float) for f in frames])  # (T, n)
+    T, n = A.shape
+    steps = np.linspace(2, T, min(_MAXF, T)).astype(int)
+    colors = plt.cm.tab10(np.arange(n) % 10)
+    fig, ax = plt.subplots(figsize=(5, 3.3), dpi=82)
+    ax.set_xlim(0, T - 1); ax.set_ylim(0, float(A.max()) * 1.05)
+    ax.set_xlabel("time"); ax.set_ylabel("abundance"); ax.set_title(title, fontsize=9)
+    lines = [ax.plot([], [], color=colors[k], lw=1.3)[0] for k in range(n)]
+    def upd(i):
+        t = steps[i]
+        for k in range(n):
+            lines[k].set_data(np.arange(t), A[:t, k])
+        return lines
+    a = animation.FuncAnimation(fig, upd, frames=len(steps), blit=False)
+    a.save(out_path, writer=animation.PillowWriter(fps=_FPS)); plt.close(fig)
+    return out_path
+
+
 RENDERERS = {
     "director": render_director, "adjacency_blocks": render_adjacency_blocks,
-    "hexatic": render_hexatic,
+    "hexatic": render_hexatic, "wealth_tail": render_wealth_tail,
+    "population_dynamics": render_population_dynamics,
     "point_cloud": render_point_cloud, "grid_field": render_grid_field,
     "phase_circle": render_phase_circle, "timeseries": render_timeseries,
     "distribution": render_distribution, "network": render_network, "spacetime": render_spacetime,

@@ -1441,5 +1441,49 @@
     "code": "def hard_disk_crystallization(seed: int = 0, N: int = 196, L: float = 14.0,\n                              eta_end: float = 0.74, n_steps: int = 2500,\n                              n_frames: int = 80, dt: float = 0.05,\n                              noise0: float = 0.16) -> Built:\n    \"\"\"Entropy/packing-driven crystallization (the none_entropy positive).\"\"\"\n    rng = np.random.default_rng(seed)\n    pos = rng.uniform(0, L, size=(N, 2))\n    d_end = 2.0 * np.sqrt(eta_end * L * L / (N * np.pi))\n    d0 = 0.30 * d_end\n    frames: List[Dict[str, Any]] = []\n    snap = max(1, n_steps // n_frames)\n    for step in range(n_steps):\n        frac = step / n_steps\n        d = d0 + (d_end - d0) * frac\n        F = _step_forces(pos, d, L)\n        pos = (pos + dt * F + rng.normal(0, noise0 * (1.0 - frac), size=(N, 2))) % L\n        if step % snap == 0:\n            frames.append({\"positions\": pos.copy()})\n    frames.append({\"positions\": pos.copy()})\n    return frames, {\"model\": \"hard_disk_crystallization\", \"eta_end\": eta_end,\n                    \"N\": N, \"box_size\": L}",
     "code_where": "hard_disk_crystallization()",
     "code_module": "epc.models.entropy_crystal"
+  },
+  {
+    "id": "P36",
+    "name": "Pareto wealth tail (heterogeneous exchange)",
+    "ref": "Chatterjee-Chakrabarti-Manna 2004",
+    "summary": "Agents with differing saving propensities trade a conserved resource in random pairs.",
+    "effect": "A Pareto power-law wealth tail emerges from agent heterogeneity.",
+    "viz": "wealth_tail",
+    "watch": "Watch the wealth survival curve spread from an equal start and grow a straight-line power-law (Pareto) tail \u2014 heavy-tailed inequality, from agent heterogeneity alone.",
+    "metric": "pareto_advantage",
+    "detector": {
+      "top": "P36",
+      "tier": "definitive",
+      "confidence": null,
+      "verdict": "TNR 1.0 \u00b7 d=13.9",
+      "emergence": null,
+      "self_recognized": true
+    },
+    "asset": "p36.gif",
+    "code": "def kinetic_exchange(seed: int = 0, N: int = 3000, hetero: bool = True,\n                     lam_fixed: float = 0.5, n_sweeps: int = 5000,\n                     n_frames: int = 40) -> Built:\n    \"\"\"Heterogeneous (positive) vs homogeneous (control) CC kinetic exchange.\n\n    hetero=True : per-agent lambda_i ~ U[0, 1) -> Pareto power-law tail (P36).\n    hetero=False: a single lambda = lam_fixed  -> Gamma (lam>0) / exponential (lam=0).\n    \"\"\"\n    rng = np.random.default_rng(seed * 7919 + 1)\n    if hetero:\n        lam = np.clip(rng.uniform(0.0, 1.0, size=N), 0.0, 0.9999)\n    else:\n        lam = np.full(N, float(lam_fixed))\n    frames = _cc_sweeps(seed, N, lam, n_sweeps, n_frames)\n    return frames, {\"model\": \"kinetic_exchange\", \"N\": N, \"hetero\": hetero,\n                    \"lam_fixed\": (None if hetero else lam_fixed),\n                    \"has_conserved_resource\": True, \"has_pairwise_exchange\": True,\n                    \"heterogeneous_agents\": hetero}",
+    "code_where": "kinetic_exchange()",
+    "code_module": "epc.models.kinetic_exchange"
+  },
+  {
+    "id": "P37",
+    "name": "Resource-competition chaos",
+    "ref": "Huisman & Weissing 1999",
+    "summary": "Species compete only through shared depletable resources \u2014 no direct interaction.",
+    "effect": "Sustained oscillation/chaos lets species coexist beyond the competitive-exclusion limit.",
+    "viz": "population_dynamics",
+    "watch": "Watch the species abundances oscillate and never settle, with all species coexisting \u2014 the paradox of the plankton, sustained by non-equilibrium dynamics.",
+    "metric": "coexistence_oscillation",
+    "detector": {
+      "top": "P37",
+      "tier": "definitive",
+      "confidence": null,
+      "verdict": "TNR 1.0 \u00b7 d=15.1",
+      "emergence": null,
+      "self_recognized": true
+    },
+    "asset": "p37.gif",
+    "code": "def resource_competition(seed: int = 0, t_max: float = 3000.0, dt: float = 0.02,\n                         n_frames: int = 80) -> Built:\n    \"\"\"Positive: Huisman-Weissing competitive chaos. 5 species compete through 5\n    shared resources; abundances never reach a fixed point (sustained chaos), all\n    species coexist (field-mediated, exploitative competition).\"\"\"\n    rng = np.random.default_rng(seed * 7919 + 1)\n    K, C = _HW_K.copy(), _HW_C.copy()\n    S = _HW_S.copy()\n    r = np.full(5, 1.0); m = np.full(5, 0.25)\n    N0 = 0.1 + 0.02 * rng.random(5)           # seed-varied initial abundances\n    R0 = S.copy()\n    frames = _integrate(N0, R0, K, C, S, r, m, 0.25, t_max, dt, n_frames)\n    return frames, {\"model\": \"resource_competition\", \"n_species\": 5,\n                    \"n_resources\": 5, \"field_mediated\": True, \"competitive\": True}",
+    "code_where": "resource_competition()",
+    "code_module": "epc.models.resource_competition"
   }
 ]

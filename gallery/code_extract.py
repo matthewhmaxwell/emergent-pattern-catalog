@@ -38,6 +38,8 @@ CODE_MAP = {
  "P33":("epc.models.active_nematic","active_nematic_field"),
  "P34":("epc.models.adaptive_network","adaptive_voter"),
  "P35":("epc.models.entropy_crystal","hard_disk_crystallization"),
+ "P36":("epc.models.kinetic_exchange","kinetic_exchange"),
+ "P37":("epc.models.resource_competition","resource_competition"),
 }
 _METHODS = ["step","_step","update","_update","_transaction","_round","simulate","run","run_to_completion"]
 

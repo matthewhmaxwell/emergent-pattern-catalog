@@ -163,4 +163,12 @@ GALLERY = {
    summary="Purely repulsive disks order by excluded volume alone — no attraction, just packing entropy.",
    watch="Watch the disks brighten into hexatic (six-fold) crystalline grains as packing tightens — order from entropy, with no attractive force.",
    effect="Hexatic crystalline order emerges from packing alone."),
+"P36": dict(name="Pareto wealth tail (heterogeneous exchange)", ref="Chatterjee-Chakrabarti-Manna 2004", viz="wealth_tail",
+   summary="Agents with differing saving propensities trade a conserved resource in random pairs.",
+   watch="Watch the wealth survival curve spread from an equal start and grow a straight-line power-law (Pareto) tail — heavy-tailed inequality, from agent heterogeneity alone.",
+   effect="A Pareto power-law wealth tail emerges from agent heterogeneity."),
+"P37": dict(name="Resource-competition chaos", ref="Huisman & Weissing 1999", viz="population_dynamics",
+   summary="Species compete only through shared depletable resources — no direct interaction.",
+   watch="Watch the species abundances oscillate and never settle, with all species coexisting — the paradox of the plankton, sustained by non-equilibrium dynamics.",
+   effect="Sustained oscillation/chaos lets species coexist beyond the competitive-exclusion limit."),
 }
