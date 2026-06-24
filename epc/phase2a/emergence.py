@@ -319,6 +319,20 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                         best = {"score": round(pw, 4), "order_gain": round(adv, 4),
                                 "null_z": 0.0, "kind": "heavy-tail(pareto-wealth)",
                                 "n_frames": len(wfr)}
+        # Coexistence-oscillation channel: sustained multi-species oscillation under
+        # field-mediated resource competition (P37, Huisman-Weissing). Reads
+        # 'abundances'+'resources'; fires only on multi-species coexistence (>=3 persist)
+        # whose abundance vector keeps oscillating (does not settle) -- invisible to the
+        # spatial/phase/temporal channels, which do not ingest an abundance+resource
+        # series. Stable coexistence (settles -> osc~0) and exclusion (few survivors) do NOT fire.
+        from epc.metrics.competition_dynamics import coexistence_oscillation as _coex
+        _cm = _coex(history)
+        if _cm is not None and int(_cm["n_persist"]) >= 3 and _cm["osc_cv"] > 0.05:
+            cs = float(min(0.95, 0.55 + 2.0 * (_cm["osc_cv"] - 0.05)))
+            if cs > best["score"]:
+                best = {"score": round(cs, 4), "order_gain": round(float(_cm["osc_cv"]), 4),
+                        "null_z": 0.0, "kind": "coexistence-oscillation",
+                        "n_frames": len(history)}
     except Exception:
         pass
 

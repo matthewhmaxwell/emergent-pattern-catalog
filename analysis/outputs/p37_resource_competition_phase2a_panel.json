@@ -1,0 +1,51 @@
+{
+  "pattern_id": "P37",
+  "panel_version": "discovery-ring1",
+  "detector_format": "abundance_resource_timeseries",
+  "summary": {
+    "pattern_id": "P37",
+    "continuous_metric": "coexistence_oscillation",
+    "continuous_metric_direction": "higher",
+    "continuous_pos_values": [
+      0.1469,
+      0.1439,
+      0.1553,
+      0.1648,
+      0.1853
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overall_tnr": 1.0,
+    "n_positive": 5,
+    "n_negative": 15,
+    "positive_tiers": [
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive"
+    ],
+    "cohens_d_continuous": 15.092977806650367,
+    "negative_panel": [
+      "competitive_exclusion",
+      "stable_coexistence",
+      "single_resource"
+    ],
+    "note": "Field-mediated resource competition (interact=field x conflict=competitive, Ring-1 combination cell). Huisman-Weissing competitive chaos: species compete through shared depletable resources and coexist via SUSTAINED oscillation (never a fixed point). Discriminator = multi-species coexistence + sustained abundance oscillation; the stable-coexistence control (same coexistence, no oscillation) is rejected, so the signature is the non-equilibrium dynamics. TNR 1.0."
+  }
+}

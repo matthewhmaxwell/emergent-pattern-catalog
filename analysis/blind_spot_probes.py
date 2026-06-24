@@ -331,8 +331,20 @@ def pareto_exchange(seed: int = 0):
                 truth="emergent", family="heavy-tail-wealth")
 
 
+def resource_competition_chaos(seed: int = 0):
+    """Field-mediated resource competition (field x competitive gap): species
+    competing through shared resources coexist via sustained oscillation/chaos
+    (Huisman-Weissing). Temporal/oscillation family."""
+    from epc.models.resource_competition import resource_competition
+    h, _ = resource_competition(seed)
+    ab = np.array([np.asarray(f["abundances"]) for f in h])  # (T, n)
+    return dict(history=h, micro=ab, macro=ab.sum(1),
+                truth="emergent", family="resource-competition-chaos")
+
+
 PROBES = [
-    flocking, aggregation, active_nematic, hexatic_crystal, pareto_exchange,  # positive controls
+    flocking, aggregation, active_nematic, hexatic_crystal, pareto_exchange,
+    resource_competition_chaos,                              # positive controls
     vortex_milling, lane_banding, dla_fractal, percolation,
     traveling_wave, limit_cycle, xor_synergy, spatiotemporal_chaos,
     power_law_soc,                                    # heavy-tail / SOC

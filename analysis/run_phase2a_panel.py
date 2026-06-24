@@ -2236,3 +2236,12 @@ def make_p36_detector_fn(seed: int = 42):
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
+
+
+def make_p37_detector_fn(seed: int = 42):
+    """P37 resource-competition (Huisman-Weissing) detector fn for the battery."""
+    from epc.detectors.p37_resource_competition import P37ResourceCompetitionDetector
+    _det = P37ResourceCompetitionDetector(seed=seed)
+    def fn(history, metadata=None):
+        return _det.detect(history, metadata)
+    return fn
