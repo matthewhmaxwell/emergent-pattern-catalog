@@ -649,7 +649,101 @@ def regulate_time(history, title, key="x", setpoint="setpoint", perturb="perturb
     return out
 
 
+def director(history, title, **_):
+    """P33 active nematic: coarse-grained director field theta in [0,pi) as a cyclic
+    colormap; nematic domains + +/-1/2 defects show as color textures + singularities."""
+    from scipy.ndimage import uniform_filter
+    fr = _evenly(_has(history, "theta_field"))
+    if len(fr) < 2: return []
+    def cg(th):
+        th = np.asarray(th, float)
+        c = uniform_filter(np.cos(2*th), 3, mode="wrap"); s = uniform_filter(np.sin(2*th), 3, mode="wrap")
+        return (np.arctan2(s, c) / 2.0) % np.pi
+    out = []
+    for f in fr:
+        fig, ax = _new(title)
+        ax.imshow(cg(f["theta_field"]), cmap="twilight", interpolation="bilinear", vmin=0, vmax=np.pi)
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
+def adjacency_blocks(history, title, **_):
+    """P34 adaptive network: adjacency reordered by node opinion; coevolution fragments
+    the graph into same-opinion communities -> two diagonal blocks emerge."""
+    fr = _evenly(_has(history, "adjacency"))
+    if len(fr) < 2: return []
+    def reorder(f):
+        A = np.asarray(f["adjacency"], float)
+        if "opinions" in f:
+            o = np.argsort(np.asarray(f["opinions"])); A = A[np.ix_(o, o)]
+        return A
+    out = []
+    for f in fr:
+        fig, ax = _new(title)
+        ax.imshow(reorder(f), cmap="binary", interpolation="nearest")
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
+def hexatic(history, title, **_):
+    """P35 entropy crystallization: disks colored by local hexatic order |psi6_i|;
+    crystalline grains brighten as the packing self-orders."""
+    fr = _evenly(_has(history, "positions"))
+    if len(fr) < 2: return []
+    allp = np.concatenate([np.asarray(f["positions"], float) for f in fr])
+    lo, hi = allp.min(0) - 0.5, allp.max(0) + 0.5; L = float(allp.max() - allp.min())
+    def psi6(p):
+        p = np.asarray(p, float); rij = p[:, None, :] - p[None, :, :]; rij -= L * np.round(rij / L)
+        d = np.sqrt((rij ** 2).sum(-1)); np.fill_diagonal(d, 1e9); o = np.empty(len(p))
+        for i in range(len(p)):
+            nn = np.argsort(d[i])[:6]
+            o[i] = abs(np.mean(np.exp(6j * np.arctan2(rij[i, nn, 1], rij[i, nn, 0]))))
+        return o
+    out = []
+    for f in fr:
+        p = np.asarray(f["positions"], float); fig, ax = _new(title)
+        ax.scatter(p[:, 0], p[:, 1], s=30, c=psi6(p), cmap="viridis", vmin=0, vmax=1)
+        ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_aspect("equal")
+        ax.set_xticks([]); ax.set_yticks([]); out.append(_img(fig))
+    return out
+
+def wealth_tail(history, title, **_):
+    """P36 heterogeneous exchange: wealth survival function P(W>=w) on log-log axes;
+    a straight-line power-law (Pareto) tail grows from an equal start."""
+    fr = _evenly(_has(history, "wealth"))
+    if len(fr) < 2: return []
+    allw = np.concatenate([np.asarray(f["wealth"], float) for f in fr]); allw = allw[allw > 0]
+    if allw.size == 0: return []
+    n_all = allw.size; xmin, xmax = float(allw.min()) * 0.7, float(allw.max()) * 1.4
+    def ccdf(w):
+        w = np.sort(np.asarray(w, float)); w = w[w > 0]
+        return w, 1.0 - np.arange(len(w)) / max(len(w), 1)
+    out = []
+    for f in fr:
+        x, y = ccdf(f["wealth"]); fig, ax = _new(title)
+        ax.loglog(x, y, color="#2b6cb0", lw=1.8)
+        ax.set_xlim(xmin, xmax); ax.set_ylim(0.5 / n_all, 1.3)
+        ax.set_xlabel("wealth  w"); ax.set_ylabel("P(W >= w)"); out.append(_img(fig))
+    return out
+
+def population_dynamics(history, title, **_):
+    """P37 resource competition: species abundances unfold over time and never settle
+    -- sustained oscillation/chaos with all species coexisting."""
+    fr = [f for f in history if isinstance(f, dict) and "abundances" in f]
+    if len(fr) < 3: return []
+    A = np.array([np.asarray(f["abundances"], float) for f in fr]); T, n = A.shape
+    cols = plt.cm.tab10(np.arange(n) % 10)
+    out = []
+    for k in np.linspace(2, T, NF).astype(int):
+        fig, ax = _new(title)
+        for j in range(n):
+            ax.plot(np.arange(k), A[:k, j], color=cols[j], lw=1.3)
+        ax.set_xlim(0, T - 1); ax.set_ylim(0, float(A.max()) * 1.05)
+        ax.set_xlabel("time"); ax.set_ylabel("abundance"); out.append(_img(fig))
+    return out
+
+
 PRODUCERS = {
+    "director": director, "adjacency_blocks": adjacency_blocks, "hexatic": hexatic,
+    "wealth_tail": wealth_tail, "population_dynamics": population_dynamics,
     "point_cloud": point_cloud, "grid_field": grid_field, "phase_circle": phase_circle,
     "road_1d": road_1d, "vector_grid": vector_grid, "histogram_time": histogram_time,
     "lorenz_time": lorenz_time, "line_grow": line_grow, "multi_line": multi_line,
