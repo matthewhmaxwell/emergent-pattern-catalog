@@ -1,0 +1,84 @@
+# Ring 2 — Strategy (living document)
+
+**Status: design phase.** The LENS framework below is settled (co-developed). Sourcing,
+the literature-novelty gate, and the success bar are still under discussion — flagged
+OPEN at the end. Nothing here commits us to building yet.
+
+## The core honesty
+
+Ring 2 hunts for emergent behaviors not in the catalog — ideally not in the literature.
+The central problem is **completeness**, and it has two dual faces:
+
+- **Lens completeness** — can we *see* a novel phenomenon?
+- **Source completeness** — can we *produce* one?
+
+Neither can be *proven* (unknown-unknowns). So we do not claim completeness; we **bound,
+audit, and backstop** it. The strongest honest claim Ring 2 can ever make is "novel
+relative to an audited, disclosed coordinate system," never "novel, full stop."
+
+## Lens taxonomy (settled)
+
+A *lens* is a detection channel; together the lenses form the emergence descriptor the
+search navigates by. Sorted by the provenance / maturity of each lens:
+
+### Tier 1 — grid-rooted lenses
+Already in the instrument. Each earned its place by discriminating a real catalogued
+pattern from its look-alikes at TNR 1.0 *in our own validation* — evidence-based in the
+strong sense (demonstrated here, not merely literature-attested). Current set: morphology
+/ clustering, orientation (polar + nematic), Ψ_CE synergy, temporal (spectral-peak),
+heavy-tail / SOC, network (modularity / scale-free), ψ6 hexatic-gain, Pareto-tail
+(heavy-tail-wealth), coexistence-oscillation — plus the 36 per-pattern detectors.
+
+### Tier 2 — other evidence-based lenses, including from adjacent fields
+Established order parameters / collectivity signatures from fields that study their own
+emergence — to be **imported, not invented**. The mine:
+- condensed matter — order parameters, broken-symmetry measures
+- neuroscience — integrated information (Φ), criticality / avalanche scaling
+- information theory — transfer entropy, predictive information / excess entropy
+- applied topology — persistent homology / TDA
+- nonlinear dynamics — Lyapunov exponents, recurrence quantification, attractor dimension
+- network science — percolation / connectivity transitions, assortativity
+- ecology — diversity–stability measures
+
+**Discipline:** evidence-based-*elsewhere* ≠ trustworthy-*here*. Every import clears the
+same bar the grid lenses did — discriminates real structure, does not false-fire on the
+null set — before it joins the trusted descriptor.
+
+### Tier 2-special — the model-free BRIDGE (the completeness tripwire)
+A distinguished sub-class of Tier 2: **lens-agnostic complexity measures** — compression-
+based complexity / logical depth, predictive information / excess entropy, causal
+emergence (Ψ_CE; the MPR-complexity estimator is already built). These do **not name** a
+structure. They report: *"there is real structure here, beyond randomness, that none of
+the specific lenses caught."* That signal — high on the model-free measure, silent on
+every named channel — is simultaneously:
+1. the **prime novelty lead** (the instrument is looking at something it has no category for), and
+2. the **trigger** that a Tier-3 lens needs inventing.
+
+This is how the instrument reports its *own* incompleteness, and roughly *where*. It is the
+hinge between "exhaust the known lenses" and "invent a new one."
+
+### Tier 3 — novel lenses we invent
+Not speculative: the discovery phase did this three times — ψ6 → P35, Pareto-tail → P36,
+coexistence-oscillation → P37 — each forced by a phenomenon the existing lenses could not
+see. Trigger: the Tier-2-special tripwire. Once invented and validated to the standard
+bar, a Tier-3 lens graduates into Tier 1.
+
+## What this replaces
+
+The unanswerable "are the lenses complete?" becomes a **posture**:
+> exhaust the evidence-based lenses (Tier 1 + Tier 2); keep the model-free tripwire armed
+> for structure we cannot yet name; invent a Tier-3 lens when it trips; and report what we
+> remain blind to.
+
+An ever-expanding, audited coverage frontier — never a completeness claim. The blind-spot
+audit (probe library → recall) is the instrument that measures the frontier and is itself
+generalized for Ring 2 into a literature-spanning coverage test.
+
+## OPEN — still under discussion (do NOT finalize)
+
+- **Sourcing the systems under test** — generative families vs. program-space grammar vs.
+  imported corpora; provenance + reproducibility; the streetlight risk of writing our own.
+- **The literature-novelty gate** — how to establish novel-to-science despite the
+  absence-of-evidence problem; how much rigor before we'd stake a claim.
+- **The success bar** — novel-to-catalog vs. novel-regime-of-known-mechanism vs.
+  novel-to-science, and what the deliverable is even if no genuine novelty turns up.
