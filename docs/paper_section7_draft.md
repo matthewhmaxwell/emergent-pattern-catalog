@@ -225,7 +225,24 @@ mechanism is known by assertion rather than inferred from data).
 
 ## 7.5 Future Directions
 
-Four directions seem most productive.
+Five directions seem most productive.
+
+**Generative-family novelty search (the genuine-novelty frontier).** The discovery
+phase (§5.8.1) confirmed that the ontology's gaps are often predictive, but every
+confirmed prediction landed on a phenomenon already in the literature — coverage
+discovery, not novel-to-science. The decisive test is a gap prediction that lands on
+a phenomenon *absent* from the literature. Reaching it calls for a different search:
+rather than reading empty cells off a discrete ontology, sample a continuous
+generative family (multi-species interaction systems, Lenia, multi-species
+reaction–diffusion) under a novelty search steered by the instrument's own
+emergence descriptor — the per-channel firing vector becomes the behavior coordinate,
+so the search maximizes novelty in a validated, named space rather than wandering rule
+space. The leads are systems the instrument flags as emergent yet cannot classify
+(the EMERGENT-UNCLASSIFIED verdict), and especially those it scores as
+complex-but-structurally-invisible; a literature-novelty gate then separates
+novel-to-catalog from novel-to-science. The honest prior is that genuine novelty is
+rare, so the reliable deliverable is the search engine and a triaged map of
+emergence-space, with any genuine find as upside.
 
 **Continuing the detector coverage expansion.** Thirteen patterns await
 detectors. Wave 1 candidates — patterns that can be implemented on

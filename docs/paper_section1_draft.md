@@ -93,8 +93,9 @@ three.
 
 We present four interlocking artifacts.
 
-*A three-layer pattern catalog of 32 atomic emergent behaviors.* Layer 1
-contains 32 atomic patterns across 10 clusters, each defined by an
+*A three-layer pattern catalog of 32 atomic emergent behaviors* (since
+extended to 37 by an instrument-guided discovery phase, §5.8.1). Layer 1
+contains the 32 foundational atomic patterns across 10 clusters, each defined by an
 observable macro-behavior, a canonical minimal model, and at least one
 quantitative detection metric. Layer 2 adds cross-cutting descriptors —
 mathematical (phase transitions, critical regimes, attractor dynamics)

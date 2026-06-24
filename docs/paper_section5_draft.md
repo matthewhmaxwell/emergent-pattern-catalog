@@ -434,7 +434,65 @@ P29 for novel substrate variants — is the primary future-work plan.
 
 ## 5.8 Dimensional Coverage
 
-> **[NEXT PASS - predictive-validation result, write up here + in section 7.5]** The two empty ontology cells identified by coverage analysis (substrate = evolving-network; interaction = none/entropy-driven) were each treated as a PREDICTION and found to host established emergent phenomena absent from the catalog (P34 adaptive-network fragmentation, Holme & Newman 2006; P35 entropy-driven crystallization, the Alder transition 1957), each then validated to TNR 1.0. The ontology's gaps are predictive - the periodic-table property: two predictions made, two confirmed. Honesty guardrails the claim must carry: this validates the method AGAINST THE EXISTING LITERATURE (coverage discovery), not a novel-to-science find; n=2 is suggestive not conclusive; the axes are descriptive tags, not a proven generative axis like atomic number; the decisive test - a gap that lands on a phenomenon absent from the literature - is the open frontier. Source: docs/validation_rebuild/discovery_phase_summary.md.
+### 5.8.1 Predictive validation: the periodic-table property
+
+A descriptive taxonomy's empty cells could be empty for trivial reasons —
+physically unrealizable combinations, or artifacts of the classification scheme —
+carrying no predictive content. A discovery phase tested whether *this* ontology's
+gaps are instead predictive, by treating each empty cell as a hypothesis ("an
+emergent pattern should exist here") and attempting to instantiate it and validate
+a discriminating detector to the same Phase-2a bar (true-negative rate 1.0 against
+look-alikes, plus a large continuous effect size) the original catalog was held to.
+
+**First-order gaps (single empty ontology values).** Coverage analysis
+(`analysis/discovery/coverage_map.py`) flagged two entirely empty values:
+*substrate = evolving-network* and *interaction = none / entropy-driven*. Both were
+confirmed: **P34** adaptive-network fragmentation (Holme & Newman 2006) and **P35**
+entropy-driven crystallization (the Alder transition, 1957), each validated to
+TNR 1.0. Together with the parallel sweep-driven addition **P33** active nematic
+(Sanchez et al. 2012), every one of the 11 first-order ontology values is now
+occupied — first-order coverage is complete.
+
+**Second-order gaps (empty value-combinations).** Four plausible empty two-way cells
+were then probed. Two yielded clean, validated patterns: **P36** heterogeneous
+kinetic exchange producing a Pareto wealth tail (*resource-exchange × heterogeneous*;
+Chatterjee–Chakrabarti–Manna 2004; TNR 1.0, d = 13.9) and **P37** field-mediated
+resource competition producing Huisman–Weissing chaos (*field × competitive*;
+Huisman & Weissing 1999; TNR 1.0, d = 15.1). Two did not: network reciprocity
+(*fixed-network × reproduction*) is a real phenomenon, but its signature is
+statistical and comparative — a cooperation *level* relative to a well-mixed baseline,
+a fixation *probability* — rather than the single-observation structure the instrument
+reads; and driven cyclic dominance (*external-forcing × non-transitive*) probed as a
+non-prediction.
+
+**The result.** Of six empty cells tested (two first-order, four second-order), four
+host established emergent phenomena the catalog had simply missed, each validated to
+the discrimination bar; two are honest bounds. The ontology's gaps are therefore
+**often, but not always, predictive.** This is the periodic-table property in measured
+form: the descriptive dimensions carve emergence at meaningful enough joints that their
+gaps repeatedly point at real phenomena, while the two bounds delimit the claim and
+sharpen the instrument's scope — it detects *single-observation structural* emergence,
+not statistical/comparative phenomena that only appear by comparing across runs.
+
+Three honesty guardrails the claim carries. (i) Every confirmed prediction landed on a
+phenomenon already known to science: this validates the method *against the existing
+literature* (coverage discovery), not a discovery of anything novel-to-science.
+(ii) Four confirmations are suggestive, not conclusive, and the ontology axes are
+descriptive tags, not a proven generative axis like atomic number in Mendeleev's table.
+(iii) The decisive future test — a gap prediction that lands on a phenomenon *absent*
+from the literature — remains the open frontier (Section 7.5), with the honest prior
+that genuine novelty is rare.
+
+A secondary methodological finding: each confirmed prediction initially fell into a
+*detection* blind spot — the discriminating detector fired, but the generic emergence
+indicator (§5A.3) did not see the family at all (P35 hexatic order; P36 power-law tails
+in a conserved scalar; P37 multi-species coexistence-oscillation). Each was closed by an
+additive, gated channel. The catalog's coverage analysis thus surfaces *detection* gaps,
+not only *pattern* gaps: the instrument extends along both axes as it self-grows. Full
+detail in `docs/validation_rebuild/discovery_phase_summary.md` and
+`docs/validation_rebuild/ring1_combination_cells.md`.
+
+### 5.8.2 Residual dimensional coverage
 
 
 The audited 20-model core (19 distinct model families) of Table 1 spans

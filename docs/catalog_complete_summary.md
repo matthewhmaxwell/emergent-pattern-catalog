@@ -1,7 +1,7 @@
 # Emergent Pattern Catalog — Full Catalog Completion Summary (32/32)
 
 **Date:** 2026-06-10 (Sprint 94)
-**Status:** All 32 patterns implemented. 31/32 AT-DEPTH. Milestone B complete.
+**Status:** 37-pattern catalog. 32 foundational patterns implemented (31/32 AT-DEPTH), Milestone B complete; + 5 instrument-discovered (P33 active nematic, P34 adaptive-network fragmentation, P35 entropy-driven crystallization, P36 Pareto wealth tail, P37 resource-competition chaos), each validated to TNR 1.0. Discovery phase (Ring 0 + Ring 1) closed; first-order ontology coverage complete. See `docs/validation_rebuild/discovery_phase_summary.md` + `ring1_combination_cells.md`.
 
 > **VALIDATION SUPERSEDED (2026-06-14).** The AT-DEPTH and per-pattern validation
 > claims in this summary predate the **validation rebuild** (prompted by an audit
