@@ -2227,3 +2227,12 @@ def make_p35_detector_fn(seed: int = 42):
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
+
+
+def make_p36_detector_fn(seed: int = 42):
+    """P36 Pareto-exchange (heterogeneous kinetic exchange) detector fn for the battery."""
+    from epc.detectors.p36_pareto_exchange import P36ParetoExchangeDetector
+    _det = P36ParetoExchangeDetector(seed=seed)
+    def fn(history, metadata=None):
+        return _det.detect(history, metadata)
+    return fn

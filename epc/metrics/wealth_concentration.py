@@ -141,6 +141,34 @@ def pareto_ks_distance(
     return float(np.max(np.abs(empirical - theoretical)))
 
 
+def exp_ks_distance(
+    w: NDArray[np.float64],
+    w_min: float,
+) -> float:
+    """KS distance between the upper tail of w and a fitted exponential above w_min.
+
+    Maximum-likelihood exponential rate on the exceedances (tail - w_min),
+    then the KS statistic of the tail against Exp(rate). Pairs with
+    ``pareto_ks_distance``: a clean power-law (Pareto) tail has
+    exp_ks_distance >> pareto_ks_distance, while a Gamma / Boltzmann tail has
+    the reverse. The difference (exp_ks - pareto_ks) is a self-normalizing
+    "power-law over exponential" tail-shape discriminator (used by P36).
+
+    Returns NaN if w_min is not finite/positive or the tail sample is < 10.
+    """
+    if not np.isfinite(w_min) or w_min <= 0:
+        return float("nan")
+    w = np.asarray(w, dtype=np.float64)
+    tail = np.sort(w[w >= w_min])
+    if len(tail) < 10:
+        return float("nan")
+    rate = 1.0 / max(float(np.mean(tail - w_min)), 1e-12)
+    n = len(tail)
+    empirical = np.arange(1, n + 1, dtype=np.float64) / n
+    theoretical = 1.0 - np.exp(-rate * (tail - w_min))
+    return float(np.max(np.abs(empirical - theoretical)))
+
+
 def monotonic_growth_fraction(gini_series: NDArray[np.float64]) -> float:
     """Fraction of consecutive checkpoints where Gini does NOT decrease.
 

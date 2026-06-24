@@ -72,6 +72,7 @@ P = {
  "P33_active_nematic": ("meso","steady","direct","continuous","identical","goalless","mixed","memoryless","cooperative","autonomous","state"),
  "P34_adaptive_net":   ("global","transient","direct","evolving_net","identical","goalless","positive","memoryless","cooperative","autonomous","state"),
  "P35_entropy_crystal":("meso","steady","none_entropy","continuous","identical","goalless","positive","memoryless","cooperative","autonomous","motion"),
+ "P36_pareto_exchange":("global","steady","direct","well_mixed","heterogeneous","goalless","positive","local","competitive","autonomous","resource_exchange"),
 }
 
 # Plausible 2-way combination cells to probe (physically realizable, untested).

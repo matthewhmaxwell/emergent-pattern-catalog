@@ -288,6 +288,37 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
                     best = {"score": round(hx, 4), "order_gain": round(float(l6 - e6), 4),
                             "null_z": 0.0, "kind": "hexatic(psi6-gain)",
                             "n_frames": len(pos_frames)}
+        # Conserved-scalar power-law channel: a Pareto (power-law) tail in the
+        # CROSS-SECTIONAL distribution of a conserved scalar resource ('wealth'),
+        # emergent from agent heterogeneity (P36). The heavy-tail/SOC channel above
+        # reads event sizes OVER TIME and misses this; the spatial/phase channels
+        # cannot ingest a bare value vector. Fires only on a clean power-law tail
+        # (Pareto index ~1, power-law preferred over exponential, not condensed), so
+        # the Gamma / Boltzmann / Yard-Sale-condensation / null look-alikes do NOT fire.
+        from epc.metrics.wealth_concentration import (
+            gini as _gini_w, hill_tail_alpha as _hill_a,
+            pareto_ks_distance as _pks, exp_ks_distance as _eks)
+        wfr = [np.asarray(f["wealth"], dtype=float) for f in history
+               if isinstance(f, dict) and "wealth" in f]
+        wfr = [w for w in wfr if w.size >= 100 and w.sum() > 0]
+        if len(wfr) >= 4:
+            late_w = wfr[(3 * len(wfr)) // 4:]
+            a_, ksp_, kse_, ms_ = [], [], [], []
+            for w in late_w:
+                al, wmin, _ = _hill_a(w)
+                ms_.append(float(w.max() / w.sum()))
+                if np.isfinite(al) and np.isfinite(wmin) and wmin > 0:
+                    a_.append(al); ksp_.append(_pks(w, al, wmin)); kse_.append(_eks(w, wmin))
+            if a_:
+                al = float(np.median(a_)); ksp = float(np.nanmedian(ksp_))
+                adv = float(np.nanmedian(kse_)) - ksp; ms = float(np.mean(ms_))
+                gw = float(np.mean([_gini_w(w) for w in late_w]))
+                if (0.6 <= al <= 1.8) and adv > 0.12 and ms < 0.20 and gw > 0.45 and ksp < 0.08:
+                    pw = float(min(0.95, 0.55 + 1.2 * (adv - 0.12)))
+                    if pw > best["score"]:
+                        best = {"score": round(pw, 4), "order_gain": round(adv, 4),
+                                "null_z": 0.0, "kind": "heavy-tail(pareto-wealth)",
+                                "n_frames": len(wfr)}
     except Exception:
         pass
 

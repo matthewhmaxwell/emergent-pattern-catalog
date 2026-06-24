@@ -22,7 +22,7 @@ from epc.phase2a.panel import _detected, _verdict
 
 _TIER_RANK = {'definitive': 3, 'confirmation': 2, 'screening': 1, 'none': 0}
 
-PATTERNS = [f"p{i}" for i in range(1, 31)] + ["p32", "p33", "p34", "p35"]
+PATTERNS = [f"p{i}" for i in range(1, 31)] + ["p32", "p33", "p34", "p35", "p36"]
 
 
 def build_detector_fns() -> Dict[str, Any]:

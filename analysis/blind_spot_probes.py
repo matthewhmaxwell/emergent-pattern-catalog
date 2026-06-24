@@ -318,8 +318,21 @@ def hexatic_crystal(seed: int = 0):
                 truth="emergent", family="hexatic-crystal")
 
 
+def pareto_exchange(seed: int = 0):
+    """Heterogeneous kinetic exchange (resource_exchange x heterogeneous gap): a
+    Pareto power-law wealth tail emerges from agent heterogeneity (CCM 2004).
+    Heavy-tail family — tests whether the generic net sees a power-law tail in a
+    conserved scalar resource."""
+    from epc.models.kinetic_exchange import kinetic_exchange
+    h, _ = kinetic_exchange(seed)
+    flat = np.array([np.asarray(f["wealth"]) for f in h])  # (T, N)
+    idx = np.linspace(0, flat.shape[1] - 1, 24).astype(int)
+    return dict(history=h, micro=flat[:, idx], macro=flat.mean(1),
+                truth="emergent", family="heavy-tail-wealth")
+
+
 PROBES = [
-    flocking, aggregation, active_nematic, hexatic_crystal,   # positive controls
+    flocking, aggregation, active_nematic, hexatic_crystal, pareto_exchange,  # positive controls
     vortex_milling, lane_banding, dla_fractal, percolation,
     traveling_wave, limit_cycle, xor_synergy, spatiotemporal_chaos,
     power_law_soc,                                    # heavy-tail / SOC

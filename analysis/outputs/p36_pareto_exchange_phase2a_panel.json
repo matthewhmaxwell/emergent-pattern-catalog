@@ -1,0 +1,63 @@
+{
+  "pattern_id": "P36",
+  "panel_version": "discovery-ring1",
+  "detector_format": "wealth_timeseries",
+  "summary": {
+    "pattern_id": "P36",
+    "continuous_metric": "pareto_advantage",
+    "continuous_metric_direction": "higher",
+    "continuous_pos_values": [
+      0.3032,
+      0.2452,
+      0.2882,
+      0.3381,
+      0.2896
+    ],
+    "continuous_neg_values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overall_tnr": 1.0,
+    "n_positive": 5,
+    "n_negative": 25,
+    "positive_tiers": [
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive",
+      "definitive"
+    ],
+    "cohens_d_continuous": 13.871379176388507,
+    "negative_panel": [
+      "uniform_saving_gamma",
+      "boltzmann_exp",
+      "yard_sale_condensation",
+      "equal_wealth",
+      "lognormal_static"
+    ],
+    "note": "Heterogeneous-agent kinetic exchange (resource_exchange x heterogeneous, Ring-1 combination cell). Discriminator = Pareto-over-exponential tail advantage (ks_exp - ks_pareto), gated by Pareto tail index ~1, high Gini, not condensed. The power-law tail is the CCM-2004 signature of agent heterogeneity; Gini alone is shared with P28 condensation. TNR 1.0."
+  }
+}
