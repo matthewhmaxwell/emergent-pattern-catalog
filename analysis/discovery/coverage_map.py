@@ -1,4 +1,6 @@
-"""Ring 1 — dimensional-coverage map of the 32 catalog patterns.
+"""Ring 1 — dimensional-coverage map of the catalog patterns (35 as of the
+discovery phase: 32 foundational + P33 active-nematic, P34 adaptive-network
+fragmentation, P35 entropy-driven crystallization).
 
 Maps each catalog pattern onto the 11-dimension emergence ontology
 (docs/ontology_v0_4.md) and computes the EMPTY cells — ontology values (and
@@ -66,6 +68,10 @@ P = {
  "P30_autopoiesis":   ("meso","steady","direct","continuous","heterogeneous","implicit","mixed","local","cooperative","autonomous","state"),
  "P31_delayed_grat":  ("global","transient","direct","well_mixed","identical","explicit","mixed","local","mixed_motive","autonomous","state"),
  "P32_specialization":("global","steady","direct","well_mixed","heterogeneous","implicit","negative","local","cooperative","ext_forced","state"),
+ # --- discovery-phase additions (Ring 0 + Ring 1) ---
+ "P33_active_nematic": ("meso","steady","direct","continuous","identical","goalless","mixed","memoryless","cooperative","autonomous","state"),
+ "P34_adaptive_net":   ("global","transient","direct","evolving_net","identical","goalless","positive","memoryless","cooperative","autonomous","state"),
+ "P35_entropy_crystal":("meso","steady","none_entropy","continuous","identical","goalless","positive","memoryless","cooperative","autonomous","motion"),
 }
 
 # Plausible 2-way combination cells to probe (physically realizable, untested).
