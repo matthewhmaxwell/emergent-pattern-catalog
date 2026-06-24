@@ -74,6 +74,30 @@ An ever-expanding, audited coverage frontier — never a completeness claim. The
 audit (probe library → recall) is the instrument that measures the frontier and is itself
 generalized for Ring 2 into a literature-spanning coverage test.
 
+## Related work & positioning
+
+ASAL — *Automating the Search for Artificial Life with Foundation Models* (Kumar et al.,
+MIT / Sakana AI / OpenAI / IDSIA; *Artificial Life*, 2024) — automates ALife discovery
+across substrates (Boids, Particle Life, Game of Life, Lenia, Neural CA) using a
+**vision-language foundation-model representation** as its behaviour descriptor, in three
+modes: target-prompt search, open-ended novelty in FM-representation space, and diversity
+illumination.
+
+How this work differs (stated plainly, not as competition): our descriptor is a set of
+**validated, interpretable, emergence-grounded lenses** — each a discriminating detector
+held to a TNR-1.0 bar against look-alikes — plus the model-free completeness backstop.
+That lets us say *what* emerged, whether it is *real* (vs. an artifact or a look-alike),
+and — via the literature gate — whether it is novel, in an audited, disclosed coordinate
+system. ASAL's foundation-model descriptor is broad but opaque and perception-aligned
+(it measures human-visual distinctiveness, not emergent mechanism) and is not validated
+against a ground-truth emergence taxonomy. Different approach, different aim; complementary,
+not competing — we do not frame this as a race.
+
+**FM-as-lens policy.** A foundation-model signal is *not* part of our lens process. It may
+be reconsidered as one more Tier-2 import only if it demonstrably clears the same bar every
+lens must — discriminates real structure, does not false-fire on the null set, and
+measurably improves coverage. Reputation does not earn a lens its place; evidence does.
+
 ## OPEN — still under discussion (do NOT finalize)
 
 - **Sourcing the systems under test** — generative families vs. program-space grammar vs.
