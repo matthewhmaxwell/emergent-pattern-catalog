@@ -98,6 +98,23 @@ be reconsidered as one more Tier-2 import only if it demonstrably clears the sam
 lens must — discriminates real structure, does not false-fire on the null set, and
 measurably improves coverage. Reputation does not earn a lens its place; evidence does.
 
+## Lens ledger (running — the Ring-2 import sprint)
+
+Every candidate lens must *earn its place*: discriminate genuine structure on a positive
+control, stay quiet on the null set, and not false-fire on the mundane particle-life leads.
+Status is recorded here so the lens library is an auditable artifact, not commit-message lore.
+
+| Lens | Family / axis | Status | Discriminator & evidence |
+|---|---|---|---|
+| `structure_factor` | condensed-matter / characteristic length scale | **ADMITTED** (877cb91) | principal S(k>0) peak prominence; patterned 20–166 vs nulls ~6 |
+| `persistent_homology` | topology / loops + voids | **ADMITTED** (this sprint) | `h1_max` (single dominant H1 loop); ring ctrl 0.58, vortex 0.43 vs all non-loop ≤0.12, gap +0.31, thr ~0.27. **NOT** `h1_total` (sum is noise-confounded). Positions-substrate only; field extension via sublevel-set filtration deferred. |
+| `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91) | RQA determinism confounded by smooth-stochastic trajectories (null_walk 0.54); needs RR-gating + phase-randomized surrogates before re-test |
+| `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED** (aab2e95) | fires on COMPLEX (MPR-C ≥0.16 ∧ Ψ_CE ≥0.05) ∧ UNCLASSIFIED; baseline-validated quiet (0/3 nulls, 17/17 classified) |
+
+Next candidates (venv unblocks all): directed transfer entropy (beyond the global TE already
+present), networkx graph-structure measures, optimal-transport drift. Then multi-family
+substrates (Lenia / reaction-diffusion / coupled oscillators) to exercise the broadened set.
+
 ## OPEN — still under discussion (do NOT finalize)
 
 - **Sourcing the systems under test** — generative families vs. program-space grammar vs.
