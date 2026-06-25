@@ -49,8 +49,10 @@ lenses break out-of-distribution. Each run = a new generative family + the full 
      C>thr struct ≥ 0.184 — a clean gap. **Re-validated: exactly one system flips** — the
      uniform-noise field (is_complex True→False) — while the stage-0 baseline is UNCHANGED
      (0/3 nulls trip, 17/17 classified, every complex corpus system still complex) and
-     RD_stripes stays complex. The same surrogate principle is the path to re-test the deferred
-     `recurrence` lens.
+     RD_stripes stays complex. (Follow-up, tested: the same surrogate principle does NOT transfer
+     to the deferred `recurrence` lens — FT/shuffle/long-range rescues all empirically overlap
+     null_walk with genuine emergents in `_recurrence_surrogate_test.py`; recurrence needs a
+     proper delay embedding, not a surrogate on the sorted-centered trajectory.)
 
 ### Outcome
 The broadened battery behaves correctly on the RD field family (field lenses + emergence

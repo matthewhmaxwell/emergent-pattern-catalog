@@ -111,7 +111,7 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 | `graph_structure` | network topology / interaction graphs | **ADMITTED** (this sprint) | two axes vs random-graph null: `degree_cv` (hubs) scale-free 0.89–1.00 vs random ~0.4 (gap +0.45); `modularity` (communities) 0.54–0.58 vs random ~0.35 floor (gap +0.14); clustering disambiguates small-world. Covers the network substrate class positions/field lenses can't touch. |
 | `directed_info_flow` | causal direction / info-flow asymmetry | **ADMITTED** (this sprint) | directed transfer entropy among component series. `directionality` (net asym / magnitude): cascade 1.72–1.74 vs symmetric mesh 0.05–0.13 (gap +1.60); `mean_te` coupled ~0.06–0.19 vs independent ~0.004. New axis: who-drives-whom, independent of coupling magnitude. Gate: directionality meaningful only above the coupling floor; needs T≥60. |
 | `fractal_dimension` | scale-free spatial structure (box-counting) | **DEFERRED** (this sprint) | box-counting D conflates self-similarity with density/boundary: random gas D~1.57 ≈ Sierpinski D~1.585, percolation D~1.83 ≈ uniform disk D~1.90. D is a shared absolute, not a signature. Needs lacunarity / multifractal spectrum. Works as a coarse strong-fractal flag (dla D~1.35) meanwhile. |
-| `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91) | RQA determinism confounded by smooth-stochastic trajectories (null_walk 0.54); needs RR-gating + phase-randomized surrogates before re-test |
+| `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91; surrogate rescue re-tested + FAILED this sprint) | DET confounded by smooth random walks (null_walk 0.54). Three rescues TESTED (`_recurrence_surrogate_test.py`) — FT-surrogate excess, shuffle excess, long-range-recurrence fraction — ALL overlap null_walk with genuine emergents. The sorted-centered invariant trajectory collapses cycle geometry (limit_cycle DET 0.999 but long-range 0). Needs a proper delay embedding / recurrence-time entropy, not a surrogate on the current trajectory. |
 | `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED + hardened** (aab2e95; surrogate gate this sprint) | fires on COMPLEX ∧ UNCLASSIFIED. C-path = MPR-C >0.16 AND surrogate structure_score >0.12 (kills finite-size-inflated C on iid noise); psi-path = Ψ_CE >0.05. Baseline quiet (0/3 nulls, 17/17 classified); hardened OOD vs uniform-noise fields. |
 
 ## Multi-family substrate hardening (exercising the battery OOD)
@@ -127,6 +127,9 @@ catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.
   stage-0 baseline UNCHANGED (0/3 nulls, 17/17 classified). The same surrogate principle is the
   path to re-test the deferred `recurrence` lens. Also: a substrate must advertise ONE primary
   representation (field lenses dispatch on `positions` before `field`).
+- **Correction (tested):** the tripwire's surrogate principle does NOT transfer to the deferred
+  `recurrence` lens — FT/shuffle/long-range rescues all empirically overlap null_walk with
+  emergents (`_recurrence_surrogate_test.py`). Recurrence needs a different fix (delay embedding).
 - Next substrates: Lenia (positions → PH + directed_info_flow), coupled-oscillator lattice
   (→ directed_info_flow + spectral).
 
