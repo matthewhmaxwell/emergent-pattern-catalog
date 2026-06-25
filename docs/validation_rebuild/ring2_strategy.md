@@ -108,6 +108,7 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 |---|---|---|---|
 | `structure_factor` | condensed-matter / characteristic length scale | **ADMITTED** (877cb91) | principal S(k>0) peak prominence; patterned 20–166 vs nulls ~6 |
 | `persistent_homology` | topology / loops + voids | **ADMITTED** (this sprint) | `h1_max` (single dominant H1 loop); ring ctrl 0.58, vortex 0.43 vs all non-loop ≤0.12, gap +0.31, thr ~0.27. **NOT** `h1_total` (sum is noise-confounded). Positions-substrate only; field extension via sublevel-set filtration deferred. |
+| `graph_structure` | network topology / interaction graphs | **ADMITTED** (this sprint) | two axes vs random-graph null: `degree_cv` (hubs) scale-free 0.89–1.00 vs random ~0.4 (gap +0.45); `modularity` (communities) 0.54–0.58 vs random ~0.35 floor (gap +0.14); clustering disambiguates small-world. Covers the network substrate class positions/field lenses can't touch. |
 | `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91) | RQA determinism confounded by smooth-stochastic trajectories (null_walk 0.54); needs RR-gating + phase-randomized surrogates before re-test |
 | `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED** (aab2e95) | fires on COMPLEX (MPR-C ≥0.16 ∧ Ψ_CE ≥0.05) ∧ UNCLASSIFIED; baseline-validated quiet (0/3 nulls, 17/17 classified) |
 
