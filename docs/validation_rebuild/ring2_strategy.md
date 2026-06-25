@@ -114,9 +114,22 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 | `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91) | RQA determinism confounded by smooth-stochastic trajectories (null_walk 0.54); needs RR-gating + phase-randomized surrogates before re-test |
 | `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED** (aab2e95) | fires on COMPLEX (MPR-C ≥0.16 ∧ Ψ_CE ≥0.05) ∧ UNCLASSIFIED; baseline-validated quiet (0/3 nulls, 17/17 classified) |
 
-Next candidates (venv unblocks all): directed transfer entropy (beyond the global TE already
-present), networkx graph-structure measures, optimal-transport drift. Then multi-family
-substrates (Lenia / reaction-diffusion / coupled oscillators) to exercise the broadened set.
+## Multi-family substrate hardening (exercising the battery OOD)
+Once the battery was broadened, the next move was to run it on substrate families OUTSIDE the
+catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.
+- **Run 1 — Gray-Scott reaction-diffusion (FIELD substrate, `epc/models/reaction_diffusion.py`):**
+  structure_factor + emergence indicator behave correctly (patterned sk_peak 262–1112 vs uniform
+  null 9.2; all regimes emergent "field"-kind). **One bridge gap found:** the model-free tripwire
+  false-fired on a temporally-iid uniform-noise field (macro-selector grabs the noise-driven `std`
+  macro, C=0.22 > 0.16) — static dead fields and the corpus nulls stay correctly quiet. **Fix queued:
+  surrogate/shuffle correction on the selected macro** (also resolves the deferred recurrence lens);
+  changes a validated core, so re-validate vs the probe corpus before landing. Also: a substrate must
+  advertise ONE primary representation (field lenses dispatch on `positions` before `field`).
+- Next substrates: Lenia (positions → PH + directed_info_flow), coupled-oscillator lattice
+  (→ directed_info_flow + spectral).
+
+Future lens candidates (venv unblocks all): radial S(k) enhancement (adds characteristic wavenumber),
+optimal-transport drift, lacunarity (to rescue fractal_dimension).
 
 ## OPEN — still under discussion (do NOT finalize)
 
