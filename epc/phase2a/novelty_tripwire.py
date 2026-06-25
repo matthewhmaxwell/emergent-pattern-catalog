@@ -16,10 +16,22 @@ detectors) says whether the instrument already has a word for it.
 Thresholds are NULL-CALIBRATED: the model-free measures must exceed what the null
 systems (noise / random walk / random graph) produce. Re-derive them with
 analysis/ring2/stage0_bridge_validation.py if the null set changes.
+
+SURROGATE GATE (2026-06-25 hardening): the raw MPR-C uses Bandt-Pompe on a short
+mean-macro series (~24 points, 24 ordinal patterns) and so carries a large finite-size
+bias that inflates C for IID noise — a uniform-noise FIELD substrate false-tripped the
+bridge (C=0.22). The C-path now additionally requires the mean macro to be temporally
+NON-RANDOM: structure_score = mean(H_shuffle) - H_obs must clear STRUCT_THR. The shuffle
+shares the identical finite-size sparsity, so the bias cancels (iid -> ~0; genuine
+temporal structure -> >0). Calibrated on the corpus + OOD nulls
+(analysis/ring2/_tripwire_surrogate_calib.py): null struct <= 0.059, emergent-with-C>thr
+struct >= 0.184. The psi-path (causal emergence) is sound on noise and is left untouched.
 """
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
+
+import numpy as np
 
 from epc.phase2a.info_channels import micro_macro, mpr_complexity, psi_ce_best
 from epc.phase2a.emergence import generic_emergence
@@ -29,24 +41,45 @@ from epc.phase2a.emergence import generic_emergence
 # the model-free measures topped out at C=0.127, psi=-2.07; floors are set a margin
 # above. Validated QUIET on the known corpus: 0/3 nulls tripped, 17/17 known-emergent
 # classified, 0 complex-but-unclassified residual blind spots.
-C_THR = 0.16      # MPR statistical complexity floor (max-null C 0.127 + margin)
-PSI_THR = 0.05    # Psi_CE causal-emergence floor (max-null psi << 0; floored at 0.05)
-EM_THR = 0.50     # named-lens generic_emergence score that counts as "classified"
+C_THR = 0.16        # MPR statistical complexity floor (max-null C 0.127 + margin)
+PSI_THR = 0.05      # Psi_CE causal-emergence floor (max-null psi << 0; floored at 0.05)
+EM_THR = 0.50       # named-lens generic_emergence score that counts as "classified"
+STRUCT_THR = 0.12   # surrogate structure floor for the C-path (null max 0.059, emergent
+                    # min 0.184; analysis/ring2/_tripwire_surrogate_calib.py)
+N_SURR = 24         # time-shuffle surrogates for the structure score
+
+
+def _structure_score(series: Any, n_surr: int = N_SURR, seed: int = 0) -> float:
+    """Permutation-entropy deficit vs time-shuffled surrogates: mean(H_shuffle) - H_obs.
+    ~0 for iid/exchangeable series (shuffle preserves the ordinal distribution AND the
+    finite-size bias), >0 for genuine temporal structure (shuffle randomises it)."""
+    s = np.asarray(series, dtype=float).ravel()
+    if s.size < 8:
+        return 0.0
+    h_obs = mpr_complexity(s)["H"]
+    rng = np.random.default_rng(seed)
+    hs = np.empty(n_surr)
+    for i in range(n_surr):
+        sh = s.copy(); rng.shuffle(sh); hs[i] = mpr_complexity(sh)["H"]
+    return float(hs.mean() - h_obs)
 
 
 def model_free_complexity(history: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Lens-agnostic 'is there structure beyond noise here?' — returns C, psi, and a
-    bool. Names nothing. Returns is_complex=False when the history carries no usable
-    per-component series (micro_macro could not extract one)."""
+    """Lens-agnostic 'is there structure beyond noise here?' — returns C, psi, struct,
+    and a bool. Names nothing. Returns is_complex=False when the history carries no usable
+    per-component series (micro_macro could not extract one). The C-path is surrogate-gated
+    so a high finite-size C on iid noise does not count as complexity."""
     micro, cands = micro_macro(history)
     if micro is None or cands is None:
-        return {"C": float("nan"), "psi": float("nan"), "is_complex": False, "macro_feat": None}
+        return {"C": float("nan"), "psi": float("nan"), "struct": float("nan"),
+                "is_complex": False, "macro_feat": None}
     mpr = mpr_complexity(cands.get("mean"))
     psi, feat = psi_ce_best(micro, cands)
     C = float(mpr["C"])
+    struct = _structure_score(cands.get("mean"))
     psi = float(psi) if psi == psi else 0.0          # NaN -> 0
-    return {"C": C, "psi": psi, "macro_feat": feat,
-            "is_complex": bool(C > C_THR or psi > PSI_THR)}
+    is_complex = bool((C > C_THR and struct > STRUCT_THR) or psi > PSI_THR)
+    return {"C": C, "psi": psi, "struct": struct, "macro_feat": feat, "is_complex": is_complex}
 
 
 def novelty_tripwire(history: List[Dict[str, Any]], metadata: Optional[Dict[str, Any]] = None,
@@ -75,7 +108,9 @@ def novelty_tripwire(history: List[Dict[str, Any]], metadata: Optional[Dict[str,
 
     return {"tripped": tripped, "is_complex": mf["is_complex"], "classified": classified,
             "matched": matched, "C": round(mf["C"], 4) if mf["C"] == mf["C"] else None,
-            "psi": round(mf["psi"], 4), "em_score": round(em_score, 4), "em_kind": em_kind,
+            "psi": round(mf["psi"], 4),
+            "struct": round(mf["struct"], 4) if mf["struct"] == mf["struct"] else None,
+            "em_score": round(em_score, 4), "em_kind": em_kind,
             "macro_feat": mf["macro_feat"],
             "reason": ("complex+unclassified (novelty lead)" if tripped
                        else f"classified ({matched or em_kind})" if classified

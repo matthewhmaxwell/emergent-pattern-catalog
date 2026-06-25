@@ -112,19 +112,21 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 | `directed_info_flow` | causal direction / info-flow asymmetry | **ADMITTED** (this sprint) | directed transfer entropy among component series. `directionality` (net asym / magnitude): cascade 1.72–1.74 vs symmetric mesh 0.05–0.13 (gap +1.60); `mean_te` coupled ~0.06–0.19 vs independent ~0.004. New axis: who-drives-whom, independent of coupling magnitude. Gate: directionality meaningful only above the coupling floor; needs T≥60. |
 | `fractal_dimension` | scale-free spatial structure (box-counting) | **DEFERRED** (this sprint) | box-counting D conflates self-similarity with density/boundary: random gas D~1.57 ≈ Sierpinski D~1.585, percolation D~1.83 ≈ uniform disk D~1.90. D is a shared absolute, not a signature. Needs lacunarity / multifractal spectrum. Works as a coarse strong-fractal flag (dla D~1.35) meanwhile. |
 | `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91) | RQA determinism confounded by smooth-stochastic trajectories (null_walk 0.54); needs RR-gating + phase-randomized surrogates before re-test |
-| `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED** (aab2e95) | fires on COMPLEX (MPR-C ≥0.16 ∧ Ψ_CE ≥0.05) ∧ UNCLASSIFIED; baseline-validated quiet (0/3 nulls, 17/17 classified) |
+| `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED + hardened** (aab2e95; surrogate gate this sprint) | fires on COMPLEX ∧ UNCLASSIFIED. C-path = MPR-C >0.16 AND surrogate structure_score >0.12 (kills finite-size-inflated C on iid noise); psi-path = Ψ_CE >0.05. Baseline quiet (0/3 nulls, 17/17 classified); hardened OOD vs uniform-noise fields. |
 
 ## Multi-family substrate hardening (exercising the battery OOD)
 Once the battery was broadened, the next move was to run it on substrate families OUTSIDE the
 catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.
 - **Run 1 — Gray-Scott reaction-diffusion (FIELD substrate, `epc/models/reaction_diffusion.py`):**
   structure_factor + emergence indicator behave correctly (patterned sk_peak 262–1112 vs uniform
-  null 9.2; all regimes emergent "field"-kind). **One bridge gap found:** the model-free tripwire
-  false-fired on a temporally-iid uniform-noise field (macro-selector grabs the noise-driven `std`
-  macro, C=0.22 > 0.16) — static dead fields and the corpus nulls stay correctly quiet. **Fix queued:
-  surrogate/shuffle correction on the selected macro** (also resolves the deferred recurrence lens);
-  changes a validated core, so re-validate vs the probe corpus before landing. Also: a substrate must
-  advertise ONE primary representation (field lenses dispatch on `positions` before `field`).
+  null 9.2; all regimes emergent "field"-kind). **One bridge gap found + FIXED:** the model-free
+  tripwire false-fired on a temporally-iid uniform-noise field (finite-size-inflated MPR-C=0.22 on
+  the short mean macro). Fixed with a **surrogate structure-gate** — the C-path now also requires
+  `structure_score = mean(H_shuffle) − H_obs > 0.12` (permutation-entropy deficit vs time-shuffled
+  surrogates; bias cancels). Re-validated: exactly the uniform-noise field flips to not-complex,
+  stage-0 baseline UNCHANGED (0/3 nulls, 17/17 classified). The same surrogate principle is the
+  path to re-test the deferred `recurrence` lens. Also: a substrate must advertise ONE primary
+  representation (field lenses dispatch on `positions` before `field`).
 - Next substrates: Lenia (positions → PH + directed_info_flow), coupled-oscillator lattice
   (→ directed_info_flow + spectral).
 

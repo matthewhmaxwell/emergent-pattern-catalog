@@ -40,11 +40,17 @@ lenses break out-of-distribution. Each run = a new generative family + the full 
    - RD_stripes (real pattern) C=0.33 on the `mean` macro (correctly complex).
    The gap = the macro-MAXIMIZING selector over-reports on noise-driven secondary macros,
    an OOD null (field substrate) the stage-0 calibration never saw.
-   - **Principled fix (next unit, NOT yet done):** surrogate/shuffle correction — flag
-     complex only if C exceeds a TIME-SHUFFLED surrogate's C by a margin (iid noise: ΔC≈0;
-     genuine temporal structure: ΔC large). Same tool the deferred `recurrence` lens needs.
-     This changes a validated core (`model_free_complexity`), so it must re-validate against
-     the probe corpus (keep 0/3 nulls tripping, 17/17 classified) before landing.
+   - **Principled fix — DONE (this pass).** Surrogate structure-gate on the C-path:
+     `structure_score = mean(H_shuffle) - H_obs` (permutation-entropy deficit vs time-shuffled
+     surrogates of the mean macro). The shuffle shares the identical finite-size sparsity, so
+     the bias cancels — iid noise ~0, genuine temporal structure >0. The C-path now requires
+     `C > C_THR AND structure_score > STRUCT_THR` (0.12); the psi-path is untouched (sound on
+     noise). Calibrated (`_tripwire_surrogate_calib.py`): null struct ≤ 0.059, emergent-with-
+     C>thr struct ≥ 0.184 — a clean gap. **Re-validated: exactly one system flips** — the
+     uniform-noise field (is_complex True→False) — while the stage-0 baseline is UNCHANGED
+     (0/3 nulls trip, 17/17 classified, every complex corpus system still complex) and
+     RD_stripes stays complex. The same surrogate principle is the path to re-test the deferred
+     `recurrence` lens.
 
 ### Outcome
 The broadened battery behaves correctly on the RD field family (field lenses + emergence
