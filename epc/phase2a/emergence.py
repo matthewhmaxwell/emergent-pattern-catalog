@@ -108,6 +108,38 @@ def _order_orient(theta: np.ndarray) -> float:
     return float(max(polar, nematic))
 
 
+def _local_phase_order(theta: np.ndarray, w: int = 5) -> float:
+    """Mean LOCAL phase coherence on a 2-D phase grid: <|<e^{iθ}>_neighbourhood|>.
+    High for locally-aligned phase fields (twisted states, traveling/spiral waves) even
+    when GLOBAL Kuramoto r ~ 0; ~1/sqrt(window) for incoherent (uncorrelated) phases.
+    This is the local-vs-global order distinction (the P33 active-nematic lesson) for
+    oscillator lattices, which the global-r phase channel (_order_phases on the raveled
+    field) cannot see."""
+    t = np.asarray(theta, dtype=float)
+    if t.ndim != 2 or t.size < 9:
+        return 0.0
+    try:
+        from scipy.ndimage import uniform_filter
+    except Exception:
+        return 0.0
+    c = uniform_filter(np.cos(t), w, mode="wrap")
+    s = uniform_filter(np.sin(t), w, mode="wrap")
+    return float(np.sqrt(c ** 2 + s ** 2).mean())
+
+
+def _phase_grid_from_frame(frame: Dict[str, Any]) -> Optional[np.ndarray]:
+    """The 2-D phase grid from a frame ('phases'/'theta'), or None. Distinct from
+    _frame_array, which RAVELS phases (losing the spatial structure local order needs).
+    Returns None for 1-D phase arrays (unstructured oscillators) -> channel stays inert."""
+    if not isinstance(frame, dict):
+        return None
+    for pk in ("phases", "theta"):
+        if pk in frame:
+            a = np.asarray(frame[pk], dtype=float)
+            return a if a.ndim == 2 else None
+    return None
+
+
 def _structure(kind: str, a: np.ndarray) -> float:
     if kind == "field":
         return _moran(a)
@@ -117,6 +149,8 @@ def _structure(kind: str, a: np.ndarray) -> float:
         return _order_phases(a)
     if kind == "orientation":
         return _order_orient(a)
+    if kind == "local_phase":
+        return _local_phase_order(a)
     return _order_vector(a)
 
 
@@ -130,6 +164,8 @@ def _shuffle(kind: str, a: np.ndarray, rng) -> np.ndarray:
         return rng.uniform(lo, hi, size=a.shape)
     if kind == "phases":
         return rng.uniform(-np.pi, np.pi, size=a.shape)
+    if kind == "local_phase":                       # destroy local order, keep value set
+        flat = a.ravel().copy(); rng.shuffle(flat); return flat.reshape(a.shape)
     flat = a.copy(); rng.shuffle(flat); return flat
 
 
@@ -204,6 +240,19 @@ def generic_emergence(history: List[Dict[str, Any]], n_null: int = 50,
         # below, especially heavy-tail which reads raw frames, may still detect it.
         kind = None
         best = {"score": 0.0, "kind": None, "order_gain": 0.0, "null_z": 0.0, "n_frames": 0}
+
+    # Local phase-order channel — locally-coherent / globally-incoherent phase fields
+    # (twisted states, traveling/spiral waves) that the GLOBAL Kuramoto-r phase channel
+    # MISSES (it reads the RAVELED field, so it sees only global coherence). The P33
+    # local-vs-global order lesson, for oscillator lattices. Reads the 2-D phase grid;
+    # scores local order vs a phase-shuffle null (shuffling destroys local order -> no
+    # phase null carries local structure, so no false-novel risk). The unstructured 1-D
+    # uncoupled-phase null is 1-D, so _phase_grid_from_frame returns None -> inert there.
+    pgrids = [g for g in (_phase_grid_from_frame(f) for f in history) if g is not None]
+    if len(pgrids) >= 2:
+        lpo = _score_series("local_phase", pgrids, np.random.default_rng(seed + 2), n_null)
+        if lpo["score"] > best["score"]:
+            best = {**lpo, "kind": "local-phase-order", "n_frames": len(pgrids)}
 
     # Synergy / causal-emergence channel (Psi_CE): catches "greater-than-the-parts"
     # collective effects (XOR-type, connectivity) that the morphology channels miss.
