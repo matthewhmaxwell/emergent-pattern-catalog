@@ -42,8 +42,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.493,
+  "em_kind": "local-phase-order",
+  "em": 0.709,
   "tripped": false,
   "cx": false,
   "C": 0.0305,
@@ -61,8 +61,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.2078,
+  "em_kind": "local-phase-order",
+  "em": 0.7146,
   "tripped": false,
   "cx": false,
   "C": 0.0315,
@@ -80,8 +80,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7239,
+  "em_kind": "local-phase-order",
+  "em": 0.7621,
   "tripped": false,
   "cx": false,
   "C": 0.0814,
@@ -99,8 +99,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1588,
+  "em_kind": "local-phase-order",
+  "em": 0.7553,
   "tripped": false,
   "cx": false,
   "C": 0.0331,
@@ -118,8 +118,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.3944,
+  "em_kind": "local-phase-order",
+  "em": 0.6731,
   "tripped": false,
   "cx": false,
   "C": 0.0316,
@@ -137,8 +137,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.5563,
+  "em_kind": "local-phase-order",
+  "em": 0.7262,
   "tripped": false,
   "cx": false,
   "C": 0.0592,
@@ -175,9 +175,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1101,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7483,
+  "tripped": false,
   "cx": true,
   "C": 0.2226,
   "struct": 0.1579,
@@ -194,8 +194,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6534,
+  "em_kind": "local-phase-order",
+  "em": 0.8036,
   "tripped": false,
   "cx": false,
   "C": 0.0917,
@@ -251,8 +251,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.3382,
+  "em_kind": "local-phase-order",
+  "em": 0.6788,
   "tripped": false,
   "cx": false,
   "C": 0.0593,
@@ -270,8 +270,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0203,
+  "em_kind": "local-phase-order",
+  "em": 0.7499,
   "tripped": false,
   "cx": false,
   "C": 0.1069,
@@ -289,8 +289,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7511,
+  "em_kind": "local-phase-order",
+  "em": 0.7866,
   "tripped": false,
   "cx": false,
   "C": 0.1145,
@@ -308,8 +308,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.3979,
+  "em_kind": "local-phase-order",
+  "em": 0.7385,
   "tripped": false,
   "cx": false,
   "C": 0.1347,
@@ -327,8 +327,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7312,
+  "em_kind": "local-phase-order",
+  "em": 0.7594,
   "tripped": false,
   "cx": false,
   "C": 0.0412,
@@ -403,9 +403,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0356,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7479,
+  "tripped": false,
   "cx": true,
   "C": 0.2894,
   "struct": 0.2566,
@@ -422,8 +422,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7425,
+  "em_kind": "local-phase-order",
+  "em": 0.7652,
   "tripped": false,
   "cx": false,
   "C": 0.0495,
@@ -441,8 +441,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1577,
+  "em_kind": "local-phase-order",
+  "em": 0.7049,
   "tripped": false,
   "cx": false,
   "C": 0.0943,
@@ -479,8 +479,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.8292,
+  "em_kind": "local-phase-order",
+  "em": 0.8363,
   "tripped": false,
   "cx": true,
   "C": 0.3086,
@@ -498,8 +498,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7224,
+  "em_kind": "local-phase-order",
+  "em": 0.7523,
   "tripped": false,
   "cx": true,
   "C": 0.3104,
@@ -517,9 +517,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0703,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7301,
+  "tripped": false,
   "cx": true,
   "C": 0.3114,
   "struct": 0.3104,
@@ -612,9 +612,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0167,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7449,
+  "tripped": false,
   "cx": true,
   "C": 0.179,
   "struct": 0.1248,
@@ -650,8 +650,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.5508,
+  "em_kind": "local-phase-order",
+  "em": 0.7198,
   "tripped": false,
   "cx": false,
   "C": 0.0497,
@@ -669,8 +669,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7067,
+  "em_kind": "local-phase-order",
+  "em": 0.7081,
   "tripped": false,
   "cx": false,
   "C": 0.0392,
@@ -745,8 +745,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7061,
+  "em_kind": "local-phase-order",
+  "em": 0.7286,
   "tripped": false,
   "cx": false,
   "C": 0.0443,
@@ -764,8 +764,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6514,
+  "em_kind": "local-phase-order",
+  "em": 0.7102,
   "tripped": false,
   "cx": false,
   "C": 0.011,
@@ -783,8 +783,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7113,
+  "em_kind": "local-phase-order",
+  "em": 0.7716,
   "tripped": false,
   "cx": false,
   "C": 0.0436,
@@ -802,8 +802,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1045,
+  "em_kind": "local-phase-order",
+  "em": 0.5047,
   "tripped": false,
   "cx": false,
   "C": 0.0361,
@@ -859,8 +859,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6244,
+  "em_kind": "local-phase-order",
+  "em": 0.7999,
   "tripped": false,
   "cx": false,
   "C": 0.1508,
@@ -916,8 +916,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.4811,
+  "em_kind": "local-phase-order",
+  "em": 0.7167,
   "tripped": false,
   "cx": false,
   "C": 0.0263,
@@ -973,8 +973,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.9091,
+  "em_kind": "local-phase-order",
+  "em": 0.9166,
   "tripped": false,
   "cx": false,
   "C": 0.0562,
@@ -1011,8 +1011,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.467,
+  "em_kind": "local-phase-order",
+  "em": 0.7527,
   "tripped": false,
   "cx": false,
   "C": 0.1928,
@@ -1030,8 +1030,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1564,
+  "em_kind": "local-phase-order",
+  "em": 0.7526,
   "tripped": false,
   "cx": false,
   "C": 0.0615,
@@ -1068,8 +1068,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6757,
+  "em_kind": "local-phase-order",
+  "em": 0.7738,
   "tripped": false,
   "cx": false,
   "C": 0.1196,
@@ -1106,8 +1106,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.3045,
+  "em_kind": "local-phase-order",
+  "em": 0.727,
   "tripped": false,
   "cx": false,
   "C": 0.0403,
@@ -1125,9 +1125,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1006,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7413,
+  "tripped": false,
   "cx": true,
   "C": 0.2433,
   "struct": 0.1877,
@@ -1163,8 +1163,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1174,
+  "em_kind": "local-phase-order",
+  "em": 0.4863,
   "tripped": false,
   "cx": false,
   "C": 0.0437,
@@ -1182,9 +1182,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0682,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7515,
+  "tripped": false,
   "cx": true,
   "C": 0.2309,
   "struct": 0.1624,
@@ -1239,8 +1239,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.2576,
+  "em_kind": "local-phase-order",
+  "em": 0.7512,
   "tripped": false,
   "cx": false,
   "C": 0.0417,
@@ -1258,8 +1258,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.3249,
+  "em_kind": "local-phase-order",
+  "em": 0.7568,
   "tripped": false,
   "cx": false,
   "C": 0.0449,
@@ -1296,8 +1296,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.1877,
+  "em_kind": "local-phase-order",
+  "em": 0.7098,
   "tripped": false,
   "cx": false,
   "C": 0.0311,
@@ -1334,8 +1334,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6534,
+  "em_kind": "local-phase-order",
+  "em": 0.7627,
   "tripped": false,
   "cx": false,
   "C": 0.0288,
@@ -1372,8 +1372,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.8352,
+  "em_kind": "local-phase-order",
+  "em": 0.8484,
   "tripped": false,
   "cx": false,
   "C": 0.1316,
@@ -1410,8 +1410,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.5794,
+  "em_kind": "local-phase-order",
+  "em": 0.7088,
   "tripped": false,
   "cx": false,
   "C": 0.0497,
@@ -1429,8 +1429,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7364,
+  "em_kind": "local-phase-order",
+  "em": 0.7588,
   "tripped": false,
   "cx": false,
   "C": 0.0806,
@@ -1467,8 +1467,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.2789,
+  "em_kind": "local-phase-order",
+  "em": 0.8042,
   "tripped": false,
   "cx": false,
   "C": 0.1215,
@@ -1486,8 +1486,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.784,
+  "em_kind": "local-phase-order",
+  "em": 0.8113,
   "tripped": false,
   "cx": false,
   "C": 0.0838,
@@ -1543,8 +1543,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.4009,
+  "em_kind": "local-phase-order",
+  "em": 0.7425,
   "tripped": false,
   "cx": false,
   "C": 0.161,
@@ -1562,8 +1562,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0694,
+  "em_kind": "local-phase-order",
+  "em": 0.8339,
   "tripped": false,
   "cx": false,
   "C": 0.1824,
@@ -1638,8 +1638,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7641,
+  "em_kind": "local-phase-order",
+  "em": 0.7897,
   "tripped": false,
   "cx": false,
   "C": 0.0867,
@@ -1676,8 +1676,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6332,
+  "em_kind": "local-phase-order",
+  "em": 0.7522,
   "tripped": false,
   "cx": true,
   "C": 0.2316,
@@ -1695,8 +1695,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.6881,
+  "em_kind": "local-phase-order",
+  "em": 0.7653,
   "tripped": false,
   "cx": false,
   "C": 0.0683,
@@ -1714,8 +1714,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.2023,
+  "em_kind": "local-phase-order",
+  "em": 0.7514,
   "tripped": false,
   "cx": false,
   "C": 0.035,
@@ -1733,8 +1733,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.7595,
+  "em_kind": "local-phase-order",
+  "em": 0.8037,
   "tripped": false,
   "cx": false,
   "C": 0.173,
@@ -1771,8 +1771,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.228,
+  "em_kind": "local-phase-order",
+  "em": 0.7523,
   "tripped": false,
   "cx": false,
   "C": 0.1444,
@@ -1828,8 +1828,8 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.8146,
+  "em_kind": "local-phase-order",
+  "em": 0.828,
   "tripped": false,
   "cx": false,
   "C": 0.0961,
@@ -1866,9 +1866,9 @@
   "fired": [
    "directed_info_flow"
   ],
-  "em_kind": "phases",
-  "em": 0.0968,
-  "tripped": true,
+  "em_kind": "local-phase-order",
+  "em": 0.7402,
+  "tripped": false,
   "cx": true,
   "C": 0.1938,
   "struct": 0.1401,

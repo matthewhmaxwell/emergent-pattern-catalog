@@ -49,6 +49,11 @@ ranges on lenia/particle_life. Harness: `stage2_novelty_search.py <N> <family> <
   re-surfacing for oscillators.** Honest: these are known Kuramoto twisted/spiral states, IMPOSED by the
   IC and persisting — not novel-to-science, not self-organized. Vetting `analysis/ring2/_stage2_vet_kuramoto.py`.
   -> Surfaced a genuine CHARACTERIZATION blind spot: the phase channel needs a LOCAL-order component.
+  **NOW CLOSED** (round-6 net-widening, commit 5c2340f): added a `local-phase-order` channel to
+  generic_emergence (reads the 2-D phase grid, scores mean local order vs a phase-shuffle null; the 1-D
+  uncoupled-phase null stays inert). Re-validated, no regression: T2c null-spec 1.0 / rec 0.833 / nov 1.0
+  / false-MATCH 0.0; blind-spot recall 17/17, 0 null FP; stage-0 0/3 nulls + 17/17 classified. Kuramoto
+  re-run: **0/100 leads** — the 7 twisted states now classify as local-phase-order (em 0.06 -> 0.73-0.75).
 
 ## Honest conclusion (across both passes — 690 configs, 4 families)
 **0 genuine-novelty leads.** The prior held. Every complex+unclassified lead vetted to a known/
@@ -57,14 +62,14 @@ states (imposed, known physics). The deliverable is the AUDITED FRONTIER — the
 characterizes the explored generative space (particle_life / Lenia / RD / Kuramoto) with
 interpretable, validated axes, and nothing survived vetting. That auditability IS the
 differentiation from ASAL's opaque descriptor: we can say exactly what we searched and why
-nothing qualified. The search ALSO did its proper second job — it surfaced two instrument gaps,
-both now characterized (one fixed: dead-state gate; one identified: the global-only phase channel).
+nothing qualified. The search ALSO did its proper second job — it surfaced two instrument gaps, **both now FIXED**:
+the Lenia death-transient false-lead (dead-state gate) and the Kuramoto twisted-state blind spot
+(local-phase-order net-widening channel, round-6). Search -> blind spot -> net-widening ->
+re-validate -> higher precision: the loop the project is built on, now driven by the novelty search.
 
 ## Next
-1. **Close the phase blind spot** (the P33 lesson for oscillators): add a LOCAL phase-order
-   component to the emergence indicator so locally-coherent/globally-incoherent twisted & wave
-   states are classified — a net-widening (like the catalog's rounds 2-5), with full T2c +
-   blind-spot re-validation. This touches the validated catalog core, so it is its own careful unit.
-2. Then broaden further (RD (F,k) grid at finer resolution; more oscillator regimes; larger N).
-   Any future complex+unclassified survivor goes through the literature-novelty gate before any
+1. **DONE — phase blind spot closed** (local-phase-order channel, round-6; see the broadened-pass
+   section). The instrument now classifies locally-coherent/globally-incoherent phase fields.
+2. Broaden further (RD (F,k) grid at finer resolution; more oscillator regimes; new families; larger
+   N). Any future complex+unclassified survivor goes through the literature-novelty gate before any
    claim. FM-as-lens reconsidered only if it earns the bar.
