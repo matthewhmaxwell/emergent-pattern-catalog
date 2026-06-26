@@ -34,15 +34,37 @@ lead vetting `analysis/ring2/_stage2_vet_leads.py`. Run via the project venv.
 - This is the second OOD tripwire hardening from substrate exposure (the first: the iid-noise
   FIELD surrogate gate). Both make the novelty search higher-precision.
 
-## Honest conclusion
-**0 genuine-novelty leads this pass** — the prior held. The deliverable is the AUDITED FRONTIER:
-the lens battery characterizes the explored generative space (particle_life + Lenia) with
-interpretable, validated axes, and NOTHING complex-and-unclassified survived vetting. That is a
-legitimate, disclosed result — the differentiation from ASAL is precisely that our frontier is
-interpretable and audited, not an opaque descriptor's cluster map.
+## Broadened pass — 4 families (run 2, seed_base 3000)
+Added two families the search had not seen (reaction_diffusion, kuramoto) + wider
+ranges on lenia/particle_life. Harness: `stage2_novelty_search.py <N> <family> <seed_base>`.
+- **reaction_diffusion (120): 0 leads.** ~all fractal+PH+SF | field — Turing-class fields, named-classified.
+- **lenia (100, wider + soup): 0 leads.** 6 clusters; dead-state gate holding (no death-transient leads).
+- **particle_life (120, wider): 0 leads.** positions / orientation.
+- **kuramoto (100): 7 leads → vetted = TWISTED / PHASE-WAVE states, NOT novelty.** All 7 have global
+  coherence r≈0 but HIGH local order (0.75–0.95), init=plane (6) / spiral (1): neighbours phase-aligned
+  but the phase winds across the lattice so global coherence cancels. Sustained (dead-state gate leaves
+  them — they don't die). They trip because the emergence indicator's phase channel is GLOBAL-coherence-
+  keyed (Kuramoto r), so a locally-ordered/globally-incoherent state reads em≈0.06 (unclassified) while
+  its drifting macro is model-free-complex. **This is the P33 active-nematic lesson (local vs global order)
+  re-surfacing for oscillators.** Honest: these are known Kuramoto twisted/spiral states, IMPOSED by the
+  IC and persisting — not novel-to-science, not self-organized. Vetting `analysis/ring2/_stage2_vet_kuramoto.py`.
+  -> Surfaced a genuine CHARACTERIZATION blind spot: the phase channel needs a LOCAL-order component.
+
+## Honest conclusion (across both passes — 690 configs, 4 families)
+**0 genuine-novelty leads.** The prior held. Every complex+unclassified lead vetted to a known/
+mundane explanation: Lenia death transients (dead-state gate) and Kuramoto twisted/phase-wave
+states (imposed, known physics). The deliverable is the AUDITED FRONTIER — the lens battery
+characterizes the explored generative space (particle_life / Lenia / RD / Kuramoto) with
+interpretable, validated axes, and nothing survived vetting. That auditability IS the
+differentiation from ASAL's opaque descriptor: we can say exactly what we searched and why
+nothing qualified. The search ALSO did its proper second job — it surfaced two instrument gaps,
+both now characterized (one fixed: dead-state gate; one identified: the global-only phase channel).
 
 ## Next
-Broaden coverage: more generative families (reaction-diffusion (F,k) grid; wider Lenia / 
-particle-life parameter ranges; coupled-oscillator regimes) and larger N. Any future
-complex+unclassified survivor goes through the literature-novelty gate before any claim.
-FM-as-lens reconsidered only if it earns the bar (ring2_strategy.md).
+1. **Close the phase blind spot** (the P33 lesson for oscillators): add a LOCAL phase-order
+   component to the emergence indicator so locally-coherent/globally-incoherent twisted & wave
+   states are classified — a net-widening (like the catalog's rounds 2-5), with full T2c +
+   blind-spot re-validation. This touches the validated catalog core, so it is its own careful unit.
+2. Then broaden further (RD (F,k) grid at finer resolution; more oscillator regimes; larger N).
+   Any future complex+unclassified survivor goes through the literature-novelty gate before any
+   claim. FM-as-lens reconsidered only if it earns the bar.
