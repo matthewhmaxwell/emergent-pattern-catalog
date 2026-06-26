@@ -26,6 +26,14 @@ shares the identical finite-size sparsity, so the bias cancels (iid -> ~0; genui
 temporal structure -> >0). Calibrated on the corpus + OOD nulls
 (analysis/ring2/_tripwire_surrogate_calib.py): null struct <= 0.059, emergent-with-C>thr
 struct >= 0.184. The psi-path (causal emergence) is sound on noise and is left untouched.
+
+DEAD-STATE GATE (2026-06-26, from Stage-2 vetting): a system whose structure COLLAPSES to
+a trivial constant final state (death / dissipation — e.g. a dying Lenia config) has a
+temporally-complex TRANSIENT but no SUSTAINED structure; its mean macro is complex yet the
+final field is dead. Such transients false-tripped the bridge in the Stage-2 Lenia sweep
+(4/100 leads, all dead fields). is_complex now additionally requires the system NOT to have
+collapsed: spatial variance across components must not drop to ~0 in the late window
+(late < 5% of early). Sustained structure keeps late variance; death loses it.
 """
 from __future__ import annotations
 
@@ -78,8 +86,19 @@ def model_free_complexity(history: List[Dict[str, Any]]) -> Dict[str, Any]:
     C = float(mpr["C"])
     struct = _structure_score(cands.get("mean"))
     psi = float(psi) if psi == psi else 0.0          # NaN -> 0
-    is_complex = bool((C > C_THR and struct > STRUCT_THR) or psi > PSI_THR)
-    return {"C": C, "psi": psi, "struct": struct, "macro_feat": feat, "is_complex": is_complex}
+    # DEAD-STATE GATE: structure that collapses to a trivial constant final state (death /
+    # dissipation) is a complex TRANSIENT, not sustained structure. Spatial variance across
+    # components: high early, ~0 late -> collapsed.
+    M = np.asarray(micro, dtype=float)
+    collapsed = False
+    if M.ndim == 2 and M.shape[0] >= 8:
+        h = M.shape[0] // 2
+        sv = M.var(axis=1)
+        early, late = float(sv[:h].mean()), float(sv[h:].mean())
+        collapsed = early > 1e-9 and late < 0.05 * early
+    is_complex = bool(((C > C_THR and struct > STRUCT_THR) or psi > PSI_THR) and not collapsed)
+    return {"C": C, "psi": psi, "struct": struct, "macro_feat": feat,
+            "collapsed": collapsed, "is_complex": is_complex}
 
 
 def novelty_tripwire(history: List[Dict[str, Any]], metadata: Optional[Dict[str, Any]] = None,
