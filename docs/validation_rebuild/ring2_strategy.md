@@ -111,7 +111,7 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 | `graph_structure` | network topology / interaction graphs | **ADMITTED** (this sprint) | two axes vs random-graph null: `degree_cv` (hubs) scale-free 0.89–1.00 vs random ~0.4 (gap +0.45); `modularity` (communities) 0.54–0.58 vs random ~0.35 floor (gap +0.14); clustering disambiguates small-world. Covers the network substrate class positions/field lenses can't touch. |
 | `directed_info_flow` | causal direction / info-flow asymmetry | **ADMITTED** (this sprint) | directed transfer entropy among component series. `directionality` (net asym / magnitude): cascade 1.72–1.74 vs symmetric mesh 0.05–0.13 (gap +1.60); `mean_te` coupled ~0.06–0.19 vs independent ~0.004. New axis: who-drives-whom, independent of coupling magnitude. Gate: directionality meaningful only above the coupling floor; needs T≥60. Hardened (substrate run 2): also validated vs the Kuramoto lattice — sync/waves are redundant coupling (high mean_te, ~0 directionality), a real-substrate negative; directionality flags DRIVE, not spatial propagation. |
 | `fractal_dimension` | scale-free spatial structure (sparse fractals) | **ADMITTED, SCOPED** (lacunarity; this sprint) | D alone is confounded (gas D~1.57 ≈ Sierpinski 1.585). Fix = `lacunarity` (gliding-box mass heterogeneity) gated by D>1.2: sparse fractals dla 5.69 / Sierpinski 4.09 vs random 1.96 / uniform 1.54 (gap +2.1; filament excluded by the D gate). **SCOPE:** sparse aggregates only — dense near-critical fractals (percolation lacun 1.12 ≈ random) are OUT of scope → need the full multifractal spectrum (that remains deferred). Such systems are still DETECTED by the emergence indicator. |
-| `recurrence` (RQA) | nonlinear-dynamics / determinism | **DEFERRED** (877cb91; surrogate rescue re-tested + FAILED this sprint) | DET confounded by smooth random walks (null_walk 0.54). Three rescues TESTED (`_recurrence_surrogate_test.py`) — FT-surrogate excess, shuffle excess, long-range-recurrence fraction — ALL overlap null_walk with genuine emergents. The sorted-centered invariant trajectory collapses cycle geometry (limit_cycle DET 0.999 but long-range 0). Needs a proper delay embedding / recurrence-time entropy, not a surrogate on the current trajectory. |
+| `recurrence` (RQA) | nonlinear-dynamics / determinism | **RETIRED — redundant** (this sprint) | (a) DET confounded by smooth random walks (null_walk 0.54); surrogate rescue FAILED (FT/shuffle/long-range all overlap null_walk; `_recurrence_surrogate_test.py`; sorted-centered trajectory collapses cycle geometry). (b) Detection territory is COVERED — limit_cycle/chaos/traveling_wave all classify via temporal(spectral-peak)+synergy, hence blind-spot recall 17/17 WITHOUT it. Not a coverage gap, a duplicate with no clean discriminator. Revisit only if a delay-embedding RQA is built AND a corpus system slips the spectral/synergy net. |
 | `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED + hardened** (aab2e95; surrogate gate this sprint) | fires on COMPLEX ∧ UNCLASSIFIED. C-path = MPR-C >0.16 AND surrogate structure_score >0.12 (kills finite-size-inflated C on iid noise); psi-path = Ψ_CE >0.05. Baseline quiet (0/3 nulls, 17/17 classified); hardened OOD vs uniform-noise fields. |
 
 ## Multi-family substrate hardening (exercising the battery OOD)
@@ -133,19 +133,21 @@ catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.
 - Next substrates: Lenia (positions → PH + directed_info_flow), coupled-oscillator lattice
   (→ directed_info_flow + spectral).
 
-Future lens candidates (venv unblocks all): radial S(k) enhancement (adds characteristic wavenumber),
-optimal-transport drift, lacunarity (to rescue fractal_dimension).
+Future lens candidates (venv unblocks all): the full multifractal spectrum f(α)/D_q (to extend
+fractal_dimension to DENSE near-critical fractals, currently out of scope), radial S(k) enhancement
+(adds characteristic wavenumber), optimal-transport drift, a directed-TE creature-interaction positive.
 
 ## Live Ring-2 descriptor (the lens battery, wired)
 
 `epc/phase2a/ring2_descriptor.py` — `ring2_descriptor(history, metadata)` runs the named
 emergence indicator + the model-free bridge + the FOUR admitted Tier-2 lenses
-(structure_factor, persistent_homology, graph_structure, directed_info_flow) into ONE
-labeled fingerprint. Each lens self-guards on substrate (None off-substrate), so the
-fingerprint is sparse and substrate-aware: `lenses_fired` is the coordinate subspace the
-observation occupies. This is the Stage-2 novelty-search input — it classifies (named
-lenses), flags (tripwire), and is ready to cluster leads in lens space. Deferred lenses
-(fractal_dimension, recurrence) are intentionally excluded — only earned lenses go live.
+(structure_factor, persistent_homology [positions + field paths], fractal_dimension [scoped,
+lacunarity], graph_structure, directed_info_flow) into ONE labeled fingerprint. Each lens
+self-guards on substrate (None off-substrate), so the fingerprint is sparse and substrate-aware:
+`lenses_fired` is the coordinate subspace the observation occupies. This is the Stage-2
+novelty-search input — it classifies (named lenses), flags (tripwire), and is ready to cluster
+leads in lens space. recurrence is RETIRED (redundant — its territory is covered by the spectral/
+synergy channels); only earned lenses go live.
 
 Validated (`analysis/ring2/_descriptor_validate.py`, corpus + RD/Kuramoto/Lenia): lenses
 fire per substrate (positions→SF+PH+DTE, graphs→GS, fields→SF, phases→DTE; counts SF 15 /

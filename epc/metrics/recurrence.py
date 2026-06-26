@@ -1,5 +1,19 @@
 """Recurrence quantification — a Tier-2 lens imported from nonlinear dynamics.
 
+STATUS: RETIRED as REDUNDANT (not wired into the descriptor). Two findings closed it:
+(1) the standalone DET discriminator is confounded by smooth random walks (null_walk
+0.54), and the surrogate rescue FAILED — FT-surrogate excess, shuffle excess, and
+long-range-recurrence fraction all overlap null_walk with genuine emergents
+(analysis/ring2/_recurrence_surrogate_test.py; the sorted-centered trajectory even
+collapses cycle geometry, limit_cycle DET 0.999 / long-range 0). (2) Its detection
+territory is already COVERED: every recurrence-flavoured corpus system (limit_cycle,
+spatiotemporal_chaos, traveling_wave) classifies via the temporal(spectral-peak) +
+synergy channels — which is why the blind-spot audit recall is 17/17 WITHOUT a recurrence
+channel. So it is not a coverage gap; it is a duplicate of covered ground with no clean
+discriminator. Revisit ONLY if a delay-embedding RQA is built AND a corpus system appears
+that is deterministically recurrent yet missed by the spectral/synergy channels. Kept as
+raw material.
+
 Recurrence Quantification Analysis (RQA; Marwan et al. 2007) measures whether a
 system's state TRAJECTORY revisits earlier states and evolves deterministically
 from them. The two headline measures:
