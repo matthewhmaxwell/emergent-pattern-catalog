@@ -24,11 +24,13 @@ from epc.metrics.structure_factor import structure_factor_peak
 from epc.metrics.persistent_homology import persistent_homology
 from epc.metrics.graph_structure import graph_structure
 from epc.metrics.directed_info_flow import directed_transfer_entropy
+from epc.metrics.fractal_dimension import fractal_dimension
 
 # Stable key order so descriptors vectorise alignably across observations.
 SCHEMA: List[str] = [
     "em_score", "em_kind", "mf_C", "mf_struct", "mf_psi", "mf_complex",
     "sk_peak", "h1_max", "ph_components", "field_loop_area", "field_loops",
+    "fractal_dim", "lacunarity",
     "degree_cv", "modularity", "clustering",
     "dte_mean_te", "dte_directionality",
     "tripped", "classified",
@@ -71,6 +73,10 @@ def ring2_descriptor(history: List[Dict[str, Any]],
         else:
             f["h1_max"] = ph["h1_max"]; f["ph_components"] = ph.get("n_components")
         fired.append("persistent_homology")
+    fd = _safe(fractal_dimension, history)
+    if fd:
+        f["fractal_dim"] = fd["fractal_dim"]; f["lacunarity"] = fd.get("lacunarity")
+        fired.append("fractal_dimension")
     gs = _safe(graph_structure, history)
     if gs:
         f["degree_cv"] = gs["degree_cv"]; f["modularity"] = gs["modularity"]

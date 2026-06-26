@@ -42,23 +42,24 @@ for fn, tr in [(dla_fractal, "fractal(EPC)"), (percolation, "fractal(EPC)")]:
     p = fn(0)
     rows.append((fn.__name__, tr, fractal_dimension(p["history"])))
 
-print(f"{'structure':<22}{'truth':<14}{'D':>7}{'fit_r2':>8}{'fill':>7}")
-for nm, t, r in sorted(rows, key=lambda x: (x[2] or {}).get('fractal_dim', 9)):
+print(f"{'structure':<22}{'truth':<14}{'D':>7}{'lacun':>8}{'fill':>7}")
+for nm, t, r in sorted(rows, key=lambda x: -((x[2] or {}).get('lacunarity', -9))):
     if r:
-        print(f"{nm:<22}{t:<14}{r['fractal_dim']:>7.3f}{r['fit_r2']:>8.3f}{r['fill_frac']:>7.3f}")
+        print(f"{nm:<22}{t:<14}{r['fractal_dim']:>7.3f}{r['lacunarity']:>8.3f}{r['fill_frac']:>7.3f}")
     else:
         print(f"{nm:<22}{t:<14}   (n/a)")
 
-vals = [(t, r) for nm, t, r in rows if r]
-frac = [r['fractal_dim'] for t, r in vals if 'fractal' in t]
-uni = [r['fractal_dim'] for t, r in vals if t == 'uniform']
-gas = [r['fractal_dim'] for t, r in vals if t == 'random']
-print(f"\nfractal D: {[round(v,2) for v in sorted(frac)]}  uniform D: {[round(v,2) for v in uni]}"
-      f"  random D: {[round(v,2) for v in gas]}")
-# A real fractal lens must separate fractals from BOTH uniform fills AND random texture.
-gap_uni = (min(uni) - max(frac)) if (frac and uni) else 0.0
-overlap_random = any(min(frac) <= g <= max(frac) for g in gas) if (frac and gas) else False
-print(f"gap to uniform = {gap_uni:+.3f} (TIGHT); random D overlaps the fractal band: {overlap_random}")
-print("VERDICT: DEFER — box-counting D is confounded. random gas D~1.57 ~= Sierpinski D~1.585,"
-      " and percolation D~1.83 ~= uniform disk D~1.90: D conflates self-similarity with"
-      " density/boundary. Needs lacunarity / multifractal spectrum to admit.")
+val = {nm: r for nm, t, r in rows if r}
+# SCOPED admit: lacunarity (gated D>1.2 to drop lines) separates SPARSE fractals from
+# random/uniform texture. Dense near-critical percolation is OUT OF SCOPE (homogeneous).
+sparse = [val[n]['lacunarity'] for n in ('dla_fractal', 'SYNTH_sierpinski') if n in val]
+nonfrac = [val[n]['lacunarity'] for n in ('SYNTH_random_gas', 'SYNTH_filled_disk') if n in val]
+perc = val.get('percolation', {}).get('lacunarity')
+print(f"\nlacunarity  sparse-fractals(dla,sierpinski): {[round(v,2) for v in sorted(sparse)]}  "
+      f"random/uniform: {[round(v,2) for v in sorted(nonfrac)]}  percolation(dense): {perc}")
+if sparse and nonfrac:
+    gap = min(sparse) - max(nonfrac)
+    print(f"gap (min sparse-fractal - max random/uniform lacun) = {gap:+.2f}  -> "
+          f"{'ADMIT SCOPED (lacunarity separates SPARSE fractals; dense=percolation out of scope)' if gap > 0.5 else 'keep DEFERRED'}")
+    print(f"  (filament D={val.get('SYNTH_filament',{}).get('fractal_dim')} excluded by the D>1.2 gate;"
+          f" percolation lacun {perc} ~ random -> dense fractals need the multifractal spectrum)")

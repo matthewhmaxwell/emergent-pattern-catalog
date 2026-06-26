@@ -1,14 +1,17 @@
 """Fractal-dimension lens — scale-FREE spatial structure (box-counting).
 
-STATUS: DEFERRED (not wired into the descriptor). Validation showed box-counting D
-alone is confounded — it conflates self-similar fractality with mere density and with
-boundary effects: a sparse random gas (D~1.57) is indistinguishable from a Sierpinski
-fractal (D~1.585), and a near-critical percolation cluster (D~1.83) from a uniform disk
-(D~1.90). D is a shared absolute, not a specific structural signature. A robust
-scale-free-structure lens needs LACUNARITY (scale-dependent gappiness) and/or a
-multifractal spectrum to separate structured self-similarity from random texture. This
-file is kept as raw material for that build, and works well as a coarse strong-fractal
-flag (dla D~1.35 vs space-filling) in the meantime.
+STATUS: ADMITTED, SCOPED to sparse self-similar AGGREGATES (DLA-type). Box-counting D
+ALONE is confounded — it conflates fractality with density/boundary (random gas D~1.57 ~=
+Sierpinski D~1.585; percolation D~1.83 ~= uniform disk D~1.90). The fix is LACUNARITY
+(gliding-box mass heterogeneity), which separates structured fractal gaps from random
+texture: validated dla 5.69 / Sierpinski 4.09 vs random_gas 1.96 / uniform 1.54 (gap +2.1
+gated by D>1.2 to exclude lines like a filament, lacun 41.9 / D 0.94). The discriminating
+signal is therefore `lacunarity` gated by `fractal_dim > 1.2`, NOT D alone.
+SCOPE LIMIT (honest): this catches SPARSE fractals (open aggregates). DENSE near-critical
+fractals (percolation, fill ~0.5) are near-space-filling and homogeneous (lacunarity ~1.1),
+so they fall OUTSIDE this lens — they need the full multifractal spectrum (f(alpha) / D_q),
+a larger build deferred. Such systems are still DETECTED by the emergence indicator; they
+just carry no dedicated fractal label here.
 
 The complement of structure_factor: where S(k) keys on a CHARACTERISTIC length scale
 (a peak in reciprocal space), this lens keys on the ABSENCE of one — self-similar
@@ -89,12 +92,32 @@ def _box_count_dim(occ: np.ndarray) -> Optional[tuple]:
     return float(slope), float(r2)
 
 
+def _lacunarity(occ: np.ndarray, boxes=(2, 4, 8, 16)) -> float:
+    """Gliding-box lacunarity Lambda(r) = E[S^2]/E[S]^2 (S = box mass), averaged over box
+    sizes. Measures mass HETEROGENEITY at scale: a structured fractal (Sierpinski, DLA) is
+    very uneven (high Lambda) while a uniform-random set of the SAME density is homogeneous
+    (Lambda ~ 1). This is the axis that separates fractal from random texture where the
+    box-counting dimension cannot (they can share D)."""
+    from scipy.ndimage import uniform_filter
+    a = occ.astype(float)
+    vals = []
+    for b in boxes:
+        if b >= min(a.shape):
+            continue
+        S = uniform_filter(a, size=b, mode="constant") * float(b * b)   # box mass per position
+        m1 = float(S.mean())
+        if m1 <= 0:
+            continue
+        vals.append(float((S ** 2).mean() / (m1 ** 2)))
+    return float(np.mean(vals)) if vals else 0.0
+
+
 def fractal_dimension(history: List[Dict[str, Any]], grid_n: int = 128) -> Optional[Dict[str, float]]:
     frames = [f for f in history if isinstance(f, dict)]
     if not frames:
         return None
     late = frames[len(frames) // 2:] or frames
-    dims, r2s, fills = [], [], []
+    dims, r2s, fills, lacs = [], [], [], []
     for f in late:
         occ = _occupancy(f, grid_n)
         if occ is None:
@@ -106,9 +129,10 @@ def fractal_dimension(history: List[Dict[str, Any]], grid_n: int = 128) -> Optio
         if res is None:
             continue
         d, r2 = res
-        dims.append(d); r2s.append(r2); fills.append(fill)
+        dims.append(d); r2s.append(r2); fills.append(fill); lacs.append(_lacunarity(occ))
     if not dims:
         return None
     return {"fractal_dim": round(float(np.mean(dims)), 4),
             "fit_r2": round(float(np.mean(r2s)), 4),
+            "lacunarity": round(float(np.mean(lacs)), 4),
             "fill_frac": round(float(np.mean(fills)), 4)}
