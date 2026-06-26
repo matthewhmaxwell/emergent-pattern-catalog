@@ -116,6 +116,32 @@ Status is recorded here so the lens library is an auditable artifact, not commit
 | `correlation_length` (criticality) | long-range / scale-free spatial correlations (statistical gap) | **DEFERRED** (ceiling-raise round) | the criticality discriminator `plaw_gain` (power-law vs exponential correlation decay) inverted on single ~96² snapshots (power-law fields scored negative) — power-law-vs-exponential separation is a finite-size-scaling problem, not a one-frame fit; and the working part `xi_norm` largely duplicates the existing Moran's-I autocorrelation channel. Needs a multi-resolution finite-size-scaling estimator. Kept as raw material. |
 | `novelty_tripwire` | model-free bridge (Tier-2-special) | **ARMED + hardened** (aab2e95; surrogate gate this sprint) | fires on COMPLEX ∧ UNCLASSIFIED. C-path = MPR-C >0.16 AND surrogate structure_score >0.12 (kills finite-size-inflated C on iid noise); psi-path = Ψ_CE >0.05. Baseline quiet (0/3 nulls, 17/17 classified); hardened OOD vs uniform-noise fields. |
 
+## Lens-addition integrity protocol (re-running priors)
+
+Adding to the instrument can invalidate prior results, so every addition triggers a defined
+re-run. Two cases, because two kinds of thing get added:
+
+1. **CLASSIFIER change** — a `generic_emergence` channel (it sets em_kind / the em score) or a
+   model-free-bridge gate (it sets is_complex). These CHANGE which observations are
+   "classified" vs a tripwire lead, so they can reclassify priors. **Required re-run: T2c OOD
+   suite (null-spec must hold 1.0) + blind-spot audit (recall) + stage-0 bridge + every prior
+   novelty sweep that could be affected.** (Done for the local-phase-order channel: Kuramoto
+   7→0 leads, T2c/blind-spot/stage-0 unchanged.)
+
+2. **COORDINATE lens** — an admitted Ring-2 descriptor lens (structure_factor, PH, graph,
+   directed_info_flow, fractal_dimension, vorticity, …). The tripwire's "classified" verdict is
+   `em ≥ thr OR catalogued-detector MATCH` and does NOT consult these lenses, so a coordinate
+   lens CANNOT change which observations are leads — it only adds a fingerprint coordinate.
+   **Required re-run: the descriptor integration check (fingerprint currency) + a refresh of any
+   prior sweep on the SUBSTRATES the new lens fires on** (determine by which substrates return
+   non-None). Leads are provably unchanged; only the fingerprint vectors update. (Done for
+   vorticity: fires only on agent substrates → only the particle-life sweep refreshed; RD /
+   Lenia / Kuramoto return None → unaffected.)
+
+The lenses gate novelty at the VETTING stage (a lead is inspected in lens space + against the
+literature), not inside the automated tripwire — so a coordinate-lens addition never silently
+un-vets a prior lead; it enriches the space a lead is judged in.
+
 ## Multi-family substrate hardening (exercising the battery OOD)
 Once the battery was broadened, the next move was to run it on substrate families OUTSIDE the
 catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.

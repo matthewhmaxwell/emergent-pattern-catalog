@@ -4,7 +4,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.969,
@@ -25,7 +26,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -46,7 +48,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9968,
@@ -67,7 +70,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9997,
@@ -88,7 +92,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -109,7 +114,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -130,7 +136,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.966,
@@ -151,7 +158,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9981,
@@ -172,7 +180,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9987,
@@ -193,7 +202,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.334,
@@ -214,7 +224,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -235,7 +246,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9999,
@@ -256,7 +268,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9912,
@@ -277,7 +290,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.9389,
@@ -298,7 +312,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9989,
@@ -319,7 +334,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -340,7 +356,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -361,7 +378,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -382,7 +400,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -403,7 +422,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -424,7 +444,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.8523,
@@ -445,7 +466,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9712,
@@ -466,7 +488,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9984,
@@ -487,7 +510,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -508,7 +532,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.5641,
@@ -529,7 +554,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9876,
@@ -550,7 +576,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9583,
@@ -571,7 +598,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -592,7 +620,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.8071,
@@ -613,7 +642,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9993,
@@ -634,7 +664,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9989,
@@ -655,7 +686,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9991,
@@ -676,7 +708,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -697,7 +730,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -718,7 +752,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -739,7 +774,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9993,
@@ -760,7 +796,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9972,
@@ -781,7 +818,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9969,
@@ -802,7 +840,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.959,
@@ -823,7 +862,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9998,
@@ -844,7 +884,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9992,
@@ -865,7 +906,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -886,7 +928,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -907,7 +950,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9999,
@@ -928,7 +972,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9992,
@@ -949,7 +994,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -970,7 +1016,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9973,
@@ -991,7 +1038,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1012,7 +1060,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1033,7 +1082,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9913,
@@ -1054,7 +1104,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9997,
@@ -1075,7 +1126,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9917,
@@ -1096,7 +1148,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.9863,
@@ -1117,7 +1170,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.8927,
@@ -1138,7 +1192,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1159,7 +1214,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1180,7 +1236,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.998,
@@ -1201,7 +1258,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1222,7 +1280,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.995,
@@ -1243,7 +1302,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9995,
@@ -1264,7 +1324,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1285,7 +1346,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1306,7 +1368,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1327,7 +1390,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1348,7 +1412,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1369,7 +1434,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9995,
@@ -1390,7 +1456,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1411,7 +1478,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9962,
@@ -1432,7 +1500,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1453,7 +1522,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1474,7 +1544,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9947,
@@ -1495,7 +1566,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.9314,
@@ -1516,7 +1588,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9996,
@@ -1537,7 +1610,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.967,
@@ -1558,7 +1632,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9689,
@@ -1579,7 +1654,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9972,
@@ -1600,7 +1676,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9897,
@@ -1621,7 +1698,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1642,7 +1720,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9972,
@@ -1663,7 +1742,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9997,
@@ -1684,7 +1764,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9969,
@@ -1705,7 +1786,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1726,7 +1808,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1747,7 +1830,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.746,
@@ -1768,7 +1852,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9986,
@@ -1789,7 +1874,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1810,7 +1896,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9987,
@@ -1831,7 +1918,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9992,
@@ -1852,7 +1940,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1873,7 +1962,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1894,7 +1984,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -1915,7 +2006,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9999,
@@ -1936,7 +2028,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9902,
@@ -1957,7 +2050,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.4566,
@@ -1978,7 +2072,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.5613,
@@ -1999,7 +2094,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.9989,
@@ -2020,7 +2116,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2041,7 +2138,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.8505,
@@ -2062,7 +2160,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9881,
@@ -2083,7 +2182,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9225,
@@ -2104,7 +2204,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9998,
@@ -2125,7 +2226,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.976,
@@ -2146,7 +2248,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9951,
@@ -2167,7 +2270,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2188,7 +2292,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "orientation",
   "em": 0.6468,
@@ -2209,7 +2314,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2230,7 +2336,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2251,7 +2358,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9977,
@@ -2272,7 +2380,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9977,
@@ -2293,7 +2402,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2314,7 +2424,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2335,7 +2446,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9894,
@@ -2356,7 +2468,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2377,7 +2490,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9999,
@@ -2398,7 +2512,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2419,7 +2534,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9993,
@@ -2440,7 +2556,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9997,
@@ -2461,7 +2578,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.8105,
@@ -2482,7 +2600,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 1.0,
@@ -2503,7 +2622,8 @@
   "fired": [
    "structure_factor",
    "persistent_homology",
-   "fractal_dimension"
+   "fractal_dimension",
+   "vorticity"
   ],
   "em_kind": "positions",
   "em": 0.9982,
