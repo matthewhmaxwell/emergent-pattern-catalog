@@ -158,6 +158,18 @@ named channels, outside the new lenses' spatial/network/info-flow axes. This IS 
 comprehensiveness that differentiates from ASAL's single opaque descriptor: many validated,
 interpretable, substrate-aware axes in one vector.
 
+## Stage-2 — first novelty-search pass (DONE; see ring2_stage2_novelty_search.md)
+Ran `ring2_descriptor` over particle_life (250) + Lenia (100), clustering by fingerprint and
+surfacing tripwire leads. **0 genuine-novelty leads this pass:** particle_life 0/250 (Stage-1's
+tripwire-only baseline had 4/300 mundane — the broadened battery eliminated them); Lenia 4/100
+leads ALL vetted mundane (dead-field death transients), then a **dead-state gate** was added →
+0/100 on re-run. The DELIVERABLE is the AUDITED FRONTIER — the interpretable fingerprint
+clustering of the explored generative space — not a manufactured claim (this answers the
+"what's the deliverable if no novelty turns up" open question below). Two OOD tripwire hardenings
+surfaced + applied across Stage-2 (iid-noise FIELD surrogate gate; death-transient dead-state
+gate). NEXT: broaden families (RD (F,k) grid, wider Lenia/particle-life ranges, oscillator
+regimes) + larger N; the literature-novelty gate runs only on a future complex+unclassified survivor.
+
 ## OPEN — still under discussion (do NOT finalize)
 
 - **Sourcing the systems under test** — generative families vs. program-space grammar vs.
