@@ -89,5 +89,43 @@ indicator). One bridge robustness gap identified AND FIXED (the tripwire surroga
 ### Outcome
 Both substrate runs behave correctly. directed_info_flow's directionality axis is now
 validated against two independent negatives (synthetic mesh + Kuramoto sync/wave) and one
-positive (cascade). Next substrate: Lenia (moving creatures → positions → exercises PH +
-directed_info_flow with genuine drive structure, the case the lattice does not provide).
+positive (cascade).
+
+## Run 3 — Lenia (autonomous moving creatures; ASAL's own search space)
+
+- Model: `epc/models/lenia.py` (Bert Chan 2019; canonical Orbium seed + params R=13/T=10/
+  mu=0.15/sigma=0.015, single Gaussian-ring kernel). Verified the Orbium GLIDES (mass stable
+  73.9→72.9, centroid path 178 over 400 steps). Script: `analysis/ring2/_lenia_lens_exercise.py`.
+  Chosen because Lenia is the qualitative regime RD/Kuramoto lacked (self-propelled localized
+  creatures) AND it is ASAL's substrate — running our interpretable battery on it is the
+  differentiation demo (named/validated axes vs one opaque foundation-model descriptor).
+
+### Findings (regimes: single glider / 5-glider / random soup)
+
+1. **The emergence indicator recognises Lenia creatures** — em 0.57–0.75, kind "field",
+   across all three regimes; nothing false-trips. A lone gliding Orbium gets em 0.75 (the
+   localized dense creature fires the clustering/autocorr channel), correctly CLASSIFIED.
+   The hypothesised "autonomous-locomotion blind spot → novelty lead" did NOT materialise —
+   the named field channel already covers it. Honest, reassuring negative.
+2. **structure_factor works on Lenia fields** — sk_peak 116–126 (localized creatures have a
+   clear characteristic scale).
+3. **PH-on-positions stays low** (h1_max 0.046–0.068) — Orbium crescents carry no loops;
+   consistent with RD, reconfirms the deferred field-sublevel-set PH path for field topology.
+4. directed_info_flow not exercised here — Lenia is a field/grid substrate, so it has the
+   same spatial-blindness as the Kuramoto wave (a raveled subsample loses creature motion
+   direction); a genuine directed-TE positive needs creature-tracking (centroid identities),
+   which is left for later.
+5. Sanity: single glider moves (path 258, mass stable); 5-glider collides and grows (mass
+   2.9x); soup partially self-organises (final/initial mass 0.52). All clean, no crashes.
+
+### Outcome
+Across THREE substrate families (RD field / Kuramoto phase / Lenia creatures), the broadened
+battery behaves correctly OOD: it recognises genuine emergence, stays quiet on nulls, and the
+one gap found (the tripwire field false-positive) was fixed and re-validated. Lenia adds the
+ASAL-substrate demonstration. **Field-sublevel-set PH now CLOSED** (persistent_homology gained a
+field path: persistent enclosed-hole `field_loop_area`, gaussian-denoised — RD-worms 0.23 /
+stripes 0.38 / ring 0.21 / swiss 0.13 vs blob/spots 0 / noise 0.009, gap +0.12; raw count is
+noise-confounded so area is the discriminator, the h1_max lesson again; wired into the descriptor,
+PH fire-count 8→15, no regression). Remaining lens follow-up: a genuine directed-TE positive via
+creature-interaction tracking (optional — the lens is already admitted). The admitted lenses are
+now wired into the live descriptor (the Stage-2 novelty-search on-ramp).

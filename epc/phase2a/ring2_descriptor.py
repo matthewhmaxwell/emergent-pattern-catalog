@@ -28,7 +28,7 @@ from epc.metrics.directed_info_flow import directed_transfer_entropy
 # Stable key order so descriptors vectorise alignably across observations.
 SCHEMA: List[str] = [
     "em_score", "em_kind", "mf_C", "mf_struct", "mf_psi", "mf_complex",
-    "sk_peak", "h1_max", "ph_components",
+    "sk_peak", "h1_max", "ph_components", "field_loop_area", "field_loops",
     "degree_cv", "modularity", "clustering",
     "dte_mean_te", "dte_directionality",
     "tripped", "classified",
@@ -66,7 +66,10 @@ def ring2_descriptor(history: List[Dict[str, Any]],
         f["sk_peak"] = sf["sk_peak"]; fired.append("structure_factor")
     ph = _safe(persistent_homology, history)
     if ph:
-        f["h1_max"] = ph["h1_max"]; f["ph_components"] = ph.get("n_components")
+        if ph.get("kind") == "field":
+            f["field_loop_area"] = ph["field_loop_area"]; f["field_loops"] = ph["field_loops"]
+        else:
+            f["h1_max"] = ph["h1_max"]; f["ph_components"] = ph.get("n_components")
         fired.append("persistent_homology")
     gs = _safe(graph_structure, history)
     if gs:
