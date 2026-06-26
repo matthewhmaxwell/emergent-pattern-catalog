@@ -150,8 +150,8 @@ leads in lens space. recurrence is RETIRED (redundant — its territory is cover
 synergy channels); only earned lenses go live.
 
 Validated (`analysis/ring2/_descriptor_validate.py`, corpus + RD/Kuramoto/Lenia): lenses
-fire per substrate (positions→SF+PH+DTE, graphs→GS, fields→SF, phases→DTE; counts SF 15 /
-DTE 15 / PH 8 / GS 3 of 23); **0 nulls tripped, 20/20 known-emergent classified** (no
+fire per substrate (positions→SF+PH+DTE, graphs→GS, fields→SF+PH+fractal, phases→DTE; counts
+SF 15 / PH 15 / fractal 13 / DTE 15 / GS 3 of 23); **0 nulls tripped, 20/20 known-emergent classified** (no
 regression). Honest coverage boundary: 3 scalar/wealth/avalanche systems (pareto_exchange,
 resource_competition_chaos, power_law_soc) fire NO Tier-2 lens — covered by the existing
 named channels, outside the new lenses' spatial/network/info-flow axes. This IS the
