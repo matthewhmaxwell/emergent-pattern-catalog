@@ -136,6 +136,26 @@ catalog corpus — see `docs/validation_rebuild/ring2_substrate_hardening.md`.
 Future lens candidates (venv unblocks all): radial S(k) enhancement (adds characteristic wavenumber),
 optimal-transport drift, lacunarity (to rescue fractal_dimension).
 
+## Live Ring-2 descriptor (the lens battery, wired)
+
+`epc/phase2a/ring2_descriptor.py` — `ring2_descriptor(history, metadata)` runs the named
+emergence indicator + the model-free bridge + the FOUR admitted Tier-2 lenses
+(structure_factor, persistent_homology, graph_structure, directed_info_flow) into ONE
+labeled fingerprint. Each lens self-guards on substrate (None off-substrate), so the
+fingerprint is sparse and substrate-aware: `lenses_fired` is the coordinate subspace the
+observation occupies. This is the Stage-2 novelty-search input — it classifies (named
+lenses), flags (tripwire), and is ready to cluster leads in lens space. Deferred lenses
+(fractal_dimension, recurrence) are intentionally excluded — only earned lenses go live.
+
+Validated (`analysis/ring2/_descriptor_validate.py`, corpus + RD/Kuramoto/Lenia): lenses
+fire per substrate (positions→SF+PH+DTE, graphs→GS, fields→SF, phases→DTE; counts SF 15 /
+DTE 15 / PH 8 / GS 3 of 23); **0 nulls tripped, 20/20 known-emergent classified** (no
+regression). Honest coverage boundary: 3 scalar/wealth/avalanche systems (pareto_exchange,
+resource_competition_chaos, power_law_soc) fire NO Tier-2 lens — covered by the existing
+named channels, outside the new lenses' spatial/network/info-flow axes. This IS the
+comprehensiveness that differentiates from ASAL's single opaque descriptor: many validated,
+interpretable, substrate-aware axes in one vector.
+
 ## OPEN — still under discussion (do NOT finalize)
 
 - **Sourcing the systems under test** — generative families vs. program-space grammar vs.
