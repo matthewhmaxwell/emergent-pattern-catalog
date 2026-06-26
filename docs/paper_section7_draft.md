@@ -227,22 +227,22 @@ mechanism is known by assertion rather than inferred from data).
 
 Five directions seem most productive.
 
-**Generative-family novelty search (the genuine-novelty frontier).** The discovery
-phase (§5.8.1) confirmed that the ontology's gaps are often predictive, but every
-confirmed prediction landed on a phenomenon already in the literature — coverage
-discovery, not novel-to-science. The decisive test is a gap prediction that lands on
-a phenomenon *absent* from the literature. Reaching it calls for a different search:
-rather than reading empty cells off a discrete ontology, sample a continuous
-generative family (multi-species interaction systems, Lenia, multi-species
-reaction–diffusion) under a novelty search steered by the instrument's own
-emergence descriptor — the per-channel firing vector becomes the behavior coordinate,
-so the search maximizes novelty in a validated, named space rather than wandering rule
-space. The leads are systems the instrument flags as emergent yet cannot classify
-(the EMERGENT-UNCLASSIFIED verdict), and especially those it scores as
-complex-but-structurally-invisible; a literature-novelty gate then separates
-novel-to-catalog from novel-to-science. The honest prior is that genuine novelty is
-rare, so the reliable deliverable is the search engine and a triaged map of
-emergence-space, with any genuine find as upside.
+**Extending the genuine-novelty frontier (a first pass is reported in §5B).** The
+decisive test of the periodic-table claim is a search that lands on a phenomenon
+*absent* from the literature, rather than the coverage discovery of §5.8.1. An audited
+first pass at this has now been run (§5B): an interpretable lens battery and a model-free
+bridge, composed into one substrate-aware descriptor, were swept over 690 configurations
+across four continuous generative families (particle-life, Lenia, Gray–Scott reaction–
+diffusion, Kuramoto oscillator lattices), with the search steered by the descriptor's own
+firing vector and leads taken to be the complex-and-unclassified observations. It found
+zero phenomena novel to science — the honest prior that genuine novelty is rare held —
+but it produced a disclosed map of the explored emergence-space and, by failing on
+out-of-distribution input, drove two instrument improvements, including a local-phase-order
+net-widening of the emergence indicator (§5B.4). What remains is breadth: more generative
+families, finer parameter grids, and larger samples, with the literature-novelty gate
+reserved for any future complex-and-unclassified survivor. The reliable deliverable remains
+the auditable search engine and its frontier map — interpretable by construction, unlike an
+opaque-embedding search — with any genuine find as upside.
 
 **Continuing the detector coverage expansion.** Thirteen patterns await
 detectors. Wave 1 candidates — patterns that can be implemented on
