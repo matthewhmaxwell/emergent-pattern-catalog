@@ -28,6 +28,15 @@ independent ~0.004 (gap +0.05); directionality cascade 1.72-1.74 vs mesh 0.05-0.
 Scope: needs enough samples for the symbol histograms — returns None when T < min_T.
 Input is a [T, N] array of component time series (e.g., per-agent observables over
 time); pass the relevant component matrix, not a flattened grid.
+
+Scope hardened on the Kuramoto lattice (substrate run 2): directionality flags DIRECTED
+TRANSFER — a source whose own dynamics add predictive info about a follower (the drive
+cascade it was validated on). It is correctly ~0 for SYNCHRONIZED / phase-locked coupling
+(global sync, travelling/spiral waves): those are informationally REDUNDANT (every
+component is a deterministic rotator at a fixed offset, so no new info propagates) even
+though mean_te is high. So mean_te measures coupling MAGNITUDE; directionality measures
+DRIVE, not mere coupling and not spatial pattern propagation. The lattice is thus a
+real-substrate negative control for the directionality axis (high mean_te, ~0 direction).
 """
 from __future__ import annotations
 

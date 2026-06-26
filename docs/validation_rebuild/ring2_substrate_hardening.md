@@ -56,6 +56,38 @@ lenses break out-of-distribution. Each run = a new generative family + the full 
 
 ### Outcome
 The broadened battery behaves correctly on the RD field family (field lenses + emergence
-indicator). One bridge robustness gap identified and specified. Next substrate families to
-exercise (each hits different lenses): Lenia (moving creatures → positions → PH +
-directed_info_flow), coupled-oscillator lattice (→ directed_info_flow + spectral).
+indicator). One bridge robustness gap identified AND FIXED (the tripwire surrogate gate, above).
+
+## Run 2 — Kuramoto 2D oscillator lattice (phase substrate)
+
+- Model: `epc/models/kuramoto_lattice.py` (4-neighbour Kuramoto; regimes incoherent /
+  global-sync / spiral / travelling plane-wave). Script: `analysis/ring2/_osc_lens_exercise.py`.
+  Chosen to stress `directed_info_flow` (the newest admitted lens, which RD couldn't reach).
+
+### Findings
+
+1. **Emergence indicator + tripwire behave correctly OOD** — sync (em 0.85) and spiral
+   (0.57) flagged emergent; incoherent (0.12) and the imposed plane-wave twisted state
+   (0.01) not; NOTHING false-trips. Order parameter sanity: sync r=0.46, incoherent/waves r~0.
+
+2. **`directed_info_flow` mean_te detects coupling magnitude OOD** — incoherent 0.116 vs
+   coupled sync/spiral/plane 0.46–0.54.
+
+3. **★ directionality is correctly ~0 on the lattice — a real-substrate NEGATIVE control.**
+   The hypothesis (waves = directional flow) was WRONG, and instructively so: a phase-locked
+   travelling/sync wave is informationally REDUNDANT, not directed — every oscillator is a
+   deterministic rotator at a fixed offset, so the source's history adds no predictive info
+   about the follower beyond its own past → genuine TE ≈ 0 both ways, even with mean_te high.
+   Ordering components along the propagation axis (a row transect) did not change this
+   (plane_wave dir_row 0.154 ≈ sync 0.138; incoherent's 0.33 is ratio-noise below the
+   coupling floor). So `directed_info_flow` distinguishes DIRECTED TRANSFER (a drive cascade —
+   its validated positive) from mere coupling / synchrony / spatial propagation. The lattice
+   is now a real-substrate negative for the directionality axis, complementing the synthetic
+   symmetric-mesh negative — this STRENGTHENS the lens's admission. Scope recorded in the lens
+   docstring: mean_te = coupling magnitude; directionality = drive, not propagation.
+
+### Outcome
+Both substrate runs behave correctly. directed_info_flow's directionality axis is now
+validated against two independent negatives (synthetic mesh + Kuramoto sync/wave) and one
+positive (cascade). Next substrate: Lenia (moving creatures → positions → exercises PH +
+directed_info_flow with genuine drive structure, the case the lattice does not provide).
