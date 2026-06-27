@@ -54,6 +54,16 @@ rolls to the bottom of a bowl). The decisive trap is a barrier whose only escape
     are verified robustly-competent.** The only core-competent navigator is the **hand-built Pledge**
     (designed, not discovered; and even it fails the serpentine). The broad functional battery is the
     real verifier — a narrow debunk is insufficient (it caught this over-fit across sessions).
+- **Directed search** (`evolve_navigation.py`) — the method that actually works. Random sampling: 0
+  verified. Evolution on a FIXED training set: train 0.92 but held-out fail (Goodhart). Evolution +
+  **domain randomization** (fresh random conditions every generation, so nothing is memorisable):
+  converges, and the best survivor is a **genuinely generalising navigator — 0.71 on 123 SOLVABLE
+  novel multi-wall mazes it never saw** (vs 0 for random, vs 2959 which failed open-field corners).
+  NOTE: its narrow held-out signature read 1.0; the broad 123-maze debunk corrected it to 0.71
+  (partial, not robustly general) — the 4th time a narrow test over-read and the broad battery fixed
+  it. So: directed-search FINDS genuine generalising competency; broad verification KEEPS IT HONEST;
+  the 0.71→robust gap is an engineering knob (more states / longer search / richer sensing). The
+  competency is still navigation = a KNOWN form (not new science).
 
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
