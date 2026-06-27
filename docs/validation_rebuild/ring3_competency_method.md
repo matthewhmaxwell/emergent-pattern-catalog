@@ -142,6 +142,33 @@ platform for the open-ended off-map hunt: an RNN agent + ES in open-ended rich e
 agent-observer naming whatever competency emerges — the genuine, ongoing route to a new-to-science
 competency.
 
+## Open-ended off-map hunt — sweep 1 (`openworld.py` + `openworld_probe.py`)
+The full hunt loop, now on the validated RNN+ES substrate:
+- **Layer 1 (`openworld.py`)** — an open-ended environment GENERATOR: the reward RULE is sampled from
+  a compositional grammar (count≥k / order / collect literals, conjoined), so no competency is baked
+  in. Each environment trains an RNN agent and a memoryless baseline (ES). An MCC filter keeps only
+  environments where the RNN succeeds but the memoryless baseline fails — i.e. the environment
+  genuinely demands internal state.
+- **Layer 2 (`openworld_probe.py`)** — a behavior-tracing + intervention harness (remove a type,
+  double the objects, lock the goal) the agent-observer drives to NAME the competency without being
+  told the rule.
+
+**Result of sweep 1 (12 environments):** exactly **1 demanding** — `count(type2)≥3` (RNN 0.95,
+memoryless 0.00, gap 0.95); the rest under-solved at budget (order/sequencing failed; `count≥2` was
+partly reactive). The agent-observer probed env 8 and **DEBUNKED counting (the 6th caught over-claim):**
+under `--double` (supply 6) the agent collects **5–6**, never stopping at 3 — it learned **greedy
+"collect all reachable type-2, then go to goal,"** which only *looked* like counting because the
+supply per type was exactly the threshold (3). `--remove 2` collapsed it; `--remove 0/1` did nothing.
+Classification: **reactive greedy collection — mundane, on-map. No new state-mode, nothing off-map.**
+
+**Design lesson (named by the observer):** a `≥k` predicate can NEVER demand a counter — collecting
+everything always satisfies it. To genuinely demand counting (a candidate third state-mode:
+*accumulation*, alongside commitment and storage) the rule must penalize over-collection (**collect
+exactly k**) with supply **> k**. Grammar was enriched with an `exact-k` predicate (supply 5 > k);
+a focused count/exact sweep is the next probe — does a genuine threshold-stopping counter emerge
+(→ a real new face for our map, known-to-science but new to the catalog), or does the substrate fail
+to count (→ honest deeper finding)?
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator

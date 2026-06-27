@@ -1,0 +1,230 @@
+[
+ {
+  "env": 0,
+  "pred": "t1-before-t2 AND collect(t0,t1,t2)",
+  "lits": [
+   [
+    "order",
+    1,
+    2
+   ],
+   [
+    "collect",
+    [
+     0,
+     1,
+     2
+    ]
+   ]
+  ],
+  "rnn": 0.1,
+  "mem": 0.0,
+  "gap": 0.1,
+  "demanding": false
+ },
+ {
+  "env": 1,
+  "pred": "collect(t0,t2)",
+  "lits": [
+   [
+    "collect",
+    [
+     0,
+     2
+    ]
+   ]
+  ],
+  "rnn": 0.25,
+  "mem": 0.42,
+  "gap": -0.17,
+  "demanding": false
+ },
+ {
+  "env": 2,
+  "pred": "count(t2)>=2",
+  "lits": [
+   [
+    "count",
+    2,
+    2
+   ]
+  ],
+  "rnn": 0.93,
+  "mem": 0.68,
+  "gap": 0.25,
+  "demanding": false
+ },
+ {
+  "env": 3,
+  "pred": "t0-before-t1 AND t1-before-t2",
+  "lits": [
+   [
+    "order",
+    0,
+    1
+   ],
+   [
+    "order",
+    1,
+    2
+   ]
+  ],
+  "rnn": 0.0,
+  "mem": 0.0,
+  "gap": 0.0,
+  "demanding": false
+ },
+ {
+  "env": 4,
+  "pred": "collect(t0,t1,t2) AND collect(t1,t2)",
+  "lits": [
+   [
+    "collect",
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   [
+    "collect",
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "rnn": 0.23,
+  "mem": 0.2,
+  "gap": 0.02,
+  "demanding": false
+ },
+ {
+  "env": 5,
+  "pred": "t0-before-t2",
+  "lits": [
+   [
+    "order",
+    0,
+    2
+   ]
+  ],
+  "rnn": 0.05,
+  "mem": 0.05,
+  "gap": 0.0,
+  "demanding": false
+ },
+ {
+  "env": 6,
+  "pred": "t1-before-t2 AND t1-before-t0",
+  "lits": [
+   [
+    "order",
+    1,
+    2
+   ],
+   [
+    "order",
+    1,
+    0
+   ]
+  ],
+  "rnn": 0.03,
+  "mem": 0.0,
+  "gap": 0.03,
+  "demanding": false
+ },
+ {
+  "env": 7,
+  "pred": "t2-before-t0",
+  "lits": [
+   [
+    "order",
+    2,
+    0
+   ]
+  ],
+  "rnn": 0.12,
+  "mem": 0.0,
+  "gap": 0.12,
+  "demanding": false
+ },
+ {
+  "env": 8,
+  "pred": "count(t2)>=3",
+  "lits": [
+   [
+    "count",
+    2,
+    3
+   ]
+  ],
+  "rnn": 0.95,
+  "mem": 0.0,
+  "gap": 0.95,
+  "demanding": true
+ },
+ {
+  "env": 9,
+  "pred": "count(t2)>=2 AND t0-before-t1",
+  "lits": [
+   [
+    "count",
+    2,
+    2
+   ],
+   [
+    "order",
+    0,
+    1
+   ]
+  ],
+  "rnn": 0.0,
+  "mem": 0.07,
+  "gap": -0.07,
+  "demanding": false
+ },
+ {
+  "env": 10,
+  "pred": "count(t1)>=2 AND collect(t0,t1,t2)",
+  "lits": [
+   [
+    "count",
+    1,
+    2
+   ],
+   [
+    "collect",
+    [
+     0,
+     1,
+     2
+    ]
+   ]
+  ],
+  "rnn": 0.28,
+  "mem": 0.38,
+  "gap": -0.1,
+  "demanding": false
+ },
+ {
+  "env": 11,
+  "pred": "t2-before-t0 AND count(t0)>=3",
+  "lits": [
+   [
+    "order",
+    2,
+    0
+   ],
+   [
+    "count",
+    0,
+    3
+   ]
+  ],
+  "rnn": 0.05,
+  "mem": 0.05,
+  "gap": 0.0,
+  "demanding": false
+ }
+]
