@@ -88,6 +88,25 @@ validated, not new science) — and enumerating further KNOWN faces is hitting d
 search for UNNAMED faces**, which this map now grounds: a verified hit that needs a *third* mode or
 an unmapped axis-value is a candidate for genuinely new competency.
 
+## Moonshot probe v0 — open-ended naming (`survival_world.py` + agent-observer)
+The open-ended test: a multi-affordance survival world (forage regrowing food, avoid hazards,
+depleting energy), evolve survivors, then the agent-observer NAMES whatever the best survivor does
+(no pre-specified face) and classifies it against the map.
+- **MECHANISM VALIDATED:** with no hint, the agent-observer named the survivor's strategy ("reactive
+  proximal food-tropism + adjacent-hazard-avoidance"), designed 4 discriminating interventions, and
+  **DEBUNKED** the seductive "patch-rotation / regrowth-exploitation" over-attribution
+  (movefood→chases new food=not memory; sap→energy-invariant=not regulation; addhazard→boxed-in
+  dies=no planning; wallfood→stranded=no re-route). 5th time the discipline resisted over-claiming.
+- **OUTCOME: no new competency.** The survivor is a mundane reactive forager (weakest end of
+  navigation); the apparent emergent strategy was an epiphenomenon of greedy foraging in a regrowing
+  cluster. Honest null on new-to-science.
+- **LESSON (the real bottleneck):** a survival task *solvable by greedy foraging* yields greedy
+  foragers — evolution finds the mundane solution when the environment doesn't DEMAND more. The
+  moonshot's limit is NOT the naming mechanism (validated) but **environment design**: novel
+  competency only surfaces in worlds hard enough that mundane strategies fail and only a richer,
+  possibly off-map competency survives. That is the open-ended-discovery frontier (environment/agent
+  co-evolution, à la POET) — the genuine next direction toward new-to-science.
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
