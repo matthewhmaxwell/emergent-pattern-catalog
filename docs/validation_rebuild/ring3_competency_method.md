@@ -118,6 +118,18 @@ cannot follow — richer than the moonshot's forager. But the top competency is 
 not off-map. Reaching off-map needs the next rung: open-ended generation of environment STRUCTURE we
 do not pre-specify, with the agent-observer naming whatever results.
 
+**Co-evolution rung 2 — cheap off-map check (`sequence_world.py`):** open-ended structured tasks
+(ordered-subgoal sequencing; instrumental prerequisite "visit A before goal G counts"). Outcome:
+**under-solved, no off-map.** The simple evolutionary search over FSM-tables could not cleanly solve
+the multi-stage structured tasks in budget — no clean reactive-vs-stateful separation (prerequisite:
+reactive 0.75 ≈ stateful 0.68; 3-station: stateful capped at 1/4) — so no competent survivor emerged
+to even name, and nothing off-map surfaced. This is a **tooling ceiling on top of the competency-space
+ceiling**: 6-state FSMs evolved by mutation cannot reliably *produce* the richer structured
+competencies that would be off-map candidates, let alone surface a new one. Both ceilings point the
+same way — reaching a new-to-science competency requires a **substrate escalation** (a richer program
+space and a stronger search), not more toy rungs. The cheap check is done; the escalation is
+justified.
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
