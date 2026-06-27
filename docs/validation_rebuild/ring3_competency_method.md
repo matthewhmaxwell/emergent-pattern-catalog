@@ -65,6 +65,17 @@ rolls to the bottom of a bowl). The decisive trap is a barrier whose only escape
   the 0.71→robust gap is an engineering knob (more states / longer search / richer sensing). The
   competency is still navigation = a KNOWN form (not new science).
 
+## Forms discovered so far (the map forming) — `evolve_navigation.py`, `evolve_memory.py`
+| form | discovered? | held-out | state-use MODE |
+|---|---|---|---|
+| #1 navigation (re-route to a goal) | yes, PARTIAL (0.71 on novel mazes) | broad maze battery | **commitment** (hold a detour against the goal-pull) |
+| #2 memory (cue-dependent action) | yes, ROBUST (1.0 held-out + cue-flip; memoryless=chance) | unseen long delays + cue-flip | **storage** (hold a cue across distractors) |
+
+**First emerging governing law:** both competencies *require internal state* (memoryless gives 0 /
+chance), and the **MODE of state-use characterises the form** (commitment vs storage). This is the
+kind of cross-form pattern the Platonic framing predicts — two data points, one law. Both are KNOWN
+competency-kinds (method validated, not new science).
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
