@@ -71,14 +71,22 @@ rolls to the bottom of a bowl). The decisive trap is a barrier whose only escape
 | #1 navigation (re-route to a goal) | yes, PARTIAL (0.71 on novel mazes) | broad maze battery | **commitment** (hold a detour against the goal-pull) |
 | #2 memory (cue-dependent action) | yes, ROBUST (1.0 held-out + cue-flip; memoryless=chance) | unseen long delays + cue-flip | **storage** (hold a cue across distractors) |
 | #3 delayed gratification (cash out at peak of unknown-height reward) | **NO — largely reactive** (memoryless 0.68 held-out; stateful only 0.75) | novel reward curves | n/a (marginal storage at most) |
+| #4 regulation / homeostasis (hold setpoint vs disturbance) | **NO — reactive** (memoryless >= stateful vs BOTH noise and structured sine) | harder disturbances | n/a — no distinct 'control' mode emerged |
 
 **Governing law (refined by face #3):** state-requirement is NOT universal. Navigation and memory
 *require* internal state and the MODE (commitment vs storage) characterises them; but delayed
 gratification is *primarily reactive* — a threshold policy captures most of it, and state adds only
 a marginal turn-detection. So **state-requirement is itself a discriminating axis of the form map**
 (state-requiring forms, sub-typed by mode, vs reactive forms) — not a universal property. The third
-face *refined* the law rather than confirming it (the right outcome of a real test). All three are
-KNOWN competency-kinds (method validated, not new science).
+face *refined* the law rather than confirming it (the right outcome of a real test). Face #4
+(regulation) refined it further: **"control/feedback" is NOT a distinct state-mode** — regulation
+is reactive in our setup (state bought nothing vs noise OR a structured sine; caveat: the sine null
+may partly be a search limit). So after four faces only **two** state-modes have emerged
+(commitment, storage) alongside a **reactive** bin. All four are KNOWN competency-kinds (method
+validated, not new science) — and enumerating further KNOWN faces is hitting diminishing returns
+(each is reactive or folds into the two modes). The live frontier is therefore the **open-ended
+search for UNNAMED faces**, which this map now grounds: a verified hit that needs a *third* mode or
+an unmapped axis-value is a candidate for genuinely new competency.
 
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
