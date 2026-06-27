@@ -202,6 +202,21 @@ is the full substrate escalation. The cheap test ruled out the cheap fix; the ho
 (0 new-to-science, substrate ceiling) stands, now sharpened to "evolutionary-RNN learning is the
 limiting factor, not the optimizer variant."
 
+**Oracle control (discipline check before concluding):** to confirm the *task* is solvable and isolate
+the gap, the agent was handed the running count directly in its observation (`--oracle`) — making
+exact-k a purely reactive policy ("collect while count<k, else go to goal"). Even so, exact-k stayed
+**0.17** (SNES) / 0.12 (ES), still under-collecting (1.6). So the failure is NOT specifically
+"internalizing the count": even the reactive version isn't solved by evolution. The diagnosis is
+sharper still — **evolutionary search settles into an easy-reward local optimum** (grab the guaranteed
+"reached goal" credit early) and never masters the brittle, conditional, knife-edge objective ("stop at
+exactly k, then reach the goal without overshooting"). This is a property of the *learning method*
+(evolutionary search on conditional objectives with local optima), not the optimizer variant and not
+internal counting per se. The tool built for conditional credit assignment is **gradient-based RL
+(PPO)** — i.e., the full escalation. Net conclusion: the open-ended hunt loop is validated, but the
+LEARNER (evolutionary search of small RNNs) is too weak to produce competencies beyond the simplest
+(greedy collection, basic nav/memory); a capable gradient learner is the prerequisite for a real
+off-map hunt. (torch absent local + VPS; CPU install needed; VPS 8-core/15 GB, no GPU.)
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator

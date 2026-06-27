@@ -12,7 +12,8 @@ import numpy as np, sys
 
 a = sys.argv
 H = int(a[a.index("--H") + 1]) if "--H" in a else 32
-N = 9; OBS = 2 + 2 + 1; NACT = 5
+ORACLE = "--oracle" in a                                    # control: hand the agent the current count
+N = 9; OBS = 2 + 2 + 1 + (1 if ORACLE else 0); NACT = 5
 DIRS = [(0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)]
 
 
@@ -52,6 +53,7 @@ def episode(th, r, k, supply, STEPS=60):
         if best is not None:
             x[0], x[1] = sgn(p, best)
         x[2], x[3] = sgn(p, goal); x[4] = just
+        if ORACLE: x[5] = min(count, 2 * k) / k                # oracle: the running count (normalized)
         h = np.tanh(Wx @ x + Wh @ h + b)
         ac = int(np.argmax(Wo @ h + bo))
         np_ = (p[0] + DIRS[ac][0], p[1] + DIRS[ac][1])
