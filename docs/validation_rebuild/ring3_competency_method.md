@@ -107,6 +107,17 @@ depleting energy), evolve survivors, then the agent-observer NAMES whatever the 
   possibly off-map competency survives. That is the open-ended-discovery frontier (environment/agent
   co-evolution, à la POET) — the genuine next direction toward new-to-science.
 
+**Co-evolution rung 1 (`coevolve.py`):** first step on that route. An environment demanding a
+competency COMBINATION (navigate a corridor reactively WHILE holding a start-cue for a decision at
+the end), difficulty = corridor length L, ratcheting as agents master it. Result: a reactive
+(memoryless) baseline caps at ~0.5 at every L (navigates but forgets the cue → the environment
+genuinely DEMANDS memory), while stateful agents ride the ratchet to L=11 at full combined success
+before the evolution budget runs out. Confirms the bottleneck-fix: a deliberately demanding
+environment produces a COMBINED competency (reactive navigation + storage memory) mundane agents
+cannot follow — richer than the moonshot's forager. But the top competency is an ON-MAP COMBINATION,
+not off-map. Reaching off-map needs the next rung: open-ended generation of environment STRUCTURE we
+do not pre-specify, with the agent-observer naming whatever results.
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
