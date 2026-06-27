@@ -189,6 +189,19 @@ hypothesized earlier. The honest bound (0 new-to-science) holds. The remaining p
 competency requires a materially bigger substrate/search (larger networks, stronger optimizers,
 richer environments at scale) — a research-grade effort, not a toy probe.
 
+**Cheap optimizer test (`counting_snes.py`) — the ceiling is NOT the optimizer.** Per the "stronger
+optimizer first" fork: swapped vanilla OpenAI-ES for SNES (Separable Natural Evolution Strategies —
+per-coordinate adaptive variance + natural gradient + rank shaping; the CMA-family choice at ~1000
+params) and enlarged the net to H=32, on the same exact-counting task. Result: SNES exact-k **0.13**,
+OpenAI-ES 0.12 — no improvement; both under-collect at base supply (1.4 / 0.9 vs target 3) and drift
+up under doubled supply (2.65 / 2.08), i.e. greedy, not a fixed-threshold counter. Swapping ES
+variants changed nothing, which localizes the bottleneck precisely: **evolutionary search of RNNs for
+precise recurrent computation** (counting is a classic hard case for evolution). The remaining lever
+is therefore not a better evolutionary optimizer but **gradient-based learning** (BPTT / PPO) — which
+is the full substrate escalation. The cheap test ruled out the cheap fix; the honest bound
+(0 new-to-science, substrate ceiling) stands, now sharpened to "evolutionary-RNN learning is the
+limiting factor, not the optimizer variant."
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
