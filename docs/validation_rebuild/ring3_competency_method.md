@@ -169,6 +169,26 @@ a focused count/exact sweep is the next probe — does a genuine threshold-stopp
 (→ a real new face for our map, known-to-science but new to the catalog), or does the substrate fail
 to count (→ honest deeper finding)?
 
+**Sweep 2 (count/exact-focused, supply 5 > threshold) + a decisive well-tooled counting test
+(`counting.py`): the substrate FAILS to count.** The `≥k` controls are solved reactively by the
+memoryless agent (greedy collect-all; mundane 0.80–0.97 — no state demanded, confirming sweep 1). The
+`exact-k` tasks all scored ≤0.28 — no counter. To rule out a mere tooling artifact, a focused
+single-type counting test gave DENSE shaping (`0.5·reached_goal + 0.5·(1−|count−k|/k)`, which pulls
+toward stopping at exactly k) + 500 ES iters: RNN exact-k **0.10** (memoryless 0.16, gap −0.06), mean
+count 1.4 vs target 3, and under doubled supply it drifts up (2.8) rather than stopping at k. So
+**accumulation-to-a-threshold is NOT reachable by a 16-hidden RNN + ES, even well-tooled.** The
+candidate third state-mode does not materialize.
+
+**Conclusion of the open-ended hunt (first arc, ~22 environments + a decisive probe):** the loop works
+end-to-end (generator → RNN+ES → MCC → agent-observer naming/debunking; 6 caught over-claims), and the
+honest result is **0 off-map competency and 0 new state-mode.** More than a null: the small-RNN+ES
+substrate produces only competencies that map onto the existing forms (navigation, memory, greedy
+collection) and cannot produce even a *known-but-new-to-our-map* competency (counting) when the
+environment genuinely demands it. This **empirically establishes the substrate ceiling** that was
+hypothesized earlier. The honest bound (0 new-to-science) holds. The remaining path to a genuinely new
+competency requires a materially bigger substrate/search (larger networks, stronger optimizers,
+richer environments at scale) — a research-grade effort, not a toy probe.
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
