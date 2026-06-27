@@ -130,6 +130,18 @@ same way — reaching a new-to-science competency requires a **substrate escalat
 space and a stronger search), not more toy rungs. The cheap check is done; the escalation is
 justified.
 
+## Substrate escalation — step 1 (richer agent + stronger search)
+The toy ceiling (both the competency-space *and* the FSM-evolution tooling) motivates a richer
+substrate. Step 1 (`rnn_es.py`): replace the FSM lookup-table + mutation with a small recurrent
+network (16 hidden units) + evolution strategies (OpenAI-ES) on the SAME prerequisite task the FSM
+under-solved (0.68). Result: progress climbs to **~1.74–1.92** (training peaks 1.92; held-out 1.74;
+perfect = 2.0) — the richer substrate + stronger search **largely fix the tooling ceiling**: the RNN
+can represent the instrumental ordering and ES can find it, where the FSM could not. The residual gap
+to 2.0 is step-budget / hard-config, tunable. So the escalation substrate is validated as the
+platform for the open-ended off-map hunt: an RNN agent + ES in open-ended rich environments, with the
+agent-observer naming whatever competency emerges — the genuine, ongoing route to a new-to-science
+competency.
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
