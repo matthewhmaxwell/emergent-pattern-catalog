@@ -45,10 +45,15 @@ rolls to the bottom of a bowl). The decisive trap is a barrier whose only escape
   - Memoryless reactive rules: **true 0/4000** solve the away-from-goal trap; a hand-built reactive
     navigator *also* fails it → that 0 is a **representation wall**, not rarity. Committed detours
     need memory.
-  - Stateful finite-state controllers: a hand Pledge/DFS control solves the trap (test is passable),
-    and random search found **seed 2959 (1/6000)** — a genuine general navigator that survived the
-    full debunk: generalises to four novel traps it was never selected on, an unseen serpentine
-    maze, takes real away-from-goal detours, and **outperforms the hand-built control.**
+  - Stateful finite-state controllers: a hand Pledge/DFS control solves the trap (test is passable).
+    Random search surfaced **seed 2959 (1/6000)**, which initially looked competent — BUT this was
+    **RETRACTED**: the catalog-classification broad-battery (open-field reach + re-route + away-from-goal
+    + generalise, from a FULL start set) showed 2959 is **fragile / start-specific** — it fails
+    open-field reach from corner starts (0,0),(12,0). The earlier "generalization debunk" used a
+    narrow favorable (upper-left) start set, which over-fit. Honest result: **0/6000 random programs
+    are verified robustly-competent.** The only core-competent navigator is the **hand-built Pledge**
+    (designed, not discovered; and even it fails the serpentine). The broad functional battery is the
+    real verifier — a narrow debunk is insufficient (it caught this over-fit across sessions).
 
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
@@ -56,8 +61,16 @@ rolls to the bottom of a bowl). The decisive trap is a barrier whose only escape
    from a passive embedding (ASAL).
 2. **Memory is required** for the interesting competencies (committed detours / delayed
    gratification). A search over memoryless rules is doubly inadequate.
-3. The competency found (navigation/re-routing) is a **KNOWN form** → method validated, **not
-   novelty-to-science.** No new phenomenon discovered.
+3. The competency *target* (navigation/re-routing) is a **KNOWN form** → method validated, **not
+   novelty-to-science.** No new phenomenon discovered — and no robustly-competent *random program*
+   discovered either (the one candidate, 2959, was retracted by the broad battery). The only
+   competent navigator on record is hand-built.
+4. Catalog-classification (analysis/ring3_competency/catalog_classify.py): a FORM = functional
+   signature, not name/substrate; tiers = new-form / known-form-NEW-INGRESSION / dup. Per the
+   Platonic refinement, a known competency in a *structurally-distant algorithm* is a genuine data
+   point (another portal), and the set of ingressions reveals the form's GOVERNING DYNAMICS (e.g.
+   navigation requires internal state + goal/obstacle sensing). Its broad battery doubles as the
+   strongest competency verifier we have.
 4. Cost: the LLM agent-observer is a per-system experimental loop (minutes); for a *known*
    competency-face the barrier-test is cheap and programmatic. Random program sampling is sparse
    (1/6000) → **directed search** (evolve toward competency) is what scales.
