@@ -21,30 +21,48 @@ absolute), honoring the h1_max-not-h1_total lesson.
 | 9 | algorithmic compressibility (`compressibility.py`) | LZ76 vs shuffle ratio | random 1.00 vs periodic 0.03 / Thue-Morse 0.11 / rule-90 0.55 |
 | 10 | hyperuniformity / giant fluctuations (`hyperuniformity.py`) | number-variance scaling exponent | hyperuniform 1.16 < poisson 1.62 < clustered 2.26 |
 
-All 10 are COORDINATE lenses (descriptor fingerprint axes), NOT classifiers. Per the lens-addition
-integrity protocol they CANNOT change tripwire leads -> at battery freeze they batch-wire into
-`ring2_descriptor.py` (each self-guards -> None off-substrate) with ONE descriptor re-validation +
-refresh of sweeps on substrates each fires on. NOT yet wired (wiring deferred to freeze, so it
-happens once after the battery is complete, not per-lens).
+## ADMITTED — MEDIUM/LOW + deferred-trio depth (5 more)
 
-## REMAINING before freeze (then hunt once)
+| # | Lens (file) | Discriminator | Validation result |
+|---|---|---|---|
+| 11 | cross-substrate coupling (`cross_substrate.py`) | cross-spectral coherence (joint, zero in marginals) | buried-coupled 0.66 (flat autos) / coupled 0.81 vs independent-patterned 0.21 floor |
+| 12 | multifractal spectrum (`multifractal.py`) | Delta-alpha minus shuffled (surrogate-gated) | cascade 0.61 vs iid-heavytail 0.20 (raw 3.5) vs uniform 0.00 -- closes DENSE-fractal gap |
+| 13 | critical slowing down (`critical_slowing.py`) | early-vs-late variance + AR(1) rise, linear-detrended | approaching var_rise 0.78 vs stationary/drift 0.017 (drift confound defused) |
+| 14 | nonequilibrium current (`nonequilibrium_current.py`) | state-space circulation (broken detailed balance) | directed cycle 0.61 vs standing-osc 0.007 + noise 0.044 |
+| 15 | extreme-value clustering (`extreme_value.py`) | extremal index theta (runs declustering) | iid 0.85 vs clustered 0.27 (same tail weight) |
 
-- **Cross-substrate combination family** (queue MEDIUM): cross-spectrum S_AB(k), closed-loop
-  bidirectional cross-TE, cross-susceptibility -- each provably zero in both marginals. Extends the
-  validated P36/P37 Ring-1 hits. (Largest remaining item.)
-- **Deferred trio — DEPTH revisit with proper methods:**
-  - multifractal spectrum f(alpha) width for DENSE fractals (the deferred `fractal_dimension` gap)
-  - correlation-length / criticality via finite-size scaling (needs varying L)
-  - recurrence via delay-embedding (not surrogate) -- now partly subsumed by `chaos_dimension`;
-    re-assess whether RQA adds anything beyond determinism + 0-1 K.
-- **Critical slowing down** (spun out of #4): AR(1)+variance rise pre-tipping; needs a saddle-node
-  tipping-point positive control to validate honestly.
-- **LOW tier** (queue flagged near-duplicate or needs perturbation): cross-frequency coupling (PAC),
-  nonequilibrium current / entropy production, hierarchical multi-scale, long-range memory (DFA),
-  extreme-value (GEV/extremal index), ageing (two-time). Build the non-duplicate ones; honestly
-  defer those that need an intervention channel passive observation lacks.
+## Deferred trio — RESOLVED (depth)
+- multifractal -> ADMITTED (#12).
+- correlation-length / criticality -> FSS HARNESS `fss_criticality.py` (2D Ising, Binder crossing +
+  chi-peak scaling; CERTIFIED chi_max 8.2->37.5, peak at Tc 2.269). Criticality is a multi-L
+  diagnostic, NOT a single-observation coordinate -- the honest architectural closure.
+- recurrence / RQA -> SUBSUMED by `chaos_dimension` (#8): delay-embedding determinism + 0-1 test
+  capture deterministic-recurrence structure; RQA adds no distinct coordinate. Retired-with-replacement.
 
-## Sequence
-build remaining -> batch-wire ALL admitted into descriptor -> single re-validation (corpus +
-RD/Kuramoto/Lenia, confirm 0 nulls trip / classified holds / leads unchanged) -> FREEZE battery ->
-ONE comprehensive hunt. No hunting until the battery is frozen.
+## LOW tier — honestly DEFERRED with per-item rationale (not built)
+- **long-range memory (DFA Hurst)** -- near-duplicate: H<->MSD-exponent beta (anomalous_transport #6)
+  and 1/f<->spectral lens. No distinct coordinate.
+- **ageing / two-time relaxation (FDT violation)** -- needs many waiting times + a conjugate-field
+  RESPONSE (intervention) passive observation lacks. Fundamentally needs perturbation.
+- **cross-frequency coupling (PAC / bicoherence)** -- high false-positive risk (sharp edges /
+  harmonics mimic coupling); needs waveform-aware surrogates. Revisit only if a candidate system demands it.
+- **hierarchical / nested multi-scale** -- separating genuinely distinct scales from one broad S(k)
+  peak / smooth crossover is ill-posed without clear scale separation (finite-size-adjacent).
+
+## Second tier — non-prioritized MISSING axes (survey synthesis left out of the build queue)
+Genuinely missing but lower priority-vs-validatability per the synthesis; a future build round:
+traveling-wave / space-time (k,omega) dispersion; glassy dynamic heterogeneity (chi_4);
+self-replication / population growth; temporal-network dynamics; slow-fast / canards; stochastic
+& coherence resonance; developmental staging / time-arrow program; open-ended drift / novelty
+generation; the remaining cross-substrate combination sub-cells (one representative built in #11).
+
+## STATUS: prioritized build queue COMPLETE
+15 coordinate lenses ADMITTED + 1 FSS harness + 1 subsumed; 4 LOW honestly deferred w/ rationale;
+deferred trio fully resolved. All 15 are COORDINATE lenses (NOT classifiers) -> per the integrity
+protocol they cannot move tripwire leads. NOT yet wired.
+
+## NEXT PHASE (wire + freeze + hunt)
+batch-wire all 15 into `ring2_descriptor.py` (each self-guards -> None off-substrate) -> ONE
+descriptor re-validation (corpus + particle_life/RD/Kuramoto/Lenia: 0 nulls trip, classified holds,
+leads provably unchanged) -> refresh sweeps on substrates each lens fires on -> FREEZE battery ->
+ONE comprehensive hunt. No hunting until frozen.
