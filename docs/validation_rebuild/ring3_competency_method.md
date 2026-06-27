@@ -217,6 +217,28 @@ LEARNER (evolutionary search of small RNNs) is too weak to produce competencies 
 (greedy collection, basic nav/memory); a capable gradient learner is the prerequisite for a real
 off-map hunt. (torch absent local + VPS; CPU install needed; VPS 8-core/15 GB, no GPU.)
 
+## Phase A — gradient learner (recurrent PPO): the ceiling WAS the learner
+torch 2.12 (CPU) installed on the VPS. `counting_ppo.py`: a recurrent (GRU, H=64) PPO trainer over a
+batched counting env — collect EXACTLY k (supply > k), then goal, with **no oracle** (the running
+count must be internalized in the GRU hidden state). Result over 300 iters (~8 min on the 8-core box):
+exact-k climbed 0.01 → **0.88** (mean count 2.92, target 3), and — the decisive counting test — under
+**doubled supply** it stays at mean count **3.14** (exact-k 0.72): it STOPS at the threshold
+regardless of supply, exactly the test that debunked the evolutionary agent (which drifted to 5–6).
+
+**Decisive:** where evolution (ES + SNES) plateaued at 0.10–0.17 and produced greedy collect-all,
+gradient PPO produces a genuine threshold-stopping counter at 0.88. The diagnosis is confirmed — the
+ceiling was the **learning method** (evolutionary search + local optima), not the optimizer variant,
+the task, or internal counting per se. Two consequences:
+1. **A capable learner is now in hand** for the real off-map hunt → Phase B (open-ended hunt with PPO)
+   is justified and de-risked.
+2. **Counting / ACCUMULATION is now a substrate-produced competency** — a candidate *third state-mode*
+   for the governing-dynamics map (increment-and-threshold, functionally distinct from storage's
+   hold-and-recall), pending rigorous agent-observer verification.
+
+Cost data point: one PPO run is ~8 min on the no-GPU box, so an open-ended PPO sweep is **hours (an
+afternoon), not days** — more tractable than feared. The honest novelty bound is unchanged (counting
+is known to science; it is new only to *our* map).
+
 ## Honest findings
 1. The pipeline works end-to-end and **self-corrects**: it caught its own false positives twice
    (weak-barrier 27→0; then the representation wall). The self-debunking *is* the differentiator
