@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# vps-job — durable long-running job runner for the VPS.
+# Jobs run inside detached tmux sessions, so they survive SSH disconnects and client/session teardowns.
+# Each job records status/exit/timestamps under ~/epc-jobs/<name>/ and is inspectable from any new SSH.
+#
+#   vps-job start <name> <command...>   launch <command> as a detached tmux job
+#   vps-job status [name]               show status of one job, or all jobs
+#   vps-job logs <name> [n]             tail last n lines (default 40) of the job log
+#   vps-job watch <name> [marker]       block until job ends (or 'marker' appears in log), then print tail
+#   vps-job attach <name>               attach to the live tmux session (interactive)
+#   vps-job stop <name>                 kill the job's tmux session
+#   vps-job list                        list known jobs
+#
+# Notes: tmux survives SSH disconnect but NOT a host reboot. For reboot-survival run
+#   `loginctl enable-linger $USER` (needs sudo once) and prefer a systemd --user unit for daemons.
+#   For batch/sweep jobs, make the job itself resumable (checkpoint progress) so a reboot loses <=1 unit.
+set -uo pipefail
+JOBS="$HOME/epc-jobs"; mkdir -p "$JOBS"
+cmd="${1:-help}"; shift 2>/dev/null || true
+
+ses() { echo "vjob-$1"; }
+
+case "$cmd" in
+  start)
+    name="$1"; shift
+    dir="$JOBS/$name"; mkdir -p "$dir"
+    if tmux has-session -t "$(ses "$name")" 2>/dev/null; then
+      echo "job '$name' already running (tmux $(ses "$name")). stop it first."; exit 1; fi
+    : > "$dir/output.log"; echo running > "$dir/status"; date -Iseconds > "$dir/started"
+    rm -f "$dir/ended" "$dir/exit_code"
+    # write the user command to its own script (avoids all nested-quoting pitfalls)
+    printf '%s\n' "$*" > "$dir/cmd.sh"
+    # write the supervising wrapper that captures the exit code + terminal status
+    cat > "$dir/run.sh" <<EOF
+#!/usr/bin/env bash
+bash "$dir/cmd.sh" >> "$dir/output.log" 2>&1
+ec=\$?
+echo "\$ec" > "$dir/exit_code"
+date -Iseconds > "$dir/ended"
+if [ "\$ec" -eq 0 ]; then echo done > "$dir/status"; else echo failed > "$dir/status"; fi
+EOF
+    tmux new-session -d -s "$(ses "$name")" "bash '$dir/run.sh'"
+    echo "started job '$name'  (tmux $(ses "$name"))  log: $dir/output.log"
+    ;;
+  status)
+    if [ $# -ge 1 ]; then names="$*"; else names="$(ls "$JOBS" 2>/dev/null)"; fi
+    [ -z "$names" ] && { echo "no jobs"; exit 0; }
+    for n in $names; do
+      d="$JOBS/$n"; st=$(cat "$d/status" 2>/dev/null || echo '?')
+      alive=$(tmux has-session -t "$(ses "$n")" 2>/dev/null && echo "tmux:alive" || echo "tmux:gone")
+      printf '%-22s %-9s %-12s started=%s ended=%s exit=%s\n' \
+        "$n" "$st" "$alive" "$(cat "$d/started" 2>/dev/null||echo -)" "$(cat "$d/ended" 2>/dev/null||echo -)" "$(cat "$d/exit_code" 2>/dev/null||echo -)"
+    done
+    ;;
+  logs)  tail -n "${2:-40}" "$JOBS/$1/output.log" ;;
+  watch)
+    name="$1"; marker="${2:-}"
+    for i in $(seq 1 720); do
+      [ -f "$JOBS/$name/ended" ] && break
+      [ -n "$marker" ] && grep -q -- "$marker" "$JOBS/$name/output.log" 2>/dev/null && break
+      sleep 10
+    done
+    echo "=== $name ($(cat "$JOBS/$name/status" 2>/dev/null)) ==="; tail -n "${3:-40}" "$JOBS/$name/output.log"
+    ;;
+  attach) tmux attach -t "$(ses "$1")" ;;
+  stop)   tmux kill-session -t "$(ses "$1")" 2>/dev/null && echo "stopped $1" || echo "no live session $1"; echo stopped > "$JOBS/$1/status" 2>/dev/null ;;
+  list)   ls "$JOBS" 2>/dev/null || echo "no jobs" ;;
+  *) sed -n '2,20p' "$0" ;;
+esac

@@ -9,7 +9,7 @@ competency and classify it vs the map {navigation, memory, delayed-grat, regulat
 
 Run on VPS epc-venv: python openworld_ppo.py [--envs 8] [--iters 200] [--seed 11] [--mode open]
 """
-import numpy as np, sys, json, torch, torch.nn as nn
+import numpy as np, sys, json, os, torch, torch.nn as nn
 from openworld import sample_predicate, descr
 
 N = 9; T = 3; PER = 5; MAXT = 70; H = 64
@@ -104,7 +104,21 @@ class Policy(nn.Module):
         return self.pi(out), self.v(out).squeeze(-1), h
 
 
-def run_episode_batch(net, env, recurrent):
+class MLPPolicy(nn.Module):
+    """TRUE memoryless baseline: feedforward, per-timestep, no recurrence -> rollout and update are
+    trivially consistent (the previous GRU-with-recurrent=False baseline was broken: memoryless
+    rollout but recurrent update)."""
+    def __init__(self):
+        super().__init__()
+        self.body = nn.Sequential(nn.Linear(OBS, H), nn.Tanh(), nn.Linear(H, H), nn.Tanh())
+        self.pi = nn.Linear(H, NACT); self.v = nn.Linear(H, 1)
+
+    def forward(self, x, h=None):
+        z = self.body(x)
+        return self.pi(z), self.v(z).squeeze(-1), None
+
+
+def run_episode_batch(net, env):
     B = env.B; obs = env.reset()
     O = np.zeros((B, MAXT, OBS), np.float32); A = np.zeros((B, MAXT), int)
     LP = np.zeros((B, MAXT), np.float32); V = np.zeros((B, MAXT), np.float32)
@@ -113,8 +127,7 @@ def run_episode_batch(net, env, recurrent):
     for t in range(MAXT):
         ot = torch.from_numpy(obs)[:, None, :]
         with torch.no_grad():
-            logit, val, h2 = net(ot, h)
-        h = h2 if recurrent else None
+            logit, val, h = net(ot, h)
         dist = torch.distributions.Categorical(logits=logit[:, 0]); a = dist.sample()
         O[:, t] = obs; A[:, t] = a.numpy(); LP[:, t] = dist.log_prob(a).numpy(); V[:, t] = val[:, 0].numpy()
         ACT[:, t] = (~env.done).astype(np.float32)
@@ -133,22 +146,21 @@ def gae(R, V, TERM, ACT, gamma=0.99, lam=0.95):
     return adv, adv + V
 
 
-def success_rate(net, lits, seed, recurrent, B=400):
+def success_rate(net, lits, seed, B=400):
     env = VecOpen(B, lits, seed); obs = env.reset(); h = None
     for t in range(MAXT):
         with torch.no_grad():
-            logit, _, h2 = net(torch.from_numpy(obs)[:, None, :], h)
-        h = h2 if recurrent else None
+            logit, _, h = net(torch.from_numpy(obs)[:, None, :], h)
         a = logit[:, 0].argmax(1).numpy(); obs, r, term, _ = env.step(a)
     return float(((env.done) & (env.frac >= 0.999)).mean())
 
 
-def train(lits, recurrent, iters, seed, B=256):
-    torch.manual_seed(seed); net = Policy(); opt = torch.optim.Adam(net.parameters(), lr=3e-3)
+def train(lits, net_cls, iters, seed, B=256):
+    torch.manual_seed(seed); net = net_cls(); opt = torch.optim.Adam(net.parameters(), lr=3e-3)
     env = VecOpen(B, lits, seed)
     for it in range(iters):
         env.__init__(B, lits, 1000 + seed * 9999 + it)
-        O, A, LP, V, R, TERM, ACT = run_episode_batch(net, env, recurrent)
+        O, A, LP, V, R, TERM, ACT = run_episode_batch(net, env)
         adv, ret = gae(R, V, TERM, ACT); m = ACT.sum()
         mean = (adv * ACT).sum() / m; std = np.sqrt(((adv - mean) ** 2 * ACT).sum() / m) + 1e-8
         adv = (adv - mean) / std
@@ -172,19 +184,26 @@ if __name__ == "__main__":
     iters = int(a[a.index("--iters") + 1]) if "--iters" in a else 200
     mode = a[a.index("--mode") + 1] if "--mode" in a else "open"
     rmeta = np.random.default_rng(int(a[a.index("--seed") + 1]) if "--seed" in a else 11)
-    here = __file__.rsplit("/", 1)[0]; results = []
-    print(f"PHASE B open-ended PPO hunt: {nenv} envs, iters={iters}, mode={mode}, PER={PER}", flush=True)
+    here = __file__.rsplit("/", 1)[0]; out = f"{here}/openworld_ppo_sweep.json"
+    # RESUMABLE: reload completed envs so a crash/reboot loses <=1 env; checkpoint after each env.
+    prior = {r["env"]: r for r in json.load(open(out))} if os.path.exists(out) else {}
+    results = []
+    print(f"PHASE B open-ended PPO hunt: {nenv} envs, iters={iters}, mode={mode}, PER={PER} "
+          f"(resuming: {sorted(prior)} cached)", flush=True)
     for e in range(nenv):
-        lits = sample_predicate(rmeta, mode=mode)
-        ppo = train(lits, True, iters, 10 + e)
-        mem = train(lits, False, iters, 100 + e)
-        ps = success_rate(ppo, lits, 500 + e, True); ms = success_rate(mem, lits, 600 + e, False)
+        lits = sample_predicate(rmeta, mode=mode)              # advance rng every env to keep predicates aligned
+        if e in prior:
+            results.append(prior[e]); print(f"env {e}: (cached) {prior[e]['pred']}", flush=True); continue
+        ppo = train(lits, Policy, iters, 10 + e)
+        mem = train(lits, MLPPolicy, iters, 100 + e)
+        ps = success_rate(ppo, lits, 500 + e); ms = success_rate(mem, lits, 600 + e)
         dem = ps >= 0.6 and (ps - ms) >= 0.25
         if dem: torch.save(ppo.state_dict(), f"{here}/openworld_ppo_env{e}.pt")
         results.append({"env": e, "pred": descr(lits), "lits": lits, "ppo": round(ps, 2), "mem": round(ms, 2),
                         "gap": round(ps - ms, 2), "demanding": dem})
+        json.dump(results, open(out, "w"), indent=1)           # checkpoint after EACH env
         print(f"env {e}: {descr(lits):44s} PPO {ps:.2f}  memoryless {ms:.2f}  gap {ps - ms:+.2f}  {'DEMANDING' if dem else ''}", flush=True)
     dem = [x for x in results if x["demanding"]]
     print(f"\n{len(dem)}/{nenv} environments DEMAND competency (PPO>=0.6 AND gap>=0.25): {[x['env'] for x in dem]}", flush=True)
-    json.dump(results, open(f"{here}/openworld_ppo_sweep.json", "w"), indent=1)
+    json.dump(results, open(out, "w"), indent=1)
     print("saved openworld_ppo_sweep.json", flush=True)
