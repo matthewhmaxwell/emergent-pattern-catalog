@@ -66,12 +66,14 @@ class VecMeta:
         newp = self.pos + DIRS[act]
         inb = (newp[:, 0] >= 0) & (newp[:, 0] < N) & (newp[:, 1] >= 0) & (newp[:, 1] < N)
         self.pos = np.where(inb[:, None], newp, self.pos)
-        rew = np.full(B, -0.02); self.last_t = -np.ones(B, int); self.last_r = np.zeros(B)
+        rew = np.full(B, -0.01); self.last_t = -np.ones(B, int); self.last_r = np.zeros(B)
         on = (self.obj == self.pos[:, None, :]).all(2) & self.alive
         for b in np.where(on.any(1))[0]:
             j = np.where(on[b])[0][0]; t = self.otype[b, j]; self.alive[b, j] = False
             good = (t == self.g[b])
-            rew[b] += 1.0 if good else -1.0
+            # bad penalty kept SMALL (-0.3) so exploring-then-exploiting beats abstaining; the
+            # feedback SIGN stays full (+1/-1) so inference is still possible from last_r.
+            rew[b] += 1.0 if good else -0.3
             self.last_t[b] = t; self.last_r[b] = 1.0 if good else -1.0
             if good: self.good[b] += 1
             else: self.bad[b] += 1
@@ -133,9 +135,12 @@ def evaluate(net, rule, seed, B=400):
     return prec, float(net_r.mean())
 
 
-def train(rule, net_cls, iters, seed, B=256):
+def train(rule, net_cls, iters, seed, B=256, progress=False):
     torch.manual_seed(seed); net = net_cls(); opt = torch.optim.Adam(net.parameters(), lr=3e-3)
     for it in range(iters):
+        if progress and (it % 150 == 0 or it == iters - 1):
+            pp, pr = evaluate(net, rule, 777)
+            print(f"    [{rule}] iter {it:>3}: prec {pp:.2f} netR {pr:+.1f}", flush=True)
         env = VecMeta(B, rule, 1000 + seed * 9999 + it)
         O, A, LP, V, R = rollout(net, env)
         adv, ret = gae(R, V); adv = (adv - adv.mean()) / (adv.std() + 1e-8)
@@ -161,7 +166,7 @@ if __name__ == "__main__":
     for i, rule in enumerate(rules):
         if rule in prior:
             results.append(prior[rule]); print(f"{rule}: (cached)", flush=True); continue
-        ppo = train(rule, Policy, iters, 10 + i)
+        ppo = train(rule, Policy, iters, 10 + i, progress=True)
         mem = train(rule, MLPPolicy, iters, 200 + i)
         pp, pr = evaluate(ppo, rule, 500); mp, mr = evaluate(mem, rule, 600)
         dem = pp >= 0.6 and (pp - mp) >= 0.2
