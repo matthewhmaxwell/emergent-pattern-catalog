@@ -25,7 +25,7 @@ def traced(net, lits, seed, remove=None, double=False, hidegoal=0):
         for _ in range(per):
             objs.append([idx[k] % W.N, idx[k] // W.N, t, True]); k += 1
     goal = (idx[k] % W.N, idx[k] // W.N); start = (idx[k + 1] % W.N, idx[k + 1] // W.N)
-    objs = np.array([[o[0], o[1]] for o in objs]); otype = np.array([o[2] for o in objs])
+    otype = np.array([o[2] for o in objs]); objs = np.array([[o[0], o[1]] for o in objs])
     alive = np.ones(len(objs), bool)
     p = list(start); h = None; counts = np.zeros(W.T, int); first = -np.ones(W.T, int)
     touches = []; just = -1; goal_step = None; success = 0

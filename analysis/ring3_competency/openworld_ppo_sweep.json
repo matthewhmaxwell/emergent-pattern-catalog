@@ -1,0 +1,147 @@
+[
+ {
+  "env": 0,
+  "pred": "count(t2)>=2",
+  "lits": [
+   [
+    "count",
+    2,
+    2
+   ]
+  ],
+  "ppo": 0.96,
+  "mem": 0.94,
+  "gap": 0.02,
+  "demanding": false
+ },
+ {
+  "env": 1,
+  "pred": "t0-before-t1 AND count(t1)>=3",
+  "lits": [
+   [
+    "order",
+    0,
+    1
+   ],
+   [
+    "count",
+    1,
+    3
+   ]
+  ],
+  "ppo": 0.72,
+  "mem": 0.1,
+  "gap": 0.62,
+  "demanding": true
+ },
+ {
+  "env": 2,
+  "pred": "count(t1)>=2 AND collect(t0,t1,t2)",
+  "lits": [
+   [
+    "count",
+    1,
+    2
+   ],
+   [
+    "collect",
+    [
+     0,
+     1,
+     2
+    ]
+   ]
+  ],
+  "ppo": 0.79,
+  "mem": 0.57,
+  "gap": 0.22,
+  "demanding": false
+ },
+ {
+  "env": 3,
+  "pred": "t0-before-t1",
+  "lits": [
+   [
+    "order",
+    0,
+    1
+   ]
+  ],
+  "ppo": 0.86,
+  "mem": 0.49,
+  "gap": 0.38,
+  "demanding": true
+ },
+ {
+  "env": 4,
+  "pred": "collect(t0,t2)",
+  "lits": [
+   [
+    "collect",
+    [
+     0,
+     2
+    ]
+   ]
+  ],
+  "ppo": 0.92,
+  "mem": 0.92,
+  "gap": 0.0,
+  "demanding": false
+ },
+ {
+  "env": 5,
+  "pred": "count(t1)==3 AND collect(t0,t1,t2)",
+  "lits": [
+   [
+    "exact",
+    1,
+    3
+   ],
+   [
+    "collect",
+    [
+     0,
+     1,
+     2
+    ]
+   ]
+  ],
+  "ppo": 0.41,
+  "mem": 0.05,
+  "gap": 0.36,
+  "demanding": false
+ },
+ {
+  "env": 6,
+  "pred": "count(t1)==3",
+  "lits": [
+   [
+    "exact",
+    1,
+    3
+   ]
+  ],
+  "ppo": 0.79,
+  "mem": 0.14,
+  "gap": 0.65,
+  "demanding": true
+ },
+ {
+  "env": 7,
+  "pred": "collect(t1,t2)",
+  "lits": [
+   [
+    "collect",
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "ppo": 0.8,
+  "mem": 0.92,
+  "gap": -0.12,
+  "demanding": false
+ }
+]
