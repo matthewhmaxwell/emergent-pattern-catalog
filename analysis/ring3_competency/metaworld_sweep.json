@@ -1,0 +1,29 @@
+[
+ {
+  "rule": "cued",
+  "ppo_prec": 0.85,
+  "ppo_netR": 3.3,
+  "mem_prec": 0.33,
+  "mem_netR": 0.8,
+  "gap": 0.52,
+  "demanding": true
+ },
+ {
+  "rule": "infer",
+  "ppo_prec": 0.71,
+  "ppo_netR": 3.0,
+  "mem_prec": 0.38,
+  "mem_netR": 1.2,
+  "gap": 0.34,
+  "demanding": true
+ },
+ {
+  "rule": "switch",
+  "ppo_prec": 0.81,
+  "ppo_netR": 7.4,
+  "mem_prec": 0.47,
+  "mem_netR": 3.0,
+  "gap": 0.34,
+  "demanding": true
+ }
+]

@@ -26,8 +26,10 @@ torch.set_num_threads(8)
 
 
 class VecMeta:
-    def __init__(self, B, rule, seed):
+    def __init__(self, B, rule, seed, ablate_fb=False, flip_at=None):
         self.B, self.rule = B, rule
+        self.ablate_fb = ablate_fb      # zero the reward-feedback channel (debunk: kills genuine inference)
+        self.flip_at = flip_at          # resample the good type at this step (debunk: tests re-adaptation)
         self.rng = np.random.default_rng(seed); self.S = T * PER
         self.otype = np.tile(np.repeat(np.arange(T), PER), (B, 1))
         self.reset()
@@ -55,7 +57,7 @@ class VecMeta:
         for b in range(B):
             if self.last_t[b] >= 0: out[b, o + self.last_t[b]] = 1.0
         o += T
-        out[:, o] = self.last_r; o += 1
+        out[:, o] = 0.0 if self.ablate_fb else self.last_r; o += 1
         if self.rule == "cued" and self.step_i == 0:
             for b in range(B): out[b, o + self.g[b]] = 1.0      # cue: good type, t=0 only
         o += T
@@ -63,6 +65,8 @@ class VecMeta:
 
     def step(self, act):
         B = self.B
+        if self.flip_at is not None and self.step_i == self.flip_at:
+            self.g = (self.g + 1) % T                           # flip the good type mid-episode
         newp = self.pos + DIRS[act]
         inb = (newp[:, 0] >= 0) & (newp[:, 0] < N) & (newp[:, 1] >= 0) & (newp[:, 1] < N)
         self.pos = np.where(inb[:, None], newp, self.pos)
