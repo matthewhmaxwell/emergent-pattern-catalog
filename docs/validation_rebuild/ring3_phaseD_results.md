@@ -68,3 +68,43 @@ resource** (both want one high-value goal; collision penalised) — forces genui
 negotiation that neither a shared deterministic rule nor passive observation can solve. That is the next
 place a multi-agent competency might resist every name in the literature. (It also requires fixing the
 private-target-navigation tooling gap, or using D1-style asymmetric roles.)
+
+## D3 — symmetry-breaking under contest (`contest_ppo.py`)
+The probe built to defeat both shortcuts: ANONYMOUS agents (no id), one HIGH goal (+2) vs two LOW (+0.5),
+both-high collides (−1), shared team reward. To win, who-takes-high must be decided WITHOUT id and WITHOUT
+a trivially-shared rule. 1000 iters:
+| metric | normal | chan-scramble | blind-partner |
+|---|---|---|---|
+| capture (one-on-high) | **0.63** | 0.65 | **0.14** |
+| collision (both-high) | 0.02 | 0.01 | 0.16 |
+
+**Result — genuine but KNOWN.** The agents resolve the contest by **breaking symmetry on relative
+position**: collision is driven to 0.02, and the resolution is partner-geometry-dependent (blind collapses
+capture 0.63→0.14 and raises collision) and NOT communication (scramble-invariant). This is exactly
+**contest resolution via an uncorrelated asymmetry** — Maynard Smith's "Bourgeois" convention (evolutionary
+game theory, 1973). KNOWN → **0 new-to-science**. It is also only *partial* (capture 0.63: they are
+over-cautious, often both yielding so nobody claims high) — a sub-optimal Bourgeois convention, not a new
+competency.
+
+## Honest pattern across A–D (now including the forced-novelty probe)
+Every probe — object-level (counting, memory, sequencing), meta-level (rule inference/tracking), and
+multi-agent (communication, role-division, and now Bourgeois contest-resolution) — has produced a GENUINE,
+verified competency that the literature already names. D3 is the sharpest evidence yet: a setup designed
+specifically to *force* something unnamed still landed on a classical game-theory convention, because the
+agents find the MINIMAL mechanism that solves the task, and minimal-competency space is densely mapped by
+science (ethology, control theory, game theory, ML). This is an empirical observation across ~8 probes, not
+an extrapolation. The instrument works (genuine discovery + correct classification + 8+ self-caught
+over-claims); the new-to-science target is genuinely hard for a reason we can now state: **simple,
+minimal competencies are exactly the ones science has already catalogued.**
+
+## Genuine remaining levers (a real fork, honestly stated)
+1. **Force the channel** — remove the geometric asymmetry too (give both agents identical relative info),
+   so the ONLY symmetry-breaker is the channel → forces *negotiated* turn-taking between truly symmetric
+   agents (harder; may need stochastic protocols). Iterated contests could surface a *fairness/alternation
+   norm* (richer than Bourgeois).
+2. **Scale / complexity** — 3+ agents, iterated interaction, open-ended artifacts (tool construction),
+   where *combinations* might exceed any single named competency. The genuine but expensive lever.
+3. **Consolidate** — the validated instrument + a competency map spanning object/meta/multi-agent levels +
+   a rigorous, well-evidenced account of why minimal competencies are all known, is a strong, honest,
+   publishable contribution on its own.
+
