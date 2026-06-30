@@ -1,0 +1,34 @@
+[
+ {
+  "task": "referential",
+  "success": 0.34,
+  "scrambled": 0.33,
+  "blind": 0.32,
+  "uses_comms": false,
+  "uses_partner": false
+ },
+ {
+  "task": "coordination",
+  "success": 1.0,
+  "scrambled": 1.0,
+  "blind": 1.0,
+  "uses_comms": false,
+  "uses_partner": false
+ },
+ {
+  "task": "role_div",
+  "success": 0.99,
+  "scrambled": 1.0,
+  "blind": 0.44,
+  "uses_comms": false,
+  "uses_partner": true
+ },
+ {
+  "task": "independent",
+  "success": 0.34,
+  "scrambled": 0.33,
+  "blind": 0.32,
+  "uses_comms": false,
+  "uses_partner": false
+ }
+]

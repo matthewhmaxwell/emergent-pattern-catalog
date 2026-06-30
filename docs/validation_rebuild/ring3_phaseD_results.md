@@ -31,3 +31,40 @@ adversarial/deception variants; with/without a channel), train joint PPO, and ha
 NAME whatever multi-agent competency emerges (debunk via channel-ablation / role-swap / partner-swap),
 classify vs the map or flag OFF-MAP, literature-gate any survivor. This is where the qualitatively
 larger competency space actually gets searched for something not nameable in the existing literature.
+
+## D2 — open-ended multi-agent sweep (`commhunt_ppo.py`)
+Generator over 2-mobile-agent task structures; shared dual-head (move+symbol) policy; joint PPO;
+discriminators = channel-scramble (collapse ⇒ uses COMMUNICATION) and blind-partner (collapse ⇒ uses
+the PARTNER). 800 iters/task:
+| task | success | scramble | blind | reading |
+|---|---|---|---|---|
+| referential | 0.34 | 0.33 | 0.32 | **under-solved** (chance) |
+| coordination | 1.00 | 1.00 | 1.00 | shared **Schelling convention** — no real multi-agent demand |
+| role_div | 0.99 | 1.00 | **0.44** | **GENUINE partner-dependent coordination** |
+| independent | 0.34 | 0.33 | 0.32 | **under-solved** (chance) |
+
+**The genuine finding — `role_div`:** scramble-invariant (not communication) but blind-partner collapses
+it 0.99→0.44, so the agents genuinely **observe each other's positions and split roles** (anti-coordinate
+by mutual adjustment). A real multi-agent competency, verified by the discriminating ablation, and
+*distinct* from D1's communication (this one rides on observation, not the channel).
+
+**Honest caveats:** `coordination` confirmed the Schelling-convention prediction (both head to the same
+goal-index — no interaction needed; both ablations leave it at 1.00). `referential` and `independent`
+stalled at chance: both require **private-target-conditioned navigation** (select the goal matching a
+private color), which the shared 2-mobile-agent policy did not learn in budget — a tooling/difficulty
+gap, not a comms-impossible result (D1 already established genuine communication in the clean
+speaker–listener setup).
+
+**Classification + bound:** role-division / mutual-adjustment is KNOWN (MARL role allocation) → **0
+new-to-science**, a Tier-2 multi-agent face. Across D1+D2 the richer world has now yielded two genuine,
+verified multi-agent competencies (communication; partner-dependent role-division), cleanly separated by
+the scramble-vs-blind discriminators — empirically refuting the retracted "low odds" claim that the
+richer world wouldn't produce qualitatively new competency classes.
+
+**Next (toward off-map) — defeat the easy shortcuts:** both ways results stayed *known* are escapable by
+**shared conventions** (coordination) or **simple mutual observation** (role_div). A probe designed to
+defeat both — **anonymous agents** (remove the agent-id that lets them pre-split) with a **contested
+resource** (both want one high-value goal; collision penalised) — forces genuine symmetry-breaking /
+negotiation that neither a shared deterministic rule nor passive observation can solve. That is the next
+place a multi-agent competency might resist every name in the literature. (It also requires fixing the
+private-target-navigation tooling gap, or using D1-style asymmetric roles.)
