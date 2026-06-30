@@ -1,0 +1,1 @@
+{"normal": {"eff": 0.93, "fairness": 0.98, "alt": 0.96}, "scramble": {"eff": 0.93, "fairness": 0.98, "alt": 0.96}, "memwipe": {"eff": 0.88, "fairness": 0.97, "alt": 0.91}, "uses_comms": false, "uses_memory": false, "fair_norm": true}

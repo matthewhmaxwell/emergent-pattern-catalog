@@ -86,14 +86,34 @@ game theory, 1973). KNOWN → **0 new-to-science**. It is also only *partial* (c
 over-cautious, often both yielding so nobody claims high) — a sub-optimal Bourgeois convention, not a new
 competency.
 
-## Honest pattern across A–D (now including the forced-novelty probe)
+## D4 — forced negotiation / emergent fairness (`fairness_ppo.py`)
+Removed the geometric asymmetry entirely: an abstract ITERATED contest between two FULLY SYMMETRIC agents
+(shared recurrent policy, identical obs), selfish per-agent payoff (claim → +2 / +0.5; both-claim → −1;
+iterated Hawk–Dove over 14 rounds). With no id and no geometry, the only symmetry-breakers are the channel
+or memory.
+- Greedy (deterministic) play: efficiency 0.00 — confirming the **symmetry-breaking obstruction** (a
+  theorem: symmetric agents cannot coordinate deterministically without an asymmetry/correlation device).
+- Stochastic play: **EMERGENT FAIR ALTERNATION** — efficiency 0.93, fairness 0.98, flip-rate 0.96 (each
+  round exactly one claims; the prize split ~50/50). A genuine self-organized **fairness norm** from
+  symmetric selfishness.
+- Mechanism (ablations): channel-scramble 0.93 (NOT communication) AND memory-wipe 0.88 (NOT deep memory).
+  The agents found an even simpler rule than designed for — **reactive anti-coordination**: flip my own
+  last action, and the partner's last action (in my observation) keeps us out of phase, bootstrapped by a
+  stochastic first round. A known repeated-game alternation/turn-taking equilibrium → **0 new-to-science**.
+
+D4's twist sharpens the whole story: a probe built to *force* negotiation through the channel was solved by
+the agents with a minimal reactive last-action rule — not the channel, not deep memory. They keep finding
+the simplest mechanism, and the simplest mechanism is always named.
+
+## Honest pattern across A–D (now including TWO probes built to force novelty)
 Every probe — object-level (counting, memory, sequencing), meta-level (rule inference/tracking), and
-multi-agent (communication, role-division, and now Bourgeois contest-resolution) — has produced a GENUINE,
-verified competency that the literature already names. D3 is the sharpest evidence yet: a setup designed
-specifically to *force* something unnamed still landed on a classical game-theory convention, because the
-agents find the MINIMAL mechanism that solves the task, and minimal-competency space is densely mapped by
-science (ethology, control theory, game theory, ML). This is an empirical observation across ~8 probes, not
-an extrapolation. The instrument works (genuine discovery + correct classification + 8+ self-caught
+multi-agent (communication, role-division, Bourgeois contest-resolution, emergent fair-alternation) — has
+produced a GENUINE, verified competency that the literature already names. The two probes designed
+specifically to *force* something unnamed — D3 (anonymous contested resource) and D4 (symmetric forced
+negotiation) — BOTH still landed on classical results (uncorrelated-asymmetry resolution; repeated-game
+turn-taking), because the agents find the MINIMAL mechanism that solves the task, and minimal-competency
+space is densely mapped by science (ethology, control theory, game theory, ML). This is an empirical
+observation across ~9 probes, not an extrapolation. The instrument works (genuine discovery + correct classification + 8+ self-caught
 over-claims); the new-to-science target is genuinely hard for a reason we can now state: **simple,
 minimal competencies are exactly the ones science has already catalogued.**
 
