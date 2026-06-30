@@ -42,7 +42,9 @@ class Listener(nn.Module):
 
 def episode(spk, lis, B, seed, greedy=False, scramble=False, countablate=False, dropslot=None):
     rng = np.random.default_rng(seed)
-    bits = (rng.random((B, K)) < 0.5).astype(np.float32); count = bits.sum(1).astype(int)
+    count = rng.integers(0, K + 1, size=B)                 # UNIFORM count 0..K -> 1-bit code caps at chance-ish,
+    order = rng.random((B, K)).argsort(1)                  # forcing a multi-slot (compositional) code for reward
+    bits = (order < count[:, None]).astype(np.float32)
     stin = bits.copy()
     if countablate: stin = np.zeros_like(bits)            # speaker sees nothing -> cannot count
     stream = np.zeros((B, K, 2), np.float32); stream[:, :, 1] = stin; stream[:, :, 0] = 1 - stin
