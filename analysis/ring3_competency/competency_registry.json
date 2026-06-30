@@ -63,6 +63,11 @@
      "state_required": "n/a", "state_content": "EXTERNALIZED -- a shared trail field in the WORLD (not internal state)", "mechanism": "2 blind agents (no channel, no mutual obs) read+write a shared mark trail to forage; they read the PARTNER's trail to divide territory",
      "diagnostic_perturbation": "no-trail -> 1.4/12 (collapse); OWN-trail-only -> 5.7 vs combined 8.1 (partner's trail matters = inter-agent); overlap falls 5.5->3.4 over training", "metric": "8.1/12 food (combined); inter-agent verified",
      "reached_by": ["joint-PPO (2 blind agents)"], "failed_by": ["no-trail (no medium -> cannot coordinate)"], "lit_name": "stigmergy (Grasse 1959) / swarm foraging", "gate": "known",
-     "note": "EXTERNALIZED state: the coordination memory lives in the ENVIRONMENT (the trail), not the agents -- a qualitatively distinct option for the what-state-holds ladder (#4): state can be in-the-world, not in-the-agent. Third distinct multi-agent COORDINATION MEDIUM after symbol-channel (#10) and direct-observation (#11)."}
+     "note": "EXTERNALIZED state: the coordination memory lives in the ENVIRONMENT (the trail), not the agents -- a qualitatively distinct option for the what-state-holds ladder (#4): state can be in-the-world, not in-the-agent. Third distinct multi-agent COORDINATION MEDIUM after symbol-channel (#10) and direct-observation (#11)."},
+    {"id": 16, "name": "tool use / instrumental construction", "level": "object", "probe": "tool_ppo", "commit": "f3f4ec3",
+     "state_required": true, "state_content": "instrumental sub-goal (modify the world to enable the goal)", "mechanism": "push a block into an impassable gap to build a bridge, then cross -- the goal is unreachable without first constructing the bridge (a non-rewarding sub-goal)",
+     "diagnostic_perturbation": "NO-block control -> 0.00 (goal physically unreachable without modifying the environment)", "metric": "0.49 with-block (genuine, partial) vs 0.00 no-block",
+     "reached_by": ["gradient-PPO"], "failed_by": ["no-block (goal unreachable)"], "lit_name": "tool use / instrumental construction (Koehler; means-ends)", "gate": "known",
+     "note": "Cleanest DEMAND in the arc (no-block control is exactly 0.00). Like stigmergy (#15) the agent writes to the WORLD, but here for SELF-benefit (niche construction) not coordination -> the externalized-state axis (#7 in the commonality hunt) spans coordination AND self-instrumental cases."}
   ]
 }
