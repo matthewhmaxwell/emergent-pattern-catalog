@@ -58,6 +58,11 @@
      "state_required": true, "state_content": "accumulation + shared compositional code", "mechanism": "speaker counts an item-stream then encodes the count in a 3-slot/2-symbol COMPOSITIONAL message; listener decodes the joint pattern",
      "diagnostic_perturbation": "count-ablate -> chance AND channel-scramble -> chance (BOTH); per-slot drop shows 3/3 slots informative (compositional)", "metric": "0.84 (chance 0.17); compositional 3/3",
      "reached_by": ["joint-PPO (uniform counts force >1-bit)"], "failed_by": ["single-symbol code (peaked counts -> 1-bit suffices -> 0.63 non-compositional)"], "lit_name": "emergent compositional communication / numeral system", "gate": "known",
-     "note": "FIRST broken minimal-mechanism case: compositional structure emerges ONLY when a single minimal mechanism is insufficient for reward (peaked counts -> 1 bit -> single-symbol; uniform counts -> compositional). The minimal->compositional transition is dial-able by sufficiency-pressure."}
+     "note": "FIRST broken minimal-mechanism case: compositional structure emerges ONLY when a single minimal mechanism is insufficient for reward (peaked counts -> 1 bit -> single-symbol; uniform counts -> compositional). The minimal->compositional transition is dial-able by sufficiency-pressure."},
+    {"id": 15, "name": "stigmergy (environment-mediated coordination)", "level": "multi-agent", "probe": "stigmergy_ppo", "commit": "b3c907a",
+     "state_required": "n/a", "state_content": "EXTERNALIZED -- a shared trail field in the WORLD (not internal state)", "mechanism": "2 blind agents (no channel, no mutual obs) read+write a shared mark trail to forage; they read the PARTNER's trail to divide territory",
+     "diagnostic_perturbation": "no-trail -> 1.4/12 (collapse); OWN-trail-only -> 5.7 vs combined 8.1 (partner's trail matters = inter-agent); overlap falls 5.5->3.4 over training", "metric": "8.1/12 food (combined); inter-agent verified",
+     "reached_by": ["joint-PPO (2 blind agents)"], "failed_by": ["no-trail (no medium -> cannot coordinate)"], "lit_name": "stigmergy (Grasse 1959) / swarm foraging", "gate": "known",
+     "note": "EXTERNALIZED state: the coordination memory lives in the ENVIRONMENT (the trail), not the agents -- a qualitatively distinct option for the what-state-holds ladder (#4): state can be in-the-world, not in-the-agent. Third distinct multi-agent COORDINATION MEDIUM after symbol-channel (#10) and direct-observation (#11)."}
   ]
 }

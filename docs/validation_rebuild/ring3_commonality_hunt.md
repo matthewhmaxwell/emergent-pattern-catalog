@@ -72,6 +72,20 @@ directly testable. Two concrete Track-2 experiments now queued: (a) the **reacha
 (b) the **compositionality-transition sweep** (#6: vary count distribution peaked→uniform, locate the
 threshold, test sharpness/lawfulness). Both literature-gated hard before any claim.
 
+7. **Where the state lives — internalized vs EXTERNALIZED (from stigmergy #15).** The what-state-holds
+   ladder (#4) implicitly assumed state is *inside the agent*. Stigmergy is a clean counter-case: the
+   coordination "memory" lives in the **environment** (the shared trail), not the agents — verified
+   inter-agent (own-trail-only 5.7 < combined 8.1; no-trail 1.4). So the ladder needs a prior axis: *is
+   the task-relevant state held in the agent or in the world?* Externalized state (stigmergy, niche
+   construction) is a recognized idea (extended mind / extended phenotype), but as a *coordinate* on the
+   competency map — orthogonal to the state-content ladder — it sharpens the taxonomy.
+8. **A taxonomy of coordination MEDIA (multi-agent cluster).** The three genuine multi-agent coordination
+   competencies use three distinct media: a symbol **channel** (#10 communication), direct **observation**
+   of the partner (#11 role-division, #12 contest), and the **environment** (#15 stigmergy). Each is
+   isolated by a *different* ablation (channel-scramble / blind-partner / no-trail). "Coordination via
+   channel vs observation vs stigmergy" is a known distinction in the literature, but the clean
+   ablation-separable 3-way decomposition in one framework is a tidy structural result.
+
 **Next concrete step (Track 2):** rigorously test #5. Take 3–4 competencies spanning the state-content
 ladder (memory → counting → sequencing → rule-inference) and run EACH through the SAME battery of learners
 {FSM-mutation, OpenAI-ES, SNES, gradient PPO} on matched tasks, measuring the reachability threshold per
