@@ -73,12 +73,20 @@ compass working: it converts "diminishing returns" into a *specific* finish line
 either (a) add new kinds → the search was NOT saturated (keep going), or (b) recur to known / negative →
 saturation CONFIRMED and we can declare comprehensive-at-toy-scale with all 5 signals satisfied.
 
-## Guided next search (in priority order)
+## UPDATE — gap #2 probed (reputation, #17): the audit found genuine uncovered ground
+Reputation/indirect-reciprocity (registry #17) came back GENUINE (discrimination 0.92; anonymize→0.50 AND
+memory-wipe→0.50, so it needs *who* + *accumulated history*). Crucially it **ADDED A NEW KIND**: a 4th
+coordination MEDIUM (channel / observation / environment / **social-memory**, completing axis D) and a new
+state-content type (a structured *reputation map over other agents*). So outcome (a) held — **the search
+was NOT saturated**, and the audit prevented a premature "comprehensive" claim. This is the compass earning
+its keep: a probe we'd otherwise have skipped (diminishing-returns intuition) found real new ground. Known
+to science (Nowak & Sigmund) → 0 new-to-science. Saturation signal #2 is therefore RESET — the curve is not
+flat; two named cells remain.
+
+## Guided next search (remaining, in priority order)
 1. **Abstraction / systematic generalization** — train a relational rule on a colour subset, test on
    held-out colours; the train→test generalization gap is the competency. Distinct, clean, untouched.
-2. **Reputation / indirect reciprocity** — iterated game where an agent tracks a partner's past honesty
-   and conditions cooperation on it; completes coordination-medium axis D AND tests whether reputation
-   stabilizes the deception that minimal signaling could not.
+2. ~~Reputation / indirect reciprocity~~ — DONE (#17, genuine, added a new kind; gap filled).
 3. **Imitation / social learning** — learner reaches a hidden goal only by copying a demonstrator;
    demonstrator-ablation is the diagnostic.
 Each is logged to the registry. After these three, the saturation curve + red-team + expressivity bound +
