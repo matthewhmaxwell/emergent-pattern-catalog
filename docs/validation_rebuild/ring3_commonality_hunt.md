@@ -49,12 +49,28 @@ must survive the literature gate (most regularities are already named).
    existing named law. (Learning-theory has hardness results, but an empirical reachability map of
    *emergent competencies across optimizers*, tied to a state-content ladder, is not a thing I can name.)
 
+6. **★ Sufficiency-pressure / minimal→compositional transition (NEW, from the composition probe #14).**
+   The "minimal-mechanism" law (#1) is sharper than "agents find the simplest rule": **agents find the
+   minimal SUFFICIENT mechanism, and compositional structure emerges ONLY when no single minimal mechanism
+   is sufficient for reward.** Demonstrated *causally + reversibly* with one dial: in the count→communicate
+   probe, peaked (Binomial) counts make a 1-bit code sufficient → the agent uses a single non-compositional
+   symbol (0.63, 1/3 slots informative); uniform counts make 1 bit insufficient → a fully **compositional**
+   3-slot code emerges (0.84, 3/3 slots). So compositionality is not a property of the agent or the task
+   alone but a function of **sufficiency-pressure**, and it is *controllable*. Open, measurable question:
+   **is the minimal→compositional transition a sharp PHASE TRANSITION in sufficiency-pressure, with a
+   lawful threshold, measurable uniformly across the corpus (not just language)?** Compositionality-
+   emergence *conditions* are studied in emergent-comms, but a phase-transition law parameterized by a
+   sufficiency-pressure dial, as a general property of emergent competency, is a candidate I cannot name.
+
 ## Verdict + plan
-Most candidate regularities are KNOWN (simplicity bias, POMDP, causal intervention). The two that may be
-genuinely under-named are **#4 (what-state-holds ladder)** and especially **#5 (substrate-reachability
-ordering of a substrate-invariant form)** — and they may be the same law viewed two ways: *the more
-abstract the state-content a competency requires, the stronger the optimizer needed to ingress its (fixed,
-Platonic) form.*
+Most candidate regularities are KNOWN (simplicity bias, POMDP, causal intervention). The candidates that
+may be genuinely under-named: **#4 (what-state-holds ladder)**, **#5 (substrate-reachability ordering)**,
+and **#6 (sufficiency-pressure / compositionality phase-transition)**. #4 and #5 may be one law (*more
+abstract state-content ⇒ stronger optimizer needed to ingress the fixed Platonic form*); #6 is the newest
+and the only one demonstrated *causally and reversibly* with a controllable dial — making it the most
+directly testable. Two concrete Track-2 experiments now queued: (a) the **reachability battery** (#5), and
+(b) the **compositionality-transition sweep** (#6: vary count distribution peaked→uniform, locate the
+threshold, test sharpness/lawfulness). Both literature-gated hard before any claim.
 
 **Next concrete step (Track 2):** rigorously test #5. Take 3–4 competencies spanning the state-content
 ladder (memory → counting → sequencing → rule-inference) and run EACH through the SAME battery of learners

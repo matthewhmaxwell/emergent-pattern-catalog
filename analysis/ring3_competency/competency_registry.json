@@ -53,6 +53,11 @@
     {"id": 13, "name": "fair-alternation", "level": "multi-agent", "probe": "fairness_ppo", "commit": "2c98259",
      "state_required": false, "state_content": "none(reactive on last action)", "mechanism": "reactive anti-coordination: flip own last action, partner's last action keeps out-of-phase",
      "diagnostic_perturbation": "NEITHER channel-scramble NOR memory-wipe collapses it (reactive)", "metric": "eff 0.93 / fairness 0.98",
-     "reached_by": ["joint-PPO (iterated)"], "failed_by": ["greedy/deterministic (symmetry obstruction)"], "lit_name": "turn-taking equilibrium / alternation", "gate": "known"}
+     "reached_by": ["joint-PPO (iterated)"], "failed_by": ["greedy/deterministic (symmetry obstruction)"], "lit_name": "turn-taking equilibrium / alternation", "gate": "known"},
+    {"id": 14, "name": "count-communication (compositional)", "level": "composition", "probe": "comp_ppo (uniform counts)", "commit": "2b9b775",
+     "state_required": true, "state_content": "accumulation + shared compositional code", "mechanism": "speaker counts an item-stream then encodes the count in a 3-slot/2-symbol COMPOSITIONAL message; listener decodes the joint pattern",
+     "diagnostic_perturbation": "count-ablate -> chance AND channel-scramble -> chance (BOTH); per-slot drop shows 3/3 slots informative (compositional)", "metric": "0.84 (chance 0.17); compositional 3/3",
+     "reached_by": ["joint-PPO (uniform counts force >1-bit)"], "failed_by": ["single-symbol code (peaked counts -> 1-bit suffices -> 0.63 non-compositional)"], "lit_name": "emergent compositional communication / numeral system", "gate": "known",
+     "note": "FIRST broken minimal-mechanism case: compositional structure emerges ONLY when a single minimal mechanism is insufficient for reward (peaked counts -> 1 bit -> single-symbol; uniform counts -> compositional). The minimal->compositional transition is dial-able by sufficiency-pressure."}
   ]
 }
