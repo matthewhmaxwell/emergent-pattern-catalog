@@ -352,7 +352,7 @@
       "name": "abstraction / systematic generalization (relational, PARTIAL)",
       "level": "meta",
       "probe": "abstraction_ppo",
-      "commit": "69603f3",
+      "commit": "fd4cc0d",
       "state_required": "n/a (feedforward MLP; the relation is computed per-step, no memory)",
       "state_content": "a learned RELATION -- similarity(cue, each goal colour-vector) -- applied to HELD-OUT instances",
       "mechanism": "go to the goal whose colour-vector is most similar to the cue's; the comparison PARTIALLY transfers to colours never seen as a cue-match in training",
