@@ -395,7 +395,7 @@
       "name": "predictive intention-reading (velocity-based goal attribution) -- theory-of-mind component",
       "level": "multi-agent (ToM / social cognition)",
       "probe": "tom_ppo",
-      "commit": "PENDING",
+      "commit": "a9107a7",
       "state_required": true,
       "state_content": "integrated MOTION history of another agent -> inferred heading -> attributed goal (intention)",
       "mechanism": "integrate the mover's observed motion (start->stop) to recover its heading, then attribute its goal as the one in the heading direction. The 3 goals are EQUIDISTANT from the mover's frozen stop, so the single frame is provably SYMMETRIC and ONLY the motion identifies g*.",
