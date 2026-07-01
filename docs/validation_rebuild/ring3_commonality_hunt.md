@@ -115,3 +115,15 @@ not make them the MINIMAL sufficient solution -- emulation suffices, so emulatio
 those richer competencies require worlds where the minimal sufficient solution IS the richer mechanism
 (e.g. partners whose goals can only be predicted, not observed) -- i.e. the SCALE fork. Track 2 stays deferred
 per directive; logged, not pursued.
+
+## Corpus note -- #20 adds a candidate MEASURE: shortcut-cascade depth
+#20 (predictive intention-reading) required closing SIX successive single-frame shortcuts before the intended
+(velocity-integration) mechanism emerged. Every prior probe found the MINIMAL sufficient mechanism; here the
+minimal mechanism was pushed UP a ladder by adversarially deleting each cheaper option. Candidate regularity
+(sharpening #6 sufficiency-pressure): the mechanism an agent emerges is the CHEAPEST one the task's structure
+permits, and the 'height' of a competency on the mechanism ladder can be OPERATIONALISED as the number of
+cheaper shortcuts that must be closed to force it. This turns 'richer competency' from a vibe into a countable
+quantity (shortcut-cascade depth) and predicts: competencies with deep cascades (ToM, planning) will only
+emerge in worlds where the cheaper rungs are structurally unavailable. Also a social-cognition DEPTH LADDER is
+now explicit in the corpus: emulation (#19) -> intention-attribution (#20) -> [prediction-of-belief? teaching?].
+Track 2 stays deferred; logged, not pursued.

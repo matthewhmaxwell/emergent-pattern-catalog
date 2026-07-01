@@ -147,3 +147,23 @@ multi-step planning, teaching, coalition formation (3+ agents) -- is **SCALE-GAT
 scale by construction. That is the boundary of this instrument's toy regime, and the entry point to the SCALE
 fork (richer world / more agents / iteration / open-ended artifacts), which remains the honest highest-EV
 route to a genuinely new-to-science competency.
+
+## SCALE TIER opened -- gap probed: theory-of-mind (#20), GENUINE (first scale-gated cell)
+User chose SCALE after the toy-demandable sweep closed. Step 1 targeted the cleanest scale-gated cell:
+PREDICTIVE INTENTION-READING (a ToM component). A scripted mover walks toward its private goal then freezes
+partway; 3 goals are EQUIDISTANT from the stop so the single frame is provably SYMMETRIC -- only the mover's
+observed MOTION picks g*. Result: **recurrent 0.86, memoryless 0.32 (chance by construction), frozen 0.32**
+(needs-memory +0.54, needs-mover +0.54). GENUINE velocity-based goal attribution. KNOWN (inverse planning /
+machine ToM) => 0 new-to-science.
+- This is the DIRECT richer successor to #19 (imitation) on a social-cognition DEPTH LADDER: emulation (#19,
+  the shortcut) -> intention-reading (#20, one rung up). Closing #19's shortcut forced #20.
+- It took CLOSING SIX single-frame shortcuts to force the richer mechanism (the minimal-mechanism law, in
+  miniature, inside one probe). Methodological principle for the SCALE program: force a richer competency by
+  adversarially removing EVERY cheaper mechanism; a provably-symmetric control is the gold standard.
+- The instrument WORKS at the scale tier. Registry now 20. Honest bound holds: 0 new-to-science.
+
+## SCALE ladder (next candidates, richer -> harder)
+- Multi-step PLANNING (a task whose minimal sufficient solution IS a multi-step plan -- no reactive shortcut).
+- TEACHING (reward = a LEARNER's success; the teacher must model the learner's knowledge -> pedagogical modification).
+- COALITION formation (>=3 agents; needs scale by definition -- impossible at 1-2 agents).
+- The honest new-to-science shot remains an OPEN-ENDED N-agent world where the target is NOT pre-named.

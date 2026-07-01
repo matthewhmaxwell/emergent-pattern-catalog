@@ -389,6 +389,28 @@
       "lit_name": "social / observational learning; goal emulation (Bandura 1977; Tomasello -- emulation vs true action-level imitation)",
       "gate": "known",
       "note": "AUDIT-GUIDED probe (gap #3, the LAST toy-demandable audit cell). ADDS A KIND: acquiring task/goal knowledge by OBSERVING ANOTHER AGENT'S BEHAVIOUR -- a distinct multi-agent INFORMATION mode, distinct from symbol-channel (#10), mutual-observation-for-anti-coordination (#11), and social-memory-of-types (#17): here the other agent is an information SOURCE about the goal itself. Mechanistically goal-EMULATION (copy the demonstrated choice), not necessarily action-level imitation. CONSEQUENCE: all THREE audit-named toy-demandable cells (#17 reputation, #18 abstraction, #19 imitation) came back GENUINE and EACH ADDED A KIND (3/3) -- the compass was worth building and the toy space was richer than 'exhausted' implied. The toy-demandable frontier is now EXHAUSTED; remaining red-team cells (theory-of-mind, causal reasoning, multi-step planning, teaching, coalition) are SCALE-GATED. Known to science => still 0 new-to-science."
+    },
+    {
+      "id": 20,
+      "name": "predictive intention-reading (velocity-based goal attribution) -- theory-of-mind component",
+      "level": "multi-agent (ToM / social cognition)",
+      "probe": "tom_ppo",
+      "commit": "PENDING",
+      "state_required": true,
+      "state_content": "integrated MOTION history of another agent -> inferred heading -> attributed goal (intention)",
+      "mechanism": "integrate the mover's observed motion (start->stop) to recover its heading, then attribute its goal as the one in the heading direction. The 3 goals are EQUIDISTANT from the mover's frozen stop, so the single frame is provably SYMMETRIC and ONLY the motion identifies g*.",
+      "diagnostic_perturbation": "MEMORYLESS baseline PROVABLY at chance (0.32 -- symmetric single frame is an airtight control by construction) vs recurrent 0.86 => needs-memory +0.54. mover-FROZEN (sits at the stop, no motion) -> 0.32 chance => needs-mover +0.54.",
+      "metric": "recurrent 0.86 vs memoryless 0.32 vs frozen 0.32 (chance 0.33)",
+      "reached_by": [
+        "gradient-PPO (recurrent GRU)"
+      ],
+      "failed_by": [
+        "memoryless (symmetric single frame -> chance BY CONSTRUCTION)",
+        "frozen-mover (no motion to read)"
+      ],
+      "lit_name": "intention attribution / inverse planning / machine theory-of-mind (Baker 2009; Rabinowitz et al. 2018)",
+      "gate": "known",
+      "note": "FIRST SCALE-TIER competency. The audit flagged ToM as SCALE-GATED (not demandable at toy scale); this validates the instrument at the scale tier and shows the richer mechanism DOES emerge once forced. DIRECT RICHER SUCCESSOR to #19 on a social-cognition DEPTH LADDER: #19 solved a hidden-goal task by EMULATION (the cheap shortcut); this probe is literally 'close that shortcut' and one rung up is INTENTION-READING => emulation -> intention-attribution, and closing the shortcut at one rung forces the next. Required closing SIX successive single-frame shortcuts (fixed centre; perpendicular decoy offset; too-short trajectory; middle-distance ordering; ...; finally provable symmetry) before velocity-integration emerged -- the STRONGEST demonstration of the minimal-mechanism law: the agent grabbed every cheaper mechanism until a provably-symmetric frame left motion-integration as the ONLY sufficient one. METHODOLOGICAL FINDING: forcing a richer competency requires adversarially removing EVERY cheaper mechanism; the count of shortcuts that must be closed is a candidate MEASURE of how far up the mechanism ladder a competency sits. KNOWN to science => still 0 new-to-science."
     }
   ]
 }
