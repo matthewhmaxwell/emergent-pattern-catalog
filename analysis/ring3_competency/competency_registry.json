@@ -373,7 +373,7 @@
       "name": "imitation / social learning (goal emulation)",
       "level": "multi-agent",
       "probe": "imitation_ppo",
-      "commit": "PENDING",
+      "commit": "5f8e4c5",
       "state_required": "n/a (feedforward MLP; reads the demonstrator each step)",
       "state_content": "another agent's BEHAVIOUR used as an information source about the (hidden) task goal",
       "mechanism": "observe a scripted demonstrator that walks toward the hidden-correct goal; identify + go to the goal it chose (goal-emulation). The correct goal is NOT in the learner's observation -- the demonstrator is the only signal.",
