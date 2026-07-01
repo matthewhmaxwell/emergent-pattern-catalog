@@ -127,3 +127,14 @@ quantity (shortcut-cascade depth) and predicts: competencies with deep cascades 
 emerge in worlds where the cheaper rungs are structurally unavailable. Also a social-cognition DEPTH LADDER is
 now explicit in the corpus: emulation (#19) -> intention-attribution (#20) -> [prediction-of-belief? teaching?].
 Track 2 stays deferred; logged, not pursued.
+
+## Corpus note -- the open-ended hunt yielded a candidate LAW (coordination-media cost cascade)
+The open-ended N-agent hunt (SCALE) produced NOT a new competency but a candidate REGULARITY, documented in
+`ring3_coordination_cascade.md`: a coordination-media COST HIERARCHY (environmental focal point < observation <
+coordinate focal point < communication) with a COMMUNICATION NICHE (symmetric coordination NEVER forces
+communication -- a cheaper focal point always exists; communication is forced ONLY by information ASYMMETRY).
+Established by a 4-rung cascade (fingerprint -> remove the used medium -> climb). It UNIFIES the multi-agent
+catalog: genuine comms cases (#10, #14) all had asymmetry; forced-symmetric probes (D3, D4) used focal-point /
+reactive mechanisms. Joins the Track-2 candidate list with #5 (substrate-reachability ordering), #6
+(sufficiency-pressure), and the shortcut-cascade-depth measure (from ToM #20). All pieces KNOWN -> 0
+new-to-science; the SYNTHESIS is the under-named candidate, pending the hard literature gate.
