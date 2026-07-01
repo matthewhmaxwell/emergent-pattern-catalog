@@ -12,7 +12,7 @@ literature-gated. The hunt did not find a new *competency*, but it produced a cl
 | 0 | heavy food (needs 2 agents) + observation + signal channels | **environmental focal point** (shared food) | blind 4.70 ≈ mute 4.81 ≈ normal 4.82; solo 0.00 |
 | 1 | focal point removed: toroidal, egocentric, pure rendezvous | **observation** (pursuit; home in on partner) | normal 11.36, **blind 0.08** (collapse), mute 11.35 |
 | 2 | observation removed: self-position only + channel | **coordinate focal point** (fixed convention cell) | normal 3.71, mute 3.65 (invariant), **self-blind 2.02** |
-| 3 | symmetry broken: only one agent sees the target (asymmetry) | **communication** (referential location-signaling) | **rides-channel +0.26** (mute 0.35→0.09); *full run in progress* |
+| 3 | symmetry broken: only one agent sees the target (asymmetry) | **communication** (referential location-signaling) | normal 3.02, **mute 0.30** (collapse), **rides-channel +2.73** (~90%) |
 
 ## The finding: a coordination-media cost hierarchy + a communication niche
 Agents always use the **cheapest available coordination medium**, and each medium is forced ONLY by removing
