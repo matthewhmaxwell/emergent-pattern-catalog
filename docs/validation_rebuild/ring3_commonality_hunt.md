@@ -103,3 +103,15 @@ relations transfer to held-out instances **partially and with a characteristic g
 not-at-all. Testable via a capacity / relational-inductive-bias sweep (does the gap shrink with a comparison-
 structured net?). Filed alongside #5 (substrate-reachability ordering) and #6 (sufficiency-pressure). Track 2
 stays deferred per directive ('keep searching first'); this is logged, not pursued.
+
+## Corpus note — audit sweep complete (19 competencies); the minimal-mechanism pattern holds
+With #17-#19 the audit sweep is done: 19 catalogued competencies, ALL known to science. The central
+regularity survives the extended search: agents find the MINIMAL SUFFICIENT mechanism for the demanded task,
+and the minimal mechanism is always something science already named. #19 (imitation) is a fresh datapoint --
+the learner solves a hidden-goal task by the minimal available means (copy the demonstrator's choice / goal-
+emulation) rather than any richer social inference (no theory-of-mind needed). This strengthens candidate law
+#6 (sufficiency-pressure): richer competencies (ToM, causal, planning) do not emerge because the toy tasks do
+not make them the MINIMAL sufficient solution -- emulation suffices, so emulation is what appears. Prediction:
+those richer competencies require worlds where the minimal sufficient solution IS the richer mechanism
+(e.g. partners whose goals can only be predicted, not observed) -- i.e. the SCALE fork. Track 2 stays deferred
+per directive; logged, not pursued.

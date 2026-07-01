@@ -114,3 +114,36 @@ Saturation signal RESET again -- the curve is not flat; **one named cell remains
    demonstrator-present vs demonstrator-ablated is the diagnostic. **LAST untouched audit cell.** After this,
    the saturation curve + red-team + expressivity + unbiased-generator signals jointly license (or deny) a
    *comprehensive-at-toy-scale* declaration.
+
+## UPDATE — gap #3 probed (imitation, #19): the audit sweep is COMPLETE; toy-demandable frontier EXHAUSTED
+Imitation / social learning (registry #19): a learner must reach a goal HIDDEN from it by observing a
+demonstrator that walks toward the correct goal. Result: **normal 0.83, frozen-demonstrator 0.08 (BELOW
+chance 0.33), misleading-demonstrator 0.08.** The learner cannot find the goal without the other agent
+(frozen collapses it below chance) and it COPIES the demonstrator's choice (misleading demonstrator leads it
+to the wrong goal). GENUINE social learning / goal-emulation -- the CLEANEST demand in the whole arc.
+It ADDS A KIND (observing another agent's behaviour as a task-information source).
+
+**Sweep result: 3 of 3 audit-named cells (reputation #17, abstraction #18, imitation #19) came back GENUINE,
+and EACH ADDED A NEW KIND.** The "diminishing returns / toy-levers-exhausted" intuition was wrong three times
+in a row -- the compass earned its keep. All three remain KNOWN to science => 0 new-to-science holds.
+
+## Comprehensiveness scorecard — CLOSED at toy-demandable scale
+1. **Taxonomy + coverage map** — complete for the toy-demandable region (object / meta / multi-agent /
+   composition; 4 coordination media; the state-content ladder; graded vs binary competency).
+2. **Saturation curve** — every cleanly-demandable-at-toy-scale cell the red-team could name has now been
+   probed. The last three each added a kind, so the toy space was richer than "flat" implied -- but there are
+   **no further toy-demandable named cells**, so the demandable curve is COMPLETE (not because it went flat,
+   but because we enumerated and probed the space).
+3. **Substrate-expressivity bound** — argued (composition only under sufficiency-pressure; precise recurrent
+   computation needs gradient; deception self-defeats; abstraction transfers only partially).
+4. **Red-team** — the taxonomy red-team's toy cells are ALL probed + 2 forced-novelty probes + 2 negatives.
+   Complete for toy scale.
+5. **Unbiased generator** — yes for the object grammar; meta/multi-agent probes hand-built (honest limitation).
+
+**Verdict: COMPREHENSIVE at toy-demandable scale.** Every competency cell that can be cleanly *demanded* in a
+one-or-two-agent toy gridworld has been probed; all genuine ones are catalogued; the honest bound is **0
+new-to-science across 19 competencies**. The remaining red-team frontier -- theory-of-mind, causal reasoning,
+multi-step planning, teaching, coalition formation (3+ agents) -- is **SCALE-GATED**: not demandable at toy
+scale by construction. That is the boundary of this instrument's toy regime, and the entry point to the SCALE
+fork (richer world / more agents / iteration / open-ended artifacts), which remains the honest highest-EV
+route to a genuinely new-to-science competency.

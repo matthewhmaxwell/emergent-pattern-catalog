@@ -367,6 +367,28 @@
       "lit_name": "systematic / compositional generalization; relational abstraction (Fodor-Pylyshyn systematicity; the well-documented 'nets generalize relations only PARTIALLY' finding, e.g. SCAN/Lake-Baroni)",
       "gate": "known",
       "note": "AUDIT-GUIDED probe (gap #1). THREE firsts: (1) FIRST GRADED/PARTIAL competency -- genuine but incomplete; the train->held-out GAP is itself the signature, not a binary pass/fail. (2) NEW KIND: relational abstraction / systematic generalization -- distinct from the belief-over-latent-rule meta cells (#7-9), which INFER a hidden rule from in-episode feedback; this GENERALIZES a learned relation to UNSEEN instances (a train/test property, not in-episode inference). (3) NEW DIAGNOSTIC MODALITY: a train/held-out generalization GAP rather than an ablation-collapse -- a qualitatively different kind of competency evidence. HONESTY NOTE: the automated verdict printed 'MEMORIZATION (no generalization)' because held-out 0.59 fell one point under the strong 0.6 bar; that label is FALSE for held-out 0.59 vs chance 0.33. The instrument's verdict logic was corrected to a 3-way band (genuine/partial/memorization) so 0.59 reads honestly as PARTIAL. => search still NOT saturated (gap #1 filled AND added a kind + a diagnostic modality). Known to science => still 0 new-to-science."
+    },
+    {
+      "id": 19,
+      "name": "imitation / social learning (goal emulation)",
+      "level": "multi-agent",
+      "probe": "imitation_ppo",
+      "commit": "PENDING",
+      "state_required": "n/a (feedforward MLP; reads the demonstrator each step)",
+      "state_content": "another agent's BEHAVIOUR used as an information source about the (hidden) task goal",
+      "mechanism": "observe a scripted demonstrator that walks toward the hidden-correct goal; identify + go to the goal it chose (goal-emulation). The correct goal is NOT in the learner's observation -- the demonstrator is the only signal.",
+      "diagnostic_perturbation": "FROZEN demonstrator (sits at centre, no behaviour to read) -> 0.08, BELOW chance 0.33 => the hidden goal is unfindable without the other agent. MISLEADING demonstrator (walks to a WRONG goal) -> 0.08 => the learner FOLLOWS it to the wrong goal, proving it copies the demonstrator's CHOICE (not another cue). needs-demonstrator +0.75; misled-by-demo +0.75.",
+      "metric": "normal 0.83 vs frozen 0.08 vs mislead 0.08 (chance 0.33) -- the cleanest demand in the arc",
+      "reached_by": [
+        "gradient-PPO (feedforward MLP)"
+      ],
+      "failed_by": [
+        "frozen-demonstrator (no model to observe)",
+        "hidden goal absent from the learner's own observation"
+      ],
+      "lit_name": "social / observational learning; goal emulation (Bandura 1977; Tomasello -- emulation vs true action-level imitation)",
+      "gate": "known",
+      "note": "AUDIT-GUIDED probe (gap #3, the LAST toy-demandable audit cell). ADDS A KIND: acquiring task/goal knowledge by OBSERVING ANOTHER AGENT'S BEHAVIOUR -- a distinct multi-agent INFORMATION mode, distinct from symbol-channel (#10), mutual-observation-for-anti-coordination (#11), and social-memory-of-types (#17): here the other agent is an information SOURCE about the goal itself. Mechanistically goal-EMULATION (copy the demonstrated choice), not necessarily action-level imitation. CONSEQUENCE: all THREE audit-named toy-demandable cells (#17 reputation, #18 abstraction, #19 imitation) came back GENUINE and EACH ADDED A KIND (3/3) -- the compass was worth building and the toy space was richer than 'exhausted' implied. The toy-demandable frontier is now EXHAUSTED; remaining red-team cells (theory-of-mind, causal reasoning, multi-step planning, teaching, coalition) are SCALE-GATED. Known to science => still 0 new-to-science."
     }
   ]
 }
