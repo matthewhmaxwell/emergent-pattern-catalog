@@ -44,24 +44,30 @@ def analyse(path, topk=6):
     X = np.array([[(_num(r.get(c)) if _num(r.get(c)) is not None else np.nan) for c in cols] for r in rows])
     med = np.nanmedian(X, axis=0)
     X = np.where(np.isnan(X), med, X)
-    mad = np.nanmedian(np.abs(X - med), axis=0) * 1.4826
-    mad[mad < 1e-9] = 1.0
-    Z = (X - med) / mad
-    keep = Z.std(0) > 1e-9
-    Z = Z[:, keep]; colk = [c for c, k in zip(cols, keep) if k]
-    D = np.sqrt(((Z[:, None, :] - Z[None, :, :]) ** 2).sum(-1))
+    # RANK-transform each coord to [0,1] (robust to heavy tails/scale: no single coord dominates;
+    # a config extreme on MANY axes scores high, a scale artifact on ONE axis does not).
+    n = len(rows)
+    R = np.zeros_like(X)
+    for j in range(X.shape[1]):
+        order_j = np.argsort(np.argsort(X[:, j], kind="mergesort"))
+        R[:, j] = order_j / max(1, n - 1)
+    keep = R.std(0) > 1e-9
+    R = R[:, keep]; colk = [c for c, k in zip(cols, keep) if k]
+    D = np.sqrt(((R[:, None, :] - R[None, :, :]) ** 2).sum(-1))
     np.fill_diagonal(D, np.inf)
-    k = min(3, len(rows) - 1)
-    knn = np.sort(D, axis=1)[:, :k].mean(1)                  # kNN outlier score
+    k = min(3, n - 1)
+    knn = np.sort(D, axis=1)[:, :k].mean(1)                  # kNN outlier score in rank space
+    mu, sd = knn.mean(), knn.std() + 1e-9
     order = np.argsort(-knn)
     fam = path.split("stage2_results_")[-1].replace(".json", "")
-    print(f"\n=== {fam}: {len(rows)} configs, {len(colk)} active lens coords ===")
-    print(f"{'rank':>4} {'cfg':>4} {'outlier':>8} {'tripped':>8}  top-extreme coords (|z|)")
+    print(f"\n=== {fam}: {n} configs, {len(colk)} active lens coords ===")
+    print(f"{'rank':>4} {'cfg':>4} {'score':>6} {'z':>5} {'em_kind':<22} {'trip':>5}  most-extreme rank-coords")
     for rank, idx in enumerate(order[:topk]):
         r = rows[idx]
-        zz = sorted(zip(colk, Z[idx]), key=lambda t: -abs(t[1]))[:4]
-        extremes = ", ".join(f"{c}={z:+.1f}" for c, z in zz)
-        print(f"{rank+1:>4} {r.get('i'):>4} {knn[idx]:>8.2f} {str(r.get('tripped')):>8}  {extremes}")
+        zz = sorted(zip(colk, R[idx]), key=lambda t: -abs(t[1] - 0.5))[:4]
+        extremes = ", ".join(f"{c}={z:.2f}" for c, z in zz)
+        z = (knn[idx] - mu) / sd
+        print(f"{rank+1:>4} {r.get('i'):>4} {knn[idx]:>6.3f} {z:>5.1f} {str(r.get('em_kind')):<22} {str(r.get('tripped'))[:5]:>5}  {extremes}")
 
 
 paths = sys.argv[1:] or sorted(glob.glob("analysis/ring2/stage2_results_*.json"))

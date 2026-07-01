@@ -1,0 +1,12 @@
+PHASE B open-ended PPO hunt: 8 envs, iters=250, mode=open, PER=5
+env 0: count(t2)>=2                                 PPO 0.96  memoryless 0.09  gap +0.87  DEMANDING
+env 1: t0-before-t1 AND count(t1)>=3                PPO 0.72  memoryless 0.01  gap +0.71  DEMANDING
+env 2: count(t1)>=2 AND collect(t0,t1,t2)           PPO 0.79  memoryless 0.01  gap +0.78  DEMANDING
+env 3: t0-before-t1                                 PPO 0.86  memoryless 0.04  gap +0.82  DEMANDING
+env 4: collect(t0,t2)                               PPO 0.92  memoryless 0.02  gap +0.90  DEMANDING
+env 5: count(t1)==3 AND collect(t0,t1,t2)           PPO 0.41  memoryless 0.00  gap +0.41  
+env 6: count(t1)==3                                 PPO 0.79  memoryless 0.03  gap +0.76  DEMANDING
+env 7: collect(t1,t2)                               PPO 0.80  memoryless 0.02  gap +0.78  DEMANDING
+
+7/8 environments DEMAND competency (PPO>=0.6 AND gap>=0.25): [0, 1, 2, 3, 4, 6, 7]
+saved openworld_ppo_sweep.json

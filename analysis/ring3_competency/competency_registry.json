@@ -2,77 +2,371 @@
   "_schema": "EPC competency registry. APPEND one record per VERIFIED competency found (known or novel). This log is BOTH the consolidation artifact AND the dataset for the commonality hunt (search for an unknown REGULARITY across records). Protocol: every competency that survives interventional verification -> add a record; set gate to known|under-named|candidate-novel after the literature gate.",
   "_fields": "id,name,level,probe,commit,state_required,state_content,mechanism,diagnostic_perturbation(the ablation that collapses it),metric,reached_by,failed_by,lit_name,gate",
   "competencies": [
-    {"id": 1, "name": "navigation", "level": "object", "probe": "evolve_navigation", "commit": "3d8f3de",
-     "state_required": true, "state_content": "commitment", "mechanism": "hold a detour against the goal-pull",
-     "diagnostic_perturbation": "away-from-goal barrier", "metric": "0.71 on novel mazes",
-     "reached_by": ["directed-search/ES"], "failed_by": ["random-sampling", "memoryless"], "lit_name": "path planning / detour", "gate": "known"},
-    {"id": 2, "name": "memory", "level": "object", "probe": "evolve_memory", "commit": "3d8f3de",
-     "state_required": true, "state_content": "storage", "mechanism": "hold a cue across distractors/delay",
-     "diagnostic_perturbation": "cue/feedback ablation -> chance", "metric": "robust 1.0 on unseen delays",
-     "reached_by": ["ES"], "failed_by": ["memoryless"], "lit_name": "working memory", "gate": "known"},
-    {"id": 3, "name": "accumulation/counting", "level": "object", "probe": "counting_ppo", "commit": "ab05039",
-     "state_required": true, "state_content": "accumulation", "mechanism": "increment a running tally, stop at a threshold",
-     "diagnostic_perturbation": "supply-doubling (counter stays supply-invariant)", "metric": "exact-k 0.88; supply-invariant 2.83@5->3.17@10",
-     "reached_by": ["gradient-PPO"], "failed_by": ["FSM-mutation", "OpenAI-ES", "SNES"], "lit_name": "counting", "gate": "known"},
-    {"id": 4, "name": "sequencing", "level": "object", "probe": "openworld_ppo env3", "commit": "cbe5c69",
-     "state_required": true, "state_content": "storage-of-progress", "mechanism": "touch t0 before t1 (track prerequisite/order)",
-     "diagnostic_perturbation": "order violation; memoryless caps at 0.49", "metric": "0.86",
-     "reached_by": ["gradient-PPO"], "failed_by": ["memoryless", "FSM-mutation"], "lit_name": "ordered execution / sequencing", "gate": "known"},
-    {"id": 5, "name": "delayed-gratification", "level": "object", "probe": "evolve_delayed", "commit": "3d8f3de",
-     "state_required": false, "state_content": "none(reactive)", "mechanism": "cash out at the peak of an unknown-height reward",
-     "diagnostic_perturbation": "n/a (reactive)", "metric": "0.68 reactive",
-     "reached_by": ["reactive"], "failed_by": [], "lit_name": "optimal stopping", "gate": "known"},
-    {"id": 6, "name": "regulation", "level": "object", "probe": "evolve_regulation", "commit": "3d8f3de",
-     "state_required": false, "state_content": "none(reactive)", "mechanism": "hold a setpoint against disturbance",
-     "diagnostic_perturbation": "n/a (reactive; control NOT a 3rd state-mode)", "metric": "memoryless >= stateful",
-     "reached_by": ["reactive"], "failed_by": [], "lit_name": "homeostasis / feedback control", "gate": "known"},
-    {"id": 7, "name": "rule-inference (one-shot)", "level": "meta", "probe": "metaworld infer", "commit": "e88227f",
-     "state_required": true, "state_content": "belief-over-latent-rule", "mechanism": "infer hidden good-type from reward feedback, then exploit (one-shot, does not re-adapt)",
-     "diagnostic_perturbation": "feedback ablation -> 0.33 exact chance; mid-episode flip -> 0.15 (one-shot)", "metric": "0.71",
-     "reached_by": ["gradient-PPO"], "failed_by": ["memoryless"], "lit_name": "meta-learning / RL^2", "gate": "known"},
-    {"id": 8, "name": "rule-tracking (continual)", "level": "meta", "probe": "metaworld switch", "commit": "e88227f",
-     "state_required": true, "state_content": "belief-over-changing-latent", "mechanism": "track a good-type that flips after each success",
-     "diagnostic_perturbation": "feedback ablation", "metric": "0.81",
-     "reached_by": ["gradient-PPO"], "failed_by": ["memoryless"], "lit_name": "contextual / meta-RL adaptation", "gate": "known"},
-    {"id": 9, "name": "conditional-selection (cued)", "level": "meta", "probe": "metaworld cued", "commit": "e88227f",
-     "state_required": true, "state_content": "held-cue->policy-switch", "mechanism": "read a start cue, hold it, select the rule",
-     "diagnostic_perturbation": "cue removal; memoryless at chance", "metric": "0.85",
-     "reached_by": ["gradient-PPO"], "failed_by": ["memoryless"], "lit_name": "contextual policy / conditional behaviour", "gate": "known"},
-    {"id": 10, "name": "communication", "level": "multi-agent", "probe": "commworld_ppo", "commit": "bfa9475",
-     "state_required": "n/a", "state_content": "shared symbol convention", "mechanism": "speaker+listener co-adapt a symbol<->meaning map (Lewis)",
-     "diagnostic_perturbation": "channel scramble -> 0.31 chance", "metric": "0.63",
-     "reached_by": ["joint-PPO (>=2 agents)"], "failed_by": ["single-agent (impossible)"], "lit_name": "Lewis signaling / emergent communication", "gate": "known"},
-    {"id": 11, "name": "role-division", "level": "multi-agent", "probe": "commhunt_ppo role_div", "commit": "249205b",
-     "state_required": "n/a", "state_content": "partner state (observed)", "mechanism": "anti-coordinate via mutual position-observation",
-     "diagnostic_perturbation": "blind-partner -> 0.99->0.44; scramble-invariant", "metric": "0.99",
-     "reached_by": ["joint-PPO"], "failed_by": ["blind"], "lit_name": "role allocation / mutual adjustment", "gate": "known"},
-    {"id": 12, "name": "contest-resolution", "level": "multi-agent", "probe": "contest_ppo", "commit": "7caf3a7",
-     "state_required": "n/a", "state_content": "relative-position asymmetry", "mechanism": "break symmetry on who-is-closer to resolve a contested resource",
-     "diagnostic_perturbation": "blind-partner -> 0.63->0.14; scramble-invariant", "metric": "capture 0.63 / collision 0.02",
-     "reached_by": ["joint-PPO"], "failed_by": ["blind"], "lit_name": "uncorrelated asymmetry / Bourgeois (Maynard Smith 1973)", "gate": "known"},
-    {"id": 13, "name": "fair-alternation", "level": "multi-agent", "probe": "fairness_ppo", "commit": "2c98259",
-     "state_required": false, "state_content": "none(reactive on last action)", "mechanism": "reactive anti-coordination: flip own last action, partner's last action keeps out-of-phase",
-     "diagnostic_perturbation": "NEITHER channel-scramble NOR memory-wipe collapses it (reactive)", "metric": "eff 0.93 / fairness 0.98",
-     "reached_by": ["joint-PPO (iterated)"], "failed_by": ["greedy/deterministic (symmetry obstruction)"], "lit_name": "turn-taking equilibrium / alternation", "gate": "known"},
-    {"id": 14, "name": "count-communication (compositional)", "level": "composition", "probe": "comp_ppo (uniform counts)", "commit": "2b9b775",
-     "state_required": true, "state_content": "accumulation + shared compositional code", "mechanism": "speaker counts an item-stream then encodes the count in a 3-slot/2-symbol COMPOSITIONAL message; listener decodes the joint pattern",
-     "diagnostic_perturbation": "count-ablate -> chance AND channel-scramble -> chance (BOTH); per-slot drop shows 3/3 slots informative (compositional)", "metric": "0.84 (chance 0.17); compositional 3/3",
-     "reached_by": ["joint-PPO (uniform counts force >1-bit)"], "failed_by": ["single-symbol code (peaked counts -> 1-bit suffices -> 0.63 non-compositional)"], "lit_name": "emergent compositional communication / numeral system", "gate": "known",
-     "note": "FIRST broken minimal-mechanism case: compositional structure emerges ONLY when a single minimal mechanism is insufficient for reward (peaked counts -> 1 bit -> single-symbol; uniform counts -> compositional). The minimal->compositional transition is dial-able by sufficiency-pressure."},
-    {"id": 15, "name": "stigmergy (environment-mediated coordination)", "level": "multi-agent", "probe": "stigmergy_ppo", "commit": "b3c907a",
-     "state_required": "n/a", "state_content": "EXTERNALIZED -- a shared trail field in the WORLD (not internal state)", "mechanism": "2 blind agents (no channel, no mutual obs) read+write a shared mark trail to forage; they read the PARTNER's trail to divide territory",
-     "diagnostic_perturbation": "no-trail -> 1.4/12 (collapse); OWN-trail-only -> 5.7 vs combined 8.1 (partner's trail matters = inter-agent); overlap falls 5.5->3.4 over training", "metric": "8.1/12 food (combined); inter-agent verified",
-     "reached_by": ["joint-PPO (2 blind agents)"], "failed_by": ["no-trail (no medium -> cannot coordinate)"], "lit_name": "stigmergy (Grasse 1959) / swarm foraging", "gate": "known",
-     "note": "EXTERNALIZED state: the coordination memory lives in the ENVIRONMENT (the trail), not the agents -- a qualitatively distinct option for the what-state-holds ladder (#4): state can be in-the-world, not in-the-agent. Third distinct multi-agent COORDINATION MEDIUM after symbol-channel (#10) and direct-observation (#11)."},
-    {"id": 16, "name": "tool use / instrumental construction", "level": "object", "probe": "tool_ppo", "commit": "f3f4ec3",
-     "state_required": true, "state_content": "instrumental sub-goal (modify the world to enable the goal)", "mechanism": "push a block into an impassable gap to build a bridge, then cross -- the goal is unreachable without first constructing the bridge (a non-rewarding sub-goal)",
-     "diagnostic_perturbation": "NO-block control -> 0.00 (goal physically unreachable without modifying the environment)", "metric": "0.49 with-block (genuine, partial) vs 0.00 no-block",
-     "reached_by": ["gradient-PPO"], "failed_by": ["no-block (goal unreachable)"], "lit_name": "tool use / instrumental construction (Koehler; means-ends)", "gate": "known",
-     "note": "Cleanest DEMAND in the arc (no-block control is exactly 0.00). Like stigmergy (#15) the agent writes to the WORLD, but here for SELF-benefit (niche construction) not coordination -> the externalized-state axis (#7 in the commonality hunt) spans coordination AND self-instrumental cases."},
-    {"id": 17, "name": "reputation / indirect reciprocity (social memory)", "level": "multi-agent", "probe": "reputation_ppo", "commit": "b488259",
-     "state_required": true, "state_content": "a REPUTATION MAP: partner-id -> tracked type (structured memory over OTHER agents)", "mechanism": "track each recurring partner's revealed cooperate/defect history in memory; help known cooperators, refuse known defectors",
-     "diagnostic_perturbation": "discrim 0.92; ANONYMIZE partners -> 0.50 chance (needs WHO); MEMORY-WIPE -> 0.50 chance (needs accumulated history); BOTH essential", "metric": "discrimination 0.92; avg-reward +0.42",
-     "reached_by": ["gradient-PPO (recurrent)"], "failed_by": ["anonymized", "memoryless"], "lit_name": "indirect reciprocity / reputation (Nowak & Sigmund 1998)", "gate": "known",
-     "note": "AUDIT-GUIDED probe (gap #2). ADDS A NEW KIND: a 4th coordination MEDIUM (social-memory, completing channel/observation/environment/social-memory) AND a new state-content type (a structured reputation MAP over other agents). => the search was NOT saturated; the audit found genuine uncovered ground and prevented a premature comprehensive claim. Also answers the deception negative: tracked reputation is the mechanism that could stabilize honest/strategic signaling that minimal cheap-talk could not."}
+    {
+      "id": 1,
+      "name": "navigation",
+      "level": "object",
+      "probe": "evolve_navigation",
+      "commit": "3d8f3de",
+      "state_required": true,
+      "state_content": "commitment",
+      "mechanism": "hold a detour against the goal-pull",
+      "diagnostic_perturbation": "away-from-goal barrier",
+      "metric": "0.71 on novel mazes",
+      "reached_by": [
+        "directed-search/ES"
+      ],
+      "failed_by": [
+        "random-sampling",
+        "memoryless"
+      ],
+      "lit_name": "path planning / detour",
+      "gate": "known"
+    },
+    {
+      "id": 2,
+      "name": "memory",
+      "level": "object",
+      "probe": "evolve_memory",
+      "commit": "3d8f3de",
+      "state_required": true,
+      "state_content": "storage",
+      "mechanism": "hold a cue across distractors/delay",
+      "diagnostic_perturbation": "cue/feedback ablation -> chance",
+      "metric": "robust 1.0 on unseen delays",
+      "reached_by": [
+        "ES"
+      ],
+      "failed_by": [
+        "memoryless"
+      ],
+      "lit_name": "working memory",
+      "gate": "known"
+    },
+    {
+      "id": 3,
+      "name": "accumulation/counting",
+      "level": "object",
+      "probe": "counting_ppo",
+      "commit": "ab05039",
+      "state_required": true,
+      "state_content": "accumulation",
+      "mechanism": "increment a running tally, stop at a threshold",
+      "diagnostic_perturbation": "supply-doubling (counter stays supply-invariant)",
+      "metric": "exact-k 0.88; supply-invariant 2.83@5->3.17@10",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "FSM-mutation",
+        "OpenAI-ES",
+        "SNES"
+      ],
+      "lit_name": "counting",
+      "gate": "known"
+    },
+    {
+      "id": 4,
+      "name": "sequencing",
+      "level": "object",
+      "probe": "openworld_ppo env3",
+      "commit": "cbe5c69",
+      "state_required": true,
+      "state_content": "storage-of-progress",
+      "mechanism": "touch t0 before t1 (track prerequisite/order)",
+      "diagnostic_perturbation": "order violation; memoryless caps at 0.49",
+      "metric": "0.86",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "memoryless",
+        "FSM-mutation"
+      ],
+      "lit_name": "ordered execution / sequencing",
+      "gate": "known"
+    },
+    {
+      "id": 5,
+      "name": "delayed-gratification",
+      "level": "object",
+      "probe": "evolve_delayed",
+      "commit": "3d8f3de",
+      "state_required": false,
+      "state_content": "none(reactive)",
+      "mechanism": "cash out at the peak of an unknown-height reward",
+      "diagnostic_perturbation": "n/a (reactive)",
+      "metric": "0.68 reactive",
+      "reached_by": [
+        "reactive"
+      ],
+      "failed_by": [],
+      "lit_name": "optimal stopping",
+      "gate": "known"
+    },
+    {
+      "id": 6,
+      "name": "regulation",
+      "level": "object",
+      "probe": "evolve_regulation",
+      "commit": "3d8f3de",
+      "state_required": false,
+      "state_content": "none(reactive)",
+      "mechanism": "hold a setpoint against disturbance",
+      "diagnostic_perturbation": "n/a (reactive; control NOT a 3rd state-mode)",
+      "metric": "memoryless >= stateful",
+      "reached_by": [
+        "reactive"
+      ],
+      "failed_by": [],
+      "lit_name": "homeostasis / feedback control",
+      "gate": "known"
+    },
+    {
+      "id": 7,
+      "name": "rule-inference (one-shot)",
+      "level": "meta",
+      "probe": "metaworld infer",
+      "commit": "e88227f",
+      "state_required": true,
+      "state_content": "belief-over-latent-rule",
+      "mechanism": "infer hidden good-type from reward feedback, then exploit (one-shot, does not re-adapt)",
+      "diagnostic_perturbation": "feedback ablation -> 0.33 exact chance; mid-episode flip -> 0.15 (one-shot)",
+      "metric": "0.71",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "memoryless"
+      ],
+      "lit_name": "meta-learning / RL^2",
+      "gate": "known"
+    },
+    {
+      "id": 8,
+      "name": "rule-tracking (continual)",
+      "level": "meta",
+      "probe": "metaworld switch",
+      "commit": "e88227f",
+      "state_required": true,
+      "state_content": "belief-over-changing-latent",
+      "mechanism": "track a good-type that flips after each success",
+      "diagnostic_perturbation": "feedback ablation",
+      "metric": "0.81",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "memoryless"
+      ],
+      "lit_name": "contextual / meta-RL adaptation",
+      "gate": "known"
+    },
+    {
+      "id": 9,
+      "name": "conditional-selection (cued)",
+      "level": "meta",
+      "probe": "metaworld cued",
+      "commit": "e88227f",
+      "state_required": true,
+      "state_content": "held-cue->policy-switch",
+      "mechanism": "read a start cue, hold it, select the rule",
+      "diagnostic_perturbation": "cue removal; memoryless at chance",
+      "metric": "0.85",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "memoryless"
+      ],
+      "lit_name": "contextual policy / conditional behaviour",
+      "gate": "known"
+    },
+    {
+      "id": 10,
+      "name": "communication",
+      "level": "multi-agent",
+      "probe": "commworld_ppo",
+      "commit": "bfa9475",
+      "state_required": "n/a",
+      "state_content": "shared symbol convention",
+      "mechanism": "speaker+listener co-adapt a symbol<->meaning map (Lewis)",
+      "diagnostic_perturbation": "channel scramble -> 0.31 chance",
+      "metric": "0.63",
+      "reached_by": [
+        "joint-PPO (>=2 agents)"
+      ],
+      "failed_by": [
+        "single-agent (impossible)"
+      ],
+      "lit_name": "Lewis signaling / emergent communication",
+      "gate": "known"
+    },
+    {
+      "id": 11,
+      "name": "role-division",
+      "level": "multi-agent",
+      "probe": "commhunt_ppo role_div",
+      "commit": "249205b",
+      "state_required": "n/a",
+      "state_content": "partner state (observed)",
+      "mechanism": "anti-coordinate via mutual position-observation",
+      "diagnostic_perturbation": "blind-partner -> 0.99->0.44; scramble-invariant",
+      "metric": "0.99",
+      "reached_by": [
+        "joint-PPO"
+      ],
+      "failed_by": [
+        "blind"
+      ],
+      "lit_name": "role allocation / mutual adjustment",
+      "gate": "known"
+    },
+    {
+      "id": 12,
+      "name": "contest-resolution",
+      "level": "multi-agent",
+      "probe": "contest_ppo",
+      "commit": "7caf3a7",
+      "state_required": "n/a",
+      "state_content": "relative-position asymmetry",
+      "mechanism": "break symmetry on who-is-closer to resolve a contested resource",
+      "diagnostic_perturbation": "blind-partner -> 0.63->0.14; scramble-invariant",
+      "metric": "capture 0.63 / collision 0.02",
+      "reached_by": [
+        "joint-PPO"
+      ],
+      "failed_by": [
+        "blind"
+      ],
+      "lit_name": "uncorrelated asymmetry / Bourgeois (Maynard Smith 1973)",
+      "gate": "known"
+    },
+    {
+      "id": 13,
+      "name": "fair-alternation",
+      "level": "multi-agent",
+      "probe": "fairness_ppo",
+      "commit": "2c98259",
+      "state_required": false,
+      "state_content": "none(reactive on last action)",
+      "mechanism": "reactive anti-coordination: flip own last action, partner's last action keeps out-of-phase",
+      "diagnostic_perturbation": "NEITHER channel-scramble NOR memory-wipe collapses it (reactive)",
+      "metric": "eff 0.93 / fairness 0.98",
+      "reached_by": [
+        "joint-PPO (iterated)"
+      ],
+      "failed_by": [
+        "greedy/deterministic (symmetry obstruction)"
+      ],
+      "lit_name": "turn-taking equilibrium / alternation",
+      "gate": "known"
+    },
+    {
+      "id": 14,
+      "name": "count-communication (compositional)",
+      "level": "composition",
+      "probe": "comp_ppo (uniform counts)",
+      "commit": "2b9b775",
+      "state_required": true,
+      "state_content": "accumulation + shared compositional code",
+      "mechanism": "speaker counts an item-stream then encodes the count in a 3-slot/2-symbol COMPOSITIONAL message; listener decodes the joint pattern",
+      "diagnostic_perturbation": "count-ablate -> chance AND channel-scramble -> chance (BOTH); per-slot drop shows 3/3 slots informative (compositional)",
+      "metric": "0.84 (chance 0.17); compositional 3/3",
+      "reached_by": [
+        "joint-PPO (uniform counts force >1-bit)"
+      ],
+      "failed_by": [
+        "single-symbol code (peaked counts -> 1-bit suffices -> 0.63 non-compositional)"
+      ],
+      "lit_name": "emergent compositional communication / numeral system",
+      "gate": "known",
+      "note": "FIRST broken minimal-mechanism case: compositional structure emerges ONLY when a single minimal mechanism is insufficient for reward (peaked counts -> 1 bit -> single-symbol; uniform counts -> compositional). The minimal->compositional transition is dial-able by sufficiency-pressure."
+    },
+    {
+      "id": 15,
+      "name": "stigmergy (environment-mediated coordination)",
+      "level": "multi-agent",
+      "probe": "stigmergy_ppo",
+      "commit": "b3c907a",
+      "state_required": "n/a",
+      "state_content": "EXTERNALIZED -- a shared trail field in the WORLD (not internal state)",
+      "mechanism": "2 blind agents (no channel, no mutual obs) read+write a shared mark trail to forage; they read the PARTNER's trail to divide territory",
+      "diagnostic_perturbation": "no-trail -> 1.4/12 (collapse); OWN-trail-only -> 5.7 vs combined 8.1 (partner's trail matters = inter-agent); overlap falls 5.5->3.4 over training",
+      "metric": "8.1/12 food (combined); inter-agent verified",
+      "reached_by": [
+        "joint-PPO (2 blind agents)"
+      ],
+      "failed_by": [
+        "no-trail (no medium -> cannot coordinate)"
+      ],
+      "lit_name": "stigmergy (Grasse 1959) / swarm foraging",
+      "gate": "known",
+      "note": "EXTERNALIZED state: the coordination memory lives in the ENVIRONMENT (the trail), not the agents -- a qualitatively distinct option for the what-state-holds ladder (#4): state can be in-the-world, not in-the-agent. Third distinct multi-agent COORDINATION MEDIUM after symbol-channel (#10) and direct-observation (#11)."
+    },
+    {
+      "id": 16,
+      "name": "tool use / instrumental construction",
+      "level": "object",
+      "probe": "tool_ppo",
+      "commit": "f3f4ec3",
+      "state_required": true,
+      "state_content": "instrumental sub-goal (modify the world to enable the goal)",
+      "mechanism": "push a block into an impassable gap to build a bridge, then cross -- the goal is unreachable without first constructing the bridge (a non-rewarding sub-goal)",
+      "diagnostic_perturbation": "NO-block control -> 0.00 (goal physically unreachable without modifying the environment)",
+      "metric": "0.49 with-block (genuine, partial) vs 0.00 no-block",
+      "reached_by": [
+        "gradient-PPO"
+      ],
+      "failed_by": [
+        "no-block (goal unreachable)"
+      ],
+      "lit_name": "tool use / instrumental construction (Koehler; means-ends)",
+      "gate": "known",
+      "note": "Cleanest DEMAND in the arc (no-block control is exactly 0.00). Like stigmergy (#15) the agent writes to the WORLD, but here for SELF-benefit (niche construction) not coordination -> the externalized-state axis (#7 in the commonality hunt) spans coordination AND self-instrumental cases."
+    },
+    {
+      "id": 17,
+      "name": "reputation / indirect reciprocity (social memory)",
+      "level": "multi-agent",
+      "probe": "reputation_ppo",
+      "commit": "b488259",
+      "state_required": true,
+      "state_content": "a REPUTATION MAP: partner-id -> tracked type (structured memory over OTHER agents)",
+      "mechanism": "track each recurring partner's revealed cooperate/defect history in memory; help known cooperators, refuse known defectors",
+      "diagnostic_perturbation": "discrim 0.92; ANONYMIZE partners -> 0.50 chance (needs WHO); MEMORY-WIPE -> 0.50 chance (needs accumulated history); BOTH essential",
+      "metric": "discrimination 0.92; avg-reward +0.42",
+      "reached_by": [
+        "gradient-PPO (recurrent)"
+      ],
+      "failed_by": [
+        "anonymized",
+        "memoryless"
+      ],
+      "lit_name": "indirect reciprocity / reputation (Nowak & Sigmund 1998)",
+      "gate": "known",
+      "note": "AUDIT-GUIDED probe (gap #2). ADDS A NEW KIND: a 4th coordination MEDIUM (social-memory, completing channel/observation/environment/social-memory) AND a new state-content type (a structured reputation MAP over other agents). => the search was NOT saturated; the audit found genuine uncovered ground and prevented a premature comprehensive claim. Also answers the deception negative: tracked reputation is the mechanism that could stabilize honest/strategic signaling that minimal cheap-talk could not."
+    },
+    {
+      "id": 18,
+      "name": "abstraction / systematic generalization (relational, PARTIAL)",
+      "level": "meta",
+      "probe": "abstraction_ppo",
+      "commit": "69603f3",
+      "state_required": "n/a (feedforward MLP; the relation is computed per-step, no memory)",
+      "state_content": "a learned RELATION -- similarity(cue, each goal colour-vector) -- applied to HELD-OUT instances",
+      "mechanism": "go to the goal whose colour-vector is most similar to the cue's; the comparison PARTIALLY transfers to colours never seen as a cue-match in training",
+      "diagnostic_perturbation": "TRAIN vs HELD-OUT colour split (a generalization gap, NOT an ablation): held-out colours appear only as DISTRACTORS in training. held-out-acc 0.59 vs chance 0.33 => genuine transfer; train 0.88 -> held-out 0.59 => +0.29 gap => INCOMPLETE. Pure per-instance memorization would leave held-out AT chance 0.33; it did not.",
+      "metric": "train 0.88 / held-out 0.59 (chance 0.33); +0.29 generalization gap = PARTIAL",
+      "reached_by": [
+        "gradient-PPO (feedforward MLP)"
+      ],
+      "failed_by": [
+        "pure per-instance lookup (would give held-out = chance 0.33 -- ruled out by the above-chance held-out)"
+      ],
+      "lit_name": "systematic / compositional generalization; relational abstraction (Fodor-Pylyshyn systematicity; the well-documented 'nets generalize relations only PARTIALLY' finding, e.g. SCAN/Lake-Baroni)",
+      "gate": "known",
+      "note": "AUDIT-GUIDED probe (gap #1). THREE firsts: (1) FIRST GRADED/PARTIAL competency -- genuine but incomplete; the train->held-out GAP is itself the signature, not a binary pass/fail. (2) NEW KIND: relational abstraction / systematic generalization -- distinct from the belief-over-latent-rule meta cells (#7-9), which INFER a hidden rule from in-episode feedback; this GENERALIZES a learned relation to UNSEEN instances (a train/test property, not in-episode inference). (3) NEW DIAGNOSTIC MODALITY: a train/held-out generalization GAP rather than an ablation-collapse -- a qualitatively different kind of competency evidence. HONESTY NOTE: the automated verdict printed 'MEMORIZATION (no generalization)' because held-out 0.59 fell one point under the strong 0.6 bar; that label is FALSE for held-out 0.59 vs chance 0.33. The instrument's verdict logic was corrected to a 3-way band (genuine/partial/memorization) so 0.59 reads honestly as PARTIAL. => search still NOT saturated (gap #1 filled AND added a kind + a diagnostic modality). Known to science => still 0 new-to-science."
+    }
   ]
 }

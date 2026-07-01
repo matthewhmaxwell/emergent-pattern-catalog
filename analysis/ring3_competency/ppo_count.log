@@ -1,0 +1,16 @@
+recurrent PPO on exact-counting: collect EXACTLY k=3 (supply=5), then goal. iters=300
+  iter   0: exact-k 0.01  mean count 1.17 (target 3)
+  iter  30: exact-k 0.12  mean count 2.15 (target 3)
+  iter  60: exact-k 0.28  mean count 2.82 (target 3)
+  iter  90: exact-k 0.63  mean count 2.94 (target 3)
+  iter 120: exact-k 0.69  mean count 2.83 (target 3)
+  iter 150: exact-k 0.71  mean count 2.90 (target 3)
+  iter 180: exact-k 0.74  mean count 2.88 (target 3)
+  iter 210: exact-k 0.83  mean count 2.94 (target 3)
+  iter 240: exact-k 0.85  mean count 2.93 (target 3)
+  iter 270: exact-k 0.80  mean count 3.05 (target 3)
+  iter 299: exact-k 0.87  mean count 2.92 (target 3)
+
+FINAL: exact-k 0.88  mean count 2.92 (target 3)
+  doubled-supply: mean count 3.14 exact-k 0.72  (a real counter stops at 3 regardless of supply)
+VERDICT: PPO COUNTS (exact-k>=0.6 and stops at k under doubled supply) -> learning method WAS the ceiling; capable learner in hand

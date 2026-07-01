@@ -92,3 +92,14 @@ ladder (memory → counting → sequencing → rule-inference) and run EACH thro
 competency. If the reachability order is lawful and tracks the state-content ladder, we have a candidate
 regularity to literature-gate hard. This is cheap (reuses existing harnesses) and directly attacks the
 unknown-commonality target. Track 1 (scale for a new competency) proceeds in parallel if resourced.
+
+## Corpus note — competency #18 (abstraction) adds a GRADED datapoint
+#18 (relational abstraction) is the FIRST **partial/graded** competency in the corpus: train 0.88 vs
+held-out 0.59 (chance 0.33). All prior competencies were binary (ablation collapses it, or it doesn't). This
+introduces a possible commonality-hunt angle: **competency as a graded generalization property**, where the
+train->test GAP measures HOW FAR a learned mechanism transfers beyond its training support. Candidate law
+(under-named, needs the hard literature gate): for a generic (non-relational-architecture) learner, emergent
+relations transfer to held-out instances **partially and with a characteristic gap** rather than fully or
+not-at-all. Testable via a capacity / relational-inductive-bias sweep (does the gap shrink with a comparison-
+structured net?). Filed alongside #5 (substrate-reachability ordering) and #6 (sufficiency-pressure). Track 2
+stays deferred per directive ('keep searching first'); this is logged, not pursued.
