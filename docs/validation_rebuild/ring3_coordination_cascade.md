@@ -14,7 +14,8 @@ literature-gated. The hunt did not find a new *competency*, but it produced a cl
 | 2 | observation removed: self-position only + channel | **coordinate focal point** (fixed convention cell) | normal 3.71, mute 3.65 (invariant), **self-blind 2.02** |
 | 3 | symmetry broken: only one agent sees the target (asymmetry) | **communication** (referential location-signaling) | normal 3.02, **mute 0.30** (collapse), **rides-channel +2.73** (~90%) |
 | 4 | asymmetry DISTRIBUTED: 3 agents, row-knower + col-knower → seeker | **composed multi-party communication** (2-source integration) | normal 3.72, mute-ROW 1.07, mute-COL 1.09; **both partial channels required** (needs-row +2.65, needs-col +2.63) |
-| 5 | different DOMAIN: temporal (2 agents must fire simultaneously) | *in progress* — testing whether the same hierarchy governs TIME | clock / internal-count temporal focal point expected |
+| 5 | different DOMAIN: temporal, shared start (fire simultaneously) | **temporal focal point** (free internal-count from shared t=0) | normal 5.00, no-clock 5.00, blind 5.00, mute 5.00 — **all media unused** |
+| 5b | temporal, shared-start symmetry BROKEN (random phase, no clock) | **observation** (watch partner fire, align phase) | normal 5.23, **blind 2.67**, mute 5.27 (needs-obs +2.56, channel unused) |
 
 ## The finding: a coordination-media cost hierarchy + a communication niche
 Agents always use the **cheapest available coordination medium**, and each medium is forced ONLY by removing
@@ -35,12 +36,16 @@ signal). **Symmetric coordination never forces communication.**
   collapses it ~70%. Communication, once forced, becomes COMPOSED when the information is distributed — the
   multi-agent analog of the sufficiency-pressure / compositionality result (#14). So the top of the hierarchy is
   itself structured: single-source asymmetry → referential signaling; distributed asymmetry → composed protocol.
-- **Rung 5 (new domain: time).** Tests whether the SAME cost ordering governs a non-spatial coordination
-  problem (fire simultaneously). If temporal coordination reduces to a temporal focal point (explicit clock or
-  internal count) < observation < communication — i.e. NO new primitive medium — that is direct evidence the
-  primitive-media set is **closed**, which would *explain* the 0-new-to-science bound: multi-agent competencies
-  are minimal compositions of a closed set of catalogued media, so a genuinely new competency would require a
-  NEW primitive medium, and none has appeared. *(Running; result pends.)*
+- **Rung 5 / 5b (new DOMAIN: time) — the cost hierarchy is CROSS-DOMAIN.** Rung 5 (shared start): temporal
+  simultaneity is FREE — identical policies from t=0 auto-phase-lock via internal counting; all three media
+  (clock, observation, channel) contribute exactly +0.00. That is the focal-point escape, in time. Rung 5b
+  breaks the shared-start symmetry (random phase offsets, no clock): coordination is then forced up to
+  OBSERVATION (blind 5.23→2.67, needs-obs +2.56; channel still unused) — the exact temporal analog of spatial
+  rung 1. **So the SAME ordering (focal-point → observation → communication) governs both space and time, and no
+  NEW primitive medium appears in either domain.** This is direct evidence the primitive-media set is **closed**,
+  which *explains* the 0-new-to-science bound: multi-agent competencies are minimal compositions of a closed set
+  of catalogued media, so a genuinely new competency would require a NEW primitive medium — and across spatial
+  AND temporal coordination, none emerged.
 
 ## Why this matters (it unifies the whole multi-agent catalog)
 The cascade retroactively EXPLAINS every prior multi-agent result:
