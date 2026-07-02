@@ -138,3 +138,13 @@ catalog: genuine comms cases (#10, #14) all had asymmetry; forced-symmetric prob
 reactive mechanisms. Joins the Track-2 candidate list with #5 (substrate-reachability ordering), #6
 (sufficiency-pressure), and the shortcut-cascade-depth measure (from ToM #20). All pieces KNOWN -> 0
 new-to-science; the SYNTHESIS is the under-named candidate, pending the hard literature gate.
+
+## Corpus note -- #21 cumulative culture: a new AXIS (temporal scale of competency)
+#21 (cross-generational ratchet) is the first competency that is NOT within-lifetime. It suggests the competency
+catalog has an under-used AXIS: the temporal scale over which a competency is realized (within-episode / within-
+lifetime / across-generations). All 20 prior competencies + the coordination cascade sit at within-lifetime; the
+ratchet sits at across-generations. Candidate framing: emergent competencies stratify by temporal scale, and the
+cheapest-mechanism / minimal-mechanism law operates WITHIN each scale (agents find the cheapest medium within a
+lifetime; cultures accumulate the cheapest ratchet across generations). Joins the Track-2 candidate list with the
+coordination-media cost cascade and shortcut-cascade-depth. All KNOWN -> 0 new-to-science; the SYNTHESIS is the
+candidate under-named contribution.

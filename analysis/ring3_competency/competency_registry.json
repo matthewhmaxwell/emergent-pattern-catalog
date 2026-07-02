@@ -411,6 +411,27 @@
       "lit_name": "intention attribution / inverse planning / machine theory-of-mind (Baker 2009; Rabinowitz et al. 2018)",
       "gate": "known",
       "note": "FIRST SCALE-TIER competency. The audit flagged ToM as SCALE-GATED (not demandable at toy scale); this validates the instrument at the scale tier and shows the richer mechanism DOES emerge once forced. DIRECT RICHER SUCCESSOR to #19 on a social-cognition DEPTH LADDER: #19 solved a hidden-goal task by EMULATION (the cheap shortcut); this probe is literally 'close that shortcut' and one rung up is INTENTION-READING => emulation -> intention-attribution, and closing the shortcut at one rung forces the next. Required closing SIX successive single-frame shortcuts (fixed centre; perpendicular decoy offset; too-short trajectory; middle-distance ordering; ...; finally provable symmetry) before velocity-integration emerged -- the STRONGEST demonstration of the minimal-mechanism law: the agent grabbed every cheaper mechanism until a provably-symmetric frame left motion-integration as the ONLY sufficient one. METHODOLOGICAL FINDING: forcing a richer competency requires adversarially removing EVERY cheaper mechanism; the count of shortcuts that must be closed is a candidate MEASURE of how far up the mechanism ladder a competency sits. KNOWN to science => still 0 new-to-science."
+    },
+    {
+      "id": 21,
+      "name": "cumulative-culture ratchet (cross-generational)",
+      "level": "multi-agent (cross-generational / cultural)",
+      "probe": "openculture_ppo",
+      "commit": "PENDING",
+      "state_required": "n/a -- the state is EXTERNALIZED in a persistent culture buffer that outlives any individual",
+      "state_content": "an accumulated cultural ARTIFACT (the known-correct recipe prefix) persisting across agent lifetimes",
+      "mechanism": "each generation inherits the culture prefix, COPIES it (imitation) and explores the FRONTIER symbol (innovation); discoveries accumulate into the buffer, so the recipe is solved ACROSS generations, never within one",
+      "diagnostic_perturbation": "REMOVE the inherited culture buffer (no-inheritance) -> collapses 11.69/12 (97%) -> 0.38/12 (3%); needs-inheritance +11.31. A single generation cannot discover a random length-12 recipe (exponential); cross-generational accumulation can.",
+      "metric": "cumulative 11.69/12 (97%) vs single-generation 0.38/12 (3%); ratchet gap +11.31 (confirmed @120 generations)",
+      "reached_by": [
+        "cross-generational accumulation (persistent cultural strategy + persistent culture buffer)"
+      ],
+      "failed_by": [
+        "no-inheritance (single generation; buffer disabled -> plateaus at chance)"
+      ],
+      "lit_name": "cumulative cultural evolution / the ratchet effect (Tomasello; Boyd & Richerson; Henrich; Kirby iterated learning)",
+      "gate": "known",
+      "note": "FIRST CROSS-GENERATIONAL competency in the catalog -- all prior 20 + the entire coordination cascade are WITHIN-lifetime. Adds a NEW AXIS: the TEMPORAL SCALE of competency (within-lifetime vs across-lifetime). Mechanistically composes imitation (#19) + frontier innovation + a persistent artifact (#15 externalized state) ACROSS generations -> all closed-set primitives, so NO new primitive medium (consistent with completeness). BUT it is a genuine new KIND -- a system reaching solutions NO individual could -- and the ONLY probe in the whole hunt that did NOT reduce to a within-lifetime mechanism (no-inheritance plateaus at 3%). Known (cumulative cultural evolution) => still 0 new-to-science; the strongest new-FEELING result of the scale tier."
     }
   ]
 }

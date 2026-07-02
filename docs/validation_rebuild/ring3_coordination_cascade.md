@@ -119,3 +119,17 @@ The hunt is a 4th–7th independent replication of the minimal-mechanism law: at
 cheapest medium the world permitted, including one I did not anticipate (the coordinate focal point at rung 2).
 Building a world does not determine the mechanism; the *available media* do. To force a target mechanism you
 must adversarially remove every cheaper one — the same principle that made ToM #20 need six shortcut-closes.
+
+## New territory: CUMULATIVE CULTURE -- a cross-generational RATCHET (the one probe that did NOT reduce within-lifetime)
+Took the cumulative-culture shot (`openculture_ppo.py`): a hidden length-12 recipe; each generation inherits the
+known-correct PREFIX (culture), copies it, and explores the frontier symbol; discoveries accumulate. Result:
+**cumulative 11.69/12 (97%) vs no-inheritance 0.38/12 (3%), ratchet gap +11.31** -- a genuine cross-generational
+RATCHET: the collective reaches solutions no single generation could (a single lifetime cannot discover a random
+length-12 recipe; accumulation across generations can). Registry #21.
+- This is the FIRST cross-generational competency and the ONLY probe in the entire hunt whose mechanism does NOT
+  reduce to a within-lifetime one -- it genuinely requires the cross-generational buffer (remove it -> 3%).
+- It still does NOT break completeness: mechanistically it composes imitation (#19) + innovation + a persistent
+  artifact (#15) ACROSS generations -- closed-set primitives, no new medium. What it adds is a new AXIS: the
+  TEMPORAL SCALE of competency (within- vs across-lifetime). Known (cumulative cultural evolution) => 0 new-to-science.
+- Refined completeness statement: **the primitive-media set is closed WITHIN a lifetime; cross-generational
+  accumulation is a new SCALE, not a new primitive.** This is the deepest the hunt reached.
