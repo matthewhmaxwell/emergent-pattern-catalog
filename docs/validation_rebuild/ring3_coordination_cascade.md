@@ -99,6 +99,21 @@ genuinely new competency would require a new primitive medium, and across domain
 Rung 7's perfect all-invariant confirmation is the saturation signal: further coordination probes re-confirm
 without new information. The deliverable is the cost-hierarchy + communication-niche + completeness argument.
 
+## New territory: SWARM scale (25 agents) — completeness holds, plus a mode refinement
+Pushed to a materially different regime (`openswarm_ppo.py`): 25-agent COLLECTIVE DECISION under distributed
+noisy private evidence (each agent 70% accurate; the swarm should reach a quorum iff the hidden state is good).
+Result (with a FAIR blind-trained baseline, not just an eval-time ablation):
+- individual accuracy 0.70; **blind-trained independent voting (Condorcet) 0.89 (+0.19)**; with crowd
+  observation (quorum) 0.95 (+0.06 over Condorcet). (Trained-then-ablated = 0.51, a degenerate artifact —
+  hence the fair blind-TRAINED baseline.)
+- **The bulk of the wisdom-of-crowds (+0.19) requires NO coordination medium** — it is independent behavior +
+  the task's own vote-counting (Condorcet's jury theorem). Quorum/recruitment (observing the aggregate crowd
+  fraction) adds only a modest +0.06, and it is KNOWN (quorum sensing / collective decision-making).
+- So even at swarm scale, **no new primitive medium appears.** The one genuinely scale-specific thing is a
+  MODE refinement: the "observation" primitive has an AGGREGATE/statistical mode (quorum) that is meaningless
+  with 2–3 agents and only manifests in a crowd. **Scale reveals new MODES, not new primitives** — completeness
+  holds, now tested across 2-agent, 3-agent, AND 25-agent regimes.
+
 ## Method note (reinforces the minimal-mechanism law at scale)
 The hunt is a 4th–7th independent replication of the minimal-mechanism law: at EVERY rung the agents found the
 cheapest medium the world permitted, including one I did not anticipate (the coordinate focal point at rung 2).
