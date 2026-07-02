@@ -417,7 +417,7 @@
       "name": "cumulative-culture ratchet (cross-generational)",
       "level": "multi-agent (cross-generational / cultural)",
       "probe": "openculture_ppo",
-      "commit": "PENDING",
+      "commit": "b112730",
       "state_required": "n/a -- the state is EXTERNALIZED in a persistent culture buffer that outlives any individual",
       "state_content": "an accumulated cultural ARTIFACT (the known-correct recipe prefix) persisting across agent lifetimes",
       "mechanism": "each generation inherits the culture prefix, COPIES it (imitation) and explores the FRONTIER symbol (innovation); discoveries accumulate into the buffer, so the recipe is solved ACROSS generations, never within one",
