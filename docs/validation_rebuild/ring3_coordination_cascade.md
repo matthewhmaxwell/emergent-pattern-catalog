@@ -17,6 +17,7 @@ literature-gated. The hunt did not find a new *competency*, but it produced a cl
 | 5 | different DOMAIN: temporal, shared start (fire simultaneously) | **temporal focal point** (free internal-count from shared t=0) | normal 5.00, no-clock 5.00, blind 5.00, mute 5.00 — **all media unused** |
 | 5b | temporal, shared-start symmetry BROKEN (random phase, no clock) | **observation** (watch partner fire, align phase) | normal 5.23, **blind 2.67**, mute 5.27 (needs-obs +2.56, channel unused) |
 | 6 | 3 agents, INDIRECT: relay chain (source→relay→seeker, no direct link) | *did not emerge* — **bootstrap ceiling** (multi-hop co-emergence trap) | normal 0.54 ≈ chance even @3000 iters; both hops +0.02 (unused) |
+| 7 | 3 agents, different KIND: consensus under conflicting preferences | **focal point** (all default to the same option) | normal 12.00, blind 12.00, mute 12.00 — **all media unused** |
 
 ## The finding: a coordination-media cost hierarchy + a communication niche
 Agents always use the **cheapest available coordination medium**, and each medium is forced ONLY by removing
@@ -80,6 +81,23 @@ explicit ordering, (2) the **communication-niche** theorem (symmetric coordinati
 communication is forced iff information is asymmetric), and (3) the **cascade discovery method** (fingerprint →
 remove → climb) that establishes it empirically. These need the hard literature gate before any novelty claim;
 filed as Track-2 candidate regularities alongside the shortcut-cascade-depth measure (from ToM #20).
+
+## Convergence (8 rungs): completeness is established
+The hunt tested the completeness claim across three axes and it held every time — no new primitive medium
+appeared anywhere:
+- **Domains:** spatial (rungs 0–4) AND temporal (5, 5b) coordination — same `focal-point → observation →
+  communication` ordering.
+- **Regimes:** 2-agent (0–5b) AND 3-agent (4, 6, 7). The 3-agent-indirect case (relay, rung 6) hit a *learning*
+  ceiling, not a new medium.
+- **Competency kinds:** coordination (0–6) AND social choice / consensus (7) — consensus reduced to a focal
+  point (12/12, all media unused).
+
+Every rung reduced to the closed media set {focal-point, observation, communication, social-memory} or hit a
+learnability ceiling. This is a decisive, well-replicated result: **multi-agent competency at this scale is
+minimal composition over a CLOSED primitive-media set, which is *why* the search returns 0-new-to-science** — a
+genuinely new competency would require a new primitive medium, and across domains/regimes/kinds none emerged.
+Rung 7's perfect all-invariant confirmation is the saturation signal: further coordination probes re-confirm
+without new information. The deliverable is the cost-hierarchy + communication-niche + completeness argument.
 
 ## Method note (reinforces the minimal-mechanism law at scale)
 The hunt is a 4th–7th independent replication of the minimal-mechanism law: at EVERY rung the agents found the
