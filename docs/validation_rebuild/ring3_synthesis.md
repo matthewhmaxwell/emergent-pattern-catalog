@@ -2,6 +2,13 @@
 
 *Consolidation of the interventional competency search (registry: 21 competencies; branch `validation-rebuild`).*
 
+> **Correction (Track-2 literature gate, see `ring3_track2_contribution.md`):** the "closed set / completeness"
+> language below is an OVERCLAIM (unfalsifiable at n≈14 probes). Read every "closed/complete" as **"minimal-
+> sufficient mechanisms are DENSELY CATALOGUED, so a toy-scale search is structurally biased toward rediscovering
+> them"** — an observed regularity with a mechanism, bounded to toy scale (open-ended evolution *escapes* the
+> minimal regime by scaling complexity). The minimal-mechanism *mechanism* is established (shortcut learning /
+> simplicity bias / specification gaming / Kirby); the genuine contribution is the INSTRUMENT (§7), not the "law."
+
 ## 1. What we set out to do
 Detect **competency** in emergent systems — a system "doing more than its code," in Levin's operational sense
 (established by *perturbation*; signature = *same ends by different means*) — and honestly classify each instance
@@ -48,8 +55,9 @@ Established by an 8-rung *cascade* (fingerprint the medium in use → remove it 
 forced *only* by information ASYMMETRY (single-source → referential; distributed → composed). This UNIFIES the
 whole multi-agent catalog (every genuine communication case had asymmetry; every forced-symmetric case used a
 focal point). It holds across DOMAINS (space + time), REGIMES (2/3/25 agents), and KINDS (coordination, social
-choice, collective computation). Corollary: **the primitive-media set is CLOSED within a lifetime** — which
-*explains* the 0-new-to-science bound (competencies are minimal compositions of a closed, catalogued basis).
+choice, collective computation). Corollary (softened per Track-2 gate): the primitive-media basis is **densely
+catalogued** within a lifetime — which is why a toy-scale search is *structurally biased toward rediscovering
+known primitives* (the honest read of the 0-new-to-science bound; NOT a proof that the basis is closed).
 
 **(b) SHORTCUT-CASCADE DEPTH** (a competency-complexity measure).
 To force a target competency you must adversarially remove *every cheaper mechanism*. The **number** of shortcuts
@@ -66,8 +74,8 @@ is closed within a lifetime; cross-generational accumulation is a new SCALE, not
 ## 5. The unifying law: MINIMAL SUFFICIENT MECHANISM
 The through-line behind all of the above, replicated ~a dozen times (evolutionary and gradient learners; 2- to
 25-agent; spatial/temporal/cultural): **a learner realizes the cheapest mechanism the task's structure permits.**
-Consequences: (i) emergent competencies decompose into a small closed set of catalogued primitives; (ii) the
-minimal mechanism is always something science already named → 0 new-to-science; (iii) forcing a richer mechanism
+Consequences: (i) emergent competencies decompose into a small set of catalogued primitives; (ii) the
+minimal mechanism is (at toy scale) reliably something science already named → 0 new-to-science *observed*; (iii) forcing a richer mechanism
 requires adversarially removing every cheaper one (→ the cascade method and the depth measure); (iv) composition
 appears only under *sufficiency pressure* (when no single minimal mechanism suffices — the compositional-comms
 and distributed-integration results).
