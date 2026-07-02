@@ -16,6 +16,7 @@ literature-gated. The hunt did not find a new *competency*, but it produced a cl
 | 4 | asymmetry DISTRIBUTED: 3 agents, row-knower + col-knower → seeker | **composed multi-party communication** (2-source integration) | normal 3.72, mute-ROW 1.07, mute-COL 1.09; **both partial channels required** (needs-row +2.65, needs-col +2.63) |
 | 5 | different DOMAIN: temporal, shared start (fire simultaneously) | **temporal focal point** (free internal-count from shared t=0) | normal 5.00, no-clock 5.00, blind 5.00, mute 5.00 — **all media unused** |
 | 5b | temporal, shared-start symmetry BROKEN (random phase, no clock) | **observation** (watch partner fire, align phase) | normal 5.23, **blind 2.67**, mute 5.27 (needs-obs +2.56, channel unused) |
+| 6 | 3 agents, INDIRECT: relay chain (source→relay→seeker, no direct link) | *did not emerge* — **bootstrap ceiling** (multi-hop co-emergence trap) | normal 0.54 ≈ chance even @3000 iters; both hops +0.02 (unused) |
 
 ## The finding: a coordination-media cost hierarchy + a communication niche
 Agents always use the **cheapest available coordination medium**, and each medium is forced ONLY by removing
@@ -46,6 +47,17 @@ signal). **Symmetric coordination never forces communication.**
   which *explains* the 0-new-to-science bound: multi-agent competencies are minimal compositions of a closed set
   of catalogued media, so a genuinely new competency would require a NEW primitive medium — and across spatial
   AND temporal coordination, none emerged.
+
+## Rung 6 (3+ agents, indirect): a LEARNING ceiling, not a new medium
+The 3-agent regime is where a NEW primitive medium could hide (indirect coordination the 2-agent primitives
+cannot express). The cleanest instance -- a relay chain (source→relay→seeker, no direct link) -- did NOT break
+completeness: it simply **failed to emerge**, stuck at chance even after 3000 iters, with both hops unused.
+This is a BOOTSTRAP CEILING (the multi-hop co-emergence trap: no reward gradient until all three agents' codes
+align at once). It is the gradient-learning analog of the earlier evolutionary ceiling (evolution couldn't do
+precise counting; gradient could) -- both are limits on LEARNABILITY, not evidence of a new mechanism. Relay
+IS in the closed set (composed communication); it is known to require curriculum/scaffolding to emerge. So the
+3-agent regime yields either closed-set mechanisms or learning ceilings -- **no new primitive medium appears**,
+and completeness holds across spatial, temporal, AND 3-agent-indirect coordination.
 
 ## Why this matters (it unifies the whole multi-agent catalog)
 The cascade retroactively EXPLAINS every prior multi-agent result:
