@@ -17,12 +17,17 @@ is a collective property. You cannot find the flock in a single bird, segregatio
 in one household's mild preference, or a memory in one neuron. The behavior lives
 in the <i>interactions</i>.</p>
 
-<p>This catalog collects <b>32 of these phenomena</b> from across physics, biology,
+<p>This catalog collects <b>37 of these phenomena</b> from across physics, biology,
 and society — flocking, phase separation, Turing patterns, synchronization,
-epidemics, opinion dynamics, wealth inequality, division of labor,
+epidemics, opinion dynamics, wealth inequality, self-organized traffic jams,
 self-organized criticality, and more. Each is a <b>minimal model</b>: the
 simplest rule that still produces the effect, so you can see exactly how little is
 needed.</p>
+
+<p>These fixed-rule patterns are one of the catalog's two categories. The other is a
+separate <b>Ring-3 track of learned competencies</b> — behaviors that <i>trained</i>
+agents acquire, which we establish by <b>intervention</b> rather than a detector. If
+that is what you came for, start with <a href="#competencies" onclick="navigate('competencies');return false;">About learned competencies</a>.</p>
 
 <p><b>How to read each entry:</b> play the animation, note <i>what to look for</i>,
 read <i>how it emerges</i> (the mechanism), see the few lines of code that drive
@@ -77,7 +82,11 @@ MECHANISM = {
 
 METHODS_HTML = """
 <h2>How these models are validated</h2>
-<p>The 32 phenomena in this catalog are <b>established, literature-validated
+<p><i>This page covers the physics &amp; complexity patterns. The learned competencies
+are a different kind of claim, validated a different way — see
+<a href="#compmethods" onclick="navigate('compmethods');return false;">How competencies
+are validated</a>.</i></p>
+<p>The patterns in this catalog are <b>established, literature-validated
 science</b> — Schelling segregation, Turing patterns, Kuramoto synchronisation,
 and so on. The science is not what is new here. What is new is a set of
 <b>minimal executable models</b>, each paired with a <b>detector</b> — an
@@ -137,6 +146,10 @@ separation) rejects its negatives but does not yet reach a firing tier on its ow
 positive — shown as "unclassified". The delayed-gratification / sorting pattern is
 validated by a separate multi-run test, not a panel. An integral-controller
 homeostat is recognized but stays below threshold.</li>
+<li><b>These counts describe the validated core.</b> The 636/636 result and the
+31-panel / 32-detector figures cover the patterns that have been through the full
+negative-control battery — not necessarily every entry now in the catalog. Each page
+shows its own panel count, or none if a panel has not yet been run.</li>
 <li>All of this validates the faithfulness of our <b>detectors and test
 harness</b> — not any new claim about nature.</li>
 </ul>
@@ -191,3 +204,111 @@ WHERE = {
 "P36": "Kinetic exchange models of wealth and income distributions, where heterogeneous saving propensity reproduces the empirical Pareto tail of top wealth (econophysics); more broadly, heavy-tailed inequality in conserved-resource exchange systems (economics, complex systems).",
 "P37": "Phytoplankton and microbial communities competing for a few limiting nutrients yet sustaining high diversity — the 'paradox of the plankton' (ecology); competition-driven oscillations and chaos in resource-limited populations (theoretical ecology, complex systems).",
 }
+
+# ---------------------------------------------------------------------------
+# Ring-3 learned competencies — a SECOND category, distinct from the patterns
+# above. Patterns = hand-written rules recognized by a detector. Competencies =
+# trained agents, established by intervention (ablation) and gated known-vs-novel.
+# ---------------------------------------------------------------------------
+
+COMPETENCIES_HTML = """
+<h2>Learned competencies — when trained agents do more than their code</h2>
+<p>The patterns in the other track are <b>hand-written rules</b>: a few lines that, run
+over many agents, produce macro-structure no one programmed. A <b>competency</b> is a
+different kind of object. Here an agent is not given rules — it is <b>trained</b> on a
+task, and the interesting question is whether it ends up doing something its architecture
+did not obviously spell out: remembering, counting, dividing labor, signaling, taking
+turns. The capability lives in <b>learned weights and interaction</b>, not in code you can
+read off the page.</p>
+
+<p>This is competency in <b>Michael Levin's sense</b> — a system doing <i>more than its
+parts obviously specify</i>. The catch is that a trained agent looking clever is the
+easiest thing in the world to fool yourself about. So we do not certify a competency by
+watching it succeed. We certify it by <b>breaking it on purpose</b>.</p>
+
+<p><b>The test is an intervention, not a detector.</b> For a pattern you run a detector
+that reads the output and decides whether the pattern is present. For a competency you run
+an <b>ablation</b>: you remove the very thing the behavior would need — wipe the agent's
+memory, scramble its communication channel, blind it to its partner — and watch what
+happens. If the competency collapses to chance, the agent really was using that resource
+and the capability is genuine. If nothing changes, the "competency" was an artifact of the
+setup. A real competency has a <b>signature</b>: it dies when you remove what it depends
+on, and is unmoved when you remove what it doesn't.</p>
+
+<p><b>Why "Ring 3".</b> The project is organized in rings of increasingly strong claims.
+The physics and complexity patterns are the catalog's base. <b>Ring 3</b> is its
+learned-competency track — trained policies, probed interventionally. It is kept separate
+because it is a separate kind of claim: not "these rules make this shape," but "this
+trained agent genuinely acquired this capability."</p>
+
+<p><b>What each entry shows:</b> the trained agent running in its task, an <b>ablation
+fingerprint</b> (which knock-outs kill the behavior and which leave it intact), and a
+<b>gate</b> — is this competency already named in the scientific literature, or new? How
+we read that gate, and why every competency so far has landed on the "known" side, is on
+the <a href="#compmethods" onclick="navigate('compmethods');return false;">How
+competencies are validated</a> page.</p>
+"""
+
+COMPETENCY_METHODS_HTML = """
+<h2>How competencies are validated</h2>
+<p><i>This page covers the Ring-3 learned competencies. The physics &amp; complexity
+patterns are validated a different way — see <a href="#methods" onclick="navigate('methods');return false;">How
+models are validated</a>.</i></p>
+<p>Every competency here starts <b>guilty</b>. A trained agent that succeeds at a task has
+done nothing yet to prove it acquired a real capability — it may be exploiting a quirk of
+the environment, a fixed geometry, or a lucky correlation. We credit a competency only
+when it <b>survives interventions that a fake would fail</b>.</p>
+
+<h3>1 · The ablation battery — the main test</h3>
+<p>For each candidate we remove, one at a time, a resource the claimed competency would
+depend on, and measure whether performance collapses:</p>
+<ul>
+<li><b>Memory-wipe</b> — reset the agent's internal state each step. If a
+remembering/counting competency survives, it never needed memory.</li>
+<li><b>Channel-scramble</b> — randomly permute the communication signal. If
+"communication" survives a scrambled channel, the agents were coordinating on something
+else (usually shared geometry), not talking.</li>
+<li><b>Blind-partner</b> — hide the other agent. If a role-division or coordination
+competency survives, it was acting solo, not using its partner.</li>
+<li><b>Symmetry &amp; separately-trained controls</b> — provably-identical agents, or a
+fresh baseline trained without the mechanism, to rule out a shared focal point standing in
+for a genuine capability.</li>
+</ul>
+<p>A genuine competency shows a clean <b>fingerprint</b>: it <b>collapses to chance</b>
+when you remove what it depends on, and is <b>invariant</b> to knock-outs of things it
+doesn't. Each competency page shows its own fingerprint (for example, "nobody &rarr;
+collapse AND freeze-block &rarr; collapse: both necessary").</p>
+
+<h3>2 · The catalogued-vs-novel gate</h3>
+<p>A competency that survives ablation is real — but real is not the same as <b>new</b>.
+Each confirmed competency is checked against the scientific literature and gated:
+<b>KNOWN</b> means its mechanism is already named — Lewis signaling, the Bourgeois
+convention, repeated-game turn-taking, meta-learning, and so on. We report the gate
+plainly on every card.</p>
+
+<h3>The honest headline</h3>
+<p>Across every competency we have probed this way, the verdict has been the same:
+<b>genuine, and already known to science — 0 new-to-science so far</b>. That is a
+<b>feature, not a failure</b>. The instrument is built to do two things at once: confirm a
+real capability by intervention, and <b>refuse to over-claim novelty</b>. The recurring
+reason is itself a finding — trained agents converge on the <b>minimal mechanism</b> that
+solves the task, and minimal mechanisms are exactly the ones science has already
+catalogued.</p>
+
+<h3>Honest limits</h3>
+<ul>
+<li><b>These are toy worlds.</b> Single- and few-agent reinforcement-learning
+environments, chosen so an intervention can be clean and decisive. The scale ceiling is
+real, and we say so rather than dress a toy result as a discovery.</li>
+<li><b>The gate can only find what the literature already names.</b> "KNOWN" is a
+positive identification, not proof that nothing new is possible at larger scale.</li>
+<li><b>This is an interpretable instrument, not a claim of new science.</b> What is
+validated is the <i>method</i> — that intervention separates genuine competencies from
+artifacts and honestly gates novelty — not any new claim about nature.</li>
+</ul>
+
+<h3>Reproduce</h3>
+<p>The environments, trained policies, ablation harness and the competency write-up are in
+the source repository:
+<a href="https://github.com/matthewhmaxwell/emergent-pattern-catalog" target="_blank" rel="noopener">github.com/matthewhmaxwell/emergent-pattern-catalog</a>.</p>
+"""

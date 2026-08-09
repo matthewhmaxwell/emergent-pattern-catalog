@@ -3,7 +3,7 @@ detector readout, core-algorithm code panel). Self-contained; assets in ./assets
 Accessible & responsive: keyboard-operable listbox, ARIA on viz/controls,
 deep-linkable via URL hash, single mobile breakpoint, reduced-motion aware."""
 import json, html
-from gallery.education import OVERVIEW_HTML, METHODS_HTML
+from gallery.education import OVERVIEW_HTML, METHODS_HTML, COMPETENCIES_HTML, COMPETENCY_METHODS_HTML
 
 M = json.load(open("gallery/manifest.json"))
 M.sort(key=lambda e: (1 if e.get("track") == "competency" else 0, int(e["id"][1:])))
@@ -56,6 +56,10 @@ details.card[open]>summary.codesum{margin-bottom:10px}
 .about ul{margin:0 0 13px;padding-left:20px;color:#cdd9e5}.about li{margin:0 0 7px}
 .about a{color:var(--acc);text-decoration:underline}
 .item.methods-item b{color:#3fae6b}
+.item.comp-item b,.item.comp-about-item b,.item.comp-methods-item b{color:#b78bff}
+.cat{display:inline-block;padding:2px 10px;border-radius:11px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px}
+.cat-phys{background:#12233a;color:#6fb1ff;border:1px solid #21456b}
+.cat-comp{background:#221a33;color:#c69bff;border:1px solid #40305c}
 .tier{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid var(--line);border-radius:10px;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;vertical-align:middle;cursor:help}
 .disc{margin-top:11px;font-size:13px}.disc .lab{display:block;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;cursor:help}
 .disc strong{color:#7ee2a8}
@@ -93,7 +97,7 @@ details.card[open]>summary.codesum{margin-bottom:10px}
 """
 
 JS = """
-const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__, METHODS=__METHODS__;
+const M=__M__, VC=__VC__, OVERVIEW=__OVERVIEW__, METHODS=__METHODS__, COMP=__COMP__, COMPM=__COMPM__;
 const list=document.getElementById('list'), detail=document.getElementById('detail');
 let timer=null, suppressHash=false, paintBigRef=null, lastEnl=null;
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -210,11 +214,13 @@ function show(i){
     detail.innerHTML=`<div class=cols>
       <div class=viz>${vizHtml}${watchHtml}</div>
       <div class=info>
-        <h2 tabindex=-1>${m.id} · ${m.name}</h2><div class=ref>${m.ref}</div>
+        <h2 tabindex=-1>${m.id} · ${m.name}</h2>
+        <div class="cat ${m.track==='competency'?'cat-comp':'cat-phys'}">${m.track==='competency'?'Learned competency · Ring 3':'Physics &amp; complexity pattern'}</div>
+        <div class=ref>${m.ref}</div>
         <h3 class=k>What it is</h3><div class=v>${m.summary}</div>
         <h3 class=k>Emergent effect</h3><div class=v>${m.effect}</div>
         <h3 class=k>How it emerges</h3><div class=v>${m.mechanism||''}</div>
-        <h3 class=k>Where you see it</h3><div class=v>${m.where||''}</div>
+        ${m.where?`<h3 class=k>Where you see it</h3><div class=v>${m.where}</div>`:''}
         <h3 class=k>Canonical metric</h3><div class=v><code>${m.metric||'—'}</code></div>
         <div class=card><h3>${m.track==='competency'?'Interventional readout · ablation fingerprint':'Detector readout (validated battery)'}</h3>${det}</div>
       </div></div>
@@ -276,11 +282,15 @@ function initSprite(m){
 
 function showAbout(){clearTimer(); setSelected('about'); detail.innerHTML='<div class=about>'+OVERVIEW+'</div>';}
 function showMethods(){clearTimer(); setSelected('methods'); detail.innerHTML='<div class=about>'+METHODS+'</div>';}
+function showCompetencies(){clearTimer(); setSelected('competencies'); detail.innerHTML='<div class=about>'+COMP+'</div>';}
+function showCompMethods(){clearTimer(); setSelected('compmethods'); detail.innerHTML='<div class=about>'+COMPM+'</div>';}
 
 function renderKey(k){
   k=(k||'').trim(); const kl=k.toLowerCase();
   if(kl==='about'){showAbout();return true;}
   if(kl==='methods'){showMethods();return true;}
+  if(kl==='competencies'){showCompetencies();return true;}
+  if(kl==='compmethods'){showCompMethods();return true;}
   const i=M.findIndex(m=>m.id.toLowerCase()===kl);
   if(i>=0){show(i);return true;}
   return false;
@@ -292,9 +302,9 @@ function navigate(k){
 }
 window.addEventListener('hashchange',()=>{ if(suppressHash){suppressHash=false;return;} renderKey((location.hash||'').replace(/^#/,'')); });
 
-function makeItem(key, nav, htmlStr){
+function makeItem(key, nav, htmlStr, extraCls){
   const e=document.createElement('div');
-  e.className='item'+(key==='about'?' about-item':'')+(key==='methods'?' methods-item':'');
+  e.className='item'+(key==='about'?' about-item':'')+(key==='methods'?' methods-item':'')+(extraCls?' '+extraCls:'');
   e.dataset.key=String(key); e.dataset.nav=nav;
   if(key==='about') e.id='about-item';
   e.setAttribute('role','option'); e.setAttribute('aria-selected','false'); e.tabIndex=-1;
@@ -307,13 +317,16 @@ function makeSection(label){
   e.style.cssText='padding:10px 20px 5px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);border-top:1px solid var(--line);margin-top:4px;font-weight:600';
   list.appendChild(e);
 }
-makeItem('about','about','<b>✦</b>About emergence<small>start here — what all 32 share</small>');
+makeItem('about','about','<b>✦</b>About emergence<small>start here — what the patterns share</small>');
 makeItem('methods','methods','<b>✓</b>How models are validated<small>what “validated” means here</small>');
 let _phys=false,_comp=false;
 M.forEach((m,i)=>{
-  if(m.track==='competency'){ if(!_comp){ makeSection('Learned competencies · Ring 3'); _comp=true; } }
+  if(m.track==='competency'){ if(!_comp){ makeSection('Learned competencies · Ring 3');
+      makeItem('competencies','competencies','<b>✦</b>About learned competencies<small>a different category from patterns</small>','comp-about-item');
+      makeItem('compmethods','compmethods','<b>✓</b>How competencies are validated<small>intervention, not a detector</small>','comp-methods-item');
+      _comp=true; } }
   else if(!_phys){ makeSection('Physics & complexity patterns'); _phys=true; }
-  makeItem(i, m.id, `<b>${m.id}</b>${m.name}<small>${m.ref}</small>`);
+  makeItem(i, m.id, `<b>${m.id}</b>${m.name}<small>${m.ref}</small>`, m.track==='competency'?'comp-item':null);
 });
 
 list.addEventListener('keydown', e=>{
@@ -338,12 +351,12 @@ page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<title>EPC — Model Gallery</title><style>" + CSS + "</style></head><body>"
     "<a class=skip href='#detail'>Skip to content</a>"
     "<header><h1>Emergent Pattern Catalog — Model Gallery</h1>"
-    "<p>Minimal models of emergent behavior, plus a Ring-3 track of learned agent competencies — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, and see the interventional readout.</p></header>"
+    "<p>Two categories: <b>physics &amp; complexity patterns</b> — simple rules that make emergent structure, recognized by a detector — and a <b>Ring-3 track of learned agent competencies</b> — trained agents probed by intervention. New here? Start with <b>About emergence</b> or <b>About learned competencies</b>.</p></header>"
     "<div class=wrap><div class=list id=list role=listbox aria-label='Emergent pattern models — use arrow keys to browse, Enter to open'></div>"
     "<main class=detail id=detail tabindex=-1></main></div>"
     "<footer class=foot-bar>Cataloged by Matt Maxwell &nbsp;&middot;&nbsp;<img src=assets/email.png alt='contact email' class=email-img></footer>"
     "<noscript><p style='padding:20px;color:#8b98a5'>This interactive gallery requires JavaScript to be enabled.</p></noscript>"
-    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)).replace("__METHODS__", json.dumps(METHODS_HTML)) + "</script></body></html>")
+    "<script>" + JS.replace("__M__", json.dumps(M)).replace("__VC__", json.dumps(VC)).replace("__OVERVIEW__", json.dumps(OVERVIEW_HTML)).replace("__METHODS__", json.dumps(METHODS_HTML)).replace("__COMP__", json.dumps(COMPETENCIES_HTML)).replace("__COMPM__", json.dumps(COMPETENCY_METHODS_HTML)) + "</script></body></html>")
 open("gallery/index.html", "w").write(page)
 print("wrote gallery/index.html", len(page), "bytes;",
       sum(1 for e in M if e.get("asset_type") == "sprite"), "playable,",
