@@ -10,8 +10,8 @@ algorithm is interesting precisely when it exhibits a problem-solving competency
 not contain. Competency, however, is invisible to the Section 5B instrument, and not by accident.
 This section reports the consequence: a different kind of detector, an interventional one, and the
 map of competency-forms it produced. Its headline result is, again, negative and we argue correct —
-zero competencies novel to science — with the contribution lying in a validated, self-debunking
-method and a small governing-dynamics map.
+zero competencies novel to science across thirty catalogued faces — with the contribution lying in a
+validated, self-debunking method and a governing-dynamics map.
 
 ## 5C.1 Why passive observation cannot see competency
 
@@ -38,13 +38,24 @@ black-box on a controlled triad, the loop returned competent / mechanism / illus
 including debunking a seductive convergence illusion by inventing the away-from-goal trap that a
 greedy follower cannot pass. Run cold on a particle-life substrate with no hints, it correctly
 declined the tempting case — clusters that re-form after a scatter — as passive re-equilibration
-rather than competency, refusing the self-healing mirage. The loop's defining property is that it
-caught its own errors five separate times across this work (a too-weak barrier manufacturing false
-positives; a representation wall mistaken for rarity; an over-fit to favorable test conditions; a
-narrow held-out over-reading a generalization rate; and an emergent-strategy mirage). That
-self-debunking is the substantive difference from a passive perception-aligned embedding (ASAL;
-Kumar et al. 2024): the method is interventional rather than observational, interpretable rather
-than opaque, and adversarial toward its own positives.
+rather than competency, refusing the self-healing mirage.
+
+The loop's defining property is that it is built to refute its own positives, and it repeatedly did.
+In the foundational work it caught its own errors five separate times (a too-weak barrier
+manufacturing false positives; a representation wall mistaken for rarity; an over-fit to favorable
+test conditions; a narrow held-out over-reading a generalization rate; and an emergent-strategy
+mirage). The competency-map and scale phases that follow added several more self-corrections —
+memoryless baselines that were secretly recurrent, a reward design that made non-participation
+optimal, two "untrainable" verdicts that were under-training artifacts (§5C.4), an eval-time
+ablation that overstated a swarm's dependence on observation until a fair separately-trained
+baseline corrected it, and a hard threshold that mislabelled a partial generalization as
+"memorization." That self-debunking is the substantive difference from a passive perception-aligned
+embedding (ASAL; Kumar et al. 2024): the method is interventional rather than observational,
+interpretable rather than opaque, and adversarial toward its own positives. It is, in effect, the
+interventional successor to the classic ALife emergence test (Ronald, Sipper & Capcarrère 1999,
+"Design, Observation, Surprise!"), replacing observer-*surprise* — which over-fires and is
+observer-psychological — with a *survives-a-collapse-ablation* criterion, and adding a
+catalogued-versus-novel verdict that the surprise test does not provide.
 
 ## 5C.3 Discovering competency by program search
 
@@ -66,46 +77,118 @@ competency-kinds.
 
 ## 5C.4 A governing-dynamics map of competency-forms
 
-Probing four structurally-distinct competency faces produced a small map with two emergent axes.
-The first is **state-requirement**: navigation and memory require internal state (memoryless scores
-at zero or chance), whereas delayed gratification (cash out at the peak of an unknown-height reward)
-and regulation (hold a setpoint against disturbance) are achieved *reactively* — adding state buys
-little or nothing. The second, for the state-requiring forms, is **state-mode**: navigation uses
-state for *commitment* (holding a detour against the goal-pull), memory for *storage* (holding a
-cue across distractors). A pre-registered hypothesis that "control/feedback" would be a third mode
-was *falsified*: regulation came back reactive against both stochastic and structured disturbances.
-So after four faces the map has two state-modes and a reactive class, and state-requirement is
-itself a discriminating axis rather than a universal property — the kind of cross-form law a
-"periodic table of competencies" would be built from, with these two axes as its first coordinates.
-Each face was a genuine test that *refined* the law rather than confirming it, which is the correct
-behavior of real data.
+Iterating the detector across object-level, meta-level, multi-agent, and cross-generational
+substrates produced a catalog of **thirty competency faces** (plus three *learner boundaries*, §5C.5),
+each fingerprinted with an ablation battery — a channel is *load-bearing* only if scrambling or
+removing it collapses the behavior — and each literature-gated to a known competency-kind. The full
+catalog with per-face diagnostics is the supplementary `canonical_catalog.json`; here we report the
+two axes it is organized by.
 
-## 5C.5 The open-ended frontier and the environment bottleneck
+The first axis is **state-requirement**. Navigation and memory require internal state (a memoryless
+policy scores at zero or chance), whereas delayed gratification (cash out at the peak of an
+unknown-height reward), regulation (hold a setpoint against disturbance), and niche construction
+(durably modify the world with no reward for doing so) are achieved *reactively* — adding state buys
+little or nothing. A pre-registered hypothesis that "control/feedback" would be its own state-mode
+was *falsified*: regulation came back reactive against both stochastic and structured disturbances.
+State-requirement is thus a discriminating axis, not a universal property.
+
+The second axis, for the state-requiring forms, is **state-mode** — what the held state is *for*:
+
+- *commitment* — holding a detour against the goal-pull (navigation);
+- *storage* — holding a cue across distractors (memory), or a partner's history (reputation / social
+  memory);
+- *accumulation* — a running tally toward a threshold (counting);
+- *belief over a latent* — an inferred hidden rule (rule-inference, rule-tracking) or an
+  other-agent model (predictive intention-reading / a theory-of-mind component; non-stationary
+  co-player adaptation);
+- *internal-state* — reading one's own energy, velocity, or morphology (metabolic-commons foraging,
+  continuous-physics momentum control, morphology-conditioned specialization);
+- *externalized* — coordination state written into the world rather than the agent (stigmergy, and
+  its n-agent form stigmergic coordination; the cumulative-culture ratchet stores its state in a
+  persistent artifact that outlives any individual);
+- **joint-conditioning** *(new mode)* — conditioning on two simultaneously-necessary channels at
+  once (compositional attention: own-morphology *and* an opponent's strategy-switch). This face
+  emerges only under an attention (Transformer) policy; every recurrent variant carried one channel
+  and dropped the other. It is the map's first genuinely two-channel state-mode, and it is reachable
+  by changing the *learner architecture* rather than the task (its boundary complement is LB3, §5C.5).
+
+Two honest-status notes qualify the map. First, several multi-agent faces are not new *modes* but
+new *media* of coordination — a shared symbol channel (communication), direct mutual observation
+(role-division, contest-resolution), and the environment itself (stigmergy) — and across the
+multi-agent probes coordination reliably rides the *cheapest available medium*, an observation we
+report as a proposed regularity rather than a validated law (§5C.6). Second, the reachable-competent
+set is a **budget-dependent lower bound**: two faces (momentum control, morphology specialization)
+were first logged "untrainable" at a modest optimization budget and both train cleanly at a larger
+one, so short-run negatives are not trustworthy negatives and the map's boundaries move with
+training budget. Each face was a genuine test that *refined* the map rather than confirming it —
+the correct behavior of real data.
+
+## 5C.5 The open-ended frontier: environment and learner-architecture bottlenecks
 
 A known competency is recognized by its functional signature; a *new* one can only appear if the
-detector can name a competency it was not given in advance. We probed this open-ended naming in a
-multi-affordance survival world (forage regrowing food, avoid hazards, manage depleting energy),
+detector can name a competency it was not given in advance. We first probed this open-ended naming in
+a multi-affordance survival world (forage regrowing food, avoid hazards, manage depleting energy),
 evolving survivors and asking the agent-observer to name, with no pre-specification, what the best
-survivor does. The naming mechanism worked: it characterized the survivor's strategy unaided and
-*debunked* the tempting "patch-rotation to exploit regrowth" reading via four interventions, finding
-instead a mundane reactive forager whose apparent strategy was an epiphenomenon of greedy foraging
-in a regrowing cluster. No new competency emerged — and the probe localized why: a task solvable by
-mundane means yields mundane solutions. The limiting factor on discovering new competency is not the
-detector but the **environment**: novelty surfaces only in worlds hard enough that mundane strategies
-fail and only a richer, possibly off-map competency survives. That is an open-endedness problem —
-co-evolving environments and agents so the environment continually demands more — and it is the
-identified route from this method to a competency novel to science.
+survivor does. The naming mechanism worked and *debunked* the tempting "patch-rotation to exploit
+regrowth" reading via four interventions, finding instead a mundane reactive forager whose apparent
+strategy was an epiphenomenon of greedy foraging in a regrowing cluster. No new competency emerged,
+and the probe localized why: a task solvable by mundane means yields mundane solutions.
+
+We then built and ran the route §5C names as most likely to reach a novel competency —
+environment/agent co-evolution — as Minimal Criterion Coevolution (Brant & Stanley 2017, with
+resource limitation): two populations, environments as evolvable genomes and recurrent agents with a
+policy-gradient inner loop, each reproducing only on a binary minimal criterion, with no reward or
+objective. Over four hundred generations the populations turned over continuously and produced many
+competent behaviors, but a fair shared-channel re-screen against the catalog found **zero
+novel-to-catalog** — an in-loop screen first flagged 1356 "candidates," all a support-mismatch
+artifact of comparing sparse co-evolution fingerprints against the dense catalog, which the honest
+re-screen resolved to existing behaviors one by one. Removing the human from objective-specification
+did not escape the reachable set.
+
+This refines the section's central claim. The limiting factor on discovering a new competency is not
+the detector, and not the environment alone: it is the **environment and the learner architecture
+jointly**. The cleanest demonstration is a *learner boundary* we mapped directly. In a task requiring
+two simultaneously-necessary own-state channels, a recurrent (GRU) policy holds roughly one and
+drops the other — an auxiliary loss can steer *which* channel it keeps but not make it hold both —
+whereas holding the world fixed and swapping the recurrent policy for an attention (Transformer) one
+lets both be necessary at once (this is LB3, the boundary complement of competency #30). The
+instrument, in other words, is part of what determines the reachable phenomena. We record three such
+boundaries — reciprocal cooperation in a social dilemma, resolved not by more capacity but by a
+learner that shapes its co-learner's gradient (LOLA; Foerster et al. 2018); periodic
+synchronization, resolved by inter-agent coupling (Kuramoto dynamics) rather than more training; and
+the one-channel budget above — each a limit of the *learner*, gated known, and each pointing to a
+richer learner class, not a richer objective or world, as the un-crossed lever toward novelty.
 
 ## 5C.6 Honest status
 
-No competency novel to science was found, and on the stated prior none was expected from these
-substrates. The contribution is, as in Section 5B, methodological and threefold: an interventional,
-self-debunking competency detector (the agent-observer), grounded in the requirement that
-goal-directedness be established by perturbation; a directed-search discovery funnel that genuinely
-finds verified competency in evolved simple programs where passive search and random sampling find
-none; and a first governing-dynamics map of competency-forms, organized by state-requirement and
-state-mode. The differentiation from foundation-model artificial-life search is the same as in
-Section 5B, sharpened: the method acts on systems rather than only watching them, names what it
-finds, and is built to refute its own positives. What remains — the route we judge most likely to
-reach a genuinely new competency — is open-ended environment/agent co-evolution, with the same
-literature gate reserved for any off-map survivor.
+No competency novel to science was found across thirty catalogued faces, and on the stated prior none
+was expected from these substrates. We take care not to overclaim the *reason*: we do not assert the
+space of competency-primitives is closed — that is unfalsifiable at this sample size — only that
+minimal-sufficient mechanisms are exactly the region of behavior-space science mapped first, so a
+search that (like any gradient or evolutionary learner) settles on the *cheapest sufficient*
+mechanism is structurally biased toward rediscovering known primitives. That tendency is itself a
+consolidation, into the multi-agent competency setting, of established results — shortcut learning
+(Geirhos et al. 2020), simplicity bias (Shah et al. 2020), specification gaming (Krakovna et al.),
+and the compression–expressivity account of when structure emerges (Kirby et al. 2015) — and it is
+bounded to the toy scale we tested; open-ended-evolution theory (Lehman & Stanley 2011) holds that
+the minimal basis is *escaped* by climbing complexity, which is consistent with our reading that a
+richer learner or world, not this one, is where novelty would live.
+
+The contribution is, as in Section 5B, methodological, and it is the durable result of the work: an
+interventional, self-debunking competency detector (the agent-observer), grounded in the requirement
+that goal-directedness be established by perturbation, positioned as the interventional successor to
+the ALife design-observation-surprise test and distinguished from the emergent-abilities-as-mirage
+critique (Schaeffer et al. 2023) and the pitfalls-of-measuring-emergent-communication line (Lowe,
+Foerster et al. 2019) by acting on systems, naming what it finds, and being built to refute its own
+positives; a directed-search discovery funnel that genuinely finds verified competency in evolved
+simple programs where passive search and random sampling find none; and a governing-dynamics map of
+thirty competency-forms organized by state-requirement and state-mode. Three further regularities
+the corpus suggests — a cost hierarchy over coordination media (communication is forced only by
+information asymmetry), a "shortcut-cascade depth" measure of how many cheaper mechanisms must be
+foreclosed to force a target competency, and a temporal-scale axis (within-episode, within-lifetime,
+across-generations) — we report explicitly as **proposed, not validated**: each is composed of known
+pieces and would need a dedicated experiment (a dialable information-structure ladder; a
+well-definedness proof; genuine multi-timescale runs) before any novelty claim. What remains, and the
+route we judge most likely to reach a genuinely new competency, is a richer learner class inside
+open-ended environment/agent co-evolution, with the same literature gate reserved for any off-map
+survivor.
