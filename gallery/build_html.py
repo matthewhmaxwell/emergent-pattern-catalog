@@ -6,7 +6,7 @@ import json, html
 from gallery.education import OVERVIEW_HTML, METHODS_HTML
 
 M = json.load(open("gallery/manifest.json"))
-M.sort(key=lambda e: int(e["id"][1:]))
+M.sort(key=lambda e: (1 if e.get("track") == "competency" else 0, int(e["id"][1:])))
 VC = {"MATCH": "#2f855a", "EMERGENT-UNCLASSIFIED": "#b7791f", "NO-EMERGENCE": "#718096"}
 
 CSS = """
