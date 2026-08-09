@@ -216,7 +216,7 @@ function show(i){
         <h3 class=k>How it emerges</h3><div class=v>${m.mechanism||''}</div>
         <h3 class=k>Where you see it</h3><div class=v>${m.where||''}</div>
         <h3 class=k>Canonical metric</h3><div class=v><code>${m.metric||'—'}</code></div>
-        <div class=card><h3>Detector readout (validated battery)</h3>${det}</div>
+        <div class=card><h3>${m.track==='competency'?'Interventional readout · ablation fingerprint':'Detector readout (validated battery)'}</h3>${det}</div>
       </div></div>
       <details class=card open><summary class=codesum>Core algorithm · <code>${m.code_module||''} ${m.code_where||''}</code></summary>
         <pre class=codeblk>${hl(m.code||'# (unavailable)')}</pre></details>`;
@@ -302,9 +302,19 @@ function makeItem(key, nav, htmlStr){
   e.onclick=()=>navigate(nav);
   list.appendChild(e);
 }
+function makeSection(label){
+  const e=document.createElement('div'); e.setAttribute('role','presentation'); e.textContent=label;
+  e.style.cssText='padding:10px 20px 5px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);border-top:1px solid var(--line);margin-top:4px;font-weight:600';
+  list.appendChild(e);
+}
 makeItem('about','about','<b>✦</b>About emergence<small>start here — what all 32 share</small>');
 makeItem('methods','methods','<b>✓</b>How models are validated<small>what “validated” means here</small>');
-M.forEach((m,i)=>makeItem(i, m.id, `<b>${m.id}</b>${m.name}<small>${m.ref}</small>`));
+let _phys=false,_comp=false;
+M.forEach((m,i)=>{
+  if(m.track==='competency'){ if(!_comp){ makeSection('Learned competencies · Ring 3'); _comp=true; } }
+  else if(!_phys){ makeSection('Physics & complexity patterns'); _phys=true; }
+  makeItem(i, m.id, `<b>${m.id}</b>${m.name}<small>${m.ref}</small>`);
+});
 
 list.addEventListener('keydown', e=>{
   const its=[...list.querySelectorAll('.item')], idx=its.indexOf(document.activeElement);
@@ -328,7 +338,7 @@ page = ("<!doctype html><html lang=en><head><meta charset=utf-8>"
     "<title>EPC — Model Gallery</title><style>" + CSS + "</style></head><body>"
     "<a class=skip href='#detail'>Skip to content</a>"
     "<header><h1>Emergent Pattern Catalog — Model Gallery</h1>"
-    "<p>32 minimal models of emergent behavior — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, see the simple rule, and watch the validated detector recognize it.</p></header>"
+    "<p>Minimal models of emergent behavior, plus a Ring-3 track of learned agent competencies — start with <b>About emergence</b>, then explore each: play the effect, read how &amp; why it emerges, and see the interventional readout.</p></header>"
     "<div class=wrap><div class=list id=list role=listbox aria-label='Emergent pattern models — use arrow keys to browse, Enter to open'></div>"
     "<main class=detail id=detail tabindex=-1></main></div>"
     "<footer class=foot-bar>Cataloged by Matt Maxwell &nbsp;&middot;&nbsp;<img src=assets/email.png alt='contact email' class=email-img></footer>"
