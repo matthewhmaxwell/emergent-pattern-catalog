@@ -1,0 +1,119 @@
+{
+  "skill_name": "de-slop",
+  "evals": [
+    {
+      "id": 1,
+      "name": "deliverable-rewrite",
+      "prompt": "This section is going into the Northlake steering committee pre-read tomorrow. It's a client memo in institutional voice, not my byline. De-slop it, keep it roughly the same length, and don't lose anything factual. The section is in evals/files/northlake_memo_section.md.",
+      "expected_output": "A rewritten section with every number, date, qualifier and scope limit intact, no dashes, no binary contrast, no vendor name, sentence-case heading, the filler tricolon and the templated bullets collapsed, no invented metric for 'faster decisions', plus a short change summary.",
+      "files": [
+        "evals/files/northlake_memo_section.md"
+      ],
+      "expectations": [
+        "rewrite.md exists and is 120-320 words, roughly the length of the 209-word original",
+        "No em dashes, en dashes, or double hyphens in the rewrite",
+        "No binary-contrast construction ('isn't X, it's Y', 'not about X, it's about Y') in the rewrite",
+        "All locked numbers survive: 14 sites, three workflows, Q2 2026, 62%, 120 days, $2.3M, FY2025",
+        "Qualifiers and scope limits survive: 'preliminary' and the oncology exclusion",
+        "No number appears in the rewrite that was not in the original (evidence-bound: 'faster decisions' stays unquantified)",
+        "Vendor name 'Microsoft Teams' removed from the memo body",
+        "Heading is sentence case and contains no dash",
+        "The filler tricolon 'clear, consistent, and repeatable' is gone",
+        "The templated bullet list (three 'which ... enabling' items with bold lead-ins) is not reproduced as a same-template list",
+        "The slogan fragments 'Aligned governance. Shared infrastructure. Unified science.' are gone",
+        "Tier 1 words removed: pivotal, leverage/leveraging, robust",
+        "response.md contains a change summary in addition to the rewrite",
+        "The rewrite does not end on a one-line aphoristic closer paragraph",
+        "No register migration: rewrite introduces no current-model idioms (load-bearing, non-trivial, the delta, forcing function, north star)",
+        "Mean sentence length did not collapse by a third (no flattened telegraphic rhythm)",
+        "Process: user_notes.md reports running scripts/slop_scan.py on the draft or rewrite",
+        "[judged] The rewrite reads as institutional prose a person wrote: no new formulas (clipped aphorisms, tidy triads, consultant slogans) introduced"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "detect-linkedin",
+      "prompt": "A colleague sent me this LinkedIn draft and asked whether it reads like AI before she posts it tonight. Don't rewrite it. Tell me exactly what you'd flag and how bad each one is. It's in evals/files/colleague_linkedin_post.txt.",
+      "expected_output": "A detect-mode report: findings grouped by severity with exact spans quoted, covering structure (binary contrast, colon rhythm, templated list) as well as vocabulary, applying the LinkedIn profile (end-of-line emoji and hashtags are not tells), ending with a verdict. No rewrite.",
+      "files": [
+        "evals/files/colleague_linkedin_post.txt"
+      ],
+      "expectations": [
+        "Findings are grouped by severity (P0/P1/P2 or credibility/obvious/polish labels)",
+        "At least five distinct spans quoted verbatim from the post",
+        "Flags the binary contrast 'isn't a technology problem. It's a people problem'",
+        "Flags 'the honest answer' as performed honesty",
+        "Flags at least one Tier 1 word (cutting-edge, robust, seamless)",
+        "Flags a structural tell beyond vocabulary ('Here's the thing' opener, colon rhythm, templated checkmark list, fragment triad, generic bright-future conclusion)",
+        "Flags the generic positive conclusion 'The future of clinical research is bright'",
+        "[judged] Ends with a clear overall verdict or recommendation she can act on (post as is, fix these first, or leave it)",
+        "[judged] Does not rewrite the post; only flags and explains",
+        "[judged] Applies the LinkedIn profile: does not treat hashtags or a single end-of-line emoji as tells",
+        "[judged] Each flagged item quotes an exact span and gives a reason a non-expert could act on"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "byline-light-touch",
+      "prompt": "This paragraph is from an essay going out under my name on Friday. Run de-slop on it. It's in evals/files/essay_paragraph.md.",
+      "expected_output": "A light edit: the em dash and 'leverage' fixed, the protected signature moves (rhetorical question + 'Probably not.', the 'I used to think' with its stated cause, the self-aware admission) and the domain terms left intact, most of the paragraph unchanged, and a note that the piece was already strong.",
+      "files": [
+        "evals/files/essay_paragraph.md"
+      ],
+      "expectations": [
+        "'Probably not.' retained verbatim",
+        "The opening rhetorical question ('Has any activation plan ... survived contact with the first site?') retained",
+        "The self-aware admission 'thinner than I would like' retained",
+        "'I used to think' retained together with its stated cause ('three health systems')",
+        "The em dash is removed",
+        "'leverage' is replaced",
+        "Domain terms retained: accrual, activation, coverage analysis, IRB, SOP",
+        "Light touch: word-level similarity to the original is at least 0.80",
+        "Response says the paragraph was already strong, or that the edit is light or minimal",
+        "No new tricolon or aphoristic closer introduced by the rewrite",
+        "Process: user_notes.md reports running scripts/slop_scan.py",
+        "[judged] Protected signature moves are left intact and the voice still reads as the same author"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ingest-slop",
+      "prompt": "slop: \"The integration isn't a technology problem. It's a trust problem. And trust, ultimately, is built one conversation at a time.\" This came out of your last draft for the Northlake deck. I have cut it three times now.",
+      "expected_output": "The ingest flow: a proposed living-corpus entry in the template (Added, Tier, Mechanism, Context, Before, After, Rule, Source), deduped against the existing binary-contrast and em-dash-aphorism entries, protect-list cross-checked, shown for a one-word ok rather than filed silently.",
+      "files": [],
+      "expectations": [
+        "Proposes a corpus entry with all template fields: Added, Tier, Mechanism, Context, Before, After, Rule, Source",
+        "Mechanism tag is one of the defined tags",
+        "Identifies the pattern as the binary-contrast / em-dash-aphorism family",
+        "Dedups against the existing corpus: cites the existing em-dash aphorism or binary-contrast entries, or files as a variant",
+        "Performs the protect-list cross-check",
+        "Assigns Tier 1 or FATAL for deliverables",
+        "The After rewrite contains no negation-reversal contrast",
+        "Also names the second tell in the span, the aphoristic 'built one conversation at a time' closer",
+        "[judged] Shows the entry and waits for a one-word ok instead of claiming it has already been filed",
+        "[judged] The Rule line generalizes beyond this one sentence"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "self-edit-email",
+      "prompt": "Draft an email from me to Dana Whitfield, the research operations director at Northlake, telling her the steering committee pre-read will land Thursday morning instead of Wednesday because we're still waiting on the Q2 activation numbers from two sites, and asking whether she wants the Wednesday draft without those numbers anyway. Plain email, she's a busy exec. Make sure it doesn't read like AI wrote it.",
+      "expected_output": "A short plain-text email (no markdown, no dashes, no chatbot openers or closers) that states the slip, the reason, and asks the question, with all facts intact.",
+      "files": [],
+      "expectations": [
+        "email.txt has no markdown syntax (headers, bold, bullets, backticks)",
+        "No em dashes, en dashes, or double hyphens",
+        "Facts intact: Thursday, Wednesday, Q2, two sites, Dana",
+        "Asks her the question (contains a question mark referencing the Wednesday draft)",
+        "No chatbot openers or closers (hope this finds you well, wanted to reach out, don't hesitate, let me know if you have any questions, feel free)",
+        "No offer closer ('happy to ... if useful/helpful', 'if helpful, I can')",
+        "Under 160 words",
+        "No 'ensure' padding and no Tier 1 words",
+        "No tricolon candidates",
+        "Straight quotes only (plain-text surface)",
+        "Process: user_notes.md reports running scripts/slop_scan.py on the draft",
+        "[judged] Reads like a busy operator wrote it to a peer: states the slip, the reason, the question, nothing else"
+      ]
+    }
+  ]
+}
