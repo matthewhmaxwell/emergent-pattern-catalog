@@ -1,0 +1,19 @@
+{
+ "P1": {
+  "chance_random_policy": 0.493,
+  "ceiling_oracle": 0.939
+ },
+ "P2": {
+  "chance_random_policy": 0.007,
+  "ceiling_oracle": 3.261
+ },
+ "P3": {
+  "chance_random_policy": 0.1785,
+  "ceiling_oracle": 1.0,
+  "chance_registered": 0.5
+ },
+ "P4": {
+  "chance_random_policy": 0.283,
+  "ceiling_oracle": 5.42
+ }
+}
