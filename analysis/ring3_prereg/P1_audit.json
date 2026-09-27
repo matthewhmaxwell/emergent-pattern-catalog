@@ -1,0 +1,141 @@
+{
+ "static": {
+  "S1_exchangeable_obs": true,
+  "S2_reward_depends_only_on_actions_differing": true
+ },
+ "models": {
+  "P1_full_s1": {
+   "B1_symbol_entropy_bits": 2.995,
+   "S_normal": 0.928,
+   "B2_S_given_distinct": 0.997,
+   "B2_S_given_tied": 0.468,
+   "B2_tie_rate": 0.131,
+   "B3_forced_identical_by_k": {
+    "0": 0.503,
+    "1": 0.472,
+    "2": 0.471,
+    "3": 0.508,
+    "4": 0.378,
+    "5": 0.426,
+    "6": 0.461,
+    "7": 0.503
+   },
+   "B4_antisymmetry_mean": 0.998,
+   "B4_min": 0.983,
+   "B5_greedy_talk": 0.487,
+   "B6_mute": 0.504,
+   "PASS": false
+  },
+  "P1_full_s2": {
+   "B1_symbol_entropy_bits": 2.996,
+   "S_normal": 0.927,
+   "B2_S_given_distinct": 0.999,
+   "B2_S_given_tied": 0.461,
+   "B2_tie_rate": 0.133,
+   "B3_forced_identical_by_k": {
+    "0": 0.478,
+    "1": 0.498,
+    "2": 0.443,
+    "3": 0.498,
+    "4": 0.463,
+    "5": 0.5,
+    "6": 0.46,
+    "7": 0.469
+   },
+   "B4_antisymmetry_mean": 0.999,
+   "B4_min": 0.983,
+   "B5_greedy_talk": 0.495,
+   "B6_mute": 0.495,
+   "PASS": true
+  },
+  "P1_full_s3": {
+   "B1_symbol_entropy_bits": 2.998,
+   "S_normal": 0.927,
+   "B2_S_given_distinct": 0.997,
+   "B2_S_given_tied": 0.467,
+   "B2_tie_rate": 0.132,
+   "B3_forced_identical_by_k": {
+    "0": 0.504,
+    "1": 0.505,
+    "2": 0.466,
+    "3": 0.423,
+    "4": 0.47,
+    "5": 0.498,
+    "6": 0.496,
+    "7": 0.344
+   },
+   "B4_antisymmetry_mean": 0.998,
+   "B4_min": 0.98,
+   "B5_greedy_talk": 0.502,
+   "B6_mute": 0.479,
+   "PASS": false
+  },
+  "P1_full_s4": {
+   "B1_symbol_entropy_bits": 2.998,
+   "S_normal": 0.929,
+   "B2_S_given_distinct": 0.999,
+   "B2_S_given_tied": 0.471,
+   "B2_tie_rate": 0.133,
+   "B3_forced_identical_by_k": {
+    "0": 0.527,
+    "1": 0.431,
+    "2": 0.455,
+    "3": 0.37,
+    "4": 0.489,
+    "5": 0.477,
+    "6": 0.493,
+    "7": 0.525
+   },
+   "B4_antisymmetry_mean": 0.999,
+   "B4_min": 0.983,
+   "B5_greedy_talk": 0.486,
+   "B6_mute": 0.502,
+   "PASS": false
+  },
+  "P1_full_s5": {
+   "B1_symbol_entropy_bits": 2.997,
+   "S_normal": 0.93,
+   "B2_S_given_distinct": 0.999,
+   "B2_S_given_tied": 0.492,
+   "B2_tie_rate": 0.136,
+   "B3_forced_identical_by_k": {
+    "0": 0.475,
+    "1": 0.461,
+    "2": 0.472,
+    "3": 0.489,
+    "4": 0.452,
+    "5": 0.479,
+    "6": 0.478,
+    "7": 0.496
+   },
+   "B4_antisymmetry_mean": 0.999,
+   "B4_min": 0.987,
+   "B5_greedy_talk": 0.486,
+   "B6_mute": 0.491,
+   "PASS": true
+  },
+  "P1_full_s6": {
+   "B1_symbol_entropy_bits": 2.992,
+   "S_normal": 0.929,
+   "B2_S_given_distinct": 0.999,
+   "B2_S_given_tied": 0.469,
+   "B2_tie_rate": 0.133,
+   "B3_forced_identical_by_k": {
+    "0": 0.51,
+    "1": 0.511,
+    "2": 0.487,
+    "3": 0.429,
+    "4": 0.489,
+    "5": 0.464,
+    "6": 0.505,
+    "7": 0.449
+   },
+   "B4_antisymmetry_mean": 0.999,
+   "B4_min": 0.987,
+   "B5_greedy_talk": 0.49,
+   "B6_mute": 0.491,
+   "PASS": true
+  }
+ },
+ "all_models_PASS": false
+}
