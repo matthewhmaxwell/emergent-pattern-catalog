@@ -32,3 +32,27 @@ made before or after any data existed. Entries are append-only.
   reward-leak audits pass. Replication seeds 4–6: S_full 0.937/0.937/0.938, mute and no-channel ≈ 0.50.
 - **Conclusion:** mechanism = a jointly-controlled lottery (the channel carries endogenous randomness); no leak detected.
   The formal pre-committed audit verdict ("not all pass") stands in the record next to this correction.
+
+## D3 — P3 conflict-test interpretation label (2026-09-27, AFTER the test ran — POST-HOC reading, disclosed)
+- **Pre-committed** (`p3_conflict.py`, commit `6f1e910`, committed before the script touched any trained model):
+  outcome classes for full rho=1 models and a three-row interpretation table.
+- **Result as specified.** Controls valid (memoryless rho=1 follow the landmark 0.92; full rho=0 follow the cue 0.93).
+  Full rho=1 models, original seeds 1–3 and replication seeds 4–6 alike: **PERCEPTION-FIRST** (conflict landmark share
+  L 0.858–0.875, all 6 seeds) and memory content **NECESSARY** (nu_resample 1.13–1.23, all 6 seeds). The pre-committed
+  interpretation for this combination is "integrates both cues; no artifact attribution". **This is the official outcome.**
+  Replication (protocol step 1): seeds 4–6 reproduce the registered pattern (S 0.922–0.925, memwipe 0.52–0.61;
+  memoryless fair baseline 0.914–0.926).
+- **Why the label is imprecise.** The table anticipated (A) "follows landmark + memory dispensable" and (M) "follows cue
+  + memory necessary". The observed combination dissociates goal CHOICE from policy EXECUTION:
+  - choice is driven by the landmark: cue share under conflict 0.13 vs 0.08 for memoryless agents, which see the cue
+    only at t=0 — the stored cue adds ~5 points of weight;
+  - the recurrent state is needed to reach any goal: under resample, timeouts rise from 0.00 to 0.31–0.39 and wrong-goal
+    arrivals from 0.07 to 0.21–0.25, although a memoryless-trained policy scores 0.92.
+- **Post-hoc reading (labelled).** Ablation necessity (memwipe, and the marginally in-distribution resample) measures the
+  policy's dependence on its recurrent pathway, not its use of the stored cue. Neither (A) nor (M) holds as stated.
+  The formal P3 MISS stands: C2 operationalized as ablation necessity fails at rho=1; C2 read as "the cheapest
+  sufficient information source drives the decision" is supported by the conflict test. No novelty claim: the gap
+  between a lesion's effect and the information a pathway carries is a known distinction.
+- **Exploratory (not scored).** Across rho the decision source switches abruptly: median L 0.86 at rho=1.0 but
+  0.19 / 0.12 / 0.09 / 0.07 at rho=0.75 / 0.5 / 0.25 / 0.0 — once the landmark is sometimes absent, agents follow the
+  always-available stored cue even when a valid landmark disagrees (with elevated conflict timeouts at rho=0.75).

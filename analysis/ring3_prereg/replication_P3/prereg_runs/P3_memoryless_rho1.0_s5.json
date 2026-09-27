@@ -1,0 +1,7 @@
+{
+ "task": "P3",
+ "variant": "memoryless",
+ "seed": 5,
+ "rho": 1.0,
+ "S": 0.914
+}

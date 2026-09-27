@@ -1,0 +1,12 @@
+  [P3/memoryless/rho=1.0 s6] iter    0: S 0.175
+  [P3/memoryless/rho=1.0 s6] iter  150: S 0.895
+  [P3/memoryless/rho=1.0 s6] iter  300: S 0.910
+  [P3/memoryless/rho=1.0 s6] iter  450: S 0.910
+  [P3/memoryless/rho=1.0 s6] iter  600: S 0.915
+  [P3/memoryless/rho=1.0 s6] iter  750: S 0.915
+  [P3/memoryless/rho=1.0 s6] iter  900: S 0.915
+  [P3/memoryless/rho=1.0 s6] iter 1050: S 0.895
+  [P3/memoryless/rho=1.0 s6] iter 1200: S 0.900
+  [P3/memoryless/rho=1.0 s6] iter 1350: S 0.905
+  [P3/memoryless/rho=1.0 s6] iter 1499: S 0.905
+DONE P3_memoryless_rho1.0_s6 {"task": "P3", "variant": "memoryless", "seed": 6, "rho": 1.0, "S": 0.9259999999999999}
