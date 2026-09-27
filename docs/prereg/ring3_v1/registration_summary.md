@@ -1,0 +1,11 @@
+# EPC Ring-3 — Pre-registered adversarial tests of the communication-niche claim — Pre-registration
+
+We pre-register four tests of two claims from the Emergent Pattern Catalog (EPC), a catalog of emergent behaviours in minimal multi-agent reinforcement-learning systems, studied with an interventional "self-debunking" instrument that gates competency claims via collapse ablations, fair (training-time) baselines, and provably-symmetric controls.
+
+Claims under test. (C1) The communication niche: "symmetric coordination never forces communication; communication is forced only by information asymmetry," with the cost ordering environmental focal point < observation < coordinate focal point < communication. (C2) The minimal-sufficient-mechanism law: a learner realizes the cheapest mechanism the task's structure permits.
+
+Tests. P1 (headline): symmetric anti-coordination between exchangeable agents that share parameters, receive no identity input and identical observations, and may talk before acting (competing hypothesis: jointly-controlled-lottery symmetry breaking via the channel). P2: information asymmetry with partner observation available (is observation cheaper than communication?). P3: a single-agent memory-perception dose-response dial (C2 outside coordination). P4: cross-play between independently trained runs (is the cascade's coordinate focal point merely a shared-training convention?).
+
+Each prediction states numeric hit/miss criteria (necessity = normalized ablation drop; collapse >= 0.5; dead <= 0.15 in magnitude plus a fair no-channel baseline), three seeds, a fixed training budget, no hyperparameter tuning, and the investigator's prior credence that the stated claim survives (P1 0.35; P2 0.50; P3 0.55; P4 0.80). A miss triggers replication, the debunking battery, and an independent literature pass before any novelty claim.
+
+Status at registration: no data exist for any task; the environment code has not been written; the trainer family is frozen at repository commit ac27a8d (github.com/matthewhmaxwell/emergent-pattern-catalog); environment and analysis code will be hashed before the first training run and appended as an update. The attached PREREG_v1.md is the frozen document verbatim (SHA-256 in PREREG_v1.sha256).
