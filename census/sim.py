@@ -2,8 +2,9 @@
 
 All seeds of one program run together (leading batch axis S). One time step = every rule in program order (each
 rule reads the state left by the previous rule and updates synchronously), then agent heading noise + movement, then
-field diffusion. A frame of the full state is recorded every REC steps. The run stops early when the state stops
-changing (absorbing / frozen), which is recorded.
+field diffusion. A frame of the full state is recorded at a per-key interval (REC). The run stops early when the state stops
+changing (absorbing / frozen) is recorded; runs are never stopped early (the absorbed state is part of the
+observation), except on numerical blow-up.
 
 Fixed initial conditions (symmetric under type relabeling):
   cells, nodes, agents: types uniform over k; agents at random cell centres with random cardinal headings
@@ -16,7 +17,8 @@ other lattice rule sees a torus; A.QUORUM slows crowded agents to QUORUM_SLOW x 
 import numpy as np
 from scipy.spatial import cKDTree
 
-W, NA, NN, T_STEPS, REC, SEEDS = 64, 400, 200, 1000, 10, 3
+W, NA, NN, T_STEPS, SEEDS = 64, 400, 200, 1000, 3
+REC = {"C": 2, "pos": 2, "head": 2, "at": 2, "nt": 2, "Cph": 5, "Nph": 5, "adj": 10, "F": 10}   # record interval per key
 SAND_MAXIT, FREEZE_WINDOW, QUORUM_SLOW = 20000, 100, 0.1
 MOORE = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 VN = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -40,6 +42,8 @@ class State:
         self.rng = np.random.default_rng(1_000_003 * seed0 + 17)
         r, k = self.rng, prog.k
         names = {x.tmpl for x in prog.rules}
+        for x in prog.rules:                                   # G2 rules: map phase coupling onto the same state
+            if getattr(x, "act", None) == "PHASE_COUPLE": names.add(x.target + ".KURA")
         if "C" in prog.layers:
             self.C = r.integers(0, k["C"], size=(S, W, W)).astype(np.int8)
             if "C.KURA" in names:
@@ -94,7 +98,8 @@ class State:
         before = self._signature()
         self.stop = np.zeros((S, NA), bool) if "A" in p.layers else None
         for rule in p.rules:
-            getattr(self, "_" + rule.tmpl.replace(".", "_"))(**dict(rule.params))
+            if rule.tmpl == "G2": self._g2(rule)
+            else: getattr(self, "_" + rule.tmpl.replace(".", "_"))(**dict(rule.params))
         if "A" in p.layers:
             v, eta = p.agent
             if eta > 0: self.head = self.head + r.uniform(-eta / 2, eta / 2, self.head.shape)
@@ -111,6 +116,23 @@ class State:
             if self.same >= FREEZE_WINDOW and self.frozen_at is None: self.frozen_at = self.t
         else:
             self.same = 0
+
+    def shuffle(self):
+        """NULL MODE: destroy spatial/relational structure after every step (same per-entity state distribution)."""
+        r = self.rng
+        for s in range(self.S):
+            if hasattr(self, "C"):
+                perm = r.permutation(W * W)
+                self.C[s] = self.C[s].reshape(-1)[perm].reshape(W, W)
+                if hasattr(self, "Cph"):
+                    self.Cph[s] = self.Cph[s].reshape(-1)[perm].reshape(W, W); self.Com[s] = self.Com[s].reshape(-1)[perm].reshape(W, W)
+            if hasattr(self, "pos"): self.pos[s] = r.uniform(0, W, (NA, 2))
+            if hasattr(self, "nt"):
+                perm = r.permutation(NN); self.nt[s] = self.nt[s][perm]
+                if hasattr(self, "Nph"): self.Nph[s] = self.Nph[s][perm]; self.Nom[s] = self.Nom[s][perm]
+            if hasattr(self, "F"):
+                for f in range(self.F.shape[1]):
+                    self.F[s, f] = self.F[s, f].reshape(-1)[r.permutation(W * W)].reshape(W, W)
 
     def _signature(self):
         h = []
@@ -318,22 +340,179 @@ class State:
         r = p * self.F[:, f] * self.F[:, g] ** 2; self.F[:, f] -= r; self.F[:, g] += r
 
 
-# ---------------------------------------------------------------------- run + record
-def run(prog, seed0=0, steps=T_STEPS, rec=REC, S=SEEDS):
-    """returns dict of recorded frames (numpy arrays with leading axes (S, frames, ...)) + run metadata."""
-    st = State(prog, seed0, S); rew = any(r.tmpl == "N.REWIRE" for r in prog.rules)
-    fr = {k: [] for k in ("C", "Cph", "pos", "head", "at", "nt", "Nph", "F") + (("adj",) if rew else ())}
+    # ------------------------------------------------------------------ G2 (low-level grammar) operations
+    def _g2(self, r):
+        c, a = dict(r.cparams), dict(r.aparams)
+        getattr(self, "_g2_" + r.target)(r, c, a)
 
-    def snap():
+    def _g2_C(self, r, c, a):
+        C, k = self.C, self.p.k["C"]; nxt = ((C.astype(np.int16) + 1) % k).astype(np.int8)
+        M = np.ones(C.shape, bool) if r.subject == "any" else (C == r.subject)
+        cd = r.cond
+        if cd == "CNT_GE": M &= _count(C, c["b"]) >= c["th"]
+        elif cd == "CNT_LE": M &= _count(C, c["b"]) <= c["th"]
+        elif cd == "NEXT_GE": M &= _count(C, nxt) >= c["th"]
+        elif cd == "SAME_LT": M &= _count(C, C) < c["th"] * 8
+        elif cd == "FIELD_GT": M &= self.F[:, c["f"]] > c["th"]
+        elif cd == "AGENT_ON":
+            y, x = self._cell_of_agents(); on = np.zeros(C.shape, bool)
+            for s_ in range(self.S): on[s_, y[s_], x[s_]] = True
+            M &= on
+        M &= self._bern(C.shape, r.rate); act = r.act
+        if act == "SET": C = C.copy(); C[M] = a["b"]; self.C = C
+        elif act == "SET_NEXT": self.C = np.where(M, nxt, C)
+        elif act == "COPY_RAND":
+            d = self.rng.integers(0, 8, size=C.shape); new = C.copy()
+            for i, (dy, dx) in enumerate(MOORE):
+                sel = d == i; new[sel] = _roll(C, -dy, -dx)[sel]
+            self.C = np.where(M, new, C)
+        elif act == "COPY_MAJ":
+            cnt = np.stack([_count(C, v) for v in range(k)], 1).astype(float) + self.rng.random((self.S, k, W, W)) * 0.5
+            self.C = np.where(M, cnt.argmax(1).astype(np.int8), C)
+        elif act == "SWAP_RAND":
+            ax = 1 + int(self.rng.integers(0, 2)); off = int(self.rng.integers(0, 2))
+            i1 = np.arange(off, W, 2); i2 = (i1 + 1) % W
+            x1, x2, m = np.take(C, i1, axis=ax), np.take(C, i2, axis=ax), np.take(M, i1, axis=ax)
+            new = C.copy(); sl1 = [slice(None)] * 3; sl2 = [slice(None)] * 3; sl1[ax] = i1; sl2[ax] = i2
+            new[tuple(sl1)] = np.where(m, x2, x1); new[tuple(sl2)] = np.where(m, x1, x2); self.C = new
+        elif act == "MOVE_EMPTY":
+            occ = C != 0; mv = M & occ
+            for s_ in range(self.S):
+                u = np.flatnonzero(mv[s_]); e = np.flatnonzero(~occ[s_]); n = min(len(u), len(e))
+                if n == 0: continue
+                u = self.rng.permutation(u)[:n]; e = self.rng.permutation(e)[:n]
+                flat = self.C[s_].reshape(-1); flat[e] = flat[u]; flat[u] = 0
+        elif act == "IMITATE_BEST":
+            old = C.copy(); self._C_GAME(a["g"]); self.C = np.where(M, self.C, old)
+        elif act == "PHASE_COUPLE":
+            z = np.exp(1j * self.Cph); zs = sum(_roll(z, dy, dx) for dy, dx in MOORE) / 8.0
+            self.Cph = np.where(M, self.Cph + self.Com + a["K"] * np.imag(np.conj(z) * zs), self.Cph)
+        elif act == "ADD_GRAIN":
+            h = C.astype(np.int16) + M; sizes = np.zeros(self.S, int)
+            for _ in range(SAND_MAXIT):
+                top = h >= 4
+                if not top.any(): break
+                sizes += top.sum((1, 2)); h -= 4 * top; t = top.astype(np.int16)
+                h[:, 1:, :] += t[:, :-1, :]; h[:, :-1, :] += t[:, 1:, :]; h[:, :, 1:] += t[:, :, :-1]; h[:, :, :-1] += t[:, :, 1:]
+            self.C = np.minimum(h, 3).astype(np.int8); self.aval.append(sizes)
+        elif act == "EMIT": self.F[:, a["f"]] += a["amt"] * M
+
+    def _g2_A(self, r, c, a):
+        t = self.at; k = self.p.k["A"]
+        M = np.ones(t.shape, bool) if r.subject == "any" else (t == r.subject)
+        cd = r.cond
+        if cd in ("CNT_GE", "CNT_LE", "NEXT_GE"):
+            cnt = np.zeros(t.shape)
+            for s_, (i, j, _) in enumerate(self._pairs(c["r"])):
+                ts = t[s_]
+                if cd == "NEXT_GE":
+                    nx = (ts + 1) % k; wi, wj = (ts[j] == nx[i]).astype(float), (ts[i] == nx[j]).astype(float)
+                elif c["b"] == "any": wi = wj = np.ones(len(i))
+                else: wi, wj = (ts[j] == c["b"]).astype(float), (ts[i] == c["b"]).astype(float)
+                cnt[s_] = self._nsum(i, j, wi, wj)
+            M &= (cnt <= c["th"]) if cd == "CNT_LE" else (cnt >= c["th"])
+        elif cd in ("CELL_EVEN", "CELL_ODD"):
+            y, x = self._cell_of_agents(); cs = np.take_along_axis(self.C.reshape(self.S, -1), y * W + x, 1)
+            M &= (cs % 2 == 0) if cd == "CELL_EVEN" else (cs % 2 == 1)
+        elif cd == "FIELD_GT":
+            y, x = self._cell_of_agents(); s_ = np.arange(self.S)[:, None]; M &= self.F[:, c["f"]][s_, y, x] > c["th"]
+        M &= self._bern(t.shape, r.rate); act = r.act
+        if act in ("HEAD_MEAN", "HEAD_TO", "HEAD_AWAY"):
+            old = self.head.copy()
+            if act == "HEAD_MEAN":
+                cs_, sn = np.cos(self.head), np.sin(self.head); new = self.head.copy()
+                for s_, (i, j, _) in enumerate(self._pairs(a["r"])):
+                    ts = t[s_]
+                    wi = np.ones(len(i)) if a["b"] == "any" else (ts[j] == a["b"]).astype(float)
+                    wj = np.ones(len(i)) if a["b"] == "any" else (ts[i] == a["b"]).astype(float)
+                    own = np.ones(NA) if a["b"] == "any" else (ts == a["b"]).astype(float)
+                    sx = own * cs_[s_] + self._nsum(i, j, wi * cs_[s_][j], wj * cs_[s_][i])
+                    sy = own * sn[s_] + self._nsum(i, j, wi * sn[s_][j], wj * sn[s_][i])
+                    new[s_] = np.where((sx != 0) | (sy != 0), np.arctan2(sy, sx), self.head[s_])
+                self.head = new
+            else:
+                self._steer(a["b"], a["r"], 1.0 if act == "HEAD_TO" else -1.0)
+            self.head = np.where(M, self.head, old)
+        elif act == "HEAD_GRAD":
+            old = self.head.copy(); self._A_CLIMB(a["f"]); self.head = np.where(M, self.head, old)
+        elif act == "TURN_L": self.head = self.head + np.where(M, np.pi / 2, 0.0)
+        elif act == "TURN_R": self.head = self.head - np.where(M, np.pi / 2, 0.0)
+        elif act == "SLOW": self.stop |= M
+        elif act == "SET": self.at = np.where(M, a["b"], t).astype(np.int8)
+        elif act == "SET_NEXT": self.at = np.where(M, (t + 1) % k, t).astype(np.int8)
+        elif act == "CELL_NEXT":
+            y, x = self._cell_of_agents(); kc_ = self.p.k["C"]; flat = self.C.reshape(self.S, -1).copy()
+            for s_ in range(self.S):
+                u = np.unique((y[s_] * W + x[s_])[M[s_]]); flat[s_, u] = (flat[s_, u] + 1) % kc_
+            self.C = flat.reshape(self.C.shape)
+        elif act == "DEPOSIT":
+            y, x = self._cell_of_agents()
+            for s_ in range(self.S): np.add.at(self.F[s_, a["f"]], (y[s_][M[s_]], x[s_][M[s_]]), a["amt"])
+
+    def _g2_N(self, r, c, a):
+        t = self.nt; k = self.p.k["N"]; nxt = ((t + 1) % k).astype(np.int8)
+        M = np.ones(t.shape, bool) if r.subject == "any" else (t == r.subject)
+        cd = r.cond
+        if cd == "CNT_GE": M &= self._ncount(c["b"]) >= c["th"]
+        elif cd == "CNT_LE": M &= self._ncount(c["b"]) <= c["th"]
+        elif cd == "NEXT_GE": M &= self._ncount(nxt) >= c["th"]
+        elif cd == "DISCORD":
+            j = self._nbr_choice(); s_ = np.arange(self.S)[:, None]; M &= (j >= 0) & (t[s_, np.maximum(j, 0)] != t)
+        M &= self._bern(t.shape, r.rate); act = r.act; old = t.copy()
+        if act == "SET": self.nt = np.where(M, a["b"], t).astype(np.int8)
+        elif act == "SET_NEXT": self.nt = np.where(M, nxt, t)
+        elif act == "COPY_RAND":
+            j = self._nbr_choice(); s_ = np.arange(self.S)[:, None]
+            self.nt = np.where(M & (j >= 0), t[s_, np.maximum(j, 0)], t)
+        elif act == "COPY_MAJ":
+            cnt = np.stack([self._ncount(v) for v in range(k)], -1).astype(float) + self.rng.random((self.S, NN, k)) * 0.5
+            self.nt = np.where(M & self.adj.any(-1), cnt.argmax(-1).astype(np.int8), t)
+        elif act == "IMITATE_BEST": self._N_GAME(a["g"]); self.nt = np.where(M, self.nt, old)
+        elif act == "PHASE_COUPLE":
+            z = np.exp(1j * self.Nph); deg = np.maximum(self.adj.sum(-1), 1)
+            zs = np.einsum("sij,sj->si", self.adj.astype(complex), z) / deg
+            self.Nph = np.where(M, self.Nph + self.Nom + a["K"] * np.imag(np.conj(z) * zs), self.Nph)
+        elif act == "REWIRE_SAME":
+            for s_ in range(self.S):
+                for i in self.rng.permutation(np.flatnonzero(M[s_] & self.adj[s_].any(-1))):
+                    nb = np.flatnonzero(self.adj[s_, i]); j = nb[self.rng.integers(len(nb))]
+                    if self.nt[s_, i] == self.nt[s_, j]: continue
+                    cand = np.flatnonzero((self.nt[s_] == self.nt[s_, i]) & ~self.adj[s_, i]); cand = cand[cand != i]
+                    if len(cand) == 0: continue
+                    n = cand[self.rng.integers(len(cand))]
+                    self.adj[s_, i, j] = self.adj[s_, j, i] = False; self.adj[s_, i, n] = self.adj[s_, n, i] = True
+
+    def _g2_F(self, r, c, a):
+        act = r.act
+        if act == "SCALE": self._F_DECAY(a["f"], a["d"])
+        elif act == "RELAX1": self._F_FEED(a["f"], a["F"])
+        elif act == "AUTOCAT": self._F_AUTOCAT(a["f"], a["g"], a["p"])
+
+
+# ---------------------------------------------------------------------- run + record
+def run(prog, seed0=0, steps=T_STEPS, S=SEEDS, null_shuffle=False):
+    """returns dict of recorded frames (arrays with leading axes (S, frames, ...)) + run metadata.
+    null_shuffle=True runs the mean-field NULL (structure destroyed after every step)."""
+    st = State(prog, seed0, S)
+    rew = any(r.tmpl == "N.REWIRE" or getattr(r, "act", None) == "REWIRE_SAME" for r in prog.rules)
+    keys = ("C", "Cph", "pos", "head", "at", "nt", "Nph", "F") + (("adj",) if rew else ())
+    fr = {k: [] for k in keys if hasattr(st, k)}; last_change = 0
+
+    def snap(t):
         for k in fr:
-            if hasattr(st, k): fr[k].append(np.array(getattr(st, k), copy=True))
-    snap()
+            if t % REC[k] == 0:
+                a = getattr(st, k); fr[k].append(a.astype(np.float32) if a.dtype == np.float64 else a.copy())
+    snap(0)
     while st.t < steps:
         st.step()
-        if st.t % rec == 0: snap()
-        if st.unstable or (st.frozen_at is not None): break
+        if null_shuffle: st.shuffle()
+        if getattr(st, "same", 0) == 0: last_change = st.t
+        snap(st.t)
+        if st.unstable: break
     out = {k: np.stack(v, 1) for k, v in fr.items() if v}
     if hasattr(st, "aval") and st.aval: out["aval"] = np.stack(st.aval, 1)
     if hasattr(st, "adj") and not rew: out["adj0"] = st.adj.copy()
-    out["meta"] = {"steps_run": st.t, "frozen_at": st.frozen_at, "unstable": st.unstable, "rec": rec, "W": W}
+    out["meta"] = {"null_shuffle": null_shuffle, "steps_run": st.t, "frozen_at": st.frozen_at,
+                   "absorbed_at": last_change if st.frozen_at is not None else None,
+                   "unstable": st.unstable, "rec": dict(REC), "W": W}
     return out

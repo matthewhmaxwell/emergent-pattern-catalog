@@ -3,6 +3,8 @@ from . import grammar_g1 as G
 R = G.Rule
 bench = {
  "voter":            G.make("C", {"C": 2}, rules=[R("C.COPY", (("p", 1.0),))]),
+ "voter p=0.3":      G.make("C", {"C": 2}, rules=[R("C.COPY", (("p", 0.3),))]),
+ "voter p=0.1":      G.make("C", {"C": 2}, rules=[R("C.COPY", (("p", 0.1),))]),
  "majority coarsen": G.make("C", {"C": 2}, rules=[R("C.MAJ", (("p", 1.0),))]),
  "Schelling":        G.make("C", {"C": 3}, rules=[R("C.SCHELL", (("th", 0.5),))]),
  "cyclic CA spirals":G.make("C", {"C": 3}, rules=[R("C.CYCLE", (("th", 3), ("p", 1.0)))]),

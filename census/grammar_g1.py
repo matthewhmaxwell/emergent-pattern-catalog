@@ -170,7 +170,7 @@ def _prod(lists):
     return res
 
 
-def encode(p):
+def header_bits(p):
     bits = tb_encode(COMBOS.index(p.layers), len(COMBOS))
     for L in "CAN":
         if L in p.layers: bits += tb_encode(p.k[L] - 1, KMAX)
@@ -179,6 +179,11 @@ def encode(p):
         bits += dict((v, c) for v, c in hier_codes(GRIDS["angle"]))[p.agent[1]]
     if "F" in p.layers:
         bits += tb_encode(p.nf - 1, 2) + "".join(dict(hier_codes(GRIDS["diff"]))[d] for d in p.D)
+    return bits
+
+
+def encode(p):
+    bits = header_bits(p)
     vt = valid_templates(p)
     for i, r in enumerate(p.rules):
         if i > 0: bits += "1"
