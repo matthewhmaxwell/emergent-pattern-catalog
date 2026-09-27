@@ -112,30 +112,36 @@ def conds(p, t): return [n for n, (_, req, v) in COND[t].items() if _ok(p, req) 
 def acts(p, t): return [n for n, (_, req, v) in ACT[t].items() if _ok(p, req) and v(p)]
 
 
+def _param_combos(specs, p, budget):
+    """yield (values, code) for the parameter list `specs`, pruning any prefix longer than budget."""
+    if not specs:
+        yield (), ""; return
+    (n, k), rest = specs[0], specs[1:]
+    for v, c in G1._param_options(k, p):
+        if len(c) > budget: continue
+        for vs, cs in _param_combos(rest, p, budget - len(c)):
+            yield ((n, v),) + vs, c + cs
+
+
 def rule_options(p, budget=64):
     """[(Rule2, codeword)] for every valid rule (codeword <= budget bits) in the context of program header p."""
-    out = []
-    ts = targets(p)
+    out = []; ts = targets(p); rates = hier_codes(GRIDS["rate"])
     for ti, t in enumerate(ts):
-        c_t = tb_encode(ti, len(ts))
-        sb = subjects(p, t)
+        c_t = tb_encode(ti, len(ts)); sb = subjects(p, t); cs = conds(p, t); as_ = acts(p, t)
         for si, s in enumerate(sb):
             c_s = tb_encode(si, len(sb))
-            cs = conds(p, t)
             for ci, c in enumerate(cs):
-                c_c = tb_encode(ci, len(cs))
-                for cpar in G1._prod([G1._param_options(k, p) for _, k in COND[t][c][0]]):
-                    as_ = acts(p, t)
+                c_c = c_t + c_s + tb_encode(ci, len(cs))
+                if len(c_c) > budget: continue
+                for cp, cpc in _param_combos(COND[t][c][0], p, budget - len(c_c)):
                     for ai, a in enumerate(as_):
-                        c_a = tb_encode(ai, len(as_))
-                        for apar in G1._prod([G1._param_options(k, p) for _, k in ACT[t][a][0]]):
-                            cp = tuple((n, v) for (n, _), (v, _) in zip(COND[t][c][0], cpar))
-                            ap = tuple((n, v) for (n, _), (v, _) in zip(ACT[t][a][0], apar))
+                        c_a = c_c + cpc + tb_encode(ai, len(as_))
+                        if len(c_a) > budget: continue
+                        for ap, apc in _param_combos(ACT[t][a][0], p, budget - len(c_a)):
                             if not _valid_combo(t, s, c, cp, a, ap): continue
-                            rates = [(1.0, "")] if t == "F" else hier_codes(GRIDS["rate"])
-                            for rv, rc in rates:
-                                code = c_t + c_s + c_c + "".join(x for _, x in cpar) + c_a + "".join(x for _, x in apar) + rc
-                                if len(code) <= budget: out.append((Rule2(t, s, c, cp, a, ap, rv), code))
+                            base = c_a + apc
+                            for rv, rc in ([(1.0, "")] if t == "F" else rates):
+                                if len(base) + len(rc) <= budget: out.append((Rule2(t, s, c, cp, a, ap, rv), base + rc))
     return out
 
 
@@ -171,18 +177,20 @@ def _dfs(p0, bits, rules, opts, max_bits, canonical):
         yield from _dfs(p0, nb, rs, opts, max_bits, canonical)
 
 
-_OPT_CACHE = {}
-
-
-def _options_for(p):
-    key = (p.layers, p.ktuple, p.nf, p.D, p.agent)
-    if key not in _OPT_CACHE: _OPT_CACHE[key] = {r: c for r, c in rule_options(G1.make(p.layers, p.k, p.nf, p.D, p.agent))}
-    return _OPT_CACHE[key]
+def rule_code(p, r):
+    """codeword of one G2 rule in the context of program header p (computed directly, no option table)."""
+    ts = targets(p); sb = subjects(p, r.target); cs = conds(p, r.target); as_ = acts(p, r.target)
+    code = tb_encode(ts.index(r.target), len(ts)) + tb_encode(sb.index(r.subject), len(sb))
+    code += tb_encode(cs.index(r.cond), len(cs))
+    for (n, k), (_, v) in zip(COND[r.target][r.cond][0], r.cparams): code += dict(G1._param_options(k, p))[v]
+    code += tb_encode(as_.index(r.act), len(as_))
+    for (n, k), (_, v) in zip(ACT[r.target][r.act][0], r.aparams): code += dict(G1._param_options(k, p))[v]
+    if r.target != "F": code += dict(hier_codes(GRIDS["rate"]))[r.rate]
+    return code
 
 
 def encode(p):
-    table = _options_for(p)
-    return G1.header_bits(p) + "1".join(table[r] for r in p.rules) + "0"
+    return G1.header_bits(p) + "1".join(rule_code(p, r) for r in p.rules) + "0"
 
 
 def _perm_ok(pi, sems):

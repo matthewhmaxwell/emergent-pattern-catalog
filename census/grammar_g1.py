@@ -259,16 +259,27 @@ def enumerate_programs(max_bits, canonical=True):
     for hdr, hbits in _header_codes():
         if len(hbits) + 1 > max_bits: continue
         p0 = make(hdr["layers"], hdr["k"], hdr.get("nf", 0), hdr.get("D", ()), hdr.get("agent", ()))
-        vt = valid_templates(p0)
+        vt = valid_templates(p0); budget = max_bits - len(hbits) - 1
         rule_opts = []                                          # [(Rule, codeword-without-continuation)]
         for ti, name in enumerate(vt):
             tc = tb_encode(ti, len(vt))
-            for combo in _prod([_param_options(kind, p0) for _, kind in T[name]["params"]]):
-                prm = tuple((pn, v) for (pn, _), (v, _) in zip(T[name]["params"], combo))
+            if len(tc) > budget: continue
+            for prm, pc in _param_combos(T[name]["params"], p0, budget - len(tc)):
                 if not _ok_types(name, prm): continue
-                rule_opts.append((Rule(name, prm), tc + "".join(c for _, c in combo)))
+                rule_opts.append((Rule(name, prm), tc + pc))
         rule_opts.sort(key=lambda x: len(x[1]))
         yield from _rules_dfs(p0, hbits, [], rule_opts, max_bits, canonical)
+
+
+def _param_combos(specs, p, budget):
+    """yield (((name, value), ...), code) for a parameter list, pruning prefixes longer than budget."""
+    if not specs:
+        yield (), ""; return
+    (n, k), rest = specs[0], specs[1:]
+    for v, c in _param_options(k, p):
+        if len(c) > budget: continue
+        for vs, cs in _param_combos(rest, p, budget - len(c)):
+            yield ((n, v),) + vs, c + cs
 
 
 def _rules_dfs(p0, bits, rules, opts, max_bits, canonical):

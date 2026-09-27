@@ -3,6 +3,12 @@
   python -m census.triage census/runs/<tag> [--threshold T] [--reps 3] [--workers 4] [--no-battery]
 
 1. Every EMERGENT view of every program -> feature vector (mean fingerprint over its emergent seeds + em_score).
+1b. NULL REGION (DESIGN §6 base-rate control, taken from inside the grammar): programs whose rules are all
+   interaction-free (spontaneous flips, linear decay/feed, one-way emission) are null programs. Per family, a view
+   whose standardized fingerprint lies within R of a null view is TRIVIAL (not a behaviour class); R = the 95th
+   percentile of null-to-null nearest-neighbour distances (self-calibrating).
+   --null-run DIR adds a second null set: the same programs run with structure destroyed after every step
+   (sim null_shuffle); any view within R_shuffle of an emergent shuffled view is also TRIVIAL.
 2. Views are grouped by family (grid, agents, network, lattice-phase, network-phase, field, avalanche); within a
    family, features are robust-z-scored (median / MAD) and clustered by Ward agglomeration at distance threshold T.
 3. Each cluster's REPS shortest programs are re-simulated exactly (stable seeds) and the full 36-detector battery
@@ -17,6 +23,15 @@ import numpy as np
 
 FAMILY = {"C": "grid", "C.transient": "grid", "A": "agents", "N": "network", "C.phase": "lattice-phase",
           "N.phase": "network-phase", "F0": "field", "F1": "field", "C.aval": "avalanche"}
+
+
+import re
+NULL_TEMPLATES = {"C.FLIP", "N.FLIP", "F.DECAY", "F.FEED", "C.EMIT"}
+
+
+def is_null_program(prog):
+    names = set(re.findall(r"([CANF]\.[A-Z]+)\(", prog))
+    return bool(names) and names <= NULL_TEMPLATES
 
 
 def load(run):
@@ -45,12 +60,33 @@ def items(rows):
     return out
 
 
-def cluster_family(its, threshold):
-    from scipy.cluster.hierarchy import linkage, fcluster
+def standardize(its):
     keys = sorted(set().union(*[f for *_, f in its]))
     X = np.array([[f.get(k, 0.0) for k in keys] for *_, f in its], float)
     med = np.median(X, 0); mad = np.median(np.abs(X - med), 0) * 1.4826; mad[mad < 1e-9] = 1.0
-    Z = np.clip((X - med) / mad, -8, 8)
+    return keys, np.clip((X - med) / mad, -8, 8)
+
+
+def null_mask(its, Z, shuffled_Z=None):
+    """True for views inside the null region of their family (in-grammar nulls + optional shuffle-null views)."""
+    isnull = np.array([is_null_program(r["prog"]) and not r.get("null") for _, _, r, _ in its])
+    triv = isnull.copy(); R = None
+    if isnull.sum() >= 2:
+        N = Z[isnull]; dnn = np.sqrt(((N[:, None] - N[None]) ** 2).sum(-1)); np.fill_diagonal(dnn, np.inf)
+        R = float(np.percentile(dnn.min(1), 95))
+        d = np.sqrt(((Z[:, None] - N[None]) ** 2).sum(-1)).min(1); triv |= d <= R
+    elif isnull.sum() == 1:
+        R = 0.0
+    if shuffled_Z is not None and len(shuffled_Z) >= 2:
+        dnn = np.sqrt(((shuffled_Z[:, None] - shuffled_Z[None]) ** 2).sum(-1)); np.fill_diagonal(dnn, np.inf)
+        Rs = float(np.percentile(dnn.min(1), 95))
+        triv |= np.sqrt(((Z[:, None] - shuffled_Z[None]) ** 2).sum(-1)).min(1) <= Rs
+    return triv, isnull, R
+
+
+def cluster_family(its, threshold, keys=None, Z=None):
+    from scipy.cluster.hierarchy import linkage, fcluster
+    if Z is None: keys, Z = standardize(its)
     if len(its) == 1: return np.array([1]), keys, Z
     lab = fcluster(linkage(Z, "ward"), t=threshold, criterion="distance")
     return lab, keys, Z
@@ -82,12 +118,24 @@ def _battery_rep(args):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("run"); ap.add_argument("--threshold", type=float, default=12.0)
     ap.add_argument("--reps", type=int, default=3); ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--no-battery", action="store_true"); a = ap.parse_args()
+    ap.add_argument("--no-battery", action="store_true"); ap.add_argument("--null-run", default=None)
+    a = ap.parse_args()
     rows = load(a.run); its = items(rows); fams = collections.defaultdict(list)
     for it in its: fams[it[0]].append(it)
-    clusters = []
-    for fam, fit in sorted(fams.items()):
-        lab, keys, Z = cluster_family(fit, a.threshold)
+    sh = collections.defaultdict(list)                       # shuffle-null emergent views, per family
+    if a.null_run:
+        for it in items(load(a.null_run)): sh[it[0]].append(it)
+    clusters = []; nullinfo = {}
+    for fam, fit0 in sorted(fams.items()):
+        allits = fit0 + sh.get(fam, []); keys, Zall = standardize(allits)
+        Z0, Zsh = Zall[:len(fit0)], (Zall[len(fit0):] if sh.get(fam) else None)
+        triv, isnull, R = null_mask(fit0, Z0, Zsh)
+        nullinfo[fam] = {"views": len(fit0), "null_programs": int(isnull.sum()), "shuffle_null_views": len(sh.get(fam, [])),
+                         "trivial": int(triv.sum()), "R": R}
+        keep = np.flatnonzero(~triv)
+        if len(keep) == 0: continue
+        fit = [fit0[i] for i in keep]
+        lab, keys, Z = cluster_family(fit, a.threshold, keys, Z0[keep])
         for c in sorted(set(lab)):
             mem = [fit[i] for i in np.flatnonzero(lab == c)]
             mem.sort(key=lambda x: (x[2]["len"], x[2]["idx"]))
@@ -98,7 +146,8 @@ def main():
                              "members": [(m[2]["idx"], m[1]) for m in mem],
                              "centroid": {k: float(v) for k, v in zip(keys, Z[idx].mean(0))},
                              "em_kinds": dict(collections.Counter(s.get("em_kind") for m in mem for s in m[2]["views"][m[1]]["seeds"] if s.get("emergent")))})
-    print(f"{len(its)} emergent views -> {len(clusters)} clusters "
+    print("null region:", json.dumps(nullinfo), flush=True)
+    print(f"{len(its)} emergent views ({sum(v['trivial'] for v in nullinfo.values())} trivial) -> {len(clusters)} clusters "
           f"({', '.join(f'{f}:{sum(1 for c in clusters if c["family"] == f)}' for f in sorted(fams))})", flush=True)
     if not a.no_battery:
         jobs = sorted({(b, v) for c in clusters for b, v, _ in c["reps"]})
@@ -112,8 +161,10 @@ def main():
     table = {}
     for c in clusters:
         if c.get("label") and (c["label"] not in table or c["shortest_len"] < table[c["label"]]["shortest_len"]): table[c["label"]] = c
-    L = [f"# Triage — {a.run}", "", f"{len(its)} emergent views -> **{len(clusters)} behaviour classes** "
-         f"(Ward, threshold {a.threshold}).", "", "## Emergence-complexity table (labelled classes)", "",
+    L = [f"# Triage — {a.run}", "", f"{len(its)} emergent views; "
+         f"{sum(v['trivial'] for v in nullinfo.values())} fall in the null region (interaction-free programs) -> "
+         f"**{len(clusters)} behaviour classes** (Ward, threshold {a.threshold}).", "",
+         "Null region per family: " + "; ".join(f"{f}: {v['null_programs']} null / {v['trivial']} trivial of {v['views']} (R={v['R']})" for f, v in nullinfo.items()), "", "## Emergence-complexity table (labelled classes)", "",
          "| pattern | bits | shortest program | class | size |", "|---|---|---|---|---|"]
     L += [f"| {k} | {c['shortest_len']} | `{c['shortest']}` | {c['id']} | {c['size']} |" for k, c in sorted(table.items(), key=lambda x: x[1]["shortest_len"])]
     un = sorted([c for c in clusters if not c.get("label")], key=lambda c: (c["shortest_len"], -c["size"]))

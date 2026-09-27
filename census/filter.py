@@ -79,7 +79,10 @@ def views(out, prog, s):
         C = out["C"][s].astype(np.int64); k = max(prog.k["C"], 2)
         md = {"rows": W, "cols": W, "boundary": "periodic", "neighborhood": "moore", "substrate_type": "lattice_2d",
               "n_states": k}
-        V.append(("C", _grid_hist(C, k, rec["C"]), md))
+        hist = _grid_hist(C, k, rec["C"])
+        if any(r.tmpl == "C.GAME" or getattr(r, "act", None) == "IMITATE_BEST" and r.target == "C" for r in prog.rules):
+            for h in hist: h["coop_fraction"] = float((h["grid"] == 0).mean())    # grammar fixes type 0 = cooperate
+        V.append(("C", hist, md))
         ab = out["meta"].get("absorbed_at")
         if ab is not None and len(np.unique(C[-1])) == 1 and ab // rec["C"] >= 20:
             V.append(("C.transient", _grid_hist(C[:ab // rec["C"] + 1], k, rec["C"]), md))
@@ -122,7 +125,7 @@ def _screen_hist(name, hist, rewiring):
         if not rewiring:                                     # static graph: the dynamics live in the node states
             return [{"opinions": h["opinions"], "step": h["step"]} for h in _thin(hist, SCREEN_FRAMES)]
         return _thin(hist, 25)
-    if name == "A": return _thin(hist, 51)
+    if name == "A": return _thin(hist, 26)
     return _thin(hist, SCREEN_FRAMES)
 
 

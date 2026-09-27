@@ -7,7 +7,7 @@ from census import sim, filter as FL
 EXPECT = {"voter": "P18", "voter p=0.3": "P18", "voter p=0.1": "P18", "majority coarsen": "P18", "Schelling": "P1", "cyclic CA spirals": "P12",
           "BTW sandpile": "P14", "Nowak-May PD": "P27", "lattice Kuramoto": "P9", "Vicsek": "P5",
           "MIPS (quorum)": "P2", "net Kuramoto": "P9", "co-evolving voter": "P34", "Greenberg-Hastings": "P13",
-          "Langton ant(s)": None, "Gray-Scott": "P3", "chemotaxis (KS)": None, "RPS agents": "P12"}
+          "Langton ant(s)": None, "Gray-Scott": "P3", "chemotaxis (KS)": None, "RPS agents": None}
 only = sys.argv[1:]
 rows = {}
 for name, p in BENCH.items():
@@ -22,4 +22,4 @@ for name, p in BENCH.items():
     for v, (verd, pat, em, seeds) in summ.items():
         print(f"  view {v:8s} -> {verd:12s} {pat or '':5s} emergent_seeds={em}", flush=True)
         for sd in seeds: print("      seed:", sd, flush=True)
-json.dump(rows, open("census/pilot_recovery_v0.json", "w"), indent=1, default=str)
+json.dump(rows, open("census/pilot_recovery_v2.json", "w"), indent=1, default=str)

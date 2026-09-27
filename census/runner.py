@@ -7,7 +7,10 @@ seed (hash of its bit string), so any program can be re-simulated exactly later 
 Worker w processes indices with idx % workers == w and appends to results_w.jsonl; on restart, finished indices are
 skipped. Run inside tmux as matthewhmaxwell, niced.
 """
-import argparse, hashlib, json, os, sys, time, traceback
+import os
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")                            # one thread per worker: workers are the parallelism
+import argparse, hashlib, json, sys, time, traceback
 from multiprocessing import Process
 
 from census import grammar_g1 as G
@@ -36,8 +39,9 @@ def worker(w, nw, progs, outdir, null, battery):
             try: done.add(json.loads(line)["idx"])
             except Exception: pass
     with open(path, "a") as fh:
-        for idx, (bits, p) in enumerate(progs):
-            if idx % nw != w or idx in done: continue
+        for idx, item in enumerate(progs):
+            if item is None or idx % nw != w or idx in done: continue
+            bits, p = item
             row = {"idx": idx, "bits": bits, "len": len(bits), "prog": G.describe(p), "layers": p.layers,
                    "n_rules": len(p.rules), "null": null}
             try:
@@ -59,14 +63,19 @@ def main():
     ap.add_argument("--min-bits", type=int, default=0); ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int, default=0); ap.add_argument("--null", action="store_true")
     ap.add_argument("--battery", action="store_true", help="per-program battery (reference mode; default = cluster-first)")
+    ap.add_argument("--sample", type=int, default=0, help="fixed-seed random subsample of N programs (indices kept)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     progs = [(b, p) for b, p in G.enumerate_programs(a.max_bits) if len(b) >= a.min_bits]
     progs.sort(key=lambda x: (len(x[0]), x[0]))                      # shortest first, deterministic
     if a.limit: progs = progs[:a.limit]
-    json.dump({"n_programs": len(progs), "max_bits": a.max_bits, "min_bits": a.min_bits, "workers": a.workers,
+    if a.sample and a.sample < len(progs):
+        import random
+        keep = set(random.Random(20260927).sample(range(len(progs)), a.sample))
+        progs = [pp if i in keep else None for i, pp in enumerate(progs)]
+    json.dump({"n_programs": sum(x is not None for x in progs), "max_bits": a.max_bits, "min_bits": a.min_bits, "workers": a.workers,
                "null": a.null, "battery": a.battery, "started": time.strftime("%Y-%m-%d %H:%M:%S")},
               open(os.path.join(a.out, "manifest.json"), "w"), indent=1)
-    print(f"{len(progs)} programs, {a.workers} workers -> {a.out}", flush=True)
+    print(f"{sum(x is not None for x in progs)} programs, {a.workers} workers -> {a.out}", flush=True)
     ps = [Process(target=worker, args=(w, a.workers, progs, a.out, a.null, a.battery)) for w in range(a.workers)]
     for p in ps: p.start()
     for p in ps: p.join()
