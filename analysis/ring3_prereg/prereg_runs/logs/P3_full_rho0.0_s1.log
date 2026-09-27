@@ -1,0 +1,12 @@
+  [P3/full/rho=0.0 s1] iter    0: S 0.170
+  [P3/full/rho=0.0 s1] iter  150: S 0.860
+  [P3/full/rho=0.0 s1] iter  300: S 0.880
+  [P3/full/rho=0.0 s1] iter  450: S 0.910
+  [P3/full/rho=0.0 s1] iter  600: S 0.905
+  [P3/full/rho=0.0 s1] iter  750: S 0.905
+  [P3/full/rho=0.0 s1] iter  900: S 0.910
+  [P3/full/rho=0.0 s1] iter 1050: S 0.920
+  [P3/full/rho=0.0 s1] iter 1200: S 0.900
+  [P3/full/rho=0.0 s1] iter 1350: S 0.910
+  [P3/full/rho=0.0 s1] iter 1499: S 0.875
+DONE P3_full_rho0.0_s1 {"task": "P3", "variant": "full", "seed": 1, "rho": 0.0, "S": 0.9139999999999999, "S_memwipe": 0.2875}

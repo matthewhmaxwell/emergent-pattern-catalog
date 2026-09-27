@@ -1,0 +1,12 @@
+  [P4/full s1] iter    0: S 0.245
+  [P4/full s1] iter  150: S 2.720
+  [P4/full s1] iter  300: S 2.775
+  [P4/full s1] iter  450: S 2.790
+  [P4/full s1] iter  600: S 2.820
+  [P4/full s1] iter  750: S 2.800
+  [P4/full s1] iter  900: S 2.800
+  [P4/full s1] iter 1050: S 2.800
+  [P4/full s1] iter 1200: S 2.815
+  [P4/full s1] iter 1350: S 2.825
+  [P4/full s1] iter 1499: S 2.795
+DONE P4_full_s1 {"task": "P4", "variant": "full", "seed": 1, "rho": null, "S": 2.811, "S_mute": 2.8305}

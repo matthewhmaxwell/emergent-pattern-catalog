@@ -1,0 +1,12 @@
+  [P2/full s1] iter    0: S 0.005
+  [P2/full s1] iter  150: S 0.360
+  [P2/full s1] iter  300: S 2.490
+  [P2/full s1] iter  450: S 3.065
+  [P2/full s1] iter  600: S 3.195
+  [P2/full s1] iter  750: S 3.260
+  [P2/full s1] iter  900: S 3.285
+  [P2/full s1] iter 1050: S 3.390
+  [P2/full s1] iter 1200: S 3.390
+  [P2/full s1] iter 1350: S 3.395
+  [P2/full s1] iter 1499: S 3.475
+DONE P2_full_s1 {"task": "P2", "variant": "full", "seed": 1, "rho": null, "S": 3.4155, "S_blind": 0.15799999999999997, "S_mute": 3.1795}

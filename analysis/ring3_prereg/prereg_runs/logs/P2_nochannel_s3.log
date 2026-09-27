@@ -1,0 +1,12 @@
+  [P2/nochannel s3] iter    0: S 0.010
+  [P2/nochannel s3] iter  150: S 0.700
+  [P2/nochannel s3] iter  300: S 2.570
+  [P2/nochannel s3] iter  450: S 3.115
+  [P2/nochannel s3] iter  600: S 3.200
+  [P2/nochannel s3] iter  750: S 3.285
+  [P2/nochannel s3] iter  900: S 3.320
+  [P2/nochannel s3] iter 1050: S 3.305
+  [P2/nochannel s3] iter 1200: S 3.295
+  [P2/nochannel s3] iter 1350: S 3.435
+  [P2/nochannel s3] iter 1499: S 3.430
+DONE P2_nochannel_s3 {"task": "P2", "variant": "nochannel", "seed": 3, "rho": null, "S": 3.3835}

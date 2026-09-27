@@ -1,0 +1,12 @@
+  [P1/nochannel s5] iter    0: S 0.530
+  [P1/nochannel s5] iter  150: S 0.525
+  [P1/nochannel s5] iter  300: S 0.485
+  [P1/nochannel s5] iter  450: S 0.530
+  [P1/nochannel s5] iter  600: S 0.490
+  [P1/nochannel s5] iter  750: S 0.495
+  [P1/nochannel s5] iter  900: S 0.510
+  [P1/nochannel s5] iter 1050: S 0.505
+  [P1/nochannel s5] iter 1200: S 0.475
+  [P1/nochannel s5] iter 1350: S 0.505
+  [P1/nochannel s5] iter 1499: S 0.550
+DONE P1_nochannel_s5 {"task": "P1", "variant": "nochannel", "seed": 5, "rho": null, "S": 0.4915000021457672}

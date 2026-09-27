@@ -1,0 +1,12 @@
+  [P2/noobs s2] iter    0: S 0.005
+  [P2/noobs s2] iter  150: S 0.065
+  [P2/noobs s2] iter  300: S 0.420
+  [P2/noobs s2] iter  450: S 1.795
+  [P2/noobs s2] iter  600: S 2.405
+  [P2/noobs s2] iter  750: S 2.585
+  [P2/noobs s2] iter  900: S 2.760
+  [P2/noobs s2] iter 1050: S 2.850
+  [P2/noobs s2] iter 1200: S 2.910
+  [P2/noobs s2] iter 1350: S 2.985
+  [P2/noobs s2] iter 1499: S 3.010
+DONE P2_noobs_s2 {"task": "P2", "variant": "noobs", "seed": 2, "rho": null, "S": 3.004}
