@@ -1,0 +1,9 @@
+{
+ "task": "P2",
+ "variant": "full",
+ "seed": 3,
+ "rho": null,
+ "S": 3.353,
+ "S_blind": 0.1375,
+ "S_mute": 3.2994999999999997
+}

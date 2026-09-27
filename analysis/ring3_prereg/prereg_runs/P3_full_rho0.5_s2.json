@@ -1,0 +1,8 @@
+{
+ "task": "P3",
+ "variant": "full",
+ "seed": 2,
+ "rho": 0.5,
+ "S": 0.923,
+ "S_memwipe": 0.328
+}
