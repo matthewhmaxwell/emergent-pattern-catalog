@@ -104,8 +104,10 @@ const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const KW=/\\b(def|return|for|while|if|elif|else|in|and|or|not|import|from|class|with|as|None|True|False|self|lambda|break|continue|np)\\b/g;
 function hl(s){
   s=s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  s=s.replace(/(#[^\\n]*)/g,'<span class=cm>$1</span>');
+  var cms=[];
+  s=s.replace(/(#[^\\n]*)/g,function(m){cms.push(m);return '\\u0000'+(cms.length-1)+'\\u0000';});
   s=s.replace(KW,'<span class=kw>$1</span>');
+  s=s.replace(/\\u0000(\\d+)\\u0000/g,function(_,i){return '<span class=cm>'+cms[+i]+'</span>';});
   return s;
 }
 function slug(s){return (s||'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}

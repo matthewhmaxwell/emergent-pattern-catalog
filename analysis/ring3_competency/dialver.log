@@ -1,0 +1,11 @@
+COST-LADDER DIAL: alphas=[0.0, 1.0], iters=200, seeds=1 (resuming [])
+  [alpha=0.00 seed0] iter   0: success 0.01
+  [alpha=0.00 seed0] iter 100: success 0.41
+  [alpha=0.00 seed0] iter 199: success 0.42
+alpha=0.00: succ 0.41 | scramble 0.40 | blind 0.42 | CHANNEL-RELIANCE +0.01 | obs-reliance -0.01 | MI(sym;tgt) nan bits
+  [alpha=1.00 seed0] iter   0: success 0.02
+  [alpha=1.00 seed0] iter 100: success 0.37
+  [alpha=1.00 seed0] iter 199: success 0.33
+alpha=1.00: succ 0.33 | scramble 0.33 | blind 0.34 | CHANNEL-RELIANCE -0.00 | obs-reliance -0.00 | MI(sym;tgt) 0.21 bits
+saved dial_sweep.json
+DONE

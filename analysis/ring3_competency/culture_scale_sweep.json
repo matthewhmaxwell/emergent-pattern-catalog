@@ -1,0 +1,92 @@
+[
+ {
+  "L": 2,
+  "gens": 80,
+  "cumulative": 2.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.38,
+  "noinherit_frac": 0.189,
+  "ratchet_gap": 1.62
+ },
+ {
+  "L": 3,
+  "gens": 80,
+  "cumulative": 3.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.38,
+  "noinherit_frac": 0.126,
+  "ratchet_gap": 2.62
+ },
+ {
+  "L": 4,
+  "gens": 100,
+  "cumulative": 3.99,
+  "cumulative_frac": 0.998,
+  "noinherit": 0.38,
+  "noinherit_frac": 0.094,
+  "ratchet_gap": 3.62
+ },
+ {
+  "L": 6,
+  "gens": 150,
+  "cumulative": 6.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.4,
+  "noinherit_frac": 0.067,
+  "ratchet_gap": 5.6
+ },
+ {
+  "L": 8,
+  "gens": 200,
+  "cumulative": 7.99,
+  "cumulative_frac": 0.998,
+  "noinherit": 0.38,
+  "noinherit_frac": 0.048,
+  "ratchet_gap": 7.6
+ },
+ {
+  "L": 10,
+  "gens": 250,
+  "cumulative": 9.97,
+  "cumulative_frac": 0.997,
+  "noinherit": 0.39,
+  "noinherit_frac": 0.039,
+  "ratchet_gap": 9.58
+ },
+ {
+  "L": 12,
+  "gens": 300,
+  "cumulative": 12.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.4,
+  "noinherit_frac": 0.034,
+  "ratchet_gap": 11.6
+ },
+ {
+  "L": 16,
+  "gens": 400,
+  "cumulative": 16.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.38,
+  "noinherit_frac": 0.024,
+  "ratchet_gap": 15.62
+ },
+ {
+  "L": 20,
+  "gens": 500,
+  "cumulative": 20.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.41,
+  "noinherit_frac": 0.021,
+  "ratchet_gap": 19.59
+ },
+ {
+  "L": 24,
+  "gens": 600,
+  "cumulative": 24.0,
+  "cumulative_frac": 1.0,
+  "noinherit": 0.39,
+  "noinherit_frac": 0.016,
+  "ratchet_gap": 23.61
+ }
+]

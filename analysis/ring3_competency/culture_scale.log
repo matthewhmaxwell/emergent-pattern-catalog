@@ -1,0 +1,13 @@
+TEMPORAL-SCALE sweep: Ls=[2, 3, 4, 6, 8, 10, 12, 16, 20, 24] seeds=3 (resuming [])
+L= 2: cumulative 2.00/2 (100%) | no-inherit 0.38/2 (19%) | RATCHET GAP +1.62
+L= 3: cumulative 3.00/3 (100%) | no-inherit 0.38/3 (13%) | RATCHET GAP +2.62
+L= 4: cumulative 3.99/4 (100%) | no-inherit 0.38/4 (9%) | RATCHET GAP +3.62
+L= 6: cumulative 6.00/6 (100%) | no-inherit 0.40/6 (7%) | RATCHET GAP +5.60
+L= 8: cumulative 7.99/8 (100%) | no-inherit 0.38/8 (5%) | RATCHET GAP +7.60
+L=10: cumulative 9.97/10 (100%) | no-inherit 0.39/10 (4%) | RATCHET GAP +9.58
+L=12: cumulative 12.00/12 (100%) | no-inherit 0.40/12 (3%) | RATCHET GAP +11.60
+L=16: cumulative 16.00/16 (100%) | no-inherit 0.38/16 (2%) | RATCHET GAP +15.62
+L=20: cumulative 20.00/20 (100%) | no-inherit 0.41/20 (2%) | RATCHET GAP +19.59
+L=24: cumulative 24.00/24 (100%) | no-inherit 0.39/24 (2%) | RATCHET GAP +23.61
+SCALEDONE saved culture_scale_sweep.json
+SCALEALLDONE

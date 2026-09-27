@@ -1,0 +1,9 @@
+COMM-NICHE DIAL (recurrent): alphas=[0.0, 1.0] iters=120 seeds=1 (resuming [])
+  [alpha=0.00 s0] iter    0: hits/ep 0.01
+  [alpha=0.00 s0] iter  119: hits/ep 1.95
+alpha=0.00: normal 1.91 | mute 1.94 | RIDES-CHANNEL -0.03 | MI nan bits
+  [alpha=1.00 s0] iter    0: hits/ep 0.01
+  [alpha=1.00 s0] iter  119: hits/ep 0.05
+alpha=1.00: normal 0.05 | mute 0.03 | RIDES-CHANNEL +0.02 | MI 0.67 bits
+DONE saved dial2_sweep.json
+SMOKEDONE

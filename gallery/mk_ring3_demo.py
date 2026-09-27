@@ -88,6 +88,11 @@ def render_ring3(frames, out_base, title, legend, extent, coord="grid", field_cm
             col = cols[i] if cols is not None else PAL[int(acol[i]) % len(PAL)]
             ax.plot(xs, ys, "-", color=col, alpha=0.28, lw=1.5, zorder=4)
             ax.scatter([x], [y], s=95, color=col, edgecolors="white", linewidths=1.0, zorder=5)
+        hud = fr.get("hud")
+        if hud is not None:
+            ax.text(0.035, 0.965, hud, transform=ax.transAxes, fontsize=8, fontweight="bold",
+                    va="top", ha="left", color="#1a202c", zorder=6,
+                    bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="#cbd5e0", lw=0.7))
         if legend:
             hs = [Line2D([0], [0], marker=m, color="none", markerfacecolor=fc, markeredgecolor=ec,
                          markersize=8, label=lab, lw=0) for (lab, m, fc, ec) in legend]

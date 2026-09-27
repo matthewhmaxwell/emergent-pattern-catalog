@@ -1,0 +1,24 @@
+[
+ {
+  "alpha": 0.0,
+  "success": 0.41,
+  "scramble": 0.401,
+  "blind": 0.419,
+  "channel_reliance": 0.009,
+  "obs_reliance": -0.009,
+  "succ_asym": NaN,
+  "succ_sym": 0.377,
+  "mi_sym_tgt_bits": NaN
+ },
+ {
+  "alpha": 1.0,
+  "success": 0.333,
+  "scramble": 0.334,
+  "blind": 0.337,
+  "channel_reliance": -0.001,
+  "obs_reliance": -0.003,
+  "succ_asym": 0.3,
+  "succ_sym": NaN,
+  "mi_sym_tgt_bits": 0.208
+ }
+]

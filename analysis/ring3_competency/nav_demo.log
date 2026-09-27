@@ -1,0 +1,15 @@
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+gen  0: best on this gen's random conds 0.814
+gen 15: best on this gen's random conds 0.991
+gen 30: best on this gen's random conds 1.000
+gen 45: best on this gen's random conds 1.000
+gen 60: best on this gen's random conds 1.000
+gen 75: best on this gen's random conds 1.000
+gen 89: best on this gen's random conds 1.000
+
+best final survivor HELD-OUT signature (disjoint corners + unseen serpentine): {'reach': 1.0, 'reroute': 1.0, 'away': 1.0, 'generalize': 1.0}
+VERDICT: DISCOVERED COMPETENCY (clears broad held-out bar)
+DEBUNK on 123 SOLVABLE novel multi-wall mazes (never seen): reached 87/123 = 0.71
+  -> serpentine pass was narrow -- not robustly general
+navigation scenario barrier frames 24 {'frames': 24, 'cols': 5, 'rows': 5, 'fw': 300, 'fh': 300, 'mp4': 'ring3_navigation.mp4'}
+NAVDONE

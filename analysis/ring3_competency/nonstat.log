@@ -1,0 +1,16 @@
+training adaptive agent (sees regime switches):
+  it    0: phase1 0.324  phase2 0.408
+  it  600: phase1 0.903  phase2 0.893
+  it 1200: phase1 0.905  phase2 0.891
+  it 1800: phase1 0.912  phase2 0.893
+  it 2199: phase1 0.901  phase2 0.891
+
+ADAPTIVE: phase1 0.906  phase2 0.885   NOOPPHIST collapse: p1 0.325 p2 0.337
+training stationary control (never sees a switch):
+  it    0: phase1 0.322  phase2 0.370
+  it  600: phase1 0.383  phase2 0.312
+  it 1199: phase1 0.506  phase2 0.329
+STATIONARY-trained tested with switch: phase1 0.492  phase2 0.387 (should fail p2)
+Multiple -pix_fmt options specified for stream 0, only the last option '-pix_fmt yuv420p' will be used.
+render: {'frames': 42, 'cols': 7, 'rows': 6, 'fw': 300, 'fh': 300, 'mp4': 'ring3_nonstat.mp4'}
+SEQDONE

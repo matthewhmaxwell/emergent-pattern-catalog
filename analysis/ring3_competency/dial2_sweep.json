@@ -1,0 +1,37 @@
+[
+ {
+  "alpha": 0.0,
+  "hits_normal": 3.748,
+  "hits_mute": 3.761,
+  "rides_channel": -0.013,
+  "mi_sym_tgt_bits": NaN
+ },
+ {
+  "alpha": 1.0,
+  "hits_normal": 3.008,
+  "hits_mute": 0.274,
+  "rides_channel": 2.734,
+  "mi_sym_tgt_bits": 0.749
+ },
+ {
+  "alpha": 0.5,
+  "hits_normal": 3.004,
+  "hits_mute": 1.117,
+  "rides_channel": 1.887,
+  "mi_sym_tgt_bits": 1.032
+ },
+ {
+  "alpha": 0.25,
+  "hits_normal": 2.862,
+  "hits_mute": 2.108,
+  "rides_channel": 0.754,
+  "mi_sym_tgt_bits": 1.524
+ },
+ {
+  "alpha": 0.75,
+  "hits_normal": 3.018,
+  "hits_mute": 0.605,
+  "rides_channel": 2.412,
+  "mi_sym_tgt_bits": 0.771
+ }
+]

@@ -1535,5 +1535,905 @@
       "mp4": "p37.mp4"
     },
     "mp4": "p37.mp4"
+  },
+  {
+    "id": "C1",
+    "name": "navigation",
+    "ref": "path planning",
+    "summary": "A trained finite-state controller reaches a goal on unseen mazes, including a trap whose only opening points away from the goal.",
+    "effect": "The agent commits to a detour that temporarily increases distance to the goal \u2014 a purely reactive policy oscillates at the barrier.",
+    "viz": "point_cloud",
+    "watch": "The agent moves AWAY from the goal to clear the wall, then curls back \u2014 holding the detour rather than bouncing against the barrier.",
+    "metric": "0.71 on novel mazes",
+    "mechanism": "hold a detour against the goal-pull",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (path planning). Diagnostic \u2014 away-from-goal barrier"
+    },
+    "asset": "ring3_navigation_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 24,
+      "cols": 5,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_navigation.mp4",
+    "contact_sheet": "ring3_navigation_sprite.png",
+    "track": "competency",
+    "code": "# a tiny finite-state controller: (sensory_code, state) -> (action, next_state).\n# sensory_code = coarse goal-direction x local wall-bits; the internal state s lets the\n# agent COMMIT to a detour that points away from the goal (a reactive agent oscillates).\ndef run_fsm(rule, start, goal, walls, steps=160):\n    p = start; s = 0\n    for _ in range(steps):\n        if p == goal: return True\n        code = (dir_code(p, goal) * 16 + wall_bits(p, walls)) * NSTATES + s\n        a, s = rule[code]                 # look up (action, next state)\n        if free(p + ACTIONS[a], walls): p = p + ACTIONS[a]\n    return p == goal\n# DIAGNOSTIC: the away-from-goal trap (gap only on the far side). A memoryless reactive\n# policy provably caps out; only the state variable s can hold the detour.",
+    "code_module": "stateful_funnel.py",
+    "code_where": "run_fsm()"
+  },
+  {
+    "id": "C2",
+    "name": "memory",
+    "ref": "working memory",
+    "summary": "See a cue, survive a variable delay full of distractors, then report the cue \u2014 working memory.",
+    "effect": "The cue is held across delays far longer than any seen in training; flip the cue and the reported answer flips.",
+    "viz": "point_cloud",
+    "watch": "The cue appears, vanishes under a run of distractor inputs, then is correctly reported at the decision step.",
+    "metric": "robust 1.0 on unseen delays",
+    "mechanism": "hold a cue across distractors/delay",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (working memory). Diagnostic \u2014 cue/feedback ablation -> chance"
+    },
+    "asset": "ring3_memory_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 15,
+      "cols": 4,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_memory.mp4",
+    "contact_sheet": "ring3_memory_sprite.png",
+    "track": "competency",
+    "code": "# cue at t0, then a VARIABLE delay of distractors (cue gone), then a decision step.\n# a memoryless agent has NO information at decision time -> 50% BY CONSTRUCTION.\ndef episode(rule, cue, delay, r):\n    seq = [cue] + [r.choice(DISTRACT) for _ in range(delay)] + [DECISION]\n    s = 0; out = 0\n    for inp in seq:\n        out, s = rule[inp * NSTATES + s]  # (emit, next state) \u2014 cue must persist in s\n    return out == cue\n# held-out = delays 12-25 (never trained) + a cue-FLIP test (flip cue -> output flips),\n# proving it reads stored memory, not a fixed policy.",
+    "code_module": "evolve_memory.py",
+    "code_where": "episode()"
+  },
+  {
+    "id": "C3",
+    "name": "accumulation/counting",
+    "ref": "counting",
+    "summary": "Collect EXACTLY k targets from an over-supplied field, then reach the goal \u2014 with no oracle count.",
+    "effect": "A running tally is internalized in the GRU hidden state; the agent stops at k and stays supply-invariant when supply doubles.",
+    "viz": "point_cloud",
+    "watch": "The agent picks up targets one by one, then STOPS (leaving extras uncollected) and heads to the goal.",
+    "metric": "exact-k 0.88; supply-invariant 2.83@5->3.17@10",
+    "mechanism": "increment a running tally, stop at a threshold",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (counting). Diagnostic \u2014 supply-doubling (counter stays supply-invariant)"
+    },
+    "asset": "ring3_counting_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_counting.mp4",
+    "contact_sheet": "ring3_counting_sprite.png",
+    "track": "competency",
+    "code": "# collect EXACTLY k targets (supply > k, so it must STOP), then reach the goal.\n# no oracle count \u2014 the running tally lives in the GRU hidden state.\non = (self.obj == self.pos[:, None, :]).all(2) & self.alive\nfor b in np.where(on.any(1))[0]:                 # picked up a target\n    self.count[b] += 1\n    rew[b] += 0.5 if self.count[b] <= self.k else -1.0    # reward under k, punish over\natgoal = (self.pos == self.goal).all(1)\nfor b in np.where(atgoal)[0]:\n    rew[b] += 2.0 if self.count[b] == self.k else -0.5    # bonus only for EXACTLY k\n# TEST: double the supply -> a real counter still stops at k (supply-invariant).",
+    "code_module": "counting_ppo.py",
+    "code_where": "VecCount.step()"
+  },
+  {
+    "id": "C4",
+    "name": "sequencing",
+    "ref": "ordered execution",
+    "summary": "Touch station A before goal G \u2014 track a prerequisite order.",
+    "effect": "Order is held in the RNN hidden state; once it leaves A a reactive agent oscillates, so memory is load-bearing.",
+    "viz": "point_cloud",
+    "watch": "Even starting next to G, the agent first detours to station A (which turns green), THEN returns to G.",
+    "metric": "0.86",
+    "mechanism": "touch t0 before t1 (track prerequisite/order)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (ordered execution). Diagnostic \u2014 order violation; memoryless caps at 0.49"
+    },
+    "asset": "ring3_sequencing_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 26,
+      "cols": 6,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_sequencing.mp4",
+    "contact_sheet": "ring3_sequencing_sprite.png",
+    "track": "competency",
+    "code": "# touch station A BEFORE goal G. Reward 2 only if A was visited first; once you leave A\n# a reactive agent oscillates, so the ORDER must be held in the RNN hidden state h.\ndef episode(th, start, A, G, T=50):\n    Wx, Wh, b, Wo, bo = unpack(th); p = start; h = np.zeros(H); done = 0\n    for _ in range(T):\n        x = np.concatenate([sgn(p, A), sgn(p, G)])   # signs toward A and toward G\n        h = np.tanh(Wx @ x + Wh @ h + b)             # recurrent memory\n        p = step(p, argmax(Wo @ h + bo))\n        if done == 0 and p == A: done = 1            # reached A first\n        if done == 1 and p == G: return 2.0          # then G -> full credit\n    return float(done)\n# memoryless baseline provably caps at 0.49; RNN + evolution strategies reaches ~0.86.",
+    "code_module": "rnn_es.py",
+    "code_where": "episode()"
+  },
+  {
+    "id": "C5",
+    "name": "delayed-gratification",
+    "ref": "optimal stopping",
+    "summary": "Cash out at the peak of a reward that rises then vanishes \u2014 with the peak height unknown each episode.",
+    "effect": "No fixed threshold works; cashing at the peak requires noticing the value just turned down (optimal stopping).",
+    "viz": "point_cloud",
+    "watch": "The tracked value climbs, and the agent cashes out right at the top \u2014 before it decays away.",
+    "metric": "0.68 reactive",
+    "mechanism": "cash out at the peak of an unknown-height reward",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (optimal stopping). Diagnostic \u2014 n/a (reactive)"
+    },
+    "asset": "ring3_delayed_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_delayed.mp4",
+    "contact_sheet": "ring3_delayed_sprite.png",
+    "track": "competency",
+    "code": "# a reward rises then vanishes; its HEIGHT is random per episode, so no fixed threshold\n# works. Cashing at the peak needs noticing the value just turned DOWN.\ndef curve(r):\n    p = r.randint(3, T - 3); h = r.uniform(0.4, 1.0); w = r.uniform(2, 4)\n    return [max(0.0, h * (1 - abs(t - p) / w)) for t in range(T)], h\ndef episode(rule, c, h):\n    s = 0\n    for v in c:\n        a, s = rule[bucket(v) * NSTATES + s]   # (cash-out?, next state)\n        if a == 1: return v / h                 # 1.0 = took it exactly at the peak\n    return 0.0",
+    "code_module": "evolve_delayed.py",
+    "code_where": "episode()"
+  },
+  {
+    "id": "C6",
+    "name": "regulation",
+    "ref": "homeostasis",
+    "summary": "Hold a variable at a setpoint against random disturbances, in a system with inertia.",
+    "effect": "Feedback control: the agent sees position (not velocity) yet damps the momentum-driven overshoot to stay near the setpoint.",
+    "viz": "point_cloud",
+    "watch": "Disturbances kick the value off zero; the controller pushes back and settles it near the setpoint without wild oscillation.",
+    "metric": "memoryless >= stateful",
+    "mechanism": "hold a setpoint against disturbance",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (homeostasis). Diagnostic \u2014 n/a (reactive; control NOT a 3rd state-mode)"
+    },
+    "asset": "ring3_regulation_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 53,
+      "cols": 8,
+      "rows": 7,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_regulation.mp4",
+    "contact_sheet": "ring3_regulation_sprite.png",
+    "track": "competency",
+    "code": "# hold a variable at setpoint 0 against random disturbances, WITH inertia (momentum).\n# the agent sees position only, not velocity; a purely reactive push overshoots.\ndef episode(rule, r, T=40, damping=0.85, force=0.18, sigma=0.25):\n    x = r.uniform(-1, 1); v = 0.0; s = 0; sc = 0.0\n    for t in range(T):\n        a, s = rule[quant(x) * NSTATES + s]      # choose thrust in {-1, 0, +1}\n        d = r.gauss(0, sigma)                     # random disturbance\n        v = damping * v + force * ACT[a] + d      # momentum integrates the thrust\n        x = clip(x + v, -1.5, 1.5)\n        sc += max(0.0, 1.0 - abs(x))              # 1 at setpoint, 0 at the rails\n    return sc / T",
+    "code_module": "evolve_regulation.py",
+    "code_where": "episode()"
+  },
+  {
+    "id": "C7",
+    "name": "rule-inference (one-shot)",
+    "ref": "meta-learning",
+    "summary": "A hidden 'good type' pays off; the agent infers which type from reward feedback, then exploits it (one-shot).",
+    "effect": "Belief over a latent rule: it probes, reads the reward sign, and commits \u2014 but does not re-adapt if the rule later flips.",
+    "viz": "point_cloud",
+    "watch": "Early moves sample different object types; once it gets a hit it sticks to that type for the rest of the episode.",
+    "metric": "0.71",
+    "mechanism": "infer hidden good-type from reward feedback, then exploit (one-shot, does not re-adapt)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (meta-learning). Diagnostic \u2014 feedback ablation -> 0.33 exact chance; mid-episode flip -> 0.15 (one-shot)"
+    },
+    "asset": "ring3_infer_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 20,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_infer.mp4",
+    "contact_sheet": "ring3_infer_sprite.png",
+    "track": "competency",
+    "code": "# a hidden good TYPE g gives +1; other types give -0.3. g is unknown, so the agent must\n# INFER it from reward feedback, then exploit. (One-shot: it does not re-adapt to a flip.)\non = (self.obj == self.pos[:, None, :]).all(2) & self.alive\nfor b in np.where(on.any(1))[0]:\n    t = self.otype[b, j]; good = (t == self.g[b])   # g = hidden good type\n    rew[b] += 1.0 if good else -0.3\n    self.last_r[b] = 1.0 if good else -1.0          # feedback the agent reads next step\n# DIAGNOSTIC: ablate feedback -> 0.33 (chance); mid-episode flip -> 0.15 (no re-adapt).",
+    "code_module": "metaworld_ppo.py",
+    "code_where": "VecMeta.step()  (rule='infer')"
+  },
+  {
+    "id": "C8",
+    "name": "rule-tracking (continual)",
+    "ref": "contextual",
+    "summary": "Like rule-inference, but the good type flips after every success \u2014 continual re-tracking.",
+    "effect": "The agent keeps re-inferring the current rule instead of locking one answer, tracking a changing latent.",
+    "viz": "point_cloud",
+    "watch": "Each time the agent scores, the winning type changes, and it switches which type it pursues next.",
+    "metric": "0.81",
+    "mechanism": "track a good-type that flips after each success",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (contextual). Diagnostic \u2014 feedback ablation"
+    },
+    "asset": "ring3_switch_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 19,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_switch.mp4",
+    "contact_sheet": "ring3_switch_sprite.png",
+    "track": "competency",
+    "code": "# like rule-inference, but the good type FLIPS after each success \u2014 the agent must keep\n# re-inferring the current rule (continual tracking), not lock one answer.\ngood = (t == self.g[b]); rew[b] += 1.0 if good else -0.3\nself.last_r[b] = 1.0 if good else -1.0\nif self.rule == \"switch\" and good:\n    self.g[b] = (self.g[b] + 1) % T        # the rule changes the instant you succeed\n# feedback-ablation -> chance; the continual tracker reaches ~0.81.",
+    "code_module": "metaworld_ppo.py",
+    "code_where": "VecMeta.step()  (rule='switch')"
+  },
+  {
+    "id": "C9",
+    "name": "conditional-selection (cued)",
+    "ref": "contextual policy",
+    "summary": "A start-cue shown only at t=0 names the good type; the agent must hold it and select the matching rule.",
+    "effect": "Conditional policy: the held cue switches which type is correct \u2014 remove the cue and a memoryless agent is at chance.",
+    "viz": "point_cloud",
+    "watch": "A brief cue at the start determines which type the agent then commits to for the whole episode.",
+    "metric": "0.85",
+    "mechanism": "read a start cue, hold it, select the rule",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (contextual policy). Diagnostic \u2014 cue removal; memoryless at chance"
+    },
+    "asset": "ring3_cued_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 12,
+      "cols": 4,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_cued.mp4",
+    "contact_sheet": "ring3_cued_sprite.png",
+    "track": "competency",
+    "code": "# a start CUE (shown only at t=0) names the good type; the agent must HOLD it and\n# condition its policy on it. After t=0 the cue is gone, so the GRU must store it.\nif self.rule == \"cued\" and self.step_i == 0:\n    for b in range(B):\n        out[b, cue_off + self.g[b]] = 1.0    # cue: the good type, at t=0 ONLY\n# reward +1 for the cued good type; a memoryless MLP without the stored cue is at chance.\n# metric 0.85.",
+    "code_module": "metaworld_ppo.py",
+    "code_where": "VecMeta.obs()  (rule='cued')"
+  },
+  {
+    "id": "C10",
+    "name": "communication",
+    "ref": "Lewis signaling",
+    "summary": "A speaker that can see the target emits a signal; a listener that cannot must reach the target from that signal alone.",
+    "effect": "Emergent referential communication (a Lewis game): the pair co-adapt a signal\u2192location code. Scramble the channel and it collapses.",
+    "viz": "point_cloud",
+    "watch": "One agent stays put and signals; the other moves to the hidden target guided only by that signal, and both meet there.",
+    "metric": "0.63",
+    "mechanism": "speaker+listener co-adapt a symbol<->meaning map (Lewis)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (Lewis signaling). Diagnostic \u2014 channel scramble -> 0.31 chance"
+    },
+    "asset": "ring3_comms_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 9,
+      "cols": 3,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_comms.mp4",
+    "contact_sheet": "ring3_comms_sprite.png",
+    "track": "competency",
+    "code": "# speaker sees the target and emits a signal sg; listener sees ONLY the signal (target\n# zeroed in its obs). Reward when BOTH reach the target -> the pair must co-adapt a code.\ndef step(self, mv, sg):\n    rew = np.full(B, -0.01, np.float32)\n    for i in range(2): self.ap[:, i] = clip(self.ap[:, i] + DIRS[mv[:, i]])\n    self.lsig = sg.copy()                        # signal broadcast to the listener's obs\n    both = (self.ap[:, 0] == self.tgt).all(1) & (self.ap[:, 1] == self.tgt).all(1)\n    rew[both] += 1.0                             # only paid when the listener arrives too\n    return rew\n# DIAGNOSTIC: MUTE (scramble the signal) -> collapse to chance = the channel is required.",
+    "code_module": "openhunt4_ppo.py",
+    "code_where": "VecRef.step()"
+  },
+  {
+    "id": "C11",
+    "name": "role-division",
+    "ref": "role allocation",
+    "summary": "Two agents are rewarded only if they end on DIFFERENT goals \u2014 they must anti-coordinate into complementary roles.",
+    "effect": "Role division via mutual position-observation: symmetric agents break symmetry so each takes a distinct goal.",
+    "viz": "point_cloud",
+    "watch": "The two agents start alike, then peel apart and settle onto different goals \u2014 never doubling up on one.",
+    "metric": "0.99",
+    "mechanism": "anti-coordinate via mutual position-observation",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (role allocation). Diagnostic \u2014 blind-partner -> 0.99->0.44; scramble-invariant"
+    },
+    "asset": "ring3_roldiv_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 19,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_roldiv.mp4",
+    "contact_sheet": "ring3_roldiv_sprite.png",
+    "track": "competency",
+    "code": "# team reward ONLY if the two agents end on DIFFERENT goals (anti-coordination / roles).\ndef terminal(self):\n    g0, g1 = self.on_goal(0), self.on_goal(1)   # which goal each agent is on (-1 = none)\n    r = np.zeros((B, 2), np.float32)\n    if self.task == \"role_div\":\n        win = (g0 >= 0) & (g1 >= 0) & (g0 != g1)     # both on goals AND on different ones\n        r[:, 0] += win; r[:, 1] += win\n    return r\n# DIAGNOSTIC: blind the partner -> 0.99 -> 0.44 (needs to observe the other to divide).",
+    "code_module": "commhunt_ppo.py",
+    "code_where": "Vec2.terminal()  (task='role_div')"
+  },
+  {
+    "id": "C12",
+    "name": "contest-resolution",
+    "ref": "uncorrelated asymmetry",
+    "summary": "Two agents compete for one contested resource; they resolve it by who-is-closer instead of colliding.",
+    "effect": "Symmetry-breaking on an uncorrelated asymmetry (the Bourgeois strategy): the nearer agent claims, the other yields.",
+    "viz": "point_cloud",
+    "watch": "Both approach the contested cell, but one backs off while the nearer one takes it \u2014 collisions stay near zero.",
+    "metric": "capture 0.63 / collision 0.02",
+    "mechanism": "break symmetry on who-is-closer to resolve a contested resource",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (uncorrelated asymmetry). Diagnostic \u2014 blind-partner -> 0.63->0.14; scramble-invariant"
+    },
+    "asset": "ring3_contest_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 19,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_contest.mp4",
+    "contact_sheet": "ring3_contest_sprite.png",
+    "track": "competency",
+    "code": "# two agents, one contested resource. Per-step shaping rewards being on a goal; the\n# CONTEST is resolved by relative position (who-is-closer), not by colliding.\nr = np.full((B, 2), -0.01, np.float32)\nfor i in range(2):\n    r[:, i] += 0.02 * (self.on_goal(i) >= 0)    # small pull to sit on the resource\n# the learned equilibrium: the closer agent claims, the farther yields (uncorrelated\n# asymmetry / Bourgeois). DIAGNOSTIC: blind the partner -> 0.63 -> 0.14; collisions ~0.02.",
+    "code_module": "contest_ppo.py",
+    "code_where": "VecContest (reward shaping + closeness)"
+  },
+  {
+    "id": "C13",
+    "name": "fair-alternation",
+    "ref": "turn-taking equilibrium",
+    "summary": "Two symmetric agents share a resource fairly by TAKING TURNS claiming it (alternation).",
+    "effect": "Reactive anti-coordination: each flips its last action so exactly one claims per round \u2014 fair turn-taking, broken by sampling.",
+    "viz": "point_cloud",
+    "watch": "The two agents alternate claim/yield in lock-step \u2014 exactly one claims each round, and who claims flips.",
+    "metric": "eff 0.93 / fairness 0.98",
+    "mechanism": "reactive anti-coordination: flip own last action, partner's last action keeps out-of-phase",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (turn-taking equilibrium). Diagnostic \u2014 NEITHER channel-scramble NOR memory-wipe collapses it (reactive)"
+    },
+    "asset": "ring3_fairness_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 17,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_fairness.mp4",
+    "contact_sheet": "ring3_fairness_sprite.png",
+    "track": "competency",
+    "code": "# two SYMMETRIC agents on identical observations. The fair solution is turn-taking:\n# exactly one claims each round, alternating. Symmetry can ONLY be broken stochastically,\n# so the policy MUST sample (argmax makes both claim).\nO, A, ... = rollout(net, seed, greedy=False)     # greedy=False is the mechanism\none_claim = ((A[0] + A[1]) == 1).mean()          # exactly one claims each round\nflips     = (A[:, 1:] != A[:, :-1]).mean()        # agents alternate turns\n# selected by one_claim (fairness 0.98) + flips (efficiency 0.93). Neither channel-\n# scramble NOR memory-wipe collapses it -> reactive (flip your own last action).",
+    "code_module": "fairness_ppo.py",
+    "code_where": "Pol + sampled rollout"
+  },
+  {
+    "id": "C14",
+    "name": "count-communication (compositional)",
+    "ref": "emergent compositional communication",
+    "summary": "A speaker counts an item-stream and encodes the count in a 3-slot message; a listener decodes the count.",
+    "effect": "Emergent COMPOSITIONAL communication: a 2-symbol alphabet can't name 6 counts in one slot, so a multi-slot numeral code emerges.",
+    "viz": "point_cloud",
+    "watch": "Items stream past the speaker; it emits a short multi-slot message, and the listener reports the exact count.",
+    "metric": "0.84 (chance 0.17); compositional 3/3",
+    "mechanism": "speaker counts an item-stream then encodes the count in a 3-slot/2-symbol COMPOSITIONAL message; listener decodes the joint pattern",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (emergent compositional communication). Diagnostic \u2014 count-ablate -> chance AND channel-scramble -> chance (BOTH); per-slot drop shows 3/3 slots informative (compositional)"
+    },
+    "asset": "ring3_comp_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 11,
+      "cols": 4,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_comp.mp4",
+    "contact_sheet": "ring3_comp_sprite.png",
+    "track": "competency",
+    "code": "# speaker (GRU) counts a K-item stream -> emits an M-slot, S-symbol message.\n# listener (MLP) sees ONLY the message -> must output the count. Shared reward = exact count.\ndef episode(spk, lis, B, seed, scramble=False, countablate=False, dropslot=None):\n    count = rng.integers(0, K + 1, size=B)        # uniform 0..K forces a multi-slot code\n    stin  = stream_of(count)\n    if countablate: stin = np.zeros_like(stin)    # speaker sees nothing -> can't count\n    msg = spk(stin)                               # the emergent numeral message\n    if scramble:      msg = random_message()      # channel-scramble -> collapse\n    if dropslot is not None: msg[:, dropslot] = 0 # per-slot drop tests compositionality\n    pred = lis(msg)\n    return (pred == count).astype(float)          # 0.84 (chance 0.17); 3/3 slots informative",
+    "code_module": "comp_ppo.py",
+    "code_where": "episode()  (speaker + listener)"
+  },
+  {
+    "id": "C15",
+    "name": "stigmergy (environment-mediated coordination)",
+    "ref": "stigmergy",
+    "summary": "Two BLIND agents (no channel, no mutual view) forage by reading and writing a shared mark trail.",
+    "effect": "Stigmergy: coordination is externalized into a trail field in the world; each reads the partner's marks to divide territory.",
+    "viz": "point_cloud",
+    "watch": "Two agents that never see each other spread apart to cover the food, steering off the trails left behind.",
+    "metric": "8.1/12 food (combined); inter-agent verified",
+    "mechanism": "2 blind agents (no channel, no mutual obs) read+write a shared mark trail to forage; they read the PARTNER's trail to divide territory",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (stigmergy). Diagnostic \u2014 no-trail -> 1.4/12 (collapse); OWN-trail-only -> 5.7 vs combined 8.1 (partner's trail matters = inter-agent); overlap falls 5.5->3.4 over training"
+    },
+    "asset": "ring3_stig_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 19,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_stig.mp4",
+    "contact_sheet": "ring3_stig_sprite.png",
+    "track": "competency",
+    "code": "# two BLIND agents forage a grid; they read+write a shared MARK trail (state lives in the\n# WORLD, not in memory). Reading the partner's trail is what lets them divide territory.\nfor i in range(2):\n    self.p[:, i] = clip(self.p[:, i] + DIRS[acts[:, i]])\n    x, y = self.p[:, i, 0], self.p[:, i, 1]\n    got = self.food[arange(B), x, y]\n    rew += got; self.food[arange(B), x, y] = False    # eat food here\n    self.visited[arange(B), x, y] = True\n    self.vis_by[arange(B), x, y] |= (i + 1)           # mark WHO visited (the trail)\nreturn rew - 0.01\n# DIAGNOSTIC: no-trail -> collapse; own-trail-only 5.7 vs combined 8.1 (partner's matters).",
+    "code_module": "stigmergy_ppo.py",
+    "code_where": "VecStig.step()"
+  },
+  {
+    "id": "C16",
+    "name": "tool use / instrumental construction",
+    "ref": "tool use",
+    "summary": "Push a block into an impassable gap to build a bridge, then cross it \u2014 the goal is unreachable otherwise.",
+    "effect": "Instrumental construction: the agent performs a non-rewarding sub-goal (build) to make the rewarding goal reachable.",
+    "viz": "point_cloud",
+    "watch": "The agent shoves a block into the gap (a bridge forms), then walks across it to the goal it couldn't reach before.",
+    "metric": "0.49 with-block (genuine, partial) vs 0.00 no-block",
+    "mechanism": "push a block into an impassable gap to build a bridge, then cross -- the goal is unreachable without first constructing the bridge (a non-rewarding sub-goal)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (tool use). Diagnostic \u2014 NO-block control -> 0.00 (goal physically unreachable without modifying the environment)"
+    },
+    "asset": "ring3_tool_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 11,
+      "cols": 4,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_tool.mp4",
+    "contact_sheet": "ring3_tool_sprite.png",
+    "track": "competency",
+    "code": "# the goal sits across an impassable GAP. The agent must PUSH a block into the gap to\n# build a bridge (a non-rewarding sub-goal), then cross. No-block control -> 0.00.\nif (not self.used[b]) and (tx, ty) == tuple(self.bp[b]):     # step into the block = push\n    bx, by = self.bp[b] + d\n    if by == GAP and not self.filled[b, bx]:\n        self.filled[b, bx] = True; self.used[b] = True\n        rew[b] += 0.5                                        # bridge built (sub-goal)\n        self.ap[b] = (tx, ty)\nif tuple(self.ap[b]) == tuple(self.goal[b]):\n    rew[b] += 1.0; self.done[b] = True                       # goal, reachable only via bridge",
+    "code_module": "tool_ppo.py",
+    "code_where": "VecTool.step()"
+  },
+  {
+    "id": "C17",
+    "name": "reputation / indirect reciprocity (social memory)",
+    "ref": "indirect reciprocity",
+    "summary": "Recurring partners each have a hidden type; help known cooperators and refuse known defectors.",
+    "effect": "Indirect reciprocity via a reputation map: the agent tracks each partner-id's revealed history and discriminates on it.",
+    "viz": "point_cloud",
+    "watch": "The agent helps partners it has learned are cooperators and passes on ones it has learned defect.",
+    "metric": "discrimination 0.92; avg-reward +0.42",
+    "mechanism": "track each recurring partner's revealed cooperate/defect history in memory; help known cooperators, refuse known defectors",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (indirect reciprocity). Diagnostic \u2014 discrim 0.92; ANONYMIZE partners -> 0.50 chance (needs WHO); MEMORY-WIPE -> 0.50 chance (needs accumulated history); BOTH essential"
+    },
+    "asset": "ring3_reputation_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_reputation.mp4",
+    "contact_sheet": "ring3_reputation_sprite.png",
+    "track": "competency",
+    "code": "# recurring partners, each a hidden cooperator/defector. Help a coop -> +1; help a\n# defector -> -1; pass -> 0. After each round the partner's type is REVEALED.\na = net(obs, h)                                   # HELP (1) or PASS (0), given partner id\ncoop = ptype[arange(B), pid]                       # this partner's hidden type\nr = np.where(a == 1, np.where(coop, 1.0, -1.0), 0.0)\nlast_pid, last_type = pid, np.where(coop, 1.0, -1.0)   # written into a reputation memory\n# DIAGNOSTIC: anonymize partners -> 0.50 (needs WHO); memory-wipe -> 0.50 (needs history).",
+    "code_module": "reputation_ppo.py",
+    "code_where": "rollout()"
+  },
+  {
+    "id": "C18",
+    "name": "abstraction / systematic generalization (relational, PARTIAL)",
+    "ref": "systematic",
+    "summary": "Go to the goal whose colour-vector is most similar to a cue \u2014 a relation that partially transfers to unseen colours.",
+    "effect": "Relational abstraction: a learned similarity(cue, goal) generalizes above chance to colours seen only as distractors in training.",
+    "viz": "point_cloud",
+    "watch": "Given a cue colour, the agent walks to the goal whose colour best matches it, even for held-out colours.",
+    "metric": "train 0.88 / held-out 0.59 (chance 0.33); +0.29 generalization gap = PARTIAL",
+    "mechanism": "go to the goal whose colour-vector is most similar to the cue's; the comparison PARTIALLY transfers to colours never seen as a cue-match in training",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (systematic). Diagnostic \u2014 TRAIN vs HELD-OUT colour split (a generalization gap, NOT an ablation): held-out colours appear only as DISTRACTORS in training. held-out-acc 0.59 vs chance 0.33 => genuine transfer; train 0.88 -> held-out 0.59 => +0.29 gap => INCOMPLETE. Pure per-instance memorization would leave held-out AT chance 0.33; it did not."
+    },
+    "asset": "ring3_abstraction_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 9,
+      "cols": 3,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_abstraction.mp4",
+    "contact_sheet": "ring3_abstraction_sprite.png",
+    "track": "competency",
+    "code": "# go to the goal whose COLOUR-VECTOR is most similar to the cue's. The comparison must\n# transfer to held-out colours (seen only as distractors in training).\nfor g in range(G):\n    if tuple(self.ap[b]) == tuple(self.gpos[b, g]):\n        win = (g == self.match[b])                # match = argmax similarity(cue, goal_g)\n        rew[b] += 1.0 if win else -0.5\n        self.done[b] = True; break\n# GENERALIZATION GAP (not an ablation): train 0.88 -> held-out 0.59 (chance 0.33) = PARTIAL\n# transfer. Pure memorization would leave held-out AT chance; it did not.",
+    "code_module": "abstraction_ppo.py",
+    "code_where": "VecAbs.step()"
+  },
+  {
+    "id": "C19",
+    "name": "imitation / social learning (goal emulation)",
+    "ref": "social",
+    "summary": "A scripted demonstrator walks toward the hidden-correct goal; the learner must identify and go to the goal it chose.",
+    "effect": "Goal emulation: the correct goal is not in the learner's own observation \u2014 the other agent's behaviour is the only signal.",
+    "viz": "point_cloud",
+    "watch": "The learner watches the demonstrator's path and follows it to the goal the demonstrator picked.",
+    "metric": "normal 0.83 vs frozen 0.08 vs mislead 0.08 (chance 0.33) -- the cleanest demand in the arc",
+    "mechanism": "observe a scripted demonstrator that walks toward the hidden-correct goal; identify + go to the goal it chose (goal-emulation). The correct goal is NOT in the learner's observation -- the demonstrator is the only signal.",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (social). Diagnostic \u2014 FROZEN demonstrator (sits at centre, no behaviour to read) -> 0.08, BELOW chance 0.33 => the hidden goal is unfindable without the other agent. MISLEADING demonstrator (walks to a WRONG goal) -> 0.08 => the learner FOLLOWS it to the wrong goal, proving it copies the demonstrator's CHOICE (not another cue). needs-demonstrator +0.75; misled-by-demo +0.75."
+    },
+    "asset": "ring3_imitation_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 10,
+      "cols": 4,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_imitation.mp4",
+    "contact_sheet": "ring3_imitation_sprite.png",
+    "track": "competency",
+    "code": "# a scripted demonstrator walks toward the hidden-correct goal. The correct goal is NOT\n# in the LEARNER's observation -> the demonstrator's choice is the only signal.\nif self.mode != \"frozen\":\n    self.dp[b] = self.dp[b] + greedy_step(self.dp[b], self.gpos[b, self.demo_goal[b]])\n...\nif tuple(self.ap[b]) == tuple(self.gpos[b, g]):\n    win = (g == self.correct[b]); rew[b] += 1.0 if win else -0.3\n# DIAGNOSTIC: FROZEN demonstrator -> 0.08 (unfindable); MISLEADING demo -> 0.08 (the\n# learner follows it to the WRONG goal = it copies the demonstrator's choice).",
+    "code_module": "imitation_ppo.py",
+    "code_where": "VecImit.step()"
+  },
+  {
+    "id": "C20",
+    "name": "predictive intention-reading (velocity-based goal attribution) -- theory-of-mind component",
+    "ref": "intention attribution",
+    "summary": "Watch a mover travel and stop; attribute its goal from its heading \u2014 the frozen frame alone is symmetric.",
+    "effect": "Predictive intention-reading: only the integrated MOTION identifies the goal (the three goals are equidistant from the stop).",
+    "viz": "point_cloud",
+    "watch": "A mover slides toward one of three equidistant goals and stops; the agent picks the goal in its direction of travel.",
+    "metric": "recurrent 0.86 vs memoryless 0.32 vs frozen 0.32 (chance 0.33)",
+    "mechanism": "integrate the mover's observed motion (start->stop) to recover its heading, then attribute its goal as the one in the heading direction. The 3 goals are EQUIDISTANT from the mover's frozen stop, so the single frame is provably SYMMETRIC and ONLY the motion identifies g*.",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (intention attribution). Diagnostic \u2014 MEMORYLESS baseline PROVABLY at chance (0.32 -- symmetric single frame is an airtight control by construction) vs recurrent 0.86 => needs-memory +0.54. mover-FROZEN (sits at the stop, no motion) -> 0.32 chance => needs-mover +0.54."
+    },
+    "asset": "ring3_tom_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 8,
+      "cols": 3,
+      "rows": 3,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_tom.mp4",
+    "contact_sheet": "ring3_tom_sprite.png",
+    "track": "competency",
+    "code": "# a mover steps along its heading for K steps then FREEZES on a stop that is EQUIDISTANT\n# from all 3 goals (a provably symmetric single frame). Only the MOTION identifies g*.\nif self.mode != \"frozen\" and self.t < K:\n    self.mpos = clip(self.mpos + self.sv)         # mover travels along its true heading\nif self.t >= K:                                   # after it stops, the agent attributes:\n    correct = (a == self.gstar); rew = correct.astype(float)   # goal in the heading dir\n# DIAGNOSTIC: memoryless baseline provably at chance 0.32 (symmetric frame); recurrent\n# 0.86. Freeze the mover (no motion) -> 0.32.",
+    "code_module": "tom_ppo.py",
+    "code_where": "VecToM.step()"
+  },
+  {
+    "id": "C21",
+    "name": "cumulative-culture ratchet (cross-generational)",
+    "ref": "cumulative cultural evolution",
+    "summary": "Each generation inherits the culture so far, copies it, and explores one new frontier symbol \u2014 the recipe is solved across generations.",
+    "effect": "A cumulative-culture ratchet: discoveries accumulate in a buffer that outlives any individual; a single lifetime cannot find the recipe.",
+    "viz": "point_cloud",
+    "watch": "The known-correct prefix grows generation by generation as each learner adds one symbol beyond the inherited buffer.",
+    "metric": "cumulative 11.69/12 (97%) vs single-generation 0.38/12 (3%); ratchet gap +11.31 (confirmed @120 generations)",
+    "mechanism": "each generation inherits the culture prefix, COPIES it (imitation) and explores the FRONTIER symbol (innovation); discoveries accumulate into the buffer, so the recipe is solved ACROSS generations, never within one",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (cumulative cultural evolution). Diagnostic \u2014 REMOVE the inherited culture buffer (no-inheritance) -> collapses 11.69/12 (97%) -> 0.38/12 (3%); needs-inheritance +11.31. A single generation cannot discover a random length-12 recipe (exponential); cross-generational accumulation can."
+    },
+    "asset": "ring3_culture_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 18,
+      "cols": 5,
+      "rows": 4,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_culture.mp4",
+    "contact_sheet": "ring3_culture_sprite.png",
+    "track": "competency",
+    "code": "# each generation INHERITS the culture prefix, copies it (imitation), and explores the\n# FRONTIER symbol (innovation). Discoveries accumulate across lifetimes.\nobs = make_obs(recipe, p if inherit else 0, L)    # p = inherited known-prefix length\nsym = policy(obs); pl = prefix_len(sym, recipe, L)\nif inherit: p = np.maximum(p, pl)                 # the buffer ratchets forward, never back\n# DIAGNOSTIC (collapse-ablation at the CROSS-GENERATIONAL scale): remove inheritance ->\n# 11.69/12 (97%) collapses to 0.38/12 (3%). A single generation can't find a length-12 recipe.",
+    "code_module": "culture_scale_ppo.py",
+    "code_where": "run()  (inherit vs no-inheritance)"
+  },
+  {
+    "id": "C22",
+    "name": "division of labor (anti-coordination / task allocation)",
+    "ref": "emergent division of labor",
+    "summary": "n identical agents must each reach a DIFFERENT target \u2014 emergent task allocation (a perfect matching) with no assigned roles.",
+    "effect": "Two symmetric agents self-organize into complementary roles \u2014 one per target \u2014 anchored on agent identity.",
+    "viz": "point_cloud",
+    "watch": "Two agents start together, then split so each settles on a different target; the assignment holds once formed.",
+    "metric": "within-episode (expressing seeds, alloc_dynamics 6 seeds/4 expressing): formation 0.64, occupancy (duty cycle) 0.88, recovery-from-perturbation 0.90, role-fluidity 0.02 (roles held). Across training seeds: DYNAMIC/non-permanent -- reliably discovered, but STABLY expressed in a variable fraction of seeds that rises with training quality: confirm (800 iters) 1/6=17%, deepen (2500) 3/6=50%, curriculum-scaffolded 4/6=67%; 2x budget alone did NOT raise it (long 1/3=33%), so across-seed variability is an optimization property, not under-training. novelty distance >=0.44 (range 0.44-0.53) from all 13 multi-channel known fingerprints",
+    "mechanism": "n homogeneous agents must reach n DISTINCT targets (perfect matching = division of labor); starting symmetric, they break symmetry into complementary roles anchored on agent identity, a behavior the openhunt-family substrate structurally CANNOT express (openhunt only rewards convergence to a shared target)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (emergent division of labor). Diagnostic \u2014 ablation battery: memwipe (memoryless) and blind (no observation) both collapse it (load-bearing), and noid (zero own-identity one-hot) collapses it in expressing seeds (identity-anchored, noid mean necessity 0.66) -- the division-of-labor-specific channel. Within-episode: teleport one agent off its target mid-episode -> allocation breaks -> re-forms in ~90% of episodes (recovery 0.90), the self-repair signature of an actively maintained behavior"
+    },
+    "asset": "ring3_division_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 31,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_division.mp4",
+    "contact_sheet": "ring3_division_sprite.png",
+    "track": "competency",
+    "code": "# n homogeneous agents, n targets. Reward each agent for sitting ALONE on a target and\n# penalize collisions -> the team is pushed to a perfect matching (division of labor).\nfor i in range(n):\n    on_t = any(all(self.ap[:, i] == self.tg[:, k], 1) for k in range(n))   # covers a target\n    same = any(all(self.ap[:, i] == self.ap[:, j], 1) for j in range(n) if j != i)\n    rew[:, i] += 0.1 * on_t - 0.05 * same          # cover a target, avoid doubling up\nif self.reward_shared: rew[:] = rew.mean(1, keepdims=True)\n# DIAGNOSTIC: memwipe + blind + noid all collapse it; teleport one agent off its target\n# mid-episode -> the allocation RE-FORMS (recovery 0.90) = actively maintained.",
+    "code_module": "allocworld.py",
+    "code_where": "AllocWorld.step()"
+  },
+  {
+    "id": "C23",
+    "name": "group-size regulation (homeostatic set-point tracking)",
+    "ref": "homeostatic regulation of active-worker number",
+    "summary": "n agents each choose active/inactive; the active COUNT must track a target K*(t) that switches every few rounds.",
+    "effect": "Homeostatic set-point tracking: agents break symmetry by identity into a stable active subset and re-regulate when K* moves.",
+    "viz": "point_cloud",
+    "watch": "The dashed target line jumps around; the active-count line steps to meet it each time it moves.",
+    "metric": "trains 3/3 seeds to exact-match regulation 1.000, tracking error 0.000 (best fixed-count baseline only 0.256, so genuinely tracking the moving target). within-episode dynamics (size_dynamics, 3 seeds): formation 1.00, knockout-recovery 0.97-1.00, recovery_time ~1 round, natural-set-point-change re-hit ~0.77. internal novelty gate: min fingerprint distance 0.523 (to phase-align); swarm-quorum 0.636; division-of-labor not in top 6.",
+    "mechanism": "n agents each choose active/inactive; a shared reward peaks when the active count equals a time-varying target K*(t) that switches every few rounds across the full range [1,n-1]. Starting symmetric, agents break symmetry into a stable active subset anchored on identity, and re-regulate the count when the target moves or active members are knocked offline. First EPC substrate to express regulation toward a MOVING set-point (vs swarm-quorum's static detection or division-of-labor's fixed matching). Fully cooperative (shared reward), so it trains under independent PPO where the mixed-motive axis could not.",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (homeostatic regulation of active-worker number). Diagnostic \u2014 ablation battery: noid (zero own-identity one-hot) collapses it fully (necessity 1.00, identity-anchored roles); blind (no view of others/count) 0.75, memwipe (memoryless) 0.75, mute (scrambled target signal) 0.74 all load-bearing. Within-episode knockout (force KNOCK_D active agents offline mid-episode): group re-regulates within ~1 round."
+    },
+    "asset": "ring3_group_reg_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 26,
+      "cols": 6,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_group_reg.mp4",
+    "contact_sheet": "ring3_group_reg_sprite.png",
+    "track": "competency",
+    "code": "# n agents each pick active/inactive. Shared reward peaks when the ACTIVE COUNT equals a\n# moving target K*(t). Agents use identity to take stable complementary roles that sum to K*.\nx = concat([onehot_id, K_star / N, last_count / N, bias])   # per-agent obs (identity + K*)\nlogits, h = net(x, h)\na = Categorical(logits).sample()                 # sampling breaks symmetry (who is active)\ncount = int(a.sum())\nrew = 1.0 - abs(count - K_star) / N              # peaks at exact match\n# DIAGNOSTIC: drop the identity channel (noid) -> agents identical -> can only hit p*N in\n# expectation, never the exact moving target -> collapse (necessity 1.00).",
+    "code_module": "group_reg_build.py",
+    "code_where": "rollout() reward"
+  },
+  {
+    "id": "C24",
+    "name": "stigmergic coordination (environment-mediated)",
+    "ref": "stigmergy",
+    "summary": "n agents on a torus cover target cells; they cannot see each other and coordinate only through a decaying pheromone field.",
+    "effect": "Environment-mediated coordination: coordination lives in the field, not in memory or identity (the profile inverts role-partitioning).",
+    "viz": "point_cloud",
+    "watch": "Four blind agents lay pheromone trails and steer off each other's marks to divide the torus, covering nearly all targets.",
+    "metric": "trains 3/3 seeds to cover 0.98 (chance 0.31). internal novelty gate: min fingerprint distance 0.431 to swarm-quorum (nearest; the only other spatial-collective), above 0.4 floor; first competency outside the identity-anchored cluster.",
+    "mechanism": "n agents on a torus must collectively cover target cells; they cannot see each other and coordinate ONLY through marks left in a shared decaying pheromone field. First EPC competency whose coordination is externalized into the environment. Fingerprint INVERTS the role-partitioning profile: nomark (destroy the field) load-bearing 0.54, blind 0.68, while noid ~0.00 (agents interchangeable) and memwipe ~0.02 (no coordination in recurrent state) are DEAD -- the opposite of division-of-labor/size-regulation/turn-taking.",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (stigmergy). Diagnostic \u2014 ablation battery incl. new nomark channel (zero the pheromone field every step): nomark necessity 0.54-0.55 across seeds (coverage drops >half), blind 0.68 load-bearing; noid 0.00-0.01 and memwipe 0.00-0.04 both irrelevant (mechanism inversion vs role-partitioning)."
+    },
+    "asset": "ring3_stigmergy_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 25,
+      "cols": 5,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_stigmergy.mp4",
+    "contact_sheet": "ring3_stigmergy_sprite.png",
+    "track": "competency",
+    "code": "# n agents on a torus; they coordinate ONLY through a shared, decaying pheromone field.\nself.field *= self.decay                          # pheromone evaporates\nfor i in range(n):\n    self.field[arange(B), *self.ap[:, i]] += DEPOSIT   # deposit at the agent's cell\nif self.nomark: self.field[:] = 0.0               # (ablation: destroy the field)\nnew = count_newly_covered_targets(self.ap)        # reward = NEW targets covered this step\nrew = repeat(new / self.n_tgt, n)\n# DIAGNOSTIC INVERSION: nomark load-bearing (0.54); noid ~0.00 and memwipe ~0.02 are DEAD\n# (agents interchangeable, no memory) \u2014 the opposite of the identity-anchored competencies.",
+    "code_module": "stigworld.py",
+    "code_where": "StigWorld.step()"
+  },
+  {
+    "id": "C25",
+    "name": "metabolic-commons foraging",
+    "ref": "homeostatic RL",
+    "summary": "Survive by reading your own internal energy and harvesting a regrowing commons sustainably.",
+    "effect": "Homeostatic foraging: a cell driven to zero dies, so the agent must harvest below the regrowth rate \u2014 sustainability is discovered, not rewarded.",
+    "viz": "point_cloud",
+    "watch": "The agent nibbles cells (they pale then regrow), the food row stays green, and the energy bar stays full.",
+    "metric": "survival 0.34 (~85% of economy ceiling ~0.40)",
+    "mechanism": "homeostatic internal-state foraging; sustainable-harvesting must be discovered, not rewarded",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (homeostatic RL). Diagnostic \u2014 novel (zero own-energy channel) -> collapse; memwipe -> collapse"
+    },
+    "asset": "ring3_metabolic_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 41,
+      "cols": 7,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_metabolic.mp4",
+    "contact_sheet": "ring3_metabolic_sprite.png",
+    "track": "competency",
+    "code": "# survive T steps: metabolism drains energy each step; eating refills it. A food cell\n# driven to 0 is DEAD forever (the commons pressure), so harvest must stay below regrowth.\ndef step(self, a):\n    if   a == 0: self.p = max(0, self.p - 1)\n    elif a == 1: self.p = min(L - 1, self.p + 1)\n    elif self.f[self.p] > 0:                       # eat here\n        self.f[self.p] -= 1; self.e = min(EMAX, self.e + EAT)\n    self.e -= METAB\n    if self.t % REGROW == 0:\n        self.f = where(self.f > 0, minimum(FMAX, self.f + 1), 0.0)   # dead cells stay dead\n    return self.e > 0\n# DIAGNOSTIC: zero the own-energy channel (novel) -> can't time intake -> collapse.",
+    "code_module": "metabolic_build.py",
+    "code_where": "Commons.step()"
+  },
+  {
+    "id": "C26",
+    "name": "niche construction / terraforming",
+    "ref": "niche construction",
+    "summary": "Durably modify the environment \u2014 dig a breach through a wall \u2014 to make an otherwise-unreachable goal reachable.",
+    "effect": "Niche construction: agents reshape the world (a breached wall) with no reward for building; undo the edits each step and it collapses.",
+    "viz": "point_cloud",
+    "watch": "Agents dig through a wall (its columns lose health and breach), then use the passage to reach goals that alternate sides.",
+    "metric": "22.6 goals; revert -> 0.00",
+    "mechanism": "emergent unrewarded durable self-modification of the world; works solo (not stigmergy)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (niche construction). Diagnostic \u2014 revert (undo edits each step) -> collapse; noterrain -> collapse"
+    },
+    "asset": "ring3_niche_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 25,
+      "cols": 5,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_niche.mp4",
+    "contact_sheet": "ring3_niche_sprite.png",
+    "track": "competency",
+    "code": "# the goal alternates sides of a wall. Agents DIG (action 5) to reduce wall-cell health;\n# a breach is a durable passage. There is NO reward for digging itself.\ndig = (a == 5); tr, tc = cell_faced(self.ap[:, i], self.face[:, i])\nhit = dig & (tr == WALL_ROW) & (self.wall[arange(B), tc] > 0)\nself.wall[arange(B), tc] -= hit                   # wall health drops -> eventually breaches\nif self.revert: self.wall = self.wall0.copy()     # (ablation: edits don't persist)\nrew += on_goal                                    # reward only for REACHING the goal\n# DIAGNOSTIC: revert (undo edits each step) -> 0.00; the durable world-change is essential.",
+    "code_module": "terraformworld.py",
+    "code_where": "TerraformWorld.step()"
+  },
+  {
+    "id": "C27",
+    "name": "non-stationary co-player adaptation",
+    "ref": "non-stationary MARL",
+    "summary": "A co-player follows a periodic pattern, then switches to a new one mid-episode; the agent must detect it and re-adapt.",
+    "effect": "Online opponent-modelling with switch-readiness: it re-infers the co-player's pattern after a regime change, unlike a fixed model.",
+    "viz": "point_cloud",
+    "watch": "Counter-accuracy is high, dips sharply right at the switch, then climbs back as the agent re-locks onto the new pattern.",
+    "metric": "0.82 both phases; stationary-trained fails phase2 (0.339)",
+    "mechanism": "detect and respond to opponent strategy switch; distinct from fixed opponent-modeling",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (non-stationary MARL). Diagnostic \u2014 noopphist (zero opponent history) -> collapse; blind -> collapse"
+    },
+    "asset": "ring3_nonstat_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 42,
+      "cols": 7,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_nonstat.mp4",
+    "contact_sheet": "ring3_nonstat_sprite.png",
+    "track": "competency",
+    "code": "# the co-player plays a fixed periodic pattern, then SWITCHES at mid-episode. The agent\n# scores when its move counters the co-player's current move -> it must model + re-model.\nseq = [p1[t % len(p1)] if t < SWITCH else p2[t % len(p2)] for t in range(T)]\nx = concat([onehot(prev_opp_move), onehot(prev_own_move), bias])   # opponent history\na = Categorical(net(x, h)).sample()\nhit = int(a == (seq[t] + 1) % A)                  # did the agent's move counter the co-player?\n# DIAGNOSTIC: zero the opponent-history channel -> collapse; a STATIONARY-trained agent\n# (never saw a switch) holds phase 1 (0.82) but fails phase 2 (0.34).",
+    "code_module": "nonstat_build.py",
+    "code_where": "rollout()  (opponent switch)"
+  },
+  {
+    "id": "C28",
+    "name": "continuous-physics momentum control",
+    "ref": "continuous-physics MARL",
+    "summary": "Steer a puck that carries momentum into a goal, against inertia and drag \u2014 genuine continuous-physics control.",
+    "effect": "Own-velocity conditioning under continuous physics: agents transfer momentum to the puck rather than stepping it on a grid.",
+    "viz": "point_cloud",
+    "watch": "Agents thrust into the puck and, accounting for inertia and drag, drive it across the arena into the goal circle.",
+    "metric": "clean-eval 0.51 (chance 0.09); own-velocity necessity 0.53-0.63",
+    "mechanism": "own-velocity conditioning under continuous physics; CORRECTS earlier 'untrainable' budget artifact",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (continuous-physics MARL). Diagnostic \u2014 novel (zero own-velocity) -> collapse"
+    },
+    "asset": "ring3_momentum_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 51,
+      "cols": 8,
+      "rows": 7,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_momentum.mp4",
+    "contact_sheet": "ring3_momentum_sprite.png",
+    "track": "competency",
+    "code": "# continuous physics: thrust updates velocity (with drag); contact transfers momentum to\n# the puck. Reward = the puck's progress toward the goal (not the striking itself).\nself.av = clip_v((self.av + thrust * DT) * (1 - DRAG))\nself.ap = clip(self.ap + self.av * DT, 0, BOX)\n# on contact, project agent velocity along the normal into the puck:\nself.pv = where(hit, self.pv + max(vproj, 0) * nrm / PUCK_MASS, self.pv)\npuck_prog = dot(self.pv, unit(goal - self.pp))    # puck speed toward the goal\nrew = puck_prog * 0.3 + (dist(puck, goal) < GOAL_R) * 2.0\n# DIAGNOSTIC: zero the own-velocity channel -> collapse (necessity 0.53-0.63).",
+    "code_module": "momentumworld.py",
+    "code_where": "MomentumWorld.step()"
+  },
+  {
+    "id": "C29",
+    "name": "morphology-conditioned specialization",
+    "ref": "heterogeneous-agent RL",
+    "summary": "Agents of different body types each specialize on the resource their morphology harvests best.",
+    "effect": "Specialization by BODY, not identity index: red-bodied agents converge on red food, blue on blue \u2014 the population sorts by morphology.",
+    "viz": "point_cloud",
+    "watch": "Red-body agents converge on red food and blue-body on blue \u2014 the mixed population sorts by colour onto matching resources.",
+    "metric": "body-matched food occupancy 90-97%; nobody-necessity 0.63-0.76",
+    "mechanism": "condition action on OWN morphology; SECOND budget-artifact correction; distinct from identity-based division-of-labor",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (heterogeneous-agent RL). Diagnostic \u2014 nobody (zero own body one-hot) -> collapse; noid does NOT collapse"
+    },
+    "asset": "ring3_morphology_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 31,
+      "cols": 6,
+      "rows": 6,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_morphology.mp4",
+    "contact_sheet": "ring3_morphology_sprite.png",
+    "track": "competency",
+    "code": "# each agent has a fixed BODY type. It harvests its matching resource for full value and\n# the mismatched resource for none -> specialize on what your morphology harvests best.\nfor i in range(n):\n    body = self.body[:, i]\n    on_red  = harvested(self.ap[:, i], self.red)\n    on_blue = harvested(self.ap[:, i], self.blue)\n    rew += on_red  * (body == 0)                   # body-0 credited for red food\n    rew += on_blue * (body == 1)                   # body-1 credited for blue food\n# DIAGNOSTIC: zero the own-body one-hot (nobody) -> collapse; noid does NOT collapse\n# (it specializes by BODY, not by identity index).",
+    "code_module": "heteroworld.py",
+    "code_where": "HeteroWorld.step()"
+  },
+  {
+    "id": "C30",
+    "name": "compositional attention (joint conditioning)",
+    "ref": "attention-based compositional MARL policies",
+    "summary": "A single policy conditions on TWO independently-switching signals at once \u2014 its own body colour and the opponent's block.",
+    "effect": "Joint conditioning that emerges only under an attention (Transformer) policy: a recurrent bottleneck holds one channel, not both.",
+    "viz": "point_cloud",
+    "watch": "The agent moves to the site that is both unblocked by the opponent and serving its own body colour \u2014 tracking two signals at once.",
+    "metric": "3 seeds@8000it: nobody 0.552, freezeblock 0.324 (mean; both clear 0.3 floor, 2/3 seeds clear both)",
+    "mechanism": "joint conditioning on two simultaneously-necessary channels; emerges only under a Transformer policy (attention over obs-history, memwipe 0.0)",
+    "where": "",
+    "detector": {
+      "note": "gate: KNOWN (attention-based compositional MARL policies). Diagnostic \u2014 nobody -> partial collapse AND freezeblock -> partial collapse (both necessary)"
+    },
+    "asset": "ring3_compositional_sprite.png",
+    "asset_type": "sprite",
+    "sprite": {
+      "frames": 27,
+      "cols": 6,
+      "rows": 5,
+      "fw": 300,
+      "fh": 300
+    },
+    "mp4": "ring3_compositional.mp4",
+    "contact_sheet": "ring3_compositional_sprite.png",
+    "track": "competency",
+    "code": "# feed only at the site that is (a) NOT blocked this step AND (b) serving your OWN body\n# colour -> the policy must condition on two independently-switching channels at once.\nblk = self._cur_block(); openidx = 1 - blk\nfor si in range(2):\n    on = at_site(self.ap, si)\n    canfeed = on & (openidx == si) & (self._site_color(si) == self.body) & self.alive\n    self.e = where(canfeed, min(self.e + INTAKE, EMAX), self.e)\nself.alive &= (self.e > 0)\n# emerges ONLY with a Transformer (attention over obs-history; a GRU holds one channel).\n# DIAGNOSTIC: nobody -> partial collapse AND freezeblock -> partial collapse (both needed).",
+    "code_module": "adapthetero.py",
+    "code_where": "AdaptHetero.step()  (Transformer policy)"
   }
 ]
