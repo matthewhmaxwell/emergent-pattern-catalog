@@ -1,0 +1,12 @@
+{"rho": 0.5, "seed": 1, "cue_decode": {"1": 1.0, "2": 1.0, "3": 1.0}, "landmark_decode": {"1": 1.0, "2": 0.9995, "3": 0.999}}
+{"rho": 0.5, "seed": 2, "cue_decode": {"1": 1.0, "2": 1.0, "3": 1.0}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 0.5, "seed": 3, "cue_decode": {"1": 1.0, "2": 1.0, "3": 1.0}, "landmark_decode": {"1": 1.0, "2": 0.9995, "3": 0.9995}}
+{"rho": 1.0, "seed": 1, "cue_decode": {"1": 1.0, "2": 0.9995, "3": 0.9935}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 1.0, "seed": 2, "cue_decode": {"1": 1.0, "2": 0.9985, "3": 0.9925}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 1.0, "seed": 3, "cue_decode": {"1": 1.0, "2": 1.0, "3": 0.983}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 1.0, "seed": 4, "cue_decode": {"1": 1.0, "2": 0.999, "3": 0.995}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 1.0, "seed": 5, "cue_decode": {"1": 1.0, "2": 0.9995, "3": 0.9975}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+{"rho": 1.0, "seed": 6, "cue_decode": {"1": 1.0, "2": 1.0, "3": 0.981}, "landmark_decode": {"1": 1.0, "2": 1.0, "3": 1.0}}
+CONTROLS: {"rho0.5_cue_decode_t3_median": 1.0, "rho1_landmark_decode_t3_median": 1.0, "valid": true}
+ORIGINAL: {"rho1_cue_decode_t3": [0.9935, 0.9925, 0.983], "verdict": "CUE STORED (overridden by landmark)"}
+REPLICATION: {"rho1_cue_decode_t3": [0.995, 0.9975, 0.981], "verdict": "CUE STORED (overridden by landmark)"}

@@ -56,3 +56,15 @@ made before or after any data existed. Entries are append-only.
 - **Exploratory (not scored).** Across rho the decision source switches abruptly: median L 0.86 at rho=1.0 but
   0.19 / 0.12 / 0.09 / 0.07 at rho=0.75 / 0.5 / 0.25 / 0.0 — once the landmark is sometimes absent, agents follow the
   always-available stored cue even when a valid landmark disagrees (with elevated conflict timeouts at rho=0.75).
+
+## D4 — P3 hidden-state probe is uninformative: missing negative control (2026-09-27, AFTER the probe ran — disclosed)
+- **Pre-committed** (`p3_probe.py`, commit `309e373`, exploratory follow-up to D3): rho=1 cue decodability at t=3
+  >= 0.90 -> "CUE STORED (overridden by landmark)". **Result as specified:** 0.981–0.998 on all 6 seeds, controls valid
+  -> formal label "CUE STORED".
+- **Flaw:** the design had no untrained-network control. The execution smoke test — an UNTRAINED network of the same
+  architecture on the same episodes — gives cue decodability **1.0** at t=1 and t=3. A deterministic 96-unit GRU keeps a
+  linear trace of any input it has seen (reservoir memory), so linear decodability cannot show learned storage. The
+  warning was visible in the smoke output before the real run and was missed.
+- **Consequence:** no conclusion is drawn from the probe. The behavioural answer from D3 stands: the stored cue carries
+  little decision weight (cue share under conflict 0.13 vs 0.08 for memoryless agents). Methods lesson for the
+  instrument: every representational probe needs a random-network / control-task baseline (Hewitt & Liang 2019).
