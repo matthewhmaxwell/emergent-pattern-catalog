@@ -29,6 +29,7 @@ def build(run):
                 if cur is None or r["len"] < cur[0]: shortest[e["pattern"]] = (r["len"], r["prog"], v)
     unc = sorted([r for r in rows if r["status"] == "UNCLASSIFIED"], key=lambda r: (r["len"], r["idx"]))
     errs = [r for r in rows if r["status"] == "ERROR"]
+    fperr = sum(1 for r in rows for e in (r.get("views") or {}).values() for s in e["seeds"] if "fp_error" in (s.get("fp") or {}))
     t_sim = [r["sim_s"] for r in rows if "sim_s" in r]; t_fil = [r["filter_s"] for r in rows if "filter_s" in r]
     by_layer = collections.defaultdict(collections.Counter)
     for r in rows: by_layer[r["layers"]][r["status"]] += 1
@@ -42,7 +43,8 @@ def build(run):
          "errors": [{"idx": r["idx"], "prog": r["prog"], "error": r.get("error")} for r in errs[:20]]}
     L = [f"# Emergence Census digest — {d['generated']}", "",
          f"Run `{run}` {'(NULL: shuffled)' if man.get('null') else ''}: **{d['done']:,} / {d['total']:,}** programs "
-         f"({100 * d['done'] / max(d['total'], 1):.1f}%). Mean sim {d['mean_sim_s']:.1f}s, filter {d['mean_filter_s']:.1f}s.", "",
+         f"({100 * d['done'] / max(d['total'], 1):.1f}%). Mean sim {d['mean_sim_s']:.1f}s, filter {d['mean_filter_s']:.1f}s. "
+         f"**Fingerprint errors: {fperr}** (must be 0).", "",
          "## Tier 4 — vetted findings", "_none (vetting not yet run)_", "",
          "## Tier 3 — novelty candidates", "_none (triage not yet run)_", "",
          "## Tier 2 — catalog expansions", "_none yet_", "",

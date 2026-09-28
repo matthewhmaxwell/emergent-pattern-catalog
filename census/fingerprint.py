@@ -72,7 +72,8 @@ def agents(hist):
     hist2 = np.histogram2d(last[:, 0], last[:, 1], bins=16, range=[[0, B], [0, B]])[0]
     # angular momentum about the centroid of each agent's local neighbourhood (milling indicator), crude: global
     v = np.stack([np.cos(H[-1]), np.sin(H[-1])], 1); c = last - last.mean(0); c -= B * np.round(c / B)
-    ang = float(np.abs(np.mean(np.cross(c, v) / (np.linalg.norm(c, axis=1) + 1e-9))))
+    cz = c[:, 0] * v[:, 1] - c[:, 1] * v[:, 0]                                  # 2-D cross product
+    ang = float(np.abs(np.mean(cz / (np.linalg.norm(c, axis=1) + 1e-9))))
     disp = np.linalg.norm(((P[-1] - P[-2] + B / 2) % B) - B / 2, axis=1).mean() if n > 1 else 0.0
     near = dist < 1.5; cnt = near.sum(1); zc = np.exp(1j * H[-1])
     loc = np.abs((near * zc[None, :]).sum(1) + zc) / (cnt + 1)

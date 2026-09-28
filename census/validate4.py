@@ -20,6 +20,8 @@ TESTS
       (state verified uniform at the end), plus regime negatives verified disordered globally AND locally.
   N2  0 flagged among 400 held-out interaction-free programs (guaranteed by the knock-out design — reported as a
       consistency check of the implementation, not as evidence).
+  F0  0 fingerprint errors among all evaluated views (integrity: round 6 found the agent fingerprint had failed
+      silently in every earlier round — a numpy 2.x API change — so errors now fail the gate outright).
   (reported) named-correctly rate among flagged verified examples (target >= 80%).
 """
 import os
@@ -94,7 +96,8 @@ def _neg(job):
     flagged = [v for v, seeds in real.items() if sum(1 for s, x in enumerate(seeds) if x["emergent"] and driven[v][s]) >= 2]
     ok = verified_negative(tag, out, real) if role != "free" else True
     fp = {v: {k: float(np.mean([x["fp"].get(k, 0.0) for x in seeds])) for k in set().union(*[x["fp"] for x in seeds])} for v, seeds in real.items()}
-    return {"tag": tag, "role": role, "prog": G.describe(p), "verified": ok, "flagged": flagged, "fp": fp}
+    fperr = sum(1 for seeds in real.values() for x in seeds if "fp_error" in x["fp"])
+    return {"tag": tag, "role": role, "prog": G.describe(p), "verified": ok, "flagged": flagged, "fp": fp, "fp_errors": fperr}
 
 
 # ------------------------------------------------------------------ open-set namer
@@ -104,7 +107,7 @@ def _robust(X):
 
 
 def _fit(Zc):
-    mu = Zc.mean(0); S = np.cov(Zc, rowvar=False) if len(Zc) > 1 else np.eye(Zc.shape[1])
+    mu = Zc.mean(0); S = np.atleast_2d(np.cov(Zc, rowvar=False)) if len(Zc) > 1 else np.eye(Zc.shape[1])
     S = (1 - SHRINK) * S + SHRINK * np.diag(np.diag(S)) + 1e-3 * np.eye(len(mu))
     return mu, np.linalg.inv(S)
 
@@ -182,7 +185,9 @@ def main():
     fre = [n for n in neg if n["role"] == "free"]
     n1 = [n for n in trv + reg if n["flagged"]]; n2 = [n for n in fre if n["flagged"]]
     dropped = [n["tag"] for n in neg if n["role"] in ("trivial", "regime") and not n["verified"]]
-    crit = {f"P1 verified examples flagged = {len(flagged)} / {len(pos)} (need >= 90%)": len(flagged) >= 0.9 * len(pos),
+    fperr = sum(n.get("fp_errors", 0) for n in neg) + sum(1 for e in lib["examples"] if "fp_error" in e["fp"])
+    crit = {f"F0 fingerprint errors = {fperr}": fperr == 0,
+            f"P1 verified examples flagged = {len(flagged)} / {len(pos)} (need >= 90%)": len(flagged) >= 0.9 * len(pos),
             f"P3 wrong names (leave-one-variant-out) = {len(wrong)} / {len(flagged)}": len(wrong) == 0,
             f"P4 unknown named as known (leave-one-class-out) = {len(unk)} / {len(loco)}": len(unk) == 0,
             f"N1 verified trivial/disordered interacting negatives flagged = {len(n1)} / {len(trv) + len(reg)}": len(n1) == 0,
