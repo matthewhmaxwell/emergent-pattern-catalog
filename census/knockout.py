@@ -9,9 +9,14 @@ quorum, toppling, games, rewiring, coupling, agent<->cell sensing, gradient clim
 Kept in the knock-out: one-way rules (spontaneous flips, decay, feed, emission, deposition). Phase coupling is set to
 K = 0 rather than removed, so the phase view still exists to compare.
 
-Decision per view and seed (fixed before round 6):
-  interaction-driven  <=>  knock-out view absent  OR  knock-out view not emergent  OR  d > D_MIN
-  d = median over fingerprint features of |real - ko| / (|real| + |ko| + 0.05);  D_MIN = 0.25
+Decision per view (round 10; noise-aware — round 9 extended negatives showed a noisy program whose knock-out
+differed from it by no more than two seeds of the same program differ from each other):
+  interaction-driven  <=>  knock-out view absent  OR  knock-out view not emergent in >= 2 seeds
+                           OR  d_between > max(D_MIN, 2 * d_within)
+  d(a, b)   = median over fingerprint features of |a - b| / (|a| + |b| + 0.05);  D_MIN = 0.25
+  d_between = median over seeds of d(real_s, ko_s)          (seeds where both are emergent)
+  d_within  = median over seed pairs of d(real_s, real_t)   (seed-to-seed variation of the real program)
+The same decision applies to every seed of the view.
 """
 import numpy as np
 from census import grammar_g1 as G
@@ -54,14 +59,18 @@ def per_seed_view_results(out, p):
 
 
 def interaction_driven(real, ko):
-    """real, ko: outputs of per_seed_view_results. -> {view: [bool per seed]} (only meaningful where real is emergent)."""
+    """real, ko: outputs of per_seed_view_results. -> {view: [bool per seed]} (one decision per view, noise-aware)."""
     out = {}
     for v, seeds in real.items():
-        kv = ko.get(v); flags = []
-        for s, rs in enumerate(seeds):
-            if kv is None or s >= len(kv) or not kv[s]["emergent"]: flags.append(True)
-            else: flags.append(fp_distance(rs["fp"], kv[s]["fp"]) > D_MIN)
-        out[v] = flags
+        kv = ko.get(v)
+        if kv is None or sum(1 for x in kv if x["emergent"]) < 2:
+            out[v] = [True] * len(seeds); continue
+        both = [s for s in range(min(len(seeds), len(kv))) if seeds[s]["emergent"] and kv[s]["emergent"]]
+        em = [s for s in range(len(seeds)) if seeds[s]["emergent"]]
+        d_between = float(np.median([fp_distance(seeds[s]["fp"], kv[s]["fp"]) for s in both])) if both else 1.0
+        pairs = [(a, b) for i, a in enumerate(em) for b in em[i + 1:]]
+        d_within = float(np.median([fp_distance(seeds[a]["fp"], seeds[b]["fp"]) for a, b in pairs])) if pairs else 0.0
+        out[v] = [d_between > max(D_MIN, 2 * d_within)] * len(seeds)
     return out
 
 
