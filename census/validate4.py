@@ -245,7 +245,7 @@ def main():
     lc = collections.Counter(x["class"] for x in unk)
     L += [f"| {c} | {n} | {f} | {rr} | {w} | {lc.get(c, 0)} |" for c, (n, f, rr, w) in sorted(tab.items())]
     L += ["", f"Status of flagged verified examples: {dict(status)}",
-          "Also-shows pairs (behaviour -> also shows): " + json.dumps(dict(collections.Counter((p['class'], a) for p in flagged for a in p['also']).most_common(12)), default=str)]
+          "Also-shows pairs (behaviour -> also shows): " + "; ".join(f"{a} -> {b}: {n}" for (a, b), n in collections.Counter((p['class'], x) for p in flagged for x in p['also']).most_common(12))]
     L += ["", "## Criteria", ""] + [f"- {'PASS' if v else 'FAIL'} — {k}" for k, v in crit.items()]
     L += [f"- (reported) primary name = own behaviour: {len(right)} / {len(flagged)} ({100 * len(right) / max(len(flagged), 1):.0f}%; target >= 80%)",
           f"- (reported) P4 novelty-risk: withheld-class examples still given a primary name = {len(unk)} / {len(loco)} "
