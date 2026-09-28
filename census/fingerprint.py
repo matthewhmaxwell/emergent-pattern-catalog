@@ -52,7 +52,7 @@ def grid(hist):
     sp, fq = _spectral_peak(act[1:])
     interface = float(np.mean([(g != np.roll(g, 1, 0)).mean() + (g != np.roll(g, 1, 1)).mean() for g in G[L]]) / 2)
     ch = G[1:] != G[:-1]; kk = max(k, 2)
-    cyc = float(((G[1:] == (G[:-1] + 1) % kk) & ch).sum() / max(ch.sum(), 1))       # share of changes that are t -> t+1
+    cyc = float(((G[1:] == (G[:-1] + 1) % kk) & ch).sum() / max(ch.sum(), 1)) - 1.0 / max(kk - 1, 1)   # t -> t+1 share above chance
     rev = float(((G[2:] == G[:-2]) & ch[1:] & ch[:-1]).sum() / max((ch[1:] & ch[:-1]).sum(), 1))   # flip-backs
     a_early, a_late = float(act[1:max(2, n // 6)].mean()), float(act[L].mean())
     trend = float(np.log((a_late + 1e-4) / (a_early + 1e-4)))                        # < 0: activity dies down
@@ -101,11 +101,13 @@ def network(hist, adj0=None):
     deg = A.sum(1)
     vals = np.unique(np.round(ops, 6)); k = max(len(vals), 2)
     T = np.searchsorted(vals, np.round(ops, 6)).astype(int); chg = T[1:] != T[:-1]
-    cyc = float(((T[1:] == (T[:-1] + 1) % k) & chg).sum() / max(chg.sum(), 1)) if k > 2 else 0.0
+    cyc = float(((T[1:] == (T[:-1] + 1) % k) & chg).sum() / max(chg.sum(), 1)) - 1.0 / (k - 1) if k > 2 else 0.0
     frac = np.stack([(T == v).mean(1) for v in range(k)], 1)
     osc = max((_spectral_peak(frac[:, v])[0] for v in range(k)), default=0.0)
     maj0, maj1 = float(frac[0].max()), float(frac[-1].max())
-    return {"n_cyclic_changes": cyc, "n_oscillation": float(osc), "n_consensus_gain": maj1 - maj0,
+    A0 = hist[0].get("adjacency", adj0)
+    turnover = float((A0 != A).sum() / max(A0.sum() + A.sum(), 1)) if A0 is not None else 0.0     # share of links rewired
+    return {"n_edge_turnover": turnover, "n_cyclic_changes": cyc, "n_oscillation": float(osc), "n_consensus_gain": maj1 - maj0,
             "n_giant": float(max(comps) / len(op)), "n_components": float(np.log1p(len(comps))), "n_type_modularity": float(Q),
             "n_type_entropy": float(-(fr * np.log(fr)).sum()), "n_activity": float(ch[_late(len(ch))].mean()),
             "n_degree_cv": float(deg.std() / (deg.mean() + 1e-9))}
