@@ -139,6 +139,14 @@ def screen_avalanche(history):
     return {"emergent": ok, "em_score": 1.0 if ok else 0.0, "em_kind": "avalanche(P14-screen)"}
 
 
+def _consensus_gain(history):
+    """network views: majority share gained from the first to the last frame (0 for other views)."""
+    if "opinions" not in history[0]: return 0.0
+    a, b = np.round(history[0]["opinions"], 6), np.round(history[-1]["opinions"], 6)
+    m = lambda x: np.unique(x, return_counts=True)[1].max() / len(x)
+    return float(m(b) - m(a))
+
+
 def screen(history):
     from epc.phase2a.emergence import generic_emergence
     from epc.phase2a.novelty_tripwire import model_free_complexity
@@ -151,9 +159,10 @@ def screen(history):
     except Exception as e:
         mf = {"is_complex": False, "C": None, "psi": None, "struct": None, "collapsed": None}
     sc = float(em.get("score", 0.0) or 0.0)
-    return {"em_score": round(sc, 4), "em_kind": em.get("kind"), "is_complex": bool(mf.get("is_complex")),
-            "C": mf.get("C"), "psi": mf.get("psi"), "collapsed": mf.get("collapsed"),
-            "emergent": bool(sc >= 0.5 or mf.get("is_complex"))}
+    cg = _consensus_gain(history)
+    return {"em_score": round(sc, 4), "em_kind": em.get("kind") if cg < 0.2 else "consensus-gain", "is_complex": bool(mf.get("is_complex")),
+            "C": mf.get("C"), "psi": mf.get("psi"), "collapsed": mf.get("collapsed"), "consensus_gain": round(cg, 4),
+            "emergent": bool(sc >= 0.5 or mf.get("is_complex") or cg >= 0.2)}
 
 
 def known(history, metadata):

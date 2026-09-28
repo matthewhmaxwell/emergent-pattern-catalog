@@ -51,10 +51,15 @@ def grid(hist):
     mor = [_moran(g) for g in G[::max(1, n // 20)]]
     sp, fq = _spectral_peak(act[1:])
     interface = float(np.mean([(g != np.roll(g, 1, 0)).mean() + (g != np.roll(g, 1, 1)).mean() for g in G[L]]) / 2)
+    ch = G[1:] != G[:-1]; kk = max(k, 2)
+    cyc = float(((G[1:] == (G[:-1] + 1) % kk) & ch).sum() / max(ch.sum(), 1))       # share of changes that are t -> t+1
+    a_early, a_late = float(act[1:max(2, n // 6)].mean()), float(act[L].mean())
+    trend = float(np.log((a_late + 1e-4) / (a_early + 1e-4)))                        # < 0: activity dies down
     return {"g_moran": _moran(last), "g_moran_trend": float(np.polyfit(np.arange(len(mor)), mor, 1)[0]) if len(mor) > 2 else 0.0,
             "g_corrlen": _corr_length(last), "g_activity": float(act[L].mean()), "g_activity_cv": float(act[L].std() / (act[L].mean() + 1e-9)),
             "g_type_entropy": ent, "g_n_types": float((fr > 0.01).sum()), "g_largest_domain": float(lab_sizes.max() / last.size),
-            "g_n_domains": float(np.log1p(len(lab_sizes))), "g_interface": interface, "g_spec_peak": sp, "g_spec_freq": fq}
+            "g_n_domains": float(np.log1p(len(lab_sizes))), "g_interface": interface, "g_spec_peak": sp, "g_spec_freq": fq,
+            "g_cyclic_changes": cyc, "g_activity_trend": trend}
 
 
 def agents(hist):
@@ -89,7 +94,14 @@ def network(hist, adj0=None):
     fr = np.unique(op, return_counts=True)[1] / len(op)
     ops = np.stack([h["opinions"] for h in hist]); ch = np.abs(np.diff(ops, axis=0)).mean(1) if len(ops) > 1 else np.zeros(1)
     deg = A.sum(1)
-    return {"n_giant": float(max(comps) / len(op)), "n_components": float(np.log1p(len(comps))), "n_type_modularity": float(Q),
+    vals = np.unique(np.round(ops, 6)); k = max(len(vals), 2)
+    T = np.searchsorted(vals, np.round(ops, 6)).astype(int); chg = T[1:] != T[:-1]
+    cyc = float(((T[1:] == (T[:-1] + 1) % k) & chg).sum() / max(chg.sum(), 1)) if k > 2 else 0.0
+    frac = np.stack([(T == v).mean(1) for v in range(k)], 1)
+    osc = max((_spectral_peak(frac[:, v])[0] for v in range(k)), default=0.0)
+    maj0, maj1 = float(frac[0].max()), float(frac[-1].max())
+    return {"n_cyclic_changes": cyc, "n_oscillation": float(osc), "n_consensus_gain": maj1 - maj0,
+            "n_giant": float(max(comps) / len(op)), "n_components": float(np.log1p(len(comps))), "n_type_modularity": float(Q),
             "n_type_entropy": float(-(fr * np.log(fr)).sum()), "n_activity": float(ch[_late(len(ch))].mean()),
             "n_degree_cv": float(deg.std() / (deg.mean() + 1e-9))}
 

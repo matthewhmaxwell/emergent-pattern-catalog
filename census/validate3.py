@@ -5,17 +5,20 @@
 Positives = the textbook-VERIFIED library examples (census.reflib). Naming accuracy is measured LEAVE-ONE-VARIANT-OUT:
 each parameter setting (all its seeds) is removed from the library and then named by the rest, so no example is
 ever named by itself or by its own seeds.
-Negatives (non-circular, as in v2): the null region is built ONLY from interaction-free programs + scrambled runs of
-a NULL SET of programs; a DISJOINT held-out set of scrambled runs (spatial views only) and verified-disordered regime
-programs are scored.
+Negatives (non-circular): the null region is built ONLY from interaction-free programs (v3 lesson: scrambled runs
+still flock / sync / reach consensus in mean field, so they must not define "noise"). Scored: held-out scrambled runs
+(grid/field views only) + REGIME negatives for agents, networks and oscillators, each verified disordered by its
+textbook measure (polarization, order parameter r, majority share).
 
 NAMING RULE (fixed): per view family, robust-z fingerprints (median/MAD over library + null views); k = 5 nearest
 library examples; name = class c if >= 4 of the 5 are class c AND the nearest class-c example is within R_c, where R_c
 = 95th percentile of class-c examples' nearest-other-variant distances. Otherwise UNNAMED (-> literature check).
 
 PASS criteria (all must hold):
-  N1  0 held-out scrambled negatives flagged (>= 300 scored -> false-flag rate <= 1% at 95%).
-  N2  0 regime negatives flagged.
+  N1  0 held-out scrambled negatives flagged, scored on SPATIAL-PICTURE views only (lattice grid C, fields F0/F1):
+      scrambling destroys spatial pattern but NOT mean-field collective order (heading alignment, phase sync,
+      opinion consensus), so agent/network/phase views of scrambled runs are not negatives (v3 lesson).
+  N2  0 textbook-verified regime negatives flagged (programs failing their disorder check are dropped, not scored).
   N3  0 negatives NAMED (a flagged negative that would also get a catalog name).
   P1  >= 90% of verified library examples flagged (emergent in the screen AND outside the null region).
   P3  0 WRONG names in leave-one-variant-out (named, but with another class).
@@ -29,7 +32,29 @@ from multiprocessing import Pool
 import numpy as np
 from census import grammar_g1 as G
 from census.triage import FAMILY, is_null_program
-from census.validate2 import REGIME_NEG, SCORED_SCRAMBLED, _eval
+from census.validate2 import _eval
+
+SCORED_SCRAMBLED = {"C", "F0", "F1"}
+R_ = G.Rule
+REGIME_NEG = {}                                        # textbook-verified disordered programs (checked in _disorder)
+for v_ in (1.0, 0.3):
+    for r_ in (0.5, 1.0):
+        REGIME_NEG[f"walkers repel r={r_} v={v_}"] = G.make("A", {"A": 1}, agent=(v_, 3.14159), rules=[R_("A.REPEL", (("b", "any"), ("r", r_)))])
+        REGIME_NEG[f"align at max noise r={r_} v={v_}"] = G.make("A", {"A": 1}, agent=(v_, 3.14159), rules=[R_("A.ALIGN", (("r", r_),))])
+for K_ in (0.0003, 0.001, 0.002):
+    REGIME_NEG[f"network oscillators K={K_}"] = G.make("N", {"N": 1}, rules=[R_("N.KURA", (("K", K_),))])
+    REGIME_NEG[f"lattice oscillators K={K_}"] = G.make("C", {"C": 1}, rules=[R_("C.KURA", (("K", K_),))])
+REGIME_NEG["neighbour swaps"] = G.make("C", {"C": 2}, rules=[R_("C.SWAP", (("p", 1.0),))])
+REGIME_NEG["neighbour swaps, 3 types"] = G.make("C", {"C": 3}, rules=[R_("C.SWAP", (("p", 0.3),))])
+
+
+def disorder_ok(tag, res_row):
+    """textbook disorder check, from the run's own fingerprint values (seed means)."""
+    fp = {k: v for d in res_row["views"].values() for k, v in d["fp"].items()}
+    if tag.startswith(("walkers", "align")): return fp.get("a_polar", 0.0) < 0.2 and fp.get("a_nn_ratio", 1.0) > 0.8
+    if tag.startswith("network oscillators"): return fp.get("p_r", 0.0) < 0.3
+    if tag.startswith("lattice oscillators"): return fp.get("p_local_r", 0.0) < 0.6
+    return True
 
 K, VOTES = 5, 4
 
@@ -71,7 +96,7 @@ class Namer:
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--lib", required=True); ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--out", default="census/validation/v3"); ap.add_argument("--n-null", type=int, default=300)
-    ap.add_argument("--n-test", type=int, default=300); ap.add_argument("--maxbits", type=int, default=18)
+    ap.add_argument("--n-test", type=int, default=400); ap.add_argument("--maxbits", type=int, default=18)
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     lib = json.load(open(a.lib)); ex = [r for r in lib["examples"] if r["verified"]]
     lib_bits = {r["bits"] for r in lib["examples"]}
@@ -79,9 +104,9 @@ def main():
     free = [p for p in progs if is_null_program(G.describe(p))]
     inter = [p for p in progs if not is_null_program(G.describe(p)) and G.encode(p) not in lib_bits]
     rng = random.Random(20260928); rng.shuffle(inter); rng.shuffle(free); free = free[:400]
-    null_set, test_set = inter[:a.n_null], inter[a.n_null:a.n_null + a.n_test]
+    spatial = [p for p in inter if ("C" in p.layers or "F" in p.layers)]
+    null_set, test_set = [], spatial[:a.n_test]           # null region = interaction-free programs only
     jobs = [(f"free:{i}", "null-free", G.encode(p), False, False) for i, p in enumerate(free)]
-    jobs += [(f"nullscr:{i}", "null-scrambled", G.encode(p), True, False) for i, p in enumerate(null_set)]
     jobs += [(f"testscr:{i}", "neg-scrambled", G.encode(p), True, False) for i, p in enumerate(test_set)]
     jobs += [(n, "neg-regime", G.encode(p), False, False) for n, p in REGIME_NEG.items()]
     print(f"negatives: {len(free)} interaction-free + {len(null_set)} null-set scrambled (null region); scored: "
@@ -100,7 +125,8 @@ def main():
             if d["emergent_seeds"] < 2 or not d["fp"]: continue
             fam = FAMILY.get(v, v)
             if r["role"] in ("null-free", "null-scrambled"): nullfp[fam].append(d["fp"])
-            elif r["role"] == "neg-regime" or v in SCORED_SCRAMBLED: negv[fam].append((r, v, d["fp"]))
+            elif (r["role"] == "neg-regime" and disorder_ok(r["tag"], r)) or (r["role"] == "neg-scrambled" and v in SCORED_SCRAMBLED):
+                negv[fam].append((r, v, d["fp"]))
     libfam = collections.defaultdict(list)
     for e in ex: libfam[FAMILY.get(e["view"], e["view"])].append(e)
     out = {"n1": [], "n2": [], "n3": [], "pos": []}; Rnull = {}
@@ -128,8 +154,10 @@ def main():
     pos = out["pos"]; flagged = [p for p in pos if p["flagged"]]; named = [p for p in flagged if p["named"]]
     wrong = [p for p in named if not p["correct"]]; right = [p for p in named if p["correct"]]
     n_neg = sum(1 for r in res if r["role"] == "neg-scrambled")
+    reg_ok = [r["tag"] for r in res if r["role"] == "neg-regime" and disorder_ok(r["tag"], r)]
+    reg_drop = [r["tag"] for r in res if r["role"] == "neg-regime" and not disorder_ok(r["tag"], r)]
     crit = {f"N1 held-out scrambled negatives flagged = {len(out['n1'])} / {n_neg}": len(out["n1"]) == 0,
-            f"N2 regime negatives flagged = {len(out['n2'])} / {len(REGIME_NEG)}": len(out["n2"]) == 0,
+            f"N2 verified regime negatives flagged = {len(out['n2'])} / {len(reg_ok)} (dropped as not disordered: {reg_drop})": len(out["n2"]) == 0,
             f"N3 negatives named = {len(out['n3'])}": len(out["n3"]) == 0,
             f"P1 verified examples flagged = {len(flagged)} / {len(pos)} (need >= 90%)": len(flagged) >= 0.9 * len(pos),
             f"P3 wrong names = {len(wrong)} / {len(named)} named": len(wrong) == 0}
