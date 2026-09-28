@@ -106,20 +106,15 @@ def classes():
 
 def _build_one(job):
     cls, vi, bits, view, seedset = job
-    from census import sim, filter as FL
     from census.runner import seed_of
-    from census.fingerprint import fingerprint
-    p = G.decode(bits); out = sim.run(p, seed0=seed_of(bits) + 7919 * seedset)
+    from census.knockout import run_with_knockout
+    p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits) + 7919 * seedset)
     check = classes()[cls][3]; rows = []
-    for s in range(3):
-        V = {n: (h, md) for n, h, md in FL.views(out, p, s)}
-        if view not in V: continue
-        h, md = V[view]; th = FL._screen_hist(view, h, "adj" in out)
-        sc = FL.screen(th); fp = fingerprint(view, th, adj0=out["adj0"][s].astype(np.int64) if "adj0" in out else None)
+    for s, rs in enumerate(real.get(view, [])):
         ok, measures = check(out, s)
         rows.append({"class": cls, "variant": vi, "bits": bits, "prog": G.describe(p), "view": view, "seedset": seedset,
                      "seed": s, "verified": bool(ok), "measures": {k: round(float(v), 4) for k, v in measures.items()},
-                     "screened": bool(sc["emergent"]), "em_score": sc["em_score"], "fp": fp})
+                     "screened": rs["emergent"], "driven": bool(driven[view][s]), "em_score": rs["em_score"], "fp": rs["fp"]})
     return rows
 
 
@@ -138,10 +133,10 @@ def main():
     json.dump({"classes": {k: {"catalog": v[0], "view": v[1]} for k, v in classes().items()}, "examples": rows},
               open(os.path.join(a.out, "library.json"), "w"), indent=1)
     import collections
-    t = collections.defaultdict(lambda: [0, 0, 0])
-    for r in rows: x = t[r["class"]]; x[0] += 1; x[1] += r["verified"]; x[2] += r["verified"] and r["screened"]
-    print("class: examples / textbook-verified / verified AND flagged by the screen")
-    for k, (n, v, vs) in t.items(): print(f"  {k:36s} {n:4d} {v:4d} {vs:4d}")
+    t = collections.defaultdict(lambda: [0, 0, 0, 0])
+    for r in rows: x = t[r["class"]]; x[0] += 1; x[1] += r["verified"]; x[2] += r["verified"] and r["screened"]; x[3] += r["verified"] and r["screened"] and r["driven"]
+    print("class: examples / textbook-verified / + flagged by screen / + survives interaction knock-out")
+    for k, (n, v, vs, vd) in t.items(): print(f"  {k:36s} {n:4d} {v:4d} {vs:4d} {vd:4d}")
 
 
 if __name__ == "__main__":
