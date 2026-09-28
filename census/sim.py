@@ -18,6 +18,7 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 W, NA, NN, T_STEPS, SEEDS = 64, 400, 200, 1000, 3
+WA_ALONE = 20                                              # agent box when agents are the only layer (density 1)
 REC = {"C": 2, "pos": 2, "head": 2, "at": 2, "nt": 2, "Cph": 5, "Nph": 5, "adj": 10, "F": 10}   # record interval per key
 SAND_MAXIT, FREEZE_WINDOW, QUORUM_SLOW = 20000, 100, 0.1
 MOORE = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -39,6 +40,7 @@ def _count(grid, val):
 class State:
     def __init__(self, prog, seed0=0, S=SEEDS):
         self.p, self.S = prog, S
+        self.WA = WA_ALONE if prog.layers == "A" else W
         self.rng = np.random.default_rng(1_000_003 * seed0 + 17)
         r, k = self.rng, prog.k
         names = {x.tmpl for x in prog.rules}
@@ -48,9 +50,9 @@ class State:
             self.C = r.integers(0, k["C"], size=(S, W, W)).astype(np.int8)
             if "C.KURA" in names:
                 self.Cph = r.uniform(0, 2 * np.pi, (S, W, W)); self.Com = r.normal(0, 0.05, (S, W, W))
-            self.aval = []                                     # sandpile avalanche sizes per step
+            self.aval = []; self.aval_dur = []                 # sandpile avalanche sizes / durations per step
         if "A" in prog.layers:
-            self.pos = r.integers(0, W, size=(S, NA, 2)) + 0.5
+            self.pos = r.integers(0, self.WA, size=(S, NA, 2)) + 0.5
             self.head = r.integers(0, 4, size=(S, NA)) * (np.pi / 2)
             self.at = r.integers(0, k["A"], size=(S, NA)).astype(np.int8)
         if "N" in prog.layers:
@@ -77,10 +79,10 @@ class State:
         if getattr(self, "_pkey", None) != key:
             out = []
             for s in range(self.S):
-                pos = np.mod(self.pos[s], W); pos[pos >= W] = 0.0
-                pr = cKDTree(pos, boxsize=W).query_pairs(r, output_type="ndarray")
+                B = self.WA; pos = np.mod(self.pos[s], B); pos[pos >= B] = 0.0
+                pr = cKDTree(pos, boxsize=B).query_pairs(min(r, B / 2 - 1e-6), output_type="ndarray")
                 i, j = (pr[:, 0], pr[:, 1]) if len(pr) else (np.zeros(0, int), np.zeros(0, int))
-                d = pos[j] - pos[i]; d -= W * np.round(d / W); out.append((i, j, d))
+                d = pos[j] - pos[i]; d -= B * np.round(d / B); out.append((i, j, d))
             self._pkey, self._pc = key, out
         return self._pc
 
@@ -104,7 +106,7 @@ class State:
             v, eta = p.agent
             if eta > 0: self.head = self.head + r.uniform(-eta / 2, eta / 2, self.head.shape)
             mv = np.where(self.stop, QUORUM_SLOW * v, v)
-            self.pos = (self.pos + mv[..., None] * np.stack([np.cos(self.head), np.sin(self.head)], -1)) % W
+            self.pos = (self.pos + mv[..., None] * np.stack([np.cos(self.head), np.sin(self.head)], -1)) % self.WA
         if "F" in p.layers:
             for f, D in enumerate(p.D):
                 x = self.F[:, f]; lap = sum(_roll(x, dy, dx) for dy, dx in VN) - 4 * x
@@ -126,7 +128,7 @@ class State:
                 self.C[s] = self.C[s].reshape(-1)[perm].reshape(W, W)
                 if hasattr(self, "Cph"):
                     self.Cph[s] = self.Cph[s].reshape(-1)[perm].reshape(W, W); self.Com[s] = self.Com[s].reshape(-1)[perm].reshape(W, W)
-            if hasattr(self, "pos"): self.pos[s] = r.uniform(0, W, (NA, 2))
+            if hasattr(self, "pos"): self.pos[s] = r.uniform(0, self.WA, (NA, 2))
             if hasattr(self, "nt"):
                 perm = r.permutation(NN); self.nt[s] = self.nt[s][perm]
                 if hasattr(self, "Nph"): self.Nph[s] = self.Nph[s][perm]; self.Nom[s] = self.Nom[s][perm]
@@ -185,14 +187,14 @@ class State:
             flat = self.C[s].reshape(-1); flat[e] = flat[u]; flat[u] = 0
 
     def _C_SAND(self, p):
-        h = self.C.astype(np.int16) + self._bern(self.C.shape, p); sizes = np.zeros(self.S, int)
+        h = self.C.astype(np.int16) + self._bern(self.C.shape, p); sizes = np.zeros(self.S, int); dur = np.zeros(self.S, int)
         for _ in range(SAND_MAXIT):
             top = h >= 4
             if not top.any(): break
-            sizes += top.sum((1, 2)); h -= 4 * top; t = top.astype(np.int16)
+            sizes += top.sum((1, 2)); dur += top.any((1, 2)); h -= 4 * top; t = top.astype(np.int16)
             h[:, 1:, :] += t[:, :-1, :]; h[:, :-1, :] += t[:, 1:, :]          # open boundary: grains at the
             h[:, :, 1:] += t[:, :, :-1]; h[:, :, :-1] += t[:, :, 1:]          # edge leave the lattice
-        self.C = np.minimum(h, 3).astype(np.int8); self.aval.append(sizes)
+        self.C = np.minimum(h, 3).astype(np.int8); self.aval.append(sizes); self.aval_dur.append(dur)
 
     def _C_GAME(self, g):
         T_, S_ = g; s = self.C.astype(float); coop = 1 - s             # type 0 = cooperate, 1 = defect
@@ -490,17 +492,17 @@ class State:
 
 
 # ---------------------------------------------------------------------- run + record
-def run(prog, seed0=0, steps=T_STEPS, S=SEEDS, null_shuffle=False):
+def run(prog, seed0=0, steps=T_STEPS, S=SEEDS, null_shuffle=False, rec_scale=1):
     """returns dict of recorded frames (arrays with leading axes (S, frames, ...)) + run metadata.
     null_shuffle=True runs the mean-field NULL (structure destroyed after every step)."""
-    st = State(prog, seed0, S)
+    st = State(prog, seed0, S); REC_ = {k: v * rec_scale for k, v in REC.items()}
     rew = any(r.tmpl == "N.REWIRE" or getattr(r, "act", None) == "REWIRE_SAME" for r in prog.rules)
     keys = ("C", "Cph", "pos", "head", "at", "nt", "Nph", "F") + (("adj",) if rew else ())
     fr = {k: [] for k in keys if hasattr(st, k)}; last_change = 0
 
     def snap(t):
         for k in fr:
-            if t % REC[k] == 0:
+            if t % REC_[k] == 0:
                 a = getattr(st, k); fr[k].append(a.astype(np.float32) if a.dtype == np.float64 else a.copy())
     snap(0)
     while st.t < steps:
@@ -510,9 +512,9 @@ def run(prog, seed0=0, steps=T_STEPS, S=SEEDS, null_shuffle=False):
         snap(st.t)
         if st.unstable: break
     out = {k: np.stack(v, 1) for k, v in fr.items() if v}
-    if hasattr(st, "aval") and st.aval: out["aval"] = np.stack(st.aval, 1)
+    if hasattr(st, "aval") and st.aval: out["aval"] = np.stack(st.aval, 1); out["aval_dur"] = np.stack(st.aval_dur, 1)
     if hasattr(st, "adj") and not rew: out["adj0"] = st.adj.copy()
     out["meta"] = {"null_shuffle": null_shuffle, "steps_run": st.t, "frozen_at": st.frozen_at,
                    "absorbed_at": last_change if st.frozen_at is not None else None,
-                   "unstable": st.unstable, "rec": dict(REC), "W": W}
+                   "unstable": st.unstable, "rec": dict(REC_), "W": W, "WA": st.WA}
     return out

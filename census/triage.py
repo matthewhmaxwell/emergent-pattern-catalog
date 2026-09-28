@@ -36,12 +36,12 @@ def is_null_program(prog):
 
 def load(run):
     import glob
-    rows = []
+    rows = {}
     for f in sorted(glob.glob(os.path.join(run, "results_*.jsonl"))):
         for line in open(f):
-            try: rows.append(json.loads(line))
+            try: r = json.loads(line); rows[r.get("idx", len(rows))] = r          # de-duplicate by program index
             except Exception: pass
-    return rows
+    return list(rows.values())
 
 
 def items(rows):

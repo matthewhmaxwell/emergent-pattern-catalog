@@ -60,13 +60,14 @@ def grid(hist):
 def agents(hist):
     P = np.stack([h["positions"] for h in hist]); H = np.stack([h["headings"] for h in hist]); n = len(P); L = _late(n)
     pol = np.abs(np.exp(1j * H).mean(1))
-    last = P[-1]; d = last[:, None] - last[None]; d -= W * np.round(d / W); dist = np.sqrt((d ** 2).sum(-1)); np.fill_diagonal(dist, np.inf)
-    nn = dist.min(1).mean(); nn_random = 0.5 / np.sqrt(len(last) / W ** 2)
-    hist2 = np.histogram2d(last[:, 0], last[:, 1], bins=16, range=[[0, W], [0, W]])[0]
+    B = float(hist[-1].get("box_size", W))
+    last = P[-1]; d = last[:, None] - last[None]; d -= B * np.round(d / B); dist = np.sqrt((d ** 2).sum(-1)); np.fill_diagonal(dist, np.inf)
+    nn = dist.min(1).mean(); nn_random = 0.5 / np.sqrt(len(last) / B ** 2)
+    hist2 = np.histogram2d(last[:, 0], last[:, 1], bins=16, range=[[0, B], [0, B]])[0]
     # angular momentum about the centroid of each agent's local neighbourhood (milling indicator), crude: global
-    v = np.stack([np.cos(H[-1]), np.sin(H[-1])], 1); c = last - last.mean(0); c -= W * np.round(c / W)
+    v = np.stack([np.cos(H[-1]), np.sin(H[-1])], 1); c = last - last.mean(0); c -= B * np.round(c / B)
     ang = float(np.abs(np.mean(np.cross(c, v) / (np.linalg.norm(c, axis=1) + 1e-9))))
-    disp = np.linalg.norm(((P[-1] - P[-2] + W / 2) % W) - W / 2, axis=1).mean() if n > 1 else 0.0
+    disp = np.linalg.norm(((P[-1] - P[-2] + B / 2) % B) - B / 2, axis=1).mean() if n > 1 else 0.0
     out = {"a_polar": float(pol[L].mean()), "a_polar_std": float(pol[L].std()), "a_nn_ratio": float(nn / nn_random),
            "a_density_cv": float(hist2.std() / (hist2.mean() + 1e-9)), "a_ang_mom": ang, "a_step": float(disp)}
     if "labels" in hist[-1]:

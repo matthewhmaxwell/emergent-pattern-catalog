@@ -36,3 +36,36 @@ As in DESIGN §9. Registration visibility is the owner's call at T13 (the Ring-3
 - Any post-hoc analysis is labelled post-hoc. Every probe/detector gets a negative control (lesson of Ring-3 prereg D4).
 - Literature pre-check before any novelty claim (lesson of P1).
 - Commits only on `emergence-census`; push to origin.
+
+## Pilot log (Phase 1; nothing here is census data)
+**2026-09-27 (day 1)** — branch `emergence-census`, commits 3da21b2 → e7e10a8.
+- **T1/T2 done (G1 v0):** 31 mechanism templates over layers C/A/N/F (+ CA, CF, AF, CAF couplings); prefix-free
+  code with coarse-to-fine parameter grids; canonical dedup (type relabeling under each rule's implicit semantics:
+  cyclic / empty-0 / parity / fixed). Round-trip verified on all programs <= 17 bits. Count grows ~2.1x per bit
+  (<= 17 bits: 8,746). Textbook models: voter/majority/Schelling 11, Nowak-May 12, cyclic CA / GH 13, Vicsek 14,
+  sandpile 15, MIPS 16, RPS agents 17, co-evolving voter 19, Langton ants 22, chemotaxis 28, Gray-Scott 29 bits.
+- **T3 done:** vectorized interpreter (3 seeds batched); agents via periodic k-d tree (40 s -> 2-3 s per program);
+  BTW with open boundary; quorum = slow-down (stop-rule jammed into an absorbing state). Per-key recording
+  (grid/agents every 2 steps, fields/rewiring graphs every 10); runs never stopped early (absorbed state is data).
+- **T4/T5 findings (battery as known-filter):**
+  - Detectors are tuned to canonical scales/run lengths ("run length < 5 tau", "< 5 T_cross", "post-burn-in < 300").
+    Thinning frames broke them -> battery now gets full resolution.
+  - `powerlaw` was missing from the EPC venv -> P14 (SOC) could never fire anywhere. Installed (declared dependency).
+  - Recognized so far: voter p=0.3/0.1 -> P18, Schelling -> P1 (definitive). Not recognized: synchronous voter
+    (misses P18 screening narrowly), majority coarsening, cyclic-CA spirals (P12 is built for May-Leonard with empty
+    sites), GH at k=3 (degenerate; canonical GH has 8 states), Vicsek at our density/speed, MIPS (dilute world),
+    Kuramoto at K=0.1 (too weak), co-evolving voter (P34 gates), Nowak-May (P27 needs coop_fraction).
+  - Battery FALSE MATCH seen: `C kC=3 | C.MAJ(p=0.1)` -> P12 (cyclic dominance) at confirmation.
+  - Cost: per-program battery ~37 s mean (P1 alone 70 s at 999 permutations) -> infeasible at census scale.
+- **Design revision proposed (needs owner sign-off before freeze): CLUSTER-FIRST pipeline.** Every program: sim +
+  screen + cheap fingerprint (~2.2 s incl. sim, 3 seeds) -> cluster emergent views into behaviour classes per
+  substrate family -> run the validated battery (full frames) on each class's 3 shortest representatives -> label
+  classes; unlabelled classes -> literature check. Emergence-complexity table = shortest program per labelled class.
+  Rationale: battery cost per class not per program; robust to the battery's OOD recall gaps (classes get labelled
+  from their clearest members + literature). Per-program battery kept as a reference mode (`runner --battery`).
+- **Throughput (cluster-first, shortest 40 programs):** sim 1.8 s + filter 0.45 s per program (3 seeds). Network
+  screen was 8 s (generic_emergence recomputing modularity on static graphs) -> screen static networks on node
+  states only. Re-measure on the full mix before choosing L (first estimate: L ~ 24 bits).
+- **Running now:** reference slice (per-program battery, <= 13 bits, 430 programs) + cluster-first slice (<= 16
+  bits, 4,134 programs). Next: triage on cf16 (clusters + battery on representatives), compare labels with the
+  reference slice, null base rate (`runner --null`, same programs), G2 counts/benchmark lengths on the VPS.

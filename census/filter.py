@@ -87,19 +87,19 @@ def views(out, prog, s):
         if ab is not None and len(np.unique(C[-1])) == 1 and ab // rec["C"] >= 20:
             V.append(("C.transient", _grid_hist(C[:ab // rec["C"] + 1], k, rec["C"]), md))
     if "aval" in out:
-        a = out["aval"][s].astype(float)
-        V.append(("C.aval", [{"avalanche_sizes": a[a > 0], "activity": a, "step": 0}], {}))
+        a = out["aval"][s].astype(float); d = out["aval_dur"][s].astype(float); m = a > 0
+        V.append(("C.aval", [{"avalanche_sizes": a[m], "avalanche_durations": d[m], "activity": a, "step": 0}], {}))
     if "Cph" in out:
         V.append(("C.phase", _phase_frames(out["Cph"][s], rec["Cph"]), {"N": W * W, "substrate_type": "oscillator"}))
     if "pos" in out:
-        v = prog.agent[0]; hist = []
+        v = prog.agent[0]; hist = []; B = float(out["meta"].get("WA", W))
         for f in range(out["pos"].shape[1]):
             h = np.mod(out["head"][s, f], 2 * np.pi)
             fr = {"positions": out["pos"][s, f], "velocities": v * np.stack([np.cos(h), np.sin(h)], -1),
-                  "headings": h, "box_size": float(W), "step": f * rec["pos"]}
+                  "headings": h, "box_size": B, "step": f * rec["pos"]}
             if prog.k["A"] >= 2: fr["labels"] = out["at"][s, f].astype(np.int64)
             hist.append(fr)
-        V.append(("A", hist, {"n_particles": NA, "box_size": float(W), "dt": 1.0,
+        V.append(("A", hist, {"n_particles": NA, "box_size": B, "dt": 1.0,
                               "space_type": "continuous_2d_periodic"}))
     if "nt" in out:
         k = prog.k["N"]; hist = []
@@ -125,8 +125,18 @@ def _screen_hist(name, hist, rewiring):
         if not rewiring:                                     # static graph: the dynamics live in the node states
             return [{"opinions": h["opinions"], "step": h["step"]} for h in _thin(hist, SCREEN_FRAMES)]
         return _thin(hist, 25)
-    if name == "A": return _thin(hist, 26)
+    if name == "A": return _thin(hist, 51)
     return _thin(hist, SCREEN_FRAMES)
+
+
+def screen_avalanche(history):
+    """avalanche bundles have no generic lens: emergent iff the SOC detector (P14) fires at >= screening."""
+    from epc.phase2a.panel import _detected
+    try:
+        ok = bool(_detected(_fast_fns()["P14"](history, {})))
+    except Exception:
+        ok = False
+    return {"emergent": ok, "em_score": 1.0 if ok else 0.0, "em_kind": "avalanche(P14-screen)"}
 
 
 def screen(history):
@@ -182,7 +192,7 @@ def evaluate(out, prog, battery_all=False, battery=True):
     for s in range(S):
         for name, hist, md in views(out, prog, s):
             thin = _screen_hist(name, hist, "adj" in out)
-            r = screen(thin) if name != "C.aval" else {"emergent": True, "em_score": None, "em_kind": "avalanche-bundle"}
+            r = screen(thin) if name != "C.aval" else screen_avalanche(hist)
             if r["emergent"] and name != "C.aval":
                 r["fp"] = fingerprint(name, thin, adj0=out["adj0"][s].astype(np.int64) if "adj0" in out else None)
             if battery and (r["emergent"] or battery_all): r.update(known(hist, md))

@@ -2,7 +2,7 @@
 from .sim import W, NA, NN
 
 LAYER = {"C": f"a {W}x{W} lattice of cells (wrap-around edges, 8 neighbours each)",
-         "A": f"{NA} self-propelled agents moving in a {W}x{W} wrap-around square",
+         "A": f"{NA} self-propelled agents moving in a wrap-around square (20x20 when agents are alone, {W}x{W} when they share the lattice or fields)",
          "N": f"a random network of {NN} nodes (average 4 links each)",
          "F": f"continuous chemical field(s) diffusing on a {W}x{W} wrap-around grid"}
 

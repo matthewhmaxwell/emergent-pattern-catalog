@@ -33,9 +33,10 @@ def compact(ev):
 
 def worker(w, nw, progs, outdir, null, battery):
     from census import sim, filter as FL
+    import glob
     path = os.path.join(outdir, f"results_{w}.jsonl"); done = set()
-    if os.path.exists(path):
-        for line in open(path):
+    for f in glob.glob(os.path.join(outdir, "results_*.jsonl")):          # all workers' files: resume is safe
+        for line in open(f):                                              # even if the worker count changes
             try: done.add(json.loads(line)["idx"])
             except Exception: pass
     with open(path, "a") as fh:
