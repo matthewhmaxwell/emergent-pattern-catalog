@@ -86,6 +86,17 @@ def chk_net_consensus(o, s):
     return m >= 0.8 and m - m0 >= 0.2, {"majority_start": m0, "majority_end": m}
 
 
+PRECONDITION = {   # a textbook measure is only DEFINED for programs with the right semantics
+    "spatial PD chaos (Nowak-May)": lambda p: any(x.tmpl == "C.GAME" for x in p.rules),      # type 0 = cooperate
+    "Schelling segregation": lambda p: any(x.tmpl == "C.SCHELL" for x in p.rules),         # type 0 = vacancy
+}
+
+
+def applicable_checks(p, view):
+    """{class: check_fn} for every behaviour whose textbook measure is defined for program p on this view."""
+    return {c: v[3] for c, v in classes().items() if v[1] == view and PRECONDITION.get(c, lambda q: True)(p)}
+
+
 def classes():
     """{class: (catalog mapping, view, [programs], check)} — variants inside the regime where each is known to occur."""
     c = {}
@@ -110,19 +121,21 @@ def _build_one(job):
     cls, vi, bits, view, seedset = job
     from census.runner import seed_of
     from census.knockout import run_with_knockout
-    p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits) + 7919 * seedset)
+    p = G.decode(bits); out, real, driven, ko_out = run_with_knockout(p, seed_of(bits) + 7919 * seedset)
     allc = classes(); check = allc[cls][3]; rows = []
     same_view = {c: v[3] for c, v in allc.items() if v[1] == view}
     for s, rs in enumerate(real.get(view, [])):
         ok, measures = check(out, s)
-        checks = {}
+        checks, ko_checks = {}, {}
         for c, fn in same_view.items():
             try: checks[c] = bool(fn(out, s)[0])
             except Exception: checks[c] = False
+            try: ko_checks[c] = bool(fn(ko_out, s)[0]) if ko_out is not None else False
+            except Exception: ko_checks[c] = False
         rows.append({"class": cls, "variant": vi, "bits": bits, "prog": G.describe(p), "view": view, "seedset": seedset,
                      "seed": s, "verified": bool(ok), "measures": {k: round(float(v), 4) for k, v in measures.items()},
                      "screened": rs["emergent"], "driven": bool(driven[view][s]), "em_score": rs["em_score"], "fp": rs["fp"],
-                     "checks": checks})
+                     "checks": checks, "ko_checks": ko_checks})
     return rows
 
 

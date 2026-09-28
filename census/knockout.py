@@ -66,11 +66,12 @@ def interaction_driven(real, ko):
 
 
 def run_with_knockout(p, seed0, **kw):
-    """simulate p and its knock-out (same seeds) -> (raw output, real per-seed results, driven flags per view/seed)."""
+    """simulate p and its knock-out (same seeds) -> (raw output, real per-seed results, driven flags per view/seed,
+    raw knock-out output or None when nothing was emergent)."""
     from census import sim
     out = sim.run(p, seed0=seed0, **kw); real = per_seed_view_results(out, p)
     if not any(x["emergent"] for seeds in real.values() for x in seeds):
-        return out, real, {v: [False] * len(s) for v, s in real.items()}
-    kp = knockout_program(p)
-    ko = per_seed_view_results(sim.run(kp, seed0=seed0, **kw), kp)
-    return out, real, interaction_driven(real, ko)
+        return out, real, {v: [False] * len(s) for v, s in real.items()}, None
+    kp = knockout_program(p); ko_out = sim.run(kp, seed0=seed0, **kw)
+    ko = per_seed_view_results(ko_out, kp)
+    return out, real, interaction_driven(real, ko), ko_out

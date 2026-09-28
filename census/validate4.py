@@ -1,4 +1,14 @@
-"""VALIDATION GATE — round 6. Criteria fixed BEFORE the run; nothing scales until PASS.
+"""VALIDATION GATE — round 9 (owner-approved rule change 2026-09-28: MULTI-LABEL naming; a name is wrong only if
+the run does not actually show that behaviour). Criteria fixed BEFORE the run; nothing scales until PASS.
+
+NAMES PER RUN: PRIMARY = nearest-example namer + its textbook check (below); ALSO-SHOWS = every other behaviour whose
+textbook measure passes (measure defined for the program: the game measure needs a game rule, the segregation
+measure needs vacancies). Status: NAMED (has a primary), KNOWN-BEHAVIOUR-ATYPICAL-LOOK (only also-shows -> review
+queue, so a new twist on a known behaviour is not hidden), UNNAMED (-> literature check).
+Because every name is now verified by a textbook measure, naming correctness rests on those measures. They are
+tested where it matters: a named behaviour must DISAPPEAR when the run's interactions are knocked out (C1). (Measures
+passing on unflagged negatives — e.g. one-way conversion looks like "consensus" — are reported only: such runs are
+never flagged, so never named.)
 
   python -m census.validate4 --lib census/reflib/v4/library.json [--workers 5] [--out census/validation/v6]
 
@@ -13,9 +23,11 @@ threshold). A view is named c only if it is typical for EXACTLY ONE class; typic
 
 TESTS
   P1  recall: >= 90% of textbook-verified library examples flagged.
-  P3  wrong names, leave-one-variant-out: 0.
-  P4  unknown named as known, leave-one-CLASS-out (each class removed from the library in turn; its examples must
-      come out UNNAMED): 0. Classes too small to be nameable (< 3 variants) are always scored this way.
+  P3  names the run does not show (primary or also-shows failing its textbook measure): 0 (implementation check).
+  C1  every name given (primary or also-shows) disappears under the interaction knock-out: the knock-out run fails
+      that behaviour's textbook measure. 0 exceptions.
+  (reported) P4 novelty-risk indicator, leave-one-CLASS-out: withheld-class examples that still get a PRIMARY name
+      (listed, with whether the named behaviour is genuinely co-present).
   N1  0 flagged among verified-trivial INTERACTING programs: a real interaction rule swamped by one-way conversion
       (state verified uniform at the end), plus regime negatives verified disordered globally AND locally.
   N2  0 flagged among 400 held-out interaction-free programs (guaranteed by the knock-out design — reported as a
@@ -95,12 +107,22 @@ def _neg(job):
     tag, role, bits = job
     from census.runner import seed_of
     from census.knockout import run_with_knockout
-    p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits) + SEED_OFFSET)
+    p = G.decode(bits); out, real, driven, _ = run_with_knockout(p, seed_of(bits) + SEED_OFFSET)
     flagged = [v for v, seeds in real.items() if sum(1 for s, x in enumerate(seeds) if x["emergent"] and driven[v][s]) >= 2]
     ok = verified_negative(tag, out, real) if role != "free" else True
     fp = {v: {k: float(np.mean([x["fp"].get(k, 0.0) for x in seeds])) for k in set().union(*[x["fp"] for x in seeds])} for v, seeds in real.items()}
     fperr = sum(1 for seeds in real.values() for x in seeds if "fp_error" in x["fp"])
-    return {"tag": tag, "role": role, "prog": G.describe(p), "verified": ok, "flagged": flagged, "fp": fp, "fp_errors": fperr}
+    from census.reflib import applicable_checks
+    passed = []                                      # textbook measures passing on >= 2 of 3 seeds, any view
+    for v in real:
+        for c, fn in applicable_checks(p, v).items():
+            n_ok = 0
+            for s in range(len(real[v])):
+                try: n_ok += bool(fn(out, s)[0])
+                except Exception: pass
+            if n_ok >= 2: passed.append(c)
+    return {"tag": tag, "role": role, "prog": G.describe(p), "verified": ok, "flagged": flagged, "fp": fp,
+            "fp_errors": fperr, "checks_passed": passed}
 
 
 # ------------------------------------------------------------------ open-set namer
@@ -183,15 +205,27 @@ def main():
         X = np.array([[r["fp"].get(k, 0.0) for k in sorted(set().union(*[r["fp"] for r in rows]))] for r in rows])
         keys = sorted(set().union(*[r["fp"] for r in rows])); med, mad = _robust(X)
         namer = NearestNamer(rows, keys, med, mad)
+        from census.reflib import PRECONDITION
         for r in rows:
-            fl = bool(r["screened"] and r["driven"]); var = f"{r['class']}#{r['variant']}"; ck = r.get("checks", {})
+            prog = G.decode(r["bits"]); fl = bool(r["screened"] and r["driven"]); var = f"{r['class']}#{r['variant']}"
+            ck = {c: ok for c, ok in r.get("checks", {}).items() if PRECONDITION.get(c, lambda q: True)(prog)}
             nm = namer.name(r["fp"], ck, exclude_variant=var) if fl else None
-            pos.append({"class": r["class"], "flagged": fl, "named": nm, "nameable": r["class"] in namer.classes})
-            if fl: loco.append({"class": r["class"], "named_as": namer.name(r["fp"], ck, exclude_class=r["class"])})
+            also = sorted(c for c, ok in ck.items() if ok and c != nm) if fl else []
+            bad = [x for x in ([nm] if nm else []) + also if not ck.get(x, False)]
+            ko_survive = [x for x in ([nm] if nm else []) + also if r.get("ko_checks", {}).get(x, False)]
+            pos.append({"class": r["class"], "flagged": fl, "named": nm, "also": also, "not_shown": bad,
+                        "ko_survive": ko_survive, "nameable": r["class"] in namer.classes})
+            if fl:
+                nm2 = namer.name(r["fp"], ck, exclude_class=r["class"])
+                loco.append({"class": r["class"], "named_as": nm2, "copresent": bool(nm2 and ck.get(nm2, False))})
     flagged = [p for p in pos if p["flagged"]]
-    wrong = [p for p in flagged if p["named"] and p["named"] != p["class"]]
+    notshown = [p for p in flagged if p["not_shown"]]
     right = [p for p in flagged if p["named"] == p["class"]]
+    other_primary = [p for p in flagged if p["named"] and p["named"] != p["class"]]
     unk = [x for x in loco if x["named_as"]]
+    status = collections.Counter("NAMED" if p["named"] else ("KNOWN-BEHAVIOUR-ATYPICAL-LOOK" if p["also"] else "UNNAMED") for p in flagged)
+    c1 = [(p["class"], p["ko_survive"]) for p in flagged if p["ko_survive"]]
+    neg_measures = [(n["tag"], n["checks_passed"]) for n in neg if (n["role"] == "free" or n["verified"]) and n.get("checks_passed")]
     trv = [n for n in neg if n["role"] == "trivial" and n["verified"]]; reg = [n for n in neg if n["role"] == "regime" and n["verified"]]
     fre = [n for n in neg if n["role"] == "free"]
     n1 = [n for n in trv + reg if n["flagged"]]; n2 = [n for n in fre if n["flagged"]]
@@ -199,21 +233,29 @@ def main():
     fperr = sum(n.get("fp_errors", 0) for n in neg) + sum(1 for e in lib["examples"] if "fp_error" in e["fp"])
     crit = {f"F0 fingerprint errors = {fperr}": fperr == 0,
             f"P1 verified examples flagged = {len(flagged)} / {len(pos)} (need >= 90%)": len(flagged) >= 0.9 * len(pos),
-            f"P3 wrong names (leave-one-variant-out) = {len(wrong)} / {len(flagged)}": len(wrong) == 0,
-            f"P4 unknown named as known (leave-one-class-out) = {len(unk)} / {len(loco)}": len(unk) == 0,
+            f"P3 names the run does not show = {len(notshown)} (implementation check)": len(notshown) == 0,
+            f"C1 names whose behaviour survives the interaction knock-out = {len(c1)} / {len(flagged)}": len(c1) == 0,
             f"N1 verified trivial/disordered interacting negatives flagged = {len(n1)} / {len(trv) + len(reg)}": len(n1) == 0,
             f"N2 interaction-free flagged = {len(n2)} / {len(fre)} (consistency check)": len(n2) == 0}
     tab = collections.defaultdict(lambda: [0, 0, 0, 0])
     for p in pos: t = tab[p["class"]]; t[0] += 1; t[1] += p["flagged"]; t[2] += p["named"] == p["class"]; t[3] += bool(p["named"]) and p["named"] != p["class"]
-    L = ["# Validation gate — round 8 (knock-out + nearest-example namer + name-then-verify) — " + time.strftime("%Y-%m-%d %H:%M"), "",
-         "| behaviour | verified | flagged | named correctly | named WRONG | unknown->named (LOCO) |", "|---|---|---|---|---|---|"]
+    L = ["# Validation gate — round 9 (multi-label, verified names) — " + time.strftime("%Y-%m-%d %H:%M"), "",
+         "| behaviour | verified | flagged | primary = own behaviour | primary = another (co-present) behaviour | withheld -> primary name (LOCO) |",
+         "|---|---|---|---|---|---|"]
     lc = collections.Counter(x["class"] for x in unk)
     L += [f"| {c} | {n} | {f} | {rr} | {w} | {lc.get(c, 0)} |" for c, (n, f, rr, w) in sorted(tab.items())]
+    L += ["", f"Status of flagged verified examples: {dict(status)}",
+          "Also-shows pairs (behaviour -> also shows): " + json.dumps(dict(collections.Counter((p['class'], a) for p in flagged for a in p['also']).most_common(12)), default=str)]
     L += ["", "## Criteria", ""] + [f"- {'PASS' if v else 'FAIL'} — {k}" for k, v in crit.items()]
-    L += [f"- (reported) named correctly = {len(right)} / {len(flagged)} ({100 * len(right) / max(len(flagged), 1):.0f}%; target >= 80%)",
+    L += [f"- (reported) primary name = own behaviour: {len(right)} / {len(flagged)} ({100 * len(right) / max(len(flagged), 1):.0f}%; target >= 80%)",
+          f"- (reported) P4 novelty-risk: withheld-class examples still given a primary name = {len(unk)} / {len(loco)} "
+          f"(named behaviour genuinely co-present in {sum(x['copresent'] for x in unk)})",
           f"- negatives dropped as NOT verified trivial/disordered (not scored): {dropped}"]
-    if wrong: L += ["", "### Wrong names"] + [f"- {a} -> {b}: {n}" for (a, b), n in collections.Counter((p['class'], p['named']) for p in wrong).most_common()]
-    if unk: L += ["", "### Unknown named as known (class withheld -> named)"] + [f"- {a} -> {b}: {n}" for (a, b), n in collections.Counter((x['class'], x['named_as']) for x in unk).most_common()]
+    if other_primary: L += ["", "### Primary name = another behaviour (verified co-present)"] + [f"- {a} -> {b}: {n}" for (a, b), n in collections.Counter((p['class'], p['named']) for p in other_primary).most_common()]
+    if notshown: L += ["", "### Names not shown by the run (implementation bug!)"] + [f"- {p['class']}: {p['not_shown']}" for p in notshown[:20]]
+    if c1: L += ["", "### Names surviving the knock-out"] + [f"- {a}: {b}" for (a, b) in collections.Counter((c, tuple(x)) for c, x in c1).most_common()]
+    L += ["", f"(info) textbook measures passing on UNFLAGGED negatives (never named): {len(neg_measures)}"]
+    if unk: L += ["", "### Withheld behaviour -> primary name (LOCO)"] + [f"- {a} -> {b}: {n}" for (a, b), n in collections.Counter((x['class'], x['named_as']) for x in unk).most_common()]
     if n1: L += ["", "### Negatives flagged"] + [f"- {n['tag']} {n['flagged']}" for n in n1]
     if n2: L += ["", "### Interaction-free flagged (implementation bug!)"] + [f"- {n['prog'][:120]}" for n in n2]
     L += ["", f"**GATE: {'PASS' if all(crit.values()) else 'FAIL'}**"]
