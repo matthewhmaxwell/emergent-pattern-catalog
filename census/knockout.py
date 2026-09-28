@@ -11,10 +11,11 @@ K = 0 rather than removed, so the phase view still exists to compare.
 
 Decision per view (round 10; noise-aware — round 9 extended negatives showed a noisy program whose knock-out
 differed from it by no more than two seeds of the same program differ from each other):
-  interaction-driven  <=>  knock-out view absent  OR  knock-out view not emergent in >= 2 seeds
-                           OR  d_between > max(D_MIN, 2 * d_within)
+  interaction-driven  <=>  knock-out view absent  OR  d_between > max(D_MIN, 2 * d_within)
+  (the knock-out's own screen flag is NOT used: the generic screen fires erratically on pure noise, so "the
+  knock-out was not flagged" is not evidence of interaction — round-10 lesson)
   d(a, b)   = median over fingerprint features of |a - b| / (|a| + |b| + 0.05);  D_MIN = 0.25
-  d_between = median over seeds of d(real_s, ko_s)          (seeds where both are emergent)
+  d_between = median over seeds of d(real_s, ko_s)          (seeds where the real run is emergent)
   d_within  = median over seed pairs of d(real_s, real_t)   (seed-to-seed variation of the real program)
 The same decision applies to every seed of the view.
 """
@@ -63,10 +64,10 @@ def interaction_driven(real, ko):
     out = {}
     for v, seeds in real.items():
         kv = ko.get(v)
-        if kv is None or sum(1 for x in kv if x["emergent"]) < 2:
+        if kv is None:
             out[v] = [True] * len(seeds); continue
-        both = [s for s in range(min(len(seeds), len(kv))) if seeds[s]["emergent"] and kv[s]["emergent"]]
         em = [s for s in range(len(seeds)) if seeds[s]["emergent"]]
+        both = [s for s in em if s < len(kv)]
         d_between = float(np.median([fp_distance(seeds[s]["fp"], kv[s]["fp"]) for s in both])) if both else 1.0
         pairs = [(a, b) for i, a in enumerate(em) for b in em[i + 1:]]
         d_within = float(np.median([fp_distance(seeds[a]["fp"], seeds[b]["fp"]) for a, b in pairs])) if pairs else 0.0
