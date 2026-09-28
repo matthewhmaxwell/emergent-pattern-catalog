@@ -1,0 +1,55 @@
+# Validation gate — round 9 (multi-label, verified names) — 2026-09-28 06:11
+
+| behaviour | verified | flagged | primary = own behaviour | primary = another (co-present) behaviour | withheld -> primary name (LOCO) |
+|---|---|---|---|---|---|
+| Schelling segregation | 54 | 54 | 50 | 0 | 0 |
+| co-evolving network fragmentation | 37 | 37 | 34 | 0 | 0 |
+| cyclic-CA waves/spirals | 40 | 40 | 26 | 0 | 0 |
+| flocking | 108 | 108 | 98 | 0 | 0 |
+| lattice phase locking | 36 | 36 | 33 | 0 | 0 |
+| majority-rule coarsening | 72 | 66 | 61 | 0 | 0 |
+| network synchronization | 36 | 36 | 32 | 0 | 0 |
+| network voter consensus | 28 | 27 | 23 | 0 | 0 |
+| spatial PD chaos (Nowak-May) | 4 | 4 | 0 | 0 | 0 |
+| voter coarsening | 56 | 56 | 50 | 0 | 0 |
+
+Status of flagged verified examples: {'KNOWN-BEHAVIOUR-ATYPICAL-LOOK': 57, 'NAMED': 407}
+Also-shows pairs (behaviour -> also shows): majority-rule coarsening -> voter coarsening: 66; voter coarsening -> majority-rule coarsening: 56; cyclic-CA waves/spirals -> majority-rule coarsening: 23; cyclic-CA waves/spirals -> voter coarsening: 23; cyclic-CA waves/spirals -> cyclic-CA waves/spirals: 14; Schelling segregation -> majority-rule coarsening: 12; Schelling segregation -> voter coarsening: 12; flocking -> flocking: 10; voter coarsening -> voter coarsening: 6; majority-rule coarsening -> majority-rule coarsening: 5; Schelling segregation -> Schelling segregation: 4; spatial PD chaos (Nowak-May) -> spatial PD chaos (Nowak-May): 4
+
+## Criteria
+
+- PASS — F0 fingerprint errors = 0
+- PASS — P1 verified examples flagged = 464 / 471 (need >= 90%)
+- PASS — P3 names the run does not show = 0 (implementation check)
+- PASS — C1 names whose behaviour survives the interaction knock-out = 0 / 464
+- FAIL — N1 verified trivial/disordered interacting negatives flagged = 20 / 312
+- PASS — N2 interaction-free flagged = 0 / 400 (consistency check)
+- (reported) primary name = own behaviour: 407 / 464 (88%; target >= 80%)
+- (reported) P4 novelty-risk: withheld-class examples still given a primary name = 0 / 464 (named behaviour genuinely co-present in 0)
+- negatives dropped as NOT verified trivial/disordered (not scored): ['swamped C k=4 C.SAND #1 after', 'swamped C k=4 C.SAND #2 after', 'noise-drowned N copy p=0.003 flip q=0.5', 'noise-drowned N copy p=0.01 flip q=0.5', 'align at max noise r=1.0 v=1.0', 'align at max noise r=1.0 v=0.3']
+
+(info) textbook measures passing on UNFLAGGED negatives (never named): 139
+
+### Negatives flagged
+- swamped N.REWIRE ['N']
+- swamped N k=2 N.REWIRE #1 before ['N']
+- swamped N k=2 N.REWIRE #1 after ['N']
+- swamped N k=2 N.REWIRE #2 after ['N']
+- swamped N k=2 N.REWIRE #2 before ['N']
+- swamped N k=2 N.REWIRE #0 after ['N']
+- swamped N k=2 N.REWIRE #0 before ['N']
+- swamped N k=3 N.REWIRE #1 before ['N']
+- swamped N k=3 N.REWIRE #1 after ['N']
+- swamped N k=3 N.REWIRE #2 after ['N']
+- swamped N k=3 N.REWIRE #2 before ['N']
+- swamped N k=3 N.REWIRE #0 after ['N']
+- swamped N k=3 N.REWIRE #0 before ['N']
+- swamped N k=4 N.REWIRE #1 after ['N']
+- swamped N k=4 N.REWIRE #1 before ['N']
+- swamped N k=4 N.REWIRE #2 after ['N']
+- swamped N k=4 N.REWIRE #2 before ['N']
+- swamped N k=4 N.REWIRE #0 after ['N']
+- swamped N k=4 N.REWIRE #0 before ['N']
+- align at max noise r=0.5 v=0.3 ['A']
+
+**GATE: FAIL**
