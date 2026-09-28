@@ -78,7 +78,7 @@ def main():
     progs = [p for _, p in G.enumerate_programs(a.maxbits)]
     free = [p for p in progs if is_null_program(G.describe(p))]
     inter = [p for p in progs if not is_null_program(G.describe(p)) and G.encode(p) not in lib_bits]
-    rng = random.Random(20260928); rng.shuffle(inter)
+    rng = random.Random(20260928); rng.shuffle(inter); rng.shuffle(free); free = free[:400]
     null_set, test_set = inter[:a.n_null], inter[a.n_null:a.n_null + a.n_test]
     jobs = [(f"free:{i}", "null-free", G.encode(p), False, False) for i, p in enumerate(free)]
     jobs += [(f"nullscr:{i}", "null-scrambled", G.encode(p), True, False) for i, p in enumerate(null_set)]
