@@ -9,13 +9,22 @@ quorum, toppling, games, rewiring, coupling, agent<->cell sensing, gradient clim
 Kept in the knock-out: one-way rules (spontaneous flips, decay, feed, emission, deposition). Phase coupling is set to
 K = 0 rather than removed, so the phase view still exists to compare.
 
-Decision per view (round 10c; noise-aware, feature-wise):
-  interaction-driven  <=>  knock-out view absent  OR  some fingerprint feature f changes clearly:
-      |mean_real(f) - mean_ko(f)| >= Z_MIN * noise(f)   AND   relative change >= REL_MIN
-  over the seeds where the real run is emergent; noise(f) = max(sd_real, sd_ko, 5% of the feature's magnitude, 1e-3).
-  Z_MIN = 4, REL_MIN = 0.25. Round-10 lessons: the knock-out's own screen flag is erratic on pure noise (not used);
-  a median over features is dominated by features the interaction does not touch (speed, graph shape), so the test
-  looks for ANY feature the interaction clearly changes.
+Decision per view (round 11; "does the detected emergence signal disappear?"):
+  evidence e = max(generic emergence score, 1 if model-free complexity fired, min(1, consensus gain / 0.4)) — the
+  same signals the census screen flags on, as one continuous number per seed.
+  interaction-driven  <=>  knock-out view absent  OR
+      mean_real(e) - mean_ko(e) >= max(DROP_MIN, Z_MIN * noise),  noise = max(sd_real(e), sd_ko(e), 0.02)
+  over the seeds where the real run is emergent. DROP_MIN = 0.25, Z_MIN = 2.
+  OR (route B, round 11b) some textbook ORDER measure is clearly higher with interaction than without:
+      direction * (mean_real - mean_ko) >= max(ORDER_MIN, 4 * noise)  AND  relative change >= 0.25; ORDER_MIN = 0.1.
+  Order measures only (organisation, not activity or side effects such as links moved): lattice Moran's I, largest
+  domain, correlation length; agent polarization, local alignment, clustering (lower nearest-neighbour ratio),
+  type segregation; network type modularity, consensus gain; phase order r and local r; field Moran's I, peak
+  sharpness. Round-11 lesson: uncoupled oscillators rotate so regularly that the generic screen scores them high,
+  so for sync only the order measure separates real from knock-out.
+  Lessons: the knock-out's own screen FLAG is erratic on pure noise (round 10) -> compare seed-averaged evidence
+  with its spread instead; "any fingerprint feature changed" lets trivial side effects through (round 10c: one early
+  rewiring step changed the graph while the flag came from forced conversion, present in the knock-out too).
 """
 import numpy as np
 from census import grammar_g1 as G
@@ -53,11 +62,17 @@ def per_seed_view_results(out, p):
             th = FL._screen_hist(name, hist, "adj" in out)
             sc = FL.screen(th) if name != "C.aval" else FL.screen_avalanche(hist)
             fp = fingerprint(name, th, adj0=out["adj0"][s].astype(np.int64) if "adj0" in out else None) if name != "C.aval" else {}
-            res.setdefault(name, []).append({"emergent": bool(sc["emergent"]), "fp": fp, "em_score": sc.get("em_score")})
+            ev = max(float(sc.get("em_score") or 0.0), 1.0 if sc.get("is_complex") else 0.0,
+                     min(1.0, float(sc.get("consensus_gain") or 0.0) / 0.4))
+            res.setdefault(name, []).append({"emergent": bool(sc["emergent"]), "fp": fp, "em_score": sc.get("em_score"),
+                                             "evidence": ev})
     return res
 
 
-Z_MIN, REL_MIN = 4.0, 0.25
+DROP_MIN, Z_MIN, ORDER_MIN = 0.25, 2.0, 0.1
+ORDER = {"g_moran": 1, "g_largest_domain": 1, "g_corrlen": 1, "a_polar": 1, "a_local_align": 1, "a_nn_ratio": -1,
+         "a_type_segregation": 1, "n_type_modularity": 1, "n_consensus_gain": 1, "p_r": 1, "p_local_r": 1,
+         "f_moran": 1, "f_peak_sharp": 1}
 
 
 def interaction_driven(real, ko):
@@ -70,14 +85,17 @@ def interaction_driven(real, ko):
         em = [s for s in range(len(seeds)) if seeds[s]["emergent"] and s < len(kv)]
         driven = False
         if em:
-            keys = sorted(set().union(*[seeds[s]["fp"] for s in em]))
-            for f in keys:
-                a = np.array([seeds[s]["fp"].get(f, 0.0) for s in em]); b = np.array([kv[s]["fp"].get(f, 0.0) for s in em])
-                diff = abs(a.mean() - b.mean()); mag = abs(a.mean()) + abs(b.mean())
-                noise = max(a.std(), b.std(), 0.05 * mag, 1e-3)
-                if diff >= Z_MIN * noise and diff / (mag + 0.05) >= REL_MIN:
-                    driven = True; break
-        out[v] = [driven] * len(seeds)
+            a = np.array([seeds[s]["evidence"] for s in em]); b = np.array([kv[s]["evidence"] for s in em])
+            noise = max(a.std(), b.std(), 0.02)
+            driven = (a.mean() - b.mean()) >= max(DROP_MIN, Z_MIN * noise)
+            for f, sgn in ORDER.items():
+                if driven: break
+                if not all(f in seeds[s]["fp"] and f in kv[s]["fp"] for s in em): continue
+                x = np.array([seeds[s]["fp"][f] for s in em]); y = np.array([kv[s]["fp"][f] for s in em])
+                gain = sgn * (x.mean() - y.mean()); nz = max(x.std(), y.std(), 0.01)
+                if gain >= max(ORDER_MIN, 4 * nz) and abs(x.mean() - y.mean()) / (abs(x.mean()) + abs(y.mean()) + 0.05) >= 0.25:
+                    driven = True
+        out[v] = [bool(driven)] * len(seeds)
     return out
 
 
