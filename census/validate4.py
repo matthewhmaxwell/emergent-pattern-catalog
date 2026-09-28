@@ -5,8 +5,8 @@
 FLAG (per view, per seed) = census screen says emergent AND the interaction knock-out says interaction-driven
 (census.knockout). A view is flagged if >= 2 of 3 seeds are.
 
-NAMING = OPEN-SET namer: per view family, robust-z fingerprints; each nameable class (>= 3 parameter variants) gets a
-shrunk-covariance Gaussian (shrinkage 0.5 toward the diagonal); its typicality threshold tau_c = 95th percentile of
+NAMING = OPEN-SET namer: per view family, robust-z fingerprints (scale floored at 0.5 x std); each nameable class
+(>= 3 parameter variants) gets a shrunk-covariance Gaussian (shrinkage 0.5 toward the diagonal, variance floor 0.1); its typicality threshold tau_c = 95th percentile of
 its own examples' leave-one-variant-out Mahalanobis distances (nested: an example's own variant never sets its
 threshold). A view is named c only if it is typical for EXACTLY ONE class; typical for none or several -> UNNAMED
 (-> literature check).
@@ -35,7 +35,7 @@ from census.triage import FAMILY
 from census.knockout import is_interaction_free
 
 R = G.Rule
-SHRINK, PCT, MIN_VARIANTS = 0.5, 95, 3
+SHRINK, PCT, MIN_VARIANTS, VAR_FLOOR = 0.5, 95, 3, 0.1
 
 
 # ------------------------------------------------------------------ negatives
@@ -102,13 +102,16 @@ def _neg(job):
 
 # ------------------------------------------------------------------ open-set namer
 def _robust(X):
-    med = np.median(X, 0); mad = np.median(np.abs(X - med), 0) * 1.4826; mad[mad < 1e-9] = 1.0
-    return med, mad
+    """robust centre/scale with a floor: a feature that is near-constant in most rows (MAD ~ 0) is scaled by its
+    standard deviation instead, so it cannot blow up into +/-8 z-units (round-7 degeneracy)."""
+    med = np.median(X, 0); mad = np.median(np.abs(X - med), 0) * 1.4826
+    scale = np.maximum(mad, 0.5 * X.std(0)); scale[scale < 1e-6] = 1.0
+    return med, scale
 
 
 def _fit(Zc):
     mu = Zc.mean(0); S = np.atleast_2d(np.cov(Zc, rowvar=False)) if len(Zc) > 1 else np.eye(Zc.shape[1])
-    S = (1 - SHRINK) * S + SHRINK * np.diag(np.diag(S)) + 1e-3 * np.eye(len(mu))
+    S = (1 - SHRINK) * S + SHRINK * np.diag(np.diag(S)) + VAR_FLOOR * np.eye(len(mu))   # variance floor (z-units)
     return mu, np.linalg.inv(S)
 
 
@@ -150,7 +153,9 @@ class OpenSetNamer:
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--lib", required=True); ap.add_argument("--workers", type=int, default=5)
-    ap.add_argument("--out", default="census/validation/v6"); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    ap.add_argument("--out", default="census/validation/v6")
+    ap.add_argument("--neg-cache", default=None, help="reuse negatives.json from a run with identical sim + fingerprint code")
+    a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     lib = json.load(open(a.lib)); ex = [r for r in lib["examples"] if r["verified"]]
     progs = [p for _, p in G.enumerate_programs(18)]
     free = [p for p in progs if is_interaction_free(p)]; random.Random(20260928).shuffle(free)
@@ -159,7 +164,10 @@ def main():
     jobs += [(f"free:{i}", "free", G.encode(p)) for i, p in enumerate(free[:400])]
     print(f"negatives: {sum(j[1] == 'trivial' for j in jobs)} swamped-interaction + {sum(j[1] == 'regime' for j in jobs)} regime "
           f"+ 400 interaction-free | positives: {len(ex)} verified library examples", flush=True)
-    with Pool(a.workers) as pool: neg = list(pool.imap_unordered(_neg, jobs))
+    if a.neg_cache:
+        neg = json.load(open(a.neg_cache))
+    else:
+        with Pool(a.workers) as pool: neg = list(pool.imap_unordered(_neg, jobs))
     json.dump(neg, open(os.path.join(a.out, "negatives.json"), "w"), indent=1, default=str)
 
     # ---- positives: flag, LOVO naming, LOCO open-set
