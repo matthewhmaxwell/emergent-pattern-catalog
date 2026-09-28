@@ -52,7 +52,9 @@ def chk_schelling(o, s):
 
 def chk_cyclic(o, s):
     C = o["C"][s]; act = float(np.mean([(C[-i] != C[-i - 1]).mean() for i in range(1, 11)])); m = _moran(C[-1])
-    return act >= 0.05 and m >= 0.1, {"late_activity": act, "moran_late": m}
+    k = int(C.max()) + 1; ch = C[-20:][1:] != C[-20:][:-1]
+    cyc = float(((C[-20:][1:] == (C[-20:][:-1] + 1) % max(k, 2)) & ch).sum() / max(ch.sum(), 1)) - 1.0 / max(k - 1, 1)
+    return act >= 0.05 and m >= 0.1 and k >= 3 and cyc >= 0.2, {"late_activity": act, "moran_late": m, "cyclic_excess": cyc}
 
 
 def chk_game(o, s):
@@ -109,21 +111,28 @@ def _build_one(job):
     from census.runner import seed_of
     from census.knockout import run_with_knockout
     p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits) + 7919 * seedset)
-    check = classes()[cls][3]; rows = []
+    allc = classes(); check = allc[cls][3]; rows = []
+    same_view = {c: v[3] for c, v in allc.items() if v[1] == view}
     for s, rs in enumerate(real.get(view, [])):
         ok, measures = check(out, s)
+        checks = {}
+        for c, fn in same_view.items():
+            try: checks[c] = bool(fn(out, s)[0])
+            except Exception: checks[c] = False
         rows.append({"class": cls, "variant": vi, "bits": bits, "prog": G.describe(p), "view": view, "seedset": seedset,
                      "seed": s, "verified": bool(ok), "measures": {k: round(float(v), 4) for k, v in measures.items()},
-                     "screened": rs["emergent"], "driven": bool(driven[view][s]), "em_score": rs["em_score"], "fp": rs["fp"]})
+                     "screened": rs["emergent"], "driven": bool(driven[view][s]), "em_score": rs["em_score"], "fp": rs["fp"],
+                     "checks": checks})
     return rows
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("cmd"); ap.add_argument("--out", default="census/reflib/v1")
     ap.add_argument("--workers", type=int, default=4); ap.add_argument("--seedsets", type=int, default=2)
+    ap.add_argument("--seedset-start", type=int, default=0, help="fresh data for confirmation runs: start at an unused seed set")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     jobs = [(cls, vi, G.encode(p), view, ss) for cls, (_, view, progs, _) in classes().items()
-            for vi, p in enumerate(progs) for ss in range(a.seedsets)]
+            for vi, p in enumerate(progs) for ss in range(a.seedset_start, a.seedset_start + a.seedsets)]
     print(f"{len(jobs)} simulations ({len(classes())} classes)", flush=True)
     rows = []
     with Pool(a.workers) as pool:

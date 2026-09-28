@@ -88,11 +88,14 @@ def verified_negative(tag, out, real):
     return True
 
 
+SEED_OFFSET = 0
+
+
 def _neg(job):
     tag, role, bits = job
     from census.runner import seed_of
     from census.knockout import run_with_knockout
-    p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits))
+    p = G.decode(bits); out, real, driven = run_with_knockout(p, seed_of(bits) + SEED_OFFSET)
     flagged = [v for v, seeds in real.items() if sum(1 for s, x in enumerate(seeds) if x["emergent"] and driven[v][s]) >= 2]
     ok = verified_negative(tag, out, real) if role != "free" else True
     fp = {v: {k: float(np.mean([x["fp"].get(k, 0.0) for x in seeds])) for k in set().union(*[x["fp"] for x in seeds])} for v, seeds in real.items()}
@@ -118,50 +121,52 @@ def _fit(Zc):
 def _d2(z, mu, ic): d = z - mu; return float(d @ ic @ d)
 
 
-class OpenSetNamer:
+class NearestNamer:
+    K, VOTES, RPCT, MARGIN = 5, 5, 90, 1.5
+
     def __init__(self, rows, keys, med, mad):
         self.keys, self.med, self.mad = keys, med, mad
         self.Z = self._z([r["fp"] for r in rows]); self.cls = np.array([r["class"] for r in rows])
         self.var = np.array([f"{r['class']}#{r['variant']}" for r in rows])
         self.classes = sorted(c for c in set(self.cls) if len(set(self.var[self.cls == c])) >= MIN_VARIANTS)
-        self.full, self.lovo = {}, {}                 # lovo[c][variant] = (model without variant, D2 of its examples)
-        for c in self.classes:
-            m = self.cls == c; self.full[c] = _fit(self.Z[m]); self.lovo[c] = {}
-            for v in sorted(set(self.var[m])):
-                keep = m & (self.var != v); mod = _fit(self.Z[keep])
-                self.lovo[c][v] = (mod, [_d2(z, *mod) for z in self.Z[self.var == v]])
 
     def _z(self, fps):
         X = np.array([[f.get(k, 0.0) for k in self.keys] for f in fps], float).reshape(len(fps), len(self.keys))
         return np.clip((X - self.med) / self.mad, -8, 8)
 
-    def tau(self, c, exclude_variant=None):
-        d = [x for v, (_, ds) in self.lovo[c].items() if v != exclude_variant for x in ds]
-        return float(np.percentile(d, PCT)) if d else 0.0
-
-    def name(self, fp, exclude_variant=None, exclude_class=None):
-        z = self._z([fp])[0]; typical = []
-        for c in self.classes:
-            if c == exclude_class: continue
-            if exclude_variant and exclude_variant.startswith(c + "#"):
-                mod = self.lovo[c][exclude_variant][0]; t = self.tau(c, exclude_variant)
-            else:
-                mod = self.full[c]; t = self.tau(c)
-            if _d2(z, *mod) <= t: typical.append(c)
-        return typical[0] if len(typical) == 1 else None
+    def name(self, fp, checks, exclude_variant=None, exclude_class=None):
+        z = self._z([fp])[0]; m = np.ones(len(self.cls), bool)
+        if exclude_variant: m &= self.var != exclude_variant
+        if exclude_class: m &= self.cls != exclude_class
+        if m.sum() < self.K: return None
+        Zr, cr, vr = self.Z[m], self.cls[m], self.var[m]
+        d = np.sqrt(((Zr - z) ** 2).sum(1)); o = np.argsort(d)[:self.K]
+        top, c = collections.Counter(cr[o]).most_common(1)[0]
+        if top not in self.classes or top == exclude_class or c < self.VOTES: return None
+        idx = np.flatnonzero(cr == top); nd = []
+        for j in idx:
+            oo = idx[vr[idx] != vr[j]]
+            if len(oo): nd.append(np.sqrt(((Zr[oo] - Zr[j]) ** 2).sum(1)).min())
+        R = np.percentile(nd, self.RPCT) if nd else 0.0
+        dc = d[cr == top].min(); dother = d[cr != top].min() if (cr != top).any() else np.inf
+        if dc > R or dother < self.MARGIN * dc: return None
+        return top if checks.get(top, False) else None                       # name-then-verify
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--lib", required=True); ap.add_argument("--workers", type=int, default=5)
     ap.add_argument("--out", default="census/validation/v6")
     ap.add_argument("--neg-cache", default=None, help="reuse negatives.json from a run with identical sim + fingerprint code")
+    ap.add_argument("--seed-offset", type=int, default=0, help="fresh negative runs for confirmation")
+    ap.add_argument("--free-start", type=int, default=0, help="fresh held-out interaction-free programs for confirmation")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    global SEED_OFFSET; SEED_OFFSET = a.seed_offset
     lib = json.load(open(a.lib)); ex = [r for r in lib["examples"] if r["verified"]]
     progs = [p for _, p in G.enumerate_programs(18)]
     free = [p for p in progs if is_interaction_free(p)]; random.Random(20260928).shuffle(free)
     jobs = [(t, "trivial", G.encode(p)) for t, p in trivial_interacting().items()]
     jobs += [(t, "regime", G.encode(p)) for t, p in regime_negatives().items()]
-    jobs += [(f"free:{i}", "free", G.encode(p)) for i, p in enumerate(free[:400])]
+    jobs += [(f"free:{i}", "free", G.encode(p)) for i, p in enumerate(free[a.free_start:a.free_start + 400])]
     print(f"negatives: {sum(j[1] == 'trivial' for j in jobs)} swamped-interaction + {sum(j[1] == 'regime' for j in jobs)} regime "
           f"+ 400 interaction-free | positives: {len(ex)} verified library examples", flush=True)
     if a.neg_cache:
@@ -177,14 +182,12 @@ def main():
     for fam, rows in fam_rows.items():
         X = np.array([[r["fp"].get(k, 0.0) for k in sorted(set().union(*[r["fp"] for r in rows]))] for r in rows])
         keys = sorted(set().union(*[r["fp"] for r in rows])); med, mad = _robust(X)
-        namer = OpenSetNamer(rows, keys, med, mad)
+        namer = NearestNamer(rows, keys, med, mad)
         for r in rows:
-            fl = bool(r["screened"] and r["driven"]); var = f"{r['class']}#{r['variant']}"
-            nm = namer.name(r["fp"], exclude_variant=var) if (fl and r["class"] in namer.classes) else (namer.name(r["fp"]) if fl else None)
+            fl = bool(r["screened"] and r["driven"]); var = f"{r['class']}#{r['variant']}"; ck = r.get("checks", {})
+            nm = namer.name(r["fp"], ck, exclude_variant=var) if fl else None
             pos.append({"class": r["class"], "flagged": fl, "named": nm, "nameable": r["class"] in namer.classes})
-            if fl:
-                other = namer.name(r["fp"], exclude_class=r["class"]) if r["class"] in namer.classes else nm
-                loco.append({"class": r["class"], "named_as": other})
+            if fl: loco.append({"class": r["class"], "named_as": namer.name(r["fp"], ck, exclude_class=r["class"])})
     flagged = [p for p in pos if p["flagged"]]
     wrong = [p for p in flagged if p["named"] and p["named"] != p["class"]]
     right = [p for p in flagged if p["named"] == p["class"]]
@@ -202,7 +205,7 @@ def main():
             f"N2 interaction-free flagged = {len(n2)} / {len(fre)} (consistency check)": len(n2) == 0}
     tab = collections.defaultdict(lambda: [0, 0, 0, 0])
     for p in pos: t = tab[p["class"]]; t[0] += 1; t[1] += p["flagged"]; t[2] += p["named"] == p["class"]; t[3] += bool(p["named"]) and p["named"] != p["class"]
-    L = ["# Validation gate — round 6 (knock-out + open-set namer) — " + time.strftime("%Y-%m-%d %H:%M"), "",
+    L = ["# Validation gate — round 8 (knock-out + nearest-example namer + name-then-verify) — " + time.strftime("%Y-%m-%d %H:%M"), "",
          "| behaviour | verified | flagged | named correctly | named WRONG | unknown->named (LOCO) |", "|---|---|---|---|---|---|"]
     lc = collections.Counter(x["class"] for x in unk)
     L += [f"| {c} | {n} | {f} | {rr} | {w} | {lc.get(c, 0)} |" for c, (n, f, rr, w) in sorted(tab.items())]
