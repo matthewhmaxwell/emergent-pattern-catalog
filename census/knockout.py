@@ -9,15 +9,13 @@ quorum, toppling, games, rewiring, coupling, agent<->cell sensing, gradient clim
 Kept in the knock-out: one-way rules (spontaneous flips, decay, feed, emission, deposition). Phase coupling is set to
 K = 0 rather than removed, so the phase view still exists to compare.
 
-Decision per view (round 10; noise-aware — round 9 extended negatives showed a noisy program whose knock-out
-differed from it by no more than two seeds of the same program differ from each other):
-  interaction-driven  <=>  knock-out view absent  OR  d_between > max(D_MIN, 2 * d_within)
-  (the knock-out's own screen flag is NOT used: the generic screen fires erratically on pure noise, so "the
-  knock-out was not flagged" is not evidence of interaction — round-10 lesson)
-  d(a, b)   = median over fingerprint features of |a - b| / (|a| + |b| + 0.05);  D_MIN = 0.25
-  d_between = median over seeds of d(real_s, ko_s)          (seeds where the real run is emergent)
-  d_within  = median over seed pairs of d(real_s, real_t)   (seed-to-seed variation of the real program)
-The same decision applies to every seed of the view.
+Decision per view (round 10c; noise-aware, feature-wise):
+  interaction-driven  <=>  knock-out view absent  OR  some fingerprint feature f changes clearly:
+      |mean_real(f) - mean_ko(f)| >= Z_MIN * noise(f)   AND   relative change >= REL_MIN
+  over the seeds where the real run is emergent; noise(f) = max(sd_real, sd_ko, 5% of the feature's magnitude, 1e-3).
+  Z_MIN = 4, REL_MIN = 0.25. Round-10 lessons: the knock-out's own screen flag is erratic on pure noise (not used);
+  a median over features is dominated by features the interaction does not touch (speed, graph shape), so the test
+  looks for ANY feature the interaction clearly changes.
 """
 import numpy as np
 from census import grammar_g1 as G
@@ -59,19 +57,27 @@ def per_seed_view_results(out, p):
     return res
 
 
+Z_MIN, REL_MIN = 4.0, 0.25
+
+
 def interaction_driven(real, ko):
-    """real, ko: outputs of per_seed_view_results. -> {view: [bool per seed]} (one decision per view, noise-aware)."""
+    """real, ko: outputs of per_seed_view_results -> {view: [bool per seed]} (one decision per view)."""
     out = {}
     for v, seeds in real.items():
         kv = ko.get(v)
         if kv is None:
             out[v] = [True] * len(seeds); continue
-        em = [s for s in range(len(seeds)) if seeds[s]["emergent"]]
-        both = [s for s in em if s < len(kv)]
-        d_between = float(np.median([fp_distance(seeds[s]["fp"], kv[s]["fp"]) for s in both])) if both else 1.0
-        pairs = [(a, b) for i, a in enumerate(em) for b in em[i + 1:]]
-        d_within = float(np.median([fp_distance(seeds[a]["fp"], seeds[b]["fp"]) for a, b in pairs])) if pairs else 0.0
-        out[v] = [d_between > max(D_MIN, 2 * d_within)] * len(seeds)
+        em = [s for s in range(len(seeds)) if seeds[s]["emergent"] and s < len(kv)]
+        driven = False
+        if em:
+            keys = sorted(set().union(*[seeds[s]["fp"] for s in em]))
+            for f in keys:
+                a = np.array([seeds[s]["fp"].get(f, 0.0) for s in em]); b = np.array([kv[s]["fp"].get(f, 0.0) for s in em])
+                diff = abs(a.mean() - b.mean()); mag = abs(a.mean()) + abs(b.mean())
+                noise = max(a.std(), b.std(), 0.05 * mag, 1e-3)
+                if diff >= Z_MIN * noise and diff / (mag + 0.05) >= REL_MIN:
+                    driven = True; break
+        out[v] = [driven] * len(seeds)
     return out
 
 
