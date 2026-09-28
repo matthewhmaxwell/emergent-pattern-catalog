@@ -64,6 +64,38 @@ def trivial_interacting():
     return out
 
 
+def extended_negatives():
+    """~300+ interacting-but-trivial programs (owner's 1% standard: 0 flags in >= 300 bounds the rate at <= 1%)."""
+    out = {}
+    one = lambda L, k: [R(f"{L}.FLIP", (("a", t), ("b", 1), ("p", 1.0))) for t in range(k) if t != 1]   # all -> type 1
+    for L in ("C", "N"):
+        for k in (2, 3, 4):
+            base = G.make(L, {L: k})
+            for t in G.valid_templates(base):
+                if t.endswith(("FLIP", "KURA")): continue
+                opts = [dict(zip([n for n, _ in G.T[t]["params"]], vals)) for vals in
+                        G._prod([[v for v, _ in G._param_options(kk, base)][:3] for _, kk in G.T[t]["params"]])]
+                for j, prm in enumerate(opts[:10]):
+                    pr = tuple((n, prm[n]) for n, _ in G.T[t]["params"])
+                    if not G._ok_types(t, pr): continue
+                    for order in ("after", "before"):
+                        rules = one(L, k) + [R(t, pr)] if order == "after" else [R(t, pr)] + one(L, k)
+                        out[f"swamped {L} k={k} {t} #{j} {order}"] = G.make(L, {L: k}, rules=rules)
+    for L in ("C", "N"):                               # slow copying drowned by two-way noise
+        for p in (0.003, 0.01, 0.03):
+            for q in (0.3, 0.5):
+                out[f"noise-drowned {L} copy p={p} flip q={q}"] = G.make(L, {L: 2}, rules=[R(f"{L}.COPY", (("p", p),)),
+                    R(f"{L}.FLIP", (("a", 0), ("b", 1), ("p", q))), R(f"{L}.FLIP", (("a", 1), ("b", 0), ("p", q)))])
+    for L in ("C", "N"):                               # barely coupled oscillators
+        for k in (1, 2):
+            for K in (0.0003, 0.001, 0.002):
+                out[f"{'lattice' if L == 'C' else 'network'} oscillators k={k} K={K}"] = G.make(L, {L: k}, rules=[R(f"{L}.KURA", (("K", K),))])
+    for v in (0.1, 0.3, 0.5, 1.0, 2.0):                # near-free walkers (tiny repulsion radius, strong noise)
+        for e in (3.14159, 2.0):
+            out[f"walkers repel r=0.5 v={v} eta={e}"] = G.make("A", {"A": 1}, agent=(v, e), rules=[R("A.REPEL", (("b", "any"), ("r", 0.5)))])
+    return out
+
+
 def regime_negatives():
     out = {}
     for v in (1.0, 0.3):
@@ -88,6 +120,12 @@ def verified_negative(tag, out, real):
     if tag.startswith(("walkers", "align")):
         H = out["head"][:, -50:]; pol = float(np.abs(np.exp(1j * H).mean(-1)).mean())
         return pol < 0.2 and avg("a_local_align", 0.0) < 0.05
+    if tag.startswith("noise-drowned"):
+        st = out["C"][:, -1].astype(float) if "C" in out else None
+        if st is None: return float(np.mean([abs((out["nt"][s, -1] == 0).mean() - 0.5) for s in range(out["nt"].shape[0])])) < 0.15
+        st = st - st.mean((1, 2), keepdims=True); vv = (st ** 2).mean((1, 2))
+        nb = sum(np.roll(np.roll(st, dy, -2), dx, -1) for dy, dx in ((0, 1), (1, 0), (0, -1), (-1, 0))) / 4
+        return bool(np.all((st * nb).mean((1, 2)) / np.maximum(vv, 1e-9) < 0.1))
     if tag.startswith("network oscillators"):
         r = float(np.abs(np.exp(1j * out["Nph"][:, -20:]).mean(-1)).mean()); return r < 0.3
     if tag.startswith("lattice oscillators"):
@@ -180,6 +218,7 @@ def main():
     ap.add_argument("--out", default="census/validation/v6")
     ap.add_argument("--neg-cache", default=None, help="reuse negatives.json from a run with identical sim + fingerprint code")
     ap.add_argument("--seed-offset", type=int, default=0, help="fresh negative runs for confirmation")
+    ap.add_argument("--extended", action="store_true", help="add the ~300 interacting-but-trivial negatives")
     ap.add_argument("--free-start", type=int, default=0, help="fresh held-out interaction-free programs for confirmation")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     global SEED_OFFSET; SEED_OFFSET = a.seed_offset
@@ -187,6 +226,7 @@ def main():
     progs = [p for _, p in G.enumerate_programs(18)]
     free = [p for p in progs if is_interaction_free(p)]; random.Random(20260928).shuffle(free)
     jobs = [(t, "trivial", G.encode(p)) for t, p in trivial_interacting().items()]
+    if a.extended: jobs += [(t, "trivial", G.encode(p)) for t, p in extended_negatives().items()]
     jobs += [(t, "regime", G.encode(p)) for t, p in regime_negatives().items()]
     jobs += [(f"free:{i}", "free", G.encode(p)) for i, p in enumerate(free[a.free_start:a.free_start + 400])]
     print(f"negatives: {sum(j[1] == 'trivial' for j in jobs)} swamped-interaction + {sum(j[1] == 'regime' for j in jobs)} regime "
