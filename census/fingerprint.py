@@ -53,13 +53,14 @@ def grid(hist):
     interface = float(np.mean([(g != np.roll(g, 1, 0)).mean() + (g != np.roll(g, 1, 1)).mean() for g in G[L]]) / 2)
     ch = G[1:] != G[:-1]; kk = max(k, 2)
     cyc = float(((G[1:] == (G[:-1] + 1) % kk) & ch).sum() / max(ch.sum(), 1))       # share of changes that are t -> t+1
+    rev = float(((G[2:] == G[:-2]) & ch[1:] & ch[:-1]).sum() / max((ch[1:] & ch[:-1]).sum(), 1))   # flip-backs
     a_early, a_late = float(act[1:max(2, n // 6)].mean()), float(act[L].mean())
     trend = float(np.log((a_late + 1e-4) / (a_early + 1e-4)))                        # < 0: activity dies down
     return {"g_moran": _moran(last), "g_moran_trend": float(np.polyfit(np.arange(len(mor)), mor, 1)[0]) if len(mor) > 2 else 0.0,
             "g_corrlen": _corr_length(last), "g_activity": float(act[L].mean()), "g_activity_cv": float(act[L].std() / (act[L].mean() + 1e-9)),
             "g_type_entropy": ent, "g_n_types": float((fr > 0.01).sum()), "g_largest_domain": float(lab_sizes.max() / last.size),
             "g_n_domains": float(np.log1p(len(lab_sizes))), "g_interface": interface, "g_spec_peak": sp, "g_spec_freq": fq,
-            "g_cyclic_changes": cyc, "g_activity_trend": trend}
+            "g_cyclic_changes": cyc, "g_activity_trend": trend, "g_reversals": rev}
 
 
 def agents(hist):
@@ -73,7 +74,10 @@ def agents(hist):
     v = np.stack([np.cos(H[-1]), np.sin(H[-1])], 1); c = last - last.mean(0); c -= B * np.round(c / B)
     ang = float(np.abs(np.mean(np.cross(c, v) / (np.linalg.norm(c, axis=1) + 1e-9))))
     disp = np.linalg.norm(((P[-1] - P[-2] + B / 2) % B) - B / 2, axis=1).mean() if n > 1 else 0.0
-    out = {"a_polar": float(pol[L].mean()), "a_polar_std": float(pol[L].std()), "a_nn_ratio": float(nn / nn_random),
+    near = dist < 1.5; cnt = near.sum(1); zc = np.exp(1j * H[-1])
+    loc = np.abs((near * zc[None, :]).sum(1) + zc) / (cnt + 1)
+    loc_rand = np.mean(1 / np.sqrt(cnt + 1))
+    out = {"a_local_align": float(loc.mean() - loc_rand), "a_polar": float(pol[L].mean()), "a_polar_std": float(pol[L].std()), "a_nn_ratio": float(nn / nn_random),
            "a_density_cv": float(hist2.std() / (hist2.mean() + 1e-9)), "a_ang_mom": ang, "a_step": float(disp)}
     if "labels" in hist[-1]:
         lab_ = hist[-1]["labels"]; same = (lab_[:, None] == lab_[None]); near = dist < np.percentile(dist[np.isfinite(dist)], 2)
