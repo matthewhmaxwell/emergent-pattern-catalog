@@ -1,7 +1,7 @@
 """DEV-SET exploration (not a gate): compare namer designs on the saved library (LOVO wrong names, LOCO unknown->named,
 named-correct rate). The chosen design is then fixed and tested on FRESH data (confirmation run)."""
 import json, sys, collections, numpy as np
-from census.triage import FAMILY
+from census.namer import FAMILY
 from census.validate4 import _robust
 lib = [r for r in json.load(open(sys.argv[1]))["examples"] if r["verified"] and r["screened"] and r["driven"]]
 fam = collections.defaultdict(list)

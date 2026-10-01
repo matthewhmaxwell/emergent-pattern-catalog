@@ -43,11 +43,11 @@ import argparse, collections, json, random, time
 from multiprocessing import Pool
 import numpy as np
 from census import grammar_g1 as G
-from census.triage import FAMILY
+from census.namer import FAMILY, NearestNamer, MIN_VARIANTS, robust, behaviour
 from census.knockout import is_interaction_free
 
 R = G.Rule
-SHRINK, PCT, MIN_VARIANTS, VAR_FLOOR = 0.5, 95, 3, 0.1
+SHRINK, PCT, VAR_FLOOR = 0.5, 95, 0.1
 
 
 # ------------------------------------------------------------------ negatives
@@ -164,12 +164,7 @@ def _neg(job):
 
 
 # ------------------------------------------------------------------ open-set namer
-def _robust(X):
-    """robust centre/scale with a floor: a feature that is near-constant in most rows (MAD ~ 0) is scaled by its
-    standard deviation instead, so it cannot blow up into +/-8 z-units (round-7 degeneracy)."""
-    med = np.median(X, 0); mad = np.median(np.abs(X - med), 0) * 1.4826
-    scale = np.maximum(mad, 0.5 * X.std(0)); scale[scale < 1e-6] = 1.0
-    return med, scale
+_robust = robust                                          # shared with census.namer (kept for t_namers)
 
 
 def _fit(Zc):
@@ -179,38 +174,6 @@ def _fit(Zc):
 
 
 def _d2(z, mu, ic): d = z - mu; return float(d @ ic @ d)
-
-
-class NearestNamer:
-    K, VOTES, RPCT, MARGIN = 5, 5, 90, 1.5
-
-    def __init__(self, rows, keys, med, mad):
-        self.keys, self.med, self.mad = keys, med, mad
-        self.Z = self._z([r["fp"] for r in rows]); self.cls = np.array([r["class"] for r in rows])
-        self.var = np.array([f"{r['class']}#{r['variant']}" for r in rows])
-        self.classes = sorted(c for c in set(self.cls) if len(set(self.var[self.cls == c])) >= MIN_VARIANTS)
-
-    def _z(self, fps):
-        X = np.array([[f.get(k, 0.0) for k in self.keys] for f in fps], float).reshape(len(fps), len(self.keys))
-        return np.clip((X - self.med) / self.mad, -8, 8)
-
-    def name(self, fp, checks, exclude_variant=None, exclude_class=None):
-        z = self._z([fp])[0]; m = np.ones(len(self.cls), bool)
-        if exclude_variant: m &= self.var != exclude_variant
-        if exclude_class: m &= self.cls != exclude_class
-        if m.sum() < self.K: return None
-        Zr, cr, vr = self.Z[m], self.cls[m], self.var[m]
-        d = np.sqrt(((Zr - z) ** 2).sum(1)); o = np.argsort(d)[:self.K]
-        top, c = collections.Counter(cr[o]).most_common(1)[0]
-        if top not in self.classes or top == exclude_class or c < self.VOTES: return None
-        idx = np.flatnonzero(cr == top); nd = []
-        for j in idx:
-            oo = idx[vr[idx] != vr[j]]
-            if len(oo): nd.append(np.sqrt(((Zr[oo] - Zr[j]) ** 2).sum(1)).min())
-        R = np.percentile(nd, self.RPCT) if nd else 0.0
-        dc = d[cr == top].min(); dother = d[cr != top].min() if (cr != top).any() else np.inf
-        if dc > R or dother < self.MARGIN * dc: return None
-        return top if checks.get(top, False) else None                       # name-then-verify
 
 
 def main():
@@ -284,6 +247,13 @@ def main():
          "|---|---|---|---|---|---|"]
     lc = collections.Counter(x["class"] for x in unk)
     L += [f"| {c} | {n} | {f} | {rr} | {w} | {lc.get(c, 0)} |" for c, (n, f, rr, w) in sorted(tab.items())]
+    beh_right = sum(1 for p in flagged if p["named"] and behaviour(p["named"]) == behaviour(p["class"]))
+    beh_also = collections.Counter((behaviour(p["class"]), b) for p in flagged
+                                   for b in sorted({behaviour(x) for x in p["also"]} - {behaviour(p["named"]) if p["named"] else None, behaviour(p["class"])}))
+    L += ["", f"BEHAVIOUR level (classes sharing a textbook measure merged; presentation only): primary names the "
+              f"example's own behaviour in {beh_right} / {len(flagged)} ({100 * beh_right / max(len(flagged), 1):.0f}%).",
+          "Also-shows at behaviour level (own behaviour -> other behaviour): "
+          + ("; ".join(f"{a} -> {b}: {n}" for (a, b), n in beh_also.most_common(12)) or "none")]
     L += ["", f"Status of flagged verified examples: {dict(status)}",
           "Also-shows pairs (behaviour -> also shows): " + "; ".join(f"{a} -> {b}: {n}" for (a, b), n in collections.Counter((p['class'], x) for p in flagged for x in p['also']).most_common(12))]
     L += ["", "## Criteria", ""] + [f"- {'PASS' if v else 'FAIL'} — {k}" for k, v in crit.items()]
