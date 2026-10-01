@@ -104,7 +104,8 @@ def run_with_knockout(p, seed0, **kw):
     raw knock-out output or None when nothing was emergent)."""
     from census import sim
     out = sim.run(p, seed0=seed0, **kw); real = per_seed_view_results(out, p)
-    if not any(x["emergent"] for seeds in real.values() for x in seeds):
+    if not any(sum(1 for x in seeds if x["emergent"]) >= 2 for seeds in real.values()):
+        # no view is emergent in >= 2 seeds -> nothing can be flagged whatever the knock-out says: skip it
         return out, real, {v: [False] * len(s) for v, s in real.items()}, None
     kp = knockout_program(p); ko_out = sim.run(kp, seed0=seed0, **kw)
     ko = per_seed_view_results(ko_out, kp)

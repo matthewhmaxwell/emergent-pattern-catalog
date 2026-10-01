@@ -32,6 +32,10 @@ FAMILY = {"C": "grid", "C.transient": "grid", "A": "agents", "N": "network", "C.
           "N.phase": "network-phase", "F0": "field", "F1": "field", "C.aval": "avalanche"}
 
 
+BEHAVIOUR_CATALOG = {b: c for b, c in BEHAVIOUR.values()}
+BEHAVIOUR_CATALOG["power-law avalanches"] = "P14"
+
+
 def behaviour(cls): return BEHAVIOUR.get(cls, (cls, None))[0]
 
 

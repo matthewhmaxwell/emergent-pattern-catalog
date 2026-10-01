@@ -17,7 +17,7 @@ Outputs triage.json + TRIAGE.md in the run directory.
 """
 import argparse, collections, glob, json, os, re, time
 import numpy as np
-from census.namer import FAMILY, CensusNamer, robust
+from census.namer import FAMILY, CensusNamer, robust, BEHAVIOUR_CATALOG
 
 NULL_TEMPLATES = {"C.FLIP", "N.FLIP", "F.DECAY", "F.FEED", "C.EMIT"}
 
@@ -85,7 +85,7 @@ def main():
         ps = sorted(progs.values(), key=lambda x: (x["len"], x["idx"])); routes = collections.defaultdict(list)
         for x in ps: routes[x["route"]].append(x)
         tmpl_sets = [set(k[1]) for k in routes]
-        table[b] = {"catalog": next((x["catalog"] for x in ps if x.get("catalog")), None), "programs": len(ps),
+        table[b] = {"catalog": BEHAVIOUR_CATALOG.get(b), "programs": len(ps),
                     "typical_look": sum(1 for x in ps if not x.get("atypical")),
                     "shortest_len": ps[0]["len"], "shortest": ps[0]["prog"],
                     "common_templates": sorted(set.intersection(*tmpl_sets)) if tmpl_sets else [],
