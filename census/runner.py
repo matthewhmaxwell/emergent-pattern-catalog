@@ -25,13 +25,23 @@ def seed_of(bits):
     return int(hashlib.sha1(bits.encode()).hexdigest()[:8], 16)
 
 
-def program_list(max_bits, cache_dir):
-    """every canonical G1 program of length <= max_bits as bit strings, shortest first (then lexicographic).
-    Enumeration is slow (hours at 24 bits), so the list is cached on disk and reused by every start / resume."""
-    path = os.path.join(cache_dir, f"programs_g1_{max_bits}.txt")
+def grammar(name):
+    if name == "g1": return G
+    from census import grammar_g2
+    return grammar_g2
+
+
+def tokens(M, p):
+    return M.route_tokens(p) if hasattr(M, "route_tokens") else sorted({r.tmpl for r in p.rules})
+
+
+def program_list(max_bits, cache_dir, gname="g1"):
+    """every canonical program of the grammar with length <= max_bits as bit strings, shortest first (then
+    lexicographic). Enumeration is slow (hours at 24 bits), so the list is cached and reused by every start / resume."""
+    path = os.path.join(cache_dir, f"programs_{gname}_{max_bits}.txt")
     if os.path.exists(path):
         return [l.strip() for l in open(path) if l.strip()]
-    bits = sorted((b for b, _ in G.enumerate_programs(max_bits)), key=lambda b: (len(b), b))
+    bits = sorted((b for b, _ in grammar(gname).enumerate_programs(max_bits)), key=lambda b: (len(b), b))
     os.makedirs(cache_dir, exist_ok=True); tmp = path + ".tmp"
     with open(tmp, "w") as fh: fh.write("\n".join(bits) + "\n")
     os.replace(tmp, path)
@@ -65,7 +75,8 @@ def evaluate(p, bits):
                            "meta": {k: out["meta"][k] for k in ("steps_run", "frozen_at", "absorbed_at", "unstable")}}
 
 
-def worker(w, nw, progs, outdir):
+def worker(w, nw, progs, outdir, gname="g1"):
+    M = grammar(gname)
     import glob
     path = os.path.join(outdir, f"results_{w}.jsonl"); done = set()
     for f in glob.glob(os.path.join(outdir, "results_*.jsonl")):          # all workers' files: resume is safe
@@ -76,8 +87,8 @@ def worker(w, nw, progs, outdir):
         for idx, item in enumerate(progs):
             if item is None or idx % nw != w or idx in done: continue
             bits, p = item
-            row = {"idx": idx, "bits": bits, "len": len(bits), "prog": G.describe(p), "layers": p.layers,
-                   "n_rules": len(p.rules), "templates": sorted({r.tmpl for r in p.rules})}
+            row = {"idx": idx, "bits": bits, "len": len(bits), "prog": M.describe(p), "layers": p.layers,
+                   "n_rules": len(p.rules), "templates": tokens(M, p), "grammar": gname}
             try:
                 views, status, info = evaluate(p, bits); row.update(info); row["views"] = views; row["status"] = status
             except Exception as e:
@@ -89,22 +100,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True); ap.add_argument("--max-bits", type=int, required=True)
     ap.add_argument("--min-bits", type=int, default=0); ap.add_argument("--workers", type=int, default=5)
-    ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--limit", type=int, default=0); ap.add_argument("--grammar", choices=("g1", "g2"), default="g1")
     ap.add_argument("--cache-dir", default="census/programs", help="where enumerated program lists are cached")
     ap.add_argument("--sample", type=int, default=0, help="fixed-seed random subsample of N programs (indices kept)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
-    progs = [(b, G.decode(b)) for b in program_list(a.max_bits, a.cache_dir) if len(b) >= a.min_bits]
+    M = grammar(a.grammar)
+    progs = [(b, M.decode(b)) for b in program_list(a.max_bits, a.cache_dir, a.grammar) if len(b) >= a.min_bits]
     if a.limit: progs = progs[:a.limit]
     if a.sample and a.sample < len(progs):
         import random
         keep = set(random.Random(20260927).sample(range(len(progs)), a.sample))
         progs = [pp if i in keep else None for i, pp in enumerate(progs)]
-    json.dump({"n_programs": sum(x is not None for x in progs), "max_bits": a.max_bits, "min_bits": a.min_bits, "workers": a.workers,
+    json.dump({"grammar": a.grammar, "n_programs": sum(x is not None for x in progs), "max_bits": a.max_bits, "min_bits": a.min_bits, "workers": a.workers,
                "pipeline": "validated (screen + knock-out + textbook measures)", "sample": a.sample,
                "started": time.strftime("%Y-%m-%d %H:%M:%S")},
               open(os.path.join(a.out, "manifest.json"), "w"), indent=1)
     print(f"{sum(x is not None for x in progs)} programs, {a.workers} workers -> {a.out}", flush=True)
-    ps = [Process(target=worker, args=(w, a.workers, progs, a.out)) for w in range(a.workers)]
+    ps = [Process(target=worker, args=(w, a.workers, progs, a.out, a.grammar)) for w in range(a.workers)]
     for p in ps: p.start()
     for p in ps: p.join()
     print("ALL DONE", time.strftime("%Y-%m-%d %H:%M:%S"), flush=True)

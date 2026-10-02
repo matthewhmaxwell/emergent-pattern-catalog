@@ -194,7 +194,8 @@ def encode(p):
     return bits + "0"
 
 
-def decode(bits):
+def decode_header(bits):
+    """-> (header-only Program, position after the header)."""
     pos = 0; ci, pos = tb_decode(bits, pos, len(COMBOS)); combo = COMBOS[ci]; k = {}
     for L in "CAN":
         if L in combo: v, pos = tb_decode(bits, pos, KMAX); k[L] = v + 1
@@ -204,6 +205,11 @@ def decode(bits):
     if "F" in combo:
         n, pos = tb_decode(bits, pos, 2); nf = n + 1; D = []
         for _ in range(nf): d, pos = hier_decode(bits, pos, GRIDS["diff"]); D.append(d)
+    return make(combo, k, nf, D, agent), pos
+
+
+def decode(bits):
+    p0, pos = decode_header(bits); combo, k, nf, D, agent = p0.layers, p0.k, p0.nf, p0.D, p0.agent
     p = make(combo, k, nf, D, agent); vt = valid_templates(p); rules = []
     while True:
         ti, pos = tb_decode(bits, pos, len(vt)); name = vt[ti]; prm = []

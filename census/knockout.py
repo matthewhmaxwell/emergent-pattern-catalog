@@ -33,16 +33,28 @@ ONE_WAY = {"C.FLIP", "N.FLIP", "F.DECAY", "F.FEED", "C.EMIT", "A.DEPOSIT"}
 D_MIN = 0.25
 
 
+G2_ONE_WAY_ACTS = {"SET", "SET_NEXT", "EMIT", "DEPOSIT", "SCALE", "RELAX1", "TURN_L", "TURN_R", "SLOW"}
+
+
+def _one_way(r):
+    """a rule that reads no other entity: G1 one-way templates; G2 = unconditional rule with a non-reading action
+    (mirrors G1: flips, decay, feed, emission, deposition; plus G2's unconditional cycle / turn / slow)."""
+    if r.tmpl != "G2": return r.tmpl in ONE_WAY
+    return r.cond == "ALWAYS" and r.act in G2_ONE_WAY_ACTS
+
+
 def knockout_program(p):
     rules = []
     for r in p.rules:
-        if r.tmpl in ONE_WAY: rules.append(r)
+        if _one_way(r): rules.append(r)
         elif r.tmpl in ("C.KURA", "N.KURA"): rules.append(G.Rule(r.tmpl, (("K", 0.0),)))
+        elif r.tmpl == "G2" and r.act == "PHASE_COUPLE":                    # keep the oscillators, cut the coupling
+            rules.append(type(r)(r.target, "any", "ALWAYS", (), "PHASE_COUPLE", (("K", 0.0),), 1.0))
     return G.make(p.layers, p.k, p.nf, p.D, p.agent, rules)
 
 
 def is_interaction_free(p):
-    return all(r.tmpl in ONE_WAY for r in p.rules)
+    return all(_one_way(r) for r in p.rules)
 
 
 def fp_distance(a, b):

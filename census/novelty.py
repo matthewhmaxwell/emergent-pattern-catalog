@@ -8,7 +8,9 @@ mechanism. Niches: CVT-MAP-Elites (Vassiliades et al. 2017) — centroids = k-me
 random coupled programs (one CVT per layer combination, since descriptors differ by combination). Each niche keeps
 its elite: highest quality = max emergence score over the program's views, ties -> shorter program. Variation:
 parameter change, template swap, add rule (<= 5), drop rule, header tweak — always re-validated and re-coupled.
-Outputs archive.jsonl (every evaluation) + elites.json; elites far from every null and census class go to triage.
+Every evaluation goes through the VALIDATED pipeline (screen + knock-out + textbook measures); only FLAGGED programs can
+become elites. Outputs results_0.jsonl (runner-format rows, so census.triage names them like census programs) +
+elites.json.
 """
 import os
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
@@ -106,43 +108,50 @@ def mutate(p, rng):
 
 
 def evaluate(bits):
-    from census import sim, filter as FL
-    from census.runner import seed_of
-    p = G.decode(bits); t = time.time(); out = sim.run(p, seed0=seed_of(bits)); ev = FL.evaluate(out, p, battery=False)
-    views = {}
-    for v, e in ev.items():
-        ss = [s for s in e["seeds"] if s.get("emergent")]
-        fps = [s.get("fp") or {} for s in ss]
+    """one program through the VALIDATED pipeline (census.runner.evaluate). Row format = runner row (so census.triage
+    names novelty-arm programs exactly like census programs) + quality + per-view mean fingerprint."""
+    from census.runner import evaluate as run_eval
+    p = G.decode(bits); t = time.time(); views, status, info = run_eval(p, bits); fpm = {}; q = 0.0
+    for v, e in views.items():
+        if not e["flagged"]: continue
+        ss = [s for s in e["seeds"] if s.get("emergent") and "fp" in s]; fps = [s["fp"] for s in ss]
         keys = sorted(set().union(*fps)) if fps else []
-        views[v] = {"verdict": e["verdict"], "em": float(np.mean([s.get("em_score") or 0 for s in e["seeds"]])),
-                    "fp": {k: float(np.mean([f.get(k, 0.0) for f in fps])) for k in keys}}
-    q = max((d["em"] for d in views.values() if d["verdict"] == "EMERGENT"), default=0.0)
-    return {"bits": bits, "len": len(bits), "prog": G.describe(p), "layers": p.layers, "quality": q, "views": views,
-            "seconds": round(time.time() - t, 2)}
+        fpm[v] = {k: float(np.mean([f.get(k, 0.0) for f in fps])) for k in keys}
+        q = max(q, float(np.mean([s["evidence"] for s in ss])) if ss else 0.0)
+    return {"bits": bits, "len": len(bits), "prog": G.describe(p), "layers": p.layers, "n_rules": len(p.rules),
+            "templates": sorted({r.tmpl for r in p.rules}), "grammar": "g1", "status": status, "views": views,
+            "quality": q, "fp_mean": fpm, "fp_errors": info["fp_errors"], "seconds": round(time.time() - t, 2)}
 
 
 def descriptor(res, keys):
     """fixed-order descriptor: per-view fingerprint features (0 where a view is absent / not emergent)."""
-    return np.array([res["views"].get(v, {}).get("fp", {}).get(f, 0.0) for v, f in keys], float)
+    return np.array([res["fp_mean"].get(v, {}).get(f, 0.0) for v, f in keys], float)
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--out", required=True); ap.add_argument("--evals", type=int, default=2000)
     ap.add_argument("--workers", type=int, default=5); ap.add_argument("--centroids", type=int, default=256)
     ap.add_argument("--init", type=int, default=200); ap.add_argument("--batch", type=int, default=20)
-    ap.add_argument("--seed", type=int, default=0); a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
-    rng = random.Random(a.seed); arch = open(os.path.join(a.out, "archive.jsonl"), "a")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--patience", type=int, default=20000, help="stop after this many evaluations with no NEW niche")
+    a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    rng = random.Random(a.seed); arch = open(os.path.join(a.out, "results_0.jsonl"), "a"); counter = [0]
+    json.dump({"grammar": "g1", "n_programs": a.evals, "pipeline": "novelty arm (CVT-MAP-Elites) on the validated pipeline",
+               "started": time.strftime("%Y-%m-%d %H:%M:%S")}, open(os.path.join(a.out, "manifest.json"), "w"), indent=1)
+
+    def write(r):
+        r["idx"] = counter[0]; counter[0] += 1; arch.write(json.dumps(r, default=str) + "\n")
     with Pool(a.workers) as pool:
         init = [G.encode(random_program(rng)) for _ in range(a.init)]
         res = [r for r in pool.imap_unordered(evaluate, init)]
-        for r in res: arch.write(json.dumps(r) + "\n")
+        for r in res: write(r)
         arch.flush()
         # descriptor keys per layer combination from the initial random sample; CVT centroids by k-means
         from scipy.cluster.vq import kmeans2
         cvt = {}
         for combo in sorted({r["layers"] for r in res}):
-            rs = [r for r in res if r["layers"] == combo]
-            keys = sorted({(v, f) for r in rs for v, d in r["views"].items() for f in d["fp"]})
+            rs = [r for r in res if r["layers"] == combo and r["status"] == "FLAGGED"]
+            keys = sorted({(v, f) for r in rs for v, d in r["fp_mean"].items() for f in d})
             if not keys or len(rs) < 4: continue
             X = np.array([descriptor(r, keys) for r in rs]); mu, sd = X.mean(0), X.std(0) + 1e-9
             k = min(a.centroids, max(2, len(rs) // 2))
@@ -152,26 +161,27 @@ def main():
 
         def place(r):
             c = cvt.get(r["layers"])
-            if c is None or r["quality"] <= 0: return False
+            if c is None or r["status"] != "FLAGGED" or r["quality"] <= 0: return False
             z = (descriptor(r, c["keys"]) - c["mu"]) / c["sd"]; cell = (r["layers"], int(((c["C"] - z) ** 2).sum(1).argmin()))
             cur = elites.get(cell)
             if cur is None or (r["quality"], -r["len"]) > (cur["quality"], -cur["len"]):
-                elites[cell] = r; return True
+                r["new_niche"] = cur is None; elites[cell] = r; return True
             return False
         for r in res: place(r)
-        n = len(res)
-        while n < a.evals:
+        n = len(res); since_new = 0
+        while n < a.evals and since_new < a.patience:
             if elites:
                 parents = [G.decode(rng.choice(list(elites.values()))["bits"]) for _ in range(a.batch)]
                 kids = [G.encode(mutate(p, rng)) for p in parents]
             else:
                 kids = [G.encode(random_program(rng)) for _ in range(a.batch)]
             for r in pool.imap_unordered(evaluate, kids):
-                r["new_elite"] = place(r); arch.write(json.dumps(r) + "\n"); n += 1
+                r["new_elite"] = place(r); write(r); n += 1
+                since_new = 0 if r.get("new_niche") else since_new + 1
             arch.flush()
             json.dump({f"{k[0]}:{k[1]}": {"quality": v["quality"], "len": v["len"], "prog": v["prog"], "bits": v["bits"]}
                        for k, v in elites.items()}, open(os.path.join(a.out, "elites.json"), "w"), indent=1)
-            print(f"{n} evals, {len(elites)} niches filled", flush=True)
+            print(f"{n} evals, {len(elites)} niches filled, {since_new} since last new niche", flush=True)
 
 
 if __name__ == "__main__":

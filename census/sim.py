@@ -477,7 +477,9 @@ class State:
         elif act == "REWIRE_SAME":
             for s_ in range(self.S):
                 for i in self.rng.permutation(np.flatnonzero(M[s_] & self.adj[s_].any(-1))):
-                    nb = np.flatnonzero(self.adj[s_, i]); j = nb[self.rng.integers(len(nb))]
+                    nb = np.flatnonzero(self.adj[s_, i])
+                    if len(nb) == 0: continue                              # lost its last link earlier this step
+                    j = nb[self.rng.integers(len(nb))]
                     if self.nt[s_, i] == self.nt[s_, j]: continue
                     cand = np.flatnonzero((self.nt[s_] == self.nt[s_, i]) & ~self.adj[s_, i]); cand = cand[cand != i]
                     if len(cand) == 0: continue

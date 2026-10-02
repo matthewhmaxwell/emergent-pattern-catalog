@@ -69,3 +69,53 @@ As in DESIGN §9. Registration visibility is the owner's call at T13 (the Ring-3
 - **Running now:** reference slice (per-program battery, <= 13 bits, 430 programs) + cluster-first slice (<= 16
   bits, 4,134 programs). Next: triage on cf16 (clusters + battery on representatives), compare labels with the
   reference slice, null base rate (`runner --null`, same programs), G2 counts/benchmark lengths on the VPS.
+
+**2026-09-28 — owner decisions**
+- Cluster-first pipeline APPROVED ("the grouping approach makes sense").
+- VALIDATION GATE required before any scale-up (owner: "even 1% wrong over a million = disaster"). v1 FAILED (naming
+  2/10; one circularity in my negative design found and fixed in v2). v2 = non-circular held-out negatives (>= 300)
+  + positive families.
+- NAMING = REFERENCE LIBRARY APPROVED ("a better detector, using our catalog as examples"): run each known catalog
+  phenomenon many times in the census world, record fingerprints, name groups by nearest reference within an
+  acceptance radius; error rates measured on held-out examples + negatives. Catalog detectors kept as a second
+  opinion where they work (P1, P14, P18 confirmed).
+- ADDED TO PLAN: census finds of catalog patterns shown on the website (per catalog page: simplest census rule
+  that produces it + animation). Deploy only with owner OK.
+- ADDED (owner, 2026-09-28): record EVERY census program that produces a catalogued behaviour, not just the simplest
+  -> per catalog pattern, a "routes" page: all distinct mechanisms (rule combinations, substrates) that produce it,
+  which ingredients all routes share (necessary) vs which vary. Unexpected routes to a known behaviour get their own
+  literature check (a new mechanism for a known behaviour can itself be a finding).
+- **Anti-overfitting rule (2026-09-28):** features/namer are being tuned on the validation set (rounds 1-7). Once a
+  round passes, a CONFIRMATION run on fresh, never-seen data (new seed sets for every library variant + held-out
+  negatives with new seeds) must also pass, with identical code and criteria, before anything is frozen.
+
+**2026-09-28 — VALIDATION GATE PASSED** (round 9 dev + fresh-data confirmation; code 25a99b7, reports committed).
+Confirmation: recall 477/480, 0 false flags (24 interacting-trivial + 400 interaction-free), 0 names not shown,
+0 names surviving knock-out, primary exact 86%, novelty-risk (withheld class given a primary name) 0/477.
+Open before scaling: (1) expand interacting-but-trivial negatives to ~300 (0/24 only bounds the rate at ~12%);
+(2) merge names that share a textbook measure into one behaviour name (e.g. "domain coarsening"), mechanism = route;
+(3) re-measure throughput with the knock-out (+1 sim per flagged program) -> choose L; (4) freeze doc + OSF.
+**2026-09-28 (later) — GATE PASSED ON FRESH DATA WITH EXTENDED NEGATIVES (confirm3; code 4d0b566).**
+Path: confirmation 1 passed but only 24 interacting-trivial negatives -> expanded to 312 -> 1/312 then 20/312 flagged
+(noise-sensitive / side-effect knock-out comparisons) -> knock-out redefined: the DETECTED EMERGENCE SIGNAL must drop
+(seed-averaged evidence vs spread) OR a textbook ORDER measure must be clearly higher with interaction -> confirm3:
+0/312 + 0/400 flagged (false-flag rate <= ~1%), recall 468/472, 0 unshown names, 0 names surviving knock-out, 88%
+exact primary, novelty-risk 1/468 (genuinely co-present). Each rule change was followed by a fresh-seed re-run.
+NEXT: (1) merge names sharing a textbook measure into behaviour names; (2) throughput with knock-out -> L;
+(3) freeze doc (PREREG_census_v1.md) for owner approval -> OSF; (4) Phase 3 run.
+
+**2026-10-01 — items 1-2 done (owner: "yes")**
+- BEHAVIOUR NAMES (census/namer.py): library classes sharing a textbook measure merged for display ("domain
+  coarsening" = voter + majority); mechanism = the program's rule set (route). Display layer only — confirm3 report
+  regenerated IDENTICALLY (criteria + per-class table). Runner now runs the validated pipeline (screen + knock-out +
+  textbook measures; program-list cache); triage builds the behaviour map with ROUTES; digest updated.
+- THROUGHPUT (600 random programs <= 22 bits, 5 workers, validated pipeline): 11.9 s/program (A 24, C 16, AF/CAF 13,
+  CA 12, CF 9, N 5, F 3), 50% flagged, 0 errors, 0 fingerprint errors. Mix at this length is 61% agent-containing.
+  Budget 10.5 days x 5 workers = 1,260 worker-hours -> **L = 22 fits (289,798 programs, 986 worker-hours, ~8.2 days);
+  L = 23 needs ~15.6 days.** G2 at L2 = 21 (98,082 programs) ~2.7 days. Enumeration to 24 bits takes ~1.7 h -> cached.
+- First 22-bit sample map: 9 known behaviours with multiple routes each (domain coarsening 19 routes, flocking 9,
+  lattice phase locking 10); 153 unnamed views in 15 classes (agent clustering, chemotaxis, ... -> literature check /
+  library expansion); 64 known-behaviour-atypical-look (review).
+- VPS disk hit 100% on 2026-10-01 (not the census: 20 MB); owner cleared savepoints -> 88%.
+- BEFORE FREEZE: final gate re-run on the frozen code (regression), novelty arm + G2 runner on the validated
+  pipeline, library choice for the census, PREREG_census_v1.md for owner approval -> OSF.

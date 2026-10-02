@@ -193,6 +193,39 @@ def encode(p):
     return G1.header_bits(p) + "1".join(rule_code(p, r) for r in p.rules) + "0"
 
 
+def _read_params(specs, p, bits, pos):
+    out = []
+    for n, kind in specs:
+        for v, c in G1._param_options(kind, p):
+            if bits.startswith(c, pos): out.append((n, v)); pos += len(c); break
+        else:
+            raise ValueError("no parameter codeword matches")
+    return tuple(out), pos
+
+
+def decode(bits):
+    p0, pos = G1.decode_header(bits); rules = []
+    while True:
+        ts = targets(p0); ti, pos = tb_decode(bits, pos, len(ts)); t = ts[ti]
+        sb = subjects(p0, t); si, pos = tb_decode(bits, pos, len(sb)); sub = sb[si]
+        cs = conds(p0, t); ci, pos = tb_decode(bits, pos, len(cs)); c = cs[ci]
+        cp, pos = _read_params(COND[t][c][0], p0, bits, pos)
+        as_ = acts(p0, t); ai, pos = tb_decode(bits, pos, len(as_)); act = as_[ai]
+        ap, pos = _read_params(ACT[t][act][0], p0, bits, pos)
+        rate = 1.0
+        if t != "F": rate, pos = hier_decode(bits, pos, GRIDS["rate"])
+        rules.append(Rule2(t, sub, c, cp, act, ap, rate))
+        more = bits[pos]; pos += 1
+        if more == "0": break
+    assert pos == len(bits), "trailing bits"
+    return G1.make(p0.layers, p0.k, p0.nf, p0.D, p0.agent, rules)
+
+
+def route_tokens(p):
+    """mechanism tokens of a G2 program (for the routes table): target:condition>action per rule."""
+    return sorted({f"{r.target}:{r.cond}>{r.act}" for r in p.rules})
+
+
 def _perm_ok(pi, sems):
     k = len(pi)
     if "fixed" in sems and pi != tuple(range(k)): return False

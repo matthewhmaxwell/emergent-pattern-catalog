@@ -87,8 +87,10 @@ def chk_net_consensus(o, s):
 
 
 PRECONDITION = {   # a textbook measure is only DEFINED for programs with the right semantics
-    "spatial PD chaos (Nowak-May)": lambda p: any(x.tmpl == "C.GAME" for x in p.rules),      # type 0 = cooperate
-    "Schelling segregation": lambda p: any(x.tmpl == "C.SCHELL" for x in p.rules),         # type 0 = vacancy
+    "spatial PD chaos (Nowak-May)": lambda p: any(x.tmpl == "C.GAME" or (getattr(x, "act", None) == "IMITATE_BEST" and x.target == "C")
+                                                  for x in p.rules),                          # type 0 = cooperate
+    "Schelling segregation": lambda p: any(x.tmpl == "C.SCHELL" or getattr(x, "act", None) == "MOVE_EMPTY"
+                                           for x in p.rules),                                 # type 0 = vacancy
 }
 
 
