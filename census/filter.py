@@ -147,7 +147,44 @@ def _consensus_gain(history):
     return float(m(b) - m(a))
 
 
-def screen(history):
+def _oscillation(series):
+    """share of spectral power in the strongest frequency, ignoring the two lowest bins (a slow drift is not an
+    oscillation). ~0.08 for white noise of this length; a real cycle concentrates power in one bin."""
+    s = np.asarray(series, float); s = s - s.mean()
+    if len(s) < 16 or s.std() < 1e-12: return 0.0
+    pw = np.abs(np.fft.rfft(s)) ** 2; pw[:3] = 0.0; tot = pw.sum()
+    return float(pw.max() / tot) if tot > 1e-12 else 0.0
+
+
+def network_channels(history, adj):
+    """Screen channels for network NODE-STATE views (final-gate lesson: the generic 'vector' channel compares a
+    histogram with a shuffled copy of the same values — shuffling does not change a histogram, so its z-score is 0
+    or 10 by numerical accident; on pure flip noise it fired in 12 of 21 runs). Replaced by three channels:
+      agreement  linked nodes share a type more often than a label-shuffle null predicts (mean z over 6 late frames)
+      consensus  majority share gained from first to last frame
+      cycling    genuine oscillation of the type fractions (power concentrated in one frequency)
+    -> (evidence in [0, 1], kind). Emergent at evidence >= 0.5, i.e. z >= 4, gain >= 0.2, or power share >= 0.4
+    (slowly correlated one-way noise reaches ~0.3; a real cycle on a network scores ~0.7)."""
+    ops = np.stack([np.round(h["opinions"], 6) for h in history]); n = len(ops)
+    cg = _consensus_gain(history); z = 0.0
+    if adj is not None:
+        iu = np.triu_indices(adj.shape[0], 1); e = np.asarray(adj)[iu] > 0; i, j = iu[0][e], iu[1][e]
+        if len(i):
+            late = ops[-max(n // 3, 2):]; late = late[::max(1, len(late) // 6)]; rng = np.random.default_rng(0); zs = []
+            for x in late:
+                obs = float((x[i] == x[j]).mean())
+                null = np.array([(xp[i] == xp[j]).mean() for xp in (rng.permutation(x) for _ in range(40))])
+                zs.append((obs - null.mean()) / null.std() if null.std() > 1e-9 else 0.0)
+            z = float(np.mean(zs))
+    vals = np.unique(ops); osc = max((_oscillation((ops == v).mean(1)) for v in vals), default=0.0)
+    cand = {"agreement(z)": min(1.0, max(z, 0.0) / 8.0), "consensus-gain": min(1.0, max(cg, 0.0) / 0.4), "cycling": min(1.0, osc / 0.8)}
+    kind = max(cand, key=cand.get)
+    return float(cand[kind]), kind, {"agree_z": round(z, 3), "consensus_gain": round(cg, 4), "oscillation": round(osc, 4)}
+
+
+def screen(history, adj=None, network=False):
+    """generic emergence + model-free complexity; network node-state views use network_channels instead of the
+    generic score unless the generic lens is the NETWORK-structure one (rewiring graphs: modularity / fragmentation)."""
     from epc.phase2a.emergence import generic_emergence
     from epc.phase2a.novelty_tripwire import model_free_complexity
     try:
@@ -158,11 +195,15 @@ def screen(history):
         mf = model_free_complexity(history)
     except Exception as e:
         mf = {"is_complex": False, "C": None, "psi": None, "struct": None, "collapsed": None}
-    sc = float(em.get("score", 0.0) or 0.0)
-    cg = _consensus_gain(history)
-    return {"em_score": round(sc, 4), "em_kind": em.get("kind") if cg < 0.2 else "consensus-gain", "is_complex": bool(mf.get("is_complex")),
+    sc = float(em.get("score", 0.0) or 0.0); kind = em.get("kind"); extra = {}
+    if network:
+        gsc = sc if str(kind).startswith("network") else 0.0          # keep only the graph-structure lens
+        nsc, nkind, extra = network_channels(history, adj)
+        sc, kind = (gsc, kind) if gsc >= nsc else (nsc, nkind)
+    cg = _consensus_gain(history) if not network else 0.0             # (network: already inside network_channels)
+    return {"em_score": round(sc, 4), "em_kind": kind, "is_complex": bool(mf.get("is_complex")),
             "C": mf.get("C"), "psi": mf.get("psi"), "collapsed": mf.get("collapsed"), "consensus_gain": round(cg, 4),
-            "emergent": bool(sc >= 0.5 or mf.get("is_complex") or cg >= 0.2)}
+            "emergent": bool(sc >= 0.5 or mf.get("is_complex") or cg >= 0.2), **extra}
 
 
 def known(history, metadata):

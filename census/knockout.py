@@ -9,22 +9,22 @@ quorum, toppling, games, rewiring, coupling, agent<->cell sensing, gradient clim
 Kept in the knock-out: one-way rules (spontaneous flips, decay, feed, emission, deposition). Phase coupling is set to
 K = 0 rather than removed, so the phase view still exists to compare.
 
-Decision per view (round 11; "does the detected emergence signal disappear?"):
-  evidence e = max(generic emergence score, 1 if model-free complexity fired, min(1, consensus gain / 0.4)) — the
-  same signals the census screen flags on, as one continuous number per seed.
-  interaction-driven  <=>  knock-out view absent  OR
-      mean_real(e) - mean_ko(e) >= max(DROP_MIN, Z_MIN * noise),  noise = max(sd_real(e), sd_ko(e), 0.02)
-  over the seeds where the real run is emergent. DROP_MIN = 0.25, Z_MIN = 2.
-  OR (route B, round 11b) some textbook ORDER measure is clearly higher with interaction than without:
-      direction * (mean_real - mean_ko) >= max(ORDER_MIN, 4 * noise)  AND  relative change >= 0.25; ORDER_MIN = 0.1.
+Decision per view (final form; "does the detected emergence signal disappear?"), PAIRED over ALL seeds:
+  evidence e = max(screen score, 1 if model-free complexity fired, min(1, consensus gain / 0.4)) per seed.
+  d_s = e_real(s) - e_knockout(s) for every seed s (same seeds in both runs).
+  interaction-driven  <=>  knock-out view absent
+      OR  mean(d) >= DROP_MIN  AND  mean(d) >= Z_MIN * max(sd(d) / sqrt(S), 0.02)                    [route A]
+      OR  for some textbook ORDER measure f, with g_s = direction * (f_real(s) - f_knockout(s)):
+          mean(g) >= ORDER_MIN  AND  mean(g) >= 4 * max(sd(g) / sqrt(S), 0.01)  AND  relative change >= 0.25  [route B]
+  DROP_MIN = 0.25, Z_MIN = 2, ORDER_MIN = 0.1.
   Order measures only (organisation, not activity or side effects such as links moved): lattice Moran's I, largest
   domain, correlation length; agent polarization, local alignment, clustering (lower nearest-neighbour ratio),
   type segregation; network type modularity, consensus gain; phase order r and local r; field Moran's I, peak
-  sharpness. Round-11 lesson: uncoupled oscillators rotate so regularly that the generic screen scores them high,
-  so for sync only the order measure separates real from knock-out.
-  Lessons: the knock-out's own screen FLAG is erratic on pure noise (round 10) -> compare seed-averaged evidence
-  with its spread instead; "any fingerprint feature changed" lets trivial side effects through (round 10c: one early
-  rewiring step changed the graph while the flag came from forced conversion, present in the knock-out too).
+  sharpness.
+  Lessons that shaped it: the knock-out's own screen FLAG must not be used (round 10); "any feature changed" lets
+  trivial side effects through (round 10c); uncoupled oscillators need the order route (round 11); comparing only
+  the seeds where the REAL run is emergent is a selection bias (final gate: a coin-flip screen on network noise made
+  a null look interaction-driven) -> the test is paired over all seeds.
 """
 import numpy as np
 from census import grammar_g1 as G
@@ -72,7 +72,11 @@ def per_seed_view_results(out, p):
     for s in range(S):
         for name, hist, md in FL.views(out, p, s):
             th = FL._screen_hist(name, hist, "adj" in out)
-            sc = FL.screen(th) if name != "C.aval" else FL.screen_avalanche(hist)
+            if name == "C.aval": sc = FL.screen_avalanche(hist)
+            elif name == "N":                                   # node states: network channels need the graph
+                adj = out["adj0"][s] if "adj0" in out else hist[-1]["adjacency"]
+                sc = FL.screen(th, adj=adj, network=True)
+            else: sc = FL.screen(th)
             fp = fingerprint(name, th, adj0=out["adj0"][s].astype(np.int64) if "adj0" in out else None) if name != "C.aval" else {}
             ev = max(float(sc.get("em_score") or 0.0), 1.0 if sc.get("is_complex") else 0.0,
                      min(1.0, float(sc.get("consensus_gain") or 0.0) / 0.4))
@@ -88,24 +92,23 @@ ORDER = {"g_moran": 1, "g_largest_domain": 1, "g_corrlen": 1, "a_polar": 1, "a_l
 
 
 def interaction_driven(real, ko):
-    """real, ko: outputs of per_seed_view_results -> {view: [bool per seed]} (one decision per view)."""
+    """real, ko: outputs of per_seed_view_results -> {view: [bool per seed]} (one decision per view, paired seeds)."""
     out = {}
     for v, seeds in real.items():
         kv = ko.get(v)
         if kv is None:
             out[v] = [True] * len(seeds); continue
-        em = [s for s in range(len(seeds)) if seeds[s]["emergent"] and s < len(kv)]
-        driven = False
-        if em:
-            a = np.array([seeds[s]["evidence"] for s in em]); b = np.array([kv[s]["evidence"] for s in em])
-            noise = max(a.std(), b.std(), 0.02)
-            driven = (a.mean() - b.mean()) >= max(DROP_MIN, Z_MIN * noise)
+        S = min(len(seeds), len(kv)); driven = False
+        if S:
+            d = np.array([seeds[s]["evidence"] - kv[s]["evidence"] for s in range(S)])
+            driven = d.mean() >= DROP_MIN and d.mean() >= Z_MIN * max(d.std() / np.sqrt(S), 0.02)
             for f, sgn in ORDER.items():
                 if driven: break
-                if not all(f in seeds[s]["fp"] and f in kv[s]["fp"] for s in em): continue
-                x = np.array([seeds[s]["fp"][f] for s in em]); y = np.array([kv[s]["fp"][f] for s in em])
-                gain = sgn * (x.mean() - y.mean()); nz = max(x.std(), y.std(), 0.01)
-                if gain >= max(ORDER_MIN, 4 * nz) and abs(x.mean() - y.mean()) / (abs(x.mean()) + abs(y.mean()) + 0.05) >= 0.25:
+                if not all(f in seeds[s]["fp"] and f in kv[s]["fp"] for s in range(S)): continue
+                x = np.array([seeds[s]["fp"][f] for s in range(S)]); y = np.array([kv[s]["fp"][f] for s in range(S)])
+                g = sgn * (x - y)
+                if (g.mean() >= ORDER_MIN and g.mean() >= 4 * max(g.std() / np.sqrt(S), 0.01)
+                        and abs(x.mean() - y.mean()) / (abs(x.mean()) + abs(y.mean()) + 0.05) >= 0.25):
                     driven = True
         out[v] = [bool(driven)] * len(seeds)
     return out

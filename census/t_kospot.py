@@ -11,7 +11,11 @@ CASES = [("POS flocking", G.make("A", {"A": 1}, agent=(1.0, 0.3), rules=[R("A.AL
          ("POS co-evolving", G.make("N", {"N": 2}, rules=[R("N.COPY", (("p", 1.0),)), R("N.REWIRE", (("p", 1.0),))])),
          ("NEG noise-drowned net", G.make("N", {"N": 2}, rules=[R("N.COPY", (("p", 0.01),)), R("N.FLIP", (("a", 0), ("b", 1), ("p", 0.5))), R("N.FLIP", (("a", 1), ("b", 0), ("p", 0.5)))])),
          ("NEG swamped rewire k=3", G.make("N", {"N": 3}, rules=[R("N.REWIRE", (("p", 1.0),))] + one(3))),
-         ("NEG align max noise r=0.5 v=0.3", G.make("A", {"A": 1}, agent=(0.3, 3.14159), rules=[R("A.ALIGN", (("r", 0.5),))]))]
+         ("NEG align max noise r=0.5 v=0.3", G.make("A", {"A": 1}, agent=(0.3, 3.14159), rules=[R("A.ALIGN", (("r", 0.5),))])),
+         ("NEG noise-drowned net 0.03/0.3", G.make("N", {"N": 2}, rules=[R("N.COPY", (("p", 0.03),)), R("N.FLIP", (("a", 0), ("b", 1), ("p", 0.3))), R("N.FLIP", (("a", 1), ("b", 0), ("p", 0.3)))])),
+         ("POS lattice phase locking", G.make("C", {"C": 1}, rules=[R("C.KURA", (("K", 1.0),))])),
+         ("POS cyclic waves", G.make("C", {"C": 3}, rules=[R("C.CYCLE", (("th", 3), ("p", 1.0)))])),
+         ("POS majority coarsening", G.make("C", {"C": 2}, rules=[R("C.MAJ", (("p", 0.1),))]))]
 for name, p in CASES:
     res = []
     for sd in (12345, 999, 31337):
