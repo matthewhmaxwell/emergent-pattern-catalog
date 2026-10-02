@@ -1,0 +1,96 @@
+START 2026-10-02 10:53:24
+NULL lattice K=0             emergent   0 / 30 | generic>=0.5:   0  complex:   0  gain:   0 | generic kinds when fired: {} | scores [0.18, 0.19, 0.2, 0.27]
+NULL lattice K=0.002 k=1     emergent   0 / 30 | generic>=0.5:   0  complex:   0  gain:   0 | generic kinds when fired: {} | scores [0.26, 0.26, 0.27, 0.37]
+NULL lattice K=0.002 k=2     emergent   0 / 30 | generic>=0.5:   0  complex:   0  gain:   0 | generic kinds when fired: {} | scores [0.18, 0.18, 0.21, 0.24]
+NULL network K=0             emergent   0 / 30 | generic>=0.5:   0  complex:   0  gain:   0 | generic kinds when fired: {} | scores [0.13, 0.14, 0.16, 0.19]
+NULL network K=0.002         emergent   0 / 30 | generic>=0.5:   0  complex:   0  gain:   0 | generic kinds when fired: {} | scores [0.14, 0.15, 0.15, 0.21]
+POS lattice K=1.0            emergent  30 / 30 | generic>=0.5:  30  complex:   0  gain:   0 | generic kinds when fired: {'phases': 23, 'local-phase-order': 7} | scores [0.99, 0.99, 0.99, 1.0]
+POS lattice K=0.1            emergent  30 / 30 | generic>=0.5:  30  complex:   0  gain:   0 | generic kinds when fired: {'local-phase-order': 29, 'phases': 1} | scores [0.81, 0.81, 0.81, 0.81]
+POS network K=1.0            emergent  30 / 30 | generic>=0.5:  30  complex:   0  gain:   0 | generic kinds when fired: {'phases': 29, 'synergy(psi_ce:std)': 1} | scores [0.86, 0.87, 0.87, 0.91]
+--- library 10:54:19
+  co-evolving network fragmentation      48   37   37   37
+  network voter consensus                36   30   30   30
+  flocking                              108  108  108  108
+--- placebo a 10:57:47
+1720 programs (0 errors), 2845 interaction-free views compared with an independent interaction-free run of the same program. Any flag is false by construction.
+
+**False flags: 0 / 2845** (rate <= 0.11% with 95% confidence, rule of three)
+
+| view family | views | FALSE FLAGS | screen emergent in >= 2 of 3 seeds | per seed-run: generic >= 0.5 | model-free complexity | consensus gain | avalanche |
+|---|---|---|---|---|---|---|---|
+| agents | 399 | 0 | 17 | 114 (4.8%) | 18 (0.8%) | 0 (0.0%) | 0 (0.0%) |
+| field | 1000 | 0 | 603 | 3615 (60.2%) | 666 (11.1%) | 0 (0.0%) | 0 (0.0%) |
+| grid | 794 | 0 | 3 | 39 (0.8%) | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+| lattice-phase | 166 | 0 | 0 | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+| network | 355 | 0 | 16 | 98 (4.6%) | 13 (0.6%) | 86 (4.0%) | 0 (0.0%) |
+| network-phase | 131 | 0 | 0 | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+--- placebo b 11:21:25
+1720 programs (0 errors), 2845 interaction-free views compared with an independent interaction-free run of the same program. Any flag is false by construction.
+
+**False flags: 1 / 2845**
+
+| view family | views | FALSE FLAGS | screen emergent in >= 2 of 3 seeds | per seed-run: generic >= 0.5 | model-free complexity | consensus gain | avalanche |
+|---|---|---|---|---|---|---|---|
+| agents | 399 | 1 | 19 | 119 (5.0%) | 22 (0.9%) | 0 (0.0%) | 0 (0.0%) |
+| field | 1000 | 0 | 602 | 3615 (60.2%) | 689 (11.5%) | 0 (0.0%) | 0 (0.0%) |
+| grid | 794 | 0 | 3 | 30 (0.6%) | 1 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+| lattice-phase | 166 | 0 | 0 | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+| network | 355 | 0 | 16 | 98 (4.6%) | 12 (0.6%) | 86 (4.0%) | 0 (0.0%) |
+| network-phase | 131 | 0 | 0 | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) | 0 (0.0%) |
+--- gate 1 (seed offset 5000011) 11:45:23
+## Criteria
+
+- PASS — F0 fingerprint errors = 0
+- PASS — P1 verified examples flagged = 465 / 474 (need >= 90%)
+- PASS — P3 names the run does not show = 0 (implementation check)
+- PASS — C1 names whose behaviour survives the interaction knock-out = 0 / 465
+- PASS — N1 verified trivial/disordered interacting negatives flagged = 0 / 311
+- PASS — N2 interaction-free flagged = 0 / 400 (consistency check)
+- (reported) primary name = own behaviour: 396 / 465 (85%; target >= 80%)
+- (reported) P4 novelty-risk: withheld-class examples still given a primary name = 1 / 465 (named behaviour genuinely co-present in 1)
+**GATE: PASS**
+--- gate 2 (seed offset 6000017) 11:51:02
+## Criteria
+
+- PASS — F0 fingerprint errors = 0
+- PASS — P1 verified examples flagged = 465 / 474 (need >= 90%)
+- PASS — P3 names the run does not show = 0 (implementation check)
+- PASS — C1 names whose behaviour survives the interaction knock-out = 0 / 465
+- PASS — N1 verified trivial/disordered interacting negatives flagged = 0 / 311
+- PASS — N2 interaction-free flagged = 0 / 400 (consistency check)
+- (reported) primary name = own behaviour: 396 / 465 (85%; target >= 80%)
+- (reported) P4 novelty-risk: withheld-class examples still given a primary name = 1 / 465 (named behaviour genuinely co-present in 1)
+**GATE: PASS**
+--- gate 3 (seed offset 7000003) 11:56:25
+## Criteria
+
+- PASS — F0 fingerprint errors = 0
+- PASS — P1 verified examples flagged = 465 / 474 (need >= 90%)
+- PASS — P3 names the run does not show = 0 (implementation check)
+- PASS — C1 names whose behaviour survives the interaction knock-out = 0 / 465
+- PASS — N1 verified trivial/disordered interacting negatives flagged = 0 / 312
+- PASS — N2 interaction-free flagged = 0 / 400 (consistency check)
+- (reported) primary name = own behaviour: 396 / 465 (85%; target >= 80%)
+- (reported) P4 novelty-risk: withheld-class examples still given a primary name = 1 / 465 (named behaviour genuinely co-present in 1)
+**GATE: PASS**
+--- gate 4 (seed offset 8000009) 12:02:20
+## Criteria
+
+- PASS — F0 fingerprint errors = 0
+- PASS — P1 verified examples flagged = 465 / 474 (need >= 90%)
+- PASS — P3 names the run does not show = 0 (implementation check)
+- PASS — C1 names whose behaviour survives the interaction knock-out = 0 / 465
+- PASS — N1 verified trivial/disordered interacting negatives flagged = 0 / 312
+- PASS — N2 interaction-free flagged = 0 / 400 (consistency check)
+- (reported) primary name = own behaviour: 396 / 465 (85%; target >= 80%)
+- (reported) P4 novelty-risk: withheld-class examples still given a primary name = 1 / 465 (named behaviour genuinely co-present in 1)
+**GATE: PASS**
+--- rehearsal g1 12:08:03
+914 programs; 415 with a flagged view; errors 0; fingerprint errors 0 (must be 0).
+Flagged views: 415 = 179 named + 69 known-behaviour-atypical-look (review) + 167 unnamed in 18 classes (literature check).
+--- rehearsal g2 12:22:42
+564 programs; 73 with a flagged view; errors 0; fingerprint errors 0 (must be 0).
+Flagged views: 73 = 20 named + 17 known-behaviour-atypical-look (review) + 36 unnamed in 6 classes (literature check).
+--- enumeration g1<=22 12:27:33
+g1<=22 289798
+ALL DONE 2026-10-02 12:40:49

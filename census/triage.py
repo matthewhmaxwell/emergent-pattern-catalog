@@ -1,6 +1,6 @@
 """Census triage (validated pipeline): name flagged views, build the behaviour map with routes, group the rest.
 
-  python -m census.triage <run_dir> --lib census/reflib/<name>/library.json [--threshold 12]
+  python -m census.triage <run_dir> --lib census/reflib/<name>/library.json [--radius 7]
 
 Input: runner rows (census.runner) — per program, per view: flagged?, per-seed fingerprint + textbook measures.
 1. NAME every flagged view with census.namer.CensusNamer (the gate-validated nearest-example namer + name-then-
@@ -11,8 +11,13 @@ Input: runner rows (census.runner) — per program, per view: flagged?, per-seed
    with a count and the shortest example. Ingredients common to all routes are listed (necessary-ingredient hint).
 3. REVIEW: views that pass a known behaviour's textbook measure but do not look like its library examples
    (KNOWN-BEHAVIOUR-ATYPICAL-LOOK) — a possible new twist on a known behaviour.
-4. UNNAMED: views with no name at all, grouped by fingerprint (Ward clustering per substrate family, robust z,
-   distance threshold T) into behaviour classes for the literature check (census/LITCHECK_PROTOCOL.md).
+4. UNNAMED: views with no name at all, grouped by fingerprint into behaviour classes for the literature check
+   (census/LITCHECK_PROTOCOL.md): per substrate family, robust z, FIXED-RADIUS leader grouping in census order —
+   a view founds a class unless a class founder is within the radius, then every view joins its nearest founder,
+   so each class is represented by its shortest program. (Ward linkage with a fixed threshold was used in the
+   pilot; its heights grow with cluster size, so the same blob splits into ever more classes as the run grows —
+   census.t_groupscale: 6 -> 17 -> 29 classes at 1x/10x/40x vs 7 -> 9 -> 9 with radius 7. Radius 7 reproduces the
+   pilot's Ward grouping at rehearsal size: 17 vs 17, 18 vs 15, 5 vs 5 classes.)
 Outputs triage.json + TRIAGE.md in the run directory.
 """
 import argparse, collections, glob, json, os, re, time
@@ -45,18 +50,22 @@ def mean_fp(seeds):
     return {k: float(np.mean([f.get(k, 0.0) for f in fps])) for k in keys}
 
 
-def cluster(items, threshold):
-    """items: [(row, view, fp)] of one family -> cluster labels."""
-    from scipy.cluster.hierarchy import linkage, fcluster
+def cluster(items, radius):
+    """items: [(row, view, fp)] of one family, in census order (shortest first) -> class labels 1..K (K in order of
+    founding, so class 1 has the shortest founder). Memory O(n * K), not O(n^2)."""
     if len(items) == 1: return np.array([1])
     keys = sorted(set().union(*[f for *_, f in items]))
     X = np.array([[f.get(k, 0.0) for k in keys] for *_, f in items], float); med, sc = robust(X)
-    return fcluster(linkage(np.clip((X - med) / sc, -8, 8), "ward"), t=threshold, criterion="distance")
+    Z = np.clip((X - med) / sc, -8, 8); lead = [0]
+    for i in range(1, len(Z)):
+        if np.sqrt(((Z[lead] - Z[i]) ** 2).sum(1)).min() > radius: lead.append(i)
+    C = Z[lead]
+    return np.array([int(np.sqrt(((C - z) ** 2).sum(1)).argmin()) + 1 for z in Z])
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("run"); ap.add_argument("--lib", required=True)
-    ap.add_argument("--threshold", type=float, default=12.0); a = ap.parse_args()
+    ap.add_argument("--radius", type=float, default=7.0); a = ap.parse_args()
     rows = load(a.run); namer = CensusNamer(a.lib)
     named, review, unnamed = [], [], collections.defaultdict(list)
     for r in rows:
@@ -94,7 +103,7 @@ def main():
                                      key=lambda x: (x["shortest_len"], -x["programs"]))}
     clusters = []
     for fam, items in sorted(unnamed.items()):
-        lab = cluster(items, a.threshold)
+        items.sort(key=lambda x: (x[0]["len"], x[0]["idx"])); lab = cluster(items, a.radius)
         for c in sorted(set(lab)):
             mem = sorted([items[i] for i in np.flatnonzero(lab == c)], key=lambda x: (x[0]["len"], x[0]["idx"]))
             clusters.append({"id": f"{fam}-{c}", "family": fam, "size": len(mem), "shortest_len": mem[0][0]["len"],

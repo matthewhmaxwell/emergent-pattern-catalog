@@ -182,9 +182,14 @@ def network_channels(history, adj):
     return float(cand[kind]), kind, {"agree_z": round(z, 3), "consensus_gain": round(cg, 4), "oscillation": round(osc, 4)}
 
 
-def screen(history, adj=None, network=False):
+def screen(history, adj=None, network=False, complexity=True):
     """generic emergence + model-free complexity; network node-state views use network_channels instead of the
-    generic score unless the generic lens is the NETWORK-structure one (rewiring graphs: modularity / fragmentation)."""
+    generic score unless the generic lens is the NETWORK-structure one (rewiring graphs: modularity / fragmentation).
+    complexity=False (PHASE views): the model-free complexity channel is not used. On oscillator phases it is a coin
+    flip — it fired on 37-40% of UNCOUPLED oscillator runs (census.placebo, 2026-10-02: 465 / 1206 seed-runs) and on
+    only 20-47% of clearly locked ones (census.t_phase_noise), which made 23 / 201 interaction-free phase views look
+    interaction-driven. The generic score separates them cleanly (0 / 1206 uncoupled runs >= 0.5; locked runs >= 0.8).
+    The raw value is still returned as is_complex_raw."""
     from epc.phase2a.emergence import generic_emergence
     from epc.phase2a.novelty_tripwire import model_free_complexity
     try:
@@ -201,9 +206,10 @@ def screen(history, adj=None, network=False):
         nsc, nkind, extra = network_channels(history, adj)
         sc, kind = (gsc, kind) if gsc >= nsc else (nsc, nkind)
     cg = _consensus_gain(history) if not network else 0.0             # (network: already inside network_channels)
-    return {"em_score": round(sc, 4), "em_kind": kind, "is_complex": bool(mf.get("is_complex")),
+    cx = bool(mf.get("is_complex")) and complexity
+    return {"em_score": round(sc, 4), "em_kind": kind, "is_complex": cx, "is_complex_raw": bool(mf.get("is_complex")),
             "C": mf.get("C"), "psi": mf.get("psi"), "collapsed": mf.get("collapsed"), "consensus_gain": round(cg, 4),
-            "emergent": bool(sc >= 0.5 or mf.get("is_complex") or cg >= 0.2), **extra}
+            "emergent": bool(sc >= 0.5 or cx or cg >= 0.2), **extra}
 
 
 def known(history, metadata):

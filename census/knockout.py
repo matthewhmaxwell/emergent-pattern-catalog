@@ -10,7 +10,9 @@ Kept in the knock-out: one-way rules (spontaneous flips, decay, feed, emission, 
 K = 0 rather than removed, so the phase view still exists to compare.
 
 Decision per view (final form; "does the detected emergence signal disappear?"), PAIRED over ALL seeds:
-  evidence e = max(screen score, 1 if model-free complexity fired, min(1, consensus gain / 0.4)) per seed.
+  evidence e = max(generic screen score, min(1, consensus gain / 0.4)) per seed — continuous channels only; the
+  yes/no model-free complexity flag is NOT evidence (placebo test, 2026-10-02: it is a coin flip on several kinds
+  of interaction-free data, and one random yes among 3 seeds fakes an evidence drop).
   d_s = e_real(s) - e_knockout(s) for every seed s (same seeds in both runs).
   interaction-driven  <=>  knock-out view absent
       OR  mean(d) >= DROP_MIN  AND  mean(d) >= Z_MIN * max(sd(d) / sqrt(S), 0.02)                    [route A]
@@ -24,7 +26,9 @@ Decision per view (final form; "does the detected emergence signal disappear?"),
   Lessons that shaped it: the knock-out's own screen FLAG must not be used (round 10); "any feature changed" lets
   trivial side effects through (round 10c); uncoupled oscillators need the order route (round 11); comparing only
   the seeds where the REAL run is emergent is a selection bias (final gate: a coin-flip screen on network noise made
-  a null look interaction-driven) -> the test is paired over all seeds.
+  a null look interaction-driven) -> the test is paired over all seeds. With 3 seeds the paired test cannot protect
+  against a screen channel that fires at random (second final gate + placebo: model-free complexity on oscillator
+  phases) -> every channel must be quiet on interaction-free data, which census.placebo now measures directly.
 """
 import numpy as np
 from census import grammar_g1 as G
@@ -76,12 +80,17 @@ def per_seed_view_results(out, p):
             elif name == "N":                                   # node states: network channels need the graph
                 adj = out["adj0"][s] if "adj0" in out else hist[-1]["adjacency"]
                 sc = FL.screen(th, adj=adj, network=True)
-            else: sc = FL.screen(th)
+            else: sc = FL.screen(th, complexity=not name.endswith("phase"))   # phases: generic score only
             fp = fingerprint(name, th, adj0=out["adj0"][s].astype(np.int64) if "adj0" in out else None) if name != "C.aval" else {}
-            ev = max(float(sc.get("em_score") or 0.0), 1.0 if sc.get("is_complex") else 0.0,
-                     min(1.0, float(sc.get("consensus_gain") or 0.0) / 0.4))
+            # evidence for the knock-out comparison: CONTINUOUS channels only. The yes/no model-free complexity
+            # flag still counts for "emergent" (non-phase views) but not here: it fires at in-between rates on
+            # interaction-free data (placebo: 40% of uncoupled oscillators, 256 / 942 field nulls, static agents),
+            # and one random yes/no among 3 seeds is enough to fake an evidence drop.
+            ev = max(float(sc.get("em_score") or 0.0), min(1.0, float(sc.get("consensus_gain") or 0.0) / 0.4))
             res.setdefault(name, []).append({"emergent": bool(sc["emergent"]), "fp": fp, "em_score": sc.get("em_score"),
-                                             "evidence": ev})
+                                             "evidence": ev, "em_kind": sc.get("em_kind"),
+                                             "is_complex": bool(sc.get("is_complex")),
+                                             "consensus_gain": float(sc.get("consensus_gain") or 0.0)})
     return res
 
 
