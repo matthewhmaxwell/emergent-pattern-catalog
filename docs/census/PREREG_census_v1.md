@@ -1,6 +1,7 @@
 # EPC Emergence Census — pre-registration v1
 
-**Owner:** Matt Maxwell · **Status:** DRAFT for owner approval — nothing is registered or run until approved
+**Owner:** Matt Maxwell · **Status:** APPROVED by the owner on 2026-10-11 and registered on OSF (embargoed until
+the results are reported) before any census program was run
 **Code:** branch `emergence-census` of the EPC repository; frozen commit and file hashes in §12
 
 ## 1. Plain summary
