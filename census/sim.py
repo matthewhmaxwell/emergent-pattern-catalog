@@ -390,13 +390,13 @@ class State:
             z = np.exp(1j * self.Cph); zs = sum(_roll(z, dy, dx) for dy, dx in MOORE) / 8.0
             self.Cph = np.where(M, self.Cph + self.Com + a["K"] * np.imag(np.conj(z) * zs), self.Cph)
         elif act == "ADD_GRAIN":
-            h = C.astype(np.int16) + M; sizes = np.zeros(self.S, int)
+            h = C.astype(np.int16) + M; sizes = np.zeros(self.S, int); dur = np.zeros(self.S, int)   # dur: see _C_SAND (DEVIATION 1)
             for _ in range(SAND_MAXIT):
                 top = h >= 4
                 if not top.any(): break
-                sizes += top.sum((1, 2)); h -= 4 * top; t = top.astype(np.int16)
+                sizes += top.sum((1, 2)); dur += top.any((1, 2)); h -= 4 * top; t = top.astype(np.int16)
                 h[:, 1:, :] += t[:, :-1, :]; h[:, :-1, :] += t[:, 1:, :]; h[:, :, 1:] += t[:, :, :-1]; h[:, :, :-1] += t[:, :, 1:]
-            self.C = np.minimum(h, 3).astype(np.int8); self.aval.append(sizes)
+            self.C = np.minimum(h, 3).astype(np.int8); self.aval.append(sizes); self.aval_dur.append(dur)
         elif act == "EMIT": self.F[:, a["f"]] += a["amt"] * M
 
     def _g2_A(self, r, c, a):
