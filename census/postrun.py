@@ -317,7 +317,7 @@ def plain_rule(L):
 
 
 def ask(client, model, text):
-    msg = client.messages.create(model=model, max_tokens=4500,
+    msg = client.messages.create(model=model, max_tokens=8000,
         tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 10}],
         messages=[{"role": "user", "content": text}])
     body = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
