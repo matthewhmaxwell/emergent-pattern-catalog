@@ -1,0 +1,184 @@
+{
+ "run": "census/runs/census_v1_g1",
+ "library": "census/reflib/census_v3/library.json",
+ "generated": "2026-10-26 21:58",
+ "radius": 7.0,
+ "equivalence_mismatches": 0,
+ "equivalence_sample": 3000,
+ "behaviours": [
+  {
+   "behaviour": "cyclic waves and spirals",
+   "held_classes": [
+    "cyclic-CA waves/spirals"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 1309,
+   "views_named_primary": 930,
+   "unnamed": 792,
+   "review_as_other": 517,
+   "named_as_other": 0,
+   "groups_in_family": 30,
+   "groups_led_by_behaviour": 2,
+   "views_in_led_groups": 342,
+   "shortest_led_rep_bits": 13,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "domain coarsening",
+   "held_classes": [
+    "majority-rule coarsening",
+    "voter coarsening"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 23542,
+   "views_named_primary": 15851,
+   "unnamed": 21140,
+   "review_as_other": 1391,
+   "named_as_other": 1011,
+   "groups_in_family": 36,
+   "groups_led_by_behaviour": 16,
+   "views_in_led_groups": 11095,
+   "shortest_led_rep_bits": 11,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "flocking",
+   "held_classes": [
+    "flocking"
+   ],
+   "families": [
+    "agents"
+   ],
+   "views": 19080,
+   "views_named_primary": 3898,
+   "unnamed": 19080,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 11,
+   "groups_led_by_behaviour": 6,
+   "views_in_led_groups": 18468,
+   "shortest_led_rep_bits": 14,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "lattice phase locking",
+   "held_classes": [
+    "lattice phase locking"
+   ],
+   "families": [
+    "lattice-phase"
+   ],
+   "views": 9356,
+   "views_named_primary": 7830,
+   "unnamed": 9356,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 2,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 9356,
+   "shortest_led_rep_bits": 9,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network consensus",
+   "held_classes": [
+    "network voter consensus"
+   ],
+   "families": [
+    "network"
+   ],
+   "views": 6198,
+   "views_named_primary": 3542,
+   "unnamed": 6180,
+   "review_as_other": 18,
+   "named_as_other": 0,
+   "groups_in_family": 20,
+   "groups_led_by_behaviour": 6,
+   "views_in_led_groups": 6121,
+   "shortest_led_rep_bits": 10,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network fragmentation",
+   "held_classes": [
+    "co-evolving network fragmentation"
+   ],
+   "families": [
+    "network"
+   ],
+   "views": 2751,
+   "views_named_primary": 1372,
+   "unnamed": 2733,
+   "review_as_other": 18,
+   "named_as_other": 0,
+   "groups_in_family": 8,
+   "groups_led_by_behaviour": 2,
+   "views_in_led_groups": 1824,
+   "shortest_led_rep_bits": 11,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network synchronization",
+   "held_classes": [
+    "network synchronization"
+   ],
+   "families": [
+    "network-phase"
+   ],
+   "views": 4002,
+   "views_named_primary": 2335,
+   "unnamed": 4002,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 2,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 3865,
+   "shortest_led_rep_bits": 9,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "segregation with vacancies",
+   "held_classes": [
+    "Schelling segregation"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 5608,
+   "views_named_primary": 3205,
+   "unnamed": 3773,
+   "review_as_other": 1219,
+   "named_as_other": 616,
+   "groups_in_family": 35,
+   "groups_led_by_behaviour": 4,
+   "views_in_led_groups": 3414,
+   "shortest_led_rep_bits": 11,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "spatial game chaos",
+   "held_classes": [
+    "spatial PD chaos (Nowak-May)"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 688,
+   "views_named_primary": 0,
+   "unnamed": 597,
+   "review_as_other": 91,
+   "named_as_other": 0,
+   "groups_in_family": 30,
+   "groups_led_by_behaviour": 2,
+   "views_in_led_groups": 29,
+   "shortest_led_rep_bits": 18,
+   "reaches_literature_check": true
+  }
+ ],
+ "avalanche_views_detector_named": 151,
+ "note": "post-registration exploratory sensitivity analysis; frozen census modules unchanged"
+}

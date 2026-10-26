@@ -1,0 +1,1065 @@
+[
+ {
+  "class_id": "ctrl:K01",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 100x100 lattice of cells (wrap-around edges), all cells white at the start, plus one mobile walker on a cell with a heading. Rules each step: (1) on a white cell the walker turns 90 degrees right, on a black cell 90 degrees left; (2) it flips the colour of the cell it is on; (3) it moves forward one cell.",
+  "also_in_class_plain": [
+   "Same rules on a 200x200 lattice.",
+   "Same rules, walker starts on a random black-and-white lattice."
+  ],
+  "observed": [
+   {
+    "feature": "g_spec_peak",
+    "value": 6.1
+   },
+   {
+    "feature": "g_moran_trend",
+    "value": 2.4
+   },
+   {
+    "feature": "g_corrlen",
+    "value": 3.0
+   },
+   {
+    "feature": "g_activity_cv",
+    "value": 2.2
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K02",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (dead/alive; 30% alive at random start). Rules each step, all cells at once: a dead cell with exactly 3 alive neighbours becomes alive; an alive cell with 2 or 3 alive neighbours stays alive; every other cell becomes dead.",
+  "also_in_class_plain": [
+   "Same rules, 10% alive at start.",
+   "Same rules on a 128x128 lattice."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_trend",
+    "value": -3.5
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 6.2
+   },
+   {
+    "feature": "g_activity_cv",
+    "value": 2.8
+   },
+   {
+    "feature": "g_reversals",
+    "value": 4.1
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 3.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K03",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (ready, firing, refractory; random start). Rules each step, all cells at once: a ready cell fires if exactly 2 of its 8 neighbours are firing; a firing cell becomes refractory; a refractory cell becomes ready.",
+  "also_in_class_plain": [
+   "Same rules, 5% firing at start."
+  ],
+  "observed": [
+   {
+    "feature": "g_cyclic_changes",
+    "value": 7.0
+   },
+   {
+    "feature": "g_activity",
+    "value": 3.9
+   },
+   {
+    "feature": "g_activity_cv",
+    "value": -1.2
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 5.6
+   },
+   {
+    "feature": "g_moran",
+    "value": 0.3
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K04",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (empty, tree, burning; random start). Rules each step: (1) a burning cell becomes empty; (2) a tree with a burning neighbour starts burning; (3) a tree catches fire spontaneously with probability 0.0001; (4) an empty cell grows a tree with probability 0.01.",
+  "also_in_class_plain": [
+   "Same rules, spontaneous fire probability 0.00005.",
+   "Same rules, tree growth probability 0.02."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_cv",
+    "value": 6.0
+   },
+   {
+    "feature": "g_cyclic_changes",
+    "value": 5.1
+   },
+   {
+    "feature": "g_corrlen",
+    "value": 2.7
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 3.8
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K05",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a ring of 200 cells (each with 2 neighbours). Each cell holds a number between 0 and 1 (uniform random start). Rules each step: the cell with the lowest number and its two neighbours each get a new uniform random number.",
+  "also_in_class_plain": [
+   "Same rules on a ring of 500 cells."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_cv",
+    "value": 4.5
+   },
+   {
+    "feature": "g_corrlen",
+    "value": 2.0
+   },
+   {
+    "feature": "g_moran_trend",
+    "value": 1.6
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K06",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 32x32 lattice of cells (no wrap-around, 4 neighbours each). Each cell holds 5 features, each with one of 10 traits (random start). Rules each step: a random cell picks a random neighbour; with probability equal to the fraction of features they share, it copies one feature on which they differ.",
+  "also_in_class_plain": [
+   "Same rules, 15 traits per feature.",
+   "Same rules, 3 features."
+  ],
+  "observed": [
+   {
+    "feature": "g_n_domains",
+    "value": 5.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 2.1
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -4.0
+   },
+   {
+    "feature": "g_moran",
+    "value": 4.4
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K07",
+  "stage": "control",
+  "family": "network",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 500 nodes, every pair can meet (well mixed). Each node holds an opinion between 0 and 1 (uniform random start). Rules each step: a random pair meets; if their opinions differ by less than 0.2, each moves halfway toward the other.",
+  "also_in_class_plain": [
+   "Same rules, threshold 0.3.",
+   "Same rules, each moves a quarter of the way."
+  ],
+  "observed": [
+   {
+    "feature": "n_consensus_gain",
+    "value": 3.1
+   },
+   {
+    "feature": "n_type_entropy",
+    "value": -2.2
+   },
+   {
+    "feature": "n_oscillation",
+    "value": -1.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K08",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a ring road of 1000 cells with 300 cars, each with a speed from 0 to 5. Rules each step, all cars at once: (1) speed up by 1 if below 5; (2) slow to the number of empty cells ahead if that is smaller; (3) with probability 0.3 slow down by 1; (4) move forward by the speed.",
+  "also_in_class_plain": [
+   "Same rules, 200 cars.",
+   "Same rules, braking probability 0.1."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_cv",
+    "value": 3.0
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 4.2
+   },
+   {
+    "feature": "g_moran",
+    "value": 3.6
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 2.5
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K09",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (bare ground, dark daisy, light daisy; random start). Each cell's local temperature is set by incoming sunlight and the albedo of its own type and its neighbours (dark absorbs more). Rules each step: a daisy dies with probability 0.3; a bare cell next to a daisy becomes that daisy type with probability given by a growth curve that peaks at 22.5 C; sunlight increases slowly over the run.",
+  "also_in_class_plain": [
+   "Same rules, faster increase of sunlight."
+  ],
+  "observed": [
+   {
+    "feature": "g_n_types",
+    "value": 3.0
+   },
+   {
+    "feature": "g_moran",
+    "value": 3.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 1.5
+   },
+   {
+    "feature": "g_type_entropy",
+    "value": 1.4
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K10",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 128x128 lattice of cells (wrap-around edges, 4 neighbours each). Cells have 2 types (healthy, infected; half infected at start). Rules, in continuous time: an infected cell recovers at rate 1 and infects each healthy neighbour at rate 0.41 (total infection rate 1.64).",
+  "also_in_class_plain": [
+   "Same rules, infection rate 0.40 per neighbour.",
+   "Same rules on a 256x256 lattice."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_cv",
+    "value": 4.0
+   },
+   {
+    "feature": "g_corrlen",
+    "value": 5.5
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -1.8
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 3.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K11",
+  "stage": "control",
+  "family": "network-phase",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a scale-free network of 1000 nodes (preferential attachment, 3 links per new node). Each node is a phase oscillator whose natural frequency equals its number of links. Rules each step: each oscillator's phase advances by its natural frequency plus coupling 1.5 times the mean sine of the phase differences to its neighbours.",
+  "also_in_class_plain": [
+   "Same rules, coupling 1.2.",
+   "Same rules, coupling 2.0."
+  ],
+  "observed": [
+   {
+    "feature": "p_r",
+    "value": 4.5
+   },
+   {
+    "feature": "p_r_std",
+    "value": 3.8
+   },
+   {
+    "feature": "p_freq_spread",
+    "value": 5.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K12",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 128x128 lattice of cells (wrap-around edges, 4 neighbours each). Cells have 4 types (empty and species A, B, C; random start). Rules, in continuous time with random neighbour pairs: A replaces a neighbouring B with an empty cell, B does the same to C, C to A (rate 1 each); any species reproduces into a neighbouring empty cell (rate 1); any two neighbours swap places at rate 50.",
+  "also_in_class_plain": [
+   "Same rules, swap rate 5 (low mobility)."
+  ],
+  "observed": [
+   {
+    "feature": "g_cyclic_changes",
+    "value": 4.0
+   },
+   {
+    "feature": "g_n_types",
+    "value": 1.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 6.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -3.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K13",
+  "stage": "control",
+  "family": "network",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a scale-free network of 1000 nodes (preferential attachment, 2 links per new node). Node types: cooperator or defector (half each at random). Rules each step: every node plays a prisoner's dilemma with each neighbour (temptation 1.6); then each node copies a random neighbour's type with probability proportional to how much higher that neighbour's total payoff is.",
+  "also_in_class_plain": [
+   "Same rules, temptation 1.8.",
+   "Same rules on a random network of the same mean degree."
+  ],
+  "observed": [
+   {
+    "feature": "n_consensus_gain",
+    "value": 2.5
+   },
+   {
+    "feature": "n_degree_cv",
+    "value": 4.0
+   },
+   {
+    "feature": "n_type_entropy",
+    "value": -2.5
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K14",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 500 agents in the plane, each with a position and an internal phase. Rules each step: each agent moves toward others with an attraction that is stronger when their phases are similar (strength 1) and away from very close agents; each phase is pulled toward neighbours' phases with coupling -0.5, weighted by inverse distance.",
+  "also_in_class_plain": [
+   "Same rules, phase coupling -0.75."
+  ],
+  "observed": [
+   {
+    "feature": "a_milling",
+    "value": 3.2
+   },
+   {
+    "feature": "p_local_r",
+    "value": 3.5
+   },
+   {
+    "feature": "p_r",
+    "value": 0.1
+   },
+   {
+    "feature": "a_nn_ratio",
+    "value": 0.4
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K15",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges) with 400 scattered items of 2 kinds and 20 mobile walkers. Rules each step: each walker steps to a random neighbouring cell; an unladen walker picks up an item with probability (0.1/(0.1+f))^2, and a laden walker drops its item with probability (f/(0.3+f))^2, where f is the fraction of items of the same kind it met in its last 10 steps.",
+  "also_in_class_plain": [
+   "Same rules, 1 kind of item.",
+   "Same rules, 40 walkers."
+  ],
+  "observed": [
+   {
+    "feature": "g_moran",
+    "value": 5.5
+   },
+   {
+    "feature": "g_n_domains",
+    "value": -2.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 2.0
+   },
+   {
+    "feature": "g_moran_trend",
+    "value": 3.1
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K16",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 400 self-propelled agents moving in a wrap-around 20x20 square. Rules each step: each agent turns away from agents within distance 1; otherwise it aligns with agents between 1 and 2 and moves toward agents between 2 and 15, ignoring agents in a 90-degree blind zone behind it; speed 3, turning rate limited to 40 degrees per step, heading noise 0.05 rad.",
+  "also_in_class_plain": [
+   "Same rules, alignment zone up to 2.5."
+  ],
+  "observed": [
+   {
+    "feature": "a_milling",
+    "value": 6.5
+   },
+   {
+    "feature": "a_polar",
+    "value": 0.1
+   },
+   {
+    "feature": "a_nn_ratio",
+    "value": 0.3
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K17",
+  "stage": "control",
+  "family": "lattice-phase",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a ring of 256 identical phase oscillators. Rules each step: each phase advances by 1 plus a coupling to every other oscillator, weighted by exp(-4 x distance along the ring) and shifted by a phase lag of 1.46 rad.",
+  "also_in_class_plain": [
+   "Same rules, phase lag 1.40.",
+   "Same rules, 512 oscillators."
+  ],
+  "observed": [
+   {
+    "feature": "p_local_r",
+    "value": 4.0
+   },
+   {
+    "feature": "p_r_std",
+    "value": 2.0
+   },
+   {
+    "feature": "p_r",
+    "value": 1.2
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K18",
+  "stage": "control",
+  "family": "field",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 128x128 field (wrap-around edges) holding a value between 0 and 1 per cell (random patch at start). Rules each step: each cell's value changes by 0.1 times a growth function of the ring-weighted average of values within radius 13 (growth peaks when that average is 0.15, width 0.015), clipped to [0, 1].",
+  "also_in_class_plain": [
+   "Same rules, growth peak 0.14."
+  ],
+  "observed": [
+   {
+    "feature": "f_moran",
+    "value": 5.0
+   },
+   {
+    "feature": "f_peak_sharp",
+    "value": 4.5
+   },
+   {
+    "feature": "g_activity",
+    "value": 1.8
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K19",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a ring of 400 cells (2 neighbours each), 2 types (random start). Rules each step, all cells at once: a cell's new type is given by Wolfram's elementary rule 110 applied to itself and its two neighbours.",
+  "also_in_class_plain": [
+   "Same rule on a ring of 1000 cells."
+  ],
+  "observed": [
+   {
+    "feature": "g_n_domains",
+    "value": 4.0
+   },
+   {
+    "feature": "g_activity_cv",
+    "value": 2.5
+   },
+   {
+    "feature": "g_reversals",
+    "value": 3.0
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 2.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:K20",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules each step: pick a random pair of neighbouring cells; if they have the same type, all of the pair's other neighbours adopt that type.",
+  "also_in_class_plain": [
+   "Same rules, 3 types."
+  ],
+  "observed": [
+   {
+    "feature": "g_largest_domain",
+    "value": 5.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -3.0
+   },
+   {
+    "feature": "g_moran",
+    "value": 4.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F01",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules each step: each cell, with probability 0.1, adopts the type held by the majority of its 8 neighbours.",
+  "also_in_class_plain": [
+   "Same rules, probability 0.2."
+  ],
+  "observed": [
+   {
+    "feature": "g_cyclic_changes",
+    "value": 6.0
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 5.5
+   },
+   {
+    "feature": "g_moran",
+    "value": -0.5
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 7.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": 2.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F02",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules each step: each cell copies the type of one random neighbour.",
+  "also_in_class_plain": [
+   "Same rules, 4 neighbours."
+  ],
+  "observed": [
+   {
+    "feature": "g_moran",
+    "value": -2.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": -3.0
+   },
+   {
+    "feature": "g_n_domains",
+    "value": 6.5
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": 0.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F03",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (type 0 = empty, 10% of cells; random start). Rules each step: an occupied cell whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.",
+  "also_in_class_plain": [
+   "Same rules, threshold 0.4."
+  ],
+  "observed": [
+   {
+    "feature": "g_moran",
+    "value": -1.5
+   },
+   {
+    "feature": "g_type_entropy",
+    "value": 1.0
+   },
+   {
+    "feature": "g_activity",
+    "value": 4.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": 3.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F04",
+  "stage": "control",
+  "family": "network-phase",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a random network of 400 nodes (mean degree 6). Each node is a phase oscillator with natural frequency drawn from a normal distribution (mean 0, sd 1). Rules each step: each phase advances by its natural frequency plus coupling 5 times the mean sine of the phase differences to its neighbours.",
+  "also_in_class_plain": [
+   "Same rules, coupling 4."
+  ],
+  "observed": [
+   {
+    "feature": "p_r",
+    "value": -2.5
+   },
+   {
+    "feature": "p_local_r",
+    "value": -1.0
+   },
+   {
+    "feature": "p_r_std",
+    "value": 3.5
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F05",
+  "stage": "control",
+  "family": "lattice-phase",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of phase oscillators. Natural frequencies drawn from a normal distribution (mean 0, sd 1). Rules each step: each phase advances by its own natural frequency; there is no coupling between oscillators.",
+  "also_in_class_plain": [
+   "Same rules on a 32x32 lattice."
+  ],
+  "observed": [
+   {
+    "feature": "p_r",
+    "value": 5.0
+   },
+   {
+    "feature": "p_local_r",
+    "value": 5.5
+   },
+   {
+    "feature": "p_vortex_density",
+    "value": 3.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F06",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 400 self-propelled agents moving in a wrap-around 20x20 square. Rules each step: each agent takes the average heading of agents within distance 1, adds uniform heading noise spanning the full circle (2 pi rad), and moves at speed 0.3.",
+  "also_in_class_plain": [
+   "Same rules, 800 agents."
+  ],
+  "observed": [
+   {
+    "feature": "a_polar",
+    "value": 6.0
+   },
+   {
+    "feature": "a_local_align",
+    "value": 5.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F07",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 400 self-propelled agents moving in a wrap-around 20x20 square. Rules each step: each agent takes the average heading of agents within distance 1, adds heading noise of up to 0.1 rad, and moves at speed 0.3.",
+  "also_in_class_plain": [
+   "Same rules, 800 agents."
+  ],
+  "observed": [
+   {
+    "feature": "a_polar",
+    "value": -2.0
+   },
+   {
+    "feature": "a_milling",
+    "value": 6.0
+   },
+   {
+    "feature": "a_nn_ratio",
+    "value": 0.2
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F08",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start), ordered in a cycle. Rules each step, all cells at once: a cell adopts the next type in the cycle if at least 1 of its 8 neighbours already has that next type.",
+  "also_in_class_plain": [
+   "Same rules, 5 types."
+  ],
+  "observed": [
+   {
+    "feature": "g_cyclic_changes",
+    "value": -1.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 6.5
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -4.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F09",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (cooperator, defector; half each at random). Rules each step: every cell plays a prisoner's dilemma with its 8 neighbours and itself (temptation 1.2, sucker payoff 0); then every cell copies the type of the highest-scoring cell in its neighbourhood.",
+  "also_in_class_plain": [
+   "Same rules, temptation 1.3."
+  ],
+  "observed": [
+   {
+    "feature": "g_n_types",
+    "value": 1.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 7.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -5.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F10",
+  "stage": "control",
+  "family": "network",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a random network of 400 nodes (mean degree 6). Node types: 2 opinions (random start). Rules each step: a random node picks a random neighbour of a different opinion; with probability 0.95 it cuts that link and links to a random node of its own opinion, otherwise it adopts the neighbour's opinion.",
+  "also_in_class_plain": [
+   "Same rules, rewiring probability 0.9."
+  ],
+  "observed": [
+   {
+    "feature": "n_consensus_gain",
+    "value": 4.0
+   },
+   {
+    "feature": "n_giant",
+    "value": 1.0
+   },
+   {
+    "feature": "n_components",
+    "value": -2.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F11",
+  "stage": "control",
+  "family": "network",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a random network of 400 nodes (mean degree 6). Node types: 2 opinions (random start). Rules each step: a random node copies the opinion of a random neighbour.",
+  "also_in_class_plain": [
+   "Same rules, mean degree 10."
+  ],
+  "observed": [
+   {
+    "feature": "n_oscillation",
+    "value": 5.0
+   },
+   {
+    "feature": "n_cyclic_changes",
+    "value": 4.5
+   },
+   {
+    "feature": "n_consensus_gain",
+    "value": -2.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F12",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 400 self-propelled agents moving in a wrap-around 20x20 square. Agents have 2 types (random start). Rules each step: each agent turns toward the centre of mass of all agents within distance 3 regardless of type, with heading noise 0.3 rad, and moves at speed 0.3.",
+  "also_in_class_plain": [
+   "Same rules, 3 types."
+  ],
+  "observed": [
+   {
+    "feature": "a_type_segregation",
+    "value": 6.0
+   },
+   {
+    "feature": "a_nn_ratio",
+    "value": 0.3
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F13",
+  "stage": "control",
+  "family": "agents",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: 400 self-propelled agents moving in a wrap-around 20x20 square. Rules each step: each agent turns directly away from the nearest agent within distance 1.5 (otherwise keeps its heading), with heading noise 0.3 rad, and moves at speed 0.3.",
+  "also_in_class_plain": [
+   "Same rules, repulsion distance 2."
+  ],
+  "observed": [
+   {
+    "feature": "a_nn_ratio",
+    "value": 0.1
+   },
+   {
+    "feature": "a_polar",
+    "value": 4.0
+   },
+   {
+    "feature": "a_local_align",
+    "value": 3.5
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F14",
+  "stage": "control",
+  "family": "field",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 grid of 2 chemical fields (wrap-around edges), random start. Rules each step: each field diffuses with coefficient 0.1; there are no reactions, sources or sinks.",
+  "also_in_class_plain": [
+   "Same rules, coefficient 0.05."
+  ],
+  "observed": [
+   {
+    "feature": "f_moran",
+    "value": 5.0
+   },
+   {
+    "feature": "f_peak_sharp",
+    "value": 6.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F15",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules each step: each cell adopts the type held by the plurality of its 8 neighbours (ties keep the current type).",
+  "also_in_class_plain": [
+   "Same rules, 4 types."
+  ],
+  "observed": [
+   {
+    "feature": "g_cyclic_changes",
+    "value": 5.5
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 6.0
+   },
+   {
+    "feature": "g_type_entropy",
+    "value": 1.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F16",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Rules each step: one grain drops on a random cell; a cell reaching 4 grains topples one grain to each of its 4 neighbours (grains fall off the edge), repeated until no cell has 4 or more.",
+  "also_in_class_plain": [
+   "Same rules on a 128x128 lattice."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_cv",
+    "value": -2.0
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 6.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F17",
+  "stage": "control",
+  "family": "network",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a random network of 400 nodes (mean degree 6). Rules each step: a random link is cut and one of its ends is reconnected to a node chosen uniformly at random.",
+  "also_in_class_plain": [
+   "Same rules, mean degree 10."
+  ],
+  "observed": [
+   {
+    "feature": "n_degree_cv",
+    "value": -3.0
+   },
+   {
+    "feature": "n_edge_turnover",
+    "value": 4.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F18",
+  "stage": "control",
+  "family": "lattice-phase",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of phase oscillators. Natural frequencies drawn from a normal distribution (mean 0, sd 1). Rules each step: each phase advances by its natural frequency plus coupling 0.1 times the mean sine of the phase differences to its 8 neighbours.",
+  "also_in_class_plain": [
+   "Same rules, coupling 0.2."
+  ],
+  "observed": [
+   {
+    "feature": "p_r",
+    "value": 4.5
+   },
+   {
+    "feature": "p_local_r",
+    "value": 4.0
+   },
+   {
+    "feature": "p_r_std",
+    "value": -1.5
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F19",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (type 0 = empty, 5% of cells; random start). Rules each step: an occupied cell whose same-type share among occupied neighbours is below 0.9 moves to a random empty cell.",
+  "also_in_class_plain": [
+   "Same rules, threshold 0.85."
+  ],
+  "observed": [
+   {
+    "feature": "g_moran",
+    "value": 5.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 4.0
+   },
+   {
+    "feature": "g_activity_trend",
+    "value": -5.0
+   }
+  ]
+ },
+ {
+  "class_id": "ctrl:F20",
+  "stage": "control",
+  "family": "grid",
+  "size": 5,
+  "shortest_len": 0,
+  "program_plain": "World: a ring of 400 cells (2 neighbours each), 2 types (random start). Rules each step, all cells at once: a cell's new type is given by Wolfram's elementary rule 30 applied to itself and its two neighbours.",
+  "also_in_class_plain": [
+   "Same rule on a ring of 1000 cells."
+  ],
+  "observed": [
+   {
+    "feature": "g_activity_trend",
+    "value": -4.0
+   },
+   {
+    "feature": "g_largest_domain",
+    "value": 6.0
+   },
+   {
+    "feature": "g_spec_peak",
+    "value": 0.0
+   }
+  ]
+ }
+]

@@ -1,0 +1,175 @@
+{
+ "run": "census/runs/census_v1_g1",
+ "library": "census/reflib/census_v3/library.json",
+ "generated": "2026-10-26 21:45",
+ "radius": 7.0,
+ "equivalence_mismatches": 0,
+ "equivalence_sample": 3000,
+ "behaviours": [
+  {
+   "behaviour": "cyclic waves and spirals",
+   "held_classes": [
+    "cyclic-CA waves/spirals"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 930,
+   "unnamed": 465,
+   "review_as_other": 465,
+   "named_as_other": 0,
+   "groups_in_family": 30,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 313,
+   "shortest_led_rep_bits": 13,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "domain coarsening",
+   "held_classes": [
+    "majority-rule coarsening",
+    "voter coarsening"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 15851,
+   "unnamed": 15218,
+   "review_as_other": 633,
+   "named_as_other": 0,
+   "groups_in_family": 36,
+   "groups_led_by_behaviour": 5,
+   "views_in_led_groups": 4260,
+   "shortest_led_rep_bits": 11,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "flocking",
+   "held_classes": [
+    "flocking"
+   ],
+   "families": [
+    "agents"
+   ],
+   "views": 3898,
+   "unnamed": 3898,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 11,
+   "groups_led_by_behaviour": 2,
+   "views_in_led_groups": 3889,
+   "shortest_led_rep_bits": 14,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "lattice phase locking",
+   "held_classes": [
+    "lattice phase locking"
+   ],
+   "families": [
+    "lattice-phase"
+   ],
+   "views": 7830,
+   "unnamed": 7830,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 2,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 7830,
+   "shortest_led_rep_bits": 9,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network consensus",
+   "held_classes": [
+    "network voter consensus"
+   ],
+   "families": [
+    "network"
+   ],
+   "views": 3542,
+   "unnamed": 3539,
+   "review_as_other": 3,
+   "named_as_other": 0,
+   "groups_in_family": 20,
+   "groups_led_by_behaviour": 4,
+   "views_in_led_groups": 3468,
+   "shortest_led_rep_bits": 10,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network fragmentation",
+   "held_classes": [
+    "co-evolving network fragmentation"
+   ],
+   "families": [
+    "network"
+   ],
+   "views": 1372,
+   "unnamed": 1372,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 8,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 292,
+   "shortest_led_rep_bits": 16,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "network synchronization",
+   "held_classes": [
+    "network synchronization"
+   ],
+   "families": [
+    "network-phase"
+   ],
+   "views": 2335,
+   "unnamed": 2335,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 2,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 2334,
+   "shortest_led_rep_bits": 9,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "segregation with vacancies",
+   "held_classes": [
+    "Schelling segregation"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 3205,
+   "unnamed": 2672,
+   "review_as_other": 533,
+   "named_as_other": 0,
+   "groups_in_family": 35,
+   "groups_led_by_behaviour": 1,
+   "views_in_led_groups": 2670,
+   "shortest_led_rep_bits": 11,
+   "reaches_literature_check": true
+  },
+  {
+   "behaviour": "spatial game chaos",
+   "held_classes": [
+    "spatial PD chaos (Nowak-May)"
+   ],
+   "families": [
+    "grid"
+   ],
+   "views": 0,
+   "unnamed": 0,
+   "review_as_other": 0,
+   "named_as_other": 0,
+   "groups_in_family": 30,
+   "groups_led_by_behaviour": 0,
+   "views_in_led_groups": 0,
+   "shortest_led_rep_bits": null,
+   "reaches_literature_check": false
+  }
+ ],
+ "avalanche_views_detector_named": 151,
+ "note": "post-registration exploratory sensitivity analysis; frozen census modules unchanged"
+}

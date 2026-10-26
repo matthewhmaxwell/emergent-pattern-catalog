@@ -1,0 +1,162 @@
+{
+ "ctrl:K01": {
+  "kind": "known",
+  "intended": "Langton's ant: highway after a chaotic transient (Langton 1986)"
+ },
+ "ctrl:K02": {
+  "kind": "known",
+  "intended": "Conway's Game of Life: decay to still lifes and oscillators (ash), with gliders"
+ },
+ "ctrl:K03": {
+  "kind": "known",
+  "intended": "Brian's Brain: abundant gliders/spaceships (Silverman)"
+ },
+ "ctrl:K04": {
+  "kind": "known",
+  "intended": "Drossel-Schwabl forest-fire model: self-organized critical fire sizes, spiral fire fronts"
+ },
+ "ctrl:K05": {
+  "kind": "known",
+  "intended": "Bak-Sneppen model: punctuated equilibrium, self-organized fitness threshold near 0.667"
+ },
+ "ctrl:K06": {
+  "kind": "known",
+  "intended": "Axelrod model of cultural dissemination: frozen cultural regions"
+ },
+ "ctrl:K07": {
+  "kind": "known",
+  "intended": "Deffuant bounded-confidence model: opinions settle into a few separated clusters"
+ },
+ "ctrl:K08": {
+  "kind": "known",
+  "intended": "Nagel-Schreckenberg traffic model: spontaneous jams and backward-moving jam waves"
+ },
+ "ctrl:K09": {
+  "kind": "known",
+  "intended": "Daisyworld: planetary temperature regulation by daisy albedo (Watson & Lovelock 1983)"
+ },
+ "ctrl:K10": {
+  "kind": "known",
+  "intended": "Contact process near its critical point: absorbing-state transition, directed-percolation class"
+ },
+ "ctrl:K11": {
+  "kind": "known",
+  "intended": "Explosive synchronization: degree-frequency correlation on a scale-free network (Gomez-Gardenes et al. 2011)"
+ },
+ "ctrl:K12": {
+  "kind": "known",
+  "intended": "Rock-paper-scissors with mobility: spirals, and loss of coexistence above a critical mobility (Reichenbach, Mobilia & Frey 2007)"
+ },
+ "ctrl:K13": {
+  "kind": "known",
+  "intended": "Cooperation promoted on scale-free networks (Santos & Pacheco 2005)"
+ },
+ "ctrl:K14": {
+  "kind": "known",
+  "intended": "Swarmalators: agents that both swarm and synchronize (O'Keeffe, Ha & Strogatz 2017)"
+ },
+ "ctrl:K15": {
+  "kind": "known",
+  "intended": "Ant brood sorting / clustering (Deneubourg et al. 1991)"
+ },
+ "ctrl:K16": {
+  "kind": "known",
+  "intended": "Couzin zonal model: milling (torus) state (Couzin et al. 2002)"
+ },
+ "ctrl:K17": {
+  "kind": "known",
+  "intended": "Chimera state: coexisting coherent and incoherent domains in identical oscillators (Kuramoto & Battogtokh 2002)"
+ },
+ "ctrl:K18": {
+  "kind": "known",
+  "intended": "Lenia: self-organizing moving localized patterns (gliders such as Orbium; Chan 2019)"
+ },
+ "ctrl:K19": {
+  "kind": "known",
+  "intended": "Elementary cellular automaton rule 110: localized gliders on a periodic background (Cook 2004)"
+ },
+ "ctrl:K20": {
+  "kind": "known",
+  "intended": "Sznajd model: consensus through outflow of agreeing pairs (Sznajd-Weron & Sznajd 2000)"
+ },
+ "ctrl:F01": {
+  "kind": "fabricated",
+  "intended": "majority rule (asynchronous, 2 types): reported sustained cycling at a dominant frequency, no clustering"
+ },
+ "ctrl:F02": {
+  "kind": "fabricated",
+  "intended": "voter model (2 types): reported anti-clustering (checkerboard-like), no domain growth"
+ },
+ "ctrl:F03": {
+  "kind": "fabricated",
+  "intended": "Schelling (threshold 0.3, 10% vacancies): reported persistent mixing with rising activity"
+ },
+ "ctrl:F04": {
+  "kind": "fabricated",
+  "intended": "Kuramoto, strong coupling on a random network: reported global order below chance, strong fluctuation"
+ },
+ "ctrl:F05": {
+  "kind": "fabricated",
+  "intended": "uncoupled oscillators: reported global and local phase order and phase spirals"
+ },
+ "ctrl:F06": {
+  "kind": "fabricated",
+  "intended": "Vicsek, maximal noise: reported strong polar order"
+ },
+ "ctrl:F07": {
+  "kind": "fabricated",
+  "intended": "Vicsek, low noise, dense: reported no polar order but strong rotational milling and clumping"
+ },
+ "ctrl:F08": {
+  "kind": "fabricated",
+  "intended": "cyclic CA (4 types, threshold 1): reported activity dying out with one type taking over"
+ },
+ "ctrl:F09": {
+  "kind": "fabricated",
+  "intended": "spatial prisoner's dilemma, low temptation 1.2: reported cooperators driven extinct, frozen lattice"
+ },
+ "ctrl:F10": {
+  "kind": "fabricated",
+  "intended": "co-evolving voter model, rewiring probability 0.95: reported global consensus in one connected component"
+ },
+ "ctrl:F11": {
+  "kind": "fabricated",
+  "intended": "network voter model: reported periodic oscillation of opinions, no convergence"
+ },
+ "ctrl:F12": {
+  "kind": "fabricated",
+  "intended": "type-blind attraction: reported strong sorting of agents by type"
+ },
+ "ctrl:F13": {
+  "kind": "fabricated",
+  "intended": "pure repulsion: reported strong clumping and polar order"
+ },
+ "ctrl:F14": {
+  "kind": "fabricated",
+  "intended": "pure diffusion, no reaction: reported sharp, growing spatial pattern"
+ },
+ "ctrl:F15": {
+  "kind": "fabricated",
+  "intended": "majority rule (3 types): reported cells rotating through all types at a dominant period"
+ },
+ "ctrl:F16": {
+  "kind": "fabricated",
+  "intended": "BTW sandpile, slow drive: reported perfectly regular, non-bursty periodic toppling"
+ },
+ "ctrl:F17": {
+  "kind": "fabricated",
+  "intended": "random rewiring: reported all node degrees converging to exactly the mean (degree spread vanishes)"
+ },
+ "ctrl:F18": {
+  "kind": "fabricated",
+  "intended": "weakly coupled lattice oscillators with frequency spread: reported full global synchrony"
+ },
+ "ctrl:F19": {
+  "kind": "fabricated",
+  "intended": "Schelling, very intolerant (threshold 0.9), 5% vacancies: reported fast freezing into two large domains"
+ },
+ "ctrl:F20": {
+  "kind": "fabricated",
+  "intended": "elementary CA rule 30: reported freezing into a uniform state"
+ }
+}
