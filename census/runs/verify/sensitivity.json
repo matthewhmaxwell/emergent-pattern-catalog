@@ -1,0 +1,127 @@
+{
+ "flagged_frozen": 140,
+ "flagged_without_key": 130,
+ "census_flagged_without_key": 27,
+ "named_without_key": 55,
+ "named_artifact_without_key": 25,
+ "false_flags": [
+  {
+   "pid": "census:g1:grid-25",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": false,
+   "all_features_class": null,
+   "all_features_robust": null,
+   "frozen_stage3": true,
+   "all_features_stage3": null
+  },
+  {
+   "pid": "census:novelty:grid-4",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 2,
+   "narrowed": true,
+   "all_features_class": "COMBINATION EFFECT",
+   "all_features_robust": [
+    "g_activity_trend",
+    "g_activity_cv",
+    "g_n_types",
+    "g_reversals",
+    "g_largest_domain",
+    "g_n_domains"
+   ],
+   "frozen_stage3": true,
+   "all_features_stage3": true
+  },
+  {
+   "pid": "review:035",
+   "frozen_class": "ARTIFACT",
+   "frozen_tested": 3,
+   "narrowed": true,
+   "all_features_class": "SINGLE MECHANISM",
+   "all_features_robust": [
+    "n_oscillation",
+    "n_consensus_gain",
+    "n_cyclic_changes"
+   ],
+   "frozen_stage3": false,
+   "all_features_stage3": false
+  },
+  {
+   "pid": "review:050",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": false,
+   "all_features_class": null,
+   "all_features_robust": null,
+   "frozen_stage3": true,
+   "all_features_stage3": null
+  },
+  {
+   "pid": "review:058",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": true,
+   "all_features_class": "COMBINATION EFFECT",
+   "all_features_robust": [
+    "g_activity_trend",
+    "g_reversals"
+   ],
+   "frozen_stage3": true,
+   "all_features_stage3": true
+  },
+  {
+   "pid": "qd:033",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": true,
+   "all_features_class": "COMBINATION EFFECT",
+   "all_features_robust": [
+    "a_density_cv",
+    "a_nn_ratio",
+    "a_local_align"
+   ],
+   "frozen_stage3": true,
+   "all_features_stage3": true
+  },
+  {
+   "pid": "qd:040",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": false,
+   "all_features_class": null,
+   "all_features_robust": null,
+   "frozen_stage3": true,
+   "all_features_stage3": null
+  },
+  {
+   "pid": "qd:049",
+   "frozen_class": "ARTIFACT",
+   "frozen_tested": 6,
+   "narrowed": false,
+   "all_features_class": null,
+   "all_features_robust": null,
+   "frozen_stage3": false,
+   "all_features_stage3": null
+  },
+  {
+   "pid": "qd:057",
+   "frozen_class": "COMBINATION EFFECT",
+   "frozen_tested": 6,
+   "narrowed": false,
+   "all_features_class": null,
+   "all_features_robust": null,
+   "frozen_stage3": true,
+   "all_features_stage3": null
+  },
+  {
+   "pid": "qd:077",
+   "frozen_class": "ARTIFACT",
+   "frozen_tested": 1,
+   "narrowed": true,
+   "all_features_class": "ARTIFACT",
+   "all_features_robust": [],
+   "frozen_stage3": false,
+   "all_features_stage3": false
+  }
+ ]
+}

@@ -10,6 +10,9 @@ provisional until the author reviews the evidence and the cited sources (plan, S
   python -m census.verify_stage3 prep        # build the cards (no model call); writes stage3/cards/*.txt
   python -m census.verify_stage3 ask         # one strict call per card; resumable. Env: ANTHROPIC_API_KEY
   python -m census.verify_stage3 report      # stage3/STAGE3.md
+
+Add --blind to any command to build cards as VERIFICATION_PLAN.md Stage 3 (a) lists them (rule, robust features with
+values, simulation evidence) without the earlier verdict and its text, written to stage3_blind/ (deviation V3).
 """
 import json, os, re, sys, time
 import numpy as np
@@ -17,7 +20,8 @@ from census import verify as V
 from census import litcheck_runner as LR
 from census import litcheck_secondpass as SP
 
-OUT = os.path.join(V.OUT, "stage3")
+BLIND = "--blind" in sys.argv
+OUT = os.path.join(V.OUT, "stage3_blind" if BLIND else "stage3")
 MODEL = "claude-opus-5-5"
 LABEL = {"KNOWN": "DOCUMENTED", "KNOWN-VARIANT": "CLOSELY RELATED", "LITERATURE-SILENT": "UNDOCUMENTED CANDIDATE"}
 
@@ -68,9 +72,10 @@ def card(it, cl, rec):
                f"above; the full program has {len(p.rules)} rules):\n" + "\n".join(subs))
         if cl["class"] == "COMBINATION EFFECT":
             ev += "\nNo sub-program came within 3 robust spreads of the full program on every feature above."
-    return (f"RULE (plain words):\n{rule}\n\n"
-            f"OBSERVED (features that passed the simulation checks):\n  " + ", ".join(cl["robust"]) + "\n\n"
-            f"FIRST PASS concluded: {it['verdict']}\n"
+    head = (f"RULE (plain words):\n{rule}\n\n"
+            f"OBSERVED (features that passed the simulation checks):\n  " + ", ".join(cl["robust"]) + "\n\n")
+    if BLIND: return head + ev
+    return (head + f"FIRST PASS concluded: {it['verdict']}\n"
             f"First-pass text (excerpt): {(it.get('text') or '').strip()[:1500]}\n\n" + ev)
 
 
