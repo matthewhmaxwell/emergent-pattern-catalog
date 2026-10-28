@@ -1,0 +1,17 @@
+{
+ "alpha": 0.0,
+ "seed": 9,
+ "cond": "channel",
+ "iters": 1500,
+ "hits": 3.751666666666667,
+ "hits_by_type": [
+  null,
+  3.7516666666666665
+ ],
+ "hits_scrambled": 3.7275000000000005,
+ "hits_scrambled_by_type": [
+  null,
+  3.7275000000000005
+ ],
+ "mi": null
+}

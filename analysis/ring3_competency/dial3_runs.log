@@ -1,0 +1,841 @@
+  [a=0.00 s0 absent] iter    0
+  [a=0.10 s0 absent] iter    0
+  [a=0.00 s0 intact] iter    0
+  [a=0.10 s0 intact] iter    0
+  [a=0.25 s0 absent] iter    0
+  [a=0.25 s0 intact] iter    0
+  [a=0.00 s0 absent] iter  300
+  [a=0.00 s0 intact] iter  300
+  [a=0.10 s0 absent] iter  300
+  [a=0.25 s0 absent] iter  300
+  [a=0.10 s0 intact] iter  300
+  [a=0.25 s0 intact] iter  300
+  [a=0.00 s0 absent] iter  600
+  [a=0.25 s0 intact] iter  600
+  [a=0.10 s0 absent] iter  600
+  [a=0.25 s0 absent] iter  600
+  [a=0.00 s0 intact] iter  600
+  [a=0.10 s0 intact] iter  600
+  [a=0.25 s0 intact] iter  900
+  [a=0.00 s0 absent] iter  900
+  [a=0.10 s0 absent] iter  900
+  [a=0.00 s0 intact] iter  900
+  [a=0.25 s0 absent] iter  900
+  [a=0.10 s0 intact] iter  900
+  [a=0.00 s0 absent] iter 1200
+  [a=0.25 s0 intact] iter 1200
+  [a=0.10 s0 absent] iter 1200
+  [a=0.00 s0 intact] iter 1200
+  [a=0.25 s0 absent] iter 1200
+  [a=0.10 s0 intact] iter 1200
+  [a=0.00 s0 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s0.json {"hits": 3.7525, "hits_by_type": [null, 3.7525]}
+  [a=0.25 s0 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s0.json {"hits": 2.234166666666667, "hits_by_type": [0.5519509844486507, 3.696099543520815]}
+  [a=0.10 s0 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s0.json {"hits": 2.9825, "hits_by_type": [0.18049314479700337, 3.759993296960591]}
+  [a=0.00 s0 intact] iter 1499
+  [a=0.25 s0 absent] iter 1499
+  [a=0.50 s0 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s0.json {"hits": 2.013333333333333, "hits_by_type": [0.24551058902226897, 3.608771918069431]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s0.json {"hits": 3.7466666666666666, "hits_by_type": [null, 3.7466666666666666]}
+  [a=0.50 s0 absent] iter    0
+  [a=0.75 s0 intact] iter    0
+  [a=0.10 s0 intact] iter 1499
+  [a=0.75 s0 absent] iter    0
+  [a=1.00 s0 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s0.json {"hits": 2.9408333333333334, "hits_by_type": [0.22179053580738506, 3.705994395831888]}
+  [a=1.00 s0 absent] iter    0
+  [a=0.75 s0 intact] iter  300
+  [a=0.50 s0 absent] iter  300
+  [a=0.50 s0 intact] iter  300
+  [a=1.00 s0 intact] iter  300
+  [a=0.75 s0 absent] iter  300
+  [a=1.00 s0 absent] iter  300
+  [a=0.50 s0 absent] iter  600
+  [a=0.75 s0 intact] iter  600
+  [a=0.50 s0 intact] iter  600
+  [a=0.75 s0 absent] iter  600
+  [a=1.00 s0 intact] iter  600
+  [a=1.00 s0 absent] iter  600
+  [a=0.50 s0 absent] iter  900
+  [a=0.50 s0 intact] iter  900
+  [a=0.75 s0 absent] iter  900
+  [a=0.75 s0 intact] iter  900
+  [a=1.00 s0 intact] iter  900
+  [a=1.00 s0 absent] iter  900
+  [a=0.50 s0 absent] iter 1200
+  [a=0.50 s0 intact] iter 1200
+  [a=0.75 s0 absent] iter 1200
+  [a=0.75 s0 intact] iter 1200
+  [a=1.00 s0 intact] iter 1200
+  [a=1.00 s0 absent] iter 1200
+  [a=0.50 s0 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s0.json {"hits": 1.19, "hits_by_type": [0.2851969814448096, 3.5687111597439003]}
+  [a=0.00 s1 intact] iter    0
+  [a=0.75 s0 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s0.json {"hits": 0.6816666666666666, "hits_by_type": [0.34954182100135706, 3.3343408937092995]}
+  [a=0.50 s0 intact] iter 1499
+  [a=1.00 s0 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s0.json {"hits": 3.0033333333333334, "hits_by_type": [2.512241468028206, 3.666557057909518]}
+  [a=0.75 s0 intact] iter 1499
+  [a=0.00 s1 absent] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s0.json {"hits": 3.0508333333333333, "hits_by_type": [3.0508333333333333, null]}
+  [a=1.00 s0 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s0.json {"hits": 2.9516666666666667, "hits_by_type": [2.7569258086368413, 3.7040792066763415]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s0.json {"hits": 0.395, "hits_by_type": [0.395, null]}
+  [a=0.10 s1 intact] iter    0
+  [a=0.10 s1 absent] iter    0
+  [a=0.25 s1 intact] iter    0
+  [a=0.25 s1 absent] iter    0
+  [a=0.00 s1 intact] iter  300
+  [a=0.00 s1 absent] iter  300
+  [a=0.10 s1 intact] iter  300
+  [a=0.10 s1 absent] iter  300
+  [a=0.25 s1 absent] iter  300
+  [a=0.25 s1 intact] iter  300
+  [a=0.00 s1 intact] iter  600
+  [a=0.10 s1 intact] iter  600
+  [a=0.00 s1 absent] iter  600
+  [a=0.10 s1 absent] iter  600
+  [a=0.25 s1 intact] iter  600
+  [a=0.25 s1 absent] iter  600
+  [a=0.00 s1 intact] iter  900
+  [a=0.10 s1 intact] iter  900
+  [a=0.10 s1 absent] iter  900
+  [a=0.00 s1 absent] iter  900
+  [a=0.25 s1 intact] iter  900
+  [a=0.25 s1 absent] iter  900
+  [a=0.00 s1 intact] iter 1200
+  [a=0.10 s1 intact] iter 1200
+  [a=0.10 s1 absent] iter 1200
+  [a=0.25 s1 absent] iter 1200
+  [a=0.00 s1 absent] iter 1200
+  [a=0.25 s1 intact] iter 1200
+  [a=0.00 s1 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s1.json {"hits": 3.7424999999999997, "hits_by_type": [null, 3.7424999999999997]}
+  [a=0.10 s1 intact] iter 1499
+  [a=0.50 s1 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s1.json {"hits": 2.955, "hits_by_type": [0.33378271586710123, 3.703231977866876]}
+  [a=0.10 s1 absent] iter 1499
+  [a=0.25 s1 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s1.json {"hits": 2.9316666666666666, "hits_by_type": [0.22862047686350304, 3.718134204656526]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s1.json {"hits": 2.0275, "hits_by_type": [0.22803338055426958, 3.653919212833775]}
+  [a=0.50 s1 absent] iter    0
+  [a=0.25 s1 intact] iter 1499
+  [a=0.00 s1 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s1.json {"hits": 3.7475, "hits_by_type": [null, 3.7475]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s1.json {"hits": 2.091666666666667, "hits_by_type": [0.30609874720029145, 3.714438123890782]}
+  [a=0.75 s1 intact] iter    0
+  [a=0.75 s1 absent] iter    0
+  [a=1.00 s1 intact] iter    0
+  [a=1.00 s1 absent] iter    0
+  [a=0.50 s1 intact] iter  300
+  [a=0.50 s1 absent] iter  300
+  [a=0.75 s1 intact] iter  300
+  [a=0.75 s1 absent] iter  300
+  [a=1.00 s1 absent] iter  300
+  [a=1.00 s1 intact] iter  300
+  [a=0.50 s1 intact] iter  600
+  [a=0.50 s1 absent] iter  600
+  [a=1.00 s1 absent] iter  600
+  [a=0.75 s1 intact] iter  600
+  [a=0.75 s1 absent] iter  600
+  [a=1.00 s1 intact] iter  600
+  [a=0.50 s1 intact] iter  900
+  [a=1.00 s1 absent] iter  900
+  [a=0.50 s1 absent] iter  900
+  [a=0.75 s1 absent] iter  900
+  [a=0.75 s1 intact] iter  900
+  [a=1.00 s1 intact] iter  900
+  [a=0.50 s1 intact] iter 1200
+  [a=1.00 s1 absent] iter 1200
+  [a=0.50 s1 absent] iter 1200
+  [a=0.75 s1 absent] iter 1200
+  [a=0.75 s1 intact] iter 1200
+  [a=1.00 s1 intact] iter 1200
+  [a=0.50 s1 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s1.json {"hits": 3.0225000000000004, "hits_by_type": [2.54993631698901, 3.65046240648881]}
+  [a=1.00 s1 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s1.json {"hits": 0.4191666666666667, "hits_by_type": [0.41916666666666674, null]}
+  [a=0.00 s2 intact] iter    0
+  [a=0.50 s1 absent] iter 1499
+  [a=0.75 s1 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s1.json {"hits": 1.165, "hits_by_type": [0.2919720379871524, 3.5709810292698165]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s1.json {"hits": 0.6458333333333334, "hits_by_type": [0.3244540739167148, 3.2286825271484276]}
+  [a=0.75 s1 intact] iter 1499
+  [a=0.00 s2 absent] iter    0
+  [a=1.00 s1 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s1.json {"hits": 3.0241666666666664, "hits_by_type": [2.8467485209208507, 3.6957362718002096]}
+  [a=0.10 s2 intact] iter    0
+  [a=0.10 s2 absent] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s1.json {"hits": 2.970833333333333, "hits_by_type": [2.970833333333333, null]}
+  [a=0.25 s2 intact] iter    0
+  [a=0.25 s2 absent] iter    0
+  [a=0.00 s2 intact] iter  300
+  [a=0.00 s2 absent] iter  300
+  [a=0.10 s2 intact] iter  300
+  [a=0.10 s2 absent] iter  300
+  [a=0.25 s2 intact] iter  300
+  [a=0.25 s2 absent] iter  300
+  [a=0.00 s2 intact] iter  600
+  [a=0.00 s2 absent] iter  600
+  [a=0.25 s2 intact] iter  600
+  [a=0.10 s2 intact] iter  600
+  [a=0.10 s2 absent] iter  600
+  [a=0.25 s2 absent] iter  600
+  [a=0.00 s2 intact] iter  900
+  [a=0.25 s2 intact] iter  900
+  [a=0.00 s2 absent] iter  900
+  [a=0.25 s2 absent] iter  900
+  [a=0.10 s2 intact] iter  900
+  [a=0.10 s2 absent] iter  900
+  [a=0.00 s2 intact] iter 1200
+  [a=0.00 s2 absent] iter 1200
+  [a=0.25 s2 intact] iter 1200
+  [a=0.25 s2 absent] iter 1200
+  [a=0.10 s2 intact] iter 1200
+  [a=0.10 s2 absent] iter 1200
+  [a=0.00 s2 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s2.json {"hits": 3.760833333333333, "hits_by_type": [null, 3.7608333333333337]}
+  [a=0.25 s2 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s2.json {"hits": 2.1999999999999997, "hits_by_type": [0.42591648452034864, 3.691019450689017]}
+  [a=0.00 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s2.json {"hits": 3.74, "hits_by_type": [null, 3.74]}
+  [a=0.50 s2 intact] iter    0
+  [a=0.25 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s2.json {"hits": 2.045, "hits_by_type": [0.24847006693832865, 3.74390619143065]}
+  [a=0.50 s2 absent] iter    0
+  [a=0.75 s2 intact] iter    0
+  [a=0.10 s2 intact] iter 1499
+  [a=0.75 s2 absent] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s2.json {"hits": 2.975, "hits_by_type": [0.2469216958285327, 3.753547863291423]}
+  [a=0.10 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s2.json {"hits": 2.9433333333333334, "hits_by_type": [0.1645142521410792, 3.738336399708738]}
+  [a=1.00 s2 intact] iter    0
+  [a=1.00 s2 absent] iter    0
+  [a=0.50 s2 intact] iter  300
+  [a=0.75 s2 intact] iter  300
+  [a=0.75 s2 absent] iter  300
+  [a=0.50 s2 absent] iter  300
+  [a=1.00 s2 intact] iter  300
+  [a=1.00 s2 absent] iter  300
+  [a=0.50 s2 intact] iter  600
+  [a=0.75 s2 intact] iter  600
+  [a=0.75 s2 absent] iter  600
+  [a=0.50 s2 absent] iter  600
+  [a=1.00 s2 absent] iter  600
+  [a=1.00 s2 intact] iter  600
+  [a=0.50 s2 intact] iter  900
+  [a=0.75 s2 intact] iter  900
+  [a=0.75 s2 absent] iter  900
+  [a=0.50 s2 absent] iter  900
+  [a=1.00 s2 absent] iter  900
+  [a=1.00 s2 intact] iter  900
+  [a=0.50 s2 intact] iter 1200
+  [a=0.75 s2 intact] iter 1200
+  [a=0.75 s2 absent] iter 1200
+  [a=0.50 s2 absent] iter 1200
+  [a=1.00 s2 absent] iter 1200
+  [a=1.00 s2 intact] iter 1200
+  [a=0.50 s2 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s2.json {"hits": 2.858333333333333, "hits_by_type": [2.3114416042407955, 3.6416641624897195]}
+  [a=0.75 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s2.json {"hits": 0.6866666666666666, "hits_by_type": [0.34406994442434086, 3.4931473355317633]}
+  [a=0.75 s2 intact] iter 1499
+  [a=0.00 s3 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s2.json {"hits": 3.000833333333333, "hits_by_type": [2.8383584407584626, 3.6106617633314997]}
+  [a=0.00 s3 absent] iter    0
+  [a=0.10 s3 intact] iter    0
+  [a=0.50 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s2.json {"hits": 1.1849999999999998, "hits_by_type": [0.31615910206115, 3.6832020414445936]}
+  [a=1.00 s2 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s2.json {"hits": 0.3433333333333333, "hits_by_type": [0.34333333333333327, null]}
+  [a=0.10 s3 absent] iter    0
+  [a=0.25 s3 intact] iter    0
+  [a=1.00 s2 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s2.json {"hits": 2.9858333333333333, "hits_by_type": [2.9858333333333333, null]}
+  [a=0.25 s3 absent] iter    0
+  [a=0.00 s3 intact] iter  300
+  [a=0.00 s3 absent] iter  300
+  [a=0.10 s3 intact] iter  300
+  [a=0.25 s3 intact] iter  300
+  [a=0.10 s3 absent] iter  300
+  [a=0.25 s3 absent] iter  300
+  [a=0.00 s3 intact] iter  600
+  [a=0.10 s3 intact] iter  600
+  [a=0.00 s3 absent] iter  600
+  [a=0.10 s3 absent] iter  600
+  [a=0.25 s3 intact] iter  600
+  [a=0.25 s3 absent] iter  600
+  [a=0.00 s3 intact] iter  900
+  [a=0.10 s3 intact] iter  900
+  [a=0.00 s3 absent] iter  900
+  [a=0.10 s3 absent] iter  900
+  [a=0.25 s3 intact] iter  900
+  [a=0.25 s3 absent] iter  900
+  [a=0.00 s3 intact] iter 1200
+  [a=0.10 s3 intact] iter 1200
+  [a=0.10 s3 absent] iter 1200
+  [a=0.25 s3 intact] iter 1200
+  [a=0.00 s3 absent] iter 1200
+  [a=0.25 s3 absent] iter 1200
+  [a=0.00 s3 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s3.json {"hits": 3.7733333333333334, "hits_by_type": [null, 3.7733333333333334]}
+  [a=0.10 s3 intact] iter 1499
+  [a=0.50 s3 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s3.json {"hits": 2.948333333333333, "hits_by_type": [0.22449313758140307, 3.7353638923719505]}
+  [a=0.25 s3 intact] iter 1499
+  [a=0.10 s3 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s3.json {"hits": 3.0, "hits_by_type": [0.2386840480704433, 3.773511319848433]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s3.json {"hits": 2.18, "hits_by_type": [0.41427796470048156, 3.7603406873969614]}
+  [a=0.50 s3 absent] iter    0
+  [a=0.00 s3 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s3.json {"hits": 3.750833333333334, "hits_by_type": [null, 3.750833333333334]}
+  [a=0.75 s3 absent] iter    0
+  [a=0.75 s3 intact] iter    0
+  [a=1.00 s3 intact] iter    0
+  [a=0.25 s3 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s3.json {"hits": 2.0325, "hits_by_type": [0.2284815116463241, 3.7149498449439355]}
+  [a=1.00 s3 absent] iter    0
+  [a=0.50 s3 intact] iter  300
+  [a=0.50 s3 absent] iter  300
+  [a=0.75 s3 intact] iter  300
+  [a=0.75 s3 absent] iter  300
+  [a=1.00 s3 intact] iter  300
+  [a=1.00 s3 absent] iter  300
+  [a=0.50 s3 absent] iter  600
+  [a=0.50 s3 intact] iter  600
+  [a=0.75 s3 intact] iter  600
+  [a=0.75 s3 absent] iter  600
+  [a=1.00 s3 intact] iter  600
+  [a=1.00 s3 absent] iter  600
+  [a=0.75 s3 intact] iter  900
+  [a=0.75 s3 absent] iter  900
+  [a=0.50 s3 absent] iter  900
+  [a=1.00 s3 intact] iter  900
+  [a=0.50 s3 intact] iter  900
+  [a=1.00 s3 absent] iter  900
+  [a=0.75 s3 intact] iter 1200
+  [a=0.75 s3 absent] iter 1200
+  [a=1.00 s3 intact] iter 1200
+  [a=0.50 s3 absent] iter 1200
+  [a=0.50 s3 intact] iter 1200
+  [a=1.00 s3 absent] iter 1200
+  [a=1.00 s3 intact] iter 1499
+  [a=0.75 s3 absent] iter 1499
+  [a=0.75 s3 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s3.json {"hits": 0.6966666666666667, "hits_by_type": [0.36652076401140704, 3.338497722980039]}
+  [a=0.50 s3 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s3.json {"hits": 2.9933333333333336, "hits_by_type": [2.803920648411402, 3.7063720900681734]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s3.json {"hits": 3.044166666666667, "hits_by_type": [3.044166666666667, null]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s3.json {"hits": 1.1475, "hits_by_type": [0.28618882683825003, 3.541055172099938]}
+  [a=0.00 s4 intact] iter    0
+  [a=0.00 s4 absent] iter    0
+  [a=0.10 s4 absent] iter    0
+  [a=0.10 s4 intact] iter    0
+  [a=0.50 s3 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s3.json {"hits": 3.0325, "hits_by_type": [2.5774394507452, 3.6522479415827362]}
+  [a=0.25 s4 intact] iter    0
+  [a=1.00 s3 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s3.json {"hits": 0.3758333333333333, "hits_by_type": [0.3758333333333333, null]}
+  [a=0.25 s4 absent] iter    0
+  [a=0.00 s4 intact] iter  300
+  [a=0.10 s4 absent] iter  300
+  [a=0.10 s4 intact] iter  300
+  [a=0.00 s4 absent] iter  300
+  [a=0.25 s4 intact] iter  300
+  [a=0.25 s4 absent] iter  300
+  [a=0.00 s4 intact] iter  600
+  [a=0.10 s4 absent] iter  600
+  [a=0.10 s4 intact] iter  600
+  [a=0.00 s4 absent] iter  600
+  [a=0.25 s4 intact] iter  600
+  [a=0.25 s4 absent] iter  600
+  [a=0.00 s4 intact] iter  900
+  [a=0.10 s4 absent] iter  900
+  [a=0.10 s4 intact] iter  900
+  [a=0.00 s4 absent] iter  900
+  [a=0.25 s4 intact] iter  900
+  [a=0.25 s4 absent] iter  900
+  [a=0.10 s4 absent] iter 1200
+  [a=0.00 s4 intact] iter 1200
+  [a=0.10 s4 intact] iter 1200
+  [a=0.00 s4 absent] iter 1200
+  [a=0.25 s4 intact] iter 1200
+  [a=0.25 s4 absent] iter 1200
+  [a=0.10 s4 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s4.json {"hits": 2.938333333333334, "hits_by_type": [0.1725164150498613, 3.7386521836763826]}
+  [a=0.00 s4 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s4.json {"hits": 3.7416666666666667, "hits_by_type": [null, 3.7416666666666667]}
+  [a=0.50 s4 intact] iter    0
+  [a=0.50 s4 absent] iter    0
+  [a=0.10 s4 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s4.json {"hits": 2.9924999999999997, "hits_by_type": [0.2831058203613875, 3.7560452399567237]}
+  [a=0.00 s4 absent] iter 1499
+  [a=0.75 s4 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s4.json {"hits": 3.75, "hits_by_type": [null, 3.75]}
+  [a=0.75 s4 absent] iter    0
+  [a=0.25 s4 intact] iter 1499
+  [a=0.25 s4 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s4.json {"hits": 2.0275000000000003, "hits_by_type": [0.2390217694305999, 3.691407012475718]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s4.json {"hits": 2.0858333333333334, "hits_by_type": [0.298345684286453, 3.718898063593841]}
+  [a=1.00 s4 intact] iter    0
+  [a=1.00 s4 absent] iter    0
+  [a=0.50 s4 intact] iter  300
+  [a=0.50 s4 absent] iter  300
+  [a=0.75 s4 intact] iter  300
+  [a=0.75 s4 absent] iter  300
+  [a=1.00 s4 intact] iter  300
+  [a=1.00 s4 absent] iter  300
+  [a=0.50 s4 intact] iter  600
+  [a=0.50 s4 absent] iter  600
+  [a=0.75 s4 intact] iter  600
+  [a=0.75 s4 absent] iter  600
+  [a=1.00 s4 intact] iter  600
+  [a=1.00 s4 absent] iter  600
+  [a=0.50 s4 intact] iter  900
+  [a=0.50 s4 absent] iter  900
+  [a=0.75 s4 intact] iter  900
+  [a=0.75 s4 absent] iter  900
+  [a=1.00 s4 intact] iter  900
+  [a=1.00 s4 absent] iter  900
+  [a=0.50 s4 intact] iter 1200
+  [a=0.50 s4 absent] iter 1200
+  [a=0.75 s4 intact] iter 1200
+  [a=0.75 s4 absent] iter 1200
+  [a=1.00 s4 intact] iter 1200
+  [a=1.00 s4 absent] iter 1200
+  [a=0.50 s4 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s4.json {"hits": 3.019166666666667, "hits_by_type": [2.554891137155119, 3.624650673393432]}
+  [a=0.00 s5 intact] iter    0
+  [a=0.50 s4 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s4.json {"hits": 1.1383333333333334, "hits_by_type": [0.2760860987776314, 3.537746795321284]}
+  [a=0.00 s5 absent] iter    0
+  [a=0.75 s4 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s4.json {"hits": 2.985, "hits_by_type": [2.825306689764716, 3.5815507599568015]}
+  [a=0.75 s4 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s4.json {"hits": 0.6966666666666667, "hits_by_type": [0.3632380867533356, 3.4635020987171683]}
+  [a=1.00 s4 intact] iter 1499
+  [a=0.10 s5 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s4.json {"hits": 3.018333333333333, "hits_by_type": [3.018333333333333, null]}
+  [a=0.10 s5 absent] iter    0
+  [a=1.00 s4 absent] iter 1499
+  [a=0.25 s5 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s4.json {"hits": 0.38166666666666665, "hits_by_type": [0.38166666666666665, null]}
+  [a=0.25 s5 absent] iter    0
+  [a=0.00 s5 intact] iter  300
+  [a=0.00 s5 absent] iter  300
+  [a=0.10 s5 intact] iter  300
+  [a=0.10 s5 absent] iter  300
+  [a=0.25 s5 intact] iter  300
+  [a=0.25 s5 absent] iter  300
+  [a=0.00 s5 intact] iter  600
+  [a=0.00 s5 absent] iter  600
+  [a=0.10 s5 intact] iter  600
+  [a=0.10 s5 absent] iter  600
+  [a=0.25 s5 intact] iter  600
+  [a=0.25 s5 absent] iter  600
+  [a=0.00 s5 intact] iter  900
+  [a=0.00 s5 absent] iter  900
+  [a=0.10 s5 intact] iter  900
+  [a=0.10 s5 absent] iter  900
+  [a=0.25 s5 intact] iter  900
+  [a=0.25 s5 absent] iter  900
+  [a=0.00 s5 absent] iter 1200
+  [a=0.00 s5 intact] iter 1200
+  [a=0.10 s5 intact] iter 1200
+  [a=0.25 s5 intact] iter 1200
+  [a=0.10 s5 absent] iter 1200
+  [a=0.25 s5 absent] iter 1200
+  [a=0.00 s5 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s5.json {"hits": 3.7408333333333332, "hits_by_type": [null, 3.7408333333333332]}
+  [a=0.00 s5 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s5.json {"hits": 3.7449999999999997, "hits_by_type": [null, 3.7449999999999997]}
+  [a=0.50 s5 intact] iter    0
+  [a=0.50 s5 absent] iter    0
+  [a=0.10 s5 intact] iter 1499
+  [a=0.25 s5 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s5.json {"hits": 2.9299999999999997, "hits_by_type": [0.20982419261609087, 3.6704504205456203]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s5.json {"hits": 2.2916666666666665, "hits_by_type": [0.6271818253317863, 3.689878765203448]}
+  [a=0.10 s5 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s5.json {"hits": 2.9691666666666667, "hits_by_type": [0.20246982483318213, 3.762955209922765]}
+  [a=0.75 s5 intact] iter    0
+  [a=0.25 s5 absent] iter 1499
+  [a=0.75 s5 absent] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s5.json {"hits": 2.025, "hits_by_type": [0.2773248604715696, 3.673747992844412]}
+  [a=1.00 s5 intact] iter    0
+  [a=1.00 s5 absent] iter    0
+  [a=0.50 s5 intact] iter  300
+  [a=0.50 s5 absent] iter  300
+  [a=0.75 s5 intact] iter  300
+  [a=0.75 s5 absent] iter  300
+  [a=1.00 s5 intact] iter  300
+  [a=1.00 s5 absent] iter  300
+  [a=0.50 s5 intact] iter  600
+  [a=0.50 s5 absent] iter  600
+  [a=0.75 s5 intact] iter  600
+  [a=1.00 s5 intact] iter  600
+  [a=0.75 s5 absent] iter  600
+  [a=1.00 s5 absent] iter  600
+  [a=0.50 s5 intact] iter  900
+  [a=0.50 s5 absent] iter  900
+  [a=0.75 s5 intact] iter  900
+  [a=1.00 s5 intact] iter  900
+  [a=1.00 s5 absent] iter  900
+  [a=0.75 s5 absent] iter  900
+  [a=0.50 s5 intact] iter 1200
+  [a=0.50 s5 absent] iter 1200
+  [a=0.75 s5 intact] iter 1200
+  [a=1.00 s5 intact] iter 1200
+  [a=1.00 s5 absent] iter 1200
+  [a=0.75 s5 absent] iter 1200
+  [a=0.50 s5 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s5.json {"hits": 3.02, "hits_by_type": [2.526081398456727, 3.706053918320736]}
+  [a=0.50 s5 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s5.json {"hits": 1.155, "hits_by_type": [0.30413864969016274, 3.5275580590175237]}
+  [a=0.00 s6 intact] iter    0
+  [a=0.00 s6 absent] iter    0
+  [a=0.75 s5 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s5.json {"hits": 3.0050000000000003, "hits_by_type": [2.8329110492384415, 3.6423208749686045]}
+  [a=1.00 s5 intact] iter 1499
+  [a=1.00 s5 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s5.json {"hits": 0.3516666666666666, "hits_by_type": [0.3516666666666666, null]}
+  [a=0.10 s6 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s5.json {"hits": 3.0516666666666663, "hits_by_type": [3.051666666666667, null]}
+  [a=0.10 s6 absent] iter    0
+  [a=0.25 s6 intact] iter    0
+  [a=0.75 s5 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s5.json {"hits": 0.6816666666666666, "hits_by_type": [0.34882344170712026, 3.3488817951378977]}
+  [a=0.25 s6 absent] iter    0
+  [a=0.00 s6 absent] iter  300
+  [a=0.00 s6 intact] iter  300
+  [a=0.10 s6 intact] iter  300
+  [a=0.10 s6 absent] iter  300
+  [a=0.25 s6 intact] iter  300
+  [a=0.25 s6 absent] iter  300
+  [a=0.00 s6 absent] iter  600
+  [a=0.00 s6 intact] iter  600
+  [a=0.10 s6 intact] iter  600
+  [a=0.10 s6 absent] iter  600
+  [a=0.25 s6 intact] iter  600
+  [a=0.25 s6 absent] iter  600
+  [a=0.00 s6 absent] iter  900
+  [a=0.00 s6 intact] iter  900
+  [a=0.10 s6 intact] iter  900
+  [a=0.10 s6 absent] iter  900
+  [a=0.25 s6 intact] iter  900
+  [a=0.25 s6 absent] iter  900
+  [a=0.00 s6 absent] iter 1200
+  [a=0.00 s6 intact] iter 1200
+  [a=0.10 s6 intact] iter 1200
+  [a=0.10 s6 absent] iter 1200
+  [a=0.25 s6 intact] iter 1200
+  [a=0.25 s6 absent] iter 1200
+  [a=0.00 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s6.json {"hits": 3.7191666666666667, "hits_by_type": [null, 3.7191666666666667]}
+  [a=0.50 s6 intact] iter    0
+  [a=0.00 s6 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s6.json {"hits": 3.7516666666666665, "hits_by_type": [null, 3.7516666666666665]}
+  [a=0.10 s6 intact] iter 1499
+  [a=0.10 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s6.json {"hits": 2.924166666666667, "hits_by_type": [0.19489018736529895, 3.7635688456553544]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s6.json {"hits": 2.954166666666667, "hits_by_type": [0.24103783534498033, 3.717158889310619]}
+  [a=0.25 s6 intact] iter 1499
+  [a=0.50 s6 absent] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s6.json {"hits": 2.2091666666666665, "hits_by_type": [0.4910745568314219, 3.672823922264673]}
+  [a=0.75 s6 intact] iter    0
+  [a=0.75 s6 absent] iter    0
+  [a=1.00 s6 intact] iter    0
+  [a=0.25 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s6.json {"hits": 2.0124999999999997, "hits_by_type": [0.23188005664626987, 3.6971454293668686]}
+  [a=1.00 s6 absent] iter    0
+  [a=0.50 s6 intact] iter  300
+  [a=0.75 s6 intact] iter  300
+  [a=0.75 s6 absent] iter  300
+  [a=0.50 s6 absent] iter  300
+  [a=1.00 s6 intact] iter  300
+  [a=1.00 s6 absent] iter  300
+  [a=0.50 s6 intact] iter  600
+  [a=0.75 s6 absent] iter  600
+  [a=0.75 s6 intact] iter  600
+  [a=0.50 s6 absent] iter  600
+  [a=1.00 s6 intact] iter  600
+  [a=1.00 s6 absent] iter  600
+  [a=0.50 s6 intact] iter  900
+  [a=0.75 s6 absent] iter  900
+  [a=0.75 s6 intact] iter  900
+  [a=1.00 s6 intact] iter  900
+  [a=0.50 s6 absent] iter  900
+  [a=1.00 s6 absent] iter  900
+  [a=0.50 s6 intact] iter 1200
+  [a=0.75 s6 absent] iter 1200
+  [a=0.75 s6 intact] iter 1200
+  [a=1.00 s6 intact] iter 1200
+  [a=0.50 s6 absent] iter 1200
+  [a=1.00 s6 absent] iter 1200
+  [a=0.50 s6 intact] iter 1499
+  [a=0.75 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s6.json {"hits": 0.6608333333333333, "hits_by_type": [0.3138564571588816, 3.3858726727963036]}
+  [a=0.75 s6 intact] iter 1499
+  [a=1.00 s6 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s6.json {"hits": 2.9691666666666663, "hits_by_type": [2.4997159359317185, 3.6182996848964617]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s6.json {"hits": 3.0041666666666664, "hits_by_type": [2.836067010895196, 3.643096164457777]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s6.json {"hits": 3.018333333333333, "hits_by_type": [3.018333333333333, null]}
+  [a=0.00 s7 intact] iter    0
+  [a=0.00 s7 absent] iter    0
+  [a=0.10 s7 intact] iter    0
+  [a=0.10 s7 absent] iter    0
+  [a=0.50 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s6.json {"hits": 1.1033333333333333, "hits_by_type": [0.24746030274581832, 3.4486964056943292]}
+  [a=1.00 s6 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s6.json {"hits": 0.37250000000000005, "hits_by_type": [0.3725, null]}
+  [a=0.25 s7 intact] iter    0
+  [a=0.25 s7 absent] iter    0
+  [a=0.00 s7 absent] iter  300
+  [a=0.00 s7 intact] iter  300
+  [a=0.10 s7 absent] iter  300
+  [a=0.10 s7 intact] iter  300
+  [a=0.25 s7 absent] iter  300
+  [a=0.25 s7 intact] iter  300
+  [a=0.00 s7 absent] iter  600
+  [a=0.10 s7 absent] iter  600
+  [a=0.00 s7 intact] iter  600
+  [a=0.10 s7 intact] iter  600
+  [a=0.25 s7 intact] iter  600
+  [a=0.25 s7 absent] iter  600
+  [a=0.00 s7 absent] iter  900
+  [a=0.10 s7 absent] iter  900
+  [a=0.10 s7 intact] iter  900
+  [a=0.00 s7 intact] iter  900
+  [a=0.25 s7 intact] iter  900
+  [a=0.25 s7 absent] iter  900
+  [a=0.00 s7 absent] iter 1200
+  [a=0.10 s7 intact] iter 1200
+  [a=0.10 s7 absent] iter 1200
+  [a=0.00 s7 intact] iter 1200
+  [a=0.25 s7 intact] iter 1200
+  [a=0.25 s7 absent] iter 1200
+  [a=0.00 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s7.json {"hits": 3.7441666666666666, "hits_by_type": [null, 3.7441666666666666]}
+  [a=0.50 s7 intact] iter    0
+  [a=0.10 s7 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s7.json {"hits": 2.9275, "hits_by_type": [0.1704003901549019, 3.779197741528273]}
+  [a=0.10 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s7.json {"hits": 2.9516666666666667, "hits_by_type": [0.21497740274463575, 3.756676510226542]}
+  [a=0.50 s7 absent] iter    0
+  [a=0.75 s7 intact] iter    0
+  [a=0.25 s7 intact] iter 1499
+  [a=0.00 s7 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s7.json {"hits": 3.721666666666667, "hits_by_type": [null, 3.7216666666666662]}
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s7.json {"hits": 2.215, "hits_by_type": [0.5447123531238971, 3.5977265882467453]}
+  [a=0.25 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s7.json {"hits": 2.0475000000000003, "hits_by_type": [0.2507198279162734, 3.6758366356867893]}
+  [a=0.75 s7 absent] iter    0
+  [a=1.00 s7 intact] iter    0
+  [a=1.00 s7 absent] iter    0
+  [a=0.50 s7 intact] iter  300
+  [a=0.75 s7 intact] iter  300
+  [a=0.50 s7 absent] iter  300
+  [a=0.75 s7 absent] iter  300
+  [a=1.00 s7 intact] iter  300
+  [a=1.00 s7 absent] iter  300
+  [a=0.50 s7 intact] iter  600
+  [a=0.75 s7 intact] iter  600
+  [a=0.50 s7 absent] iter  600
+  [a=1.00 s7 intact] iter  600
+  [a=0.75 s7 absent] iter  600
+  [a=1.00 s7 absent] iter  600
+  [a=0.50 s7 intact] iter  900
+  [a=0.75 s7 intact] iter  900
+  [a=0.50 s7 absent] iter  900
+  [a=1.00 s7 intact] iter  900
+  [a=0.75 s7 absent] iter  900
+  [a=1.00 s7 absent] iter  900
+  [a=0.75 s7 intact] iter 1200
+  [a=0.50 s7 absent] iter 1200
+  [a=0.50 s7 intact] iter 1200
+  [a=1.00 s7 intact] iter 1200
+  [a=0.75 s7 absent] iter 1200
+  [a=1.00 s7 absent] iter 1200
+  [a=0.75 s7 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s7.json {"hits": 2.9958333333333336, "hits_by_type": [2.836773747415664, 3.597035953295275]}
+  [a=0.50 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s7.json {"hits": 1.1341666666666665, "hits_by_type": [0.28597439264318264, 3.5779151777139546]}
+  [a=0.00 s8 intact] iter    0
+  [a=0.00 s8 absent] iter    0
+  [a=0.50 s7 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s7.json {"hits": 2.984166666666667, "hits_by_type": [2.4891359104550843, 3.6699731935032056]}
+  [a=1.00 s7 intact] iter 1499
+  [a=0.10 s8 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s7.json {"hits": 3.0566666666666666, "hits_by_type": [3.0566666666666666, null]}
+  [a=1.00 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s7.json {"hits": 0.43083333333333335, "hits_by_type": [0.43083333333333335, null]}
+  [a=0.75 s7 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s7.json {"hits": 0.7025, "hits_by_type": [0.37024079882620137, 3.4580559113730183]}
+  [a=0.10 s8 absent] iter    0
+  [a=0.25 s8 intact] iter    0
+  [a=0.25 s8 absent] iter    0
+  [a=0.00 s8 intact] iter  300
+  [a=0.00 s8 absent] iter  300
+  [a=0.10 s8 intact] iter  300
+  [a=0.25 s8 intact] iter  300
+  [a=0.10 s8 absent] iter  300
+  [a=0.25 s8 absent] iter  300
+  [a=0.00 s8 intact] iter  600
+  [a=0.00 s8 absent] iter  600
+  [a=0.10 s8 intact] iter  600
+  [a=0.25 s8 intact] iter  600
+  [a=0.25 s8 absent] iter  600
+  [a=0.10 s8 absent] iter  600
+  [a=0.00 s8 absent] iter  900
+  [a=0.00 s8 intact] iter  900
+  [a=0.25 s8 intact] iter  900
+  [a=0.25 s8 absent] iter  900
+  [a=0.10 s8 intact] iter  900
+  [a=0.10 s8 absent] iter  900
+  [a=0.00 s8 absent] iter 1200
+  [a=0.00 s8 intact] iter 1200
+  [a=0.25 s8 absent] iter 1200
+  [a=0.25 s8 intact] iter 1200
+  [a=0.10 s8 intact] iter 1200
+  [a=0.10 s8 absent] iter 1200
+  [a=0.00 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s8.json {"hits": 3.765833333333333, "hits_by_type": [null, 3.765833333333333]}
+  [a=0.50 s8 intact] iter    0
+  [a=0.00 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s8.json {"hits": 3.768333333333333, "hits_by_type": [null, 3.768333333333333]}
+  [a=0.50 s8 absent] iter    0
+  [a=0.25 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s8.json {"hits": 2.029166666666667, "hits_by_type": [0.2770268394217566, 3.6540062113758496]}
+  [a=0.25 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s8.json {"hits": 2.66, "hits_by_type": [1.1836891183729314, 3.6241486516925954]}
+  [a=0.75 s8 intact] iter    0
+  [a=0.10 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s8.json {"hits": 2.97, "hits_by_type": [0.25197590820486765, 3.7125539975053]}
+  [a=0.75 s8 absent] iter    0
+  [a=1.00 s8 intact] iter    0
+  [a=0.10 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s8.json {"hits": 2.935833333333333, "hits_by_type": [0.13238637071917506, 3.785713585094531]}
+  [a=1.00 s8 absent] iter    0
+  [a=0.50 s8 intact] iter  300
+  [a=0.50 s8 absent] iter  300
+  [a=0.75 s8 intact] iter  300
+  [a=0.75 s8 absent] iter  300
+  [a=1.00 s8 intact] iter  300
+  [a=1.00 s8 absent] iter  300
+  [a=0.50 s8 intact] iter  600
+  [a=0.50 s8 absent] iter  600
+  [a=0.75 s8 intact] iter  600
+  [a=1.00 s8 intact] iter  600
+  [a=0.75 s8 absent] iter  600
+  [a=1.00 s8 absent] iter  600
+  [a=0.50 s8 intact] iter  900
+  [a=0.50 s8 absent] iter  900
+  [a=0.75 s8 intact] iter  900
+  [a=1.00 s8 intact] iter  900
+  [a=0.75 s8 absent] iter  900
+  [a=1.00 s8 absent] iter  900
+  [a=0.50 s8 intact] iter 1200
+  [a=0.50 s8 absent] iter 1200
+  [a=0.75 s8 intact] iter 1200
+  [a=1.00 s8 intact] iter 1200
+  [a=0.75 s8 absent] iter 1200
+  [a=1.00 s8 absent] iter 1200
+  [a=0.50 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s8.json {"hits": 2.9324999999999997, "hits_by_type": [2.4341667055398397, 3.647642628695016]}
+  [a=0.00 s9 intact] iter    0
+  [a=0.50 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s8.json {"hits": 1.0999999999999999, "hits_by_type": [0.23372105105744476, 3.606493948038947]}
+  [a=1.00 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s8.json {"hits": 3.0316666666666663, "hits_by_type": [3.0316666666666667, null]}
+  [a=0.00 s9 absent] iter    0
+  [a=0.75 s8 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s8.json {"hits": 2.9599999999999995, "hits_by_type": [2.779920874723087, 3.6411169730679354]}
+  [a=0.10 s9 intact] iter    0
+  [a=0.75 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s8.json {"hits": 0.6633333333333333, "hits_by_type": [0.3290878873774317, 3.3730197115088445]}
+  [a=0.10 s9 absent] iter    0
+  [a=0.25 s9 intact] iter    0
+  [a=1.00 s8 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s8.json {"hits": 0.38999999999999996, "hits_by_type": [0.38999999999999996, null]}
+  [a=0.25 s9 absent] iter    0
+  [a=0.00 s9 intact] iter  300
+  [a=0.00 s9 absent] iter  300
+  [a=0.10 s9 intact] iter  300
+  [a=0.10 s9 absent] iter  300
+  [a=0.25 s9 intact] iter  300
+  [a=0.25 s9 absent] iter  300
+  [a=0.00 s9 intact] iter  600
+  [a=0.00 s9 absent] iter  600
+  [a=0.10 s9 intact] iter  600
+  [a=0.10 s9 absent] iter  600
+  [a=0.25 s9 intact] iter  600
+  [a=0.25 s9 absent] iter  600
+  [a=0.00 s9 intact] iter  900
+  [a=0.00 s9 absent] iter  900
+  [a=0.10 s9 intact] iter  900
+  [a=0.25 s9 intact] iter  900
+  [a=0.10 s9 absent] iter  900
+  [a=0.25 s9 absent] iter  900
+  [a=0.00 s9 intact] iter 1200
+  [a=0.00 s9 absent] iter 1200
+  [a=0.10 s9 intact] iter 1200
+  [a=0.25 s9 intact] iter 1200
+  [a=0.10 s9 absent] iter 1200
+  [a=0.25 s9 absent] iter 1200
+  [a=0.00 s9 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.00_s9.json {"hits": 3.751666666666667, "hits_by_type": [null, 3.7516666666666665]}
+  [a=0.00 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.00_s9.json {"hits": 3.768333333333333, "hits_by_type": [null, 3.768333333333333]}
+  [a=0.50 s9 intact] iter    0
+  [a=0.50 s9 absent] iter    0
+  [a=0.10 s9 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.10_s9.json {"hits": 2.9416666666666664, "hits_by_type": [0.18597062931805688, 3.714641415339981]}
+  [a=0.25 s9 intact] iter 1499
+  [a=0.75 s9 intact] iter    0
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.25_s9.json {"hits": 2.455, "hits_by_type": [0.8884859066638896, 3.6264971952938825]}
+  [a=0.75 s9 absent] iter    0
+  [a=0.10 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.10_s9.json {"hits": 2.9391666666666665, "hits_by_type": [0.2227820110211444, 3.6941970559997483]}
+  [a=1.00 s9 intact] iter    0
+  [a=0.25 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.25_s9.json {"hits": 2.06, "hits_by_type": [0.2966862864113145, 3.687187927048777]}
+  [a=1.00 s9 absent] iter    0
+  [a=0.50 s9 intact] iter  300
+  [a=0.50 s9 absent] iter  300
+  [a=0.75 s9 intact] iter  300
+  [a=0.75 s9 absent] iter  300
+  [a=1.00 s9 intact] iter  300
+  [a=1.00 s9 absent] iter  300
+  [a=0.50 s9 absent] iter  600
+  [a=0.50 s9 intact] iter  600
+  [a=0.75 s9 intact] iter  600
+  [a=0.75 s9 absent] iter  600
+  [a=1.00 s9 intact] iter  600
+  [a=1.00 s9 absent] iter  600
+  [a=0.50 s9 absent] iter  900
+  [a=0.50 s9 intact] iter  900
+  [a=0.75 s9 intact] iter  900
+  [a=0.75 s9 absent] iter  900
+  [a=1.00 s9 intact] iter  900
+  [a=1.00 s9 absent] iter  900
+  [a=0.50 s9 absent] iter 1200
+  [a=0.75 s9 intact] iter 1200
+  [a=0.50 s9 intact] iter 1200
+  [a=0.75 s9 absent] iter 1200
+  [a=1.00 s9 intact] iter 1200
+  [a=1.00 s9 absent] iter 1200
+  [a=0.50 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.50_s9.json {"hits": 1.1733333333333331, "hits_by_type": [0.28829360300966483, 3.6796467614879815]}
+  [a=0.75 s9 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.75_s9.json {"hits": 2.999166666666667, "hits_by_type": [2.846882867085117, 3.5546588443403864]}
+  [a=0.50 s9 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a0.50_s9.json {"hits": 3.02, "hits_by_type": [2.5553511481091333, 3.63994464210012]}
+  [a=0.75 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a0.75_s9.json {"hits": 0.7425, "hits_by_type": [0.39482114614261987, 3.3579090209200597]}
+  [a=1.00 s9 intact] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/channel_a1.00_s9.json {"hits": 3.0316666666666663, "hits_by_type": [3.0316666666666663, null]}
+  [a=1.00 s9 absent] iter 1499
+saved /home/matthewhmaxwell/emergent-pattern-catalog/analysis/ring3_competency/dial3_runs/nochannel_a1.00_s9.json {"hits": 0.3983333333333334, "hits_by_type": [0.39833333333333326, null]}
+DIAL3_DONE

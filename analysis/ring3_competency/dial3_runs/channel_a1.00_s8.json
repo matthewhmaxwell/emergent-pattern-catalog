@@ -1,0 +1,22 @@
+{
+ "alpha": 1.0,
+ "seed": 8,
+ "cond": "channel",
+ "iters": 1500,
+ "hits": 3.0316666666666663,
+ "hits_by_type": [
+  3.0316666666666667,
+  null
+ ],
+ "hits_scrambled": 0.265,
+ "hits_scrambled_by_type": [
+  0.265,
+  null
+ ],
+ "mi": {
+  "mi": 2.082958015521895,
+  "null_mean": 3.0686804420202925e-05,
+  "p": 0.0,
+  "n_pairs": 36000
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "alpha": 1.0,
+ "seed": 6,
+ "cond": "nochannel",
+ "iters": 1500,
+ "hits": 0.37250000000000005,
+ "hits_by_type": [
+  0.3725,
+  null
+ ]
+}
