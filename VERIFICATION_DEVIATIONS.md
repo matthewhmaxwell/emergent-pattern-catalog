@@ -24,3 +24,9 @@ class was computed.
   are dropped, as the plan states for undefined features; the other card features are tested.
 - **Partial seeds.** In one arm (census g1 grid-17, real program, 3x length) the flagged view appeared on 7 of 10
   seeds; medians use those 7, as the plan's drop rule implies.
+- **Sub-programs without the view.** 30 sub-program runs in 16 phenomena never produce the flagged view: the phase
+  view exists only when the oscillator rule is kept, and the transient view only when the run collapses to one type.
+  Such a sub-program does not reproduce the feature (the plan's reproduction test cannot be met without values). No
+  sub-program run raised an error. Checked after the 4x-area re-run, before classification: all 214 records carry the
+  fix, with no 4x-area errors, and 37 of 1,035 tested features remain unmeasurable somewhere, all in the cases listed
+  above.
