@@ -2,6 +2,7 @@
 
   python -m census.verify inventory              -> census/runs/verify/inventory.json (214 phenomena)
   python -m census.verify run --workers 6        -> census/runs/verify/sims/<pid>.json (resumable)
+  python -m census.verify rerun-area4 --workers 6  -> re-runs only the 4x-area condition (deviation V1)
   python -m census.verify classify               -> census/runs/verify/verify.json + VERIFY.md
 Frozen census code is imported unchanged; only system size and run length are varied, as the plan states.
 """
@@ -162,9 +163,12 @@ def inventory():
 
 # ------------------------------------------------------------------ simulation
 def _set_size(cond):
-    from census import sim
+    from census import sim, fingerprint, filter as FL
     c = CONDITIONS[cond]
     sim.W, sim.NA, sim.NN, sim.WA_ALONE = c["W"], c["NA"], c["NN"], c["WA_ALONE"]
+    # deviation V1: modules that copied the size at import follow it too (fingerprint.W sets the field spectrum and
+    # the correlation-length range; filter's copies only feed metadata)
+    fingerprint.W = c["W"]; FL.W, FL.NA, FL.NN = c["W"], c["NA"], c["NN"]
     return c["steps"]
 
 
@@ -176,6 +180,14 @@ def _fps(out_views, views):
     return res
 
 
+def _condition(p, kp, seed, views, cond):
+    from census import sim, knockout as KO
+    steps = _set_size(cond); t = time.time()
+    r = KO.per_seed_view_results(sim.run(p, seed0=seed, steps=steps, S=S_SEEDS), p)
+    k = KO.per_seed_view_results(sim.run(kp, seed0=seed, steps=steps, S=S_SEEDS), kp)
+    return {"real": _fps(r, views), "knockout": _fps(k, views), "secs": round(time.time() - t, 1)}
+
+
 def simulate(it):
     from census import sim, knockout as KO
     G = grammar(it["grammar"]); p = G.decode(it["bits"]); seed = fresh_seed(it["bits"])
@@ -183,13 +195,8 @@ def simulate(it):
     rec = {"pid": it["pid"], "n_rules": len(p.rules), "conditions": {}, "subprograms": [], "errors": []}
     kp = KO.knockout_program(p)
     for cond in CONDITIONS:
-        steps = _set_size(cond); t = time.time()
-        try:
-            r = KO.per_seed_view_results(sim.run(p, seed0=seed, steps=steps, S=S_SEEDS), p)
-            k = KO.per_seed_view_results(sim.run(kp, seed0=seed, steps=steps, S=S_SEEDS), kp)
-            rec["conditions"][cond] = {"real": _fps(r, views), "knockout": _fps(k, views), "secs": round(time.time() - t, 1)}
-        except Exception as e:
-            rec["errors"].append(f"{cond}: {type(e).__name__}: {e}")
+        try: rec["conditions"][cond] = _condition(p, kp, seed, views, cond)
+        except Exception as e: rec["errors"].append(f"{cond}: {type(e).__name__}: {e}")
     _set_size("census")
     if len(p.rules) >= 2:
         for n in range(1, len(p.rules)):
@@ -225,11 +232,40 @@ def run(workers, only=None):
     print("VERIFY RUN DONE", time.strftime("%Y-%m-%d %H:%M:%S"), flush=True)
 
 
+def _area4_worker(it):
+    # deviation V1: recompute only the 4x-area condition with the size fix, on the same seeds
+    from census import knockout as KO
+    fn = f"{OUT}/sims/{it['pid'].replace(':', '__')}.json"; rec = json.load(open(fn))
+    if rec.get("area4_fixed") or "fatal" in rec: return it["pid"], "cached"
+    G = grammar(it["grammar"]); p = G.decode(it["bits"]); seed = fresh_seed(it["bits"])
+    views = sorted(set(FAM_VIEWS.get(it["family"], ["C"])) | {it["view"]})
+    rec["errors"] = [e for e in rec.get("errors", []) if not e.startswith("area4:")]
+    try: rec["conditions"]["area4"] = _condition(p, KO.knockout_program(p), seed, views, "area4")
+    except Exception as e: rec["conditions"].pop("area4", None); rec["errors"].append(f"area4: {type(e).__name__}: {e}")
+    _set_size("census"); rec["area4_fixed"] = True
+    tmp = fn + ".tmp"; json.dump(rec, open(tmp, "w")); os.replace(tmp, fn)
+    return it["pid"], f"{rec['conditions'].get('area4', {}).get('secs')}s {'ERR' if rec['errors'] else ''}"
+
+
+def rerun_area4(workers):
+    import multiprocessing as mp, shutil
+    if not os.path.exists(f"{OUT}/sims_v1"): shutil.copytree(f"{OUT}/sims", f"{OUT}/sims_v1")   # first-run records kept
+    items = [it for it in json.load(open(f"{OUT}/inventory.json")) if it.get("bits")]
+    with mp.get_context("fork").Pool(workers, maxtasksperchild=1) as pool:
+        for i, (pid, msg) in enumerate(pool.imap_unordered(_area4_worker, items), 1):
+            print(f"[{i}/{len(items)}] {pid} {msg}", flush=True)
+    print("AREA4 RERUN DONE", time.strftime("%Y-%m-%d %H:%M:%S"), flush=True)
+
+
 # ------------------------------------------------------------------ classification (frozen rules)
 def _col(fps_by_view, f, view):
     # one value per seed from the phenomenon's own view; seeds where the feature is undefined are dropped
     vals = [s[f] for s in (fps_by_view or {}).get(view, []) if s and s.get(f) is not None and np.isfinite(s[f])]
     return np.array(vals, float) if vals else None
+
+
+def _view_absent(fps_by_view, view):
+    return not (fps_by_view or {}).get(view)
 
 
 def _scale(a, b):
@@ -247,7 +283,19 @@ def classify_one(it, rec):
     per, robust = {}, []
     for f in feats:
         x, k = _col(cen["real"], f, view), _col(cen["knockout"], f, view)
-        if x is None or k is None: per[f] = {"missing": True}; continue
+        if x is not None and _view_absent(cen["knockout"], view):
+            # deviation V2: the knock-out never produces the view -> interaction-driven (census convention);
+            # persistent if the same holds at 4x area and 3x length
+            ctrl = {}
+            for cond in ("area4", "len3"):
+                c = rec["conditions"].get(cond)
+                ctrl[cond] = bool(c) and _col(c["real"], f, view) is not None and _view_absent(c["knockout"], view)
+            pers = all(ctrl.values())
+            per[f] = {"median_real": round(float(np.median(x)), 4), "knockout_view_absent": True, "interaction_driven": True,
+                      "persistent": pers, "control_knockout_view_absent": ctrl}
+            if pers: robust.append(f)
+            continue
+        if x is None or k is None: per[f] = {"missing": True, "real_view_absent": _view_absent(cen["real"], view)}; continue
         s = _scale(x, k); e = float(np.median(x) - np.median(k)); driven = abs(e) >= 3 * s
         pers = True; ctrl = {}
         for cond in ("area4", "len3"):
@@ -260,7 +308,10 @@ def classify_one(it, rec):
                   "scale": round(s, 4), "interaction_driven": bool(driven), "persistent": bool(pers), "control_effects": ctrl}
         if driven and pers: robust.append(f)
     out = {"features": per, "robust": robust}
-    if not robust: out["class"] = "ARTIFACT"; return out
+    if not robust:
+        out["class"] = "ARTIFACT"
+        if _view_absent(cen["real"], view): out["reason"] = "flagged view did not recur on fresh seeds"
+        return out
     if rec["n_rules"] >= 2:
         best = None
         for sp in rec["subprograms"]:
@@ -295,11 +346,12 @@ def classify():
          "| batch | class | n |", "|---|---|---|"] + [f"| {b} | {c} | {n} |" for (b, c), n in sorted(tab.items())]
     L += ["", "| phenomenon | rep | flagged | class | robust features | reproduced by rules |", "|---|---|---|---|---|---|"]
     for r in res:
-        L.append(f"| {r['pid']} | `{r.get('rep','')}` | {r.get('flagged')} | {r['class']} | {', '.join(r.get('robust', []))} | {r.get('reproduced_by_rules', '')} |")
+        L.append(f"| {r['pid']} | `{r.get('rep','')}` | {r.get('flagged')} | {r['class']}{' (' + r['reason'] + ')' if r.get('reason') else ''} | {', '.join(r.get('robust', []))} | {r.get('reproduced_by_rules', '')} |")
     open(f"{OUT}/VERIFY.md", "w").write("\n".join(L) + "\n"); print("\n".join(L[:12]))
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("cmd"); ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--only", default=None); a = ap.parse_args()
-    {"inventory": inventory, "classify": classify}.get(a.cmd, lambda: run(a.workers, a.only))()
+    {"inventory": inventory, "classify": classify, "rerun-area4": lambda: rerun_area4(a.workers)}.get(
+        a.cmd, lambda: run(a.workers, a.only))()

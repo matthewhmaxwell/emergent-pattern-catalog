@@ -41,8 +41,12 @@ def card(it, cl, rec):
     lines = []
     for f in cl["robust"]:
         d = cl["features"][f]
-        g = LR.GLOSS.get(f)
-        lines.append(f"  - {f}{f' ({g})' if g else ''}: median {d['median_real']} with interaction, "
+        g = LR.GLOSS.get(f); gl = f" ({g})" if g else ""
+        if d.get("knockout_view_absent"):   # deviation V2
+            lines.append(f"  - {f}{gl}: median {d['median_real']} with interaction; with interaction knocked out the program "
+                         f"never produces this view, at the original size, at 4x area or at 3x run length")
+            continue
+        lines.append(f"  - {f}{gl}: median {d['median_real']} with interaction, "
                      f"{d['median_ko']} with interaction knocked out (difference {d['effect']}, robust spread {d['scale']}); "
                      f"difference at 4x area {d['control_effects'].get('area4')}, at 3x run length {d['control_effects'].get('len3')}")
     subs = []
@@ -54,8 +58,10 @@ def card(it, cl, rec):
     ev = ("SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, "
           "averaged over the late part of the run. The interaction knock-out is the same program with every rule that "
           "reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase "
-          "coupling is set to zero). Each listed feature differs from its knock-out by at least 3 robust spreads at the "
+          "coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the "
           "original size, and keeps its sign and at least half its size at 4x area and at 3x run length.\n"
+          + ("These grid features are measured on the transient: the stretch of the run before the lattice collapsed "
+             "to a single type.\n" if view == "C.transient" else "")
           + "\n".join(lines))
     if subs:
         ev += ("\n\nSUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature "
