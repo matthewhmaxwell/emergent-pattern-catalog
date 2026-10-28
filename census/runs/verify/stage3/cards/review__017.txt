@@ -1,0 +1,22 @@
+RULE (plain words):
+C kC=2 | C[any] ALWAYS() -> IMITATE_BEST(g=(1.5, 0.5)) p=0.1  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  g_reversals
+
+FIRST PASS concluded: KNOWN-VARIANT
+First-pass text (excerpt): **Verdict: KNOWN-VARIANT.** The variant is minor and probably doesn't matter.
+
+**1. Model family**
+- This is a spatial evolutionary game on a lattice with two pure strategies ("C" with kC=2 types). Each cell uses the imitate-the-best-neighbour rule, also called unconditional imitation or best-takes-over.
+- Each cell updates with probability p. That makes it a partially asynchronous, or "α-synchronous", version of the Nowak–May model. With p=1 it is fully synchronous. Small p approaches random sequential updating.
+- I could not confirm what g=(1.5, 0.5) means, because the rule notation is not defined anywhere I could read.
+  - One reading is a temptation value of 1.5 and a second payoff parameter of 0.5. If that second parameter is the "sucker" payoff, with R=1 and P=0, the game is a snowdrift or Hawk–Dove game, not a Prisoner's Dilemma.
+  - The other reading is a Prisoner's Dilemma in Nowak–May form.
+  - The observed result is a stable coexistence of two types. The type entropy of 0.995 is nearly 1 bit, which is consistent with either reading.
+
+**2. Specific behaviour and sources**
+- **Earliest source for the rule.** Nowak & May, "Evolutionary games and spatial chaos", Nature 359:826–829 (1992). Each site is occupied either by its original owner or by one of the neighbours, depending on who scores the highest total in that round. The rule is unconditional imitation, also known as imitate-the-best: each player takes the strategy of the neighbour with the largest payoff. C and 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0

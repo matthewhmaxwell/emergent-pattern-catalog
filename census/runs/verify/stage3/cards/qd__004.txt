@@ -1,0 +1,28 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=0.5) and copy the best-scoring neighbour; (2) each cell adopts its neighbourhood's majority type (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_activity_trend, g_activity_cv, g_corrlen, g_n_types, g_reversals, g_largest_domain
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm moving down from the first pass's KNOWN-VARIANT, because nothing in the observed behaviour lacks a description in the literature.
+
+**What the metrics show.** One type is left (n_types=1), it fills almost the whole grid (largest_domain≈0.999), and activity rises briefly and then falls to zero (strongly negative trend, high variability). The correlation length is maxed out, and there is one reversal. Together this says the grid ends up all one type and freezes. In a uniform grid, correlation length and domain size hit their maximum automatically, so those two numbers don't add independent evidence of structure.
+
+**Why this is already documented:**
+1. **Payoff-based plus conformity-based updating on a lattice freezing into one type.** Lin et al. (2020) combine the two update rules on a lattice and report that the system "is always absorbed into the frozen state". Three phases are appeared in the order of full cooperators, bistability and full defectors with increasing temptation to defect *b*. Their "bistability" phase means the system ends all-cooperator or all-defector depending on the run, which fits a single reversal and a random winner.
+2. **The same thing with these snowdrift payoffs.** Szolnoki & Perc mapped the full temptation–sucker's-payoff plane (T, S) for the snowdrift game with both learning rules competing. Full C (full D) label marks the parameter regions where only cooperator (defector) strategies survive in the stationary state. They repo
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+These grid features are measured on the transient: the stretch of the run before the lattice collapsed to a single type.
+  - g_activity_trend (activity rising): median -7.2083 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_activity_cv (bursty activity): median 0.5469 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_corrlen (long spatial correlation length): median 0.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_n_types (number of surviving types): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_reversals (cells flip back and forth): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_largest_domain (one cell-type fills most of the lattice): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_activity_trend None; g_activity_cv None; g_corrlen None; g_n_types None; g_reversals None; g_largest_domain None
+  - rules 2 only: g_activity_trend None; g_activity_cv None; g_corrlen None; g_n_types None; g_reversals None; g_largest_domain None
+No sub-program came within 3 robust spreads of the full program on every feature above.

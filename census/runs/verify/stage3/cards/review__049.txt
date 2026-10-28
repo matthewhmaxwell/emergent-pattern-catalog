@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 3 neighbours already are t+1 (with probability 0.1 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_moran
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I disagree with the first pass's "KNOWN-VARIANT". The behaviour is a weakly coarsened, patchy, partly segregated mosaic that is settling down. Each part of it is already described in the literature. The only new thing is the exact combination of rules, and as you said, that doesn't count as a discovery.
+
+**What the system actually is.** With 3 types and type 0 being empty, there are only two kinds of agent plus vacancies. The cycle runs empty → 1 → 2 → empty. So rule (1) is not a three-species rock-paper-scissors game. It is a random, slowed-down version of the standard cyclic cellular automaton with range 1, threshold 3, 3 colours and the 8-cell neighbourhood (the rule known as "313"). Each update a cell's color advances by 1 if there are at least Threshold cells of the next color nearby, and R1/T3/C3/NM is a named, catalogued rule. In practice, empty cells get filled by type 1, type 2 takes over type 1, and type 2 empties out when surrounded by vacancy. That is an excitable-medium cycle in the Greenberg–Hastings family. Rule (2) is ordinary Schelling relocation to a random empty cell.
+
+**How each observed feature is accounted for:**
+- **Patchy, moderately segregated state.** Threshold cyclic automata have three known long-run outcomes. At high thresholds, the CCA forms homogeneous blocks of solid colors, which are completely static — so-called fixation behavior. In between, incoherent traveling waves form, propagate for a while, and then disperse. With a
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.7348 with interaction, 7.3575 with interaction knocked out (difference -2.6227, robust spread 0.2418); difference at 4x area -2.7592, at 3x run length -2.7131
+  - g_corrlen (long spatial correlation length): median 3.0 with interaction, 1.0 with interaction knocked out (difference 2.0, robust spread 0.08); difference at 4x area 2.0, at 3x run length 2.0
+  - g_moran (like-valued cells cluster spatially): median 0.6221 with interaction, -0.0056 with interaction knocked out (difference 0.6277, robust spread 0.0169); difference at 4x area 0.6371, at 3x run length 0.6277
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.1584; g_corrlen 4.0; g_moran 0.7744
+  - rules 2 only: g_n_domains 6.8216; g_corrlen 1.0; g_moran 0.0835
+No sub-program came within 3 robust spreads of the full program on every feature above.

@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 2 neighbours already are t+1 (every step); (2) neighbouring cells swap contents (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_moran, g_activity
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** Rule (1) is the textbook case, and I couldn't find any behaviour here that isn't already described. The odd overall fingerprint is most likely because the swap step breaks up the spirals.
+
+**Rule (1) on its own is the standard spiral case.** It is Griffeath's cyclic cellular automaton with 4 states, the 8-cell neighbourhood and threshold 2. Fisch, Gravner and Griffeath map exactly this space: T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 "quenches" incoherent local oscillations. The standard illustrations of this phase diagram use these same settings: the number of colors is fixed to 4, the rule uses a range-one box-shaped neighborhood, and the initial conditions are a uniform random mixture of colors. So this rule pairing isn't new.
+
+**Rule (2), swapping neighbours, is the standard way to add movement in cyclic-competition models.** There are two standard ways to implement mobility in systems where at most one particle is allowed at any lattice site: diffusion, realised through the hopping of particles to empty sites, and particle swapping, where particles on neighbouring sites exchange places. The four-type cyclic case with swapping has been studied directly. It study[ies] numerically domain growth and interface fluctuations in one- and two-dimensional lattice systems composed of four species that interact in a cyclic way. Particle mobility is implemented through exchanges of particles located on neighboring lattice site
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.2194 with interaction, 7.6723 with interaction knocked out (difference -3.4529, robust spread 0.2378); difference at 4x area -2.9926, at 3x run length -3.9028
+  - g_corrlen (long spatial correlation length): median 4.5 with interaction, 1.0 with interaction knocked out (difference 3.5, robust spread 0.3706); difference at 4x area 3.5, at 3x run length 4.5
+  - g_moran (like-valued cells cluster spatially): median 0.7982 with interaction, 0.002 with interaction knocked out (difference 0.7962, robust spread 0.016); difference at 4x area 0.7116, at 3x run length 0.8267
+  - g_activity (many cells change per step): median 0.4775 with interaction, 0.0 with interaction knocked out (difference 0.4775, robust spread 0.0095); difference at 4x area 0.4759, at 3x run length 0.4701
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.4427; g_corrlen 2.0; g_moran 0.4701; g_activity 0.9897
+  - rules 2 only: g_n_domains 7.6725; g_corrlen 1.0; g_moran 0.0057; g_activity 0.6376
+No sub-program came within 3 robust spreads of the full program on every feature above.

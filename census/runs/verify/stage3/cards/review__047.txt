@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 1 neighbours already are t+1 (every step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.5 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_largest_domain, g_reversals
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This is a three-state cyclic cellular automaton (Griffeath's cyclic CA: each cell can only be taken over by the next type in the cycle) that is losing its diversity. In effect it is a rock-paper-scissors system where the moving pieces speed up the loss. The "segregation with vacancies" label is mostly a side effect of how the test measures things, not real Schelling segregation (Schelling's model of agents moving away from unlike neighbours).
+
+**Why the label misleads.** In rule (1), type 0 (empty) is part of the cycle: 0→1→2→0. So "empty" behaves like a third species, not a fixed background of vacancies. That makes the system rock-paper-scissors with empty space as one player, plus random long jumps (rule 2). A whole lattice of one type is a dead end: once every cell is type t, no neighbour is t+1, so nothing changes again. The class result also barely changes when the Schelling threshold goes from 0.3 to 0.6, or the cycle probability from 0.1 to 1.0. That points to the cycle rule driving the outcome, with the Schelling move only acting as mixing.
+
+**How the fingerprint fits.**
+- **Threshold 1, three states, 8 neighbours:** this is the most excitable setting. In Fisch–Gravner–Griffeath's results, at very low thresholds, the entire lattice eventually oscillates periodically; sometimes the oscillation takes the form of large spiral waves which grow to engulf the entire lattice. For the 8-neighbour rule they note T=1 "quenches" incoherent local oscillations,
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 5.3701 with interaction, 7.3658 with interaction knocked out (difference -1.9957, robust spread 0.2547); difference at 4x area -2.3367, at 3x run length -2.2084
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.814 with interaction, 0.0076 with interaction knocked out (difference 0.8064, robust spread 0.0164); difference at 4x area 0.8742, at 3x run length 0.8568
+  - g_reversals (cells flip back and forth): median 0.5601 with interaction, 0.0 with interaction knocked out (difference 0.5601, robust spread 0.0112); difference at 4x area 0.5577, at 3x run length 0.6379
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.3457; g_largest_domain 0.0085; g_reversals 0.0
+  - rules 2 only: g_n_domains 6.3994; g_largest_domain 0.0574; g_reversals 0.4143
+No sub-program came within 3 robust spreads of the full program on every feature above.

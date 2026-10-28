@@ -1,0 +1,31 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.3, S=0.0) and copy the best-scoring neighbour; (2) each cell copies the type of a random neighbour (with probability 0.03 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_types, g_largest_domain
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN-VARIANT, medium confidence.** The core system is the classic Nowak–May spatial Prisoner's Dilemma. The one thing I couldn't match in the literature is the specific noise term.
+
+**1. Model family.** This is evolutionary game theory on a lattice, a spatial Prisoner's Dilemma cellular automaton. The rules match Nowak & May's setup:
+- Players are pure cooperators or pure defectors, with payoffs R=1, P=0, S=0 and T=b.
+- Each player plays its 8 Moore neighbours plus itself, with synchronous "copy the best-scoring neighbour" updating.
+- A reproduction of the original paper describes it as players playing the PD with nearest neighbours and their own site, then each site taking the highest-scoring player among the previous owner and the neighbours.
+- Later work states the original parameterisation as T=b (1<b<2), R=1, P=0, S=0.
+- Here b=1.3, which is below the b≈1.8 threshold. In the deterministic model, a big D cluster shrinks for b<1.8 (from a GitHub reproduction, not the paper itself).
+
+**2. The behaviour.**
+- The observed behaviour is domain coarsening to a single-type consensus, with bursty, reversal-heavy activity at the interfaces.
+- The extra rule is a voter-model-like step: with probability 0.03 or 0.01, a cell copies a random neighbour. That step cannot create a new type.
+- A monoculture is therefore absorbing, which fits g_n_types = 1 and g_largest_domain = 1.
+- I infer that the noise-driven bursts are interface activity rather than mutation. I did not run 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+These grid features are measured on the transient: the stretch of the run before the lattice collapsed to a single type.
+  - g_n_types (number of surviving types): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_largest_domain (one cell-type fills most of the lattice): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_types None; g_largest_domain None
+  - rules 2 only: g_n_types None; g_largest_domain None
+No sub-program came within 3 robust spreads of the full program on every feature above.

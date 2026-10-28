@@ -1,0 +1,22 @@
+RULE (plain words):
+C kC=2 | C[any] CNT_GE(b=0,th=3) -> IMITATE_BEST(g=(1.5, 0.5)) p=1.0  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_largest_domain, g_moran
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This is a downgrade from the first pass's KNOWN-VARIANT. The run looks like the frozen, low-temptation regime of the Nowak–May spatial Prisoner's Dilemma, not a new form of spatial chaos. I found nothing in the behaviour that is unaccounted for.
+
+**Why I disagree with the first pass**
+
+- **The payoff puts it in a known frozen regime.** If g=(1.5, 0.5) gives a temptation of about b=1.5, the rule sits in Nowak–May's 1<b<1.8 band. The chaotic regime only applies for 1.8 < b < 2, cooperators and defectors coexist indefinitely in a chaotically shifting balance. Below 1.8, the cluster rules are: (b < 1.8) big D cluster will shrink; (b < 2) 2x2 or larger cluster of C will continue to grow. In that regime equilibrium frequency of cooperators depends upon the initial conditions.
+- **The fingerprint matches that regime.** One domain covers about 90% of the grid (largest_domain 0.897). There are about 4 domains in total, a correlation length of 2, one reversal and moderate clustering (Moran's I 0.5). That is one type taking over, with a few small leftover islands of the other type that stop changing. Real Nowak–May chaos looks different: the cooperator fraction hovers around 0.318, with clusters of both types of players expanding, colliding and fragmenting.
+- **The "chaos" label is probably a false positive.** A single reversal followed by a 90% majority is not chaos. The "domain coarsening" label fits better, but it is coarsening that stops early and freezes.
+- **Th
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.4006 with interaction, 6.357 with interaction knocked out (difference -1.9564, robust spread 0.2152); difference at 4x area -1.9715, at 3x run length -1.9626
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.8939 with interaction, 0.0475 with interaction knocked out (difference 0.8464, robust spread 0.0188); difference at 4x area 0.872, at 3x run length 0.8457
+  - g_moran (like-valued cells cluster spatially): median 0.4901 with interaction, 0.0062 with interaction knocked out (difference 0.4839, robust spread 0.0193); difference at 4x area 0.5004, at 3x run length 0.4872

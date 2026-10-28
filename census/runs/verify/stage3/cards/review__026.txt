@@ -1,0 +1,24 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) neighbouring cells swap contents (every step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.5 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_reversals, g_activity_cv
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This is noisy Schelling segregation with vacancies and more than two groups, held at finite-size domains by the swap noise. I don't see anything in the behaviour that the literature doesn't already cover. I'm downgrading the first pass's KNOWN-VARIANT, because what made it a "variant" was the exact rules (three types, swap rate p=1), not anything new in what the system does. That's the "unusual rule tuple" case the brief says not to count.
+
+**How each observed feature maps onto existing work:**
+
+1. **Segregation and coarsening with vacancies.** The noisy Schelling model with vacancies has a mapped phase diagram with three phases: frozen, segregated and mixed. In the segregated phase, coarsening is measured as a power-law decay with an exponent α ≃ 0.5 in the interface density.
+2. **Swap and copy as noise on top of Schelling moves.** This exact pairing has been studied. There are rigorous hydrodynamic-limit results for the Schelling model with spontaneous Glauber and Kawasaki dynamics, which predict a mixed, a segregated and a metastable segregation phase. Your SWAP rule plays the Kawasaki role (neighbours exchange places) and COPY plays the Glauber role (a cell's type gets replaced). A swap rate of 1 just means strong noise. That doesn't make it a new mechanism.
+3. **Finite domains instead of full separation** (correlation length about 11 and about 6 domains on a 64×64 grid). Stauffer's Schelling–Ising work with tolerance and noise as temperatures reports 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 5.893 with interaction, 7.3553 with interaction knocked out (difference -1.4623, robust spread 0.265); difference at 4x area -1.6757, at 3x run length -1.498
+  - g_reversals (cells flip back and forth): median 0.9417 with interaction, 0.0 with interaction knocked out (difference 0.9417, robust spread 0.0188); difference at 4x area 0.9538, at 3x run length 0.9591
+  - g_activity_cv (bursty activity): median 0.7518 with interaction, 0.0 with interaction knocked out (difference 0.7518, robust spread 0.015); difference at 4x area 0.5731, at 3x run length 0.7554
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.3582; g_reversals 0.5002; g_activity_cv 0.7561
+  - rules 2 only: g_n_domains 6.4019; g_reversals 0.5357; g_activity_cv 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

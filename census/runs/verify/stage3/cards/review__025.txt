@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) each cell adopts its neighbourhood's majority type (every step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_types
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This is ordinary majority-vote coarsening that ends up frozen, with the Schelling move rule doing very little. It isn't a new kind of segregation. The first pass called it KNOWN-VARIANT because the published Schelling–voter hybrids are set up differently. But the instructions say a different rule setup doesn't count as a discovery. The behaviour itself is documented.
+
+**Why the fingerprint doesn't look like textbook Schelling.** Rule (1) is a majority vote applied to every cell at once, every step, with probability 1. On a Moore (8-neighbour) lattice this rule settles down by itself: Moore-neighbourhood majority-vote CAs are Class 1, converging to a stable pattern, and converge to unanimity when one type starts with a large enough majority. Majority rule is a well-known way to model this: for dimensions above 1, majority rule is implemented as a zero-temperature spin-flip kinetic Ising model. For random-sequential majority rule, the model with an odd neighbourhood size is conjectured to cluster in any dimension. Moore (1997) studies the synchronous majority-vote CA directly and ties it to zero-temperature single spin-flip Ising dynamics.
+
+How each observed feature follows:
+- **Long correlation length, few domains, large largest domain:** majority rule grows domains, which then freeze or reach consensus.
+- **Falling activity:** the system is freezing.
+- **Reversals:** most likely the period-2 flip-flopping that synchronous majority rules produce at ties and
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_types (number of surviving types): median 1.0 with interaction, 3.0 with interaction knocked out (difference -2.0, robust spread 0.08); difference at 4x area -1.0, at 3x run length -2.0
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_types 2.0
+  - rules 2 only: g_n_types 3.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

@@ -1,0 +1,24 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 2 types (random start). 1 field(s) with diffusion [0.2]. Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.9, S=0.0) and copy the best-scoring neighbour.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_largest_domain
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This is the Nowak–May spatial Prisoner's Dilemma with synchronous imitate-the-best updating. T=1.9 sits inside the chaotic window.
+
+**1. Model family.** Cells on a 64×64 torus have 8 neighbours plus self-interaction. They play a two-strategy Prisoner's Dilemma with R=1, P=0, S=0 and T=b=1.9. Every cell then copies the strategy of the highest-scoring cell in its 3×3 neighbourhood. This is the spatial evolutionary Prisoner's Dilemma, also called the Nowak–May model or the spatial game with "imitate the best neighbour".
+
+The match is exact on each point:
+- Nowak and May's setup is described as follows: players play the PD with nearest neighbouring sites and with their own site, a 3x3 territory. Each site is then taken by the player with the highest score among the previous owner and the immediate neighbours.
+- The payoffs match too. Following Nowak and May, S=P=0, R=1, T=b with 1<b<2.
+- The Nowak–May analysis gives a 2x2 or larger D cluster that keeps growing at its corners for b>1.8, and shrinking for b<1.8. Together with the C-cluster condition for b<2, this gives the chaotic window of roughly 1.8<b<2.
+
+**2. Earliest source and reviews.**
+- **Earliest source:** Nowak, M.A. & May, R.M., "Evolutionary games and spatial chaos", *Nature* 359, 826–829 (1992). The search confirms the citation details, and the paper was published 29 October 1992. The long-form follow-up is Nowak & May (1993), "The spatial dilemmas of evolution", *Int. J. Bifurcation Chaos* 3, 35–7
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.3498 with interaction, 6.3404 with interaction knocked out (difference -1.9906, robust spread 0.2138); difference at 4x area -2.1213, at 3x run length -2.0442
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.6847 with interaction, 0.0475 with interaction knocked out (difference 0.6372, robust spread 0.0214); difference at 4x area 0.6621, at 3x run length 0.6554

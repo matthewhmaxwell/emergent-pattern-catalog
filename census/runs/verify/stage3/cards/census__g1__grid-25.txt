@@ -1,0 +1,29 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) neighbouring cells swap contents (every step); (2) a cell of type t becomes type t+1 (cyclically) if at least 3 neighbours already are t+1 (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_reversals, g_activity_cv
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN-VARIANT.** I'm medium-confident. The behaviour is a threshold cyclic cellular automaton with added mobility. Both parts are in the literature, but I found no paper that combines this exact rule with swap mobility.
+
+**1. Model family**
+- Rule (2) is a **cyclic cellular automaton (CCA)**. It is also called an excitable-medium or Greenberg–Hastings-type automaton, or a cyclic "rock-paper-scissors" system.
+- Here it has 4 states, a Moore (8-neighbour) range-1 neighbourhood and threshold T=3. It is made stochastic, with probability 0.1 or 0.03 per step.
+- Rule (1), swapping neighbouring cells, adds **mobility**. This is the "pair-exchange" mobility used in spatial rock-paper-scissors models from evolutionary game theory.
+
+**2. Is the behaviour reported?**
+- **The no-mobility baseline matches your parameters.** In the 4-colour range-1 CCA at T=3 one finds "turbulence", which is metastable: spirals can form and entrain the CA, but not always on finite lattices, and the turbulent phase can persist for very long times. Fixation occurs with T≥4.
+  - That fits your variants. The T=3 systems stay active, with many domains, long correlation length and bursty activity. The T=4 and T=5 systems should freeze into static blocks.
+  - The Griffeath rules lexicon also lists a "Perfect" rule (R1/T3/C4, Moore neighbourhood). From a random start it quickly self-organizes into a chaotic soup with large length scale. I only saw a truncated snippet of this entry.
+- **Earliest clear so
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 6.5043 with interaction, 7.6688 with interaction knocked out (difference -1.1645, robust spread 0.2835); difference at 4x area -1.1769, at 3x run length -1.3032
+  - g_reversals (cells flip back and forth): median 0.7457 with interaction, 0.0 with interaction knocked out (difference 0.7457, robust spread 0.0149); difference at 4x area 0.7084, at 3x run length 0.8615
+  - g_activity_cv (bursty activity): median 0.4376 with interaction, 0.0 with interaction knocked out (difference 0.4376, robust spread 0.0088); difference at 4x area 0.5215, at 3x run length 0.4455
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.6641; g_reversals 0.3962; g_activity_cv 0.519
+  - rules 2 only: g_n_domains 4.3757; g_reversals 0.0; g_activity_cv 0.1396
+No sub-program came within 3 robust spreads of the full program on every feature above.

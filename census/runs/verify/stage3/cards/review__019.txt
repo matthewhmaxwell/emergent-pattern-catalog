@@ -1,0 +1,29 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 3 types (random start). Rules, applied in order each step: (1) each node copies the type of a random neighbour (every step); (2) a node linked to a different-type neighbour cuts that link and links to a random same-type node (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_edge_turnover, n_consensus_gain
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** The system is a standard adaptive (coevolving) voter model, with a few implementation differences that probably don't change the outcome.
+
+**1. Model family.** This is the adaptive or coevolving voter model on a random graph. Nodes copy a random neighbour's state (voter dynamics). Nodes that sit on a discordant link cut it and rewire to a random same-state node ("rewire-to-same"). The model has 3 states, an Erdős–Rényi network with mean degree about 4, and a low rewiring probability (0.1) compared with copying (1.0).
+
+**2. Earliest clear sources for this behaviour.**
+- **Holme & Newman (2006), Phys. Rev. E 74, 056108.**
+  - This is the earliest clear match. Their model has G opinions and rewiring to same-opinion nodes.
+  - The model reaches a consensus state in finite time on a finite network.
+  - The structure of the consensus state shows clear signatures of a continuous phase transition as the balance between opinion change and rewiring is varied.
+  - Related work (Durrett et al.) describes the dynamics ending when no edges join different opinions. In that setting the end state is either a single connected consensus or several clusters, each in internal consensus (Kozma & Barrat, in the bounded-confidence version).
+- **Vazquez, Eguíluz & San Miguel (2008), PRL 100, 108702.**
+  - A discordant link is rewired with probability p; otherwise a node takes its neighbour's state.
+  - There is an absorbing transition from an active to a frozen phase at p_c = (μ−2
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_edge_turnover (edges rewire): median 0.9695 with interaction, 0.0 with interaction knocked out (difference 0.9695, robust spread 0.0194); difference at 4x area 0.9938, at 3x run length 0.9695
+  - n_consensus_gain (nodes converge to agreement): median 0.635 with interaction, 0.0 with interaction knocked out (difference 0.635, robust spread 0.0127); difference at 4x area 0.6444, at 3x run length 0.635
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: n_edge_turnover 0.0; n_consensus_gain 0.625
+  - rules 2 only: n_edge_turnover 0.6596; n_consensus_gain 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

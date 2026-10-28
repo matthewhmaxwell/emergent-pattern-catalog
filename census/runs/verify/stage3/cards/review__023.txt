@@ -1,0 +1,24 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=0.5) and copy the best-scoring neighbour; (2) each cell copies the type of a random neighbour (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_largest_domain, g_activity_trend
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The run looks like a spatial snowdrift game heading toward one type taking over most of the lattice. Nothing in its fingerprint needs a new explanation.
+
+**1. The game is exactly the standard Hauert–Doebeli setup.** The snowdrift game pays T=b, R=b−c/2, S=b−c, P=0. With b=1.5 and c=1 that gives T=1.5, R=1, S=0.5, P=0, which are your numbers exactly. The cost-to-benefit ratio is r = c/(2b−c) = 0.5. That is the parameterisation of Hauert & Doebeli, *Nature* 428 (2004) (I worked out this mapping myself; it isn't quoted from the paper). Their main result: "In unstructured snowdrift games, intermediate levels of cooperation persist. Unexpectedly, spatial structure reduces the proportion of cooperators for a wide range of parameters." They also describe the shape of the clusters: in the spatial snowdrift game cooperators form only small filament-like clusters, which make it advantageous to adopt strategies opposite to neighbouring ones. Later work adds that in the snowdrift game, spatial structure may inhibit the spread of cooperation if imitation is applied.
+
+**2. The fingerprint is a near-takeover, not textbook coarsening or chaos.** One domain covers about 95% of the lattice. There are only about 3 domains, a correlation length of about 2 cells, a single reversal, and activity is falling. That reads as one type almost taking over, with a few small leftover clusters. This is the "space suppresses one strategy" ou
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 3.6109 with interaction, 6.3716 with interaction knocked out (difference -2.7607, robust spread 0.1997); difference at 4x area -2.8673, at 3x run length -2.734
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.9397 with interaction, 0.0393 with interaction knocked out (difference 0.9004, robust spread 0.0196); difference at 4x area 0.929, at 3x run length 0.9053
+  - g_activity_trend (activity rising): median -0.625 with interaction, 0.0 with interaction knocked out (difference -0.625, robust spread 0.0125); difference at 4x area -0.5871, at 3x run length -0.425
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.7406; g_corrlen 2.0; g_reversals 1.0; g_largest_domain 0.8151; g_activity_trend -0.761
+  - rules 2 only: g_n_domains 5.4702; g_corrlen 3.0; g_reversals 1.0; g_largest_domain 0.433; g_activity_trend -0.3092
+No sub-program came within 3 robust spreads of the full program on every feature above.

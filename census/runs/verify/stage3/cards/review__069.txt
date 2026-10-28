@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 1 neighbours already are t+1 (with probability 0.1 per step); (2) a type-0 cell spontaneously becomes type 1 (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_types, g_type_entropy, g_interface, g_reversals
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** This doesn't look like a new form of spiral waves. What the run shows is a fine-grained mix of three types cycling through each other, with almost no spatial structure. That behaviour is already described in the literature on cyclic cellular automata and rock-paper-scissors lattice models. I think the "cyclic waves and spirals" label is a false positive. Most likely the run passes the test because the types keep cycling, not because there are any coherent waves.
+
+**1. The fully synchronous version of this rule isn't known to make spirals.** In the standard cyclic cellular automaton studies, T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 "quenches" incoherent local oscillations. For the specific case of 3 types with the 8-cell neighbourhood, the MCell rule catalogue calls the threshold-3 rule "the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization." So "3 types, threshold 1, 8 neighbours" was never expected to produce clean spirals.
+
+**2. The random-update version matches a documented pattern: shifting clusters, not spirals.** With each cell updating only with probability 0.1, the system behaves like the cyclic particle system of Bramson and Griffeath, or Tainaka's lattice rock-paper-scissors model. The literature says in the simplest spatial stochastic RPS realizations of cyclic three-species competition, a conservation law for the total number of reactants is incorporated, and no
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_types (number of surviving types): median 3.0 with interaction, 2.0 with interaction knocked out (difference 1.0, robust spread 0.1); difference at 4x area 1.0, at 3x run length 1.0
+  - g_type_entropy (cell types evenly mixed): median 0.8868 with interaction, 0.5824 with interaction knocked out (difference 0.3045, robust spread 0.0294); difference at 4x area 0.3063, at 3x run length 0.3057
+  - g_interface (long/rough domain boundaries): median 0.5269 with interaction, 0.4447 with interaction knocked out (difference 0.0822, robust spread 0.0194); difference at 4x area 0.0817, at 3x run length 0.0837
+  - g_reversals (cells flip back and forth): median 0.4959 with interaction, 0.0 with interaction knocked out (difference 0.4959, robust spread 0.0099); difference at 4x area 0.4951, at 3x run length 0.5953
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_types 3.0; g_type_entropy 1.0; g_interface 0.6402; g_reversals 0.4285
+  - rules 2 only: g_n_types 2.0; g_type_entropy 0.5824; g_interface 0.4447; g_reversals 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

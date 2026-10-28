@@ -1,0 +1,18 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 1 neighbours already are t+1 (with probability 0.3 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_interface, g_activity
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm moving this down from the first pass's KNOWN-VARIANT. The first pass treated the random firing as a twist. It isn't one: random-update versions of the cyclic automaton are the original setting that the deterministic automaton was built to imitate.
+
+**What the rule is.** This is a cyclic cellular automaton (CCA) with 4 states, the 8-cell neighbourhood and a threshold of 1. The only change is that cells don't all update every step: each one that is able to advance does so with probability 0.3. The basic rule is the textbook one: each cell remains unchanged until some neighboring cell has a modular value exactly one unit larger than that of the cell itself, at which point it copies its neighbor's value.
+
+**The random version is documented.**
+- Bramson and Griffeath studied random-update cyclic systems first. The CCA was proposed by Bramson and Griffeath as the deterministic counterpart of the cyclic particle system, in which vertices update their colors asynchronously. Firing with probability 0.3 per step is a discrete-time stand-in for that.
+- The behaviour seen here, noisy wave fronts rather than clean spirals, is described directly in Fisch, Gravner and Griffeath (1991). Their abstract says the deterministic rules show nucleation of locally periodic 'ram's horns' or spirals, while corresponding random processes give rise to a variety of 'forest fire' equilibria that display large-scale stochastic wave fronts. A fingerprint that passes the spiral test b
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_interface (long/rough domain boundaries): median 0.6521 with interaction, 0.7493 with interaction knocked out (difference -0.0972, robust spread 0.028); difference at 4x area -0.0982, at 3x run length -0.0961
+  - g_activity (many cells change per step): median 0.4174 with interaction, 0.0 with interaction knocked out (difference 0.4174, robust spread 0.0083); difference at 4x area 0.4177, at 3x run length 0.4177

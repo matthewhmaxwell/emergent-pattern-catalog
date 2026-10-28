@@ -1,0 +1,22 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a type-0 cell becomes type 1 if at least 3 neighbours are type 1 (every step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_types
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What's new here is the route, not the behaviour, and the route is two well-studied mechanisms run together. The unusual fingerprint mostly comes from the vacancies running out, which is a fairly trivial cause.
+
+**What these rules force (worked out by hand, not simulated)**
+- Type 0 is the empty state. Nothing in the rules ever turns a type-2 cell into anything else, and nothing ever creates an empty cell. Rule (1) only removes empties, and moves just relocate them. So the drop to **n_types = 2** almost certainly means the empty cells disappeared, not type 2.
+- Rule (1) on its own is known threshold growth, or bootstrap percolation: occupied sites stay occupied, and empty sites become occupied once three or more neighbours are occupied. Here the threshold is 3 on the 8-neighbour lattice, and only type-1 cells count.
+- Once the empties are gone, no Schelling move is possible, so the system freezes. The literature already describes the low-vacancy frozen regime, where everyone is unhappy but no-one can express their intolerant behaviour due to the lack of free spaces. It also notes that Schelling moves need a non-zero vacancy density, and that the frozen–segregated boundary depends on the vacancy density.
+- So the run is: partial Schelling clustering while some vacancies remain, then type 1 grows into the empties until they run out, then the pattern is locked in. The pattern is two colours with no vacancies and 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_types (number of surviving types): median 2.0 with interaction, 3.0 with interaction knocked out (difference -1.0, robust spread 0.1); difference at 4x area -1.0, at 3x run length -1.0
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_types 3.0
+  - rules 2 only: g_n_types 3.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

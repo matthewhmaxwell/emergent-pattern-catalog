@@ -1,0 +1,32 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus 400 self-propelled agents moving in a wrap-around square (20x20 when agents are alone, 64x64 when they share the lattice or fields); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 2 types (random start). Agents have 1 type (random start). Agents move at speed 1.0 with heading noise 1.0 rad per step. 2 field(s) with diffusion [0.02, 0.1]. Rules, applied in order each step: (1) each agent advances the type of the cell under it by one (cyclically); (2) each agent turns up the gradient of field 0.
+
+OBSERVED (features that passed the simulation checks):
+  g_activity_trend, g_reversals
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN-VARIANT, with medium-low confidence. The behaviour is essentially trivial and nothing in the literature describes this exact many-walker system.**
+
+**1. Model family.** Only rule 1 has any effect in the primary system. It is a many-walker "visit-toggles-site" model: 400 persistent random walkers (speed 1, heading noise 1 rad) each advance the state of the lattice cell they stand on. With 2 types, "advance cyclically" is a flip, so a cell's type is the parity of its visit count. This is a stigmergic or "walker coupled to Ising marker" model, related to Langton's-ant-type lattice automata.
+
+Rule 2 (turn up the gradient of field 0) very likely does nothing. In the primary system and variant 1, nothing deposits into field 0, so its gradient should be zero. I inferred this from the rule text and did not simulate it. The two diffusion constants are therefore irrelevant there, and the walkers reduce to plain persistent random walkers.
+
+**2. What the observed features mean.**
+- Type entropy is 0.998, so the two types stay evenly mixed.
+- There are many small domains and a correlation length of about 1 cell.
+- Cells flip back and forth.
+
+Together these are what you would expect if the lattice never orders. It starts random, and each cell is flipped at random times by walkers, so it stays a random pattern.
+
+The "activity rising" number (-1.2) is more likely a transient or measurement artifact than a real effect. I did not check this.
+
+The "long correlation length" labe
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_activity_trend (activity rising): median -3.2875 with interaction, 0.0 with interaction knocked out (difference -3.2875, robust spread 0.0657); difference at 4x area -3.5441, at 3x run length -3.4345
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_activity_trend 0.0017; g_reversals 1.0
+  - rules 2 only: g_activity_trend 0.0; g_reversals 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

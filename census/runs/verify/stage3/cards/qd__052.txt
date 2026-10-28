@@ -1,0 +1,35 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 2 types (random start). 2 field(s) with diffusion [0.02, 0.01]. Rules, applied in order each step: (1) field 1 grows autocatalytically by consuming field 0 (rate 1.0 x f x g^2); (2) a type-0 cell becomes type 1 where field 1 exceeds 0.8.
+
+OBSERVED (features that passed the simulation checks):
+  g_largest_domain, g_n_types
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** The "coarsening" flag is probably a false positive, and the real behaviour is a front-driven takeover of the lattice. My confidence is medium.
+
+**1. Model family**
+- The chemistry is the cubic-autocatalysis (Gray–Scott type) reaction–diffusion system, A + 2B → 3B. Field 1 grows as f·g², consuming field 0.
+- The rule description has no feed term and no B → P decay. It is the closed, "Gray–Scott without feeding" variant. One slide deck lists this variant by name, "Gray-Scott without feeding".
+- The coupling is a one-way, threshold-driven switch: a type-0 cell becomes type 1 where field 1 exceeds 0.8. Type 1 is therefore an absorbing state.
+- The sibling rules in the class (CAF/CONTAG/CLIMB, SWAP/CYCLE/GAME/KURA) are different systems. I only analysed the Gray–Scott one.
+
+**2. What the observations mean**
+- The run ends with one type (g_n_types = 1) and one domain spanning the whole lattice (g_largest_domain = 1.0).
+- Activity trends strongly negative (-3.9).
+- I read this as the following sequence:
+  - An autocatalytic front sweeps the periodic grid.
+  - It converts every cell to type 1.
+  - The system freezes.
+- That is why it passes a coarsening test (the largest domain grows to 1) but does not look like textbook coarsening. There is no curvature-driven interface motion and no slow power-law domain growth. This is fixation by an invading front.
+
+**3. Literature (sources the searches returned)**
+- **Earliest clear source for the chemistry:** Pearson, "Compl
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_largest_domain (one cell-type fills most of the lattice): median 1.0 with interaction, 0.0405 with interaction knocked out (difference 0.9595, robust spread 0.0208); difference at 4x area 0.9829, at 3x run length 0.9595
+  - g_n_types (number of surviving types): median 1.0 with interaction, 2.0 with interaction knocked out (difference -1.0, robust spread 0.06); difference at 4x area -1.0, at 3x run length -1.0
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_largest_domain 0.0405; g_n_types 2.0
+  - rules 2 only: g_largest_domain 0.0405; g_n_types 2.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

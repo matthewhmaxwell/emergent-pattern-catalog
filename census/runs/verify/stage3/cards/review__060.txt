@@ -1,0 +1,20 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus 400 self-propelled agents moving in a wrap-around square (20x20 when agents are alone, 64x64 when they share the lattice or fields). Cells have 4 types (random start). Agents have 3 types (random start). Agents move at speed 0.3 with heading noise 0.3 rad per step. Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 3 neighbours already are t+1 (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_corrlen, g_n_domains, g_activity_trend, g_moran
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** Confidence is medium-high.
+
+**1. Model family.** This is the 2-D cyclic cellular automaton (CCA), the Griffeath/Fisch–Gravner–Griffeath excitable-medium family. The rule is range 1, Moore neighbourhood, threshold 3, 4 states. In the R/T/C/N notation that is 1/3/4/M, which Griffeath's rule collections call "Perfect". The listed variants are the same lattice rule with 400 self-propelled agents added (kA = 1, 2 or 4). In every program shown, the agents are never given a rule that changes cells. The cell dynamics are therefore a stand-alone CCA, and the agents cannot create the standout features.
+
+**2. The specific behaviour.** The sources describe the same regime at T=3 on a Moore range-1 lattice.
+- **Earliest clear source.** Fisch, Gravner & Griffeath, "Cyclic cellular automata in two dimensions" (1991, *Spatial Stochastic Processes*). The Springer record confirms the chapter exists. Fisch, Gravner and Griffeath (1991) published it in Alexander and Watkins (eds), Spatial Stochastic Processes. The companion paper is "Threshold-range scaling of excitable cellular automata", Statistics and Computing 1(1):23–39, 1991. I could not read either full text. I am relying on the secondary descriptions below for what they report.
+- **Readable secondary source on the phenomenology.** Shalizi et al., "Quantifying Self-Organization in Cyclic Cellular Automata" (arXiv nlin/0507067). It says that for a range-1 Moore neighbourhood at T=3 one encounters "turbulence", which is 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_corrlen (long spatial correlation length): median 10.0 with interaction, 1.0 with interaction knocked out (difference 9.0, robust spread 0.22); difference at 4x area 10.0, at 3x run length 7.0
+  - g_n_domains (many separate domains): median 3.5773 with interaction, 7.669 with interaction knocked out (difference -4.0917, robust spread 0.2249); difference at 4x area -4.3613, at 3x run length -4.2077
+  - g_activity_trend (activity rising): median -0.5756 with interaction, 0.0 with interaction knocked out (difference -0.5756, robust spread 0.0312); difference at 4x area -0.6441, at 3x run length -0.5527
+  - g_moran (like-valued cells cluster spatially): median 0.8744 with interaction, -0.0026 with interaction knocked out (difference 0.877, robust spread 0.0175); difference at 4x area 0.8691, at 3x run length 0.8555

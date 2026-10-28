@@ -109,5 +109,37 @@ def main():
     open(f"{V.OUT}/VERIFY_REPORT.md", "w").write("\n".join(S) + "\n"); print("\n".join(S))
 
 
+def packet():
+    """Stage 3 (b) review packet for the author: every Stage 3 phenomenon with its card, verdict, citations and notes,
+    closely related first, then documented non-trivial, then documented trivial. Writes stage3/REVIEW_PACKET.md."""
+    S = os.path.join(V.OUT, "stage3")
+    res = {r["pid"]: r for r in json.load(open(f"{V.OUT}/verify.json"))}
+    rows = [json.load(open(f"{S}/verdicts/{f}")) for f in sorted(os.listdir(f"{S}/verdicts"))]
+    order = lambda r: ({"CLOSELY RELATED": 0, "UNDOCUMENTED CANDIDATE": 0}.get(r.get("provisional_label"), 1),
+                       bool(r.get("trivial_or_artifact")), r["pid"])
+    L = ["# Stage 3 (b): author review packet", "",
+         "Model labels are provisional (VERIFICATION_PLAN.md, Stage 3). For each phenomenon: check that the cited sources "
+         "exist and describe the behaviour as stated, then record a final label (documented / closely related / "
+         "undocumented candidate). Order: closely related first, then documented and judged non-trivial, then documented "
+         "and judged trivial or artifactual.", "",
+         f"{len(rows)} phenomena: " + ", ".join(f"{n} {k.lower()}" for k, n in
+                                               collections.Counter(r.get('provisional_label') for r in rows).most_common()) + ".", ""]
+    for r in sorted(rows, key=order):
+        c = res[r["pid"]]
+        card = open(f"{S}/cards/{r['pid'].replace(':', '__')}.txt").read()
+        rule = card.split("\n\n")[0].replace("RULE (plain words):\n", "")
+        L += [f"## {r['pid']}: {r.get('provisional_label')} ({r.get('verdict')})", "",
+              f"- Class: {c['class']}; flagged: {c.get('flagged')}; robust features: {', '.join(c.get('robust', []))}",
+              f"- Rule: {rule}",
+              f"- Standard name given: {r.get('standard_name')}",
+              f"- Trivial or artifact: {r.get('trivial_or_artifact')}; confidence: {r.get('confidence')}; "
+              f"overturns earlier verdict: {r.get('overturns_first_pass')}; web searches: {r.get('web_searches_used')}",
+              f"- Twist (if any): {r.get('undocumented_phenomenology') or ''}",
+              f"- Notes: {r.get('notes')}", "- Citations:"] + [f"  - {x}" for x in (r.get("citations") or [])] + \
+             ["- Author review: [ ] sources checked  [ ] behaviour as described  Final label: ________", ""]
+    open(f"{S}/REVIEW_PACKET.md", "w").write("\n".join(L) + "\n"); print(f"{S}/REVIEW_PACKET.md", len(rows), "entries")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    packet() if sys.argv[1:] == ["packet"] else main()

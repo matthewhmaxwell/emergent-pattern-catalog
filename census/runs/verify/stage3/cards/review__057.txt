@@ -1,0 +1,22 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a type-1 cell spontaneously becomes type 0 (with probability 0.1 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.5 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_reversals
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN, and the result is trivial: it comes from the rules wiping out one cell type, not from any new segregation process.** I disagree with the first pass's KNOWN-VARIANT call. Its "twist" (the vacancy fraction rising as one type decays) is not new behaviour. It just leaves a Schelling system that has nothing left to segregate.
+
+**Working through the rules (my own reasoning, not taken from a source)**
+- Each type-1 cell turns empty with probability 0.1 per step, and nothing ever creates new type-1 cells. About 1,365 type-1 cells start out, and each survives t steps with probability 0.9^t. So they are almost certainly all gone within roughly 70–100 steps. That is exactly what n_types = 2.0 records: only empty and type 2 remain.
+- Once only one agent type is left, any agent with at least one occupied neighbour has a same-type share of 1, so it is always satisfied. Movement stops, which explains the negative activity trend. The only possible leftover activity is agents with no occupied neighbours. Whether those count as unhappy depends on how the code handles 0/0, and that would also explain the modest reversals score.
+- What remains is a sparse lattice of one species, frozen in place. The "domains" are just random clusters of type-2 cells among empties. A correlation length of 1.0 confirms there is no structure beyond a single cell. The high n_domains score and the "coarsening" signal mostly reflect the type-1 cells disappearing and the empty areas merging. Nothing i
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 5.4681 with interaction, 6.3612 with interaction knocked out (difference -0.8932, robust spread 0.2366); difference at 4x area -0.9016, at 3x run length -0.8932
+  - g_reversals (cells flip back and forth): median 0.7064 with interaction, 0.0 with interaction knocked out (difference 0.7064, robust spread 0.0141); difference at 4x area 0.7069, at 3x run length 0.6711
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 6.3612; g_reversals 0.0
+  - rules 2 only: g_n_domains 6.3986; g_reversals 0.5
+No sub-program came within 3 robust spreads of the full program on every feature above.

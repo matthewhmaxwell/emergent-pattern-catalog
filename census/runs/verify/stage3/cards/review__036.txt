@@ -1,0 +1,19 @@
+RULE (plain words):
+N kN=4 | N[any] ALWAYS() -> COPY_RAND() p=0.2  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  n_oscillation
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** The core rule is the voter model on a sparse network. The REWIRE variant is the coevolving (adaptive) voter model. My confidence is medium-high for the core rule and medium for the Kuramoto and CYCLE hybrids.
+
+**1. Model family**
+- `N kN=4 | ALWAYS -> COPY_RAND p=0.2` means each node, with probability 0.2, copies the state of a randomly chosen neighbour in a degree-~4 graph. That is the standard pull voter model. My search turned up this description: an individual "imports" its state from a randomly chosen neighbor.
+- `N.REWIRE(p=0.003); N.COPY(p=0.3)` is copying plus slow link rewiring. That is the coevolving voter model: The coevolving voter model consists of two dynamical processes: copying and rewiring.
+- `N.KURA(K); N.COPY(p)` and `N.CYCLE; N.COPY(p=1.0)` are hybrids of a phase-oscillator step with voter copying. I did not find a canonical model for these. The closest related work I found treats consensus as synchronisation in a Kuramoto-type opinion model (consensus as a peculiar kind of synchronization (frequency locking)). That is a conceptual link, not the same system.
+
+**2. The specific behaviours**
+- **Consensus (n_giant, n_consensus_gain).** Voter dynamics on finite connected graphs reach consensus. One source states that the voter algorithm converges to a network wide consensus in finite networks. Consensus time depends on network structure: the average time TN to reach consensus for a network of N nodes with an uncorrelated degree distributio
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_oscillation (node states oscillate over time): median 0.7199 with interaction, 0.0 with interaction knocked out (difference 0.7199, robust spread 0.0144); difference at 4x area 0.6997, at 3x run length 0.3663

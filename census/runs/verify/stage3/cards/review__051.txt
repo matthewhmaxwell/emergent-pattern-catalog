@@ -1,0 +1,26 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.5 moves to a random empty cell; (2) a cell of type t becomes type t+1 (cyclically) if at least 1 neighbours already are t+1 (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_activity, g_interface
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I disagree with the first pass's KNOWN-VARIANT. The fingerprint matches a phase that's already well documented. It isn't spirals, and it isn't Schelling segregation.
+
+**What the rule actually is.** Type 0 ("empty") is one of the four cyclic states, so the conversion rule turns empty cells into type 1 and type 3 into empty. That makes it a standard 4-state cyclic cellular automaton (CCA) with threshold 1 on the 8-cell neighbourhood. It also means vacancies are *not* conserved, which contradicts the first pass's "conserved vacancies" claim. The Schelling step only moves cells into whichever cells happen to be type 0 at that moment, and those cells are themselves part of the cycle.
+
+**The documented phase this matches.** For the CCA with an 8-cell, range-one neighbourhood, T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 "quenches" incoherent local oscillations. Shalizi & Shalizi illustrate exactly this setup: the number of colors is fixed to 4, the rule uses a range-one box-shaped neighborhood, and the initial conditions are a uniform random mixture. They describe a slight departure from uniform randomness, in the shape of connected twisting single-color bands. The CA as a whole oscillates with period 4, each cell cycling through the colors.
+
+That accounts for every observed feature:
+- **Correlation length 1.33:** near-random structure, as described above.
+- **Entropy 0.98 and all 4 types present:** still close to a uniform ran
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 6.2442 with interaction, 7.6693 with interaction knocked out (difference -1.4251, robust spread 0.2783); difference at 4x area -1.4038, at 3x run length -1.316
+  - g_activity (many cells change per step): median 0.6728 with interaction, 0.0 with interaction knocked out (difference 0.6728, robust spread 0.0135); difference at 4x area 0.6756, at 3x run length 0.6735
+  - g_interface (long/rough domain boundaries): median 0.3755 with interaction, 0.7498 with interaction knocked out (difference -0.3743, robust spread 0.0225); difference at 4x area -0.3757, at 3x run length -0.3808
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 6.0958; g_activity 0.0; g_interface 0.3552
+  - rules 2 only: g_n_domains 7.5535; g_activity 1.0; g_interface 0.7156
+No sub-program came within 3 robust spreads of the full program on every feature above.

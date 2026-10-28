@@ -1,0 +1,23 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 3 neighbours already are t+1 (with probability 0.3 per step); (2) neighbouring cells swap contents (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_corrlen, g_n_domains, g_moran, g_cyclic_changes
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm moving this down from the first pass's KNOWN-VARIANT. The first pass's reason was that no single paper uses this exact rule combination, and as you said, that isn't a discovery. What the system does is documented, and the "untextbook" fingerprint can be explained by known effects.
+
+**What the rule is**
+- Without the swap, rule (1) is the "313" cyclic cellular automaton: range 1, threshold 3, 3 states, 8 neighbours. The only differences are that it updates at random (p=0.3 or 0.5) instead of all at once, and it runs on a 64×64 wrap-around grid. In the standard catalogue, 313 is "the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization", and it sports a number of distinct spiral types. The general rule family is set out in Fisch, Gravner and Griffeath: colors advance by contact with at least a threshold number of successor colors in a prescribed local neighborhood.
+- Adding neighbour swaps makes the cells mobile, which turns this into spatial rock-paper-scissors with mobility. Reichenbach, Mobilia and Frey (Nature 2007) found a critical threshold of motility above which biodiversity is lost, but below which an entanglement of travelling spiral waves emerges and biodiversity is maintained. They state this is robust and does not depend on the details of cyclic competition or spatial environment, so a threshold-based cyclic update is covered by the same picture. Later work confirms that the characteristic length sca
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_corrlen (long spatial correlation length): median 6.0 with interaction, 1.0 with interaction knocked out (difference 5.0, robust spread 0.14); difference at 4x area 5.0, at 3x run length 4.0
+  - g_n_domains (many separate domains): median 5.4048 with interaction, 7.345 with interaction knocked out (difference -1.9402, robust spread 0.255); difference at 4x area -1.7152, at 3x run length -1.5566
+  - g_moran (like-valued cells cluster spatially): median 0.6708 with interaction, 0.0083 with interaction knocked out (difference 0.6625, robust spread 0.0162); difference at 4x area 0.6181, at 3x run length 0.5373
+  - g_cyclic_changes (cells cycle through states above chance): median 0.3924 with interaction, -0.5 with interaction knocked out (difference 0.8924, robust spread 0.0178); difference at 4x area 0.8981, at 3x run length 0.519
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_corrlen 4.0; g_n_domains 3.9597; g_moran 0.774; g_cyclic_changes 0.4831
+  - rules 2 only: g_corrlen 1.0; g_n_domains 7.3553; g_moran -0.0038; g_cyclic_changes 0.0004
+No sub-program came within 3 robust spreads of the full program on every feature above.

@@ -1,0 +1,253 @@
+[1/214] census:g1:grid-1 57.8s 
+[2/214] census:g1:grid-2 84.8s 
+[3/214] census:g1:lattice-phase-1 267.6s 
+[4/214] census:g1:network-1 279.1s 
+[5/214] census:g2:lattice-phase-2 280.6s 
+[6/214] census:g1:grid-4 33.4s 
+[7/214] census:g1:network-6 197.7s 
+[8/214] census:g1:network-12 128.1s 
+[9/214] census:g1:network-15 192.0s 
+[10/214] census:g1:network-phase-1 482.2s 
+[11/214] census:g2:network-phase-1 490.3s 
+[12/214] census:g1:grid-6 31.2s 
+[13/214] census:g2:grid-1 64.3s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[14/214] census:g2:network-1 188.0s 
+[15/214] census:g1:grid-11 113.8s 
+[16/214] census:g1:grid-17 180.0s 
+[17/214] census:g1:agents-1 560.4s 
+[18/214] census:g1:agents-2 593.3s 
+[19/214] census:g1:agents-8 471.8s 
+[20/214] census:g1:agents-3 536.8s 
+[21/214] census:novelty:network-2 208.6s 
+[22/214] census:g1:network-phase-2 559.4s 
+[23/214] census:g1:field-1 105.2s 
+[24/214] census:novelty:grid-1 350.6s 
+[25/214] census:g1:network-7 271.3s 
+[26/214] census:g1:grid-25 41.9s 
+[27/214] census:g2:agents-1 560.1s 
+[28/214] census:g2:field-1 95.6s 
+[29/214] census:g1:network-14 164.3s 
+[30/214] census:g1:network-10 166.9s 
+[31/214] census:novelty:network-phase-1 540.6s 
+[32/214] census:g1:grid-19 139.8s 
+[33/214] census:novelty:grid-4 142.9s 
+[34/214] census:g1:field-2 53.6s 
+[35/214] census:novelty:network-3 245.8s 
+[36/214] census:novelty:grid-3 549.1s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[37/214] census:g1:grid-29 118.4s 
+[38/214] census:novelty:lattice-phase-1 350.9s 
+[39/214] census:g1:network-13 350.6s 
+[40/214] census:novelty:agents-6 526.3s 
+[41/214] census:novelty:network-5 545.9s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[42/214] census:novelty:agents-17 652.7s 
+[43/214] census:g1:grid-26 723.2s 
+[44/214] census:novelty:network-4 548.1s 
+[45/214] census:novelty:lattice-phase-2 420.5s 
+[46/214] census:novelty:agents-14 583.5s 
+[47/214] census:novelty:field-1 696.9s 
+[48/214] census:novelty:field-2 574.9s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[49/214] census:novelty:agents-8 1137.6s 
+[50/214] census:novelty:agents-16 603.4s 
+[51/214] census:novelty:grid-9 429.5s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[52/214] census:novelty:grid-7 649.0s 
+[53/214] census:novelty:grid-8 601.0s 
+[54/214] census:novelty:field-3 628.6s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[55/214] census:novelty:grid-10 652.1s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[56/214] census:novelty:grid-15 424.4s 
+[57/214] census:novelty:grid-12 649.8s 
+[58/214] review:003 79.9s 
+[59/214] review:001 209.2s 
+[60/214] review:005 40.5s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[61/214] review:002 267.2s 
+[62/214] census:novelty:grid-11 622.0s 
+[63/214] review:008 32.9s 
+[64/214] census:novelty:grid-13 618.4s 
+[65/214] review:010 63.0s 
+[66/214] review:004 322.8s 
+[67/214] review:012 33.1s 
+[68/214] review:006 310.8s 
+[69/214] review:014 93.1s 
+[70/214] review:011 224.1s 
+[71/214] review:015 76.2s 
+[72/214] review:007 428.8s 
+[73/214] review:017 91.9s 
+[74/214] review:009 398.7s 
+[75/214] review:016 118.1s 
+[76/214] review:021 158.3s 
+[77/214] review:022 74.7s 
+[78/214] review:013 526.0s 
+[79/214] review:019 291.8s 
+[80/214] census:novelty:field-4 1276.2s 
+[81/214] review:024 96.9s 
+[82/214] review:026 62.9s 
+[83/214] review:023 151.7s 
+[84/214] review:025 115.8s 
+[85/214] review:027 68.5s 
+[86/214] review:030 34.7s 
+[87/214] review:031 36.0s 
+[88/214] review:018 498.7s 
+[89/214] review:032 40.4s 
+[90/214] review:033 35.1s 
+[91/214] review:028 105.6s 
+[92/214] review:020 513.5s 
+[93/214] review:034 72.8s 
+[94/214] review:029 176.3s 
+[95/214] review:038 113.4s 
+[96/214] review:037 149.0s 
+[97/214] review:036 184.1s 
+[98/214] review:035 228.7s 
+[99/214] review:041 109.3s 
+[100/214] review:044 43.2s 
+[101/214] review:039 228.7s 
+[102/214] review:042 118.0s 
+[103/214] review:045 80.3s 
+[104/214] review:047 68.1s 
+[105/214] review:046 98.0s 
+[106/214] review:048 100.6s 
+[107/214] review:040 309.0s 
+[108/214] review:049 71.5s 
+[109/214] review:050 71.8s 
+[110/214] review:051 73.3s 
+[111/214] review:052 157.1s 
+[112/214] review:055 123.3s 
+[113/214] review:056 113.0s 
+[114/214] review:054 151.8s 
+[115/214] review:057 53.6s 
+[116/214] review:058 52.0s 
+[117/214] review:062 36.6s 
+[118/214] review:061 111.2s 
+[119/214] review:064 43.0s 
+[120/214] review:063 154.4s 
+[121/214] review:059 244.5s 
+[122/214] review:053 462.7s 
+[123/214] review:067 103.4s 
+[124/214] review:066 118.6s 
+[125/214] review:068 59.1s 
+[126/214] review:043 743.8s 
+[127/214] review:069 44.1s 
+[128/214] review:060 487.4s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[129/214] review:071 193.6s 
+[130/214] review:070 291.9s 
+[131/214] review:065 556.4s 
+[132/214] qd:003 175.2s 
+[133/214] qd:004 153.6s 
+[134/214] review:073 552.0s 
+[135/214] qd:005 154.8s 
+[136/214] qd:001 492.5s 
+[137/214] qd:002 481.7s 
+[138/214] review:072 706.8s 
+[139/214] qd:006 368.9s 
+[140/214] qd:007 372.2s 
+[141/214] qd:008 357.5s 
+[142/214] qd:012 115.0s 
+[143/214] qd:009 473.0s 
+[144/214] qd:013 156.7s 
+[145/214] qd:010 489.9s 
+[146/214] qd:011 490.1s 
+[147/214] qd:017 105.2s 
+[148/214] qd:014 253.3s 
+[149/214] qd:016 149.4s 
+[150/214] qd:015 257.0s 
+[151/214] qd:020 121.0s 
+[152/214] qd:021 118.3s 
+[153/214] qd:022 100.3s 
+[154/214] qd:024 104.7s 
+[155/214] qd:023 150.8s 
+[156/214] qd:025 115.1s 
+[157/214] qd:026 121.3s 
+[158/214] qd:018 363.2s 
+[159/214] qd:019 403.4s 
+[160/214] qd:031 108.3s 
+[161/214] qd:030 567.5s 
+[162/214] qd:029 586.2s 
+[163/214] qd:028 668.2s 
+[164/214] qd:032 532.3s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[165/214] qd:033 553.0s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[166/214] qd:027 899.6s 
+[167/214] qd:039 103.5s 
+[168/214] qd:040 96.9s 
+[169/214] qd:037 534.1s 
+[170/214] qd:036 665.6s 
+[171/214] qd:038 580.1s 
+[172/214] qd:034 753.2s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[173/214] qd:035 894.1s 
+[174/214] qd:045 179.6s 
+[175/214] qd:044 251.0s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[176/214] qd:046 183.8s 
+[177/214] qd:041 589.7s 
+[178/214] qd:050 155.7s 
+[179/214] qd:042 623.6s 
+[180/214] qd:043 583.6s 
+[181/214] qd:052 128.6s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[182/214] qd:051 159.0s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[183/214] qd:047 556.4s 
+[184/214] qd:053 217.7s 
+[185/214] qd:049 507.4s 
+[186/214] qd:048 723.1s 
+[187/214] qd:058 223.2s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[188/214] qd:054 572.1s 
+[189/214] qd:055 705.3s 
+[190/214] qd:062 139.7s 
+[191/214] qd:057 732.2s 
+[192/214] qd:059 558.3s 
+[193/214] qd:056 794.8s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[194/214] qd:066 204.8s 
+[195/214] qd:061 602.3s 
+[196/214] qd:060 752.9s 
+[197/214] qd:069 207.6s 
+[198/214] qd:064 551.4s 
+[199/214] qd:065 613.4s 
+[200/214] qd:068 316.0s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[201/214] qd:071 110.9s 
+[202/214] qd:067 615.1s 
+[203/214] qd:070 356.3s 
+[204/214] qd:063 925.9s 
+[205/214] qd:075 211.5s 
+/home/matthewhmaxwell/epc-census/epc/phase2a/emergence.py:205: RuntimeWarning: overflow encountered in exp
+  g_term = 1.0 / (1.0 + np.exp(-(order_gain) * 8.0))       # >0.5 when structure grew
+[206/214] qd:077 220.6s 
+[207/214] qd:074 630.8s 
+[208/214] qd:072 851.7s 
+[209/214] qd:073 1044.8s 
+[210/214] qd:078 740.7s 
+[211/214] qd:079 746.3s 
+[212/214] qd:076 1070.9s 
+[213/214] qd:080 871.8s 
+[214/214] qd:081 1579.9s 
+VERIFY RUN DONE 2026-10-28 12:20:08

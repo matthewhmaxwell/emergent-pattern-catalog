@@ -1,0 +1,18 @@
+RULE (plain words):
+N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=0.2) p=0.1  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  p_r, p_freq_spread
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The behaviour is partial (but phase-locked) Kuramoto synchronization on an annealed or fast-switching network. The fast-switching theory and standard Kuramoto locking theory together cover it. The things that made the first pass hedge (discrete time, coupling applied at random, the grammar wording) are details of how the model is built, not a different behaviour.
+
+**What the fingerprint shows.** r ≈ 0.65 with small fluctuation (std 0.057), and almost no spread in effective frequencies (0.025). So the oscillators share one frequency but keep fixed phase offsets that don't close up. That is not textbook full synchrony, which is probably why the pattern-matcher flagged it. But it is a standard state.
+
+**Why this is known:**
+1. **Locked frequencies with phases still spread out is the normal Kuramoto picture.** Past a first critical coupling, some oscillators enter a partially phase locked state and their phases evolve with the same time-averaged frequency. In a phase-locked state, the order parameter does not have to be 1. It has been shown to have a strictly positive lower bound (r ⩾ 1/2). So r ≈ 0.65 with matching frequencies is what you'd expect just above the locking threshold. Phases spread out with fixed gaps is exactly what a locked state looks like.
+2. **Rewiring every step, so that a sparse graph acts like a mean-field one, is documented.** One study finds sufficiently fast network rewiring can overcome 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - p_r (global phase order (full sync)): median 0.4459 with interaction, 0.0665 with interaction knocked out (difference 0.3794, robust spread 0.021); difference at 4x area 0.2922, at 3x run length 0.7323
+  - p_freq_spread (spread of oscillator natural frequencies): median 0.0251 with interaction, 0.5146 with interaction knocked out (difference -0.4895, robust spread 0.0108); difference at 4x area -0.4672, at 3x run length -1.3797

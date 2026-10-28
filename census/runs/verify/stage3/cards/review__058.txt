@@ -1,0 +1,25 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a type-1 cell spontaneously becomes type 0 (with probability 0.1 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_activity_trend, g_reversals
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN, and the result is trivial.** This isn't a new form of segregation. The decay rule wipes out one agent type, and that turns the Schelling move rule off. I'm fairly sure the "segregation with vacancies" test passed by mistake. I didn't run the model; this comes from working through the rules and checking them against the literature.
+
+**What the rules force to happen**
+1. Type 1 turns into empty with probability 0.1 per step and never comes back. After 50 steps only about 0.5% of the starting type-1 cells are left (0.9⁵⁰ ≈ 0.005). After about 100 steps there are effectively none. The FLIP(1→2) member of the class does the same thing, except type 1 becomes type 2.
+2. That leaves empty cells plus one agent type. Every occupied neighbour of a type-2 cell is also type 2, so its same-type share is 1. That's above every threshold in the class (0.2–0.5), so nobody wants to move.
+   - Possible exception: some code scores a cell with no occupied neighbours as share 0. If so, isolated type-2 cells keep jumping to random empty cells until they land next to another one. That gives a short spell of clumping that dies away, and then the system freezes all the same.
+3. Either way it ends stuck in an absorbing state. The literature shows Schelling dynamics always end up absorbed once every agent is satisfied: "the Schelling dynamics converges to an absorbing state with probability 1." Here every agent becomes satisfied as soon as type 1 is gone.
+
+**Why the numbers look the way
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_activity_trend (activity rising): median -4.0035 with interaction, -3.3698 with interaction knocked out (difference -0.6337, robust spread 0.1475); difference at 4x area -0.5777, at 3x run length -0.5706
+  - g_reversals (cells flip back and forth): median 0.8364 with interaction, 0.0 with interaction knocked out (difference 0.8364, robust spread 0.0167); difference at 4x area 0.8356, at 3x run length 0.6714
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_activity_trend -3.3698; g_reversals 0.0
+  - rules 2 only: g_activity_trend -0.8338; g_reversals 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

@@ -1,0 +1,24 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) each cell adopts its neighbourhood's majority type (with probability 0.005 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.7 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_type_entropy, g_spec_peak
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I couldn't find this exact rule combination in one paper, but the behaviour itself is documented. A missing paper for these specific rules isn't a discovery, and I found no twist in the behaviour itself, so I'm not keeping the first pass's KNOWN-VARIANT label.
+
+**What is documented**
+
+1. **Schelling segregation with vacancies, including stalled and slow-coarsening states.** Schelling models with vacancies have three phases. For this region, the Schelling model presents 3 different phases: frozen, segregated and mixed. At low tolerance the system freezes in a disordered state, given that there are no satisfying vacancies for any kind of agent. In the segregated phase, the interface density decreases as ⟨ρ(t)⟩ ∼ t^−α so the domains should grow in our model following a power-law with time. A threshold of 0.7 is quite intolerant: with 8 neighbours, an agent effectively needs about 6 of 8 occupied neighbours to match. On a 64×64 grid, a snapshot of slow or stalled coarsening would show about 6 domains, a short correlation length (about 2.3), and falling activity. That explains your fingerprint without anything new.
+
+2. **The hybrid of moving and type-changing agents is a published model class.** The Schelling–Voter model is a mix of the classical Schelling segregation model with the Voter model. In it an unhappy agent can change her place or her state to be happy, and its parameters are the propensity to change type and the density of empty sites. Its outcomes 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 6.3526 with interaction, 7.6662 with interaction knocked out (difference -1.3136, robust spread 0.2804); difference at 4x area -1.107, at 3x run length -5.1813
+  - g_type_entropy (cell types evenly mixed): median 0.8484 with interaction, 0.9998 with interaction knocked out (difference -0.1513, robust spread 0.037); difference at 4x area -0.0853, at 3x run length -0.5177
+  - g_spec_peak (a dominant temporal frequency): median 0.6579 with interaction, 0.0 with interaction knocked out (difference 0.6579, robust spread 0.0132); difference at 4x area 0.6041, at 3x run length 0.6592
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.8559; g_type_entropy 0.9922; g_spec_peak 0.3811
+  - rules 2 only: g_n_domains 7.6041; g_type_entropy 0.9998; g_spec_peak 0.0935
+No sub-program came within 3 robust spreads of the full program on every feature above.

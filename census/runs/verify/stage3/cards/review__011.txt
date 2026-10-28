@@ -1,0 +1,22 @@
+RULE (plain words):
+N kN=2 | N[0] ALWAYS() -> REWIRE_SAME() p=1.0  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  n_components
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): I disagree with the first pass's mechanism. My verdict is that this behaviour is **KNOWN**, and it looks like a trivial, built-in outcome rather than a genuine emergent pattern.
+
+**What the first pass got wrong.** It assumed there is only one node type. The feature values say otherwise:
+- Type entropy is 0.689 and type modularity is 0.401. Neither makes sense with one type.
+- Read `kN=2/3/4` as the number of node types. The average of 2.5 components then sits right between 2 and 4, which fits roughly one cluster per type.
+
+So this is not random-graph relaxation. Nodes keep fixed type labels and edges are always rewired to nodes of the same type, which pulls the graph apart into separate same-type groups.
+
+**Where it is documented.** This is the frozen-opinion limit (φ = 1) of the Holme–Newman adaptive voter model, run with opinions that never change:
+- Holme and Newman describe the two ingredients: opinions spread over networks, and people with the same opinion are likely to become acquainted. Their model undergoes a continuous phase transition as the balance between those two processes changes.
+- In that line of work, the rewiring-dominated regime is described as an absorbing phase in a fragmented network.
+- Durrett et al., "Graph fission in an evolving voter model" (PNAS 2012), and Henry, Prałat & Zhang, "Emergence of segregation in evolving social networks" (PNAS), cover the same thing: fixed or slowly changing labels plus same-type rewiring leads to segregation and fissio
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_components (number of connected components): median 2.9174 with interaction, 1.4979 with interaction knocked out (difference 1.4195, robust spread 0.3233); difference at 4x area 1.5063, at 3x run length 1.4195

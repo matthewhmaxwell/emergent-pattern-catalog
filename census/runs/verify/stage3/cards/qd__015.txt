@@ -1,0 +1,22 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 2 types (random start). Rules, applied in order each step: (1) nodes play a two-strategy game with their neighbours (T=1.9, S=0.0) and copy the best-scoring neighbour; (2) a node linked to a different-type neighbour cuts that link and links to a random same-type node (with probability 0.003 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_oscillation, n_edge_turnover
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I found nothing new in how this system behaves. Most of the "standout" features look like leftovers of the random starting network or direct side effects of the rules, not an emergent pattern. I disagree with the first pass's KNOWN-VARIANT label and with its claim that the network breaks apart.
+
+**The rules are two separate, well-known processes.** In plain words, the node types never change, and the game strategy has no effect on rewiring. So the game and the rewiring run side by side and only interact through the shape of the network.
+
+1. **The game (rule 1)** is the Nowak–May spatial Prisoner's Dilemma, moved onto a random network. In that model the payoff matrix is rescaled to one free parameter b. Your T=1.9, S=0 is exactly that setup with b=1.9. Nowak and May observed that the deterministic "imitate-the-best" update rule generates chaotic dynamics, with cooperators and defectors coexisting through constant formation and breakup of clusters. Running this kind of game on a network that rewires itself is the Zimmermann–Eguíluz–San Miguel line of work, where each agent plays with its local neighbors, collects an aggregate payoff and imitates the strategy of its best neighbor.
+2. **The rewiring (rule 2)** is homophily rewiring with fixed types. It matches the "rewire-to-same" step of Holme–Newman, where an edge is rewired to a new vertex holding the same opinion. Because types never change, this is the pure-rewiring limit, with no opinion copying. That fa
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_oscillation (node states oscillate over time): median 0.3337 with interaction, 0.0 with interaction knocked out (difference 0.3337, robust spread 0.018); difference at 4x area 0.3341, at 3x run length 0.4021
+  - n_edge_turnover (edges rewire): median 0.3355 with interaction, 0.0 with interaction knocked out (difference 0.3355, robust spread 0.0119); difference at 4x area 0.3645, at 3x run length 0.4734
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: n_oscillation 0.1274; n_edge_turnover 0.0
+  - rules 2 only: n_oscillation 0.0; n_edge_turnover 0.3833
+No sub-program came within 3 robust spreads of the full program on every feature above.

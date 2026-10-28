@@ -1,0 +1,29 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 1 neighbours already are t+1 (every step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_activity, g_moran
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** The first pass got the mechanism wrong. This isn't spirals broken up by moving agents. It's the textbook low-threshold phase of the cyclic cellular automaton, where cells oscillate locally without forming waves. The segregation (moving) rule adds little on top of that.
+
+**Why the first pass was wrong**
+
+Rule (1) on its own is Griffeath's cyclic cellular automaton (CCA): 4 states, 8 neighbours, threshold 1. The empty state is just one of the 4 colours in the cycle. That exact setting is already described in the literature, and it does not produce spirals:
+- One paper used exactly this setup for its figures: the number of colors is fixed to 4, the rule uses a range-one box-shaped neighborhood, and the initial conditions are a uniform random mixture of colors.
+- For that neighbourhood, T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 "quenches" incoherent local oscillations.
+- What it looks like: a slight departure from uniform randomness, in the shape of connected twisting single-color bands, and the CA as a whole oscillates with period 4, each cell cycling through the colors.
+- More generally, a disordered soup virtually indistinguishable from noise results if the threshold is too low. Spirals only appear at intermediate thresholds.
+
+**How the observed numbers fit**
+- **Correlation length 2, about 6 domains, type entropy 0.96:** a near-uniform mix with only short-range structure. That matches the "twisting bands" description, 
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 6.4474 with interaction, 7.665 with interaction knocked out (difference -1.2176, robust spread 0.2822); difference at 4x area -1.3034, at 3x run length -1.3588
+  - g_activity (many cells change per step): median 0.6131 with interaction, 0.0 with interaction knocked out (difference 0.6131, robust spread 0.0123); difference at 4x area 0.6208, at 3x run length 0.6229
+  - g_moran (like-valued cells cluster spatially): median 0.3197 with interaction, 0.0098 with interaction knocked out (difference 0.3099, robust spread 0.0213); difference at 4x area 0.3401, at 3x run length 0.3122
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.553; g_activity 1.0; g_moran 0.0723
+  - rules 2 only: g_n_domains 6.6114; g_activity 0.0; g_moran 0.23
+No sub-program came within 3 robust spreads of the full program on every feature above.

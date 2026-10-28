@@ -1,0 +1,29 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 4 types (random start). Rules, applied in order each step: (1) each node adopts its neighbours' majority type (every step); (2) a node linked to a different-type neighbour cuts that link and links to a random same-type node (with probability 0.03 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_consensus_gain, n_type_entropy, n_edge_turnover
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN, with medium confidence.** The closest match is Fu & Wang (2008). Their model differs from this one in some details, but I don't expect those details to change the qualitative outcome.
+
+**1. Model family.** This is a coevolving or adaptive opinion model, in the voter-model lineage but with a majority-rule update. Nodes take one of G=4 discrete opinions on an Erdős–Rényi graph. Each node adopts its local majority, and a node with a discordant link cuts it and rewires to a random node of the same type. This is homophilic rewiring, also called "rewire-to-same" or "partner switching".
+
+**2. The specific behaviour.** Two things happen together: consensus, and a giant component of about 90% with extra components. Both are documented.
+
+- **Earliest and closest source: Fu & Wang, Phys. Rev. E 78, 016104 (2008).**
+  - I could read only the abstract. It combines majority-preference, where individuals adopt the majority opinion among their neighbours, with minority-avoidance, where they break the link to a differing minority node and rewire to a same-opinion node. The rewire target is either a neighbour-of-neighbour or a random node.
+  - The network self-organises into connected communities of like-minded individuals, so many opinions coexist. The abstract says diverse opinions disappear into uniform opinion at other parameter values.
+  - This is the same two-rule structure and the same consensus-versus-fragmentation trade-off as this system.
+- **Earlier foundations.**
+
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_consensus_gain (nodes converge to agreement): median 0.6725 with interaction, 0.0 with interaction knocked out (difference 0.6725, robust spread 0.0134); difference at 4x area 0.6931, at 3x run length 0.6725
+  - n_type_entropy (node types evenly mixed): median 0.1175 with interaction, 1.3777 with interaction knocked out (difference -1.2602, robust spread 0.0299); difference at 4x area -1.2363, at 3x run length -1.2602
+  - n_edge_turnover (edges rewire): median 0.1948 with interaction, 0.0 with interaction knocked out (difference 0.1948, robust spread 0.0285); difference at 4x area 0.2416, at 3x run length 0.1948
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: n_consensus_gain 0.685; n_type_entropy 0.1311; n_edge_turnover 0.0
+  - rules 2 only: n_consensus_gain 0.0; n_type_entropy 1.3777; n_edge_turnover 0.7629
+No sub-program came within 3 robust spreads of the full program on every feature above.

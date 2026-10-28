@@ -1,0 +1,31 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 4 types (random start). 2 field(s) with diffusion [0.05, 0.02]. Rules, applied in order each step: (1) each cell copies the type of a random neighbour (with probability 0.1 per step); (2) a type-0 cell becomes type 2 where field 0 exceeds 0.5.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_n_types, g_reversals, g_type_entropy, g_moran
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** The behaviour is slow, voter-model-type domain coarsening, and it is well documented. The extra field rule is a minor, probably irrelevant difference.
+
+**1. Model family**
+- Rule (1) is the multi-state voter model. Each site copies a random neighbour on a lattice, here with Moore neighbourhood, 4 states and asynchronous-style updating at rate 0.1.
+- The other "same class" programs (ALIGN, MAJ, WRITECELL) appear to reduce to copy-a-neighbour or majority dynamics on a lattice. I could not verify what those operators do, so this is an inference.
+- Rule (2) is a one-way, field-triggered conversion of type 0 into type 2. This is like a state-selective bias or sink.
+- I could not tell whether field 0 is ever seeded above 0.5. The run ends with 3 types, which fits either random extinction of one type or the type-0 sink.
+
+**2. The behaviour and its sources**
+- **Behaviour:** the 2D voter model coarsens, but with no surface tension. Interface density falls only as 1/ln t. Clusters of all sizes coexist, and a correlation length grows roughly as √t. This explains why the run passes the coarsening test but doesn't look like a curvature-driven (Ising/Potts) example. It has many small domains left (g_n_domains is high), a modest correlation length, and a persistent mixture of types.
+- **Earliest clear source I could read:** Dornic, Chaté, Chave and Hinrichsen, "Critical Coarsening without Surface Tension: The Universality Class of the Voter Model" (arXiv cond-mat/010120
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 5.9242 with interaction, 7.6811 with interaction knocked out (difference -1.7569, robust spread 0.2721); difference at 4x area -1.8094, at 3x run length -1.8836
+  - g_corrlen (long spatial correlation length): median 3.0 with interaction, 1.0 with interaction knocked out (difference 2.0, robust spread 0.08); difference at 4x area 2.0, at 3x run length 2.0
+  - g_n_types (number of surviving types): median 3.0 with interaction, 4.0 with interaction knocked out (difference -1.0, robust spread 0.14); difference at 4x area -1.0, at 3x run length -1.0
+  - g_reversals (cells flip back and forth): median 0.7641 with interaction, 0.0 with interaction knocked out (difference 0.7641, robust spread 0.0153); difference at 4x area 0.7688, at 3x run length 0.7499
+  - g_type_entropy (cell types evenly mixed): median 0.7429 with interaction, 0.9998 with interaction knocked out (difference -0.2568, robust spread 0.0349); difference at 4x area -0.26, at 3x run length -0.258
+  - g_moran (like-valued cells cluster spatially): median 0.5183 with interaction, -0.0033 with interaction knocked out (difference 0.5217, robust spread 0.0144); difference at 4x area 0.5062, at 3x run length 0.5397
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 6.143; g_corrlen 3.0; g_n_types 4.0; g_reversals 0.6558; g_type_entropy 0.976; g_moran 0.5167
+  - rules 2 only: g_n_domains 7.2284; g_corrlen 1.0; g_n_types 3.0; g_reversals 0.0; g_type_entropy 0.7531; g_moran -0.0029
+No sub-program came within 3 robust spreads of the full program on every feature above.

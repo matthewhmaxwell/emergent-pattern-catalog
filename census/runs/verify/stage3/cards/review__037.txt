@@ -1,0 +1,26 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) each cell adopts its neighbourhood's majority type (with probability 0.1 per step); (2) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=-0.5) and copy the best-scoring neighbour.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_type_entropy
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The run shows cooperators and defectors coexisting in a small number of smoothed-out clusters on a lattice where agents imitate the best-scoring neighbour. That is a known effect of adding conformity (copying the local majority) to the spatial Prisoner's Dilemma. I found no feature that needs a new behavioural explanation.
+
+**Base behaviour.** In Nowak & May's model, every agent plays itself and its 8 neighbours, then all agents update at once by copying the best-scoring cell in that group, choosing at random between ties. The result is cooperators and defectors coexisting, with clusters of both types of players expanding, colliding and fragmenting. Your class contains this exact setup: the members with payoffs (1.9, 0) are almost exactly Nowak & May's chaotic setting, DC-payoff = 1.85 with CD = DD = 0.
+
+**Why the fingerprint isn't textbook.** The step where each cell copies its neighbourhood majority with probability 0.1 is a conformity rule. Mixing majority-copying with payoff-driven copying is well studied:
+- Szolnoki & Perc found that spatial selection for cooperation is enhanced if an appropriate fraction of the population chooses the most common rather than the most profitable strategy.
+- They also showed that conformists can form an efficient surface around cooperative clusters and guarantee smooth interfaces between diverse strategy domains.
+- Later work reports conformity induces within-cluster behav
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 3.6762 with interaction, 6.3775 with interaction knocked out (difference -2.7013, robust spread 0.2011); difference at 4x area -2.9673, at 3x run length -2.7276
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_type_entropy (cell types evenly mixed): median 0.8378 with interaction, 0.9998 with interaction knocked out (difference -0.162, robust spread 0.0368); difference at 4x area -0.1681, at 3x run length -0.1696
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 1.7918; g_corrlen 10.5; g_reversals 1.0; g_type_entropy 0.9207
+  - rules 2 only: g_n_domains 1.4979; g_corrlen 3.0; g_reversals 0.0; g_type_entropy 0.0581
+No sub-program came within 3 robust spreads of the full program on every feature above.

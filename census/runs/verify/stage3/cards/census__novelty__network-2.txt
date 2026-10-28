@@ -1,0 +1,29 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 2 types (random start). Rules, applied in order each step: (1) nodes play a two-strategy game with their neighbours (T=1.9, S=0.0) and copy the best-scoring neighbour; (2) each node adopts its neighbours' majority type (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_activity, n_type_modularity
+
+FIRST PASS concluded: KNOWN
+First-pass text (excerpt): **Verdict: KNOWN**, with medium confidence. Almost all of the listed features are standard properties of a random graph, and the game-plus-imitation dynamics are an established model class.
+
+**1. Model family.** This is evolutionary game theory on networks, combined with opinion dynamics.
+- Rule 1 is the Prisoner's Dilemma with R=1, P=0, T=1.9, S=0. It uses "imitate the best neighbour" updating from Nowak & May. Players imitate the neighbours with the highest payoff from the previous round.
+- Rule 2 is a voter-model or majority-rule step. The voter step copies a random neighbour. The majority step adopts the neighbourhood majority. Both are applied with probability 0.1 per step.
+- The network is an Erdős–Rényi-type random graph with mean degree 4 and N=200.
+
+**2. Is the behaviour described?** I read the features in two groups. I'm assuming the network is static, because the description doesn't mention rewiring.
+
+*Network-structure features (n_components, n_giant, n_degree_cv).* These are just the properties of a sparse Erdős–Rényi graph, not an emergent effect of the dynamics.
+- A giant component exists above mean degree 1. For c>1 the graph probably has a connected component containing a constant fraction of the vertices. At mean degree 4 that is roughly 98% of nodes, matching the observed 0.975.
+- The same graph also has a few small leftover components. That fits the observed 1.86 components on average.
+- The binomial degree distribution becomes a Poisson distribution for l
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_activity: median 0.2895 with interaction, 0.0 with interaction knocked out (difference 0.2895, robust spread 0.0058); difference at 4x area 0.3294, at 3x run length 0.3777
+  - n_type_modularity (network splits into like-type modules): median 0.167 with interaction, -0.0031 with interaction knocked out (difference 0.17, robust spread 0.0137); difference at 4x area 0.1657, at 3x run length 0.1415
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: n_activity 0.0233; n_type_modularity 0.1579
+  - rules 2 only: n_activity 0.0; n_type_modularity 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.
