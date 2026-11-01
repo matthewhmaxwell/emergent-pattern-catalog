@@ -1,0 +1,15 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus 400 self-propelled agents moving in a wrap-around square (20x20 when agents are alone, 64x64 when they share the lattice or fields); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 2 types (random start). Agents have 4 types (random start). Agents move at speed 2.0 with heading noise 0.0 rad per step. 2 field(s) with diffusion [0.02, 0.05]. Rules, applied in order each step: (1) each agent turns up the gradient of field 0; (2) field 1 grows autocatalytically by consuming field 0 (rate 1.0 x f x g^2).
+
+OBSERVED (features that passed the simulation checks):
+  a_density_cv, a_local_align, a_nn_ratio
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - a_density_cv: median 2.0015 with interaction, 0.8207 with interaction knocked out (difference 1.1808, robust spread 0.065); difference at 4x area 1.1839, at 3x run length 1.1505
+  - a_local_align (local alignment): median 0.4133 with interaction, -0.0494 with interaction knocked out (difference 0.4627, robust spread 0.019); difference at 4x area 0.6058, at 3x run length 0.4377
+  - a_nn_ratio (clumping (below 1 = clustered)): median 0.4609 with interaction, 0.9979 with interaction knocked out (difference -0.537, robust spread 0.0292); difference at 4x area -0.7118, at 3x run length -0.5709
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: a_density_cv 6.3703; a_local_align 0.7919; a_nn_ratio 0.0164
+  - rules 2 only: a_density_cv 0.8207; a_local_align -0.0494; a_nn_ratio 0.9979
+No sub-program came within 3 robust spreads of the full program on every feature above.

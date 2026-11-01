@@ -1,0 +1,14 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) a type-1 cell spontaneously becomes type 0 (with probability 0.1 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_activity_trend, g_reversals
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_activity_trend (activity rising): median -4.0035 with interaction, -3.3698 with interaction knocked out (difference -0.6337, robust spread 0.1475); difference at 4x area -0.5777, at 3x run length -0.5706
+  - g_reversals (cells flip back and forth): median 0.8364 with interaction, 0.0 with interaction knocked out (difference 0.8364, robust spread 0.0167); difference at 4x area 0.8356, at 3x run length 0.6714
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_activity_trend -3.3698; g_reversals 0.0
+  - rules 2 only: g_activity_trend -0.8338; g_reversals 0.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

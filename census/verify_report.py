@@ -109,10 +109,15 @@ def main():
     open(f"{V.OUT}/VERIFY_REPORT.md", "w").write("\n".join(S) + "\n"); print("\n".join(S))
 
 
-def packet():
+def packet(sub="stage3"):
     """Stage 3 (b) review packet for the author: every Stage 3 phenomenon with its card, verdict, citations and notes,
-    closely related first, then documented non-trivial, then documented trivial. Writes stage3/REVIEW_PACKET.md."""
-    S = os.path.join(V.OUT, "stage3")
+    closely related first, then documented non-trivial, then documented trivial. Writes <sub>/REVIEW_PACKET.md; for
+    the plan-conforming run (stage3_blind) it also shows the first run's verdict."""
+    S = os.path.join(V.OUT, sub)
+    other = {}
+    if sub != "stage3" and os.path.isdir(os.path.join(V.OUT, "stage3", "verdicts")):
+        for f in os.listdir(os.path.join(V.OUT, "stage3", "verdicts")):
+            x = json.load(open(os.path.join(V.OUT, "stage3", "verdicts", f))); other[x["pid"]] = x
     res = {r["pid"]: r for r in json.load(open(f"{V.OUT}/verify.json"))}
     rows = [json.load(open(f"{S}/verdicts/{f}")) for f in sorted(os.listdir(f"{S}/verdicts"))]
     order = lambda r: ({"CLOSELY RELATED": 0, "UNDOCUMENTED CANDIDATE": 0}.get(r.get("provisional_label"), 1),
@@ -135,6 +140,7 @@ def packet():
               f"- Trivial or artifact: {r.get('trivial_or_artifact')}; confidence: {r.get('confidence')}; "
               f"overturns earlier verdict: {r.get('overturns_first_pass')}; web searches: {r.get('web_searches_used')}",
               f"- Twist (if any): {r.get('undocumented_phenomenology') or ''}",
+              *([f"- First run (cards also showing the earlier verdict): {other[r['pid']].get('verdict')}"] if r["pid"] in other else []),
               f"- Notes: {r.get('notes')}", "- Citations:"] + [f"  - {x}" for x in (r.get("citations") or [])] + \
              ["- Author review: [ ] sources checked  [ ] behaviour as described  Final label: ________", ""]
     open(f"{S}/REVIEW_PACKET.md", "w").write("\n".join(L) + "\n"); print(f"{S}/REVIEW_PACKET.md", len(rows), "entries")
@@ -142,4 +148,5 @@ def packet():
 
 if __name__ == "__main__":
     import sys
-    packet() if sys.argv[1:] == ["packet"] else main()
+    if sys.argv[1:2] == ["packet"]: packet("stage3_blind" if "--blind" in sys.argv else "stage3")
+    else: main()

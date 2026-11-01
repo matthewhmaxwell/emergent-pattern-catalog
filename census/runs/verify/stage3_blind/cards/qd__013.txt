@@ -1,0 +1,16 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=-0.5) and copy the best-scoring neighbour; (2) each cell adopts its neighbourhood's majority type (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_type_entropy
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 3.6362 with interaction, 6.3725 with interaction knocked out (difference -2.7363, robust spread 0.2002); difference at 4x area -2.8329, at 3x run length -2.6123
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_type_entropy (cell types evenly mixed): median 0.8205 with interaction, 0.9999 with interaction knocked out (difference -0.1794, robust spread 0.0364); difference at 4x area -0.1836, at 3x run length -0.164
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 1.3863; g_corrlen 3.0; g_reversals 0.0; g_type_entropy 0.05
+  - rules 2 only: g_n_domains 1.7918; g_corrlen 11.0; g_reversals 1.0; g_type_entropy 0.9773
+No sub-program came within 3 robust spreads of the full program on every feature above.

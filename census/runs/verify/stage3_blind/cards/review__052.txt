@@ -1,0 +1,15 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 4 types (random start). Rules, applied in order each step: (1) each node adopts its neighbours' majority type (every step); (2) a node linked to a different-type neighbour cuts that link and links to a random same-type node (with probability 0.03 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_consensus_gain, n_type_entropy, n_edge_turnover
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_consensus_gain (nodes converge to agreement): median 0.6725 with interaction, 0.0 with interaction knocked out (difference 0.6725, robust spread 0.0134); difference at 4x area 0.6931, at 3x run length 0.6725
+  - n_type_entropy (node types evenly mixed): median 0.1175 with interaction, 1.3777 with interaction knocked out (difference -1.2602, robust spread 0.0299); difference at 4x area -1.2363, at 3x run length -1.2602
+  - n_edge_turnover (edges rewire): median 0.1948 with interaction, 0.0 with interaction knocked out (difference 0.1948, robust spread 0.0285); difference at 4x area 0.2416, at 3x run length 0.1948
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: n_consensus_gain 0.685; n_type_entropy 0.1311; n_edge_turnover 0.0
+  - rules 2 only: n_consensus_gain 0.0; n_type_entropy 1.3777; n_edge_turnover 0.7629
+No sub-program came within 3 robust spreads of the full program on every feature above.

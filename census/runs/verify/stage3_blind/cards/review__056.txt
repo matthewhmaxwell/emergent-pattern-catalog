@@ -1,0 +1,17 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=0.5) and copy the best-scoring neighbour; (2) neighbouring cells swap contents (with probability 0.05 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_reversals, g_largest_domain, g_type_entropy
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.4773 with interaction, 6.3776 with interaction knocked out (difference -1.9003, robust spread 0.2171); difference at 4x area -1.8924, at 3x run length -1.8953
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.8746 with interaction, 0.0454 with interaction knocked out (difference 0.8292, robust spread 0.0184); difference at 4x area 0.8449, at 3x run length 0.813
+  - g_type_entropy (cell types evenly mixed): median 0.5675 with interaction, 0.9999 with interaction knocked out (difference -0.4324, robust spread 0.0313); difference at 4x area -0.4297, at 3x run length -0.4257
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.7999; g_corrlen 2.0; g_reversals 1.0; g_largest_domain 0.8131; g_type_entropy 0.6954
+  - rules 2 only: g_n_domains 6.35; g_corrlen 1.0; g_reversals 1.0; g_largest_domain 0.0381; g_type_entropy 0.9999
+No sub-program came within 3 robust spreads of the full program on every feature above.

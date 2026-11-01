@@ -1,0 +1,15 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 4 types (random start). 2 field(s) with diffusion [0.05, 0.02]. Rules, applied in order each step: (1) each cell copies the type of a random neighbour (with probability 0.2 per step); (2) type-0 cells release 1.0 of field 1 per step.
+
+OBSERVED (features that passed the simulation checks):
+  f_std, f_n_blobs, f_peak_sharp
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - f_std: median 93.5807 with interaction, 30.8284 with interaction knocked out (difference 62.7523, robust spread 5.2733); difference at 4x area 101.275, at 3x run length 141.4264
+  - f_n_blobs: median 1.6094 with interaction, 3.6506 with interaction knocked out (difference -2.0411, robust spread 0.2509); difference at 4x area -2.3348, at 3x run length -1.4966
+  - f_peak_sharp (sharp field pattern): median 0.7451 with interaction, 0.3226 with interaction knocked out (difference 0.4224, robust spread 0.0606); difference at 4x area 0.2276, at 3x run length 0.3556
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: f_std 0.0065; f_n_blobs 1.0986; f_peak_sharp 0.6863
+  - rules 2 only: f_std 30.8284; f_n_blobs 3.6506; f_peak_sharp 0.3226
+No sub-program came within 3 robust spreads of the full program on every feature above.

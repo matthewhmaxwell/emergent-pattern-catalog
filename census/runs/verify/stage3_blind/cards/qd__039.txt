@@ -1,0 +1,17 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) cells play a two-strategy game with their 8 neighbours and themselves (type 0 cooperates, 1 defects; payoffs R=1, P=0, T=1.5, S=-0.5) and copy the best-scoring neighbour; (2) a type-0 cell becomes type 1 if at least 4 neighbours are type 1 (with probability 0.03 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_corrlen, g_n_domains, g_activity_cv, g_reversals, g_largest_domain
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_corrlen (long spatial correlation length): median 6.5 with interaction, 1.0 with interaction knocked out (difference 5.5, robust spread 0.3706); difference at 4x area 10.0, at 3x run length 7.5
+  - g_n_domains (many separate domains): median 1.0986 with interaction, 6.4036 with interaction knocked out (difference -5.305, robust spread 0.15); difference at 4x area -5.5743, at 3x run length -5.1611
+  - g_activity_cv (bursty activity): median 0.8042 with interaction, 0.0 with interaction knocked out (difference 0.8042, robust spread 0.0161); difference at 4x area 0.5086, at 3x run length 0.5431
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0
+  - g_largest_domain (one cell-type fills most of the lattice): median 0.9661 with interaction, 0.0433 with interaction knocked out (difference 0.9227, robust spread 0.0214); difference at 4x area 0.9293, at 3x run length 0.8499
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_corrlen 3.0; g_n_domains 1.7006; g_activity_cv 0.0; g_reversals 0.0; g_largest_domain 0.991
+  - rules 2 only: g_corrlen 0.0; g_n_domains 0.6931; g_activity_cv 0.0; g_reversals 0.0; g_largest_domain 1.0
+No sub-program came within 3 robust spreads of the full program on every feature above.

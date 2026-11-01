@@ -1,0 +1,15 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus continuous chemical field(s) diffusing on a 64x64 wrap-around grid. Cells have 4 types (random start). 2 field(s) with diffusion [0.05, 0.02]. Rules, applied in order each step: (1) a type-0 cell becomes type 3 where field 1 exceeds 0.05; (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.3 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_activity_trend, g_reversals
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 5.5946 with interaction, 7.6667 with interaction knocked out (difference -2.072, robust spread 0.2652); difference at 4x area -1.1906, at 3x run length -2.0738
+  - g_activity_trend (activity rising): median -2.3317 with interaction, 0.0 with interaction knocked out (difference -2.3317, robust spread 0.2155); difference at 4x area -3.6791, at 3x run length -1.3904
+  - g_reversals (cells flip back and forth): median 0.767 with interaction, 0.0 with interaction knocked out (difference 0.767, robust spread 0.0158); difference at 4x area 0.4686, at 3x run length 0.6482
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.636; g_activity_trend -1.1874; g_reversals 0.0
+  - rules 2 only: g_n_domains 6.6201; g_activity_trend -3.1844; g_reversals 0.3099
+No sub-program came within 3 robust spreads of the full program on every feature above.

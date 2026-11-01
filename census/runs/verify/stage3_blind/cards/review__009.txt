@@ -1,0 +1,9 @@
+RULE (plain words):
+N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=0.2) p=0.1  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  p_r, p_freq_spread
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - p_r (global phase order (full sync)): median 0.4459 with interaction, 0.0665 with interaction knocked out (difference 0.3794, robust spread 0.021); difference at 4x area 0.2922, at 3x run length 0.7323
+  - p_freq_spread (spread of oscillator natural frequencies): median 0.0251 with interaction, 0.5146 with interaction knocked out (difference -0.4895, robust spread 0.0108); difference at 4x area -0.4672, at 3x run length -1.3797

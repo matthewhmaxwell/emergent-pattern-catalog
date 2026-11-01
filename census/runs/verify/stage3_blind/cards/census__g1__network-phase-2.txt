@@ -1,0 +1,14 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 3 types (random start). Rules, applied in order each step: (1) each node is a phase oscillator pulled toward its neighbours' phases with strength 1.0; (2) a node linked to a different-type neighbour cuts that link and links to a random same-type node (every step).
+
+OBSERVED (features that passed the simulation checks):
+  p_r_std, p_freq_spread
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - p_r_std (phase order fluctuates): median 0.1157 with interaction, 0.0289 with interaction knocked out (difference 0.0868, robust spread 0.0142); difference at 4x area 0.0864, at 3x run length 0.1611
+  - p_freq_spread (spread of oscillator natural frequencies): median 0.0552 with interaction, 0.4987 with interaction knocked out (difference -0.4435, robust spread 0.0231); difference at 4x area -0.4565, at 3x run length -1.2561
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: p_r_std 0.0058; p_freq_spread 0.0643
+  - rules 2 only: p_r_std None; p_freq_spread None
+No sub-program came within 3 robust spreads of the full program on every feature above.

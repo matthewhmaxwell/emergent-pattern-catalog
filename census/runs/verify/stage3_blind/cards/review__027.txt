@@ -1,0 +1,15 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 3 types (random start). Rules, applied in order each step: (1) neighbouring cells swap contents (with probability 0.1 per step); (2) an occupied cell (type 0 = empty) whose same-type share among occupied neighbours is below 0.5 moves to a random empty cell.
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_reversals, g_moran
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 6.0856 with interaction, 7.3473 with interaction knocked out (difference -1.2617, robust spread 0.2687); difference at 4x area -1.3146, at 3x run length -1.272
+  - g_reversals (cells flip back and forth): median 0.9531 with interaction, 0.0 with interaction knocked out (difference 0.9531, robust spread 0.0191); difference at 4x area 0.9569, at 3x run length 0.9706
+  - g_moran (like-valued cells cluster spatially): median 0.3568 with interaction, 0.0006 with interaction knocked out (difference 0.3562, robust spread 0.0168); difference at 4x area 0.3767, at 3x run length 0.3786
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 7.3495; g_reversals 0.5946; g_moran -0.0079
+  - rules 2 only: g_n_domains 6.4094; g_reversals 0.6; g_moran 0.1902
+No sub-program came within 3 robust spreads of the full program on every feature above.

@@ -1,0 +1,11 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each); plus 400 self-propelled agents moving in a wrap-around square (20x20 when agents are alone, 64x64 when they share the lattice or fields). Cells have 4 types (random start). Agents have 3 types (random start). Agents move at speed 0.3 with heading noise 0.3 rad per step. Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 3 neighbours already are t+1 (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_corrlen, g_n_domains, g_activity_trend, g_moran
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_corrlen (long spatial correlation length): median 10.0 with interaction, 1.0 with interaction knocked out (difference 9.0, robust spread 0.22); difference at 4x area 10.0, at 3x run length 7.0
+  - g_n_domains (many separate domains): median 3.5773 with interaction, 7.669 with interaction knocked out (difference -4.0917, robust spread 0.2249); difference at 4x area -4.3613, at 3x run length -4.2077
+  - g_activity_trend (activity rising): median -0.5756 with interaction, 0.0 with interaction knocked out (difference -0.5756, robust spread 0.0312); difference at 4x area -0.6441, at 3x run length -0.5527
+  - g_moran (like-valued cells cluster spatially): median 0.8744 with interaction, -0.0026 with interaction knocked out (difference 0.877, robust spread 0.0175); difference at 4x area 0.8691, at 3x run length 0.8555

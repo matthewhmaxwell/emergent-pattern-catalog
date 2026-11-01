@@ -1,0 +1,8 @@
+RULE (plain words):
+World: a random network of 200 nodes (average 4 links each). Nodes have 3 types (random start). Rules, applied in order each step: (1) a node of type t becomes t+1 (cyclically) if at least 2 neighbours are t+1 (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  n_cyclic_changes
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_cyclic_changes (node states cycle): median 0.443 with interaction, -0.5 with interaction knocked out (difference 0.943, robust spread 0.0189); difference at 4x area 0.9396, at 3x run length 0.8619

@@ -1,0 +1,11 @@
+RULE (plain words):
+C kC=2 | C[any] CNT_LE(b=0,th=3) -> IMITATE_BEST(g=(1.9, 0.0)) p=0.1  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_activity_trend, g_reversals
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.3819 with interaction, 6.3456 with interaction knocked out (difference -1.9637, robust spread 0.2146); difference at 4x area -2.2018, at 3x run length -1.9513
+  - g_corrlen (long spatial correlation length): median 2.0 with interaction, 1.0 with interaction knocked out (difference 1.0, robust spread 0.06); difference at 4x area 1.0, at 3x run length 1.0
+  - g_activity_trend (activity rising): median -1.0836 with interaction, 0.0 with interaction knocked out (difference -1.0836, robust spread 0.0217); difference at 4x area -1.128, at 3x run length -1.0771
+  - g_reversals (cells flip back and forth): median 1.0 with interaction, 0.0 with interaction knocked out (difference 1.0, robust spread 0.02); difference at 4x area 1.0, at 3x run length 1.0

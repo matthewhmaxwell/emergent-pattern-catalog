@@ -1,0 +1,16 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 4 types (random start). Rules, applied in order each step: (1) a cell of type t becomes type t+1 (cyclically) if at least 2 neighbours already are t+1 (every step); (2) neighbouring cells swap contents (every step).
+
+OBSERVED (features that passed the simulation checks):
+  g_n_domains, g_corrlen, g_moran, g_activity
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - g_n_domains (many separate domains): median 4.2194 with interaction, 7.6723 with interaction knocked out (difference -3.4529, robust spread 0.2378); difference at 4x area -2.9926, at 3x run length -3.9028
+  - g_corrlen (long spatial correlation length): median 4.5 with interaction, 1.0 with interaction knocked out (difference 3.5, robust spread 0.3706); difference at 4x area 3.5, at 3x run length 4.5
+  - g_moran (like-valued cells cluster spatially): median 0.7982 with interaction, 0.002 with interaction knocked out (difference 0.7962, robust spread 0.016); difference at 4x area 0.7116, at 3x run length 0.8267
+  - g_activity (many cells change per step): median 0.4775 with interaction, 0.0 with interaction knocked out (difference 0.4775, robust spread 0.0095); difference at 4x area 0.4759, at 3x run length 0.4701
+
+SUB-PROGRAMS (same program with some rules removed, original size, 10 seeds; median of each feature above; the full program has 2 rules):
+  - rules 1 only: g_n_domains 4.4427; g_corrlen 2.0; g_moran 0.4701; g_activity 0.9897
+  - rules 2 only: g_n_domains 7.6725; g_corrlen 1.0; g_moran 0.0057; g_activity 0.6376
+No sub-program came within 3 robust spreads of the full program on every feature above.

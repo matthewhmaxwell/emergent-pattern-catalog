@@ -1,0 +1,8 @@
+RULE (plain words):
+N kN=2 | N[0] ALWAYS() -> REWIRE_SAME() p=1.0  (compact grammar notation)
+
+OBSERVED (features that passed the simulation checks):
+  n_components
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+  - n_components (number of connected components): median 2.9174 with interaction, 1.4979 with interaction knocked out (difference 1.4195, robust spread 0.3233); difference at 4x area 1.5063, at 3x run length 1.4195

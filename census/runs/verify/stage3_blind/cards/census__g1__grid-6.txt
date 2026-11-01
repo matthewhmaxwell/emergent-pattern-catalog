@@ -1,0 +1,10 @@
+RULE (plain words):
+World: a 64x64 lattice of cells (wrap-around edges, 8 neighbours each). Cells have 2 types (random start). Rules, applied in order each step: (1) a type-0 cell becomes type 1 if at least 1 neighbours are type 1 (with probability 0.1 per step).
+
+OBSERVED (features that passed the simulation checks):
+  g_largest_domain, g_n_domains
+
+SIMULATION EVIDENCE (added for this check). Each feature below was re-measured on 10 fresh random seeds, averaged over the late part of the run. The interaction knock-out is the same program with every rule that reads other entities removed (one-way rules such as spontaneous flips, decay and emission are kept; phase coupling is set to zero). Unless stated otherwise below, each listed feature differs from its knock-out by at least 3 robust spreads at the original size, and keeps its sign and at least half its size at 4x area and at 3x run length.
+These grid features are measured on the transient: the stretch of the run before the lattice collapsed to a single type.
+  - g_largest_domain (one cell-type fills most of the lattice): median 1.0 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
+  - g_n_domains (many separate domains): median 0.6931 with interaction; with interaction knocked out the program never produces this view, at the original size, at 4x area or at 3x run length
