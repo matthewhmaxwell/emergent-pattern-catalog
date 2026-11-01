@@ -3,7 +3,7 @@ committed before this script ran). Census settings, the verification seeds of qd
 
   python -m census.verify_tier3        # writes census/runs/verify/tier3/qd060_controls.json and prints the summary
 """
-import copy, json, os
+import dataclasses, json, os
 import numpy as np
 from census import verify as V, sim, knockout as KO
 
@@ -39,7 +39,7 @@ def main():
     try: res["symmetric"] = _fps(sim.run(p, seed0=seed, S=S), p)
     finally: sim.State.__init__ = orig
     # P: pinned flippers, speed 0, as many agents as distinct occupied cells at the end of the full run
-    pp = copy.deepcopy(p); pp.agent = (0.0, p.agent[1]); na = sim.NA; sim.NA = n_occ
+    pp = dataclasses.replace(p, agent=(0.0, p.agent[1])); na = sim.NA; sim.NA = n_occ
     try: res["pinned"] = _fps(sim.run(pp, seed0=seed, S=S), pp)
     finally: sim.NA = na
     # reproduction test per robust feature (plan: |median(full) - median(control)| <= 3 s, s pooled)
