@@ -48,3 +48,29 @@ on 3 of 6 features, becomes a single mechanism on all 6, unflagged, so not a Sta
   sub-program run raised an error. Checked after the 4x-area re-run, before classification: all 214 records carry the
   fix, with no 4x-area errors, and 37 of 1,035 tested features remain unmeasurable somewhere, all in the cases listed
   above.
+
+## Found during the Stage 3 (b) review (2026-11-01; corrections and limitations, not deviations)
+
+- **Feature windows were misdescribed.** The plan and the Stage 3 cards say every feature is "averaged over the late
+  part of the run". In the frozen census fingerprint, grid activity, type entropy and interface are late-window means;
+  Moran's I, correlation length, largest domain and number of domains come from the last frame; reversals, cyclic
+  changes and the Moran trend use the whole run; the activity trend compares early and late activity. The
+  computation is the census's own and was not changed; the description is corrected in the paper.
+- **Frame spacing depends on run length.** The fingerprint thins each view to about 101 frames, so reversals and
+  cyclic changes compare grid frames 10 steps apart in a 1,000-step run and 30 steps apart at three times the length.
+  Real program and knock-out are thinned alike, so each comparison is like with like, but for these two features the
+  persistence test compares slightly different quantities. Grid activity is computed before thinning, between frames
+  two steps apart (the card's "per step" gloss is wrong).
+- **Numerically diverged runs.** The census records an `unstable` flag (a field above 1e6 or non-finite stops the
+  run) but does not exclude such runs. A post-hoc check (`census/verify_stability.py`, `stability.json`) found 2 of
+  the 214 representatives diverge at census settings: census g1 field-2 (an artifact) and quality-diversity 071,
+  which stops at step 6; its robust features and its "combination effect" describe that truncation.
+- **Other measurement notes from the reviewers.** quality-diversity 065 is measured after the field its agents climb
+  has been used up (late-run values are a frozen state); reversals are saturated at 1.0 whenever cells change with
+  two types, so that feature only separates a program from a frozen knock-out.
+- **Tier-3 for the only review-stage candidate.** quality-diversity 060 was vetted as fixed in VERIFICATION_TIER3.md
+  (commits a3d4ad0, 312a973): the decomposition hypothesis was supported (10 pinned flippers reproduce the ordering;
+  rules 1+2 the activity decline), the uniform-field control removed the ordering, and an independent literature pass
+  found it closely related, a superposition of documented effects. Closed as closely related. The plan expected the
+  symmetric control to reproduce no robust feature; it reproduced three weak or saturated ones (number of domains,
+  correlation length, reversals) but not the two that carry the effect.
