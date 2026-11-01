@@ -143,7 +143,7 @@
   "citation_problems": "Hauert & Doebeli misapplied: the prediction that defectors win comes from replicator-rule dynamics; under unconditional imitation the snowdrift lattice at T=1.5 favours cooperators (Roca et al. 2009)."
  },
  "qd:060": {
-  "final_label": "UNDOCUMENTED CANDIDATE",
+  "final_label": "CLOSELY RELATED",
   "model_label": "DOCUMENTED",
   "changed": true,
   "class": "COMBINATION EFFECT",
@@ -151,7 +151,13 @@
   "confidence": "medium",
   "basis": "No source describes it or a near relative. Distant relatives only: noise-perturbed Nowak-May lattices (Szabo & Fath review), and spatial PD players that themselves move by diffusion and chemotaxis (Burgess et al. 2017, J. Theor. Biol., seen in search results only), where the movers are the players rather than external agents flipping lattice states.",
   "difference": "Not covered: external walkers that climb a gradient and flip lattice states coupled to a lattice game. Likely mechanism, from the sub-programs and code (census/sim.py: field starts at 1.0 with 20 low 3x3 patches plus small noise, no source term): agents gather at maxima of the decaying initial field, so their flips become localized and their activity decays, and imitate-best restores ordering. This probably decomposes into two known pieces and needs the further checks the label implies. Stage 3's claim that rule 1 is inert contradicts its own sub-program data: rules 2,3 give largest domain 0.34 vs 0.86 for the full program, and rules 1,2 give activity trend -3.53 vs 0.0001 for rule 2 alone.",
-  "citation_problems": "arXiv:0805.2071 is misattributed: the authors are Moyano & Sanchez, not 'Cuesta et al.' (the quoted 8+1 statement is in it). Hauert & Doebeli misapplied to imitate-best dynamics. Stage 3 ran no search on agent-driven perturbation, which it acknowledged."
+  "citation_problems": "arXiv:0805.2071 is misattributed: the authors are Moyano & Sanchez, not 'Cuesta et al.' (the quoted 8+1 statement is in it). Hauert & Doebeli misapplied to imitate-best dynamics. Stage 3 ran no search on agent-driven perturbation, which it acknowledged.",
+  "review_label": "UNDOCUMENTED CANDIDATE",
+  "tier3": {
+   "H0_supported": true,
+   "litpass_label": "CLOSELY RELATED",
+   "litpass_trivial_superposition": true
+  }
  },
  "review:016": {
   "final_label": "DOCUMENTED",

@@ -33,6 +33,16 @@ def main():
                            "class": res[r["pid"]]["class"], "group": r["group"], "confidence": r.get("confidence"),
                            "basis": r.get("basis"), "difference": r.get("difference"),
                            "citation_problems": r.get("citation_problems") or ""}
+    # Tier-3 outcome (VERIFICATION_TIER3.md): H0 supported -> CLOSELY RELATED unless the second literature pass documents it
+    for pid in [p for p, v in final.items() if v["final_label"] == "UNDOCUMENTED CANDIDATE"]:
+        key = pid.replace(":", "")
+        cf, lf = os.path.join(OUT, "tier3", f"{key}_controls.json"), os.path.join(OUT, "tier3", f"{key}_litpass.json")
+        if os.path.exists(cf) and os.path.exists(lf):
+            c, l = json.load(open(cf)), json.load(open(lf))
+            lab = "DOCUMENTED" if l.get("label") == "DOCUMENTED" else ("CLOSELY RELATED" if c.get("H0_supported") or l.get("label") == "CLOSELY RELATED" else "UNDOCUMENTED CANDIDATE")
+            final[pid].update({"review_label": "UNDOCUMENTED CANDIDATE", "final_label": lab, "changed": lab != final[pid]["model_label"],
+                               "tier3": {"H0_supported": c.get("H0_supported"), "litpass_label": l.get("label"),
+                                         "litpass_trivial_superposition": l.get("trivial_superposition")}})
     json.dump(final, open(f"{R}/final_labels.json", "w"), indent=1)
     cites = [x for r in rows for x in (r.get("citations_checked") or [])]
     cc = lambda k, v: sum(1 for x in cites if str(x.get(k)).lower() == v)
@@ -40,6 +50,8 @@ def main():
          f"{len(final)} phenomena reviewed. Final labels: " +
          ", ".join(f"{n} {k.lower()}" for k, n in collections.Counter(v["final_label"] for v in final.values()).most_common()) + ".",
          f"Changed from the plan-conforming Stage 3 label: {sum(v['changed'] for v in final.values())}.",
+         *[f"Tier-3: {p} (review label undocumented candidate) closed as {v['final_label'].lower()}: decomposition supported "
+           f"{v['tier3']['H0_supported']}, second literature pass {v['tier3']['litpass_label']}." for p, v in sorted(final.items()) if "tier3" in v],
          f"Citations checked: {len(cites)}; exist: yes {cc('exists', 'yes')}, no {cc('exists', 'no')}, unclear {cc('exists', 'unclear')}; "
          f"attribution correct: yes {cc('attribution_correct', 'yes')}, no {cc('attribution_correct', 'no')}; "
          f"support the claim: yes {cc('supports_claim', 'yes')}, partly {cc('supports_claim', 'partly')}, no {cc('supports_claim', 'no')}.", ""]

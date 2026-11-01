@@ -1,0 +1,80 @@
+{
+  "label": "CLOSELY RELATED",
+  "basis": "I found no source on gradient-climbing cell-flipping agents coupled to a snowdrift lattice. Every part of the observed behaviour is documented separately, in near-relative systems. (1) Random strategy perturbations (mutation, random strategy exploration, spontaneous strategy changes) spread across a spatial game lattice weaken clustering and change the ordered state. Allen, Traulsen, Tarnita & Nowak 2012 show this; Saif & Gade 2010 show it for imitate-the-best lattices. In the input, sub-programs 2+3 and the uniform-field control (largest domain 0.34) are this effect. (2) Walkers doing gradient ascent on a scalar field get trapped at its local maxima (Cornejo-Olea et al. 2025), and smoothing a field steadily lowers its number of local maxima (Lindeberg 1991). So 400 agents collapse onto a handful of cells: median 10 distinct cells occupied. (3) The snowdrift lattice orders on its own (rule 3 only: largest domain 0.82). The full program is (3) with a perturbation whose footprint (2) has shrunk from roughly 400 moving sites to roughly 10 nearly fixed sites. The steep fall in activity is also mostly (2) alone: rules 1+2 without the game give an activity trend of -3.53, versus -2.67 for the full program.",
+  "difference": "In the literature, the rate and spatial spread of the perturbation are set by hand (a mutation rate, a spontaneous-defection probability, where zealots or stubborn sites are placed). Here they fall over time on their own, because a separate one-way process (gradient ascent on a smoothing field) collapses the perturbers onto a few local maxima. The perturbation is also a symmetric cyclic flip, not biased C->D defection or weak-selection mutation, and the update rule is deterministic imitate-the-best. These differences probably do not matter. The agents never read the lattice and the lattice never writes the field, so there is no feedback. The control with 10 pinned agents reproduces the ordered lattice (largest domain 0.817, against 0.864 for the full program and 0.82 for the game alone). And the activity decline appears without the game. One possible small leftover: the full program has slightly more order than the game alone (+0.04 largest domain, about 2 robust spreads; n_domains about 1.4 spreads lower). This fits a perturbation that starts strong and fades out, an annealing-like schedule, which is also a known effect (Kirkpatrick et al. 1983). It falls below the census's own 3-spread bar against the rules-3-only sub-program.",
+  "trivial_superposition": true,
+  "reasoning": "The coupling runs one way only: field -> agents -> lattice. Rule 1 (climbing) depends only on the field, so the agents' convergence is the same with or without the game. Rule 3 (the game) sees the agents only as a source of cell flips, and how much those flips matter depends only on how many distinct cells they hit and how spread out those cells are. The sub-program table shows that no single sub-program reproduces the full program only because two independent modules each contribute a separate feature. Rules 1+2 supply the activity collapse (-3.53) but leave the lattice disordered (largest domain 0.05). Rule 3 supplies the order (0.82, corrlen 2, about 4.8 domains) but only a mild activity trend (-0.50). The full program is roughly their conjunction: 0.864, corrlen 2, 4.47 domains, -2.67. On every ordering feature, the rules-3-only sub-program comes within 3 robust spreads of the full program (largest domain diff 0.04 vs spread 0.018; n_domains 0.30 vs 0.22; corrlen and reversals identical). It is separated only on activity trend, which comes from the agent module. The controls agree. With a uniform field (no climbing), the result equals rules 2+3, with a disordered lattice. With 10 agents pinned in place, the lattice result equals the game alone. Spatial shuffling removes the correlation length. So the observed behaviour is not a new collective pattern. It is a known noise effect (distributed flips disorder a spatial game) switched off by a known transport effect (gradient ascent concentrates walkers at the maxima of a smoothing field). Nothing is produced by the parts interacting that neither part already produces. A hostile reviewer would rightly call it a perturbation-footprint artefact. The only possibly non-additive residue, slightly higher order from a fading early perturbation, is small, sub-threshold, and itself a known annealing effect.",
+  "citations": [
+    {
+      "citation": "Allen B, Traulsen A, Tarnita CE, Nowak MA (2012). How mutation affects evolutionary games on graphs. Journal of Theoretical Biology 299:97-105.",
+      "url": "https://collaborate.princeton.edu/en/publications/how-mutation-affects-evolutionary-games-on-graphs/",
+      "verified": true,
+      "what_it_shows": "On lattices and other graphs, mutation, or random strategy exploration in social imitation, 'dilutes' spatial clustering. Higher mutation rates diminish the clustering of strategies. This is the documented counterpart of 'without climbing, the agents' distributed flips keep the lattice disordered'. It differs in using weak-selection imitation/birth-death updating rather than deterministic imitate-the-best, and in uniform random mutation rather than flips by moving agents."
+    },
+    {
+      "citation": "Saif MA, Gade PM (2010). Dynamic phase transition in Prisoner's Dilemma on a lattice with stochastic modifications. J. Stat. Mech. P03016 (arXiv:0910.0955).",
+      "url": "https://arxiv.org/abs/0910.0955",
+      "verified": true,
+      "what_it_shows": "A lattice game where agents copy the most successful neighbour (imitate-the-best), plus spontaneous strategy changes at rate p. Raising p moves the lattice from one state to another (coexistence to all-defect, a directed-percolation transition). This shows that random strategy perturbations spread over the lattice control the ordered state under imitate-the-best. It differs in that the perturbation is biased (C->D), not a symmetric flip, and the game is PD, not snowdrift."
+    },
+    {
+      "citation": "Nowak MA, Bonhoeffer S, May RM (1994). Spatial games and the maintenance of cooperation. PNAS 91(11):4877-4881.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC43892",
+      "verified": true,
+      "what_it_shows": "Shows that the main spatial-game results (coexistence of pure strategies on a lattice) survive partly probabilistic winning and other relaxations. Low-level noise leaves the spatial game's behaviour intact. This is background for why a few localized perturbation sites leave the game's ordering in place."
+    },
+    {
+      "citation": "Hauert C, Doebeli M (2004). Spatial structure often inhibits the evolution of cooperation in the snowdrift game. Nature 428:643-646. doi:10.1038/nature02360",
+      "url": "https://ideas.repec.org/a/nat/nature/v428y2004i6983d10.1038_nature02360.html",
+      "verified": true,
+      "what_it_shows": "Standard reference for snowdrift dynamics on a spatial lattice: the lattice settles into characteristic cooperator/defector patterns that differ from well-mixed outcomes. This is background for the rule-3-only ordering. It uses a replicator-type update, not imitate-the-best. The input's own rule-3-only sub-program reproduces the ordering directly in any case."
+    },
+    {
+      "citation": "Cornejo-Olea G, Buvinic L, Darbon J, Erban R, Ravasio A, Matzavinos A (2025, rev. 2026). On the role of fractional Brownian motion in models of chemotaxis and stochastic gradient ascent. arXiv:2511.18745.",
+      "url": "https://arxiv.org/html/2511.18745",
+      "verified": true,
+      "what_it_shows": "States that gradient ascent is a local maximisation algorithm. Shows that chemotactic walkers driven by ordinary Brownian noise get trapped ('temporary trapping') at local maxima and secondary peaks of the attractant field. Documents the agent half: walkers climbing a field collect at its local maxima. In the input, heading noise is overridden whenever the gradient is non-zero, so trapping is complete."
+    },
+    {
+      "citation": "Lindeberg T (1991). Discrete Scale-Space Theory and the Scale-Space Primal Sketch. PhD thesis, Royal Institute of Technology (KTH), Stockholm.",
+      "url": "https://www.csc.kth.se/~tony/abstracts/CVAP84.html",
+      "verified": true,
+      "what_it_shows": "Gives estimates of how the number of local extrema in a signal decreases as the scale (smoothing) parameter grows. The input's field has no source or decay and only diffuses, so its maxima annihilate over time. That explains why the agents' occupied sites shrink to a handful, and why activity keeps falling."
+    },
+    {
+      "citation": "Burgess AEF, Lorenzi T, Schofield PG, Hubbard SF, Chaplain MAJ (2017). Examining the role of individual movement in promoting coexistence in a spatially explicit prisoner's dilemma. Journal of Theoretical Biology 419:323-332. doi:10.1016/j.jtbi.2017.02.028",
+      "url": "https://research-portal.st-andrews.ac.uk/en/publications/examining-the-role-of-individual-movement-in-promoting-coexistenc/",
+      "verified": true,
+      "what_it_shows": "The nearest system that couples chemotaxis with a spatial game: individuals moving by diffusion plus chemotaxis up a semiochemical gradient play PD, and self-organized coexistence patterns appear. It is not equivalent. There the chemotactic agents are the players (two-way coupling); in the input the climbers are external perturbers with one-way coupling. Cited to show the chemotaxis-plus-game literature exists and does not describe this behaviour."
+    },
+    {
+      "citation": "Kirkpatrick S, Gelatt CD Jr, Vecchi MP (1983). Optimization by simulated annealing. Science 220(4598):671-680.",
+      "url": "https://cris.huji.ac.il/en/publications/optimization-by-simulated-annealing/",
+      "verified": true,
+      "what_it_shows": "Canonical source that slowly reducing noise (annealing) lets a many-body system settle into lower-energy, more ordered states than an abrupt quench. Relevant only to the small, below-threshold excess order of the full program over the game alone (perturbation strong early, fading late)."
+    }
+  ],
+  "searches_run": [
+    "spatial snowdrift game lattice imitate the best \"zealots\" localized perturbation order",
+    "quenched versus annealed noise spatial evolutionary game lattice cooperation",
+    "chemotactic walkers gradient ascent trapped at local maxima diffusing field aggregation few sites",
+    "random walkers flipping strategies spatial prisoner's dilemma lattice mobile perturbers disrupt cooperation clusters",
+    "Langton's ant turmite coupled cellular automaton agents writing onto lattice interacting dynamics",
+    "Nowak May spatial game external noise sites \"stubborn\" or \"noisy\" sites defects pinned strategy lattice domain",
+    "\"mobile zealots\" OR \"moving zealots\" lattice voter OR game ordering",
+    "Ising model random walkers flip spins mobile impurities destroy order versus pinned impurities",
+    "Hauert Doebeli 2004 spatial structure often inhibits evolution of cooperation snowdrift game Nature lattice",
+    "Mukherji Rao Ramaswamy \"Robustness of cooperation\" Nature 1996 spatial prisoner's dilemma noise",
+    "Mukherji Rajan Slagle 1996 \"Robustness of cooperation\" Nature 379 125",
+    "spatial evolutionary game \"mutation\" localized sites versus spatially uniform mutation lattice ordering domains imitation",
+    "active walker model Lam walkers climb landscape gradient modify cells cellular automaton coupling agents lattice",
+    "scale-space clustering particles gradient ascent blurred density modes merge as scale increases Leung Zhang Xu",
+    "hybrid agent cellular automaton mobile agents flip cell states perturbation disorder versus aggregated agents localized effect",
+    "Nowak Bonhoeffer May 1994 PNAS \"Spatial games and the maintenance of cooperation\" probabilistic updating errors",
+    "chemotaxis-driven mobility spatial evolutionary game cooperators defectors aggregation gradient lattice",
+    "Masuda 2012 \"Evolution of cooperation driven by zealots\" Scientific Reports",
+    "Lindeberg scale-space theory basic tool analysing structures different scales number of local extrema decreases with scale arXiv",
+    "Kirkpatrick Gelatt Vecchi 1983 \"Optimization by simulated annealing\" Science 220 671"
+  ],
+  "confidence": "high"
+}
