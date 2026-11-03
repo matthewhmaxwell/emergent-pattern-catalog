@@ -1,0 +1,301 @@
+{
+ "planted:D01": {
+  "class_id": "planted:D01",
+  "kind": "documented",
+  "arxiv_id": "1512.00769",
+  "title": "Three is much more than two in coarsening dynamics of cyclic competitions",
+  "authors": [
+   "Namiko Mitarai",
+   "Ivar Gunnarson",
+   "Buster Niels Pedersen",
+   "Christian Anker Rosiek",
+   "Kim Sneppen"
+  ],
+  "v1_date": "2015-12-01",
+  "categories": [
+   "nlin.CG",
+   "cond-mat.stat-mech",
+   "q-bio.PE"
+  ],
+  "citations": 5,
+  "citations_source": "Semantic Scholar Graph API citationCount, checked 2026-11-02",
+  "finding_quote": "We find that increasing the complexity from two to three parallel subsystems allows a transition from complete coarsening to an active steady state where the domain size stays finite.",
+  "coined_terms": [
+   "active steady state",
+   "quasi-one-dimensional implementation",
+   "parallel linear ecosystems",
+   "fragmentation-like events",
+   "coarsening (title word)",
+   "cyclic competition (title words)"
+  ],
+  "behavior_summary": "Three coupled one-dimensional rock-paper-scissors rings reach a sustained active state with finite domains (size ~2*sqrt(2)/sqrt(p)) maintained by bursts of new boundaries, whereas one or two rings coarsen forever; with parallel update the activity dies at p_c=0.000471 in a DP-class transition.",
+  "notes": "Steady domain-size scaling exponent from the paper's estimate 2*sqrt(2/p); transient time ~1e4 from Fig. 3b text."
+ },
+ "planted:D02": {
+  "class_id": "planted:D02",
+  "kind": "documented",
+  "arxiv_id": "2308.06190",
+  "title": "Phase chimera states: frozen patterns of disorder",
+  "authors": [
+   "Emma R. Zajdela",
+   "Daniel M. Abrams"
+  ],
+  "v1_date": "2023-08-11",
+  "categories": [
+   "nlin.CD",
+   "math-ph",
+   "math.DS",
+   "nlin.AO",
+   "nlin.PS"
+  ],
+  "citations": 6,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "Remarkably, in this state, the amplitudes of all oscillators are identical, but one subset of oscillators phase-locks while another subset remains incoherent in phase.",
+  "coined_terms": [
+   "phase chimera state",
+   "multitailed phase chimera state",
+   "frozen patterns of disorder",
+   "chimera"
+  ],
+  "behavior_summary": "In globally coupled Stuart-Landau oscillators (K=0.25, C1=1.4, C2=-C1) a stable state exists in which all amplitudes equal sqrt(1-K) and all average frequencies match, yet a fraction x locks to one phase while the rest stay spread over an arc of phases, with zero mean field.",
+  "notes": "Amplitude sqrt(1-K)=0.866; stability requires K<1/2; distinct from splay for N>=5 (paper Sec. on minimal chimeras)."
+ },
+ "planted:D03": {
+  "class_id": "planted:D03",
+  "kind": "documented",
+  "arxiv_id": "1812.08857",
+  "title": "Pattern phase diagram of spiking neurons on spatial networks",
+  "authors": [
+   "Dionysios Georgiadis",
+   "Didier Sornette"
+  ],
+  "v1_date": "2018-12-05",
+  "categories": [
+   "q-bio.NC",
+   "nlin.AO"
+  ],
+  "citations": 2,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "For intermediate edge density and sufficiently strong spatial embeddedness, we observe a novel spatiotemporal pattern in the field of oscillator phases, visually resembling the surface of a frothing liquid.",
+  "coined_terms": [
+   "froth",
+   "frothing",
+   "frothing regime",
+   "fences",
+   "corner wavelength",
+   "metastable regime",
+   "Discretised Integrate & Fire (DIF)",
+   "spiking neurons (title words)"
+  ],
+  "behavior_summary": "Discretised integrate-and-fire oscillators with slow random drive on spatially embedded random geometric graphs form a constantly shifting patchwork of low-phase patches bounded by high-phase ridges at intermediate degree, which delays synchrony; at its edge cascade sizes follow a power law with exponent 1.",
+  "notes": "Theta=5, d=N/1e3, N=1e4 from text. Regime boundaries (pattern from E~7 to ~15.5 at R=0.01; pattern absent above R~0.1) read from Fig. 3; chi*sqrt(N) collapse from Sec. IV. Size = 10 snapshot degrees shown with froth in Fig. 1."
+ },
+ "planted:D04": {
+  "class_id": "planted:D04",
+  "kind": "documented",
+  "arxiv_id": "2110.12760",
+  "title": "Emergence of oscillations in fixed energy sandpile models on complex networks",
+  "authors": [
+   "Davood Fazli",
+   "Nahid Azimi-Tafreshi"
+  ],
+  "v1_date": "2021-10-25",
+  "categories": [
+   "cond-mat.stat-mech"
+  ],
+  "citations": 2,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "We observe that close to absorbing transition the density of active nodes oscillates and nodes topple in synchrony.",
+  "coined_terms": [
+   "oscillatory phase",
+   "binary state",
+   "BTW-FES",
+   "fixed-energy sandpile (title words)",
+   "activity-dependent rewiring"
+  ],
+  "behavior_summary": "Deterministic BTW fixed-energy sandpile on Erdos-Renyi networks (N=1e4, <k>=10) shows sustained synchronous oscillations of the active density above eps_c1=5.51 (supercritical Hopf), a period-2 'binary' regime for 8.95<eps<10.05, mirrored oscillations to eps_c4=13.96; absent on regular rings and in the stochastic Manna version.",
+  "notes": "Transition points from Fig. 2 caption; ring rewiring p=0.1 is the smallest p shown oscillating in Fig. 4."
+ },
+ "planted:D05": {
+  "class_id": "planted:D05",
+  "kind": "documented",
+  "arxiv_id": "1611.05307",
+  "title": "A traffic model with an absorbing-state phase transition",
+  "authors": [
+   "M. L. L. Iannini",
+   "Ronald Dickman"
+  ],
+  "v1_date": "2016-11-16",
+  "categories": [
+   "cond-mat.stat-mech",
+   "nlin.CG",
+   "physics.soc-ph"
+  ],
+  "citations": 9,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "The phase diagram in the ρ-p plane is reentrant: for densities in the range ρ_{c,<} < ρ < ρ_c, both small and large values of p favor free flow, while for intermediate values, a nonzero fraction of vehicles have speeds < v_max.",
+  "coined_terms": [
+   "absorbing Nagel-Schreckenberg (ANS) model",
+   "absorbing-state (title word)",
+   "reentrant phase diagram",
+   "D events",
+   "N events",
+   "troughs"
+  ],
+  "behavior_summary": "When random slowing in the Nagel-Schreckenberg model applies only to cars whose speed equals their gap, free flow becomes an absorbing state for rho<1/7 and the active (congested) phase is reentrant in p: at rho=1/8 activity persists only for 0.26829<p<0.89590, with exponents z~1, nu_perp~2, beta~1.",
+  "notes": "p-(1/8)=0.26829(3), p+(1/8)=0.89590(5), p-(17/144)=0.4096(1); rho_c,<~0.116; exponents beta/nu_perp=0.500, z=1.006."
+ },
+ "planted:D06": {
+  "class_id": "planted:D06",
+  "kind": "documented",
+  "arxiv_id": "1612.04556",
+  "title": "The effect of laziness in chasers in group chase and escape model",
+  "authors": [
+   "Makoto Masuko",
+   "Takayuki Hiraoka",
+   "Nobuyasu Ito",
+   "Takashi Shimada"
+  ],
+  "v1_date": "2016-12-14",
+  "categories": [
+   "nlin.AO",
+   "cond-mat.stat-mech"
+  ],
+  "citations": 10,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "It is shown that, while the former is always ineffective, the latter can improve the efficiency of catching, through the formation of pincer attack configuration by diligent and lazy chasers.",
+  "coined_terms": [
+   "laziness",
+   "lazy chasers",
+   "diligent chasers",
+   "division of labor",
+   "pincer attack configuration",
+   "cat-and-mouse game",
+   "group chase and escape (title words)",
+   "uniform laziness"
+  ],
+  "behavior_summary": "In the lattice group chase-and-escape model, making a fixed fraction of chasers pure random walkers cuts the mean time to catch all targets (min near 30% random walkers) by breaking up chaser clusters and creating pincer configurations, while giving every chaser a random-walk probability always hurts.",
+  "notes": "GS lists the published version 'The effect of laziness in group chase and escape' (2017). Mean catch times (3100 at R=0, ~1380 at R=0.3) and best share read from Fig. 3; peak ~1000 and tail >10000 from text."
+ },
+ "planted:D07": {
+  "class_id": "planted:D07",
+  "kind": "documented",
+  "arxiv_id": "1608.05553",
+  "title": "Rock-paper-scissors played within competing domains in predator-prey games",
+  "authors": [
+   "Darka Labavić",
+   "Hildegard Meyer-Ortmanns"
+  ],
+  "v1_date": "2016-08-19",
+  "categories": [
+   "nlin.PS",
+   "q-bio.PE"
+  ],
+  "citations": 17,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "Once the players segregate from a random initial distribution, domains emerge, which effectively play a (2,1)-game on the coarse scale of domain diameters, while agents inside the domains play (3,1) (rock-paper-scissors), leading to spiral formation with species chasing each other.",
+  "coined_terms": [
+   "games within games",
+   "(6,3)-game",
+   "(2,1)-game",
+   "(3,1)-game",
+   "(N,r) games",
+   "bosonic implementation",
+   "noisy fixed point",
+   "rock-paper-scissors (title words)",
+   "competing domains (title words)"
+  ],
+  "behavior_summary": "In a bosonic six-species game where each species preys on the next three, the population splits into two domains (odd and even species) that compete like a two-species game on the coarse scale while the three species inside each domain cycle like rock-paper-scissors and form spirals; one domain eventually wins.",
+  "notes": "Fig. 7 parameters rho=1, kappa=1, delta=1, gamma=0.2 on 64x64; thresholds kappa/gamma=1 (6-species point unstable) and kappa/gamma=2 (3-species points unstable) from the stability analysis; volume factor V not stated for Fig. 7."
+ },
+ "planted:D08": {
+  "class_id": "planted:D08",
+  "kind": "documented",
+  "arxiv_id": "2306.06421",
+  "title": "Arbitrarily weak head-on collision can induce annihilation -- The role of hidden instabilities",
+  "authors": [
+   "Yasumasa Nishiura",
+   "Takashi Teramoto",
+   "Kei-Ichi Ueda"
+  ],
+  "v1_date": "2023-06-10",
+  "categories": [
+   "math.DS",
+   "nlin.PS"
+  ],
+  "citations": 3,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "It is even counterintuitive in the sense that the two traveling spots or pulses come together very slowly but do not merge, keeping some separation, and then they start to repel each other for a certain time. Finally, up and down oscillatory instability emerges and grows enough for patterns to become extinct eventually",
+  "coined_terms": [
+   "weakly-interaction-induced-annihilation (WIIA)",
+   "hidden instability",
+   "drift-Hopf (DH) singularity",
+   "annihilation of fusion type (AF)",
+   "scattor",
+   "head-on collision (title words)",
+   "annihilation (title word)"
+  ],
+  "behavior_summary": "Near a drift-Hopf codimension-2 point of a three-component FitzHugh-Nagumo system, two slow traveling pulses approach, stop short without merging, rebound, then develop growing up-down oscillations and both vanish far from the meeting point (k4=2.9663628, tau=1350), while at k4=3.2 they survive.",
+  "notes": "Parameters from Sec. 2.3 and Fig. 3 caption; domain [0,1] read from Fig. 3 axes, boundary condition assumed no-flux (Neumann is used in the paper's 2D runs). Closest gap (~0.06) and vanishing time (~7500) read from Fig. 3(b,c)."
+ },
+ "planted:D09": {
+  "class_id": "planted:D09",
+  "kind": "documented",
+  "arxiv_id": "1806.06416",
+  "title": "Pulsing dynamics in randomly wired glider cellular automata",
+  "authors": [
+   "Andrew Wuensche",
+   "Edward Coxon"
+  ],
+  "v1_date": "2018-06-17",
+  "categories": [
+   "nlin.CG",
+   "q-bio.TO"
+  ],
+  "citations": 2,
+  "citations_source": "Semantic Scholar Graph API citationCount, checked 2026-11-02",
+  "finding_quote": "Sustained rhythmic oscillations, pulsing dynamics, emerge spontaneously when the local connection scheme is randomised in 3-value cellular automata that feature \"glider\" dynamics.",
+  "coined_terms": [
+   "pulsing dynamics",
+   "pulsing",
+   "random wiring",
+   "RW-waveform",
+   "Beehive rule",
+   "Spiral rule",
+   "kcode",
+   "glider (title word)",
+   "input-entropy"
+  ],
+  "behavior_summary": "Randomising the input wiring of 3-value k-totalistic glider CA (here the v3k6 Beehive rule, hex 0a0282816a0264, 100x100) produces sustained, robust density/entropy oscillations with a rule-specific waveform (period 7-8 steps for Beehive; 6 to 82 steps across six case-study rules).",
+  "notes": "Rule table transcribed from Table 1(a) (v3k6 kcode). Period 7 or 8 encoded as 7.5. S2 count from API batch call."
+ },
+ "planted:D10": {
+  "class_id": "planted:D10",
+  "kind": "documented",
+  "arxiv_id": "1611.09624",
+  "title": "Spatial organization and cyclic dominance in asymmetric predator-prey spatial games",
+  "authors": [
+   "Annette Cazaubiel",
+   "Alessandra F. Lütz",
+   "Jeferson J. Arenzon"
+  ],
+  "v1_date": "2016-11-29",
+  "categories": [
+   "q-bio.PE",
+   "cond-mat.stat-mech",
+   "physics.bio-ph"
+  ],
+  "citations": 2,
+  "citations_source": "Google Scholar 'Cited by' (via WebFetch), checked 2026-11-02",
+  "finding_quote": "we also show that the coexistence phase in which collective and individual strategies for each group are present is stable because of an effective, cyclic dominance mechanism similar to a well-studied generalization of the Rock-Paper-Scissors game with four species",
+  "coined_terms": [
+   "LAG model (Lett-Auger-Gaillard)",
+   "cyclic dominance (title words)",
+   "asymmetric predator-prey spatial games",
+   "survival of the weakest",
+   "collective vs individual strategies"
+  ],
+  "behavior_summary": "On a lattice version of the Lett-Auger-Gaillard grouping game, the coexistence phase (where mean field gives neutral closed orbits) becomes a stable four-strategy mixture held by emergent cyclic invasion among the site states 01, 10, 11 against a percolating 00 background; onset shifts to alpha_c~0.45 (mean field 0.5) at beta=0.4 and grouped-prey density has a minimum near alpha~0.6.",
+  "notes": "Payoffs computed from Table I defaults (p=0.5, G=1, n=3, e=2, gamma=1, F=1) with alpha=0.7, beta=0.4 (the point of the invasion graph, Fig. 6). Default start x(0)=y(0)=1/2 from Fig. 1 text."
+ }
+}

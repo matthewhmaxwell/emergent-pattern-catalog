@@ -1,0 +1,413 @@
+[
+ {
+  "class_id": "planted:D01",
+  "stage": "planted",
+  "family": "grid",
+  "shortest_len": 0,
+  "program_plain": "World: 3 rows of 5000 cells, each row a ring, stacked so every cell has a left and right neighbour in its row plus the cell directly above and below (rows wrap: row 3 touches row 1). Each cell holds species A, B or C (random start). A beats B, B beats C, C beats A. Rules each step: (1) all cells at once, a cell becomes the species that beats it if its left or right neighbour holds that species; (2) then each vertically adjacent pair of cells is picked with probability 0.00025, and in a picked pair the beaten cell takes the winner's species.",
+  "also_in_class_plain": [
+   "Same, but one random horizontal pair updates at a time (vertical pick probability 0.05), rows of 1000 cells.",
+   "Same rules with vertical pick probability anywhere from 0.000005 to about 0.00046.",
+   "Same rules with 4 or more stacked rows."
+  ],
+  "observed": [
+   {
+    "feature": "min_rows_for_lasting_patches",
+    "gloss": "fewest stacked rows where patch sizes stop growing forever",
+    "value": 3
+   },
+   {
+    "feature": "critical_vertical_probability",
+    "gloss": "vertical pick probability above which rows lock together and patches grow",
+    "value": 0.000471
+   },
+   {
+    "feature": "patch_size_vs_probability_exponent",
+    "gloss": "steady patch length scales as vertical probability to this power",
+    "value": -0.5
+   },
+   {
+    "feature": "single_row_boundary_decay_exponent",
+    "gloss": "uncoupled rows: boundary count falls as time to minus this",
+    "value": 0.5
+   },
+   {
+    "feature": "transient_growth_time",
+    "gloss": "steps of patch growth before steady or collapsing activity",
+    "value": 10000
+   }
+  ],
+  "size": 6
+ },
+ {
+  "class_id": "planted:D02",
+  "stage": "planted",
+  "family": "phase",
+  "shortest_len": 0,
+  "program_plain": "World: 1200 identical oscillators, each with a complex state z (amplitude and phase), all coupled to the population average. Each z changes continuously as dz/dt = z - (1 - 1.4i)|z|^2 z + 0.25(1 + 1.4i)(average of all z - z). Start: 480 oscillators (40%) at phase 0 and 720 at phase pi, all with amplitude 0.87, each phase nudged by small random noise (standard deviation 0.01).",
+  "also_in_class_plain": [
+   "Same rules with 600 oscillators.",
+   "Same rules, start in three equal groups (one slightly smaller in amplitude): one locked group plus two separate spread-out groups.",
+   "Same rules with only 5 oscillators, 2 of them starting together."
+  ],
+  "observed": [
+   {
+    "feature": "locked_fraction",
+    "gloss": "share of oscillators sitting at one identical common phase",
+    "value": 0.4
+   },
+   {
+    "feature": "common_amplitude",
+    "gloss": "amplitude shared exactly by every oscillator, locked or not",
+    "value": 0.866
+   },
+   {
+    "feature": "population_average_magnitude",
+    "gloss": "size of the mean state; zero means phases cancel exactly",
+    "value": 0
+   },
+   {
+    "feature": "average_frequency_spread",
+    "gloss": "difference in long-run frequency between oscillators; zero means identical",
+    "value": 0
+   },
+   {
+    "feature": "coupling_stability_limit",
+    "gloss": "state stays stable only for coupling strength below this",
+    "value": 0.5
+   },
+   {
+    "feature": "smallest_distinct_population",
+    "gloss": "fewest oscillators where it differs from evenly spread phases",
+    "value": 5
+   }
+  ],
+  "size": 4
+ },
+ {
+  "class_id": "planted:D03",
+  "stage": "planted",
+  "family": "network",
+  "shortest_len": 0,
+  "program_plain": "World: 10,000 nodes scattered at random in a unit square (wrap-around). Links: repeatedly join the closest unlinked pair of nodes until 99% of the links for a mean degree of 12 exist, then add the last 1% between random pairs. Each node has an integer level 0-4 (random start). Rules: (1) add 1 to the level of 10 random nodes; (2) a node reaching level 5 fires: each neighbour's level rises by 1, which can make it fire in turn; a node fires at most once per cascade; (3) when no node can fire, all nodes that fired reset to level 0; return to (1).",
+  "also_in_class_plain": [
+   "Same rules with mean degree anywhere from about 8 to 15.",
+   "Same rules with 1,250 to 40,000 nodes.",
+   "Same rules with only 0.1% random links (mean degree up to about 17)."
+  ],
+  "observed": [
+   {
+    "feature": "patchwork_onset_mean_degree",
+    "gloss": "mean degree where shifting patchwork of quiet patches and ridges appears",
+    "value": 7
+   },
+   {
+    "feature": "synchrony_onset_mean_degree",
+    "gloss": "mean degree where near-periodic global firing replaces the patchwork",
+    "value": 15.5
+   },
+   {
+    "feature": "cascade_size_tail_exponent",
+    "gloss": "power-law exponent of cascade sizes at the patchwork's upper edge",
+    "value": 1
+   },
+   {
+    "feature": "max_random_link_fraction",
+    "gloss": "random-link share above which the patchwork never forms",
+    "value": 0.1
+   },
+   {
+    "feature": "patch_scale_size_exponent",
+    "gloss": "patch scale times nodes to this power collapses across sizes",
+    "value": 0.5
+   }
+  ],
+  "size": 10
+ },
+ {
+  "class_id": "planted:D04",
+  "stage": "planted",
+  "family": "network",
+  "shortest_len": 0,
+  "program_plain": "World: a random network of 10,000 nodes in which every pair is linked with equal probability (mean 10 links per node). Each node holds grains; its threshold equals its number of links. Start: 55,400 grains (5.54 per node) dropped on uniformly random nodes. Rule, applied to all nodes at once each step: every node holding at least its threshold of grains is active and sends one grain to each neighbour (losing as many grains as it has links). Grains are never added or lost.",
+  "also_in_class_plain": [
+   "Same network with 7.5 to 13.9 grains per node (irregular rhythm or two-level alternation).",
+   "Ring of 10,000 nodes each linked to 5 neighbours per side, 10% to 100% of links rewired at random, 5.7 grains per node.",
+   "Same rules with higher mean degree (all thresholds shift upward)."
+  ],
+  "observed": [
+   {
+    "feature": "activity_onset_density",
+    "gloss": "grains per node where lasting rhythmic activity begins",
+    "value": 5.51
+   },
+   {
+    "feature": "two_level_alternation_onset",
+    "gloss": "grains per node where active share flips between two levels",
+    "value": 8.95
+   },
+   {
+    "feature": "rhythm_return_density",
+    "gloss": "grains per node where mirrored rhythmic activity reappears",
+    "value": 10.05
+   },
+   {
+    "feature": "rhythm_end_density",
+    "gloss": "grains per node where rhythm stops and nearly all stay active",
+    "value": 13.96
+   },
+   {
+    "feature": "ring_rewiring_for_rhythm",
+    "gloss": "rewired-link share on a ring giving rhythm (none at zero)",
+    "value": 0.1
+   }
+  ],
+  "size": 7
+ },
+ {
+  "class_id": "planted:D05",
+  "stage": "planted",
+  "family": "agents",
+  "shortest_len": 0,
+  "program_plain": "World: a one-lane ring road of 100,000 cells holding 12,500 cars (density 1/8), each with speed 0-5. Gap = empty cells to the car ahead. Rules each step, all cars at once: (1) a car below speed 5 speeds up by 1; (2) a car faster than its gap slows to the gap; (3) a car whose speed exactly equals its gap slows by 1 with probability 0.5 (cars with spare room never slow at random); (4) each car moves forward by its speed. Start: gaps as even as possible, then many random one-cell shifts of gap between neighbouring cars.",
+  "also_in_class_plain": [
+   "Density 17/144 (about 0.118) with slowing probability above 0.41.",
+   "Density 1/8 with any slowing probability between about 0.27 and 0.89.",
+   "Same rules on rings of 1,000 to 100,000 cells."
+  ],
+  "observed": [
+   {
+    "feature": "lower_switch_probability",
+    "gloss": "slowing probability below which all cars settle at full speed",
+    "value": 0.2683
+   },
+   {
+    "feature": "upper_switch_probability",
+    "gloss": "slowing probability above which full-speed flow returns again",
+    "value": 0.8959
+   },
+   {
+    "feature": "full_speed_density_limit",
+    "gloss": "density above which an all-full-speed state cannot exist",
+    "value": 0.1429
+   },
+   {
+    "feature": "lowest_density_for_persistent_slowing",
+    "gloss": "smallest density where slowdowns persist at some probability",
+    "value": 0.116
+   },
+   {
+    "feature": "activity_vs_cars_exponent",
+    "gloss": "at the switch, slowing activity falls as cars to minus this",
+    "value": 0.5
+   },
+   {
+    "feature": "lifetime_vs_cars_exponent",
+    "gloss": "at the switch, activity lifetime grows as cars to this power",
+    "value": 1.0
+   }
+  ],
+  "size": 3
+ },
+ {
+  "class_id": "planted:D06",
+  "stage": "planted",
+  "family": "agents",
+  "shortest_len": 0,
+  "program_plain": "World: a 200x200 lattice (wrap-around), at most one animal per cell: 40 pursuers and 40 evaders at random cells. 12 pursuers (30%) just step to a random neighbouring cell each step; the other 28 step toward their nearest evader (straight-line distance; if two steps reduce it, pick one at random). Each evader steps to increase its distance from its nearest pursuer. Each step all directions are chosen first; then pursuers move one cell in random order, then evaders; a move into a cell held by the same kind is skipped; a pursuer entering an evader's cell removes it. Run until no evaders remain.",
+  "also_in_class_plain": [
+   "Same, with 10% to 70% of pursuers moving at random.",
+   "Same, with the non-pursuing pursuers standing still instead of moving randomly.",
+   "Larger or smaller lattices at the same densities (0.001 pursuers and evaders per cell)."
+  ],
+  "observed": [
+   {
+    "feature": "mean_catch_time_no_random_movers",
+    "gloss": "mean steps to remove all evaders when every pursuer pursues",
+    "value": 3100
+   },
+   {
+    "feature": "mean_catch_time_30pct_random_movers",
+    "gloss": "mean steps to remove all evaders with 30% random movers",
+    "value": 1380
+   },
+   {
+    "feature": "best_random_mover_share",
+    "gloss": "share of random-moving pursuers giving the fastest total capture",
+    "value": 0.3
+   },
+   {
+    "feature": "typical_catch_time_all_pursue",
+    "gloss": "most common total capture time when all pursuers pursue",
+    "value": 1000
+   },
+   {
+    "feature": "rare_run_catch_time_all_pursue",
+    "gloss": "capture times reached in unlucky runs when all pursue",
+    "value": 10000
+   },
+   {
+    "feature": "gain_if_all_sometimes_random",
+    "gloss": "speed-up when every pursuer moves randomly part-time; zero means none",
+    "value": 0
+   }
+  ],
+  "size": 7
+ },
+ {
+  "class_id": "planted:D07",
+  "stage": "planted",
+  "family": "grid",
+  "shortest_len": 0,
+  "program_plain": "World: a 64x64 lattice (wrap-around); each site holds any number of individuals of 6 species numbered 1-6 around a circle (random start: every species present at every site). Each species eats the next three around the circle (1 eats 2, 3, 4; 2 eats 3, 4, 5; ...; 6 eats 1, 2, 3). Events happen at random times: at a site, each eater-food pair of individuals loses the food individual at rate 1; each individual copies itself at rate 1; each pair of same-species individuals at a site loses one of them at rate 0.2; each individual hops to a random neighbouring site at rate 1.",
+  "also_in_class_plain": [
+   "Ring of 64 sites, copying rate 0.5, same-species loss 0.5, eating 1.2, hop rate 0.1 or 1."
+  ],
+  "observed": [
+   {
+    "feature": "territories_formed",
+    "gloss": "number of large territories self-organising from the full mix",
+    "value": 2
+   },
+   {
+    "feature": "species_per_territory",
+    "gloss": "species coexisting inside each territory (all odd or all even)",
+    "value": 3
+   },
+   {
+    "feature": "split_ratio_threshold",
+    "gloss": "eating-to-crowding rate ratio above which six-way mixing splits apart",
+    "value": 1
+   },
+   {
+    "feature": "chasing_ratio_threshold",
+    "gloss": "ratio above which species inside territories chase in rotating spirals",
+    "value": 2
+   },
+   {
+    "feature": "final_territories",
+    "gloss": "territories left at long times; the other one dies out",
+    "value": 1
+   }
+  ],
+  "size": 3
+ },
+ {
+  "class_id": "planted:D08",
+  "stage": "planted",
+  "family": "field",
+  "shortest_len": 0,
+  "program_plain": "World: a line of length 1 (no-flux ends) with three fields u, v, w. Each changes by diffusion plus local reaction: du/dt = 0.000005 u'' + 2u - u^3 - 2v - 2.9663628w - 3; 1350 dv/dt = 0.00065 v'' + u - 8v; 10 dw/dt = 0.00075 w'' + u - w (u'' is the second spatial derivative). The uniform state has low u. Start: two narrow bumps of high u near opposite ends, each a self-propelled pulse drifting slowly toward the other.",
+  "also_in_class_plain": [
+   "Same three-field reactions in 2D on a 100x5 strip, slow-field time constants near 170 and 3.2.",
+   "A related three-field 2D system (feed-driven autocatalysis plus a slow inhibitor) on an 8x2 strip."
+  ],
+  "observed": [
+   {
+    "feature": "closest_gap",
+    "gloss": "smallest distance between the two pulses; they never merge",
+    "value": 0.06
+   },
+   {
+    "feature": "vanishing_time",
+    "gloss": "time by which both pulses have died after bouncing apart",
+    "value": 7500
+   },
+   {
+    "feature": "surviving_w_coupling",
+    "gloss": "w-feedback strength at which both pulses survive the encounter",
+    "value": 3.2
+   },
+   {
+    "feature": "special_point_w_coupling",
+    "gloss": "w-feedback where one pulse's drift and wobble onsets coincide",
+    "value": 2.965
+   },
+   {
+    "feature": "special_point_v_timescale",
+    "gloss": "v time constant at that coincidence point",
+    "value": 1220
+   }
+  ],
+  "size": 3
+ },
+ {
+  "class_id": "planted:D09",
+  "stage": "planted",
+  "family": "network",
+  "shortest_len": 0,
+  "program_plain": "World: 10,000 cells (a 100x100 sheet), each in state 0, 1 or 2 (random start). Each cell reads 6 input cells chosen at random once and then fixed (not its geometric neighbours). Rule, applied to all cells at once each step: count the 2s and 1s among the cell's 6 inputs; the new state is 2 if (2s, 1s) is (5,0), (4,2), (3,2), (3,1), (2,3), (2,2), (1,3), (1,2), (1,1), (0,4) or (0,2); it is 1 if (2s, 1s) is (1,5), (1,4), (0,3) or (0,1); otherwise 0. With ordinary hexagonal neighbours this same rule supports moving localized structures.",
+  "also_in_class_plain": [
+   "Same, with the random inputs redrawn every step.",
+   "Same on 2,500 or 40,000 cells.",
+   "Other 3-state count-based rules supporting moving structures, with 6 or 7 random inputs."
+  ],
+  "observed": [
+   {
+    "feature": "rhythm_period_steps",
+    "gloss": "steps per cycle of the sustained rise and fall in activity",
+    "value": 7.5
+   },
+   {
+    "feature": "input_redraw_effect_on_waveform",
+    "gloss": "waveform change when random inputs are redrawn; zero means none",
+    "value": 0
+   },
+   {
+    "feature": "shortest_period_other_rules",
+    "gloss": "shortest cycle length among similar rules tested",
+    "value": 6
+   },
+   {
+    "feature": "longest_period_other_rules",
+    "gloss": "longest cycle length among similar rules tested",
+    "value": 82
+   },
+   {
+    "feature": "rules_showing_rhythm",
+    "gloss": "case-study rules all showing a sustained rhythm",
+    "value": 6
+   }
+  ],
+  "size": 6
+ },
+ {
+  "class_id": "planted:D10",
+  "stage": "planted",
+  "family": "grid",
+  "shortest_len": 0,
+  "program_plain": "World: a 100x100 lattice (wrap-around). Each site holds a hunter group and a grazer group; hunters hunt as a team or alone, grazers huddle or stay alone (random start, half each). With a = 0.7, b = 0.4, payoff per encounter: team hunter vs huddled a/3, vs lone 1/6; lone hunter vs huddled ab/2, vs lone b/2; huddled grazer vs team 1-a, vs lone hunter 1-ab/2; lone grazer vs team 1/2, vs lone hunter 1-b/2. Each step: pick a random site and a random neighbour; on each, hunters sum payoffs against grazers on their site and its 4 neighbours, grazers likewise. For hunters, and separately grazers, the lower-scoring site copies the other's strategy with probability (difference)/(largest possible payoff).",
+  "also_in_class_plain": [
+   "Same rules with a = 0.6 or a = 0.8 (larger nested patches at higher a).",
+   "Same rules on lattices from 50x50 to 400x400."
+  ],
+  "observed": [
+   {
+    "feature": "coexisting_site_types",
+    "gloss": "hunter-grazer strategy pairs persisting together, invading each other in loops",
+    "value": 4
+   },
+   {
+    "feature": "mixing_onset_a",
+    "gloss": "value of a where all four pairs begin to coexist",
+    "value": 0.45
+   },
+   {
+    "feature": "well_mixed_onset_a",
+    "gloss": "well-mixed prediction for that onset, for comparison",
+    "value": 0.5
+   },
+   {
+    "feature": "huddling_minimum_a",
+    "gloss": "value of a where the huddling share is lowest",
+    "value": 0.6
+   },
+   {
+    "feature": "team_loss_b",
+    "gloss": "value of b above which team hunting disappears",
+    "value": 0.667
+   }
+  ],
+  "size": 3
+ }
+]

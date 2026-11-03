@@ -1,0 +1,274 @@
+[
+ {
+  "arxiv_id": "1504.01434",
+  "v1_date": "2015-04-06",
+  "title": "The X-rule: universal computation in a non-isotropic Life-like Cellular Automaton",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Rule is a non-isotropic look-up table, far beyond 150 plain words; citations not checked."
+ },
+ {
+  "arxiv_id": "1709.02655",
+  "v1_date": "2017-09-08",
+  "title": "Minimal Glider-Gun in a 2D Cellular Automaton",
+  "citations": 1,
+  "decision": "exclude",
+  "reason": "S2 1, but the rule is an isotropic look-up table over many neighbourhood classes, far beyond 150 plain words."
+ },
+ {
+  "arxiv_id": "1909.08224",
+  "v1_date": "2019-09-18",
+  "title": "The Variant-Rule, Another Logically Universal Rule",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Rule defined by 28 isotropic mappings of a look-up table; too long for 150 plain words; citations not checked."
+ },
+ {
+  "arxiv_id": "2107.06001",
+  "v1_date": "2021-07-13",
+  "title": "The Ameyalli-Rule: Logical Universality in a 2D Cellular Automaton",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Rule depends on 102 isotropic neighbourhood groups; far beyond 150 plain words; citations not checked."
+ },
+ {
+  "arxiv_id": "1806.06416",
+  "v1_date": "2018-06-17",
+  "title": "Pulsing dynamics in randomly wired glider cellular automata",
+  "citations": 2,
+  "decision": "include",
+  "reason": "planted:D09. S2 2. 28-entry 3-state count rule fits in 150 words; sustained rhythm under random wiring is a clear simulated finding."
+ },
+ {
+  "arxiv_id": "2210.11417",
+  "v1_date": "2022-10-20",
+  "title": "Swarmalators with delayed interactions",
+  "citations": 46,
+  "decision": "exclude",
+  "reason": "GS 46 (>=30)."
+ },
+ {
+  "arxiv_id": "2305.08615",
+  "v1_date": "2023-05-15",
+  "title": "Sakaguchi Swarmalators",
+  "citations": 44,
+  "decision": "exclude",
+  "reason": "GS 44 for published version 'Synchronization of Sakaguchi swarmalators' (>=30)."
+ },
+ {
+  "arxiv_id": "1512.00769",
+  "v1_date": "2015-12-01",
+  "title": "Three is much more than two in coarsening dynamics of cyclic competitions",
+  "citations": 5,
+  "decision": "include",
+  "reason": "planted:D01. S2 5. Simple stacked-ring cyclic CA; sustained finite domains for 3 rows vs coarsening for 1-2 rows."
+ },
+ {
+  "arxiv_id": "2308.06190",
+  "v1_date": "2023-08-11",
+  "title": "Phase chimera states: frozen patterns of disorder",
+  "citations": 6,
+  "decision": "include",
+  "reason": "planted:D02. GS 6. Globally coupled Stuart-Landau; equal-amplitude partial phase locking reported as previously unreported."
+ },
+ {
+  "arxiv_id": "1812.08857",
+  "v1_date": "2018-12-05",
+  "title": "Pattern phase diagram of spiking neurons on spatial networks",
+  "citations": 2,
+  "decision": "include",
+  "reason": "planted:D03. GS 2. Discrete pulse-coupled oscillators on geometric graphs; shifting patch/ridge pattern."
+ },
+ {
+  "arxiv_id": "2306.06421",
+  "v1_date": "2023-06-10",
+  "title": "Arbitrarily weak head-on collision can induce annihilation -- The role of hidden instabilities",
+  "citations": 3,
+  "decision": "include",
+  "reason": "planted:D08. GS 3. Three-component RD; pulses stop short, rebound, then oscillate and vanish."
+ },
+ {
+  "arxiv_id": "2012.00983",
+  "v1_date": "2020-12-02",
+  "title": "Spiral wave chimeras in reaction-diffusion systems: phenomenon, mechanism and transitions",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Not pursued: spiral-wave chimeras are a well-studied named phenomenon (risk of famous result); citations not checked."
+ },
+ {
+  "arxiv_id": "2212.11687",
+  "v1_date": "2022-12-22",
+  "title": "Role of predator-prey reversal in Rock-Paper-Scissors models",
+  "citations": 3,
+  "decision": "exclude",
+  "reason": "S2 3, eligible, but the finding (spirals like standard RPS with larger length scale) is a quantitative variant of famous RPS spirals."
+ },
+ {
+  "arxiv_id": "1607.04269",
+  "v1_date": "2016-07-14",
+  "title": "Zealots tame oscillations in the spatial rock-paper-scissors game",
+  "citations": 82,
+  "decision": "exclude",
+  "reason": "GS 82 (S2 81), >=30."
+ },
+ {
+  "arxiv_id": "1511.01891",
+  "v1_date": "2015-11-05",
+  "title": "Vortices determine the dynamics of biodiversity in cyclical interactions with protection spillovers",
+  "citations": 65,
+  "decision": "exclude",
+  "reason": "GS 65 (S2 58), >=30."
+ },
+ {
+  "arxiv_id": "1608.05553",
+  "v1_date": "2016-08-19",
+  "title": "Rock-paper-scissors played within competing domains in predator-prey games",
+  "citations": 17,
+  "decision": "include",
+  "reason": "planted:D07. GS 17. Six-species bosonic lattice game; two competing territories each cycling internally."
+ },
+ {
+  "arxiv_id": "1811.07412",
+  "v1_date": "2018-11-18",
+  "title": "Expanding spatial domains and transient scaling regimes in populations with local cyclic competition",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Not pursued: near-duplicate of the D07 behaviour (two three-species domains) from another group; citations not checked."
+ },
+ {
+  "arxiv_id": "1907.11280",
+  "v1_date": "2019-07-25",
+  "title": "Predominance of the weakest species in Lotka-Volterra and May-Leonard implementations of the rock-paper-scissors model",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Revisits a famous result (survival of the weakest); citations not checked."
+ },
+ {
+  "arxiv_id": "2110.12760",
+  "v1_date": "2021-10-25",
+  "title": "Emergence of oscillations in fixed energy sandpile models on complex networks",
+  "citations": 2,
+  "decision": "include",
+  "reason": "planted:D04. GS 2. Deterministic grain toppling on random networks gives synchronous oscillations."
+ },
+ {
+  "arxiv_id": "1611.05307",
+  "v1_date": "2016-11-16",
+  "title": "A traffic model with an absorbing-state phase transition",
+  "citations": 9,
+  "decision": "include",
+  "reason": "planted:D05. GS 9. One-rule change to a traffic CA; reentrant free-flow/active boundary."
+ },
+ {
+  "arxiv_id": "1703.09596",
+  "v1_date": "2017-03-28",
+  "title": "Active Particle Condensation by Nonreciprocal and Time-delayed Interactions",
+  "citations": 68,
+  "decision": "exclude",
+  "reason": "GS 68 (>=30)."
+ },
+ {
+  "arxiv_id": "1911.13067",
+  "v1_date": "2019-11-29",
+  "title": "Flocking and reorientation transition in the 4-state active Potts model",
+  "citations": 38,
+  "decision": "exclude",
+  "reason": "GS 38 (>=30)."
+ },
+ {
+  "arxiv_id": "1709.07347",
+  "v1_date": "2017-09-21",
+  "title": "Competition Induced Spontaneous Resonant Annihilation of Turing Pattern",
+  "citations": 0,
+  "decision": "exclude",
+  "reason": "GS shows no 'Cited by' (0); eligible but not selected: field slot filled by 2306.06421 and full model text not retrieved (no ar5iv render)."
+ },
+ {
+  "arxiv_id": "1702.08542",
+  "v1_date": "2017-02-27",
+  "title": "Role-separating ordering in social dilemmas controlled by topological frustration",
+  "citations": 49,
+  "decision": "exclude",
+  "reason": "GS 49 (>=30)."
+ },
+ {
+  "arxiv_id": "1511.07740",
+  "v1_date": "2015-11-24",
+  "title": "Spatial social dilemmas: dilution, mobility and grouping effects with imitation dynamics",
+  "citations": 42,
+  "decision": "exclude",
+  "reason": "GS 42 (>=30)."
+ },
+ {
+  "arxiv_id": "1612.04556",
+  "v1_date": "2016-12-14",
+  "title": "The effect of laziness in chasers in group chase and escape model",
+  "citations": 10,
+  "decision": "include",
+  "reason": "planted:D06. GS 10 (published title 'The effect of laziness in group chase and escape'). Random-walking minority speeds capture."
+ },
+ {
+  "arxiv_id": "2010.05310",
+  "v1_date": "2020-10-11",
+  "title": "Chase-Escape Percolation on the 2D Square Lattice",
+  "citations": 5,
+  "decision": "exclude",
+  "reason": "GS 5, eligible, but the result is a percolation threshold rather than a distinctive emergent pattern; agents slots filled."
+ },
+ {
+  "arxiv_id": "2208.12280",
+  "v1_date": "2022-08-25",
+  "title": "Effect of inertia on the evasion and pursuit dynamics of prey swarms and the emergence of an optimal mass ratio for the predator-prey arms race",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "GS query returned no match; continuous inertial swarm model with many parameters; not pursued."
+ },
+ {
+  "arxiv_id": "2209.08267",
+  "v1_date": "2022-09-17",
+  "title": "Evolutionary games and spatial periodicity",
+  "citations": 17,
+  "decision": "exclude",
+  "reason": "GS 17, but the model is the famous Nowak-May lattice game and the main result is a theorem (eventual periodicity), not a new simulated behaviour."
+ },
+ {
+  "arxiv_id": "1711.03922",
+  "v1_date": "2017-11-10",
+  "title": "Dynamic fractals in spatial evolutionary games",
+  "citations": 7,
+  "decision": "exclude",
+  "reason": "GS 7, but fractal cluster boundaries in the Nowak-May game sit close to the famous spatial-chaos result."
+ },
+ {
+  "arxiv_id": "2106.04436",
+  "v1_date": "2021-06-08",
+  "title": "Cooperation and competition between pair and multi-player social games in spatial populations",
+  "citations": 49,
+  "decision": "exclude",
+  "reason": "GS 49 (>=30)."
+ },
+ {
+  "arxiv_id": "1503.00143",
+  "v1_date": "2015-02-28",
+  "title": "Cooperation percolation in spatial prisoner's dilemma game",
+  "citations": null,
+  "decision": "exclude",
+  "reason": "Not pursued: percolation threshold in initial cooperator fraction rather than a dynamical emergent pattern; citations not checked."
+ },
+ {
+  "arxiv_id": "1611.09624",
+  "v1_date": "2016-11-29",
+  "title": "Spatial organization and cyclic dominance in asymmetric predator-prey spatial games",
+  "citations": 2,
+  "decision": "include",
+  "reason": "planted:D10. GS 2. Two-strategy hunter/grazer lattice game; emergent cyclic invasion stabilises four-way coexistence."
+ },
+ {
+  "arxiv_id": "2111.13583",
+  "v1_date": "2021-10-28",
+  "title": "Sparsity-driven synchronization in oscillators networks",
+  "citations": 11,
+  "decision": "exclude",
+  "reason": "GS 11, eligible, but the behaviour (opening a ring removes twisted states) follows directly from topology; oscillator slot filled."
+ }
+]
