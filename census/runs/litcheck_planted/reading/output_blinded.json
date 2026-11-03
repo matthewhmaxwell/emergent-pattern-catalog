@@ -1,0 +1,466 @@
+[
+  {
+    "reply": "R01",
+    "card": "planted:N15",
+    "correct": false,
+    "close": false,
+    "quote": "The pattern itself, a network of particle streams built by vision-cone attraction, is documented.",
+    "reason": "States the stream network is documented and only the numbers (fractal dimension, void scaling, junction counts) are missing."
+  },
+  {
+    "reply": "R02",
+    "card": "planted:N20",
+    "correct": true,
+    "close": false,
+    "quote": "I found no source that describes this exact nematic (2θ) system or the four-defect splitting of a +1 defect.",
+    "reason": "States the four-defect splitting of +1 defects was not found, and the nematic +1/2 propulsion has no direct source and is only expected."
+  },
+  {
+    "reply": "R03",
+    "card": "planted:N05",
+    "correct": false,
+    "close": true,
+    "quote": "The model and its ordered phase are described in the literature. I could not verify the specific two-stage coarsening numbers, namely the early exponent of 0.5, the crossover near t≈1000 and the late exponent of 0.34.",
+    "reason": "Frames the gap as numbers, says the two-stage pattern is qualitatively in Mahapatra et al. and the papers 'probably cover this', though it lists early-domain dissolution among unconfirmed items."
+  },
+  {
+    "reply": "R04",
+    "card": "planted:N13",
+    "correct": false,
+    "close": true,
+    "quote": "I didn't find any paper on this exact model (a noisy voter model with its average opinion reset to 0.3), but each part of the behaviour is documented.",
+    "reason": "What is missing is the exact model and phase diagram; it says each part of the behaviour and multi-peak distributions under external influence are documented and the three peaks are expected."
+  },
+  {
+    "reply": "R05",
+    "card": "planted:N17",
+    "correct": true,
+    "close": false,
+    "quote": "One specific twist in what the stripes do, which goes beyond the rule choice, is something I couldn't find described anywhere.",
+    "reason": "States the opposite-travelling lanes of band trains in the standard single-species Vicsek model are not described anywhere."
+  },
+  {
+    "reply": "R06",
+    "card": "planted:N12",
+    "correct": true,
+    "close": true,
+    "quote": "What I couldn't find in print is the specific reading your simulation suggests. That reading is magnetisation falling to zero as a power of ln L, with an exponent proportional to temperature",
+    "reason": "Says logarithmic scaling at sigma=2 is documented (read as true order), but the power-of-log decay with no long-range order, the central feature, is stated as not in print."
+  },
+  {
+    "reply": "R07",
+    "card": "planted:N08",
+    "correct": false,
+    "close": true,
+    "quote": "The mechanism and the gas–dense coexistence are firmly documented for inertial spinners.",
+    "reason": "Treats torque-driven inertial phase separation as published (disk RIPS); what is missing is the dumbbell shape, the hexatic dense phase and the 1/3 exponent, which are rule details or secondary features."
+  },
+  {
+    "reply": "R08",
+    "card": "planted:N19",
+    "correct": true,
+    "close": true,
+    "quote": "One dense blob persists alongside the travelling bands, rather than the bands breaking up into an array of aggregates.",
+    "reason": "Says the ingredients and structures are documented, but lists blob-band coexistence as phenomenology it could not find described."
+  },
+  {
+    "reply": "R09",
+    "card": "planted:N16",
+    "correct": false,
+    "close": false,
+    "quote": "The ring and ABP-polymer compaction, the non-monotonic size, and the re-swelling at high Pe are all well documented.",
+    "reason": "States collapse and re-swelling are documented; only the J-dependence and N-independence are missing."
+  },
+  {
+    "reply": "R10",
+    "card": "planted:N14",
+    "correct": true,
+    "close": true,
+    "quote": "At T=0.07, pair bonds and triangle bonds start rising at the same time, and the system goes straight from gas to lattice. The literature mostly reports two steps instead: a disordered network forms first, then reorganises.",
+    "reason": "Kagome assembly is called documented, but the one-step gas-to-lattice nucleation, the central reported feature, is stated as not described (literature reports two-step)."
+  },
+  {
+    "reply": "R11",
+    "card": "planted:N16",
+    "correct": false,
+    "close": false,
+    "quote": "The core behaviour is documented: a chain with no attraction collapses when its beads self-propel, inertia changes where that happens, and the chain swells back at high activity.",
+    "reason": "States the core collapse/re-swelling behaviour is documented; the ring is a rule-combination gap and the exponent is a suspect detail."
+  },
+  {
+    "reply": "R12",
+    "card": "planted:N20",
+    "correct": true,
+    "close": true,
+    "quote": "Twist not found: phase-dependent splitting of a +1 defect into four defects (likely 3x(+1/2)+1x(-1/2)), with onset near s~0.15 and 64% of phases at s=0.5, in a nematic (cos2phi) non-reciprocal kernel model",
+    "reason": "Treats +1/2 propulsion as documented or expected, but states the +1 to four-defect splitting, half of the reported behaviour, was not found."
+  },
+  {
+    "reply": "R13",
+    "card": "planted:N17",
+    "correct": false,
+    "close": true,
+    "quote": "The behaviour itself, side-by-side lanes of travelling polar clusters moving in opposite directions, is documented for the kinetic (Boltzmann-equation) version of Vicsek-style polar alignment.",
+    "reason": "Says the lane behaviour is documented in an equivalent kinetic theory and 'isn't a new phenomenon'; what is missing is a particle-level report, which the reported behaviour does emphasise."
+  },
+  {
+    "reply": "R14",
+    "card": "planted:N01",
+    "correct": true,
+    "close": true,
+    "quote": "Finite-N endgame statistics not found: end states restricted to equal groups whose size divides N; prime N almost always fully synchronizes; full-sync probability jumps around with N; even-N failure falls as about 0.6/N.",
+    "reason": "Although it calls the core clustering documented and the gap 'not a new kind of behaviour', it states the prime/divisor-dependent finite-N endgame (the central feature) was not found."
+  },
+  {
+    "reply": "R15",
+    "card": "planted:N19",
+    "correct": true,
+    "close": true,
+    "quote": "Here there is no inoculum: the noisy uniform state breaks up by itself into travelling bands, and these coexist with a single long-lived dense blob on a periodic domain.",
+    "reason": "Calls the phenomena well documented, but its 'twist not found' explicitly includes bands coexisting with a long-lived dense blob, the central feature."
+  },
+  {
+    "reply": "R16",
+    "card": "planted:N05",
+    "correct": false,
+    "close": true,
+    "quote": "A diffusive early regime followed by slower coarsening is what the 2020 paper describes.",
+    "reason": "Concludes the behaviour is documented and the two-regime coarsening is described; the unconfirmed crossover with domain dissolution is treated as effective exponents that probably don't matter."
+  },
+  {
+    "reply": "R17",
+    "card": "planted:N01",
+    "correct": true,
+    "close": false,
+    "quote": "I did not find the finite-N result you observed: final groupings that are equal-sized and tied to the divisors of N, with full-sync probability depending on N's factorisation.",
+    "reason": "States that the factorisation-dependent sync probability and divisor-structured final groupings were not found; only the model and large-N doubling are documented."
+  },
+  {
+    "reply": "R18",
+    "card": "planted:N13",
+    "correct": true,
+    "close": false,
+    "quote": "The shock-induced third peak at the reset value 0.3 and the 6-regime map were not found in the literature; the third peak is the expected result of resetting competing with slow consensus formation.",
+    "reason": "States the shock-induced third peak (the trimodal behaviour) was not found, adding only that it is expected."
+  },
+  {
+    "reply": "R19",
+    "card": "planted:N20",
+    "correct": true,
+    "close": true,
+    "quote": "The one new piece is that a +1 defect splits into four defects above s ≈ 0.15, depending on the texture phase. I couldn't find that described anywhere, but it isn't enough to call the whole result undocumented.",
+    "reason": "Says most of the behaviour is documented but explicitly states the four-defect splitting, a central part of the reported behaviour, is not described."
+  },
+  {
+    "reply": "R20",
+    "card": "planted:N12",
+    "correct": false,
+    "close": true,
+    "quote": "So the phenomenology isn't new. What it does is take a side in a live interpretive dispute.",
+    "reason": "Says the power-of-inverse-log decay is documented in an equivalent effective theory, leaving only the absence of an explicit fit for this model."
+  },
+  {
+    "reply": "R21",
+    "card": "planted:N15",
+    "correct": false,
+    "close": false,
+    "quote": "These look like new measurements of a known pattern rather than a new behaviour.",
+    "reason": "States the stream-network behaviour is documented and the gap is only quantitative network-shape measurements."
+  },
+  {
+    "reply": "R22",
+    "card": "planted:N01",
+    "correct": true,
+    "close": true,
+    "quote": "Not found: final states as m equal clusters for each divisor m of N (9 at N=100), prime-N near-certain sync with only the all-separate state as alternative, and the ~0.6/N even-N failure law.",
+    "reason": "Says equal-sized cluster states and failure of sync are known, but the prime/divisor structure of sync probability, the central feature, is listed as not found."
+  },
+  {
+    "reply": "R23",
+    "card": "planted:N13",
+    "correct": false,
+    "close": true,
+    "quote": "The behaviour is a documented model plus a documented general mechanism.",
+    "reason": "Says the outcome follows from documented pieces and is 'not a new phenomenon'; not-found items are the model combination and the regime count, though it warns other trimodal papers do not describe this behaviour."
+  },
+  {
+    "reply": "R24",
+    "card": "planted:N19",
+    "correct": false,
+    "close": true,
+    "quote": "Is the behaviour already described? Yes, in the same model class.",
+    "reason": "Answers that the behaviour is described ('leaning KNOWN'), though it admits the 2D blob-plus-bands coexistence is expected rather than directly confirmed."
+  },
+  {
+    "reply": "R25",
+    "card": "planted:N08",
+    "correct": false,
+    "close": true,
+    "quote": "The behaviour itself is documented.",
+    "reason": "Says RIPS is the same behaviour under a different rule; the hexatic dense phase and unarrested coarsening it could not find are treated as secondary twists."
+  },
+  {
+    "reply": "R26",
+    "card": "planted:N01",
+    "correct": true,
+    "close": true,
+    "quote": "Undocumented twist: final states are exactly m equal clusters for each divisor m of N (9 states at N=100), near-certain sync for prime N, and roughly 0.6/N failure for even N.",
+    "reason": "Calls the 'main behaviour' (sync not guaranteed, clusters survive) documented but states the divisor/prime-N structure, which is the reported behaviour's core, was not found."
+  },
+  {
+    "reply": "R27",
+    "card": "planted:N05",
+    "correct": false,
+    "close": true,
+    "quote": "The model family and the qualitative phenomenon (a surface-driven early regime, then coarsening, then macroscopic phase separation) are well documented.",
+    "reason": "States the qualitative two-stage phenomenon is documented and only exponents/crossover numbers are unconfirmed, with mild doubt whether domain dissolution matches the documented onset."
+  },
+  {
+    "reply": "R28",
+    "card": "planted:N02",
+    "correct": false,
+    "close": true,
+    "quote": "I am confident that the model class and the qualitative phenomena are known.",
+    "reason": "Opens by saying no source reports the exact rise-then-fall and spot-stripe-uniform sequence, but concludes the qualitative phenomena (non-monotonic coupling effect, spot/stripe changes) are documented in close relatives, leaving only setup and numbers."
+  },
+  {
+    "reply": "R29",
+    "card": "planted:N16",
+    "correct": false,
+    "close": false,
+    "quote": "The model class and the collapse-then-reswelling behaviour are clearly documented.",
+    "reason": "States the behaviour is documented for a linear chain (treated as equivalent); missing items are ring-specific numbers and J-window details."
+  },
+  {
+    "reply": "R30",
+    "card": "planted:N16",
+    "correct": false,
+    "close": false,
+    "quote": "The size-vs-length exponent of about 0 at J=10 is the only feature I couldn't find in the literature, and it looks more like a numerical artifact than new physics.",
+    "reason": "Only a non-central exponent is missing; collapse and re-swelling are treated as documented."
+  },
+  {
+    "reply": "R31",
+    "card": "planted:N14",
+    "correct": true,
+    "close": true,
+    "quote": "I did not find a source that specifically describes direct gas-to-kagome nucleation with the pair-then-triangle timing, so I treat it as likely but unverified.",
+    "reason": "Calls kagome assembly documented and likens the triangle-first pathway to Chen et al., but concludes direct one-step nucleation from the gas was not found."
+  },
+  {
+    "reply": "R32",
+    "card": "planted:N01",
+    "correct": true,
+    "close": false,
+    "quote": "I found no source that describes the specific outcome, which is the divisor-structured final groupings and their N-dependent failure rates.",
+    "reason": "States the divisor-structured outcome and N-dependent failure rates are not described; only the model and marginal-case failure are documented."
+  },
+  {
+    "reply": "R33",
+    "card": "planted:N13",
+    "correct": false,
+    "close": false,
+    "quote": "But the behaviour you'd predict from the published pieces matches what was observed, so this isn't a discovery.",
+    "reason": "Concludes both parts are documented and trimodality is not new for the family; only the 6-regime phase diagram is missing."
+  },
+  {
+    "reply": "R34",
+    "card": "planted:N08",
+    "correct": false,
+    "close": true,
+    "quote": "The behaviour is documented: a chiral fluid driven only by torque splits from a uniform state into a dilute phase and a dense phase.",
+    "reason": "States the torque-driven phase separation is documented; undocumented items are the coupling mechanism, the (expected) hexatic dense phase, continued coarsening and the onset value."
+  },
+  {
+    "reply": "R35",
+    "card": "planted:N20",
+    "correct": true,
+    "close": true,
+    "quote": "I found no description of this four-defect outcome, its threshold, or its phase dependence.",
+    "reason": "Calls the core (+1/2 propulsion) documented but states the +1 to four-defect splitting was not found."
+  },
+  {
+    "reply": "R36",
+    "card": "planted:N11",
+    "correct": true,
+    "close": true,
+    "quote": "The re-entrant sequence (spots → stripes → spots as the death/birth ratio varies near 0.55) is not documented for this model.",
+    "reason": "Calls the main spots-stripes-gaps sequence documented, but states the three-body route and the re-entrant spots-stripes-spots sequence, central to the reported behaviour, were not found."
+  },
+  {
+    "reply": "R37",
+    "card": "planted:N15",
+    "correct": true,
+    "close": false,
+    "quote": "I found no source that reports the specific fractal network pattern.",
+    "reason": "States the fractal stream-network pattern itself is not described and places the system in a regime prior work has not described."
+  },
+  {
+    "reply": "R38",
+    "card": "planted:N20",
+    "correct": true,
+    "close": false,
+    "quote": "I also found no source for the four-defect splitting of a +1 defect.",
+    "reason": "States the four-defect splitting was not found and the nematic +1/2 propulsion has no direct source."
+  },
+  {
+    "reply": "R39",
+    "card": "planted:N08",
+    "correct": false,
+    "close": false,
+    "quote": "Splitting into a dilute liquid and a dense six-fold (hexatic) state is documented for closely related systems.",
+    "reason": "States the dilute/hexatic splitting is documented; what it could not find is a combination of rule details and continued coarsening."
+  },
+  {
+    "reply": "R40",
+    "card": "planted:N15",
+    "correct": true,
+    "close": true,
+    "quote": "I found no report of a space-spanning, fractal, branching stream network with a void-area scaling of R³ and a degree-3 junction majority.",
+    "reason": "Prior work is said to report clusters, worms, files and filaments, not a space-spanning network, though the headline frames the gap as network statistics."
+  },
+  {
+    "reply": "R41",
+    "card": "planted:N05",
+    "correct": false,
+    "close": false,
+    "quote": "Each part of the behaviour is described in the light-heavy (LH) model papers. The one thing I couldn't confirm is the exact numbers: a late exponent of about 0.34 (roughly 1/3) and a crossover near t≈1000.",
+    "reason": "States every part of the behaviour, including early-domain dissolution then slow coarsening, is described and only numbers are missing."
+  },
+  {
+    "reply": "R42",
+    "card": "planted:N04",
+    "correct": true,
+    "close": true,
+    "quote": "The one new-looking feature is that order comes back at e_a/e_p ≈ 33 and T = 6. I couldn't find that described, and I think it is more likely a numerical artefact than a real effect.",
+    "reason": "Melting is called documented, but the re-entrant recrystallisation above the passive melting temperature, the central half of the reported behaviour, is stated as not found."
+  },
+  {
+    "reply": "R43",
+    "card": "planted:N17",
+    "correct": true,
+    "close": true,
+    "quote": "Side-by-side lanes moving in opposite directions are documented in closely related models, but I found no report of them in the standard single-species, continuous-angle Vicsek model.",
+    "reason": "Related models (four-state Potts, two-species) are treated as different systems, and it states the lanes in the standard Vicsek model were not found."
+  },
+  {
+    "reply": "R44",
+    "card": "planted:N15",
+    "correct": false,
+    "close": false,
+    "quote": "This rule set is essentially the Barberis & Peruani 2016 model, and a network of streams is a documented feature of that model family.",
+    "reason": "States the stream network is documented and only the specific measurements are missing."
+  },
+  {
+    "reply": "R45",
+    "card": "planted:N19",
+    "correct": true,
+    "close": false,
+    "quote": "I found no paper that reports a 2D, cell-conserving, nutrient-resupplied system in which a dense blob coexists with travelling bands that carry aggregates.",
+    "reason": "States the blob-band coexistence is not reported (in prior work the two structures appear separately); only the ingredients are documented."
+  },
+  {
+    "reply": "R46",
+    "card": "planted:N17",
+    "correct": true,
+    "close": false,
+    "quote": "I found no source describing the specific state you observed: several side-by-side lanes of opposite-travelling band trains, stable in a single-species Vicsek model.",
+    "reason": "States the lane state itself is not described in the literature found."
+  },
+  {
+    "reply": "R47",
+    "card": "planted:N04",
+    "correct": true,
+    "close": true,
+    "quote": "The re-entrant restoration is likely related to known chiral re-entrance but I could not confirm it for this exact model.",
+    "reason": "Lists re-entrance as resembling other chiral systems it says are not the same, and states the high-activity solid ordered above the passive melting temperature was not found."
+  },
+  {
+    "reply": "R48",
+    "card": "planted:N16",
+    "correct": false,
+    "close": false,
+    "quote": "The main behaviour (shrinking, then swelling back open as activity rises) is already documented in a model that differs from yours only in using a linear chain instead of a ring.",
+    "reason": "States the main behaviour is documented in an equivalent linear-chain model; missing items are non-central details."
+  },
+  {
+    "reply": "R49",
+    "card": "planted:N17",
+    "correct": true,
+    "close": false,
+    "quote": "The specific state is not: side-by-side lanes of band trains moving in opposite directions, lasting for a long time, in the ordinary single-species Vicsek model.",
+    "reason": "States the counter-propagating lane state is not documented; only the building blocks are."
+  },
+  {
+    "reply": "R50",
+    "card": "planted:N13",
+    "correct": true,
+    "close": true,
+    "quote": "I also didn't find the specific three-peak picture: a peak at the 0.3 reset value alongside the two consensus peaks.",
+    "reason": "Although it says both parts and the resetting idea are documented, it explicitly states the three-peak distribution itself was not found."
+  },
+  {
+    "reply": "R51",
+    "card": "planted:N19",
+    "correct": false,
+    "close": false,
+    "quote": "But the behaviour (nutrient-taxis bands carrying or coexisting with an attractant-driven aggregate) is the same.",
+    "reason": "States the coexistence behaviour is documented (Marenduzzo et al.); only the setup (no growth, uniform start, periodic box) differs."
+  },
+  {
+    "reply": "R52",
+    "card": "planted:N14",
+    "correct": true,
+    "close": true,
+    "quote": "At low T and low mu, near-simultaneous growth of pairs and triangles is plausible, but I found no source that tests it.",
+    "reason": "Kagome is called the documented main finding, but it states that direct one-step nucleation from the gas (zero lag) was not found in any source."
+  },
+  {
+    "reply": "R53",
+    "card": "planted:N13",
+    "correct": false,
+    "close": true,
+    "quote": "The qualitative result is probably not new, but the specific noise-versus-shock-rate phase diagram might not have been published.",
+    "reason": "Missing items are the reset protocol (a rule) and the phase diagram; it concludes the qualitative result is probably not new."
+  },
+  {
+    "reply": "R54",
+    "card": "planted:N08",
+    "correct": false,
+    "close": true,
+    "quote": "So a dumbbell version is something the theory predicts, not a new effect.",
+    "reason": "Treats disk RIPS as the same behaviour family and the dumbbell version as not new, though it adds it found no paper on frictionless torque-driven dumbbells separating into liquid and hexatic phases."
+  },
+  {
+    "reply": "R55",
+    "card": "planted:N17",
+    "correct": true,
+    "close": false,
+    "quote": "I found no source that clearly describes side-by-side lanes of stripe trains moving in opposite directions as a stable state.",
+    "reason": "States the lane state is not described, adding only that it is plausibly a special case of known phenomenology."
+  },
+  {
+    "reply": "R56",
+    "card": "planted:N01",
+    "correct": true,
+    "close": false,
+    "quote": "What I couldn't find described is how finite systems end up: the specific final cluster states and the failure probabilities.",
+    "reason": "States the finite-N endgame (equal-group divisor states, prime-N sync, failure law) is not described; only the model and large-N growth are documented."
+  },
+  {
+    "reply": "R57",
+    "card": "planted:N20",
+    "correct": true,
+    "close": true,
+    "quote": "The one twist I couldn't find described is the four-defect splitting above a threshold.",
+    "reason": "Says the core behaviour is documented in nearby work but states the four-defect splitting, half the reported behaviour, was not found."
+  },
+  {
+    "reply": "R58",
+    "card": "planted:N15",
+    "correct": false,
+    "close": true,
+    "quote": "Merging streams and interconnected bands are documented for this exact class of model.",
+    "reason": "Frames the gap as network statistics with network-like structure partly documented, though it notes the documented interconnected network was only transient."
+  }
+]

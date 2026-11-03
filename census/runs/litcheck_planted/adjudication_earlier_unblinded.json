@@ -1,0 +1,63 @@
+{
+ "_note": "Claude's earlier unblinded readings of the N_neutral first-pass KNOWN-VARIANT replies (2026-11-03, before the blinded reading). Superseded by the blinded reader in adjudication.json; kept for the agreement statistic.",
+ "N_neutral|planted:N01": {
+  "correct": true,
+  "close": false,
+  "quote": "Finite-N divisor structure of final groupings, N-factorisation-dependent failure probabilities, and the ~0.6/N even-N failure law were not found in any source; they may be new or only in unread supplements.",
+  "reason": "the factorisation-dependent synchronisation failure is the reported behaviour, and the reply says no source has it"
+ },
+ "N_neutral|planted:N05": {
+  "correct": false,
+  "close": true,
+  "quote": "The \"dynamics\" and \"light-heavy\" papers probably cover this, but that is unconfirmed.",
+  "reason": "the two-stage coarsening was not confirmed only because full texts were unread; the reply expects it to be documented and offers a crossover explanation"
+ },
+ "N_neutral|planted:N11": {
+  "correct": false,
+  "close": true,
+  "quote": "The main sequence is clearly documented in equivalent nonlocal-competition models.",
+  "reason": "the reply says spots, stripes and gaps are documented under pairwise competition; only the three-body control term and the re-entry were not found"
+ },
+ "N_neutral|planted:N13": {
+  "correct": false,
+  "close": true,
+  "quote": "The qualitative result is probably not new, but the specific noise-versus-shock-rate phase diagram might not have been published.",
+  "reason": "no source with shocks was found, but the reply treats the third peak as the expected outcome and the result as probably not new"
+ },
+ "N_neutral|planted:N14": {
+  "correct": false,
+  "close": true,
+  "quote": "I am confident about the family and the kagome identification, and the citations were checked against search results.",
+  "reason": "kagome assembly from two-patch particles is given as documented; the ellipse shape is a rule detail and one-step nucleation is 'not explicitly confirmed', not said to be undescribed"
+ },
+ "N_neutral|planted:N15": {
+  "correct": true,
+  "close": false,
+  "quote": "A fractal (D~1.5) stream network with R^3 void-area scaling and mostly 3-way junctions was not found in any abstract or snippet returned.",
+  "reason": "the stream network is the reported behaviour"
+ },
+ "N_neutral|planted:N16": {
+  "correct": false,
+  "close": false,
+  "quote": "The model class and the collapse-then-reswelling behaviour are clearly documented.",
+  "reason": "behaviour given as documented for linear chains; only the ring, J sweep and N scaling were not found"
+ },
+ "N_neutral|planted:N17": {
+  "correct": true,
+  "close": false,
+  "quote": "a stable multi-lane state of opposite-travelling band trains in single-species Vicsek was not found (closest: cross-sea phase, two-species Vicsek APF state, bidirectional Vicsek lane preprint)",
+  "reason": "the opposite-travelling lanes are the reported behaviour"
+ },
+ "N_neutral|planted:N19": {
+  "correct": true,
+  "close": true,
+  "quote": "I found no paper that reports a 2D, cell-conserving, nutrient-resupplied system in which a dense blob coexists with travelling bands that carry aggregates.",
+  "reason": "the coexistence is the reported behaviour; the reply adds that it expects the mechanism to be standard"
+ },
+ "N_neutral|planted:N20": {
+  "correct": true,
+  "close": false,
+  "quote": "Splitting into four, driven by nonreciprocity alone and depending on μ, is the part that looks new. I have not shown that it is.",
+  "reason": "defect splitting and propulsion under nonreciprocal nematic coupling are the reported behaviour; no source for the model was found"
+ }
+}

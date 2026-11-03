@@ -1,0 +1,292 @@
+{
+ "R01": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N15",
+  "pass": "strict"
+ },
+ "R02": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N20",
+  "pass": "first"
+ },
+ "R03": {
+  "arm": "N_neutral",
+  "card": "planted:N05",
+  "pass": "first"
+ },
+ "R04": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N13",
+  "pass": "strict"
+ },
+ "R05": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N17",
+  "pass": "strict"
+ },
+ "R06": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N12",
+  "pass": "strict"
+ },
+ "R07": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N08",
+  "pass": "first"
+ },
+ "R08": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N19",
+  "pass": "strict"
+ },
+ "R09": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N16",
+  "pass": "first"
+ },
+ "R10": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N14",
+  "pass": "strict"
+ },
+ "R11": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N16",
+  "pass": "strict"
+ },
+ "R12": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N20",
+  "pass": "strict"
+ },
+ "R13": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N17",
+  "pass": "strict"
+ },
+ "R14": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N01",
+  "pass": "strict"
+ },
+ "R15": {
+  "arm": "N_strictall",
+  "card": "planted:N19",
+  "pass": "strict"
+ },
+ "R16": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N05",
+  "pass": "strict"
+ },
+ "R17": {
+  "arm": "N_neutral",
+  "card": "planted:N01",
+  "pass": "first"
+ },
+ "R18": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N13",
+  "pass": "first"
+ },
+ "R19": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N20",
+  "pass": "strict"
+ },
+ "R20": {
+  "arm": "N_strictall",
+  "card": "planted:N12",
+  "pass": "strict"
+ },
+ "R21": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N15",
+  "pass": "strict"
+ },
+ "R22": {
+  "arm": "N_strictall",
+  "card": "planted:N01",
+  "pass": "strict"
+ },
+ "R23": {
+  "arm": "N_strictall",
+  "card": "planted:N13",
+  "pass": "strict"
+ },
+ "R24": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N19",
+  "pass": "first"
+ },
+ "R25": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N08",
+  "pass": "strict"
+ },
+ "R26": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N01",
+  "pass": "strict"
+ },
+ "R27": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N05",
+  "pass": "first"
+ },
+ "R28": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N02",
+  "pass": "first"
+ },
+ "R29": {
+  "arm": "N_neutral",
+  "card": "planted:N16",
+  "pass": "first"
+ },
+ "R30": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N16",
+  "pass": "strict"
+ },
+ "R31": {
+  "arm": "N_neutral",
+  "card": "planted:N14",
+  "pass": "first"
+ },
+ "R32": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N01",
+  "pass": "first"
+ },
+ "R33": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N13",
+  "pass": "strict"
+ },
+ "R34": {
+  "arm": "N_strictall",
+  "card": "planted:N08",
+  "pass": "strict"
+ },
+ "R35": {
+  "arm": "N_strictall",
+  "card": "planted:N20",
+  "pass": "strict"
+ },
+ "R36": {
+  "arm": "N_neutral",
+  "card": "planted:N11",
+  "pass": "first"
+ },
+ "R37": {
+  "arm": "N_neutral",
+  "card": "planted:N15",
+  "pass": "first"
+ },
+ "R38": {
+  "arm": "N_neutral",
+  "card": "planted:N20",
+  "pass": "first"
+ },
+ "R39": {
+  "arm": "N_blocked_r3",
+  "card": "planted:N08",
+  "pass": "strict"
+ },
+ "R40": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N15",
+  "pass": "first"
+ },
+ "R41": {
+  "arm": "N_strictall",
+  "card": "planted:N05",
+  "pass": "strict"
+ },
+ "R42": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N04",
+  "pass": "strict"
+ },
+ "R43": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N17",
+  "pass": "strict"
+ },
+ "R44": {
+  "arm": "N_strictall",
+  "card": "planted:N15",
+  "pass": "strict"
+ },
+ "R45": {
+  "arm": "N_neutral",
+  "card": "planted:N19",
+  "pass": "first"
+ },
+ "R46": {
+  "arm": "N_neutral",
+  "card": "planted:N17",
+  "pass": "first"
+ },
+ "R47": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N04",
+  "pass": "first"
+ },
+ "R48": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N16",
+  "pass": "strict"
+ },
+ "R49": {
+  "arm": "N_strictall",
+  "card": "planted:N17",
+  "pass": "strict"
+ },
+ "R50": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N13",
+  "pass": "strict"
+ },
+ "R51": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N19",
+  "pass": "strict"
+ },
+ "R52": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N14",
+  "pass": "first"
+ },
+ "R53": {
+  "arm": "N_neutral",
+  "card": "planted:N13",
+  "pass": "first"
+ },
+ "R54": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N08",
+  "pass": "strict"
+ },
+ "R55": {
+  "arm": "N_blocked_r1_FIRST",
+  "card": "planted:N17",
+  "pass": "first"
+ },
+ "R56": {
+  "arm": "N_blocked_r2",
+  "card": "planted:N01",
+  "pass": "strict"
+ },
+ "R57": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N20",
+  "pass": "strict"
+ },
+ "R58": {
+  "arm": "N_blocked_r1",
+  "card": "planted:N15",
+  "pass": "strict"
+ }
+}
