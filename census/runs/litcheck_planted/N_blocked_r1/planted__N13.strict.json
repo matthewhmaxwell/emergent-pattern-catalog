@@ -1,0 +1,90 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (a_c=2/(N+2)) + stochastic resetting of the magnetization (renewal-formula NESS, cf. Ising model with stochastic resetting)",
+ "citations": [
+  "Peralta/Carro/San Miguel/Toral, Herding and idiosyncratic choices... noisy voter model, C. R. Physique 2019 (S1631070519300313)",
+  "Carro, Toral, San Miguel, The noisy voter model on complex networks, Sci. Rep. 2016",
+  "Khalil/San Miguel/Toral, Zealots in the mean-field noisy voter model, PRE 97, 012310 (2018)",
+  "Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)",
+  "Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "No-shock threshold matches a_c=2/(N+2) (~0.004 per flip-to-opposite, ~0.002 for random-flip convention at N=500). Third peak at the reset value 0.3 follows directly from the renewal formula when reset rate exceeds the O(1/N) voter drift rate, with consensus peaks at +/-1 surviving while noise < ~1/N; analogous rich (T,r) phase diagram documented for the Ising model with resetting. No paper found specifically on noisy voter/Kirman + global resetting; the 6-regime count is unverified and likely depends on how regimes were classified. Middle peak is an externally imposed imprint of the reset target, not self-organised: genuine but shallow.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting magnetization distribution"
+  },
+  {
+   "query": "voter model with stochastic resetting opinion dynamics"
+  },
+  {
+   "query": "Kirman model resetting multimodal stationary distribution herding \"resetting\""
+  },
+  {
+   "query": "\"voter model\" \"stochastic resetting\" arXiv"
+  },
+  {
+   "query": "resetting voter model consensus time"
+  },
+  {
+   "query": "Ising model with stochastic resetting Magoni Majumdar Schehr magnetization distribution"
+  },
+  {
+   "query": "noisy voter model resetting nonequilibrium steady state phase diagram herding"
+  },
+  {
+   "query": "opinion dynamics under stochastic resetting binary agents mean-field 2024"
+  },
+  {
+   "query": "Wright-Fisher OR Moran model with stochastic resetting stationary distribution allele frequency"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4837380/",
+  "https://www.math.chalmers.se/~steif/p60.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.108.044301",
+  "https://www.nature.com/articles/srep24775",
+  "https://zenodo.org/records/13960388",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9407215/",
+  "https://www.cmor-faculty.rice.edu/~gp36/Queue-resetting.pdf",
+  "https://iopscience.iop.org/article/10.1088/1751-8121/ab7cfe",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/aac14a",
+  "https://www.sciencedirect.com/science/article/am/pii/S1631070519300325",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.109.054115",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033182",
+  "https://doi.org/10.1103/PhysRevResearch.2.043390",
+  "https://ouci.dntb.gov.ua/en/works/4K0GVz6l/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.L012023",
+  "https://doi.org/10.1103/PhysRevResearch.2.033182",
+  "https://journals.aps.org/prresearch/recent?page=369",
+  "https://www.lptms.universite-paris-saclay.fr/satya-majumdar/files/2024/02/majumdar_cv_lop_2024.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://burjcdigital.urjc.es/server/api/core/bitstreams/bc21d38f-f807-485c-a23d-e1e7e09d21bf/content",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://ideas.repec.org/a/eee/phsmap/v515y2019icp81-92.html",
+  "https://link.aps.org/doi/10.1103/PhysRevE.97.012310",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.012310",
+  "https://link.springer.com/article/10.1007/s11579-024-00355-1",
+  "https://aclanthology.org/2024.findings-naacl.211.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1751570X20300571",
+  "https://molvera.web.unc.edu/wp-content/uploads/sites/19443/2024/01/Opinion_9Jan24-1.pdf",
+  "https://www.tandfonline.com/doi/full/10.1080/0022250X.2025.2529179",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9858174/",
+  "https://academic.oup.com/sysbio/article/66/1/e30/2670014",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2728855/",
+  "https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/wright-fisher-model",
+  "https://assets.press.princeton.edu/chapters/s13_8458.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass, but I'm adding a closer precedent it missed. Both parts of the behaviour are documented. What I couldn't find is a paper that applies resetting to the noisy voter (Kirman) model itself.\n\n**1. No-shock part: textbook.** The mean-field noisy voter model is the Kirman model. A network version is described as the network-embedded equivalent of the Kirman model in its original, extensive formulation. It undergoes a finite-size phase transition, upon increasing the relative importance of the noise to the herding, form a bimodal phase where most of the agents share the same opinion to a unimodal phase. The exact threshold is known: at [ac=2/(N+2)], the stationary distribution is flat. For N = 500 that is about 0.004 in rate units. Your ~0.002 is the same point once you convert between \"flip to a random opinion\" and \"flip to the opposite opinion\" (a random flip changes the opinion only half the time). This part is confirmed exactly.\n\n**2. Shock part: same idea is documented for an equivalent system.** The closest match is Magoni, Majumdar and Schehr (2020), on a mean-field-type magnetization variable that is periodically reset. Their protocol resets the magnetization to its fixed initial value m0 at a constant rate r. In the resulting NESS, the magnetization acquires a nontrivial distribution, leading to a rich phase diagram in the (T,r) plane. The general theory gives the long-run distribution with resetting directly from a standard formula (the \"renewal formula\"): The stationary distribution for the resetting problem is again related to the Laplace transform of the propagator in the absence of resetting. In plain terms, the long-run distribution is the no-shock evolution starting from 0.3, averaged over how long it has been since the last shock. Your setup is that construction with a 2-state noisy voter model in place of the Ising model.\n\nSo the three peaks are expected. Shocks keep refilling the population at 0.3. If shocks come faster than the population drifts towards consensus (that drift takes on the order of N steps per agent), mass builds up at 0.3. When the noise is below ~1/N, the population still reaches consensus between shocks, so the \u00b11 peaks remain. Similarly, a noise level \u00d7 shock rate plane splitting into several regions is the same kind of result as Magoni et al.'s rich (T, r) phase diagram.\n\n**Twist I couldn't find described, and whether it matters:**\n- I found no paper on the noisy voter or Kirman model with resetting. My searches for voter-model resetting returned nothing, or only unrelated \"resetting\" of an internal confidence or age variable.\n- I also didn't find the specific three-peak picture: a peak at the 0.3 reset value alongside the two consensus peaks.\n- This likely matters little. It's a direct, predictable consequence of the renewal formula, not a new mechanism.\n- I haven't verified the count of 6 regimes. It probably comes from crossing about 2 no-shock shapes (one peak / two peaks) with about 3 shock levels (none / intermediate / dominant). That makes it partly a classification choice, not a robust fact.\n\n**Genuine or artifact:** It isn't a numerical artifact, frozen state or random colouring. But the middle peak is imposed from outside: it's an imprint of the reset target, not something the agents organise themselves into. I'd call it a genuine but shallow pattern.\n\n**Searches run:** the noisy voter model with stochastic resetting; the voter model with resetting (several phrasings); the Kirman model with resetting; the Ising model with resetting; noisy-voter phase diagrams; binary opinion dynamics with resetting; Wright\u2013Fisher/Moran models with resetting.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (a_c=2/(N+2)) + stochastic resetting of the magnetization (renewal-formula NESS, cf. Ising model with stochastic resetting)\", \"citations\": [\"Peralta/Carro/San Miguel/Toral, Herding and idiosyncratic choices... noisy voter model, C. R. Physique 2019 (S1631070519300313)\", \"Carro, Toral, San Miguel, The noisy voter model on complex networks, Sci. Rep. 2016\", \"Khalil/San Miguel/Toral, Zealots in the mean-field noisy voter model, PRE 97, 012310 (2018)\", \"Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)\", \"Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"No-shock threshold matches a_c=2/(N+2) (~0.004 per flip-to-opposite, ~0.002 for random-flip convention at N=500). Third peak at the reset value 0.3 follows directly from the renewal formula when reset rate exceeds the O(1/N) voter drift rate, with consensus peaks at +/-1 surviving while noise < ~1/N; analogous rich (T,r) phase diagram documented for the Ising model with resetting. No paper found specifically on noisy voter/Kirman + global resetting; the 6-regime count is unverified and likely depends on how regimes were classified. Middle peak is an externally imposed imprint of the reset target, not self-organised: genuine but shallow.\"}\n```",
+ "checked": "2026-11-03 02:39:50"
+}

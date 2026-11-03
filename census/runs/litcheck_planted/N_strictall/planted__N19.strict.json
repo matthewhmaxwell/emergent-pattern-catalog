@@ -1,0 +1,80 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Budrene-Berg-type chemotactic pattern formation: depletion-driven travelling swarm bands plus self-attractant aggregates (Keller-Segel with excreted attractant and consumed nutrient)",
+ "citations": [
+  "Brenner, Levitov & Budrene 1998, Biophys J 74:1677",
+  "Tyson, Lubkin & Murray 1999, Proc R Soc B 266:299 (minimal mechanism); J Math Biol 38:359",
+  "Painter 2009, Bull Math Biol 71:1117 (two-signal travelling aggregations, periodic domains)",
+  "Potapov & Hillen 2005, J Dyn Diff Eq (vanishing sensitivity: metastability/coarsening)",
+  "Painter & Hillen 2011, Physica D 240:363"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Aggregates, depletion-driven moving bands and their link are documented. Twist not found: travelling bands arising spontaneously from a noisy uniform state with no growth and constant nutrient resupply, coexisting with one long-lived dense blob on a periodic 2D domain, rather than an inoculum ring breaking into spots. Plausibly a delayed effective self-repulsion from nutrient depletion competing with fast self-attraction (my reasoning, not from a source). The 0.36 ratio is an input parameter, not an emergent measurement. Risk: the single blob may be a long transient of vanishing-sensitivity coarsening on a small 50x50 grid; extend the run and check on finer and larger grids.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model self-produced attractant and nutrient consumption traveling bands coexist with aggregates simulation"
+  },
+  {
+   "query": "Brenner Levitov Budrene 1998 physical mechanisms swarm rings aggregates chemotaxis"
+  },
+  {
+   "query": "chemotaxis two chemicals attractant nutrient-taxis periodic domain stationary spot coexisting travelling waves spatio-temporal patterns"
+  },
+  {
+   "query": "Tyson Lubkin Murray model chemotactic pattern formation Escherichia coli Salmonella simulations aggregates and rings"
+  },
+  {
+   "query": "attraction-repulsion chemotaxis model oscillatory instability travelling waves and stationary aggregates coexist simulations"
+  },
+  {
+   "query": "Painter Hillen attraction repulsion chemotaxis two signals different timescales periodic travelling waves \"spatio-temporal\" patterns 2D"
+  }
+ ],
+ "result_urls": [
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pubmed.ncbi.nlm.nih.gov/30674662",
+  "https://www.nature.com/articles/s41598-024-75653-1",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009153",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.biorxiv.org/content/10.1101/2021.06.09.447728v1.full",
+  "https://www.few.vu.nl/~rplanque/Onderwijs/MathBio/PapersForProject/XueOthmer.pdf",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://www.nature.com/articles/s41467-022-34484-2",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://www.nature.com/articles/s42254-025-00849-x",
+  "https://www.pnas.org/doi/10.1073/pnas.1001994107",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009153",
+  "https://livrepository.liverpool.ac.uk/3188942/1/2024_preprint1.pdf",
+  "https://people.maths.ox.ac.uk/erban/papers/paperBCKR.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.10.17.562804.full.pdf",
+  "https://researchportal.hw.ac.uk/en/publications/spatio-temporal-chaos-in-a-chemotaxis-model/",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://pubmed.ncbi.nlm.nih.gov/10326253",
+  "https://royalsocietypublishing.org/rspb/article-abstract/266/1416/299/69727/A-minimal-mechanism-for-bacterial-pattern?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/pii/S0006349598778804",
+  "https://www.mdpi.com/1422-0067/14/5/9205e",
+  "https://iro.uiowa.edu/view/pdfCoverPage?instCode=01IOWA_INST&filePid=13974725920002771&download=true",
+  "https://jxshix.people.wm.edu/shi/2017-Wu-Shi-Wu-CPAA.pdf",
+  "https://faculty.sites.iastate.edu/hliu/files/inline-files/LLW-JDE-v261-2016.pdf",
+  "http://www.macs.hw.ac.uk/~painter/assets/files/kjp021.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12521325/",
+  "https://www.math.ualberta.ca/~thillen/publications.html",
+  "https://link.springer.com/article/10.1007/s00285-021-01588-0",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2013.18.2513",
+  "https://www.mimuw.edu.pl/~pdemb/pliki/hillen_presentation.pdf",
+  "https://link.springer.com/article/10.1007/s10884-005-2938-3"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT. This agrees with the first pass; I found no reason to overturn it.** The phenomena involved are well documented. What I could not find is a paper showing this exact combination arising spontaneously from a uniform start.\n\n**What is documented**\n- **Same model family:** Brenner, Levitov and Budrene couple cell movement to equations for both an attractant and a nutrient, and their model leads to analytic solutions corresponding to both rings and aggregates.\n- **Why the bands move:** the movement of the swarm rings is due to the depletion of succinate around the band of bacteria: chemotaxis holds the band together, but the net motion is not caused directly by chemotactic fluxes. This matches your rule set, where cells consume the nutrient and climb its gradient.\n- **Prior simulations:** they consistently show (one-dimensional) traveling rings destabilizing via transverse instability into spots of bacteria. Tyson, Lubkin and Murray give a mathematical model which captures all three of the pattern forming processes seen in E. coli and Salmonella.\n- **No growth needed:** other work notes that more complex nutrient terms can give rise to travelling waves, even when growth is absent.\n- **Moving patterns with two signals:** Painter (2009) studied cells responding to two chemical signals on a periodic domain. In 2D, these temporal patterns take the form of a travelling aggregation.\n- **Your sensitivity function:** b/(1+b\u00b2) shrinks at high density. This puts it close to models with a vanishing chemotaxis coefficient at high population densities, which show spatio-temporal patterns which allow for ultra-long transients and merging or coarsening.\n\n**The twist I could not find described**\n- In the classic work, rings start from a small inoculum, travel outward and break up into spots. Here there is no inoculum: the noisy uniform state breaks up by itself into travelling bands, and these coexist with a single long-lived dense blob on a periodic domain.\n- A plausible mechanism, from my own reasoning rather than a source: when the nutrient is depleted and slowly resupplied, climbing its gradient pushes cells away from crowded areas, but with a delay. That delayed push competes with the fast self-attraction and could drive the moving patterns. It fits known attraction\u2013repulsion and two-signal behaviour.\n- This twist matters only modestly. It is a different setting for familiar structures, not a new kind of structure.\n\n**Real pattern or artifact?** Probably real, not trivial: the drift strengths are large, and the density-limited sensitivity prevents the blow-up that would otherwise make the blob a numerical artifact. Three caveats:\n- On a 50\u00d750 grid with vanishing high-density sensitivity, \"one blob plus bands\" may be a long transient on the way to a fully merged state, which the vanishing-sensitivity results above predict.\n- Two structure types and one aggregate are low numbers and could be a single snapshot.\n- The 0.36 attractant/nutrient ratio is just the input parameter 5/14, not something the simulation produced.\n\nThe run should be extended and checked on a finer grid and a larger domain before reading anything into it.\n\n**Search limits:** I read abstracts and fragments of the papers above, not full texts. I ran six searches: coexistence of aggregates and bands with attractant plus nutrient; Brenner\u2013Levitov\u2013Budrene; two-signal periodic-domain patterns; the Tyson\u2013Lubkin\u2013Murray models; attraction\u2013repulsion travelling waves; and Painter\u2013Hillen spatio-temporal patterns.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Budrene-Berg-type chemotactic pattern formation: depletion-driven travelling swarm bands plus self-attractant aggregates (Keller-Segel with excreted attractant and consumed nutrient)\", \"citations\": [\"Brenner, Levitov & Budrene 1998, Biophys J 74:1677\", \"Tyson, Lubkin & Murray 1999, Proc R Soc B 266:299 (minimal mechanism); J Math Biol 38:359\", \"Painter 2009, Bull Math Biol 71:1117 (two-signal travelling aggregations, periodic domains)\", \"Potapov & Hillen 2005, J Dyn Diff Eq (vanishing sensitivity: metastability/coarsening)\", \"Painter & Hillen 2011, Physica D 240:363\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Aggregates, depletion-driven moving bands and their link are documented. Twist not found: travelling bands arising spontaneously from a noisy uniform state with no growth and constant nutrient resupply, coexisting with one long-lived dense blob on a periodic 2D domain, rather than an inoculum ring breaking into spots. Plausibly a delayed effective self-repulsion from nutrient depletion competing with fast self-attraction (my reasoning, not from a source). The 0.36 ratio is an input parameter, not an emergent measurement. Risk: the single blob may be a long transient of vanishing-sensitivity coarsening on a small 50x50 grid; extend the run and check on finer and larger grids.\"}\n```",
+ "checked": "2026-11-03 04:27:25"
+}

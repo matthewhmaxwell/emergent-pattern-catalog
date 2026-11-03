@@ -1,0 +1,114 @@
+{
+ "class_id": "planted:N17",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "active matter / dry aligning polar self-propelled particles (standard 2D Vicsek model, metric alignment, angular noise)",
+ "standard_name": "Vicsek model, liquid-gas coexistence with microphase-separated travelling bands (cross-sea / antiparallel-band relatives)",
+ "confidence": "low",
+ "citations": [
+  "Chat\u00e9, Ginelli, Gr\u00e9goire, Raynaud 2008, Phys Rev E 77, 046113 - comprehensive study of Vicsek-style models in 2D/3D (band results known from citing literature, abstract only read)",
+  "Solon, Chat\u00e9, Tailleur 2015, Phys Rev Lett 114, 068101 - flocking transition as liquid-gas with microphase separation of bands (verified via citing reference lists only)",
+  "Chat\u00e9 2016, Eur Phys J Special Topics 225, 2099 - lecture-note review of the Vicsek model: transverse bands settle into a smectic arrangement of travelling bands (author inferred from content)",
+  "K\u00fcrsten & Ihle 2020, Phys Rev Lett 125, 188003 - standard Vicsek has a cross sea phase in large systems (tilted bands in two directions, polar ordered)",
+  "Chatterjee, Mangeat, Noh, Rieger 2023, Phys Rev E 107, 024607 - two-species Vicsek model with antiparallel-flocking state (bands of two species travelling in opposite directions; needs interspecies anti-alignment) (year inferred from search age field)",
+  "Zenodo preprint 'Lane Formation in a Bidirectional Vicsek-Type Model without Explicit Segregating Interactions' - lane phase reported but absent in standard Vicsek; particles carry two desired directions (authorship and peer review not verified)"
+ ],
+ "searches": [
+  "Vicsek model counter-propagating bands lanes opposite directions long-lived large system",
+  "Solon Chat\u00e9 Tailleur microphase separation flocking models essential role non-equilibrium fluctuations",
+  "Vicsek model traveling bands reversal antiparallel bands stable multiple bands periodic box",
+  "K\u00fcrsten Ihle Dry active matter exhibits a self-organized cross sea phase",
+  "Chat\u00e9 Ginelli Gr\u00e9goire Raynaud Collective motion of self-propelled particles interacting without cohesion bands",
+  "Vicsek model very large system bands counter-propagating parallel lanes stable microphase separation Solon 2015",
+  "Vicsek model polar bands moving in opposite directions coexist stable counter-propagating bands periodic domain simulation",
+  "K\u00fcrsten Ihle cross sea phase Vicsek arXiv band phase discontinuous transitions large systems tilted bands",
+  "Vicsek model antiparallel domains opposite polarization stripes domain wall metastable bands",
+  "Vicsek model two populations of bands moving in opposite directions side by side shear interface bands"
+ ],
+ "notes": "Model and bands are firmly known; a stable multi-lane state of opposite-travelling band trains in single-species Vicsek was not found (closest: cross-sea phase, two-species Vicsek APF state, bidirectional Vicsek lane preprint). Only abstracts and citing snippets were read, so full-text mentions may exist. The 1/24 random-start rate and 1e8-step persistence are not addressed in the sources found. Check that rho=1, v0=0.5 puts the chosen noise window inside the band/coexistence regime.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "Vicsek model counter-propagating bands lanes opposite directions long-lived large system"
+  },
+  {
+   "query": "Solon Chat\u00e9 Tailleur microphase separation flocking models essential role non-equilibrium fluctuations"
+  },
+  {
+   "query": "Vicsek model traveling bands reversal \"antiparallel\" bands stable multiple bands periodic box"
+  },
+  {
+   "query": "K\u00fcrsten Ihle Dry active matter exhibits a self-organized cross sea phase"
+  },
+  {
+   "query": "Chat\u00e9 Ginelli Gr\u00e9goire Raynaud Collective motion of self-propelled particles interacting without cohesion bands"
+  },
+  {
+   "query": "Vicsek model very large system bands counter-propagating parallel lanes stable microphase separation Solon 2015 bands opposite direction"
+  },
+  {
+   "query": "Vicsek model polar bands moving in opposite directions coexist stable \"counter-propagating\" bands periodic domain simulation"
+  },
+  {
+   "query": "K\u00fcrsten Ihle cross sea phase Vicsek arXiv band phase discontinuous transitions large systems tilted bands"
+  },
+  {
+   "query": "Vicsek model antiparallel domains opposite polarization stripes domain wall metastable bands travelling opposite directions"
+  },
+  {
+   "query": "Vicsek model two populations of bands moving in opposite directions side by side shear interface bands"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://zenodo.org/records/23263766",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://pith.science/paper/2412.10577",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae02be",
+  "https://ouci.dntb.gov.ua/en/works/loQYw5w7/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.013280",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.108.064202",
+  "https://journals.aps.org/prl/abstract/10.1103/lt6f-yjpd",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.111.L023402",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/33196272",
+  "https://ui.adsabs.harvard.edu/abs/2021APS..MARY17003K/abstract",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.111.L023402",
+  "https://pubs.aip.org/aip/jcp/article-abstract/165/10/104110/3404058/Finite-time-orientational-relaxation-restructures?redirectedFrom=fulltext",
+  "https://journals.aps.org/pre/abstract/10.1103/h7n7-4vsq",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.013234",
+  "https://core.ac.uk/outputs/47108921/",
+  "https://www.nature.com/articles/s42005-024-01551-7",
+  "https://abdn.elsevierpure.com/en/publications/collective-motion-of-self-propelled-particles-interacting-without/",
+  "https://ui.adsabs.harvard.edu/abs/2008PhRvE..77d6113C/abstract",
+  "https://www.nature.com/articles/nature09312",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/nature12673",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://www.academia.edu/113042191/The_Flocking_Transition_A_Review_of_The_Vicsek_Model",
+  "https://link.springer.com/content/pdf/10.1140/epjst/e2016-60066-8.pdf",
+  "https://en.wikipedia.org/wiki/Vicsek_model",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://zenodo.org/records/23263766",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.125.188003",
+  "https://pubmed.ncbi.nlm.nih.gov/33196272",
+  "https://pith.science/paper/2508.05086",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae02be",
+  "https://personal.ems.psu.edu/~chen/publications/Gu%20et%20al._2014_Physical%20Review%20B_Flexoelectricity.pdf",
+  "https://www.pnas.org/doi/10.1073/pnas.2413879121",
+  "https://ia803206.us.archive.org/18/items/arxiv-0708.1570/0708.1570.pdf",
+  "https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1445&context=physicsfacpub",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://www.nature.com/articles/s42005-025-02098-x",
+  "https://www.rieger.uni-saarland.de/Paper/Chatterjee_mangeat_2022.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.024607",
+  "https://note.com/bertisnanu/n/n3ac785d25f3a?hl=en",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.012918"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium-low confidence.** The model and its dense travelling bands are well documented. I found no source describing the specific state you observed: several side-by-side lanes of opposite-travelling band trains, stable in a single-species Vicsek model.\n\n**1. Model family**\n- This is the standard Vicsek model of dry aligning active matter.\n- The rule is average heading within radius r, plus uniform angular noise, then a step of fixed length.\n- Each particle takes the average direction of particles within a circle of radius r around it, itself included, plus noise, then moves at constant speed.\n- Your parameters are r = 1, v0 = 0.5, density 1 and angular noise \u03b7. They match the large-speed, large-system regime of the Chat\u00e9 et al. 2008 simulations. I did not confirm those parameter values in the search results.\n\n**2. What is known**\n- **Bands in the coexistence region.** The flocking transition is a liquid-gas transition with micro-phase separation. The phase diagram shows a first-order transition with microphase separation.\n- **Earliest comprehensive study.** Chat\u00e9, Ginelli, Gr\u00e9goire and Raynaud, \"Collective motion of self-propelled particles interacting without cohesion\", Phys. Rev. E 77, 046113 (2008). It is a comprehensive study of Vicsek-style models in two and three dimensions. I did not read the band details in that abstract. I know of its band results from memory and from the citing literature.\n- **Solon, Chat\u00e9 and Tailleur 2015.** \"From phase to microphase separation in flocking models: the essential role of nonequilibrium fluctuations\", Phys. Rev. Lett. 114, 068101 (2015). The citing reference list confirms the title, authors and journal details. I only saw this paper through citing lists, not its abstract.\n- **Review.** Chat\u00e9's lecture notes, Eur. Phys. J. Special Topics 225, 2099 (2016). Bands extend transversally to the direction of motion. On very long timescales they settle into a regular smectic arrangement of travelling bands. I inferred the author from the notes' content and did not verify it.\n- **Cross-sea phase.** K\u00fcrsten and Ihle, \"Dry Active Matter Exhibits a Self-Organized Cross Sea Phase\", Phys. Rev. Lett. 125, 188003 (2020). The standard Vicsek model has a fourth phase for large systems, a polar-ordered cross sea phase.\n  - It looks like a superposition of bands tilted in two directions.\n  - This is the closest known large-system, multi-direction band pattern. It is polar-ordered, though, and its bands are tilted rather than antiparallel.\n- **Cross-sea states in related Vicsek variants.** In some delay-Vicsek runs, cross-sea states formed in which bands move in different directions. That paper also noted uncertainty about whether cross-sea configurations or parallel-band states are truly stationary.\n- **Stability of the polarised state.** At small \u03b7 the ordered phase is very stable, so counter-propagating dense bands find it hard to reverse the flow. This is from the discretized Vicsek model.\n\n**Close relatives, and what differs**\n- **Two-species Vicsek model.** Chatterjee, Mangeat, Noh and Rieger, Phys. Rev. E 107, 024607 (2023). I took the year from the search result's age field, not from the abstract. It has a parallel-flocking state and an antiparallel-flocking state in which the bands of species A and B move in opposite directions.\n  - Here the particles have species labels with anti-alignment between species.\n  - Your system has one species with pure ferromagnetic alignment, so opposite-travelling lanes would be self-organised rather than imposed. That difference probably matters mechanistically.\n- **Bidirectional Vicsek-type lane model.** A preprint on Zenodo reports a lane phase. In that phase polar order is small, nematic order is high, and the phase is absent from the standard Vicsek model. The preprint assigns each particle one of two desired directions, so it also differs from your system. Its claim that lanes are absent in standard Vicsek is mildly relevant to your finding. I could not verify its authorship or peer-review status.\n- **Counter-propagating macrobands.** Taming polar active matter with moving substrates (New J. Phys., 2018). Bands comoving with a substrate can later reverse, started by one counter-propagating band that consumes the others. This needs an external moving potential and does not produce stable lanes.\n- **Band collisions.** Constant-velocity noisy bands were found to be unstable in head-on collisions. That is a different model from yours. The result suggests collisions between opposite bands in plain Vicsek are normally destructive, which is consistent with your very low success rate of 1 in 24. A persistent lane state would need the bands to be spatially separated.\n\n**3. Searches run**\n- Vicsek counter-propagating bands, lanes, opposite directions\n- Solon, Chat\u00e9 and Tailleur microphase separation\n- Vicsek travelling bands, antiparallel, multiple bands in a periodic box\n- K\u00fcrsten and Ihle cross sea\n- Chat\u00e9 et al. 2008 bands\n- Vicsek bands in opposite directions, stable, periodic domain\n- Vicsek antiparallel domains, domain walls\n- Vicsek bands moving side by side in opposite directions\n\n**4. Confidence: medium-low**\n- I could not read full texts, only abstracts and citing snippets.\n- Large-system Vicsek band papers may contain a passing mention of zero-net-polarisation or antiparallel band states that the search did not surface.\n- Your result is also a rare outcome (1 of 24 starts) and is metastable. Papers that report only typical outcomes would not mention it.\n- The \"100 million steps\" persistence claim is not addressed anywhere I found.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"active matter / dry aligning polar self-propelled particles (standard 2D Vicsek model, metric alignment, angular noise)\", \"standard_name\": \"Vicsek model, liquid-gas coexistence with microphase-separated travelling bands (cross-sea / antiparallel-band relatives)\", \"confidence\": \"low\", \"citations\": [\"Chat\u00e9, Ginelli, Gr\u00e9goire, Raynaud 2008, Phys Rev E 77, 046113 - comprehensive study of Vicsek-style models in 2D/3D (band results known from citing literature, abstract only read)\", \"Solon, Chat\u00e9, Tailleur 2015, Phys Rev Lett 114, 068101 - flocking transition as liquid-gas with microphase separation of bands (verified via citing reference lists only)\", \"Chat\u00e9 2016, Eur Phys J Special Topics 225, 2099 - lecture-note review of the Vicsek model: transverse bands settle into a smectic arrangement of travelling bands (author inferred from content)\", \"K\u00fcrsten & Ihle 2020, Phys Rev Lett 125, 188003 - standard Vicsek has a cross sea phase in large systems (tilted bands in two directions, polar ordered)\", \"Chatterjee, Mangeat, Noh, Rieger 2023, Phys Rev E 107, 024607 - two-species Vicsek model with antiparallel-flocking state (bands of two species travelling in opposite directions; needs interspecies anti-alignment) (year inferred from search age field)\", \"Zenodo preprint 'Lane Formation in a Bidirectional Vicsek-Type Model without Explicit Segregating Interactions' - lane phase reported but absent in standard Vicsek; particles carry two desired directions (authorship and peer review not verified)\"], \"searches\": [\"Vicsek model counter-propagating bands lanes opposite directions long-lived large system\", \"Solon Chat\u00e9 Tailleur microphase separation flocking models essential role non-equilibrium fluctuations\", \"Vicsek model traveling bands reversal antiparallel bands stable multiple bands periodic box\", \"K\u00fcrsten Ihle Dry active matter exhibits a self-organized cross sea phase\", \"Chat\u00e9 Ginelli Gr\u00e9goire Raynaud Collective motion of self-propelled particles interacting without cohesion bands\", \"Vicsek model very large system bands counter-propagating parallel lanes stable microphase separation Solon 2015\", \"Vicsek model polar bands moving in opposite directions coexist stable counter-propagating bands periodic domain simulation\", \"K\u00fcrsten Ihle cross sea phase Vicsek arXiv band phase discontinuous transitions large systems tilted bands\", \"Vicsek model antiparallel domains opposite polarization stripes domain wall metastable bands\", \"Vicsek model two populations of bands moving in opposite directions side by side shear interface bands\"], \"notes\": \"Model and bands are firmly known; a stable multi-lane state of opposite-travelling band trains in single-species Vicsek was not found (closest: cross-sea phase, two-species Vicsek APF state, bidirectional Vicsek lane preprint). Only abstracts and citing snippets were read, so full-text mentions may exist. The 1/24 random-start rate and 1e8-step persistence are not addressed in the sources found. Check that rho=1, v0=0.5 puts the chosen noise window inside the band/coexistence regime.\"}\n```",
+ "checked": "2026-11-03 04:08:30"
+}

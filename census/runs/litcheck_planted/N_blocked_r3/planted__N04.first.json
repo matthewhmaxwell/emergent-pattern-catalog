@@ -1,0 +1,93 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "odd/chiral active matter (transverse pairwise forces) in 2D crystals; Brownian dynamics, anisotropic Lennard-Jones particles",
+ "standard_name": "odd crystal melting / chiral-activity-mediated (re-entrant) melting of 2D solids",
+ "confidence": "low",
+ "citations": [
+  "Motile dislocations knead odd crystals into whorls, Nature Physics (authors and year not verified in search results; likely ~2021-22) - transverse forces in colloidal spinners produce odd crystals with motile dislocations",
+  "Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (year not shown, likely ~2025) - odd/nonreciprocal force driven melting via dislocations",
+  "Odd active solids: vortices, velocity oscillations and dissipation-free modes, New J. Phys. 2025 (doi 10.1088/1367-2630/add366) - odd interactions in a thermal 2D solid",
+  "Reentrant melting of scarred odd crystals by self-shear, Nature Communications 2026 (s41467-026-68510-4) - chiral-activity-mediated re-entrant melting in a confined spinner crystal",
+  "Crystallization of chiral active Brownian particles at low densities, Phys. Rev. E (doi 10.1103/yntx-ss9r; year not shown in results) - re-entrant melting with chirality in chiral ABPs",
+  "Simulation of melting of two-dimensional Lennard-Jones solids, Phys. Rev. B 83, 214108 (2011) - passive KTHNY two-stage melting with hexatic phase"
+ ],
+ "searches": [
+  "elliptical particles transverse non-conservative pair force chiral active solid melting reentrant crystallization",
+  "odd interactions perpendicular pair force 2D crystal melting restored order hexatic",
+  "Gay-Berne ellipses chiral active transverse force melting",
+  "odd active matter crystal melting re-ordering large odd force anisotropic",
+  "Lennard-Jones transverse odd force ratio solid melts at zero temperature",
+  "nonequilibrium melting 2D solid perpendicular pair forces hexatic LJ",
+  "chiral interactions transverse forces LJ solid recrystallizes reentrant",
+  "odd elasticity crystal thermal fluctuations melting",
+  "transverse force active elliptical particles activity-induced melting re-entrant ordering"
+ ],
+ "notes": "No paper found with this exact model (orientation-dependent LJ ellipses plus LJ-magnitude transverse force, e_a/e_p swept 0-33). The re-entrance at e_a/e_p~33 is not confirmed in the literature I found; related re-entrance exists in odd or chiral systems with different mechanisms (confinement and self-shear; self-propelled circling). Authors and years for some citations were not visible in the search results and were not guessed. Full texts were not read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "elliptical particles transverse non-conservative pair force chiral active solid melting reentrant crystallization Brownian dynamics"
+  },
+  {
+   "query": "odd interactions perpendicular pair force 2D crystal melting restored order high activity hexatic"
+  },
+  {
+   "query": "Gay-Berne ellipses chiral active transverse force non-reciprocal melting solid reentrant order Brownian dynamics bond-orientational order defects"
+  },
+  {
+   "query": "odd active matter crystal melting then re-ordering at large odd force, passive hexatic, anisotropic particles simulation"
+  },
+  {
+   "query": "Lennard-Jones transverse \"odd\" force strength ratio solid melts at zero temperature order restored strong activity ellipses orientation-dependent potential"
+  },
+  {
+   "query": "nonequilibrium melting 2D solid perpendicular pair forces chiral active particles hexatic two-step melting Lennard-Jones simulation tangential non-conservative force"
+  },
+  {
+   "query": "chiral interactions transverse forces Brownian particles Lennard-Jones solid melts then recrystallizes at large chirality \"odd\" reentrant solid phase diagram"
+  },
+  {
+   "query": "odd elasticity crystal thermal fluctuations transverse interaction melting temperature lowered Brownian simulation hexatic"
+  },
+  {
+   "query": "transverse force active elliptical particles solid activity-induced melting and re-entrant ordering, thermal melting hexatic, Brownian dynamics 10000 particles"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1367-2630/add366",
+  "https://link.aps.org/doi/10.1103/yntx-ss9r",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437122008706",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.131.108301",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://surface.syr.edu/cgi/viewcontent.cgi?article=1159&context=phy",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167732219314862",
+  "https://www.nature.com/articles/s41467-021-25545-z",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.nature.com/articles/s41467-019-11362-y",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8463610/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC8463610",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7435481/",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.83.214108",
+  "https://dx.doi.org/10.1103/PhysRevB.83.214108",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/k8vq-dw2w",
+  "https://link.aps.org/doi/10.1103/yntx-ss9r",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral",
+  "https://www.princeton.edu/~akosmrlj/theses/2023_Bahri.pdf",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/acca3e/ampdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11297967/",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.012013",
+  "https://digital.csic.es/bitstream/10261/305384/1/passive-Brownian.pdf",
+  "https://link.springer.com/article/10.1140/epje/s10189-022-00230-1"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, with medium-low confidence.**\n\n**1. Model family.** This is odd or chiral active matter, a branch of active matter. Particles interact through a conservative potential plus a pairwise transverse (perpendicular) force that obeys action\u2013reaction but exerts a net torque on each pair. The system is a dense 2D solid under Brownian dynamics. The literature calls this an \"odd crystal\", an \"odd active solid\" or a \"chiral Lennard-Jones\" system. The particles are Gay-Berne-like ellipses, and the question is how odd activity and temperature affect melting and six-fold order.\n\n**2. What the literature describes.**\n- **Earliest clear source.** The search results show \"Motile dislocations knead odd crystals into whorls\" (Nature Physics). I did not see its authors, year or volume in the results, and the age metadata suggests about 2021. Adding transverse forces to colloidal spinners produces odd elastic crystals with self-propelled defects, which organise into a \"self-kneading\" crystal whorl state. Simulations of a minimal model and of fully resolved hydrodynamics show this state is generic. I checked the title and venue against the search result, but I did not verify the authors or year.\n- **Dislocations and melting.** \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals\" (PNAS). The year is not shown in the results, though the age metadata suggests about 2025. Odd forces satisfy Newton's action\u2013reaction symmetry, but their transverse direction produces a net torque on a pair of particles. The paper treats melting driven by transverse or nonreciprocal forces, with dislocation proliferation and fission.\n- **Odd active solids with a thermal bath.** \"Odd active solids: vortices, velocity oscillations and dissipation-free modes\" (New J. Phys., 2025, DOI 10.1088/1367-2630/add366). The paper studies a 2D odd active solid in contact with a thermal bath under underdamped dynamics. The transverse forces are termed odd interactions, and they inject energy and drive the system away from equilibrium.\n- **Re-entrance in a related system.** \"Reentrant melting of scarred odd crystals by self-shear\" (Nature Communications, 2026, s41467-026-68510-4). Increasing chiral activity produced odd radial stresses and a chiral-activity-mediated reentrant melting transition at fixed areal spinner density. The mechanism is confinement, grain-boundary scars and self-shear, so it differs from your bulk periodic system.\n- **Re-entrance in chiral active Brownian particles.** \"Crystallization of chiral active Brownian particles at low densities\" (Phys. Rev. E; the DOI is yntx-ss9r and the year is not shown in the results). The paper reports a re-entrant melting transition in the fluid\u2013crystal phase diagram as a function of the circle radius. This is self-propelled circling, not pairwise transverse forces.\n- **Passive baseline.** Passive 2D Lennard-Jones melting is known to follow KTHNY two-stage melting with a hexatic phase. See Bagchi and coworkers, Phys. Rev. B 83, 214108, and the paper's finding of a solid to hexatic fluid transition at Tm, then hexatic to isotropic fluid at Ti. The passive \"partial melting\" at T\u22484.25, where the solid is only six-fold oriented, matches this hexatic picture.\n\n**3. What differs, and whether it matters.**\n- I found no paper with this exact combination: orientation-dependent LJ ellipses, a pairwise transverse force with LJ magnitude, and a sweep of e_a/e_p from 0 to 33 with T from 0 to 6.\n- The following parts of your observations are covered by known physics:\n  - Transverse forces melt or destabilise a 2D crystal through motile dislocations.\n  - A passive 2D solid has a hexatic intermediate phase.\n  - Re-entrant ordering has been reported in related odd or chiral crystals.\n- I found nothing on the specific result that order returns at e_a/e_p\u224833. This would be an odd-crystal analogue of the re-entrance reported elsewhere, and I could not confirm it for this model.\n- The anisotropic shape and rotating orientations could change the mechanism, for example by letting particles align with the circulating flow. I cannot say whether that matters.\n- I did not find any source describing the T=0 disorder at e_a/e_p=2 as a \"threshold\".\n\n**4. Confidence.** Medium-low. The general behaviour (odd force melts the solid, with possible re-entrance) has close precedents. The specific model and quantitative thresholds were not found. My searches were limited, and I could not read the full texts.\n\n**Searches run:**\n- elliptical particles with a transverse non-conservative pair force, chiral active solid, re-entrant crystallization\n- odd interactions, perpendicular pair force, 2D crystal melting, restored order\n- Gay-Berne ellipses with chiral transverse force and melting\n- odd active matter crystal with re-entrance and anisotropic particles\n- Lennard-Jones transverse \"odd\" force with a solid that melts at T=0\n- non-equilibrium 2D melting with perpendicular pair forces and hexatic two-step melting\n- chiral transverse forces with Lennard-Jones recrystallization\n- odd elasticity crystal with thermal fluctuations\n- transverse force on elliptical particles with activity-induced melting and re-ordering\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"odd/chiral active matter (transverse pairwise forces) in 2D crystals; Brownian dynamics, anisotropic Lennard-Jones particles\", \"standard_name\": \"odd crystal melting / chiral-activity-mediated (re-entrant) melting of 2D solids\", \"confidence\": \"low\", \"citations\": [\"Motile dislocations knead odd crystals into whorls, Nature Physics (authors and year not verified in search results; likely ~2021-22) - transverse forces in colloidal spinners produce odd crystals with motile dislocations\", \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (year not shown, likely ~2025) - odd/nonreciprocal force driven melting via dislocations\", \"Odd active solids: vortices, velocity oscillations and dissipation-free modes, New J. Phys. 2025 (doi 10.1088/1367-2630/add366) - odd interactions in a thermal 2D solid\", \"Reentrant melting of scarred odd crystals by self-shear, Nature Communications 2026 (s41467-026-68510-4) - chiral-activity-mediated re-entrant melting in a confined spinner crystal\", \"Crystallization of chiral active Brownian particles at low densities, Phys. Rev. E (doi 10.1103/yntx-ss9r; year not shown in results) - re-entrant melting with chirality in chiral ABPs\", \"Simulation of melting of two-dimensional Lennard-Jones solids, Phys. Rev. B 83, 214108 (2011) - passive KTHNY two-stage melting with hexatic phase\"], \"searches\": [\"elliptical particles transverse non-conservative pair force chiral active solid melting reentrant crystallization\", \"odd interactions perpendicular pair force 2D crystal melting restored order hexatic\", \"Gay-Berne ellipses chiral active transverse force melting\", \"odd active matter crystal melting re-ordering large odd force anisotropic\", \"Lennard-Jones transverse odd force ratio solid melts at zero temperature\", \"nonequilibrium melting 2D solid perpendicular pair forces hexatic LJ\", \"chiral interactions transverse forces LJ solid recrystallizes reentrant\", \"odd elasticity crystal thermal fluctuations melting\", \"transverse force active elliptical particles activity-induced melting re-entrant ordering\"], \"notes\": \"No paper found with this exact model (orientation-dependent LJ ellipses plus LJ-magnitude transverse force, e_a/e_p swept 0-33). The re-entrance at e_a/e_p~33 is not confirmed in the literature I found; related re-entrance exists in odd or chiral systems with different mechanisms (confinement and self-shear; self-propelled circling). Authors and years for some citations were not visible in the search results and were not guessed. Full texts were not read.\"}\n```",
+ "checked": "2026-11-03 03:22:44"
+}

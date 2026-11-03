@@ -1,0 +1,91 @@
+{
+ "class_id": "planted:D01",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "cyclic dominance / rock-paper-scissors on a lattice; 3-colour cyclic cellular automaton (1D) coupled into a quasi-1D multi-row strip",
+ "standard_name": "Quasi-one-dimensional cyclic competition (3 coupled parallel chains): coarsening-to-active-steady-state transition, DP-class; single-row case is the 1D 3-colour cyclic cellular automaton with t^{1/2} clustering",
+ "confidence": "medium",
+ "citations": [
+  "Mitarai, Gunnarson, Pedersen, Rosiek, Sneppen 2016, Phys. Rev. E 93, 042408 (arXiv:1512.00769) - quasi-1D cyclic competition; 2 rows coarsen completely, 3 rows give active steady state with finite domain size; critical invasion rate, DP-consistent exponents; parallel and sequential updates",
+  "Fisch 1992, Annals of Probability 20(3):1528-1548 - 1D three-colour cyclic CA clusters with mean cluster size ~ c t^{1/2}",
+  "Frachebourg, Krapivsky, Ben-Naim 1996, Phys. Rev. E (arXiv cond-mat/9606069) - 1D cyclic Lotka-Volterra, domain size exponent 1/2 (parallel) and 3/4 (sequential) for N=3",
+  "Fisch 1990, J. Theoretical Probability 3:311-338 - 1D cyclic CA fluctuation/fixation (cited via other papers, not opened)"
+ ],
+ "searches": [
+  "cyclic Lotka-Volterra one dimension spatial organization domain coarsening rock-paper-scissors",
+  "rock-paper-scissors strip quasi-one-dimensional lattice few rows coupled chains coexistence stable patches",
+  "cyclic dominance three species ladder coupled rings synchronous cellular automaton spiral waves minimum width",
+  "cyclic cellular automaton thin strip width finite rows fixation versus clustering Fisch",
+  "coupled one-dimensional chains cyclic competition three species interchain coupling coarsening arrest domain size"
+ ],
+ "notes": "Only the abstract and snippets of Mitarai et al. were seen, so the specific numbers (p_c=0.000471, p^-0.5 steady-length exponent, 10^4 transient) are not verified against the paper. Their critical value depends on the implementation (5000-cell rows, vertical pair-pick probability). The p^-1/2 scaling is consistent with a 1D t^{1/2} coarsening argument cut off at t~1/p. Behaviour for 4+ rows is expected to be similar but not confirmed.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "cyclic Lotka-Volterra one dimension spatial organization domain coarsening rock-paper-scissors"
+  },
+  {
+   "query": "rock-paper-scissors strip quasi-one-dimensional lattice few rows coupled chains coexistence stable patches"
+  },
+  {
+   "query": "cyclic dominance three species ladder coupled rings synchronous cellular automaton spiral waves minimum width"
+  },
+  {
+   "query": "cyclic cellular automaton thin strip width finite rows fixation versus clustering Fisch"
+  },
+  {
+   "query": "coupled one-dimensional chains cyclic competition three species interchain coupling coarsening arrest domain size"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/cond-mat/9606069",
+  "https://cnls.lanl.gov/~ebn/pubs/lv/lv-pub.pdf",
+  "https://www.researchgate.net/publication/386686894_Survival_behavior_in_the_cyclic_Lotka-Volterra_model_with_a_randomly_switching_reaction_rate",
+  "https://arxiv.org/pdf/1608.08932",
+  "https://arxiv.org/pdf/1903.12622",
+  "https://inis.iaea.org/records/5bpxm-1a003",
+  "https://arxiv.org/pdf/2301.00556",
+  "https://arxiv.org/pdf/2305.00590",
+  "https://arxiv.org/pdf/2405.05006",
+  "https://www.researchgate.net/publication/346161708_Diffusively-Coupled_Rock-Paper-Scissors_Game_with_Mutation_in_Scale-Free_Hierarchical_Networks",
+  "https://arxiv.org/html/1207.0485v1",
+  "https://www.nature.com/articles/s41598-018-25353-4",
+  "https://www.proquest.com/scholarly-journals/diffusively-coupled-rock-paper-scissors-game-with/docview/2451757553/se-2",
+  "https://arxiv.org/pdf/1004.5275",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.81.021917",
+  "https://scholarworks.moreheadstate.edu/cgi/viewcontent.cgi?article=1008&context=mejam_archives",
+  "https://www.researchgate.net/publication/344083986_Topological_phase_transition_in_coupled_rock-paper-scissor_cycles",
+  "https://www.researchgate.net/publication/49751077_Spatial_rock-paper-scissors_models_with_inhomogeneous_reaction_rates",
+  "https://arxiv.org/html/1210.8376",
+  "https://arxiv.org/pdf/1210.8376",
+  "https://arxiv.org/pdf/1903.12622",
+  "https://arxiv.org/pdf/1609.04141",
+  "https://arxiv.org/pdf/1611.05854",
+  "https://www.researchgate.net/publication/344621371_Numerical_continuation_of_spiral_waves_in_heteroclinic_networks_of_cyclic_dominance",
+  "https://arxiv.org/abs/1210.8376",
+  "https://www.cs.cornell.edu/~kt/publication/2019-tomlinson-cyclic-cellular-automaton/2019-tomlinson-cyclic-cellular-automaton.pdf",
+  "https://ui.adsabs.harvard.edu/abs/2013EL....10228012S/abstract",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/adfd05",
+  "https://arxiv.org/pdf/2108.06404",
+  "https://arxiv.org/html/1711.04741",
+  "https://math.ucdavis.edu/~gravner/papers/cca.pdf",
+  "https://link.springer.com/article/10.1007/BF01890834",
+  "https://projecteuclid.org/euclid.aop/1176989705",
+  "https://www.stat.cmu.edu/~cshalizi/462/readings/Cyclic%20Cellular%20Automata%20in%20Two%20Dimensions%20(Fisch,%20Gravner%20and%20Griffeath).pdf",
+  "https://www.researchgate.net/publication/2895807_Quantifying_Self-Organization_in_Cyclic_Cellular_Automata",
+  "https://www.semanticscholar.org/paper/CYCLIC-CELLULAR-AUTOMATA-IN-TWO-DIMENSIONS-to-T-Fisch-Gravner/b8e718aee35bea106e777fd4a633b4e2d8e3d492",
+  "https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8",
+  "https://www.researchgate.net/publication/285648290_Three_is_much_more_than_two_in_coarsening_dynamics_of_cyclic_competitions",
+  "https://ar5iv.labs.arxiv.org/html/1205.4914",
+  "https://arxiv.org/pdf/1307.3097",
+  "https://arxiv.org/abs/1512.00769",
+  "https://arxiv.org/pdf/1811.06780",
+  "https://pubmed.ncbi.nlm.nih.gov/27176330/",
+  "https://arxiv.org/pdf/1512.00769",
+  "https://www.researchgate.net/publication/235469473_Interchain_coupling_induced_localizationdelocalization_in_coupled_one-dimensional_ordered_and_disordered_chains",
+  "https://researchprofiles.ku.dk/en/publications/three-is-much-more-than-two-in-coarsening-dynamics-of-cyclic-comp/"
+ ],
+ "full_text": "**Verdict: KNOWN.** Mitarai, Gunnarson, Pedersen, Rosiek and Sneppen (2016) describe this system and the 3-row threshold. I could not read the paper's body text, so I did not check the numerical values (critical probability, exponents).\n\n**1. Model family.** This is a cyclic-dominance (rock-paper-scissors) system, equivalent to the 3-colour cyclic cellular automaton (CCA). Your rule (1) is the one-dimensional 3-colour CCA with synchronous updates. Your rule (2), the rare vertical invasions, couples several such rings into a quasi-one-dimensional \"ladder\" of parallel ecosystems.\n\n**2. Where each behaviour is described.**\n- **Uncoupled rows.** A single row coarsens, and boundaries decay as t^-1/2.\n  - Fisch (1992, Annals of Probability 20(3):1528\u20131548) proved that the 1D three-colour CCA clusters, with mean cluster size asymptotic to c\u00b7t^(1/2). Boundary density is the inverse of cluster size, so it falls as t^-1/2. This matches your single_row_boundary_decay_exponent of 0.5.\n  - Frachebourg, Krapivsky and Ben-Naim (\"Spatial organization in cyclic Lotka-Volterra systems\", Phys. Rev. E, 1996) give the exponent for the stochastic version. They report l(t) ~ t^\u03b1 with \u03b1 = 3/4 for N=3 with sequential dynamics and \u03b1 = 1/2 for parallel dynamics.\n  - The parallel-update value (1/2) agrees with Fisch's CCA result, and the sequential-update value of 3/4 matches your \"one random horizontal pair at a time\" variant.\n- **Coupled rows (the main result).** This is Mitarai et al., \"Three is much more than two in coarsening dynamics of cyclic competitions\", Phys. Rev. E 93, 042408 (2016), arXiv:1512.00769.\n  - They study a quasi-one-dimensional cyclic competition with rare invasions between parallel linear ecosystems. Going from two to three parallel subsystems allows a transition from complete coarsening to an active steady state where domain size stays finite. This matches your min_rows_for_lasting_patches = 3.\n  - The transition happens whether updates are parallel for all sites or random and sequential. Your two update schemes (synchronous horizontal, and one random horizontal pair at a time) are therefore both covered.\n  - With parallel dynamics, a second transition separates the active steady state from coarsening in the three-line system as the invasion rate varies. The authors identify a critical parameter, and the density of active boundaries has critical exponents consistent with directed percolation. This matches your critical_vertical_probability, the point above which rows lock together and patches grow.\n  - In the active state there are localized bursts of dislocations, followed by longer periods of coarsening. This is plausibly the source of your transient growth phase.\n  - From the snippet, the steady domain size at small p appears to be discussed with a scaling argument. Your p^-0.5 exponent is what you would expect, since the steady length is roughly where independent 1D coarsening (length ~ t^1/2) is interrupted at a time ~1/p. I could not confirm that exact exponent in the text I saw.\n- **Review and context.** I found no dedicated review of the coupled-ladder case. Context comes from Fisch's 1D CCA as the simplest cyclic-dominance spatial model and from the Szolnoki et al. review, \"Cyclic dominance in evolutionary games: a review\" (J. R. Soc. Interface, 2014). The review title appears in reference lists in my results, but I did not open it.\n\n**3. Verification.** The Fisch 1992 and Mitarai 2016 entries were checked against the search results (arXiv, PubMed and Project Euclid pages). The Frachebourg et al. exponents come from an INIS-IAEA record and the arXiv listing cond-mat/9606069. I did not independently confirm the journal and year for Frachebourg et al. or the Szolnoki et al. review from the results. Fisch's other CCA papers (J. Theoret. Probab. 3, 1990, and the Bramson\u2013Griffeath 1989 flux and fixation paper) appear only as references in other works.\n\n**4. Confidence: medium-high.**\n- The structure (cyclic CA, parallel or sequential update, rows coupled by rare vertical invasions, the 2\u21923 row threshold, a critical coupling, and the t^-1/2 single-row decay) is directly in the literature.\n- Medium rather than high because I did not read the Mitarai et al. text. The specific numbers (p_c \u2248 0.000471 for 5000-cell rows, the -0.5 exponent, the 10^4 transient) are unchecked, and p_c depends on the details of the implementation.\n- The \"4 or more rows\" variants would be expected to behave like the 3-row case, but I did not confirm that.\n\n**Searches run:**\n- cyclic Lotka-Volterra one dimension coarsening\n- rock-paper-scissors strip or few rows\n- cyclic CA ladder or coupled rings\n- cyclic CA strip (Fisch)\n- coupled 1D chains cyclic competition, interchain coupling\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"cyclic dominance / rock-paper-scissors on a lattice; 3-colour cyclic cellular automaton (1D) coupled into a quasi-1D multi-row strip\", \"standard_name\": \"Quasi-one-dimensional cyclic competition (3 coupled parallel chains): coarsening-to-active-steady-state transition, DP-class; single-row case is the 1D 3-colour cyclic cellular automaton with t^{1/2} clustering\", \"confidence\": \"medium\", \"citations\": [\"Mitarai, Gunnarson, Pedersen, Rosiek, Sneppen 2016, Phys. Rev. E 93, 042408 (arXiv:1512.00769) - quasi-1D cyclic competition; 2 rows coarsen completely, 3 rows give active steady state with finite domain size; critical invasion rate, DP-consistent exponents; parallel and sequential updates\", \"Fisch 1992, Annals of Probability 20(3):1528-1548 - 1D three-colour cyclic CA clusters with mean cluster size ~ c t^{1/2}\", \"Frachebourg, Krapivsky, Ben-Naim 1996, Phys. Rev. E (arXiv cond-mat/9606069) - 1D cyclic Lotka-Volterra, domain size exponent 1/2 (parallel) and 3/4 (sequential) for N=3\", \"Fisch 1990, J. Theoretical Probability 3:311-338 - 1D cyclic CA fluctuation/fixation (cited via other papers, not opened)\"], \"searches\": [\"cyclic Lotka-Volterra one dimension spatial organization domain coarsening rock-paper-scissors\", \"rock-paper-scissors strip quasi-one-dimensional lattice few rows coupled chains coexistence stable patches\", \"cyclic dominance three species ladder coupled rings synchronous cellular automaton spiral waves minimum width\", \"cyclic cellular automaton thin strip width finite rows fixation versus clustering Fisch\", \"coupled one-dimensional chains cyclic competition three species interchain coupling coarsening arrest domain size\"], \"notes\": \"Only the abstract and snippets of Mitarai et al. were seen, so the specific numbers (p_c=0.000471, p^-0.5 steady-length exponent, 10^4 transient) are not verified against the paper. Their critical value depends on the implementation (5000-cell rows, vertical pair-pick probability). The p^-1/2 scaling is consistent with a 1D t^{1/2} coarsening argument cut off at t~1/p. Behaviour for 4+ rows is expected to be similar but not confirmed.\"}\n```",
+ "checked": "2026-11-03 02:28:36"
+}

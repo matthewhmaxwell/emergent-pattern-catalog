@@ -1,0 +1,108 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing, Schnakenberg kinetics) with nonlinear cross-diffusion / cross-taxis, nonreciprocal coupling",
+ "standard_name": "cross-diffusion-induced/modified Turing patterns in the Schnakenberg model (pattern morphology and amplitude vs cross-diffusion strength)",
+ "confidence": "medium",
+ "citations": [
+  "Madzvamuse, Ndakwo, Barreira 2014/15, J. Math. Biol. 70:709 - linear cross-diffusion in Schnakenberg/GM/Prigogine-Lefever; enlarged and different Turing parameter spaces",
+  "Ricerche di Matematica 65:449 (2016), arXiv:1501.04890 - weakly nonlinear analysis of Schnakenberg with linear cross-diffusion; supercritical vs subcritical, squares/hexagons",
+  "Nonlinear Dynamics 2022, 'Cross-diffusion induced spatiotemporal patterns in Schnakenberg reaction-diffusion model' - hexagon, stripe and coexistence patterns vs cross-diffusion",
+  "Menou, Luo, Zwicker 2023, J. R. Soc. Interface 20:20230244 - activator-inhibitor interactions induce cross-diffusion; weak repulsion promotes, attraction suppresses, strong interactions give phase separation",
+  "Applied Math. Modelling (ScienceDirect S0307904X17306960; authors/year not read) - nonlinear cross-diffusion turns spot patterns into stripes/labyrinth or homogeneous state",
+  "Villar-Sepulveda & Champneys 2023, Bull. Math. Biol. (bioRxiv 2023.05.30.542795) - general reaction-cross-diffusion framework incl. chemotaxis; coupling can enhance or degrade patterning"
+ ],
+ "searches": [
+  "Schnakenberg model cross-diffusion Turing patterns spots stripes",
+  "Schnakenberg cross-diffusion taxis div(u grad v) amplitude suppression",
+  "cross-diffusion induced pattern formation review spots to stripes",
+  "nonlinear cross-diffusion Schnakenberg opposite sign amplitude non-monotonic",
+  "Turing patterns cross-taxis activator attracted to inhibitor gradient",
+  "Madzvamuse Ndakwo Barreira cross-diffusion-driven instability",
+  "Menou Luo Zwicker physical interactions non-ideal fluids Turing",
+  "nonreciprocal cross-diffusion Turing patterns strong coupling suppressed"
+ ],
+ "notes": "No source found for the exact antisymmetric nonlinear-taxis sweep on Schnakenberg with a=0.015, b=10, D2/D1=1000. Qualitative phenomena (cross-diffusion alters or erases Turing patterns, spot/stripe changes, non-monotonic effect of coupling) are documented in close relatives. Most Schnakenberg cross-diffusion papers use linear constant-coefficient cross-diffusion, which could matter for large-amplitude behaviour. Some cited papers were seen only as abstracts or snippets.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "Schnakenberg model cross-diffusion Turing patterns spots stripes cross-diffusion coefficient"
+  },
+  {
+   "query": "Schnakenberg cross-diffusion taxis div(u grad v) pattern formation amplitude suppression"
+  },
+  {
+   "query": "cross-diffusion induced pattern formation reaction-diffusion review Turing spots to stripes"
+  },
+  {
+   "query": "nonlinear cross-diffusion Turing patterns Schnakenberg taxis term opposite sign pattern amplitude non-monotonic, spots stripes vanish large cross-diffusion"
+  },
+  {
+   "query": "Turing patterns with cross-taxis: activator attracted to inhibitor gradient, pattern formation reaction-diffusion-advection"
+  },
+  {
+   "query": "Madzvamuse Ndakwo Barreira cross-diffusion-driven instability for reaction-diffusion systems analysis and simulations"
+  },
+  {
+   "query": "Physical interactions in non-ideal fluids promote Turing patterns Weyer Brauns Zwicker Royal Society Open Science"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion Turing patterns activator inhibitor chemotactic attraction repulsion strong coupling pattern suppressed"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://arxiv-export-lb.library.cornell.edu/abs/1501.04890",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://thatsmaths.com/2013/04/25/spots-and-stripes/",
+  "https://web.mst.edu/~zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727892100004X",
+  "https://link.springer.com/article/10.1007/s11587-016-0267-y",
+  "https://pubmed.ncbi.nlm.nih.gov/38170298",
+  "https://link.springer.com/article/10.1007/s11538-026-01669-5",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sas.rochester.edu/mth/undergraduate/honorspaperspdfs/cierratinson2022.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevE.110.034402",
+  "https://bio.libretexts.org/Bookshelves/Evolutionary_Developmental_Biology/Evolutionary_Developmental_Biology_(Rivera)/07:_Patterning/7.1:_Turing_Patterns_to_Generate_Stripes_and_Spots",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://doi.org/10.3390/math13152404",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v1.full",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10336379/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://pubmed.ncbi.nlm.nih.gov/24671430/",
+  "https://ouci.dntb.gov.ua/en/works/9ZkBRPv7/",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "http://www.aimsciences.org/article/doi/10.3934/dcds.2016.36.2133",
+  "https://link.springer.com/chapter/10.1007/978-3-319-63082-3_61",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2018163?viewType=HTML",
+  "https://www.mmnp-journal.org/articles/mmnp/ref/2016/05/mmnp2016115p4/mmnp2016115p4.html",
+  "https://www.wikidata.org/wiki/Q46913950",
+  "https://royalsocietypublishing.org/rsif/article/20/204/20230244/90455/Physical-interactions-in-non-ideal-fluids-promote",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10336379/",
+  "https://www.science.org/doi/10.1126/sciadv.adj2457",
+  "https://rs.figshare.com/collections/Supplementary_material_from_Physical_interactions_in_non-ideal_fluids_promote_Turing_patterns_/6728735",
+  "https://pure.mpg.de/rest/items/item_3526301_2/component/file_3526347/content",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10631721/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10336379/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/vtnv-2hw6",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10336379/",
+  "https://royalsocietypublishing.org/rsif/article/20/204/20230244/90455/Physical-interactions-in-non-ideal-fluids-promote",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10336379/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium-low confidence.** This is the Schnakenberg Turing system with added nonlinear cross-taxis terms. Its spot and stripe patterns, and the fact that cross-diffusion can enhance or suppress them, are well documented. I found no source that reports your exact setup: an antisymmetric \u00b1c taxis pair, a rise-then-fall pattern amplitude, and a spot-to-stripe-to-uniform sequence.\n\n**1. Model family**\n- It is a reaction-diffusion (Turing) system with Schnakenberg kinetics, an activator\u2013substrate-depletion scheme.\n- The terms c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u) are nonlinear cross-diffusion, or cross-taxis. The same form appears in chemotaxis and in diffusiophoresis models.\n- With c2 = \u2212c1, the coupling is nonreciprocal: one species is attracted to the other while the other is repelled.\n\n**2. What the literature shows**\n- **Schnakenberg with linear cross-diffusion (closest earliest source).** Madzvamuse, Ndakwo and Barreira (2014/15, *J. Math. Biol.* 70:709) derive cross-diffusion-driven instability conditions for Gierer\u2013Meinhardt, Prigogine\u2013Lefever and Schnakenberg kinetics. Unlike classical systems, one species no longer has to diffuse much faster than the other. The cross-diffusion-induced parameter spaces are substantially larger and different from those without cross-diffusion.\n- **Weakly nonlinear analysis of the same system.** Gambino/Lombardo-type follow-up work by Ricerche di Matematica (2016) found that the diffusion coefficients influence whether the Turing bifurcation is supercritical or subcritical. The patterns it classifies are squares, rhombi, rectangles and hexagons.\n- **Spots, stripes and mixed patterns as the cross-diffusion coefficient varies.** Schnakenberg-type papers report this directly. Examples are the Nonlinear Dynamics 2022 paper \"Cross-diffusion induced spatiotemporal patterns in Schnakenberg reaction\u2013diffusion model\" (hexagon-like, stripe-like and coexistence patterns) and a fractional Sel'kov\u2013Schnakenberg study in which the cross-diffusion coefficient controls the type of Turing pattern.\n- **Cross-diffusion can erase patterns.** In a ratio-dependent prey-predator model with nonlinear cross-diffusion, the cold-spot pattern may turn into a homogeneous steady state, a stripe/spot mixture or a labyrinth. I could not read the authors, journal or year from the search result, so treat this citation as incomplete.\n- **Closest physical analogue, with the same div(u\u2207v) structure.** Menou, Luo and Zwicker (2023, *J. R. Soc. Interface* 20:20230244) add interactions between activator and inhibitor to Turing systems. Weak repulsive interactions stabilize patterns by inducing cross-diffusion, while strong interactions lead to phase separation. Repulsion promotes pattern formation and attraction suppresses it. This is a non-monotonic dependence on coupling strength. It differs from your system because the interaction is reciprocal and derived from a free energy, and the kinetics are Hill\u2013Langmuir rather than Schnakenberg.\n- **Reviews and general frameworks.** I found no dedicated review of nonreciprocal Schnakenberg taxis. The nearest are Madzvamuse, Barreira and Gerisch (2017), \"Cross-Diffusion in Reaction-Diffusion Models: Analysis, Numerics, and Applications\" (ECMI 2016 proceedings), and Villar-Sep\u00falveda and Champneys's bilayer reaction-cross-diffusion paper (*Bull. Math. Biol.* 2023, bioRxiv 2023.05.30.542795). I only saw the Madzvamuse reference as a citation in other papers.\n- **Chemotaxis coupled to Turing systems.** \"Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction\u2013Diffusion and Chemotaxis\" (*Bull. Math. Biol.* 2023) is a relative, not an equivalent.\n\n**3. What differs and whether it matters**\n- Most Schnakenberg cross-diffusion papers use linear, constant-coefficient cross-diffusion. Yours is nonlinear, with fluxes proportional to u\u2207v and v\u2207u. Linear stability at the uniform state depends only on c\u00b7u* and c\u00b7v*. Late-stage behaviour such as amplitude saturation and the spot-to-stripe change can differ, because of the nonlinear flux and the depletion of the uniform state.\n- I found no source describing the opposite-sign (nonreciprocal) pairing with a peak in pattern amplitude near c \u2248 0.17 and uniformity by c \u2248 0.49. A rise-then-fall of amplitude, and a spot-to-stripe-to-uniform sequence with increasing coupling, are qualitatively consistent with the cross-diffusion literature above. The specific numbers (0.17, 0.49) are parameter-dependent and not expected to appear in any paper.\n- The parameters (a=0.015, b=10, D2/D1=1000) are unusual, and I did not find them in the literature.\n\n**4. Confidence**\n- I am confident that the model class and the qualitative phenomena are known.\n- I am less sure about the exact antisymmetric nonlinear-taxis sweep. I ran only 10 searches and did not read the full text of any paper that sweeps this coupling in Schnakenberg. A relevant paper on nonreciprocal or chemotactic Turing systems could have been missed.\n- Searches run:\n  - Schnakenberg cross-diffusion Turing spots/stripes\n  - Schnakenberg div(u\u2207v) taxis amplitude\n  - cross-diffusion pattern review\n  - nonlinear cross-diffusion non-monotonic amplitude\n  - cross-taxis Turing\n  - Madzvamuse et al. verification\n  - Menou/Zwicker verification\n  - nonreciprocal cross-diffusion Turing\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing, Schnakenberg kinetics) with nonlinear cross-diffusion / cross-taxis, nonreciprocal coupling\", \"standard_name\": \"cross-diffusion-induced/modified Turing patterns in the Schnakenberg model (pattern morphology and amplitude vs cross-diffusion strength)\", \"confidence\": \"medium\", \"citations\": [\"Madzvamuse, Ndakwo, Barreira 2014/15, J. Math. Biol. 70:709 - linear cross-diffusion in Schnakenberg/GM/Prigogine-Lefever; enlarged and different Turing parameter spaces\", \"Ricerche di Matematica 65:449 (2016), arXiv:1501.04890 - weakly nonlinear analysis of Schnakenberg with linear cross-diffusion; supercritical vs subcritical, squares/hexagons\", \"Nonlinear Dynamics 2022, 'Cross-diffusion induced spatiotemporal patterns in Schnakenberg reaction-diffusion model' - hexagon, stripe and coexistence patterns vs cross-diffusion\", \"Menou, Luo, Zwicker 2023, J. R. Soc. Interface 20:20230244 - activator-inhibitor interactions induce cross-diffusion; weak repulsion promotes, attraction suppresses, strong interactions give phase separation\", \"Applied Math. Modelling (ScienceDirect S0307904X17306960; authors/year not read) - nonlinear cross-diffusion turns spot patterns into stripes/labyrinth or homogeneous state\", \"Villar-Sepulveda & Champneys 2023, Bull. Math. Biol. (bioRxiv 2023.05.30.542795) - general reaction-cross-diffusion framework incl. chemotaxis; coupling can enhance or degrade patterning\"], \"searches\": [\"Schnakenberg model cross-diffusion Turing patterns spots stripes\", \"Schnakenberg cross-diffusion taxis div(u grad v) amplitude suppression\", \"cross-diffusion induced pattern formation review spots to stripes\", \"nonlinear cross-diffusion Schnakenberg opposite sign amplitude non-monotonic\", \"Turing patterns cross-taxis activator attracted to inhibitor gradient\", \"Madzvamuse Ndakwo Barreira cross-diffusion-driven instability\", \"Menou Luo Zwicker physical interactions non-ideal fluids Turing\", \"nonreciprocal cross-diffusion Turing patterns strong coupling suppressed\"], \"notes\": \"No source found for the exact antisymmetric nonlinear-taxis sweep on Schnakenberg with a=0.015, b=10, D2/D1=1000. Qualitative phenomena (cross-diffusion alters or erases Turing patterns, spot/stripe changes, non-monotonic effect of coupling) are documented in close relatives. Most Schnakenberg cross-diffusion papers use linear constant-coefficient cross-diffusion, which could matter for large-amplitude behaviour. Some cited papers were seen only as abstracts or snippets.\"}\n```",
+ "checked": "2026-11-03 02:28:12"
+}

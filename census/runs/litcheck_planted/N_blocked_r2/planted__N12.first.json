@@ -1,0 +1,113 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "statistical physics: 2D classical long-range XY model (BKT / Mermin-Wagner, marginal sigma=2)",
+ "standard_name": "2D long-range XY model at marginal sigma=2 (1/r^(2+sigma)); Gaussian spin-wave log-log decay of magnetization",
+ "confidence": "medium",
+ "citations": [
+  "Bruno 2001, PRL 87, 137203 - rigorous absence of order at T>0 for monotonic interactions with alpha >= 2D (covers 1/r^4 in 2D)",
+  "Giachetti, Defenu, Ruffo, Trombettoni 2021, PRL 127, 156801 - BKT with r^(-2-sigma) couplings, quasi-ordered phase for 7/4<sigma<2",
+  "Giachetti, Trombettoni, Ruffo, Defenu 2022, PRB 106, 014106 - BKT in classical and quantum long-range systems",
+  "Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 - MC of 2D LR XY; claims ferromagnetic order for sigma<=2",
+  "Yao, Xiao, Zhang, Deng, Fan 2025, PRB 112, 144429 (arXiv:2411.01811) - comprehensive MC; claims LRO and inverse-log saturation at sigma=2, which conflicts with this simulation and with Bruno's bound"
+ ],
+ "searches": [
+  "2D long-range XY 1/r^4 sigma=2 log magnetization decay BKT",
+  "Monte Carlo long-range XY 2D sigma=2 cluster correlation length",
+  "Giachetti Defenu Ruffo Trombettoni BKT long-range couplings",
+  "long-range XY d=2 sigma=2 marginal ln ln quasi-long-range order",
+  "Yao Xiao Zhang Deng Fan 2D long-range XY sigma=2",
+  "Giachetti BKT classical and quantum long-range systems",
+  "Bruno absence of magnetic order long-range Heisenberg XY",
+  "Xiao Yao Deng 2D XY ferromagnet long-range arXiv 2404.08498",
+  "long-range XY sigma=2 power of ln L spin-wave k^2 ln k"
+ ],
+ "notes": "The (ln L)^(-cT) law with c=1/(2 pi J_eff) follows from standard Gaussian spin-wave theory and is consistent with Bruno's theorem, but I found no paper stating it explicitly for sigma=2, so this is a derivation plus context. The Deng-group papers claim finite-T long-range order at sigma=2, which is a genuine conflict. The beta=8 exponent of 0.02 is not exactly proportional to T relative to beta=1 and may be noisy. The 2.24 power-law divergence exponent is not matched by any source found; the standard BKT form is exponential, so a power-law fit may be mimicking it.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "two-dimensional long-range XY model 1/r^4 interaction \u03c3=2 logarithmic magnetization decay Berezinskii-Kosterlitz-Thouless"
+  },
+  {
+   "query": "Monte Carlo long-range XY model two dimensions \u03c3=2 cluster algorithm correlation length transition"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings"
+  },
+  {
+   "query": "long-range XY model d=2 \u03c3=2 marginal \"ln ln\" quasi-long-range order logarithmic corrections spin waves Monte Carlo"
+  },
+  {
+   "query": "Yao Xiao Zhang Deng Fan two-dimensional long-range XY model \u03c3=2 arXiv marginal logarithmic order"
+  },
+  {
+   "query": "Giachetti Trombettoni Ruffo Defenu Berezinskii-Kosterlitz-Thouless transitions in classical and quantum long-range systems \u03c3=2 logarithmic"
+  },
+  {
+   "query": "Bruno Absence of spontaneous magnetic order at nonzero temperature in one- and two-dimensional Heisenberg and XY systems with long-range interactions"
+  },
+  {
+   "query": "Xiao Yao Deng Two-dimensional XY ferromagnet induced by long-range interaction arXiv 2404.08498 \u03c3=2 marginal"
+  },
+  {
+   "query": "long-range XY model \u03c3=2 two dimensions magnetization decays as power of ln L, spin-wave k^2 ln(1/k) dispersion, no long-range order, Bruno marginal"
+  }
+ ],
+ "result_urls": [
+  "https://en.wikipedia.org/wiki/Classical_XY_model",
+  "http://wiese.itp.unibe.ch/theses/descombes_master.pdf",
+  "https://iopscience.iop.org/article/10.1088/0305-4470/38/26/003",
+  "https://link.springer.com/chapter/10.1007/978-3-642-78083-7_11",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.144421",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.65.184405",
+  "https://www.sciencedirect.com/science/article/abs/pii/0550321381901541",
+  "https://inspirehep.net/literature/1861073",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://scholargps.com/scholars/14271713276393/guido-giachetti",
+  "https://iris.sissa.it/handle/20.500.11767/127058",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://www.sissa.it/it/news/berezinskiikosterlitzthouless-phase-transitions-longrange-couplings-nuovo-articolo-physical",
+  "https://pith.science/paper/2512.01956",
+  "https://pith.science/paper/2506.19637",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0550321399001595",
+  "https://www.osti.gov/etdeweb/biblio/21319062",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://pith.science/paper/2506.19637",
+  "https://pith.science/paper/2512.01956",
+  "https://zenodo.org/records/17206870",
+  "https://pith.science/paper/2609.12560",
+  "https://ino.cnr.it/?p=a13441&page_id=3403",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://arxiv-vanity.com/papers/2104.13217",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://inspirehep.net/authors/990980",
+  "https://journals.aps.org/prxquantum/abstract/10.1103/cww3-j1vd",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "http://www2.mpi-halle.mpg.de/theory_department/publications/abstract/ext/135/2001/",
+  "https://zenodo.org/records/1184413",
+  "https://www.nature.com/articles/s41586-023-05859-2",
+  "https://www.nature.com/articles/s41535-023-00591-6",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.87.137203",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.033046",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11976925/",
+  "https://doi.org/10.3390/sym12122061",
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://faculty.ustc.edu.cn/dengyoujin/en/zdylm/688809/list/index.htm",
+  "https://www.nature.com/articles/s42005-025-01947-z",
+  "https://pith.science/paper/2608.15120",
+  "https://pith.science/paper/2506.19637",
+  "https://en.wikipedia.org/wiki/Classical_XY_model",
+  "https://d-nb.info/1279433469/34",
+  "https://pith.science/paper/2512.01956"
+ ],
+ "full_text": "Let me search for the specific long-range paper.**Verdict: KNOWN-VARIANT, with a live dispute over the marginal case. Confidence: medium.**\n\n**1. Model family.** This is the classical 2D XY (planar rotor) model with algebraic long-range couplings, J(r) \u223c 1/r^(2+\u03c3). The 1/r\u2074 coupling is \u03c3 = 2, which is the marginal case where the long-range and short-range spin-wave terms are degenerate. It sits in statistical physics, in the BKT / Mermin\u2013Wagner / long-range O(2) literature. The simulation uses Wolff-type cluster updates, which is the standard method here.\n\n**2. What the literature says.**\n- **Rigorous no-order result.** Bruno (2001) strengthened the Mermin\u2013Wagner theorem. For monotonically decreasing interactions, ferro- or antiferromagnetic long-range order at T>0 is ruled out if \u03b1 \u2265 2D. In D = 2 and \u03b1 = 4 this applies to your system. So there is no true long-range order, and m\u00b2 must go to zero as L\u2192\u221e. (Bruno, PRL 87, 137203, 2001.)\n- **Field-theory phase diagram.** Giachetti, Defenu, Ruffo & Trombettoni (PRL 127, 156801, 2021) treat couplings \u223c r^(\u22122\u2212\u03c3) in the BKT problem. They find a quasiordered phase in a finite temperature range for 7/4<\u03c3<2. A follow-up is Giachetti, Trombettoni, Ruffo & Defenu, PRB 106, 014106 (2022). These papers concern \u03c3 < 2 and the BKT-versus-ordered structure. I did not find in them an explicit \u03c3 = 2 prediction of m\u00b2 \u223c (ln L)^(\u2212cT).\n- **Closest Monte Carlo work.** Xiao, Yao, Zhang, Fan & Deng published Chin. Phys. Lett. 42, 070002 (2025). Yao, Xiao, Zhang, Deng & Fan published PRB 112, 144429 (2025), arXiv:2411.01811. They claim that for \u03c3 \u2264 2 the system has a second-order transition into a ferromagnetic phase with long-range order. They also claim the correlation function saturates to a nonzero constant as the inverse logarithm of distance for \u03c3 = 2. A 2025 Heisenberg follow-up (Xiao et al.), which I read only through a third-party summary, makes the same claim for the marginal point.\n- **The dispute.** Your result is a power of ln L with an exponent proportional to T, so m\u00b2 \u2192 0 slowly. That is the opposite of the Deng-group claim of a finite m\u00b2 at \u03c3 = 2. It agrees with the Bruno bound and with the simple Gaussian spin-wave argument: the stiffness is \u221d ln(1/k), so \u27e8\u03b8\u00b2\u27e9 \u223c (T/2\u03c0J) ln ln L and m\u00b2 \u223c (ln L)^(\u2212T/2\u03c0J).\n- **Support for the spin-wave picture.** This is my own derivation, not a source I found. It explains your numbers: the exponent scales with T, and 2\u03c0 \u00d7 slope \u00d7 exponent = 1 is the spin-wave consistency check.\n\n**3. Citation check.** I verified all of the above against search results (titles, authors, venues, years). I did not find an explicit earlier paper stating the (ln L)^(\u2212cT) law at \u03c3 = 2, so the ln ln L spin-wave result rests on my derivation plus Bruno's bound.\n\n**4. Possible differences from the literature.**\n- **Exponent at \u03b2 = 8.** The ratio 0.34/0.02 = 17 is not the 8 you would expect from exact proportionality to T. Check this, since 0.02 is a small number and probably noisy.\n- **Divergence exponent 2.24.** I found no source for this. The standard BKT form is exp(c/\u221a(T/T_c \u2212 1)), and a power-law fit may be mimicking it. I also did not search for the BKT-to-disordered transition at \u03c3 = 2 separately.\n- **Nearest-neighbour 1.2 plus weak 1/r\u2074 tail.** I did not search for this variant. It is probably covered by the same marginal argument.\n\n**Searches run:**\n- 2D long-range XY, 1/r\u2074, \u03c3 = 2, logarithmic magnetization decay.\n- Monte Carlo of long-range XY at \u03c3 = 2 with cluster updates.\n- Giachetti et al. BKT with long-range couplings.\n- Marginal long-range XY, ln ln, quasi-long-range order.\n- Yao et al. PRB 2025.\n- Giachetti PRB 2022.\n- Bruno 2001.\n- Xiao et al. 2024.\n- Spin-wave k\u00b2 ln k dispersion and power of ln L.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"statistical physics: 2D classical long-range XY model (BKT / Mermin-Wagner, marginal sigma=2)\", \"standard_name\": \"2D long-range XY model at marginal sigma=2 (1/r^(2+sigma)); Gaussian spin-wave log-log decay of magnetization\", \"confidence\": \"medium\", \"citations\": [\"Bruno 2001, PRL 87, 137203 - rigorous absence of order at T>0 for monotonic interactions with alpha >= 2D (covers 1/r^4 in 2D)\", \"Giachetti, Defenu, Ruffo, Trombettoni 2021, PRL 127, 156801 - BKT with r^(-2-sigma) couplings, quasi-ordered phase for 7/4<sigma<2\", \"Giachetti, Trombettoni, Ruffo, Defenu 2022, PRB 106, 014106 - BKT in classical and quantum long-range systems\", \"Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 - MC of 2D LR XY; claims ferromagnetic order for sigma<=2\", \"Yao, Xiao, Zhang, Deng, Fan 2025, PRB 112, 144429 (arXiv:2411.01811) - comprehensive MC; claims LRO and inverse-log saturation at sigma=2, which conflicts with this simulation and with Bruno's bound\"], \"searches\": [\"2D long-range XY 1/r^4 sigma=2 log magnetization decay BKT\", \"Monte Carlo long-range XY 2D sigma=2 cluster correlation length\", \"Giachetti Defenu Ruffo Trombettoni BKT long-range couplings\", \"long-range XY d=2 sigma=2 marginal ln ln quasi-long-range order\", \"Yao Xiao Zhang Deng Fan 2D long-range XY sigma=2\", \"Giachetti BKT classical and quantum long-range systems\", \"Bruno absence of magnetic order long-range Heisenberg XY\", \"Xiao Yao Deng 2D XY ferromagnet long-range arXiv 2404.08498\", \"long-range XY sigma=2 power of ln L spin-wave k^2 ln k\"], \"notes\": \"The (ln L)^(-cT) law with c=1/(2 pi J_eff) follows from standard Gaussian spin-wave theory and is consistent with Bruno's theorem, but I found no paper stating it explicitly for sigma=2, so this is a derivation plus context. The Deng-group papers claim finite-T long-range order at sigma=2, which is a genuine conflict. The beta=8 exponent of 0.02 is not exactly proportional to T relative to beta=1 and may be noisy. The 2.24 power-law divergence exponent is not matched by any source found; the standard BKT form is exponential, so a power-law fit may be mimicking it.\"}\n```",
+ "checked": "2026-11-03 03:03:54"
+}

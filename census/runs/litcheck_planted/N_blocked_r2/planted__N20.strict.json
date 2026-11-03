@@ -1,0 +1,108 @@
+{
+ "class_id": "planted:N20",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Non-reciprocal (anisotropic-kernel / vision-cone) XY model, nematic analogue: shape-dependent defect dynamics with self-propelled +1/2 and passive -1/2 defects",
+ "citations": [
+  "Rouzaire, Pearce, Pagonabarraga, Levis, PRL 134, 167101 (2025), Nonreciprocal Interactions Reshape Topological Defect Annihilation",
+  "Inescapable Anisotropy of Nonreciprocal XY Models, PRL 135, 088302 (2025)",
+  "Popli, Maitra, Ramaswamy, Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models, PRL 135 (2025)",
+  "Loos, Klapp, Martynec, PRL 130, 198301 (2023)",
+  "The role of fluid flow in the dynamics of active nematic defects, New J. Phys. (2021)",
+  "Active Solids: Topological Defect Self-Propulsion Without Flow, PRL 136, 058302 (2026)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Self-propelled +1/2 and non-drifting -1/2 defects, plus phase-dependent dynamics, are documented (polar NRXY with the same exp-kernel; active nematics generally). -1/2 zero drift is symmetry-forced and uninformative. Twist not found: phase-dependent splitting of a +1 defect into four defects (likely 3x(+1/2)+1x(-1/2)), with onset near s~0.15 and 64% of phases at s=0.5, in a nematic (cos2phi) non-reciprocal kernel model; no published nematic version of this model located. The twist is plausibly real (an anisotropy-driven pair nucleation at the core), but it may be a triangular-lattice or core-discretization or open-boundary artifact; check with a square lattice, larger L, small noise, and defect charge bookkeeping.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 11,
+ "search_inputs": [
+  {
+   "query": "non-reciprocal nematic XY model vision cone +1/2 defect self-propulsion lattice"
+  },
+  {
+   "query": "Rouzaire non-reciprocal XY model defects anisotropic coupling nematic"
+  },
+  {
+   "query": "non-reciprocal nematic alignment lattice +1/2 defects self-propel without active stress anisotropic kernel"
+  },
+  {
+   "query": "+1 defect splits into four defects nematic non-reciprocal"
+  },
+  {
+   "query": "Rouzaire Levis Pearce nematic non-reciprocal interactions defects 2025 arXiv"
+  },
+  {
+   "query": "\"non-reciprocal\" nematic XY model vision cone half-integer defects motile"
+  },
+  {
+   "query": "nonreciprocal anisotropic nematic alignment dry lattice topological defects self-propulsion \"+1/2\" Langevin spins 2025"
+  },
+  {
+   "query": "non-reciprocal Lebwohl-Lasher OR nematic spins \"vision cone\" defects propel"
+  },
+  {
+   "query": "active nematic +1 defect instability splits into three +1/2 and one -1/2 defects"
+  },
+  {
+   "query": "nonreciprocal nematic XY model topological defects 2026 arXiv apolar kernel"
+  },
+  {
+   "query": "\"Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models\""
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.cell.com/newton/fulltext/S2950-6360(25)00283-X",
+  "https://iris.sissa.it/retrieve/0ea3c8cc-a7d6-4ec5-a242-59ff8300eb4d/109.JStatMech.2025.053205-1-21.pdf",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://www.pks.mpg.de/intcha24/poster-contributions",
+  "https://pubmed.ncbi.nlm.nih.gov/40344095/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.134.167101",
+  "https://pith.science/paper/2412.19297",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.042008",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://www.nature.com/articles/s41467-018-05666-8",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aa89aa",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8",
+  "https://sites.google.com/view/danieljgpearce/publications",
+  "https://pubmed.ncbi.nlm.nih.gov/40344095/",
+  "https://www.youtube.com/playlist?list=PLDLpeAHw9Khf5NMAXeNH-mesFoR8pAe1B",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2412993122?af=R",
+  "https://pith.science/paper/2606.06981",
+  "https://www.cell.com/newton/fulltext/S2950-6360(25)00283-X",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.130.198301",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.038301",
+  "https://pubmed.ncbi.nlm.nih.gov/40931661/",
+  "https://pubmed.ncbi.nlm.nih.gov/42316735/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://www.nature.com/articles/s41467-022-34384-5",
+  "https://pubmed.ncbi.nlm.nih.gov/36816847",
+  "https://cv.cs.columbia.edu/ruoshi/papers/Topological_Defect_Detection.pdf",
+  "https://pith.science/paper/2605.23425",
+  "https://pubmed.ncbi.nlm.nih.gov/40344095/",
+  "https://journals.aps.org/prl/abstract/10.1103/r3dx-7lrd",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.134.167101",
+  "https://pith.science/paper/2606.21231",
+  "https://www.cambridge.org/core/books/physics-of-flocking/7156611CA514710F371ECCCB07558976",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13461368/",
+  "https://pith.science/paper/2505.05246",
+  "https://pith.science/paper/2608.28012",
+  "https://pith.science/paper/2608.26919"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT (medium confidence).** I agree with the first pass's family, but I'd tighten its reasoning. Two of the five features are documented or expected, two are only sign or symmetry statements, and one is a real twist I couldn't find anywhere.\n\n**What is documented**\n\n- **The polar version of this exact model exists.** Rouzaire, Pearce, Pagonabarraga and Levis (PRL 2025) weight the 2D XY coupling by an anisotropic kernel. They find that in addition to the topological charge q, the actual shape of the defects becomes crucial to faithfully describe their dynamics, and that nonreciprocal coupling twists the spin field, selecting specific defect shapes. A dependence on the texture phase \u03bc is therefore expected, not new.\n- **Non-reciprocity acts like activity.** For lattice non-reciprocal XY models, nonreciprocity is akin to a self-propulsion. Related vision-cone models show defects that propagate in a directional manner, thereby breaking the parity and time-reversal symmetry.\n- **Moving +1/2 and stationary \u22121/2 is the standard active-nematic picture.** +1/2 defects self-propel, while self-propulsion is absent for the \u22121/2 defects due to their threefold symmetry. A recent model even gets +1/2 self-propulsion without any flow, by local remodeling of the nematic texture without advection. So `minus_half_defect_drift = 0` is forced by symmetry and isn't evidence of anything. `plus_half_speed_trend = +1` (faster as s rises) is the expected direction.\n- **+1 defects breaking up is generic.** Higher-charge defects are energetically unstable to disassociation into elementary defects. Splitting into two +1/2 is the default expectation.\n\n**The twist I couldn't find**\n\n1. A **nematic (apolar, cos 2\u03c6) version** of the anisotropic-kernel non-reciprocal model. I found only polar non-reciprocal XY / vision-cone papers.\n2. **A +1 defect splitting into four defects** (by charge conservation, presumably three +1/2 and one \u22121/2). This happens for 64% of initial phases at s = 0.5, never at s = 0.10, and starts around s \u2248 0.15. The nearest documented relatives are pair creation in active nematics and the \"minimal four +1/2\" states on spheres and shells. Neither is this mechanism.\n\n**Does the twist matter?** Plausibly, yet it's the feature most at risk of being an artifact:\n- **Lattice effects:** lattice non-reciprocal XY models are known to show strong lattice anisotropy (the lattice always induces anisotropy on large scales). The six-fold triangular lattice could favour particular split geometries.\n- **Unresolved defect cores:** the defect cores are about one lattice spacing wide, so the extra \u00b11/2 pair could be a discretization effect.\n- **Edges and noise:** the open edges at L = 100 and the zero-noise deterministic dynamics could bias which initial phases split.\n\nThe obvious checks are a square lattice, larger L, a weak noise floor, and confirming the charges of the four defects.\n\n**Trivial or artifact?** Overall, no. Defect motility tied to the anisotropy strength is a real emergent effect, not a frozen, diverged or inert state. The four-defect onset is the only feature with a meaningful artifact risk.\n\n**Searches run:** non-reciprocal nematic XY with vision cone; Rouzaire anisotropic coupling; dry non-reciprocal nematic +1/2 self-propulsion; +1 splitting into four defects; +1 into three +1/2 plus one \u22121/2; non-reciprocal Lebwohl\u2013Lasher; 2026 non-reciprocal nematic kernel; defect cloaking in lattice XY.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Non-reciprocal (anisotropic-kernel / vision-cone) XY model, nematic analogue: shape-dependent defect dynamics with self-propelled +1/2 and passive -1/2 defects\", \"citations\": [\"Rouzaire, Pearce, Pagonabarraga, Levis, PRL 134, 167101 (2025), Nonreciprocal Interactions Reshape Topological Defect Annihilation\", \"Inescapable Anisotropy of Nonreciprocal XY Models, PRL 135, 088302 (2025)\", \"Popli, Maitra, Ramaswamy, Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models, PRL 135 (2025)\", \"Loos, Klapp, Martynec, PRL 130, 198301 (2023)\", \"The role of fluid flow in the dynamics of active nematic defects, New J. Phys. (2021)\", \"Active Solids: Topological Defect Self-Propulsion Without Flow, PRL 136, 058302 (2026)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Self-propelled +1/2 and non-drifting -1/2 defects, plus phase-dependent dynamics, are documented (polar NRXY with the same exp-kernel; active nematics generally). -1/2 zero drift is symmetry-forced and uninformative. Twist not found: phase-dependent splitting of a +1 defect into four defects (likely 3x(+1/2)+1x(-1/2)), with onset near s~0.15 and 64% of phases at s=0.5, in a nematic (cos2phi) non-reciprocal kernel model; no published nematic version of this model located. The twist is plausibly real (an anisotropy-driven pair nucleation at the core), but it may be a triangular-lattice or core-discretization or open-boundary artifact; check with a square lattice, larger L, small noise, and defect charge bookkeeping.\"}\n```",
+ "checked": "2026-11-03 03:17:43"
+}

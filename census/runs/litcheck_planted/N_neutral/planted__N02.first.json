@@ -1,0 +1,99 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Reaction-diffusion (Turing) with nonlinear cross-diffusion / chemotaxis (Sel'kov-Schnakenberg activator-depletion kinetics)",
+ "standard_name": "Chemotaxis-modified Turing pattern formation (reaction-diffusion-chemotaxis); non-monotonic/re-entrant chemotaxis control of Sel'kov patterns with chemotaxis-driven spot-to-stripe transitions",
+ "confidence": "medium",
+ "citations": [
+  "Karmakar & Basu 2026, preprint (long paper, 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model'; read only via Pith review pith.science/paper/2609.01159) - Sel'kov model with chemotaxis; chemotaxis as non-monotonic control parameter, re-entrant patterning",
+  "Karmakar & Basu 2026, companion short paper 'Nonmonotonic control of pattern formation by chemotaxis' (read only via Pith review pith.science/paper/2609.01127) - simulations show amplitudes tracking predicted curve and chemotaxis-driven spot-to-stripe transitions",
+  "Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. 70:709-743 - linear cross-diffusion in Schnakenberg/GM/Lefever kinetics (variant: linear, not taxis-type)",
+  "Chen et al. 2021, Chaos 31 - 'Pattern formation of reaction-diffusion system with chemotaxis terms'; chemotaxis-driven instability, equal diffusion coefficients",
+  "Proc. R. Soc. A 481 (2025) 'Pattern formation arising from diffusive instability under random versus directed spatial motion' - chemotaxis can induce Turing instability"
+ ],
+ "searches": [
+  "Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis",
+  "Turing patterns cross-diffusion chemotaxis-like term pattern amplitude non-monotonic Schnakenberg",
+  "Turing patterns nonlinear cross-diffusion taxis term div(u grad v) spots to stripes pattern disappears",
+  "pursuit-evasion cross-taxis Turing pattern opposite signs chemotaxis activator inhibitor",
+  "Madzvamuse Ndakwo Barreira cross-diffusion-driven instability",
+  "nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis opposite sign spots stripes",
+  "Schnakenberg nonlinear cross-diffusion u grad v Gambino Lombardo Sammartino (no results)",
+  "Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model Selkov"
+ ],
+ "notes": "Could not open the Karmakar-Basu primary text; relied on Pith AI-generated reviews, so venue is unverified and details such as exact parameters and the sign convention (reciprocal vs nonreciprocal) for the c1=-c2 sweep need checking against the primary paper. Exact thresholds (c~0.17, ~0.49) were not found in any source and are probably system-specific. Linear cross-diffusion Schnakenberg literature is an older, related but different variant.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis"
+  },
+  {
+   "query": "Turing patterns cross-diffusion chemotaxis-like term reaction-diffusion pattern amplitude non-monotonic cross-diffusion strength Schnakenberg"
+  },
+  {
+   "query": "Turing patterns with nonlinear cross-diffusion taxis term div(u grad v) Schnakenberg spots to stripes pattern disappears large cross-diffusion"
+  },
+  {
+   "query": "pursuit-evasion cross-taxis Turing pattern reaction-diffusion opposite signs chemotaxis activator inhibitor pattern formation"
+  },
+  {
+   "query": "Madzvamuse Ndakwo Barreira cross-diffusion-driven instability reaction-diffusion systems analysis and simulations"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis opposite sign spots stripes amplitude maximum then uniform"
+  },
+  {
+   "query": "Schnakenberg nonlinear cross-diffusion \"u\u2207v\" Turing patterns Gambino Lombardo Sammartino"
+  },
+  {
+   "query": "Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model Selkov"
+  }
+ ],
+ "result_urls": [
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://thatsmaths.com/2013/04/25/spots-and-stripes/",
+  "https://web.mst.edu/~zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727892100004X",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://arxiv-export-lb.library.cornell.edu/abs/1501.04890",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v1.full",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://royalsocietypublishing.org/rspa/article/481/2312/20250030/235262/Bespoke-Turing-patterns-with-specific-nonlinear",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v1.full",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "https://ouci.dntb.gov.ua/en/works/9ZkBRPv7/",
+  "http://www.aimsciences.org/article/doi/10.3934/dcds.2016.36.2133",
+  "https://link.springer.com/chapter/10.1007/978-3-319-63082-3_61",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2018163?viewType=HTML",
+  "https://www.proquest.com/docview/1652480048?pq-origsite=gscholar&fromopenview=true",
+  "https://portal.mardi4nfdi.de/wiki/Cross-diffusion-driven_instability_for_reaction-diffusion_systems:_analysis_and_simulations",
+  "https://www.wikidata.org/wiki/Q46913950",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://pith.science/paper/2609.01159",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922010487",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://pith.science/paper/2609.01159",
+  "https://pith.science/paper/2609.01127",
+  "https://royalsocietypublishing.org/rspa/article/481/2319/20240758/234360/Pattern-formation-arising-from-diffusive",
+  "https://ui.adsabs.harvard.edu/abs/2021Chaos..31k3118C/abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/34881578"
+ ],
+ "full_text": "**Verdict: KNOWN.** I found a close match to this exact system in a very recent preprint. My confidence is medium, because I could only read secondary summaries of that preprint.\n\n**1. Model family.**\nThis is a two-species reaction-diffusion (Turing) system with cross-taxis. The kinetics are the Sel'kov glycolysis model in the same form as Schnakenberg-type activator-depletion kinetics. I checked this against the prompt's equations: u' = -u + a\u00b7v + u\u00b2v and v' = b - a\u00b7v - u\u00b2v, with steady state u = b and v = b/(a+b\u00b2). D2/D1 = 1000 gives a strong Turing regime. The terms c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u) are chemotaxis-like (nonlinear cross-diffusion) fluxes. The standard name is \"reaction\u2013diffusion\u2013chemotaxis\" or \"reaction\u2013cross-diffusion\" Turing pattern formation.\n\n**2. The specific behaviour.**\nThe behaviour is a non-monotonic effect of taxis strength: pattern amplitude rises then falls to uniform, and spots turn into stripes as |c| grows. The closest source is Karmakar & Basu (2026), a Sel'kov model with chemotaxis between its two species.\n- A Pith review of the long paper, \"Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model\", says the study covers linear instabilities and pattern formation in a spatially extended Selkov model for glycolysis with diffusion and chemotactic interactions between two species.\n- The same page says the results show chemotaxis can act as a nonmonotonic control parameter for wavelength selection, re-entrant pattern formation and pattern morphology.\n- A second Pith page, \"Nonmonotonic control of pattern formation by chemotaxis\", is the companion short paper. It says numerical simulations of a chemotactic version of the Selkov glycolysis model show pattern amplitudes tracking the predicted curve and reveal chemotaxis-driven spot-to-stripe transitions.\n- Pith's reading of the long paper says reciprocal chemotaxis gives uniform-to-pattern-to-uniform sweeps while extreme nonreciprocal chemotaxis yields pattern-to-uniform-to-pattern sweeps. I could not tell which of these sign conventions matches the opposite-sign sweep (c1 = c, c2 = -c) here. Check this against the primary text.\n- It also says the spot-stripe transition is attributed to nonlinear effects beyond linear stability.\n\n**Background that is earlier or more general.** None of these studies the spot-to-stripe sweep or the rise-and-fall of amplitude with taxis strength.\n- Madzvamuse, Ndakwo & Barreira (2015), *J. Math. Biol.* 70:709\u2013743, \"Cross-diffusion-driven instability for reaction-diffusion systems: analysis and simulations\". This is the venue as given by the ProQuest record; the Springer page's metadata says 2014 (online 27 March 2014). It treats linear cross-diffusion in activator-depleted kinetics (Gierer\u2013Meinhardt, Schnakenberg).\n- Madzvamuse, Barreira & Gerisch, \"Cross-Diffusion in Reaction-Diffusion Models: Analysis, Numerics, and Applications\" (Springer, Mathematics in Industry vol. 26). Its abstract describes a review of model equations, mathematical analysis, with an emphasis on pattern formation and positivity preservation. I did not confirm its year or exact bibliographic details.\n- Chen et al. (2021), *Chaos* 31, \"Pattern formation of reaction-diffusion system with chemotaxis terms\". Its conclusion is that chemotaxis can give rise to pattern formation for the same diffusion coefficients.\n- \"Pattern formation arising from diffusive instability under random versus directed spatial motion\", *Proc. R. Soc. A* 481 (2025). It shows chemotaxis may induce the Turing instability (if the chemotaxis gradient is strong enough).\n- Gambino, Lombardo & Sammartino, nonlinear cross-diffusion Turing work (cited from memory). I did not retrieve it, so I do not rely on it.\n\n**3. Caveats on verification.**\n- I could not open the Karmakar\u2013Basu preprint itself. The Pith pages are AI-generated reviews, and the second one cites it as \"Associated long paper (2026)\". The venue is therefore unverified; treat it as a 2026 preprint.\n- I did not confirm the exact parameters (a = 0.015, b = 10, D2 = 1000\u00b7D1). I also did not confirm the numbers c \u2248 0.17 for the sharpest pattern and \u2248 0.49 for the uniform state. The qualitative behaviour matches, so the numbers are likely system-specific.\n- Linear cross-diffusion in Schnakenberg is a different, older and well-studied variant. Its terms are linear (\u2207\u00b2-type) rather than div(u\u2207v), so I treat it only as background.\n\n**Confidence: medium.** The model is nearly identical and the qualitative behaviour matches: non-monotonic amplitude, a re-entrant sequence and spot-to-stripe transitions. The medium rating is because I read only secondary summaries, and the sign convention is unconfirmed.\n\n**Searches run:**\n- Schnakenberg cross-diffusion Turing patterns spots stripes cross-taxis\n- Turing patterns cross-diffusion chemotaxis-like term, non-monotonic pattern amplitude, Schnakenberg\n- Turing patterns with nonlinear cross-diffusion taxis term div(u grad v), spots to stripes, pattern disappears\n- Pursuit-evasion cross-taxis Turing pattern, opposite-sign chemotaxis, activator\u2013inhibitor\n- Madzvamuse Ndakwo Barreira cross-diffusion-driven instability\n- Nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis opposite sign spots stripes\n- Schnakenberg nonlinear cross-diffusion with the u\u2207v flux term (Gambino, Lombardo, Sammartino); this returned no results\n- Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model, Selkov\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Reaction-diffusion (Turing) with nonlinear cross-diffusion / chemotaxis (Sel'kov-Schnakenberg activator-depletion kinetics)\", \"standard_name\": \"Chemotaxis-modified Turing pattern formation (reaction-diffusion-chemotaxis); non-monotonic/re-entrant chemotaxis control of Sel'kov patterns with chemotaxis-driven spot-to-stripe transitions\", \"confidence\": \"medium\", \"citations\": [\"Karmakar & Basu 2026, preprint (long paper, 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model'; read only via Pith review pith.science/paper/2609.01159) - Sel'kov model with chemotaxis; chemotaxis as non-monotonic control parameter, re-entrant patterning\", \"Karmakar & Basu 2026, companion short paper 'Nonmonotonic control of pattern formation by chemotaxis' (read only via Pith review pith.science/paper/2609.01127) - simulations show amplitudes tracking predicted curve and chemotaxis-driven spot-to-stripe transitions\", \"Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. 70:709-743 - linear cross-diffusion in Schnakenberg/GM/Lefever kinetics (variant: linear, not taxis-type)\", \"Chen et al. 2021, Chaos 31 - 'Pattern formation of reaction-diffusion system with chemotaxis terms'; chemotaxis-driven instability, equal diffusion coefficients\", \"Proc. R. Soc. A 481 (2025) 'Pattern formation arising from diffusive instability under random versus directed spatial motion' - chemotaxis can induce Turing instability\"], \"searches\": [\"Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis\", \"Turing patterns cross-diffusion chemotaxis-like term pattern amplitude non-monotonic Schnakenberg\", \"Turing patterns nonlinear cross-diffusion taxis term div(u grad v) spots to stripes pattern disappears\", \"pursuit-evasion cross-taxis Turing pattern opposite signs chemotaxis activator inhibitor\", \"Madzvamuse Ndakwo Barreira cross-diffusion-driven instability\", \"nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis opposite sign spots stripes\", \"Schnakenberg nonlinear cross-diffusion u grad v Gambino Lombardo Sammartino (no results)\", \"Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model Selkov\"], \"notes\": \"Could not open the Karmakar-Basu primary text; relied on Pith AI-generated reviews, so venue is unverified and details such as exact parameters and the sign convention (reciprocal vs nonreciprocal) for the c1=-c2 sweep need checking against the primary paper. Exact thresholds (c~0.17, ~0.49) were not found in any source and are probably system-specific. Linear cross-diffusion Schnakenberg literature is an older, related but different variant.\"}\n```",
+ "checked": "2026-11-03 03:57:28"
+}

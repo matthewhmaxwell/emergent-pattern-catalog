@@ -1,0 +1,103 @@
+{
+ "class_id": "planted:N08",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Rotation-induced phase separation (RIPS) in an inertial chiral spinner fluid; dense phase hexatic as in dumbbell liquid-hexatic coexistence",
+ "citations": [
+  "Digregorio, Pagonabarraga, Vega Reyes, Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks, PRL 136, 218301 (2026), doi:10.1103/dbgp-pqsh",
+  "van Zuiden, Paulose, Irvine, Bartolo, Vitelli, Spatiotemporal order and emergent edge currents in active spinner materials, PNAS 113, 12919 (2016)",
+  "Transverse Self-Propulsion Enhances the Aggregation of Active Dumbbells, Entropy 27, 692 (2025), doi:10.3390/e27070692",
+  "Gonnella, Marenduzzo, Suma, Tiribocchi, Motility-induced phase separation and coarsening in active matter, C. R. Physique (2015)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Same verdict as the first pass, with stronger evidence. van Zuiden et al. 2016 simulated essentially the same particles (inertial repulsive dimers with force-dipole torque) but reported crystal, liquid and jammed phases, not torque-driven dilute/dense coexistence with coarsening. Disk RIPS (2026) gives the mechanism and predicts it should occur in chiral fluids generally. Twists not found in the literature: (a) torque turns into translation through dumbbell shape, with no friction between particles; (b) the dense phase is hexatic, not a dense chiral liquid with spin near zero; (c) uninterrupted t^(1/3) coarsening, while disk RIPS shows arrest in some regimes. Things to check: whether 0.333 is assumed or fitted over a short window, whether the Pe=1 onset is just a sweep grid point, and whether torque-shifted effective temperature produces equilibrium-like liquid-hexatic coexistence instead of RIPS. Only abstracts and snippets were read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "rotating dumbbells torque phase separation inertia hexatic Langevin Gonnella Suma"
+  },
+  {
+   "query": "\"rotation-induced phase separation\" spinning particles inertia"
+  },
+  {
+   "query": "self-spinning dumbbells torque inertia phase separation hexatic chiral fluid 2026"
+  },
+  {
+   "query": "Digregorio Levis Pagonabarraga inertial spinners RIPS arXiv dumbbells"
+  },
+  {
+   "query": "driven rotors dumbbells same chirality underdamped phase separation dense crystal dilute"
+  },
+  {
+   "query": "\"dumbbells\" \"active torque\" OR \"constant torque\" two-dimensional phase separation spinning molecular dynamics"
+  },
+  {
+   "query": "inertial spinners rotation induced phase separation coarsening exponent dense phase hexatic Vega Reyes"
+  },
+  {
+   "query": "active spinning dimers frictionless repulsive torque-driven phase separation inertia 2D simulation"
+  },
+  {
+   "query": "van Zuiden Paulose Irvine Bartolo Vitelli active spinner materials dimers phase diagram crystal liquid coexistence"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S1631070515000791",
+  "https://doi.org/10.3390/e27070692",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/108/56004",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12651260/",
+  "https://www.worldscientific.com/doi/abs/10.1142/S0129183114410046",
+  "https://pith.science/paper/2507.22696",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://pubmed.ncbi.nlm.nih.gov/42285078/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9800414/",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://pubmed.ncbi.nlm.nih.gov/42285078/",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://pith.science/citations/0058dad2-1a2f-4e7e-8a42-a61aa5c6e078",
+  "https://journals.aps.org/prresearch/pdf/10.1103/qb6l-bqpv",
+  "https://doi.org/10.3390/e27070692",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12294323/",
+  "https://pith.science/paper/2507.22696",
+  "https://link.springer.com/article/10.1140/epje/i2018-11739-y",
+  "https://members.cecam.org/storage/booklet_files/Mixed-Gen-Session-2--Active-matter-1614787573.pdf",
+  "https://www.nature.com/articles/s41567-025-03121-2",
+  "https://www.nature.com/articles/s42005-024-01835-y",
+  "https://ignasipagonabarraga.eu/papers-and-publications/",
+  "https://www.nature.com/articles/s42005-022-01116-6",
+  "https://doi.org/10.3390/e27070692",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12294323/",
+  "https://www.worldscientific.com/doi/abs/10.1142/S0129183114410046",
+  "https://pubs.aip.org/aip/jcp/article/164/15/151101/3387064/Translational-and-rotational-temperature",
+  "https://pith.science/paper/2507.22696",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12294323/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12294323/",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://pubmed.ncbi.nlm.nih.gov/42285078/",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.3.L042021",
+  "https://www.sciencedirect.com/org/science/article/pii/S2639527424003861",
+  "https://www.sciencedirect.com/org/science/article/pii/S2639527424003861",
+  "https://www.pnas.org/doi/full/10.1073/pnas.1609572113",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "http://sm08.iphy.ac.cn/resource/Paper/2024/research.0356.pdf",
+  "https://spj.science.org/doi/10.34133/research.0356",
+  "https://journals.aps.org/prresearch/pdf/10.1103/qb6l-bqpv",
+  "https://www.pnas.org/doi/full/10.1073/pnas.1609572113",
+  "https://pnas.org/content/113/46/12919.abstract",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.nature.com/articles/s41467-024-50937-2",
+  "https://www.nature.com/articles/s41586-021-03375-9",
+  "https://home.uchicago.edu/~vitelli/publications.html",
+  "https://journals.aps.org/prresearch/abstract/10.1103/qb6l-bqpv",
+  "https://pith.science/paper/2509.09273",
+  "https://www.ens-lyon.fr/PHYSIQUE/teams/matiere-complexite/publications/2016"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass, but for somewhat different reasons. The behaviour looks like a real emergent effect, not an artifact. Confidence is medium.\n\n**What the literature covers**\n\n1. **The mechanism is documented for inertial spinning disks.** Digregorio, Pagonabarraga & Vega Reyes (PRL 136, 218301, 2026) show that particles spinning the same way can spontaneously lead to phase separation. They name it rotation induced phase separation (RIPS), when the active rotation is not properly counterbalanced by translational friction. That fits your setup: weak friction, momentum that persists, uniform torque, and a split out of a uniform state. They also say RIPS is expected to appear as a general nonequilibrium phenomenon in chiral fluids. So a dumbbell version is something the theory predicts, not a new effect.\n\n2. **The same particle model has been simulated before, without this finding.** van Zuiden, Paulose, Irvine, Bartolo & Vitelli (PNAS 113, 12919, 2016) used dimers, each consisting of two point particles of mass m connected by a stiff link, with a torque implemented as a force dipole and purely repulsive interactions. That is essentially your rule set (theirs used soft Yukawa repulsion). They reported spinner crystals, a liquid with edge currents, and jamming. In the snippets I saw, they did not report a dilute liquid coexisting with a dense ordered phase, or any coarsening. This is the strongest prior work, and the first pass missed it.\n\n3. **A dilute liquid next to a dense hexatic phase is standard for dumbbells.** Dumbbells pushed sideways (perpendicular to their axis) split into a dilute gas and a hexatically ordered dense phase at all P\u00e9clet numbers from Pe=1 to Pe=100. Even without activity, dumbbells show a liquid-hexatic phase transition of first-order, characterized by a coexistence region. Growth of domain size as t^(1/3) is the generic result for density separation where particle number is conserved.\n\n**The twist in the behaviour (not just the rules)**\n- **Ordered dense phase.** In the disk version, the dense phase is a dense chiral liquid, with packing near 1 and spin near zero. Here the dense phase is six-fold ordered, probably because the dumbbells lock together.\n- **Uninterrupted coarsening.** The disk paper notes that RIPS is characterized by arrested phase separation in at least part of its phase diagram. A clean t^(1/3) growth with no arrest would be a difference.\n- **No friction needed between particles.** Disk RIPS relies on active rotation and interparticle friction. In dumbbells, the shape alone transfers spin into translation. This is the twist that plausibly matters most, but it is a difference in mechanism, and the overall behaviour is the same family.\n\nI could not find any paper on torque-driven, frictionless inertial dumbbells that separate into a liquid and a hexatic phase.\n\n**Possible artifacts to check**\n- **The exponent is suspiciously exact.** 0.333 looks like it was assumed or fitted over a short window rather than measured. With weak friction, momentum-driven coarsening (exponents of 1/2 to 2/3) might show up at intermediate times.\n- **The onset value may just be a grid point.** Pe = 1 is round enough that it could be a value from the sweep rather than a measured threshold.\n- **It could be ordinary coexistence in disguise.** Without strong friction, the torque may change the effective temperature. Then the split could just be equilibrium-like liquid\u2013hexatic coexistence at a shifted temperature, rather than RIPS. Passive dumbbells at 0.65 should be in the liquid, which argues against this. Comparing the kinetic temperature of each phase with the passive phase diagram would settle it.\n- **Related instabilities.** The RIPS paper itself compares its mechanism to clustering in heated granular fluids.\n\nNone of these points to a diverged simulation, a frozen absorbing state or a random colouring. Two coexisting phases with domains that keep growing looks like genuine emergent behaviour.\n\n**Searches run:** rotating dumbbells with torque and inertia (hexatic); \"rotation-induced phase separation\" with spinning particles; self-spinning dumbbells as a chiral fluid; driven same-chirality rotor dumbbells; dumbbells with constant or active torque; RIPS coarsening and hexatic dense phase; frictionless torque-driven spinning dimers; the van Zuiden et al. phase diagram. I only read abstracts and snippets, not full texts.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Rotation-induced phase separation (RIPS) in an inertial chiral spinner fluid; dense phase hexatic as in dumbbell liquid-hexatic coexistence\", \"citations\": [\"Digregorio, Pagonabarraga, Vega Reyes, Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks, PRL 136, 218301 (2026), doi:10.1103/dbgp-pqsh\", \"van Zuiden, Paulose, Irvine, Bartolo, Vitelli, Spatiotemporal order and emergent edge currents in active spinner materials, PNAS 113, 12919 (2016)\", \"Transverse Self-Propulsion Enhances the Aggregation of Active Dumbbells, Entropy 27, 692 (2025), doi:10.3390/e27070692\", \"Gonnella, Marenduzzo, Suma, Tiribocchi, Motility-induced phase separation and coarsening in active matter, C. R. Physique (2015)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Same verdict as the first pass, with stronger evidence. van Zuiden et al. 2016 simulated essentially the same particles (inertial repulsive dimers with force-dipole torque) but reported crystal, liquid and jammed phases, not torque-driven dilute/dense coexistence with coarsening. Disk RIPS (2026) gives the mechanism and predicts it should occur in chiral fluids generally. Twists not found in the literature: (a) torque turns into translation through dumbbell shape, with no friction between particles; (b) the dense phase is hexatic, not a dense chiral liquid with spin near zero; (c) uninterrupted t^(1/3) coarsening, while disk RIPS shows arrest in some regimes. Things to check: whether 0.333 is assumed or fitted over a short window, whether the Pe=1 onset is just a sweep grid point, and whether torque-shifted effective temperature produces equilibrium-like liquid-hexatic coexistence instead of RIPS. Only abstracts and snippets were read.\"}\n```",
+ "checked": "2026-11-03 03:00:23"
+}

@@ -1,0 +1,112 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Mean-field noisy voter model (Kirman ant model) with Poissonian stochastic resetting of the magnetization (opinion dynamics / statistical physics)",
+ "standard_name": "Noisy voter / Kirman model bimodal-unimodal finite-size transition (eta* ~ 1/N), plus stochastic resetting",
+ "confidence": "medium",
+ "citations": [
+  "Kirman 1993 (Quarterly Journal of Economics, from memory; seen only as a citation in search results) - original ant herding model with bimodal/unimodal stationary distribution",
+  "Carro, Toral, San Miguel 2016, Scientific Reports 'The noisy voter model on complex networks' - finite-size bimodal-unimodal transition in fully connected noisy voter/Kirman model",
+  "Alfarano/Lux/Wagner-type and 'Schrodinger's ants' (J. Phys. Complexity, c. 2020) - Kirman stationary distribution unimodal for alpha>1, bimodal for alpha<1",
+  "Evans, Majumdar, Schehr 2020, J. Phys. A 53, 193001 'Stochastic resetting and applications' - review; non-analyticity at the reset value is generic",
+  "Magoni, Majumdar, Schehr 2020, Phys. Rev. Research 2, 033182 'Ising model with stochastic resetting' - magnetization reset to fixed m0 at rate r gives rich (T,r) phase diagram (Ising, not voter)",
+  "Peralta/Carro et al. Physica A 2024 'Polarization-induced stress in the noisy voter model' and nonlinear noisy voter model (C. R. Physique 2019) - multimodal (trimodal, W, M) phases in voter-type models without resetting",
+  "Contrarian noisy voter model (Physica A 2019) - threshold p = 1/(N+1) for bimodal to unimodal"
+ ],
+ "searches": [
+  "noisy voter model stochastic resetting bimodal distribution magnetization",
+  "noisy voter model exogenous shocks opinion reset rate trimodal distribution",
+  "Kirman ant model herding bimodal unimodal transition noise 1/N",
+  "voter model stochastic resetting to initial magnetization",
+  "resetting opinion dynamics mean-field noisy voter reset to fixed magnetization three peaks",
+  "Kirman model with exogenous shocks sentiment herding stationary distribution",
+  "stochastic resetting Ising Curie-Weiss magnetization resetting stationary distribution multimodal",
+  "voter model with resetting opinion dynamics global resets Poisson",
+  "Magoni Majumdar Schehr Ising model with stochastic resetting Physical Review Research 2020",
+  "noisy voter model resetting herding exogenous news shock bimodal trimodal phase diagram noise reset rate"
+ ],
+ "notes": "No direct source found for noisy voter + magnetization resetting giving a three-peak distribution; the finding appears to be a straightforward combination of two known ingredients. The 'six regimes' count depends on how regimes were defined and is unverified. Kirman 1993 details were not verified from search results.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting bimodal distribution magnetization"
+  },
+  {
+   "query": "noisy voter model exogenous shocks opinion reset rate trimodal distribution"
+  },
+  {
+   "query": "Kirman ant model herding bimodal unimodal transition noise 1/N"
+  },
+  {
+   "query": "voter model stochastic resetting to initial magnetization"
+  },
+  {
+   "query": "resetting opinion dynamics mean-field noisy voter reset to fixed magnetization three peaks"
+  },
+  {
+   "query": "Kirman model with exogenous shocks sentiment herding stationary distribution"
+  },
+  {
+   "query": "stochastic resetting Ising Curie-Weiss magnetization resetting stationary distribution multimodal"
+  },
+  {
+   "query": "voter model with resetting opinion dynamics global resets Poisson"
+  },
+  {
+   "query": "Magoni Majumdar Schehr Ising model with stochastic resetting Physical Review Research 2020"
+  },
+  {
+   "query": "noisy voter model resetting herding exogenous news shock bimodal trimodal phase diagram noise reset rate"
+  }
+ ],
+ "result_urls": [
+  "https://doi.org/10.3390/e24081140",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9407215/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://www.nature.com/articles/srep24775",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://www.gwif.vwl.uni-kiel.de/de/drittmittelprojekte/vw-project/dateien/network-hierarchy-in-kirmans-ant-model-fund-investments-can-create-risks",
+  "https://github.com/jahnavi24-cloud/kirmanANTS",
+  "https://www.nature.com/articles/srep24775",
+  "https://iopscience.iop.org/article/10.1088/2632-072X/aba115",
+  "http://physics.bu.edu/~redner/pubs/pdf/vacillating.pdf",
+  "https://doi.org/10.3390/e24081140",
+  "https://www.sciencedirect.com/science/article/am/pii/S1631070519300325",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "http://physics.bu.edu/~redner/896/spin.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://doi.org/10.3390/e24081140",
+  "https://doi.org/10.3390/physics6020034",
+  "https://iopscience.iop.org/article/10.1088/2632-072X/aba115",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437122005684",
+  "https://library.utia.cas.cz/separaty/2020/E/kukacka-0522039.pdf",
+  "https://www.kent.ac.uk/economics/repec/1507.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033182",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.789097/pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/37276562/",
+  "https://iopscience.iop.org/article/10.1088/1751-8121/ab7cfe",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167715222001547",
+  "https://archive.ymsc.tsinghua.edu.cn/pacm_download/649/12317-CWperturbation04152022.pdf",
+  "https://fse.studenttheses.ub.rug.nl/34838/1/bMATH2025LindavanDijk.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5131864/",
+  "https://www.osti.gov/etdeweb/biblio/22238925",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/andp.202300342",
+  "https://www.nature.com/articles/srep03597",
+  "https://doi.org/10.1103/PhysRevResearch.2.043390",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.013161",
+  "https://journals.aps.org/prresearch/recent?page=369",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.789097/epub",
+  "https://ouci.dntb.gov.ua/en/works/4K0GVz6l/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033182",
+  "https://quantum-journal.org/papers/q-2025-05-13-1742/",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://burjcdigital.urjc.es/server/api/core/bitstreams/bc21d38f-f807-485c-a23d-e1e7e09d21bf/content",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://ideas.repec.org/a/eee/phsmap/v515y2019icp81-92.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437118313086"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The noisy voter model baseline is well established. The resetting add-on is a standard, generic protocol. I did not find a paper that combines the two.\n\n**1. Model family.** This is the mean-field (all-to-all) noisy voter model, which is equivalent to Kirman's ant/herding model. It is a statistical-physics and opinion-dynamics model. The shocks are a Poissonian stochastic resetting protocol that sets the magnetization to a fixed value, m\u2080 = 0.3.\n\n**2. The behaviour, in parts.**\n- **Two peaks without shocks, with a threshold near \u03b7 \u2248 1/N.** This is known. The fully connected noisy voter/Kirman model has a finite-size transition between a bimodal and a unimodal distribution of the magnetization. A source on the contrarian noisy voter model gives a bimodal phase if p<1/(N+1), a flat \"plain\" phase at p=1/(N+1), and a unimodal phase for p>1/(N+1). For N = 500 that threshold is about 0.002, which matches your observed noise threshold.\n- **Earliest source.** Kirman (1993) is the original model. I only saw it cited in the results (the ant-dynamics tradition of Kirman 1991, 1993), so I have not verified its title or venue.\n- **Readable sources.** The Nature Scientific Reports paper \"The noisy voter model on complex networks\" says that in the fully-connected case there is a finite-size transition between bimodal and unimodal behaviour. \"Schr\u00f6dinger's ants\" (IOP, J. Phys. Complexity, ~2020) gives the same transition for Kirman's model: unimodal with a maximum at k = N/2 for \u03b1 > 1, bimodal with peaks at k = 0 and k = N for \u03b1 < 1.\n- **Extra peak at the reset value, and more regimes across the noise-versus-shock-rate plane.** Resetting is known to add structure at the reset value. Evans, Majumdar and Schehr, \"Stochastic resetting and applications\" (J. Phys. A 53, 193001, 2020), the standard review, notes that non-analyticity at the resetting value is a generic feature of stochastic resetting. A resetting protocol on the Ising model was studied by Magoni, Majumdar and Schehr, \"Ising model with stochastic resetting\" (Phys. Rev. Research 2, 033182, 2020). The abstract says it resets the magnetization to its fixed initial value m0 at a constant rate r and gives a rich phase diagram in the (T,r) plane. That is the same kind of noise-versus-reset-rate plane you swept. Their system is the Ising model with Glauber dynamics, not a voter model.\n- **Related multimodal voter phase diagrams.** Voter-type models are known to show trimodal and other multi-peaked shapes without resetting. Examples are the nonlinear noisy voter model, where for \u03b1>5, an increase of \u03b5 leads first to a first-order transition from a bimodal to a trimodal distribution, and \"Polarization-induced stress in the noisy voter model\" (Physica A, ~2024), which reports unimodal, bimodal, W and M shapes.\n\n**3. What differs and whether it matters.**\n- I found no paper that applies Poissonian magnetization resetting to the noisy voter/Kirman model and reports a three-peak distribution with a peak at the reset value. My searches may simply have missed it, because the literature on voter models and on resetting is large and spread across fields.\n- The three peaks are what you would expect from combining the two known mechanisms. Noise below 1/N gives peaks near \u00b11. Frequent resets to 0.3 add a peak there, because the system is repeatedly relaunched at 0.3 and relaxes slowly near it when the noise is small. I expect this to be the same effect as in resetting generally, and I did not find any reason it would be new.\n- The \"6 distinct regimes\" count depends on how your regimes were defined, so I could not check it against any source. Treat it as unverified.\n- The shock here is a global jump to a fixed magnetization, with the opinions reassigned at random. This is a resetting protocol. The mean-field dynamics only depend on the count of +1 agents, so I expect the details of the reassignment not to matter.\n\n**4. Confidence: medium.** I am confident about the noisy voter/Kirman threshold and about the generic resetting framework. I am less sure that no direct noisy voter plus resetting paper exists. I verified the citations below against search results. The Entropy 2022 contrarian-voter paper is cited only as a secondary source for the p* = 1/(N+1) result.\n\n**Searches run:**\n- noisy voter model stochastic resetting bimodal distribution magnetization\n- noisy voter model exogenous shocks opinion reset rate trimodal distribution\n- Kirman ant model herding bimodal unimodal transition noise 1/N\n- voter model stochastic resetting to initial magnetization\n- resetting opinion dynamics mean-field noisy voter reset to fixed magnetization three peaks\n- Kirman model with exogenous shocks sentiment herding stationary distribution\n- stochastic resetting Ising Curie-Weiss magnetization resetting stationary distribution multimodal\n- voter model with resetting opinion dynamics global resets Poisson\n- Magoni Majumdar Schehr Ising model with stochastic resetting Physical Review Research 2020\n- noisy voter model resetting herding exogenous news shock bimodal trimodal phase diagram noise reset rate\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Mean-field noisy voter model (Kirman ant model) with Poissonian stochastic resetting of the magnetization (opinion dynamics / statistical physics)\", \"standard_name\": \"Noisy voter / Kirman model bimodal-unimodal finite-size transition (eta* ~ 1/N), plus stochastic resetting\", \"confidence\": \"medium\", \"citations\": [\"Kirman 1993 (Quarterly Journal of Economics, from memory; seen only as a citation in search results) - original ant herding model with bimodal/unimodal stationary distribution\", \"Carro, Toral, San Miguel 2016, Scientific Reports 'The noisy voter model on complex networks' - finite-size bimodal-unimodal transition in fully connected noisy voter/Kirman model\", \"Alfarano/Lux/Wagner-type and 'Schrodinger's ants' (J. Phys. Complexity, c. 2020) - Kirman stationary distribution unimodal for alpha>1, bimodal for alpha<1\", \"Evans, Majumdar, Schehr 2020, J. Phys. A 53, 193001 'Stochastic resetting and applications' - review; non-analyticity at the reset value is generic\", \"Magoni, Majumdar, Schehr 2020, Phys. Rev. Research 2, 033182 'Ising model with stochastic resetting' - magnetization reset to fixed m0 at rate r gives rich (T,r) phase diagram (Ising, not voter)\", \"Peralta/Carro et al. Physica A 2024 'Polarization-induced stress in the noisy voter model' and nonlinear noisy voter model (C. R. Physique 2019) - multimodal (trimodal, W, M) phases in voter-type models without resetting\", \"Contrarian noisy voter model (Physica A 2019) - threshold p = 1/(N+1) for bimodal to unimodal\"], \"searches\": [\"noisy voter model stochastic resetting bimodal distribution magnetization\", \"noisy voter model exogenous shocks opinion reset rate trimodal distribution\", \"Kirman ant model herding bimodal unimodal transition noise 1/N\", \"voter model stochastic resetting to initial magnetization\", \"resetting opinion dynamics mean-field noisy voter reset to fixed magnetization three peaks\", \"Kirman model with exogenous shocks sentiment herding stationary distribution\", \"stochastic resetting Ising Curie-Weiss magnetization resetting stationary distribution multimodal\", \"voter model with resetting opinion dynamics global resets Poisson\", \"Magoni Majumdar Schehr Ising model with stochastic resetting Physical Review Research 2020\", \"noisy voter model resetting herding exogenous news shock bimodal trimodal phase diagram noise reset rate\"], \"notes\": \"No direct source found for noisy voter + magnetization resetting giving a three-peak distribution; the finding appears to be a straightforward combination of two known ingredients. The 'six regimes' count depends on how regimes were defined and is unverified. Kirman 1993 details were not verified from search results.\"}\n```",
+ "checked": "2026-11-03 03:05:53"
+}

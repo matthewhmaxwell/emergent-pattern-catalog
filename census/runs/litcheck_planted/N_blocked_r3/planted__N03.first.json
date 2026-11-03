@@ -1,0 +1,59 @@
+{
+ "class_id": "planted:N03",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: autophoretic/chemotactic active Brownian particles with chemo-attractive translation and chemo-repulsive rotation, screened fields, no-flux boundary image",
+ "standard_name": "boiling bubbles / bursting bubbles (bubbly phases) in autophoretic active matter; chemotactic collapse and dynamic clustering",
+ "confidence": "medium",
+ "citations": [
+  "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, arXiv 2609.03991 (2026-09, cond-mat.soft; preprint, authors not retrieved) - same system: five phases (full collapse, boiling bubbles, bursting bubbles, dynamic clusters, gas); no-flux boundary stabilizes boiling bubbles, permeable does not",
+  "Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering and chemotactic collapse of self-phoretic particles with competing translational attraction and rotational repulsion",
+  "Pohl & Stark 2015, Eur. Phys. J. E - collapsed state and dynamic clustering with translational repulsion; screening effects",
+  "Stark 2018, Acc. Chem. Res. (PubMed 30346724) - review of artificial chemotaxis of self-phoretic colloids, collective behaviour",
+  "Tjhung, Nardini & Cates 2018, Phys. Rev. X 8, 031080 - generic bubbly phase separation in active fluids"
+ ],
+ "searches": [
+  "chemotactic active particles near wall screened chemical field attraction and rotational anti-alignment clusters bursting cavity",
+  "self-propelled colloids diffusiophoretic interactions wall image source Yukawa chemical gradient clustering dynamic clusters hollow",
+  "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bursting bubbles",
+  "arXiv 2609.03991 Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter authors"
+ ],
+ "notes": "Only the Pith summary pages of arXiv 2609.03991 were read, not the full paper, so the numeric screening windows and parameters are matched by structure only. Mapping 'cavity-filled cluster' to 'boiling bubbles' is an inference. The Pith review notes the boiling state may coarsen irreversibly (possibly transient). The source's screening-length symbol is kappa; the direction of the k-scale convention was not verified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "chemotactic active particles near wall screened chemical field attraction and rotational anti-alignment clusters bursting cavity"
+  },
+  {
+   "query": "self-propelled colloids diffusiophoretic interactions wall image source Yukawa chemical gradient clustering dynamic clusters hollow"
+  },
+  {
+   "query": "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bursting bubbles"
+  },
+  {
+   "query": "arXiv 2609.03991 Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter authors"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.03991",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.238303",
+  "https://www.nature.com/articles/s41467-026-72137-w",
+  "https://pubmed.ncbi.nlm.nih.gov/30346724/?dopt=Abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/27526180/",
+  "https://pubmed.ncbi.nlm.nih.gov/26314260",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://www.nature.com/articles/s41467-024-49977-5",
+  "https://www.ias.ac.in/article/fulltext/boms/043/0183",
+  "https://pith.science/paper/2609.03991",
+  "https://pith.science/paper/2501.11442",
+  "https://dx.doi.org/10.1103/PhysRevX.8.031080",
+  "https://link.springer.com/article/10.1140/epjs/s11734-024-01273-5",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1718807115",
+  "https://pith.science/paper/2609.03991",
+  "https://pith.science/paper/2501.11442",
+  "https://pith.science/citations/374a8507-71c2-496e-ac0d-f0f1203cffbd"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is described for essentially this exact system. The one caveat is that the source is a very recent preprint and I could only read a summary page for it, not the full paper.\n\n**1. Model family.** This is active matter: self-propelled (autophoretic or Janus-like) particles that interact through self-generated chemical fields. Each disk has chemo-attractive translation and chemo-repulsive rotation, with screened (Yukawa-type) fields and a boundary image source. It sits in the Keller\u2013Segel / chemotactic-collapse and dynamic-clustering lineage.\n\n**2. Specific behaviour.** The match is the preprint \"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter\" (arXiv 2609.03991, cond-mat.soft, submitted 2026-09-03).\n- It uses particle-resolved simulations of autophoretic active particles with chemo-attractive translational forces and chemo-repulsive rotational torques near a planar boundary.\n- Its chemical field has direct screened contributions plus a boundary-induced image term.\n- It varies the screening length, torque strength and boundary condition (no-flux vs. permeable) and reports phase diagrams with five phases: full collapse, boiling bubbles, bursting bubbles, dynamical clusters and gas. That is the same five states as in your sweep.\n- It claims a no-flux boundary stabilizes the boiling-bubble phase, while that phase is absent for a permeable interface. This matches your permeable variant, which shows only the bursting form in a small window.\n\nMapping to your observations:\n- **Cavity-filled cluster regime (screening 0.18\u20130.22):** this is almost certainly the \"boiling bubbles\" phase, a fully clustered state with internal vapour cavities.\n- **Screening 0.24\u20130.28, clusters burst and disks escape:** this matches \"bursting bubbles\".\n- **Contacts of 5.0 versus above 5.6 for full collapse:** this fits a cavity-laden cluster that is less compact than full collapse.\n- **Screening ordering:** increasing the screening length drives a transition from compact clusters to bubbly phases to a gas. The source uses a screening length \u03ba, while your rules use a screening k. If k is the inverse length (as in exp(-k r)/r), the ordering in your sweep is consistent, but I could not confirm the paper's convention.\n\nI could not read the specific screening values or the simulation parameters (area fraction 0.05, Pe = 100, 1000 particles, height 1.1) in the source. The numeric windows are therefore matched by structure, not verified.\n\n**Earlier sources for the underlying model.**\n- Pohl and Stark 2014, PRL 112, 238303, \"Dynamic Clustering and Chemotactic Collapse of Self-Phoretic Active Particles\". Dynamic clustering appears only when the translational and rotational phoretic contributions compete as attraction and repulsion. Pure attraction gives a chemotactic collapse straight from the gas.\n- Pohl and Stark 2015, Eur. Phys. J. E, \"Self-phoretic active particles interacting by diffusiophoresis: A numerical study of the collapsed state and dynamic clustering\". With increasing repulsive strength, the collapsed cluster first fluctuates strongly, then oscillates between a compact form and a cloud, and ultimately the cloud becomes static. The oscillations vanish if phoretic interactions within compact clusters are not screened. The PubMed record dates this to about 2015.\n- Review: Stark 2018, Acc. Chem. Res., \"Artificial Chemotaxis of Self-Phoretic Active Colloids: Collective Behavior\" (PubMed 30346724). The author and year are from memory, because the search snippet did not show them. It includes screening of the chemical fields for dense packings and a full chemotactic collapse for translational phoretic attraction.\n- Generic bubbly phases in active fluids: Tjhung, Nardini and Cates 2018, PRX 8, 031080, \"Cluster Phases and Bubbly Phase Separation in Active Fluids: Reversal of the Ostwald Process\". The author list is from memory. In repulsive ABPs, MIPS droplets host vapour bubbles that are continuously created, coarsen and are ejected.\n\n**Caveats.**\n- A Pith review of the preprint says the \"boiling bubble\" state coarsens irreversibly, which would make it a transient. That is relevant to your cluster_fraction_fluctuation of 0.0 and to whether the cavity-filled regime is a steady state.\n- The preprint is not peer reviewed, and I did not see its author list.\n- Your \"1 distinct rule program\" is consistent with a single paper's sweep.\n\n**Confidence: medium-high.** The system, the five-state set, the boundary dependence and the screening ordering all match. The confidence is not higher because I only saw summaries of the preprint, not its parameter values or figures.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: autophoretic/chemotactic active Brownian particles with chemo-attractive translation and chemo-repulsive rotation, screened fields, no-flux boundary image\", \"standard_name\": \"boiling bubbles / bursting bubbles (bubbly phases) in autophoretic active matter; chemotactic collapse and dynamic clustering\", \"confidence\": \"medium\", \"citations\": [\"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, arXiv 2609.03991 (2026-09, cond-mat.soft; preprint, authors not retrieved) - same system: five phases (full collapse, boiling bubbles, bursting bubbles, dynamic clusters, gas); no-flux boundary stabilizes boiling bubbles, permeable does not\", \"Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering and chemotactic collapse of self-phoretic particles with competing translational attraction and rotational repulsion\", \"Pohl & Stark 2015, Eur. Phys. J. E - collapsed state and dynamic clustering with translational repulsion; screening effects\", \"Stark 2018, Acc. Chem. Res. (PubMed 30346724) - review of artificial chemotaxis of self-phoretic colloids, collective behaviour\", \"Tjhung, Nardini & Cates 2018, Phys. Rev. X 8, 031080 - generic bubbly phase separation in active fluids\"], \"searches\": [\"chemotactic active particles near wall screened chemical field attraction and rotational anti-alignment clusters bursting cavity\", \"self-propelled colloids diffusiophoretic interactions wall image source Yukawa chemical gradient clustering dynamic clusters hollow\", \"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bursting bubbles\", \"arXiv 2609.03991 Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter authors\"], \"notes\": \"Only the Pith summary pages of arXiv 2609.03991 were read, not the full paper, so the numeric screening windows and parameters are matched by structure only. Mapping 'cavity-filled cluster' to 'boiling bubbles' is an inference. The Pith review notes the boiling state may coarsen irreversibly (possibly transient). The source's screening-length symbol is kappa; the direction of the k-scale convention was not verified.\"}\n```",
+ "checked": "2026-11-03 03:21:59"
+}

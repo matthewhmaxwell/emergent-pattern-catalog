@@ -1,0 +1,59 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chemotactic (cross-taxis) Sel'kov glycolysis reaction-diffusion model: chemotaxis-controlled nonmonotonic/re-entrant Turing patterning with spot-to-stripe transitions",
+ "citations": [
+  "Karmakar & Basu, 'Nonmonotonic control of pattern formation by chemotaxis', arXiv:2609.01127 (2026)",
+  "Karmakar & Basu, 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model', arXiv:2609.01159 (2026)",
+  "Liu, Ge & Shen, 'Reaction-diffusion glycolysis Sel'kov model with cross-diffusion', Appl. Math. Comput. 431 (2022)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "The first pass called the kinetics Schnakenberg; they are Sel'kov glycolysis kinetics. Karmakar & Basu (2026) report, for Sel'kov plus chemotaxis, nonmonotonic pattern intensity versus coupling, re-entrant patterned/homogeneous transitions and spot-to-stripe transitions in 2D periodic simulations, which matches every observed feature. Only abstracts and machine reviews were read, so the opposite-sign coupling case and exact parameters are unconfirmed. A rough linear stability check of the equations as written (only one of the two instability conditions checked) suggests the uniform state should still be unstable at c=0.49, so the extinction point may be a nonlinear/finite-box effect, a sign-convention difference, or a numerical artifact. The preferred wavelength may also be only about 1-1.5 grid cells if the grid spacing is 1. Check resolution and time step.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "Sel'kov glycolysis model cross-diffusion Turing patterns spots stripes"
+  },
+  {
+   "query": "reaction-diffusion cross-diffusion \"pursuit-evasion\" OR \"cross-taxis\" Turing patterns spots to stripes transition"
+  },
+  {
+   "query": "Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model Selkov arXiv"
+  },
+  {
+   "query": "\"Nonmonotonic control of pattern formation by chemotaxis\" Selkov"
+  },
+  {
+   "query": "Selkov chemotaxis nonreciprocal spot-to-stripe transition pattern amplitude Basu 2026"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s11538-022-01060-0",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://pubs.aip.org/aip/adv/article/2/4/042125/21526/Amplitude-equation-for-a-diffusion-reaction-system",
+  "https://www.biorxiv.org/content/10.1101/403600.full.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://bio.libretexts.org/Bookshelves/Evolutionary_Developmental_Biology/Evolutionary_Developmental_Biology_(Rivera)/07:_Patterning/7.1:_Turing_Patterns_to_Generate_Stripes_and_Spots",
+  "https://pith.science/paper/2609.01159",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3925790/",
+  "https://pith.science/paper/2609.01159",
+  "https://pith.science/paper/2609.01127",
+  "https://ui.adsabs.harvard.edu/abs/2021Chaos..31k3118C/abstract",
+  "https://pith.science/paper/2609.01127",
+  "https://pith.science/paper/2609.01127",
+  "https://pith.science/paper/2609.01159",
+  "https://www.science.org/doi/10.1126/science.1209042",
+  "https://pubmed.ncbi.nlm.nih.gov/42476333/",
+  "https://journals.aps.org/prresearch/pdf/10.1103/qdlc-249z"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm overturning the first pass. This is not just a variant. The same behaviour, in what looks like an equivalent model, was described two months ago.\n\n**The first pass named the wrong model.** The reaction rules are not Schnakenberg kinetics. \"\u2212u + a\u00b7v + u\u00b2\u00b7v\" and \"b \u2212 a\u00b7v \u2212 u\u00b2\u00b7v\", with the uniform state u=b, v=b/(a+b\u00b2), are the Sel'kov glycolysis model. So the right comparison is Sel'kov plus cross-taxis (one species drifting along the other's gradient).\n\n**The matching papers.** Two linked arXiv papers by Mintu Karmakar and Abhik Basu, submitted in September 2026, study exactly this:\n- arXiv 2609.01159 adds chemotaxis between the two species of the Selkov model. It reports that 2D simulations with periodic boundary conditions confirm the existence of spots and stripes, show amplitude changes with chemotaxis, and reveal spot-stripe transitions.\n- arXiv 2609.01127 shows that the coupling strength can give a striking nonmonotonic dependence of pattern formation on its strength, opening the possibility of re-entrant transitions between patterned and homogeneous states. Its simulations reproduce the nonmonotonic variation of pattern intensity with [coupling], and show spot-to-stripe transitions, which the authors put down to nonlinear effects.\n\n**How each observed feature maps:**\n- Pattern strength rising then falling as coupling grows: documented, called nonmonotonic pattern intensity.\n- Pattern disappearing to a uniform state at strong coupling: documented as a transition from patterned to homogeneous states.\n- One spot-to-stripe change as coupling grows: documented, called a chemotaxis-driven spot-to-stripe transition.\n- The specific thresholds (peak at 0.17, gone by 0.49) depend on these parameters. They are not new behaviour.\n\n**Caveats:**\n1. I only had access to abstracts and machine-written reviews on pith.science, not the full papers. I couldn't confirm that they test opposite-sign couplings (c1 = \u2212c2) or use a=0.015, b=10, D2/D1=1000. One review mentions a \"reciprocal\" case, which suggests they treat more than one sign arrangement.\n2. **Possible artifact in the \"pattern gone\" result.** I did a rough linear stability check of your equations as written. With c1=c, c2=\u2212c, the instability condition is roughly 9 + 30c > 20\u00b7\u221a(0.1 + c\u00b2), which still holds at c=0.49. Taken alone, that predicts the pattern should survive, and even strengthen, at c\u22480.49. The full stability test also has a second condition that I didn't check in detail, so the arithmetic needs re-checking. If it stands, the uniform state you saw is either a strong nonlinear or finite-box effect, or a sign-convention mismatch with the papers. Or it is a numerical problem.\n3. **Possible resolution problem.** My estimate of the fastest-growing wavenumber squared is about 10/\u221a(0.1 + c\u00b2), roughly 17\u201332. If the grid spacing is 1, the preferred wavelength is only about 1.1\u20131.5 grid cells. That is badly under-resolved and could produce false flattening or false shape changes. Please check the grid spacing, time step and positivity, and compare with a full linear stability analysis.\n\n**Genuine or trivial?** The rise-then-fall and the spot-to-stripe change look like genuine emergent behaviour, consistent with the published results and repeated across 10 seeds. Only the extinction point needs the checks above.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chemotactic (cross-taxis) Sel'kov glycolysis reaction-diffusion model: chemotaxis-controlled nonmonotonic/re-entrant Turing patterning with spot-to-stripe transitions\", \"citations\": [\"Karmakar & Basu, 'Nonmonotonic control of pattern formation by chemotaxis', arXiv:2609.01127 (2026)\", \"Karmakar & Basu, 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model', arXiv:2609.01159 (2026)\", \"Liu, Ge & Shen, 'Reaction-diffusion glycolysis Sel'kov model with cross-diffusion', Appl. Math. Comput. 431 (2022)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"The first pass called the kinetics Schnakenberg; they are Sel'kov glycolysis kinetics. Karmakar & Basu (2026) report, for Sel'kov plus chemotaxis, nonmonotonic pattern intensity versus coupling, re-entrant patterned/homogeneous transitions and spot-to-stripe transitions in 2D periodic simulations, which matches every observed feature. Only abstracts and machine reviews were read, so the opposite-sign coupling case and exact parameters are unconfirmed. A rough linear stability check of the equations as written (only one of the two instability conditions checked) suggests the uniform state should still be unstable at c=0.49, so the extinction point may be a nonlinear/finite-box effect, a sign-convention difference, or a numerical artifact. The preferred wavelength may also be only about 1-1.5 grid cells if the grid spacing is 1. Check resolution and time step.\"}\n```",
+ "checked": "2026-11-03 03:21:25"
+}

@@ -1,0 +1,129 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "active matter: self-propelled particles with non-reciprocal vision-cone, position-based (bearing-only) attractive steering without velocity alignment (minimal cognitive flocking / iABP)",
+ "standard_name": "non-reciprocal vision-cone (cognitive) flocking model; vision-based self-steering active particles",
+ "confidence": "low",
+ "citations": [
+  "Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal cognitive flocking model with position-based attraction inside a vision cone and no alignment; aggregates/milling, polar files, nematic patterns",
+  "Negi, Winkler & Gompper 2022, Soft Matter - 'Emergent collective behavior of active Brownian particles with visual perception': vision-cone steering with cutoff radius gives worms, aggregates, hexagonal clusters (excluded volume included)",
+  "Brigatti & Peruani 2026, Soft Matter 22(13), 2474-2481 - 'Zoology of collective patterns modulated by non-reciprocal, long-range interactions': field-of-view-limited attraction gives filament structures with distinct topologies, no gas phase (abstract only read)",
+  "Motile active matter roadmap 2025, J. Phys.: Condens. Matter, section 15 - review of cognitive self-steering vision-cone particles (authors and year not confirmed from the search snippet)"
+ ],
+ "searches": [
+  "self-propelled particles vision cone non-reciprocal attraction turn toward neighbors network pattern fractal voids",
+  "visual perception active particles vision cone bearing-only steering filament network junctions",
+  "non-reciprocal vision cone point particles filaments network fractal dimension void size scaling",
+  "Barberis Peruani large-scale patterns minimal cognitive flocking model",
+  "active particles pursuit steering toward visible neighbors vision cone web-like network three-way junctions",
+  "vision-based steering point particles no alignment filamentary network fractal dimension 1.5 voids branching",
+  "Barberis Peruani 2016 PRL abstract",
+  "non-reciprocal vision cone cosmic-web-like network fractal voids Y-junctions",
+  "Zoology of collective patterns modulated by non-reciprocal long-range interactions",
+  "Brigatti Peruani field of view angle network-like patterns"
+ ],
+ "notes": "Model class is firmly established; no source found reporting a fractal (D~1.5) branching stream network, void-area ~ R^3 scaling or degree-3-dominated junctions for finite-range, collision-free, weak-noise vision-cone attraction. Full texts of Barberis & Peruani 2016 and Brigatti & Peruani 2026 were not read and could contain a network regime; the search budget ran out before I could check.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "self-propelled particles vision cone non-reciprocal attraction turn toward neighbors network pattern fractal voids"
+  },
+  {
+   "query": "visual perception active particles vision cone bearing-only steering filament network junctions phase"
+  },
+  {
+   "query": "non-reciprocal vision cone point particles turn toward visible neighbors network of filaments fractal dimension void size scaling"
+  },
+  {
+   "query": "Barberis Peruani large-scale patterns minimal cognitive flocking model incidental leaders"
+  },
+  {
+   "query": "active particles pursuit steering toward visible neighbors vision cone web-like network three-way junctions"
+  },
+  {
+   "query": "vision-based steering point particles no alignment filamentary network pattern fractal dimension 1.5 self-organized, voids, branching streams"
+  },
+  {
+   "query": "Barberis Peruani 2016 PRL minimal cognitive flocking model vision angle nematic patterns aggregates abstract"
+  },
+  {
+   "query": "self-propelled particles non-reciprocal vision cone cosmic-web-like network, fractal, voids scale with interaction range, Y-junctions"
+  },
+  {
+   "query": "Zoology of collective patterns modulated by non-reciprocal long-range interactions Peruani"
+  },
+  {
+   "query": "Brigatti Peruani field of view angle \u03b2 attractive non-reciprocal active particles network-like patterns arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924008543",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/s41598-022-23597-9",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11043455/",
+  "https://pubs.rsc.org/en/content/articlelanding/2022/sm/d2sm00736c",
+  "https://pith.science/paper/2504.13550",
+  "https://kops.uni-konstanz.de/server/api/core/bitstreams/310ac552-3edf-4c93-86a1-0725752d0b80/content",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.nature.com/articles/s41598-023-45962-y",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://math.univ-cotedazur.fr/~peruani/bactphys.html",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://www.nature.com/articles/s42005-025-02131-z",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1007697",
+  "https://www.science.org/doi/abs/10.1126/sciadv.aay0792",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://www.nature.com/articles/s41567-022-01769-8",
+  "https://www.sciencedirect.com/science/article/pii/S2405896322029858",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://pubs.rsc.org/sm/article/21/8/1529/872219/Collective-dynamics-of-intelligent-active-Brownian",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ac924f",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/adac98",
+  "https://www.nature.com/articles/s41598-026-52749-4",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.0913730107",
+  "https://academic.oup.com/mnras/article/441/4/2923/1213214",
+  "https://www.nature.com/articles/s41467-021-27135-5",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11043455/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023234",
+  "https://www.biorxiv.org/content/10.1101/589663v1.full.pdf",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://iopscience.iop.org/article/10.1088/1402-4896/ae5693",
+  "https://nautil.us/the-strange-similarity-of-neuron-and-galaxy-networks-236709",
+  "https://pubs.rsc.org/sm/article-abstract/22/13/2474/912788/Zoology-of-collective-patterns-modulated-by-non?redirectedFrom=fulltext",
+  "https://pubmed.ncbi.nlm.nih.gov/41705368/",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://perso.u-cergy.fr/~pmperuani/research.html",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://www.nature.com/articles/s41567-022-01769-8",
+  "https://journals.aps.org/prresearch/abstract/10.1103/y26b-qfym",
+  "https://pubmed.ncbi.nlm.nih.gov/41705368/",
+  "https://pubs.rsc.org/sm/article-abstract/22/13/2474/912788/Zoology-of-collective-patterns-modulated-by-non?redirectedFrom=fulltext",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://sciprofiles.com/profile/author/LzNmckdTaGNack1wM1U1QUZnb1RLUjJ4NDRrdjhRdEZWQ2J5NzRkR2pacz0=?amp=&amp=",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, with low-to-medium confidence.** The model family is documented. I found no source that reports the specific network statistics seen in the simulation.\n\n**1. Model family.** This is active matter, specifically self-propelled particles with non-reciprocal \"vision-cone\" interactions, also called minimal cognitive flocking or self-steering \"intelligent active Brownian particles\" (iABPs).\n- Particles steer toward the positions of neighbours inside a forward cone.\n- There is no velocity alignment.\n- Being seen does not imply seeing back, so Newton's third law is broken.\n\n**2. Closest literature.**\n- **Earliest clear source (same rules):** Barberis & Peruani, PRL 117, 248001 (2016), \"Large-Scale Patterns in a Minimal Cognitive Flocking Model: Incidental Leaders, Nematic Patterns, and Aggregates.\"\n  - The model uses active particles with no memory. They interact through a short-ranged, position-based attractive force acting inside a vision cone, and they lack velocity-velocity alignment.\n  - Depending on parameters, they report aggregates or milling-like patterns, moving polar files with effective leaders, and macroscopic nematic structures with long-ranged nematic order.\n  - None of the snippets I saw mention fractal dimension, voids or junctions.\n- **Same rule class, with excluded volume:** Negi, Winkler & Gompper, Soft Matter (2022), \"Emergent collective behavior of active Brownian particles with visual perception.\"\n  - Particles respond with limited maneuverability to the positions of neighbours inside a vision cone and a cut-off radius.\n  - The structures they report are worms, worm-aggregate coexistence and hexagonally close-packed structures.\n  - The same group's roadmap has a section on this model class: \"The 2025 motile active matter roadmap,\" J. Phys.: Condens. Matter, section 15. It notes that the vision-induced steering is non-additive and non-reciprocal. I am treating it as the review.\n- **Closest in spirit:** Brigatti & Peruani, Soft Matter 22(13), 2474\u20132481 (2026), \"Zoology of collective patterns modulated by non-reciprocal, long-range interactions.\"\n  - The particles have distance-independent interactions restricted only by a field of view of angle \u03b2.\n  - In 2D they find a closed nematic ring filament, closed and open polar filaments, and a structure with two singular topological points.\n  - They also find an absence of gas phases, and a close link between topology and transport.\n  - I could only read the abstract. I could not check whether it reports network-like states, fractal dimension, void scaling or junction statistics.\n\n**3. What differs, and whether it matters.**\n- **Interaction range:** The simulated system has a finite range R of 5 to 10. The 2026 paper has unlimited range, and Negi et al. use a cutoff but with different weighting.\n- **Collisions:** The simulation has none. Negi et al. use excluded volume, which probably drives their dense clusters.\n- **Noise and speed:** The simulation has weak rotational noise, a slow speed and a \"mean sine\" steering law. Other papers use different torque normalisations.\n- **Reported states:** The prior work reports clusters, worms, files, nematic structures and filaments. I found no report of a space-spanning, fractal, branching stream network with a void-area scaling of R\u00b3 and a degree-3 junction majority.\n- **Likely effect:** The network state is plausibly a distinct regime of the same model class, reached at finite R, low density, no collisions and weak noise. It is not obviously a different phenomenon.\n\n**4. Searches and verification.**\n- I verified the titles, authors, years and venues of Barberis & Peruani (2016), Negi et al. (2022) and Brigatti & Peruani (2026) against the search results. Negi et al. is confirmed by title and abstract. The year comes from the search result's age metadata and the publisher URL, not from a visible date. The roadmap's title and section appear in the results, but I did not confirm its authors or exact year.\n- I ran about 10 searches. Their themes were:\n  - vision cone, non-reciprocal and fractal network terms;\n  - bearing-only steering, filament networks and junctions;\n  - Barberis & Peruani details;\n  - pursuit steering and web-like networks;\n  - cosmic-web analogies;\n  - the Brigatti & Peruani paper.\n- I found no source describing fractal dimension, void-area scaling or junction-degree statistics for this system.\n- I could not read full texts for the Barberis & Peruani or Brigatti & Peruani papers, and I could not search further. A network phase may be shown in a figure or supplement without being named in the abstract.\n\n**5. Confidence: low to medium.** The model class and its non-reciprocal vision-cone mechanism are well established. The specific quantitative network statistics are unconfirmed in either direction. A close reading of Brigatti & Peruani (2026) and Barberis & Peruani (2016) could upgrade this to KNOWN. If those papers show no network state, the verdict would move toward LITERATURE-SILENT for the quantitative features.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"active matter: self-propelled particles with non-reciprocal vision-cone, position-based (bearing-only) attractive steering without velocity alignment (minimal cognitive flocking / iABP)\", \"standard_name\": \"non-reciprocal vision-cone (cognitive) flocking model; vision-based self-steering active particles\", \"confidence\": \"low\", \"citations\": [\"Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal cognitive flocking model with position-based attraction inside a vision cone and no alignment; aggregates/milling, polar files, nematic patterns\", \"Negi, Winkler & Gompper 2022, Soft Matter - 'Emergent collective behavior of active Brownian particles with visual perception': vision-cone steering with cutoff radius gives worms, aggregates, hexagonal clusters (excluded volume included)\", \"Brigatti & Peruani 2026, Soft Matter 22(13), 2474-2481 - 'Zoology of collective patterns modulated by non-reciprocal, long-range interactions': field-of-view-limited attraction gives filament structures with distinct topologies, no gas phase (abstract only read)\", \"Motile active matter roadmap 2025, J. Phys.: Condens. Matter, section 15 - review of cognitive self-steering vision-cone particles (authors and year not confirmed from the search snippet)\"], \"searches\": [\"self-propelled particles vision cone non-reciprocal attraction turn toward neighbors network pattern fractal voids\", \"visual perception active particles vision cone bearing-only steering filament network junctions\", \"non-reciprocal vision cone point particles filaments network fractal dimension void size scaling\", \"Barberis Peruani large-scale patterns minimal cognitive flocking model\", \"active particles pursuit steering toward visible neighbors vision cone web-like network three-way junctions\", \"vision-based steering point particles no alignment filamentary network fractal dimension 1.5 voids branching\", \"Barberis Peruani 2016 PRL abstract\", \"non-reciprocal vision cone cosmic-web-like network fractal voids Y-junctions\", \"Zoology of collective patterns modulated by non-reciprocal long-range interactions\", \"Brigatti Peruani field of view angle network-like patterns\"], \"notes\": \"Model class is firmly established; no source found reporting a fractal (D~1.5) branching stream network, void-area ~ R^3 scaling or degree-3-dominated junctions for finite-range, collision-free, weak-noise vision-cone attraction. Full texts of Barberis & Peruani 2016 and Brigatti & Peruani 2026 were not read and could contain a network regime; the search budget ran out before I could check.\"}\n```",
+ "checked": "2026-11-03 02:42:35"
+}

@@ -1,0 +1,64 @@
+{
+ "class_id": "planted:N10",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "cellular automata on aperiodic tilings (four-state semi-/outer-totalistic graph CA, vertex neighbourhood, spectre/hat monotiles)",
+ "standard_name": "glider (spaceship) on an aperiodic tiling; ballistic travelling pattern with quantized six-spoke headings",
+ "confidence": "medium",
+ "citations": [
+  "Edmond 2026, arXiv:2609.22579 (nlin.CG) 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre' - spectre and hat gliders from two-cell seeds, 10^6 rings at constant speed, 2 generations per ring, six-spoke quantized headings, sliding-window regeneration, 3 hat + 1 spectre verified gliders; spectre rule is a three-state head/wing relay",
+  "Goucher 2012, J. Cellular Automata 7:385-392 'Gliders in Cellular Automata on Penrose Tilings' - first glider on an aperiodic tiling, four-state outer-totalistic CA with two-cell head/tail seed",
+  "Bailey & Lindsey 2017, arXiv:1708.09301 'A Game of Life on Penrose tilings' - related: Life embedded in multigrid tilings, imported glider",
+  "Scholarpedia 'Cellular automata' - brief secondary summary of CA on Penrose tilings citing Goucher 2012"
+ ],
+ "searches": [
+  "cellular automaton on spectre aperiodic monotile gliders",
+  "cellular automata hat monotile tiling glider spaceship",
+  "gliders cellular automata aperiodic tilings Penrose tiling life-like rules"
+ ],
+ "notes": "Source is a recent single-author preprint (Sep 2026), not peer reviewed; the simulated system may be a replication of that paper's spectre glider record. I did not compare the rule table line by line; the structure, state set and observables match. No dedicated review of CA on monotilings exists; Scholarpedia gives only a short secondary mention of the Penrose-tiling precedent.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "cellular automaton on spectre aperiodic monotile gliders"
+  },
+  {
+   "query": "cellular automata hat monotile tiling glider spaceship"
+  },
+  {
+   "query": "gliders cellular automata aperiodic tilings Penrose tiling life-like rules"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2609.22579v2",
+  "https://arxiv.org/pdf/2609.22579",
+  "https://arxiv.org/abs/2609.22579",
+  "https://github.com/jamesedmond/monotile-ca",
+  "https://aperiodical.com/2012/08/a-glider-on-an-aperiodic-cellular-automaton-exists/",
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre",
+  "https://www.researchgate.net/publication/381892817_An_aperiodic_monotile",
+  "https://www.semanticscholar.org/paper/Gliders-in-Cellular-Automata-on-Penrose-Tilings-Goucher/621cfcd0dd0a8e205855545e832cf977f11b416f",
+  "http://www.scholarpedia.org/article/Cellular_automata",
+  "https://arxiv.org/pdf/2609.22579",
+  "https://arxiv.org/html/2609.22579v2",
+  "https://github.com/jamesedmond/monotile-ca",
+  "https://arxiv.org/abs/2609.22579",
+  "https://cp4space.hatsya.com/wp-content/uploads/2012/11/2012-penrose-gliders.pdf",
+  "https://www.researchgate.net/publication/381892817_An_aperiodic_monotile",
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre",
+  "https://news.ycombinator.com/item?id=4298515",
+  "https://aperiodical.com/2012/08/a-glider-on-an-aperiodic-cellular-automaton-exists/",
+  "https://cp4space.hatsya.com/wp-content/uploads/2012/11/2012-penrose-gliders.pdf",
+  "https://arxiv.org/html/2609.22579v2",
+  "https://www.researchgate.net/publication/253097241_The_Game_of_Life_Rules_on_Penrose_Tilings_Still_Life_and_Oscillators",
+  "https://arxiv.org/pdf/1708.09301",
+  "https://www.semanticscholar.org/paper/A-Game-of-Life-on-Penrose-tilings-Bailey-Lindsey/82fd6a634e17527b506b82d68a1f64a002504c67",
+  "https://www.academia.edu/74460115/The_Game_of_Life_Rules_on_Penrose_Tilings_still_life_and_oscillators",
+  "https://www.researchgate.net/publication/220440956_Investigations_of_Game_of_Life_Cellular_Automata_Rules_on_Penrose_Tilings_Lifetime_Ash_and_Oscillator_Statistics",
+  "https://arxiv.org/abs/1708.09301",
+  "https://arxiv.org/pdf/2302.10157"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is reported for this exact kind of system: a glider on the spectre tiling. The source is a single recent preprint, which I could read directly.\n\n**1. Model family.** This is a cellular automaton (CA) with a four-state outer-totalistic (semi-totalistic) rule on a graph CA. The cells are the tiles of an aperiodic tiling, and neighbours share a vertex. The tiling is the 2023 \"spectre\", the chiral monotile that needs no mirror tiles. Your companion tiling with mirrored tiles is the \"hat\". The standard name for the behaviour is a **glider**, meaning a bounded pattern that travels indefinitely. In the source it is also called a \"gliding attractor\" or \"traveller\".\n\n**2. Specific behaviour.**\n- **Earliest clear source for this tiling.** Edmond (2026), \"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\", arXiv:2609.22579 (nlin.CG, submitted 18 Sep 2026). Evolutionary search finds gliders on both monotilings. A sliding window regenerates the patch along the flight, and they travel one million rings at constant speed and heading. That matches your 1,000,000 rings and the regenerating window.\n- **Headings.** All headings are quantized, to millidegrees, onto a six-spoke compass, the fast axes of the tiling's graph metric. That matches your six headings 60\u00b0 apart and the tiny heading error.\n- **Rule.** The paper's spectre glider is a four-state rule that never enters state 2. A paper excerpt describes it as a pure three-state relay: a head excites wings, a wing beside a head is promoted to the next head, and crowded wings die. That is your rule set: rule 1 creates wings, rule 3 promotes a wing to a head, and rule 2 kills crowded wings. States 0, 1 and 3 match too.\n- **Speed.** The paper says all four monotile gliders share the clock of two generations per ring, which is your 0.5 rings per generation.\n- **Launch from two-cell seeds.** The paper measures the reach of the gliding attractor from arbitrary two-cell states. That fits your two-tile seeding and launch share.\n- **Your \"4 distinct rule programs\".** The paper says four of the six runs produced cross-radius-verified gliders: three on the hat and one on the spectre. That matches your one spectre rule plus three hat rules.\n- **Replication.** The code and records are public (github.com/jamesedmond/monotile-ca). The repository's verification example replays a record on a radius-384 patch, which matches your 384 rings.\n\nI did not compare the two rule tables line by line. The spectre rule in the paper's Table 7 may have differing numeric thresholds. The structure, state set and observables match, so I treat them as equivalent.\n\n**Precedent and context.**\n- **Earliest glider on any aperiodic tiling.** Goucher (2012), \"Gliders in Cellular Automata on Penrose Tilings\", J. Cellular Automata 7, 385\u2013392. It presents the first glider capable of navigating an aperiodic tiling. It inhabits a four-state outer-totalistic CA and works on generic tilings of quadrilaterals. The two-cell head-and-tail seed in that glider is similar to your seed.\n- **Closest thing to a review.** I found no dedicated review. Scholarpedia's \"Cellular automata\" article covers this, noting that Goucher (2012) described a four-state automaton supporting gliders on aperiodic tilings.\n- **Related work.** Bailey and Lindsey, \"A Game of Life on Penrose tilings\" (arXiv:1708.09301), embed Life itself in multigrid tilings. Owens and Stepney studied Life rules on Penrose tilings.\n\n**3. Citations checked against search results.** The title, author and year match for Edmond 2026 (arXiv abstract page), Goucher 2012 (Semantic Scholar and the author's PDF), and Bailey and Lindsey (arXiv).\n\n**5. Confidence: medium-high.**\n- **Why high.** The match on rule structure, speed, headings, one million rings and the 4-rule count is essentially one-to-one with a readable source.\n- **Caveats.**\n  - The source is a single-author arXiv preprint about 6 weeks old, not peer reviewed.\n  - Your simulation may be a replication of that paper's record rather than an independent finding.\n  - The preprint claims it is the first CA work on these tilings. That claim concerns novelty and is not something I could check.\n  - The hat variants use a different tiling, but the paper itself covers them.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"cellular automata on aperiodic tilings (four-state semi-/outer-totalistic graph CA, vertex neighbourhood, spectre/hat monotiles)\", \"standard_name\": \"glider (spaceship) on an aperiodic tiling; ballistic travelling pattern with quantized six-spoke headings\", \"confidence\": \"medium\", \"citations\": [\"Edmond 2026, arXiv:2609.22579 (nlin.CG) 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre' - spectre and hat gliders from two-cell seeds, 10^6 rings at constant speed, 2 generations per ring, six-spoke quantized headings, sliding-window regeneration, 3 hat + 1 spectre verified gliders; spectre rule is a three-state head/wing relay\", \"Goucher 2012, J. Cellular Automata 7:385-392 'Gliders in Cellular Automata on Penrose Tilings' - first glider on an aperiodic tiling, four-state outer-totalistic CA with two-cell head/tail seed\", \"Bailey & Lindsey 2017, arXiv:1708.09301 'A Game of Life on Penrose tilings' - related: Life embedded in multigrid tilings, imported glider\", \"Scholarpedia 'Cellular automata' - brief secondary summary of CA on Penrose tilings citing Goucher 2012\"], \"searches\": [\"cellular automaton on spectre aperiodic monotile gliders\", \"cellular automata hat monotile tiling glider spaceship\", \"gliders cellular automata aperiodic tilings Penrose tiling life-like rules\"], \"notes\": \"Source is a recent single-author preprint (Sep 2026), not peer reviewed; the simulated system may be a replication of that paper's spectre glider record. I did not compare the rule table line by line; the structure, state set and observables match. No dedicated review of CA on monotilings exists; Scholarpedia gives only a short secondary mention of the Penrose-tiling precedent.\"}\n```",
+ "checked": "2026-11-03 03:49:43"
+}

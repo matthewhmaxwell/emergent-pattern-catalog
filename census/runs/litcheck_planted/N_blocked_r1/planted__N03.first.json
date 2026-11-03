@@ -1,0 +1,93 @@
+{
+ "class_id": "planted:N03",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: self-phoretic / autochemotactic active Brownian particles (attractive translational + repulsive rotational chemotaxis, screened Yukawa field, no-flux wall via image source)",
+ "standard_name": "boiling bubbles (bubbly phase) in autophoretic active matter; neighbouring states: chemotactic (Keller-Segel) collapse, bursting bubbles, dynamic clustering",
+ "confidence": "medium",
+ "citations": [
+  "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, 2026 preprint cond-mat.soft (Pith 2609.03991; read via Pith summary only) - five phases incl. boiling and bursting bubbles; no-flux wall stabilises boiling bubbles, permeable gives none; screening drives collapse->bubbles->clusters->gas",
+  "Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering and chemotactic collapse of self-phoretic particles with competing attraction/repulsion",
+  "Pohl & Stark 2015, Eur. Phys. J. E - collapsed state, oscillations and dynamic clustering; role of screening in compact clusters",
+  "Liebchen & L\u00f6wen 2019, J. Chem. Phys. 150, 061102 - screened phoretic attraction plus active diffusion gives dynamic clusters",
+  "Liebchen, Marenduzzo & Cates 2017, Phys. Rev. Lett. 118, 268001 - phoretic dynamic clusters and wave patterns",
+  "Zoettl & Stark 2016, J. Phys.: Condens. Matter 28, 253001 - review incl. chemotactic active colloids (authors from memory)"
+ ],
+ "searches": [
+  "self-propelled particles chemotaxis screened Yukawa chemical field near wall mirror image clusters cavity bursting",
+  "chemically interacting active colloids above wall phoretic attraction reorientation anti-alignment collapse oscillating clusters",
+  "active Brownian particles chemotactic attraction with repulsive reorientation steady finite-size clusters vs collapse, arrested cluster with hollow cavity",
+  "phoretic active particles screened chemical field reflecting wall image source dynamic clusters bursting cavity hollow clusters simulation",
+  "chemotactic active Brownian particles cluster with void or cavity inside, vacuole",
+  "Liebchen L\u00f6wen Which interactions dominate in active colloids? screened chemical interactions Yukawa wall",
+  "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bubbles bursting bubbles"
+ ],
+ "notes": "Mapping 'cavity-filled cluster' to 'boiling bubbles' is my inference. The matching preprint was read only via a Pith summary page, and its exact parameters and metrics were not checked against the simulation. It may not be peer-reviewed. Earlier work (Pohl-Stark, Liebchen-Loewen) covers the mechanism but not the bubble phases.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "self-propelled particles chemotaxis screened Yukawa chemical field near wall mirror image clusters cavity bursting"
+  },
+  {
+   "query": "chemically interacting active colloids above wall phoretic attraction reorientation anti-alignment collapse oscillating clusters"
+  },
+  {
+   "query": "active Brownian particles chemotactic attraction with repulsive reorientation steady finite-size clusters vs collapse, arrested cluster with hollow cavity"
+  },
+  {
+   "query": "phoretic active particles screened chemical field reflecting wall image source dynamic clusters bursting cavity hollow clusters simulation"
+  },
+  {
+   "query": "chemotactic active Brownian particles cluster with void or cavity inside, vacuole, chemical attraction rotational repulsion"
+  },
+  {
+   "query": "Liebchen L\u00f6wen Which interactions dominate in active colloids? screened chemical interactions Yukawa wall"
+  },
+  {
+   "query": "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bubbles bursting bubbles"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prresearch/pdf/10.1103/qdlc-249z",
+  "https://en.wikipedia.org/wiki/Clustering_of_self-propelled_particles",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9821294",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.238303",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://pubs.rsc.org/sm/article/19/13/2297/788566/The-interplay-between-chemo-phoretic-interactions",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10053041/",
+  "https://pubmed.ncbi.nlm.nih.gov/26314260",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10053041/",
+  "https://pubs.rsc.org/sm/article/19/13/2297/788566/The-interplay-between-chemo-phoretic-interactions",
+  "https://www.nature.com/articles/s41467-026-72137-w",
+  "https://www.nature.com/articles/s42005-026-02903-1",
+  "https://iopscience.iop.org/article/10.1088/0953-8984/28/25/253001",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.238303",
+  "https://pith.science/paper/2609.03991",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://www.arxiv-vanity.com/papers/1703.03245/",
+  "https://pubs.aip.org/aip/jcp/article/145/13/134902/280924/The-behavior-of-active-diffusiophoretic",
+  "https://journals.aps.org/prresearch/pdf/10.1103/qdlc-249z",
+  "https://www.nature.com/articles/s41467-026-72137-w",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.112.238303",
+  "https://pubmed.ncbi.nlm.nih.gov/30346724/?dopt=Abstract",
+  "https://www.emergentmind.com/topics/active-brownian-particles-abps",
+  "https://pubs.aip.org/aip/jcp/article/150/6/061102/198964/Which-interactions-dominate-in-active-colloids",
+  "https://user.thphy.uni-duesseldorf.de/hlowen/doc/op/op0398.pdf",
+  "https://user.thphy.uni-duesseldorf.de/hlowen/doc/op/op0400.pdf",
+  "https://user.thphy.uni-duesseldorf.de/hlowen/doc/cp/cp0041.pdf",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://user.thphy.uni-duesseldorf.de/hlowen/doc/cp/cp0042.pdf",
+  "https://user.thphy.uni-duesseldorf.de/hlowen/pub.php",
+  "https://www.ipkm.tu-darmstadt.de/research_ipkm/liebchen_group/publications_liebchen/index.en.jsp",
+  "https://pith.science/paper/2609.03991",
+  "https://pith.science/paper/2501.11442",
+  "https://link.springer.com/article/10.1140/epjs/s11734-024-01273-5",
+  "https://doi.org/10.1103/physrevx.8.031080",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1718807115"
+ ],
+ "full_text": "**Verdict: KNOWN.** I found a very recent preprint that appears to describe this exact system and its regimes. I could only read a summary of it, so this rests on secondary text, not the full paper.\n\n**1. Model family.** This is active matter: self-phoretic or autochemotactic active Brownian particles. Each disk has chemo-attractive translation and chemo-repulsive rotation, with a screened (Yukawa-type) chemical field. This is the Pohl\u2013Stark and Liebchen\u2013L\u00f6wen \"phoretic Brownian particle\" family. The wall with a mirror source is a method-of-images, no-flux boundary condition.\n\n**2. The specific behaviour.** The match is the preprint \"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter\" (cond-mat.soft, September 2026; read via its Pith page, which gives the arXiv-style ID 2609.03991). Taken from the Pith summary:\n- It reports five phases: full collapse, boiling bubbles, bursting bubbles, dynamic clusters, and gas. That is the same five collective states as in your sweep.\n- Its chemical field has direct screened terms plus a boundary-induced image term controlled by a reflection coefficient. That corresponds to your mirror-image source.\n- A no-flux boundary stabilises the boiling-bubble phase, which is absent for a permeable interface. This matches your permeable-surface variant, which shows only the bursting form in a small window.\n- Increasing screening drives a sequence from collapse to bubbly states, then dynamic micro-clusters, then a homogeneous gas. That fits your result: cavity-filled clusters at screening 0.18\u20130.22, bursting at 0.24\u20130.28.\n- The zero-reflection limit is identified with the independent chemical field of Pohl and Stark (2014) and Liebchen and L\u00f6wen (2019).\n\nMy reading is that your \"cavity-filled cluster\" is the paper's \"boiling bubble\" phase. Your cluster fraction of 1.0, zero fluctuation and about 5 contacts per disk (below full collapse) fit a stable, bubble-filled aggregate. I could not check the paper's exact parameters or metrics, so this is an inference.\n\n**3. Earlier foundations (titles and venues checked against search results).**\n- Pohl & Stark, \"Dynamic Clustering and Chemotactic Collapse of Self-Phoretic Active Particles\", Phys. Rev. Lett. 112, 238303 (2014). Dynamic clustering appears only when attractive translational and repulsive rotational phoretic contributions compete. Pure attraction gives chemotactic collapse, which they map onto the Keller\u2013Segel model.\n- Pohl & Stark, Eur. Phys. J. E (2015), \"Self-phoretic active particles interacting by diffusiophoresis: A numerical study of the collapsed state and dynamic clustering\". Oscillations disappear if phoretic interactions within compact clusters are not screened.\n- Liebchen & L\u00f6wen, \"Which interactions dominate in active colloids?\", J. Chem. Phys. 150, 061102 (2019). Dynamic clustering can arise from screened phoretic attraction combined with active diffusion.\n- Liebchen, Marenduzzo & Cates, Phys. Rev. Lett. 118, 268001 (2017). It reports phoretic dynamic clusters and wave patterns. In its attractive case, a high phoretic field expels colloids so that clusters explode.\n- Review: Z\u00f6ttl & Stark, \"Emergent behavior in active colloids\", J. Phys.: Condens. Matter 28, 253001 (2016). It covers the chemotactic collapse and dynamic-cluster states. I took the authors from memory, since the search snippet showed only the title and venue.\n- A second review is \"Interactions in active colloids\", J. Phys.: Condens. Matter (2022, DOI 10.1088/1361-648X/ac3a86). It covers screened phoretic interactions as Yukawa interactions and wall effects. I did not verify its authors.\n\n**4. Confidence: medium.** The structural match to the 2026 preprint is very strong (same phases, same wall-versus-permeable contrast, same screening ordering). But:\n- The preprint is recent, and I saw only a Pith summary. I did not check its exact screening windows, torque strengths or Pe against yours.\n- The Pith record flags \"conditional novelty\" and says the paper's novelty lies in the phase taxonomy built from cluster metrics. The behaviour is therefore documented, but it may not yet be peer-reviewed or widely replicated.\n- The older Pohl\u2013Stark papers cover the underlying mechanism but not the cavity-filled clusters.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: self-phoretic / autochemotactic active Brownian particles (attractive translational + repulsive rotational chemotaxis, screened Yukawa field, no-flux wall via image source)\", \"standard_name\": \"boiling bubbles (bubbly phase) in autophoretic active matter; neighbouring states: chemotactic (Keller-Segel) collapse, bursting bubbles, dynamic clustering\", \"confidence\": \"medium\", \"citations\": [\"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, 2026 preprint cond-mat.soft (Pith 2609.03991; read via Pith summary only) - five phases incl. boiling and bursting bubbles; no-flux wall stabilises boiling bubbles, permeable gives none; screening drives collapse->bubbles->clusters->gas\", \"Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering and chemotactic collapse of self-phoretic particles with competing attraction/repulsion\", \"Pohl & Stark 2015, Eur. Phys. J. E - collapsed state, oscillations and dynamic clustering; role of screening in compact clusters\", \"Liebchen & L\u00f6wen 2019, J. Chem. Phys. 150, 061102 - screened phoretic attraction plus active diffusion gives dynamic clusters\", \"Liebchen, Marenduzzo & Cates 2017, Phys. Rev. Lett. 118, 268001 - phoretic dynamic clusters and wave patterns\", \"Zoettl & Stark 2016, J. Phys.: Condens. Matter 28, 253001 - review incl. chemotactic active colloids (authors from memory)\"], \"searches\": [\"self-propelled particles chemotaxis screened Yukawa chemical field near wall mirror image clusters cavity bursting\", \"chemically interacting active colloids above wall phoretic attraction reorientation anti-alignment collapse oscillating clusters\", \"active Brownian particles chemotactic attraction with repulsive reorientation steady finite-size clusters vs collapse, arrested cluster with hollow cavity\", \"phoretic active particles screened chemical field reflecting wall image source dynamic clusters bursting cavity hollow clusters simulation\", \"chemotactic active Brownian particles cluster with void or cavity inside, vacuole\", \"Liebchen L\u00f6wen Which interactions dominate in active colloids? screened chemical interactions Yukawa wall\", \"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter boiling bubbles bursting bubbles\"], \"notes\": \"Mapping 'cavity-filled cluster' to 'boiling bubbles' is my inference. The matching preprint was read only via a Pith summary page, and its exact parameters and metrics were not checked against the simulation. It may not be peer-reviewed. Earlier work (Pohl-Stark, Liebchen-Loewen) covers the mechanism but not the bubble phases.\"}\n```",
+ "checked": "2026-11-03 02:29:29"
+}

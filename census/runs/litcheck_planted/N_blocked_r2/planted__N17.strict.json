@@ -1,0 +1,96 @@
+{
+ "class_id": "planted:N17",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Vicsek-model travelling bands (microphase separation) arranged as counter-propagating lanes; single-species analogue of the antiparallel-flocking (APF) band state",
+ "citations": [
+  "K\u00fcrsten & Ihle, PRL 125, 188003 (2020) - band and cross-sea phases of the standard Vicsek model",
+  "Chatterjee, Mangeat et al., PRE 107, 024607 (2023) - two-species Vicsek model, APF state with counter-moving bands",
+  "Mangeat, Chatterjee, Paul, Rieger, PRE 102, 042601 (2020) - band-to-lane transition, stated absent in Vicsek model",
+  "PRE 89, 012918 (2014) - constant-speed noisy bands unstable in head-on collisions",
+  "Discretized Vicsek model, New J. Phys. (2024) 10.1088/1367-2630/ad3ea7 - counter-propagating dense bands",
+  "Bidirectional Vicsek-type model lane phase, Zenodo 23263766 (2026)",
+  "arXiv:2412.10577 - lanes from anti-alignment"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Bands are textbook. Counter-propagating band lanes are documented only in models with two species, two preferred directions or anti-alignment. The active Potts and bidirectional-model papers say lanes are absent in the standard Vicsek model. The twist: lanes of transverse-band trains travelling in opposite directions, persisting for 1e8 steps in the single-species metric Vicsek model. Most likely a geometry-protected metastable state: 1 of 24 random starts, strip starts build it in, and periodic boundaries make lane reversal rare. Checks needed: box size and aspect ratio, starts not aligned with the box. Full texts of Chat\u00e9 2008, Solon 2015 and Caussin 2014 not read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "Vicsek model lanes of bands moving in opposite directions"
+  },
+  {
+   "query": "Vicsek model counter-propagating polar bands lanes self-organized"
+  },
+  {
+   "query": "standard Vicsek model metastable state bands travelling in opposite directions adjacent lanes periodic box"
+  },
+  {
+   "query": "Vicsek model \"counter-propagating\" bands lanes spontaneous single species arXiv 2025"
+  },
+  {
+   "query": "K\u00fcrsten Ihle cross sea Vicsek bands opposite directions initial condition antiparallel stripes"
+  },
+  {
+   "query": "Vicsek model \"lanes\" of bands moving antiparallel standard model new phase"
+  },
+  {
+   "query": "polar active matter hydrodynamics counter-propagating band lanes stable state Toner-Tu Vicsek simulations"
+  },
+  {
+   "query": "Vicsek model coexisting bands opposite directions side by side long-lived \"antiparallel\" bands single species"
+  },
+  {
+   "query": "active Potts model band-to-lane transition lanes opposite directions Mangeat Chatterjee Rieger"
+  }
+ ],
+ "result_urls": [
+  "https://www.rieger.uni-saarland.de/Paper/Chatterjee_mangeat_2022.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437124003054",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.012918",
+  "https://pith.science/paper/2412.10577",
+  "https://zenodo.org/records/23263766",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://ui.adsabs.harvard.edu/abs/2021APS..MARY17003K/abstract",
+  "https://zenodo.org/records/23263766",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5493750/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.012918",
+  "https://zenodo.org/records/23263766",
+  "https://pith.science/paper/2412.02501",
+  "https://ui.adsabs.harvard.edu/abs/2021APS..MARY17003K/abstract",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.125.188003",
+  "https://note.com/bertisnanu/n/n3ac785d25f3a?hl=en",
+  "https://pubs.aip.org/aip/jcp/article-abstract/165/10/104110/3404058/Finite-time-orientational-relaxation-restructures?redirectedFrom=fulltext",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://www.youtube.com/watch?v=_42kuGePvSs",
+  "https://zenodo.org/records/23263766",
+  "https://pith.science/paper/2412.10577",
+  "https://boulderschool.yale.edu/sites/default/files/files/RevModPhys_85_1143.pdf",
+  "https://www.emergentmind.com/topics/toner-tu-equations",
+  "https://www.rieger.uni-saarland.de/Paper/Chatterjee_mangeat_2022.pdf",
+  "https://journals.aps.org/pre/pdf/10.1103/gkhv-rp16",
+  "https://www.nature.com/articles/s42005-025-02098-x",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.024607",
+  "https://www.nature.com/articles/s42005-025-02098-x.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/gkhv-rp16",
+  "https://www.rieger.uni-saarland.de/Paper/Chatterjee_mangeat_2022.pdf",
+  "https://www.rieger.uni-saarland.de/homepage/people_page/mangeat.html",
+  "https://pubmed.ncbi.nlm.nih.gov/33212593/",
+  "https://en.x-mol.com/paper/article/1304495661742526464",
+  "https://journals.aps.org/pre/abstract/10.1103/1r19-ryx9",
+  "https://github.com/MatthieuM64/APM2020",
+  "https://journals.aps.org/pre/abstract/10.1103/b784-7xls",
+  "https://www.nature.com/articles/s42005-025-02098-x.pdf",
+  "https://www.emergentmind.com/topics/active-potts-models",
+  "https://www.rieger.uni-saarland.de/Paper/Chatterjee_2020_EPL_130_66001.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass. The parts of this behaviour that are documented are known. One specific twist in what the stripes do, which goes beyond the rule choice, is something I couldn't find described anywhere.\n\n**What is documented**\n- **Bands and microphase separation.** K\u00fcrsten & Ihle (PRL 2020) list the standard Vicsek phases, including a phase of polar ordered regularly arranged high density bands with surrounding low density regions. They also show the standard Vicsek model has a fourth phase for large system sizes: a polar ordered cross sea phase. Your parameters (density 1, speed 0.5, noise about 0.3 in the \u00b1\u03b7\u03c0 convention) sit in the band region.\n- **Head-on collisions destroy opposite bands.** In constant-speed noisy systems, travelling bands are found to be unstable in a head-on collision. That fits with stripe trains only surviving if they slide past each other in separate lanes.\n- **Opposite-travelling band states and lanes exist, but only in related models.**\n  - In the two-species Vicsek model there is an antiparallel flocking state, in which the bands of species A and species B move in opposite directions. It needs two species that actively anti-align with each other.\n  - In the active Potts model, a switch from transversal band motion to longitudinal lane formation is found, which is absent in the Vicsek model and the active Ising model.\n  - In the discretised Vicsek model, the authors note the counter-propagating dense bands find it difficult to reverse its flow.\n  - Other lane papers get two opposite streams only by adding something the standard model lacks: anti-alignment (arXiv 2412.10577), or particles assigned one of two preferred directions (each particle is assigned one of two opposite desired directions). That second paper says its lane phase is absent in the standard Vicsek model.\n\n**The twist I couldn't find described**\nIn the standard single-species Vicsek model, the box splits into 7 side-by-side lanes. Each lane carries a train of ordinary transverse bands, and neighbouring lanes travel in opposite directions. Nothing in the rules favours two directions; it is a spontaneously split version of the two-species antiparallel state. It persisted for 10\u2078 steps. This is not the active Potts lane state, where the dense stripe itself lies along the direction of motion, and not the cross-sea pattern.\n\nDoes it matter? Possibly, but it is probably a long-lived metastable state rather than a new phase:\n- Only 1 of 24 random starts (4.2%) ended up in it.\n- Starting from alternating opposite strips essentially builds the answer in.\n- Periodic boundaries can lock in whole lanes: once a lane spans the box, flipping it needs a collective fluctuation, and the two-species papers call that kind of whole-band reversal a rare event. So box geometry is a likely explanation.\n\n**Genuine or artefact?** It doesn't look like the obvious artefacts: not a random colouring, not a numerical blow-up, and not frozen, since the stripes keep travelling. But the fact that random starts rarely reach it and the strip start forces it makes geometry-induced lock-in plausible. To settle it you would need checks such as different box sizes and aspect ratios, starts that don't align lanes with the box, and the shear interface between lanes.\n\n**Limits of the search:** I read abstracts and snippets only, not the full texts of Chat\u00e9 2008, Solon\u2013Chat\u00e9\u2013Tailleur 2015 or Caussin 2014. A remark on long-lived antiparallel band domains could be buried in one of them, so confidence is medium.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Vicsek-model travelling bands (microphase separation) arranged as counter-propagating lanes; single-species analogue of the antiparallel-flocking (APF) band state\", \"citations\": [\"K\u00fcrsten & Ihle, PRL 125, 188003 (2020) - band and cross-sea phases of the standard Vicsek model\", \"Chatterjee, Mangeat et al., PRE 107, 024607 (2023) - two-species Vicsek model, APF state with counter-moving bands\", \"Mangeat, Chatterjee, Paul, Rieger, PRE 102, 042601 (2020) - band-to-lane transition, stated absent in Vicsek model\", \"PRE 89, 012918 (2014) - constant-speed noisy bands unstable in head-on collisions\", \"Discretized Vicsek model, New J. Phys. (2024) 10.1088/1367-2630/ad3ea7 - counter-propagating dense bands\", \"Bidirectional Vicsek-type model lane phase, Zenodo 23263766 (2026)\", \"arXiv:2412.10577 - lanes from anti-alignment\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Bands are textbook. Counter-propagating band lanes are documented only in models with two species, two preferred directions or anti-alignment. The active Potts and bidirectional-model papers say lanes are absent in the standard Vicsek model. The twist: lanes of transverse-band trains travelling in opposite directions, persisting for 1e8 steps in the single-species metric Vicsek model. Most likely a geometry-protected metastable state: 1 of 24 random starts, strip starts build it in, and periodic boundaries make lane reversal rare. Checks needed: box size and aspect ratio, starts not aligned with the box. Full texts of Chat\u00e9 2008, Solon 2015 and Caussin 2014 not read.\"}\n```",
+ "checked": "2026-11-03 03:13:45"
+}

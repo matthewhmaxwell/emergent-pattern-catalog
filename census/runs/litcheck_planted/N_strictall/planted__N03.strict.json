@@ -1,0 +1,58 @@
+{
+ "class_id": "planted:N03",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Boiling-bubble (bubbly) phase of autophoretic active particles with chemo-attractive translation and chemo-repulsive rotation near a no-flux wall; sits between chemotactic (Keller-Segel) collapse and bursting bubbles / dynamic clustering",
+ "citations": [
+  "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, arXiv 2609.03991 (cond-mat.soft, Sep 2026; read via https://pith.science/paper/2609.03991)",
+  "Pohl & Stark, PRL 112, 238303 (2014), Dynamic clustering and chemotactic collapse of self-phoretic active particles",
+  "Pohl & Stark, EPJE 38, 93 (2015), https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "Liebchen & Mukhopadhyay, J. Phys.: Condens. Matter 34, 083002 (2022), https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgrades the first pass from variant to KNOWN. The preprint matches the model (screened Yukawa field plus a no-flux image term, attractive translation with repulsive rotation), the five-phase count, screening as the control knob, and the wall stabilising the boiling phase. Fraction 1.0 with zero fluctuation fits non-rupturing boiling bubbles, and ~5.0 contacts (below 5.6 for full collapse) fits a cavity-filled cluster. Caveats: the source was read only via its Pith summary, its parameters were not checked, and it may not be peer-reviewed. The metrics cannot tell moving cavities from a frozen porous aggregate, so check cavity dynamics to rule out a static artifact.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "autophoretic active particles bubbles cavities clusters screened chemical field wall image"
+  },
+  {
+   "query": "Liebchen Marenduzzo Pagonabarraga Cates phoretic interactions dynamic clusters wave patterns"
+  },
+  {
+   "query": "\"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter\" arXiv"
+  },
+  {
+   "query": "Pohl Stark dynamic clustering chemotactic collapse active colloids repulsive rotation attractive translation"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.03991",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12366787",
+  "https://pubs.aip.org/aip/jcp/article/150/4/044902/1062423",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10994948/",
+  "https://pith.science/paper/2501.11442",
+  "https://www.arxiv-vanity.com/papers/1703.03245/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.1.023026",
+  "https://link.springer.com/article/10.1140/epje/s10189-021-00090-1",
+  "https://orbi.uliege.be/handle/2268/346759",
+  "https://www.research.ed.ac.uk/en/publications/phoretic-interactions-generically-induce-dynamic-clusters-and-wav/fingerprints/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.118.268001",
+  "https://scholar.google.co.uk/citations?hl=th&user=mB2cGJsAAAAJ",
+  "https://www.nature.com/articles/s42005-025-02211-0",
+  "https://pith.science/paper/2609.03991",
+  "https://pith.science/paper/2501.11442",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10053041/",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://iopscience.iop.org/article/10.1088/0953-8984/28/25/253001"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm upgrading the first pass's \"variant\" call. Confidence is medium, because the only matching source is a recent preprint I could read only through a summary page.\n\n**Main match.** A September 2026 cond-mat.soft preprint, \"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter\" (arXiv 2609.03991), studies the same kind of system. I could only open it through its Pith review page; I couldn't find the arXiv page itself.\n- **Same model.** It uses autophoretic particles with chemo-attractive translation and chemo-repulsive rotation, and shows that a no-flux boundary stabilizes the boiling state compared to a permeable interface. The chemical field includes both direct screened contributions and a boundary-induced image term, and the field comes from a first-order solute sink. That is the same exp(-kr)/r field with a mirror source as in your rules.\n- **Same behaviour.** In boiling bubbles, cavities form and circulate inside a dense cluster without rupturing it; in bursting bubbles, internal stress drives repeated explosive ruptures. (I've fixed typos in the source text.)\n- **Same number of states.** They identify five phases: full collapse, boiling bubbles, bursting bubbles, dynamic clusters, and gas. That matches your distinct_collective_states = 5.\n- **Same control knob.** Increasing chemical screening length \u03ba drives a systematic transition from compact clusters to bubbly phases to a gas. So a narrow screening window (0.18\u20130.22) between collapse and gas is what they describe.\n- **Same wall effect.** The image term enhances concentration gradients when \u039bc=1 (no-flux wall), strengthening the outward-pointing torques on boundary particles and stabilizing the boiling-bubble phase.\n\n**How your numbers fit \"boiling\" rather than \"bursting\":**\n- All disks are clustered (fraction 1.0) and that fraction never changes (fluctuation 0.0). So the cluster never breaks apart, which rules out bursting.\n- Each disk has about 5.0 neighbours, below the 5.6 of full collapse. That gap is what you'd expect if the cluster contains empty cavities.\n\n**Older background (peer-reviewed).** The mechanism itself is well established. With attractive translation and repulsive rotation, dynamic clustering was found for a suitable strength of the interactions; strong attraction gives a collapsed state \u2026 reminiscent of the chemotactic collapse obtained from the Keller\u2013Segel model (Pohl & Stark, PRL 2014). Pohl & Stark (EPJE 2015) also found that a collapsed cluster can first start to fluctuate strongly, then oscillate between a compact form and a colloidal cloud. That older work does not name the bubble phases.\n\n**Caveats:**\n- **Not verified in detail.** As in the first pass, I couldn't check the preprint's actual parameters, P\u00e9clet number, area fraction or contact numbers against your simulation. It also may not be peer-reviewed.\n- **Possible artifact.** Your metrics can't tell boiling (cavities that move around) from a frozen, porous single cluster. A clustered-fraction fluctuation of exactly 0.0 is consistent with both. \"Bubbles\" in your metrics are inferred from the contact deficit, not seen directly. To confirm genuine boiling, measure whether cavities are created, destroyed and move over time, or look at snapshots. Until then I rate it as most likely genuine, not certain.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Boiling-bubble (bubbly) phase of autophoretic active particles with chemo-attractive translation and chemo-repulsive rotation near a no-flux wall; sits between chemotactic (Keller-Segel) collapse and bursting bubbles / dynamic clustering\", \"citations\": [\"Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter, arXiv 2609.03991 (cond-mat.soft, Sep 2026; read via https://pith.science/paper/2609.03991)\", \"Pohl & Stark, PRL 112, 238303 (2014), Dynamic clustering and chemotactic collapse of self-phoretic active particles\", \"Pohl & Stark, EPJE 38, 93 (2015), https://link.springer.com/article/10.1140/epje/i2015-15093-4\", \"Liebchen & Mukhopadhyay, J. Phys.: Condens. Matter 34, 083002 (2022), https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgrades the first pass from variant to KNOWN. The preprint matches the model (screened Yukawa field plus a no-flux image term, attractive translation with repulsive rotation), the five-phase count, screening as the control knob, and the wall stabilising the boiling phase. Fraction 1.0 with zero fluctuation fits non-rupturing boiling bubbles, and ~5.0 contacts (below 5.6 for full collapse) fits a cavity-filled cluster. Caveats: the source was read only via its Pith summary, its parameters were not checked, and it may not be peer-reviewed. The metrics cannot tell moving cavities from a frozen porous aggregate, so check cavity dynamics to rule out a static artifact.\"}\n```",
+ "checked": "2026-11-03 04:13:57"
+}

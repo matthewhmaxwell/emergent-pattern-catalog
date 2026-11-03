@@ -1,0 +1,116 @@
+{
+ "class_id": "planted:N11",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Spatial birth-death point process with nonlocal competition (Bolker-Pacala-Dieckmann-Law class); nonlocal logistic / Turing-like pattern formation from long-range competition",
+ "standard_name": "Competition-induced (nonlocal) Turing-like pattern formation: hexagonal spots / stripes / gap (inverted-spot) sequence, with higher-order (cubic) nonlinearity controlling spot-vs-stripe selection",
+ "confidence": "medium",
+ "citations": [
+  "Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - particle birth-death model with neighbourhood-dependent rates gives periodic clusters via finite-wavelength instability",
+  "Bolker & Pacala 1997, Theor. Popul. Biol. 52:179-197 - moment equations for stochastically driven spatial pattern formation in spatial logistic point-process models",
+  "Dieckmann & Law / Bolker & Pacala (BPDL process) as described in Annals of Applied Probability 14(4) 2004 - model definition",
+  "Martinez-Garcia, Calabrese, Hernandez-Garcia, Lopez 2013, Geophys. Res. Lett. 40:6143 - competition alone yields gaps/stripes/spots; death-rate competition variant",
+  "Martinez-Garcia et al. 2014, Phil. Trans. R. Soc. A 372:20140068 - review of competition-only pattern models",
+  "Nonlinear stability analyses of vegetative pattern formation in an arid environment (2012 PubMed record) - hexagonal spots, stripes, hexagonal gaps from nonlocal logistic equations",
+  "Murray, Mathematical Biology (Turing pattern chapter) - cubic interactions favour stripes, quadratic favour spots"
+ ],
+ "searches": [
+  "three-body competition spatial birth-death pattern formation hexagonal spots stripes",
+  "higher-order interactions nonlocal competition Turing patterns inverted spots stochastic point process",
+  "Clustering advection and patterns neighborhood-dependent rates",
+  "individual-based competition kernel pattern formation hexagonal quadratic cubic death rate",
+  "Bolker Pacala spatial moment equations pattern formation hexagonal clusters",
+  "higher-order competition three-body birth-death point process reentrant",
+  "nonlocal logistic Britton hexagonal spots stripes holes",
+  "Martinez-Garcia vegetation patterns without facilitation",
+  "Lefever deeply gapped vegetation patterns"
+ ],
+ "notes": "Generic spots->stripes->gaps sequence from nonlocal competition is well documented. I found no source with a short-range three-body death term as the control parameter, or reporting spot-stripe-spot re-entry vs death/birth ratio in a continuous-space particle model; these specifics are likely explained by weakly nonlinear (quadratic-vs-cubic) pattern selection but I did not verify this. Only abstracts/snippets were read, not full texts. Britton's papers and the reversed-spots paper authors/year were not confirmed.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "three-body competition spatial birth-death process pattern formation hexagonal spots stripes individual-based"
+  },
+  {
+   "query": "higher-order interactions nonlocal competition Turing patterns spots stripes inverted spots stochastic point process"
+  },
+  {
+   "query": "Clustering, advection and patterns in a model of population dynamics with neighborhood-dependent rates"
+  },
+  {
+   "query": "individual-based model competition kernel pattern formation spots stripes hexagonal lattice nonlocal competition quadratic cubic death rate"
+  },
+  {
+   "query": "Bolker Pacala spatial moment equations pattern formation hexagonal clusters competition kernel stochastic simulation"
+  },
+  {
+   "query": "higher-order competition three-body interaction birth-death point process pattern formation stripes spots reentrant nonlocal"
+  },
+  {
+   "query": "nonlocal logistic equation Britton pattern formation hexagonal spots stripes hole patterns short-range cubic term"
+  },
+  {
+   "query": "Mart\u00ednez-Garc\u00eda Calabrese Hern\u00e1ndez-Garc\u00eda L\u00f3pez vegetation pattern formation semiarid systems without facilitation individual-based competition"
+  },
+  {
+   "query": "Lefever Barbier Couteron Lejeune deeply gapped vegetation patterns crown root allometry criticality desertification"
+  }
+ ],
+ "result_urls": [
+  "https://www.math.pku.edu.cn/teachers/litj/notes/stoch_topics2015/MurrayBook_TuringPattern.pdf",
+  "https://link.springer.com/article/10.1007/s11538-018-0488-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924000328",
+  "https://bio.libretexts.org/Bookshelves/Evolutionary_Developmental_Biology/Evolutionary_Developmental_Biology_(Rivera)/07:_Patterning/7.1:_Turing_Patterns_to_Generate_Stripes_and_Spots",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "https://link.springer.com/article/10.1007/s44198-021-00002-z",
+  "https://doi.org/10.1103/PhysRevE.70.016216",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4493154/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0022519396903707",
+  "https://link.springer.com/chapter/10.1007/978-3-032-00873-2_11",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://link.springer.com/article/10.1007/s10955-012-0506-x",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0304380019303862",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0096300317301911",
+  "https://pure.iiasa.ac.at/id/eprint/5899/1/IR-99-043.pdf",
+  "https://ms.mcmaster.ca/~bolker/meqs/momeq2s.html",
+  "https://doi.org/10.1086/669678",
+  "https://ms.mcmaster.ca/~bolker/bb-pubs.html",
+  "https://www.journals.uchicago.edu/doi/10.1086/303199",
+  "https://link.springer.com/article/10.1007/s12080-013-0202-8",
+  "https://collaborate.princeton.edu/en/publications/using-moment-equations-to-understand-stochastically-driven-spatia/",
+  "https://ms.mcmaster.ca/~bolker/classes/m747/m747_topics.html",
+  "https://projecteuclid.org/journals/annals-of-applied-probability/volume-14/issue-4/A-microscopic-probabilistic-description-of-a-locally-regulated-population-and/10.1214/105051604000000882.pdf",
+  "https://www.biorxiv.org/content/10.64898/2026.05.26.727925v1.full",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0025556425000896",
+  "https://doi.org/10.3390/molecules29071512",
+  "https://ifisc.uib-csic.es/en/publications/nonlocal-birth-death-competitive-dynamics-with-vol/",
+  "https://link.springer.com/article/10.1007/s11538-021-00886-4",
+  "https://www.tandfonline.com/doi/full/10.1080/17513750903301954",
+  "https://people.maths.ox.ac.uk/~maini/PKM%20publications/102.pdf",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://opentextbooks.library.arizona.edu/mathematicalmodeling/chapter/pattern-formation/",
+  "https://www.math.pku.edu.cn/teachers/litj/notes/stoch_topics2015/MurrayBook_TuringPattern.pdf",
+  "https://link.springer.com/article/10.1007/s44198-021-00002-z",
+  "https://pubmed.ncbi.nlm.nih.gov/22881129/",
+  "https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013GL058797",
+  "https://ui.adsabs.harvard.edu/abs/2014EGUGA..16.1977M/abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/25246686/",
+  "https://link.springer.com/chapter/10.1007/978-3-032-00873-2_11",
+  "https://www.nature.com/articles/srep33703",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4186217/",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://link.springer.com/chapter/10.1007/978-3-642-30870-3_67",
+  "https://link.springer.com/chapter/10.1007/978-3-030-23269-6_18",
+  "https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-0362.1",
+  "https://ouci.dntb.gov.ua/en/works/4g5LALB9/",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1420171112",
+  "https://link.springer.com/chapter/10.1007/978-94-007-5727-1_13",
+  "https://www.nature.com/articles/s41598-020-62677-6",
+  "https://ouci.dntb.gov.ua/en/works/45kDnnM9/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The pattern sequence is well documented for nonlocal-competition birth\u2013death and logistic models. I found no source that uses a three-body death term as the control parameter, or that reports the spot\u2013stripe\u2013spot re-entry in this particle system.\n\n**1. Model family**\n\nThis is a spatial birth\u2013death point process with Gaussian dispersal and a nonlocal competition kernel. It is the Bolker\u2013Pacala\u2013Dieckmann\u2013Law (BPDL) class. A long-range competition radius (1.25) much larger than the dispersal width (0.05) gives a finite-wavelength, Turing-like instability. The pair-plus-three-body death rate adds a higher-order nonlinearity to the usual nonlocal logistic or Fisher\u2013KPP model.\n\n**2. What the literature shows**\n\n- **Model class.** The BPDL process was introduced by Bolker and Pacala and by Dieckmann and Law. This model was introduced by Bolker and Pacala [2] and Dieckmann and Law [9]. The Bolker and Pacala moment-equation papers cover endogenous spatial structure. The moment equations predict endogenous spatial pattern formation.\n- **Earliest particle-based source I found.** Hern\u00e1ndez-Garc\u00eda and L\u00f3pez (2004, Phys. Rev. E 70, 016216) studied a birth\u2013death particle model with neighbourhood-dependent rates. The model shows an inhomogeneous quasistationary pattern with many different clusters of particles arranged periodically in space. They derived a macroscopic density equation and show that there is a finite-wavelength instability leading to pattern formation.\n- **Earlier continuum precursor.** Britton's nonlocal competition models are the roots of this line of work. A later paper says the research on the nonlocal model can be traced back to Britton [5, 6]. I did not open Britton's papers, so I can't give his exact title or year.\n- **Competition-only patterns.** Mart\u00ednez-Garc\u00eda, Calabrese, Hern\u00e1ndez-Garc\u00eda and L\u00f3pez (2013, Geophys. Res. Lett.) showed that competition alone gives the full pattern set. We recover the full spectrum of spatial structures typical of vegetation models that also account for facilitation in addition to competition. That spectrum is gaps, stripes and spots. They also describe one mechanism in which competition enters through the death rate.\n- **Review.** Mart\u00ednez-Garc\u00eda et al. (2014, Phil. Trans. R. Soc. A 372, 20140068) reviewed models in which finite-range competition is the only driving force.\n- **Hexagonal spots, stripes and gaps as one sequence.** Nonlinear analyses of the vegetation logistic equations report hexagonal spot, stripe and hexagonal gap patterns. A hexagonal spotted pattern formed, changing into labyrinths for R=1; while a hexagonal gap pattern was generated for R=1.25. The same source notes stripes and spots (or stripes and gaps) are predicted, the initial conditions determine which stable equilibrium pattern of each pair will be selected. A cellular-automaton study also reports a shift from spots through labyrinths to gaps under competition only. A flow paper on the nonlocal FKPP equation reports gap, labyrinth/stripe and hexagonal-spot regimes.\n- **Why a nonlinearity parameter and re-entry are plausible.** Generic pattern-selection theory says quadratic terms favour spots or hexagons and cubic terms favour stripes. A pattern-formation text states if cubic terms dominate, then rolls (or stripes) prevail. Murray's book says the same. Spots, then stripes, then spots again as the nonlinearity or ratio is tuned fits this picture. Spots, stripes and inverted spots appear in classical 2D Turing systems too (Stripes, spots, or reversed spots in two-dimensional Turing systems, J. Theor. Biol.; I did not confirm the authors or year).\n\n**3. What differs and whether it matters**\n\n- I found no paper that uses a three-body (density-squared, short-range) death term as the tuned parameter in a continuous-space particle model.\n- I also found no paper reporting spot\u2013stripe\u2013spot re-entry as the death/birth ratio is varied in such a model.\n- The generic mechanism (long-range competition plus a tunable nonlinearity) should carry over. Weakly nonlinear theory would likely explain the stripe window and the re-entry. The exact thresholds (g values, ratio 0.55) are specific to these parameters and are not in the literature.\n- The anisotropy index jumping from 0 to 1 at stripe onset is probably a descriptor choice, not a new effect.\n\n**4. Confidence and limits**\n\nConfidence is medium. The model family and the spots/stripes/gaps sequence are well supported, but I read only abstracts and snippets, not full texts. My search budget was limited, so the specific three-body and re-entry claims may exist in sources I did not reach. The citation details below were checked against the search results, except Britton's papers and the reversed-spots paper.\n\n**Searches run**\n- three-body competition spatial birth-death pattern formation hexagonal spots stripes\n- higher-order interactions nonlocal competition Turing patterns inverted spots\n- Hern\u00e1ndez-Garc\u00eda and L\u00f3pez 2004\n- individual-based competition kernel patterns, quadratic/cubic death\n- Bolker\u2013Pacala moment equations pattern formation\n- higher-order three-body birth-death point process reentrant patterns\n- nonlocal logistic (Britton) hexagonal spots, stripes, holes\n- Mart\u00ednez-Garc\u00eda et al. competition-only vegetation patterns\n- Lefever et al. gapped vegetation patterns\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Spatial birth-death point process with nonlocal competition (Bolker-Pacala-Dieckmann-Law class); nonlocal logistic / Turing-like pattern formation from long-range competition\", \"standard_name\": \"Competition-induced (nonlocal) Turing-like pattern formation: hexagonal spots / stripes / gap (inverted-spot) sequence, with higher-order (cubic) nonlinearity controlling spot-vs-stripe selection\", \"confidence\": \"medium\", \"citations\": [\"Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - particle birth-death model with neighbourhood-dependent rates gives periodic clusters via finite-wavelength instability\", \"Bolker & Pacala 1997, Theor. Popul. Biol. 52:179-197 - moment equations for stochastically driven spatial pattern formation in spatial logistic point-process models\", \"Dieckmann & Law / Bolker & Pacala (BPDL process) as described in Annals of Applied Probability 14(4) 2004 - model definition\", \"Martinez-Garcia, Calabrese, Hernandez-Garcia, Lopez 2013, Geophys. Res. Lett. 40:6143 - competition alone yields gaps/stripes/spots; death-rate competition variant\", \"Martinez-Garcia et al. 2014, Phil. Trans. R. Soc. A 372:20140068 - review of competition-only pattern models\", \"Nonlinear stability analyses of vegetative pattern formation in an arid environment (2012 PubMed record) - hexagonal spots, stripes, hexagonal gaps from nonlocal logistic equations\", \"Murray, Mathematical Biology (Turing pattern chapter) - cubic interactions favour stripes, quadratic favour spots\"], \"searches\": [\"three-body competition spatial birth-death pattern formation hexagonal spots stripes\", \"higher-order interactions nonlocal competition Turing patterns inverted spots stochastic point process\", \"Clustering advection and patterns neighborhood-dependent rates\", \"individual-based competition kernel pattern formation hexagonal quadratic cubic death rate\", \"Bolker Pacala spatial moment equations pattern formation hexagonal clusters\", \"higher-order competition three-body birth-death point process reentrant\", \"nonlocal logistic Britton hexagonal spots stripes holes\", \"Martinez-Garcia vegetation patterns without facilitation\", \"Lefever deeply gapped vegetation patterns\"], \"notes\": \"Generic spots->stripes->gaps sequence from nonlocal competition is well documented. I found no source with a short-range three-body death term as the control parameter, or reporting spot-stripe-spot re-entry vs death/birth ratio in a continuous-space particle model; these specifics are likely explained by weakly nonlinear (quadratic-vs-cubic) pattern selection but I did not verify this. Only abstracts/snippets were read, not full texts. Britton's papers and the reversed-spots paper authors/year were not confirmed.\"}\n```",
+ "checked": "2026-11-03 03:02:24"
+}

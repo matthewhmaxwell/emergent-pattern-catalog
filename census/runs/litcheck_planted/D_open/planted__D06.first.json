@@ -1,0 +1,104 @@
+{
+ "class_id": "planted:D06",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "lattice agent-based chase-and-escape / pursuit-evasion (statistical physics, nlin.AO)",
+ "standard_name": "Group chase and escape model with lazy (random-walk) chasers, division-of-labor laziness; nearest-target clustering of chasers",
+ "confidence": "medium",
+ "citations": [
+  "Kamimura & Ohira 2010, New J. Phys. 12, 053013 - original group chase and escape lattice model, nearest-target chasers/escapers, optimal number of chasers, heavy-tailed catch times",
+  "Masuko, Hiraoka, Ito, Shimada 2017, J. Phys. Soc. Jpn. 86, 085002 (arXiv:1612.04556) - fixed fraction of random-walk chasers speeds up catching and suppresses the long tail via cluster-breaking/pincer; uniform per-step laziness never helps; fixed (non-moving) lazy chasers also tested",
+  "Kamimura & Ohira 2019, Springer book 'Group Chase and Escape' - monograph/review (not read)"
+ ],
+ "searches": [
+  "pursuers evaders lattice fraction of random-moving pursuers reduces capture time",
+  "predator-prey pursuit evasion heavy-tailed capture time nearest-target pursuers clustering random walkers mixed strategy",
+  "diversity of pursuit strategies improves capture; fraction of non-pursuing predators optimal; multi-agent pursuit-evasion cellular automaton",
+  "The effect of laziness in chasers in group chase and escape model",
+  "Kamimura Ohira Group chase and escape New Journal of Physics 2010",
+  "Masuko Hiraoka Ito Shimada laziness group chase escape division of labor optimal ratio R lattice"
+ ],
+ "notes": "Read only arXiv text and snippets, not the full papers. Their optimal R, lattice size/density, update order and exclusion rule were not verified against the 0.3 optimum and 200x200 setup. The standing-still variant was tested, but I did not read the result. The review citation is the Springer book, which I did not open.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "pursuers evaders lattice fraction of random-moving pursuers reduces capture time"
+  },
+  {
+   "query": "predator-prey pursuit evasion heavy-tailed capture time nearest-target pursuers clustering random walkers mixed strategy"
+  },
+  {
+   "query": "diversity of pursuit strategies improves capture; fraction of non-pursuing predators optimal; multi-agent pursuit-evasion cellular automaton"
+  },
+  {
+   "query": "The effect of laziness in chasers in group chase and escape model Sato Ohira Kamimura"
+  },
+  {
+   "query": "Kamimura Ohira \"Group chase and escape\" New Journal of Physics 2010"
+  },
+  {
+   "query": "Masuko Hiraoka Ito Shimada laziness group chase escape division of labor optimal ratio R lattice N_C = N_T mean catching time"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/2407.19954",
+  "https://arxiv.org/pdf/2603.15278",
+  "https://www.researchgate.net/publication/327519293_Pursuit-evasion_of_an_Evader_by_Multiple_Pursuers",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC8415911/",
+  "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.691637/xml",
+  "https://iopscience.iop.org/article/10.1088/1742-6596/2402/1/012024/pdf",
+  "https://arxiv.org/pdf/2410.16829",
+  "https://arxiv.org/html/2103.15660v1",
+  "https://sites.cs.ucsb.edu/~suri/psdir/socg13.pdf",
+  "https://www.pnas.org/doi/10.1073/pnas.0904354106",
+  "https://arxiv.org/pdf/2311.05403",
+  "https://arxiv.org/pdf/0909.1445",
+  "https://www.researchgate.net/publication/352051863_Pursuit_and_Evasion_Strategies_in_the_Predator-Prey_Interactions_of_Fishes",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2728956/",
+  "https://www.nature.com/articles/s41598-025-15057-x",
+  "https://arxiv.org/pdf/1612.04556",
+  "https://arxiv.org/pdf/1108.1561",
+  "https://arxiv.org/pdf/2410.16829",
+  "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.691637/full",
+  "https://opus.lib.uts.edu.au/bitstream/10453/177149/1/thesis.pdf",
+  "https://arxiv.org/pdf/2001.04731",
+  "https://www.researchgate.net/publication/394439906_Emergent_behaviors_in_multiagent_pursuit_evasion_games_within_a_bounded_2D_grid_world",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0957417424028963",
+  "https://www.researchgate.net/publication/371520127_Distributed_Optimal_Solutions_for_Multiagent_Pursuit-Evasion_Games_for_Capture_and_Formation_Control",
+  "https://arxiv.org/pdf/2407.19954",
+  "https://msl.stanford.edu/papers/pierson_intercepting_2017.pdf",
+  "https://arxiv.org/html/2103.15660v1",
+  "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.691637/full",
+  "https://link.springer.com/article/10.1007/s10015-023-00928-1",
+  "https://arxiv.org/abs/1612.04556",
+  "https://www.nature.com/articles/s41598-023-49368-8",
+  "https://arxiv.org/pdf/1612.04556",
+  "https://www.researchgate.net/publication/311647889_The_effect_of_laziness_in_chasers_in_group_chase_and_escape_model",
+  "https://ar5iv.labs.arxiv.org/html/1612.04556",
+  "https://www.researchgate.net/figure/The-schematic-diagram-of-the-group-chase-and-escape-model-with-lazy-random-walk-chaser_fig1_311647889",
+  "https://www.academia.edu/103424814/Group_chase_and_escape_with_preys_anti_attack_behavior",
+  "https://www.researchgate.net/publication/45891658_Group_Chase_and_Escape",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/12/5/053013",
+  "https://sites.google.com/site/ohiratorue/home/gce",
+  "https://www.researchgate.net/publication/45891658_Group_Chase_and_Escape",
+  "https://profs.provost.nagoya-u.ac.jp/html/100006387_en.html",
+  "https://scholar.google.com/citations?user=ZGMjm3IAAAAJ&hl=en",
+  "https://sites.google.com/site/ohiratorue/home/",
+  "https://arxiv.org/pdf/1412.2114",
+  "https://link.springer.com/chapter/10.1007/978-3-642-15979-4_62",
+  "https://www.nature.com/articles/srep23911",
+  "https://arxiv.org/pdf/1612.04556",
+  "https://ar5iv.labs.arxiv.org/html/1612.04556",
+  "https://www.researchgate.net/publication/311647889_The_effect_of_laziness_in_chasers_in_group_chase_and_escape_model",
+  "https://www.researchgate.net/scientific-contributions/Makoto-Masuko-2150868243",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10713619/",
+  "https://scholar.google.com/citations?hl=en&user=FWnpYwMAAAAJ",
+  "https://webpark2049.sakura.ne.jp/paper.html",
+  "https://arxiv.org/pdf/0912.4327",
+  "https://arxiv.org/html/1204.0082",
+  "https://www.researchgate.net/publication/45891658_Group_Chase_and_Escape"
+ ],
+ "full_text": "**Verdict: KNOWN.** Masuko et al. (2017) studied this model class and reported the same behaviour.\n\n**1. Model family.** This is the \"group chase and escape\" model, a lattice agent-based model from statistical physics and nonlinear science. Each chaser moves toward its nearest target, and each target moves away from its nearest chaser. Kamimura & Ohira introduced it.\n\n**2. The specific behaviour.** The lazy-chaser variant is the match. Masuko, Hiraoka, Ito and Shimada put random-walking chasers into this model on a periodic square lattice. They measured the total time T to catch all targets, averaged over runs. Their findings line up with your observations:\n- **Uniform laziness gives no gain.** Laziness is introduced as random walks in two ways, uniformly and in a \"division of labor\" way. The uniform way is always ineffective. This matches your `gain_if_all_sometimes_random = 0`.\n- **Division of labor can help.** The division-of-labor way can improve catching efficiency, through a pincer attack by diligent and lazy chasers. In that scheme, a fixed fraction R of chasers always random-walk and the rest always chase the nearest target. This is your 30% random movers.\n- **The tail gets shorter.** Replacing some chasers with random walkers suppresses the tail of the distribution and makes unlucky cases rarer, with a slight increase in the peak position. This matches your typical time of about 1000 versus rare runs of about 10000, and the lower mean at 30%.\n- **The mechanism is the same.** Chasers that follow the same target from the same direction form a cluster, and a cluster rarely scatters. A random-walking chaser can draw the evader toward the cluster, because the evader flees from the random walker as its nearest chaser.\n- **Standing still was also tested.** The paper replaced the lazy chasers with fixed ones that don't move at all. This corresponds to your \"standing still\" variant. I did not read the result.\n\nThe base model with the nearest-target rule on a lattice comes from Kamimura & Ohira. They found cases where an optimal number of chasers exists, and signs of self-organised spatial structures. The same paper reports heavy-tailed catch-time distributions (the search snippet mentions log-normal-like shapes).\n\n**3. Verified citations** (title, authors, year and venue checked against search results):\n- Kamimura A., Ohira T. (2010), \"Group chase and escape\", *New J. Phys.* 12, 053013. Published 10 May 2010. The arXiv version is 0912.4327.\n- Masuko M., Hiraoka T., Ito N., Shimada T. (2017), \"The effect of laziness in group chase and escape\", *J. Phys. Soc. Jpn.* 86, 085002. The arXiv preprint is 1612.04556, titled \"The effect of laziness in chasers in group chase and escape model\". The journal reference is confirmed on the arXiv abstract page.\n- Review: Kamimura & Ohira, *Group Chase and Escape: Fusion of Pursuits-Escapes and Collective Motions* (Springer, 2019), a book. Google Scholar lists it and the Ohira homepage confirms it. I did not read it. A shorter review is Hiraoka-adjacent work by Ohira's group: Springer's *Artificial Life and Robotics* article \"Collective behaviors emerging from chases and escapes\" (2023) cites the laziness paper, but I only saw its reference list.\n\n**4. Differences from your system.** These probably don't matter, but I could not confirm all of them.\n- **Details I could not check.** Masuko et al. use their own lattice size and density, and the snippets don't show their update order or exclusion rule. Your 200\u00d7200 lattice at density 0.001 and your sequential random-order update with exclusion may differ.\n- **Distance metric.** I did not confirm whether theirs is Euclidean, as yours is.\n- **Optimal share.** I did not see their optimal R. Your 0.3 optimum and mean times of 3100 and 1380 are system-specific numbers that I could not compare.\n- **Uniform laziness.** Their uniform case is a per-step random-walk probability P for every chaser, which is the \"all sometimes random\" case.\n\n**5. Confidence: medium-high.** The model, the observable, the uniform-versus-division-of-labor contrast, the tail suppression and the clustering mechanism all match. I held back from \"high\" because I read only the arXiv text and snippets, not the full paper. I also couldn't check the exact optimum R or the lattice parameters.\n\n**Searches run:**\n- \"pursuers evaders lattice fraction of random-moving pursuers reduces capture time\"\n- \"predator-prey pursuit evasion heavy-tailed capture time nearest-target pursuers clustering random walkers mixed strategy\"\n- \"diversity of pursuit strategies improves capture; fraction of non-pursuing predators optimal; multi-agent pursuit-evasion cellular automaton\"\n- \"The effect of laziness in chasers in group chase and escape model Sato Ohira Kamimura\"\n- \"Kamimura Ohira Group chase and escape New Journal of Physics 2010\"\n- \"Masuko Hiraoka Ito Shimada laziness group chase escape division of labor optimal ratio R lattice N_C = N_T mean catching time\"\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"lattice agent-based chase-and-escape / pursuit-evasion (statistical physics, nlin.AO)\", \"standard_name\": \"Group chase and escape model with lazy (random-walk) chasers, division-of-labor laziness; nearest-target clustering of chasers\", \"confidence\": \"medium\", \"citations\": [\"Kamimura & Ohira 2010, New J. Phys. 12, 053013 - original group chase and escape lattice model, nearest-target chasers/escapers, optimal number of chasers, heavy-tailed catch times\", \"Masuko, Hiraoka, Ito, Shimada 2017, J. Phys. Soc. Jpn. 86, 085002 (arXiv:1612.04556) - fixed fraction of random-walk chasers speeds up catching and suppresses the long tail via cluster-breaking/pincer; uniform per-step laziness never helps; fixed (non-moving) lazy chasers also tested\", \"Kamimura & Ohira 2019, Springer book 'Group Chase and Escape' - monograph/review (not read)\"], \"searches\": [\"pursuers evaders lattice fraction of random-moving pursuers reduces capture time\", \"predator-prey pursuit evasion heavy-tailed capture time nearest-target pursuers clustering random walkers mixed strategy\", \"diversity of pursuit strategies improves capture; fraction of non-pursuing predators optimal; multi-agent pursuit-evasion cellular automaton\", \"The effect of laziness in chasers in group chase and escape model\", \"Kamimura Ohira Group chase and escape New Journal of Physics 2010\", \"Masuko Hiraoka Ito Shimada laziness group chase escape division of labor optimal ratio R lattice\"], \"notes\": \"Read only arXiv text and snippets, not the full papers. Their optimal R, lattice size/density, update order and exclusion rule were not verified against the 0.3 optimum and 200x200 setup. The standing-still variant was tested, but I did not read the result. The review citation is the Springer book, which I did not open.\"}\n```",
+ "checked": "2026-11-03 02:31:34"
+}

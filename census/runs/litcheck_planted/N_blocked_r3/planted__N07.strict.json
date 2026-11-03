@@ -1,0 +1,50 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Odd-diffusion-induced generic power-law (r^-4) density correlations in chiral generalized-KMP mass-transport models with L-shaped three-site moves",
+ "citations": [
+  "arXiv:2609.16821 'Odd diffusion and power-law correlations in chiral mass-transport processes' (2026), via Pith review page",
+  "Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (DOI 10.1103/sn1k-k8ng)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "high",
+ "notes": "Overturns the first pass in two ways: (1) the mechanism is chirality/odd diffusion, not centre-of-mass conservation; (2) the system is not hyperuniform, because S(q->0) is a finite compressibility that reaches a minimum at one chirality and then rises to a sqrt cusp at the maximal odd-diffusion strength. All four observed features (r^-4 decay, x/y ratio of 1, single fluctuation minimum vs turning, sqrt cusp) match arXiv:2609.16821. Caveats: the paper was read only through the Pith summary page, not the arXiv text, and the exact retention fractions (0.4/0.6) used in the paper were not confirmed.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "chiral conserved mass transport lattice model hyperuniformity turning long-range correlations"
+  },
+  {
+   "query": "multidirectional hopping conserved-mass transport power-law correlations chiral dynamics arXiv Pradhan"
+  },
+  {
+   "query": "\"Odd diffusion and power-law correlations in chiral mass-transport processes\""
+  },
+  {
+   "query": "chiral KMP model odd diffusion hyperuniformity optimal chirality fluctuations square-root cusp"
+  }
+ ],
+ "result_urls": [
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.7.L012048",
+  "https://sites.google.com/iiserkol.ac.in/statphys-kol-xiii/program/talks",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://pith.science/paper/2609.16821",
+  "https://repository.lsu.edu/cgi/viewcontent.cgi?params=%2Fcontext%2Fphysics_astronomy_pubs%2Farticle%2F6871%2F&path_info=5791.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.062135",
+  "https://pith.science/paper/2609.16821",
+  "https://pith.science/paper/2609.16821",
+  "https://pith.science/paper/2609.12680",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html"
+ ],
+ "full_text": "**Verdict: KNOWN.** The first pass guessed the right general area but put the behaviour in the wrong class, so I'm overturning it.\n\n**Closest match.** There is a matching paper: arXiv 2609.16821, \"Odd diffusion and power-law correlations in chiral mass-transport processes\" (submitted 15 September 2026). I only read it through a third-party summary page (Pith), not the arXiv text itself. That page says the authors introduce a class of exactly solvable chiral mass-transport models (generalized KMP) on a square lattice and show that odd diffusion alone, without anisotropy, produces algebraic density correlations decaying as ~ |r|^{-4}. Your rule matches it closely: the model relies on coordinated three-site L-shaped moves to generate odd diffusion. Keeping a fixed fraction plus a random share of the rest is the generalized KMP (Kipnis\u2013Marchioro\u2013Presutti) update.\n\n**How each observed feature lines up:**\n- **Decay exponent of 4:** reported. The summary says the power law comes from the interplay between the off-diagonal components of the diffusion tensor (the odd-diffusion coefficient $D^{(\\text{odd}$) and the off-diagonal components of the mobility tensor.\n- **One turning strength that minimises fluctuations, and the square-root cusp:** reported. The zero-wavenumber structure factor (compressibility) decreases with increasing chirality at small odd diffusion, then increases and develops a square-root cusp singularity at a maximal admissible odd-diffusion strength, revealing a dual role of chirality in regulating density fluctuations.\n- **x/y ratio of 1.0:** the correlations have an angular dependence, but I couldn't see its exact form in the summary. A four-fold pattern would give equal values along x and y, so the ratio is consistent with the paper but doesn't by itself show the pattern is isotropic. Worth checking directly.\n\n**Why the first pass was wrong.** It called this Class-I hyperuniformity driven by centre-of-mass conservation. Your rule doesn't conserve centre of mass: the L-shaped moves carry mass a net distance. It also isn't hyperuniform. The quantity being minimised is a finite compressibility at zero wavenumber, and it rises again towards the cusp, so it never goes to zero. The r\u207b\u2074 decay is the generic power-law correlation of driven systems, produced here by odd diffusion. The centre-of-mass mechanism belongs to the related Hazra\u2013Chakraborty\u2013Mukherjee\u2013Pradhan paper, which shows that for d>1, the steady-state static density-density and \"activity\"-density correlation functions in the thermodynamic limit typically decay as \u223c1/r(d+2). A talk by Pradhan presents centre-of-mass-conserving and chiral dynamics as two important classes of dynamics. Your system belongs to the chiral one.\n\n**Is it a real effect or an artifact?** Real. All four features are predicted analytically by an exactly solvable theory, and nothing points to a frozen state, numerical blow-up or random colouring. I can't tell from the summary whether the paper used exactly 40% and 60% retention, but the behaviour doesn't depend on that.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Odd-diffusion-induced generic power-law (r^-4) density correlations in chiral generalized-KMP mass-transport models with L-shaped three-site moves\", \"citations\": [\"arXiv:2609.16821 'Odd diffusion and power-law correlations in chiral mass-transport processes' (2026), via Pith review page\", \"Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (DOI 10.1103/sn1k-k8ng)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"high\", \"notes\": \"Overturns the first pass in two ways: (1) the mechanism is chirality/odd diffusion, not centre-of-mass conservation; (2) the system is not hyperuniform, because S(q->0) is a finite compressibility that reaches a minimum at one chirality and then rises to a sqrt cusp at the maximal odd-diffusion strength. All four observed features (r^-4 decay, x/y ratio of 1, single fluctuation minimum vs turning, sqrt cusp) match arXiv:2609.16821. Caveats: the paper was read only through the Pith summary page, not the arXiv text, and the exact retention fractions (0.4/0.6) used in the paper were not confirmed.\"}\n```",
+ "checked": "2026-11-03 03:26:05"
+}

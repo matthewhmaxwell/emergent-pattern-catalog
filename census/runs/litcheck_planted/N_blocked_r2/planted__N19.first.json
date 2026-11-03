@@ -1,0 +1,110 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Keller-Segel / Budrene-Berg chemotaxis PDEs (autochemotaxis plus nutrient taxis), pattern formation",
+ "standard_name": "Coexistence of stationary aggregates (spots) and travelling nutrient-driven chemotactic bands/pulses in Keller-Segel models with attractant and nutrient",
+ "confidence": "medium",
+ "citations": [
+  "Brenner, Levitov & Budrene 1998, Biophys J 74:1677-1693 - theory of swarm rings and aggregates from excreted attractant",
+  "Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8:e74878 - taxis to both nutrient and secreted attractant gives fixed or mobile spots depending on the sensitivity ratio",
+  "Mathematical Description of Bacterial Traveling Pulses, PLoS Comput Biol ~2010 - 1D Keller-Segel with attractant and nutrient; coexistence of stationary cluster and travelling pulse (authors/year not verified from search output)",
+  "Hillen & Painter 2009, J Math Biol - review of PDE chemotaxis models",
+  "Tyson, Lubkin & Murray 1999, J Math Biol 38:359-375 - chemotactic pattern model in liquid medium"
+ ],
+ "searches": [
+  "chemotaxis attractant and nutrient taxis travelling bands coexisting with aggregates",
+  "Keller-Segel nutrient consumption attractant production 2D spots and stripes",
+  "Tyson Lubkin Murray 1999",
+  "chemotaxis to self-produced attractant and nutrient, stripes and aggregates coexist",
+  "Curk Marenduzzo Dobnikar 2013 authors",
+  "Brenner Levitov Budrene 1998",
+  "aggregates carried by travelling bands, nutrient resupply, periodic domain",
+  "Keller-Segel two chemicals stationary aggregates and traveling waves 2D"
+ ],
+ "notes": "No source found with exactly this system (no growth, uniform nutrient resupply, saturating b/(1+b^2) sensitivity, 2D periodic domain, aggregate carried inside bands). The closest report is the 1D PLoS Comput Biol traveling-pulse paper, and Curk 2013 is the nearest 2D analogue. I could not verify the authors and year of the PLoS Comput Biol paper from the search output, so treat that citation as approximate.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates pattern formation"
+  },
+  {
+   "query": "Keller-Segel nutrient consumption chemoattractant production two-dimensional spots and travelling stripes coexistence bacteria"
+  },
+  {
+   "query": "Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium J Math Biol 1999"
+  },
+  {
+   "query": "chemotaxis toward self-produced attractant and nutrient, simulation 2D stripes and aggregates coexist, nutrient taxis versus autochemotaxis"
+  },
+  {
+   "query": "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli PLoS ONE 2013 authors"
+  },
+  {
+   "query": "Brenner Levitov Budrene Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal 1998"
+  },
+  {
+   "query": "chemotaxis nutrient and attractant, nutrient resupplied, periodic domain, dense aggregates carried by travelling bands, PDE simulation"
+  },
+  {
+   "query": "Keller-Segel two chemicals attractant and nutrient taxis numerical patterns coexistence of stationary aggregates and traveling waves 2D"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009153",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ab4522",
+  "https://archive.math.arizona.edu/lega/UG/ChemBact/ChemBact.html",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://link.springer.com/chapter/10.1007/978-3-030-65505-1_12",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.088201",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://faculty.washington.edu/rjl/pubs/chemotaxis/chemotaxis.pdf",
+  "https://pubs.aip.org/aip/cha/article-abstract/14/3/562/135402/Hydrodynamics-of-bacterial-colonies-Phase-diagrams?redirectedFrom=fulltext",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.nature.com/articles/ncomms12984",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC8632791/",
+  "https://www.mdpi.com/2227-7390/14/5/748",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/full",
+  "https://link.springer.com/article/10.1007/s11538-022-01099-z",
+  "https://www.pnas.org/doi/10.1073/pnas.1619783114",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://www.wikidata.org/wiki/Q35009007",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://ouci.dntb.gov.ua/en/works/lDQbDrd9/",
+  "https://www.nature.com/articles/ncomms12984",
+  "https://www.nature.com/articles/ncomms12984.pdf?origin=ppub",
+  "https://brennergroup.seas.harvard.edu/publications/physical-mechanisms-chemotactic-pattern-formation-bacteria",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1001994107",
+  "https://www.pnas.org/doi/10.1073/pnas.1006363107",
+  "https://link.springer.com/article/10.1023/A:1005153720027",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023095",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://www.pnas.org/doi/10.1073/pnas.2105138118",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.polyu.edu.hk/ama/profile/zawang/Liu-Shi-Wang-DCDSB.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2924242/",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://doi.org/10.1515/anona-2025-0113",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8354456/",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://www.aimsciences.org/article/doi/10.3934/krm.2018035"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, with medium confidence.** I found no source that reports your exact system, but each ingredient is documented and I'd expect the behaviour to carry over.\n\n**1. Model family.** This is a chemotaxis PDE system of the Keller\u2013Segel type, specifically the Budrene\u2013Berg/Brenner family. It has one cell density, a self-produced attractant that diffuses and decays, and a consumed nutrient that is also a taxis cue. Cells are conserved, with no growth. The drift strength b/(1+b\u00b2) is a density-saturating sensitivity. It is similar to the volume-filling or flux-limited variants, but I did not find a source using exactly this form.\n\n**2. What the literature says.**\n- **Closest match on the behaviour.** The \"Mathematical Description of Bacterial Traveling Pulses\" paper (PLoS Comput Biol, ~2010) uses a Keller\u2013Segel system with a bacterial attractant and a consumed nutrient. Its numerics show a traveling pulse superposed on a stationary state, labelled coexistence of a stationary cluster and a traveling pulse. At low nutrient the population splits into a stationary fraction and a fraction travelling at constant speed. This is in 1D, which is the key difference from your 2D simulation. The search results did not show the author list, so I'm not naming authors.\n- **Earliest framework.** Brenner, Levitov & Budrene (1998, Biophys J 74:1677\u20131693) is the standard model. It describes E. coli organising into swarm rings and aggregates through excreted attractant signalling. The related Budrene and Berg experiments are in Nature 1991 and 1995, and Woodward et al. 1995 (Biophys J 68:2181) models them. In these models, ring motion is driven by local nutrient depletion, while aggregates arise from fluctuations near the unstable uniform density. That claim is from a multiscale review on PMC, which attributes it to an earlier model I did not identify.\n- **Both taxis types together.** Curk, Marenduzzo & Dobnikar (2013, PLoS ONE 8:e74878) is an agent-based model of cells sensing both nutrient and secreted attractant. They find the dynamics and steady patterns depend strongly on the ratio of sensitivity to nutrient versus attractant. Weak nutrient sensing gives fixed spots, and slightly stronger nutrient sensing gives spots that are mobile and glide up the nutrient gradient. That is qualitatively close to your aggregates carried by bands, and it matches the role of your 5/14 ratio.\n- **Reviews.** Hillen & Painter (2009, \"A user's guide to PDE models for chemotaxis\", J Math Biol) covers the model family. Tindall et al. (2008, Bull Math Biol 70:1570) reviews bacterial population models.\n- **Related work.** Tyson, Lubkin & Murray (1999, J Math Biol 38:359\u2013375) is a liquid-medium chemotaxis pattern model. Escape bands (PNAS 2019) are a different setting that I did not pursue.\n\n**3. What differs from your system, and whether it likely matters.**\n- Your domain is 2D and periodic with uniform noisy initial data, whereas the closest report is a 1D channel with boundaries. The stationary cluster there is trapped at a boundary, whereas yours sits inside the bands. A periodic domain removes that boundary trapping, but the mechanism (autochemotactic aggregation plus nutrient-depletion-driven travelling fronts) is the same. I think this matters little.\n- Your cells do not grow, and the nutrient is resupplied uniformly instead of being a fixed initial stock. That makes the bands sustained travelling patterns instead of a single front. I would not expect a qualitative change.\n- The saturating b/(1+b\u00b2) sensitivity is mainly a regulariser that prevents blow-up. I don't expect it to change the picture.\n- I did not find a paper that reports exactly this 2D coexistence of one dense blob with travelling bands, and I cannot rule out one existing.\n\n**4. Confidence: medium.** The ingredients and the 1D version of the coexistence are well documented. I could not read the PLoS Comput Biol paper's equations in detail, and the exact 2D periodic version was not found.\n\n**Searches run:**\n- chemotaxis attractant and nutrient taxis travelling bands with aggregates\n- Keller-Segel nutrient consumption and attractant production, 2D spots and stripes\n- Tyson, Lubkin & Murray 1999\n- autochemotaxis versus nutrient taxis simulations\n- Curk et al. 2013 authors\n- Brenner, Levitov & Budrene 1998\n- aggregates carried by travelling bands, nutrient resupply, periodic domain\n- Keller-Segel with two chemicals, stationary aggregates plus travelling waves\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Keller-Segel / Budrene-Berg chemotaxis PDEs (autochemotaxis plus nutrient taxis), pattern formation\", \"standard_name\": \"Coexistence of stationary aggregates (spots) and travelling nutrient-driven chemotactic bands/pulses in Keller-Segel models with attractant and nutrient\", \"confidence\": \"medium\", \"citations\": [\"Brenner, Levitov & Budrene 1998, Biophys J 74:1677-1693 - theory of swarm rings and aggregates from excreted attractant\", \"Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8:e74878 - taxis to both nutrient and secreted attractant gives fixed or mobile spots depending on the sensitivity ratio\", \"Mathematical Description of Bacterial Traveling Pulses, PLoS Comput Biol ~2010 - 1D Keller-Segel with attractant and nutrient; coexistence of stationary cluster and travelling pulse (authors/year not verified from search output)\", \"Hillen & Painter 2009, J Math Biol - review of PDE chemotaxis models\", \"Tyson, Lubkin & Murray 1999, J Math Biol 38:359-375 - chemotactic pattern model in liquid medium\"], \"searches\": [\"chemotaxis attractant and nutrient taxis travelling bands coexisting with aggregates\", \"Keller-Segel nutrient consumption attractant production 2D spots and stripes\", \"Tyson Lubkin Murray 1999\", \"chemotaxis to self-produced attractant and nutrient, stripes and aggregates coexist\", \"Curk Marenduzzo Dobnikar 2013 authors\", \"Brenner Levitov Budrene 1998\", \"aggregates carried by travelling bands, nutrient resupply, periodic domain\", \"Keller-Segel two chemicals stationary aggregates and traveling waves 2D\"], \"notes\": \"No source found with exactly this system (no growth, uniform nutrient resupply, saturating b/(1+b^2) sensitivity, 2D periodic domain, aggregate carried inside bands). The closest report is the 1D PLoS Comput Biol traveling-pulse paper, and Curk 2013 is the nearest 2D analogue. I could not verify the authors and year of the PLoS Comput Biol paper from the search output, so treat that citation as approximate.\"}\n```",
+ "checked": "2026-11-03 03:14:58"
+}

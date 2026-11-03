@@ -1,0 +1,97 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Nonequilibrium statistical physics: conserved-mass transport lattice model with broken time-reversal/parity (chiral), hyperuniformity via center-of-mass/dipole-conserving noise",
+ "standard_name": "Class-I hyperuniformity (S(q)~q^2, correlations ~ r^-(d+2)) from center-of-mass-conserving dynamics / chiral hyperuniform fluids",
+ "confidence": "low",
+ "citations": [
+  "Hexner & Levine 2015, PRL 114, 110602 - hyperuniform absorbing states in conserved directed percolation; origin of CoM-conservation route",
+  "Lei, Ciamarra & Ni 2019, Sci. Adv. - strongly hyperuniform circle-active fluids, S(q)~q^2 from CoM-conserving noise",
+  "Kuroda & Miyazaki 2023, J. Stat. Mech. - fluctuating hydrodynamic theory of hyperuniformity in 2D chiral active fluid, linked to CoM-conserving random organization",
+  "Hazra, Mukherjee & Pradhan 2025, J. Stat. Mech. - lattice mass transport with CoM conservation, S(q)~q^2 class-I hyperuniformity in d=1,2",
+  "Mukherjee, Tapader, Hazra & Pradhan 2024, PRE 110, 024119 - CoM-conserving systems with broken time-reversal symmetry",
+  "Maire et al. 2025, J. Chem. Phys. 163, 214507 - conservation laws and tunable hyperuniform scaling S(k)~k^m; general mechanism"
+ ],
+ "searches": [
+  "chiral conserved mass transport lattice L-shaped turning hyperuniform edge current",
+  "hyperuniformity chiral odd conserved dynamics random mass transfer turning angle",
+  "chiral mass transport lattice hyperuniform conserved noise two-step turning",
+  "Hyperuniformity in mass transport processes with center-of-mass conservation",
+  "odd mass transport chipping model turn left dipole conservation",
+  "hyperuniform conserved noise fluctuating hydrodynamics chirality bond transfer S(q) q^2 cusp",
+  "Hyperuniformity and conservation laws in non-equilibrium systems",
+  "chiral random mass transfer left turn two-step dipole not conserved",
+  "Hexner Levine hyperuniformity of critical absorbing states"
+ ],
+ "notes": "The r^-4 isotropic decay matches the generic S(q)~q^2 class in d=2 (my inference). The exact L-shaped left-turning lattice rule, the turning-strength optima and the sqrt cusp were not found in any source, and the full texts of Hazra et al. and Maire et al. were not read, so one of them could contain a closer model. The edge current in the closed box is the generic chiral edge-current phenomenon. Author lists for Lei et al. 2019 are from memory and were not confirmed on the search page.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "chiral conserved mass transport lattice L-shaped turning hyperuniform density correlations edge current"
+  },
+  {
+   "query": "hyperuniformity from chiral/odd conserved dynamics random mass transfer model turning angle minimal fluctuations"
+  },
+  {
+   "query": "chiral mass transport process lattice hyperuniform \"chiral\" conserved noise two-step turning left steady state structure factor"
+  },
+  {
+   "query": "Hyperuniformity in mass transport processes with center-of-mass conservation arXiv authors"
+  },
+  {
+   "query": "nonreciprocal / odd mass transport chipping model generalized random walkers turn left dipole conservation hydrodynamics fluctuating"
+  },
+  {
+   "query": "hyperuniform conserved noise fluctuating hydrodynamics chirality turning bond transfer lattice S(q) ~ q^2 cusp odd mass transport arXiv"
+  },
+  {
+   "query": "Hyperuniformity and conservation laws in non-equilibrium systems four models multipole conserved arXiv"
+  },
+  {
+   "query": "hyperuniformity chiral random mass transfer lattice left turn two-step transfer dipole not conserved q^2 structure factor odd diffusion hyperuniform"
+  },
+  {
+   "query": "Hexner Levine hyperuniformity of critical absorbing states PRL 2015"
+  }
+ ],
+ "result_urls": [
+  "https://www.osti.gov/pages/servlets/purl/1499363",
+  "https://journals.aps.org/prb/pdf/10.1103/PhysRevB.108.174505",
+  "https://link.aps.org/pdf/10.1103/PhysRevB.108.174505",
+  "https://commons.clarku.edu/cgi/viewcontent.cgi?article=1006&context=faculty_physics",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ad0639",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1619260114",
+  "https://www.nature.com/articles/s41377-025-02025-3",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non?redirectedFrom=fulltext",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/39295006/",
+  "https://par.nsf.gov/servlets/purl/10318148",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aeaf77",
+  "https://link.springer.com/chapter/10.1007/978-981-95-8185-6_6",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://www.science.org/doi/10.1126/sciadv.aau7423",
+  "https://www.pnas.org/doi/10.1073/pnas.1911596116",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.L012048",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://pubs.aip.org/aip/jcp/article/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non",
+  "https://pubmed.ncbi.nlm.nih.gov/41347732/",
+  "https://journals.aps.org/prl/abstract/10.1103/4j35-6jxb",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://www.science.org/doi/10.1126/sciadv.aau7423",
+  "https://cris.technion.ac.il/en/publications/hyperuniformity-of-critical-absorbing-states/",
+  "https://journals.aps.org/prl/issues/114/11",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.047101?ft=1",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1619260114",
+  "https://www.pnas.org/doi/10.1073/pnas.1619260114",
+  "https://journals.aps.org/prx/abstract/10.1103/fr99-qh7h",
+  "https://journals.aps.org/prx/abstract/10.1103/3151-4dnh"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, with low-to-medium confidence.** The hyperuniform r\u207b\u2074 correlations are a well-documented class. I found no source for this exact L-shaped, left-turning lattice rule, and none for the turning-optimum and square-root-cusp features.\n\n**1. Model family.** This is a stochastic conserved-mass transport (mass-redistribution) lattice model that breaks time-reversal and parity (chiral). The relevant literature is nonequilibrium statistical physics, specifically hyperuniformity from conservation laws. Two ingredients matter:\n- Conserved noise with center-of-mass (dipole) conservation gives a structure factor S(q) ~ q\u00b2.\n- In d=2, S(q) ~ q\u00b2 corresponds to density correlations decaying as r^-(d+2) = r\u207b\u2074. This is my own inference, not something I read in the sources.\n\n**2. What the literature shows**\n- **Hexner & Levine 2015, PRL 114, 110602, \"Hyperuniformity of critical absorbing states.\"** Conserved directed percolation absorbing states are hyperuniform at the critical point, with anomalously small density fluctuations. This is the early origin of the center-of-mass-conservation route to hyperuniformity.\n- **Lei, Ciamarra & Ni 2019, Sci. Adv., \"Nonequilibrium strongly hyperuniform fluids of circle active particles.\"** This is the chiral-active case. Fickian diffusion at large scales and local center-of-mass-conserving noise are responsible for the global hyperuniformity. It reports S(q\u21920) ~ q\u00b2. I checked the title and venue against the search result. I did not confirm the author list or year from the page, so those come from memory.\n- **Kuroda & Miyazaki 2023, J. Stat. Mech., \"Microscopic theory for hyperuniformity in two-dimensional chiral active fluid.\"** They derive a fluctuating hydrodynamic equation whose linear analysis captures hyperuniformity. They also argue it has the same form as the macroscopic description of the random organization model with center-of-mass conservation. This ties chirality to center-of-mass-conserving hydrodynamics.\n- **Hazra, Mukherjee & Pradhan 2025, J. Stat. Mech., \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results.\"** This is the closest lattice mass-transport analogue and the best review-like source I found. In d=1 and 2 it finds S(q) ~ q\u00b2, implying class-I spatial hyperuniformity.\n- **Mukherjee, Tapader, Hazra & Pradhan 2024, PRE 110, 024119.** This covers center-of-mass-conserving systems with broken time-reversal symmetry. Center-of-mass conservation makes the mobility vanish exactly.\n- **Maire et al. 2025, J. Chem. Phys. 163, 214507, \"Hyperuniformity and conservation laws in non-equilibrium systems.\"** It gives a general mechanism and S(k) ~ k^m, with m set by the number of conserved multipole moments. It also finds that hyperuniformity from conserved noise plus partially conserved average motion is not robust against non-linear perturbations. I saw only the abstract, so I can't say whether it contains a model like this one.\n\n**3. What differs, and whether it likely matters**\n- The L-shaped, always-left two-hop rule with a 40%/60% split and a tunable turning strength is not a rule I found in any of these papers. The chiral hyperuniformity papers use off-lattice particles (circle swimmers, spinners). The lattice papers use center-of-mass-conserving rules without a chiral turn.\n- The r\u207b\u2074 decay and the isotropy (xy ratio 1) match the generic q\u00b2 class, so I expect them to be known.\n- The turning-strength optima that minimise long-wavelength fluctuations, and the square-root cusp near maximal turning, were not found in any source I read. They may simply be how the q\u00b2 coefficient depends on the parameters, but I could not confirm that.\n- The closed-box edge current is the generic chiral edge-current phenomenon, which is well known (for example in active chiral matter).\n\n**4. Searches run**\n- chiral conserved mass transport lattice L-shaped turning hyperuniform edge current\n- hyperuniformity chiral odd conserved dynamics random mass transfer turning angle\n- chiral mass transport lattice hyperuniform conserved noise two-step turning\n- Hyperuniformity in mass transport processes with center-of-mass conservation\n- odd mass transport, chipping model, turn left, dipole conservation\n- hyperuniform conserved noise fluctuating hydrodynamics chirality bond transfer S(q)~q\u00b2 cusp\n- Hyperuniformity and conservation laws in non-equilibrium systems\n- chiral random mass transfer left turn two-step dipole not conserved\n- Hexner Levine hyperuniformity of critical absorbing states\n\n**5. Confidence: low to medium.** The class identification is well supported, but I could not read the full texts of Hazra et al. or Maire et al. A model like this one may be there. The search tool gave only abstracts and snippets, so the quantitative turning-optimum and cusp claims are unverified either way. I did not reach \"LITERATURE-SILENT\" because the underlying phenomenon is clearly described.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Nonequilibrium statistical physics: conserved-mass transport lattice model with broken time-reversal/parity (chiral), hyperuniformity via center-of-mass/dipole-conserving noise\", \"standard_name\": \"Class-I hyperuniformity (S(q)~q^2, correlations ~ r^-(d+2)) from center-of-mass-conserving dynamics / chiral hyperuniform fluids\", \"confidence\": \"low\", \"citations\": [\"Hexner & Levine 2015, PRL 114, 110602 - hyperuniform absorbing states in conserved directed percolation; origin of CoM-conservation route\", \"Lei, Ciamarra & Ni 2019, Sci. Adv. - strongly hyperuniform circle-active fluids, S(q)~q^2 from CoM-conserving noise\", \"Kuroda & Miyazaki 2023, J. Stat. Mech. - fluctuating hydrodynamic theory of hyperuniformity in 2D chiral active fluid, linked to CoM-conserving random organization\", \"Hazra, Mukherjee & Pradhan 2025, J. Stat. Mech. - lattice mass transport with CoM conservation, S(q)~q^2 class-I hyperuniformity in d=1,2\", \"Mukherjee, Tapader, Hazra & Pradhan 2024, PRE 110, 024119 - CoM-conserving systems with broken time-reversal symmetry\", \"Maire et al. 2025, J. Chem. Phys. 163, 214507 - conservation laws and tunable hyperuniform scaling S(k)~k^m; general mechanism\"], \"searches\": [\"chiral conserved mass transport lattice L-shaped turning hyperuniform edge current\", \"hyperuniformity chiral odd conserved dynamics random mass transfer turning angle\", \"chiral mass transport lattice hyperuniform conserved noise two-step turning\", \"Hyperuniformity in mass transport processes with center-of-mass conservation\", \"odd mass transport chipping model turn left dipole conservation\", \"hyperuniform conserved noise fluctuating hydrodynamics chirality bond transfer S(q) q^2 cusp\", \"Hyperuniformity and conservation laws in non-equilibrium systems\", \"chiral random mass transfer left turn two-step dipole not conserved\", \"Hexner Levine hyperuniformity of critical absorbing states\"], \"notes\": \"The r^-4 isotropic decay matches the generic S(q)~q^2 class in d=2 (my inference). The exact L-shaped left-turning lattice rule, the turning-strength optima and the sqrt cusp were not found in any source, and the full texts of Hazra et al. and Maire et al. were not read, so one of them could contain a closer model. The edge current in the closed box is the generic chiral edge-current phenomenon. Author lists for Lei et al. 2019 are from memory and were not confirmed on the search page.\"}\n```",
+ "checked": "2026-11-03 03:25:34"
+}

@@ -1,0 +1,85 @@
+{
+ "class_id": "planted:N09",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "soft matter / liquid crystals: molecular dynamics of rigid bent-core (banana) rods in the twist-bend nematic phase under simple shear; topological defects (merons / half-skyrmions)",
+ "standard_name": "shear-induced meron (half-integer skyrmion) nucleation and re-orientation of the twist-bend nematic helix axis",
+ "confidence": "medium",
+ "citations": [
+  "arXiv 2609.21999 (submitted 2026-09-18, cond-mat.soft), 'Merons Mediate Re-Ordering of Curved Rods Under Shear Flow' - read only via Pith review page (authors not shown): shear along N_TB helix axis gives a yield-stress peak, Q=1/2 meron defects, and reordering with the helix axis along the velocity gradient",
+  "Chiappini, Drwenski, van Roij, Dijkstra 2019, Phys. Rev. Lett. 123, 068001 - twist-bend and splay-bend nematics of banana-shaped particles",
+  "'Achiral hard bananas assemble double-twist skyrmions and blue phases', Nat. Commun. 2024 (s41467-024-50935-4) - bend-stabilised half-skyrmions (merons) in achiral bananas; authors not seen",
+  "'Flow properties of a twist-bend nematic liquid crystal' (Academia.edu copy; venue/authors unverified) - N_TB shear-thinning, helix axis normal to the shear plane after shear alignment",
+  "'Geometric frustration in twist-bend nematic droplets', Soft Matter 2025 - beta-lines and meron-type defects in N_TB"
+ ],
+ "searches": [
+  "simulation sheared twist-bend nematic banana-shaped particles helix reorientation defect lines topological charge",
+  "rheology of twist-bend nematic phase molecular dynamics bent particles shear helix axis orientation vorticity",
+  "Merons Mediate Re-Ordering of Curved Rods Under Shear Flow",
+  "Chiappini Dijkstra twist-bend nematic banana-shaped particles Biaxial, twist-bend, splay-bend smectic blanket Phys. Rev.",
+  "twist-bend nematic shear flow merons skyrmions bent-core simulation arXiv 2026 curved rods yield stress",
+  "meron half-integer skyrmion twist-bend nematic liquid crystal experiment Skyrmion lattice heliconical"
+ ],
+ "notes": "The preprint appears to be the source of this exact system, but I only read a third-party summary (Pith), not the paper. Its parameters and specific numbers (strain 4.5 for defect formation, final strain 10) are unchecked. Venues and authors of some supporting items were not confirmed. Prior literature covers the phase, equilibrium merons, and N_TB shear alignment, but not shear-nucleated merons.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "simulation sheared twist-bend nematic banana-shaped particles helix reorientation defect lines topological charge"
+  },
+  {
+   "query": "rheology of twist-bend nematic phase molecular dynamics bent particles shear helix axis orientation vorticity"
+  },
+  {
+   "query": "Merons Mediate Re-Ordering of Curved Rods Under Shear Flow"
+  },
+  {
+   "query": "Chiappini Dijkstra twist-bend nematic banana-shaped particles Biaxial, twist-bend, splay-bend smectic blanket Phys. Rev."
+  },
+  {
+   "query": "twist-bend nematic shear flow merons skyrmions bent-core simulation arXiv 2026 curved rods yield stress"
+  },
+  {
+   "query": "meron half-integer skyrmion twist-bend nematic liquid crystal experiment Skyrmion lattice heliconical"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.21999",
+  "https://pubs.rsc.org/sm/article/21/37/7270/912729/Geometric-frustration-in-twist-bend-nematic",
+  "https://www.nature.com/articles/s41467-021-22413-8",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8041804/",
+  "https://pubmed.ncbi.nlm.nih.gov/32720673",
+  "https://www.nature.com/articles/ncomms3635",
+  "https://pubmed.ncbi.nlm.nih.gov/24189583/",
+  "https://pubs.acs.org/doi/10.1021/acs.jpcc.0c05711",
+  "https://pubs.rsc.org/cp/article/19/21/13449/559130/Molecular-organization-in-the-twist-bend-nematic",
+  "https://pith.science/paper/2609.21999",
+  "https://pureportal.strath.ac.uk/files/241364277/Wittmann-etal-SM-2024-Rolling-and-ordering-of-micro-rods-in-shear-flow.pdf",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.2c00769",
+  "https://pubs.rsc.org/en/content/articlehtml/2024/sm/d4sm00999a",
+  "https://strathprints.strath.ac.uk/91037/",
+  "https://pubmed.ncbi.nlm.nih.gov/12786151/",
+  "https://pureportal.strath.ac.uk/en/publications/rolling-and-ordering-of-micro-rods-in-shear-flow-induced-by-rod-w/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6432483/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.123.068001",
+  "https://www.nature.com/articles/s41467-021-22413-8",
+  "https://research-portal.uu.nl/en/publications/biaxial-twist-bend-and-splay-bend-nematic-phases-of-banana-shaped/",
+  "https://pubmed.ncbi.nlm.nih.gov/31491177/",
+  "https://www.nature.com/articles/s41467-022-34658-y",
+  "https://www.academia.edu/48983097/Biaxial_Twist_bend_and_Splay_bend_Nematic_Phases_of_Banana_shaped_Particles_Revealed_by_Lifting_the_Smectic_Blanket_",
+  "https://www.science.org/doi/10.1126/science.abb4536",
+  "https://www.sciencedirect.com/science/article/pii/S0167732222016956",
+  "https://pith.science/paper/2609.21999",
+  "https://pubmed.ncbi.nlm.nih.gov/41978532/",
+  "https://www.academia.edu/12752070/Flow_properties_of_a_twist_bend_nematic_liquid_crystal",
+  "https://www.nature.com/articles/s41467-024-50935-4",
+  "https://www.nature.com/articles/s41598-018-35514-0",
+  "https://physics.aps.org/articles/pdf/10.1103/Physics.17.69",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.105.024701",
+  "https://pith.science/paper/2609.21999",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6250727/",
+  "https://www.nature.com/articles/ncomms1250"
+ ],
+ "full_text": "**Verdict: KNOWN.** I found a 2026 preprint that appears to describe this exact simulation. Confidence is medium. The preprint is very recent and I could only read a third-party summary of it, not the paper.\n\n**1. Model family.** This is soft-matter and liquid-crystal physics: molecular dynamics of rigid bent-core (\"banana\") colloidal rods. The starting state is the twist-bend nematic (N_TB), a heliconical phase. The measured objects are meron-type (half-integer skyrmion) line defects. The shear is simple shear applied to an N_TB phase.\n\n**2. The specific behaviour.** The match is the preprint \"Merons Mediate Re-Ordering of Curved Rods Under Shear Flow\" (arXiv 2609.21999, submitted 2026-09-18, cond-mat.soft). I could only read its Pith review page, so I don't have the authors, and the preprint itself is unverified. Pith's summary reports the following, which matches your observations:\n- Shearing the N_TB phase parallel to its helical axis gives a yield-stress peak. The system then reorders into a stable orientation with the helical axis along the velocity-gradient direction. This agrees with your final 90\u00b0 angle between helix axis and flow.\n- The central object is the meron, a Q = 1/2 skyrmion-like defect with a double-twist director texture. This agrees with your defect_charge of 0.5.\n- Defects are found on a coarse-grained lattice of bend and nematic directors, and charge is measured with a discrete Gaussian map that accounts for nematic symmetry. This is the same method you describe.\n- In the N_TB phase, the merons act as edge dislocations between regions of different heliconical ordering.\n\nI could not check the preprint's specific numbers, such as the strain of about 4.5 at which the tracked defect forms. Its simulation parameters (16-bead rods, 40,500 particles, \u03c6 = 0.51, shear rate 1e-4) are also unchecked against your setup. The match rests on the Pith summary.\n\n**Earlier and supporting sources.**\n- Equilibrium phase: Chiappini, Drwenski, van Roij and Dijkstra, Phys. Rev. Lett. 123, 068001 (2019), found stable biaxial, twist-bend and splay-bend nematics once the smectic phase is destabilised. This is for hard bent spherocylinders, so it is a related model rather than your bead model.\n- Merons in achiral bananas: the Nature Communications paper \"Achiral hard bananas assemble double-twist skyrmions and blue phases\" (Nat. Commun., 2024, article s41467-024-50935-4). Its simulations show that achiral bananas spontaneously form bend-stabilised half skyrmions, or merons. I did not see its author list in the results.\n- Shear of N_TB experimentally: \"Flow properties of a twist-bend nematic liquid crystal\" (found via an Academia.edu copy; I could not confirm its venue or authors). It reports that N_TB is strongly shear-thinning, consistent with the helical axis becoming normal to the shear plane. This independently supports the final orientation, but it has no defect-charge analysis.\n- Related reading: \"Geometric frustration in twist-bend nematic droplets\" (Soft Matter 2025) studies \u03b2-lines and meron-type defect structures in N_TB. I did not confirm its authors.\n\nI did not find a review that covers shear-generated merons in N_TB.\n\n**3. Caveats.**\n- The preprint is the earliest clear source for the shear-induced meron mechanism. Earlier work covers only the phase, equilibrium merons, and the shear alignment of N_TB without defect analysis.\n- The exact simulation parameters are unchecked, so a \"same paper\" match is likely but not confirmed.\n- I did not verify the authors of the preprint, the Nature Communications paper, or the shear-flow paper. I verified title, year and venue only where the search returned them.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"soft matter / liquid crystals: molecular dynamics of rigid bent-core (banana) rods in the twist-bend nematic phase under simple shear; topological defects (merons / half-skyrmions)\", \"standard_name\": \"shear-induced meron (half-integer skyrmion) nucleation and re-orientation of the twist-bend nematic helix axis\", \"confidence\": \"medium\", \"citations\": [\"arXiv 2609.21999 (submitted 2026-09-18, cond-mat.soft), 'Merons Mediate Re-Ordering of Curved Rods Under Shear Flow' - read only via Pith review page (authors not shown): shear along N_TB helix axis gives a yield-stress peak, Q=1/2 meron defects, and reordering with the helix axis along the velocity gradient\", \"Chiappini, Drwenski, van Roij, Dijkstra 2019, Phys. Rev. Lett. 123, 068001 - twist-bend and splay-bend nematics of banana-shaped particles\", \"'Achiral hard bananas assemble double-twist skyrmions and blue phases', Nat. Commun. 2024 (s41467-024-50935-4) - bend-stabilised half-skyrmions (merons) in achiral bananas; authors not seen\", \"'Flow properties of a twist-bend nematic liquid crystal' (Academia.edu copy; venue/authors unverified) - N_TB shear-thinning, helix axis normal to the shear plane after shear alignment\", \"'Geometric frustration in twist-bend nematic droplets', Soft Matter 2025 - beta-lines and meron-type defects in N_TB\"], \"searches\": [\"simulation sheared twist-bend nematic banana-shaped particles helix reorientation defect lines topological charge\", \"rheology of twist-bend nematic phase molecular dynamics bent particles shear helix axis orientation vorticity\", \"Merons Mediate Re-Ordering of Curved Rods Under Shear Flow\", \"Chiappini Dijkstra twist-bend nematic banana-shaped particles Biaxial, twist-bend, splay-bend smectic blanket Phys. Rev.\", \"twist-bend nematic shear flow merons skyrmions bent-core simulation arXiv 2026 curved rods yield stress\", \"meron half-integer skyrmion twist-bend nematic liquid crystal experiment Skyrmion lattice heliconical\"], \"notes\": \"The preprint appears to be the source of this exact system, but I only read a third-party summary (Pith), not the paper. Its parameters and specific numbers (strain 4.5 for defect formation, final strain 10) are unchecked. Venues and authors of some supporting items were not confirmed. Prior literature covers the phase, equilibrium merons, and N_TB shear alignment, but not shear-nucleated merons.\"}\n```",
+ "checked": "2026-11-03 03:01:01"
+}

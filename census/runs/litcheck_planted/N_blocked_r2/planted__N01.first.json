@@ -1,0 +1,75 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "synchronization: globally coupled pulse-coupled integrate-and-fire oscillators (Peskin / Mirollo-Strogatz, linear charging, eps=1/N, absorption)",
+ "standard_name": "Peskin model / Mirollo-Strogatz model with linear charging and pulse 1/N (cluster aggregation, cluster-size doubling)",
+ "confidence": "medium",
+ "citations": [
+  "Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50(6):1645-1662 - pulse-coupled identical integrate-and-fire oscillators with absorption sync for almost all initial conditions (under strictly nonlinear charging)",
+  "O'Keeffe, Krapivsky & Strogatz 2015, Phys. Rev. Lett. 115, 064101 - cluster kinetics; for linear charging and eps=1/N, mean-field clusters double in size periodically (pairs, then 4s)",
+  "PRE 93, 032203 (2016, 'Transient dynamics of pulse-coupled oscillators with nonlinear charging curves') - extension of aggregation theory to nonlinear charging; recalls full sync for leak>0 and pulse>1/N"
+ ],
+ "searches": [
+  "pulse-coupled integrate-and-fire linear all-to-all absorption coupling 1/N clusters equal size final states divisors of N",
+  "Mirollo Strogatz 1990 synchronization of pulse-coupled biological oscillators",
+  "Synchronization as aggregation O'Keeffe Krapivsky Strogatz PRL 2015",
+  "pulse-coupled oscillators linear charging pulse strength 1/N final cluster sizes divisors of N Peskin",
+  "O'Keeffe Krapivsky Strogatz Peskin eps=1/N pairs spaced equally apart supplemental",
+  "Peskin pacemaker linear integrate-and-fire N oscillators coupling 1/N incomplete synchronization equal clusters"
+ ],
+ "notes": "Could not read the PRL supplemental material, which may contain finite-N details. The finite-N failure probabilities, the divisor-structured equal-sized final states, the prime-N behaviour and the 0.6/N even-N tail were not found in any readable source. The PRE 93 032203 title and DOI come from the search result and its author list was not verified. Mean-field doubling is only qualitatively consistent with the observations.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "pulse-coupled integrate-and-fire oscillators linear all-to-all absorption coupling 1/N clusters equal size final states divisors of N"
+  },
+  {
+   "query": "Mirollo Strogatz 1990 synchronization of pulse-coupled biological oscillators"
+  },
+  {
+   "query": "Synchronization as aggregation: cluster kinetics of pulse-coupled oscillators O'Keeffe Ceron Petersen Strogatz Physical Review Letters 2015"
+  },
+  {
+   "query": "pulse-coupled oscillators linear charging pulse strength 1/N exactly, final cluster sizes divisors of N, not fully synchronized, Peskin model"
+  },
+  {
+   "query": "O'Keeffe Krapivsky Strogatz Peskin model \u03b5=1/N linear charging \"synchronize into pairs spaced equally apart\" supplemental material"
+  },
+  {
+   "query": "Peskin pacemaker model linear integrate-and-fire N oscillators coupling 1/N incomplete synchronization equal clusters N not power of two"
+  }
+ ],
+ "result_urls": [
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022207",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://www.jstor.org/stable/2101911",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://link.springer.com/chapter/10.1007/978-3-642-03156-4_5",
+  "http://www.scholarpedia.org/article/Pulse_coupled_oscillators",
+  "https://www.stevenstrogatz.com/articles/2015/8/8/synchronization-as-aggregation-cluster-kinetics-of-pulse-coupled-oscillators-pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.115.064101",
+  "https://pubs.aip.org/aip/cha/article-abstract/27/5/053103/135071/Isochronous-dynamics-in-pulse-coupled-oscillator?redirectedFrom=fulltext",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022482/",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://users.metu.edu.tr/marat/papers/a114.pdf",
+  "https://link.springer.com/chapter/10.1007/978-3-319-26630-5_1",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT (medium-low confidence).** The model is the Peskin / Mirollo\u2013Strogatz pulse-coupled integrate-and-fire system in its marginal case. The qualitative route to clusters is documented. I found no source for the finite-N numbers you observed.\n\n**1. Model family.** This is synchronization of globally coupled pulse-coupled integrate-and-fire oscillators. It is Peskin's cardiac pacemaker model with a linear, leak-free charging curve, pulse size k/N, and absorption. The standard name is the \"Peskin model\" or \"Mirollo\u2013Strogatz model with linear charging and \u03b5 = 1/N\". Its cluster-aggregation description is the one used by O'Keeffe, Krapivsky and Strogatz.\n\n**2. What the literature says.**\n- **Earliest source.** Mirollo & Strogatz define the model. When an oscillator fires it pulls the others up by a fixed amount, or to threshold, whichever is less. The main result is that almost all initial conditions evolve to full synchrony. Their theorem needs a strictly nonlinear charging curve. The curve must be increasing and concave, and it is the concavity that drives the result. Your linear, zero-curvature case lies on the boundary of that theorem. Because \u03b5 = 1/N is also special, the generic \"always sync\" result does not carry over.\n- **Closest match.** O'Keeffe, Krapivsky & Strogatz (PRL 2015) treat the deterministic Peskin model with a linear curve and \u03b5 = 1/N. They assume oscillators rise linearly to threshold and fire pulses of size 1/N, with N \u226b 1. In the large-N mean-field description, the oscillators condense into clusters whose size doubles periodically. After the first period they are pairs spaced equally apart, then clusters of 4, and so on. That fits your even-N results qualitatively, where clusters are equal-sized and sizes double. The same paper also considers a fixed pulse strength k/N independent of cluster size. There the disorder parameter decays algebraically rather than exponentially.\n- **Review/extension.** A PRE 93, 032203 paper on nonlinear charging curves generalizes these results. Synchrony develops by aggregation, previous work covered linear charging curves, and it extends this to nonlinear ones. It also recalls that full sync holds for leak \u03b3 > 0 and pulse size > 1/N. I could not verify its author list from the search results.\n\n**3. What I could not find.** None of the sources I could read gives the following:\n- The exact finite-N statistics for the marginal case. These include the failure probabilities at N = 4, 5 and 6 and the 0.6/N tail for even N.\n- The claim that final states are always equal-sized groups (9 possible at N = 100, which matches the number of divisors of 100).\n- The special role of prime N, where the only failure is all N staying separate.\n\nThe O'Keeffe et al. supplement may contain more on the linear, \u03b5 = 1/N case. It was behind a paywall and I could not read it. The doubling picture is a mean-field statement for N \u226b 1. It does not obviously explain the near-certain sync at prime N, or the divisor structure for N such as 6 or 9.\n\n**4. What differs and whether it matters.** The literature describes the same rule system, but only as a large-N mean-field picture. Your observations are exact finite-N, number-theoretic features: divisor-based final states and a 1/N failure law. These are probably a consequence of the marginal linear, \u03b5 = 1/N case. They are not obviously covered by the published statements, so I call it a variant rather than fully known.\n\n**Searches run:**\n- pulse-coupled integrate-and-fire linear all-to-all absorption clusters equal size divisors\n- Mirollo Strogatz 1990\n- Synchronization as aggregation (O'Keeffe, Krapivsky, Strogatz)\n- Peskin linear \u03b5 = 1/N final cluster sizes\n- \"synchronize into pairs spaced equally apart\" supplemental\n- Peskin linear N not power of two\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"synchronization: globally coupled pulse-coupled integrate-and-fire oscillators (Peskin / Mirollo-Strogatz, linear charging, eps=1/N, absorption)\", \"standard_name\": \"Peskin model / Mirollo-Strogatz model with linear charging and pulse 1/N (cluster aggregation, cluster-size doubling)\", \"confidence\": \"medium\", \"citations\": [\"Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50(6):1645-1662 - pulse-coupled identical integrate-and-fire oscillators with absorption sync for almost all initial conditions (under strictly nonlinear charging)\", \"O'Keeffe, Krapivsky & Strogatz 2015, Phys. Rev. Lett. 115, 064101 - cluster kinetics; for linear charging and eps=1/N, mean-field clusters double in size periodically (pairs, then 4s)\", \"PRE 93, 032203 (2016, 'Transient dynamics of pulse-coupled oscillators with nonlinear charging curves') - extension of aggregation theory to nonlinear charging; recalls full sync for leak>0 and pulse>1/N\"], \"searches\": [\"pulse-coupled integrate-and-fire linear all-to-all absorption coupling 1/N clusters equal size final states divisors of N\", \"Mirollo Strogatz 1990 synchronization of pulse-coupled biological oscillators\", \"Synchronization as aggregation O'Keeffe Krapivsky Strogatz PRL 2015\", \"pulse-coupled oscillators linear charging pulse strength 1/N final cluster sizes divisors of N Peskin\", \"O'Keeffe Krapivsky Strogatz Peskin eps=1/N pairs spaced equally apart supplemental\", \"Peskin pacemaker linear integrate-and-fire N oscillators coupling 1/N incomplete synchronization equal clusters\"], \"notes\": \"Could not read the PRL supplemental material, which may contain finite-N details. The finite-N failure probabilities, the divisor-structured equal-sized final states, the prime-N behaviour and the 0.6/N even-N tail were not found in any readable source. The PRE 93 032203 title and DOI come from the search result and its author list was not verified. Mean-field doubling is only qualitatively consistent with the observations.\"}\n```",
+ "checked": "2026-11-03 02:50:59"
+}

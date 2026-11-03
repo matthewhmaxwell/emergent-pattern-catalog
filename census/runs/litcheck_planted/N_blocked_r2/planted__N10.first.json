@@ -1,0 +1,62 @@
+{
+ "class_id": "planted:N10",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "cellular automata on aperiodic tilings (multi-state outer-totalistic / priority-table rules, vertex neighbourhood; gliders)",
+ "standard_name": "gliders (mobile travellers) in cellular automata on the spectre/hat aperiodic monotilings",
+ "confidence": "medium",
+ "citations": [
+  "arXiv 2609.22579v1 (2026), 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre' (abstract read via somethingorotherwhatever.com mirror; authors not verified) - evolutionary search finds gliders on hat and spectre that travel 1e6 rings at constant speed/heading, headings quantized to a six-spoke compass",
+  "Goucher 2012, Journal of Cellular Automata 7(5-6) 385-392, 'Gliders in cellular automata on Penrose tilings' - first glider on an aperiodic tiling, four-state outer-totalistic rule",
+  "Owens & Stepney 2010, in Game of Life Cellular Automata (Springer) pp. 331-378, 'The Game of Life Rules on Penrose Tilings: Still Life and Oscillators' - prior CA work on Penrose tilings, no gliders found",
+  "Smith, Myers, Kaplan, Goodman-Strauss, 'A chiral aperiodic monotile' (arXiv 2305.17743; Combinatorial Theory) - the spectre tiling"
+ ],
+ "searches": [
+  "cellular automaton gliders on spectre tiling or hat tiling aperiodic monotile",
+  "gliders cellular automata Penrose tiling Owens Stepney Game of Life",
+  "Smith Myers Kaplan Goodman-Strauss chiral aperiodic monotile spectre",
+  "\"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\" arXiv"
+ ],
+ "notes": "Matching source is a 2026 preprint read only via an abstract mirror; full text not read, so specific numbers (speed 0.5, 12 cells, 71% launch share) and the exact 0/1/3 rule are unverified against it. Authors not confirmed. No dedicated review of gliders on aperiodic tilings found.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "cellular automaton gliders on spectre tiling or hat tiling aperiodic monotile"
+  },
+  {
+   "query": "gliders cellular automata Penrose tiling Owens Stepney Game of Life"
+  },
+  {
+   "query": "Smith Myers Kaplan Goodman-Strauss chiral aperiodic monotile spectre"
+  },
+  {
+   "query": "\"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\" arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://aperiodical.com/tag/aperiodicity/",
+  "https://cp4space.hatsya.com/wp-content/uploads/2012/11/2012-penrose-gliders.pdf",
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre",
+  "https://aperiodical.com/2012/08/a-glider-on-an-aperiodic-cellular-automaton-exists/",
+  "https://pi.math.cornell.edu/~klindsey/DraftGOL.pdf",
+  "https://www.oldcitypublishing.com/journals/jca-home/jca-issue-contents/jca-volume-7-number-5-6-2012/jca-7-5-6-p-385-392/",
+  "https://cp4space.hatsya.com/wp-content/uploads/2012/11/2012-penrose-gliders.pdf",
+  "https://www.lirmm.fr/~poupet/recherche/files/FI-13.pdf",
+  "http://pentadecathlon.com/lifeNews/2012/08/penrose_tilings_and_ready.html",
+  "https://groups.google.com/g/reaction-diffusion/c/XPPeD3zxsEY",
+  "https://link.springer.com/chapter/10.1007/978-1-84996-217-9_18",
+  "https://www-users.york.ac.uk/~ss44/bib/ss/nonstd/auto08b.htm",
+  "https://pure.york.ac.uk/portal/en/publications/the-game-of-life-rules-on-penrose-tilings-still-life-and-oscillators(59379f3f-1fd4-4c25-89e2-db82afb4dd5e).html",
+  "https://www.academia.edu/74460115/The_Game_of_Life_Rules_on_Penrose_Tilings_still_life_and_oscillators",
+  "https://rreusser.github.io/notebooks/aperiodic-monotile/",
+  "https://escholarship.org/content/qt4xn41982/qt4xn41982.pdf",
+  "https://www.thingiverse.com/thing:6053252/files",
+  "https://en.wikipedia.org/wiki/Einstein_problem",
+  "https://amdd.uark.edu/wiki/aperodictilings/",
+  "https://statmodeling.stat.columbia.edu/2024/06/01/update-on-the-hat-a-single-shape-that-can-tile-the-plane-aperiodically-but-not-periodically-and-doesnt-require-flipping/",
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is already reported for these tilings, in a 2026 preprint. Gliders on aperiodic tilings in general have been known since 2012.\n\n**1. Model family.** This is a cellular automaton on an aperiodic tiling. Cells are tiles, neighbourhoods include shared corners, and states are multi-state with a priority-table rule (first matching rule wins). The world is the chiral \"spectre\" monotile tiling. The \"companion\" tiling with mirrored tiles is the \"hat\". Its relevant standard names are \"glider\", \"spaceship\", or \"travelling object\" on a non-periodic tiling.\n\n**2. Searches and what they returned.**\n- **Closest match (2026).** The preprint \"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\" describes this behaviour, and I think it is the origin of these observations.\n  - It says the hat and spectre monotiles were discovered in 2023 and that no cellular automaton dynamics on them had previously been reported.\n  - Within edge-adjacency semi-totalistic rules, exhaustive and evolutionary searches found only mortal travelers, so gliders were absent.\n  - The rule space was then extended to vertex neighborhoods and priority-table rules. Evolutionary search found gliders on both monotilings, and they travel one million rings at constant speed and heading, tracked by a sliding window that regenerates the patch.\n  - All headings are quantized, to millidegrees, onto a six-spoke compass, which the paper identifies as the fast axes of the tiling's graph metric.\n  - These match your observations: 10\u2076 rings, 6 headings, a heading error of about 0.006\u00b0, and the same rule structure on both hat and spectre.\n  - The source I could read was an abstract mirror (somethingorotherwhatever.com). It lists arXiv 2609.22579v1 (2026). I could not confirm the authors; that site names its own curator, not the paper's author. I did not read the full text, so I can't check the specific numbers (speed 0.5, 12 cells, 71% launch share). Those fit the abstract's description, but I haven't verified them.\n- **Earliest glider on any aperiodic tiling (2012).** Goucher, \"Gliders in cellular automata on Penrose tilings\", *Journal of Cellular Automata* 7(5\u20136), 385\u2013392.\n  - It presents the first glider able to navigate an aperiodic tiling, in a four-state outer-totalistic cellular automaton on generic tilings of quadrilaterals.\n  - It covers the P2 (kite and dart) and P3 (rhombus) Penrose tilings.\n  - This is also the \"known Penrose-tiling glider\" that the 2026 paper reproduces.\n- **Background and prior state (2008\u20132010).** Owens & Stepney, \"The Game of Life Rules on Penrose Tilings: Still Life and Oscillators\", in *Game of Life Cellular Automata* (Springer, 2010), pp. 331\u2013378. Goucher notes that, unlike on regular tilings, no gliders were found in their work. This is the closest thing to a review of the area. I found no dedicated review of gliders on aperiodic tilings.\n- **Hat and spectre tilings.** Smith, Myers, Kaplan & Goodman-Strauss, \"A chiral aperiodic monotile\" (*Combinatorial Theory*, eScholarship; arXiv 2305.17743). It shows the Spectre is a strictly chiral aperiodic monotile. The companion hat paper is \"An aperiodic monotile\" (2023).\n\n**3. Confidence: medium-high.** The abstract describes this behaviour on the same tilings, with the same quantities and the same multi-rule structure. The reservations are that the paper is a recent unreviewed preprint, I only read its abstract, and I did not check the specific rule (the 0/1/3 thresholds) or the figures against the full text. If this simulation was produced from that paper, it is a replication rather than a discovery.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"cellular automata on aperiodic tilings (multi-state outer-totalistic / priority-table rules, vertex neighbourhood; gliders)\", \"standard_name\": \"gliders (mobile travellers) in cellular automata on the spectre/hat aperiodic monotilings\", \"confidence\": \"medium\", \"citations\": [\"arXiv 2609.22579v1 (2026), 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre' (abstract read via somethingorotherwhatever.com mirror; authors not verified) - evolutionary search finds gliders on hat and spectre that travel 1e6 rings at constant speed/heading, headings quantized to a six-spoke compass\", \"Goucher 2012, Journal of Cellular Automata 7(5-6) 385-392, 'Gliders in cellular automata on Penrose tilings' - first glider on an aperiodic tiling, four-state outer-totalistic rule\", \"Owens & Stepney 2010, in Game of Life Cellular Automata (Springer) pp. 331-378, 'The Game of Life Rules on Penrose Tilings: Still Life and Oscillators' - prior CA work on Penrose tilings, no gliders found\", \"Smith, Myers, Kaplan, Goodman-Strauss, 'A chiral aperiodic monotile' (arXiv 2305.17743; Combinatorial Theory) - the spectre tiling\"], \"searches\": [\"cellular automaton gliders on spectre tiling or hat tiling aperiodic monotile\", \"gliders cellular automata Penrose tiling Owens Stepney Game of Life\", \"Smith Myers Kaplan Goodman-Strauss chiral aperiodic monotile spectre\", \"\\\"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\\\" arXiv\"], \"notes\": \"Matching source is a 2026 preprint read only via an abstract mirror; full text not read, so specific numbers (speed 0.5, 12 cells, 71% launch share) and the exact 0/1/3 rule are unverified against it. Authors not confirmed. No dedicated review of gliders on aperiodic tilings found.\"}\n```",
+ "checked": "2026-11-03 03:01:30"
+}

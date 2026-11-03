@@ -1,0 +1,87 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: 2D long-range XY model (planar rotors, J~1/r^(d+sigma), sigma=2 marginal), BKT/Mermin-Wagner context",
+ "standard_name": "2D long-range XY model at the marginal point sigma=2 (sigma*=2 crossover); logarithmic scaling of magnetization/correlations",
+ "confidence": "medium",
+ "citations": [
+  "Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 (arXiv:2404.08498) - MC to L=8192 of 2D XY with 1/r^(2+sigma); LRO for sigma<2 and logarithmic scaling in the low-T phase at sigma=2, agreeing with their theory",
+  "Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B 112, 144429 (arXiv:2411.01811) - comprehensive MC; for sigma=2 the correlation function saturates via inverse log of distance; crossover at sigma=2",
+  "Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - BKT with long-range couplings r^(-2-sigma); quasiordered phase for 7/4<sigma<2 (theory background; abstract does not address sigma=2)",
+  "Walther, Willsher, Knolle 2026, Phys. Rev. Lett. 136, 227102 - persistence of BKT with long-range couplings; spin waves renormalize vortex interaction",
+  "Related: arXiv 2512.01956 (2D long-range Heisenberg, same group) - M^2 ~ 1/ln(L/L0) and fixed-length LR random walk; read only via a summary page"
+ ],
+ "searches": [
+  "two-dimensional XY model long-range interaction 1/r^4 sigma=2 magnetization logarithmic decay",
+  "long-range XY model d=2 sigma=2 marginal BKT essential singularity correlation length",
+  "Xiao Yao Zhang Fan Deng arXiv two-dimensional XY ferromagnet induced by long-range interaction sigma=2 logarithmic",
+  "Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings",
+  "arXiv 2404.08498 ... sigma=2 magnetization ln ln L spin-wave",
+  "Persistence of the BKT transition with long-range couplings authors sigma=2 marginal spin waves",
+  "long-range XY sigma=2 spin-wave theory magnetization power of ln L, k^2 ln(1/k) dispersion"
+ ],
+ "notes": "Published numerics read sigma=2 as long-range order with 1/ln approach to a positive M^2, whereas the observed power-of-ln(L) decay with exponent proportional to T matches a spin-wave (k^2 ln k) picture with no true order. These are hard to distinguish numerically, and I found no source that settles it. The (ln L)^(-eta) form, the exponent-slope relation and the 2.24 divergence exponent were not verified in readable text. The nearest-neighbour-plus-weak-tail variant was not found in the literature.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "two-dimensional XY model long-range interaction 1/r^4 \u03c3=2 magnetization logarithmic decay"
+  },
+  {
+   "query": "long-range XY model d=2 \u03c3=2 marginal Berezinskii-Kosterlitz-Thouless essential singularity correlation length"
+  },
+  {
+   "query": "Xiao Yao Zhang Fan Deng arXiv two-dimensional XY ferromagnet induced by long-range interaction \u03c3=2 logarithmic"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings"
+  },
+  {
+   "query": "arXiv 2404.08498 two-dimensional XY ferromagnet long-range \u03c3=2 magnetization ln ln L spin-wave k^2 ln k"
+  },
+  {
+   "query": "Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings authors \u03c3=2 marginal spin waves"
+  },
+  {
+   "query": "long-range XY model \u03c3=2 two dimensions spin-wave theory magnetization decays power of ln L, stiffness logarithmic, k^2 ln(1/k) dispersion"
+  }
+ ],
+ "result_urls": [
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://pith.science/paper/2512.01956",
+  "https://scoap3-prod-backend.s3.cern.ch/media/files/53648/10.1103/PhysRevD.101.074503.pdf",
+  "http://www-thphys.physics.ox.ac.uk/talks/CMTjournalclub/sources/KTFern.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevB.104.165132",
+  "http://www.phys.ufl.edu/~avinash/Notes/BKT_Transition/BKT.pdf",
+  "https://cpl.iphy.ac.cn/article/doi/10.1088/0256-307X/42/7/070002",
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://www.nature.com/articles/s42005-025-01947-z",
+  "https://faculty.ustc.edu.cn/dengyoujin/en/zdylm/688809/list/index.htm",
+  "https://pith.science/paper/2506.19637",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://inspirehep.net/literature/1861073",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://scholargps.com/scholars/14271713276393/guido-giachetti",
+  "https://iris.sissa.it/handle/20.500.11767/127058",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://www.sissa.it/it/news/berezinskiikosterlitzthouless-phase-transitions-longrange-couplings-nuovo-articolo-physical",
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://www.osti.gov/pages/biblio/2407304-magnetism-two-dimensional-dipolar-xy-model",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://pure.mpg.de/view/item_3728400_2",
+  "https://portal.fis.tum.de/en/publications/persistence-of-the-berezinskii-kosterlitz-thouless-transition-wit/",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://inspirehep.net/literature/1861073",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.127.156801",
+  "https://www.cond-mat.de/events/correl24/manuscripts/benfatto.pdf",
+  "https://www.mit.edu/~8.334/grades/projects/projects23/ChernSabrina.pdf",
+  "https://pith.science/paper/2512.01956"
+ ],
+ "full_text": "**Verdict: KNOWN, with one interpretive caveat.** The exact system and its logarithmic scaling are published. I could not read the full text of the key papers, so I could not confirm the paper-level statement of the (ln L)^(\u2212\u03b7) form or of the \"2\u03c0\u00b7slope\u00b7exponent = 1\" relation.\n\n**1. Model family.** This is classical statistical physics: the 2D XY (planar rotor) model with algebraically decaying long-range ferromagnetic coupling, J(r) ~ 1/r^(d+\u03c3). In d = 2, 1/r\u2074 means \u03c3 = 2. That is the marginal exponent separating long-range from short-range (Berezinskii\u2013Kosterlitz\u2013Thouless, BKT) behaviour. The standard names are the \"2D long-range XY model at \u03c3 = 2\" or \"long-range XY at the marginal point \u03c3* = 2\". The model is related to the Kosterlitz\u2013Thouless and Mermin\u2013Wagner problem.\n\n**2. Specific behaviour.**\n- **Same system.** Xiao, Yao, Zhang, Fan and Deng simulated exactly this model. They studied the 2D XY model with interaction \u223c1/r^(2+\u03c3) in Monte Carlo simulations up to L = 8192. They report that logarithmic scaling behaviours appear in the low-temperature phase at \u03c3 = 2. They say the low-temperature scaling for \u03c3 \u2264 2 agrees with their theoretical analysis.\n- **Longer follow-up.** Yao et al. (PRB) report that for \u03c3 = 2 the correlation function saturates to a non-zero constant in the form of the inverse logarithm of distance. They also state that the crossover between non-classical and short-range regimes occurs at \u03c3 = 2.\n- **Related model.** The same group's Heisenberg paper (arXiv 2512.01956, read only through a summary page) is a close relative. It uses a fixed-length long-range random walk to explain the transverse-fluctuation scaling, and reports \u27e8M\u00b2\u27e9 following \u223c1/ln(L/L0) at \u03c3 \u2264 2.\n- **Theory background.** Giachetti, Defenu, Ruffo and Trombettoni (PRL 127, 156801, 2021) treat long-range couplings \u223cr^(\u22122\u2212\u03c3) and the BKT transition. They find a quasiordered phase between Tc and T_BKT for 7/4 < \u03c3 < 2. Their abstract does not cover \u03c3 = 2 itself.\n- **Later work.** Walther, Willsher and Knolle (PRL 136, 227102, 2026) report that spin waves renormalize the interaction between vortices, which stabilizes the BKT transition. They argue the BKT transition persists for arbitrary long-range exponents.\n- **Review.** I found no dedicated review of \u03c3 = 2. The Giachetti et al. PRL is the nearest overview of the long-range BKT problem.\n- **Earliest source.** The earliest clear numerical source I could verify is Xiao et al., arXiv 2404.08498 (2024), published in Chin. Phys. Lett. 42, 070002 (2025). The PRB is Yao et al., Phys. Rev. B 112, 144429 (2025), arXiv 2411.01811. Journal and volume details come from search results that cite these papers.\n- **Possible earlier theory.** Kosterlitz (1976) on long-range O(n) models may be earlier, but I did not verify it, so I am not citing it.\n\n**Caveat: how the log decay is read.**\n- **Spin-wave argument.** This is my own derivation, not taken from a source. For 1/r\u2074 in 2D, \u03a3 r\u00b2J(r) diverges logarithmically, so the spin-wave dispersion is ~k\u00b2 ln(1/k). Then \u222bd\u00b2k/(k\u00b2 ln(1/k)) ~ ln ln L. That gives \u27e8cos\u27e9 ~ (ln L)^(\u2212\u03b7) with \u03b7 \u221d T. It also gives a link between \u03b7 and the slope of \u03be\u00b2/L\u00b2 versus ln L, which is your exponent\u2013slope product of 1.\n- **Published reading.** Yao et al. and the Heisenberg paper read the data as M\u00b2 converging to a positive constant with a 1/ln(L/L0) correction. That is a long-range-order interpretation.\n- **What this means.** A small power of ln L, like your 0.34 at \u03b2 = 1 and 0.02 at \u03b2 = 8, is hard to tell apart from a positive plateau with a log correction. Your result is a spin-wave reading of the same data, and it may conflict with their claim of true order at \u03c3 = 2. I did not find a source that settles this.\n- **Variant with a nearest-neighbour coupling plus a weak tail.** I did not find a source on this variant. It is probably covered by the same marginal-\u03c3 argument, because the tail alone sets the log.\n- **Divergence exponent 2.24.** I did not verify this against the literature. Yao et al. say they determine critical points and exponents for various \u03c3, but I could not read the values. Check it against their tables.\n\n**3. Confidence: medium.** The model and its log scaling are clearly published, and I checked the titles, authors, years and venues against search results. I could not read the full PDFs, and the long-range-order versus spin-wave reading is unresolved.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: 2D long-range XY model (planar rotors, J~1/r^(d+sigma), sigma=2 marginal), BKT/Mermin-Wagner context\", \"standard_name\": \"2D long-range XY model at the marginal point sigma=2 (sigma*=2 crossover); logarithmic scaling of magnetization/correlations\", \"confidence\": \"medium\", \"citations\": [\"Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 (arXiv:2404.08498) - MC to L=8192 of 2D XY with 1/r^(2+sigma); LRO for sigma<2 and logarithmic scaling in the low-T phase at sigma=2, agreeing with their theory\", \"Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B 112, 144429 (arXiv:2411.01811) - comprehensive MC; for sigma=2 the correlation function saturates via inverse log of distance; crossover at sigma=2\", \"Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - BKT with long-range couplings r^(-2-sigma); quasiordered phase for 7/4<sigma<2 (theory background; abstract does not address sigma=2)\", \"Walther, Willsher, Knolle 2026, Phys. Rev. Lett. 136, 227102 - persistence of BKT with long-range couplings; spin waves renormalize vortex interaction\", \"Related: arXiv 2512.01956 (2D long-range Heisenberg, same group) - M^2 ~ 1/ln(L/L0) and fixed-length LR random walk; read only via a summary page\"], \"searches\": [\"two-dimensional XY model long-range interaction 1/r^4 sigma=2 magnetization logarithmic decay\", \"long-range XY model d=2 sigma=2 marginal BKT essential singularity correlation length\", \"Xiao Yao Zhang Fan Deng arXiv two-dimensional XY ferromagnet induced by long-range interaction sigma=2 logarithmic\", \"Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings\", \"arXiv 2404.08498 ... sigma=2 magnetization ln ln L spin-wave\", \"Persistence of the BKT transition with long-range couplings authors sigma=2 marginal spin waves\", \"long-range XY sigma=2 spin-wave theory magnetization power of ln L, k^2 ln(1/k) dispersion\"], \"notes\": \"Published numerics read sigma=2 as long-range order with 1/ln approach to a positive M^2, whereas the observed power-of-ln(L) decay with exponent proportional to T matches a spin-wave (k^2 ln k) picture with no true order. These are hard to distinguish numerically, and I found no source that settles it. The (ln L)^(-eta) form, the exponent-slope relation and the 2.24 divergence exponent were not verified in readable text. The nearest-neighbour-plus-weak-tail variant was not found in the literature.\"}\n```",
+ "checked": "2026-11-03 04:04:26"
+}

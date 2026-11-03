@@ -1,0 +1,110 @@
+{
+ "class_id": "planted:N11",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Spatial birth-death point process / nonlocal logistic (Fisher-KPP) individual-based model with higher-order (three-body) competition; competition-induced Turing-like pattern formation",
+ "standard_name": "Higher-order competition-induced pattern diversity (hexagonal spots -> stripes -> gaps) in nonlocal logistic / spatial birth-death models",
+ "confidence": "medium",
+ "citations": [
+  "Pinto-Ramos, Surendran & Martinez-Garcia 2026 (preprint), 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics' - pairwise competition gives only hexagonal clusters; higher-order competition gives stripes and gaps, with analytic thresholds (seen via author announcement, author webpage and Zenodo code record; full text not read)",
+  "Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - neighborhood-dependent birth/death individual-based model giving periodic clusters, finite-wavelength instability (pairwise precedent)",
+  "Surendran, Pinto-Ramos, Menezes & Martinez-Garcia 2025, Physica D 477, 134703 - IBM vs spatial moment dynamics vs biomass-density equations for pattern formation (cited via reference lists; not read)",
+  "Martinez-Garcia et al. 2025, Commun. Phys. (s42005-025-02246-3) - nonlocal FKPP competition gives hexagonal spots; gap patterns in facilitation variant",
+  "J. Theor. Biol. 'Stripes, spots, or reversed spots in two-dimensional Turing systems' - cubic vs quadratic nonlinearity governs spot/stripe/reversed-spot selection (general theory)"
+ ],
+ "searches": [
+  "spatial birth-death process three-body competition hexagonal spots stripes pattern formation individual-based",
+  "higher-order interactions nonlocal competition stochastic individual-based model Turing patterns hexagons stripes inverted spots",
+  "Surendran Plank Simpson Martinez-Garcia Physica D spatial moment dynamics biomass density",
+  "Hernandez-Garcia Lopez clustering patterns population dynamics neighborhood-dependent rates",
+  "pairwise competition cannot generate stripes three-body interactions reentrant spatial point process",
+  "Surendran Pinto-Ramos Menezes Martinez-Garcia 2025 Physica D",
+  "nonlocal competition nonlinear local crowding spots stripes reentrant hexagons amplitude equation",
+  "Higher-order competition as a minimal mechanism for spatial pattern diversity in population dynamics",
+  "Pinto Ramos Martinez-Garcia higher-order competition spatial pattern diversity preprint"
+ ],
+ "notes": "The matching source is a 2026 preprint with a Zenodo code release. I could not read its full text, so I did not confirm the death/birth ~0.55 re-entrant spots, the specific g thresholds, or whether the simulated rates (birth 1920, death 192, radii 1.25 and 0.0625) match its parameters. If the re-entry is not in the preprint it would be a small extension. The earlier pairwise literature (2004 onward) predicts only hexagonal spots, so stripes and gaps from competition alone depend on the higher-order term, as the preprint says. The preprint is not peer reviewed as far as I could tell.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "spatial birth-death process three-body competition hexagonal spots stripes pattern formation individual-based"
+  },
+  {
+   "query": "higher-order interactions nonlocal competition stochastic individual-based model Turing patterns hexagons stripes inverted spots"
+  },
+  {
+   "query": "Surendran Plank Simpson Mart\u00ednez-Garc\u00eda Physica D spatial moment dynamics biomass density equations pattern formation individual-based"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering patterns population dynamics neighborhood-dependent rates birth death"
+  },
+  {
+   "query": "pairwise competition cannot generate stripes; three-body interactions stripes spots reentrant spatial point process competition-only"
+  },
+  {
+   "query": "Surendran Pinto-Ramos Menezes Martinez-Garcia 2025 Physica D spatial moment dynamics biomass density individual-based simulations hexagonal stripes"
+  },
+  {
+   "query": "nonlocal competition and nonlinear local crowding term spots stripes reentrant hexagons amplitude equation population model Gaussian dispersal"
+  },
+  {
+   "query": "Higher-order competition as a minimal mechanism for spatial pattern diversity in population dynamics"
+  },
+  {
+   "query": "Pinto Ramos Martinez-Garcia higher-order competition spatial pattern diversity spots stripes gaps individual-based preprint"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/267708v2.full.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0960982224012430",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://www.biorxiv.org/content/10.1101/267708.full.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570418303034",
+  "https://en.wikipedia.org/wiki/Turing_pattern",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924000328",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002203962501109X",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0096300317301911",
+  "https://www.sciencedirect.com/science/article/pii/S0960982224012430",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922010608",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://www.biorxiv.org/content/10.1101/267708v2.full.pdf",
+  "https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.2020.0501",
+  "https://www.biorxiv.org/content/10.1101/2020.06.26.173153v1.full",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.5567",
+  "https://www.mdpi.com/2073-445X/14/6/1129",
+  "https://www.biorxiv.org/content/10.1101/2022.05.10.491405.full.pdf",
+  "https://www.biorxiv.org/content/10.64898/2026.05.26.727925v1.full",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "https://www.journals.uchicago.edu/doi/pdfplus/10.1086/708513",
+  "https://scipedia.bohrium.com/en/sciencepedia/feynman/chemical_kinetics_and_reaction_networks_graduate-spatial_patterns_in_reaction-diffusion_systems_spots_stripes_and_spirals",
+  "https://doi.org/10.3390/cells9092011",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9827880/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7929752",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://www.hzdr.de/db/!Topics?pId=68&pNid=0",
+  "https://dpintoramos.github.io/",
+  "https://menuci.github.io/seminario/",
+  "https://www.casus.science/news-model-connects-animal-movement-and-population-dynamics/",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://ww3.math.ucla.edu/camreport/cam05-20.pdf",
+  "https://doi.org/10.3390/app131910598",
+  "https://zenodo.org/records/22937227",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10718426/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.01.10.523527v1.full",
+  "https://www.biorxiv.org/content/10.1101/2023.04.05.535749.full.pdf",
+  "https://www.linkedin.com/in/ricardo-martinez-garcia-b212306a/",
+  "https://dpintoramos.github.io/",
+  "https://www.nature.com/articles/s42005-025-02246-3.pdf",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://zenodo.org/records/22937227",
+  "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2025GL118462",
+  "https://pubmed.ncbi.nlm.nih.gov/41911453/"
+ ],
+ "full_text": "**Verdict: KNOWN.** I found a very recent preprint that appears to describe this same system and the same behaviour. I could not read its full text, so my confidence is medium.\n\n**1. Model family.** This is a spatial birth\u2013death point process, also called a nonlocal logistic or nonlocal Fisher\u2013KPP individual-based model. Offspring disperse by Gaussian kernels, and death rates depend on neighbour density within a competition radius. Here a three-body (higher-order) crowding term is added. Pattern formation is competition-induced, Turing-like, and appears as spot, stripe and gap patterns. Related families are Hern\u00e1ndez-Garc\u00eda/L\u00f3pez-type neighbourhood-dependent-rate models, spatial moment dynamics, and amplitude-equation theory for hexagon, stripe and inverted-spot selection.\n\n**2. The specific behaviour.** The match is a 2026 preprint by Pinto-Ramos, Surendran and Martinez-Garcia, \"Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics\".\n- The lead author's announcement says pairwise competition produces only hexagonal arrays of population clusters for a broad class of interaction kernels.\n- It also says higher-order competition enables stripes and gaps to emerge from competition alone.\n- It adds that they analytically explain the restriction imposed by pairwise competition and derive the thresholds that govern pattern selection.\n- The author's page describes the same sequence: as higher-order competition increases, the population reorganises into spots, stripes and gaps. That page ties the individual-based dynamics to Physica D.\n- A Zenodo record, \"HOI Competing Populations: reproducibility code and data\", is the code release for that manuscript. Its authors are Pinto-Ramos, Surendran and Martinez-Garcia, and it is about 39 days old.\n\nI could not verify the full text. I did not see the death/birth \u2248 0.55 re-entrant spots result or the numerical g thresholds. The re-entry could be reported in the paper or could be a new extension, and I can't tell which.\n\n**Earlier and background sources, checked against the search results:**\n- Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, \"Clustering, advection, and patterns in a model of population dynamics with neighborhood-dependent rates\", Phys. Rev. E 70, 016216 (2004). The model shows a quasistationary pattern of clusters arranged periodically, and linear stability analysis gives a finite-wavelength instability. This is the earliest pairwise precedent for the competition-induced clustering in an individual-based model.\n- Surendran, Pinto-Ramos, Menezes & Martinez-Garcia, \"Spatial moment dynamics and biomass density equations provide complementary, yet limited, descriptions of pattern formation in individual-based simulations\", Physica D 477, 134703 (2025). The citation is confirmed in several reference lists. I did not read the paper itself.\n- Martinez-Garcia and co-authors, \"Flow spatial structure determines pattern instabilities in nonlocal models of population dynamics\", Commun. Phys. (2025). It states that nonlocal interactions destabilize the uniform state and the population forms a periodic pattern of spots. It also confirms that the pairwise-competition patterns are hexagonal spots.\n- Generic Turing-system results show that stripes versus spots versus reversed spots depend on the nonlinear terms: stripes are more likely if the cubic terms outweigh the quadratic terms. This is the usual amplitude-equation reason a cubic (three-body) term can select stripes and then gaps. The source is \"Stripes, spots, or reversed spots in two-dimensional Turing systems\", J. Theor. Biol.\n\n**3. Why confidence is not high.** The preprint's full text was not available to me, so the match rests on the abstract-level description, the author's page and the code record. The 0.55 re-entry and the specific g values are unverified. I also did not locate a formal review of higher-order competition in spatial birth\u2013death models. The closest reviews are general ones on competition-driven patterns, such as the essay \"Self-organization in spatial ecology\" (Current Biology).\n\n**Searches run:**\n- spatial birth-death three-body competition hexagonal spots stripes\n- higher-order interactions nonlocal competition Turing patterns hexagons stripes inverted spots\n- Surendran/Plank/Simpson/Mart\u00ednez-Garc\u00eda Physica D\n- Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering neighborhood-dependent rates\n- pairwise competition cannot generate stripes, three-body, reentrant\n- Surendran Pinto-Ramos Menezes Martinez-Garcia 2025\n- nonlocal competition plus local crowding, reentrant hexagons, amplitude equation\n- Higher-order competition as a minimal mechanism for spatial pattern diversity\n- Pinto Ramos Martinez-Garcia higher-order competition preprint\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Spatial birth-death point process / nonlocal logistic (Fisher-KPP) individual-based model with higher-order (three-body) competition; competition-induced Turing-like pattern formation\", \"standard_name\": \"Higher-order competition-induced pattern diversity (hexagonal spots -> stripes -> gaps) in nonlocal logistic / spatial birth-death models\", \"confidence\": \"medium\", \"citations\": [\"Pinto-Ramos, Surendran & Martinez-Garcia 2026 (preprint), 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics' - pairwise competition gives only hexagonal clusters; higher-order competition gives stripes and gaps, with analytic thresholds (seen via author announcement, author webpage and Zenodo code record; full text not read)\", \"Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - neighborhood-dependent birth/death individual-based model giving periodic clusters, finite-wavelength instability (pairwise precedent)\", \"Surendran, Pinto-Ramos, Menezes & Martinez-Garcia 2025, Physica D 477, 134703 - IBM vs spatial moment dynamics vs biomass-density equations for pattern formation (cited via reference lists; not read)\", \"Martinez-Garcia et al. 2025, Commun. Phys. (s42005-025-02246-3) - nonlocal FKPP competition gives hexagonal spots; gap patterns in facilitation variant\", \"J. Theor. Biol. 'Stripes, spots, or reversed spots in two-dimensional Turing systems' - cubic vs quadratic nonlinearity governs spot/stripe/reversed-spot selection (general theory)\"], \"searches\": [\"spatial birth-death process three-body competition hexagonal spots stripes pattern formation individual-based\", \"higher-order interactions nonlocal competition stochastic individual-based model Turing patterns hexagons stripes inverted spots\", \"Surendran Plank Simpson Martinez-Garcia Physica D spatial moment dynamics biomass density\", \"Hernandez-Garcia Lopez clustering patterns population dynamics neighborhood-dependent rates\", \"pairwise competition cannot generate stripes three-body interactions reentrant spatial point process\", \"Surendran Pinto-Ramos Menezes Martinez-Garcia 2025 Physica D\", \"nonlocal competition nonlinear local crowding spots stripes reentrant hexagons amplitude equation\", \"Higher-order competition as a minimal mechanism for spatial pattern diversity in population dynamics\", \"Pinto Ramos Martinez-Garcia higher-order competition spatial pattern diversity preprint\"], \"notes\": \"The matching source is a 2026 preprint with a Zenodo code release. I could not read its full text, so I did not confirm the death/birth ~0.55 re-entrant spots, the specific g thresholds, or whether the simulated rates (birth 1920, death 192, radii 1.25 and 0.0625) match its parameters. If the re-entry is not in the preprint it would be a small extension. The earlier pairwise literature (2004 onward) predicts only hexagonal spots, so stripes and gaps from competition alone depend on the higher-order term, as the preprint says. The preprint is not peer reviewed as far as I could tell.\"}\n```",
+ "checked": "2026-11-03 02:37:53"
+}

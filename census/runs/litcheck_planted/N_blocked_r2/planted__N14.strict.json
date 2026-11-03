@@ -1,0 +1,100 @@
+{
+ "class_id": "planted:N14",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Kagome lattice self-assembly of two-patch (triblock-Janus-type) particles in the two-bonds-per-patch limit",
+ "citations": [
+  "Romano & Sciortino, Soft Matter 7, 5799 (2011), doi:10.1039/c0sm01494j",
+  "Chen, Bae & Granick, Nature 469, 381 (2011), doi:10.1038/nature09713",
+  "Design of a Kagome lattice from soft anisotropic particles, Soft Matter 11, 6663 (2015)",
+  "Partially Bonded Crystals, ACS Nano 19, 5146 (2025)",
+  "Elliptic patchy particles (co-vertex patches), Mol. Phys. (2019), doi:10.1080/00268976.2019.1592254"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Mild overturn: the first pass's 'variant' label rested on rule differences (ellipse shape, GCMC), not on behaviour. With ellipse tip patches, the particles sit on honeycomb edges and their centres form kagome, so the network is the same. The zero-lag simultaneous rise of pair and triangle bonds is not explicitly documented, but it is a minor kinetic detail that probably depends on sampling. The structure was inferred from ring and triangle counts, not seen; six-ring order 0.8 suggests defects or polycrystallinity. Check that the high-mu runs have not turned into the denser hexagonal phase that Romano and Sciortino report at high pressure.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "elliptical patchy particles two patches kagome lattice Monte Carlo"
+  },
+  {
+   "query": "Romano Sciortino two bond per patch limit triblock Janus kagome grand canonical"
+  },
+  {
+   "query": "hard ellipses tip patches grand canonical Monte Carlo two-dimensional self-assembly open lattice triangles"
+  },
+  {
+   "query": "patchy ellipses aspect ratio two patches vertices kagome nucleation bonds per patch"
+  },
+  {
+   "query": "\"patchy ellipses\" self-assembly"
+  },
+  {
+   "query": "ellipsoidal triblock patchy particles kagome lattice simulation aspect ratio"
+  },
+  {
+   "query": "Bupathy Banerjee Kahl Bianchi patchy ellipses two-dimensional assembly patches at vertices"
+  },
+  {
+   "query": "Chen Bae Granick directed self-assembly colloidal kagome lattice crystallization pathway triangles"
+  }
+ ],
+ "result_urls": [
+  "https://doi.org/10.1021/acs.langmuir.2c02699",
+  "https://www.tandfonline.com/doi/pdf/10.1080/00268976.2019.1592254",
+  "https://www.mdpi.com/2073-4352/9/10/508",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167732224004604",
+  "https://pubs.rsc.org/sm/article-abstract/7/12/5799/351404/Two-dimensional-assembly-of-triblock-Janus?redirectedFrom=fulltext",
+  "https://www.academia.edu/93634182/Self_Assembly_Mechanisms_of_Triblock_Janus_Particles?f_ri=311540",
+  "https://www.sciencedirect.com/topics/engineering/close-packed-hexagonal",
+  "https://www.nature.com/articles/nchem.2540",
+  "https://onlinelibrary.wiley.com/doi/10.1002/9781119113171.ch5",
+  "https://www.nature.com/articles/ncomms1968",
+  "https://www.mdpi.com/2073-4352/9/10/508",
+  "https://pith.science/paper/2504.20764",
+  "https://pubs.rsc.org/sm/article/11/33/6663/504127/Design-of-a-Kagome-lattice-from-soft-anisotropic",
+  "https://pubmed.ncbi.nlm.nih.gov/32617547/",
+  "http://www.if.ufrgs.br/~levin/Pdfs.dir/JCP_lattice.pdf",
+  "https://doi.org/10.3390/ijms21228621",
+  "https://www.nature.com/articles/ncomms1968",
+  "https://pubs.rsc.org/sm/article/11/33/6663/504127/Design-of-a-Kagome-lattice-from-soft-anisotropic",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://doi.org/10.3390/ijms21228621",
+  "https://pubs.acs.org/ancac3/article/19/5/5146/3754348/Partially-Bonded-Crystals-A-Pathway-to-Porosity",
+  "https://pubmed.ncbi.nlm.nih.gov/33207624/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8125556/",
+  "https://pubs.acs.org/doi/abs/10.1021/ja202360g",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11500309/",
+  "https://pubs.aip.org/aip/jcp/article-abstract/161/14/144903/3315761/Two-stage-assembly-of-patchy-ellipses-From-bent?redirectedFrom=fulltext",
+  "https://pubmed.ncbi.nlm.nih.gov/39377339/",
+  "https://pubs.rsc.org/sm/article/11/33/6663/504127/Design-of-a-Kagome-lattice-from-soft-anisotropic",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://groups.mrl.illinois.edu/granick/publications/PDF%20files/2013/nmat3496.pdf",
+  "https://www.tandfonline.com/doi/abs/10.1080/08927022.2019.1593976",
+  "https://pubmed.ncbi.nlm.nih.gov/39377339/",
+  "https://pubs.aip.org/aip/jcp/article-abstract/161/14/144903/3315761/Two-stage-assembly-of-patchy-ellipses-From-bent?redirectedFrom=fulltext",
+  "https://www.science.org/doi/10.1126/sciadv.aas8829",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://www.osti.gov/etdeweb/biblio/21365683",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11823632",
+  "https://www.ebsco.com/research-starters/mathematics/ellipse/",
+  "https://ucrisportal.univie.ac.at/en/publications/patchy-particles",
+  "https://pubs.acs.org/doi/abs/10.1021/acsnano.4c06489",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://groups.mrl.illinois.edu/granick/Publications/PDF%20files/2011/nature09713.pdf",
+  "https://www.nature.com/articles/ncomms1968",
+  "https://experts.illinois.edu/en/publications/directed-self-assembly-of-a-colloidal-kagome-lattice",
+  "https://go.gale.com/ps/i.do?id=GALE%7CA247530224&sid=googleScholar&v=2.1&it=r&linkaccess=abs&issn=00280836&p=HRCA&sw=w",
+  "https://www.osti.gov/pages/biblio/1875134",
+  "https://pubmed.ncbi.nlm.nih.gov/21248847/",
+  "https://www.nature.com/articles/s41586-026-10217-z"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the kagome lattice that forms when particles with two patches can make at most two bonds per patch. I'm slightly overturning the first pass. Its \"variant\" label rested on the ellipse shape and the grand-canonical ensemble. Those are differences in the rules, not in the behaviour, so they shouldn't count.\n\n**Sources that document the behaviour**\n- **The structure (simulation):** Romano and Sciortino used a simple two-patch model with patches wide enough for at most two contacts per patch. They showed it reproduces the observed crystallisation pathway into the Kagome structure. Their free energy calculations showed the Kagome lattice is stable at low temperature and low pressure, matching your low-T assembly. I read the abstract and secondary summaries, not the full text.\n- **The design rule:** Particles assemble into a porous Kagome lattice as long as each polar patch allows two bonds. Bonding is then maximised in a triangular local geometry, which builds the extended Kagome monolayer. That fits your results: every particle is in a ring, and about 340 three-patch triangles remain after assembly.\n- **The pair/triangle bond tracking:** the original experiment (Chen, Bae, Granick, Nature 2011) followed the assembly stages by counting pair bonds and triangular bonding (blue triangles). It reported early kinetically-favored triangles, strings, or a combination of these two, and noted that for the kagome lattice to develop fully requires much longer. So the pair-bond peak during nucleation is a known kind of measurement and a known transient.\n- **Elongated particles:** a simple model of triblock Janus particles built from discoidal (ellipsoid) building blocks forms energetically stabilised Kagome structures. Non-spherical shapes don't break the kagome route. Separately, two-patch ellipses with aspect ratio 2 have been studied in 2D Monte Carlo, but with the two patches on the co-vertices (the short-axis ends), not at the long-axis tips.\n\n**Are the twists in the behaviour itself?**\n1. **Ellipse shape with tip patches.** With three tips meeting at each triangle, the particles sit like rods on the edges of a honeycomb, and their centres form a kagome lattice. That is the same open network, so it isn't new behaviour. I found no paper on exactly this shape, but that is a gap in the rules, not in the behaviour.\n2. **Pair and triangle bonds rising together (zero lag), with a peak of about 90 pair bonds at T=0.07.** I couldn't confirm this exact timing in the literature. It is a minor kinetic detail that probably depends on how often bonds were sampled and on the ellipse geometry, so it doesn't justify a new-behaviour verdict.\n\n**Genuine pattern or artifact?** It looks genuine. Every particle is in a closed ring, the six-ring order is 0.8, and the triangle count is plausible for an open lattice at the observed density. None of that fits random colouring, a frozen dilute gas or numerical divergence. Two caveats:\n- No one has actually looked at the structure. \"Kagome\" is inferred from the ring and triangle counts, and an order of 0.8 rather than 1 suggests defects or several domains.\n- At higher chemical potential, Romano and Sciortino found the kagome lattice turns into a denser hexagonal phase. Check the high-mu end of your grid before calling the whole range kagome.\n\n**Searches run:** elliptical patchy particles with kagome; Romano\u2013Sciortino two-bond-per-patch; hard ellipses with tip patches in grand-canonical MC; patchy ellipses at aspect ratio 2 and kagome nucleation; \"patchy ellipses\" self-assembly; ellipsoidal triblock kagome; the Bianchi/Kahl/Banerjee patchy-ellipse work; and the Chen/Bae/Granick crystallisation pathway.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Kagome lattice self-assembly of two-patch (triblock-Janus-type) particles in the two-bonds-per-patch limit\", \"citations\": [\"Romano & Sciortino, Soft Matter 7, 5799 (2011), doi:10.1039/c0sm01494j\", \"Chen, Bae & Granick, Nature 469, 381 (2011), doi:10.1038/nature09713\", \"Design of a Kagome lattice from soft anisotropic particles, Soft Matter 11, 6663 (2015)\", \"Partially Bonded Crystals, ACS Nano 19, 5146 (2025)\", \"Elliptic patchy particles (co-vertex patches), Mol. Phys. (2019), doi:10.1080/00268976.2019.1592254\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Mild overturn: the first pass's 'variant' label rested on rule differences (ellipse shape, GCMC), not on behaviour. With ellipse tip patches, the particles sit on honeycomb edges and their centres form kagome, so the network is the same. The zero-lag simultaneous rise of pair and triangle bonds is not explicitly documented, but it is a minor kinetic detail that probably depends on sampling. The structure was inferred from ring and triangle counts, not seen; six-ring order 0.8 suggests defects or polycrystallinity. Check that the high-mu runs have not turned into the denser hexagonal phase that Romano and Sciortino report at high pressure.\"}\n```",
+ "checked": "2026-11-03 03:08:18"
+}

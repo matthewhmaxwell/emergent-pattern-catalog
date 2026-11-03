@@ -1,0 +1,78 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Pulse-coupled integrate-and-fire oscillators, all-to-all, linear (non-leaky) charging with absorption (Peskin / Mirollo-Strogatz class; synchronization / cluster formation)",
+ "standard_name": "Arithmetic of the sync basin at the critical linear charging curve (equal-size cluster principle; P_sync = 1 - 1/N^N for prime N; 1-P_sync ~ C_m N^-(m-1), m = smallest prime factor)",
+ "confidence": "medium",
+ "citations": [
+  "O'Keeffe 2026, arXiv:2609.01668 (nlin.AO) 'Arithmetic of the sync basin for pulse-coupled oscillators' - prime-N closed form, equal-size/divisor principle, d(N) outcomes, empirical exponent and C_2~0.60",
+  "Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50(6):1645-1662 - foundational synchrony theorem for concave-down charging (linear case is its boundary)",
+  "Diaz-Guilera, Perez & Arenas, arXiv:cond-mat/9607056 - linear/concave IF oscillators with additive global coupling; complete sync unless the last two groups are equal-sized (partial precursor)",
+  "Strogatz & O'Keeffe et al. 2016, Phys. Rev. E 93, 032203 (arXiv:1510.05341) - cluster-aggregation kinetics of identical all-to-all pulse-coupled oscillators; clusters never break apart (related, divisor result not verified there)"
+ ],
+ "searches": [
+  "pulse-coupled oscillators linear integrate-and-fire all-to-all absorption coupling 1/N clusters equal size divisors of N",
+  "Mirollo Strogatz 1990 Synchronization of pulse-coupled biological oscillators SIAM J. Appl. Math.",
+  "Urbanczik Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize",
+  "Arithmetic of the sync basin for pulse-coupled oscillators arXiv authors"
+ ],
+ "notes": "Earliest clear source for the full arithmetic result is a Sept 2026 arXiv preprint, apparently not yet peer-reviewed. The power-law exponent and prefactor are empirical there, with no proof. Older literature (Diaz-Guilera et al.) only partially anticipates the equal-size mechanism. I did not read the full text of any source, only search excerpts. The Strogatz/O'Keeffe 2016 reference was identified from the APS accepted-manuscript URL, not a full citation record.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "pulse-coupled oscillators linear integrate-and-fire all-to-all absorption coupling 1/N clusters equal size divisors of N"
+  },
+  {
+   "query": "Mirollo Strogatz 1990 Synchronization of pulse-coupled biological oscillators SIAM J. Appl. Math."
+  },
+  {
+   "query": "Urbanczik Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize"
+  },
+  {
+   "query": "Arithmetic of the sync basin for pulse-coupled oscillators arXiv authors"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/1510.05341",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://www.researchgate.net/publication/313536222_Cluster_synchronization_in_networks_of_identical_oscillators_with_a_-function_pulse_coupling",
+  "https://arxiv.org/html/2609.01668",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://arxiv.org/pdf/cond-mat/9607056",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://www.researchgate.net/publication/271140378_Synchronization_as_Aggregation_Cluster_Kinetics_of_Pulse-Coupled_Oscillators",
+  "https://arxiv.org/pdf/2609.01668",
+  "https://arxiv.org/pdf/1903.01651",
+  "https://www.jstor.org/stable/2101911",
+  "https://link.springer.com/chapter/10.1007/978-3-642-03156-4_5",
+  "https://arxiv.org/pdf/2203.04079",
+  "https://arxiv.org/pdf/1102.4462",
+  "https://arxiv.org/pdf/0707.2442",
+  "https://arxiv.org/pdf/1201.6594",
+  "https://arxiv.org/pdf/1011.5632",
+  "https://www.semanticscholar.org/paper/Synchronization-of-pulse-coupled-biological-Mirollo-Strogatz/77a838e3acec65a91da4f62c269ca23dfa9db40b",
+  "https://link.springer.com/chapter/10.1007/3-540-45032-7_3",
+  "https://www.researchgate.net/publication/220223178_Similar_NonLeaky_Integrate-and-Fire_Neurons_with_Instantaneous_Couplings_Always_Synchronize",
+  "https://link.springer.com/article/10.1007/s00422-006-0082-8",
+  "https://www.researchgate.net/publication/6964039_A_Review_Of_The_Integrate-And-Fire_Neuron_Model_II_Inhomogeneous_Synaptic_Input_And_Network_Properties",
+  "https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/neuro.10.002.2008/full",
+  "https://www.researchgate.net/publication/228798864_Phase-locking_in_electrically_coupled_non-leaky_integrate-and-fire_neurons",
+  "https://arxiv.org/pdf/2505.09515",
+  "http://www.math.ucdavis.edu/~tjlewis/pubs/lewisdcds03.pdf",
+  "https://arxiv.org/pdf/1807.11843",
+  "https://arxiv.org/pdf/cond-mat/9709220",
+  "https://arxiv.org/abs/2609.01668",
+  "https://arxiv.org/html/2609.01668",
+  "https://arxiv.org/abs/2506.03419",
+  "https://arxiv.org/abs/1510.02338",
+  "https://arxiv.org/html/1510.02338v2",
+  "https://arxiv.org/abs/1409.3515",
+  "https://arxiv.org/abs/1706.00344",
+  "https://arxiv.org/pdf/1209.0814",
+  "https://www.jstor.org/stable/2101911"
+ ],
+ "full_text": "**Verdict: KNOWN.** A recent preprint describes this system and every headline number you list. The one caveat is that it is a single-author arXiv preprint, not yet peer-reviewed as far as I can tell.\n\n**1. Model family.** This is pulse-coupled integrate-and-fire oscillators with all-to-all coupling, in the Peskin / Mirollo\u2013Strogatz tradition. The charging curve is linear, with no leak. Pulse size is k/N for a firing cluster of size k. Oscillators pushed to threshold are absorbed into the firing cluster. Your system is the linear-charging boundary case between synchronizing and clustering regimes.\n\n**2. The specific behaviour.** O'Keeffe's preprint (arXiv:2609.01668, \"Arithmetic of the sync basin for pulse-coupled oscillators\", submitted 1 Sep 2026, v2 30 Sep 2026) describes all of the following.\n- The synchronization probability is P_sync = A_{N,1}/N^N for all N, where A_{N,1} satisfies an exact recurrence.\n- For prime N, P_sync = 1 \u2212 1/N^N. For composite N, 1 \u2212 P_sync ~ C_m N^{-(m\u22121)}, where m is the smallest prime divisor.\n- Check against your numbers: N=5 gives 1 \u2212 1/3125 = 0.99968, which matches. For even N, m = 2, so the exponent is 1, which matches. The paper gives empirical prefactors C\u2082 \u2248 0.60 and C\u2083 \u2248 0.53, so your prefactor of 0.6 matches. For N divisible by 3 but not 2, the exponent is 2.\n- It also states an \"equal-size principle\": every non-synchronizing trajectory settles into equal-size clusters whose common size divides N, with K clusters each of size N/K. Every divisor is realized, so the number of distinct outcomes is exactly d(N). Your 9 final states at N=100 equal d(100)=9.\n- For primes, the only non-sync outcome is the all-singleton state.\n- The paper treats the power-law prefactors and exponent as empirical. It says a proof of the scaling law is still open. Your exponent and prefactor are therefore matched, but not rigorously derived.\n\n**Earlier and related sources.**\n- Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50(6):1645\u20131662, \"Synchronization of Pulse-Coupled Biological Oscillators\". For almost all initial conditions, the population evolves to all oscillators firing synchronously. This is the foundational model, but it requires a concave-down charging curve, so it does not cover the linear case.\n- D\u00edaz-Guilera, P\u00e9rez & Arenas, arXiv:cond-mat/9607056, \"Synchronization of Integrate and Fire oscillators with global coupling\". They study linear and concave integrate-and-fire oscillators with additive global pulse coupling of strength n\u03b4 and \u03b4 \u221d 1/N. They state that the system synchronizes completely unless the two last remaining groups are of equal sizes. That is an early partial precursor of the equal-size mechanism. I did not confirm the journal venue from the search results.\n- Strogatz and O'Keeffe, \"Synchronization as Aggregation: Cluster Kinetics of Pulse-Coupled Oscillators\", Phys. Rev. E 93, 032203 (2016). The arXiv version (1510.05341) is titled \"Transient dynamics of pulse-coupled oscillators with nonlinear charging curves\". This is the closest review-like source. It treats identical all-to-all integrate-and-fire oscillators where clusters can only grow and never break apart. It is a kinetic (large-N) treatment, and I did not verify that it contains the divisor or prime result. I identified the journal from the APS accepted-manuscript URL, not from a full citation record.\n- Senn & Urbanczik 2001 (SIAM J. Appl. Math. 61:1143\u20131155), \"Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize\". It concerns a related non-leaky case with non-identical neurons or different couplings. It is not the same system and does not contradict the equal-cluster result.\n\n**3. Confidence: medium-high.** The preprint matches your rules (k/N kicks, absorption, linear charging), the prime closed form, the exponent 1 and prefactor of about 0.60, and the divisor count. I read these in the search excerpts, not the full paper. I did not find a peer-reviewed venue for it. I also cannot rule out earlier work containing the same arithmetic (divisor structure, prime closed form) that my searches missed. The D\u00edaz-Guilera et al. remark only partly anticipates it.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Pulse-coupled integrate-and-fire oscillators, all-to-all, linear (non-leaky) charging with absorption (Peskin / Mirollo-Strogatz class; synchronization / cluster formation)\", \"standard_name\": \"Arithmetic of the sync basin at the critical linear charging curve (equal-size cluster principle; P_sync = 1 - 1/N^N for prime N; 1-P_sync ~ C_m N^-(m-1), m = smallest prime factor)\", \"confidence\": \"medium\", \"citations\": [\"O'Keeffe 2026, arXiv:2609.01668 (nlin.AO) 'Arithmetic of the sync basin for pulse-coupled oscillators' - prime-N closed form, equal-size/divisor principle, d(N) outcomes, empirical exponent and C_2~0.60\", \"Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50(6):1645-1662 - foundational synchrony theorem for concave-down charging (linear case is its boundary)\", \"Diaz-Guilera, Perez & Arenas, arXiv:cond-mat/9607056 - linear/concave IF oscillators with additive global coupling; complete sync unless the last two groups are equal-sized (partial precursor)\", \"Strogatz & O'Keeffe et al. 2016, Phys. Rev. E 93, 032203 (arXiv:1510.05341) - cluster-aggregation kinetics of identical all-to-all pulse-coupled oscillators; clusters never break apart (related, divisor result not verified there)\"], \"searches\": [\"pulse-coupled oscillators linear integrate-and-fire all-to-all absorption coupling 1/N clusters equal size divisors of N\", \"Mirollo Strogatz 1990 Synchronization of pulse-coupled biological oscillators SIAM J. Appl. Math.\", \"Urbanczik Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize\", \"Arithmetic of the sync basin for pulse-coupled oscillators arXiv authors\"], \"notes\": \"Earliest clear source for the full arithmetic result is a Sept 2026 arXiv preprint, apparently not yet peer-reviewed. The power-law exponent and prefactor are empirical there, with no proof. Older literature (Diaz-Guilera et al.) only partially anticipates the equal-size mechanism. I did not read the full text of any source, only search excerpts. The Strogatz/O'Keeffe 2016 reference was identified from the APS accepted-manuscript URL, not a full citation record.\"}\n```",
+ "checked": "2026-11-03 03:44:43"
+}

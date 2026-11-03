@@ -1,0 +1,93 @@
+{
+ "class_id": "planted:N17",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Active matter / dry aligning self-propelled particles (2D Vicsek model, liquid-gas coexistence with microphase-separated travelling bands)",
+ "standard_name": "Counter-going smectic lanes of travelling bands in the coexistence phase of the 2D Vicsek model",
+ "confidence": "medium",
+ "citations": [
+  "Chat\u00e9 & B. Shi 2026, arXiv 2610.26561 'Coexistence phase of the two-dimensional Vicsek model' - reports counter-going lanes of smectic band trains at eta=0.28-0.35, multi-lane configurations, lane instability in long rectangular boxes (discrete-time VM, v0=0.5)",
+  "Chat\u00e9 & B. Shi 2026, arXiv 2610.26569 'Phase Diagram of the Two-Dimensional Vicsek Model' - companion paper summarising the new phase diagram and citing the coexistence-phase paper",
+  "Solon, Chat\u00e9, Tailleur 2015, Phys. Rev. Lett. 114, 068101 (arXiv:1406.6088) - microphase separation / smectic travelling bands in the Vicsek model (co-propagating bands only)",
+  "K\u00fcrsten & Ihle 2020, Phys. Rev. Lett. 125, 188003 (arXiv:2002.03198) - cross-sea phase of crossing bands in the standard Vicsek model (related, different pattern)",
+  "Chat\u00e9 2020, Annu. Rev. Condens. Matter Phys. 11, 189 'Dry Aligning Dilute Active Matter' - review (seen only in a reference list, not read)"
+ ],
+ "searches": [
+  "Vicsek model counter-propagating bands opposite directions parallel lanes microphase separation",
+  "Solon Chat\u00e9 Tailleur From phase to microphase separation in flocking models",
+  "K\u00fcrsten Ihle dry active matter self-organized cross sea phase Vicsek",
+  "Coexistence phase of the two-dimensional Vicsek model counter-going lanes bands Chat\u00e9",
+  "Boltzmann equation Vicsek model simulations two counter-propagating lanes of bands Ihle"
+ ],
+ "notes": "Earliest particle-level report found is the 2026 Chat\u00e9 & Shi preprint, which cites an earlier Boltzmann-equation study with two counter-going lanes (reference not identified). Persistence to 1e8 steps, the 1/24 success rate and the 7-lane count were not checked against the paper's text. Author names beyond 'Chat\u00e9' and 'B. Shi' are not verified. The arXiv IDs are as returned by search.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "Vicsek model counter-propagating bands opposite directions parallel lanes microphase separation"
+  },
+  {
+   "query": "Solon Chat\u00e9 Tailleur From phase to microphase separation in flocking models essential role of nonequilibrium fluctuations"
+  },
+  {
+   "query": "K\u00fcrsten Ihle dry active matter self-organized cross sea phase Vicsek"
+  },
+  {
+   "query": "Coexistence phase of the two-dimensional Vicsek model counter-going lanes bands Chat\u00e9"
+  },
+  {
+   "query": "Boltzmann equation Vicsek model simulations two counter-propagating lanes of bands Ihle"
+  }
+ ],
+ "result_urls": [
+  "https://www.researchgate.net/publication/368502681_Flocking_of_two_unfriendly_species_The_two-species_Vicsek_model",
+  "https://arxiv.org/html/2610.26561",
+  "https://arxiv.org/html/2503.17617",
+  "https://arxiv.org/html/2610.26569",
+  "https://arxiv.org/pdf/2302.00548",
+  "https://arxiv.org/pdf/2312.15525",
+  "https://arxiv.org/pdf/1406.6088",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://arxiv.org/html/2610.30008",
+  "https://www.semanticscholar.org/paper/From-phase-to-microphase-separation-in-flocking-the-Solon-Chat\u00e9/f0f6fa0ccc2a8ad3b36a2a8d3e22fb21f694f007",
+  "https://arxiv.org/html/2105.10217",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.9.031043",
+  "https://arxiv.org/pdf/2212.10251",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.013280",
+  "https://arxiv.org/pdf/2512.18846",
+  "https://arxiv.org/abs/1406.6088",
+  "https://arxiv.org/pdf/2010.05902",
+  "https://www.researchgate.net/publication/263427086_From_Phase_to_Micro-Phase_Separation_in_Flocking_Models_The_Essential_Role_of_Non-Equilibrium_Fluctuations",
+  "https://arxiv.org/pdf/1406.6088",
+  "https://arxiv.org/pdf/2002.03198",
+  "https://www.semanticscholar.org/paper/Dry-Active-Matter-Exhibits-a-Self-Organized-Cross-K\u00fcrsten-Ihle/0110c6405dc98eb57b3e145efbc79514f1824d74",
+  "https://arxiv.org/html/2604.28167",
+  "https://arxiv.org/html/2610.26569",
+  "https://www.researchgate.net/profile/Ruediger-Kuersten",
+  "https://www.researchgate.net/publication/345034249_Dry_Active_Matter_Exhibits_a_Self-Organized_Cross_Sea_Phase",
+  "https://arxiv.org/html/2604.28167v1",
+  "https://arxiv.org/html/2610.26561",
+  "https://www.researchgate.net/publication/339164720_Dry_Active_Matter_exhibits_a_self-organized_'Cross_Sea'_Phase",
+  "https://arxiv.org/pdf/2402.04450",
+  "https://arxiv.org/html/2610.26561",
+  "https://arxiv.org/html/2610.26569",
+  "https://arxiv.org/html/2604.28167v1",
+  "https://arxiv.org/pdf/2002.03198",
+  "https://www.researchgate.net/publication/368502681_Flocking_of_two_unfriendly_species_The_two-species_Vicsek_model",
+  "https://arxiv.org/pdf/2501.05167",
+  "https://arxiv.org/html/2604.28167v2",
+  "https://arxiv.org/pdf/2604.28167",
+  "https://arxiv.org/pdf/1905.12021",
+  "https://arxiv.org/html/2610.26561",
+  "https://arxiv.org/html/2610.26569",
+  "https://www.researchgate.net/publication/357116326_Small_Obstacle_in_a_Large_Polar_Flock",
+  "https://www.researchgate.net/publication/360799048_Small_Obstacle_in_a_Large_Polar_Flock",
+  "https://arxiv.org/pdf/1404.3950",
+  "https://www.researchgate.net/publication/265510963_Active_matter_beyond_mean-field_Ring-kinetic_theory_for_self-propelled_particles",
+  "https://arxiv.org/pdf/1006.1825",
+  "https://arxiv.org/pdf/1406.6088",
+  "https://www.researchgate.net/publication/303014531_Chapman-Enskog_expansion_for_the_Vicsek_model_of_self-propelled_particles"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is described for this system, and the noise window matches. The source is very recent (2026), and I could only read it as an arXiv HTML page.\n\n**1. Model family.** This is the standard discrete-time 2D Vicsek model. It is dry aligning active matter with angular noise, speed v0 = 0.5 and density 1. The \"dense travelling stripes\" are the travelling high-density bands of the liquid\u2013gas coexistence region, which Solon, Chat\u00e9 and Tailleur (2015) describe as a microphase-separated, smectic arrangement of bands. The continuous-time variant with sine alignment and Gaussian noise is the same universality class.\n\n**2. The specific behaviour.** The match is a 2026 paper titled \"Coexistence phase of the two-dimensional Vicsek model\" (arXiv listing 2610.26561). Its reference list in a companion paper credits it to Chat\u00e9 and \"B. Shi\". I did not verify the full author names. It has a section called \"Counter-going smectic lanes\". It reports that at intermediate noise strengths (\u03b7=0.28-0.35) one can observe, after some transient evolution, counter-going lanes made of parallel thin bands. That is the same noise window you observed. The same paper also says configurations with more than two lanes exist and coexist, which matches your 7 parallel lanes. It notes that in rectangular domains, most initial conditions lead to bands or smectic lanes propagating along the smaller dimension. That fits your low random-start success rate (1 of 24) and your use of engineered strip starts. It also covers the long-lane case. Its Figure 4 is titled \"Instability of long lanes (discrete-time VM with v_0=0.5)\", which matches your \"very long lanes buckle and merge\" variant at \u03b7=0.29. A companion paper, \"Phase Diagram of the Two-Dimensional Vicsek Model\" (arXiv listing 2610.26569), summarises the work and cites it.\n\n- **Earlier precedent, in a different system.** The 2026 paper says simulations of a Boltzmann equation derived from a Vicsek model have found intriguing solutions, made of two counter-going lanes of bands, that have never been observed at particle level. I could not identify that Boltzmann-equation reference, so I can't name the earliest source. The Boltzmann solutions are not particle simulations, so the earliest particle-level report appears to be the 2026 paper.\n- **Background on the bands.** Solon, Chat\u00e9 and Tailleur, \"From phase to micro-phase separation in flocking models: the essential role of non-equilibrium fluctuations\", Phys. Rev. Lett. 114, 068101 (2015), arXiv:1406.6088. It shows that the full phase separation seen in flocking models is replaced by a microphase separation leading to a smectic arrangement of traveling ordered bands. Its bands all travel in one direction, so it does not describe opposite-travelling lanes.\n- **Related but different.** K\u00fcrsten and Ihle, \"Dry Active Matter Exhibits a Self-Organized Cross Sea Phase\", Phys. Rev. Lett. 125, 188003 (2020), arXiv:2002.03198, report crossing bands in the standard Vicsek model. The 2026 paper treats counter-going lanes separately from crossing bands.\n- **Review.** Chat\u00e9, \"Dry Aligning Dilute Active Matter\", Annu. Rev. Condens. Matter Phys. 11, 189 (2020). I only saw this in another paper's reference list, so I haven't read it. It would not cover the lanes, because the lane result is from 2026.\n\n**3. Verification and caveats.**\n- The titles, journals and years of Solon et al. and K\u00fcrsten\u2013Ihle were confirmed in search results.\n- I did not check the lane persistence of 10^8 steps against the 2026 paper.\n- I did not check the 1-in-24 random-start success rate against it either.\n- Those numbers may be this simulation's own, but the qualitative phenomenon is not new.\n- The lane phenomenon is only reported in the one 2026 paper, so no independent replication exists yet.\n\n**5. Confidence: medium-high.** The system, noise window, multi-lane configurations, rectangular boxes and long-lane instability all match a published source. I'm not rating it fully high because I could only read the paper through search excerpts. I also couldn't identify the earlier Boltzmann-equation paper or confirm the quantitative details.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Active matter / dry aligning self-propelled particles (2D Vicsek model, liquid-gas coexistence with microphase-separated travelling bands)\", \"standard_name\": \"Counter-going smectic lanes of travelling bands in the coexistence phase of the 2D Vicsek model\", \"confidence\": \"medium\", \"citations\": [\"Chat\u00e9 & B. Shi 2026, arXiv 2610.26561 'Coexistence phase of the two-dimensional Vicsek model' - reports counter-going lanes of smectic band trains at eta=0.28-0.35, multi-lane configurations, lane instability in long rectangular boxes (discrete-time VM, v0=0.5)\", \"Chat\u00e9 & B. Shi 2026, arXiv 2610.26569 'Phase Diagram of the Two-Dimensional Vicsek Model' - companion paper summarising the new phase diagram and citing the coexistence-phase paper\", \"Solon, Chat\u00e9, Tailleur 2015, Phys. Rev. Lett. 114, 068101 (arXiv:1406.6088) - microphase separation / smectic travelling bands in the Vicsek model (co-propagating bands only)\", \"K\u00fcrsten & Ihle 2020, Phys. Rev. Lett. 125, 188003 (arXiv:2002.03198) - cross-sea phase of crossing bands in the standard Vicsek model (related, different pattern)\", \"Chat\u00e9 2020, Annu. Rev. Condens. Matter Phys. 11, 189 'Dry Aligning Dilute Active Matter' - review (seen only in a reference list, not read)\"], \"searches\": [\"Vicsek model counter-propagating bands opposite directions parallel lanes microphase separation\", \"Solon Chat\u00e9 Tailleur From phase to microphase separation in flocking models\", \"K\u00fcrsten Ihle dry active matter self-organized cross sea phase Vicsek\", \"Coexistence phase of the two-dimensional Vicsek model counter-going lanes bands Chat\u00e9\", \"Boltzmann equation Vicsek model simulations two counter-propagating lanes of bands Ihle\"], \"notes\": \"Earliest particle-level report found is the 2026 Chat\u00e9 & Shi preprint, which cites an earlier Boltzmann-equation study with two counter-going lanes (reference not identified). Persistence to 1e8 steps, the 1/24 success rate and the 7-lane count were not checked against the paper's text. Author names beyond 'Chat\u00e9' and 'B. Shi' are not verified. The arXiv IDs are as returned by search.\"}\n```",
+ "checked": "2026-11-03 03:54:14"
+}

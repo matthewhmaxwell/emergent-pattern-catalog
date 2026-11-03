@@ -1,0 +1,82 @@
+{
+ "class_id": "planted:D04",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Cellular automata / conservative sandpile: parallel chip-firing = deterministic fixed-energy BTW sandpile on graphs",
+ "standard_name": "Parallel chip-firing (candy-passing game) / deterministic fixed-energy sandpile; activity devil's staircase with mode locking and short-period attractors",
+ "confidence": "medium",
+ "citations": [
+  "Bitar & Goles 1992, Theoretical Computer Science 92:291 - introduced parallel chip-firing; always eventually periodic (verified via secondary descriptions)",
+  "Bagnoli, Cecconi, Flammini, Vespignani 2003, Europhysics Letters 63:512 - deterministic fixed-energy sandpile: limit cycles, symmetric devil's staircase of activity vs energy density",
+  "Levine 2011, Ergodic Theory Dynam. Systems 31:891 (arXiv 0811.2800) - devil's staircase and rotation number on complete graph",
+  "Kiss, Levine, Tothmeresz 2025, Random Structures & Algorithms 66:e21255 (arXiv 2004.13104) - devil's staircase for parallel chip-firing on Erdos-Renyi random graphs",
+  "Fazli & Azimi-Tafreshi 2022, Phys. Rev. E 105:014303 (arXiv 2110.12760) - sustained synchronous oscillations of deterministic FES on random/rewired networks",
+  "Kominers & Kominers 2010 - chip-firing with at least 4|E|-|V| chips stabilizes (via secondary citation)",
+  "arXiv 2608.04153 (2026 preprint) - period 2 for 2|E|-|V|<|sigma|<2|E|, brackets the two-level alternation window"
+ ],
+ "searches": [
+  "parallel chip-firing game periodic behavior density of chips phase transition random graphs",
+  "deterministic fixed-energy sandpile synchronous update periodic oscillations activity density Erdos-Renyi network",
+  "Kiss Devil's staircase for chip-firing on random graphs and on graphons authors Random Structures & Algorithms",
+  "Bagnoli Cecconi Flammini Vespignani short-period attractors non-ergodic deterministic fixed energy sandpile EPL 2003"
+ ],
+ "notes": "Qualitative behaviour is well documented. Exact threshold values for G(n,p) with mean degree 10 and the 10% rewiring threshold on a k=5 ring were not found as published numbers. Kiss et al. prove their results for dense Erdos-Renyi graphs, while this system is sparse. I did not confirm that Fazli & Azimi-Tafreshi use threshold equal to degree. The 2608.04153 preprint is very recent and I have not independently verified it.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "parallel chip-firing game periodic behavior density of chips phase transition random graphs"
+  },
+  {
+   "query": "deterministic fixed-energy sandpile synchronous update periodic oscillations activity density Erd\u0151s\u2013R\u00e9nyi network"
+  },
+  {
+   "query": "Kiss Devil's staircase for chip-firing on random graphs and on graphons authors Random Structures & Algorithms"
+  },
+  {
+   "query": "Bagnoli Cecconi Flammini Vespignani short-period attractors non-ergodic deterministic fixed energy sandpile Europhysics Letters 2003"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/1001.3401",
+  "https://math.mit.edu/research/highschool/primes/materials/2011/Scully-Zhang-Jiang.pdf",
+  "https://www.researchgate.net/publication/415374940_Primitive_periods_in_greedy_chip-firing_games",
+  "https://www.researchgate.net/publication/382492506_Parallel_chip-firing_games_on_directed_graphs",
+  "https://arxiv.org/pdf/0811.2800",
+  "https://arxiv.org/pdf/1609.05792",
+  "https://onlinelibrary.wiley.com/doi/10.1002/rsa.21255",
+  "https://arxiv.org/pdf/1003.0943",
+  "https://arxiv.org/html/2608.01350",
+  "https://dmtcs.episciences.org/2421/pdf",
+  "https://arxiv.org/pdf/2110.12760",
+  "https://arxiv.org/html/cond-mat/0502208",
+  "https://arxiv.org/pdf/cond-mat/0207674",
+  "https://www.researchgate.net/publication/1878260_Dynamical_Invariants_in_the_Deterministic_Fixed-Energy_Sandpile",
+  "https://arxiv.org/abs/2110.12760",
+  "https://dx.doi.org/10.1137/18M1217644",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.105.014303",
+  "https://arxiv.org/pdf/cond-mat/0502208",
+  "https://arxiv.org/html/cond-mat/0601267",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/rsa.21255",
+  "https://arxiv.org/abs/2004.13104",
+  "https://www.researchgate.net/publication/415374940_Primitive_periods_in_greedy_chip-firing_games",
+  "https://arxiv.org/html/2608.04153",
+  "https://arxiv.org/html/2004.13104",
+  "https://pi.math.cornell.edu/~levine/devils-staircase-graphons.pdf",
+  "https://egres.elte.hu/tr/egres-20-05.pdf",
+  "https://lionellevine.github.io/",
+  "https://dmtcs.episciences.org/2693",
+  "https://cnets.indiana.edu/aflammin/publications",
+  "https://arxiv.org/a/bagnoli_f_1.html",
+  "http://denali.phys.uniroma1.it/~cecconif/mypapers.html",
+  "https://arxiv.org/pdf/cond-mat/0207674",
+  "https://epljournal.edpsciences.org/articles/epl/abs/2003/16/contents/contents.html",
+  "https://arxiv.org/pdf/0705.1294",
+  "https://www.cambridge.org/core/books/abs/selforganised-criticality/references/348B1F71DE67489E049556485CD2A53A",
+  "https://arxiv.org/pdf/1001.3401",
+  "https://arxiv.org/pdf/0811.2800",
+  "https://arxiv.org/pdf/1003.0943"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is parallel (synchronous) chip-firing, also called the deterministic fixed-energy sandpile, run on an Erd\u0151s\u2013R\u00e9nyi graph and on small-world rewired rings. Confidence is medium-high. Your exact numbers are not tabulated anywhere I found, so the call rests on the model and the phenomenon being documented.\n\n**1. Model family.** This is a conservative sandpile or chip-firing cellular automaton on graphs, with threshold equal to degree, no sink, and all active sites toppling at once. It is called the parallel chip-firing game or candy-passing game, and each vertex fires one chip to each neighbour when it can. In the physics literature it is the Bak\u2013Tang\u2013Wiesenfeld (BTW) fixed-energy sandpile. The BTW dynamics with parallel updating is completely deterministic and Abelian.\n\n**2. Is the behaviour described?** Yes, piece by piece.\n\n- **Origin of the model.** Bitar and Goles introduced it in 1992 as a special case of the Bj\u00f6rner\u2013Lov\u00e1sz\u2013Shor chip-firing game of 1991. It always ends up periodic.\n- **Onset of lasting activity and the activity-versus-density staircase.** Bagnoli, Cecconi, Flammini and Vespignani (EPL 63:512, 2003) studied the BTW fixed-energy sandpile on lattices. The system settles into limit cycles. Activity shows a devil's staircase against energy density, over a symmetric set of energy intervals where period lengths are also constant. That symmetry is the \"mirrored rhythm reappears\" feature. Levine's review (arXiv 1001.3401) notes that two mirror-image configurations stay mirror images after a parallel step.\n- **Complete graph.** Levine, \"Parallel chip-firing on the complete graph: Devil's staircase and Poincar\u00e9 rotation number,\" Ergodic Theory Dynam. Systems 31 (2011), 891\u2013910. It links the dynamics to the Poincar\u00e9 rotation number of a circle map. Activity stays constant over long intervals and then jumps suddenly.\n- **Erd\u0151s\u2013R\u00e9nyi graphs.** Kiss, Levine and T\u00f3thm\u00e9r\u00e9sz, \"The devil's staircase for chip-firing on random graphs and on graphons,\" Random Structures & Algorithms 66, e21255 (2025); arXiv 2004.13104. It studies parallel chip-firing activity as chips are added on an Erd\u0151s\u2013R\u00e9nyi graph. The activity diagrams converge to a devil's staircase as the number of vertices grows. This is the closest match to your main system.\n- **Random networks and rewiring, the physics counterpart.** Fazli and Azimi-Tafreshi, \"Emergence of oscillations in fixed-energy sandpile models on complex networks,\" Phys. Rev. E 105, 014303 (2022); arXiv 2110.12760. Close to the absorbing transition, the density of active nodes oscillates and nodes topple in synchrony. They attribute this to the deterministic toppling rule and the small-world property. Oscillation amplitude grows with network randomness. This matches your finding of no rhythm on the unrewired ring and rhythm once links are rewired. I did not check whether their toppling threshold equals degree.\n- **Top end, where nearly everything stays active.** Any parallel chip-firing game on a graph G with at least 4|E(G)| \u2212 |V(G)| chips stabilizes, with eventual period 1. I found no source for your rhythm-end value of about 13.96. It sits below that bound (about 19 here), and the bound only guarantees stabilization, so the two don't conflict.\n- **Period-2 rung.** A recent arXiv paper (2608.04153) addresses games with 2|E|\u2212|V| < |\u03c3| < 2|E| chips, which it says have period 2. For mean degree 10 that is a density between 9 and 10. This brackets your two-level alternation onset (8.95) and your rhythm return (10.05) fairly well. That paper is a very recent preprint, so treat it as supporting rather than established. Levine's review also lists the cycle as having jumps at densities 1 and 2.\n\n**3. Caveats on what differs.**\n- Kiss et al. prove their staircase for dense Erd\u0151s\u2013R\u00e9nyi graphs. Your mean degree of 10 on 10,000 nodes is sparse, and the finite-size values (5.51, 8.95, 10.05, 13.96) are numerical details. The qualitative picture (onset, plateaus, mirror symmetry, jump to full activity) is standard.\n- I did not verify exact published values for the onset density on Erd\u0151s\u2013R\u00e9nyi graphs or for the rewiring fraction at which rhythm appears. The threshold of 10% rewiring is a simulation number I could not match to a source.\n- The \"7 rule programs\" are parameter variants of one model, not new rules.\n\n**Citations checked against search results:** Bagnoli et al. (EPL 2003), Levine (ETDS 2011, arXiv 0811.2800), Kiss\u2013Levine\u2013T\u00f3thm\u00e9r\u00e9sz (RSA 2025), Fazli & Azimi-Tafreshi (PRE 2022), and Bitar & Goles (1992). I confirmed Bitar & Goles only through other papers' reference lists and descriptions, not the original.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Cellular automata / conservative sandpile: parallel chip-firing = deterministic fixed-energy BTW sandpile on graphs\", \"standard_name\": \"Parallel chip-firing (candy-passing game) / deterministic fixed-energy sandpile; activity devil's staircase with mode locking and short-period attractors\", \"confidence\": \"medium\", \"citations\": [\"Bitar & Goles 1992, Theoretical Computer Science 92:291 - introduced parallel chip-firing; always eventually periodic (verified via secondary descriptions)\", \"Bagnoli, Cecconi, Flammini, Vespignani 2003, Europhysics Letters 63:512 - deterministic fixed-energy sandpile: limit cycles, symmetric devil's staircase of activity vs energy density\", \"Levine 2011, Ergodic Theory Dynam. Systems 31:891 (arXiv 0811.2800) - devil's staircase and rotation number on complete graph\", \"Kiss, Levine, Tothmeresz 2025, Random Structures & Algorithms 66:e21255 (arXiv 2004.13104) - devil's staircase for parallel chip-firing on Erdos-Renyi random graphs\", \"Fazli & Azimi-Tafreshi 2022, Phys. Rev. E 105:014303 (arXiv 2110.12760) - sustained synchronous oscillations of deterministic FES on random/rewired networks\", \"Kominers & Kominers 2010 - chip-firing with at least 4|E|-|V| chips stabilizes (via secondary citation)\", \"arXiv 2608.04153 (2026 preprint) - period 2 for 2|E|-|V|<|sigma|<2|E|, brackets the two-level alternation window\"], \"searches\": [\"parallel chip-firing game periodic behavior density of chips phase transition random graphs\", \"deterministic fixed-energy sandpile synchronous update periodic oscillations activity density Erdos-Renyi network\", \"Kiss Devil's staircase for chip-firing on random graphs and on graphons authors Random Structures & Algorithms\", \"Bagnoli Cecconi Flammini Vespignani short-period attractors non-ergodic deterministic fixed energy sandpile EPL 2003\"], \"notes\": \"Qualitative behaviour is well documented. Exact threshold values for G(n,p) with mean degree 10 and the 10% rewiring threshold on a k=5 ring were not found as published numbers. Kiss et al. prove their results for dense Erdos-Renyi graphs, while this system is sparse. I did not confirm that Fazli & Azimi-Tafreshi use threshold equal to degree. The 2608.04153 preprint is very recent and I have not independently verified it.\"}\n```",
+ "checked": "2026-11-03 02:30:31"
+}

@@ -1,0 +1,58 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: 2D long-range XY / O(2) model with power-law couplings 1/r^(2+sigma), sigma=2 marginal case (BKT / long-range-to-short-range crossover)",
+ "standard_name": "2D long-range XY model at the marginal sigma=2 point (spin-wave magnetization decay as power of log L, log-corrected Goldstone phase)",
+ "confidence": "medium",
+ "citations": [
+  "Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B (DOI 10.1103/yghs-p5mg; arXiv:2411.01811) - MC study of 2D LR XY: LRO for sigma<=2, correlation saturates as inverse log of distance at sigma=2, crossover to SR at sigma=2",
+  "Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - BKT transition with r^(-2-sigma) couplings; quasi-ordered phase for 7/4<sigma<2",
+  "Kosterlitz 1976, Phys. Rev. Lett. 37, 1577 - RG for long-range n-component chains near the r^-2 marginal range (1D analogue of the sigma=2 boundary)"
+ ],
+ "searches": [
+  "two-dimensional long-range XY model 1/r^4 interaction sigma=2 logarithmic corrections magnetization power of log L",
+  "Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings Giachetti Defenu Ruffo Trombettoni",
+  "arXiv Nonclassical regime of the two-dimensional long-range XY model Monte Carlo sigma=2 inverse logarithm correlation length exponent",
+  "Kosterlitz 1976 phase transitions in long-range ferromagnetic chains sigma=2 crossover"
+ ],
+ "notes": "Could not read the full PRB text, so the specific numerical values (e.g. nu-like divergence exponent 2.24, exact (ln L)^-x exponents) were not checked against it. The product relation 2*pi*slope*exponent=1 is my own spin-wave derivation, not a quoted result. The nearest-neighbour+weak-tail variant is expected to be the same universality at sigma=2 with non-universal prefactors changed.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "two-dimensional long-range XY model 1/r^4 interaction \u03c3=2 logarithmic corrections magnetization power of log L"
+  },
+  {
+   "query": "Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings Giachetti Defenu Ruffo Trombettoni"
+  },
+  {
+   "query": "arXiv Nonclassical regime of the two-dimensional long-range XY model Monte Carlo \u03c3=2 inverse logarithm correlation length exponent"
+  },
+  {
+   "query": "Kosterlitz 1976 phase transitions in long-range ferromagnetic chains; long-range O(n) \u03c3=2 crossover to short range"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437112003834",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.55.3580",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://inspirehep.net/literature/1861073",
+  "https://iom.cnr.it/publications/?page=162",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://iris.sissa.it/handle/20.500.11767/127058",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://www.sissa.it/it/news/berezinskiikosterlitzthouless-phase-transitions-longrange-couplings-nuovo-articolo-physical",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://link.aps.org/doi/10.1103/yghs-p5mg",
+  "https://zenodo.org/records/17206870",
+  "https://link.springer.com/article/10.1007/JHEP01(2022)172",
+  "https://link.aps.org/pdf/10.1103/PhysRevLett.37.1577",
+  "https://inspirehep.net/literature/1861073"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm fairly confident, but I couldn't read the full text of the key paper.\n\n**1. Model family.** This is the 2D classical XY (planar rotor) model with long-range power-law couplings, J(r) ~ 1/r^(d+\u03c3). In d=2, 1/r^4 means \u03c3=2. That is the marginal point where long-range behaviour crosses over to short-range behaviour. It sits in statistical physics, in the long-range O(N) / BKT family. Cluster Monte Carlo is the standard tool for it.\n\n**2. Is the behaviour reported?** Yes, for the same system.\n- **Yao, Xiao, Zhang, Deng and Fan, Phys. Rev. B (accepted Sept 2025; DOI 10.1103/yghs-p5mg; arXiv:2411.01811).** The title is \"Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study\". It simulates the 2D XY model with ~1/r^(2+\u03c3) couplings.\n  - It reports that for \u03c3\u22642 the system undergoes a second-order transition into a ferromagnetic phase with long-range order.\n  - At low temperature the correlation function saturates to a nonzero constant. This happens as a power law for \u03c3<2, and as an inverse logarithm of distance for \u03c3=2.\n  - It also gives compelling evidence that the crossover between non-classical and short-range regimes occurs at \u03c3=2.\n  - Its raw-data record lists squared magnetisation and the correlation-length-to-size ratio as the observables. Those are the same quantities you measured. The data also track correlation-length growth near criticality.\n- **Origin of \u03c3=2 as the marginal case.** Kosterlitz, \"Phase transitions in long-range ferromagnetic chains\", Phys. Rev. Lett. 37, 1577 (1976). It treats n-component spins near the critical interaction range of r^-2, in 1D. That is the 1D version of the \u03c3=2 boundary. I did not find a source that states the 2D 1/r^4 case this early.\n- **Related review-level source.** Giachetti, Defenu, Ruffo and Trombettoni, \"Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings\", Phys. Rev. Lett. 127, 156801 (2021). It studies couplings ~r^(-2-\u03c3) and finds a quasi-ordered phase for 7/4<\u03c3<2. The follow-up is \"Persistence of the BKT Transition with Long-Range Couplings\" (PRL, 2025). I did not find a standalone review that covers \u03c3=2 specifically.\n\n**3. Why your numbers look like the known picture.**\n- At \u03c3=2 the spin-wave stiffness carries a log(1/k) factor.\n- Spin-wave variance therefore grows as T\u00b7ln ln L.\n- That gives M\u00b2 ~ (ln L)^(-cT), a power of log L with an exponent proportional to T.\n- This matches your exponents of 0.34 at \u03b2=1 and 0.02 at \u03b2=8.\n- It also fits the product check 2\u03c0\u00b7slope\u00b7exponent = 1, which is just the spin-wave consistency relation.\n- This is my own derivation. I did not find a source that states the product relation explicitly.\n- The weak-tail variant (nearest-neighbour coupling 1.2 plus a 1/r^4 tail) is the same universality at \u03c3=2. It changes only non-universal prefactors.\n\n**4. Caveats.**\n- I could not read the full PRB text, so I did not check its specific numbers. These include the divergence exponent of 2.24 and the M\u00b2 ~ (ln L)^(-x) exponents.\n- A critical divergence exponent of 2.24 is a measured number. It should be compared with the paper's \u03c3=2 values, and a log-corrected form may fit better than a pure power law.\n- I never confirmed that the paper states the power-of-log-L form of M\u00b2 explicitly. Its inverse-logarithm correlation result is consistent with it.\n- The Kosterlitz 1976 citation is for the 1D marginal case only.\n\n**Confidence: medium-high.** The system, the observables and the \u03c3=2 marginal regime match published work directly. The remaining uncertainty is the quantitative details I couldn't read.\n\n**Searches run:**\n- 2D long-range XY, 1/r^4, \u03c3=2, logarithmic corrections\n- Giachetti et al. BKT with long-range couplings\n- arXiv listing for the Yao et al. paper\n- Kosterlitz 1976 and the \u03c3=2 crossover\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: 2D long-range XY / O(2) model with power-law couplings 1/r^(2+sigma), sigma=2 marginal case (BKT / long-range-to-short-range crossover)\", \"standard_name\": \"2D long-range XY model at the marginal sigma=2 point (spin-wave magnetization decay as power of log L, log-corrected Goldstone phase)\", \"confidence\": \"medium\", \"citations\": [\"Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B (DOI 10.1103/yghs-p5mg; arXiv:2411.01811) - MC study of 2D LR XY: LRO for sigma<=2, correlation saturates as inverse log of distance at sigma=2, crossover to SR at sigma=2\", \"Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - BKT transition with r^(-2-sigma) couplings; quasi-ordered phase for 7/4<sigma<2\", \"Kosterlitz 1976, Phys. Rev. Lett. 37, 1577 - RG for long-range n-component chains near the r^-2 marginal range (1D analogue of the sigma=2 boundary)\"], \"searches\": [\"two-dimensional long-range XY model 1/r^4 interaction sigma=2 logarithmic corrections magnetization power of log L\", \"Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings Giachetti Defenu Ruffo Trombettoni\", \"arXiv Nonclassical regime of the two-dimensional long-range XY model Monte Carlo sigma=2 inverse logarithm correlation length exponent\", \"Kosterlitz 1976 phase transitions in long-range ferromagnetic chains sigma=2 crossover\"], \"notes\": \"Could not read the full PRB text, so the specific numerical values (e.g. nu-like divergence exponent 2.24, exact (ln L)^-x exponents) were not checked against it. The product relation 2*pi*slope*exponent=1 is my own spin-wave derivation, not a quoted result. The nearest-neighbour+weak-tail variant is expected to be the same universality at sigma=2 with non-universal prefactors changed.\"}\n```",
+ "checked": "2026-11-03 03:31:14"
+}

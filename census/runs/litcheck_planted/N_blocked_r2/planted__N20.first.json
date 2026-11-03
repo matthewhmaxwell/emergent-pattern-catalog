@@ -1,0 +1,103 @@
+{
+ "class_id": "planted:N20",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "active matter: dry non-reciprocal nematic lattice (nematic analogue of non-reciprocal XY model); active nematic defect dynamics",
+ "standard_name": "self-propelled +1/2 / passive -1/2 defects in active nematics (non-reciprocal nematic XY variant)",
+ "confidence": "medium",
+ "citations": [
+  "Shankar et al. 2018, PRL 121, 108002 'Defect Unbinding in Active Nematics' - +1/2 defects motile, -1/2 passive",
+  "Popli, Maitra, Ramaswamy 2025, PRL 135, 088303 'Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models' - polar non-reciprocal lattice model (square and triangular), defect nucleation",
+  "Popli et al. 2025, PRL 135, 088302 'Inescapable Anisotropy of Nonreciprocal XY Models' - nonreciprocity acts like self-propulsion",
+  "Brauns et al. 2026, PRL 136, 058302 'Active Solids: Topological Defect Self-Propulsion Without Flow' - flow-free +1/2 self-propulsion, +1 stabilization",
+  "Doostmohammadi et al. 2018, Nat. Commun. 9, 3246 'Active nematics' - review (authors/year from memory; title and URL confirmed)",
+  "Dadhichi et al. 2020, PRE 101, 052601 - original non-reciprocal planar spin model (cited via Popli et al. abstract)"
+ ],
+ "searches": [
+  "non-reciprocal XY nematic lattice self-propelled +1/2 defect",
+  "+1 defect splits into four +1/2 defects active nematic",
+  "nematic spins bond angle relative to director nonreciprocal motile defects",
+  "nonreciprocal nematic XY model topological defects self-propulsion",
+  "Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models",
+  "dry active nematic defect self-propulsion without flow +1 splitting",
+  "nonreciprocal planar nematic spin model +1 defect phase splits",
+  "Brauns active solids +1 defect stabilization splitting"
+ ],
+ "notes": "Exact nematic director-dependent-weight rule on a triangular lattice not found. Self-propulsion and zero -1/2 drift are standard. The four-defect splitting of +1 with onset s~0.15 and texture-phase dependence was not found; it could be a lattice-symmetry effect. Only abstracts and snippets were read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "non-reciprocal XY nematic lattice model self-propelled +1/2 defect anisotropic coupling"
+  },
+  {
+   "query": "+1 defect splits into four +1/2 defects active nematic"
+  },
+  {
+   "query": "nematic spins interaction depends on bond angle relative to director, nonreciprocal, motile half-integer defects"
+  },
+  {
+   "query": "nonreciprocal nematic XY model topological defects self-propulsion +1/2 lattice"
+  },
+  {
+   "query": "Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models"
+  },
+  {
+   "query": "dry active nematic defect self-propulsion without flow, orientation-dependent coupling, +1 defect splitting into four +1/2 defects"
+  },
+  {
+   "query": "nonreciprocal planar nematic spin model, defects self-propel, +1 defect phase unstable splits, arXiv"
+  },
+  {
+   "query": "Brauns active solids +1 defect stabilization +1/2 defect self-propulsion nematic texture remodeling splitting"
+  },
+  {
+   "query": "non-reciprocal nematic alignment lattice model motile half-integer defects without hydrodynamics"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://journals.aps.org/prl/abstract/10.1103/r3dx-7lrd",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://par.nsf.gov/servlets/purl/10175632",
+  "https://cv.cs.columbia.edu/ruoshi/papers/Topological_Defect_Detection.pdf",
+  "https://www.nature.com/articles/s41467-018-05666-8",
+  "https://ui.adsabs.harvard.edu/abs/2020PhRvE.102a2607Z/abstract",
+  "https://pure.mpg.de/rest/items/item_2381742/component/file_3039263/content",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aa89aa",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.121.108002",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9277619/",
+  "https://sites.lsa.umich.edu/shankar-lab/wp-content/uploads/sites/1188/2020/10/Shankar_PRL2018.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.042008",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791053/",
+  "https://royalsocietypublishing.org/rspa/article/478/2257/20210879/56600/Flow-around-topological-defects-in-active-nematic",
+  "https://doi.org/10.1103/2yky-45sr",
+  "https://journals.aps.org/prl/abstract/10.1103/2yky-45sr",
+  "https://pubmed.ncbi.nlm.nih.gov/40929335/",
+  "https://journals.aps.org/prl/abstract/10.1103/r3dx-7lrd",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://physics.iisc.ac.in/~sriram/research.html",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://www.nature.com/articles/s41467-018-05666-8",
+  "https://royalsocietypublishing.org/rsos/article/10/2/221229/91941/Defect-self-propulsion-in-active-nematic-films",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791053/",
+  "https://par.nsf.gov/servlets/purl/10175632",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC8791053/",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.042008",
+  "https://journals.aps.org/prl/abstract/10.1103/xv94-xpz2",
+  "https://royalsocietypublishing.org/rsos/article/10/2/221229/91941/Defect-self-propulsion-in-active-nematic-films",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791053/",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.042008",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8",
+  "https://www.osti.gov/pages/servlets/purl/1347135",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4894651/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The headline behaviour is established. The specific four-defect splitting of a +1 defect is not something I found described.\n\n**1. Model family.** This is a dry, overdamped lattice nematic with non-reciprocal alignment. It is a nematic (head-tail symmetric) relative of the non-reciprocal XY model. The coupling weight depends on the angle between the bond and the site's own director, so the interaction is not symmetric between neighbours. It belongs to the active-matter family, specifically dry active nematics and non-reciprocal spin models. I did not find a paper with exactly this nematic, director-dependent-weight rule on a triangular lattice.\n\n**2. Behaviour by feature**\n\n- **+1/2 defect speed rising with s, and zero drift for \u22121/2: known in the active-nematic literature.**\n  - Active nematics are standardly described as having motile +1/2 defects and passive \u22121/2 defects. The +1/2 defect is motile, with a self-propelling speed proportional to activity.\n  - Shankar et al. (PRL 121, 108002, 2018, \"Defect Unbinding in Active Nematics\") derive the statistical dynamics of the defects as a noisy mixture of motile and non-motile particles. I confirmed the title and venue from the search results. The year and volume come from the PRL reference in the manuscript link.\n  - The \u22121/2 defect has no self-propulsion because of its threefold symmetry. Its active backflow vanishes at the core, so it behaves like a passive particle. Your result of 0 follows from this symmetry.\n  - In this system the speed is set by a lattice rule, not by flow. A flow-free mechanism is described in Brauns et al., \"Active Solids: Topological Defect Self-Propulsion Without Flow\" (PRL 136, 058302, 2026). There, +1/2 defects move by local remodeling of the nematic texture, without advection. This is the closest conceptual match.\n\n- **Non-reciprocity producing self-propulsion and defect proliferation in lattice spin models: known for the polar case.**\n  - The model of Dadhichi et al. (PRE 101, 052601, 2020) is the non-reciprocal planar spin model.\n  - Popli, Maitra and Ramaswamy (PRL 135, 088303, 2025, \"Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models\") study it on square and triangular lattices.\n  - The companion paper (PRL 135, 088302, 2025, \"Inescapable Anisotropy of Nonreciprocal XY Models\") shows that nonreciprocity is akin to a self-propulsion. Neither paper treats the nematic version.\n\n- **+1 defect splitting into four defects above a threshold s \u2248 0.15, in about 64% of texture phases at s = 0.5: not found.**\n  - Related results exist, but none match.\n  - Brauns 2026 reports unbinding of defect pairs and stabilization of +1 defects. That is the opposite tendency to splitting.\n  - \"Binding self-propelled topological defects in active turbulence\" (Phys. Rev. Research 2, 042008, 2020; I could not verify the authors from the results) says full-integer defects can form in active nematics.\n  - The standard expectation is that a +1 defect splits into two +1/2 defects. Splitting into four implies an extra \u00b11/2 pair is created, for example three +1/2 and one \u22121/2. I found no description of this, nor of a dependence on the texture phase \u03bc or an onset in s.\n\n**Review.** Doostmohammadi et al., \"Active nematics\" (Nature Communications 9, 3246, 2018) is the review. I confirmed the title and URL (s41467-018-05666-8). I cite its authors and year from memory, so check them. It states that activity gives +1/2 defects a self-propulsion speed.\n\n**What differs, and whether it matters.** The mechanism differs, and the \u22121/2 and +1/2 results do not depend on that. The mechanism here is a deterministic, noise-free rule on a lattice with no flow, which makes it an effective minimal active-nematic or non-reciprocal-nematic system. The four-defect splitting is where the difference could matter. It may be a lattice or six-fold artefact, since the triangular lattice favours six-fold structure. It may also be a genuine instability of the +1 texture. I could not tell which from the literature.\n\n**Searches run (8):**\n- non-reciprocal XY nematic lattice self-propelled +1/2\n- +1 defect splits into four +1/2 active nematic\n- nematic spins bond-angle-dependent interaction, motile half-integer defects\n- non-reciprocal nematic XY model defect self-propulsion\n- Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models\n- dry active nematic self-propulsion without flow, +1 splitting\n- non-reciprocal planar nematic spin model, +1 phase instability\n- Brauns active solids, +1 stabilization\n\nSearch results were limited to abstracts and snippets, so I did not read full texts. Full-text papers on non-reciprocal nematic lattice models might contain the splitting result.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"active matter: dry non-reciprocal nematic lattice (nematic analogue of non-reciprocal XY model); active nematic defect dynamics\", \"standard_name\": \"self-propelled +1/2 / passive -1/2 defects in active nematics (non-reciprocal nematic XY variant)\", \"confidence\": \"medium\", \"citations\": [\"Shankar et al. 2018, PRL 121, 108002 'Defect Unbinding in Active Nematics' - +1/2 defects motile, -1/2 passive\", \"Popli, Maitra, Ramaswamy 2025, PRL 135, 088303 'Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models' - polar non-reciprocal lattice model (square and triangular), defect nucleation\", \"Popli et al. 2025, PRL 135, 088302 'Inescapable Anisotropy of Nonreciprocal XY Models' - nonreciprocity acts like self-propulsion\", \"Brauns et al. 2026, PRL 136, 058302 'Active Solids: Topological Defect Self-Propulsion Without Flow' - flow-free +1/2 self-propulsion, +1 stabilization\", \"Doostmohammadi et al. 2018, Nat. Commun. 9, 3246 'Active nematics' - review (authors/year from memory; title and URL confirmed)\", \"Dadhichi et al. 2020, PRE 101, 052601 - original non-reciprocal planar spin model (cited via Popli et al. abstract)\"], \"searches\": [\"non-reciprocal XY nematic lattice self-propelled +1/2 defect\", \"+1 defect splits into four +1/2 defects active nematic\", \"nematic spins bond angle relative to director nonreciprocal motile defects\", \"nonreciprocal nematic XY model topological defects self-propulsion\", \"Ordering and Defect Cloaking in Nonreciprocal Lattice XY Models\", \"dry active nematic defect self-propulsion without flow +1 splitting\", \"nonreciprocal planar nematic spin model +1 defect phase splits\", \"Brauns active solids +1 defect stabilization splitting\"], \"notes\": \"Exact nematic director-dependent-weight rule on a triangular lattice not found. Self-propulsion and zero -1/2 drift are standard. The four-defect splitting of +1 with onset s~0.15 and texture-phase dependence was not found; it could be a lattice-symmetry effect. Only abstracts and snippets were read.\"}\n```",
+ "checked": "2026-11-03 03:16:37"
+}

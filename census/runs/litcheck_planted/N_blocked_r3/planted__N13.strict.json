@@ -1,0 +1,99 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (noise ~ 1/N) under global stochastic resetting of magnetization (resetting-induced peak at reset point)",
+ "citations": [
+  "Granovsky & Madras 1995, The noisy voter model, Stoch. Proc. Appl. 55:23",
+  "Kirman 1993 ant/herding model; Carro, Toral, San Miguel, Sci. Rep. 6:24775 (2016) noisy voter on networks",
+  "Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)",
+  "Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)",
+  "Gupta & Jayannavar, Stochastic resetting in interacting particle systems: a review, J. Phys. A (2023)",
+  "Llabr\u00e9s, San Miguel, Toral, Partisan voter model: noise-induced transitions (trimodal), PRE 2023"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Noise threshold ~1/N reproduces the known Kirman criterion (1/N vs 2/N depends on whether 'random flip' is forced or a random reassignment). The third peak at the reset value 0.3 is the generic resetting signature (renewal/Laplace-transform form of the NESS). The specific 6-regime count across the noise-shock plane is unverified and likely reflects combinations of uni/bimodal background, presence of the reset peak, and which peak dominates (shock rate vs relaxation rate ~ max(eta, 1/N)); it is not a qualitatively new phenomenon. Not an artifact: the system stays ergodic and the shock peak is real, but it is expected by construction.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting"
+  },
+  {
+   "query": "Kirman model resetting trimodal distribution magnetization voter"
+  },
+  {
+   "query": "voter model with stochastic resetting magnetization stationary distribution"
+  },
+  {
+   "query": "stochastic resetting bistable double-well potential stationary distribution three peaks"
+  },
+  {
+   "query": "opinion dynamics stochastic resetting voter consensus resetting rate"
+  },
+  {
+   "query": "Wright-Fisher or Moran model with stochastic resetting allele frequency"
+  },
+  {
+   "query": "\"resetting\" \"voter model\" arXiv"
+  },
+  {
+   "query": "stochastic resetting in interacting particle systems mean-field magnetization resetting multimodal"
+  },
+  {
+   "query": "Kirman herding model resetting news shocks bimodal distribution"
+  },
+  {
+   "query": "noisy voter model resetting protocol nonequilibrium steady state 2025"
+  }
+ ],
+ "result_urls": [
+  "https://www.emergentmind.com/topics/symmetric-noisy-voter-model",
+  "https://pubmed.ncbi.nlm.nih.gov/38115424",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4837380/",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://ifisc.uib-csic.es/raul/publications/P/P210_lst23.pdf",
+  "https://www.nature.com/articles/s41598-020-72662-8",
+  "https://przyrbwn.icm.edu.pl/APP/PDF/133/app133z6p16.pdf",
+  "http://physics.bu.edu/~redner/pubs/pdf/zealots.pdf",
+  "https://faculty.ucmerced.edu/apetersen3/MyPapers/Zealot.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033182",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://sites.math.duke.edu/~rtd/PASTA/IPSch7.pdf",
+  "https://www.physik.uni-augsburg.de/theo1/hanggi/Papers/195.pdf",
+  "https://iopscience.iop.org/article/10.1088/1751-8121/ab7cfe",
+  "https://webs.uab.cat/vmendez/wp-content/uploads/sites/97/2025/10/133.pdf",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/aac14a",
+  "https://doi.org/10.3390/e24081140",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9407215/",
+  "https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/wright-fisher-model",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5837693/",
+  "https://assets.press.princeton.edu/chapters/s13_8458.pdf",
+  "https://academic.oup.com/sysbio/article/66/1/e30/2670014",
+  "https://math.leidenuniv.nl/scripties/CarsouwBach.pdf",
+  "https://iopscience.iop.org/article/10.1088/1751-8121/acda6c",
+  "https://pubs.aip.org/aip/cha/article/34/4/043101/3280372/Global-density-equations-for-interacting-particle",
+  "https://pubmed.ncbi.nlm.nih.gov/38558049",
+  "https://link.aps.org/pdf/10.1103/wz1y-hgnk",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.789097/pdf",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0133287",
+  "https://www.mssanz.org.au/modsim05/papers/alfarano.pdf",
+  "https://www.bis.org/publ/work371.pdf",
+  "https://www.cfm.com/wp-content/uploads/2022/12/163-1997-herd-behavior-and-aggregate-fluctuations-in-financial-market.pdf",
+  "https://iopscience.iop.org/article/10.1088/2632-072X/aba115",
+  "https://github.com/jahnavi24-cloud/kirmanANTS",
+  "https://journals.aps.org/prl/abstract/10.1103/ccjj-6ksn",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077925001663",
+  "https://www.nature.com/articles/s41467-025-62398-2",
+  "https://ideas.repec.org/a/eee/phsmap/v515y2019icp81-92.html",
+  "https://pith.science/paper/2606.19027",
+  "https://ideas.repec.org/a/eee/spapps/v55y1995i1p23-43.html"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, and I agree with the first pass.** Both parts of this behaviour are documented. What is put together here is the textbook result for stochastic resetting applied to a well-known model. I found no paper on this exact model. But the behaviour you'd predict from the published pieces matches what was observed, so this isn't a discovery.\n\n**1. The bimodal/unimodal switch with no shocks is a known result.** This is the noisy voter model, also called the Kirman model. Papers describe it as having a finite-size phase transition, upon increasing the relative importance of the noise to the herding, form a bimodal phase where most of the agents share the same opinion to a unimodal phase where almost the same fraction of agent are in opposite states. In the same setup as yours, where one agent per step either flips randomly or copies another agent, the switch happens when noise \u00d7 N \u00f7 copying rate is about 1 (< 1 U-shaped (bimodal) ... > 1 peaked at 1/2). With N = 500 that gives a noise level of about 0.002, which is exactly what was observed. Whether the threshold is 1/N or 2/N depends on whether \"flip at random\" means a forced flip or picking a random opinion (which only changes it half the time). This model is the network-embedded equivalent of the Kirman model in its original, extensive formulation.\n\n**2. The extra peak at 0.3 is the standard effect of resetting.** The long-run distribution under resetting is the no-reset distribution averaged over the random times since the last reset. That always puts probability mass around the reset point. For simple diffusion, the distribution exhibits exponential decay away from the resetting position. In a model that is already bimodal, the reset point therefore adds a third peak at 0.3. That is the expected result, not something new.\n\n**3. Resetting a whole population's average opinion has been studied in a close equivalent.** Magoni, Majumdar and Schehr (Phys. Rev. Research 2020) studied the Ising model with a protocol that resets the magnetization to its fixed initial value m0 at a constant rate r. In the resulting NESS, the magnetization acquires a nontrivial distribution, leading to a rich phase diagram in the (T,r) plane. That is the same structure as your two-parameter sweep, with temperature in place of noise. Gupta and Jayannavar's review of resetting in interacting systems (J. Phys. A 2023) covers this kind of whole-population resetting.\n\n**4. A trimodal outcome isn't new for this model family either.** A noisy voter variant with agent preferences undergoes a discontinuous transition where the probability distribution of the number of agents in one state changes from unimodal to trimodal.\n\n**The twist I couldn't find:** the detailed phase diagram for this specific case, i.e. the \"6 regimes\" across the noise-versus-shock-rate plane and where the boundaries fall. I searched for: noisy voter model with stochastic resetting; voter model resetting; Kirman model with resetting or shocks; Moran/Wright-Fisher models with resetting; resetting in interacting particle systems; noisy voter resetting 2025. None of these turned up a direct study. It probably doesn't matter much. The regimes are likely just combinations of three things: one or two noise peaks, whether a reset peak shows up, and which peak is tallest. That depends on the shock rate compared with how fast the system relaxes. Nobody has checked the count of six against a source, and it may depend on how peaks are detected and counted.\n\n**Genuine or artifact?** It's a real pattern, not a broken or frozen simulation. The noise stops the population from locking into permanent consensus, and the reset peak exists because of the shocks. But it is what the setup guarantees by construction, a simple superposition of known effects, so it isn't surprising emergent behaviour.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (noise ~ 1/N) under global stochastic resetting of magnetization (resetting-induced peak at reset point)\", \"citations\": [\"Granovsky & Madras 1995, The noisy voter model, Stoch. Proc. Appl. 55:23\", \"Kirman 1993 ant/herding model; Carro, Toral, San Miguel, Sci. Rep. 6:24775 (2016) noisy voter on networks\", \"Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)\", \"Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)\", \"Gupta & Jayannavar, Stochastic resetting in interacting particle systems: a review, J. Phys. A (2023)\", \"Llabr\u00e9s, San Miguel, Toral, Partisan voter model: noise-induced transitions (trimodal), PRE 2023\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Noise threshold ~1/N reproduces the known Kirman criterion (1/N vs 2/N depends on whether 'random flip' is forced or a random reassignment). The third peak at the reset value 0.3 is the generic resetting signature (renewal/Laplace-transform form of the NESS). The specific 6-regime count across the noise-shock plane is unverified and likely reflects combinations of uni/bimodal background, presence of the reset peak, and which peak dominates (shock rate vs relaxation rate ~ max(eta, 1/N)); it is not a qualitatively new phenomenon. Not an artifact: the system stays ergodic and the shock peak is real, but it is expected by construction.\"}\n```",
+ "checked": "2026-11-03 03:32:45"
+}

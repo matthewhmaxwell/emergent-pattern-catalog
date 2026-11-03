@@ -1,0 +1,109 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Chemotaxis PDE (Keller-Segel type) with self-produced attractant and consumed nutrient, saturating chemotactic sensitivity; bacterial pattern formation",
+ "standard_name": "Chemotactic aggregate formation plus nutrient-depletion-driven travelling bands/swarm rings (Budrene-Berg / Brenner-Levitov-Budrene / Tyson-Lubkin-Murray patterns)",
+ "confidence": "medium",
+ "citations": [
+  "Woodward et al. 1995, Biophys J 68:2181-2189 - cell-attractant-nutrient chemotaxis model gives swarm rings and aggregates (seen only as fragments)",
+  "Brenner, Levitov, Budrene 1998, Biophys J 74:1677-1693 - swarm rings driven by nutrient depletion, collapse into aggregates when attractant is produced",
+  "Tyson, Lubkin, Murray 1999, Proc R Soc B 266:299-304 - minimal chemotaxis model capturing rings, spots and aggregates (abstract fragment only)",
+  "PLoS ONE 2013, e0074878 'Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli' (authors not verified) - nutrient/attractant taxis ratio controls spots versus rings and mobile spots",
+  "Saragosti, Calvez, Bournaveas, Buguin, Silberzan, Perthame 2010, PLoS Comput Biol 6:e1000890 - coexistence of a stationary cluster and a travelling pulse (1D kinetic model)",
+  "Hillen & Painter 2009, J Math Biol 57 'A user's guide to PDE models for chemotaxis' - review (abstract and reference list only)"
+ ],
+ "searches": [
+  "chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates pattern formation",
+  "Keller-Segel nutrient consumption chemotaxis saturating sensitivity b/(1+b^2) aggregates and travelling waves two-dimensional simulation",
+  "Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal",
+  "Tyson Lubkin Murray 1999 model and analysis of chemotactic bacterial patterns in a liquid medium",
+  "Keller-Segel nutrient taxis and self-attractant taxis two-dimensional numerical simulations aggregates traveling bands coexist",
+  "Tyson Lubkin Murray 1999 A minimal mechanism for bacterial pattern formation Proc R Soc B",
+  "Mathematical Description of Bacterial Traveling Pulses Saragosti Calvez Bournaveas Perthame coexistence stationary cluster traveling pulse",
+  "chemotaxis toward self-produced attractant and consumed nutrient: aggregates, swarm rings, travelling bands in 2D, receptor saturation sensitivity"
+ ],
+ "notes": "No source found that reproduces this exact setup (periodic 50x50, no growth, constant nutrient resupply, b/(1+b^2) sensitivity for both signals, uniform noisy start). The aggregate-plus-band coexistence in 2D is expected from the literature but not directly confirmed there. I read only abstracts and fragments of the Woodward and Tyson papers. The Hillen & Painter review was seen only as abstract and references.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates pattern formation"
+  },
+  {
+   "query": "Keller-Segel nutrient consumption chemotaxis saturating sensitivity b/(1+b^2) aggregates and travelling waves two-dimensional simulation"
+  },
+  {
+   "query": "Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal"
+  },
+  {
+   "query": "Tyson Lubkin Murray 1999 model and analysis of chemotactic bacterial patterns in a liquid medium"
+  },
+  {
+   "query": "Keller-Segel nutrient taxis and self-attractant taxis two-dimensional numerical simulations aggregates traveling bands coexist"
+  },
+  {
+   "query": "Tyson Lubkin Murray 1999 A minimal mechanism for bacterial pattern formation Proc R Soc B"
+  },
+  {
+   "query": "Mathematical Description of Bacterial Traveling Pulses Saragosti Calvez Bournaveas Perthame coexistence stationary cluster traveling pulse"
+  },
+  {
+   "query": "chemotaxis toward self-produced attractant and consumed nutrient: aggregates, swarm rings, travelling bands in 2D, receptor saturation sensitivity"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009153",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://brennergroup.seas.harvard.edu/publications/physical-mechanisms-chemotactic-pattern-formation-bacteria",
+  "https://pnas.org/content/107/26/11653.full",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1001994107",
+  "https://www.pnas.org/doi/10.1073/pnas.1006363107",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2105138118",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3455968/",
+  "https://www.cambridge.org/core/books/abs/physics-of-bacteria/chemotaxis-and-detection/A0A4AC1A25C0303D5BD50C73750D1FD5",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://link.springer.com/article/10.1007/s00366-018-0638-y",
+  "https://link.springer.com/chapter/10.1007/978-3-030-65505-1_12",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.088201",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://faculty.washington.edu/rjl/pubs/chemotaxis/chemotaxis.pdf",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://pubmed.ncbi.nlm.nih.gov/34324494/",
+  "https://link.springer.com/article/10.1007/s10441-025-09502-7",
+  "https://royalsocietypublishing.org/doi/10.1098/rspb.1999.0637",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.pnas.org/doi/10.1073/pnas.1001994107",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://link.springer.com/article/10.1007/s13160-010-0011-z",
+  "https://d-nb.info/1223162788/34",
+  "https://link.springer.com/article/10.1007/s11538-020-00809-9",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1004843",
+  "https://link.springer.com/chapter/10.1007/978-3-030-22583-4_9",
+  "https://www.wikidata.org/wiki/Q28475201",
+  "https://link.springer.com/article/10.1007/s11538-010-9586-4",
+  "https://link.springer.com/article/10.1007/s11538-013-9924-4",
+  "https://link.springer.com/chapter/10.1007/978-3-319-49262-9_3",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2924242/",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.1002404",
+  "https://www.nature.com/articles/ncomms12984",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5634484/",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4"
+ ],
+ "full_text": "**Model family.** This is a continuum chemotaxis system of the Keller\u2013Segel type, from bacterial pattern-formation modelling. It has three fields: cells with a receptor-saturating sensitivity b/(1+b\u00b2), a self-produced attractant, and a consumed nutrient. Cells are attracted to both the attractant and the nutrient, which fits the usual picture of swarm rings and aggregates in E. coli and Salmonella.\n\n**Is the behaviour already described? Yes, in the same model class.** The observed state is a dense aggregate together with travelling bands, in a system with both attractant taxis and nutrient taxis. Four sources cover most of this:\n\n- **Woodward et al. 1995 (Biophys J 68:2181).** The Salmonella model couples cells, a self-excreted attractant and a nutrient. It produces swarm rings and aggregates, with a saturating chemotactic sensitivity. I could only read fragments of the paper in the search results.\n- **Brenner, Levitov & Budrene 1998 (Biophys J 74:1677\u20131693).** Through chemoattractant signalling, the bacteria organize into swarm rings and aggregates. Ring motion comes from depletion of a nutrient around the band; chemotaxis holds the band together. Rings can collapse into aggregates when their mass exceeds a threshold. Their stated condition is that aggregates can form as long as the bacteria produce attractant.\n- **Tyson, Lubkin & Murray 1999 (Proc R Soc B 266:299\u2013304).** Their model captures all three of the pattern-forming processes seen experimentally in E. coli and S. typhimurium. The search result gave only a fragment of the abstract.\n- **Closest match in the search results: \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli\" (PLoS ONE 2013, DOI 10.1371/journal.pone.0074878).** Dynamics and steady-state patterns depend strongly on the ratio between the efficiencies of chemotaxis to nutrient and to attractant gradients. For slightly stronger nutrient sensing, spots still form but are mobile and glide up the nutrient gradient. That is the same kind of result as an attractant/nutrient strength ratio selecting a mixed aggregate-plus-band state. It is a different, agar-plate, ring-geometry model. I did not see its author list, so I leave it uncredited.\n\n**Coexistence of a stationary cluster and a travelling pulse** is also reported in a related chemotaxis model. Saragosti, Calvez, Bournaveas, Buguin, Silberzan & Perthame 2010 (PLoS Comput Biol 6(8):e1000890) say a fraction remains trapped at the boundary as a stationary profile and a fraction travels across the channel at constant speed. That model is kinetic and one-dimensional, so it is only a loose analogue.\n\n**Reviews.** The best review I found is Hillen & Painter 2009, \"A user's guide to PDE models for chemotaxis\" (J Math Biol 57). It reviews the formulation of these models, contrasts their patterning properties, and classifies their solution form. I only saw its abstract and reference list. I did not find it describing this exact coexistence.\n\n**Verdict: KNOWN-VARIANT, leaning KNOWN.** The mechanism is established. Nutrient depletion drives and carries bands, self-attractant production collapses density into aggregates, and the attractant-to-nutrient taxis ratio selects the pattern.\n\nWhat I did not find is a paper that simulates this exact system on a periodic 2D square, from a uniform start with noise. It uses a nutrient with constant resupply, no cell growth and b/(1+b\u00b2) sensitivity for both signals. In 2D, \"a blob plus travelling bands\" is a mixed pattern that the Brenner/Woodward/Tyson models would be expected to produce for some parameters. I did not verify it as an explicit 2D result. The differences I see (no growth, a periodic box, conserved cell number) most likely change where the pattern appears in parameter space, not whether it exists.\n\n**Confidence: medium.** The mechanism and the ratio dependence are well supported. I could read only abstracts and fragments of the original papers, and I found no source reproducing the exact parameters.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Chemotaxis PDE (Keller-Segel type) with self-produced attractant and consumed nutrient, saturating chemotactic sensitivity; bacterial pattern formation\", \"standard_name\": \"Chemotactic aggregate formation plus nutrient-depletion-driven travelling bands/swarm rings (Budrene-Berg / Brenner-Levitov-Budrene / Tyson-Lubkin-Murray patterns)\", \"confidence\": \"medium\", \"citations\": [\"Woodward et al. 1995, Biophys J 68:2181-2189 - cell-attractant-nutrient chemotaxis model gives swarm rings and aggregates (seen only as fragments)\", \"Brenner, Levitov, Budrene 1998, Biophys J 74:1677-1693 - swarm rings driven by nutrient depletion, collapse into aggregates when attractant is produced\", \"Tyson, Lubkin, Murray 1999, Proc R Soc B 266:299-304 - minimal chemotaxis model capturing rings, spots and aggregates (abstract fragment only)\", \"PLoS ONE 2013, e0074878 'Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli' (authors not verified) - nutrient/attractant taxis ratio controls spots versus rings and mobile spots\", \"Saragosti, Calvez, Bournaveas, Buguin, Silberzan, Perthame 2010, PLoS Comput Biol 6:e1000890 - coexistence of a stationary cluster and a travelling pulse (1D kinetic model)\", \"Hillen & Painter 2009, J Math Biol 57 'A user's guide to PDE models for chemotaxis' - review (abstract and reference list only)\"], \"searches\": [\"chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates pattern formation\", \"Keller-Segel nutrient consumption chemotaxis saturating sensitivity b/(1+b^2) aggregates and travelling waves two-dimensional simulation\", \"Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal\", \"Tyson Lubkin Murray 1999 model and analysis of chemotactic bacterial patterns in a liquid medium\", \"Keller-Segel nutrient taxis and self-attractant taxis two-dimensional numerical simulations aggregates traveling bands coexist\", \"Tyson Lubkin Murray 1999 A minimal mechanism for bacterial pattern formation Proc R Soc B\", \"Mathematical Description of Bacterial Traveling Pulses Saragosti Calvez Bournaveas Perthame coexistence stationary cluster traveling pulse\", \"chemotaxis toward self-produced attractant and consumed nutrient: aggregates, swarm rings, travelling bands in 2D, receptor saturation sensitivity\"], \"notes\": \"No source found that reproduces this exact setup (periodic 50x50, no growth, constant nutrient resupply, b/(1+b^2) sensitivity for both signals, uniform noisy start). The aggregate-plus-band coexistence in 2D is expected from the literature but not directly confirmed there. I read only abstracts and fragments of the Woodward and Tyson papers. The Hillen & Painter review was seen only as abstract and references.\"}\n```",
+ "checked": "2026-11-03 02:48:02"
+}

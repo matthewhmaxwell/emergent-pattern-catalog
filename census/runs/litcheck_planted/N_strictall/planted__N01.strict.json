@@ -1,0 +1,94 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators at marginal coupling (linear charging, pulse 1/N); aggregation/scrambler framework",
+ "citations": [
+  "O'Keeffe, Krapivsky, Strogatz, PRL 115, 064101 (2015) + Supplemental Material",
+  "PRE 93, 032203 (2016) Transient dynamics of pulse-coupled oscillators with nonlinear charging curves (authors not confirmed)",
+  "Bottani, PRE 54, 2334 (1996)",
+  "Mauroy & Sepulchre, Chaos 18, 037122 (2008)",
+  "Cluster synchronization with alpha-function pulse coupling, PRE 95, 022207 (2017)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Known: the model, that full sync can fail at pulse 1/N with linear charging, and equal-sized cluster states. Not found: final states as m equal clusters for each divisor m of N (9 at N=100), prime-N near-certain sync with only the all-separate state as alternative, and the ~0.6/N even-N failure law. Equal sizes are likely forced by the neutral dynamics of linear charging, so this is an arithmetic refinement, not a new mechanism. The paywalled PRL supplement was not read and may contain it. Check tie handling at exactly 1 for large N.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "O'Keeffe Krapivsky Strogatz synchronization as aggregation pulse-coupled oscillators"
+  },
+  {
+   "query": "pulse-coupled oscillators linear charging pulse 1/N full synchronization probability divisors of N final states"
+  },
+  {
+   "query": "\"scramblers\" pulse-coupled oscillators pulse size 1/N linear charging full sync not certain"
+  },
+  {
+   "query": "arXiv O'Keeffe Krapivsky Strogatz scrambler oscillators \"1/N\" incomplete synchrony final state clusters equal size"
+  },
+  {
+   "query": "Peskin model linear charging pulse 1/N non-synchronizing periodic states equal clusters divisor N probability"
+  },
+  {
+   "query": "non-leaky integrate-and-fire all-to-all pulse 1/N absorption probability of synchrony depends on N prime even small N"
+  },
+  {
+   "query": "\"synchronization as aggregation\" supplemental material deterministic Peskin model linear pulses 1/N full sync probability"
+  },
+  {
+   "query": "Bottani 1996 Synchronization of integrate and fire oscillators with global coupling Phys Rev E 54 2334 linear case"
+  },
+  {
+   "query": "Mauroy Sepulchre clustering integrate-and-fire oscillators excitatory pulse coupling phase-locked clusters number of clusters"
+  },
+  {
+   "query": "pulse-coupled oscillators without leak neutral periodic orbits equal-sized clusters \"number of divisors\" or \"divides N\" synchronization"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://www.stevenstrogatz.com/articles/category/2015",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10109446/",
+  "https://pubs.aip.org/aip/cha/article-abstract/27/5/053103/135071/Isochronous-dynamics-in-pulse-coupled-oscillator?redirectedFrom=fulltext",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://www.biorxiv.org/content/10.1101/2024.01.29.577856v1.full",
+  "https://motion.me.ucsb.edu/pdf/2015d-kb.pdf",
+  "https://people.maths.ox.ac.uk/porterm/research/alex_surf_final.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "http://www.scholarpedia.org/article/Pulse_coupled_oscillators",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4187392",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4268720",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://www.nature.com/articles/s41467-017-01190-3",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://link.springer.com/chapter/10.1007/978-3-319-26630-5_1",
+  "https://www.scribd.com/document/332846958/Peskin-Chapter-4",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3059341/",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000929",
+  "https://link.springer.com/article/10.1007/s10827-006-6174-6",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10109446/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.064101",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.2334",
+  "https://journals.aps.org/pre/issues/54/3",
+  "https://pubs.aip.org/aip/cha/article-abstract/18/3/037122/342025/Clustering-behaviors-in-networks-of-integrate-and?redirectedFrom=fulltext",
+  "https://link.springer.com/article/10.1140/epjst/e2014-02290-y",
+  "https://www.wikidata.org/wiki/Q47915692",
+  "https://pubmed.ncbi.nlm.nih.gov/19045496/",
+  "https://link.springer.com/chapter/10.1007/978-1-84996-396-1_11",
+  "https://www.sciencedirect.com/topics/engineering/coupled-oscillator-model",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3240346/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022207",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11802712/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass on the model family. I don't overturn it, but I'd describe the new part more narrowly and more carefully.\n\n**What is documented**\n- **The model itself.** O'Keeffe, Krapivsky and Strogatz (PRL 115, 064101, 2015) say their supplement applies aggregation theory to the deterministic Peskin model, assuming the oscillators rise linearly to threshold and fire pulses of size 1/N, where N \u226b 1. In their model, as in this one, clusters never desynchronize, and a firing cluster absorbs oscillators within a distance proportional to its size. Your rules match this exactly.\n- **Full sync can fail at exactly this pulse size with linear charging.** The PRE 93, 032203 manuscript (I still couldn't confirm its author list) restates the earlier result: full sync is guaranteed for \u03b3 > 0 and pulse size > 1/N, and for other values of \u03b3 and other pulse sizes, full sync is possible, but not certain to occur. Your case (no leak, pulse exactly 1/N) is in that \"not certain\" region. It also says that in such cases full synchrony is not guaranteed to occur, and so multiple, stable clusters are possible.\n- **Final states made of equal-sized clusters are a known type of attractor** in identical pulse-coupled oscillators. A related leaky integrate-and-fire paper reports splay states of clusters with equal sizes greater than 1 and uses the neutrality of the dynamics at zero coupling (PRE 95, 022207). Bottani (PRE 54, 2334, 1996, sole author Samuele Bottani) and Mauroy\u2013Sepulchre (Chaos 18, 037122) also describe convergence to a phase-locked clustered behavior in excitatory integrate-and-fire populations.\n\n**The twist I couldn't find described**\n- Small-N, number-theoretic results: the possible final states are exactly m equal clusters of size N/m for each divisor m of N. That gives 9 states at N=100, which is the number of divisors of 100. For prime N, the only alternative to full sync is N separate oscillators, which almost never happens. This explains the jump from 0.887 (N=4) to 0.99968 (N=5) and back down at N=6. For even N, failure falls off as about 0.6/N.\n- The PRL papers focus on large-N cluster kinetics, and I couldn't read the paywalled supplement. So this twist may be in there.\n- **Does it matter?** Mildly. It's a finite-size, arithmetic refinement of a known failure mode, not a new mechanism. The divisor structure follows from the setup: with straight-line charging, nothing drifts back apart, so the only lasting non-sync states are ones where every cluster gets the same total kick per cycle, which forces equal cluster sizes. The exact even-N law may be new as a number.\n\n**Genuine or artifact?** I think it's genuine. Groupings with unequal clusters keep merging, and the leftover equal-cluster states are stable periodic states, not frozen or diverged ones. One caveat: at pulse exactly 1/N, how ties at exactly 1 are handled (\"1 or above\") could affect the rarest outcomes. The exact enumeration up to N=8 makes this less of a worry, but floating-point ties at N=100 should be checked.\n\n**Searches I ran:** the O'Keeffe\u2013Krapivsky\u2013Strogatz aggregation work and its supplement; Peskin model with linear charging, pulse 1/N and divisor/equal-cluster final states; non-leaky integrate-and-fire sync probability vs prime/even N; Bottani 1996; Mauroy\u2013Sepulchre clustering; neutral equal-cluster splay states.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators at marginal coupling (linear charging, pulse 1/N); aggregation/scrambler framework\", \"citations\": [\"O'Keeffe, Krapivsky, Strogatz, PRL 115, 064101 (2015) + Supplemental Material\", \"PRE 93, 032203 (2016) Transient dynamics of pulse-coupled oscillators with nonlinear charging curves (authors not confirmed)\", \"Bottani, PRE 54, 2334 (1996)\", \"Mauroy & Sepulchre, Chaos 18, 037122 (2008)\", \"Cluster synchronization with alpha-function pulse coupling, PRE 95, 022207 (2017)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Known: the model, that full sync can fail at pulse 1/N with linear charging, and equal-sized cluster states. Not found: final states as m equal clusters for each divisor m of N (9 at N=100), prime-N near-certain sync with only the all-separate state as alternative, and the ~0.6/N even-N failure law. Equal sizes are likely forced by the neutral dynamics of linear charging, so this is an arithmetic refinement, not a new mechanism. The paywalled PRL supplement was not read and may contain it. Check tie handling at exactly 1 for large N.\"}\n```",
+ "checked": "2026-11-03 04:12:03"
+}

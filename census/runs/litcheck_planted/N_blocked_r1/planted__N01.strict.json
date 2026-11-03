@@ -1,0 +1,99 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators at marginal coupling (linear charging, pulse j/N, absorption); aggregation/cluster-kinetics framework of O'Keeffe-Krapivsky-Strogatz",
+ "citations": [
+  "O'Keeffe, Krapivsky, Strogatz, PRL 115, 064101 (2015) + Supplemental Material (deterministic Peskin model, linear charging, pulse 1/N)",
+  "K.P. O'Keeffe, PRE 93, 032203 (2016): full sync guaranteed only for gamma>0 and pulse >1/N; otherwise multiple stable clusters possible",
+  "Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)",
+  "PRE 95, 022207 (2017): equal-size cluster splay states in pulse-coupled LIF networks",
+  "Bottani, PRE 54, 2334 (1996): global IF synchronization, en bloc vs avalanche"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Undocumented twist: final states are exactly m equal clusters for each divisor m of N (9 states at N=100), near-certain sync for prime N, and roughly 0.6/N failure for even N. The divisor rule follows from period matching: without leak each cluster of size k must charge k/N per cycle, so all clusters are equal-sized and their number divides N. The twist is real but minor; only the 0.6/N prefactor needs real calculation. Neutral (no-leak) dynamics keeps leftover multi-cluster states from merging. Caution: exact-threshold ties (kicks are multiples of 1/N and rule 4 includes equality) may make results sensitive to floating point; check the N=5 deficit (0.99968) with exact arithmetic. PRE 93 032203 is sole-authored by O'Keeffe. The PRL supplement was not read and may contain the finite-N details.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "pulse-coupled oscillators linear charging pulse 1/N synchronization divisors of N final states"
+  },
+  {
+   "query": "O'Keeffe Krapivsky Strogatz synchronization as aggregation cluster kinetics pulse-coupled oscillators"
+  },
+  {
+   "query": "\"Transient dynamics of pulse-coupled oscillators with nonlinear charging curves\" pulse size 1/N \u03b3 = 0 full synchrony not always"
+  },
+  {
+   "query": "arXiv O'Keeffe Krapivsky Strogatz 2015 scramblers pulse-coupled oscillators linear charging \"1/N\" stable states multiple clusters"
+  },
+  {
+   "query": "\"scrambler oscillators\" Peskin model linear charging pulses of size 1/N supplemental material equivalent"
+  },
+  {
+   "query": "Peskin model linear charging pulse 1/N \"full sync\" probability small N even odd divisors equal clusters"
+  },
+  {
+   "query": "\"Synchronization as aggregation\" supplemental material Peskin model pulses 1/N linear charging rate equation absorption"
+  },
+  {
+   "query": "Mathar Mattfeldt pulse-coupled decentral synchronization linear charging \u03b5 = 1/N clusters"
+  },
+  {
+   "query": "integrate-and-fire oscillators no leak global excitatory pulse coupling stable multi-cluster states equal size clusters number of oscillators divisible"
+  }
+ ],
+ "result_urls": [
+  "https://motion.me.ucsb.edu/pdf/2015d-kb.pdf",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://link.springer.com/article/10.1140/epjd/e2010-00215-4",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.064101",
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://www.stevenstrogatz.com/articles/category/2015",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "http://data.bettstetter.com/publications/okeeffe-2019-spie-swarmalators-109822E.pdf",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "https://pubs.aip.org/aip/cha/article-abstract/27/5/053103/135071/Isochronous-dynamics-in-pulse-coupled-oscillator?redirectedFrom=fulltext",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://www.linkedin.com/in/kevinpokeeffe/",
+  "https://pubmed.ncbi.nlm.nih.gov/27078340/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.032203",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3403186/",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://www.nature.com/articles/s41467-017-01190-3",
+  "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=930383",
+  "https://www.scirp.org/html/1377.html",
+  "https://pdodds.w3.uvm.edu/files/papers/others/1993/strogatz1993a.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/41387331/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12931255/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7031614",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11407436/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5856986",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.064101",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "https://par.nsf.gov/servlets/purl/10229105",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3853362/",
+  "http://data.bettstetter.com/publications/okeeffe-2019-spie-swarmalators-109822E.pdf",
+  "https://link.springer.com/chapter/10.1007/3-540-45032-7_3",
+  "https://pubmed.ncbi.nlm.nih.gov/24324322/",
+  "https://ws.engr.illinois.edu/sitemanager/getfile.asp?id=2333",
+  "https://www.tandfonline.com/doi/pdf/10.1080/21642583.2018.1496043",
+  "https://dl.acm.org/doi/pdf/10.1145/2348832.2348833",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5568753/",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022207",
+  "https://pubmed.ncbi.nlm.nih.gov/19045496/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.2334"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass, but I'd narrow its claim. The model and the main behaviour (marginal coupling, full sync not guaranteed, several stable clusters can survive) are documented. What I couldn't find in any readable source is the exact counting of final states for finite N.\n\n**What is documented**\n- **The model itself.** The O'Keeffe\u2013Krapivsky\u2013Strogatz paper (PRL 115, 064101, 2015) says that its Supplemental Material applies aggregation theory to the deterministic Peskin model, assuming the oscillators rise linearly to threshold and fire pulses of size 1/N, where N \u226b1 is the number of oscillators. That is your system. I couldn't open the supplement, so it may contain more.\n- **Cluster growth and firing rules.** In O'Keeffe's follow-up (PRE 93, 032203, 2016 \u2014 the search results list him as sole author, which settles one of the first pass's open questions) clusters can only ever increase in size. They can never break apart because (a) the oscillators are identical. An oscillator pushed to threshold by a pulse doesn't fire its own pulse; it joins the firing cluster, which then fires a pulse of total size j/N (so that the pulse has total size *j/N*). That matches your rules 3 and 4.\n- **Sync can fail at marginal coupling.** The same paper says Mirollo and Strogatz showed that for \u03b3 > 0 and pulse size > 1/N, then full sync is guaranteed for all IC except for a set of measure ... For other values of \u03b3 and other pulse sizes, full sync is possible, but not certain to occur. Your case (no leak, pulse exactly 1/N) is one of those \"other\" cases, and it adds that multiple, stable clusters are possible.\n- **Equal-sized cluster states.** These are known in a related integrate-and-fire model (PRE 95, 022207), which reports splay states of clusters with equal sizes greater than 1.\n\n**The twist I couldn't find**\n- Exactly one possible final state for each divisor m of N: m equal groups of size N/m. N=100 has 9 divisors, which matches your 9.\n- For prime N, sync is almost certain; for even N, failures fall off as about 0.6/N.\n\nThis twist matters less than it looks, because the divisor rule follows from a short argument. With no leak, every group has the same period T. In each cycle, a group of size k gets kicks totalling (N\u2212k)/N from the others, so it must charge the remaining k/N on its own. So T = k/N for every group, all groups are the same size, and the number of groups must divide N. Prime N therefore leaves only full sync or N separate oscillators, and even N always allows the two-group state. For two groups there is a continuous range of non-merging layouts (the second group's voltage anywhere in (0, \u00bd) when the first fires), which explains why failure is common for even N. The ~0.6/N prefactor and its exact value are the only parts that would need real calculation, and they look minor.\n\n**Genuine or artifact:** genuine. The non-synced outcomes cover a positive share of random starts and follow from the model's structure. Without leak, the spacing between groups stays fixed between merges, so leftover multi-group states persist rather than being pulled back towards sync. Two cautions:\n1. Rule 4 triggers at exactly \"1 or above\", and kicks are exact multiples of 1/N, so exact ties can occur. Floating-point rounding could turn some borderline merges into non-merges or the reverse. The N=5 value of 0.99968, slightly short of 1, deserves a check with exact arithmetic.\n2. The first pass's report of an exact-enumeration value isn't directly comparable to sampled ones without knowing the method.\n\n**Searches run:** pulse 1/N with linear charging and divisor final states; the O'Keeffe\u2013Krapivsky\u2013Strogatz aggregation paper and its supplement; the PRE 93 nonlinear-charging paper and its marginal case; scrambler oscillators and the Peskin model; Mathar & Mattfeldt; and no-leak integrate-and-fire models with equal-sized cluster states.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators at marginal coupling (linear charging, pulse j/N, absorption); aggregation/cluster-kinetics framework of O'Keeffe-Krapivsky-Strogatz\", \"citations\": [\"O'Keeffe, Krapivsky, Strogatz, PRL 115, 064101 (2015) + Supplemental Material (deterministic Peskin model, linear charging, pulse 1/N)\", \"K.P. O'Keeffe, PRE 93, 032203 (2016): full sync guaranteed only for gamma>0 and pulse >1/N; otherwise multiple stable clusters possible\", \"Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)\", \"PRE 95, 022207 (2017): equal-size cluster splay states in pulse-coupled LIF networks\", \"Bottani, PRE 54, 2334 (1996): global IF synchronization, en bloc vs avalanche\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Undocumented twist: final states are exactly m equal clusters for each divisor m of N (9 states at N=100), near-certain sync for prime N, and roughly 0.6/N failure for even N. The divisor rule follows from period matching: without leak each cluster of size k must charge k/N per cycle, so all clusters are equal-sized and their number divides N. The twist is real but minor; only the 0.6/N prefactor needs real calculation. Neutral (no-leak) dynamics keeps leftover multi-cluster states from merging. Caution: exact-threshold ties (kicks are multiples of 1/N and rule 4 includes equality) may make results sensitive to floating point; check the N=5 deficit (0.99968) with exact arithmetic. PRE 93 032203 is sole-authored by O'Keeffe. The PRL supplement was not read and may contain the finite-N details.\"}\n```",
+ "checked": "2026-11-03 02:27:29"
+}

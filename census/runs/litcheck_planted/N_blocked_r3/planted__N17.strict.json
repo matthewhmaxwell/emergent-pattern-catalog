@@ -1,0 +1,108 @@
+{
+ "class_id": "planted:N17",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cluster-lane pattern: parallel lanes of polar band/cluster trains moving in opposite directions (overall nematic order) in the band-forming regime of polar-alignment (Vicsek-class) active matter",
+ "citations": [
+  "Th\u00fcroff, Weber & Frey, Phys. Rev. X 4, 041030 (2014) - stable cluster-lane limit cycle in the BDG Boltzmann equation",
+  "K\u00fcrsten & Ihle, Phys. Rev. Lett. 125, 188003 (2020) - cross-sea phase in the standard Vicsek model (related non-band pattern)",
+  "Mangeat, Chatterjee, Paul & Rieger, Phys. Rev. E 102, 042601 (2020) - band-to-lane transition in the active Potts model, stated to be absent in Vicsek",
+  "Stability of discrete-symmetry flocks: sandwich state, Phys. Rev. E (2025), doi 10.1103/1r19-ryx9"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Same verdict class as the first pass, but it corrects the first pass's claim that the phenomenology was not found: opposite-travelling cluster-lane trains are documented as a stable solution in the kinetic theory of Vicsek-like polar alignment (Th\u00fcroff et al. 2014). Twist: seen in particle simulations of the standard metric Vicsek model as a rare (1/24 random starts), long-lived (1e8 steps) state, mostly reached from strip starts; no particle-simulation report found. Possible box-size locking of the 7 lanes and the parameter regime should be checked. Full texts of Chat\u00e9 2008, Solon 2015 and K\u00fcrsten-Ihle not read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 11,
+ "search_inputs": [
+  {
+   "query": "Vicsek model counter-propagating bands lanes opposite directions metastable"
+  },
+  {
+   "query": "Vicsek model \"lanes\" bands traveling in opposite directions coexistence phase 2024 arXiv"
+  },
+  {
+   "query": "standard Vicsek model antiparallel band trains side by side lanes long-lived state noise 0.3"
+  },
+  {
+   "query": "K\u00fcrsten Ihle cross sea phase Vicsek counterpropagating band trains"
+  },
+  {
+   "query": "Vicsek model \"counterpropagating\" bands \"lanes\" periodic domains new pattern standard model arXiv 2025"
+  },
+  {
+   "query": "band-to-lane transition active Potts clock model counter-propagating lanes Vicsek limit"
+  },
+  {
+   "query": "Vicsek model metastable \"counter-propagating\" \"band\" states initial condition opposite stripes simulation long time"
+  },
+  {
+   "query": "Vicsek model bands moving in opposite directions coexisting in parallel lanes nematic order without polar order"
+  },
+  {
+   "query": "Denk Frey pattern-induced local symmetry breaking active matter parallel lanes polar clusters opposite directions"
+  },
+  {
+   "query": "Th\u00fcroff Weber Frey Numerical treatment of the Boltzmann equation self-propelled particle systems Phys Rev X 2014 lanes opposite directions"
+  },
+  {
+   "query": "agent-based Vicsek simulation confirms \"lanes of polar clusters\" opposite directions nematic state Boltzmann prediction"
+  }
+ ],
+ "result_urls": [
+  "https://zenodo.org/records/23263766",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://pith.science/paper/2412.10577",
+  "https://journals.aps.org/pre/abstract/10.1103/1r19-ryx9",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.012918",
+  "https://zenodo.org/records/23263766",
+  "https://pith.science/paper/2412.10577",
+  "https://pith.science/paper/2412.10577",
+  "https://zenodo.org/records/23263766",
+  "https://pith.science/paper/2508.05086",
+  "https://ui.adsabs.harvard.edu/abs/2021APS..MARY17003K/abstract",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.125.188003",
+  "https://pubmed.ncbi.nlm.nih.gov/33196272",
+  "https://link.springer.com/article/10.1140/epje/s10189-023-00403-6",
+  "https://iopscience.iop.org/article/10.1088/2632-2153/acc007",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aaf776",
+  "https://pith.science/paper/2412.10577",
+  "https://pith.science/paper/2502.06482",
+  "https://pith.science/paper/2508.05086",
+  "https://journals.aps.org/pre/abstract/10.1103/1r19-ryx9",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.102.042601",
+  "https://journals.aps.org/pre/abstract/10.1103/b784-7xls",
+  "https://zenodo.org/records/23263766",
+  "https://epljournal.edpsciences.org/articles/epl/abs/2020/12/epl20193/epl20193.html",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad3ea7",
+  "https://www.nature.com/articles/s42005-025-02098-x",
+  "https://d-nb.info/1252247583/34",
+  "https://zenodo.org/records/23263766",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://www.pnas.org/doi/full/10.1073/pnas.2017047118",
+  "https://pnas.org/content/117/50/31623.short",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.013280",
+  "https://www.theorie.physik.uni-muenchen.de/lsfrey/research/soft_matter/pattern_induced_sym_break_am/index.html",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7749307/",
+  "https://www.theorie.physik.uni-muenchen.de/lsfrey/members/group_leaders/erwin_frey/index.html",
+  "https://www.pnas.org/doi/10.1073/pnas.2010302117",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.4.041030",
+  "https://www.nature.com/articles/ncomms15969",
+  "https://www.theorie.physik.uni-muenchen.de/lsfrey/members/group_leaders/erwin_frey/index.html",
+  "https://d-nb.info/1252247583/34",
+  "https://www.mendeley.com/catalogue/c9247d95-a580-3cae-9294-acec0543007a/",
+  "https://phys.org/news/2014-11-boltzmann-equation.html",
+  "https://journals.aps.org/pre/abstract/10.1103/qm7d-p815",
+  "https://www.science.gov/topicpages/s/self-propelled+particle+models",
+  "https://d-nb.info/1252247583/34",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.4.041030"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, and closer to KNOWN than the first pass thought.** The behaviour itself, side-by-side lanes of travelling polar clusters moving in opposite directions, is documented for the kinetic (Boltzmann-equation) version of Vicsek-style polar alignment. What I could not find is a report of it in particle simulations of the standard Vicsek model itself.\n\n**The key source (the first pass missed it)**\nTh\u00fcroff, Weber & Frey, *Phys. Rev. X* 4, 041030 (2014), studied self-propelled particles with only polar (head-to-tail aware) pairwise alignment, the BDG model. That model is inspired by Vicsek's agent-based model. Within the density-segregated parameter regime, they find a novel stable limit-cycle solution of the Boltzmann equation, which consists of parallel lanes of polar clusters moving in opposite directions, so as to render the overall symmetry of the system's ordered state nematic. The full text adds that each lane hosts a train of equally spaced clusters. That matches your observation closely: dense travelling stripes, arranged in parallel lanes going opposite ways, inside the regime where dense bands form.\n\n**Related work that doesn't quite match**\n- **Active Potts model:** there is a band-to-lane reorientation, but the authors say it is absent in the Vicsek model and the active Ising model. Their lanes are single dense lanes running along the direction of motion, not trains of clusters.\n- **Discrete-direction flocks:** small counterpropagating droplets disrupt the flocking phase by inducing a persistent sandwich state, where the droplet-induced opposite-polarity lane remains embedded within the original flock. This is a similar long-lived opposite lane, but in a different model.\n- **Cross-sea phase:** K\u00fcrsten & Ihle showed the standard Vicsek model has a fourth phase for large system sizes: a polar ordered cross sea phase. That pattern is band trains crossing at an angle, not opposite-moving parallel lanes. Still, it shows that big-box Vicsek runs can produce states beyond simple bands.\n- **Lane models with built-in opposite motion:** recent lane models get lanes by assigning particles opposite target directions or by anti-alignment. That's a different mechanism, so they're not the source.\n\n**What isn't documented, and whether it matters**\n- A report of the cluster-lane state in particle simulations of the standard Vicsek model (metric neighbourhood, angular noise of the form used here), as opposed to in the kinetic equation.\n- Some statistics: it appeared in only 1 of 24 random starts, sits in a noise window of 0.28\u20130.35, and lasted 10\u2078 steps. In the kinetic theory it is a stable solution. In your system it looks like a rare, long-lived state that is mostly reached from the strip starting condition.\n\nThis plausibly matters a bit. Confirming in particle simulations, with real fluctuations, that a prediction from kinetic theory survives is a worthwhile check. But it isn't a new phenomenon.\n\n**Genuine or artifact?** It looks like a genuine emergent pattern, not a frozen state or a numerical blow-up. There are three caveats:\n- **Starting condition:** the strip start effectively plants the lanes.\n- **Box size:** seven lanes may be locked in place by the periodic box. Changing the box width would test this.\n- **Noise range:** check that 0.28\u20130.35 at density 1 and speed 0.5 is really inside the band regime rather than near the cross-sea or ordered-liquid boundary.\n\nLimits of my search: I only saw abstracts and snippets. I didn't read the full texts of Chat\u00e9 et al. 2008, Solon et al. 2015 or K\u00fcrsten & Ihle, so an earlier particle-simulation report could still exist.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cluster-lane pattern: parallel lanes of polar band/cluster trains moving in opposite directions (overall nematic order) in the band-forming regime of polar-alignment (Vicsek-class) active matter\", \"citations\": [\"Th\u00fcroff, Weber & Frey, Phys. Rev. X 4, 041030 (2014) - stable cluster-lane limit cycle in the BDG Boltzmann equation\", \"K\u00fcrsten & Ihle, Phys. Rev. Lett. 125, 188003 (2020) - cross-sea phase in the standard Vicsek model (related non-band pattern)\", \"Mangeat, Chatterjee, Paul & Rieger, Phys. Rev. E 102, 042601 (2020) - band-to-lane transition in the active Potts model, stated to be absent in Vicsek\", \"Stability of discrete-symmetry flocks: sandwich state, Phys. Rev. E (2025), doi 10.1103/1r19-ryx9\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Same verdict class as the first pass, but it corrects the first pass's claim that the phenomenology was not found: opposite-travelling cluster-lane trains are documented as a stable solution in the kinetic theory of Vicsek-like polar alignment (Th\u00fcroff et al. 2014). Twist: seen in particle simulations of the standard metric Vicsek model as a rare (1/24 random starts), long-lived (1e8 steps) state, mostly reached from strip starts; no particle-simulation report found. Possible box-size locking of the 7 lanes and the parameter regime should be checked. Full texts of Chat\u00e9 2008, Solon 2015 and K\u00fcrsten-Ihle not read.\"}\n```",
+ "checked": "2026-11-03 03:40:23"
+}

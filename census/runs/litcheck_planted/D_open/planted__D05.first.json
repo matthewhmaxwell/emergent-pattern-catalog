@@ -1,0 +1,77 @@
+{
+ "class_id": "planted:D05",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Traffic cellular automaton (Nagel-Schreckenberg variant); nonequilibrium absorbing-state phase transitions",
+ "standard_name": "Absorbing Nagel-Schreckenberg (ANS) model with reentrant absorbing-state transition",
+ "confidence": "high",
+ "citations": [
+  "Iannini & Dickman 2017, Phys. Rev. E 95, 022106 (arXiv:1611.05307) - ANS model; free flow absorbing for rho<1/(vmax+2); reentrant rho-p phase diagram",
+  "Dickman 2018, J. Stat. Mech. 093102 (arXiv:1806.07132) - critical points at rho=1/8, p=0.2683 and 0.89595; beta/nu_perp=1/2, z_d=1 (compact growth); continuously varying spreading exponents"
+ ],
+ "searches": [
+  "Nagel-Schreckenberg absorbing state phase transition random deceleration only when speed equals gap",
+  "traffic cellular automaton absorbing phase transition directed percolation conserved density jam-free full speed state",
+  "Nagel-Schreckenberg model reentrant transition high randomization probability free flow",
+  "Iannini Dickman absorbing Nagel-Schreckenberg critical exponents lifetime scaling system size reentrant"
+ ],
+ "notes": "Value 0.116 for the lowest persistent-slowing density not directly verified in retrieved text; 17/144 variant consistent. No dedicated review of the ANS model found; related earlier model (single-step acceleration, absorbing for rho<=1/7 for all p) is mentioned in Dickman 2018's references but its source was not identified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Nagel-Schreckenberg absorbing state phase transition random deceleration only when speed equals gap"
+  },
+  {
+   "query": "traffic cellular automaton absorbing phase transition directed percolation conserved density jam-free full speed state"
+  },
+  {
+   "query": "Nagel-Schreckenberg model reentrant transition high randomization probability free flow"
+  },
+  {
+   "query": "Iannini Dickman absorbing Nagel-Schreckenberg critical exponents lifetime scaling system size reentrant \u03c1_c,< 0.116 p_c"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/1806.07132",
+  "https://pubmed.ncbi.nlm.nih.gov/28297966/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022106",
+  "https://arxiv.org/abs/1611.05307",
+  "https://www.researchgate.net/publication/283761498_Velocity_Statistics_of_the_Nagel-Schreckenberg_Model",
+  "https://arxiv.org/pdf/1806.07132",
+  "https://ui.adsabs.harvard.edu/abs/2018JSMTE..09.3102D/abstract",
+  "https://arxiv.org/abs/1806.07132",
+  "https://arxiv.org/pdf/cond-mat/9810294",
+  "https://arxiv.org/pdf/1511.01607",
+  "https://arxiv.org/pdf/1611.05307",
+  "https://arxiv.org/pdf/2601.01180",
+  "https://arxiv.org/html/2601.01180",
+  "https://arxiv.org/html/cond-mat/0312459",
+  "https://arxiv.org/pdf/nlin/0404018",
+  "https://arxiv.org/pdf/1806.07132",
+  "https://link.aps.org/doi/10.1103/PhysRevE.71.066112",
+  "https://www.researchgate.net/publication/2217731_Two-dimensional_cellular_automaton_model_of_traffic_flow_with_open_boundaries",
+  "https://pubmed.ncbi.nlm.nih.gov/16089825/",
+  "https://www.researchgate.net/publication/7670181_Coexisting_phases_and_lattice_dependence_of_a_cellular_automata_model_for_traffic_flow",
+  "https://link.aps.org/doi/10.1103/PhysRevE.97.032314",
+  "https://arxiv.org/pdf/1402.6220",
+  "https://www.researchgate.net/publication/309749203_The_investigation_of_the_reentrance_phenomenon_in_cellular_automaton_traffic_flow_model",
+  "https://pubmed.ncbi.nlm.nih.gov/28297966/",
+  "https://www.researchgate.net/publication/12030698_Nondeterministic_Nagel-Schreckenberg_traffic_model_with_open_boundary_conditions",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.63.016108",
+  "https://www.capabilitygraph.com/emergent-systems/models/traffic/nagel-schreckenberg",
+  "https://pith.science/paper/1908.04681",
+  "https://arxiv.org/pdf/cond-mat/9708114",
+  "https://arxiv.org/html/1806.07132",
+  "https://arxiv.org/abs/1806.07132",
+  "https://ui.adsabs.harvard.edu/abs/2018JSMTE..09.3102D/abstract",
+  "https://arxiv.org/pdf/1611.05307",
+  "https://arxiv.org/abs/1611.05307",
+  "https://www.researchgate.net/publication/50367800_Conserved_directed_percolation_Exact_quasistationary_distribution_of_small_systems_and_Monte_Carlo_simulations",
+  "https://www.researchgate.net/publication/11925187_Cellular_automaton_traffic_flow_model_between_the_Fukui-Ishibashi_and_Nagel-Schreckenberg_models",
+  "https://arxiv.org/pdf/1511.01607",
+  "https://www.researchgate.net/publication/11620662_Cellular_automaton_model_considering_the_velocity_effect_of_a_car_on_the_successive_car"
+ ],
+ "full_text": "**Verdict: KNOWN.** The rule system is the \"absorbing Nagel-Schreckenberg\" (ANS) model, and the behaviour you describe was reported by Iannini & Dickman (2017). Dickman (2018) gives the finite-size exponents.\n\n**1. Model family.** This is a traffic cellular automaton: a Nagel-Schreckenberg (NS) variant with vmax=5, parallel update and a ring road. It belongs to the nonequilibrium absorbing-state phase transition literature.\n\nYour rules match the ANS model. A car only brakes at random when its headway exactly equals its speed. Free flow, with all cars at vmax and all headways greater than vmax, is then absorbing, and such states exist only below \u03c1_c=1/(vmax+2). For vmax=5 that is 1/7 = 0.1429, which matches your full_speed_density_limit.\n\n**2. Matches to your observations.**\n- **Reentrant phase diagram (your two switch probabilities).** For densities between \u03c1_c,< and \u03c1_c, both small and large p favor free flow. At intermediate p, a nonzero fraction of vehicles have speeds below vmax. This is your \"settles at full speed below p\u22480.27, returns above p\u22480.90\" behaviour.\n- **Exact values.** Dickman's 2018 paper gives a typical spreading process on the lower critical line at \u03c1=1/8, p=0.2683. It also gives \u03c1=1/8, p=0.89595 for the upper line. These match your 0.2683 and 0.8959. The 2017 paper also has a figure of moment-ratio data at density 1/8 and p = 0.2679 to 0.2687, bracketing 0.2683.\n- **Lowest density for persistent slowing (\u03c1_c,< \u2248 0.116).** This is the tip of the reentrant region. I did not retrieve the numerical value from the text, so I haven't confirmed 0.116 itself. Your 17/144 \u2248 0.118 variant is consistent with it.\n- **Exponents (activity \u221d N^-1/2, lifetime \u221d N).** Dickman states that at criticality the active region is a fluctuation of typical size N^(1/2), so \u03b2/\u03bd\u22a5=1/2. Its mean lifetime scales as N, so z_d=1. This is compact, directed-percolation-like growth, and your exponents 0.5 and 1.0 match. The same paper reports that the spreading exponents \u03b4 and \u03b7 vary continuously along the critical line, with a hyperscaling relation associated with compact growth.\n\n**3. Citations, checked against search results.**\n- Earliest source: M.L.L. Iannini and R. Dickman, \"Traffic model with an absorbing-state phase transition,\" Phys. Rev. E 95, 022106 (2017); arXiv:1611.05307. The abstract also notes an unexpected connection between traffic models and stochastic sandpiles.\n- Follow-up: R. Dickman, \"Continuously variable spreading exponents in the absorbing Nagel-Schreckenberg model,\" J. Stat. Mech. (2018) 093102; arXiv:1806.07132. The ADS code 2018JSMTE..09.3102D supports the venue and year.\n- Review: I found no dedicated review. Dickman's book, \"Nonequilibrium Phase Transitions in Lattice Models\" (CUP, 1999), and L\u00fcbeck's absorbing-transitions review are cited as background in these papers. I did not read them for this model.\n- Related earlier work: Dickman's reference list mentions a model with the same modified reduction step, for which free flow is absorbing for all densities \u2264 1/7, regardless of p. That model accelerates to the maximum allowed speed in one update rather than in unit steps. The truncated reference text does not name its source.\n\n**4. Caveats.**\n- The 1/8 densities and p values above come from the same ANS model with vmax=5. The \"3 distinct rule programs\" and the 1,000 to 100,000 cell sizes are parameter variants, and these are covered by the literature's finite-size scaling.\n- Two details in your description were not checked against the papers. One is whether the fully-active hysteresis-free \"lifetime \u221d N\" holds exactly at both switch points. The other is the initial-condition protocol (even gaps plus random shifts), which is unlikely to matter.\n\n**5. Confidence: high.** The model definition, \u03c1_c=1/7, the reentrance, p_c=0.2683 and 0.89595 at \u03c1=1/8, and the \u03b2/\u03bd\u22a5=1/2 and z=1 scalings all appear in readable sources.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Traffic cellular automaton (Nagel-Schreckenberg variant); nonequilibrium absorbing-state phase transitions\", \"standard_name\": \"Absorbing Nagel-Schreckenberg (ANS) model with reentrant absorbing-state transition\", \"confidence\": \"high\", \"citations\": [\"Iannini & Dickman 2017, Phys. Rev. E 95, 022106 (arXiv:1611.05307) - ANS model; free flow absorbing for rho<1/(vmax+2); reentrant rho-p phase diagram\", \"Dickman 2018, J. Stat. Mech. 093102 (arXiv:1806.07132) - critical points at rho=1/8, p=0.2683 and 0.89595; beta/nu_perp=1/2, z_d=1 (compact growth); continuously varying spreading exponents\"], \"searches\": [\"Nagel-Schreckenberg absorbing state phase transition random deceleration only when speed equals gap\", \"traffic cellular automaton absorbing phase transition directed percolation conserved density jam-free full speed state\", \"Nagel-Schreckenberg model reentrant transition high randomization probability free flow\", \"Iannini Dickman absorbing Nagel-Schreckenberg critical exponents lifetime scaling system size reentrant\"], \"notes\": \"Value 0.116 for the lowest persistent-slowing density not directly verified in retrieved text; 17/144 variant consistent. No dedicated review of the ANS model found; related earlier model (single-step acceleration, absorbing for rho<=1/7 for all p) is mentioned in Dickman 2018's references but its source was not identified.\"}\n```",
+ "checked": "2026-11-03 02:30:57"
+}

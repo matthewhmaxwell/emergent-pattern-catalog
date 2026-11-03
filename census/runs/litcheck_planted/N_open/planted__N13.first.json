@@ -1,0 +1,92 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "opinion dynamics / all-to-all noisy voter model (Kirman model) with stochastic exogenous shocks (resetting of magnetization)",
+ "standard_name": "Noisy voter (Kirman) model under exogenous shocks; trimodal phase with finite-size bimodal-unimodal transition at noise ~1/N",
+ "confidence": "medium",
+ "citations": [
+  "Kirman 1993, Quarterly Journal of Economics 108:137-156 - Ants, Rationality, and Recruitment; origin of the noisy voter/Kirman model and herding as equilibrium distribution",
+  "Argany Herrera, Alvarez-Zuzek, Artime 2026, arXiv:2609.39858 - Opinion dynamics under large-scale exogenous events; all-to-all noisy voter model with shocks gives trimodal phase with peaks at m=\u00b11 and m0, plus asymmetric bimodal states, rich phase diagram",
+  "Carro et al. / Crokidakis-type contrarian paper 2018, Physica A (arXiv 1807.03176) - noisy voter model bimodal/plain/unimodal phases at p vs 1/(N+1)",
+  "Vieira/Peralta-group switching environments paper 2023, arXiv:2305.19096 - states unimodal-bimodal finite-size transition occurs at noise/herding ratio 1/N",
+  "Opinion dynamics: Statistical physics and beyond, arXiv:2507.11521 (review) - noisy voter model bimodal/unimodal phases, simulation with N=500 all-to-all"
+ ],
+ "searches": [
+  "noisy voter model stochastic resetting shocks opinion trimodal distribution",
+  "noisy voter model bimodal unimodal transition noise 1/N Kirman herding",
+  "voter model with resetting to a fixed magnetization, external shocks, mean-field",
+  "Opinion dynamics under large-scale exogenous events voter model shocks authors",
+  "Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics"
+ ],
+ "notes": "Only search snippets of arXiv:2609.39858 were available (not full text); exact shock definition and the count of six regimes not verified. That paper is a recent preprint (about Oct 2026), likely not peer reviewed. Authors/venues of the review (2507.11521), the contrarian paper (1807.03176) and the switching-environments paper (2305.19096) were not verified from the search results.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting shocks opinion trimodal distribution"
+  },
+  {
+   "query": "noisy voter model bimodal unimodal transition noise 1/N Kirman herding"
+  },
+  {
+   "query": "voter model with resetting to a fixed magnetization, external shocks, mean-field"
+  },
+  {
+   "query": "Opinion dynamics under large-scale exogenous events voter model shocks authors"
+  },
+  {
+   "query": "Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/2402.00516",
+  "https://arxiv.org/html/2301.09563",
+  "https://arxiv.org/html/2609.39858",
+  "https://arxiv.org/pdf/2507.11521",
+  "https://arxiv.org/pdf/2301.09563",
+  "https://www.researchgate.net/publication/348784132_Zealots_in_multistate_noisy_voter_models",
+  "https://arxiv.org/pdf/2207.08590",
+  "https://arxiv.org/html/1903.09198",
+  "https://arxiv.org/abs/2609.39858",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://arxiv.org/pdf/1803.06861",
+  "https://arxiv.org/pdf/1807.03176",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437118313086",
+  "https://www.researchgate.net/publication/367358888_Partisan_Voter_Model_Quasi-stationary_properties_and_noise-induced_transitions",
+  "https://arxiv.org/pdf/2305.19096",
+  "https://arxiv.org/pdf/2402.00516",
+  "https://www.researchgate.net/publication/348784132_Zealots_in_multistate_noisy_voter_models",
+  "https://arxiv.org/pdf/2301.09563",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://arxiv.org/html/0706.2892v2",
+  "https://doi.org/10.3390/e24081140",
+  "https://arxiv.org/pdf/1707.08111",
+  "https://arxiv.org/pdf/2111.01330",
+  "https://arxiv.org/pdf/1212.4782",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437114007675",
+  "https://arxiv.org/pdf/2112.07059",
+  "https://www.researchgate.net/publication/224964464_Mean-field-like_behavior_of_the_generalized_voter-model-class_kinetic_Ising_model",
+  "https://arxiv.org/pdf/2208.11189",
+  "https://arxiv.org/abs/2609.39858",
+  "https://arxiv.org/html/2609.39858",
+  "https://arxiv.org/html/2602.04829",
+  "https://ideas.repec.org/p/mos/moswps/2021-13.html",
+  "https://link.springer.com/article/10.1007/s11127-024-01162-4",
+  "https://ideas.repec.org/a/kap/pubcho/v201y2024i1d10.1007_s11127-024-01162-4.html",
+  "https://www.researchgate.net/publication/380347071_Exogenous_shocks_and_electoral_outcomes",
+  "https://arxiv.org/pdf/1208.3252",
+  "https://arxiv.org/pdf/2103.06055",
+  "https://www.semanticscholar.org/paper/Ants,-Rationality,-and-Recruitment-Kirman/fc57f557afd445b71b1b8e3a56069b57beb17b57",
+  "https://www.lem.sssup.it/fagiolo/files/how_refs_2012_2013.pdf",
+  "https://www.ofce.sciences-po.fr/pdf/revue/19-124.pdf",
+  "https://rf.mokslasplius.lt/kirman-ants/",
+  "https://www.researchgate.net/publication/315333983_Ants_Traders_and_Fat_Tails_An_Application_of_the_Kirman_1993_Model",
+  "https://arxiv.org/pdf/2012.09445",
+  "https://www.researchgate.net/publication/285488951_Ants_And_Nonoptimal_Self-Organization_Lessons_For_Macroeconomics",
+  "https://www.researchgate.net/publication/267838800_The_Structure_of_Economic_Interaction_Individual_and_Collective_Rationality",
+  "https://www.scirp.org/(S(czeh2tfqyw2orz553k1w0r45))/reference/ReferencesPapers.aspx?ReferenceID=1578598"
+ ],
+ "full_text": "**Verdict: KNOWN.** Confidence is medium-high.\n\n**1. Model family.** This is opinion dynamics, specifically the all-to-all (mean-field) noisy voter model. It is also called the Kirman model or Kirman\u2013F\u00f6llmer ant-recruitment model. The noise is spontaneous flipping with probability \u03b7. The population-wide shock is a stochastic-resetting or exogenous-shock protocol that sets the magnetization to m\u2080 = 0.3.\n\n**2. The behaviour in the literature.**\n- **Noise threshold without shocks (\u03b7 \u2248 1/N, one peak versus two).** This is textbook for the noisy voter model.\n  - The model's origin is Kirman 1993. The search result confirms the citation (Quarterly Journal of Economics 108, 137\u2013156). It explains herding as the equilibrium distribution of a stochastic process, not switching between multiple equilibria.\n  - The 1/N threshold is stated in later papers. For N agents there is a bimodal phase if p<1/(N+1), a flat (\"plain\") phase at p=1/(N+1), and a unimodal phase above it. Another paper says the unimodal\u2013bimodal transition occurs when the ratio of noise to herding is 1/N. For N = 500 this gives about 0.002, which matches your observed threshold.\n  - A recent review of the field shows the same picture. At low noise there are switches between near-consensus states with a bimodal distribution. At high noise the distribution is unimodal. The review is \"Opinion dynamics: Statistical physics and beyond\" (arXiv 2507.11521). Its footnote even mentions a simulation with N=500 all-to-all agents. I did not verify its authors or venue.\n- **Shock-induced middle peak, trimodal state, and a rich phase diagram.** This is described directly in a very recent preprint.\n  - The preprint is Argany Herrera, Alvarez-Zuzek and Artime, \"Opinion dynamics under large-scale exogenous events\", arXiv:2609.39858. Authors and title were confirmed on the arXiv abstract page.\n  - It applies the framework to the voter model and its noisy version. For the all-to-all noisy voter model under exogenous events, it reports a rich phase diagram with novel trimodal and asymmetric bimodal states.\n  - The text describes the trimodal phase as three peaks, at m=\u00b11 and m=m\u2080. That is your 3 peaks with the extra peak at 0.3.\n  - Its noisy-voter definition matches yours: with probability \u03b7 an agent spontaneously changes opinion, and with probability 1-\u03b7 a standard voter update occurs.\n- **Related, but not the same system.**\n  - Trimodal phases also arise in other noisy voter variants without shocks. Examples are the noisy partisan voter model (arXiv 2301.09563) and polarization-induced stress (Physica A, 2024; arXiv 2402.00516). There the central peak comes from a different mechanism, not from resetting.\n  - \"Voter model under stochastic resetting\" (arXiv 2207.08590) resets each voter to its initial opinion, in a 1D, noiseless setting. It is a different protocol.\n  - \"Noisy voter models in switching environments\" (arXiv 2305.19096) is another relative, with a different external-forcing structure.\n\n**3. Caveats.**\n- I read only search snippets of the shocks paper, not the full text. I could not check its exact shock definition (reassigning opinions so the mean is exactly m\u2080) or whether it counts six regimes in the noise-versus-shock-rate plane. The abstract and the trimodal-phase description match closely.\n- The shocks paper is a preprint about 34 days old. It is the earliest clear source I found for the shocked behaviour, and I found no earlier one. It is probably not yet peer-reviewed.\n- The \"six regimes\" figure is unverified against the paper. Different regime-counting conventions could change it, but the qualitative result is the same.\n- I cited the 1/N threshold from secondary papers, not from Kirman 1993 directly. Related work I know of (Alfarano, Lux and Wagner; Carro et al. 2016) was not retrieved, so I did not cite it.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"opinion dynamics / all-to-all noisy voter model (Kirman model) with stochastic exogenous shocks (resetting of magnetization)\", \"standard_name\": \"Noisy voter (Kirman) model under exogenous shocks; trimodal phase with finite-size bimodal-unimodal transition at noise ~1/N\", \"confidence\": \"medium\", \"citations\": [\"Kirman 1993, Quarterly Journal of Economics 108:137-156 - Ants, Rationality, and Recruitment; origin of the noisy voter/Kirman model and herding as equilibrium distribution\", \"Argany Herrera, Alvarez-Zuzek, Artime 2026, arXiv:2609.39858 - Opinion dynamics under large-scale exogenous events; all-to-all noisy voter model with shocks gives trimodal phase with peaks at m=\u00b11 and m0, plus asymmetric bimodal states, rich phase diagram\", \"Carro et al. / Crokidakis-type contrarian paper 2018, Physica A (arXiv 1807.03176) - noisy voter model bimodal/plain/unimodal phases at p vs 1/(N+1)\", \"Vieira/Peralta-group switching environments paper 2023, arXiv:2305.19096 - states unimodal-bimodal finite-size transition occurs at noise/herding ratio 1/N\", \"Opinion dynamics: Statistical physics and beyond, arXiv:2507.11521 (review) - noisy voter model bimodal/unimodal phases, simulation with N=500 all-to-all\"], \"searches\": [\"noisy voter model stochastic resetting shocks opinion trimodal distribution\", \"noisy voter model bimodal unimodal transition noise 1/N Kirman herding\", \"voter model with resetting to a fixed magnetization, external shocks, mean-field\", \"Opinion dynamics under large-scale exogenous events voter model shocks authors\", \"Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics\"], \"notes\": \"Only search snippets of arXiv:2609.39858 were available (not full text); exact shock definition and the count of six regimes not verified. That paper is a recent preprint (about Oct 2026), likely not peer reviewed. Authors/venues of the review (2507.11521), the contrarian paper (1807.03176) and the switching-environments paper (2305.19096) were not verified from the search results.\"}\n```",
+ "checked": "2026-11-03 03:51:22"
+}

@@ -1,0 +1,110 @@
+{
+ "class_id": "planted:D07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Stochastic spatial multispecies Lotka-Volterra / May-Leonard cyclic predator-prey (cyclic dominance, evolutionary game theory / statistical physics); (N,r)=(6,3) metapopulation implementation",
+ "standard_name": "(6,3) cyclic predator-prey / generalized May-Leonard game: two enemy alliances {1,3,5} and {2,4,6}, coarsening domains with internal rock-paper-scissors spirals ('coarsening with non-trivial in-domain dynamics')",
+ "confidence": "high",
+ "citations": [
+  "Roman, Dasgupta, Pleimling 2013, Phys. Rev. E 87, 032148 (arXiv 1303.3139) - generalized May-Leonard (N,r) games; (6,3) gives coarsening domains with spirals inside, L~t^1/2",
+  "Szabo, Szolnoki, Sznaider 2007/2008, arXiv 0710.3371 (Phys. Rev. E 77, 011906) - even-species cyclic models segregate into two alliances of even/odd species",
+  "Avelino et al. 2014, Phys. Rev. E 89, 042710 (arXiv 1312.1859) - even-N models form {1,3,5} and {2,4,6} partnership domains",
+  "Brown/Pleimling et al. 2017, arXiv 1707.03447 - coarsening with non-trivial in-domain dynamics in the six-species model",
+  "Esmaeili, Brown, Pleimling 2018, Phys. Rev. E 98, 062105 - (6,3) response to rate changes",
+  "Dobramysl, Mobilia, Pleimling, Taeuber 2018 (arXiv 1708.07055; J. Phys. A) - review; notes the pattern also appears in bosonic implementation without site restriction",
+  "Szolnoki et al. 2014, J. R. Soc. Interface 11, 20140735 - general cyclic dominance review"
+ ],
+ "searches": [
+  "six species cyclic dominance each species beats three next species lattice two sub-communities",
+  "Szolnoki cyclic dominance in evolutionary games review",
+  "generalized rock-paper-scissors N species Avelino coarsening sub-networks domains",
+  "Perturbing cyclic predator-prey systems six-species coarsening",
+  "Patterns within patterns six-species spirals within coarsening domains",
+  "Roman Dasgupta Pleimling (6,3) predation vs reproduction rate dependence"
+ ],
+ "notes": "Qualitative behaviour (2 alliances of 3 species, spirals inside, coarsening) is well documented, including for unrestricted site occupancy. The specific rate-ratio thresholds (split at 1, chasing at 2), the final single-territory outcome on a finite lattice, and the 1D ring variants were not confirmed in any source found; they are probably rule-set-specific numbers or unstated consequences of the coarsening results. Some venue details (J. Phys. A for the Dobramysl review, PRE 77 011906 for Szabo et al.) are from memory rather than the search results.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "six species cyclic dominance each species beats three next species lattice two three-species sub-communities rock-paper-scissors"
+  },
+  {
+   "query": "Szolnoki cyclic dominance in evolutionary games review"
+  },
+  {
+   "query": "generalized rock-paper-scissors N species spatial stochastic simulations Avelino coarsening sub-networks domains"
+  },
+  {
+   "query": "Perturbing cyclic predator-prey systems: how a six-species coarsening system with non-trivial in-domain dynamics responds to sudden changes"
+  },
+  {
+   "query": "Patterns within patterns six-species cyclic predator-prey spirals within coarsening domains Lotka-Volterra Pleimling T\u00e4uber"
+  },
+  {
+   "query": "Roman Dasgupta Pleimling partnership formation May-Leonard (6,3) predation rate versus reproduction rate dependence domains spirals mixed"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/2405.05006",
+  "https://arxiv.org/pdf/0710.3371",
+  "https://arxiv.org/pdf/1911.09268",
+  "https://public.ek-cer.hu/~szabo/varga_pre14.pdf",
+  "https://epub.ub.uni-muenchen.de/19038/1/Frey_19038.pdf",
+  "https://www.sciencedaily.com/releases/2009/02/090213115127.htm",
+  "https://link.springer.com/chapter/10.1007/978-981-19-6203-5_4",
+  "https://mcmsc.asu.edu/sites/g/files/litvpz576/files/2024-09/MTBI%202009%20Cyclic%20Competition%20Report.pdf",
+  "https://onlinelibrary.wiley.com/doi/10.1155/2015/128980",
+  "https://www.quantamagazine.org/biodiversity-may-thrive-through-games-of-rock-paper-scissors-20200305/",
+  "https://real.mtak.hu/17623/",
+  "https://www.researchgate.net/publication/265169105_Cyclic_dominance_in_evolutionary_games_A_review",
+  "https://arxiv.org/abs/1408.6828",
+  "https://www.nature.com/articles/srep38608",
+  "https://arxiv.org/pdf/2006.01878",
+  "https://royalsocietypublishing.org/doi/abs/10.1098/rsif.2014.0735",
+  "https://arxiv.org/pdf/2403.14590",
+  "https://doi.org/10.3390/e18080284",
+  "https://www.nature.com/articles/s41467-024-49505-5",
+  "https://arxiv.org/pdf/2301.02518",
+  "https://arxiv.org/pdf/1305.4253",
+  "https://arxiv.org/pdf/1911.09268",
+  "https://arxiv.org/pdf/1312.1859",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.89.042710",
+  "https://arxiv.org/pdf/1708.07055",
+  "https://www.researchgate.net/publication/342387049_Performance_of_weak_species_in_the_simplest_generalization_of_the_rock-paper-scissors_model_to_four_species",
+  "https://arxiv.org/pdf/2410.03807",
+  "https://arxiv.org/html/1312.1859",
+  "https://arxiv.org/abs/1312.1859",
+  "https://arxiv.org/html/1707.03447v1",
+  "https://arxiv.org/html/1811.06780v1",
+  "https://arxiv.org/pdf/1811.06780",
+  "https://arxiv.org/abs/1811.06780",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.062105",
+  "https://journals.aps.org/pre/kaleidoscope/pre/98/6/062105",
+  "https://www.groundai.com/project/perturbing-cyclic-predator-prey-systems-how-a-six-species-coarsening-system-with-non-trivial-in-domain-dynamics-responds-to-sudden-changes/1",
+  "https://arxiv.org/list/q-bio/2018-11?skip=125&show=500",
+  "https://arxiv.org/html/1707.03447v1",
+  "https://arxiv.org/pdf/1707.03447",
+  "https://arxiv.org/pdf/2405.05006",
+  "https://arxiv.org/search/cond-mat?searchtype=author&query=Pleimling%2C+M",
+  "https://eprints.whiterose.ac.uk/id/eprint/123072/1/popdyn_20Oct_final.pdf",
+  "https://arxiv.org/pdf/1608.08932",
+  "https://arxiv.org/pdf/1707.03447",
+  "https://arxiv.org/html/1811.06780",
+  "https://arxiv.org/pdf/1303.3139",
+  "https://arxiv.org/pdf/1811.06780",
+  "https://arxiv.org/pdf/1906.01383",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.062105",
+  "https://arxiv.org/html/1403.4319",
+  "https://www.groundai.com/project/perturbing-cyclic-predator-prey-systems-how-a-six-species-coarsening-system-with-non-trivial-in-domain-dynamics-responds-to-sudden-changes/1",
+  "https://www.researchgate.net/publication/269717365_Mesoscopic_Interactions_and_Species_Coexistence_in_Evolutionary_Game_Dynamics_of_Cyclic_Competitions",
+  "https://arxiv.org/pdf/1708.07055",
+  "https://arxiv.org/pdf/2405.05006",
+  "https://arxiv.org/pdf/1811.07412",
+  "https://arxiv.org/html/1907.11280",
+  "https://arxiv.org/pdf/1906.01383",
+  "https://arxiv.org/pdf/2105.08126"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the (N=6, r=3) cyclic predator-prey system, which the literature calls a six-species coarsening system with spirals inside the domains. I'm highly confident about the qualitative behaviour. I'm less sure about the exact numerical thresholds.\n\n**1. Model family.** This is a stochastic spatial multispecies Lotka\u2013Volterra / May\u2013Leonard system, studied as cyclic dominance in evolutionary game theory and statistical physics. The notation (N, r) means N species, each preying cyclically on r others. Here each species eats the next three, so this is (6,3). Because site occupancy is unrestricted and individuals hop between sites, it is a bosonic or metapopulation implementation.\n\n**2. Where the behaviour is described.**\n- **Two alliances.** Species i and i+3 eat each other, so the odd species {1,3,5} and the even species {2,4,6} each form a three-species rock-paper-scissors loop. Within each loop, species do not fight members of the other loop's alliance except across interfaces.\n  - The coarsening papers describe domains each holding a team (1,3,5) or (2,4,6) with cyclic interactions. Each domain contains a team of three species, either (1,3,5) or (2,4,6), with cyclic interactions.\n  - Roman, Dasgupta & Pleimling (2013) report the same pattern. One observes coarsening domains with non-trivial spirals forming inside the domains.\n  - They find that the domains grow algebraically. Even when alliance members are themselves in a predator-prey relationship, domain growth follows L(t) ~ t^{1/2}.\n- **Two territories, three species each, spirals inside.** The Dobramysl\u2013Mobilia\u2013Pleimling\u2013T\u00e4uber review (2018) describes the (6,3) case as two coarsening domain types with a non-trivial rock-paper-scissors game within the domains.\n  - The review also covers the unrestricted-occupancy case. The spirals-within-domains pattern was first found with at most one individual per site, but is also seen in a bosonic implementation without a hard occupation limit. That matches the many-individuals-per-site rules here.\n- **Eating-to-crowding ratio thresholds.** The papers vary the rate ratios, but I found no source stating the specific thresholds (split at 1, chasing at 2).\n  - Esmaeili, Brown & Pleimling studied changing the predation and reproduction rates in the (6,3) model, and they report similar quantitative changes to the in-domain space-time patterns when changing the rates.\n  - In the three-species case, the Hopf-type threshold for spiral formation is a standard result in the review by T\u00e4uber and co-authors (arXiv 2405.05006).\n  - The numerical values 1 and 2 are probably specific to this rule set's rate definitions, and I could not check them against the literature.\n- **Long-time single territory.** The coarsening literature predicts that domains keep growing. On a finite periodic lattice, one team would eventually take over. I didn't find a paper that states this outcome explicitly for (6,3).\n- **Related variants.**\n  - The Avelino et al. even-N papers (including N=6) describe two partnerships, {1,3,5} and {2,4,6}, forming separate domains. There are two partnerships, {1,3,5} and {2,4,6}, each occupying separate spatial regions on the lattice.\n  - Szab\u00f3, Szolnoki & Sznaider (2008) treat even n=4, 6, 8, where two defective alliances form, made up of the even and odd label species.\n\n**Earliest clear sources and a review.**\n- Earliest: Roman, Dasgupta & Pleimling, \"Interplay between partnership formation and competition in generalized May-Leonard games\", Phys. Rev. E 87, 032148 (2013), arXiv 1303.3139.\n  - I checked the title and authors against the arXiv result and reference lists.\n  - The PRE volume and page come from a citing paper's reference list.\n  - Related earlier work: Szab\u00f3, Szolnoki & Sznaider, \"Segregation process and phase transition in cyclic predator-prey models with even number of species\" (arXiv 0710.3371, 2007; Phys. Rev. E 77, 011906 (2008)).\n  - The PRE 77 volume and page are from memory, not from the search results.\n- In-depth study: Brown & Pleimling et al., \"Coarsening with non-trivial in-domain dynamics: correlations and interface fluctuations\" (arXiv 1707.03447).\n  - I confirmed the title and arXiv number.\n  - I did not confirm the exact author list or venue from the results, so I leave it out of the citation.\n- Perturbation study: Esmaeili, Brown & Pleimling, Phys. Rev. E 98, 062105 (2018).\n- Review: Dobramysl, Mobilia, Pleimling & T\u00e4uber, \"Stochastic population dynamics in spatially extended predator-prey systems\", arXiv 1708.07055, published in J. Phys. A (2018).\n  - I confirmed the title and arXiv number. I did not confirm the authors from the results; the venue, the author list and the 2018 date are from memory.\n  - The general cyclic-dominance review is Szolnoki et al., J. R. Soc. Interface 11, 20140735 (2014).\n\n**3. Searches run:**\n- Six species with each eating three, two sub-communities, rock-paper-scissors.\n- Szolnoki cyclic dominance review.\n- Generalized rock-paper-scissors N species with Avelino, coarsening and sub-networks.\n- The Esmaeili et al. title.\n- Patterns within patterns, six-species, spirals within coarsening domains.\n- Roman et al. (6,3), predation versus reproduction rate dependence.\n\n**4. Confidence: high for the qualitative behaviour, medium for the numbers.** Multiple independent groups and a review describe the two three-species territories with spirals inside, and the unrestricted-occupancy version is explicitly noted. The 1D ring variants with hop rates 0.1 and 1 were not searched separately. They fall in the same (6,3) family, but in 1D spirals cannot form, so only the alliance and domain behaviour should carry over.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Stochastic spatial multispecies Lotka-Volterra / May-Leonard cyclic predator-prey (cyclic dominance, evolutionary game theory / statistical physics); (N,r)=(6,3) metapopulation implementation\", \"standard_name\": \"(6,3) cyclic predator-prey / generalized May-Leonard game: two enemy alliances {1,3,5} and {2,4,6}, coarsening domains with internal rock-paper-scissors spirals ('coarsening with non-trivial in-domain dynamics')\", \"confidence\": \"high\", \"citations\": [\"Roman, Dasgupta, Pleimling 2013, Phys. Rev. E 87, 032148 (arXiv 1303.3139) - generalized May-Leonard (N,r) games; (6,3) gives coarsening domains with spirals inside, L~t^1/2\", \"Szabo, Szolnoki, Sznaider 2007/2008, arXiv 0710.3371 (Phys. Rev. E 77, 011906) - even-species cyclic models segregate into two alliances of even/odd species\", \"Avelino et al. 2014, Phys. Rev. E 89, 042710 (arXiv 1312.1859) - even-N models form {1,3,5} and {2,4,6} partnership domains\", \"Brown/Pleimling et al. 2017, arXiv 1707.03447 - coarsening with non-trivial in-domain dynamics in the six-species model\", \"Esmaeili, Brown, Pleimling 2018, Phys. Rev. E 98, 062105 - (6,3) response to rate changes\", \"Dobramysl, Mobilia, Pleimling, Taeuber 2018 (arXiv 1708.07055; J. Phys. A) - review; notes the pattern also appears in bosonic implementation without site restriction\", \"Szolnoki et al. 2014, J. R. Soc. Interface 11, 20140735 - general cyclic dominance review\"], \"searches\": [\"six species cyclic dominance each species beats three next species lattice two sub-communities\", \"Szolnoki cyclic dominance in evolutionary games review\", \"generalized rock-paper-scissors N species Avelino coarsening sub-networks domains\", \"Perturbing cyclic predator-prey systems six-species coarsening\", \"Patterns within patterns six-species spirals within coarsening domains\", \"Roman Dasgupta Pleimling (6,3) predation vs reproduction rate dependence\"], \"notes\": \"Qualitative behaviour (2 alliances of 3 species, spirals inside, coarsening) is well documented, including for unrestricted site occupancy. The specific rate-ratio thresholds (split at 1, chasing at 2), the final single-territory outcome on a finite lattice, and the 1D ring variants were not confirmed in any source found; they are probably rule-set-specific numbers or unstated consequences of the coarsening results. Some venue details (J. Phys. A for the Dobramysl review, PRE 77 011906 for Szabo et al.) are from memory rather than the search results.\"}\n```",
+ "checked": "2026-11-03 02:32:32"
+}

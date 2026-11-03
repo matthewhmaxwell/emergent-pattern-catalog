@@ -1,0 +1,50 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "nonequilibrium mass-conserving lattice transport / chiral (odd-diffusion) driven systems; hyperuniformity",
+ "standard_name": "Odd diffusion generated power-law (r^-4) density correlations in chiral mass-transport processes (hyperuniform, conserved noise)",
+ "confidence": "high",
+ "citations": [
+  "Das, Hazra, Pradhan 2026, arXiv:2609.16821 - chiral mass-conserving jump processes on square lattice, periodic and reflecting boundaries with edge current, exact C(r)~r^-4, isotropic, nonmonotonic fluctuations with cusp singularity",
+  "Samanta, Hazra, Pradhan 2026, arXiv:2604.02167 - anisotropic mass transport gives 1/|x|^d (cites Phys. Rev. A 42, 1954 (1990)); CoM conservation gives 1/|x|^(d+2)",
+  "Lei, Ciamarra, Ni 2019, Sci. Adv. - hyperuniform chiral circle active particles (seen only as a reference entry)"
+ ],
+ "searches": [
+  "conserved mass transport lattice chiral turning L-shaped paths hyperuniform density correlations r^-4 anisotropic noise",
+  "chiral conserved noise hyperuniformity mass transfer model lattice odd diffusion long-range correlations"
+ ],
+ "notes": "Only the abstract of arXiv:2609.16821 was read, not the full text. The sqrt cusp exponent 0.5, the number of fluctuation minima, and exact equivalence of the 40%/60% split rule were not verified. The 1990 Phys. Rev. A reference was not opened. The ResearchGate page for Lei et al. showed mismatched abstract text.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "conserved mass transport lattice chiral turning L-shaped paths hyperuniform density correlations r^-4 anisotropic noise"
+  },
+  {
+   "query": "chiral conserved noise hyperuniformity mass transfer model lattice odd diffusion long-range correlations"
+  }
+ ],
+ "result_urls": [
+  "https://www.researchgate.net/publication/330653569_Nonequilibrium_strongly_hyperuniform_fluids_of_circle_active_particles_with_large_local_density_fluctuations",
+  "https://arxiv.org/pdf/2609.16821",
+  "https://arxiv.org/pdf/2312.11181",
+  "https://arxiv.org/pdf/2604.02167",
+  "https://arxiv.org/html/2507.08770",
+  "https://arxiv.org/pdf/2507.08770",
+  "https://arxiv.org/pdf/2505.02905",
+  "https://www.phys.ens.psl.eu/~wiese/pdf/Manna-hyperuniform.pdf",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://scipost.org/SciPostPhys.17.4.103/pdf",
+  "https://arxiv.org/pdf/2609.16821",
+  "https://arxiv.org/html/2309.03155",
+  "https://arxiv.org/abs/2609.16821",
+  "https://www.researchgate.net/publication/384617009_Harmonic_chain_far_from_equilibrium_Single-file_diffusion_long-range_order_and_hyperuniformity",
+  "https://arxiv.org/pdf/2405.05621",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://www.nature.com/articles/s41467-026-68601-2",
+  "https://arxiv.org/html/2410.00613"
+ ],
+ "full_text": "**Verdict: KNOWN.** Your rule system looks like the model in a recent paper on chiral mass-transport processes, and that paper reports the same behaviours.\n\n**1. Model family.** This is a nonequilibrium, mass-conserving stochastic transport model (a mass-transport process or lattice gas) on a square lattice. Mass hops with a preferred rotational sense, so time-reversal and mirror symmetry are broken. It sits where driven-diffusive systems with conserved noise, odd diffusion and chiral active matter meet, and it is studied in the hyperuniformity literature.\n\n**2. The specific behaviour.** The closest match is Das, Hazra and Pradhan, \"Odd diffusion and power-law correlations in chiral mass-transport processes\" (arXiv 2609.16821). I read the abstract only, not the full text. It matches your system on these points:\n- The paper studies mass-conserving Markov jump processes on a square lattice, where masses hop with a preferred rotational sense, breaking both time-reversal and mirror symmetries.\n- It treats closed systems with periodic and open (reflecting) boundaries, and the reflecting case supports a steady-state edge current. This is your closed-box variant.\n- The steady-state equal-time density-density correlations are calculated exactly and decay algebraically as C(r) ~ |r|^-4 for |r| \u226b 1. This matches your exponent of 4.\n- The mechanism is odd diffusion from chiral transport. It produces scale-invariant correlations even with lattice rotation symmetry, so chirality alone gives power laws in isotropic driven systems. This explains your isotropic x/y ratio of 1.0, and it differs from the older anisotropic-hopping mechanism.\n- Increasing chirality first suppresses large-scale density fluctuations. Beyond a threshold odd-diffusion strength, the fluctuations vary nonmonotonically with chirality and develop a cusp singularity. This matches your fluctuation minimum versus turning strength and your cusp near maximal turning.\n\nI could not check the square-root cusp exponent of 0.5 from the abstract, which only says \"cusp singularity\". That exponent needs the full text.\n\n**Earlier and related context:**\n- Anisotropic hopping with conserved mass gives C ~ 1/|x|^d, the generic conserved-noise power law. Samanta, Hazra and Pradhan (arXiv 2604.02167) cite Phys. Rev. A 42, 1954 (1990) for this. I did not open that 1990 paper, so I have not verified its authors or title.\n- The same Samanta et al. paper gives a close relative of your r^-4. When centre-of-mass is conserved in all directions, correlations decay as 1/|x|^(d+2), with or without anisotropy. In d = 2 this is also r^-4. Your chiral model gets r^-4 from odd diffusion instead.\n- Chiral active fluids with odd diffusion also show hyperuniformity. The Lei, Ciamarra and Ni paper in Science Advances (2019) covers circle active particles, and Kuroda and Miyazaki (J. Stat. Mech. 2023) give a microscopic theory. I saw both only as reference-list entries, not as full papers.\n- Pradhan's group has related reviews and exact results on mass transport with centre-of-mass conservation:\n  - arXiv 2410.00613 covers mass transport with centre-of-mass conservation.\n  - The Phys. Rev. E paper \"Generic power laws in higher-dimensional lattice models with multidirectional hopping\" is also relevant.\n\n**3. Citation check.** I checked the title, authors and abstract of Das et al. against the search results. The arXiv number 2609.16821 implies a September 2026 posting, and I did not see a journal venue. The ResearchGate page for Lei et al. showed the Das et al. abstract text. I treated that as a page-scrape mix-up and did not use it as support.\n\n**Differences from your system.** Your rules use specific split fractions (40% and 60% kept) and an L-shaped two-step move. I only saw the paper's abstract, so I could not compare its exact update rule. The abstract describes a general class with rotational hopping, and your rule is very likely an instance of it. I don't expect the differences to matter for the long-distance exponents.\n\n**Confidence: high.** The abstract matches on the model type, boundary conditions, exponent, isotropy mechanism and cusp. The remaining uncertainty is the exact cusp exponent of 0.5 and whether the update rules match exactly.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"nonequilibrium mass-conserving lattice transport / chiral (odd-diffusion) driven systems; hyperuniformity\", \"standard_name\": \"Odd diffusion generated power-law (r^-4) density correlations in chiral mass-transport processes (hyperuniform, conserved noise)\", \"confidence\": \"high\", \"citations\": [\"Das, Hazra, Pradhan 2026, arXiv:2609.16821 - chiral mass-conserving jump processes on square lattice, periodic and reflecting boundaries with edge current, exact C(r)~r^-4, isotropic, nonmonotonic fluctuations with cusp singularity\", \"Samanta, Hazra, Pradhan 2026, arXiv:2604.02167 - anisotropic mass transport gives 1/|x|^d (cites Phys. Rev. A 42, 1954 (1990)); CoM conservation gives 1/|x|^(d+2)\", \"Lei, Ciamarra, Ni 2019, Sci. Adv. - hyperuniform chiral circle active particles (seen only as a reference entry)\"], \"searches\": [\"conserved mass transport lattice chiral turning L-shaped paths hyperuniform density correlations r^-4 anisotropic noise\", \"chiral conserved noise hyperuniformity mass transfer model lattice odd diffusion long-range correlations\"], \"notes\": \"Only the abstract of arXiv:2609.16821 was read, not the full text. The sqrt cusp exponent 0.5, the number of fluctuation minima, and exact equivalence of the 40%/60% split rule were not verified. The 1990 Phys. Rev. A reference was not opened. The ResearchGate page for Lei et al. showed mismatched abstract text.\"}\n```",
+ "checked": "2026-11-03 03:47:56"
+}

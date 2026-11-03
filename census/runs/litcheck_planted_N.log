@@ -1,0 +1,285 @@
+[N_blocked_r1 1/20] planted:N01
+  N_blocked_r1/planted__N01.first.json -> KNOWN-VARIANT (9 searches, 46s)
+  N_blocked_r1/planted__N01.strict.json -> KNOWN-VARIANT (9 searches, 78s)
+[N_blocked_r1 2/20] planted:N02
+  N_blocked_r1/planted__N02.first.json -> KNOWN-VARIANT (8 searches, 41s)
+  N_blocked_r1/planted__N02.strict.json -> KNOWN (3 searches, 32s)
+[N_blocked_r1 3/20] planted:N03
+  N_blocked_r1/planted__N03.first.json -> KNOWN (7 searches, 41s)
+[N_blocked_r1 4/20] planted:N04
+  N_blocked_r1/planted__N04.first.json -> KNOWN-VARIANT (6 searches, 31s)
+  N_blocked_r1/planted__N04.strict.json -> KNOWN (7 searches, 46s)
+[N_blocked_r1 5/20] planted:N05
+  N_blocked_r1/planted__N05.first.json -> KNOWN-VARIANT (9 searches, 45s)
+  N_blocked_r1/planted__N05.strict.json -> KNOWN-VARIANT (10 searches, 70s)
+[N_blocked_r1 6/20] planted:N06
+  N_blocked_r1/planted__N06.first.json -> KNOWN (5 searches, 33s)
+[N_blocked_r1 7/20] planted:N07
+  N_blocked_r1/planted__N07.first.json -> KNOWN (8 searches, 41s)
+[N_blocked_r1 8/20] planted:N08
+  N_blocked_r1/planted__N08.first.json -> KNOWN-VARIANT (9 searches, 42s)
+  N_blocked_r1/planted__N08.strict.json -> KNOWN-VARIANT (9 searches, 72s)
+[N_blocked_r1 9/20] planted:N09
+  N_blocked_r1/planted__N09.first.json -> KNOWN (4 searches, 28s)
+[N_blocked_r1 10/20] planted:N10
+  N_blocked_r1/planted__N10.first.json -> KNOWN (4 searches, 25s)
+[N_blocked_r1 11/20] planted:N11
+  N_blocked_r1/planted__N11.first.json -> KNOWN (9 searches, 48s)
+[N_blocked_r1 12/20] planted:N12
+  N_blocked_r1/planted__N12.first.json -> KNOWN (4 searches, 31s)
+[N_blocked_r1 13/20] planted:N13
+  N_blocked_r1/planted__N13.first.json -> KNOWN-VARIANT (9 searches, 34s)
+  N_blocked_r1/planted__N13.strict.json -> KNOWN-VARIANT (9 searches, 46s)
+[N_blocked_r1 14/20] planted:N14
+  N_blocked_r1/planted__N14.first.json -> KNOWN-VARIANT (8 searches, 52s)
+  N_blocked_r1/planted__N14.strict.json -> KNOWN-VARIANT (9 searches, 55s)
+[N_blocked_r1 15/20] planted:N15
+  N_blocked_r1/planted__N15.first.json -> KNOWN-VARIANT (10 searches, 52s)
+  N_blocked_r1/planted__N15.strict.json -> KNOWN-VARIANT (9 searches, 50s)
+[N_blocked_r1 16/20] planted:N16
+  N_blocked_r1/planted__N16.first.json -> KNOWN-VARIANT (9 searches, 43s)
+  N_blocked_r1/planted__N16.strict.json -> KNOWN-VARIANT (7 searches, 41s)
+[N_blocked_r1 17/20] planted:N17
+  N_blocked_r1/planted__N17.first.json -> KNOWN-VARIANT (8 searches, 44s)
+  N_blocked_r1/planted__N17.strict.json -> KNOWN-VARIANT (11 searches, 62s)
+[N_blocked_r1 18/20] planted:N18
+  N_blocked_r1/planted__N18.first.json -> KNOWN (5 searches, 34s)
+[N_blocked_r1 19/20] planted:N19
+  N_blocked_r1/planted__N19.first.json -> KNOWN-VARIANT (8 searches, 39s)
+  N_blocked_r1/planted__N19.strict.json -> KNOWN-VARIANT (3 searches, 30s)
+[N_blocked_r1 20/20] planted:N20
+  N_blocked_r1/planted__N20.first.json -> KNOWN-VARIANT (9 searches, 41s)
+  N_blocked_r1/planted__N20.strict.json -> KNOWN-VARIANT (11 searches, 56s)
+PLANTED N_blocked_r1 DONE 2026-11-03 02:50:16
+[N_blocked_r2 1/20] planted:N01
+  N_blocked_r2/planted__N01.first.json -> KNOWN-VARIANT (6 searches, 43s)
+  N_blocked_r2/planted__N01.strict.json -> KNOWN-VARIANT (9 searches, 80s)
+[N_blocked_r2 2/20] planted:N02
+  N_blocked_r2/planted__N02.first.json -> KNOWN-VARIANT (6 searches, 36s)
+  N_blocked_r2/planted__N02.strict.json -> KNOWN (4 searches, 64s)
+[N_blocked_r2 3/20] planted:N03
+  N_blocked_r2/planted__N03.first.json -> KNOWN (6 searches, 33s)
+[N_blocked_r2 4/20] planted:N04
+  N_blocked_r2/planted__N04.first.json -> KNOWN-VARIANT (7 searches, 35s)
+  N_blocked_r2/planted__N04.strict.json -> KNOWN-VARIANT (10 searches, 64s)
+[N_blocked_r2 5/20] planted:N05
+  N_blocked_r2/planted__N05.first.json -> KNOWN (9 searches, 49s)
+[N_blocked_r2 6/20] planted:N06
+  N_blocked_r2/planted__N06.first.json -> KNOWN (4 searches, 30s)
+[N_blocked_r2 7/20] planted:N07
+  N_blocked_r2/planted__N07.first.json -> KNOWN (6 searches, 36s)
+[N_blocked_r2 8/20] planted:N08
+  N_blocked_r2/planted__N08.first.json -> KNOWN-VARIANT (8 searches, 41s)
+  N_blocked_r2/planted__N08.strict.json -> KNOWN-VARIANT (9 searches, 74s)
+[N_blocked_r2 9/20] planted:N09
+  N_blocked_r2/planted__N09.first.json -> KNOWN (6 searches, 36s)
+[N_blocked_r2 10/20] planted:N10
+  N_blocked_r2/planted__N10.first.json -> KNOWN (4 searches, 27s)
+[N_blocked_r2 11/20] planted:N11
+  N_blocked_r2/planted__N11.first.json -> KNOWN-VARIANT (9 searches, 51s)
+  N_blocked_r2/planted__N11.strict.json -> KNOWN (6 searches, 34s)
+[N_blocked_r2 12/20] planted:N12
+  N_blocked_r2/planted__N12.first.json -> KNOWN-VARIANT (9 searches, 52s)
+  N_blocked_r2/planted__N12.strict.json -> KNOWN-VARIANT (8 searches, 77s)
+[N_blocked_r2 13/20] planted:N13
+  N_blocked_r2/planted__N13.first.json -> KNOWN-VARIANT (10 searches, 37s)
+  N_blocked_r2/planted__N13.strict.json -> KNOWN-VARIANT (7 searches, 40s)
+[N_blocked_r2 14/20] planted:N14
+  N_blocked_r2/planted__N14.first.json -> KNOWN-VARIANT (5 searches, 29s)
+  N_blocked_r2/planted__N14.strict.json -> KNOWN (8 searches, 70s)
+[N_blocked_r2 15/20] planted:N15
+  N_blocked_r2/planted__N15.first.json -> KNOWN-VARIANT (9 searches, 41s)
+  N_blocked_r2/planted__N15.strict.json -> KNOWN-VARIANT (10 searches, 66s)
+[N_blocked_r2 16/20] planted:N16
+  N_blocked_r2/planted__N16.first.json -> KNOWN-VARIANT (9 searches, 47s)
+  N_blocked_r2/planted__N16.strict.json -> KNOWN-VARIANT (6 searches, 42s)
+[N_blocked_r2 17/20] planted:N17
+  N_blocked_r2/planted__N17.first.json -> KNOWN-VARIANT (8 searches, 48s)
+  N_blocked_r2/planted__N17.strict.json -> KNOWN-VARIANT (9 searches, 71s)
+[N_blocked_r2 18/20] planted:N18
+  N_blocked_r2/planted__N18.first.json -> KNOWN (5 searches, 30s)
+[N_blocked_r2 19/20] planted:N19
+  N_blocked_r2/planted__N19.first.json -> KNOWN-VARIANT (8 searches, 40s)
+  N_blocked_r2/planted__N19.strict.json -> KNOWN (5 searches, 54s)
+[N_blocked_r2 20/20] planted:N20
+  N_blocked_r2/planted__N20.first.json -> KNOWN-VARIANT (9 searches, 40s)
+  N_blocked_r2/planted__N20.strict.json -> KNOWN-VARIANT (11 searches, 64s)
+PLANTED N_blocked_r2 DONE 2026-11-03 03:17:45
+[N_blocked_r3 1/20] planted:N01
+  N_blocked_r3/planted__N01.first.json -> KNOWN-VARIANT (8 searches, 52s)
+  N_blocked_r3/planted__N01.strict.json -> KNOWN-VARIANT (8 searches, 69s)
+[N_blocked_r3 2/20] planted:N02
+  N_blocked_r3/planted__N02.first.json -> KNOWN-VARIANT (6 searches, 37s)
+  N_blocked_r3/planted__N02.strict.json -> KNOWN (5 searches, 56s)
+[N_blocked_r3 3/20] planted:N03
+  N_blocked_r3/planted__N03.first.json -> KNOWN (4 searches, 32s)
+[N_blocked_r3 4/20] planted:N04
+  N_blocked_r3/planted__N04.first.json -> KNOWN-VARIANT (9 searches, 43s)
+  N_blocked_r3/planted__N04.strict.json -> KNOWN (9 searches, 48s)
+[N_blocked_r3 5/20] planted:N05
+  N_blocked_r3/planted__N05.first.json -> KNOWN (7 searches, 41s)
+[N_blocked_r3 6/20] planted:N06
+  N_blocked_r3/planted__N06.first.json -> KNOWN (4 searches, 26s)
+[N_blocked_r3 7/20] planted:N07
+  N_blocked_r3/planted__N07.first.json -> KNOWN-VARIANT (9 searches, 48s)
+  N_blocked_r3/planted__N07.strict.json -> KNOWN (4 searches, 29s)
+[N_blocked_r3 8/20] planted:N08
+  N_blocked_r3/planted__N08.first.json -> KNOWN-VARIANT (9 searches, 40s)
+  N_blocked_r3/planted__N08.strict.json -> KNOWN-VARIANT (10 searches, 65s)
+[N_blocked_r3 9/20] planted:N09
+  N_blocked_r3/planted__N09.first.json -> KNOWN (5 searches, 28s)
+[N_blocked_r3 10/20] planted:N10
+  N_blocked_r3/planted__N10.first.json -> KNOWN (4 searches, 26s)
+[N_blocked_r3 11/20] planted:N11
+  N_blocked_r3/planted__N11.first.json -> KNOWN-VARIANT (10 searches, 50s)
+  N_blocked_r3/planted__N11.strict.json -> KNOWN (6 searches, 50s)
+[N_blocked_r3 12/20] planted:N12
+  N_blocked_r3/planted__N12.first.json -> KNOWN (4 searches, 36s)
+[N_blocked_r3 13/20] planted:N13
+  N_blocked_r3/planted__N13.first.json -> KNOWN-VARIANT (7 searches, 36s)
+  N_blocked_r3/planted__N13.strict.json -> KNOWN-VARIANT (10 searches, 50s)
+[N_blocked_r3 14/20] planted:N14
+  N_blocked_r3/planted__N14.first.json -> KNOWN-VARIANT (9 searches, 46s)
+  N_blocked_r3/planted__N14.strict.json -> KNOWN (8 searches, 58s)
+[N_blocked_r3 15/20] planted:N15
+  N_blocked_r3/planted__N15.first.json -> KNOWN-VARIANT (10 searches, 43s)
+  N_blocked_r3/planted__N15.strict.json -> KNOWN-VARIANT (10 searches, 69s)
+[N_blocked_r3 16/20] planted:N16
+  N_blocked_r3/planted__N16.first.json -> KNOWN-VARIANT (8 searches, 39s)
+  N_blocked_r3/planted__N16.strict.json -> KNOWN-VARIANT (9 searches, 52s)
+[N_blocked_r3 17/20] planted:N17
+  N_blocked_r3/planted__N17.first.json -> KNOWN-VARIANT (9 searches, 49s)
+  N_blocked_r3/planted__N17.strict.json -> KNOWN-VARIANT (11 searches, 86s)
+[N_blocked_r3 18/20] planted:N18
+  N_blocked_r3/planted__N18.first.json -> KNOWN (5 searches, 34s)
+[N_blocked_r3 19/20] planted:N19
+  N_blocked_r3/planted__N19.first.json -> KNOWN-VARIANT (7 searches, 40s)
+  N_blocked_r3/planted__N19.strict.json -> KNOWN-VARIANT (6 searches, 49s)
+[N_blocked_r3 20/20] planted:N20
+  N_blocked_r3/planted__N20.first.json -> KNOWN-VARIANT (9 searches, 41s)
+  N_blocked_r3/planted__N20.strict.json -> KNOWN-VARIANT (8 searches, 51s)
+PLANTED N_blocked_r3 DONE 2026-11-03 03:44:10
+[N_open 1/20] planted:N01
+  N_open/planted__N01.first.json -> KNOWN (4 searches, 33s)
+[N_open 2/20] planted:N02
+  N_open/planted__N02.first.json -> KNOWN (4 searches, 29s)
+[N_open 3/20] planted:N03
+  N_open/planted__N03.first.json -> KNOWN (4 searches, 40s)
+[N_open 4/20] planted:N04
+  N_open/planted__N04.first.json -> KNOWN (4 searches, 26s)
+[N_open 5/20] planted:N05
+  N_open/planted__N05.first.json -> KNOWN (3 searches, 28s)
+[N_open 6/20] planted:N06
+  N_open/planted__N06.first.json -> KNOWN (5 searches, 32s)
+[N_open 7/20] planted:N07
+  N_open/planted__N07.first.json -> KNOWN (2 searches, 27s)
+[N_open 8/20] planted:N08
+  N_open/planted__N08.first.json -> KNOWN (3 searches, 50s)
+[N_open 9/20] planted:N09
+  N_open/planted__N09.first.json -> KNOWN (3 searches, 26s)
+[N_open 10/20] planted:N10
+  N_open/planted__N10.first.json -> KNOWN (3 searches, 26s)
+[N_open 11/20] planted:N11
+  N_open/planted__N11.first.json -> KNOWN (5 searches, 32s)
+[N_open 12/20] planted:N12
+  N_open/planted__N12.first.json -> KNOWN (3 searches, 34s)
+[N_open 13/20] planted:N13
+  N_open/planted__N13.first.json -> KNOWN (5 searches, 27s)
+[N_open 14/20] planted:N14
+  N_open/planted__N14.first.json -> KNOWN-VARIANT (8 searches, 43s)
+  N_open/planted__N14.strict.json -> KNOWN (7 searches, 48s)
+[N_open 15/20] planted:N15
+  N_open/planted__N15.first.json -> KNOWN (6 searches, 31s)
+[N_open 16/20] planted:N16
+  N_open/planted__N16.first.json -> PARSE_FAILED (3 searches, 7s)
+[N_open 17/20] planted:N17
+  N_open/planted__N17.first.json -> KNOWN (5 searches, 33s)
+[N_open 18/20] planted:N18
+  N_open/planted__N18.first.json -> KNOWN (5 searches, 34s)
+[N_open 19/20] planted:N19
+  N_open/planted__N19.first.json -> KNOWN (4 searches, 30s)
+[N_open 20/20] planted:N20
+  N_open/planted__N20.first.json -> KNOWN (5 searches, 31s)
+PLANTED N_open DONE 2026-11-03 03:55:57
+[N_neutral 1/20] planted:N01
+  N_neutral/planted__N01.first.json -> KNOWN-VARIANT (8 searches, 45s)
+[N_neutral 2/20] planted:N02
+  N_neutral/planted__N02.first.json -> KNOWN (8 searches, 43s)
+[N_neutral 3/20] planted:N03
+  N_neutral/planted__N03.first.json -> KNOWN (8 searches, 42s)
+[N_neutral 4/20] planted:N04
+  N_neutral/planted__N04.first.json -> KNOWN (8 searches, 37s)
+[N_neutral 5/20] planted:N05
+  N_neutral/planted__N05.first.json -> KNOWN-VARIANT (10 searches, 47s)
+[N_neutral 6/20] planted:N06
+  N_neutral/planted__N06.first.json -> KNOWN (5 searches, 30s)
+[N_neutral 7/20] planted:N07
+  N_neutral/planted__N07.first.json -> KNOWN (7 searches, 39s)
+[N_neutral 8/20] planted:N08
+  N_neutral/planted__N08.first.json -> PARSE_FAILED (9 searches, 43s)
+[N_neutral 9/20] planted:N09
+  N_neutral/planted__N09.first.json -> KNOWN (6 searches, 39s)
+[N_neutral 10/20] planted:N10
+  N_neutral/planted__N10.first.json -> KNOWN (4 searches, 25s)
+[N_neutral 11/20] planted:N11
+  N_neutral/planted__N11.first.json -> KNOWN-VARIANT (9 searches, 45s)
+[N_neutral 12/20] planted:N12
+  N_neutral/planted__N12.first.json -> KNOWN (7 searches, 52s)
+[N_neutral 13/20] planted:N13
+  N_neutral/planted__N13.first.json -> KNOWN-VARIANT (7 searches, 33s)
+[N_neutral 14/20] planted:N14
+  N_neutral/planted__N14.first.json -> KNOWN-VARIANT (10 searches, 66s)
+[N_neutral 15/20] planted:N15
+  N_neutral/planted__N15.first.json -> KNOWN-VARIANT (9 searches, 46s)
+[N_neutral 16/20] planted:N16
+  N_neutral/planted__N16.first.json -> KNOWN-VARIANT (8 searches, 35s)
+[N_neutral 17/20] planted:N17
+  N_neutral/planted__N17.first.json -> KNOWN-VARIANT (10 searches, 54s)
+[N_neutral 18/20] planted:N18
+  N_neutral/planted__N18.first.json -> KNOWN (6 searches, 41s)
+[N_neutral 19/20] planted:N19
+  N_neutral/planted__N19.first.json -> KNOWN-VARIANT (8 searches, 48s)
+[N_neutral 20/20] planted:N20
+  N_neutral/planted__N20.first.json -> KNOWN-VARIANT (8 searches, 39s)
+PLANTED N_neutral DONE 2026-11-03 04:10:45
+[N_strictall 1/20] planted:N01
+  N_strictall/planted__N01.strict.json -> KNOWN-VARIANT (10 searches, 77s)
+[N_strictall 2/20] planted:N02
+  N_strictall/planted__N02.strict.json -> KNOWN (6 searches, 76s)
+[N_strictall 3/20] planted:N03
+  N_strictall/planted__N03.strict.json -> KNOWN (4 searches, 34s)
+[N_strictall 4/20] planted:N04
+  N_strictall/planted__N04.strict.json -> KNOWN (7 searches, 35s)
+[N_strictall 5/20] planted:N05
+  N_strictall/planted__N05.strict.json -> KNOWN-VARIANT (10 searches, 68s)
+[N_strictall 6/20] planted:N06
+  N_strictall/planted__N06.strict.json -> KNOWN (4 searches, 31s)
+[N_strictall 7/20] planted:N07
+  N_strictall/planted__N07.strict.json -> KNOWN (5 searches, 33s)
+[N_strictall 8/20] planted:N08
+  N_strictall/planted__N08.strict.json -> KNOWN-VARIANT (9 searches, 69s)
+[N_strictall 9/20] planted:N09
+  N_strictall/planted__N09.strict.json -> KNOWN (4 searches, 29s)
+[N_strictall 10/20] planted:N10
+  N_strictall/planted__N10.strict.json -> KNOWN (2 searches, 21s)
+[N_strictall 11/20] planted:N11
+  N_strictall/planted__N11.strict.json -> KNOWN (11 searches, 63s)
+[N_strictall 12/20] planted:N12
+  N_strictall/planted__N12.strict.json -> KNOWN-VARIANT (7 searches, 75s)
+[N_strictall 13/20] planted:N13
+  N_strictall/planted__N13.strict.json -> KNOWN-VARIANT (9 searches, 38s)
+[N_strictall 14/20] planted:N14
+  N_strictall/planted__N14.strict.json -> KNOWN (8 searches, 52s)
+[N_strictall 15/20] planted:N15
+  N_strictall/planted__N15.strict.json -> KNOWN-VARIANT (7 searches, 45s)
+[N_strictall 16/20] planted:N16
+  N_strictall/planted__N16.strict.json -> KNOWN (10 searches, 56s)
+[N_strictall 17/20] planted:N17
+  N_strictall/planted__N17.strict.json -> KNOWN-VARIANT (9 searches, 71s)
+[N_strictall 18/20] planted:N18
+  N_strictall/planted__N18.strict.json -> KNOWN (7 searches, 44s)
+[N_strictall 19/20] planted:N19
+  N_strictall/planted__N19.strict.json -> KNOWN-VARIANT (6 searches, 49s)
+[N_strictall 20/20] planted:N20
+  N_strictall/planted__N20.strict.json -> KNOWN-VARIANT (10 searches, 59s)
+PLANTED N_strictall DONE 2026-11-03 04:28:28

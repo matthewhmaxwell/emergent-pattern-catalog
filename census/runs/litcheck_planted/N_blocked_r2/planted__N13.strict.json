@@ -1,0 +1,74 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (a_c ~ h/N) under stochastic resetting of the magnetization (resetting-induced NESS)",
+ "citations": [
+  "Nature Sci. Rep. srep24775 - The noisy voter model on complex networks (finite-size bimodal/unimodal transition, a > h/N unimodal)",
+  "Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)",
+  "Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)",
+  "Noisy voter models in switching environments, Phys. Rev. E 108, 044301 (2023) (multipeak stationary distributions from external influencers)",
+  "Herding and idiosyncratic choices: nonlinearity and aging-induced transitions in the noisy voter model, C. R. Physique (2019)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "The noise threshold of 0.002 = 1/N simply reproduces the known Kirman/noisy-voter transition. The middle peak at 0.3 is the generic resetting-induced peak at the reset point, put in directly by the shock rule rather than emergent from the interactions; it shows up when the shock rate is comparable to the voter relaxation rate (~1/N per sweep). The closest documented equivalent is the Ising model with magnetization resetting (Magoni et al. 2020), which has a rich (T,r) phase diagram. No paper found on the exact noisy-voter-plus-resetting combination. The only twist is that the voter model's bistability is a finite-size effect with no deterministic pull, which may change regime boundaries but probably not the qualitative picture. The count of 6 regimes depends on how regimes are defined. Sources were checked through search snippets only, not full texts. Not a numerical artifact, but close to trivial.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting magnetization trimodal"
+  },
+  {
+   "query": "voter model under stochastic resetting Kirman herding resetting stationary distribution"
+  },
+  {
+   "query": "\"stochastic resetting\" \"voter model\" opinion dynamics"
+  },
+  {
+   "query": "voter model resetting arXiv consensus magnetization reset to initial value"
+  },
+  {
+   "query": "Ising model with stochastic resetting magnetization distribution Magoni Majumdar Schehr"
+  },
+  {
+   "query": "noisy voter model resetting Kirman herding model reset stationary distribution peaks"
+  },
+  {
+   "query": "\"resetting\" \"noisy voter\" OR \"Kirman model\" stationary distribution 2025"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://doi.org/10.3390/e24081140",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9407215/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437124005715",
+  "https://doi.org/10.3390/e24101331",
+  "https://przyrbwn.icm.edu.pl/APP/PDF/133/app133z6p16.pdf",
+  "https://rf.mokslasplius.lt/many-state-herd-model-and-its-application-to-lithuanian-parliamentary-elections/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9407215/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10968957/",
+  "https://www.nature.com/articles/srep03597",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.2.033182",
+  "https://doi.org/10.1103/PhysRevResearch.2.043390",
+  "https://ouci.dntb.gov.ua/en/works/4K0GVz6l/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.013161",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.L012023",
+  "https://journals.aps.org/prresearch/recent?page=369",
+  "https://ouci.dntb.gov.ua/en/works/7Aa1vMa7/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437124005715",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://doi.org/10.3390/e24101331",
+  "https://link.aps.org/doi/10.1103/PhysRevE.108.044301",
+  "https://www.nature.com/articles/srep24775",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://doi.org/10.3390/e24101331",
+  "https://rf.mokslasplius.lt/poll-delayed-voter-model/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass. I didn't find any paper on this exact model (a noisy voter model with its average opinion reset to 0.3), but each part of the behaviour is documented. The three-peak result follows directly from combining those parts and is largely expected.\n\n**1. The no-shock baseline is a textbook result.** This is the mean-field noisy voter model, also called the Kirman herding model. On a fully connected population it is known to have a finite-size transition between a bimodal and a unimodal behavior, depending on the relative magnitude of the noise and the interaction parameters. Above the threshold (noise a > h/N), the distribution of n becomes unimodal with a peak at n = N/2. With N = 500 that threshold is 1/N = 0.002, which is exactly your reported value. That confirms the simulation is correct, not that something new was found. It is also a known finite-size effect: it disappears in the limit of an infinite number of agents.\n\n**2. Resetting the average opinion of a two-state spin system has been studied.** Magoni, Majumdar and Schehr (Phys. Rev. Research 2, 033182, 2020) take an Ising system and use a protocol that resets the magnetization to its fixed initial value m0 at a constant rate r. In the resulting NESS, the magnetization acquires a nontrivial distribution, leading to a rich phase diagram in the (T,r) plane. That is structurally the same setup as yours, with temperature playing the role of your noise \u03b7. A general feature of resetting is a non-equilibrium steady state (NESS) with weight concentrated near the reset point (Evans, Majumdar and Schehr's 2020 review). So a peak at m = 0.3 is the expected signature of resetting, not something emerging from the opinion dynamics.\n\n**3. Multi-peak distributions from outside interventions are also documented.** The paper \"Noisy voter models in switching environments\" (Phys. Rev. E 108, 044301, 2023) shows that a population of noisy voters subject to groups of external influencers develops multipeak stationary distributions.\n\n**The twist, and why it matters little.** I found no published phase diagram for noisy voter dynamics with resetting. The difference from the Ising work is that the voter model has no deterministic pull towards either consensus; its two peaks exist only because the population is finite. That changes the exponents and the regime boundaries, but probably not what you see qualitatively. Peaks at \u00b11 plus a peak at the reset point is what simple reasoning predicts, as follows:\n- Voter dynamics take roughly N sweeps to move the average opinion by order one.\n- So when the shock rate is comparable to that relaxation rate, the system spends a visible amount of time near 0.3.\n- When shocks are much rarer, the distribution goes back to the baseline; when they are much more frequent, it collapses to a single peak at 0.3.\n\nThe count of six regimes depends on how regimes are defined. It is probably just the combinations of {one or two baseline peaks} with {no, intermediate or dominant reset peak}.\n\n**Emergent or artifact?** Not a numerical artifact, but close to trivial. The middle peak is imposed directly by the shock rule, not produced by the agents' interactions. The only part that comes from the interactions is the baseline one-peak versus two-peak transition, which is well known.\n\n**What I searched:** noisy voter model with resetting and three peaks; voter model with stochastic resetting; Kirman model with resetting; Ising model with stochastic resetting. Caveat: I relied on search-result abstracts and snippets rather than reading the full papers. I did not check what the Ising-resetting paper's phase diagram looks like in detail, or how it compares to your six regimes.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Mean-field noisy voter (Kirman) model finite-size bimodal-unimodal transition (a_c ~ h/N) under stochastic resetting of the magnetization (resetting-induced NESS)\", \"citations\": [\"Nature Sci. Rep. srep24775 - The noisy voter model on complex networks (finite-size bimodal/unimodal transition, a > h/N unimodal)\", \"Magoni, Majumdar, Schehr, Ising model with stochastic resetting, Phys. Rev. Research 2, 033182 (2020)\", \"Evans, Majumdar, Schehr, Stochastic resetting and applications, J. Phys. A 53, 193001 (2020)\", \"Noisy voter models in switching environments, Phys. Rev. E 108, 044301 (2023) (multipeak stationary distributions from external influencers)\", \"Herding and idiosyncratic choices: nonlinearity and aging-induced transitions in the noisy voter model, C. R. Physique (2019)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"The noise threshold of 0.002 = 1/N simply reproduces the known Kirman/noisy-voter transition. The middle peak at 0.3 is the generic resetting-induced peak at the reset point, put in directly by the shock rule rather than emergent from the interactions; it shows up when the shock rate is comparable to the voter relaxation rate (~1/N per sweep). The closest documented equivalent is the Ising model with magnetization resetting (Magoni et al. 2020), which has a rich (T,r) phase diagram. No paper found on the exact noisy-voter-plus-resetting combination. The only twist is that the voter model's bistability is a finite-size effect with no deterministic pull, which may change regime boundaries but probably not the qualitative picture. The count of 6 regimes depends on how regimes are defined. Sources were checked through search snippets only, not full texts. Not a numerical artifact, but close to trivial.\"}\n```",
+ "checked": "2026-11-03 03:06:35"
+}

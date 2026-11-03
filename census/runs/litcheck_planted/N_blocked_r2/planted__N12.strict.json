@@ -1,0 +1,91 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "2D long-range XY model at marginal sigma=2 (1/r^4): logarithmic low-temperature scaling from Goldstone spin waves with k^2 ln(1/k) dispersion",
+ "citations": [
+  "Xiao, Yao, Zhang, Fan, Deng, Chin. Phys. Lett. 42, 070002 (2025), arXiv:2404.08498",
+  "Yao, Xiao, Zhang, Deng, Fan, Phys. Rev. B 112, 144429 (2025), arXiv:2411.01811",
+  "Bruno, Phys. Rev. Lett. 87, 137203 (2001)",
+  "Giachetti, Defenu, Ruffo, Trombettoni, EPL 133, 57004 (2021); PRL 127, 156801 (2021)",
+  "Walther, Willsher, Knolle, Phys. Rev. Lett. 136, 227102 (2026)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Logarithmic scaling at sigma=2 is documented by the Deng group, who read it as true long-range order (constant + a/ln r). The observed reading is a power of ln L going to zero, with exponent proportional to T and 2*pi*slope*exponent = 1. That fits Gaussian spin-wave theory and Bruno's theorem (no order for alpha >= 2D), but I found it nowhere stated explicitly. L up to 2048 (ln L about 7.6 at most) cannot separate the two forms. The beta=8 exponent is noisy; the ratio of about 17 instead of 8 fits a stiffness reduced at beta=1. The 2.24 divergence exponent is unmatched and probably an effective power-law fit at a boundary case with log corrections. Not an artifact.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "two-dimensional long-range XY model sigma=2 marginal logarithmic magnetization Monte Carlo"
+  },
+  {
+   "query": "Bruno absence of spontaneous magnetic order two-dimensional XY long-range interactions alpha 2d theorem"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni BKT long-range couplings sigma=2"
+  },
+  {
+   "query": "XY model 1/r^4 two dimensions spin waves k^2 log k dispersion magnetization (ln L) power law no long-range order"
+  },
+  {
+   "query": "\"\u03c3=2\" long-range XY two dimensions marginal case log-log spin-wave magnetization vanishes slowly Mermin-Wagner Bruno 2025"
+  },
+  {
+   "query": "\"Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings\" arXiv \u03c3=2 spin waves"
+  },
+  {
+   "query": "Xiao Yao Zhang Fan Deng two-dimensional XY ferromagnet induced by long-range interaction \u03c3=2 logarithmic"
+  },
+  {
+   "query": "arXiv 2506.19637 long-range order strictly short-range quasi-2D XY model logarithmic decay"
+  }
+ ],
+ "result_urls": [
+  "https://zenodo.org/records/17206870",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.52.R9",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://pith.science/paper/2512.01956",
+  "https://www.osti.gov/pages/biblio/2407304-magnetism-two-dimensional-dipolar-xy-model",
+  "https://zenodo.org/records/1184413",
+  "https://www.nature.com/articles/s41535-023-00591-6",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.87.137203",
+  "https://www.nature.com/articles/s41586-023-05859-2",
+  "https://doi.org/10.3390/sym12122061",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/133/57004/meta",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://epljournal.edpsciences.org/articles/epl/abs/2021/05/epl20507/epl20507.html",
+  "https://inspirehep.net/authors/990980",
+  "https://arts.units.it/bitstream/11368/2995116/2/Self-consistent%20harmonic%20approximation%20in%20presence%20of%20non-local%20couplings.pdf",
+  "https://journals.aps.org/prx/pdf/10.1103/PhysRevX.13.031006",
+  "https://osti.gov/servlets/purl/2407304",
+  "https://ocw.mit.edu/courses/8-334-statistical-mechanics-ii-statistical-physics-of-fields-spring-2014/9adff7f0a6fea792c115eb2322e74601_MIT8_334S14_Lec21.pdf",
+  "https://www.mit.edu/~8.334/grades/projects/projects23/ChernSabrina.pdf",
+  "https://en.wikipedia.org/wiki/Classical_XY_model",
+  "https://pith.science/paper/2512.01956",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11192889/",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://pure.mpg.de/view/item_3728400_2",
+  "https://portal.fis.tum.de/en/publications/persistence-of-the-berezinskii-kosterlitz-thouless-transition-wit/",
+  "https://pubmed.ncbi.nlm.nih.gov/42330473/",
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://faculty.ustc.edu.cn/dengyoujin/en/zdylm/688809/list/index.htm",
+  "https://www.nature.com/articles/s42005-025-01947-z",
+  "https://pith.science/paper/2506.19637",
+  "https://pith.science/paper/2506.19637",
+  "https://ui.adsabs.harvard.edu/abs/2025arXiv250619637H/abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/42360964/",
+  "https://journals.aps.org/prl/accepted/10.1103/1jkm-kybr",
+  "https://journals.aps.org/prl/abstract/10.1103/1jkm-kybr"
+ ],
+ "full_text": "I rate this **KNOWN-VARIANT**, which matches the first pass's label, though I've changed parts of its reasoning. The behaviour itself is documented: logarithmic finite-size scaling in the low-temperature phase of the 2D long-range XY model at exactly \u03c3=2 (J \u221d 1/r\u2074). What I couldn't find in print is the specific reading your simulation suggests. That reading is magnetisation falling to zero as a power of ln L, with an exponent proportional to temperature and the spin-wave \"product = 1\" check. The two groups that simulated this model read the same logarithmic scaling as true long-range order.\n\n**What is documented**\n- **Logarithmic scaling at \u03c3=2.** Xiao, Yao, Zhang, Fan and Deng ran cluster Monte Carlo up to L = 8192 and find logarithmic scaling behaviors in the low-temperature phase at \u03c3 = 2 (Chin. Phys. Lett. 42, 070002, 2025).\n- **Their interpretation.** The follow-up PRB (112, 144429, 2025) says that for \u03c3\u22642, the system undergoes a second-order phase transition into a ferromagnetic phase characterized by the emergence of long-range order. It also says the correlation function settles to a non-zero constant in the form of the inverse logarithm of distance for \u03c3=2. In other words, it tends to a constant plus a/ln r, rather than to zero.\n- **The rigorous bound favours your reading.** Bruno's theorem (PRL 87, 137203) states that for monotonically decreasing interactions, ferro- or antiferromagnetic long-range order at T>0 is ruled out if \u03b1\u22652D. Here \u03b1 = 4 and D = 2, so true order is excluded at \u03c3=2. A review of the Deng group's related Heisenberg paper makes the same point: if the \u03c3=2 claim were correct, it would overturn the extended Mermin\u2013Wagner theorem as cited.\n- **Theory context.** Giachetti, Defenu, Ruffo and Trombettoni found that for any \u03c3>2 the BKT mechanism occurs, so \u03c3=2 is the boundary case. Walther, Willsher and Knolle (PRL 2026) argue that the BKT transition persists for arbitrary long-range exponents.\n- **Data can't easily separate the two readings.** In a related logarithmic-decay dispute, a reviewer noted that when ln L only spans about 3 to 6, a critical phase with G_y ~ (ln L)^{-p}, p small, would also be well fit by a + b L^{-q} with a positive intercept. Your L \u2264 2048 gives ln L of about 7.6 at most, so the same problem applies.\n\n**The twist and whether it matters**\n- **Not found in print:** an explicit statement that the magnetisation decays as (ln L)^(\u2212T/2\u03c0J_eff) at \u03c3=2 with no true order. This follows from a standard Gaussian spin-wave calculation: the k\u00b2 ln(1/k) dispersion gives an angle variance growing like (T/2\u03c0J) ln ln L. Your 2\u03c0 \u00d7 slope \u00d7 exponent \u2248 1 check also isn't in the papers I found.\n- **Why it plausibly matters:** this phenomenology is the order-free alternative to the long-range-order claim, and it fits Bruno's theorem. But it is a short derivation, not a new effect, and the available sizes can't rule out \"constant + a/ln L\".\n- **Temperature scaling:** the exponents at \u03b2=1 and \u03b2=8 differ by a factor of about 17, not 8. That is roughly what you'd expect if the effective stiffness is reduced at higher temperature, so it doesn't break the spin-wave picture, but the \u03b2=8 value is noisy.\n- **The 2.24 divergence exponent:** I found no literature match. Since \u03c3=2 is a boundary case with logarithmic corrections, a power-law fit there is likely an effective exponent and shouldn't be over-interpreted.\n\n**Genuine or artifact?** Genuine. The order parameter decays slowly and smoothly, the exponent scales with temperature, and the spin-wave consistency check holds. None of that looks like a frozen, numerically diverged or inert state.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"2D long-range XY model at marginal sigma=2 (1/r^4): logarithmic low-temperature scaling from Goldstone spin waves with k^2 ln(1/k) dispersion\", \"citations\": [\"Xiao, Yao, Zhang, Fan, Deng, Chin. Phys. Lett. 42, 070002 (2025), arXiv:2404.08498\", \"Yao, Xiao, Zhang, Deng, Fan, Phys. Rev. B 112, 144429 (2025), arXiv:2411.01811\", \"Bruno, Phys. Rev. Lett. 87, 137203 (2001)\", \"Giachetti, Defenu, Ruffo, Trombettoni, EPL 133, 57004 (2021); PRL 127, 156801 (2021)\", \"Walther, Willsher, Knolle, Phys. Rev. Lett. 136, 227102 (2026)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Logarithmic scaling at sigma=2 is documented by the Deng group, who read it as true long-range order (constant + a/ln r). The observed reading is a power of ln L going to zero, with exponent proportional to T and 2*pi*slope*exponent = 1. That fits Gaussian spin-wave theory and Bruno's theorem (no order for alpha >= 2D), but I found it nowhere stated explicitly. L up to 2048 (ln L about 7.6 at most) cannot separate the two forms. The beta=8 exponent is noisy; the ratio of about 17 instead of 8 fits a stiffness reduced at beta=1. The 2.24 divergence exponent is unmatched and probably an effective power-law fit at a boundary case with log corrections. Not an artifact.\"}\n```",
+ "checked": "2026-11-03 03:05:13"
+}

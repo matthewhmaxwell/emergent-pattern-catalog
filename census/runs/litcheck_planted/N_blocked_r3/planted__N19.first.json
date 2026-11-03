@@ -1,0 +1,93 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Keller-Segel chemotaxis PDEs (bacterial pattern formation; attractant + nutrient taxis with nutrient consumption)",
+ "standard_name": "Chemotactic aggregation (spots/blobs) coexisting with nutrient-driven travelling bands/rings in attractant-secreting, nutrient-consuming chemotactic populations",
+ "confidence": "low",
+ "citations": [
+  "Keller & Segel 1971, J Theor Biol - traveling bands of chemotactic bacteria from nutrient consumption (seen only via a secondary web summary, not verified directly)",
+  "Tyson, Lubkin & Murray 1999, Proc R Soc Lond B 266:299-304 - minimal attractant+nutrient PKS model giving swarm rings and aggregates (citation verified via reference lists; content via review)",
+  "Xue & Othmer, Multiscale models of taxis-driven patterning in bacterial populations (SIAM, PMC2752049) - review of the Tyson 1999 mechanism (authors/year/venue not verified from search results)",
+  "Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - 2D agent-based model, varying nutrient vs secreted-attractant taxis ratio gives static spots, then motile spots and rings"
+ ],
+ "searches": [
+  "chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates",
+  "Keller-Segel nutrient consumption stationary aggregates and traveling bands 2D",
+  "Tyson Lubkin Murray 1999 minimal mechanism bacterial pattern formation",
+  "chemotaxis attractant nutrient 2D coexistence aggregates travelling rings",
+  "chemotaxis attractant plus nutrient taxis without growth nutrient depletion oscillating spots stripes",
+  "Centler Thullner 2015 chemotactic preferences two-strain",
+  "Curk Marenduzzo Dobnikar 2013 authors"
+ ],
+ "notes": "Not found as a specific report: no-growth, mass-conserving periodic system with uniform nutrient resupply and saturating b/(1+b^2) sensitivity, and the specific one-blob-plus-bands coexistence at 5/14 ratio. Likely a parameter-specific or transient regime of the known mechanism. Primary papers (Keller-Segel 1971, Tyson 1999) were not read directly.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates pattern formation"
+  },
+  {
+   "query": "Keller-Segel nutrient consumption bacterial chemotaxis stationary aggregates and traveling bands 2D simulation"
+  },
+  {
+   "query": "Tyson Lubkin Murray 1999 A minimal mechanism for bacterial pattern formation Proc R Soc Lond B"
+  },
+  {
+   "query": "chemotaxis attractant nutrient two-dimensional simulation coexistence of aggregates and travelling rings dense blob bands Tyson Murray"
+  },
+  {
+   "query": "chemotaxis attractant plus nutrient taxis without growth, nutrient depletion repels cells, oscillating moving spots stripes, two-dimensional Keller-Segel consumption"
+  },
+  {
+   "query": "Chemotactic preferences govern competition and pattern formation in simulated two-strain microbial communities Frontiers Microbiology 2015"
+  },
+  {
+   "query": "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli PLoS ONE 2013 authors"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009153",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://archive.math.arizona.edu/lega/UG/ChemBact/ChemBact.html",
+  "https://www.pnas.org/doi/10.1073/pnas.1101996108",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://link.springer.com/article/10.1007/s10441-025-09502-7",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://www.pnas.org/doi/10.1073/pnas.1001994107",
+  "https://dl.acm.org/doi/10.1016/j.camwa.2019.02.004",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://link.springer.com/article/10.1007/s13160-010-0011-z",
+  "https://www.pnas.org/doi/10.1073/pnas.2417065122",
+  "https://www.mdpi.com/1422-0067/14/5/9205e",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5634484/",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/full",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://sss.bnu.edu.cn/docs/2022-04/71926beda11045288b375a10ebee4e71.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6883170/",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.biorxiv.org/content/10.1101/2024.01.25.577248.full.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4794234/",
+  "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/full",
+  "https://public-pages-files-2025.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/xml/nlm",
+  "https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2020.00053/pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4313714/",
+  "https://www.osti.gov/pages/biblio/1628068-cooperation-competition-coalitions-enzyme-producing-microbes-social-evolution-nutrient-depolymerization-rates",
+  "https://link.springer.com/article/10.1140/epje/s10189-026-00559-x",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://www.wikidata.org/wiki/Q35009007",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://ouci.dntb.gov.ua/en/works/lDQbDrd9/",
+  "https://www.nature.com/articles/ncomms12984",
+  "https://www.nature.com/articles/ncomms12984.pdf?origin=ppub"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The model class and its pattern types are well described. I did not find a paper that reports this exact configuration, which is a no-growth, mass-conserving system with uniform nutrient resupply. Confidence is medium-low.\n\n**1. Model family**\n\nThis is a Keller\u2013Segel-type chemotaxis PDE system. It has three coupled fields:\n- cell density, which diffuses and drifts up the gradients of both an attractant and a nutrient;\n- a self-produced, decaying attractant;\n- a consumed nutrient.\n\nIt belongs to the \"pattern formation in chemotactic bacterial populations\" family. The two drift terms use a saturating sensitivity, b/(1+b\u00b2), which is a receptor-saturation form.\n\n**2. Is the behaviour known?**\n\n- **Travelling bands from nutrient consumption and taxis.** Keller and Segel's traveling-band theory is the origin of this. It uses PDEs for nutrient consumption and for bacterial density change through diffusion and chemotaxis. I only saw this via a secondary web summary, not the original 1971 paper.\n- **Aggregates plus bands in the same model.** Tyson, Lubkin and Murray (1999, *Proc R Soc Lond B* 266:299\u2013304, \"A minimal mechanism for bacterial pattern formation\") is the earliest clear source I found. The citation details are confirmed by several reference lists. I could not read the paper itself, so I rely on a review's description of it. That review says it coupled the PKS chemotaxis equation with attractant and nutrient reaction-diffusion equations. Ring motion is attributed to local nutrient depletion, and ring integrity to the high attractant concentration at the ring. The aggregates form from fluctuations near the unstable uniform density. The review is Xue and Othmer, \"Multiscale models of taxis-driven patterning in bacterial populations\" (SIAM J. Appl. Math., PMC2752049). I did not verify its authors, year or venue from the search results.\n- **Two taxis channels with a tunable ratio.** Curk, Marenduzzo and Dobnikar (2013, *PLoS ONE* 8(10):e74878) is an agent-based study in 2D. It varies the relative chemotactic sensitivity to nutrient versus secreted attractant. When the nutrient-to-attractant ratio is large enough, the static spots become motile and the pattern is a ring of merging moving spots. This is the closest match to the \"dense blob plus travelling bands at a particular attractant/nutrient ratio\" observation. It is a particle model with growth, not a PDE.\n- **Related context.** The two-strain study by Centler and Thullner (2015, *Front Microbiol* 6:40) and the traveling-wave work in *PNAS* 108 (2011) are further relatives. I found nothing in them that changes the verdict.\n\n**3. What differs from the simulated system, and whether it matters**\n\n- **No growth.** The simulation conserves cell number and resupplies nutrient uniformly. Tyson 1999 and Curk 2013 include growth, and ring and spot formation in those models depends on it. Here, nutrient resupply plays the role that growth plays there. I expect the mechanism to carry over.\n- **Sign of the nutrient taxis.** Because cells consume the nutrient, drift up n points away from dense clumps. It acts as an effective repulsion competing with attractant self-aggregation. That combination of aggregation (attractant) and dispersal or advance (depleted nutrient) is the same ingredient behind the known bands and moving spots.\n- **Coexistence of one blob and travelling bands.** I found no source that counts coexisting structure types in a periodic 50\u00d750 box. This coexistence is plausibly a transient or parameter-specific state, and I would not call it a new phenomenon.\n- **Saturating b/(1+b\u00b2) sensitivity.** I did not find a source using this exact form. It limits the drift at high density and should be a minor quantitative change.\n\n**4. Searches run**\n- chemotaxis model attractant and nutrient taxis, travelling bands coexisting with aggregates\n- Keller-Segel nutrient consumption, stationary aggregates and traveling bands, 2D\n- Tyson Lubkin Murray 1999 minimal mechanism for bacterial pattern formation\n- chemotaxis attractant plus nutrient taxis, 2D coexistence of aggregates and travelling rings\n- chemotaxis attractant plus nutrient taxis without growth, nutrient depletion, oscillating spots and stripes\n- Centler and Thullner 2015, Frontiers in Microbiology\n- Curk, Marenduzzo and Dobnikar 2013 (authors check)\n\n**5. Confidence**\n\nIt is medium-low for three reasons. I could not read the Tyson 1999 or Xue\u2013Othmer papers directly. The PDE, no-growth version with an explicit attractant/nutrient-strength ratio of 5/14 was not found as such. I did not search specifically for the b/(1+b\u00b2) form.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Keller-Segel chemotaxis PDEs (bacterial pattern formation; attractant + nutrient taxis with nutrient consumption)\", \"standard_name\": \"Chemotactic aggregation (spots/blobs) coexisting with nutrient-driven travelling bands/rings in attractant-secreting, nutrient-consuming chemotactic populations\", \"confidence\": \"low\", \"citations\": [\"Keller & Segel 1971, J Theor Biol - traveling bands of chemotactic bacteria from nutrient consumption (seen only via a secondary web summary, not verified directly)\", \"Tyson, Lubkin & Murray 1999, Proc R Soc Lond B 266:299-304 - minimal attractant+nutrient PKS model giving swarm rings and aggregates (citation verified via reference lists; content via review)\", \"Xue & Othmer, Multiscale models of taxis-driven patterning in bacterial populations (SIAM, PMC2752049) - review of the Tyson 1999 mechanism (authors/year/venue not verified from search results)\", \"Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - 2D agent-based model, varying nutrient vs secreted-attractant taxis ratio gives static spots, then motile spots and rings\"], \"searches\": [\"chemotaxis model attractant and nutrient taxis travelling bands coexisting with aggregates\", \"Keller-Segel nutrient consumption stationary aggregates and traveling bands 2D\", \"Tyson Lubkin Murray 1999 minimal mechanism bacterial pattern formation\", \"chemotaxis attractant nutrient 2D coexistence aggregates travelling rings\", \"chemotaxis attractant plus nutrient taxis without growth nutrient depletion oscillating spots stripes\", \"Centler Thullner 2015 chemotactic preferences two-strain\", \"Curk Marenduzzo Dobnikar 2013 authors\"], \"notes\": \"Not found as a specific report: no-growth, mass-conserving periodic system with uniform nutrient resupply and saturating b/(1+b^2) sensitivity, and the specific one-blob-plus-bands coexistence at 5/14 ratio. Likely a parameter-specific or transient regime of the known mechanism. Primary papers (Keller-Segel 1971, Tyson 1999) were not read directly.\"}\n```",
+ "checked": "2026-11-03 03:41:40"
+}

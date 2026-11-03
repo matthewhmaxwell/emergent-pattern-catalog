@@ -1,0 +1,112 @@
+{
+ "class_id": "planted:N11",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Spatial birth-death point process / individual-based nonlocal competition (spatial logistic model); Turing-like finite-wavelength pattern formation (nonlocal FKPP)",
+ "standard_name": "Competition-induced (nonlocal competition) Turing-like pattern formation: hexagonal spots -> stripes -> gaps in a nonlocal logistic / spatial birth-death model",
+ "confidence": "medium",
+ "citations": [
+  "Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - particle birth-death model with neighbourhood-dependent rates gives periodic clusters; finite-wavelength instability",
+  "Martinez-Garcia, Calabrese, Hernandez-Garcia & Lopez 2013, Geophys. Res. Lett. - vegetation patterns from nonlocal competition only, incl. competition-dependent death term",
+  "Martinez-Garcia, Calabrese, Hernandez-Garcia & Lopez 2014, Phil. Trans. R. Soc. A 372:20140068 - review of competition-only pattern models (spots/stripes)",
+  "Surendran, Pinto-Ramos, Menezes & Martinez-Garcia 2025, Physica D 477:134703 - individual-based simulations vs spatial moment/density approximations of pattern formation (title/venue verified; full text not read)",
+  "Silvano et al. 2025, Communications Physics (nonlocal FKPP) - hexagonal spots typical of competition-induced patterns; stripes and gaps"
+ ],
+ "searches": [
+  "spatial birth-death process three-body competition pattern formation hexagonal spots stripes individual-based",
+  "higher-order interactions nonlocal competition Turing patterns stochastic particle model spots stripes inverted spots",
+  "Bolker Pacala spatial logistic model clustering pattern formation Gaussian dispersal moment closure",
+  "Surendran Martinez-Garcia Spatial moment dynamics and biomass density equations Physica D",
+  "Hernandez-Garcia Lopez clustering advection patterns neighborhood-dependent rates",
+  "nonlocal competition cubic term Swift-Hohenberg hexagons stripes inverted hexagons population model",
+  "higher-order interactions nonlocal Lotka-Volterra pattern formation spots stripes holes",
+  "Martinez-Garcia Calabrese Hernandez-Garcia Lopez Minimal mechanisms for vegetation patterns",
+  "Surendran Martinez-Garcia individual-based nonlocal competition clusters hexagonal stripes inverted pattern"
+ ],
+ "notes": "Pairwise nonlocal-competition patterns (spots/stripes/gaps) are well documented. No source found for a short-range three-body (density-squared) death term as the control parameter, nor for the specific re-entrant spots-stripes-spots sequence vs death/birth ratio; the latter is consistent with generic hexagon/stripe/inverted-hexagon theory but this was not found stated for this model. Did not read full texts of the Physica D or Communications Physics papers; numeric g values cannot be checked against the literature.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "spatial birth-death process three-body competition pattern formation hexagonal spots stripes individual-based"
+  },
+  {
+   "query": "higher-order interactions nonlocal competition Turing patterns stochastic particle model spots stripes inverted spots"
+  },
+  {
+   "query": "Bolker Pacala spatial logistic model clustering pattern formation Gaussian dispersal moment closure"
+  },
+  {
+   "query": "Surendran Mart\u00ednez-Garc\u00eda Spatial moment dynamics and biomass density equations pattern formation individual-based simulations Physica D"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering advection patterns model population dynamics neighborhood-dependent rates"
+  },
+  {
+   "query": "nonlocal competition cubic term Swift-Hohenberg hexagons stripes inverted hexagons population model individual-based higher-order competition"
+  },
+  {
+   "query": "higher-order interactions nonlocal Lotka-Volterra pattern formation spots stripes holes sequence nonlocal competition kernel nonlinear"
+  },
+  {
+   "query": "Mart\u00ednez-Garc\u00eda Calabrese Hern\u00e1ndez-Garc\u00eda L\u00f3pez Minimal mechanisms for vegetation patterns in semiarid regions"
+  },
+  {
+   "query": "Surendran Mart\u00ednez-Garc\u00eda individual-based model nonlocal competition clusters hexagonal stripes inverted pattern death rate density-dependent Physica D 2025"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/267708v2.full.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0960982224012430",
+  "https://link.springer.com/article/10.1007/s11538-018-0488-1",
+  "https://personal.math.ubc.ca/~ward/papers/thesis_wanchen.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924000328",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0022247X23003499",
+  "https://physics.illinois.edu/news/34658",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20569/Essays_Spring_2021/files/vesto.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "https://user.iiasa.ac.at/~dieckman/reprints/LawEtal2003.pdf",
+  "https://doi.org/10.1086/669678",
+  "https://ms.mcmaster.ca/~bolker/meqs/momeq2s.html",
+  "https://faculty1.coloradocollege.edu/~dbrown/research/threshold.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/0003491664902052",
+  "https://www.sciencedirect.com/science/article/pii/S0960982224012430",
+  "https://www.journals.uchicago.edu/doi/abs/10.1086/303199",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922010608",
+  "https://www.sciencedirect.com/science/article/pii/S0167278925001800",
+  "https://www.biorxiv.org/content/10.1101/267708v2.full.pdf",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "https://link.aps.org/doi/10.1103/PhysRevE.70.016216",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4493154/",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://link.springer.com/article/10.1007/s10955-012-0506-x",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://department-mathematics.pages.surrey.ac.uk/david-lloyd/personal/files/Lloyd_2009_Nonlinearity.pdf",
+  "https://department-mathematics.pages.surrey.ac.uk/david-lloyd/personal/files/Localised_hexagons.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278921001573",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9407468",
+  "https://www.thphys.uni-heidelberg.de/~wolschin/statsem23_9s.pdf",
+  "https://www.science.gov/topicpages/l/lotka-volterra+nonlinear+system",
+  "https://www.sciencedirect.com/science/article/pii/S0022039618300846",
+  "https://link.springer.com/article/10.1007/s44198-021-00002-z",
+  "https://link.springer.com/article/10.1007/s10884-022-10153-2",
+  "https://www.science.gov/topicpages/l/lotka-volterra+competition+model",
+  "https://www.emergentmind.com/topics/spatially-extended-lotka-volterra-models",
+  "https://pubmed.ncbi.nlm.nih.gov/25246686/",
+  "https://ifisc.uib-csic.es/es/publications/minimal-mechanisms-for-vegetation-patterns-in-semi/",
+  "https://link.springer.com/article/10.1007/s00285-023-01954-0",
+  "https://link.springer.com/article/10.1007/s40808-020-00862-2",
+  "https://link.springer.com/article/10.1007/s11071-021-06314-5",
+  "https://link.springer.com/article/10.1007/s00285-015-0942-8",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://pith.science/paper/2512.09488",
+  "https://www.pnas.org/doi/10.1073/pnas.2020424118",
+  "https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013GL058797"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The model family and the main pattern sequence are well documented. I found no source for the specific three-body mechanism or the re-entrant spots.\n\n**1. Model family**\n- This is a spatial birth\u2013death point process, an individual-based model in continuous space. It has Gaussian dispersal and a death rate that rises with the density of neighbours within a set radius. It is the spatial logistic model with nonlocal competition (Bolker\u2013Pacala / Dieckmann\u2013Law). A short-range term quadratic in density is added.\n- Its continuum limit is a nonlocal Fisher\u2013KPP-type equation. Pattern formation here is a finite-wavelength (Turing-like) instability driven only by competition, with no attraction or facilitation.\n\n**2. What the literature describes**\n- **Earliest clear source.** Hern\u00e1ndez-Garc\u00eda & L\u00f3pez (2004) introduced a particle model with birth and death rates that depend on the number of neighbours. It shows a quasistationary pattern with many clusters of particles arranged periodically in space. They also derived the macroscopic density equation. A linear stability analysis shows a finite-wavelength instability that leads to pattern formation. Verified: Phys. Rev. E 70, 016216, published 30 July 2004.\n- **Competition alone is enough.** Mart\u00ednez-Garc\u00eda, Calabrese, Hern\u00e1ndez-Garc\u00eda & L\u00f3pez (2013) showed that patterns appear despite the absence of short-range facilitation, provided competition is strong enough. They also noted that a death term that increases with nonlocal density through a competition kernel also gives rise to pattern formation. Verified: Geophysical Research Letters, 2013.\n- **Review.** Mart\u00ednez-Garc\u00eda et al. (2014), \"Minimal mechanisms for vegetation patterns in semiarid regions,\" Phil. Trans. R. Soc. A 372:20140068. It presents a series of models that yield spatial patterns when finite-range competition is the only driving force. Its figures show both stripes and spots.\n- **Pattern sequence.** Later work states that non-local vegetation models show spots, labyrinths, stripes and gaps in two dimensions. Spots with hexagonal symmetry are described as typical of competition-induced patterns. The spots \u2192 stripes \u2192 gaps order is also the classic Turing/Swift\u2013Hohenberg sequence. The ordering of hexagons, stripes and inverted hexagons depends on the sign and size of the quadratic nonlinearity.\n- **Individual-based versus continuum.** Surendran, Pinto-Ramos, Menezes & Mart\u00ednez-Garc\u00eda (2025, Physica D 477:134703) compare individual-based simulations of such models with spatial-moment and density-field approximations. I confirmed the title, authors, year and venue from the search results. I did not read the full text.\n\n**3. What differs, and whether it matters**\n- I found no source that uses a short-range three-body (density-squared) death term together with long-range pairwise competition. I also found none that sweeps its strength to get the spot \u2192 stripe \u2192 gap sequence.\n  - Mechanistically this looks like a higher-order saturating nonlinearity added to the standard nonlocal-competition instability. That would likely change which planform wins (hexagons, stripes or inverted hexagons) but not the underlying instability. This is my inference, not something I found stated.\n- The re-entrant sequence (spots \u2192 stripes \u2192 spots as the death/birth ratio varies near 0.55) is not documented for this model. It is qualitatively consistent with hexagon \u2192 stripe \u2192 inverted-hexagon transitions in amplitude-equation theory. I did not find that stated for this model, and I did not confirm whether the re-entrant spots are inverted spots (gaps).\n- The specific numbers (g values, the 0.55 ratio, the anisotropy jump from 0 to 1) are properties of this parameterisation. The literature gives no numbers to compare them against.\n\n**Searches run**\n1. spatial birth-death process three-body competition pattern formation hexagonal spots stripes individual-based\n2. higher-order interactions nonlocal competition Turing patterns stochastic particle model spots stripes inverted spots\n3. Bolker Pacala spatial logistic model clustering pattern formation Gaussian dispersal moment closure\n4. Surendran Mart\u00ednez-Garc\u00eda Spatial moment dynamics and biomass density equations \u2026 Physica D\n5. Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering advection patterns model population dynamics neighborhood-dependent rates\n6. nonlocal competition cubic term Swift-Hohenberg hexagons stripes inverted hexagons population model\n7. higher-order interactions nonlocal Lotka-Volterra pattern formation spots stripes holes\n8. Mart\u00ednez-Garc\u00eda Calabrese Hern\u00e1ndez-Garc\u00eda L\u00f3pez Minimal mechanisms for vegetation patterns\n9. Surendran Mart\u00ednez-Garc\u00eda individual-based nonlocal competition clusters hexagonal stripes inverted pattern\n\n**Confidence: medium.** The main sequence is clearly documented in equivalent nonlocal-competition models. But I could not read the full texts, and the three-body variant and the re-entry were not directly found. Rare niche papers on higher-order competition may exist and not have surfaced.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Spatial birth-death point process / individual-based nonlocal competition (spatial logistic model); Turing-like finite-wavelength pattern formation (nonlocal FKPP)\", \"standard_name\": \"Competition-induced (nonlocal competition) Turing-like pattern formation: hexagonal spots -> stripes -> gaps in a nonlocal logistic / spatial birth-death model\", \"confidence\": \"medium\", \"citations\": [\"Hernandez-Garcia & Lopez 2004, Phys. Rev. E 70, 016216 - particle birth-death model with neighbourhood-dependent rates gives periodic clusters; finite-wavelength instability\", \"Martinez-Garcia, Calabrese, Hernandez-Garcia & Lopez 2013, Geophys. Res. Lett. - vegetation patterns from nonlocal competition only, incl. competition-dependent death term\", \"Martinez-Garcia, Calabrese, Hernandez-Garcia & Lopez 2014, Phil. Trans. R. Soc. A 372:20140068 - review of competition-only pattern models (spots/stripes)\", \"Surendran, Pinto-Ramos, Menezes & Martinez-Garcia 2025, Physica D 477:134703 - individual-based simulations vs spatial moment/density approximations of pattern formation (title/venue verified; full text not read)\", \"Silvano et al. 2025, Communications Physics (nonlocal FKPP) - hexagonal spots typical of competition-induced patterns; stripes and gaps\"], \"searches\": [\"spatial birth-death process three-body competition pattern formation hexagonal spots stripes individual-based\", \"higher-order interactions nonlocal competition Turing patterns stochastic particle model spots stripes inverted spots\", \"Bolker Pacala spatial logistic model clustering pattern formation Gaussian dispersal moment closure\", \"Surendran Martinez-Garcia Spatial moment dynamics and biomass density equations Physica D\", \"Hernandez-Garcia Lopez clustering advection patterns neighborhood-dependent rates\", \"nonlocal competition cubic term Swift-Hohenberg hexagons stripes inverted hexagons population model\", \"higher-order interactions nonlocal Lotka-Volterra pattern formation spots stripes holes\", \"Martinez-Garcia Calabrese Hernandez-Garcia Lopez Minimal mechanisms for vegetation patterns\", \"Surendran Martinez-Garcia individual-based nonlocal competition clusters hexagonal stripes inverted pattern\"], \"notes\": \"Pairwise nonlocal-competition patterns (spots/stripes/gaps) are well documented. No source found for a short-range three-body (density-squared) death term as the control parameter, nor for the specific re-entrant spots-stripes-spots sequence vs death/birth ratio; the latter is consistent with generic hexagon/stripe/inverted-hexagon theory but this was not found stated for this model. Did not read full texts of the Physica D or Communications Physics papers; numeric g values cannot be checked against the literature.\"}\n```",
+ "checked": "2026-11-03 04:03:33"
+}

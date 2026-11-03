@@ -1,0 +1,89 @@
+{
+ "class_id": "planted:D03",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Threshold-cascade (sandpile-like / pulse-coupled integrate-and-fire with refractoriness) on spatial random geometric graphs with shortcuts",
+ "standard_name": "Georgiadis-Sornette refractory pulse-coupled relaxation oscillator model on spatial networks (pattern phase diagram: froth pattern -> Zipf/power-law exponent-1 avalanches -> synchrony)",
+ "confidence": "medium",
+ "citations": [
+  "Georgiadis & Sornette 2019, Phys. Rev. E 99, 042410 (arXiv:1812.08857, 2018) - same model: threshold firing, once-per-cascade refractoriness, reset after cascade, random geometric graph plus random long-range links; reports frothing-liquid pattern at intermediate edge density, avalanche power law with exponent one, then metastability and synchrony as density increases",
+  "Choi, Jung & Lee 2014, arXiv:1405.4064 - simplified integrate-and-fire SOC model; shortcuts are crucial for criticality (related background, not the same model)",
+  "Bak, Tang & Wiesenfeld 1988, Phys. Rev. A 38 - original sandpile/SOC model (background)"
+ ],
+ "searches": [
+  "sandpile threshold cascade each node fires once reset random geometric graph small-world SOC synchronization",
+  "SOC neuronal avalanche fixed-threshold integrate-and-fire small-world transition to synchronization",
+  "BTW sandpile on spatial networks with few long-range shortcuts",
+  "Pattern phase diagram of spiking neurons on spatial networks arXiv 1812.08857",
+  "Pattern phase diagram spiking neurons spatial networks Physical Review E"
+ ],
+ "notes": "Qualitative regimes match the abstract. Exact onset degrees (7 and 15.5), the 0.1 random-link cutoff, the N^-0.5 patch-scale collapse, threshold 5 and drive of 10 nodes were not confirmed against the full text. The link construction (closest-pair joining plus 1% random) differs from the paper's RGG plus random pairs, which likely does not change the class.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "sandpile threshold cascade each node fires once, reset to zero, random geometric graph small-world, self-organized criticality synchronization"
+  },
+  {
+   "query": "self-organized criticality neuronal avalanche model fixed threshold integrate-and-fire small-world network transition to synchronization periodic global firing"
+  },
+  {
+   "query": "Bak-Tang-Wiesenfeld sandpile on spatial networks with few long-range shortcuts, critical behavior lost"
+  },
+  {
+   "query": "Pattern phase diagram of spiking neurons on spatial networks arXiv 1812.08857"
+  },
+  {
+   "query": "Pattern phase diagram of spiking neurons on spatial networks Physical Review Research Ferguson Bunimovich? patterns refractory cascade random geometric graph"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2112.00104",
+  "https://www.researchgate.net/publication/360632925_Sandpile_cascades_on_oscillator_networks_The_BTW_model_meets_Kuramoto",
+  "https://arxiv.org/html/1310.5360",
+  "https://arxiv.org/pdf/1106.4499",
+  "https://arxiv.org/html/2505.19296v1",
+  "https://arxiv.org/pdf/1812.08857",
+  "https://www.nature.com/articles/s41598-018-20275-7",
+  "https://arxiv.org/pdf/0705.0010",
+  "https://www.researchgate.net/publication/222577878_Sandpile_avalanche_dynamics_on_scale-free_networks",
+  "https://www.itp.uni-bremen.de/complex/pdf/9783527651009.ch10.pdf",
+  "https://arxiv.org/pdf/1405.4064",
+  "https://arxiv.org/abs/1405.4064",
+  "https://d-nb.info/993515274/34",
+  "https://arxiv.org/pdf/2309.03348",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1002038",
+  "https://arxiv.org/pdf/1606.06391",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2021.619661/full",
+  "https://arxiv.org/pdf/cond-mat/9601102",
+  "https://www.researchgate.net/publication/222656817_Self-organized_criticality_on_small_world_networks",
+  "https://arxiv.org/pdf/1010.0279",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2012/PDF/banerjee.pdf",
+  "https://arxiv.org/pdf/2501.15845",
+  "https://arxiv.org/pdf/1112.0387",
+  "https://www.researchgate.net/publication/235741761_Self-Organized_Criticality",
+  "https://www.nature.com/articles/s41598-021-97592-x",
+  "https://www.mit.edu/~8.334/grades/projects/projects12/V.%20A.%20Golyk.pdf",
+  "https://www.researchgate.net/publication/252164461_Self-organized_criticality_An_experiment_with_sandpiles",
+  "http://arxiv.org/abs/1812.08857",
+  "https://arxiv.org/pdf/1812.08857",
+  "https://pubmed.ncbi.nlm.nih.gov/31108692",
+  "https://arxiv.org/pdf/2302.08458",
+  "https://arxiv.org/pdf/1809.00607",
+  "https://pubmed.ncbi.nlm.nih.gov/25788885/",
+  "https://arxiv.org/pdf/1801.06046",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4349167/",
+  "https://www.researchgate.net/figure/Phase-space-analysis-of-the-spiking-activity-of-the-five-network-structures-From-left-to_fig2_229075690",
+  "https://arxiv.org/pdf/1812.08857",
+  "https://link.aps.org/doi/10.1103/PhysRevE.99.042410",
+  "http://arxiv.org/abs/1812.08857",
+  "https://pubmed.ncbi.nlm.nih.gov/31108692",
+  "https://journals.aps.org/prx/pdf/10.1103/PhysRevX.5.021028",
+  "https://link.aps.org/pdf/10.1103/PhysRevX.5.021028",
+  "https://arxiv.org/pdf/2406.01167",
+  "https://arxiv.org/pdf/2004.00240",
+  "https://pubmed.ncbi.nlm.nih.gov/25788885/"
+ ],
+ "full_text": "**Verdict: KNOWN.** This exact model has been published, with the same qualitative sequence of regimes. I could only check the quantitative values (onsets at 7 and 15.5, the 0.1 random-link cutoff, the 0.5 collapse exponent) against the abstract, not the full text.\n\n**1. Model family.** This is a threshold-cascade, sandpile-like model on a spatial network. Each node is a discretised pulse-coupled relaxation oscillator, or integrate-and-fire unit, with a refractory rule. A node fires at most once per cascade, and fired nodes reset to 0 afterwards. It is an Abelian-sandpile cousin with these differences:\n- Every neighbour receives +1 regardless of the firing node's degree.\n- Fired nodes are reset only after the cascade ends.\n- The graph is spatial, not a lattice.\n\n**2. The specific behaviour.** Georgiadis & Sornette's search-result text describes the same setup as the rule system:\n- N identical oscillators sit on a bidirectional unweighted graph.\n- Drive picks a small number of oscillators and adds one unit to their phase.\n- Once an oscillator's phase reaches the threshold, it fires and the phases of all its neighbours rise by one.\n- An oscillator may fire only once per cascade, a property they call refractoriness.\n- After the cascade, all fired oscillators are reset to (0, 0), and the stochastic drive resumes.\n- The graph is a geometric random graph with added random long-range connections.\n- Their construction sprinkles N points uniformly in a unit square and then connects random pairs as long-range links.\n\nThe reported phenomenology matches the observations:\n- **Patchwork:** For intermediate edge density and sufficiently strong spatial embeddedness, there is a spatiotemporal pattern in the phase field, resembling the surface of a frothing liquid. This is the \"shifting patchwork\" at a mean degree of about 7.\n- **Exponent 1:** Increasing the edge density gives avalanche sizes that follow a power law with exponent one (Zipf's law). This matches the cascade-size tail exponent of 1 at the patchwork's upper edge.\n- **Synchrony:** Further increases in edge density give metastability between pattern formation and synchronization, then a full transition to synchrony. This matches the onset of near-periodic global firing at a mean degree of about 15.5.\n- **Random links:** the patchwork requires \"sufficiently strong spatial embeddedness\". That is consistent with it dying once the random-link share exceeds about 0.1, though I did not see the paper's cutoff value.\n\nThe earliest clear source is Georgiadis & Sornette, arXiv:1812.08857 (submitted Dec 2018), published as Phys. Rev. E 99, 042410 (April 2019). The authors are Dionysios Georgiadis and Didier Sornette.\n\n**Reviews and context.** I found no review of this specific model. The broader background is sandpile and SOC on networks:\n- The original sandpile paper is Bak, Tang & Wiesenfeld, Phys. Rev. A 38 (1988).\n- For small-world sandpiles, one result describes sandpile cellular automata on lattices with a few shortcuts showing mean-field-like avalanche behaviour, with shortcuts acting like added dimensionality. This is consistent with the loss of the patchwork when random links are added.\n- Choi, Jung & Lee (arXiv:1405.4064) find that, in a simplified integrate-and-fire (LHG) model, the shortcuts play a crucial role in self-organized criticality. This is related background, not the same model.\n\n**3. Differences from the paper.**\n- The paper's links are a geometric random graph plus a tunable number of random pairs. This system instead joins the closest unlinked pairs until 99% of the links exist, then adds 1% at random. That gives a more regular local degree distribution, but it is still a spatial graph with a few shortcuts. I doubt it changes the behaviour class.\n- I did not see the exact threshold of 5, the drive of 10 nodes per step, or the paper's N, so I cannot confirm those match.\n- The patch-scale \u221d N^(-0.5) collapse (a patch scale of about \u221a(1/N), set by the node spacing) is plausible from the spatial setup. I found no explicit statement of it in the abstract, so that one feature is unverified.\n\n**4. Searches I ran.** Verification here means the title, authors, year and venue returned consistently from arXiv, PubMed and the APS page.\n\n**5. Confidence: medium-high.** The model definition and the three-regime sequence (pattern, then power law with exponent 1, then synchrony) match closely. I held back from \"high\" because I confirmed the numerical details only against the abstract.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Threshold-cascade (sandpile-like / pulse-coupled integrate-and-fire with refractoriness) on spatial random geometric graphs with shortcuts\", \"standard_name\": \"Georgiadis-Sornette refractory pulse-coupled relaxation oscillator model on spatial networks (pattern phase diagram: froth pattern -> Zipf/power-law exponent-1 avalanches -> synchrony)\", \"confidence\": \"medium\", \"citations\": [\"Georgiadis & Sornette 2019, Phys. Rev. E 99, 042410 (arXiv:1812.08857, 2018) - same model: threshold firing, once-per-cascade refractoriness, reset after cascade, random geometric graph plus random long-range links; reports frothing-liquid pattern at intermediate edge density, avalanche power law with exponent one, then metastability and synchrony as density increases\", \"Choi, Jung & Lee 2014, arXiv:1405.4064 - simplified integrate-and-fire SOC model; shortcuts are crucial for criticality (related background, not the same model)\", \"Bak, Tang & Wiesenfeld 1988, Phys. Rev. A 38 - original sandpile/SOC model (background)\"], \"searches\": [\"sandpile threshold cascade each node fires once reset random geometric graph small-world SOC synchronization\", \"SOC neuronal avalanche fixed-threshold integrate-and-fire small-world transition to synchronization\", \"BTW sandpile on spatial networks with few long-range shortcuts\", \"Pattern phase diagram of spiking neurons on spatial networks arXiv 1812.08857\", \"Pattern phase diagram spiking neurons spatial networks Physical Review E\"], \"notes\": \"Qualitative regimes match the abstract. Exact onset degrees (7 and 15.5), the 0.1 random-link cutoff, the N^-0.5 patch-scale collapse, threshold 5 and drive of 10 nodes were not confirmed against the full text. The link construction (closest-pair joining plus 1% random) differs from the paper's RGG plus random pairs, which likely does not change the class.\"}\n```",
+ "checked": "2026-11-03 02:29:52"
+}

@@ -1,0 +1,92 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators, linear (non-leaky) charging with pulse 1/N: cluster aggregation via periodic size-doubling into equally spaced equal-sized clusters (O'Keeffe, Krapivsky & Strogatz 2015, Supplemental Material)",
+ "citations": [
+  "O'Keeffe, Krapivsky, Strogatz, Synchronization as Aggregation: Cluster Kinetics of Pulse-Coupled Oscillators, PRL 115, 064101 (2015) + Supplemental Material",
+  "O'Keeffe, Transient dynamics of pulse-coupled oscillators with nonlinear charging curves, PRE 93, 032203 (2016)",
+  "Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)",
+  "Senn & Urbanczik, Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize, SIAM J. Appl. Math. (2000/2001)"
+ ],
+ "undocumented_phenomenology": "Finite-N endgame statistics not found: end states restricted to equal groups whose size divides N; prime N almost always fully synchronizes; full-sync probability jumps around with N; even-N failure falls as about 0.6/N. These look like the endpoint of the documented pairing process rather than a new mechanism.",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "The exact model (linear charging, pulse 1/N, all-to-all) is analysed in the OKS 2015 Supplemental Material for large N, where clusters double in size and form equally spaced, equal-sized groups. The authors leave out the endgame. Pulse = 1/N is a knife-edge where kicks can land exactly on threshold, so the exact probabilities (e.g. N=5 giving 0.99968 rather than 1) may depend on tie-breaking or floating point; check with exact arithmetic. Could not read the OKS Supplemental Material or the Senn-Urbanczik conditions.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "pulse-coupled oscillators linear charging no leak absorption equal clusters divisor of N full synchrony probability"
+  },
+  {
+   "query": "O'Keeffe Krapivsky Strogatz synchronization as aggregation cluster kinetics pulse-coupled oscillators"
+  },
+  {
+   "query": "\"scrambler\" pulse-coupled oscillators linear charging curve \u03b5 = 1/N Peskin model equivalent supplemental material"
+  },
+  {
+   "query": "Mathar Mattfeldt pulse-coupled decentral synchronization linear integrate-and-fire synchrony not guaranteed"
+  },
+  {
+   "query": "non-leaky integrate-and-fire all-to-all excitatory pulse coupling final cluster states equal size divisors of N prime number of oscillators always synchronize"
+  },
+  {
+   "query": "Urbanczik \"Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize\""
+  },
+  {
+   "query": "Peskin model linear charging pulses 1/N clusters size doubles periodically pairs spaced equally apart"
+  },
+  {
+   "query": "Mirollo Strogatz linear case no leak return map neutral pulse-coupled oscillators synchrony not guaranteed clusters finite N"
+  }
+ ],
+ "result_urls": [
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "http://www.scholarpedia.org/article/Pulse_coupled_oscillators",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022482/",
+  "https://pubmed.ncbi.nlm.nih.gov/27078340/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.032203",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.064101",
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://www.stevenstrogatz.com/articles/category/2015",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "http://data.bettstetter.com/publications/okeeffe-2019-spie-swarmalators-109822E.pdf",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "https://pubs.aip.org/aip/cha/article-abstract/27/5/053103/135071/Isochronous-dynamics-in-pulse-coupled-oscillator?redirectedFrom=fulltext",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=930383",
+  "https://link.springer.com/chapter/10.1007/978-3-642-03156-4_5",
+  "https://www.izhikevich.org/publications/pco.pdf",
+  "https://link.springer.com/chapter/10.1007/978-3-319-26630-5_1",
+  "https://dl.acm.org/doi/10.1016/j.comnet.2016.01.001",
+  "https://link.springer.com/article/10.1155/2009/854087",
+  "https://users.metu.edu.tr/marat/papers/a114.pdf",
+  "https://dl.acm.org/doi/10.1145/3605553",
+  "https://par.nsf.gov/servlets/purl/10229105",
+  "https://dl.acm.org/doi/pdf/10.1145/2348832.2348833",
+  "https://users.metu.edu.tr/marat/papers/a114.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022482/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022207",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10013047/",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://link.springer.com/article/10.1007/s00422-006-0082-8",
+  "https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/neuro.10.002.2008/full",
+  "https://www.biorxiv.org/content/10.1101/2019.12.19.882456.full.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11942302",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8333332/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11078200/",
+  "https://open.clemson.edu/cgi/viewcontent.cgi?article=1716&context=all_theses",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://www.sciencedirect.com/topics/engineering/coupled-oscillator-model"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass, but for a more specific reason: this exact model, including its main clustering behaviour, is already in the literature.\n\n**This exact system is documented.** In the paper by O'Keeffe, Krapivsky and Strogatz, the authors say in the Supplemental Material [26], we apply aggregation theory to the deterministic Peskin model [16], assuming the oscillators rise linearly to threshold and fire pulses of size 1/N, where N \u226b 1 is the number of oscillators. That is your rule set: straight-line charging, no leak, and a group of k firing together giving a k/N kick. They state the result in the main text: the oscillators condense into clusters whose size doubles periodically. At the end of the first period, all oscillators synchronize into pairs spaced equally apart. Groups of 4 follow, and so on.\n\nSo the core behaviour is documented: equal-sized groups, evenly spaced, built up by pairing. Your odd/even differences and equal-sized end states fit naturally with that pairing picture.\n\n**Non-sync is not a contradiction.** A follow-up paper says Mirollo and Strogatz guaranteed sync only for a leak \u03b3 > 0 and pulse size > 1/N. For other values of \u03b3 and other pulse sizes, full sync is possible, but not certain to occur. Your case (no leak, pulse exactly 1/N) is outside the theorem. One possible conflict: Senn & Urbanczik proved a result titled \"Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize\". That only holds under specific conditions, and I could not read their paper to check whether the exact 1/N case is excluded.\n\n**What I could not find (the twist):** I found nothing on the small-N endgame:\n- that the end states are equal groups whose size divides N (9 end states at N=100, which has 9 divisors);\n- that prime N almost always ends in full sync;\n- that full-sync probability jumps around with N (0.887, 0.99968, 0.906 for N=4, 5, 6);\n- that failure falls as about 0.6/N for even N.\n\nThe O'Keeffe group says outright that it models only the early and middle stages, where N \u226b 1, as opposed to the end game. So the finite-N statistics are a real gap. They are a counting result about where the known pairing process stops, not a new kind of behaviour. I could not read the Supplemental Material, which may say more.\n\n**Genuine pattern or artifact?** The grouping is genuine and matches the published mechanism. But pulse = 1/N is a knife-edge. When m equal groups each kick by 1/m, voltages can land exactly on the threshold of 1, so the \"\u2265 1 joins\" rule and floating-point ties may decide some outcomes. Prime N=5 giving 0.99968 rather than exactly 1 points that way. The exact numbers (the 0.6 prefactor, the sync probabilities) need checking with exact arithmetic before anyone relies on them.\n\n**Searches run:** the linear no-leak model with equal clusters and divisor-of-N end states; O'Keeffe\u2013Krapivsky\u2013Strogatz; the Peskin model with linear charging and 1/N pulses; Mathar\u2013Mattfeldt; non-leaky integrate-and-fire with prime N; Senn & Urbanczik; and the Mirollo\u2013Strogatz linear case.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Peskin / Mirollo-Strogatz pulse-coupled integrate-and-fire oscillators, linear (non-leaky) charging with pulse 1/N: cluster aggregation via periodic size-doubling into equally spaced equal-sized clusters (O'Keeffe, Krapivsky & Strogatz 2015, Supplemental Material)\", \"citations\": [\"O'Keeffe, Krapivsky, Strogatz, Synchronization as Aggregation: Cluster Kinetics of Pulse-Coupled Oscillators, PRL 115, 064101 (2015) + Supplemental Material\", \"O'Keeffe, Transient dynamics of pulse-coupled oscillators with nonlinear charging curves, PRE 93, 032203 (2016)\", \"Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)\", \"Senn & Urbanczik, Similar non-leaky integrate-and-fire neurons with instantaneous couplings always synchronize, SIAM J. Appl. Math. (2000/2001)\"], \"undocumented_phenomenology\": \"Finite-N endgame statistics not found: end states restricted to equal groups whose size divides N; prime N almost always fully synchronizes; full-sync probability jumps around with N; even-N failure falls as about 0.6/N. These look like the endpoint of the documented pairing process rather than a new mechanism.\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"The exact model (linear charging, pulse 1/N, all-to-all) is analysed in the OKS 2015 Supplemental Material for large N, where clusters double in size and form equally spaced, equal-sized groups. The authors leave out the endgame. Pulse = 1/N is a knife-edge where kicks can land exactly on threshold, so the exact probabilities (e.g. N=5 giving 0.99968 rather than 1) may depend on tie-breaking or floating point; check with exact arithmetic. Could not read the OKS Supplemental Material or the Senn-Urbanczik conditions.\"}\n```",
+ "checked": "2026-11-03 03:19:48"
+}

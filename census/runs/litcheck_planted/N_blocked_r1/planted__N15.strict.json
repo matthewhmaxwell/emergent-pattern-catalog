@@ -1,0 +1,100 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Minimal cognitive flocking / vision-cone position-based (non-reciprocal) attraction model (Barberis & Peruani 2016); worm/polar-file and interconnected nematic-band regimes; iABP family (Negi, Winkler, Gompper)",
+ "citations": [
+  "Barberis & Peruani, PRL 117, 248001 (2016); arXiv:1912.07929",
+  "Negi, Winkler, Gompper, Soft Matter 18, 6167 (2022)",
+  "Saavedra & Peruani, PRE 110, 064602 (2024)",
+  "Binary mixtures of iABPs with visual perception, New J. Phys. (2025) doi:10.1088/1367-2630/ae140c",
+  "Directed swarm assembly due to mixed misaligned perception-dependent motility, Commun. Phys. (2025)"
+ ],
+ "undocumented_phenomenology": "No source reports fractal (D~1.5) branching stream networks, void-area ~ R^3 scaling, or degree-3-dominated junction statistics for vision-cone attraction models; the R^3 exponent implies a second length scale (turning radius or interparticle spacing) or unfinished coarsening.",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Same model class as Barberis-Peruani. Files led by incidental leaders, and small nematic bands that interconnect during a transient, are documented; 3-way merging junctions are expected from follower convergence. The twist is the quantitative network statistics; the R^3 void scaling plausibly matters but needs finite-size and run-length checks to exclude a slow coarsening transient. Full texts of Barberis-Peruani and Brigatti-Peruani 2026 were not read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "vision cone active particles self-organized network branching structures Peruani"
+  },
+  {
+   "query": "Brigatti Peruani vision cone attraction network pattern"
+  },
+  {
+   "query": "active particles nonreciprocal vision cone filament network fractal dimension junctions"
+  },
+  {
+   "query": "Barberis Peruani minimal cognitive flocking nematic bands network-like structure small vision angle arXiv"
+  },
+  {
+   "query": "vision-cone attraction self-propelled particles percolating network of lanes trails without alignment"
+  },
+  {
+   "query": "\"cognitive flocking\" Barberis Peruani \"network\" nematic structures vision angle simulation snapshot"
+  },
+  {
+   "query": "Brigatti vision cone active particles 2026 arXiv"
+  },
+  {
+   "query": "active particles visual perception web-like branched filaments voids pattern point particles no excluded volume"
+  },
+  {
+   "query": "arXiv 1912.07929 Barberis Peruani nematic bands crossing lanes files vision angle phase diagram"
+  }
+ ],
+ "result_urls": [
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.064602",
+  "https://www.academia.edu/92099141/Emergent_collective_behavior_of_active_Brownian_particles_with_visual_perception",
+  "https://pubs.rsc.org/sm/article/18/33/6167/788445/Emergent-collective-behavior-of-active-Brownian",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://ora.ox.ac.uk/objects/uuid:4c90b489-3bc6-4b03-a6f4-a8f78556ad1f/files/rz890rt36s",
+  "https://www.sciencedirect.com/science/article/pii/S0925772121000043",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://www.jneurosci.org/content/37/39/9498",
+  "https://www.nature.com/articles/s41598-018-37457-y",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6368631/",
+  "https://pubmed.ncbi.nlm.nih.gov/28871030/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4715208/",
+  "https://www.biorxiv.org/content/10.1101/2025.03.07.642121v1.full",
+  "https://pubmed.ncbi.nlm.nih.gov/39916118/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/adac98",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/s42005-025-02131-z",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023234",
+  "http://arxiv-export3.library.cornell.edu/abs/1912.07929",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://www.fyysika.ee/?p=332599",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://www.nature.com/articles/s41598-018-37457-y",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ac924f",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.198301",
+  "https://www.nature.com/articles/s41567-022-01769-8",
+  "https://orb.binghamton.edu/cgi/viewcontent.cgi?article=1034&context=nejcs",
+  "https://www.sciencedirect.com/science/article/pii/S2405896322029858",
+  "https://www.science.org/doi/abs/10.1126/sciadv.aay0792",
+  "https://www.nature.com/articles/s41598-019-43179-6",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://pith.science/paper/2411.19783",
+  "https://pith.science/paper/2504.13550",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://pubs.rsc.org/en/content/articlelanding/2022/sm/d2sm00736c",
+  "https://pith.science/paper/2412.10577",
+  "https://academic.oup.com/mnras/article/473/1/1195/4062204",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10883369/",
+  "https://arxiv-vanity.com/papers/1912.07929",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.14.031008"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass, though for a sharper reason. Merging streams and interconnected bands are documented for this exact class of model. What I couldn't find anywhere is the network statistics you measured: a fractal dimension of about 1.5, void area scaling as R\u00b3, and junctions that are mostly 3-way.\n\n**Your system is the documented model.** Barberis & Peruani (PRL 2016) studied particles with no memory, that interact by a short-ranged, position-based, attractive force, which acts inside a vision cone (VC), and lack velocity-velocity alignment. That matches your rules (2)\u2013(4): no heading-copying, one-sided vision, steering toward bearings. Their phase diagram plots vision angle \u03b2 vs angular noise intensity D_\u03b8, with i) gas phase, ii) aggregate phase, iii) worm phase, and iv) nematic phase. They report the formation of moving\u2014locally polar\u2014files with particles at the front of these structures acting as effective leaders. A narrow cone (half-angle \u03c0/8) and weak noise (0.08) should put your run in the files/\"worm\" region rather than the bands region, which they place at larger values of D_\u03b8 and \u03b2. I'm inferring that placement because I didn't read their numbers.\n\n**Network-like structure is partly documented.** In the nematic phase, after a complex transient where various small nematic bands grow in size and interconnect, the system reaches a steady state, with one or several bands. Related work also describes particle chains: active particles with nonreciprocal attraction form particle chains, which eventually become closed loops (here only around obstacles). Point-particle vision-cone models also show a quasi-periodic, honeycomb-lattice-like structure in binary mixtures. And the single-species point-particle model gives clusters, polar filaments, and nematic bands.\n\n**What I couldn't find (the twist):**\n- **Fractal dimension ~1.5 of the whole pattern.** Nobody reports a fractal measure for these structures.\n- **Void area \u221d R\u00b3.** This is not reported, and it is odd. If R were the only length scale, void area should go as R\u00b2. An exponent of 3 means another length matters, probably the turning radius (speed/turn rate), the spacing between particles, or a pattern that hasn't finished coarsening. This plausibly matters, but only if it survives a test across system sizes and run lengths.\n- **Mostly 3-way junctions, 5+ absent.** This is unreported but expected: followers converging on leaders' files naturally give tree-like Y-merges. I see it as a descriptor of known behaviour, not a new phase.\n\n**Genuine or artifact?** Probably a genuine emergent pattern, not trivial. Without collisions there is no excluded volume, so streams can collapse onto lines without limit, which makes D < 2 easy to get. The thing to check is whether the network is a steady state or a slow transient on the way to the documented bands or aggregates. Barberis & Peruani saw an interconnecting network only as a transient in the bands regime. The run (50,000 time units, roughly 5,000 length units travelled per particle) is long, but I can't rule out that the network is still coarsening.\n\n**Gaps in my search:** I ran 10 searches covering networks, fractals, junctions, voids, branched filaments, lanes and the Brigatti & Peruani paper. I couldn't locate that 2026 paper, and I only saw snippets of Barberis & Peruani, not the full text or supplement. Either could still contain a network regime. Negi et al. (Soft Matter 2022, NJP 2025) and the PRResearch 2024 alignment-plus-vision paper report worms, clusters and honeycomb structures, but no fractal or junction statistics.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Minimal cognitive flocking / vision-cone position-based (non-reciprocal) attraction model (Barberis & Peruani 2016); worm/polar-file and interconnected nematic-band regimes; iABP family (Negi, Winkler, Gompper)\", \"citations\": [\"Barberis & Peruani, PRL 117, 248001 (2016); arXiv:1912.07929\", \"Negi, Winkler, Gompper, Soft Matter 18, 6167 (2022)\", \"Saavedra & Peruani, PRE 110, 064602 (2024)\", \"Binary mixtures of iABPs with visual perception, New J. Phys. (2025) doi:10.1088/1367-2630/ae140c\", \"Directed swarm assembly due to mixed misaligned perception-dependent motility, Commun. Phys. (2025)\"], \"undocumented_phenomenology\": \"No source reports fractal (D~1.5) branching stream networks, void-area ~ R^3 scaling, or degree-3-dominated junction statistics for vision-cone attraction models; the R^3 exponent implies a second length scale (turning radius or interparticle spacing) or unfinished coarsening.\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Same model class as Barberis-Peruani. Files led by incidental leaders, and small nematic bands that interconnect during a transient, are documented; 3-way merging junctions are expected from follower convergence. The twist is the quantitative network statistics; the R^3 void scaling plausibly matters but needs finite-size and run-length checks to exclude a slow coarsening transient. Full texts of Barberis-Peruani and Brigatti-Peruani 2026 were not read.\"}\n```",
+ "checked": "2026-11-03 02:43:26"
+}

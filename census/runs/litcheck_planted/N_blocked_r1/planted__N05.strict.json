@@ -1,0 +1,91 @@
+{
+ "class_id": "planted:N05",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Coupled particle-landscape (light-heavy) model of Chakraborty-Chatterjee-Barma: strong phase separation / compact-cluster ordered phases with algebraic coarsening (not FDPO, which only occurs on the separatrix)",
+ "citations": [
+  "Chakraborty, Pal, Chatterjee, Barma, PRE 93, 050102(R) (2016)",
+  "Chakraborty, Chatterjee, Barma, PRE 96, 022127 (2017)",
+  "Chakraborty, Chatterjee, Barma, PRE 96, 022128 (2017)",
+  "Mahapatra, Ramola, Barma, Phys. Rev. Research 2, 043279 (2020)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Agrees with first pass on the model family (KNOWN-VARIANT), but corrects the label: generic couplings (b=-0.4, b'=0.3) put the system in an ordered phase-separated phase, not FDPO, which lives only on the order-disorder separatrix. Unverified twist: the explicit early t^0.5 -> late t^~0.34 crossover near t~1000 with early-domain dissolution; full texts were not accessible. The late exponent shifts with b' (0.34 vs 0.41), suggesting effective/crossover exponents rather than a new class. Mapping of these parameters to the compact-cluster phase is inferred, not verified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "light-heavy model coarsening crossover t^{1/2} t^{1/3} fluctuating surface Barma Chakraborty"
+  },
+  {
+   "query": "\"Large compact clusters and fast dynamics in coupled nonequilibrium systems\" coarsening exponent"
+  },
+  {
+   "query": "light heavy particles vacancies fluctuating surface coarsening two-stage growth exponent 1/2 1/3 crossover"
+  },
+  {
+   "query": "\"Ordered phases in coupled nonequilibrium systems: Dynamic properties\" coarsening"
+  },
+  {
+   "query": "light-heavy model coarsening two time scales early domains dissolve macroscopic hills arXiv Barma Ramola"
+  },
+  {
+   "query": "Mahapatra Ramola Barma irreducible sequences coarsening length grows t^{1/3} light heavy arXiv"
+  },
+  {
+   "query": "Chakraborty Pal Chatterjee Barma infinite compact cluster coarsening \"t^{1/3}\" OR \"1/3\" landscape particles two species"
+  },
+  {
+   "query": "arXiv \"Large compact clusters and fast dynamics\" two species advected fluctuating landscape coarsening length growth"
+  },
+  {
+   "query": "\"infinite compact cluster\" phase landscape coarsening dynamic exponent z=3 two species fluctuating surface"
+  },
+  {
+   "query": "Chakraborty Chatterjee Barma coupled landscape particles coarsening length \"t^{1/2}\" crossover \"t^{1/3}\" SPS ICC phases"
+  }
+ ],
+ "result_urls": [
+  "https://www.tifrh.res.in/~barma/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae09a3",
+  "https://www.tifr.res.in/~ipa1970/Awardee_talk/M-barma_Ipa%20award.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.050102",
+  "https://www.wikidata.org/wiki/Q46532768",
+  "https://pubmed.ncbi.nlm.nih.gov/27300811/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4602023/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://haatajagroup.mycpanel.princeton.edu/wp-content/uploads/2018/10/berry_etal_ROPP2018_lowres.pdf",
+  "https://www.wikidata.org/wiki/Q46300356",
+  "https://www.wikidata.org/wiki/Q46300337",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128",
+  "https://pubmed.ncbi.nlm.nih.gov/28950483/",
+  "https://pubmed.ncbi.nlm.nih.gov/28950631/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.029902",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae09a3",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "http://repository.ias.ac.in/view/creators/Barma=3AMustansir=3A=3A.html",
+  "https://tifrh.res.in/webdata/documents/events/annual-reports/annualreport20-21.pdf",
+  "https://link.springer.com/article/10.1140/epjs/s11734-023-00799-4",
+  "https://pubmed.ncbi.nlm.nih.gov/27300811/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.050102",
+  "https://pubmed.ncbi.nlm.nih.gov/27300811/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.050102",
+  "https://pith.science/paper/1909.01696",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128",
+  "https://pubmed.ncbi.nlm.nih.gov/28950483/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, at medium confidence.** The behaviour (two particle species plus vacancies on a landscape they also reshape, phase separating into macroscopic clusters and macroscopic landscape order) is documented. The exact 0.5 \u2192 0.34 growth crossover near t\u22481000 is not confirmed in anything I could open. I partly overturn the first pass on the name: this is not best described as fluctuation-dominated phase ordering (FDPO).\n\n**What this system is.** It is the coupled particle\u2013landscape model of Chakraborty, Pal, Chatterjee and Barma, which the Mahapatra\u2013Ramola\u2013Barma line calls the light\u2013heavy (LH) model. Your A particles are the heavy species (they slide downhill) and your B particles are the light species (they slide uphill). The documented phenomenology matches yours in kind:\n- **Particles and landscape:** two species of particles are advected by a fluctuating landscape and modify the landscape in the process. The phase diagram is valid for all particle densities, so vacancies are covered.\n- **Ordered states:** the two particle species phase separate completely from each other, but the underlying landscape may either show complete ordering, with macroscopic regions with distinct average slopes, or may show coexistence of ordered and disordered regions. Your late-time \"macroscopic hills\" fit this.\n- **Coarsening:** in one phase, ordered landscape coexists with disorder, giving coarsening and steady state dynamics on time scales which grow algebraically with size. Algebraic coarsening is consistent with a late exponent around 1/3, i.e. dynamic exponent z\u22483, but I only read the abstract and could not confirm that value.\n- **Early times and a crossover:** Mahapatra et al. (2020) study the early-time and coarsening dynamics in the light-heavy model. They find an intermediate diffusive (power-law) stretch before coarsening starts, and identify nonlocal \"irreducible sequences\" that provide a coarsening length scale in the ordered phases at late times. A diffusive early stretch fits your exponent of 0.5.\n\n**Correction to the first pass.** FDPO is not this model's generic ordered state. the separatrix between the disordered and ordered phases is a surface in parameter space on which the system exhibits fluctuation-dominated phase ordering. Your couplings (b = \u22120.4, b\u2032 = 0.3) are well off that boundary. You are almost certainly in one of the strongly phase-separated ordered phases. Because A builds up the ground it slides down while B builds up the ground it climbs, the most likely phase is the \"compact cluster\" one, where ordered and disordered landscape coexist. That last step is my inference from the abstracts; I could not map your parameters onto the papers' phase diagram.\n\n**The unverified twist.** The specific 1/2 \u2192 ~1/3 crossover at t\u22481000, with early domains dissolving, is not stated in any abstract I could access. I could not open the full texts of Chakraborty et al. 2016/2017 or Mahapatra et al. 2020. This probably doesn't matter much:\n- The late exponent moves with b\u2032 (0.34 here, 0.41 at b\u2032 = 0.18), so these look like effective, finite-time exponents rather than a new universality class.\n- A diffusive early regime followed by slower coarsening is what the 2020 paper describes.\n\n**Is it real or an artifact?** It looks like a genuine emergent pattern: clear growth regimes, a crossover, and macroscopic landscape order. Nothing suggests random colouring, an inert coupled field, numerical divergence or a frozen absorbing state.\n\n**Searches run:** LH-model coarsening with a 1/2 \u2192 1/3 crossover; \"Large compact clusters and fast dynamics\" (exponent and arXiv full text); \"Ordered phases\u2026 Dynamic properties\"; LH model with vacancies and two-stage growth; Mahapatra/Ramola/Barma irreducible sequences and a t^{1/3} length; the \"infinite compact cluster\" phase and z=3.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Coupled particle-landscape (light-heavy) model of Chakraborty-Chatterjee-Barma: strong phase separation / compact-cluster ordered phases with algebraic coarsening (not FDPO, which only occurs on the separatrix)\", \"citations\": [\"Chakraborty, Pal, Chatterjee, Barma, PRE 93, 050102(R) (2016)\", \"Chakraborty, Chatterjee, Barma, PRE 96, 022127 (2017)\", \"Chakraborty, Chatterjee, Barma, PRE 96, 022128 (2017)\", \"Mahapatra, Ramola, Barma, Phys. Rev. Research 2, 043279 (2020)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Agrees with first pass on the model family (KNOWN-VARIANT), but corrects the label: generic couplings (b=-0.4, b'=0.3) put the system in an ordered phase-separated phase, not FDPO, which lives only on the order-disorder separatrix. Unverified twist: the explicit early t^0.5 -> late t^~0.34 crossover near t~1000 with early-domain dissolution; full texts were not accessible. The late exponent shifts with b' (0.34 vs 0.41), suggesting effective/crossover exponents rather than a new class. Mapping of these parameters to the compact-cluster phase is inferred, not verified.\"}\n```",
+ "checked": "2026-11-03 02:32:49"
+}

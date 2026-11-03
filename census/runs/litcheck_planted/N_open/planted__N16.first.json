@@ -1,0 +1,41 @@
+{
+ "class_id": "planted:N16",
+ "model": "claude-sonnet-5-5",
+ "verdict": "PARSE_FAILED",
+ "stop_reason": "tool_use",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "inertial active ring polymer compaction rotational inertia Langevin active Brownian"
+  },
+  {
+   "query": "active ring polymer collapse re-entrant swelling inertia P\u00e9clet radius of gyration"
+  },
+  {
+   "query": "inertia-induced collapse of active Brownian polymer rotational inertia spontaneous polarization self-avoidance Winkler"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2610.16188",
+  "https://arxiv.org/abs/2610.16188",
+  "https://www.researchgate.net/publication/331086314_Active_Brownian_ring_polymers",
+  "https://arxiv.org/pdf/2603.05074",
+  "https://arxiv.org/html/2603.05074",
+  "https://pubs.aip.org/aip/jcp/article/152/4/040901/76380/Inertial-effects-of-self-propelled-particles-From",
+  "https://www.researchgate.net/publication/382691392_Escape_of_an_Active_Ring_from_an_Attractive_Surface_Behaving_Like_a_Self-Propelled_Brownian_Particle",
+  "https://www.researchgate.net/publication/338762162_Inertial_effects_of_self-propelled_particles_From_active_Brownian_to_active_Langevin_motion",
+  "https://www.researchgate.net/publication/329110067_Globulelike_Conformation_and_Enhanced_Diffusion_of_Active_Polymers",
+  "https://arxiv.org/html/2405.05380v1",
+  "https://arxiv.org/html/2610.16188",
+  "https://arxiv.org/html/2503.18099",
+  "https://arxiv.org/html/2607.09436",
+  "https://arxiv.org/html/2404.12470",
+  "https://arxiv.org/pdf/2507.08391",
+  "https://www.researchgate.net/publication/361457499_Dynamics_of_Active_Polar_Ring_Polymers",
+  "https://arxiv.org/html/2110.04567",
+  "https://iopscience.iop.org/article/10.1088/1361-6633/ad3e11",
+  "https://arxiv.org/html/cond-mat/0206583"
+ ],
+ "full_text": "",
+ "checked": "2026-11-03 03:53:38"
+}

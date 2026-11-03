@@ -1,0 +1,62 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Coexistence of stationary/motile chemotactic aggregate(s) and nutrient-driven travelling pulses/bands in Keller-Segel models with autochemotaxis plus nutrient taxis (Budrene-Berg type)",
+ "citations": [
+  "Mathematical Description of Bacterial Traveling Pulses, PLoS Comput Biol 2010, doi:10.1371/journal.pcbi.1000890 (authors from memory: Saragosti, Calvez, Bournaveas, Buguin, Silberzan, Perthame) - 'Coexistence of a stationary cluster and a traveling pulse'",
+  "Curk et al., Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE 2013, doi:10.1371/journal.pone.0074878 - 2D, motile vs fixed spots set by nutrient/attractant sensitivity ratio, coarsening to single cluster",
+  "Brenner, Levitov & Budrene, Physical Mechanisms for Chemotactic Pattern Formation by Bacteria, Biophys J 1998 - swarm rings plus aggregates"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Mild overturn: first pass said VARIANT, but the phenomenology (one aggregate coexisting with travelling nutrient-depletion bands, appearing when nutrient taxis dominates) is explicitly documented in 1D (PLoS Comput Biol 2010) and in 2D (Curk 2013, including coarsening to a single cluster). Remaining differences (uniform nutrient resupply, no growth, b/(1+b^2) sensitivity, periodic domain) are rule-level; resupply mainly lets bands recur instead of being transient. Saturating sensitivity prevents blow-up, so the pattern is likely genuine, but the metrics are sparse: check that bands keep moving rather than the run relaxing to a frozen single-blob state.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model attractant and nutrient taxis coexistence aggregates and traveling bands"
+  },
+  {
+   "query": "PLoS Computational Biology traveling pulse bacteria self-generated attractant nutrient consumption Keller-Segel"
+  },
+  {
+   "query": "Seyrich Stark traveling concentration pulses generalized Keller-Segel model two dimensions aggregate"
+  },
+  {
+   "query": "two-dimensional simulation chemotaxis self-secreted attractant plus nutrient taxis consumption traveling bands spots coexist"
+  },
+  {
+   "query": "chemotaxis model nutrient supply consumption periodic traveling waves coexisting stationary aggregate two-dimensional Keller-Segel"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6369777/",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://pubmed.ncbi.nlm.nih.gov/30674662",
+  "https://www.pnas.org/doi/full/10.1073/pnas.2105138118",
+  "https://www.biorxiv.org/content/biorxiv/early/2023/06/05/2023.06.01.543315.full.pdf",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1010063&rev=1",
+  "https://escholarship.org/content/qt55t836xf/qt55t836xf.pdf",
+  "https://escholarship.org/content/qt48n3q0bs/qt48n3q0bs.pdf",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ab4522",
+  "https://www.static.tu.berlin/fileadmin/www/10002050/Publikationen/bis_2020/New_J._Phys._21__103001__2019_.pdf",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2117377119",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://www.pnas.org/doi/10.1073/pnas.2105138118",
+  "https://pubmed.ncbi.nlm.nih.gov/30674662",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is a small upgrade from the first pass's \"variant\". The behaviour you saw, one dense blob sitting alongside travelling bands, has already been described in Keller-Segel models that combine a self-made attractant with nutrient-seeking.\n\n**1. Blob plus travelling pulse (1D).** The PLoS Comput Biol paper the first pass couldn't pin down is \"Mathematical Description of Bacterial Traveling Pulses\" (PLoS Comput Biol 2010, doi 10.1371/journal.pcbi.1000890). From memory, the authors are Saragosti, Calvez, Bournaveas, Buguin, Silberzan and Perthame; the search results didn't show the author list. Its model uses two chemical species, namely the chemoattractant signal, and the nutrient. It has a figure titled \"Coexistence of a stationary cluster and a traveling pulse.\" The paper reports that at low level of nutrient the cell population splits into two subpopulations, and that the solution appears to be the superposition of a traveling pulse and a stationary state. That is your two-structure picture. It also explains why your kind of capped sensitivity matters: in standard Keller-Segel the drift generally becomes unbounded when aggregative instability occurs, which is a strong obstacle to the existence of traveling pulses. Your 5\u00b7b/(1+b\u00b2) and 14\u00b7b/(1+b\u00b2) terms do the same capping job as that paper's bounded flux.\n\n**2. The same thing in 2D.** Curk et al. (PLoS ONE 2013) simulated cells that follow both a nutrient and an attractant they secrete themselves. When the ratio of nutrient-seeking to attractant-seeking gets large enough, the bacterial spots become motile and the eventual pattern is a ring made up or merging moving spots rather than an amorphous or regular array of static ones. With weak nutrient-seeking they get a pattern with fixed spots, and with slightly stronger nutrient-seeking spots... are now mobile and chemotactic, as they can glide up a nutrient gradient. They also found that the bacterial spots coarsen to yield a single cluster in a steady state. That fits your count of exactly one dense aggregate, and your ratio of 0.36 (nutrient-dominated) sits in their mobile-spot / band regime.\n\n**3. Where the idea comes from.** Brenner, Levitov & Budrene (Biophys J 1998) argued that the moving ring is driven by local nutrient depletion and held together by the attractant, in contrast, the aggregates formed in the ring results from fluctuations near the unstable uniform cell density. That is the same pairing of bands and aggregates.\n\n**Twists I checked:**\n- **Nutrient topped up evenly on a periodic 50\u00d750 grid, with no cell growth.** This is a difference in setup, not in what you see. Topping up the nutrient mainly lets bands keep forming instead of being a one-off pulse. That doesn't count as new behaviour.\n- **Aggregate \"carried by\" the bands.** If the blob really moves along with the bands, that is the \"motile spot gliding up a nutrient gradient\" Curk describes. If it stays put, it is Saragosti's stationary cluster. Either way it's documented.\n- I found no saturating b/(1+b\u00b2) sensitivity paired with this exact behaviour, but that is a rule-level detail.\n\n**Genuine or artifact?** It's probably a real pattern. Capped sensitivity prevents the field blowing up numerically, and a blob plus bands is the documented outcome for these models. One caution: the three numbers you have (2 structure types, 1 aggregate, ratio 5/14) are thin. A single remaining blob is also exactly what slow merging of clusters ends in. So you should check that the bands keep moving, rather than the run drifting towards a frozen single-blob state.\n\n**Searches run:** attractant plus nutrient chemotaxis with coexisting aggregates and bands; the PLoS Comput Biol traveling-pulse paper; Seyrich/Stark generalized Keller-Segel pulses; 2D secreted attractant plus nutrient spots and bands; nutrient-resupplied periodic waves with a coexisting aggregate.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Coexistence of stationary/motile chemotactic aggregate(s) and nutrient-driven travelling pulses/bands in Keller-Segel models with autochemotaxis plus nutrient taxis (Budrene-Berg type)\", \"citations\": [\"Mathematical Description of Bacterial Traveling Pulses, PLoS Comput Biol 2010, doi:10.1371/journal.pcbi.1000890 (authors from memory: Saragosti, Calvez, Bournaveas, Buguin, Silberzan, Perthame) - 'Coexistence of a stationary cluster and a traveling pulse'\", \"Curk et al., Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE 2013, doi:10.1371/journal.pone.0074878 - 2D, motile vs fixed spots set by nutrient/attractant sensitivity ratio, coarsening to single cluster\", \"Brenner, Levitov & Budrene, Physical Mechanisms for Chemotactic Pattern Formation by Bacteria, Biophys J 1998 - swarm rings plus aggregates\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Mild overturn: first pass said VARIANT, but the phenomenology (one aggregate coexisting with travelling nutrient-depletion bands, appearing when nutrient taxis dominates) is explicitly documented in 1D (PLoS Comput Biol 2010) and in 2D (Curk 2013, including coarsening to a single cluster). Remaining differences (uniform nutrient resupply, no growth, b/(1+b^2) sensitivity, periodic domain) are rule-level; resupply mainly lets bands recur instead of being transient. Saturating sensitivity prevents blow-up, so the pattern is likely genuine, but the metrics are sparse: check that bands keep moving rather than the run relaxing to a frozen single-blob state.\"}\n```",
+ "checked": "2026-11-03 03:15:54"
+}

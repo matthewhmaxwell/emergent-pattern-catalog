@@ -1,0 +1,51 @@
+{
+ "class_id": "planted:N09",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Shear-induced meron (Q=1/2 Skyrmion) nucleation and helix reorientation to the velocity-gradient direction in the twist-bend nematic (N_TB) phase of curved/bent-core rods",
+ "citations": [
+  "Pith review of 'Merons Mediate Re-Ordering of Curved Rods Under Shear Flow', pith.science/paper/2609.21999 (2026 preprint)",
+  "Chiappini, Patti, Dijkstra, Phys. Rev. E 102, 040601 (2020) - same curved-rod N_TB simulation family"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "The observed system appears to be the setup of the cited preprint itself. Charge 1/2 defects, yield peak and final helix axis along the velocity gradient (90 deg to flow) all match. The overturn is only from KNOWN-VARIANT to KNOWN; no new behaviour was found. Only a machine review page was accessible, so authors, venue and the strain values 4.5 and 10 are unverified. The review flags the meron-identification method as unvalidated, but the reorientation itself is a genuine, non-trivial emergent effect, analogous to shear-driven reorientation of smectic/lamellar layers.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "shear twist-bend nematic bent rods simulation merons helix reorientation"
+  },
+  {
+   "query": "twist-bend nematic under shear flow molecular dynamics curved particles defect lines skyrmion charge arXiv"
+  },
+  {
+   "query": "\"Merons Mediate Re-Ordering of Curved Rods Under Shear Flow\""
+  },
+  {
+   "query": "curved rods twist-bend nematic shear flow yield stress reorientation helical axis simulation Dijkstra"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.21999",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1315740110",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8041804/",
+  "https://www.osti.gov/pages/servlets/purl/1623928",
+  "https://pith.science/paper/2609.21999",
+  "https://pubs.rsc.org/sm/article/21/37/7270/912729/Geometric-frustration-in-twist-bend-nematic",
+  "https://pith.science/paper/2609.21999",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6432483/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11667677/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5869621/",
+  "https://pith.science/paper/2609.21999",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.102.040601",
+  "https://ouci.dntb.gov.ua/en/works/7pxpgwb7/",
+  "https://pubmed.ncbi.nlm.nih.gov/33212681",
+  "https://par.nsf.gov/servlets/purl/10188479"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm overturning the first pass's \"variant\" label. This exact system and behaviour appear to be the subject of a recent preprint, and I couldn't find any extra twist in the observed behaviour beyond what that paper reports.\n\n**What I could verify**\n\nThe source is a Pith machine review of the preprint \"Merons Mediate Re-Ordering of Curved Rods Under Shear Flow\" (pith.science/paper/2609.21999). It matches every qualitative feature of your observation:\n\n- **The system:** the paper uses molecular dynamics simulations to investigate the response of the nematic twist-bend (N_TB) phase of bent-core colloidal rods to simple shear flow.\n- **Reorientation by 90\u00b0:** shearing parallel to its helical axis induces a yield stress peak, after which the system reorders into a stable orientation with the helical axis aligned along the velocity gradient direction. In your setup the velocity gradient is along z, which is 90\u00b0 from the flow along x. That matches your final angle of 90\u00b0.\n- **Charge-\u00bd defects:** The central object is the meron, a fractionally charged (Q = 1/2) Skyrmion-like defect with a double-twist director texture. That matches your defect charge of 0.5.\n- **How the reordering happens:** In the N_TB phase, merons act as edge dislocations between regions of different heliconical ordering. The paper calls them topological machines, locally rotating rods into a re-ordered and stable orientation of the phase.\n- **Control case:** In the case of shear perpendicular to the helical axis, the nematic twist-bend phase is stable and flows without disordering.\n\nThe particle model fits the earlier simulation work of the Dijkstra group on curved rods in this phase (e.g. Massimiliano Chiappini, Alessandro Patti, and Marjolein Dijkstra, Phys. Rev. E 2020). The review's reference list also cites a Dijkstra paper. However, I could not confirm who wrote the shear paper.\n\n**What I could not verify**\n\n- I only had the review page, not the preprint itself. So I couldn't confirm the authors, the venue or the specific strain values (4.5 for the tracked defect, 10 for completed reordering).\n- These numbers are plausible: a yield peak at a strain of a few units, then reordering by a strain of about 10. But they're the only details that might differ, and they're numbers, not a new behaviour.\n\n**Is it a genuine pattern or an artifact?** It looks genuine. Shear along the helix breaks the one-dimensional periodic ordering, which produces a yield-stress peak. Defects then nucleate and the phase settles into a new, stable orientation. This resembles the well-known shear-driven reorientation of layered phases such as smectics and lamellar block copolymers, rather than a random colouring, a frozen state or a diverged field. One caveat: the review notes that the central defect identification method is unvalidated and needs attention. So the specific label \"meron\" carries some uncertainty, but the reorientation itself is robust. For an independent check, measure the charge with a second method, such as the Skyrmion density integrated over a cross-section of the defect line.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Shear-induced meron (Q=1/2 Skyrmion) nucleation and helix reorientation to the velocity-gradient direction in the twist-bend nematic (N_TB) phase of curved/bent-core rods\", \"citations\": [\"Pith review of 'Merons Mediate Re-Ordering of Curved Rods Under Shear Flow', pith.science/paper/2609.21999 (2026 preprint)\", \"Chiappini, Patti, Dijkstra, Phys. Rev. E 102, 040601 (2020) - same curved-rod N_TB simulation family\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"The observed system appears to be the setup of the cited preprint itself. Charge 1/2 defects, yield peak and final helix axis along the velocity gradient (90 deg to flow) all match. The overturn is only from KNOWN-VARIANT to KNOWN; no new behaviour was found. Only a machine review page was accessible, so authors, venue and the strain values 4.5 and 10 are unverified. The review flags the meron-identification method as unvalidated, but the reorientation itself is a genuine, non-trivial emergent effect, analogous to shear-driven reorientation of smectic/lamellar layers.\"}\n```",
+ "checked": "2026-11-03 04:18:33"
+}

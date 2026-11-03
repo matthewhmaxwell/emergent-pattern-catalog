@@ -1,0 +1,65 @@
+{
+ "class_id": "planted:N05",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: driven lattice gas of two species + vacancies coupled to a fluctuating surface (Light-Heavy-Vacancy model; sliding-particles on fluctuating landscape)",
+ "standard_name": "Light-Heavy-Vacancy (LHV) model, FPPS-II phase: two-regime (unusual) coarsening with domain disintegration",
+ "confidence": "high",
+ "citations": [
+  "Khamrai & Chatterjee 2026, arXiv:2609.14541 (cond-mat.stat-mech) - LHV model, N=16416, b=-0.4; R_0(t) exponent ~0.5 for t<~1e3 then ~0.34 (b'=0.3, FPPS-II) and ~0.41 (b'=0.18, VIPS); early domains disintegrate; macroscopic hills at late times",
+  "Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - original sliding particles on fluctuating surface, coarsening L~t^{1/z}",
+  "Light and heavy particles on a fluctuating surface: bunchwise balance, irreducible sequences, and local density-height correlations, Phys. Rev. Research 2, 043279 (2020; arXiv:2007.02971) - LH model phases and coarsening",
+  "Chakraborty, Chatterjee & Barma 2019, Phys. Rev. E 100, 042117 - coupled modes for sliding particles on fluctuating landscape"
+ ],
+ "searches": [
+  "two species particles sliding on fluctuating surface phase separation coarsening exponent A B vacancies height",
+  "Das Barma Particles sliding on a fluctuating surface: phase separation and power laws",
+  "Light-Heavy-Vacancy model unusual coarsening dynamics FPPS-II early exponent 1/2 crossover hills"
+ ],
+ "notes": "The main source is a recent arXiv preprint (2026) and I saw only search snippets of it, not the full text. No dedicated review was found. The paper reports two macroscopic hills around t=1e4, while the simulation lists 1; I did not check whether these are the same measurement.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "two species particles sliding on fluctuating surface phase separation coarsening exponent A B vacancies height"
+  },
+  {
+   "query": "Das Barma Particles sliding on a fluctuating surface: phase separation and power laws"
+  },
+  {
+   "query": "Light-Heavy-Vacancy model unusual coarsening dynamics FPPS-II early exponent 1/2 crossover hills"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2609.14541",
+  "https://arxiv.org/pdf/2609.14541",
+  "https://ui.adsabs.harvard.edu/abs/2000PhRvL..85.1602D/abstract",
+  "https://arxiv.org/pdf/cond-mat/0002294",
+  "https://arxiv.org/pdf/2007.02971",
+  "https://arxiv.org/abs/cond-mat/0002294",
+  "https://arxiv.org/html/cond-mat/0412593",
+  "https://pubmed.ncbi.nlm.nih.gov/10970568/",
+  "https://arxiv.org/html/cond-mat/0207209",
+  "https://arxiv.org/abs/cond-mat/0002294",
+  "https://arxiv.org/pdf/cond-mat/0002294",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://ui.adsabs.harvard.edu/abs/2000PhRvL..85.1602D/abstract",
+  "https://arxiv.org/html/cond-mat/0403711",
+  "https://pubmed.ncbi.nlm.nih.gov/10970568/",
+  "https://arxiv.org/html/1909.01696",
+  "https://www.researchgate.net/publication/11663484_Fluctuation-dominated_phase_ordering_driven_by_stochastically_evolving_surfaces_Depth_models_and_sliding_particles",
+  "https://arxiv.org/pdf/1808.10479",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://arxiv.org/html/2609.14541",
+  "https://arxiv.org/pdf/2609.14541",
+  "https://arxiv.org/abs/2609.14541",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://arxiv.org/pdf/2608.18016",
+  "https://arxiv.org/pdf/2007.02971",
+  "https://arxiv.org/pdf/2410.13447",
+  "https://www.researchgate.net/publication/390038004_Exact_Fluctuating_Hydrodynamics_of_the_Scaled_Light-Heavy_Model",
+  "https://arxiv.org/pdf/cond-mat/9712140"
+ ],
+ "full_text": "**Verdict: KNOWN.** The simulation matches a paper that reports the same model with the same parameters.\n\n**1. Model family.** This is statistical physics: a driven lattice gas of two hard-core species plus vacancies, coupled to a fluctuating one-dimensional surface of up and down tilts. In the literature it is the Light\u2013Heavy\u2013Vacancy (LHV) model. It extends the Light\u2013Heavy (LH) model, which comes from the \"sliding particles on a fluctuating surface\" line of work.\n- A is the light particle. It moves up the slope, and it pushes the surface up (b = \u22120.4 in your setup).\n- B is the heavy particle. It moves down the slope, and it pushes the surface down (b\u2032 > 0).\n\n**2. The specific behaviour.** It appears in a very recent paper:\n- Khamrai and Chatterjee, \"Phase ordering kinetics in Light-Heavy-Vacancy model: unusual coarsening dynamics\", arXiv:2609.14541 (cond-mat.stat-mech). The search results show it as posted about 51 days ago, so it is probably a preprint. I did not see a journal reference.\n- Their Fig. 5 uses N = 16416, b = \u22120.4, b\u2032 = 0.3 (phase FPPS-II) and b\u2032 = 0.18 (phase VIPS). That is the same system size and the same parameters as your simulation and its listed variant.\n- The coarsening length R_0(t) grows with exponent about 0.5 at early times (t \u2272 10^3). It then crosses over to about 0.34 for FPPS-II and about 0.41 for VIPS. Your simulation gives 0.5 early and 0.34 late for b\u2032 = 0.3, and your variant with b\u2032 = 0.18 gives about 0.41. These all match.\n- The crossover time of about 1000 does not depend on N.\n- The mechanism is that early domains become unsustainable and disintegrate instead of merging. New domains then emerge and give the large-scale order. This matches your \"early domains dissolve\" observation.\n- Around t = 10^4 the paper finds two macroscopic hills in both phases. It also says that from a random start, a macroscopic hill appears only in the late-time coarsening regime of FPPS-II. This is consistent with your late_macroscopic_hills feature. The paper's count of two hills is for a particular case, and I did not check whether your count of 1 is the same measurement.\n\n**Background for the family** (titles, authors and venues checked against search results):\n- The earliest clear source for this model family is Das and Barma, \"Particles Sliding on a Fluctuating Surface: Phase Separation and Power Laws\", Phys. Rev. Lett. 85, 1602 (2000). It is single-species, and it finds coarsening with a growing length scale of about t^(1/z).\n- Light\u2013Heavy model, ordered phases and coarsening: \"Light and heavy particles on a fluctuating surface: Bunchwise balance, irreducible sequences, and local density-height correlations\", Phys. Rev. Research 2, 043279 (2020). The arXiv version is 2007.02971, and I did not confirm the authors in the search results. It summarises the phases (SPS, IPS, FPS) for the vacancy-free case.\n- Chakraborty, Chatterjee and Barma, \"Dynamics of coupled modes for sliding particles on a fluctuating landscape\", Phys. Rev. E 100, 042117 (2019). The reference-list entry came from the Phys. Rev. Research paper's references and the TIFR publications page.\n- Review: I found no dedicated review. The Phys. Rev. Research paper serves as the closest summary.\n\n**3. Differences.** The standard LH model has no vacancies, and the late coarsening there is described by z \u2248 1.5. The two-exponent coarsening with dissolving early domains is specific to the vacancy-containing model, and the 2026 paper describes it directly.\n\n**4. Confidence: high.** The paper matches on system size, b, both b\u2032 values, all four standout numbers and the mechanism. Two caveats remain. It is a recent preprint that I have not seen peer-reviewed. I also read it only through search snippets, not the full text.\n\n**Searches run:**\n1. two species particles sliding on fluctuating surface phase separation coarsening exponent A B vacancies height\n2. Das Barma Particles sliding on a fluctuating surface: phase separation and power laws\n3. Light-Heavy-Vacancy model unusual coarsening dynamics FPPS-II early exponent 1/2 crossover hills\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: driven lattice gas of two species + vacancies coupled to a fluctuating surface (Light-Heavy-Vacancy model; sliding-particles on fluctuating landscape)\", \"standard_name\": \"Light-Heavy-Vacancy (LHV) model, FPPS-II phase: two-regime (unusual) coarsening with domain disintegration\", \"confidence\": \"high\", \"citations\": [\"Khamrai & Chatterjee 2026, arXiv:2609.14541 (cond-mat.stat-mech) - LHV model, N=16416, b=-0.4; R_0(t) exponent ~0.5 for t<~1e3 then ~0.34 (b'=0.3, FPPS-II) and ~0.41 (b'=0.18, VIPS); early domains disintegrate; macroscopic hills at late times\", \"Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - original sliding particles on fluctuating surface, coarsening L~t^{1/z}\", \"Light and heavy particles on a fluctuating surface: bunchwise balance, irreducible sequences, and local density-height correlations, Phys. Rev. Research 2, 043279 (2020; arXiv:2007.02971) - LH model phases and coarsening\", \"Chakraborty, Chatterjee & Barma 2019, Phys. Rev. E 100, 042117 - coupled modes for sliding particles on fluctuating landscape\"], \"searches\": [\"two species particles sliding on fluctuating surface phase separation coarsening exponent A B vacancies height\", \"Das Barma Particles sliding on a fluctuating surface: phase separation and power laws\", \"Light-Heavy-Vacancy model unusual coarsening dynamics FPPS-II early exponent 1/2 crossover hills\"], \"notes\": \"The main source is a recent arXiv preprint (2026) and I saw only search snippets of it, not the full text. No dedicated review was found. The paper reports two macroscopic hills around t=1e4, while the simulation lists 1; I did not check whether these are the same measurement.\"}\n```",
+ "checked": "2026-11-03 03:46:54"
+}

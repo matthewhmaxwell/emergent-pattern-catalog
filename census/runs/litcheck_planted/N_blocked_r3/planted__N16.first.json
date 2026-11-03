@@ -1,0 +1,108 @@
+{
+ "class_id": "planted:N16",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "active Brownian polymers (underdamped ABP bead-spring ring, excluded volume only); related to MIPS",
+ "standard_name": "motility-induced (inertia-dependent) collapse of an active Brownian polymer, with re-swelling at high activity",
+ "confidence": "medium",
+ "citations": [
+  "Buglakov, Lelecova, Chertovich 2025, Phys. Chem. Chem. Phys. 27, 1691-1700 (preprint ChemRxiv 2024 'Monomer activity solely induces collapse of polymer chain in a good solvent') - underdamped ABP linear chain with mass and moment of inertia J; collapse without attraction, MIPS-like dense core with loops, re-swelling at high activity",
+  "Winkler & Gompper 2020, J. Chem. Phys. 153, 040901 'The physics of active polymers and filaments' - review; ABP polymers swell or collapse depending on driving type, mostly overdamped",
+  "PRE 101, 030501 (2020) 'Conformation and dynamics of a self-avoiding active flexible polymer' - overdamped shrink-then-swell from excluded volume (authors not verified)",
+  "PubMed 39049672 'Inertia and activity: spiral transitions in semi-flexible, self-avoiding polymers' - 2D tangential-drive; inertia gives re-entrant behaviour/destabilisation absent in overdamped limit",
+  "Breoni, Locatelli, Tubiana 2025, Macromolecules 58, 10677 - collapse of tangentially active rings (different mechanism)"
+ ],
+ "searches": [
+  "active ring polymer inertia rotational inertia compaction re-entrant swelling",
+  "inertial active Brownian polymer ring collapse P\u00e9clet number underdamped self-propelled",
+  "active Brownian ring polymer rotational inertia moment of inertia collapse swelling 3D self-avoiding",
+  "Breoni Locatelli Tubiana Effects of knotting on the collapse of active ring polymers",
+  "inertia induced collapse active polymer chain translational and rotational inertia active Brownian monomers",
+  "Buglakov Chertovich active ring polymer inertia collapse loop",
+  "Monomer activity solely induces collapse of polymer chain in a good solvent",
+  "active Brownian ring polymer underdamped inertia size independent of length compact loop re-swelling"
+ ],
+ "notes": "Closest source is a LINEAR underdamped ABP chain with the same M and J model. I could not confirm that any source treats the RING version, the J-dependent sharp re-opening at J=30, or the N-independent compact size at J=10. Full texts were not read, so the ring-specific and quantitative details remain unverified. The ring closure probably does not change the basic collapse and re-swelling.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "active ring polymer inertia rotational inertia compaction re-entrant swelling"
+  },
+  {
+   "query": "inertial active Brownian polymer ring collapse P\u00e9clet number underdamped self-propelled"
+  },
+  {
+   "query": "active Brownian ring polymer rotational inertia moment of inertia collapse swelling 3D self-avoiding"
+  },
+  {
+   "query": "Breoni Locatelli Tubiana Effects of knotting on the collapse of active ring polymers"
+  },
+  {
+   "query": "inertia induced collapse active polymer chain translational and rotational inertia active Brownian monomers"
+  },
+  {
+   "query": "Buglakov Chertovich active ring polymer inertia collapse loop"
+  },
+  {
+   "query": "Monomer activity solely induces collapse of polymer chain in a good solvent"
+  },
+  {
+   "query": "active Brownian ring polymer underdamped inertia size independent of length compact loop re-swelling"
+  }
+ ],
+ "result_urls": [
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.3c00384",
+  "https://pith.science/paper/2607.09436",
+  "https://www.nature.com/articles/s43246-019-0006-5",
+  "https://pubmed.ncbi.nlm.nih.gov/39049672/",
+  "https://pith.science/paper/2606.00608",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.109.054611",
+  "https://pubs.rsc.org/en/content/articlehtml/2021/cp/d1cp02511b",
+  "https://pubmed.ncbi.nlm.nih.gov/42482818/",
+  "https://pubs.rsc.org/cp/article-abstract/27/3/1691/844142/Motility-induced-collapse-of-an-active-Brownian?redirectedFrom=fulltext",
+  "https://pith.science/paper/2607.09436",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aa9d4b",
+  "https://pubs.aip.org/aip/jcp/article/155/4/044902/200679/Active-bath-induced-localization-and-collapse-of",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.3c00384",
+  "https://pubs.aip.org/aip/jcp/article/153/4/040901/957885/The-physics-of-active-polymers-and-filaments",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13386338/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.101.030501",
+  "https://pith.science/paper/2607.09436",
+  "https://pubmed.ncbi.nlm.nih.gov/41767818/",
+  "https://statphys.dfa.unipd.it/people/locatelli.php",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12530043/",
+  "https://www.science.org/doi/10.1126/sciadv.adr0716",
+  "https://pubs.acs.org/doi/10.1021/ma801389c",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.3c00384",
+  "https://pubs.aip.org/aip/jcp/article-abstract/164/13/134908/3386360/Comparing-the-structure-and-dynamics-of-single-and?redirectedFrom=fulltext",
+  "https://pith.science/paper/2507.08391",
+  "https://pith.science/paper/2603.15591",
+  "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/66a4eaccc9c6a5c07a1fc8d8/original/Manuscript_2024_active_poly_ABP.pdf",
+  "https://pubs.rsc.org/cp/article-abstract/27/3/1691/844142/Motility-induced-collapse-of-an-active-Brownian?redirectedFrom=fulltext",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13386338/",
+  "https://pubs.aip.org/aip/jcp/article/155/4/044902/200679/Active-bath-induced-localization-and-collapse-of",
+  "https://pubs.acs.org/mamobx/article/58/20/11229/3748996/Behavior-of-Active-Polymer-Knots",
+  "https://pubs.aip.org/aip/jcp/article/153/4/040901/957885/The-physics-of-active-polymers-and-filaments",
+  "https://pubs.acs.org/doi/abs/10.1021/acs.macromol.1c02502",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.3c00384",
+  "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/66a4eaccc9c6a5c07a1fc8d8/original/Manuscript_2024_active_poly_ABP.pdf",
+  "https://pubs.acs.org/doi/abs/10.1021/acs.macromol.9b01994",
+  "https://doi.org/10.3390/molecules30224442",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/16/164903/3368855/How-to-control-a-polymer-conformation-using-active?redirectedFrom=fulltext",
+  "https://pubmed.ncbi.nlm.nih.gov/41123161",
+  "https://www.mdpi.com/1420-3049/30/22/4442",
+  "https://chemrxiv.org/engage/chemrxiv/article-details/66a4eaccc9c6a5c07a1fc8d8",
+  "https://www.nature.com/articles/s41467-017-01520-5",
+  "https://www.proquest.com/docview/1561979614",
+  "https://pubs.acs.org/doi/abs/10.1021/ma302320y",
+  "https://www.osti.gov/pages/servlets/purl/1981428",
+  "https://dx.doi.org/10.3390/polym10080837",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6403868/",
+  "https://iopscience.iop.org/article/10.1088/1361-6633/ad3e11",
+  "https://pubmed.ncbi.nlm.nih.gov/30769972/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13386338/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT. I'm medium-confident.**\n\n**1. Model family.** This is active polymer physics: active Brownian particle (ABP) monomers joined by springs with purely repulsive excluded volume, simulated with underdamped Langevin dynamics (translational mass M and rotational inertia J). The topology is a closed ring in 3D. It sits in the same family as motility-induced phase separation (MIPS), but with chain connectivity added.\n\n**2. The specific behaviour.** In this system, activity compacts the chain with no attraction at all, and large activity swells it back open. The ring is non-monotonic in Pe, and the dependence on J is strong. At J=10 the loop size is nearly independent of bead number.\n\n**Closest source, and the earliest I found for this combination.** Buglakov, Lelecova and Chertovich, \"Motility-induced collapse of an active Brownian particle polymer chain\", Phys. Chem. Chem. Phys. 27(3), 1691\u20131700 (2025). The preprint is \"Monomer activity solely induces collapse of polymer chain in a good solvent\" (ChemRxiv, 29 July 2024).\n- The authors show that self-propelled monomer units cause chain collapse with no explicit attraction between particles.\n- The resulting conformation has a dense condensed core surrounded by elongated loops.\n- They link the effect to MIPS: it is similar to motility-induced phase separation, but more pronounced in active chains.\n- The preprint text says the model is an underdamped ABP chain with both mass and moment of inertia J. It also reports collapse of the chain followed by polymer re-swelling at high enough activity. It notes that rotational inertia produces a long velocity decorrelation time.\n\n**What differs.**\n- Their chain is linear. Yours is a closed ring.\n- I could not read their full text, so I can't confirm whether they report the sharp J=30 re-opening window or the length-independent compact size at J=10.\n- The ring closure probably matters little for the basic collapse and re-swelling. A review states that the structural and dynamical properties of active Brownian ring polymers are in general similar to that of linear chains. Length-independence at J=10 could still depend on topology.\n\n**Other relevant literature.**\n- Review: Winkler and Gompper, \"The physics of active polymers and filaments\", J. Chem. Phys. 153, 040901 (2020). It covers ABP polymers and says polymers swell or collapse depending on the nature of the active process (random versus tangential driving). It is largely overdamped and does not treat the inertia-driven collapse.\n- Earlier overdamped finding: Bianco, Locatelli and Malgaretti, or the related paper \"Conformation and dynamics of a self-avoiding active flexible polymer\", Phys. Rev. E 101, 030501 (2020). I confirmed the title and venue but not the authors. The chain first shrinks with active force, then swells, and this is attributed purely to excluded volume. This is the same non-monotonic shape but with a much weaker, overdamped origin.\n- Inertia plus activity in 2D: \"Inertia and activity: spiral transitions in semi-flexible, self-avoiding polymers\" (PubMed 39049672). It reports a re-entrant transition with increasing activity, and inertial effects destabilise the spiral at high activity, an effect absent in the overdamped limit. The system is 2D and tangentially driven, so it is a different system, but inertia-dependent re-entrance is established.\n- Rings: tangentially driven rings show a collapse/swelling transition. The Breoni, Locatelli and Tubiana paper is \"Effects of Knotting on the Collapse of Active Ring Polymers\", Macromolecules 58(19), 10677\u201310685 (2025). That is a different mechanism from your ABP rings.\n- Also relevant but different: Kumar and Thakur 2023, Macromolecules 56, 5229, on active rings with polar plus attractive activity. I did not check its authorship beyond the citing snippet. Tejedor, Ram\u00edrez and Ripoll's \"Progressive polymer deformation induced by polar activity and the influence of inertia\", Phys. Rev. Research 6, L032002 (2024), is known only from a cited-by snippet, so I did not verify it.\n\n**Not found.** I found no source reporting an inertial ABP *ring* with J swept over 0.001\u2013100, the sharp J=30 re-opening window, or the ~N\u2070 scaling at J=10. I can't tell whether that is because it's new or because I couldn't read the full text. The collapse and re-swelling in a chain with mass and rotational inertia is clearly established.\n\n**Confidence: medium.** The mechanism and the collapse\u2013re-swelling behaviour match a published inertial ABP chain. I only read abstracts and preprint snippets, and the ring topology and the quantitative details (the factor of 10, Pe\u224817 and Pe\u224840 numbers, and the length exponent) were not checked against full texts.\n\n**Searches run:**\n- active ring polymer inertia rotational inertia compaction re-entrant swelling\n- inertial active Brownian polymer ring collapse P\u00e9clet number underdamped self-propelled\n- active Brownian ring polymer rotational inertia moment of inertia collapse swelling 3D self-avoiding\n- Breoni Locatelli Tubiana Effects of knotting on the collapse of active ring polymers\n- inertia induced collapse active polymer chain translational and rotational inertia active Brownian monomers\n- Buglakov Chertovich active ring polymer inertia collapse loop\n- Monomer activity solely induces collapse of polymer chain in a good solvent\n- active Brownian ring polymer underdamped inertia size independent of length compact loop re-swelling\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"active Brownian polymers (underdamped ABP bead-spring ring, excluded volume only); related to MIPS\", \"standard_name\": \"motility-induced (inertia-dependent) collapse of an active Brownian polymer, with re-swelling at high activity\", \"confidence\": \"medium\", \"citations\": [\"Buglakov, Lelecova, Chertovich 2025, Phys. Chem. Chem. Phys. 27, 1691-1700 (preprint ChemRxiv 2024 'Monomer activity solely induces collapse of polymer chain in a good solvent') - underdamped ABP linear chain with mass and moment of inertia J; collapse without attraction, MIPS-like dense core with loops, re-swelling at high activity\", \"Winkler & Gompper 2020, J. Chem. Phys. 153, 040901 'The physics of active polymers and filaments' - review; ABP polymers swell or collapse depending on driving type, mostly overdamped\", \"PRE 101, 030501 (2020) 'Conformation and dynamics of a self-avoiding active flexible polymer' - overdamped shrink-then-swell from excluded volume (authors not verified)\", \"PubMed 39049672 'Inertia and activity: spiral transitions in semi-flexible, self-avoiding polymers' - 2D tangential-drive; inertia gives re-entrant behaviour/destabilisation absent in overdamped limit\", \"Breoni, Locatelli, Tubiana 2025, Macromolecules 58, 10677 - collapse of tangentially active rings (different mechanism)\"], \"searches\": [\"active ring polymer inertia rotational inertia compaction re-entrant swelling\", \"inertial active Brownian polymer ring collapse P\u00e9clet number underdamped self-propelled\", \"active Brownian ring polymer rotational inertia moment of inertia collapse swelling 3D self-avoiding\", \"Breoni Locatelli Tubiana Effects of knotting on the collapse of active ring polymers\", \"inertia induced collapse active polymer chain translational and rotational inertia active Brownian monomers\", \"Buglakov Chertovich active ring polymer inertia collapse loop\", \"Monomer activity solely induces collapse of polymer chain in a good solvent\", \"active Brownian ring polymer underdamped inertia size independent of length compact loop re-swelling\"], \"notes\": \"Closest source is a LINEAR underdamped ABP chain with the same M and J model. I could not confirm that any source treats the RING version, the J-dependent sharp re-opening at J=30, or the N-independent compact size at J=10. Full texts were not read, so the ring-specific and quantitative details remain unverified. The ring closure probably does not change the basic collapse and re-swelling.\"}\n```",
+ "checked": "2026-11-03 03:37:11"
+}

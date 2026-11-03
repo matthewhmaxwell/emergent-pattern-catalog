@@ -1,0 +1,104 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: non-reciprocal vision-cone, position-based steering self-propelled particles (minimal cognitive flocking model, no alignment)",
+ "standard_name": "active foam (system-spanning fractal-like network of nematic particle streams) in the minimal cognitive flocking model with finite vision range",
+ "confidence": "medium",
+ "citations": [
+  "Dwivedi, Bhaskar & Dasanna 2026, arXiv:2610.15835 (preprint) - active foams in vision-cone cohesive steering model; correlation dimension D\u22481.5; void-area collapse with scaling variable A/R_v^3; degree-distribution analysis of foam vertices; foam regime extends to larger angles at \u03a9=1",
+  "Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - introduces the minimal cognitive flocking model: aggregates/milling, polar files, nematic patterns (foam state not described there)",
+  "Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - iABPs with visual perception, related vision-cone steering model",
+  "Saavedra et al. 2024, arXiv:2404.10932 - polar and nematic filaments from non-reciprocal vision-cone attraction"
+ ],
+ "searches": [
+  "self-propelled particles vision cone non-reciprocal attraction network pattern filaments voids junctions",
+  "vision-based active matter bearing-only turning toward visible neighbors fractal network of streams",
+  "active particles limited vision angle pursuit steering toward neighbors positions pattern formation fractal dimension",
+  "active foams vision cone void area scaling vision range junction degree three streams fractal dimension 1.5",
+  "Emergence of Active Foams in a Minimal Cognitive Flocking Model authors",
+  "active foam network vertices coordination three-way junctions streams oppositely moving particles vision cone correlation dimension"
+ ],
+ "notes": "Only the preprint (Oct 2026, not yet peer reviewed) describes the foam state, and I read it only as search snippets. Junction degree values (most common 3, max 4) were not seen in the snippets. Exact parameters (speed 0.1, noise 0.08, cone pi/8, R 5-10, gain 3) were not checked against the paper. No review of the foam state found.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "self-propelled particles vision cone non-reciprocal attraction network pattern filaments voids junctions"
+  },
+  {
+   "query": "vision-based active matter bearing-only turning toward visible neighbors fractal network of streams"
+  },
+  {
+   "query": "active particles limited vision angle pursuit steering toward neighbors positions pattern formation fractal dimension"
+  },
+  {
+   "query": "active foams vision cone void area scaling vision range junction degree three streams fractal dimension 1.5"
+  },
+  {
+   "query": "Emergence of Active Foams in a Minimal Cognitive Flocking Model authors"
+  },
+  {
+   "query": "active foam network vertices coordination three-way junctions streams oppositely moving particles vision cone correlation dimension"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2404.10932",
+  "https://arxiv.org/pdf/2607.27819",
+  "https://arxiv.org/html/2610.15835",
+  "https://arxiv.org/pdf/2404.10932",
+  "https://www.researchgate.net/publication/377800204_Collective_behavior_of_self-steering_active_particles_with_velocity_alignment_and_visual_perception",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4",
+  "https://arxiv.org/pdf/2502.09466",
+  "https://arxiv.org/abs/2404.10932",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://arxiv.org/html/2610.15835",
+  "https://arxiv.org/html/2604.08134",
+  "https://arxiv.org/pdf/2406.17106",
+  "https://arxiv.org/pdf/2607.27819",
+  "https://www.researchgate.net/publication/361324236_Emergent_collective_behavior_of_active_Brownian_particles_by_visual_perception",
+  "https://www.researchgate.net/publication/339075437_A_model_of_collective_behavior_based_purely_on_vision",
+  "https://arxiv.org/pdf/2602.21338",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ab6348",
+  "https://arxiv.org/abs/2610.15835",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://arxiv.org/pdf/2203.07153",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://arxiv.org/html/2606.24547",
+  "https://www.researchgate.net/publication/361324236_Emergent_collective_behavior_of_active_Brownian_particles_by_visual_perception",
+  "https://arxiv.org/html/2610.15835",
+  "https://arxiv.org/pdf/2404.10932",
+  "https://arxiv.org/html/2602.21338",
+  "https://arxiv.org/pdf/2607.27819",
+  "https://arxiv.org/html/2610.15835",
+  "https://www.researchgate.net/figure/Network-properties-obtained-by-the-SNOW-algorithm-for-each-image-compared-to-accepted-or_tbl1_319167819",
+  "https://cpb-us-e1.wpmucdn.com/blogs.uoregon.edu/dist/e/12535/files/2015/12/FractalFoams-2adq8aq.pdf",
+  "https://arxiv.org/abs/2610.15835",
+  "https://arxiv.org/pdf/astro-ph/0205188",
+  "https://www.nature.com/articles/s41467-025-65463-y",
+  "https://arxiv.org/pdf/0802.0387",
+  "https://arxiv.org/html/astro-ph/0205188",
+  "https://arxiv.org/pdf/2607.27819",
+  "https://arxiv.org/pdf/astro-ph/0506543",
+  "https://arxiv.org/abs/2610.15835",
+  "https://arxiv.org/html/2610.15835",
+  "https://www.researchgate.net/publication/338003907_Large-scales_patterns_in_a_minimal_cognitive_flocking_model_incidental_leaders_nematic_patterns_and_aggregates",
+  "https://arxiv.org/pdf/2308.00670",
+  "https://arxiv.org/pdf/2401.17153",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://arxiv.org/pdf/2607.27819",
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://www.semanticscholar.org/paper/Large-Scale-Patterns-in-a-Minimal-Cognitive-Model:-Barberis-Peruani/8e2900cee29c8f338de9ef88c32c8573ce817909",
+  "https://arxiv.org/html/2610.15835",
+  "https://www.nature.com/articles/s41467-025-57178-x",
+  "https://royalsocietypublishing.org/rspb/article/287/1930/20200493/85717/Active-flow-network-generates-molecular-transport",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://arxiv.org/html/2602.21338",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5493750/",
+  "https://arxiv.org/pdf/2409.20070",
+  "https://arxiv.org/pdf/2107.12281",
+  "https://arxiv.org/pdf/2204.00937"
+ ],
+ "full_text": "**Verdict: KNOWN.** An active-foam state with these features has been reported in an equivalent model. The source is a very recent preprint, which lowers my confidence a little.\n\n**1. Model family.** This is active matter: self-propelled point particles with non-reciprocal, vision-cone, position-based steering and no velocity alignment. It is the \"minimal cognitive flocking model\" family.\n- Barberis & Peruani (2016, Phys. Rev. Lett. 117, 248001) introduced the model. I confirmed the title, authors, year and venue from reference lists and a Semantic Scholar entry. Its abstract describes aggregates or milling-like patterns, polar files with effective leaders, and nematic structures.\n- Later work includes Negi, Winkler & Gompper (2022, Soft Matter 18, 6167) and Saavedra et al. (arXiv 2404.10932, 2024). The latter reports polar and nematic filaments for narrow cones and non-reciprocal attraction.\n\n**2. The specific behaviour.** The match is Dwivedi, Bhaskar & Dasanna, \"Emergence of Active Foams in a Minimal Cognitive Flocking Model\" (arXiv:2610.15835, submitted 11 Oct 2026). I checked the title, authors and date against the arXiv abstract page.\n\nHow its content compares with your observations:\n- **Same rules.** N self-propelled point particles at constant speed turn toward visible neighbors through a position-based vision-cone interaction. There is no velocity alignment and no physical volume exclusion.\n- **Same state.** The abstract reports \"active foams \u2013 system-spanning fractal-like networks sustained by dynamically evolving particle streams\". These arise solely from non-reciprocal vision-based interactions and are absent in both the short and long vision-range limits. Narrow vision angles lead to extended active-foam networks at finite R_v.\n- **Fractal dimension 1.5.** The independently measured correlation dimension of the network is D\u22481.5.\n- **Void scaling with exponent 3.** The dependence of the void-area distribution on vision range is largely absorbed into the single scaling variable A/R_v^3. Void area therefore scales as R_v\u00b3, as you observed.\n- **Streams and junctions.** The network consists of interconnected streams of particles, locally nematically aligned. The authors treat foam vertices as network nodes and run a degree-distribution analysis. The snippets I could read do not give the actual degree values, so \"degree 3 most common, 4 the maximum\" is not confirmed from the source.\n- **Parameter variants.** The active-foam regime extends to larger vision angles at \u03a9=1. This matches your \"turning strength 1, state extends to wider vision angles\" variant. The narrower \u03c0/12 variant fits the stated trend that foams occur at narrow cones.\n\nThe foam paper is also the only source I found that describes this state. The related vision-cone papers above report filaments, bands and aggregates, not foams.\n\n**3. Review.** I found no review of the foam state itself. Barberis & Peruani (2016) is the foundational reference for the model class, and Dwivedi et al. cite it and follow-up work (their Refs. 29, 44, 37).\n\n**4. Confidence: medium.**\n- It is high for the model class and the foam state, because the rules, the fractal dimension and the R_v\u00b3 void scaling all line up.\n- It is lower because the source is a single, very recent preprint that I read only as search snippets, not the full text.\n- I could not confirm the junction-degree numbers, and I did not check the exact parameter values (speed, noise 0.08, R from 5 to 10, cone \u03c0/8) against the paper.\n- Its \u03a9 and P\u00e9clet-type parameterisation may differ from yours, but I would not expect that to change the qualitative result.\n\n**Searches run:**\n- self-propelled particles vision cone non-reciprocal attraction network filaments voids junctions\n- vision-based active matter bearing-only turning fractal network of streams\n- active particles limited vision angle pursuit steering pattern formation fractal dimension\n- active foams vision cone void area scaling vision range junction degree fractal dimension 1.5\n- Emergence of Active Foams in a Minimal Cognitive Flocking Model authors\n- active foam network vertices coordination three-way junctions streams vision cone correlation dimension\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: non-reciprocal vision-cone, position-based steering self-propelled particles (minimal cognitive flocking model, no alignment)\", \"standard_name\": \"active foam (system-spanning fractal-like network of nematic particle streams) in the minimal cognitive flocking model with finite vision range\", \"confidence\": \"medium\", \"citations\": [\"Dwivedi, Bhaskar & Dasanna 2026, arXiv:2610.15835 (preprint) - active foams in vision-cone cohesive steering model; correlation dimension D\u22481.5; void-area collapse with scaling variable A/R_v^3; degree-distribution analysis of foam vertices; foam regime extends to larger angles at \u03a9=1\", \"Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - introduces the minimal cognitive flocking model: aggregates/milling, polar files, nematic patterns (foam state not described there)\", \"Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - iABPs with visual perception, related vision-cone steering model\", \"Saavedra et al. 2024, arXiv:2404.10932 - polar and nematic filaments from non-reciprocal vision-cone attraction\"], \"searches\": [\"self-propelled particles vision cone non-reciprocal attraction network pattern filaments voids junctions\", \"vision-based active matter bearing-only turning toward visible neighbors fractal network of streams\", \"active particles limited vision angle pursuit steering toward neighbors positions pattern formation fractal dimension\", \"active foams vision cone void area scaling vision range junction degree three streams fractal dimension 1.5\", \"Emergence of Active Foams in a Minimal Cognitive Flocking Model authors\", \"active foam network vertices coordination three-way junctions streams oppositely moving particles vision cone correlation dimension\"], \"notes\": \"Only the preprint (Oct 2026, not yet peer reviewed) describes the foam state, and I read it only as search snippets. Junction degree values (most common 3, max 4) were not seen in the snippets. Exact parameters (speed 0.1, noise 0.08, cone pi/8, R 5-10, gain 3) were not checked against the paper. No review of the foam state found.\"}\n```",
+ "checked": "2026-11-03 03:53:30"
+}

@@ -1,0 +1,72 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: nonequilibrium conserved-mass transport processes (multidirectional/chiral hopping), hyperuniformity and generic scale invariance",
+ "standard_name": "Generic power-law (~1/r^(d+2)) density correlations from multidirectional (chiral) hopping in conserved mass transport; related to center-of-mass-conserving hyperuniform dynamics",
+ "confidence": "medium",
+ "citations": [
+  "Hazra et al. 2025, Phys Rev E 112(4):044130 (doi 10.1103/sn1k-k8ng), 'Generic power laws in higher-dimensional lattice models with multidirectional hopping' - density-density correlations decay as 1/r^(d+2) (r^-4 in 2D), amplitude set by the Onsager/mobility matrix, can be short-ranged in a restricted regime",
+  "ICTS programme abstract (mftheory) - multidirectional hopping covers center-of-mass-conserving and chiral dynamics, both producing algebraic correlations (abstract only)",
+  "J. Stat. Mech. 2025, 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results' (doi 10.1088/1742-5468/ada88c) - related hyperuniform mass transport with S(q)~q^2; authors not confirmed",
+  "Lyman thesis, Virginia Tech - anisotropic dynamics plus a conservation law gives power-law correlations (generic scale invariance background)"
+ ],
+ "searches": [
+  "chiral conserved mass transfer lattice model hyperuniform density correlations turning L-shaped paths",
+  "odd diffusion chiral random mass transport model circulating edge current hyperuniformity conserved noise",
+  "mass transport lattice model chirality turning, long-range density correlations r^-4, optimal turning minimizes fluctuations, square-root cusp",
+  "conserved lattice gas chiral hopping steady-state power-law density correlations generic scale invariance nonequilibrium conserved noise",
+  "chiral mass transport process lattice power-law correlations 1/r^4 edge current closed box",
+  "multidirectional hopping chiral dynamics mass transport hyperuniform structure factor arXiv"
+ ],
+ "notes": "r^-4 decay and isotropy are matched by Hazra et al. 2025 (d+2 with d=2). The chiral section was seen only as an abstract. The optimal-turning minima, the square-root cusp exponent and the closed-box edge current were not verified in readable text. If they are not in that paper they could be a KNOWN-VARIANT detail, but they most likely follow from the mobility-tensor amplitude. Check the paper's chiral section directly.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "chiral conserved mass transfer lattice model hyperuniform density correlations turning L-shaped paths"
+  },
+  {
+   "query": "odd diffusion chiral random mass transport model circulating edge current hyperuniformity conserved noise"
+  },
+  {
+   "query": "mass transport lattice model chirality turning, long-range density correlations r^-4, optimal turning minimizes fluctuations, square-root cusp"
+  },
+  {
+   "query": "conserved lattice gas chiral hopping steady-state power-law density correlations generic scale invariance nonequilibrium conserved noise"
+  },
+  {
+   "query": "chiral mass transport process lattice power-law correlations 1/r^4 edge current closed box Priyanka Chatterjee Kundu Mahdisoltani"
+  },
+  {
+   "query": "\"multidirectional hopping\" chiral dynamics mass transport hyperuniform structure factor arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://www.osti.gov/pages/servlets/purl/1874044",
+  "https://www3.ntu.edu.sg/home/r.ni/erice/Booklet-Erice2026.7.pdf",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://journals.aps.org/pre/issues/112/4",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aeaf77",
+  "https://par.nsf.gov/servlets/purl/10318148",
+  "https://academic.oup.com/pnasnexus/article/4/12/pgaf373/8345804",
+  "https://webster.ncnr.nist.gov/staff/jeff/SpinChiralNatureMaterials4_323_2005.pdf",
+  "https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202509539?af=R",
+  "https://pubmed.ncbi.nlm.nih.gov/42493982/",
+  "https://pubmed.ncbi.nlm.nih.gov/40903807/",
+  "https://vtechworks.lib.vt.edu/bitstreams/09259a56-5462-4a05-9168-ca893cd426ab/download",
+  "https://www.osti.gov/pages/servlets/purl/1855170",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://webhome.phy.duke.edu/~yingshe/RMP-Preprint.pdf",
+  "http://home.ustc.edu.cn/~gengb/field_ref/double_2020/RevModPhys.75.1449.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12374697",
+  "https://sites.google.com/iiserkol.ac.in/statphys-kol-xiii/program/talks",
+  "https://link.aps.org/doi/10.1103/sn1k-k8ng",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/"
+ ],
+ "full_text": "**Verdict: KNOWN, with medium confidence.** The r\u207b\u2074 decay is described for this class of model. I could not read the chiral-specific results (the turning-strength minima and the square-root cusp) in the sources I found.\n\n**1. Model family.** This is a conserved-mass transport process, also called a mass-transfer or chipping/redistribution model. It sits on a periodic square lattice, is driven out of equilibrium (detailed balance is broken), and has chiral, multidirectional transfers. It belongs to statistical physics, with links to hyperuniformity and generic scale invariance in conserved driven systems.\n\n**2. The specific behaviour.**\n- Hazra et al. (Phys Rev E 112(4), 044130, Oct 2025) study conserved-mass transport on a d-dimensional lattice (d>1) with multidirectional hopping. They show that steady-state static density-density correlations typically decay as ~1/r^(d+2). For d=2 that is r\u207b\u2074, which matches your measured exponent of 4.\n- The systems they consider are diffusive, lattice-rotation symmetric, spatially homogeneous and have no net mass current. That fits your isotropic xy ratio of 1.\n- The abstract says the power-law strength is expressed in terms of the density-dependent bulk-diffusion coefficient and Onsager matrix (mobility tensor). That is a plausible route to the \"optimal turning\" minima, because the amplitude depends on the mobility tensor and could vanish or reach a minimum at particular turning strengths. I did not see this stated for the chiral case.\n- The same abstract notes that in a restricted parameter regime the correlations can also be short ranged, which is consistent with minima or zeros in the amplitude.\n- An ICTS programme abstract describes two classes of dynamics, (i) center-of-mass-conserving dynamics and (ii) chiral dynamics, both of which produce algebraically decaying correlations. The chiral class appears to be your system, but I only saw an abstract, not the paper's chiral section.\n- For the wider setting, the paper explains why center-of-mass-conserving dynamics, used to model novel disordered hyperuniform state of matter, result in generic long-ranged correlations.\n- Related background on hyperuniformity in conserved mass transport is Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results (J. Stat. Mech., IOPscience, 10.1088/1742-5468/ada88c). It treats d=1 and 2 and finds S(q) ~ q\u00b2, a class-I hyperuniformity in some cases. I did not confirm its authors or year.\n- The older general framework is generic scale invariance in driven conserved systems. A conserved quantity combined with anisotropic or non-detailed-balance dynamics gives power-law correlations at all temperatures, as in the driven lattice gases (Lyman thesis, Virginia Tech, found in search).\n\n**3. Citation checks.** I verified the title, journal, volume and date of Hazra et al. against the PubMed record. The search snippet shows only \"Animesh Hazra et al.\", so I can't give the full author list. The ICTS item is a programme abstract, not a paper.\n\n**4. Not confirmed from readable text.**\n- The closed-box edge current is not directly confirmed. It is generic for chiral or odd transport (for example the chiral random walk, New J. Phys. 2025/26), but that is not the same model.\n- The square-root cusp exponent of 0.5 near maximal turning is not confirmed. It plausibly comes from the structure of the amplitude near the extreme turning limit, where the mobility tensor becomes singular, but I did not see it in any source.\n- The \"fluctuation_minima_vs_turning = 1\" feature is likewise only plausibly covered.\n- I also did not find an earlier clear source for the chiral variant than the 2025 Hazra et al. paper and its associated talks. Earlier work exists on generic power laws in conserved driven systems, but not for this exact mechanism.\n\n**Confidence: medium.** The r\u207b\u2074 exponent (d+2) and the isotropy are directly supported by a peer-reviewed paper. The chiral case is only supported by an abstract. The quantitative cusp and minima details are unverified.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: nonequilibrium conserved-mass transport processes (multidirectional/chiral hopping), hyperuniformity and generic scale invariance\", \"standard_name\": \"Generic power-law (~1/r^(d+2)) density correlations from multidirectional (chiral) hopping in conserved mass transport; related to center-of-mass-conserving hyperuniform dynamics\", \"confidence\": \"medium\", \"citations\": [\"Hazra et al. 2025, Phys Rev E 112(4):044130 (doi 10.1103/sn1k-k8ng), 'Generic power laws in higher-dimensional lattice models with multidirectional hopping' - density-density correlations decay as 1/r^(d+2) (r^-4 in 2D), amplitude set by the Onsager/mobility matrix, can be short-ranged in a restricted regime\", \"ICTS programme abstract (mftheory) - multidirectional hopping covers center-of-mass-conserving and chiral dynamics, both producing algebraic correlations (abstract only)\", \"J. Stat. Mech. 2025, 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results' (doi 10.1088/1742-5468/ada88c) - related hyperuniform mass transport with S(q)~q^2; authors not confirmed\", \"Lyman thesis, Virginia Tech - anisotropic dynamics plus a conservation law gives power-law correlations (generic scale invariance background)\"], \"searches\": [\"chiral conserved mass transfer lattice model hyperuniform density correlations turning L-shaped paths\", \"odd diffusion chiral random mass transport model circulating edge current hyperuniformity conserved noise\", \"mass transport lattice model chirality turning, long-range density correlations r^-4, optimal turning minimizes fluctuations, square-root cusp\", \"conserved lattice gas chiral hopping steady-state power-law density correlations generic scale invariance nonequilibrium conserved noise\", \"chiral mass transport process lattice power-law correlations 1/r^4 edge current closed box\", \"multidirectional hopping chiral dynamics mass transport hyperuniform structure factor arXiv\"], \"notes\": \"r^-4 decay and isotropy are matched by Hazra et al. 2025 (d+2 with d=2). The chiral section was seen only as an abstract. The optimal-turning minima, the square-root cusp exponent and the closed-box edge current were not verified in readable text. If they are not in that paper they could be a KNOWN-VARIANT detail, but they most likely follow from the mobility-tensor amplitude. Check the paper's chiral section directly.\"}\n```",
+ "checked": "2026-11-03 02:58:24"
+}

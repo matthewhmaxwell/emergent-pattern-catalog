@@ -1,0 +1,102 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Filament/nematic-lane network state of the minimal cognitive flocking (Barberis-Peruani vision-cone, position-based attraction) model",
+ "citations": [
+  "Barberis & Peruani, PRL 117, 248001 (2016)",
+  "Collective behavior based on topological vision, Phys. Rev. Research 7, 023234 (2025)",
+  "Negi, Winkler, Gompper et al., Binary mixtures of intelligent active Brownian particles with visual perception, New J. Phys. (2025), doi:10.1088/1367-2630/ae140c",
+  "Negi, Winkler, Gompper, Soft Matter 18, 6167 (2022)",
+  "Jones, Artificial Life 16, 127-153 (2010)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Interconnecting stream/nematic-band networks are documented for vision-cone position-attraction particles; honeycomb-like junction networks appear in iABP mixtures; similar networks appear in Physarum-type forward-sensing agents. The twist is quantitative only: D_f ~1.5, void area ~R^3, mostly 3-way junctions. Mostly 3-way junctions is generic for 2D networks. D_f comes from barely one decade of scale. The R^3 exponent comes from only a factor-of-2 range of R and is dimensionally suggestive of a second length (turning radius or persistence length); worth checking over a wider R range before treating it as meaningful. Barberis-Peruani full text not verified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "vision cone self-propelled particles fractal network junctions voids scaling"
+  },
+  {
+   "query": "active particles visual perception emergent network filaments junctions \"vision\" Physarum-like self-organized"
+  },
+  {
+   "query": "Barberis Peruani large-scale patterns active particles visual perception filaments PRL 2016"
+  },
+  {
+   "query": "non-reciprocal vision cone attraction point particles network of lanes cellular pattern voids active matter arXiv"
+  },
+  {
+   "query": "vision cone active particles \"network\" pattern trails junctions minimal cognitive model"
+  },
+  {
+   "query": "Barberis Peruani arXiv minimal cognitive flocking model vision cone \"network\" nematic bands phase diagram"
+  },
+  {
+   "query": "self-propelled particles restricted vision attraction \"filament network\" OR \"network of filaments\" emerges"
+  },
+  {
+   "query": "Barberis Peruani model \"vision cone\" point particles worm-like structures nematic bands aggregates incidental leaders description"
+  },
+  {
+   "query": "intelligent active Brownian particles vision angle \u03c0/8 honeycomb network structures lanes single species without excluded volume"
+  },
+  {
+   "query": "Jones 2010 Physarum transport networks multi-agent pattern formation sensor offset scale lacunae Artificial Life"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://iopscience.iop.org/article/10.1088/1674-1056/adf4a7",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/9/6/177",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://pubs.rsc.org/sm/article/18/33/6167/788445/Emergent-collective-behavior-of-active-Brownian",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://www.bohrium.com/paper-details/emergent-collective-behavior-of-active-brownian-particles-by-visual-perception/867750305683473366-108487",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://journals.aps.org/prresearch/abstract/10.1103/x14x-yykw",
+  "https://www.science.org/doi/10.1126/science.aau5347",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.248001",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023234",
+  "https://www.fyysika.ee/?p=332599",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://uu.diva-portal.org/smash/get/diva2:1952765/FULLTEXT01.pdf",
+  "https://royalsocietypublishing.org/rsif/article/22/222/rsif.2024.0402/90810/A-minimal-model-of-cognition-based-on-oscillatory",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11750385/",
+  "https://www.nature.com/articles/s41586-021-03375-9",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://www.nature.com/articles/s41567-022-01769-8",
+  "https://www.nature.com/articles/s41598-019-43179-6",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.2.033245",
+  "https://pith.science/paper/2609.19800",
+  "https://pubmed.ncbi.nlm.nih.gov/32968072",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://doi.org/10.1103/PhysRevResearch.7.023234",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13269928/",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://houssemkihal.com/pf_2d/",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://pubmed.ncbi.nlm.nih.gov/35916064/",
+  "https://pubs.rsc.org/sm/article/18/33/6167/788445/Emergent-collective-behavior-of-active-Brownian",
+  "https://pith.science/paper/2412.10577",
+  "https://www.nature.com/articles/srep19948",
+  "https://dl.acm.org/doi/abs/10.1162/artl.2010.16.2.16202",
+  "https://link.springer.com/chapter/10.1007/978-3-642-35101-3_3",
+  "https://link.springer.com/chapter/10.1007/978-3-319-11857-4_48"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, which agrees with the first pass, but for somewhat different reasons.** The pattern itself, a network of particle streams built by vision-cone attraction, is documented. The specific numbers (fractal dimension, void scaling, junction counts) are not, and I don't think they are strong enough to count as a new phenomenon.\n\n**The model is already in the literature.** Barberis & Peruani (PRL 2016) studied exactly this kind of system: active particles, with no memory, that interact by a short-ranged, position-based, attractive force, which acts inside a vision cone (VC), and lack velocity-velocity alignment. Depending on parameters they report aggregates or millinglike patterns, the formation of moving\u2014locally polar\u2014files with particles at the front of these structures acting as effective leaders, and the self-organization of particles into macroscopic nematic structures. A follow-up with topological rather than distance-based vision describes how various small nematic bands grow in size and interconnect. That is the same \"streams joining into a web\" picture.\n\n**Junction-dominated networks are also documented in close relatives:**\n- In binary mixtures of vision-steered particles with half-angles \u03c0/8 and \u03c0/4, Negi et al. (NJP 2025) report locally diffuse honeycomb-like structures and the prevalence of the honeycomb lattice structures. Honeycombs are made of 3-way junctions.\n- In Jones's agent-based slime-mould (Physarum) model, agents sense ahead and steer toward what they sense. That population spontaneously forms complex and dynamic transport networks. The main difference is that those agents follow a chemical trail rather than looking at each other directly.\n\n**What's new is only the quantification, and it is weak:**\n- **Mostly 3-way junctions, rarely more than 4:** this is what almost any coarsening 2D network does, because 3-way junctions are the stable ones. It is not a distinctive signature.\n- **Fractal dimension 1.5:** in a 100\u00d7100 box with streams spaced about 5\u201310 apart, box counting covers barely one decade of scale. The number most likely describes \"a mesh of lines with some width\", not a true fractal.\n- **Void area \u221d R\u00b3:** the vision range was only varied from 5 to 10, a factor of 2, so the exponent is poorly constrained. If a single length set the void size, area would grow as R\u00b2, so a cube suggests a second length is involved, such as the turning-limited radius or the noise persistence length. That would be interesting if it held up over a wider range of R, but as it stands it is fragile.\n\n**Artifact or real pattern?** It looks like a genuine emergent pattern, not a trivial outcome. Streams with junctions and voids whose size tracks the vision range is a real structure, consistent with the known stream and nematic-band states. It is not a frozen state, a random scatter, or a numerical blow-up.\n\n**Gaps in this check:**\n- I could not read the full Barberis & Peruani text or its supplement, so I could not confirm the exact sine-of-bearing turning term. I also could not see whether their figures already show this web-like state.\n- I did not find a separate Peruani 2017 paper to check, as the first pass suggested.\n- Searches for fractal dimension, void scaling and junction-degree statistics in vision-cone systems found nothing.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Filament/nematic-lane network state of the minimal cognitive flocking (Barberis-Peruani vision-cone, position-based attraction) model\", \"citations\": [\"Barberis & Peruani, PRL 117, 248001 (2016)\", \"Collective behavior based on topological vision, Phys. Rev. Research 7, 023234 (2025)\", \"Negi, Winkler, Gompper et al., Binary mixtures of intelligent active Brownian particles with visual perception, New J. Phys. (2025), doi:10.1088/1367-2630/ae140c\", \"Negi, Winkler, Gompper, Soft Matter 18, 6167 (2022)\", \"Jones, Artificial Life 16, 127-153 (2010)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Interconnecting stream/nematic-band networks are documented for vision-cone position-attraction particles; honeycomb-like junction networks appear in iABP mixtures; similar networks appear in Physarum-type forward-sensing agents. The twist is quantitative only: D_f ~1.5, void area ~R^3, mostly 3-way junctions. Mostly 3-way junctions is generic for 2D networks. D_f comes from barely one decade of scale. The R^3 exponent comes from only a factor-of-2 range of R and is dimensionally suggestive of a second length (turning radius or persistence length); worth checking over a wider R range before treating it as meaningful. Barberis-Peruani full text not verified.\"}\n```",
+ "checked": "2026-11-03 03:36:29"
+}

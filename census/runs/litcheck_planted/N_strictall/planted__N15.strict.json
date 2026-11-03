@@ -1,0 +1,87 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Minimal cognitive flocking model (Barberis-Peruani): vision-cone, position-based non-reciprocal attraction producing polar files / filaments / nematic band networks",
+ "citations": [
+  "Barberis & Peruani, PRL 117, 248001 (2016)",
+  "Saavedra & Peruani, PRE 110, 064602 (2024)",
+  "Brigatti & Peruani, Soft Matter 22, 2474 (2026)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Rules essentially match the Barberis-Peruani 2016 model; filament/file/band patterns are documented there. The undocumented part is only the quantitative network measurements: D~1.5, degree-3 junctions dominating, voids scaling as R^3. Degree-3 dominance and D between 1 and 2 are generic for 2-D stream networks. The R^3 exponent is fitted over only a factor-2 range in R in a small box and may be a finite-size effect. Full texts of the 2016 and 2026 papers were not read; if they show the network explicitly, the verdict becomes KNOWN.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "vision cone active particles attraction network pattern fractal dimension voids junctions Peruani"
+  },
+  {
+   "query": "Brigatti Peruani vision cone network"
+  },
+  {
+   "query": "Brigatti Peruani active particles non-reciprocal long-range interactions"
+  },
+  {
+   "query": "active particles vision cone attraction \"network\" of filaments branching self-organized pattern"
+  },
+  {
+   "query": "Barberis Peruani minimal cognitive flocking model nematic bands lanes phase diagram vision angle interaction radius arXiv"
+  },
+  {
+   "query": "arXiv 1607 Barberis Peruani \"vision cone\" polar files \"incidental leaders\" small vision angle network of files"
+  },
+  {
+   "query": "non-reciprocal vision cone attraction active particles particle chains network percolating filaments fractal"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://pubmed.ncbi.nlm.nih.gov/39916118/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://kops.uni-konstanz.de/server/api/core/bitstreams/310ac552-3edf-4c93-86a1-0725752d0b80/content",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11043455/",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ab6348",
+  "https://www.nature.com/articles/s41598-025-08028-9",
+  "https://www.brigatti.co.uk/",
+  "https://www.primescholars.com/articles/understanding-the-role-of-cone-cells-in-vision-125812.html",
+  "https://wertheim.scripps.ufl.edu/2020/09/02/wiring-the-eyes-to-the-brain-for-color-vision-cone-cells-in-the-retina-use-a-pair-of-adhesion-proteins-to-connect-to-the-brain/",
+  "https://www.erco.com/en_us/knowledge/fundamentals/cones/",
+  "https://www.linkedin.com/in/mehdi-vahdati-9b3a966b/",
+  "https://mihsignvision.fandom.com/wiki/List_of_Peruvian_television_channels",
+  "https://my.clevelandclinic.org/health/articles/tetrachromacy",
+  "https://pubmed.ncbi.nlm.nih.gov/41705368/",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://pubs.rsc.org/sm/article-abstract/22/13/2474/912788/Zoology-of-collective-patterns-modulated-by-non?redirectedFrom=fulltext",
+  "https://sciprofiles.com/profile/author/LzNmckdTaGNack1wM1U1QUZnb1RLUjJ4NDRrdjhRdEZWQ2J5NzRkR2pacz0=?amp=&amp=",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9663567/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11775524/",
+  "https://www.pnas.org/doi/full/10.1073/pnas.0701943104",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9454263/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7655122/",
+  "https://www.nature.com/articles/s42005-024-01866-5",
+  "https://www.pnas.org/doi/10.1073/pnas.181338798",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023234",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/s42005-025-02131-z",
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://www.fyysika.ee/?p=332599",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://www.nature.com/articles/s41567-026-03317-0",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4",
+  "https://pubmed.ncbi.nlm.nih.gov/39916118/",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/adac98"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The first pass's verdict stands, but I'd put less weight on the twist it flagged. This rule set is essentially the Barberis & Peruani 2016 model, and a network of streams is a documented feature of that model family. What I couldn't find is the specific measurements: D\u22481.5, voids scaling as R\u00b3, and junctions of degree 3 to 4. Those look like a description of known behaviour, not a new phenomenon.\n\n**The model is already published.** The 2016 paper studies particles with no memory that interact by a short-ranged, position-based, attractive force, which acts inside a vision cone (VC), and lack velocity-velocity alignment. That matches all four rules here: constant speed, a vision cone with a finite range, turning toward the positions of seen particles, and noise. Neither version has collisions.\n\n**What the paper reports seeing.** Depending on parameters, the emergence of aggregates or millinglike patterns, the formation of moving\u2014locally polar\u2014files with particles at the front of these structures acting as effective leaders, and the self-organization of particles into macroscopic nematic structures. A later paper sums up this class: such particles aggregate into clusters, polar filaments, and nematic bands. A web of thin streams in a very narrow cone (\u03c0/8), with weak noise and point particles that never collide, fits these filament and band regimes.\n\n**Related work by the same group:**\n- Saavedra & Peruani (2024): vision-cone attraction makes particles form particle chains, which eventually become closed loops. That study includes obstacles, which this run doesn't.\n- Brigatti & Peruani (2026) found a nematic closed filament in the form of a ring, polar filaments with topological defects, and open polar filaments. Their interactions have no distance limit, though, so they don't explain how the network spacing depends on R.\n\n**Why the twist probably doesn't matter much:**\n- **Degree-3 junctions:** Y-shaped junctions dominate in almost any 2-D network formed by streams merging. Merging three streams is far more likely than four, and five or more almost never happens. This is expected, not distinctive.\n- **D\u22481.5:** box-counting a line network gives values between 1 and 2 when the mesh size is close to the measurement window. That makes it a crossover number, not real fractal scaling.\n- **Voids scaling as R\u00b3:** this is the only odd number, since simple geometry predicts R\u00b2. But it was fitted over only R = 5 to 10, a factor of 2, in a 100\u00d7100 box. At R=10 the voids are probably limited by the box size. I would treat it as unreliable unless it holds across a wider range of R and a larger box.\n\n**Real pattern or artifact?** It looks like a real emergent pattern of filaments and junctions, not random scatter, a numerical blow-up or a frozen state. One caveat: because nothing pushes the particles apart, streams can collapse into lines of essentially zero width, which inflates line-like statistics.\n\n**Limits of this check:** I didn't read the full texts of the 2016 PRL or the Brigatti paper. If their figures show a branching network explicitly, the verdict would move to KNOWN.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Minimal cognitive flocking model (Barberis-Peruani): vision-cone, position-based non-reciprocal attraction producing polar files / filaments / nematic band networks\", \"citations\": [\"Barberis & Peruani, PRL 117, 248001 (2016)\", \"Saavedra & Peruani, PRE 110, 064602 (2024)\", \"Brigatti & Peruani, Soft Matter 22, 2474 (2026)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Rules essentially match the Barberis-Peruani 2016 model; filament/file/band patterns are documented there. The undocumented part is only the quantitative network measurements: D~1.5, degree-3 junctions dominating, voids scaling as R^3. Degree-3 dominance and D between 1 and 2 are generic for 2-D stream networks. The R^3 exponent is fitted over only a factor-2 range in R in a small box and may be a finite-size effect. Full texts of the 2016 and 2026 papers were not read; if they show the network explicitly, the verdict becomes KNOWN.\"}\n```",
+ "checked": "2026-11-03 04:23:38"
+}

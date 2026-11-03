@@ -1,0 +1,80 @@
+{
+ "class_id": "planted:D08",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "reaction-diffusion (three-component FitzHugh-Nagumo-type activator-substrate-inhibitor; dissipative solitons / scattering of particle-like patterns)",
+ "standard_name": "Weak-interaction-induced annihilation (WIIA) of traveling pulses/spots near a codimension-2 drift-Hopf (DH) point; hidden instability / scattor",
+ "confidence": "high",
+ "citations": [
+  "Nishiura, Teramoto, Ueda 2023, Japan J. Ind. Appl. Math. 40(5-6) (arXiv:2306.06421) - weak head-on collision of slow traveling pulses/spots leads to annihilation near DH point (tau~1220, k4~2.965) without merging; 1D and 2D three-component systems",
+  "Nishiura, Teramoto, Ueda 2003, Phys. Rev. E 67, 056210 - Scattering and separators in dissipative systems; scattors in a three-component model, repulsion/annihilation near PH points",
+  "Nishiura, Teramoto, Ueda 2003, Chaos 13(3), 962-972 - Dynamic transitions through scattors in dissipative systems",
+  "Nishiura, Teramoto, Ueda 2005, Chaos 15, 047509 - Scattering of traveling spots in dissipative systems (2D spots)",
+  "Or-Guil, Bode, Schenk, Purwins 1998, Phys. Rev. E 57, 6432 - Spot bifurcations in three-component RD systems: onset of propagation (drift bifurcation)",
+  "Pulse dynamics in a three-component system: stability and bifurcations (Doelman, Kaper et al.) - drift-Hopf codimension-2 singularity of standing pulse; authors and venue not verified from snippet"
+ ],
+ "searches": [
+  "three-component reaction-diffusion scattering of traveling pulses scattor drift bifurcation Hopf codimension 2 head-on collision",
+  "Nishiura Teramoto Ueda dynamic transitions through scattors in dissipative systems Chaos 2003",
+  "Gray-Scott three-component slow inhibitor traveling spot collision repulsion bounce annihilation 2D strip",
+  "Arbitrarily weak head-on collision can induce annihilation hidden instabilities authors journal"
+ ],
+ "notes": "Special-point values (tau~1220, k4~2.965) match the source's DH point. I did not check surviving_w_coupling = 3.2, vanishing_time = 7500, the diffusion coefficients or the 8x2 feed-driven variant against the paper; I read only arXiv HTML and abstract snippets, not the full text.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "three-component reaction-diffusion scattering of traveling pulses scattor drift bifurcation Hopf codimension 2 head-on collision"
+  },
+  {
+   "query": "Nishiura Teramoto Ueda dynamic transitions through scattors in dissipative systems Chaos 2003"
+  },
+  {
+   "query": "Gray-Scott three-component slow inhibitor traveling spot collision repulsion bounce annihilation 2D strip"
+  },
+  {
+   "query": "\"Arbitrarily weak head-on collision can induce annihilation\" hidden instabilities authors journal"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2306.06421",
+  "https://www.researchgate.net/publication/235982830_Pulse_dynamics_in_a_three-component_system_Stability_and_bifurcations",
+  "https://www.researchgate.net/publication/11314003_Drifting_Pattern_Domains_in_a_Reaction-Diffusion_System_with_Nonlocal_Coupling",
+  "https://arxiv.org/pdf/2306.06421",
+  "https://www.researchgate.net/publication/10726301_Scattering_and_separators_in_dissipative_systems",
+  "https://arxiv.org/pdf/2008.12942",
+  "https://arxiv.org/pdf/2111.03836",
+  "https://www.researchgate.net/publication/6524903_Breathing_dissipative_solitons_in_three-component_reaction-diffusion_system",
+  "https://arxiv.org/pdf/2311.07045",
+  "https://www.wpi-aimr.tohoku.ac.jp//mathematics_unit/english/member/member_nishiura.html",
+  "https://www.wpi-aimr.tohoku.ac.jp/nishiura_labo/en/publication/",
+  "https://www.wpi-aimr.tohoku.ac.jp/mathematics_unit/english/research.html",
+  "https://www.wpi-aimr.tohoku.ac.jp//mathematics_unit/japanese/member/member_nishiura.html",
+  "https://arxiv.org/pdf/2111.03836",
+  "https://arxiv.org/pdf/2301.08075",
+  "https://www.researchgate.net/publication/10726301_Scattering_and_separators_in_dissipative_systems",
+  "https://link.springer.com/article/10.1007/s13160-013-0100-x",
+  "https://link.springer.com/chapter/10.1007/978-4-431-88981-6_21",
+  "https://pubs.aip.org/aip/cha/issue/13/3",
+  "https://arxiv.org/pdf/2306.06421",
+  "https://www.researchgate.net/publication/336534267_Pattern_selection_of_three_components_Gray-Scott_model",
+  "https://personal.math.ubc.ca/~ward/papers/thesis_wanchen.pdf",
+  "https://arxiv.org/pdf/patt-sol/9804001",
+  "https://arxiv.org/pdf/2006.04801",
+  "https://arxiv.org/pdf/1703.04246",
+  "https://arxiv.org/pdf/2207.00803",
+  "https://arxiv.org/pdf/1009.2805",
+  "https://www.researchgate.net/figure/Phase-diagram-in-k-f-plane-for-the-Gray-Scott-model-1-Here-DR-stands-for-the_fig1_241680830",
+  "https://arxiv.org/abs/2306.06421",
+  "https://link.springer.com/article/10.1007/s13160-023-00607-5",
+  "https://arxiv.org/list/math.DS/2023-06",
+  "https://www.researchgate.net/publication/373239110_Arbitrarily_weak_head-on_collision_can_induce_annihilation_the_role_of_hidden_instabilities",
+  "https://arxiv.org/html/2306.06421",
+  "https://www.researchgate.net/publication/27657066_Self-organized_quasiparticles_and_other_patterns_in_planar_gas-discharge_systems",
+  "https://www.researchgate.net/figure/For-a-b-g-e-3-1-2-001-the-bifurcation-pointtpoint-pointt-0-th-0_fig8_227254031",
+  "https://arxiv.org/pdf/2404.04323",
+  "https://arxiv.org/pdf/gr-qc/0703127"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system and the behaviour are described in a paper whose DH point matches your numbers.\n\n**1. Model family.** This is a three-component reaction-diffusion system with one activator and two inhibitors. It is a FitzHugh\u2013Nagumo-type activator\u2013substrate\u2013inhibitor model, of the kind Nishiura, Teramoto and Ueda use to study the collision of particle-like patterns in dissipative systems. Your u, v and w fit this structure. Your other variants are the same three-field reactions on a 2D strip and a Gray\u2013Scott-type feed-driven autocatalysis with a slow inhibitor.\n\n**2. The specific behaviour.** The behaviour is \"weak-interaction-induced annihilation\" (WIIA). Two slow traveling pulses or spots approach, never merge and repel each other. A hidden oscillatory (Hopf-type) instability then grows, and both patterns go extinct. The effect appears near the codimension-2 drift\u2013Hopf (DH) point of the standing pulse.\n\n- **Earliest clear source for this exact mechanism:** Nishiura, Teramoto and Ueda, \"Arbitrarily weak head-on collision can induce annihilation: the role of hidden instabilities\", Japan J. Industrial and Applied Mathematics 40(5\u20136), published 18 Aug 2023. It is open access, and the arXiv preprint is 2306.06421 (June 2023).\n  - The arXiv paper says the two spots come together very slowly but do not merge, keeping some separation, and then they start to repel each other. This matches your closest_gap and the \"bouncing apart\" behaviour.\n  - Its 1D three-component FHN section gives the numbers you list. DH is the codimension 2 point, i.e., drift and Hopf point: \u03c4\u22481220,k_4\u22482.965. These are your special_point_v_timescale (1220) and special_point_w_coupling (2.965). Region IV is labelled annihilation after collision.\n  - It treats the 2D strip case as well. Annihilation behavior near the codimension 2 point of DH type: two slow traveling spots collide and annihilate while keeping some distance. It also covers a second, activator\u2013substrate\u2013inhibitor system in 2D. That second system plausibly corresponds to your \"feed-driven autocatalysis plus slow inhibitor\" variant.\n  - It describes the mechanism: the minimum distance point is not the place where annihilation occurs but is a turning point for the orbit to shift its dynamic regime from stable traveling spot to breathing motion.\n  - The DH point is also described analytically: the hidden instability here turns out to be a codimension 2 singularity consisting of drift and Hopf (DH) instabilities.\n- **Background and review-level sources** (titles and authors checked against search results):\n  - Nishiura, Teramoto and Ueda, \"Scattering and separators in dissipative systems\", Phys. Rev. E 67, 056210 (2003). It introduces scattors in a three-component activator\u2013substrate\u2013inhibitor model and says repulsion and annihilation dynamics can be observed near pitchfork and Hopf bifurcation (PH) points.\n  - Nishiura, Teramoto and Ueda, \"Dynamic transitions through scattors in dissipative systems\", Chaos 13(3), 962\u2013972 (2003).\n  - Nishiura, Teramoto and Ueda, \"Scattering of traveling spots in dissipative systems\", Chaos 15, 047509 (2005). This is the 2D spots paper.\n  - Doelman, Kaper and collaborators, \"Pulse dynamics in a three-component system: stability and bifurcations\". This establishes the drift\u2013Hopf codimension-2 singularity for standing pulses. I could not confirm its author list or venue from the search snippet.\n  - van Heijster and collaborators, \"Traveling pulse solutions in a three-component FitzHugh\u2013Nagumo model\", arXiv 2008.12942. This reports collisions with oscillation just before annihilation. I did not confirm its full author list or venue.\n  - Or-Guil, Bode, Schenk and Purwins, \"Spot bifurcations in three-component reaction-diffusion systems: the onset of propagation\", Phys. Rev. E 57, 6432 (1998). This is the original drift-bifurcation work and is relevant to the model's origin.\n\n**3. Not checked.** The two-component Gray\u2013Scott case and general two-pulse repulsion and annihilation in FHN-type systems are older and well known. I did not check your remaining numbers, surviving_w_coupling = 3.2 and vanishing_time = 7500. The first is plausibly just a point in the paper's preservation region. I did not verify the exact 1D parameters, such as the 0.000005 diffusion coefficient. The source-paper numbers I did match are \u03c4\u22481220 and k\u2084\u22482.965, plus the qualitative picture.\n\n**4. Confidence: high.** The numbers match closely, including the DH point, and so do the qualitative features. These are a near-miss with no merging, repulsion, growing breathing and then extinction. The caveat is that I read only the arXiv HTML snippets. I did not read the full text or check the exact parameter values.\n\n**Searches run:**\n- three-component reaction-diffusion scattering traveling pulses scattor drift Hopf codimension 2\n- Nishiura Teramoto Ueda dynamic transitions through scattors\n- Gray-Scott three-component traveling spot collision bounce annihilation\n- \"Arbitrarily weak head-on collision can induce annihilation\" authors and journal\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"reaction-diffusion (three-component FitzHugh-Nagumo-type activator-substrate-inhibitor; dissipative solitons / scattering of particle-like patterns)\", \"standard_name\": \"Weak-interaction-induced annihilation (WIIA) of traveling pulses/spots near a codimension-2 drift-Hopf (DH) point; hidden instability / scattor\", \"confidence\": \"high\", \"citations\": [\"Nishiura, Teramoto, Ueda 2023, Japan J. Ind. Appl. Math. 40(5-6) (arXiv:2306.06421) - weak head-on collision of slow traveling pulses/spots leads to annihilation near DH point (tau~1220, k4~2.965) without merging; 1D and 2D three-component systems\", \"Nishiura, Teramoto, Ueda 2003, Phys. Rev. E 67, 056210 - Scattering and separators in dissipative systems; scattors in a three-component model, repulsion/annihilation near PH points\", \"Nishiura, Teramoto, Ueda 2003, Chaos 13(3), 962-972 - Dynamic transitions through scattors in dissipative systems\", \"Nishiura, Teramoto, Ueda 2005, Chaos 15, 047509 - Scattering of traveling spots in dissipative systems (2D spots)\", \"Or-Guil, Bode, Schenk, Purwins 1998, Phys. Rev. E 57, 6432 - Spot bifurcations in three-component RD systems: onset of propagation (drift bifurcation)\", \"Pulse dynamics in a three-component system: stability and bifurcations (Doelman, Kaper et al.) - drift-Hopf codimension-2 singularity of standing pulse; authors and venue not verified from snippet\"], \"searches\": [\"three-component reaction-diffusion scattering of traveling pulses scattor drift bifurcation Hopf codimension 2 head-on collision\", \"Nishiura Teramoto Ueda dynamic transitions through scattors in dissipative systems Chaos 2003\", \"Gray-Scott three-component slow inhibitor traveling spot collision repulsion bounce annihilation 2D strip\", \"Arbitrarily weak head-on collision can induce annihilation hidden instabilities authors journal\"], \"notes\": \"Special-point values (tau~1220, k4~2.965) match the source's DH point. I did not check surviving_w_coupling = 3.2, vanishing_time = 7500, the diffusion coefficients or the 8x2 feed-driven variant against the paper; I read only arXiv HTML and abstract snippets, not the full text.\"}\n```",
+ "checked": "2026-11-03 02:33:03"
+}

@@ -1,0 +1,105 @@
+{
+ "class_id": "planted:D09",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "cellular automata (3-value k-totalistic glider rules, Beehive/Spiral lineage) with random wiring as in Kauffman random Boolean networks; collective/global oscillation",
+ "standard_name": "CA pulsing model / pulsing dynamics in randomly wired glider CA (Wuensche & Coxon)",
+ "confidence": "high",
+ "citations": [
+  "Wuensche & Coxon 2019 (arXiv 1806.06416, 2018), Journal of Cellular Automata 14(1-2):95-128 - Pulsing dynamics in randomly wired glider CA: sustained rhythmic density oscillations under random wiring of 3-value k-totalistic glider rules (v3k6 Beehive, v3k7 Spiral, 100x100); waveform unaffected by which random wiring or by re-randomising each step",
+  "Wuensche & Coxon 2018/2019 (arXiv 1811.12307), Acta Physica Polonica B Proc. Suppl. 12:135-154 - The cellular automaton pulsing model, experiments with DDLab: summary/extension to k=3-7, wavelength recognition",
+  "Chat\u00e9 & Manneville 1992, Prog. Theor. Phys. 87(1):1-60 - Collective behaviours in synchronously updated locally coupled systems (background)",
+  "Mousseau 1996, arXiv cond-mat/9603130 - Randomly connected Chat\u00e9-Manneville CA keep periodic/quasi-periodic global behaviour (two-state related precedent)",
+  "Wuensche 2005, Int. J. Unconventional Computing 1(4):375-398 - Beehive rule glider dynamics (3-value hexagonal CA)"
+ ],
+ "searches": [
+  "cellular automaton random connections mean-field global oscillation density three-state totalistic gliders",
+  "Kauffman random Boolean network annealed approximation oscillating activity multi-state CA",
+  "Hexagonal CA three states gliders mean field collective oscillations random neighbours Adamatzky",
+  "Chat\u00e9 Manneville collective behaviors synchronous updating",
+  "Wuensche beehive rule random wiring mean field density oscillation",
+  "Wuensche Pulsing dynamics in randomly wired glider cellular automata journal"
+ ],
+ "notes": "Specific numbers (period 7.5, range 6-82) not checked against the paper's tables. The Acta Physica Polonica year is inferred as 2019 (the ddlab.com list says 2018). Redraw-independence is consistent with annealed/mean-field density maps, but that explanation is my interpretation.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "cellular automaton random connections mean-field global oscillation density period, three-state totalistic rule, gliders on lattice"
+  },
+  {
+   "query": "Kauffman random Boolean network synchronous updating annealed approximation oscillating activity multi-state cellular automaton random wiring"
+  },
+  {
+   "query": "Hexagonal cellular automata three states gliders mean field collective oscillations random neighbours Adamatzky"
+  },
+  {
+   "query": "Chat\u00e9 Manneville collective behaviors in spatially extended systems with local interactions and synchronous updating"
+  },
+  {
+   "query": "Wuensche beehive rule random wiring mean field density oscillation 3-value totalistic"
+  },
+  {
+   "query": "Wuensche \"Pulsing dynamics in randomly wired glider cellular automata\" journal"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/0908.0828",
+  "http://www.scholarpedia.org/article/Cellular_automata",
+  "https://www.ddlab.com/downloads/papers/v3-glider-dynamics.pdf",
+  "https://arxiv.org/pdf/cond-mat/9603130",
+  "https://arxiv.org/pdf/2009.09515",
+  "https://arxiv.org/pdf/nlin/0702046",
+  "https://arxiv.org/html/cond-mat/9603130",
+  "https://content.wolfram.com/sites/13/2019/06/28-2-1.pdf",
+  "https://www.researchgate.net/publication/238036444_Gliders_and_Glider_Guns_Discovery_in_Cellular_Automata",
+  "https://arxiv.org/html/cond-mat/0107035",
+  "https://www.researchgate.net/publication/228017064_Random_Boolean_Networks",
+  "https://arxiv.org/pdf/nlin/0408006",
+  "https://arxiv.org/pdf/1007.0862",
+  "https://arxiv.org/pdf/nlin/0311008",
+  "https://arxiv.org/html/cond-mat/0606632v1",
+  "https://www.researchgate.net/publication/386686907_Persistence_of_Activity_in_Threshold_Contact_Processes_an_Annealed_Approximation_of_Random_Boolean_Networks",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0022519307000860",
+  "https://www.sciencedirect.com/topics/mathematics/random-boolean-network",
+  "http://www.scholarpedia.org/article/Cellular_automata",
+  "https://www.researchgate.net/publication/224255458_Complex_dynamics_in_a_hexagonal_cellular_automaton",
+  "https://www.osti.gov/etdeweb/biblio/20684511",
+  "https://arxiv.org/pdf/0712.0836",
+  "https://www.researchgate.net/publication/220977633_On_Spiral_Glider-Guns_in_Hexagonal_Cellular_Automata_Activator-Inhibitor_Paradigm",
+  "https://www.researchgate.net/publication/238036444_Gliders_and_Glider_Guns_Discovery_in_Cellular_Automata",
+  "https://arxiv.org/pdf/1411.0784",
+  "https://www.researchgate.net/publication/329305619_2D_Hexagonal_Cellular_Automata_The_Complexity_of_the_Forms",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077905003541",
+  "https://arxiv.org/pdf/2008.11279",
+  "https://academic.oup.com/ptp/article-abstract/87/1/1/1846081",
+  "https://link.springer.com/article/10.1023/B:JOSS.0000003112.54283.ac",
+  "https://arxiv.org/pdf/2311.05471",
+  "https://arxiv.org/html/chao-dyn/9808009",
+  "https://link.springer.com/rwe/10.1007/978-0-387-30440-3_51",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278996002527",
+  "https://link.springer.com/chapter/10.1007/3-540-46406-9_10",
+  "https://link.springer.com/chapter/10.1007/3-540-46043-8_80",
+  "https://arxiv.org/pdf/chao-dyn/9808009",
+  "https://arxiv.org/pdf/1806.06416",
+  "https://arxiv.org/pdf/1811.12307",
+  "https://arxiv.org/html/1504.01434",
+  "https://arxiv.org/pdf/nlin/0702046",
+  "https://arxiv.org/pdf/0908.0828",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.043116",
+  "https://link.aps.org/doi/10.1103/PhysRevB.93.184505",
+  "https://ar5iv.labs.arxiv.org/html/1811.12307",
+  "https://link.springer.com/article/10.1186/s13408-020-00086-9",
+  "https://arxiv.org/pdf/1806.06416",
+  "https://www.semanticscholar.org/paper/Pulsing-Dynamics-in-Randomly-Wired-Glider-Cellular-Wuensche-Coxon/eb8931abf8a7c540d1af35c495af68c372153818/figure/11",
+  "https://dblp.uni-trier.de/pers/w/Wuensche:Andrew.html",
+  "https://arxiv.org/abs/1806.06416",
+  "https://www.oldcitypublishing.com/journals/jca-home/jca-issue-contents/jca-volume-14-number-1-2-2019/jca-14-1-2-p-95-128/",
+  "https://www.semanticscholar.org/paper/The-X-Rule:-Universal-Computation-in-a-Life-Like-Soto-Wuensche/2613b9217edc827a941af810e6a8fe6229b33202",
+  "https://www.ddlab.com/publications.html",
+  "https://arxiv.org/pdf/2008.11279",
+  "https://arxiv.org/pdf/1709.02655"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system and the behaviour match a published study. I have high confidence in that match.\n\n**1. Model family.** This is a 3-value k-totalistic cellular automaton with k=6. It is a \"glider\" rule in the Beehive/Spiral lineage of Wuensche and Adamatzky, which is a hexagonal activator\u2013inhibitor, reaction-diffusion-style CA. Here it is rewired to random inputs, as in a Kauffman random Boolean network. The observed behaviour is a sustained global oscillation in density, which Wuensche calls \"pulsing\".\n\n**2. The specific behaviour is reported.**\n- **Earliest clear source:** Wuensche & Coxon, \"Pulsing dynamics in randomly wired glider cellular automata\". The arXiv preprint is 1806.06416 (2018). The journal version is *Journal of Cellular Automata* 14(1-2): 95\u2013128 (2019).\n  - The abstract says sustained rhythmic oscillations, called pulsing dynamics, emerge spontaneously when the local connection scheme is randomised in 3-value cellular automata with \"glider\" dynamics.\n  - With fully random wiring, changing the actual wiring makes no difference to the waveform, and neither does re-randomising at each timestep. This matches your \"input_redraw_effect = 0\".\n  - The case studies include the v3k6 Beehive rule and the v3k7 Spiral rule. Your 6-input rule is therefore in this class.\n  - The Beehive \"g2\" case study runs on a 100\u00d7100 hexagonal lattice. That is the same size as your world.\n  - The paper uses time-plots of density, plus entropy/density and density return-map scatter plots. It reports a distinct waveform for each glider rule, and the return-map signatures resemble chaotic strange attractors. That explains why a period such as 7.5 is an average rather than an exact integer cycle.\n  - Pulsing is not discernible for glider rules in binary CA, such as Rule 110 or Game of Life. This fits your focus on 3-state rules.\n- **Follow-up and summary:** Wuensche & Coxon, \"The cellular automaton pulsing model, experiments with DDLab\", arXiv 1811.12307, *Acta Physica Polonica B Proceedings Supplement* vol. 12, 135\u2013154 (2019). I confirmed the arXiv ID and abstract. The ddlab.com publication list gives the venue and page range; its year entry reads 2018, so the 2019 year is my inference.\n  - It extends the study to totalistic glider rules with neighbourhoods of 3, 4 and 5, as well as the 6 and 7 studied previously, and adds automatic wavelength recognition.\n  - It states that unbiased random wiring gives the strongest and most robust pulsing.\n  - This is a summary paper, not an independent review. I found no independent review.\n- **Background (not the same finding):**\n  - Chat\u00e9 & Manneville 1992, *Prog. Theor. Phys.* 87(1):1\u201360, found non-trivial collective behaviour in synchronously updated, locally coupled systems. I verified the title, authors and venue.\n  - Mousseau 1996, \"Randomly connected cellular automata: A search for critical connectivities\", arXiv cond-mat/9603130, studied totalistic Chat\u00e9\u2013Manneville rules on random lattices. It found that periodic and quasi-periodic macroscopic behaviour persists on a randomly connected lattice with finite connectivity. Those rules are two-state, so they are a related precedent rather than the same finding.\n  - The redraw-independence is what you would expect from an annealed or mean-field density map. That is the Derrida\u2013Pomeau annealed approximation, which Wuensche's paper links to Kauffman networks. I did not find a source that applies it to this exact rule, so treat this as my interpretation, not a verified claim.\n\n**3. Caveats.**\n- I could not check the specific numbers (period 7.5, range 6\u201382) against the paper's tables. I only confirmed that the paper covers the phenomenon and the 6-input and 7-input rule class.\n- The observed period of 7.5 is plausibly a mean over a noisy or chaotic waveform, so it is not evidence of a different phenomenon.\n- \"Pulsing\" has not, as far as I can see, been widely taken up outside Wuensche's group. The literature is thin, but the behaviour is described.\n\n**4. Searches run.**\n- cellular automaton random connections mean-field oscillation, three-state totalistic\n- Kauffman RBN annealed approximation oscillating activity\n- hexagonal 3-state CA gliders (Adamatzky/Wuensche)\n- Chat\u00e9\u2013Manneville collective behaviour\n- Wuensche beehive random wiring pulsing\n- Wuensche & Coxon venue verification\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"cellular automata (3-value k-totalistic glider rules, Beehive/Spiral lineage) with random wiring as in Kauffman random Boolean networks; collective/global oscillation\", \"standard_name\": \"CA pulsing model / pulsing dynamics in randomly wired glider CA (Wuensche & Coxon)\", \"confidence\": \"high\", \"citations\": [\"Wuensche & Coxon 2019 (arXiv 1806.06416, 2018), Journal of Cellular Automata 14(1-2):95-128 - Pulsing dynamics in randomly wired glider CA: sustained rhythmic density oscillations under random wiring of 3-value k-totalistic glider rules (v3k6 Beehive, v3k7 Spiral, 100x100); waveform unaffected by which random wiring or by re-randomising each step\", \"Wuensche & Coxon 2018/2019 (arXiv 1811.12307), Acta Physica Polonica B Proc. Suppl. 12:135-154 - The cellular automaton pulsing model, experiments with DDLab: summary/extension to k=3-7, wavelength recognition\", \"Chat\u00e9 & Manneville 1992, Prog. Theor. Phys. 87(1):1-60 - Collective behaviours in synchronously updated locally coupled systems (background)\", \"Mousseau 1996, arXiv cond-mat/9603130 - Randomly connected Chat\u00e9-Manneville CA keep periodic/quasi-periodic global behaviour (two-state related precedent)\", \"Wuensche 2005, Int. J. Unconventional Computing 1(4):375-398 - Beehive rule glider dynamics (3-value hexagonal CA)\"], \"searches\": [\"cellular automaton random connections mean-field global oscillation density three-state totalistic gliders\", \"Kauffman random Boolean network annealed approximation oscillating activity multi-state CA\", \"Hexagonal CA three states gliders mean field collective oscillations random neighbours Adamatzky\", \"Chat\u00e9 Manneville collective behaviors synchronous updating\", \"Wuensche beehive rule random wiring mean field density oscillation\", \"Wuensche Pulsing dynamics in randomly wired glider cellular automata journal\"], \"notes\": \"Specific numbers (period 7.5, range 6-82) not checked against the paper's tables. The Acta Physica Polonica year is inferred as 2019 (the ddlab.com list says 2018). Redraw-independence is consistent with annealed/mean-field density maps, but that explanation is my interpretation.\"}\n```",
+ "checked": "2026-11-03 02:33:42"
+}

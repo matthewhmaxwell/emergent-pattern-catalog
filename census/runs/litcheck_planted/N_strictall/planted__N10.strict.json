@@ -1,0 +1,37 @@
+{
+ "class_id": "planted:N10",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Gliders (spaceships) in vertex-neighbourhood priority-table cellular automata on the spectre/hat aperiodic monotilings, with headings locked to six directions",
+ "citations": [
+  "J. Edmond, 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre', arXiv:2609.22579v1 (2026)",
+  "A. P. Goucher, 'Gliders in cellular automata on Penrose tilings' (2012)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "high",
+ "notes": "The abstract matches the setup (vertex neighbourhood, priority-table rules, regenerating sliding window, spectre tiling) and the key observations (one million rings at constant speed and heading; six-way heading lock to millidegrees). Only the abstract was read. Speed 0.5, 12 cells, the 0.71 launch share and the exact rule table were not checked against the full text; any difference would be a difference in parameters, not a new behaviour. The paper is an arXiv preprint and peer-review status is unverified. Upgraded from KNOWN-VARIANT to KNOWN because no phenomenological twist is apparent.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "gliders cellular automata hat spectre aperiodic monotile"
+  },
+  {
+   "query": "\"Gliders on Aperiodic Monotilings\" Edmond arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre",
+  "https://cp4space.hatsya.com/wp-content/uploads/2012/11/2012-penrose-gliders.pdf",
+  "https://www.thingiverse.com/thing:6118449",
+  "https://forum.sagittal.org/viewtopic.php?t=569",
+  "https://isohedral.ca/aperiodic-monotiles/",
+  "https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/aperiodic-spectre/",
+  "https://read.somethingorotherwhatever.com/entry/GlidersonAperiodicMonotilingsCellularAutomataontheHatandSpectre"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm upgrading the first pass's \"variant\" to \"known\". The observed behaviour matches a 2026 preprint that describes gliders on the spectre and hat tilings almost point for point.\n\n**The source.** The paper is \"Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre\" by James Edmond, published in 2026. It is arXiv 2609.22579v1, so the venue is arXiv, not a peer-reviewed journal. I could only read the abstract, through a catalogue page. I did not open the PDF.\n\n**How the abstract matches the observation:**\n- **Rule family.** Searches over edge-adjacency rules found \"only mortal travelers: gliders are absent\". So the author extended the rule space to vertex neighborhoods and to priority-table rules whose non-quiescent states are visible to neighbors. Your system is the same kind: neighbours share a corner, and the first matching rule applies.\n- **Tiling and tracking.** Gliders were found on both monotilings; tracked by a sliding window that regenerates the patch along the flight. That matches your spectre tiling and regenerating window.\n- **One million rings.** They travel one million rings at constant speed and heading, which matches rings_travelled = 1,000,000.\n- **Six headings, tiny error.** All headings are quantized, to millidegrees, onto a six-spoke compass - the fast axes of the tiling's graph metric. That matches 6 directions 60\u00b0 apart and your 0.006\u00b0 error. The paper's explanation is that the six directions are the tiling's fastest graph paths, not anything built into the rule.\n\n**Background.** The basic phenomenon is older. Goucher's 2012 paper on Penrose tilings presented the first glider capable of navigating an aperiodic tiling. It used the same \"touch at a corner\" neighbourhood, where neighbours of a tile are defined to be those which share at least one vertex with that tile.\n\n**Not checked:** the speed of 0.5 rings per generation, the 12 cells per glider, the 0.71 launch success share, and whether your exact rule table appears in the paper. These need the full text. Even if they differ, they would only be different numbers for the same kind of glider, not a new behaviour. The rule has a leading state 1 that creates state 3 ahead of it, then 3 either turns into 1 or clears back to 0. That is a typical way such a glider is built.\n\n**Genuine or artifact?** Genuine. It isn't a frozen state, a numerical blow-up or random colouring. A compact object keeps moving at constant speed and locks precisely to the tiling's six directions. The regenerating window is part of how it's measured, but it's the same method the paper uses, so it isn't a hidden flaw.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Gliders (spaceships) in vertex-neighbourhood priority-table cellular automata on the spectre/hat aperiodic monotilings, with headings locked to six directions\", \"citations\": [\"J. Edmond, 'Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre', arXiv:2609.22579v1 (2026)\", \"A. P. Goucher, 'Gliders in cellular automata on Penrose tilings' (2012)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"high\", \"notes\": \"The abstract matches the setup (vertex neighbourhood, priority-table rules, regenerating sliding window, spectre tiling) and the key observations (one million rings at constant speed and heading; six-way heading lock to millidegrees). Only the abstract was read. Speed 0.5, 12 cells, the 0.71 launch share and the exact rule table were not checked against the full text; any difference would be a difference in parameters, not a new behaviour. The paper is an arXiv preprint and peer-review status is unverified. Upgraded from KNOWN-VARIANT to KNOWN because no phenomenological twist is apparent.\"}\n```",
+ "checked": "2026-11-03 04:18:56"
+}

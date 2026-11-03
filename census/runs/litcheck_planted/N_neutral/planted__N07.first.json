@@ -1,0 +1,82 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Nonequilibrium conserved-mass transport on a lattice (KMP-type stochastic redistribution) with chiral/odd diffusion; related to hyperuniform / center-of-mass-conserving mass-transport literature",
+ "standard_name": "Chiral (generalized) KMP mass-transport model with odd diffusion; power-law (r^-(d+2)=r^-4) density correlations from multidirectional/L-shaped hopping",
+ "confidence": "medium",
+ "citations": [
+  "Anon (authors not retrieved) 2026, arXiv 2609.16821 (via Pith review page) 'Odd diffusion and power-law correlations in chiral mass-transport processes' - exactly solvable chiral KMP models on square lattice with three-site L-shaped moves; isotropic hopping gives r^-4 density correlations from odd diffusion",
+  "Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112 - 'Generic power laws in higher-dimensional lattice models with multidirectional hopping' - generic 1/r^(d+2) density correlations in conserved-mass transport with multidirectional hopping, expressed via Onsager matrix",
+  "J. Stat. Mech. 2025, 10.1088/1742-5468/ada88c - 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results' (authors not verified) - exact static/dynamic correlation exponents in related mass-transport models"
+ ],
+ "searches": [
+  "conserved mass transport lattice model chiral turning L-shaped paths density correlations r^-4 hyperuniform edge current",
+  "Kardar-Parisi-Zhang-like conserved lattice model with non-reciprocal rotational current dipolar correlations r^-d hyperuniformity chiral",
+  "chiral mass transport lattice model odd Onsager matrix long-range density correlations hyperuniform turning strength steady state",
+  "Generic power laws in higher-dimensional lattice models with multidirectional hopping authors arXiv",
+  "Odd diffusion and power-law correlations in chiral mass-transport processes",
+  "arXiv chiral KMP model odd diffusion L-shaped moves Pradhan Mukherjee density correlations square lattice",
+  "chiral mass transport structure factor long-wavelength density fluctuations non-monotonic chirality minimum square-root cusp maximal chirality"
+ ],
+ "notes": "Only a secondary Pith summary of the 2026 arXiv paper was readable; authors, exact arXiv ID and venue unverified. The fluctuation-minima-vs-turning and sqrt-cusp (exponent 0.5) features, and the closed-box edge current, were not found in any readable source, so those are unconfirmed rather than known. Check the full arXiv text for them.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "conserved mass transport lattice model chiral turning L-shaped paths density correlations r^-4 hyperuniform edge current"
+  },
+  {
+   "query": "Kardar-Parisi-Zhang-like conserved lattice model with non-reciprocal rotational current dipolar correlations r^-d hyperuniformity chiral"
+  },
+  {
+   "query": "chiral mass transport lattice model odd Onsager matrix long-range density correlations hyperuniform turning strength steady state"
+  },
+  {
+   "query": "Generic power laws in higher-dimensional lattice models with multidirectional hopping authors arXiv"
+  },
+  {
+   "query": "Odd diffusion and power-law correlations in chiral mass-transport processes"
+  },
+  {
+   "query": "arXiv chiral KMP model odd diffusion L-shaped moves Pradhan Mukherjee density correlations square lattice"
+  },
+  {
+   "query": "chiral mass transport structure factor long-wavelength density fluctuations non-monotonic chirality minimum square-root cusp maximal chirality"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prb/pdf/10.1103/PhysRevB.108.174505",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://inspirehep.net/files/e64b4f49ce3356189bf683cd2dcad63d",
+  "https://link.aps.org/pdf/10.1103/PhysRevB.108.174505",
+  "https://commons.clarku.edu/cgi/viewcontent.cgi?article=1006&context=faculty_physics",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae1e75",
+  "https://www.osti.gov/pages/servlets/purl/3367016",
+  "https://link.aps.org/pdf/10.1103/PhysRevE.100.042116",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.023047",
+  "https://pith.science/paper/2609.16821",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/acdd8c",
+  "https://aura.abdn.ac.uk/server/api/core/bitstreams/e72d2db0-e6eb-43d0-9c4f-2894adcc5abe/content",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12151978",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://journals.aps.org/pre/issues/112/4/deliverables/table-of-contents/print/2",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://pith.science/paper/2609.16821",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae6e97",
+  "https://www.nature.com/articles/s42005-022-01032-9",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.134.097105",
+  "https://pith.science/paper/2609.16821",
+  "https://pith.science/paper/2607.21525",
+  "https://pubmed.ncbi.nlm.nih.gov/42493982/",
+  "https://journals.aps.org/pre/abstract/10.1103/vnd5-trnr",
+  "https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202509539",
+  "https://www.science.org/doi/10.1126/sciadv.aaw8331",
+  "https://www.nature.com/articles/s44310-024-00018-5"
+ ],
+ "full_text": "**Verdict: KNOWN.** The r\u207b\u2074 density correlations in an isotropic chiral L-shaped-move mass-transport model are reported in a 2026 arXiv paper. The two finer features (fluctuation minima versus turning strength, and the square-root cusp) are not confirmed by anything I could read.\n\n**1. Model family.** This is a conserved-mass transport process on a lattice. It is a continuous-mass, KMP-type (Kipnis\u2013Marchioro\u2013Presutti) stochastic redistribution model, driven out of equilibrium. Two features set it apart:\n- The two-step \"kick, then turn left\" move is a coordinated three-site L-shaped move with a fixed handedness. It breaks detailed balance and has a preferred rotational sense, which gives odd (antisymmetric) diffusion and an off-diagonal Onsager/mobility tensor.\n- It sits next to the \"multidirectional hopping\" and centre-of-mass-conserving hyperuniform mass-transport literature (Pradhan group).\n\n**2. The specific behaviour.**\n- **Earliest clear source for the exact system.** The Pith page \"Odd diffusion and power-law correlations in chiral mass-transport processes\" reviews a 2026 arXiv paper (Pith ID 2609.16821). I could not read the paper itself or get its author list. I read only the Pith summary page, which is a secondary source.\n  - It introduces exactly solvable chiral mass-transport processes (generalized KMP models) on a square lattice. Mass hops with a preferred rotational sense via simultaneous three-site L-shaped moves.\n  - For isotropic hopping, the steady-state equal-time density-density correlation decays as r\u207b\u2074, with an angular dependence.\n  - The power law comes from the odd-diffusion coefficient interacting with the off-diagonal components of the mobility tensor.\n  - Odd diffusion produces scale-invariant correlations even when the lattice has rotation symmetry. This is a different mechanism from anisotropic hopping.\n- **Closest earlier framework.** Hazra, Chakraborty, Mukherjee and Pradhan, \"Generic power laws in higher-dimensional lattice models with multidirectional hopping,\" Phys. Rev. E 112 (2025), is the closest earlier framework. I confirmed the title and authors on the APS page and the volume on the PRE table of contents.\n  - Static density-density correlations typically decay as 1/r^(d+2) for d>1, with strength set by the bulk diffusion coefficient and the Onsager matrix.\n  - For d=2 this gives r\u207b\u2074. This is the exponent in your simulation.\n- **Companion paper.** \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results,\" J. Stat. Mech. (2025), DOI 10.1088/1742-5468/ada88c. I could not verify its authors from the search results. It treats mass transport processes where both mass and centre of mass are conserved and detailed balance is violated in the bulk.\n- **Review.** I found no dedicated review. The multidirectional-hopping PRE paper is the best general reference.\n\n**3. Features not confirmed.**\n- **Isotropy (xy ratio = 1).** This matches the Pith summary. The statement that the r\u207b\u2074 decay has an angular dependence is consistent with an isotropic lattice. I could not check whether the angular form is exactly isotropic along the x and y axes.\n- **Fluctuation minima versus turning strength, and the \u221a cusp near maximal turning.** I ran a targeted search and found nothing describing these. They may be in the paper's full text, which I could not read. Otherwise they are a quantitative detail not covered in the sources I reached.\n- **Edge current in a closed box with reflecting walls.** This is not verified. It is plausible for chiral transport generally, but I did not find it for this model.\n\n**4. Verdict and confidence.** KNOWN, with **medium** confidence.\n- The match on the core behaviour is strong: a square lattice, L-shaped chiral KMP-type moves, isotropic rates, and r\u207b\u2074 correlations.\n- The paper is very recent, and I could only read a Pith summary of it, not the arXiv text. I could not verify the authors, the exact arXiv ID or the venue.\n- Your 40%/60% split rule may be a specific parametrisation of the \"turning strength\". I have no source for that, or for the minima and cusp.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Nonequilibrium conserved-mass transport on a lattice (KMP-type stochastic redistribution) with chiral/odd diffusion; related to hyperuniform / center-of-mass-conserving mass-transport literature\", \"standard_name\": \"Chiral (generalized) KMP mass-transport model with odd diffusion; power-law (r^-(d+2)=r^-4) density correlations from multidirectional/L-shaped hopping\", \"confidence\": \"medium\", \"citations\": [\"Anon (authors not retrieved) 2026, arXiv 2609.16821 (via Pith review page) 'Odd diffusion and power-law correlations in chiral mass-transport processes' - exactly solvable chiral KMP models on square lattice with three-site L-shaped moves; isotropic hopping gives r^-4 density correlations from odd diffusion\", \"Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112 - 'Generic power laws in higher-dimensional lattice models with multidirectional hopping' - generic 1/r^(d+2) density correlations in conserved-mass transport with multidirectional hopping, expressed via Onsager matrix\", \"J. Stat. Mech. 2025, 10.1088/1742-5468/ada88c - 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results' (authors not verified) - exact static/dynamic correlation exponents in related mass-transport models\"], \"searches\": [\"conserved mass transport lattice model chiral turning L-shaped paths density correlations r^-4 hyperuniform edge current\", \"Kardar-Parisi-Zhang-like conserved lattice model with non-reciprocal rotational current dipolar correlations r^-d hyperuniformity chiral\", \"chiral mass transport lattice model odd Onsager matrix long-range density correlations hyperuniform turning strength steady state\", \"Generic power laws in higher-dimensional lattice models with multidirectional hopping authors arXiv\", \"Odd diffusion and power-law correlations in chiral mass-transport processes\", \"arXiv chiral KMP model odd diffusion L-shaped moves Pradhan Mukherjee density correlations square lattice\", \"chiral mass transport structure factor long-wavelength density fluctuations non-monotonic chirality minimum square-root cusp maximal chirality\"], \"notes\": \"Only a secondary Pith summary of the 2026 arXiv paper was readable; authors, exact arXiv ID and venue unverified. The fluctuation-minima-vs-turning and sqrt-cusp (exponent 0.5) features, and the closed-box edge current, were not found in any readable source, so those are unconfirmed rather than known. Check the full arXiv text for them.\"}\n```",
+ "checked": "2026-11-03 04:00:53"
+}

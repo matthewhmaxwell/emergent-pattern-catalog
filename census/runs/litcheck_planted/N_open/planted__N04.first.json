@@ -1,0 +1,79 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter / odd (non-reciprocal) Cosserat solids; 2D KTHNY melting",
+ "standard_name": "topological instability (odd-elasticity-driven defect proliferation) and reentrant crystallization in active solids",
+ "confidence": "high",
+ "citations": [
+  "Davoyan, Jha, Souslov 2026, arXiv:2609.09500 - KTHNY extended to odd+Cosserat solids; melting at any T above threshold non-reciprocity, reentrant crystallization at higher activity; simulation setup matches (1e4 particles, Gay-Berne 0.55/0.65, perpendicular LJ force, Brownian dynamics)",
+  "Jeong et al. 2025, Phys. Rev. Research 7, 043212 - reentrant melting/crystallization in chiral active Brownian particles (related, different mechanism)",
+  "Nature Communications 2026 (s41467-026-68510-4) 'Reentrant melting of scarred odd crystals by self-shear' - chiral-activity reentrant melting of spinner crystals via transverse forces (related)",
+  "Maitra, Lenz, Voituriez 2020, PRL 125, 238005 - chiral active hexatics (theory background; verified via arXiv 2004.09115)"
+ ],
+ "searches": [
+  "transverse pairwise non-conservative force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics",
+  "odd interactions chiral active matter crystal melting perpendicular pair force hexatic order defects",
+  "Topological instability and reentrant crystallization in active solids",
+  "Crystallization of chiral active Brownian particles at low densities Miyazaki"
+ ],
+ "notes": "Source paper is a Sept 2026 arXiv preprint (not yet peer reviewed as far as seen); I did not read its full text or check the specific numeric thresholds (e_a/e_p=2, 33; T=4.25, 6) against it. Match is based on abstract and simulation-details section.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "transverse pairwise non-conservative force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics"
+  },
+  {
+   "query": "odd interactions chiral active matter crystal melting perpendicular pair force hexatic order defects"
+  },
+  {
+   "query": "Topological instability and reentrant crystallization in active solids"
+  },
+  {
+   "query": "Crystallization of chiral active Brownian particles at low densities Miyazaki"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/pdf/1103.5379",
+  "https://arxiv.org/pdf/cond-mat/0508780",
+  "https://arxiv.org/pdf/2609.09500",
+  "https://www.researchgate.net/publication/347295494_Phase_behavior_of_Lennard-Jones_particles_in_two_dimensions",
+  "https://arxiv.org/html/1809.08874v1",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.83.174110",
+  "https://arxiv.org/html/cond-mat/9705218",
+  "https://arxiv.org/html/1101.4337",
+  "https://arxiv.org/pdf/2110.01986",
+  "https://arxiv.org/pdf/2107.00724",
+  "https://arxiv.org/pdf/2011.11543",
+  "https://arxiv.org/pdf/2004.09115",
+  "https://arxiv.org/pdf/2512.17393",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.131.108301",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://arxiv.org/pdf/2606.28653",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11497608/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://arxiv.org/abs/2609.09500",
+  "https://arxiv.org/pdf/2609.09500",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.nature.com/articles/s41467-024-46520-4",
+  "https://arxiv.org/html/2508.20052v1",
+  "https://www.researchgate.net/publication/395034821_Wave_coarsening_drives_time_crystallization_in_active_solids",
+  "https://arxiv.org/pdf/2502.11296",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://arxiv.org/pdf/2504.06914",
+  "https://arxiv.org/html/2506.20230v1",
+  "https://link.aps.org/doi/10.1103/yntx-ss9r",
+  "https://arxiv.org/abs/2506.20230",
+  "https://www.researchgate.net/profile/Kunimasa-Miyazaki",
+  "https://zenodo.org/records/17337761",
+  "https://arxiv.org/pdf/2506.20230",
+  "https://www.emergentmind.com/topics/chiral-active-brownian-particles",
+  "https://arxiv.org/html/2510.15419v1",
+  "https://arxiv.org/pdf/2507.08770",
+  "https://www.researchgate.net/publication/327356602_Full_Phase_Diagram_of_Active_Brownian_Disks_From_Melting_to_Motility-Induced_Phase_Separation"
+ ],
+ "full_text": "**Verdict: KNOWN.** The exact system and the reentrant behaviour are described in one preprint. I found no earlier source for this particular system.\n\n**1. Model family.** This is active matter, specifically active or odd solids, combined with 2D melting theory (KTHNY). The rules are overdamped Brownian dynamics, a Gay-Berne-type anisotropic Lennard-Jones potential, and a non-conservative Lennard-Jones force perpendicular to the pair vector. The perpendicular force is non-reciprocal \"odd\" or transverse (chiral) interaction. The rotational coupling makes it a Cosserat (micropolar) odd solid.\n\n**2. The specific behaviour.** The preprint is Davoyan, Jha and Souslov, \"Topological instability and reentrant crystallization in active solids,\" arXiv:2609.09500, submitted 8 Sep 2026 (cond-mat.stat-mech).\n- Its simulation details match your system. The box has periodic boundaries and 10^4 particles. The Brownian integrator uses a linear damping factor of \u0393=10 and a rotational damping factor \u0393_r=0.1, so orientations relax faster than positions.\n- The non-conservative forces are the same kind. They are of Lennard-Jones form but act perpendicular to the vector connecting the particles. The particles also interact through a Gay-Berne potential, with the minor and major axes set to 0.55 and 0.65.\n- The claimed phenomenon is the same one you observed:\n  - The paper extends KTHNY theory to active solids with both odd elasticity and Cosserat coupling.\n  - Above a threshold non-reciprocity there is a distinct melting mechanism, \"topological instability,\" through defect-pair proliferation at any temperature. This matches \"disordered even at T=0\" at e_a/e_p \u2248 2.\n  - At higher activity there is reentrant crystallization, where quasi-long-range order survives at temperatures where the equilibrium crystal would melt. This matches the restored order at e_a/e_p = 33 and T = 6, well above the passive melting at T \u2248 4.25.\n\n**Related work (a reference class, not the same system):**\n- Jeong et al., \"Crystallization of chiral active Brownian particles at low densities,\" Phys. Rev. Research 7, 043212, published 24 Nov 2025. Its fluid-crystal phase diagram shows a re-entrant melting transition as a function of the orbit radius. This uses spinning self-propelled particles, not transverse pair forces.\n- \"Reentrant melting of scarred odd crystals by self-shear,\" Nature Communications, 2026 (DOI s41467-026-68510-4). It shows chiral-activity-mediated reentrant melting in dense assemblies of active spinners. The spinners interact through transverse frictional forces.\n- Maitra, Lenz and Voituriez, \"Chiral active hexatics: Giant number fluctuations, waves and destruction of order,\" PRL 125, 238005 (2020). It is a hydrodynamic theory, and I verified it only through a reference list and the arXiv text (2004.09115).\n- A review-type source is the Nature Sci. Open article \"Emergent phenomena in chiral active matter\" (2024). It covers odd elasticity and chiral active crystals, and I did not read it in full.\n\n**3. Verification limits.**\n- Titles, authors, dates and venues for the Davoyan, Jha and Souslov arXiv listing, for Jeong et al., and for the scarred-crystals paper match what the searches returned.\n- I did not read the full text of the Davoyan paper. I did not check its specific numbers (e_a/e_p = 2 and 33, T = 4.25 and 6) against yours. The match rests on the abstract and the simulation-details section.\n- The Davoyan paper is a preprint, apparently not yet peer reviewed.\n- I did not verify other cited works such as Scheibner et al. \"Odd elasticity\" and Bililign et al. \"Motile dislocations knead odd crystals into whorls.\" Both appeared only as reference-list titles, so I did not cite them.\n\n**4. Confidence: high** that this is known. The simulation setup matches the preprint's one-to-one (particle count, damping values, ellipse axes, perpendicular Lennard-Jones force), and its headline result is the same phenomenon. The caveat above is why I don't call the numerical match certain.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter / odd (non-reciprocal) Cosserat solids; 2D KTHNY melting\", \"standard_name\": \"topological instability (odd-elasticity-driven defect proliferation) and reentrant crystallization in active solids\", \"confidence\": \"high\", \"citations\": [\"Davoyan, Jha, Souslov 2026, arXiv:2609.09500 - KTHNY extended to odd+Cosserat solids; melting at any T above threshold non-reciprocity, reentrant crystallization at higher activity; simulation setup matches (1e4 particles, Gay-Berne 0.55/0.65, perpendicular LJ force, Brownian dynamics)\", \"Jeong et al. 2025, Phys. Rev. Research 7, 043212 - reentrant melting/crystallization in chiral active Brownian particles (related, different mechanism)\", \"Nature Communications 2026 (s41467-026-68510-4) 'Reentrant melting of scarred odd crystals by self-shear' - chiral-activity reentrant melting of spinner crystals via transverse forces (related)\", \"Maitra, Lenz, Voituriez 2020, PRL 125, 238005 - chiral active hexatics (theory background; verified via arXiv 2004.09115)\"], \"searches\": [\"transverse pairwise non-conservative force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics\", \"odd interactions chiral active matter crystal melting perpendicular pair force hexatic order defects\", \"Topological instability and reentrant crystallization in active solids\", \"Crystallization of chiral active Brownian particles at low densities Miyazaki\"], \"notes\": \"Source paper is a Sept 2026 arXiv preprint (not yet peer reviewed as far as seen); I did not read its full text or check the specific numeric thresholds (e_a/e_p=2, 33; T=4.25, 6) against it. Match is based on abstract and simulation-details section.\"}\n```",
+ "checked": "2026-11-03 03:46:24"
+}

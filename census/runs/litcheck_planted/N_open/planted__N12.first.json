@@ -1,0 +1,67 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: 2D XY (O(2)) model with long-range power-law couplings 1/r^(2+sigma), marginal case sigma=2",
+ "standard_name": "logarithmic quasi-long-range order (log-QLRO) in the marginal sigma=2 2D long-range XY model; continuous (non-BKT) transition with power-law divergent correlation length",
+ "confidence": "high",
+ "citations": [
+  "Xiao, Yao, Zhang, Fan, Deng 2025 (arXiv 2404.08498), Chin. Phys. Lett. 42, 070002 - 2D LR XY model: sigma_*=2, logarithmic scaling at sigma=2, power-law xi divergence for sigma<=2",
+  "Yao, Xiao, Zhang, Deng, Fan 2025 (arXiv 2411.01811), Phys. Rev. B 112, 144429 - comprehensive MC of 2D LR XY, threshold sigma*=2, log scaling at sigma=2, power-law xi divergence",
+  "arXiv 2609.39267 (2026; authors and venue not confirmed) - log-QLRO at sigma=2, C(r)~(ln r)^(-eta_l) with eta_l proportional to T, stiffness kernel kappa k^2 ln(1/k), eta_l=1/(2 pi kappa_R), power-law xi divergence",
+  "Defenu, Donner, Macri, Pagano, Ruffo, Trombettoni 2023, Rev. Mod. Phys. 95, 035002 (arXiv 2109.01063) - review of long-range systems incl. sigma*=2 for 2D LR XY; no MC at sigma~2 at that time",
+  "Giachetti, Defenu, Ruffo, Trombettoni 2021, PRL 127, 156801 (arXiv 2104.13217) - earlier theory of BKT with long-range couplings, predicts different phase diagram for 7/4<sigma<2"
+ ],
+ "searches": [
+  "long-range XY model 2D 1/r^4 interaction sigma=2 BKT logarithmic spin-wave magnetization power of log L",
+  "Berezinskii-Kosterlitz-Thouless transition in the long-range XY model Giachetti Defenu Gori Trombettoni",
+  "Two-dimensional XY Ferromagnet Induced by Long-range Interaction arXiv 2404.08498 authors"
+ ],
+ "notes": "Authors of 2609.39267 and its venue were not verified from search results; Defenu et al. RMP author list is from memory-free search only partially (title/venue verified via citing papers). The mixed nearest-neighbour 1.2 + weak 1/r^4 tail variant is expected to share the same universality but no source tested it explicitly. The earlier Giachetti et al. phase diagram for sigma<2 is contested by later MC; this does not affect sigma=2.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "long-range XY model 2D 1/r^4 interaction sigma=2 BKT logarithmic spin-wave magnetization power of log L"
+  },
+  {
+   "query": "Berezinskii-Kosterlitz-Thouless transition in the long-range XY model Giachetti Defenzi Gori Trombettoni"
+  },
+  {
+   "query": "Two-dimensional XY Ferromagnet Induced by Long-range Interaction arXiv 2404.08498 authors"
+  }
+ ],
+ "result_urls": [
+  "https://arxiv.org/html/2609.39267",
+  "https://arxiv.org/html/2512.04805",
+  "https://arxiv.org/pdf/2109.01063",
+  "https://arxiv.org/html/2404.08498",
+  "https://arxiv.org/html/2411.01811",
+  "https://arxiv.org/pdf/2411.01811",
+  "https://arxiv.org/pdf/2404.08498",
+  "https://arxiv.org/abs/2609.39267",
+  "https://arxiv.org/pdf/2512.04805",
+  "https://arxiv.org/pdf/2209.11810",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://arxiv.org/html/2511.07305",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://arxiv.org/abs/2104.13217",
+  "https://arxiv.org/pdf/2209.11810",
+  "https://www.researchgate.net/publication/351119642_Berezinskii-Kosterlitz-Thouless_phase_transitions_with_long-range_couplings",
+  "https://arxiv.org/pdf/2407.11507",
+  "https://arxiv.org/pdf/2309.01652",
+  "https://www.ino.cnr.it/?page_id=3403&p=a13441",
+  "https://arxiv.org/pdf/2109.01063",
+  "https://arxiv.org/html/2404.08498",
+  "https://arxiv.org/list/cond-mat/2024-04?skip=530&show=500",
+  "https://arxiv.org/html/2606.22407",
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://arxiv.org/html/2506.19637",
+  "https://arxiv.org/html/2411.01811",
+  "https://arxiv.org/pdf/2512.04805",
+  "https://arxiv.org/pdf/2509.18035",
+  "https://arxiv.org/pdf/2411.01811"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system is the 2D long-range XY model with J(r) \u221d 1/r^(2+\u03c3) at \u03c3 = 2, the marginal case. Its low-temperature phase has been described as \"logarithmic quasi-long-range order\" (log-QLRO).\n\n**1. Model family.** This is classical statistical physics: the 2D O(2) (XY) model with power-law long-range couplings, simulated with cluster Monte Carlo. A 1/r\u2074 coupling in d = 2 is \u03c3 = 2, the borderline between long-range and short-range (BKT) behaviour.\n\n**2. The specific behaviour, and where it is reported.**\n\n- **Earliest clear source.** Xiao, Yao, Zhang, Fan and Deng, \"Two-dimensional XY Ferromagnet Induced by Long-range Interaction\" (arXiv 2404.08498, Chin. Phys. Lett. 42(7), 070002, 2025). They find logarithmic scaling behaviors in the low-temperature phase at \u03c3=2. A double-log plot of \u03be versus 1/t at \u03c3=2 shows power-law behaviour of \u03be, which points to a second-order transition. Their \u03c3=2 estimates are consistent with 1/\u03bd=1/2 and \u03b7=1/4, and with \u03b7_\u2113=0 plus a multiplicative logarithmic correction. I checked the authors and venue against an arXiv listing and the CPL page.\n- **Longer follow-up.** Yao, Xiao, Zhang, Deng and Fan, \"Nonclassical regime of the two-dimensional long-range XY model: a comprehensive Monte Carlo study\" (arXiv 2411.01811, Phys. Rev. B 112, 144429, 2025). The PRB reference comes from a citing paper's reference list. It reports the threshold between long- and short-range universality at \u03c3* = 2. For \u03c3 \u2264 2 the correlation length diverges as a power law, the signature of a second-order transition. It also shows the logarithmic behaviour at \u03c3 = 2. The second-moment correlation length is predicted to scale as L times a power of ln L.\n- **Closest match, by a theory-plus-simulation paper.** \"Logarithmic Quasi-Long-Range Order and Novel Continuous Phase Transition in the Two-Dimensional XY Model with 1/r\u2074 Interaction\" (arXiv 2609.39267; I could not confirm the authors or venue from the search results). At \u03c3=2, spin correlations decay as a power of the logarithm of distance, C(r)~(ln r)^(-\u03b7_\u2113) with \u03b7_\u2113 \u221d T. The 1/r\u2074 interaction modifies the spin-wave stiffness kernel logarithmically, as \u03b3(k) \u2243 \u03bak\u00b2 ln(1/k). Monte Carlo simulations verify the log-QLRO phase and a power-law divergent correlation length. The spin-wave prediction \u03b7_\u2113 = 1/(2\u03c0\u03ba_R) is quantitatively confirmed. The exponent proportional to temperature (0.34 at \u03b2=1, 0.02 at \u03b2=8) and the \"2\u03c0 \u00d7 slope \u00d7 exponent = 1\" check are this spin-wave relation. My own gloss of the mechanism: the 1/r\u2074 tail makes the stiffness kernel k\u00b2 ln(1/k), so the angle variance grows like (T/2\u03c0\u03ba) ln ln L, and the squared magnetisation falls as (ln L)^(\u2212\u03b7_\u2113). That is the same mechanism as the paper's \u03ba and \u03b7_\u2113.\n- **Review-type sources.** Defenu, Trombettoni et al., \"Long-range interacting quantum systems\" (Rev. Mod. Phys. 95, 035002, 2023; arXiv 2109.01063) discusses \u03c3* = 2 for the 2D XY model. It notes that no Monte Carlo results for the 2D XY model with non-disordered power-law couplings around \u03c3 = 2 were available. Treat the arXiv version as the one I actually read. A 2025 overview by the Deng group, \"On Sak's criterion for statistical models with long-range interaction\" (arXiv 2512.04805), also covers this. It describes a direct second-order transition into an ordered phase for 1<\u03c3\u22642.\n- **Earlier theory.** Giachetti, Defenu, Ruffo and Trombettoni, \"Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings\" (arXiv 2104.13217; PRL 127, 156801, 2021). The journal reference comes from a citing paper's reference list. It predicted a quasi-ordered phase for 7/4<\u03c3<2. That differs from the later Monte Carlo results, which find a second-order transition for \u03c3 \u2264 2. A \"Persistence of the BKT transition\u2026\" preprint (arXiv 2511.07305, also a PRL) takes yet another position, so the field disagrees on the exact \u03c3 < 2 phase diagram. This does not affect \u03c3 = 2.\n\n**3. Variant listed in the prompt.** Nearest-neighbour coupling 1.2 plus a weak 1/r\u2074 tail is the same \u03c3 = 2 universality. The tail still produces the k\u00b2 ln(1/k) stiffness, so the same log-QLRO scaling should apply with a different \u03ba. I did not find a source that tests this specific mixed-coupling case.\n\n**4. Confidence: high** that the behaviour is known. It is described in at least two independent forms: Monte Carlo (Xiao et al. 2024/25, Yao et al. 2025) and spin-wave theory plus Monte Carlo (the 1/r\u2074 paper). Each reports the log-decay of the magnetisation and a power-law correlation-length divergence at \u03c3=2. The one soft spot is that I only saw abstracts and excerpts for the 2609.39267 paper, so I could not check whether its numbers match this simulation's 2.24 divergence exponent.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: 2D XY (O(2)) model with long-range power-law couplings 1/r^(2+sigma), marginal case sigma=2\", \"standard_name\": \"logarithmic quasi-long-range order (log-QLRO) in the marginal sigma=2 2D long-range XY model; continuous (non-BKT) transition with power-law divergent correlation length\", \"confidence\": \"high\", \"citations\": [\"Xiao, Yao, Zhang, Fan, Deng 2025 (arXiv 2404.08498), Chin. Phys. Lett. 42, 070002 - 2D LR XY model: sigma_*=2, logarithmic scaling at sigma=2, power-law xi divergence for sigma<=2\", \"Yao, Xiao, Zhang, Deng, Fan 2025 (arXiv 2411.01811), Phys. Rev. B 112, 144429 - comprehensive MC of 2D LR XY, threshold sigma*=2, log scaling at sigma=2, power-law xi divergence\", \"arXiv 2609.39267 (2026; authors and venue not confirmed) - log-QLRO at sigma=2, C(r)~(ln r)^(-eta_l) with eta_l proportional to T, stiffness kernel kappa k^2 ln(1/k), eta_l=1/(2 pi kappa_R), power-law xi divergence\", \"Defenu, Donner, Macri, Pagano, Ruffo, Trombettoni 2023, Rev. Mod. Phys. 95, 035002 (arXiv 2109.01063) - review of long-range systems incl. sigma*=2 for 2D LR XY; no MC at sigma~2 at that time\", \"Giachetti, Defenu, Ruffo, Trombettoni 2021, PRL 127, 156801 (arXiv 2104.13217) - earlier theory of BKT with long-range couplings, predicts different phase diagram for 7/4<sigma<2\"], \"searches\": [\"long-range XY model 2D 1/r^4 interaction sigma=2 BKT logarithmic spin-wave magnetization power of log L\", \"Berezinskii-Kosterlitz-Thouless transition in the long-range XY model Giachetti Defenu Gori Trombettoni\", \"Two-dimensional XY Ferromagnet Induced by Long-range Interaction arXiv 2404.08498 authors\"], \"notes\": \"Authors of 2609.39267 and its venue were not verified from search results; Defenu et al. RMP author list is from memory-free search only partially (title/venue verified via citing papers). The mixed nearest-neighbour 1.2 + weak 1/r^4 tail variant is expected to share the same universality but no source tested it explicitly. The earlier Giachetti et al. phase diagram for sigma<2 is contested by later MC; this does not affect sigma=2.\"}\n```",
+ "checked": "2026-11-03 03:50:53"
+}

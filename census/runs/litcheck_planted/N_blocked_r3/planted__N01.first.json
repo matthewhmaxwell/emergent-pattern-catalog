@@ -1,0 +1,96 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "pulse-coupled integrate-and-fire oscillators (Peskin / Mirollo-Strogatz), all-to-all with absorption; linear charging, no leak, pulse k/N",
+ "standard_name": "Peskin model / Mirollo-Strogatz absorption dynamics, degenerate linear (gamma=0, epsilon=1/N) case with cluster formation",
+ "confidence": "low",
+ "citations": [
+  "Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50, 1645-1662 - almost-all-initial-conditions synchrony proof for concave charging; group absorption with pulse proportional to group size",
+  "O'Keeffe, Krapivsky & Strogatz 2015, Phys. Rev. Lett. 115, 064101 - cluster aggregation kinetics; deterministic Peskin model with linear rise and 1/N pulses treated in Supplemental Material; clusters keep ordering",
+  "O'Keeffe 2016, Phys. Rev. E 93, 032203 - transient cluster dynamics extended from linear to nonlinear charging; pulse strengths K*j/N and fixed K/N",
+  "Scholarpedia 'Pulse coupled oscillators' - review of the Mirollo-Strogatz result"
+ ],
+ "searches": [
+  "Mirollo Strogatz pulse-coupled linear integrate-and-fire no leak absorption cluster states divisors of N",
+  "Synchronization of pulse-coupled biological oscillators Mirollo Strogatz 1990 SIAM",
+  "Phys. Rev. E 93 032203 pulse-coupled cluster density absorption",
+  "pulse-coupled oscillators linear charging no leak all-to-all final clusters equal size divisors",
+  "Synchronization as Aggregation O'Keeffe Krapivsky Strogatz PRL 2015",
+  "pulse-coupled oscillators epsilon = 1/N linear charging fails to synchronize",
+  "Mirollo-Strogatz without leak linear pulse 1/N partial synchrony number-theoretic",
+  "Peskin model linear charging 1/N final cluster sizes divisors supplemental"
+ ],
+ "notes": "The M-S theorem requires strictly concave charging, so the linear no-leak case is outside it and non-sync is not a contradiction. I did not find any source stating the divisor-of-N equal-cluster end states, the prime-N result or the ~0.6/N even-N failure law. The PRL Supplemental Material and full PRE text were not readable and might contain related results. A dedicated finite-N analysis could still exist outside the searches run.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "Mirollo Strogatz pulse-coupled oscillators linear integrate-and-fire no leak absorption cluster states divisors of N"
+  },
+  {
+   "query": "Synchronization of pulse-coupled biological oscillators Mirollo Strogatz 1990 SIAM J. Appl. Math."
+  },
+  {
+   "query": "Phys. Rev. E 93, 032203 pulse-coupled oscillators cluster density absorption Mirollo Strogatz"
+  },
+  {
+   "query": "pulse-coupled oscillators linear charging no leak all-to-all absorption final clusters equal size divisors of N not synchronize"
+  },
+  {
+   "query": "Synchronization as Aggregation: Cluster Kinetics of Pulse-Coupled Oscillators O'Keeffe Krapivsky Strogatz Physical Review Letters 2015 \u03b5=1/N linear charging"
+  },
+  {
+   "query": "pulse-coupled oscillators \"\u03b5 = 1/N\" linear charging curve Mirollo Strogatz fails to synchronize clusters ordering preserved sawtooth Peskin"
+  },
+  {
+   "query": "Mirollo-Strogatz model without leak linear charging pulse strength 1/N partial synchrony cluster states number-theoretic divisor"
+  },
+  {
+   "query": "Peskin model linear charging pulses 1/N identical oscillators final cluster sizes equal divisors of N exact results supplemental material O'Keeffe Strogatz"
+  }
+ ],
+ "result_urls": [
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://www.jstor.org/stable/2101911",
+  "https://link.springer.com/chapter/10.1007/978-3-642-03156-4_5",
+  "https://www.stevenstrogatz.com/articles/synchronization-of-pulse-coupled-biological-oscillators",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.032203",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://pdodds.w3.uvm.edu/files/papers/others/1993/strogatz1993a.pdf",
+  "https://link.springer.com/chapter/10.1007/978-1-4614-1845-0_5",
+  "http://www.scholarpedia.org/article/Pulse_coupled_oscillators",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3059341/",
+  "https://people.ece.cornell.edu/atang/pub/13/JPA_Synchronization.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.115.064101",
+  "https://www.stevenstrogatz.com/articles/category/2015",
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://physics.aps.org/articles/v8/s91",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "https://journals.aps.org/prl/highlights?journal%5B%5D=prl&sort=recent&type=article&category=&subject_area=&toc_section%5B%5D=nonlinear-dynamics-fluid-dynamics-classical-optics-etc&page=15",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391?login=false",
+  "https://ecommons.cornell.edu/bitstream/handle/1813/34166/jdn48.pdf;sequence=1",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022482/",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://www.frontiersin.org/journals/neural-circuits/articles/10.3389/fncir.2013.00194/full",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevE.102.012219/fulltext",
+  "http://web.mit.edu/~jadbabai/www/ESE680/Strogatz_Kuramoto.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://pdodds.w3.uvm.edu/files/papers/others/1993/strogatz1993a.pdf",
+  "https://link.springer.com/chapter/10.1007/978-3-319-26630-5_1",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://www.ams.org/publicoutreach/feature-column/gll-test"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, with low-to-medium confidence.** The model family is firmly established. I could not find a source that describes the specific outcome you observed. That outcome is the divisor-structured final states and the roughly 0.6/N failure law for even N.\n\n**1. Model family.** This is the Peskin / Mirollo\u2013Strogatz pulse-coupled integrate-and-fire oscillator model. It has identical oscillators, all-to-all coupling and absorption into groups. The firing rule here, where a group of k kicks every other oscillator by k/N, matches the group-pulse rule in the original paper. Specifically, absorptions create groups of oscillators that fire in unison with a combined pulse strength proportional to the number in the group.\n\n**2. What the literature says.**\n- **Earliest clear source.** Mirollo & Strogatz (1990, SIAM J. Appl. Math. 50, 1645\u20131662) prove that for almost all initial conditions, the population evolves to a state in which all the oscillators are firing synchronously. Their theorem needs a charging curve that is concave down. It is stated for leaky or concave charging with \u03b3 > 0 and pulse strength above 1/N. O'Keeffe (2016) summarises it as \u03b3 > 0 and pulse size > 1/N giving full synchrony. Your system sits outside that theorem on two counts. The charging is exactly linear (no leak), and the pulse is exactly 1/N per firing oscillator. So the \"always sync\" guarantee does not apply, and failures to sync are not a contradiction of it.\n- **The linear, \u03b5 = 1/N case is recognised as special.** O'Keeffe, Krapivsky & Strogatz (2015, Phys. Rev. Lett. 115, 064101) treat the deterministic Peskin model with linear rise and pulses of size 1/N. They do this in the Supplemental Material, which I could not read. The main text says the oscillators rise linearly to threshold and fire pulses of size 1/N, where N \u226b 1 is the number of oscillators. It also says that in this case clusters maintain their initial ordering. That paper is about transient cluster kinetics at large N. It does not address the end states at finite N.\n- **Follow-up.** O'Keeffe (2016, Phys. Rev. E 93, 032203, \"Transient dynamics of pulse-coupled oscillators with nonlinear charging curves\") notes that synchrony develops by aggregation, and that earlier work derived expressions for the clusters under a linear charging curve. It also covers pulse strengths of the form K\u00b7j/N and a fixed K/N, which are the variants nearest to yours. It is again a transient analysis. I read only the abstract and snippets of it.\n- **Review.** Scholarpedia's \"Pulse coupled oscillators\" and the Mirollo\u2013Strogatz paper itself give the standard picture of oscillators merging into one group.\n\n**3. What I could not find.** I did not find any source stating that the linear, no-leak, \u03b5 = 1/N model ends in equal-sized clusters. Nothing I found gives the final group sizes as divisors of N (9 states at N = 100, which is the number of divisors of 100). Nothing I found gives the prime-N result, where the only failure is all N staying separate. Nothing gave an even-N failure law of about 0.6/N.\n\nThe Supplemental Material and the full PRE text were not readable, so they may contain such a statement. A heuristic of mine, unverified, is that the equal-sized final states are marginally stable. In a state of m = N/s equal clusters, each firing kicks the others by exactly 1/m. That is exactly the spacing the clusters would have at the fixed point.\n\n**4. Why KNOWN-VARIANT and not KNOWN or LITERATURE-SILENT.** The model, the group-absorption mechanism and the linear \u03b5 = 1/N case are all documented. The failure-to-sync and number-theoretic structure appears to be the degenerate boundary of the Mirollo\u2013Strogatz theorem. That boundary is acknowledged but, as far as I could read, not classified. My searches were targeted but few, and the key supplementary material was paywalled, so I cannot claim the literature is silent.\n\n**Searches run:**\n- Mirollo\u2013Strogatz linear/no-leak/divisors\n- Mirollo\u2013Strogatz paper verification\n- PRE 93 032203\n- linear charging equal-size divisors\n- the O'Keeffe\u2013Krapivsky\u2013Strogatz PRL\n- \"\u03b5 = 1/N\" linear charging\n- Mirollo\u2013Strogatz without leak, cluster states\n- Peskin linear 1/N final cluster sizes\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"pulse-coupled integrate-and-fire oscillators (Peskin / Mirollo-Strogatz), all-to-all with absorption; linear charging, no leak, pulse k/N\", \"standard_name\": \"Peskin model / Mirollo-Strogatz absorption dynamics, degenerate linear (gamma=0, epsilon=1/N) case with cluster formation\", \"confidence\": \"low\", \"citations\": [\"Mirollo & Strogatz 1990, SIAM J. Appl. Math. 50, 1645-1662 - almost-all-initial-conditions synchrony proof for concave charging; group absorption with pulse proportional to group size\", \"O'Keeffe, Krapivsky & Strogatz 2015, Phys. Rev. Lett. 115, 064101 - cluster aggregation kinetics; deterministic Peskin model with linear rise and 1/N pulses treated in Supplemental Material; clusters keep ordering\", \"O'Keeffe 2016, Phys. Rev. E 93, 032203 - transient cluster dynamics extended from linear to nonlinear charging; pulse strengths K*j/N and fixed K/N\", \"Scholarpedia 'Pulse coupled oscillators' - review of the Mirollo-Strogatz result\"], \"searches\": [\"Mirollo Strogatz pulse-coupled linear integrate-and-fire no leak absorption cluster states divisors of N\", \"Synchronization of pulse-coupled biological oscillators Mirollo Strogatz 1990 SIAM\", \"Phys. Rev. E 93 032203 pulse-coupled cluster density absorption\", \"pulse-coupled oscillators linear charging no leak all-to-all final clusters equal size divisors\", \"Synchronization as Aggregation O'Keeffe Krapivsky Strogatz PRL 2015\", \"pulse-coupled oscillators epsilon = 1/N linear charging fails to synchronize\", \"Mirollo-Strogatz without leak linear pulse 1/N partial synchrony number-theoretic\", \"Peskin model linear charging 1/N final cluster sizes divisors supplemental\"], \"notes\": \"The M-S theorem requires strictly concave charging, so the linear no-leak case is outside it and non-sync is not a contradiction. I did not find any source stating the divisor-of-N equal-cluster end states, the prime-N result or the ~0.6/N even-N failure law. The PRL Supplemental Material and full PRE text were not readable and might contain related results. A dedicated finite-N analysis could still exist outside the searches run.\"}\n```",
+ "checked": "2026-11-03 03:18:37"
+}

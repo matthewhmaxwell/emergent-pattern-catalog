@@ -1,0 +1,131 @@
+{
+ "class_id": "planted:N14",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Patchy-colloid self-assembly (Kern-Frenkel-type two-patch model, 2D, Monte Carlo): statistical physics / soft matter",
+ "standard_name": "Kagome lattice self-assembly from two-patch (triblock Janus-like) particles in the two-bonds-per-patch limit",
+ "confidence": "medium",
+ "citations": [
+  "Chen, Bae & Granick 2011, Nature 469, 381-384 - colloidal kagome lattice from triblock Janus spheres; triangles form first, then the lattice",
+  "Romano & Sciortino 2011, Soft Matter 7, 5799 - 2D two-patch model with max two bonds per patch reproduces kagome crystallisation; kagome stable at low T and low P",
+  "Mao, Chen & Granick 2013, Nature Materials 12, 217-222 (with Cates News & Views, Nature Mater. 12, 179-180) - entropic stabilisation of open kagome vs close-packed hexagonal",
+  "Chapela et al. 2014, Soft Matter 10, 9167 - kagome and entangled webs from vibrating 2D patchy particles (low-T entangled webs resemble defect-rich variant)",
+  "J. Chem. Theory Comput. 20, 6858 (2024; authors not confirmed in results) - grand-canonical 2D patchy honeycomb/square nucleation, two-step amorphous-network-then-crystal mechanism, barriers similar to kagome"
+ ],
+ "searches": [
+  "patchy hard ellipses two patches tips self-assembly open lattice grand canonical Monte Carlo rings",
+  "self-assembly kagome lattice patchy ellipse 2D Monte Carlo triangle bonding hexagonal rings",
+  "elliptical particles sticky ends two patches 2D honeycomb network self-assembly simulation",
+  "patchy ellipses tip patches three-patch bonding triangles open network nucleation ring formation grand canonical",
+  "two-patch colloids 2D honeycomb lattice from linear bifunctional particles",
+  "kagome lattice nucleation two-patch particles Monte Carlo free energy barrier Romano Sciortino",
+  "patchy ellipses kagome lattice self-assembly hard ellipse anisotropy two patches",
+  "Entropy favours open colloidal lattices Mao Nature Materials 2013",
+  "Directed self-assembly of a colloidal kagome lattice Chen Granick",
+  "kagome lattice elliptical patchy particles aspect ratio grand canonical Monte Carlo self-assembly surface"
+ ],
+ "notes": "Kagome identification is inferred from patch geometry (two patches, two bonds per patch, triangle bonds, six-rings, 45 deg half-angle), not stated in the rule description. No source found for hard ellipses (AR 2) with tip patches under GCMC; only abstracts/snippets were read, so the quantitative observables were not compared against any paper. Direct gas-to-kagome nucleation with defects at low T and the zero pair/triangle lag are not explicitly confirmed in the sources found.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "patchy hard ellipses two patches tips self-assembly open lattice grand canonical Monte Carlo rings"
+  },
+  {
+   "query": "self-assembly kagome lattice patchy ellipse 2D Monte Carlo triangle bonding hexagonal rings"
+  },
+  {
+   "query": "elliptical particles sticky ends two patches 2D honeycomb network self-assembly simulation"
+  },
+  {
+   "query": "patchy ellipses tip patches three-patch bonding triangles open network nucleation ring formation grand canonical"
+  },
+  {
+   "query": "two-patch colloids 2D honeycomb lattice from linear bifunctional particles end-to-end trivalent junction"
+  },
+  {
+   "query": "kagome lattice nucleation two-patch particles Monte Carlo free energy barrier triangles hexagons Romano Sciortino"
+  },
+  {
+   "query": "patchy ellipses kagome lattice self-assembly hard ellipse anisotropy two patches"
+  },
+  {
+   "query": "Entropy favours open colloidal lattices Mao Nature Materials 2013 kagome rotational entropy"
+  },
+  {
+   "query": "Chen Granick Janus triblock \"Directed self-assembly of a colloidal kagome lattice\" Nature Chemistry 2017"
+  },
+  {
+   "query": "kagome lattice elliptical patchy particles aspect ratio grand canonical Monte Carlo self-assembly surface"
+  }
+ ],
+ "result_urls": [
+  "https://www.pnas.org/doi/10.1073/pnas.2109776118",
+  "https://github.com/ftmartins/selfAssemblyIG",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2311891121",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8640719/",
+  "https://www.pnas.org/doi/10.1073/pnas.2311891121",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11428128/",
+  "https://www.nature.com/articles/s41467-024-50829-5",
+  "https://www.sciencedirect.com/topics/engineering/close-packed-hexagonal",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://pubs.rsc.org/sm/article-abstract/10/45/9167/458105/Self-assembly-of-kagome-lattices-entangled-webs?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://www.tandfonline.com/doi/full/10.1080/08927022.2013.819430",
+  "https://pubs.acs.org/doi/10.1021/acs.jctc.4c00540",
+  "https://doi.org/10.1002/smll.75515",
+  "https://iopscience.iop.org/article/10.1088/0953-8984/29/1/014006",
+  "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adts.202200666",
+  "https://pubs.acs.org/jctcce/article-abstract/20/15/6858/169302/Self-Assembly-of-Model-Three-and-Four-Patch?redirectedFrom=fulltext",
+  "https://en.wikipedia.org/wiki/Patchy_particles",
+  "https://www.emergentmind.com/topics/patchy-particle-models",
+  "https://doi.org/10.1063/1.4863135",
+  "https://pubmed.ncbi.nlm.nih.gov/25669581/",
+  "https://pubs.acs.org/amacgu/article/6/3/494/5091878/Programmable-Patch-Formation-on-Anisotropic",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7622567",
+  "https://www.nature.com/articles/s41467-023-37222-4",
+  "https://doi.org/10.1002/smll.75515",
+  "https://pure.uva.nl/ws/files/162059388/d2sm01237e.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10024684/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11052700",
+  "https://pubs.acs.org/jctcce/article-abstract/20/15/6858/169302/Self-Assembly-of-Model-Three-and-Four-Patch?redirectedFrom=fulltext",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7598363",
+  "https://www.sciencedirect.com/topics/engineering/close-packed-hexagonal",
+  "https://www.sciencedirect.com/topics/engineering/body-centered-tetragonal",
+  "https://pubs.aip.org/aip/jcp/article/158/15/154502/2882247/Two-step-nucleation-in-a-binary-mixture-of-patchy",
+  "https://www.mdpi.com/2073-4352/9/10/508",
+  "https://pubs.rsc.org/en/content/articlelanding/2011/sm/c0sm01494j",
+  "https://www.nature.com/articles/ncomms1968",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11547329/",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2311891121",
+  "https://www.pnas.org/doi/full/10.1073/pnas.2311891121",
+  "https://pubs.aip.org/aip/jcp/article/156/5/054901/2840881/Inverse-design-of-two-dimensional-structure-by",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://groups.mrl.illinois.edu/granick/publications/PDF%20files/2013/nmat3496.pdf",
+  "https://lsa.umich.edu/cscs/people/affiliated-faculty/xiaoming-mao.html",
+  "https://www.nature.com/articles/nmat3573",
+  "https://www.nature.com/articles/s41586-026-10217-z",
+  "https://www.osti.gov/pages/biblio/2570565-directing-polymorphism-colloid-crystals-using-conformational-entropy-polymer-chains",
+  "https://lsa.umich.edu/physics/people/faculty/maox.html",
+  "https://scholars.unh.edu/cgi/viewcontent.cgi?article=1108&context=nh_epscor",
+  "https://www.nature.com/articles/s41557-023-01200-6",
+  "https://doi.org/10.3390/e22080877",
+  "https://groups.mrl.illinois.edu/granick/Publications/PDF%20files/2011/nature09713.pdf",
+  "https://www.nature.com/articles/nature09713",
+  "https://www.osti.gov/pages/biblio/1875524-janus-multiblock-colloidal-particles",
+  "https://groups.mrl.illinois.edu/granick/Publications/PDF%20files/2017/acs.langmuir.7b01123.pdf",
+  "https://go.gale.com/ps/i.do?id=GALE%7CA247530224&sid=googleScholar&v=2.1&it=r&linkaccess=abs&issn=00280836&p=HRCA&sw=w",
+  "https://www.osti.gov/pages/biblio/1875134",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11214672",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3390863/",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://en.wikipedia.org/wiki/Patchy_Particles",
+  "https://pubmed.ncbi.nlm.nih.gov/25319927/",
+  "https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00540",
+  "https://www.sciencedirect.com/science/article/pii/S0167732223013302"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The behaviour is a kagome lattice self-assembling from two-patch particles in the two-bonds-per-patch limit. This is well documented for patchy disks and spheres. I found no source that uses hard ellipses with axis ratio 2 and tip patches in a grand-canonical simulation.\n\n**1. Model family.** Patchy-colloid self-assembly: a Kern\u2013Frenkel-type two-patch model on a 2D surface, simulated by Monte Carlo. This is statistical physics and soft matter, not cellular automata or opinion dynamics.\n\n**What the numbers say.** This is my own reading of the observables, not something a source states.\n- Each patch allows two bonds, so three particles can meet in a bonded triangle. The reported \"three-patch bonding triangles\" are therefore the triangles of a kagome lattice.\n- Kagome has hexagonal rings of six particles sitting on a triangular lattice, which fits the six_ring_order of 0.8 and the fraction_in_rings of 1.0.\n- The 45\u00b0 patch half-angle fits kagome geometry. A neighbouring bond lies about 30\u00b0 off the long axis, which the 45\u00b0 patch allows.\n- It would not fit a honeycomb layout of ellipses as edges. That layout needs about 60\u00b0 off-axis bonds. I therefore ruled it out.\n\n**2. Earliest clear sources (checked against search results).**\n- **Experiment:** Chen, Bae & Granick, \"Directed self-assembly of a colloidal kagome lattice,\" Nature 469, 381\u2013384 (2011).\n  - Colloidal spheres with a simple pattern of hydrophobic domains self-assemble into a kagome lattice.\n  - Particles first cluster into kinetically favoured triangles, strings or a mix of the two.\n  - This is the same triangle-first pathway as the \"triangle bonds rise with no lag after pair bonds\" feature, though the paper reports it from experiment rather than simulation.\n- **Closest simulation:** Romano & Sciortino, \"Two dimensional assembly of triblock Janus particles into crystal phases in the two bond per patch limit,\" Soft Matter 7, 5799 (2011).\n  - The model uses a short-range attraction and a patch width that allows at most two contacts per patch.\n  - It reproduces the kagome crystallisation pathway, and kagome is stable at low temperature and low pressure.\n  - Their own phrasing of \"two bonds per patch\" matches your rule exactly.\n- **Review, entropy:** Mao, Chen & Granick, \"Entropy favours open colloidal lattices,\" Nature Materials 12, 217\u2013222 (2013).\n  - Cates' News & Views accompanies it (Nature Mater. 12, 179\u2013180, 2013).\n  - Together they explain why the open kagome lattice is stable. Kagome and hexagonal lattices share the same rotational entropy, but close-packed lattices have lower vibrational entropy.\n- **Review, general:** the ScienceDirect topic overview and the Comptes Rendus Chimie account, \"Patchy colloidal particles for programmed self-assembly.\" I could not confirm the second one's author list from the search output.\n- **Related:** Chapela et al., Soft Matter 10, 9167 (2014), on kagome from vibrating 2D patchy particles. Particles with extra repulsive sites form kagome but connect as entangled webs at low temperature. This resembles your \"more defects at low T\" variant.\n- **Nucleation mechanism:** J. Chem. Theory Comput. 20, 6858 (2024), on 3- and 4-patch particles in 2D. It uses grand canonical simulations. It reports a two-step nucleation: a dense amorphous network first, then reorientation into crystalline nuclei. I did not find the authors in the results. Its stated nucleation barriers are close to the kagome values.\n\n**3. What differs from the literature, and whether it matters.**\n- The particle shape is an ellipse with axis ratio 2 and tip patches, not a sphere or disk with polar caps. Chen et al.'s particles had elongated caps, so patch shape and anisotropy were already part of the experiment. Shape elongation changes steric packing and may shift the stability window. It is unlikely to change the lattice identity, because the patch geometry sets that.\n- The setting is grand-canonical Monte Carlo with a quench from a dilute gas. Romano & Sciortino used constant-pressure phase-diagram and free-energy calculations, and Chen et al. used experiments. The nucleation-from-gas protocol is a different route to the same structure.\n- The low-T result (the same open lattice nucleating directly with more defects) matches the usual kinetic-trapping picture. I did not find a source that specifically describes direct gas-to-kagome nucleation with the pair-then-triangle timing, so I treat it as likely but unverified.\n\n**Searches run (9 calls).**\n1. Patchy hard ellipses, two tip patches, grand canonical Monte Carlo, rings.\n2. Kagome lattice, patchy ellipse, 2D Monte Carlo, triangles, hexagons.\n3. Elliptical particles with sticky ends, 2D honeycomb.\n4. Patchy ellipses, three-patch triangles, ring formation, grand canonical.\n5. Two-patch colloids, 2D honeycomb, trivalent junction.\n6. Kagome nucleation, two-patch particles, free-energy barrier, Romano and Sciortino.\n7. Patchy ellipses, kagome, ellipse anisotropy.\n8. \"Entropy favours open colloidal lattices,\" Mao 2013.\n9. Chen, Granick, \"Directed self-assembly of a colloidal kagome lattice,\" plus one final search on kagome with elliptical patchy particles in grand canonical Monte Carlo.\n\n**Confidence: medium.**\n- I am confident about the family and the kagome identification, and the citations were checked against search results.\n- The 2011 papers are verified, but I read only abstracts or snippets. I could not read full texts, so I did not confirm that they report ring-order or triangle-count numbers.\n- I could not rule out an unfound paper on ellipse-shaped kagome formers.\n- The kagome identification is inferred from the geometry, not stated in the rule description.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Patchy-colloid self-assembly (Kern-Frenkel-type two-patch model, 2D, Monte Carlo): statistical physics / soft matter\", \"standard_name\": \"Kagome lattice self-assembly from two-patch (triblock Janus-like) particles in the two-bonds-per-patch limit\", \"confidence\": \"medium\", \"citations\": [\"Chen, Bae & Granick 2011, Nature 469, 381-384 - colloidal kagome lattice from triblock Janus spheres; triangles form first, then the lattice\", \"Romano & Sciortino 2011, Soft Matter 7, 5799 - 2D two-patch model with max two bonds per patch reproduces kagome crystallisation; kagome stable at low T and low P\", \"Mao, Chen & Granick 2013, Nature Materials 12, 217-222 (with Cates News & Views, Nature Mater. 12, 179-180) - entropic stabilisation of open kagome vs close-packed hexagonal\", \"Chapela et al. 2014, Soft Matter 10, 9167 - kagome and entangled webs from vibrating 2D patchy particles (low-T entangled webs resemble defect-rich variant)\", \"J. Chem. Theory Comput. 20, 6858 (2024; authors not confirmed in results) - grand-canonical 2D patchy honeycomb/square nucleation, two-step amorphous-network-then-crystal mechanism, barriers similar to kagome\"], \"searches\": [\"patchy hard ellipses two patches tips self-assembly open lattice grand canonical Monte Carlo rings\", \"self-assembly kagome lattice patchy ellipse 2D Monte Carlo triangle bonding hexagonal rings\", \"elliptical particles sticky ends two patches 2D honeycomb network self-assembly simulation\", \"patchy ellipses tip patches three-patch bonding triangles open network nucleation ring formation grand canonical\", \"two-patch colloids 2D honeycomb lattice from linear bifunctional particles\", \"kagome lattice nucleation two-patch particles Monte Carlo free energy barrier Romano Sciortino\", \"patchy ellipses kagome lattice self-assembly hard ellipse anisotropy two patches\", \"Entropy favours open colloidal lattices Mao Nature Materials 2013\", \"Directed self-assembly of a colloidal kagome lattice Chen Granick\", \"kagome lattice elliptical patchy particles aspect ratio grand canonical Monte Carlo self-assembly surface\"], \"notes\": \"Kagome identification is inferred from patch geometry (two patches, two bonds per patch, triangle bonds, six-rings, 45 deg half-angle), not stated in the rule description. No source found for hard ellipses (AR 2) with tip patches under GCMC; only abstracts/snippets were read, so the quantitative observables were not compared against any paper. Direct gas-to-kagome nucleation with defects at low T and the zero pair/triangle lag are not explicitly confirmed in the sources found.\"}\n```",
+ "checked": "2026-11-03 04:06:10"
+}

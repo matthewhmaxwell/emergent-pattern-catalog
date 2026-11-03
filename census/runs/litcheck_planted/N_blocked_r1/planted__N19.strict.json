@@ -1,0 +1,46 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chemotactic swarm rings/travelling bands with aggregates (Budrene-Berg patterns; motile spots guided by nutrient-driven rings)",
+ "citations": [
+  "Brenner, Levitov & Budrene, Biophys J 1998 (S0006-3495(98)77880-4)",
+  "Tyson, Lubkin & Murray, J Math Biol 38:359 (1999)",
+  "Tyson, Lubkin & Murray, Biophys J 68:2181 (1995)",
+  "Marenduzzo et al., PLoS ONE 8:e74878 (2013)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Twist: no growth, uniform nutrient resupply, periodic domain, uniform noisy start, so the bands appear spontaneously rather than spreading from an inoculum. Same behaviour otherwise. The nutrient/attractant ratio dependence of moving spots carried by rings is documented by Marenduzzo et al. Possible transient on the way to merging; long run times not checked. Only snippets of the sources were seen.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model self-produced attractant and consumed nutrient travelling bands coexist with aggregates two-dimensional simulation"
+  },
+  {
+   "query": "Tyson Lubkin Murray model chemotaxis E. coli swarm rings aggregates nutrient attractant k/(1+u^2)"
+  },
+  {
+   "query": "chemotaxis consumption and production attractant repellent moving aggregates travelling pulses periodic domain pattern Keller-Segel nutrient taxis \"moving spots\""
+  }
+ ],
+ "result_urls": [
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.pnas.org/doi/10.1073/pnas.2105138118",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pubmed.ncbi.nlm.nih.gov/10326253",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8354456/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence. I agree with the first pass.**\n\n**What is documented**\n\n- **Aggregates and travelling rings from the same ingredients.** Brenner, Levitov & Budrene (Biophys. J. 1998) say the model leads to analytic solutions corresponding to both rings and aggregates. They report that aggregate formation and ring instability depend only on coarse properties, such as chemotaxis and production of attractant by bacteria. In their mechanism, swarm ring migration is caused by the depletion of a chemical used in the process of attractant production, and a secondary instability causes the breakdown into aggregates.\n- **Tyson, Lubkin & Murray** studied the same three-field setup (cells, nutrient, attractant) as a nonlinear partial differential equation system.\n- **Closest match: a dense blob coexisting with bands, controlled by the attractant-to-nutrient ratio.** Marenduzzo and co-authors (PLoS ONE 2013) report that both the dynamics and the steady-state patterns are therefore much affected by the ratio between the efficiency of chemotaxis to nutrient or chemoattractant gradients. When nutrient sensing is strong enough, the bacterial spots become motile and the eventual pattern is a ring made up or merging moving spots rather than an amorphous or regular array of static ones. They also note that the positions of the spots is guided by the swarming ring. That is essentially the observed behaviour: aggregates sitting in or carried by nutrient-driven bands, at a high nutrient-to-attractant ratio (here 14/5, or 0.36 the other way round).\n- **Nutrient-depletion bands in general.** Self-generated travelling bands go back to Keller and Segel, who found a traveling-wave solution using a pair of reaction\u2013diffusion\u2013convection equations.\n\n**The twist, and whether it matters**\n\nIn the papers above, cells grow and the rings spread outward from a central inoculum. Here, cell number is conserved, nutrient is resupplied everywhere, and the domain is periodic with a uniform noisy start. So the bands appear spontaneously from a Turing-like instability rather than from an expanding front. That is a real difference in setup. But the behaviour (nutrient-taxis bands carrying or coexisting with an attractant-driven aggregate) is the same. It probably matters little unless the bands turn out to keep going indefinitely rather than being transient.\n\n**Trivial or artifact?**\n\nIt is probably a genuine pattern, not an artifact. The b/(1+b\u00b2) sensitivity weakens at high density, so the aggregate stays finite instead of blowing up numerically, and the nutrient field is clearly active. Three cautions:\n- The metrics are thin: one aggregate and two structure types.\n- On a 50\u00d750 grid this could be a passing stage on the way to merging into a single aggregate.\n- It needs a check over long run times.\n\n**What I couldn't check:** I only saw snippets of these papers, not full texts. None of them describes this exact setup (no growth, uniform resupply, periodic box, uniform start).\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chemotactic swarm rings/travelling bands with aggregates (Budrene-Berg patterns; motile spots guided by nutrient-driven rings)\", \"citations\": [\"Brenner, Levitov & Budrene, Biophys J 1998 (S0006-3495(98)77880-4)\", \"Tyson, Lubkin & Murray, J Math Biol 38:359 (1999)\", \"Tyson, Lubkin & Murray, Biophys J 68:2181 (1995)\", \"Marenduzzo et al., PLoS ONE 8:e74878 (2013)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Twist: no growth, uniform nutrient resupply, periodic domain, uniform noisy start, so the bands appear spontaneously rather than spreading from an inoculum. Same behaviour otherwise. The nutrient/attractant ratio dependence of moving spots carried by rings is documented by Marenduzzo et al. Possible transient on the way to merging; long run times not checked. Only snippets of the sources were seen.\"}\n```",
+ "checked": "2026-11-03 02:48:33"
+}

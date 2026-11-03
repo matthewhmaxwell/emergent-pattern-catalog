@@ -1,0 +1,100 @@
+{
+ "class_id": "planted:N05",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "coupled driven lattice gas: two particle species + vacancies advected by a fluctuating (tilt-field) landscape that they modify (nonequilibrium statistical mechanics / phase separation)",
+ "standard_name": "Coupled driven systems / light-heavy model of particles on a fluctuating surface (Chakraborty-Chatterjee-Barma); fluctuation-dominated phase ordering",
+ "confidence": "medium",
+ "citations": [
+  "Chakraborty, Pal, Chatterjee, Barma 2016, Phys. Rev. E 93, 050102(R) - macroscopic clusters, phase-separated species, ordered+disordered landscape, algebraic coarsening times",
+  "Chakraborty, Chatterjee, Barma 2017, Phys. Rev. E 96, 022127 - static ordered phases: species phase separation, landscape with macroscopic regions of distinct slope",
+  "Chakraborty, Chatterjee, Barma 2017, Phys. Rev. E 96, 022128 - dynamics of the ordered phases",
+  "Phys. Rev. Research 2, 043279 (2020) - light-heavy model, coarsening length scale and early-time dynamics",
+  "Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - sliding particles on fluctuating surface, coarsening length ~ t^{1/z}",
+  "Das, Barma, Majumdar 2001, Phys. Rev. E 64, 046126 - fluctuation-dominated phase ordering on stochastic surfaces"
+ ],
+ "searches": [
+  "two species particles on fluctuating interface phase separation coarsening",
+  "Das Barma Majumdar sliding particles fluctuating surface two species back-reaction",
+  "light heavy model fluctuating surface coarsening Chatterjee Barma",
+  "two species particles and vacancies coupled to fluctuating interface tilt ordered phases",
+  "Ordered phases in coupled nonequilibrium systems Dynamic properties",
+  "Large compact clusters and fast dynamics in coupled nonequilibrium systems",
+  "Chakraborty Chatterjee Barma coarsening domain size t^{1/2} then slower exponent"
+ ],
+ "notes": "Model and qualitative behaviour (phase separation, macroscopic landscape order, algebraic coarsening) clearly documented. Full texts were paywalled, so the specific two-stage exponents (0.5 -> ~0.34, crossover ~1000, 0.41 at b'=0.18) and the exact parameter values (b=-0.4, b'=0.3) were not checked against the papers. The late exponent may be a finite-time effective value. If the specific two-stage exponent crossover matters, check the 2016 PRE Rapid Comm. and 2017 Dynamic-properties paper full text.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "two species particles on fluctuating interface phase separation coarsening A B vacancies height profile ring domain growth exponent"
+  },
+  {
+   "query": "Das Barma Majumdar sliding particles fluctuating surface clustering coarsening two species back-reaction on interface"
+  },
+  {
+   "query": "Priyanka Barma Chatterjee light heavy model fluctuating surface coarsening vacancies phase separation tilt fields"
+  },
+  {
+   "query": "two species particles and vacancies coupled to fluctuating interface tilt, ordered phases, coarsening, logarithmic or power law, hills and valleys, Monte Carlo ring"
+  },
+  {
+   "query": "light-heavy model fluctuating surface coarsening length scale growth exponent Chatterjee Barma Das phase diagram ordered phases"
+  },
+  {
+   "query": "Phys. Rev. E Phase ordering two species particles with vacancies driven coupled to interface tilts \"A\" \"B\" \"0\" coarsening exponent 1/2 crossover slower growth"
+  },
+  {
+   "query": "Ordered phases in coupled nonequilibrium systems: Dynamic properties Chakraborty Chatterjee Barma"
+  },
+  {
+   "query": "Large compact clusters and fast dynamics in coupled nonequilibrium systems Chakraborty Pal Chatterjee Barma abstract"
+  },
+  {
+   "query": "arXiv Chakraborty Chatterjee Barma coupled driven system two species landscape coarsening domain size grows t^{1/2} then slower exponent"
+  }
+ ],
+ "result_urls": [
+  "https://vtechworks.lib.vt.edu/server/api/core/bitstreams/d5ade0cb-21eb-4b23-bfe0-e72d71e99088/content",
+  "https://haatajagroup.mycpanel.princeton.edu/wp-content/uploads/2018/10/berry_etal_ROPP2018_lowres.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC1305638/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifr.res.in/~ipa1970/Awardee_talk/M-barma_Ipa%20award.pdf",
+  "https://www.tifrh.res.in/~barma/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.64.046126",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.74.021124",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "https://www.tifr.res.in/~ipa1970/Awardee_talk/M-barma_Ipa%20award.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.85.1602",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5579110/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.64.046126",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "http://www.lptms.universite-paris-saclay.fr/satya-majumdar/files/2010/12/Das01.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.64.046126",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.72.016129",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.60.6160",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128",
+  "https://pubmed.ncbi.nlm.nih.gov/28950631/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.029902",
+  "https://pubmed.ncbi.nlm.nih.gov/28950483/",
+  "https://www.wikidata.org/wiki/Q46300337",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.wikidata.org/wiki/Q46300356",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.050102",
+  "https://pubmed.ncbi.nlm.nih.gov/27300811/",
+  "https://www.bose.res.in/linked-objects/ABSTRACT%20BOOKLET_FINAL.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://journals.aps.org/pre/issues/93/5",
+  "https://link.springer.com/chapter/10.1007/978-3-319-99689-9_2",
+  "https://journals.aps.org/pre/issues/93/5/deliverables/table-of-contents/print/1",
+  "https://www.wikidata.org/wiki/Q46532768",
+  "https://www.tifrh.res.in/research/publications/publications-2016/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128"
+ ],
+ "full_text": "**Verdict: KNOWN.** I could only read abstracts, so I could not check the exact exponent values against the papers' text. Confidence is medium for the model identification and low for the specific numbers.\n\n**1. Model family.** This is a coupled driven lattice gas, also called particles sliding on a fluctuating surface. It belongs to nonequilibrium statistical mechanics and phase separation. The rules are two particle species (A and B) plus vacancies on a 1D ring, with a tilt (slope) field on the bonds.\n- Particles slide along the local slope, so A moves downhill and B uphill with bias.\n- Each species also biases the local landscape dynamics. This is the \"two-way coupling\" setup. The coupling parameters b and b' are the species-dependent biases on peak/dip flips.\n\n**2. Specific behaviour.** The Barma group studied this system, and its abstracts match the qualitative behaviour:\n- Chakraborty, Pal, Chatterjee and Barma (Phys. Rev. E 93, 050102(R), 2016) show particle clustering on macroscopic scales. Two species of particles are advected by a fluctuating landscape and modify it in the process. In one phase the species are completely phase separated, and the landscape has macroscopically ordered regions coexisting with a disordered region. This gives coarsening and steady-state dynamics on time scales that grow algebraically with size.\n- Chakraborty, Chatterjee and Barma, \"Ordered phases in coupled nonequilibrium systems: Static properties\" (Phys. Rev. E 96, 022127, 2017), report that the two species phase separate completely. The landscape then either orders fully, with macroscopic regions of distinct average slope, or shows ordered and disordered regions coexisting. Those macroscopic slope regions are presumably the \"macroscopic hills\" in your late regime.\n- The companion paper, \"Dynamic properties\" (Phys. Rev. E 96, 022128, 2017), finds that macroscopic particle clusters move on an ergodic time scale growing exponentially with system size. The ordered landscape moves on a faster time scale growing as a power of system size.\n- Later work on the same model: Phys. Rev. Research 2, 043279 (2020) studies the early-time and coarsening dynamics of the \"light-heavy\" model. It shows that irreducible sequences give a coarsening length scale in the ordered phases at late times. I treat this as the closest thing to a review.\n- Earlier context for single-species particles on a fluctuating surface (without back-reaction on the surface): Das and Barma (PRL 85, 1602, 2000) find that an initially random particle density coarsens with a length scale growing as t^{1/z}. Das, Barma and Majumdar (PRE 64, 046126, 2001) extend this.\n\n**3. Caveats.**\n- In the search results, I found no readable statement of the exact two-stage law you observed. That law is t^0.5 early, a crossover near t\u22481000, then about t^0.34 at late times, with exponent about 0.41 at b'=0.18.\n- The t^0.5 early exponent is plausible for surface-driven coarsening with an Edwards-Wilkinson-like surface, where z=2. The late value of about 0.34 and its drift with b' could be a finite-time effective exponent, not a universal one. I did not verify either point.\n- Both the 2016 and 2017 papers are paywalled, so I could not confirm their coupling parameters match your b=-0.4 and b'=0.3.\n- The phase-diagram location of your parameters is therefore unconfirmed. I'd expect it to fall in the \"ordered, phase-separated, macroscopic landscape order\" regime, but I haven't checked.\n\n**4. Searches run.**\n- Two species on a fluctuating interface, with phase separation and coarsening.\n- Das, Barma and Majumdar on sliding particles.\n- The light-heavy model.\n- Coupled driven systems with vacancies.\n- \"Dynamic properties\" companion paper.\n- \"Large compact clusters\" paper.\n- A search for the specific exponents (found nothing).\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"coupled driven lattice gas: two particle species + vacancies advected by a fluctuating (tilt-field) landscape that they modify (nonequilibrium statistical mechanics / phase separation)\", \"standard_name\": \"Coupled driven systems / light-heavy model of particles on a fluctuating surface (Chakraborty-Chatterjee-Barma); fluctuation-dominated phase ordering\", \"confidence\": \"medium\", \"citations\": [\"Chakraborty, Pal, Chatterjee, Barma 2016, Phys. Rev. E 93, 050102(R) - macroscopic clusters, phase-separated species, ordered+disordered landscape, algebraic coarsening times\", \"Chakraborty, Chatterjee, Barma 2017, Phys. Rev. E 96, 022127 - static ordered phases: species phase separation, landscape with macroscopic regions of distinct slope\", \"Chakraborty, Chatterjee, Barma 2017, Phys. Rev. E 96, 022128 - dynamics of the ordered phases\", \"Phys. Rev. Research 2, 043279 (2020) - light-heavy model, coarsening length scale and early-time dynamics\", \"Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - sliding particles on fluctuating surface, coarsening length ~ t^{1/z}\", \"Das, Barma, Majumdar 2001, Phys. Rev. E 64, 046126 - fluctuation-dominated phase ordering on stochastic surfaces\"], \"searches\": [\"two species particles on fluctuating interface phase separation coarsening\", \"Das Barma Majumdar sliding particles fluctuating surface two species back-reaction\", \"light heavy model fluctuating surface coarsening Chatterjee Barma\", \"two species particles and vacancies coupled to fluctuating interface tilt ordered phases\", \"Ordered phases in coupled nonequilibrium systems Dynamic properties\", \"Large compact clusters and fast dynamics in coupled nonequilibrium systems\", \"Chakraborty Chatterjee Barma coarsening domain size t^{1/2} then slower exponent\"], \"notes\": \"Model and qualitative behaviour (phase separation, macroscopic landscape order, algebraic coarsening) clearly documented. Full texts were paywalled, so the specific two-stage exponents (0.5 -> ~0.34, crossover ~1000, 0.41 at b'=0.18) and the exact parameter values (b=-0.4, b'=0.3) were not checked against the papers. The late exponent may be a finite-time effective value. If the specific two-stage exponent crossover matters, check the 2016 PRE Rapid Comm. and 2017 Dynamic-properties paper full text.\"}\n```",
+ "checked": "2026-11-03 02:57:14"
+}

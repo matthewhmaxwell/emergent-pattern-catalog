@@ -1,0 +1,59 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chiral (odd-diffusive) generalized Kipnis-Marchioro-Presutti mass-transport process with L-shaped three-site moves; isotropic |r|^-4 (r^-(d+2)) density correlations from odd diffusion",
+ "citations": [
+  "https://pith.science/paper/2609.16821 (Das, Hazra, Pradhan, 'Odd diffusion and power-law correlations in chiral mass-transport processes', arXiv 2609.16821, 2026)",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c (Hazra, Mukherjee, Pradhan, J. Stat. Mech., hyperuniformity in mass transport)",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/ac8f69 (Chiral active matter review: chirality-induced hyperuniformity)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgraded from VARIANT to KNOWN: the model (KMP-type masses, same-sense L-shaped moves, isotropic rates, mass conserved) and the main result (isotropic |r|^-4 correlations from odd diffusion) match the Das-Hazra-Pradhan preprint. I saw only the Pith review page, not the paper itself; it is an arXiv preprint and I found no journal version. The single fluctuation minimum versus turning strength and the square-root cusp near maximal turning were not confirmed in any source; they are probably parameter-dependence details of the same solvable structure factor, not new behaviour. The 40%/60% keep fractions are a parameter choice. Not an artifact, but measuring a clean r^-4 tail at L=800 is hard, and the exact-looking values suggest theory predictions rather than fits.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "chiral conserved mass transport lattice odd diffusion hyperuniformity Pradhan"
+  },
+  {
+   "query": "\"Odd diffusion and power-law correlations in chiral mass-transport processes\""
+  },
+  {
+   "query": "chiral KMP L-shaped moves optimal chirality suppresses long-wavelength fluctuations square-root cusp"
+  },
+  {
+   "query": "arXiv chiral mass transport odd diffusion density correlations r^-4 isotropic Hazra Pradhan 2026"
+  },
+  {
+   "query": "Das Hazra Pradhan chiral KMP structure factor nonmonotonic chirality strength fluctuations minimum"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.16821",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.L012048",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://www.jnu.ac.in/content/hydrodynamics-conserved-mass-transport-processes-and-einstein-relation",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae6e97",
+  "https://pith.science/paper/2609.16821",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12697869/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12697869/",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/ac8f69",
+  "https://pubmed.ncbi.nlm.nih.gov/40903807/",
+  "https://pubmed.ncbi.nlm.nih.gov/32789165",
+  "https://pith.science/paper/2609.16821",
+  "https://pith.science/paper/2605.25136",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aeaf77",
+  "https://journals.aps.org/prd/pdf/10.1103/PhysRevD.109.014033",
+  "https://www.nature.com/articles/s41598-020-76047-9",
+  "https://pubs.aip.org/aip/jcp/article/141/23/234305/194255/Probing-chirality-fluctuations-in-molecules-by",
+  "https://inspirehep.net/files/828cdfa62020a863fd23efa3ceab2aed"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm upgrading the first pass's \"variant\" to an exact match for the main behaviour. A preprint describes what looks like this same model and this same correlation result. The two extra features (a single fluctuation minimum and a square-root cusp) are smaller details of that model, and I couldn't check them.\n\n**The matching paper.** It is \"Odd diffusion and power-law correlations in chiral mass-transport processes\" by Koushik Das, Animesh Hazra and Punyabrata Pradhan, a 2026 arXiv preprint (id 2609.16821). I only saw it through Pith, a site of automated paper reviews, so I haven't read the paper itself. It's a preprint, and I found no journal version. What the Pith page says:\n- **Same model.** The authors build exactly solvable chiral mass-transport processes on a square lattice (generalized KMP models) where mass hops with a preferred rotational sense via simultaneous three-site L-shaped moves. These moves break time-reversal and mirror symmetries while preserving lattice rotation symmetry. That is your rule: L-shaped paths that always turn the same way, equal rates in all four directions, mass conserved, and continuous KMP-style masses.\n- **Same main result.** even though the dynamics is isotropic, the odd diffusion generically generates algebraic density correlations C(r) ~ |r|^{-4} at large distances. This matches your decay exponent of 4 (that is, r^-(d+2) with d = 2) and fits your x/y ratio of 1.0.\n- **Mechanism.** The power law comes from the interplay between the off-diagonal components of the diffusion tensor (the odd-diffusion coefficient) and the off-diagonal components of the mobility tensor. It is framed as distinct from the well-known mechanism of anisotropic hopping.\n\n**Related background.** The same group has exact results for conserved-mass transport where suppressed fluctuations produce hyperuniformity (Hazra, Mukherjee, Pradhan, J. Stat. Mech.). Separately, a chirality-induced transition towards a hyper-uniform state, characterised by vanishing long-wavelength density fluctuations is a known theme for chiral active particles.\n\n**What I couldn't verify:**\n1. **One optimal turning strength that minimises long-wavelength fluctuations.** A dedicated search found nothing on how fluctuations depend on turning strength in this model. A minimum at intermediate chirality is a natural thing to fall out of an exactly solvable structure factor, so I'd treat it as a parameter-dependence detail of the known model, not new behaviour.\n2. **The square-root cusp near maximal turning.** Not found. It may be in the full paper or just a property of the analytic structure factor. Even so, it wouldn't change what the system's behaviour is.\n3. **The exact 40%/60% keep fractions.** These look like a parameter choice within the paper's \"class\" of models and don't matter.\n\n**Genuine or artifact?** It looks genuine. Isotropic r^-4 correlations driven by odd diffusion are a real nonequilibrium effect, not a frozen, diverged or random state. One caution: a tail as weak as r^-4 is hard to measure cleanly on an 800\u00d7800 lattice. Values like exactly 4, 1.0 and 0.5 look like theory predictions rather than fitted numbers, so check the simulation's actual fit quality.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chiral (odd-diffusive) generalized Kipnis-Marchioro-Presutti mass-transport process with L-shaped three-site moves; isotropic |r|^-4 (r^-(d+2)) density correlations from odd diffusion\", \"citations\": [\"https://pith.science/paper/2609.16821 (Das, Hazra, Pradhan, 'Odd diffusion and power-law correlations in chiral mass-transport processes', arXiv 2609.16821, 2026)\", \"https://iopscience.iop.org/article/10.1088/1742-5468/ada88c (Hazra, Mukherjee, Pradhan, J. Stat. Mech., hyperuniformity in mass transport)\", \"https://iopscience.iop.org/article/10.1209/0295-5075/ac8f69 (Chiral active matter review: chirality-induced hyperuniformity)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgraded from VARIANT to KNOWN: the model (KMP-type masses, same-sense L-shaped moves, isotropic rates, mass conserved) and the main result (isotropic |r|^-4 correlations from odd diffusion) match the Das-Hazra-Pradhan preprint. I saw only the Pith review page, not the paper itself; it is an arXiv preprint and I found no journal version. The single fluctuation minimum versus turning strength and the square-root cusp near maximal turning were not confirmed in any source; they are probably parameter-dependence details of the same solvable structure factor, not new behaviour. The 40%/60% keep fractions are a parameter choice. Not an artifact, but measuring a clean r^-4 tail at L=800 is hard, and the exact-looking values suggest theory predictions rather than fits.\"}\n```",
+ "checked": "2026-11-03 04:16:51"
+}

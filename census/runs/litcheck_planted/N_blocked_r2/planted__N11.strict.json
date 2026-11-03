@@ -1,0 +1,72 @@
+{
+ "class_id": "planted:N11",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Higher-order (three-body) competition-induced pattern selection in nonlocal-competition birth-death populations: hexagonal spots -> stripes -> gaps (Pinto-Ramos, Surendran & Martinez-Garcia); mortality-driven gaps/stripes/spots sequence of nonlocal logistic (Lefever-Lejeune-type) models",
+ "citations": [
+  "Pinto-Ramos, Surendran, Martinez-Garcia, 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics' (preprint; code at zenodo.org/records/22937227; dpintoramos.github.io)",
+  "Communications Physics (2025) 'Flow spatial structure determines pattern instabilities in nonlocal models of population dynamics', nature.com/articles/s42005-025-02246-3",
+  "Lefever-Lejeune nonlinear lattice, Physica D, sciencedirect S016727891930394X",
+  "Localised labyrinthine patterns in ecosystems, Sci. Rep. 2021, nature.com/articles/s41598-021-97472-4"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "high",
+ "notes": "A dedicated individual-based plus PDE study reports that higher-order competition reorganises a competing population from spots into stripes and gaps, and derives the selection thresholds. Spots reappearing at higher death/birth ratio is the standard mortality-driven gaps->stripes->spots sequence. Only the authors' site, Zenodo, LinkedIn and snippets were read, not the preprint itself, so whether the re-entry plot appears in that paper is unconfirmed. The g for hexagonal spots equals the sweep's lower bound (pairwise baseline). The anisotropy index looks binary/saturating.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "nonlocal competition individual-based model hexagonal spots stripes gaps transition"
+  },
+  {
+   "query": "vegetation spots labyrinths gaps sequence nonlocal interactions Lefever Lejeune"
+  },
+  {
+   "query": "Higher-order competition as a minimal mechanism for spatial pattern diversity in population dynamics"
+  },
+  {
+   "query": "Pinto-Ramos higher-order competition spots stripes gaps individual-based arXiv three-body"
+  },
+  {
+   "query": "Pinto-Ramos Surendran Martinez-Garcia higher-order competition spatial patterns abstract"
+  },
+  {
+   "query": "\"higher-order competition\" stripes gaps population clusters preprint thresholds pattern selection death rate"
+  }
+ ],
+ "result_urls": [
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://d-nb.info/1343177286/34",
+  "https://dpintoramos.github.io/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278921001573",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4785980/",
+  "https://www.nature.com/articles/s41598-021-97472-4",
+  "https://www.sciencedirect.com/author/7003801924/rene-lefever",
+  "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2007RG000256",
+  "https://www.pnas.org/doi/10.1073/pnas.2316879120",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727891930394X",
+  "https://www.nature.com/articles/s41598-021-97472-4.pdf",
+  "https://zenodo.org/records/22937227",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10718426/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.01.10.523527v1.full",
+  "https://www.biorxiv.org/content/10.1101/2023.04.05.535749.full.pdf",
+  "https://zenodo.org/records/22937227",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12031895/",
+  "https://www.linkedin.com/in/ricardo-martinez-garcia-b212306a/",
+  "https://www.journals.uchicago.edu/doi/abs/10.1086/303199?journalCode=an",
+  "https://dpintoramos.github.io/",
+  "https://www.casus.science/dynamics-of-complex-living-systems/",
+  "https://ora.ox.ac.uk/objects/uuid:932197d6-720d-4289-a875-281d75d942f3",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4459219/",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/"
+ ],
+ "full_text": "**Verdict: KNOWN. This overturns the first pass, which called it a variant.** I found a group that has studied this kind of model directly, and it reports this exact sequence.\n\n**The near-exact match.** David Pinto-Ramos, Anudeep Surendran and Ricardo Martinez-Garcia have a preprint titled \"Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics.\" Its code and data are on Zenodo (Pinto-Ramos, David. Surendran, Anudeep. Martinez-Garcia, Ricardo.), and Pinto-Ramos's site says it covers individual-based and PDE simulations, analysis scripts and figure material. Its showcase figure describes the same thing you observed: \"Each dot represents an individual. As higher-order competition increases, the population reorganises into spots, stripes and gaps.\" The announcement also explains why your baseline is spots: \"For a broad class of interaction kernels, pairwise competition produces only hexagonal arrays of population clusters.\" The authors say they show how higher-order competition enables stripes and gaps to emerge from competition alone. We analytically explain the restriction imposed by pairwise competition and derive the thresholds that govern the selection of different patterns. Your model has the same setup (only competition, a nonlocal pairwise kernel plus a three-body crowding term, continuous-space births and deaths) and the same control parameter.\n\n**The spots coming back at higher death/birth ratio is also documented.** In vegetation and nonlocal-logistic models, raising mortality gives the standard order gaps \u2192 labyrinths/stripes \u2192 spots. A recent nonlocal model reports that as Da\u207b increases, representing worsening environmental conditions through a higher mortality rate, the model shows a sequence of gaps, labyrinths, and spots. The Lefever\u2013Lejeune line of work describes a general sequence from patterns where the minima of the vegetation density form a lattice possessing a hexagonal symmetry, to stripes \u2026 succeeded then, by patterns where the maxima of the vegetation density are distributed as to form a hexagonal lattice. One review calls gaps, labyrinths and spots the standard sequence of patterns in vegetation models. So spots reappearing beyond the stripes at death/birth \u2248 0.55 is the standard spots \u2192 stripes \u2192 gaps diagram run in reverse. It is not a new twist.\n\n**Real pattern or artifact?** These look like real emergent patterns. The ordered sequence and the anisotropy jump at the stripe transition match the documented pattern-selection thresholds; a random colouring or a frozen state would not give that. Two caveats about the measurements:\n- The \"hexagonal spots\" g (3.27e-6) is just the bottom of the sweep, so it is the pairwise baseline, not a transition point.\n- An anisotropy index jumping exactly from 0 to 1.0 suggests a saturating, near-binary measure, so it is not a precise order parameter.\n\n**Searches run:** nonlocal competition spots/stripes/gaps in individual-based models; the Lefever\u2013Lejeune spots/labyrinths/gaps sequence; the preprint title; the authors with \"higher-order competition\".\n\n**What I couldn't check:** I only saw the authors' website, the Zenodo record, a LinkedIn announcement and search snippets, not the preprint itself. So I can't confirm that the spots coming back against death/birth ratio is shown inside that paper specifically, though it is standard in the related literature. I also didn't confirm the first pass's Britton citations.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Higher-order (three-body) competition-induced pattern selection in nonlocal-competition birth-death populations: hexagonal spots -> stripes -> gaps (Pinto-Ramos, Surendran & Martinez-Garcia); mortality-driven gaps/stripes/spots sequence of nonlocal logistic (Lefever-Lejeune-type) models\", \"citations\": [\"Pinto-Ramos, Surendran, Martinez-Garcia, 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics' (preprint; code at zenodo.org/records/22937227; dpintoramos.github.io)\", \"Communications Physics (2025) 'Flow spatial structure determines pattern instabilities in nonlocal models of population dynamics', nature.com/articles/s42005-025-02246-3\", \"Lefever-Lejeune nonlinear lattice, Physica D, sciencedirect S016727891930394X\", \"Localised labyrinthine patterns in ecosystems, Sci. Rep. 2021, nature.com/articles/s41598-021-97472-4\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"high\", \"notes\": \"A dedicated individual-based plus PDE study reports that higher-order competition reorganises a competing population from spots into stripes and gaps, and derives the selection thresholds. Spots reappearing at higher death/birth ratio is the standard mortality-driven gaps->stripes->spots sequence. Only the authors' site, Zenodo, LinkedIn and snippets were read, not the preprint itself, so whether the re-entry plot appears in that paper is unconfirmed. The g for hexagonal spots equals the sweep's lower bound (pairwise baseline). The anisotropy index looks binary/saturating.\"}\n```",
+ "checked": "2026-11-03 03:03:00"
+}

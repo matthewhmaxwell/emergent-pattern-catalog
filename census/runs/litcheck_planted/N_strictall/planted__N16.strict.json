@@ -1,0 +1,102 @@
+{
+ "class_id": "planted:N16",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Activity-induced (MIPS-like) collapse and re-swelling of an inertial (translational + rotational) active Brownian polymer with purely repulsive excluded volume",
+ "citations": [
+  "ChemRxiv 2024 (66a4eaccc9c6a5c07a1fc8d8): 'Monomer activity solely induces collapse of polymer chain in a good solvent' - underdamped ABP chain with mass m and moment of inertia J, no attraction, collapse with core+loops and re-swelling",
+  "Phys. Rev. E 101, 030501 (2020): self-avoiding active Brownian polymer shrinks then swells with Pe",
+  "Mousavi, Gompper, Winkler, J. Chem. Phys. 150, 064913 (2019): Active Brownian ring polymers",
+  "Sprenger, Caprini, L\u00f6wen, Wittmann, J. Phys.: Condens. Matter (2023): rotational inertia increases persistence time of inertial ABPs",
+  "Locatelli, Bianco, Malgaretti, PRL 126, 097801 (2021): activity-induced collapse and arrest of (tangentially driven) active rings"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "First pass missed a 2024 ChemRxiv study of an underdamped ABP chain with both mass and moment of inertia J that reports repulsion-only activity-induced collapse (dense core + loops, MIPS-like) and re-swelling: this is the observed behaviour. Ring vs linear topology is a minor twist; ABP rings are reported to behave like linear chains. The J-window plausibly follows from J lengthening orientational persistence. The N-independent size (exponent ~0) at J=10 is physically implausible for a dense collapsed object (should be >=1/3) and most likely an artifact (bead overlap/chain crossing at high inertia, too-large timestep, unconverged long rings, or narrow N range); verify before treating as a finding. Only the abstract and fragments of the ChemRxiv paper were seen, not its full J sweep.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "active ring polymer rotational inertia collapse moment of inertia active Brownian"
+  },
+  {
+   "query": "inertial active ring polymer collapse swelling Peclet moment of inertia radius of gyration independent of chain length"
+  },
+  {
+   "query": "Locatelli Bianco Malgaretti activity-induced collapse and arrest of active polymer rings"
+  },
+  {
+   "query": "active polymer rotational inertia Langevin simulation conformations \"moment of inertia\" chain"
+  },
+  {
+   "query": "inertial active Brownian polymer underdamped self-propelled chain conformation shrinkage swelling"
+  },
+  {
+   "query": "active Brownian ring polymers excluded volume shrinkage intermediate P\u00e9clet swelling Winkler Gompper"
+  },
+  {
+   "query": "active polymer \"rotational inertia\" collapse globule simulation"
+  },
+  {
+   "query": "Mousavi Gompper Winkler active Brownian ring polymers J. Chem. Phys. 2019 shrinkage"
+  },
+  {
+   "query": "inertia active polymer chain mass moment of inertia conformations Caprini L\u00f6wen underdamped active filament"
+  },
+  {
+   "query": "\"Monomer activity solely induces collapse of polymer chain in a good solvent\""
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13386338/",
+  "https://pubs.acs.org/mamobx/article/58/20/11229/3748996/Behavior-of-Active-Polymer-Knots",
+  "https://ui.adsabs.harvard.edu/abs/2025PhFl...37b1709L/abstract",
+  "https://iopscience.iop.org/article/10.1088/1361-6633/ad3e11",
+  "https://pubmed.ncbi.nlm.nih.gov/42482818/",
+  "https://pith.science/paper/2607.09436",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.3c00560",
+  "https://www.cjps.org/en/article/doi/10.1007/s10118-024-3245-y/?viewType=HTML",
+  "https://pith.science/paper/2608.11972",
+  "https://pubmed.ncbi.nlm.nih.gov/41944444/",
+  "https://is.mpg.de/publications/escidoc-3316282",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.5c01381",
+  "https://pubs.acs.org/doi/10.1021/acs.macromol.5c02097",
+  "https://pubs.acs.org/mamobx/article/58/20/11229/3748996/Behavior-of-Active-Polymer-Knots",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/16/164903/3368855/How-to-control-a-polymer-conformation-using-active?redirectedFrom=fulltext",
+  "https://scholar.google.fr/citations?user=icK0-DgAAAAJ&hl=fr",
+  "https://scholar.google.es/citations?user=LTF_0wwAAAAJ&hl=es",
+  "https://www.kitp.ucsb.edu/sites/default/files/kitp/preprints/aust.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6631676/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.101.030501",
+  "https://doi.org/10.1103/physreve.101.030501",
+  "https://iopscience.iop.org/article/10.1088/1361-6633/ad3e11",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6403868/",
+  "https://doi.org/10.3390/polym11061021",
+  "https://pubs.aip.org/aip/jcp/article/153/4/040901/957885/The-physics-of-active-polymers-and-filaments",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6431937/",
+  "https://journals.jps.jp/doi/pdf/10.7566/JPSJ.86.101014",
+  "https://dx.doi.org/10.3390/polym10080837",
+  "https://pith.science/paper/2607.09436",
+  "https://pubmed.ncbi.nlm.nih.gov/38907431/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12530043/",
+  "https://pubmed.ncbi.nlm.nih.gov/30769972/",
+  "https://pubs.aip.org/aip/jcp/article-abstract/150/6/064913/198976/Active-Brownian-ring-polymers?redirectedFrom=fulltext",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.L012038",
+  "https://pubs.aip.org/aip/jcp/article-abstract/156/6/064105/2840709/Path-integral-description-of-semiflexible-active?redirectedFrom=fulltext",
+  "https://pubs.aip.org/aip/jcp/article-abstract/164/23/234901/3394766/Semiflexible-ring-polymers-on-active-motor-beds?redirectedFrom=fulltext",
+  "https://www.osti.gov/biblio/1409752",
+  "https://pubs.aip.org/aip/jcp/article-abstract/161/18/184901/3319317/A-computer-simulation-study-of-a-chiral-active?redirectedFrom=PDF",
+  "https://www.nature.com/articles/s42005-024-01835-y",
+  "https://pubs.rsc.org/sm/article/20/33/6618/871840/Density-and-inertia-effects-on-two-dimensional",
+  "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/66a4eaccc9c6a5c07a1fc8d8/original/Manuscript_2024_active_poly_ABP.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.108.024606",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/accd36",
+  "https://chemrxiv.org/engage/chemrxiv/article-details/66a4eaccc9c6a5c07a1fc8d8",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5680348/"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass, which called it a variant. One part of the result, the size that doesn't depend on bead number, looks like a numerical artifact rather than new physics.\n\n**The closest match.** The first pass said no paper sweeps rotational inertia for active bead chains. I found one that matches your model almost exactly: the ChemRxiv working paper \"Monomer activity solely induces collapse of polymer chain in a good solvent\" (29 July 2024). It simulates a chain of active brownian particles in an underdamped regime with m - mass of the particles and J - moment of inertia. It also says they keep them in both translational and rotational equations, hence, underdamped dynamics is realized. They demonstrate the ability of the self-propulsion monomer units to cause polymer collapse under conditions where there is no explicit attraction between particles. The collapsed state is characterized by a dense condensed core surrounded by elongated loops. They argue the mechanism is similar to well-known motility induced phase separation, but more pronounced in active chains. Their text names a swollen and re-swollen state, so the swollen \u2192 collapsed \u2192 swollen-again sequence is there too. That covers your rules (mass, moment of inertia, repulsion only, self-propulsion) and your behaviour (collapse at moderate activity, re-swelling at high activity). The main difference is that their chain is linear and yours is a closed loop. I only saw the abstract and some fragments, not their full sweep over J.\n\n**Why rotational inertia matters.** For inertial active particles, the time a particle keeps its heading increases when \u03c4 is increased... this increase is more significant when the typical time \u03c4_J (or the moment of inertia) is increased. So turning up J mainly makes each bead's heading last longer, which effectively shifts the activity scale. A window in J where collapse happens is what you'd expect from that.\n\n**Other supporting work:**\n- For bead chains without inertia but with steric repulsion, the chain initially shrinks with active force, which starts swelling on further increase in force. The shrinkage followed by swelling is attributed purely to excluded-volume interactions (Phys. Rev. E 101, 030501).\n- For loops of this kind, the structural and dynamical properties of active Brownian ring polymers are in general similar to that of linear chains.\n- A 2D chiral version also shows a non-monotonic behavior of the radius of gyration of an active Brownian ring as a function of active force.\n- Strong collapse and arrest of active loops is known for a different driving rule, where the force points along the chain (Locatelli, Bianco and Malgaretti, Phys. Rev. Lett. 126, 097801, 2021). Your beads instead push along their own random headings.\n\n**Is it real or an artifact?**\n- **The collapse and re-swelling look genuine.** A shrinkage factor above 10 is much larger than the mild shrinking reported for chains without inertia. That fits the claim that inertia pushes the chain into a phase-separation-like dense core.\n- **A loop-size exponent of about 0 at J=10 is suspect.** A compact globule should grow like N^(1/3), and a dense core with loops should grow at least that fast. A size that doesn't change with bead number means the density rises with N. That points to beads overlapping or chains crossing under strong inertial driving, a time step that is too large for M=0.3 and J=10, too few lengths tested, or longer chains not having finished collapsing. Before treating it as a result, check the minimum distance between beads, track whether the loop's knot type changes, re-run with a smaller time step, and fit over at least about one decade of N.\n\n**Searches I ran:** active ring polymer with rotational inertia and collapse; inertial active ring collapse versus chain length; the Locatelli 2021 paper; rotational inertia with active polymer collapse; underdamped active Brownian polymers; Mousavi, Gompper and Winkler's active Brownian ring paper; inertial active filaments (Caprini, L\u00f6wen); and the exact title of the ChemRxiv paper.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Activity-induced (MIPS-like) collapse and re-swelling of an inertial (translational + rotational) active Brownian polymer with purely repulsive excluded volume\", \"citations\": [\"ChemRxiv 2024 (66a4eaccc9c6a5c07a1fc8d8): 'Monomer activity solely induces collapse of polymer chain in a good solvent' - underdamped ABP chain with mass m and moment of inertia J, no attraction, collapse with core+loops and re-swelling\", \"Phys. Rev. E 101, 030501 (2020): self-avoiding active Brownian polymer shrinks then swells with Pe\", \"Mousavi, Gompper, Winkler, J. Chem. Phys. 150, 064913 (2019): Active Brownian ring polymers\", \"Sprenger, Caprini, L\u00f6wen, Wittmann, J. Phys.: Condens. Matter (2023): rotational inertia increases persistence time of inertial ABPs\", \"Locatelli, Bianco, Malgaretti, PRL 126, 097801 (2021): activity-induced collapse and arrest of (tangentially driven) active rings\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"First pass missed a 2024 ChemRxiv study of an underdamped ABP chain with both mass and moment of inertia J that reports repulsion-only activity-induced collapse (dense core + loops, MIPS-like) and re-swelling: this is the observed behaviour. Ring vs linear topology is a minor twist; ABP rings are reported to behave like linear chains. The J-window plausibly follows from J lengthening orientational persistence. The N-independent size (exponent ~0) at J=10 is physically implausible for a dense collapsed object (should be >=1/3) and most likely an artifact (bead overlap/chain crossing at high inertia, too-large timestep, unconverged long rings, or narrow N range); verify before treating as a finding. Only the abstract and fragments of the ChemRxiv paper were seen, not its full J sweep.\"}\n```",
+ "checked": "2026-11-03 04:24:36"
+}

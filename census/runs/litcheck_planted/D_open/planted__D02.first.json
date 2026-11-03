@@ -1,0 +1,92 @@
+{
+ "class_id": "planted:D02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Synchronization / globally coupled identical Stuart-Landau (mean-field complex Ginzburg-Landau) oscillators; chimera and cluster states",
+ "standard_name": "Phase chimera state (and multitailed phase chimera); splay/incoherent state with R=0 balance condition",
+ "confidence": "medium",
+ "citations": [
+  "Zajdela & Abrams 2025, Chaos 35, 083131 (arXiv 2308.06190) - defines phase chimera: identical amplitude sqrt(1-K), locked fraction x, incoherent remainder, uniform frequency, R=0 balance; multitailed variant; coexists with incoherent state depending on initial conditions",
+  "Sethia & Sen 2014, Phys. Rev. Lett. 112, 144101 - amplitude-mediated chimeras in globally coupled CGLE oscillators (related but different chimera type)",
+  "Omel'chenko & Knobloch 2021, The changing notion of chimera states, a critical review (arXiv 2102.05515) - general chimera review; predates phase-chimera paper",
+  "Hakim & Rappel 1992 / Nakagawa & Kuramoto 1993 / Okuda 1993 - background on clustering in this model class; not verified in detail"
+ ],
+ "searches": [
+  "globally coupled Stuart-Landau oscillators splay state one synchronized cluster zero mean field common amplitude nonisochronicity",
+  "globally coupled complex Ginzburg-Landau oscillators partially synchronized state zero order parameter stability coupling K<1/2 Okuda clustering",
+  "\"multitailed phase chimera\" globally coupled Stuart-Landau identical amplitudes phase-locked cluster incoherent",
+  "Zajdela Abrams Phase chimera states: frozen patterns of disorder Chaos 2025 stability K < 1/2 minimum N",
+  "Sethia Sen Chimera states: the existence criteria revisited Physical Review Letters 2014 phase chimera"
+ ],
+ "notes": "Not verified from readable text: the K<0.5 stability limit and the N=5 minimum. The 0.4 locked fraction at these coupling parameters is consistent with the paper's R=0 balance relation but I did not compute it against the paper's formula. Classified as KNOWN rather than a variant because the equation form and state structure match.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "globally coupled Stuart-Landau oscillators splay state one synchronized cluster zero mean field common amplitude nonisochronicity"
+  },
+  {
+   "query": "globally coupled complex Ginzburg-Landau oscillators partially synchronized state zero order parameter stability coupling K<1/2 Okuda clustering"
+  },
+  {
+   "query": "\"multitailed phase chimera\" globally coupled Stuart-Landau identical amplitudes phase-locked cluster incoherent"
+  },
+  {
+   "query": "Zajdela Abrams Phase chimera states: frozen patterns of disorder Chaos 2025 stability K < 1/2 minimum N"
+  },
+  {
+   "query": "Sethia Sen \"Chimera states: the existence criteria revisited\" Physical Review Letters 2014 phase chimera"
+  }
+ ],
+ "result_urls": [
+  "https://www.researchgate.net/publication/330921264_Cluster_singularity_The_unfolding_of_clustering_behavior_in_globally_coupled_Stuart-Landau_oscillators",
+  "https://arxiv.org/pdf/2503.13616",
+  "https://arxiv.org/pdf/1807.11231",
+  "https://arxiv.org/pdf/1312.3166",
+  "https://arxiv.org/pdf/1607.01309",
+  "https://arxiv.org/pdf/1810.01281",
+  "https://arxiv.org/html/1503.04053v2",
+  "https://arxiv.org/html/2601.10234",
+  "https://www.researchgate.net/publication/220403160_Splay_States_in_a_Ring_of_Coupled_Oscillators_From_Local_to_Global_Coupling",
+  "https://arxiv.org/html/2006.02159",
+  "https://arxiv.org/pdf/1901.00468",
+  "https://arxiv.org/pdf/2510.15658",
+  "https://www.researchgate.net/publication/13381295_Dynamics_of_the_globally_coupled_complex_Ginzburg-Landau_equation",
+  "https://www.sciencedirect.com/science/article/abs/pii/0167278994902755",
+  "https://academic.oup.com/ptp/article-pdf/89/2/313/5227525/89-2-313.pdf",
+  "https://arxiv.org/pdf/2010.06221",
+  "https://www.researchgate.net/publication/49751271_Subharmonic_phase_clusters_in_the_complex_Ginzburg-Landau_equation_with_nonlinear_global_coupling",
+  "https://www.researchgate.net/publication/330921264_Cluster_singularity_The_unfolding_of_clustering_behavior_in_globally_coupled_Stuart-Landau_oscillators",
+  "https://www.academia.edu/27677835/Collective_chaos_and_noise_in_the_globally_coupled_complex_Ginzburg_Landau_equation",
+  "https://arxiv.org/pdf/2308.06190",
+  "https://www.researchgate.net/publication/13381295_Dynamics_of_the_globally_coupled_complex_Ginzburg-Landau_equation",
+  "https://www.researchgate.net/publication/261915148_Chimera_States_The_Existence_Criteria_Revisited",
+  "https://sites.northwestern.edu/emmazajdela/coupled-oscillators/",
+  "https://arxiv.org/pdf/1705.06786",
+  "https://arxiv.org/pdf/1701.06922",
+  "https://arxiv.org/pdf/2102.05515",
+  "https://www.researchgate.net/figure/Multistability-structure-of-the-chimera-dynamics-Colourized-regions-separated-by-dotted_fig3_268451644",
+  "https://www.researchgate.net/publication/257813000_Chimeras_with_multiple_coherent_regions",
+  "https://pubs.aip.org/aip/cha/article/35/8/083131/3360253/Phase-chimera-states-Frozen-patterns-of-disorder",
+  "https://sites.northwestern.edu/emmazajdela/coupled-oscillators/",
+  "https://pubmed.ncbi.nlm.nih.gov/40845354/",
+  "https://www.researchgate.net/publication/392735042_Chimera_states_on_m-directed_hypergraphs",
+  "https://sites.northwestern.edu/emmazajdela/files/2025/10/CV.pdf",
+  "https://arxiv.org/abs/2308.06190",
+  "https://link.springer.com/content/pdf/10.1007/s11071-025-11581-7.pdf",
+  "https://arxiv.org/pdf/1911.12492",
+  "https://doi.org/10.1098/rspa.2025.0907",
+  "https://www.researchgate.net/publication/261915148_Chimera_States_The_Existence_Criteria_Revisited",
+  "https://arxiv.org/pdf/2102.05515",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.112.144101",
+  "https://www.researchgate.net/publication/352111049_The_changing_notion_of_chimera_states_a_critical_review",
+  "https://www.worldscientific.com/doi/10.1142/S0218127416300238",
+  "https://arxiv.org/pdf/1611.03432",
+  "https://arxiv.org/pdf/1403.6204",
+  "https://arxiv.org/pdf/1611.04232",
+  "https://pubmed.ncbi.nlm.nih.gov/29077732/",
+  "https://arxiv.org/pdf/1601.01538"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the \"phase chimera state\" of Zajdela & Abrams, in a Stuart\u2013Landau ensemble with linear global coupling. I could not read the full text, so the K < 0.5 and N = 5 details are unchecked (see below).\n\n**1. Model family.** This is globally coupled identical Stuart\u2013Landau oscillators, a mean-field complex Ginzburg\u2013Landau (CGLE) model. It sits in synchronization and coupled-oscillator dynamics, specifically the chimera and cluster-state literature. With the coupling strength K = 0.25, the equation has the standard form dz/dt = z \u2212 (1 + ic\u2082)|z|\u00b2z + K(1 + ic\u2081)(Z\u0304 \u2212 z). Here c\u2082 = \u22121.4 and c\u2081 = 1.4.\n\n**2. The specific behaviour.** The paper describes a state with these features:\n- The amplitudes all have a fixed universal value A = \u221a(1\u2212K). A fraction x of the oscillators have identical, locked phases. The other 1\u2212x are phase-incoherent. The long-term average frequency is the same for all oscillators.\n- For your run, \u221a(1\u22120.25) = 0.866, which matches your common amplitude.\n- The authors call this a \"phase chimera\". In the multitailed variant, one coherent cluster coexists with several separate regions of incoherent oscillators. That matches your \"one locked group plus two spread-out groups\" variant.\n- The incoherent, splay, phase chimera and multitailed phase chimera states all satisfy a balance equation R = 0. This explains the zero mean-field magnitude.\n- For the phase chimera, R = 0 implies a relationship between the locked fraction and the other parameters. That would fix the 0.4 locked fraction at these coupling parameters.\n- The phase chimera, multitailed phase chimera and incoherent states can coexist at the same parameters, depending on initial conditions. This fits the 40/60 initial split selecting this state.\n- The authors also describe the state as frozen in a co-rotating frame. Your zero frequency spread is the same property.\n\n**3. Citations, checked against search results.**\n- **Earliest clear source:** E. R. Zajdela & D. M. Abrams, \"Phase chimera states: Frozen patterns of disorder\", *Chaos* 35, 083131 (2025), doi:10.1063/5.0275286. The arXiv preprint is 2308.06190, posted August 2023. In this state the amplitudes of all oscillators are identical, one subset phase-locks and another subset stays incoherent.\n- **Related context (not a review of this state):** G. C. Sethia & A. Sen, \"Chimera states: The existence criteria revisited\", *Phys. Rev. Lett.* 112, 144101 (2014). They obtained amplitude-mediated chimera states in globally coupled complex Ginzburg\u2013Landau oscillators. That is a different chimera type, with varying amplitudes. It shows chimeras exist in this model class.\n- **Review:** I found no review that covers the phase chimera specifically. Closest is the survey by Omel'chenko & Knobloch, \"The changing notion of chimera states, a critical review\" (arXiv 2102.05515). It notes that Sethia and Sen reported amplitude-mediated chimeras for Stuart\u2013Landau oscillators with linear global coupling. It predates the phase-chimera paper.\n- **Follow-up work:** Several later studies have found phase chimeras in higher-order interaction networks, including nonlocal hyperrings and m-directed hypergraphs. The m-directed hypergraph paper cites Zajdela & Abrams as its source for the phase chimera.\n- **Background on clustering and splay states:** Hakim & Rappel (1992) and Nakagawa & Kuramoto (1993) studied this model class. Okuda (1993, *Physica D*) studied clustering in it. I did not verify those details here and cite them only as background. The splay state is the zero-mean-field state with phases spread evenly on the circle of radius \u221a(1\u2212K). This is documented for the Stuart\u2013Landau ensemble.\n\n**4. Unverified items.** The snippets I could read did not show these two numbers, so I am not confirming them from source:\n- **K < 0.5 stability limit:** this is plausible, since the paper derives stability analytically, but I did not see the number.\n- **Smallest N = 5:** same situation.\n\nNeither affects the verdict, since the state itself is clearly described.\n\n**5. Confidence: medium-high.** The structure of the state matches the paper's description point by point: identical amplitude \u221a(1\u2212K), a locked fraction, an incoherent remainder, a common frequency and R = 0. The multitailed variant matches too. The remaining doubt is that I confirmed the two numeric details only by plausibility.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Synchronization / globally coupled identical Stuart-Landau (mean-field complex Ginzburg-Landau) oscillators; chimera and cluster states\", \"standard_name\": \"Phase chimera state (and multitailed phase chimera); splay/incoherent state with R=0 balance condition\", \"confidence\": \"medium\", \"citations\": [\"Zajdela & Abrams 2025, Chaos 35, 083131 (arXiv 2308.06190) - defines phase chimera: identical amplitude sqrt(1-K), locked fraction x, incoherent remainder, uniform frequency, R=0 balance; multitailed variant; coexists with incoherent state depending on initial conditions\", \"Sethia & Sen 2014, Phys. Rev. Lett. 112, 144101 - amplitude-mediated chimeras in globally coupled CGLE oscillators (related but different chimera type)\", \"Omel'chenko & Knobloch 2021, The changing notion of chimera states, a critical review (arXiv 2102.05515) - general chimera review; predates phase-chimera paper\", \"Hakim & Rappel 1992 / Nakagawa & Kuramoto 1993 / Okuda 1993 - background on clustering in this model class; not verified in detail\"], \"searches\": [\"globally coupled Stuart-Landau oscillators splay state one synchronized cluster zero mean field common amplitude nonisochronicity\", \"globally coupled complex Ginzburg-Landau oscillators partially synchronized state zero order parameter stability coupling K<1/2 Okuda clustering\", \"\\\"multitailed phase chimera\\\" globally coupled Stuart-Landau identical amplitudes phase-locked cluster incoherent\", \"Zajdela Abrams Phase chimera states: frozen patterns of disorder Chaos 2025 stability K < 1/2 minimum N\", \"Sethia Sen Chimera states: the existence criteria revisited Physical Review Letters 2014 phase chimera\"], \"notes\": \"Not verified from readable text: the K<0.5 stability limit and the N=5 minimum. The 0.4 locked fraction at these coupling parameters is consistent with the paper's R=0 balance relation but I did not compute it against the paper's formula. Classified as KNOWN rather than a variant because the equation form and state structure match.\"}\n```",
+ "checked": "2026-11-03 02:29:18"
+}

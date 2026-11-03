@@ -1,0 +1,57 @@
+{
+ "class_id": "planted:N06",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Fractional half-vortices (pi momentum winding + pi spin-frame rotation) in a Heisenberg spiral spin liquid with [U(1)xSO(3)]/Z2 order-parameter space; dense in SSL regime, bound below order-by-disorder lattice-nematic transition",
+ "citations": [
+  "Glittum, Yan, Reuther, 'Fractional vortices in a spin-isotropic spiral spin liquid', arXiv:2609.15941 (2026); data at doi:10.5281/zenodo.23390512",
+  "Yan & Reuther, 'Low-energy structure of spiral spin liquids', Phys. Rev. Research 4, 023175 (2022)",
+  "Gonzalez, Fancelli, Yan, Reuther, Phys. Rev. B 110, 085106 (2024)",
+  "Bergman et al., Nature Phys. 3, 487 (2007)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "high",
+ "notes": "Upgraded from KNOWN-VARIANT to KNOWN. arXiv:2609.15941 reports Monte Carlo on a 200x200 square-lattice J1-J2-J3 Heisenberg model with delta=0.03, finding dense half-vortices (pi wave-vector winding) that bind below an order-by-disorder transition, plus a Z2/conventional defect class. This matches all the observed features. Exact numbers (0.03, 0.003, 0.0268, 0.19) not checked against the full text, which was read only via a machine review page; the couplings J2=0.28, J3=0.14 were inferred by the first pass, not confirmed. Pattern looks genuine, not an artifact.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "spiral spin liquid square lattice J1-J2-J3 Heisenberg momentum vortices half"
+  },
+  {
+   "query": "\"Fractional vortices in a spin-isotropic spiral spin liquid\" arXiv"
+  },
+  {
+   "query": "Yan Reuther low-energy structure spiral spin liquids momentum vortices square lattice"
+  },
+  {
+   "query": "2609.15941 half-vortices spiral spin liquid Monte Carlo order-by-disorder transition temperature square lattice"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2609.15941",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ab4480",
+  "https://www.osti.gov/servlets/purl/1874654",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ab4480/pdf",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://iopscience.iop.org/article/10.1088/1742-6596/200/2/022058",
+  "https://zenodo.org/records/23390512",
+  "https://pith.science/paper/2609.15941",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://refubium.fu-berlin.de/handle/fub188/35799",
+  "https://www.nature.com/articles/s41467-025-63620-x.pdf",
+  "https://www.physik.fu-berlin.de/en/einrichtungen/ag/ag-reuther/publications/index.html",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11914452/",
+  "https://pith.science/paper/2609.15941",
+  "https://www.nature.com/articles/nphys622",
+  "https://link.springer.com/article/10.1007/s11467-021-1074-9",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.110.085106"
+ ],
+ "full_text": "I'm overturning the first pass in one respect: this is **KNOWN**, not KNOWN-VARIANT. The behaviour is the main result of a recent preprint whose simulation setup matches yours almost exactly. The first pass found the right paper but called it a variant only because it couldn't read the paper in full.\n\n**The matching paper.** It is arXiv:2609.15941, \"Fractional vortices in a spin-isotropic spiral spin liquid\", by Glittum, Yan and Reuther, submitted 14 September 2026. I could read only a machine-written review page (Pith) and the paper's Zenodo dataset entry, not the paper itself. According to the review:\n- **Same setup.** The paper runs Monte Carlo simulations on a 200\u00d7200 lattice with J\u2081-J\u2082-J\u2083 interactions (\u03b4=0.03) that detect these vortices via the G_\u03bc\u03bd tensor, measure their densities, and observe binding below an order-by-disorder transition.\n- **Same commonest defect.** The basic defects are half-vortices, each carrying a \u03c0 winding of the spiral wave vector together with a \u03c0 rotation of the spin frame. A \u03c0 winding is half a turn, which matches your wave-vector winding of 0.5.\n- **Same order-parameter space.** It is [U(1)\u00d7SO(3)]/\u2124\u2082, where reversing the spiral wave vector is equivalent to reversing the spiral-plane normal. Your rarer \"spin-frame-only\" defects (0.003 per site) fit the classification: For odd u the defects are fractional half-vortices (v = \u00b1i), while even u gives conventional or \u2124\u2082 vortices.\n- **Same temperature behaviour.** The simulations show these vortices are dense in the spiral-spin-liquid regime, and bind tightly below an order-by-disorder phase transition, eventually fusing to vacuum. That matches your dense defects at intermediate temperature (0.03 per site) and the sharp transition at T \u2248 0.027.\n\n**Earlier work behind it.**\n- Yan & Reuther, PRR 4, 023175 (2022), studied the XY-spin version. They showed that the local momentum vector field can carry topological defects in the form of vortices, with snapshots from Monte Carlo simulations of a 400\u00d7400 square lattice XY model with \u03b4 = 0.03. That version has only integer vortices.\n- The broad specific-heat hump followed by an order-by-disorder transition is standard spiral-spin-liquid behaviour (Bergman et al., Nature Physics 2007). In that work a broad spiral spin-liquid regime emerges at higher temperatures, and entropy-driven order sets in at lower temperature.\n\n**What I couldn't verify.** Your exact numbers (0.03, 0.003, 0.0268, 0.19) and the couplings J2 = 0.28, J3 = 0.14 are still unchecked against the paper. Those couplings were inferred by the first pass from \u03b4 = 0.03 and J3 = J2/2, not read from the paper. The quantities and orders of magnitude match qualitatively, and differences in numbers alone would not make this new.\n\n**Genuine or artifact?** It looks genuine. The two specific-heat features at different temperatures, the strong imbalance between half-vortices and spin-frame-only defects, and the half-turn winding are all consistent with what the theory predicts. None of it suggests random colouring, an inert field, numerical divergence or a frozen state.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Fractional half-vortices (pi momentum winding + pi spin-frame rotation) in a Heisenberg spiral spin liquid with [U(1)xSO(3)]/Z2 order-parameter space; dense in SSL regime, bound below order-by-disorder lattice-nematic transition\", \"citations\": [\"Glittum, Yan, Reuther, 'Fractional vortices in a spin-isotropic spiral spin liquid', arXiv:2609.15941 (2026); data at doi:10.5281/zenodo.23390512\", \"Yan & Reuther, 'Low-energy structure of spiral spin liquids', Phys. Rev. Research 4, 023175 (2022)\", \"Gonzalez, Fancelli, Yan, Reuther, Phys. Rev. B 110, 085106 (2024)\", \"Bergman et al., Nature Phys. 3, 487 (2007)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"high\", \"notes\": \"Upgraded from KNOWN-VARIANT to KNOWN. arXiv:2609.15941 reports Monte Carlo on a 200x200 square-lattice J1-J2-J3 Heisenberg model with delta=0.03, finding dense half-vortices (pi wave-vector winding) that bind below an order-by-disorder transition, plus a Z2/conventional defect class. This matches all the observed features. Exact numbers (0.03, 0.003, 0.0268, 0.19) not checked against the full text, which was read only via a machine review page; the couplings J2=0.28, J3=0.14 were inferred by the first pass, not confirmed. Pattern looks genuine, not an artifact.\"}\n```",
+ "checked": "2026-11-03 04:16:16"
+}

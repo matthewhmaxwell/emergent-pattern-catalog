@@ -1,0 +1,102 @@
+{
+ "class_id": "planted:N01",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Peskin / Mirollo-Strogatz globally pulse-coupled integrate-and-fire oscillators with linear charging and pulse eps=1/N (O'Keeffe-Krapivsky-Strogatz 'synchronization as aggregation' model), at the marginal non-concave case",
+ "citations": [
+  "O'Keeffe, Krapivsky, Strogatz, Phys. Rev. Lett. 115, 064101 (2015), doi:10.1103/PhysRevLett.115.064101",
+  "O'Keeffe, Phys. Rev. E 93, 032203 (2016), 'Transient dynamics of pulse-coupled oscillators with nonlinear charging curves'",
+  "Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)",
+  "Senn & Urbanczik, SIAM J. Appl. Math. 61, 1143 (2001)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "The model and how its clusters grow at large N are documented exactly. The twist I could not find in the literature is the finite-N endgame: non-sync outcomes with positive probability; neutral final states made only of equal-sized groups whose size divides N (9 states at N=100 = 9 divisors of 100); prime N almost always syncing; and even-N failure of about 0.6/N, mainly from two halves of size N/2. My own elementary calculation (not from a source) explains this: two unequal groups a,b drift by (a-b)/N per cycle, so only equal groups can coexist, and straight-line charging (concavity b=0) is the boundary where the Mirollo-Strogatz proof fails. The twist is real but disappears with any curvature or pulse > 1/N. I could not read the PRL supplement, which might cover part of this.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "O'Keeffe Krapivsky Strogatz synchronization as aggregation cluster kinetics pulse-coupled oscillators"
+  },
+  {
+   "query": "pulse-coupled oscillators linear charging finite N probability of synchrony divisors of N equal clusters"
+  },
+  {
+   "query": "Mathar Mattfeldt pulse-coupled decentral synchronization linear oscillators"
+  },
+  {
+   "query": "Peskin model linear charging pulse 1/N finite N failure to synchronize stable cluster states probability"
+  },
+  {
+   "query": "Senn Urbanczik similar nonleaky integrate-and-fire neurons with instantaneous couplings always synchronize"
+  },
+  {
+   "query": "non-leaky integrate-and-fire identical oscillators global coupling final cluster states equal size divisors of N number theory"
+  },
+  {
+   "query": "\"scrambler oscillators\" or Peskin linear \"1/N\" probability not reaching full synchrony finite size"
+  },
+  {
+   "query": "O'Keeffe Krapivsky Strogatz supplemental material Peskin model linear charging cluster sizes double endgame"
+  },
+  {
+   "query": "Mirollo Strogatz 1990 two oscillators linear f neutrally stable return map synchrony not achieved concave down required"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/26296117/",
+  "https://www.stevenstrogatz.com/articles/category/2015",
+  "https://pubs.aip.org/aip/cha/article-abstract/33/3/033102/2881133/Percolation-critical-exponents-in-cluster-kinetics?redirectedFrom=fulltext",
+  "https://academic.oup.com/pnasnexus/article/2/4/pgad102/7086391",
+  "http://data.bettstetter.com/publications/okeeffe-2019-spie-swarmalators-109822E.pdf",
+  "https://onlinelibrary.wiley.com/doi/full/10.1155/2017/8017138",
+  "https://www.biorxiv.org/content/10.1101/2024.01.29.577856v1.full",
+  "https://pubs.aip.org/aip/cha/article-abstract/27/5/053103/135071/Isochronous-dynamics-in-pulse-coupled-oscillator?redirectedFrom=fulltext",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://scala.uc3m.es/publications_MANS/PDF/finalKura.pdf",
+  "https://steven-strogatz.squarespace.com/s/synchronization-as-aggregation.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/27078340/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.032203",
+  "https://link.springer.com/chapter/10.1007/978-3-642-03156-4_5",
+  "https://pubmed.ncbi.nlm.nih.gov/24324322/",
+  "https://mobile.aau.at/publications/klinglmayr-2010-ISABEL-inhibitory.pdf",
+  "http://data.bettstetter.com/publications/okeeffe-2019-spie-swarmalators-109822E.pdf",
+  "https://link.springer.com/chapter/10.1007/978-3-319-26630-5_1",
+  "https://www.tandfonline.com/doi/full/10.1080/21642583.2018.1496043",
+  "https://data.bettstetter.com/publications/tyrrell-2008-bionetics-firefly.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/24324321/",
+  "https://par.nsf.gov/servlets/purl/10229105",
+  "https://pubs.aip.org/aip/cha/article/35/2/023150/3336500/Global-synchronization-theorem-for-coupled",
+  "https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2014.00008/pdf",
+  "https://pdodds.w3.uvm.edu/files/papers/others/1993/strogatz1993a.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4161966/",
+  "https://dblp.org/pid/60/6238.html",
+  "https://link.springer.com/article/10.1007/s00422-006-0082-8",
+  "https://eudml.org/doc/197622",
+  "https://link.springer.com/article/10.1007/s11538-008-9311-8",
+  "https://link.springer.com/article/10.1007/s11538-011-9674-0",
+  "https://www.cambridge.org/core/journals/mathematical-modelling-of-natural-phenomena/article/abs/dynamics-of-stochastic-neuronal-networks-and-the-connections-torandom-graph-theory/F300C0C6B34AA2205F5A33F2E8B098F7",
+  "https://www.deepdyve.com/lp/springer-journals/a-review-of-the-integrate-and-fire-neuron-model-ii-inhomogeneous-PtRMTpHa4W",
+  "https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/neuro.10.002.2008/full",
+  "https://neurotree.org/beta/publications.php?pid=61034",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022207",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://pubmed.ncbi.nlm.nih.gov/19045496/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.057201",
+  "https://scala.uc3m.es/publications_MANS/PDF/finalKura.pdf",
+  "https://www.nature.com/articles/s41598-019-46345-y",
+  "https://link.aps.org/accepted/10.1103/PhysRevE.93.032203",
+  "https://static1.squarespace.com/static/5436e695e4b07f1e91b30155/t/55c69b23e4b0bc58bd0c86b4/1439079203040/synchronization-as-aggregation.pdf",
+  "https://www.scribd.com/document/332846958/Peskin-Chapter-4",
+  "http://www.scholarpedia.org/article/Pulse_coupled_oscillators",
+  "https://sites.me.ucsb.edu/~mjfield/research/networks/sync/index_files/mirollo-strogatz.pdf",
+  "https://www.sciencedirect.com/topics/engineering/coupled-oscillator-model",
+  "https://www.clear.rice.edu/comp551/papers/MirolloStrogatz-TemporalSynchronization-SIAM1990.pdf",
+  "https://www.ams.org/publicoutreach/feature-column/gll-test"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass. The model is a documented one. What I couldn't find described is how finite systems end up: the specific final cluster states and the failure probabilities. Those look real rather than an artifact, but they come almost directly from the fact that straight-line charging is a borderline case.\n\n**The model is documented exactly.** O'Keeffe, Krapivsky and Strogatz (PRL 115, 064101, 2015) apply aggregation theory to the deterministic Peskin model, assuming the oscillators rise linearly to threshold and fire pulses of size 1/N, where N \u226b 1. In that model, when a cluster of size j fires it adds a voltage pulse j\u03b5 to every other oscillator, which is your rules 3 and 4. Their companion paper (PRE 93, 032203, 2016) extends this to curved charging. It notes that clusters can never break apart because the oscillators are identical and all receive the same number of pulses, which explains why your groupings only ever merge. These papers cover how clusters grow in very large systems. They do not cover how small systems finish.\n\n**Why full sync isn't guaranteed here.** The Mirollo\u2013Strogatz proof needs a charging curve that is smooth, monotonic increasing, and concave down, and they introduce a parameter b that measures the extent to which f is concave down. Straight-line charging (b = 0) sits on the boundary where the proof stops working. The PRE paper's own text says full sync is shown for \u03b3 > 0 and pulse size > 1/N, which is exactly not your case. A separate result proves synchronization for similar but not identical straight-line oscillators (Urbanczik and Senn (2001)). So it is known that identical straight-line oscillators with pulse 1/N are a delicate case.\n\n**The twist I couldn't find described:**\n- Runs fail to fully synchronize with a positive probability at finite N.\n- The only possible final states are equal-sized groups whose size divides N. Your 9 states at N=100 match the 9 divisors of 100 exactly.\n- Prime N almost always synchronizes (0.99968 at N=5), while even N fails at about 0.6/N.\n\nA quick calculation of my own (not from a source) explains all three. Take two groups of sizes a and b. Each full cycle, their relative offset shifts by (a\u2212b)/N. Unequal groups therefore keep drifting until one absorbs the other. Equal groups don't drift at all, so each neutral final state is a set of equal groups, one for each divisor of N. For even N, the main way to fail is two halves of size N/2 that never merge. For prime N, the only alternative to full sync is all N oscillators firing separately, which needs very wide spacing and is rare. The two-oscillator version of this neutral behaviour is implied by the Mirollo\u2013Strogatz concavity condition. I found no paper that works out the general N-group picture or the failure numbers.\n\n**Does the twist matter? Only somewhat.** It is a correct, number-theoretic description of a borderline case. However, it relies on the charging being exactly straight and the pulse being exactly 1/N. Any curvature (b > 0) or any pulse larger than 1/N brings back guaranteed sync, so the effect disappears under small changes. Two caveats: I couldn't read the PRL supplement, which might mention some of this, and the 0.6 prefactor and the prime/even difference are not confirmed by any source.\n\n**Genuine or artifact?** Genuine. These are real, neutrally stable repeating states of the exact rules, not numerical blow-up or random colouring. One thing to check: the rule that 1 *or above* joins the firing group matters for perfectly evenly spaced starts, but those occur with probability zero.\n\n**Searches run:** the O'Keeffe/Krapivsky/Strogatz aggregation papers and supplement; finite-N cluster states and divisors; Mathar\u2013Mattfeldt; Senn\u2013Urbanczik; Mirollo\u2013Strogatz's linear/neutral case; cluster-state attractors in integrate-and-fire networks.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Peskin / Mirollo-Strogatz globally pulse-coupled integrate-and-fire oscillators with linear charging and pulse eps=1/N (O'Keeffe-Krapivsky-Strogatz 'synchronization as aggregation' model), at the marginal non-concave case\", \"citations\": [\"O'Keeffe, Krapivsky, Strogatz, Phys. Rev. Lett. 115, 064101 (2015), doi:10.1103/PhysRevLett.115.064101\", \"O'Keeffe, Phys. Rev. E 93, 032203 (2016), 'Transient dynamics of pulse-coupled oscillators with nonlinear charging curves'\", \"Mirollo & Strogatz, SIAM J. Appl. Math. 50, 1645 (1990)\", \"Senn & Urbanczik, SIAM J. Appl. Math. 61, 1143 (2001)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"The model and how its clusters grow at large N are documented exactly. The twist I could not find in the literature is the finite-N endgame: non-sync outcomes with positive probability; neutral final states made only of equal-sized groups whose size divides N (9 states at N=100 = 9 divisors of 100); prime N almost always syncing; and even-N failure of about 0.6/N, mainly from two halves of size N/2. My own elementary calculation (not from a source) explains this: two unequal groups a,b drift by (a-b)/N per cycle, so only equal groups can coexist, and straight-line charging (concavity b=0) is the boundary where the Mirollo-Strogatz proof fails. The twist is real but disappears with any curvature or pulse > 1/N. I could not read the PRL supplement, which might cover part of this.\"}\n```",
+ "checked": "2026-11-03 02:52:21"
+}

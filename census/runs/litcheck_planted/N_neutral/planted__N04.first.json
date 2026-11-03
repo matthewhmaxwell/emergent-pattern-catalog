@@ -1,0 +1,92 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "chiral/odd active matter: 2D solid with non-reciprocal transverse pair forces (KTHNY melting extended to odd Cosserat solids), Gay-Berne-type anisotropic LJ particles with Brownian dynamics",
+ "standard_name": "reentrant crystallization / topological instability (negative dislocation core energy) in odd (chiral) active solids",
+ "confidence": "medium",
+ "citations": [
+  "arXiv:2609.09500 (authors/venue not retrieved; read only via Pith machine review), 'Topological instability and reentrant crystallization in active solids' - odd Cosserat KTHNY theory plus Gay-Berne chiral active solid MD showing T=0 defect proliferation at threshold activity and reentrant crystallization at higher activity",
+  "Bililign, Balboa Usabiaga, Ganan, Poncet, Soni, Magkiriadou, Shelley, Bartolo, Irvine 2022, Nature Physics 18, 212-218 - transverse forces make odd crystals with motile dislocations and whorl polycrystals (order destroyed; no reentrance)",
+  "PNAS 2025, doi 10.1073/pnas.2412993122, 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' (authors not retrieved) - dislocation gliding/fission destroys order under odd forces",
+  "Tiwari, Arora et al. 2026, Nature Communications, doi 10.1038/s41467-026-68510-4, 'Reentrant melting of scarred odd crystals by self-shear' - reentrant melting in odd crystals via a different (confinement/self-shear) mechanism"
+ ],
+ "searches": [
+  "2D crystal transverse non-conservative pair force elliptical particles Brownian dynamics reentrant order melting",
+  "odd interactions chiral active matter 2D solid melting hexatic defects restored order high activity",
+  "Gay-Berne ellipse transverse force odd solid melting simulation",
+  "Topological instability and reentrant crystallization in active solids",
+  "odd interactions Lennard-Jones transverse force Brownian dynamics 2D solid melting hexatic",
+  "chiral active solid reentrant crystallization nonreciprocal transverse forces KTHNY",
+  "arXiv topological instability reentrant crystallization active solids odd Cosserat Gay-Berne",
+  "Bililign Motile dislocations knead odd crystals into whorls authors"
+ ],
+ "notes": "The main supporting source is a machine-generated Pith summary of a very recent arXiv preprint (ID 2609.09500, authors not retrieved). I could not read the paper itself, so the exact match of force definitions, parameters and the specific numbers (e_a/e_p=2, 33; T=4.25, 6) is unverified. Its stated assumption that non-reciprocal forces act only on the pair's centre of mass was not checked against this system's pair force. No peer-reviewed review covering reentrant order in odd solids was found.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "2D crystal transverse non-conservative pair force elliptical particles Brownian dynamics reentrant order melting"
+  },
+  {
+   "query": "odd interactions chiral active matter 2D solid melting hexatic defects restored order high activity"
+  },
+  {
+   "query": "Gay-Berne ellipse transverse force \"odd\" solid melting simulation spinning swirling"
+  },
+  {
+   "query": "Topological instability and reentrant crystallization in active solids"
+  },
+  {
+   "query": "odd interactions Lennard-Jones transverse force Brownian dynamics 2D solid melting temperature hexatic order parameter ellipse particles"
+  },
+  {
+   "query": "chiral active solid reentrant crystallization nonreciprocal transverse forces KTHNY"
+  },
+  {
+   "query": "arXiv topological instability reentrant crystallization active solids odd Cosserat Gay-Berne dislocation core energy"
+  },
+  {
+   "query": "Bililign Motile dislocations knead odd crystals into whorls Nature Physics 2022 authors"
+  }
+ ],
+ "result_urls": [
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9705321/",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://www.nature.com/articles/s41598-022-24988-8",
+  "https://pith.science/paper/2609.09500",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11497608/",
+  "https://www.nature.com/articles/s41467-018-07491-5",
+  "https://sites.lsa.umich.edu/shankar-lab/wp-content/uploads/sites/1188/2020/10/Shankar_PRX2019.pdf",
+  "https://link.springer.com/chapter/10.1007/3-540-35284-8_9",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4795799/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0151704",
+  "https://pith.science/paper/2609.09500",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.nature.com/articles/s41467-024-46520-4",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://link.aps.org/pdf/10.1103/PhysRevResearch.2.012040",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.83.214108",
+  "https://iopscience.iop.org/article/10.1088/1742-6596/510/1/012016/pdf",
+  "https://www.bohrium.com/paper-details/phase-behavior-of-lennard-jones-particles-in-two-dimensions/812534289592745984-565",
+  "https://pith.science/paper/2609.09500",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae4f19",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2219385121",
+  "https://pith.science/paper/2609.09500",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://infoscience.epfl.ch/entities/publication/0689cd29-df19-4984-8336-87c9d4ec58ff",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://www.nature.com/nphys/volumes/18/issues/2",
+  "https://ui.adsabs.harvard.edu/abs/2022NatPh..18..212B/abstract",
+  "https://irvinelab.uchicago.edu/publications.htm",
+  "https://www.proquest.com/scholarly-journals/motile-dislocations-knead-odd-crystals-into/docview/2628410752/se-2",
+  "https://bird.bcamath.org/handle/20.500.11824/1407?show=full&locale-attribute=en"
+ ],
+ "full_text": "**Verdict: KNOWN, with medium confidence.** The behaviour is a nonequilibrium two-dimensional solid that is disordered at zero temperature at moderate transverse activity, and whose order returns (\"reentrant crystallization\") at higher activity. I found one recent preprint that appears to describe this very system. I could only read a machine-generated summary of it, not the paper.\n\n**1. Model family.** This is chiral or \"odd\" active matter: a 2D solid with non-reciprocal, transverse pairwise forces, in the odd-elasticity and nonreciprocal-solid literature. The passive part is a Gay-Berne-type anisotropic Lennard-Jones solid. The active part is a pairwise force perpendicular to the line joining two particles, always in the same rotational sense. This is the \"odd\" or spinner-type interaction. The relevant theory is KTHNY defect-mediated melting extended to odd, Cosserat (orientation-coupled) solids.\n\n**2. Specific behaviour and sources.**\n- **Closest match (preprint, not peer-reviewed as far as I could see):** \"Topological instability and reentrant crystallization in active solids\", arXiv:2609.09500. I read only its Pith machine review, and I could not retrieve the authors or venue.\n  - At a threshold non-reciprocity the dislocation core energy goes negative, and defect pairs proliferate even at zero temperature.\n  - At still higher activity the model predicts reentrant crystallization.\n  - Quasi-long-range order survives even at temperatures where the equilibrium crystal would melt.\n  - Molecular dynamics of a chiral active solid with Gay-Berne interactions is reported to support the phase diagram qualitatively.\n  - This matches all four observed features: disorder at T=0 (e_a/e_p \u2248 2), order restored at high activity (\u224833), and that high-activity solid staying ordered at T=6 where the passive solid is already molten. It likely also matches the passive partial melting at T\u22484.25.\n  - The summary also says non-reciprocal forces act only on the pair's centre of mass, not on its binding coordinate. I have not checked whether that assumption matches the pair force in your system.\n- **Earliest clear related source (readable, peer-reviewed):** Bililign, Balboa Usabiaga, Ganan, Poncet, Soni, Magkiriadou, Shelley, Bartolo, Irvine (2022), \"Motile dislocations knead odd crystals into whorls\", *Nature Physics* 18, 212\u2013218 (arXiv:2102.03263). Transverse forces organize colloidal spinners into odd elastic crystals crisscrossed by motile dislocations, forming a polycrystal of grains. This establishes that transverse pair forces destroy crystalline order through motile dislocations. It does not show reentrance.\n- **Related and recent:** The PNAS paper \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals\" (PNAS, 2025, DOI 10.1073/pnas.2412993122). I could not retrieve its author list. A dislocation glides, then splits into a pair, and the proliferation destroys the initial crystal order.\n- **Related but a different mechanism:** Tiwari, Arora, et al. (2026), \"Reentrant melting of scarred odd crystals by self-shear\", *Nature Communications*, DOI 10.1038/s41467-026-68510-4. It reports a chiral activity-mediated reentrant melting transition in confined spinners. That is melting\u2013recrystallization driven by odd radial stresses at fixed density, not the same mechanism.\n- **Reviews:** I did not find a review that covers reentrance. The nearest is \"Emergent phenomena in chiral active matter\" (*Nanoscale/NSO*, 2024). It covers destabilisation of active crystals by non-reciprocal transverse forces, and I did not see reentrant order in it. I did not verify its authors.\n\n**3. Citation verification.** The title, authors, year and venue of Bililign et al. were checked against the EPFL Infoscience, ADS and Nature pages. The Tiwari et al. title, DOI and year were checked on Nature and PMC. For arXiv:2609.09500 I only have the title, keywords and the machine summary on Pith. The ID's \"2609\" prefix would put it in September 2026, which is consistent with the \"53 days ago\" age shown. Its authors and acceptance status are unverified.\n\n**4. Verdict reasoning.** The mechanism (negative dislocation core energy at a threshold activity, then reentrant order) is described for a Gay-Berne chiral active solid, which is this system or a near-equivalent. I did not choose KNOWN-VARIANT because the summary's description matches the setup so closely. The caveat is that the evidence is a machine-generated summary of a very recent preprint. I could not check its parameters (ellipticity, density 0.87, e_a/e_p range up to 33, T range up to 6). I also could not confirm that the force definitions match.\n\n**5. Confidence: medium.** The qualitative behaviour is clearly reported. The exact system and numbers are unconfirmed because I could not read the primary text.\n\n**Searches run:**\n- 2D crystal transverse non-conservative pair force, elliptical particles, Brownian dynamics, reentrant order\n- odd interactions chiral active matter 2D solid melting, hexatic, restored order\n- Gay-Berne ellipse transverse force odd solid melting\n- Topological instability and reentrant crystallization in active solids\n- odd interactions Lennard-Jones transverse force Brownian dynamics 2D solid melting\n- chiral active solid reentrant crystallization nonreciprocal KTHNY\n- arXiv topological instability reentrant crystallization odd Cosserat Gay-Berne\n- Bililign Motile dislocations knead odd crystals into whorls authors\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"chiral/odd active matter: 2D solid with non-reciprocal transverse pair forces (KTHNY melting extended to odd Cosserat solids), Gay-Berne-type anisotropic LJ particles with Brownian dynamics\", \"standard_name\": \"reentrant crystallization / topological instability (negative dislocation core energy) in odd (chiral) active solids\", \"confidence\": \"medium\", \"citations\": [\"arXiv:2609.09500 (authors/venue not retrieved; read only via Pith machine review), 'Topological instability and reentrant crystallization in active solids' - odd Cosserat KTHNY theory plus Gay-Berne chiral active solid MD showing T=0 defect proliferation at threshold activity and reentrant crystallization at higher activity\", \"Bililign, Balboa Usabiaga, Ganan, Poncet, Soni, Magkiriadou, Shelley, Bartolo, Irvine 2022, Nature Physics 18, 212-218 - transverse forces make odd crystals with motile dislocations and whorl polycrystals (order destroyed; no reentrance)\", \"PNAS 2025, doi 10.1073/pnas.2412993122, 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' (authors not retrieved) - dislocation gliding/fission destroys order under odd forces\", \"Tiwari, Arora et al. 2026, Nature Communications, doi 10.1038/s41467-026-68510-4, 'Reentrant melting of scarred odd crystals by self-shear' - reentrant melting in odd crystals via a different (confinement/self-shear) mechanism\"], \"searches\": [\"2D crystal transverse non-conservative pair force elliptical particles Brownian dynamics reentrant order melting\", \"odd interactions chiral active matter 2D solid melting hexatic defects restored order high activity\", \"Gay-Berne ellipse transverse force odd solid melting simulation\", \"Topological instability and reentrant crystallization in active solids\", \"odd interactions Lennard-Jones transverse force Brownian dynamics 2D solid melting hexatic\", \"chiral active solid reentrant crystallization nonreciprocal transverse forces KTHNY\", \"arXiv topological instability reentrant crystallization active solids odd Cosserat Gay-Berne\", \"Bililign Motile dislocations knead odd crystals into whorls authors\"], \"notes\": \"The main supporting source is a machine-generated Pith summary of a very recent arXiv preprint (ID 2609.09500, authors not retrieved). I could not read the paper itself, so the exact match of force definitions, parameters and the specific numbers (e_a/e_p=2, 33; T=4.25, 6) is unverified. Its stated assumption that non-reciprocal forces act only on the pair's centre of mass was not checked against this system's pair force. No peer-reviewed review covering reentrant order in odd solids was found.\"}\n```",
+ "checked": "2026-11-03 03:58:51"
+}

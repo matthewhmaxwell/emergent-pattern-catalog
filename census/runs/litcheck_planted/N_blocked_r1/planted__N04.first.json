@@ -1,0 +1,76 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "chiral active matter / odd interactions (Brownian particles with transverse non-conservative pair forces), 2D melting",
+ "standard_name": "chiral Lennard-Jones solid: transverse-force (odd) melting of a 2D crystal, with chirality-induced reentrant ordering",
+ "confidence": "low",
+ "citations": [
+  "Caporusso, Gonnella, Levis 2024, Phys. Rev. Lett. 132, 168201 - chiral LJ Brownian disks with transverse force; chirality breaks the solid into rotating hexatic patches",
+  "Reentrant melting of scarred odd crystals by self-shear, 2026, Nature Communications - chiral-activity-mediated reentrant melting in spinner crystals (different mechanism and control parameter)",
+  "Jeong, Kuroda, Asatani, Kawasaki, Miyazaki 2025, Phys. Rev. Research - re-entrant melting/crystallization in chiral active Brownian particles (circle-swimmers, not transverse pair forces)",
+  "Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS 2025 - odd vs nonreciprocal forces in melting crystals",
+  "Modeling chiral active particles: from circular motion to odd interactions, J. Stat. Mech. 2026 - review of transverse/odd interaction models"
+ ],
+ "searches": [
+  "transverse non-conservative pair force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics",
+  "odd interactions chiral active solid melting re-entrant crystallization transverse pairwise forces hexatic",
+  "chiral Lennard-Jones fluid transverse force Brownian disks solid melting rotating hexatic patches",
+  "anisotropic Gay-Berne ellipsoid particles transverse nonconservative force active solid reentrant order high activity",
+  "melting of chiral active crystal transverse forces Lennard-Jones solid disordered then ordered again strong chirality",
+  "elliptical particles orientation-dependent Lennard-Jones odd transverse interaction spinning colloids 2D crystal defects temperature"
+ ],
+ "notes": "Only abstracts and snippets were read. The activity-disordered solid is covered by Caporusso et al. 2024 for disks. No source was found for the ellipse variant, or for a high-activity solid (e_a/e_p ~33) that stays ordered up to T=6, above the passive partial-melting temperature of 4.25. The re-entrant restoration is likely related to known chiral re-entrance but I could not confirm it for this exact model.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "transverse non-conservative pair force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics"
+  },
+  {
+   "query": "odd interactions chiral active solid melting re-entrant crystallization transverse pairwise forces hexatic"
+  },
+  {
+   "query": "chiral Lennard-Jones fluid transverse force Brownian disks solid melting rotating hexatic patches authors Physical Review Letters 2024"
+  },
+  {
+   "query": "anisotropic Gay-Berne ellipsoid particles transverse nonconservative force active solid reentrant order high activity"
+  },
+  {
+   "query": "melting of chiral active crystal transverse forces Lennard-Jones solid disordered then ordered again at strong chirality Caporusso Levis"
+  },
+  {
+   "query": "elliptical particles orientation-dependent Lennard-Jones odd transverse interaction spinning colloids 2D crystal defects temperature"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.35.6933",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://pubmed.ncbi.nlm.nih.gov/41545359/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://opus.bibliothek.uni-augsburg.de/opus4/frontdoor/deliver/index/docId/103896/file/103896.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.106.024609",
+  "https://www.pnas.org/doi/10.1073/pnas.1720607115",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016773222200229X",
+  "https://www.nature.com/articles/s42005-024-01674-x",
+  "https://docs.openmm.org/7.4.0/api-c++/generated/OpenMM.GayBerneForce.html",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://uniba-it.academia.edu/ClaudioCaporusso",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://journals.aps.org/pre/abstract/10.1103/k8vq-dw2w",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://www.osti.gov/pages/servlets/purl/1802508",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10939095/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6331558/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium-low confidence.** The closest published system is the chiral Lennard-Jones fluid of Brownian disks. Two things are not confirmed: the ellipse-shaped particles, and the return of order at very large e_a/e_p. I read abstracts and snippets only, not full texts.\n\n**1. Model family.** This is chiral active matter with \"odd\" interactions, a branch of active matter and non-equilibrium statistical physics. Each pair feels a Lennard-Jones force plus a non-conservative force perpendicular to the line joining the pair, with a fixed sense of rotation. It models spinning colloids. The particles are slightly anisotropic, with an orientation-dependent Gay-Berne-like potential. Melting is measured by hexatic (six-fold) order \u03c86 and defect counts, as in KTHNY-type 2D melting.\n\n**2. Closest literature.**\n- **Caporusso, Gonnella and Levis (2024).** *Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid*, Phys. Rev. Lett. 132, 168201. It uses Brownian disks with a Lennard-Jones potential plus a nonconservative transverse force. Chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches. This is the earliest clear source I found for the effect your simulation shows at the start of the sweep: a crystal disordered by transverse forces. Its thesis summary says chirality modifies both liquid-gas coexistence and fluid-solid transitions.\n- **Review.** *Modeling chiral active particles: from circular motion to odd interactions*, J. Stat. Mech. (IOP, 2026). It describes effective transverse forces, acting perpendicular to the line connecting the centers of two interacting particles, referred to as odd interactions.\n- **Related: Melting of nonreciprocal solids** (PNAS, 2025; the DOI is 10.1073/pnas.2412993122). It treats odd/transverse forces and contrasts them with nonreciprocal melting. It says transverse interactions cannot compete with elastic forces to fission isolated topological defects, so odd crystals fragment by a different route.\n- **Related: Reentrant melting of scarred odd crystals by self-shear** (Nature Communications, 2026; PubMed 41545359). It reports a chiral activity-mediated reentrant melting transition in spinner crystals. The tuning parameter is the spinner handedness ratio, and the mechanism is edge shear in confined systems, so it is not the same as yours.\n- **Related: Crystallization of chiral active Brownian particles at low densities** (Jeong et al., Phys. Rev. Research, 2025). It finds a re-entrant melting transition as a function of the radius of the circles. These are circle-swimmers, not transverse pair forces.\n\n**3. What is and isn't covered.**\n- **Covered:** a passive solid that melts in two steps, a crystal broken by transverse forces at e_a/e_p \u2248 2 even at T = 0, and order returning at large chirality, which resembles known re-entrance in chiral systems.\n- **Not found, so treat as unconfirmed:**\n  - A source with ellipse-shaped or Gay-Berne particles combined with a transverse force.\n  - A source showing the high-activity solid (e_a/e_p \u2248 33) staying ordered up to T = 6, which is above the passive partial-melting temperature of 4.25.\n- **Likely mechanism:** very strong transverse forces probably make the lattice rotate or flow coherently. That would give re-entrant order, as in the reentrant-melting and crystallization papers above. I haven't verified this for pair-force systems.\n- **Does the shape matter?** Elongation adds orientational degrees of freedom, so it probably shifts the thresholds. It may change the quantitative picture, though not the qualitative one.\n\n**Searches run:**\n- transverse non-conservative pair force Lennard-Jones elliptical particles 2D solid melting reentrant order\n- odd interactions chiral active solid melting re-entrant crystallization\n- chiral Lennard-Jones fluid authors (verified PRL citation)\n- anisotropic Gay-Berne transverse force reentrant order\n- melting of chiral active crystal transverse forces, Caporusso/Levis\n- elliptical particles orientation-dependent LJ odd transverse interaction spinning colloids\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"chiral active matter / odd interactions (Brownian particles with transverse non-conservative pair forces), 2D melting\", \"standard_name\": \"chiral Lennard-Jones solid: transverse-force (odd) melting of a 2D crystal, with chirality-induced reentrant ordering\", \"confidence\": \"low\", \"citations\": [\"Caporusso, Gonnella, Levis 2024, Phys. Rev. Lett. 132, 168201 - chiral LJ Brownian disks with transverse force; chirality breaks the solid into rotating hexatic patches\", \"Reentrant melting of scarred odd crystals by self-shear, 2026, Nature Communications - chiral-activity-mediated reentrant melting in spinner crystals (different mechanism and control parameter)\", \"Jeong, Kuroda, Asatani, Kawasaki, Miyazaki 2025, Phys. Rev. Research - re-entrant melting/crystallization in chiral active Brownian particles (circle-swimmers, not transverse pair forces)\", \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS 2025 - odd vs nonreciprocal forces in melting crystals\", \"Modeling chiral active particles: from circular motion to odd interactions, J. Stat. Mech. 2026 - review of transverse/odd interaction models\"], \"searches\": [\"transverse non-conservative pair force Lennard-Jones elliptical particles 2D solid melting reentrant order Brownian dynamics\", \"odd interactions chiral active solid melting re-entrant crystallization transverse pairwise forces hexatic\", \"chiral Lennard-Jones fluid transverse force Brownian disks solid melting rotating hexatic patches\", \"anisotropic Gay-Berne ellipsoid particles transverse nonconservative force active solid reentrant order high activity\", \"melting of chiral active crystal transverse forces Lennard-Jones solid disordered then ordered again strong chirality\", \"elliptical particles orientation-dependent Lennard-Jones odd transverse interaction spinning colloids 2D crystal defects temperature\"], \"notes\": \"Only abstracts and snippets were read. The activity-disordered solid is covered by Caporusso et al. 2024 for disks. No source was found for the ellipse variant, or for a high-activity solid (e_a/e_p ~33) that stays ordered up to T=6, above the passive partial-melting temperature of 4.25. The re-entrant restoration is likely related to known chiral re-entrance but I could not confirm it for this exact model.\"}\n```",
+ "checked": "2026-11-03 02:30:02"
+}

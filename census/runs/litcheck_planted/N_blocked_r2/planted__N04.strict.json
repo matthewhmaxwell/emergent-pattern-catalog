@@ -1,0 +1,103 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Odd/transverse-force (chiral Lennard-Jones) melting of a 2D crystal into rotating hexatic patches, on top of KTHNY two-step passive melting",
+ "citations": [
+  "Caporusso, Gonnella, Levis, Phys. Rev. Lett. 132, 168201 (2024) - Phase coexistence and edge currents in the chiral Lennard-Jones fluid",
+  "Bililign et al., Nature Physics (2021) - Motile dislocations knead odd crystals into whorls",
+  "Braverman et al., PNAS 122 (2025) doi:10.1073/pnas.2412993122 - Melting of nonreciprocal solids",
+  "Reentrant melting of scarred odd crystals by self-shear, Nat. Commun. (2026) s41467-026-68510-4",
+  "Crystallization of chiral active Brownian particles at low densities, Phys. Rev. Research (2025) doi:10.1103/yntx-ss9r",
+  "Frenkel & McTague, PRL 42, 1632 (1979) - 2D LJ hexatic"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Melting of the solid by transverse forces (disordered at e_a/e_p~2 even at T=0) and the passive hexatic at T~4.25 are documented. Twist: crystalline order returning at e_a/e_p~33 and T=6, above the passive hexatic temperature, was not found in the literature. It is suspicious, probably caused by huge per-step forces in overdamped integration (timestep), a rigidly rotating or jammed state, or an order-parameter artefact. Treat it as unverified until checked with a smaller timestep, different system sizes, mean-squared displacement and overlap checks. The particle anisotropy (ellipses with half-axes 0.55/0.65) seems to change details only, not the phenomenology.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "transverse non-conservative pair force Lennard-Jones 2D melting reentrant crystal odd interactions"
+  },
+  {
+   "query": "odd transverse interactions two-dimensional solid melting defects self-kneading Brownian particles"
+  },
+  {
+   "query": "\"transverse forces\" active solid 2D hexatic re-entrant crystalline order high activity anisotropic particles"
+  },
+  {
+   "query": "anisotropic Lennard-Jones ellipses transverse active force two-dimensional melting reentrant order simulation"
+  },
+  {
+   "query": "odd interactions Lennard-Jones Brownian particles crystal melting reentrant crystallization strong oddness"
+  },
+  {
+   "query": "chiral active solid transverse force anisotropic particles activity-induced reordering crystal at large activity high temperature six-fold order"
+  },
+  {
+   "query": "chiral Lennard-Jones fluid transverse forces phase diagram melting solid Caporusso Gonnella Levis"
+  },
+  {
+   "query": "odd transverse forces enhance crystalline order \"odd\" crystal stabilization strong transverse force 2D simulation hexatic"
+  },
+  {
+   "query": "elliptical particles odd interactions anisotropic potential transverse force phase diagram activity temperature reentrant solid"
+  },
+  {
+   "query": "strong odd transverse interactions recrystallization reentrant hexatic solid Brownian simulation \"odd\" forces non-monotonic bond order"
+  }
+ ],
+ "result_urls": [
+  "https://www.science.gov/topicpages/l/lennard-jones+potential",
+  "https://link.springer.com/article/10.1134/S0021364013060106",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://pubmed.ncbi.nlm.nih.gov/40215281/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/126/56002",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.111.014105",
+  "https://pubmed.ncbi.nlm.nih.gov/41545359/",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.83.214108",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.52.449",
+  "https://ouci.dntb.gov.ua/en/works/O4EkkNq9/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.42.1632",
+  "https://iopscience.iop.org/article/10.1088/1742-6596/510/1/012016/pdf",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.1813885116",
+  "https://link.springer.com/article/10.1134/S0021364013060106",
+  "https://pubmed.ncbi.nlm.nih.gov/39972852/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "http://labs.cas.usf.edu/softmattertheory/papers/PhysRevE.109.044604.pdf",
+  "https://link.aps.org/doi/10.1103/yntx-ss9r",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.L012048",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/ac8f69",
+  "https://www.nature.com/articles/ncomms1803",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7435481/",
+  "https://www.sciencedirect.com/science/article/pii/S000926141000446X",
+  "https://pure.uva.nl/ws/files/2199981/29999_3595309057smi922.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10869719/",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.131.108301",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://pubmed.ncbi.nlm.nih.gov/41105709/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8979978/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/add366",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6361910/",
+  "https://www.nature.com/articles/s42005-023-01172-6",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0199459",
+  "https://www.nature.com/articles/s41598-018-36824-z",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8630027/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7951849"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The main behaviour is documented: a transverse (odd) pair force melts a 2D crystal. The one new-looking feature is that order comes back at e_a/e_p \u2248 33 and T = 6. I couldn't find that described, and I think it is more likely a numerical artefact than a real effect. I partly agree with the first pass, but I put less trust in the order-restoration result than it did.\n\n**What is documented**\n- **The closest match is the \"chiral Lennard-Jones fluid\".** This is Brownian particles with Lennard-Jones forces plus a transverse pair force (Caporusso, Gonnella & Levis, PRL 132, 168201, 2024). The abstract says \"Chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches.\" That matches the observation that the solid is disordered even at T=0 once e_a/e_p \u2248 2. I only read the abstract.\n- **Transverse forces are known to destabilise crystals.** Transverse forces organize colloidal spinners into odd elastic crystals crisscrossed by motile dislocations, and both odd and Hall stresses can destabilize odd elastic crystals (Bililign et al., Nature Physics). Braverman et al. (PNAS 2025) use pairwise transverse forces with a shared conservative repulsion. They find odd crystals break up through interacting moving dislocations, and note that transverse interactions cannot compete with elastic forces to fission isolated topological defects. I did not check either paper's author list beyond what the search results showed.\n- **Order that drops and then returns as chiral activity grows has been seen in other systems.** Granular spinner experiments show a chiral activity-mediated reentrant melting transition at a fixed areal spinner density. Simulations of chiral active Brownian particles find that the fluid-crystal phase diagram shows a re-entrant melting transition as a function of the radius of the circles.\n- **The passive two-step melting is textbook.** The passive solid at T \u2248 4.25 that keeps only six-fold orientation looks like the KTHNY hexatic phase. In the 2D Lennard-Jones system, long-range \"orientational\" order persists up to a higher temperature than the loss of shear rigidity. The slightly elongated, orientation-dependent particles change details only, not the phenomenology.\n- **The odd-force model is in use for Lennard-Jones systems.** It has been applied to a two-dimensional Kob-Andersen mixture, where Brownian particles interact via the Lennard-Jones potential and nonconservative odd forces.\n\n**The twist and why I doubt it**\nThe undocumented part is crystalline order returning at a transverse/conservative force ratio of 33 and T = 6. That is well above the passive hexatic temperature of 4.25. I found no report of large odd forces re-crystallising a thermal 2D solid like this. The reentrance results above are about spinner fractions or orbit radii, not about pushing the transverse force very high.\n\nIt looks like an artefact for these reasons:\n1. A transverse force 33 times the conservative one means very large forces per step in overdamped integration. If the timestep wasn't reduced, the dynamics are probably under-resolved. Large odd forces can also make crystals linearly unstable.\n2. A solid that is ordered at T=6 when its passive version is partly melted at 4.25 is physically odd, since noise should disorder more, not less.\n3. Plausible causes include a timestep or integrator problem, particles being pushed into a rigidly rotating or jammed configuration, or the six-fold measure picking up a frozen state.\n\nTo check it: shrink the timestep, test whether results depend on system size, look at the mean-squared displacement and particle overlaps, and check whether the \"ordered\" state is just a rigidly rotating lattice.\n\nOverall, the melting and hexatic behaviour is a genuine, known emergent pattern. Only the order-restoration corner looks suspect.\n\n**Searches run:** transverse force + LJ + reentrant melting; odd interactions + 2D solid melting; transverse forces + anisotropic particles + reentrant order; anisotropic LJ ellipses + transverse force; odd LJ Brownian recrystallisation; chiral LJ fluid (Caporusso/Gonnella/Levis); odd forces stabilising crystals; elliptical particles + odd interactions; strong odd forces + non-monotonic bond order.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Odd/transverse-force (chiral Lennard-Jones) melting of a 2D crystal into rotating hexatic patches, on top of KTHNY two-step passive melting\", \"citations\": [\"Caporusso, Gonnella, Levis, Phys. Rev. Lett. 132, 168201 (2024) - Phase coexistence and edge currents in the chiral Lennard-Jones fluid\", \"Bililign et al., Nature Physics (2021) - Motile dislocations knead odd crystals into whorls\", \"Braverman et al., PNAS 122 (2025) doi:10.1073/pnas.2412993122 - Melting of nonreciprocal solids\", \"Reentrant melting of scarred odd crystals by self-shear, Nat. Commun. (2026) s41467-026-68510-4\", \"Crystallization of chiral active Brownian particles at low densities, Phys. Rev. Research (2025) doi:10.1103/yntx-ss9r\", \"Frenkel & McTague, PRL 42, 1632 (1979) - 2D LJ hexatic\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Melting of the solid by transverse forces (disordered at e_a/e_p~2 even at T=0) and the passive hexatic at T~4.25 are documented. Twist: crystalline order returning at e_a/e_p~33 and T=6, above the passive hexatic temperature, was not found in the literature. It is suspicious, probably caused by huge per-step forces in overdamped integration (timestep), a rigidly rotating or jammed state, or an order-parameter artefact. Treat it as unverified until checked with a smaller timestep, different system sizes, mean-squared displacement and overlap checks. The particle anisotropy (ellipses with half-axes 0.55/0.65) seems to change details only, not the phenomenology.\"}\n```",
+ "checked": "2026-11-03 02:56:24"
+}

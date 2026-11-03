@@ -1,0 +1,74 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Activity-induced topological instability (negative dislocation core energy) and reentrant crystallization in a 2D odd (chiral, transverse-force) Cosserat solid",
+ "citations": [
+  "arXiv:2609.09500 'Topological instability and reentrant crystallization in active solids' (2026), via pith.science/paper/2609.09500",
+  "Caporusso, Gonnella, Levis, PRL 132, 168201 (2024) - chiral Lennard-Jones fluid, chirality breaks the solid",
+  "Braverman et al., PRL 127, 268001 (2021) - odd elastic solids with radial + transverse LJ forces, motile dislocations",
+  "Shape anisotropy controls 2D melting pathway (Gay-Berne, PubMed 41363743) - passive hexatic of weakly anisotropic particles"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "First pass said KNOWN-VARIANT with reentrance unconfirmed. arXiv 2609.09500 describes all three standout features: defects proliferate at any temperature above a threshold activity (so disordered at T=0), crystallization returns at higher activity because active and passive torques compete, and quasi-long-range order is restored at temperatures where the passive crystal melts. Its system is an odd solid with micropolar (rotational) coupling, which ellipses with orientation-dependent LJ plus transverse forces provide. Only the review summary was read; the exact ellipse model and threshold numbers were not checked against the full text. The passive hexatic at T~4.25 is standard weakly anisotropic Gay-Berne 2D melting.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "transverse forces Lennard-Jones solid melting reentrant ordering odd interactions Brownian particles"
+  },
+  {
+   "query": "Caporusso transverse forces ellipses anisotropic Lennard-Jones odd crystal hexatic"
+  },
+  {
+   "query": "odd transverse interactions 2D crystal melting reentrant crystalline order high chirality"
+  },
+  {
+   "query": "Gay-Berne ellipsoids transverse odd forces two-dimensional melting hexatic chiral"
+  },
+  {
+   "query": "\"Topological instability and reentrant crystallization in active solids\""
+  },
+  {
+   "query": "arXiv 2609.09500 active solids odd elasticity Cosserat dislocation core energy negative simulations ellipses"
+  },
+  {
+   "query": "odd Cosserat solid simulations anisotropic Lennard-Jones ellipses transverse force defect proliferation zero temperature reentrant"
+  }
+ ],
+ "result_urls": [
+  "https://www.science.gov/topicpages/l/lennard-jones+potential",
+  "https://pubmed.ncbi.nlm.nih.gov/39972852/",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://mdpi.com/1420-3049/25/15/3498/htm",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7435481/",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://www.sciencedirect.com/science/article/abs/pii/0009261482835227",
+  "https://pubmed.ncbi.nlm.nih.gov/27434770/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://ui.adsabs.harvard.edu/abs/2022APS..MARG20008G/abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/41545359/",
+  "https://pith.science/paper/2609.09500",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://www.tandfonline.com/doi/abs/10.1080/02678292.2023.2256984",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0921452698002841",
+  "https://pubmed.ncbi.nlm.nih.gov/41363743/",
+  "https://www.science.org/doi/10.1126/science.217.4561.693",
+  "https://pith.science/paper/2609.09500",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9652398/",
+  "https://pith.science/paper/2609.09500",
+  "https://par.nsf.gov/servlets/purl/10313788",
+  "https://www.science.gov/topicpages/l/lennard-jones+lj+parameters",
+  "https://www.tandfonline.com/doi/pdf/10.1080/00268976.2015.1134824",
+  "https://www.osti.gov/servlets/purl/1254299"
+ ],
+ "full_text": "I'm overturning the first pass and calling this **KNOWN**, not a variant. All three things the first pass couldn't place are described in one recent paper, which I could only read through a review summary.\n\n**The main source.** \"Topological instability and reentrant crystallization in active solids\" (arXiv 2609.09500, submitted 8 Sept 2026). I read it only through the Pith review page, not the full text. It extends the KTHNY theory of defect-mediated melting in two dimensions to active solids exhibiting both non-reciprocal (odd) elasticity and Cosserat (micropolar) coupling. \"Cosserat\" means each particle also has its own rotation, which is what the rotating ellipses provide. How each observed feature matches:\n\n1. **Disordered even at T=0, from e_a/e_p \u2248 2.** The paper says the core energy of dislocations becomes negative at a threshold activity, causing a topological instability that proliferates defects at any temperature. \"At any temperature\" includes T=0, so this matches the observed behaviour exactly.\n2. **Order returns at high activity (e_a/e_p \u2248 33).** The paper reports reentrant crystallization at even higher activity. It attributes this to competition between active and passive torque sources. In this system the passive torque would come from the orientation-dependent potential and the active torque from the transverse force.\n3. **The high-activity solid stays ordered at T=6, above the passive melting point of 4.25.** The review says the crystal re-enters, with quasi-long-range crystalline order restored at temperatures where the passive equilibrium crystal would melt.\n4. **Same measurements.** The paper has a numerical phase diagram of the odd Cosserat solid and compares its theory against defect count in simulations.\n\n**Background work on the same kind of system:**\n- Caporusso, Gonnella & Levis (PRL 2024) use Brownian disks with Lennard-Jones plus transverse forces. They show chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches.\n- Braverman et al. (PRL 127, 268001) use the same pair of forces: a radial force given by a Lennard-Jones (LJ) force plus Lennard-Jones-shaped transverse forces. In related work, an isolated dislocation moves ballistically when transverse forces are present.\n- The passive \"six-fold oriented only\" state at T\u22484.25 is ordinary hexatic behaviour for slightly elongated Gay\u2013Berne particles. In that range the system follows a hybrid Bernard-Krauth scenario, featuring a continuous crystal-to-hexatic transition.\n- I set aside the spinner experiment by Tiwari et al. (Nat. Commun. 2026). Its reentrance is *melting* caused by confinement, which is a different effect from this one.\n\n**Is it genuine or an artifact?** It looks genuine. The disorder at T=0 isn't a frozen state or random colouring: it's the predicted activity-driven defect proliferation. The fact that order comes back non-monotonically, and above the passive melting temperature, is the reentrance the paper predicts. Having orientations that actually rotate matters, because the reentrance depends on the torque competition. To be fully sure, check that the restored solid has sharp structure-factor peaks and few free dislocations, and that the run at T=6, e_a/e_p=33 is numerically stable.\n\n**What I couldn't confirm.** I haven't seen the full text, so I can't tell whether the paper's own simulations use exactly these ellipses (half-axes 0.55/0.65) or the same thresholds (\u22482, \u224833, T\u22486, 4.25). Those would only be differences in parameters, not in the behaviour.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Activity-induced topological instability (negative dislocation core energy) and reentrant crystallization in a 2D odd (chiral, transverse-force) Cosserat solid\", \"citations\": [\"arXiv:2609.09500 'Topological instability and reentrant crystallization in active solids' (2026), via pith.science/paper/2609.09500\", \"Caporusso, Gonnella, Levis, PRL 132, 168201 (2024) - chiral Lennard-Jones fluid, chirality breaks the solid\", \"Braverman et al., PRL 127, 268001 (2021) - odd elastic solids with radial + transverse LJ forces, motile dislocations\", \"Shape anisotropy controls 2D melting pathway (Gay-Berne, PubMed 41363743) - passive hexatic of weakly anisotropic particles\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"First pass said KNOWN-VARIANT with reentrance unconfirmed. arXiv 2609.09500 describes all three standout features: defects proliferate at any temperature above a threshold activity (so disordered at T=0), crystallization returns at higher activity because active and passive torques compete, and quasi-long-range order is restored at temperatures where the passive crystal melts. Its system is an odd solid with micropolar (rotational) coupling, which ellipses with orientation-dependent LJ plus transverse forces provide. Only the review summary was read; the exact ellipse model and threshold numbers were not checked against the full text. The passive hexatic at T~4.25 is standard weakly anisotropic Gay-Berne 2D melting.\"}\n```",
+ "checked": "2026-11-03 04:14:33"
+}

@@ -1,0 +1,69 @@
+{
+ "class_id": "planted:N14",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Patchy colloids / 2D self-assembly of two-patch particles (grand-canonical Monte Carlo)",
+ "standard_name": "Kagome lattice self-assembly of two-patch particles in the two-bond-per-patch limit",
+ "confidence": "medium",
+ "citations": [
+  "Romano & Sciortino 2011, Soft Matter 7, 5799 - 2D two-patch (triblock Janus) particles with up to two bonds per patch form a kagome lattice (verified via reference lists and a review, full text not read)",
+  "Chen, Bae & Granick 2011, Nature 469, 381 - experimental directed self-assembly of a colloidal kagome lattice from elongated-cap patchy spheres (verified via reference list and full text on OSTI)",
+  "Patchy colloidal particles for programmed self-assembly, C. R. Physique (review, ScienceDirect S1631074815003252) - covers 2D kagome from two-patch particles",
+  "Soft Matter 2014, 10, 9167 - vibrating 2D patchy particles forming kagome lattices, entangled webs and fibres, with time evolution of lattice formation"
+ ],
+ "searches": [
+  "patchy elliptical particles two patches tips self-assembly open lattice grand canonical Monte Carlo rings kagome",
+  "colloidal ellipsoids sticky tips 2D self-assembly kagome lattice triangles hexagonal rings simulation",
+  "patchy ellipses tip patches kagome lattice Monte Carlo simulation nucleation hard ellipses aspect ratio 2",
+  "Romano Sciortino two-dimensional self-assembly kagome lattice two-patch particles",
+  "elliptical patchy particles kagome lattice self-assembly two-dimensional anisotropic shape patches grand canonical nucleation"
+ ],
+ "notes": "I identified the open lattice of triangles and six-rings as kagome. This is an inference from the ring and triangle counts, and I did not see the structure. No exact paper on hard ellipses with tip patches in the grand-canonical ensemble was found, so the shape and ensemble are the differences. The quantitative nucleation details (pair-bond peak, zero pair-to-triangle lag) were not found in the literature I searched. The Romano and Sciortino paper's text was not read directly.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "patchy elliptical particles two patches tips self-assembly open lattice grand canonical Monte Carlo rings kagome"
+  },
+  {
+   "query": "colloidal ellipsoids sticky tips 2D self-assembly kagome lattice triangles hexagonal rings simulation"
+  },
+  {
+   "query": "patchy ellipses tip patches kagome lattice Monte Carlo simulation nucleation hard ellipses aspect ratio 2"
+  },
+  {
+   "query": "Romano Sciortino two-dimensional self-assembly kagome lattice two-patch particles Nature Communications / Soft Matter 2012 polar caps"
+  },
+  {
+   "query": "elliptical patchy particles kagome lattice self-assembly two-dimensional anisotropic shape patches grand canonical nucleation"
+  }
+ ],
+ "result_urls": [
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2311891121",
+  "https://par.nsf.gov/servlets/purl/10569649",
+  "https://www.pnas.org/doi/10.1073/pnas.2109776118",
+  "https://www.pnas.org/doi/full/10.1073/pnas.2311891121",
+  "https://pubmed.ncbi.nlm.nih.gov/25319927/",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2401134121",
+  "https://pubmed.ncbi.nlm.nih.gov/28872823/",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://www.pnas.org/doi/10.1073/pnas.2401134121",
+  "https://www.nature.com/articles/nmat4111",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/7598363",
+  "https://journals.aps.org/pra/abstract/10.1103/PhysRevA.42.2126",
+  "https://pubs.aip.org/aip/jcp/article/160/15/151101/3282862/On-the-lattice-ground-state-of-densely-packed-hard",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2311891121",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437110005753",
+  "https://unive.academia.edu/FlavioRomano",
+  "https://www.academia.edu/81432205/Self_assembly_of_kagome_lattices_entangled_webs_and_linear_fibers_with_vibrating_patchy_particles_in_two_dimensions",
+  "https://www.nature.com/articles/ncomms1968",
+  "https://www.sciencedirect.com/science/article/pii/S1631074815003252",
+  "https://pubs.aip.org/aip/jcp/article/156/5/054901/2840881/Inverse-design-of-two-dimensional-structure-by",
+  "https://pubs.rsc.org/sm/article-abstract/10/45/9167/458105/Self-assembly-of-kagome-lattices-entangled-webs?redirectedFrom=fulltext",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2311891121"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, leaning KNOWN. Confidence: medium.**\n\n**1. Model family.** This is patchy-colloid self-assembly in 2D, studied with grand-canonical Monte Carlo. It uses two-patch particles in the \"two-bond-per-patch\" limit. The particles here are hard ellipses with tip patches, not hard disks with polar caps.\n\n**2. The behaviour.** The system forms an open lattice built from triangles and hexagonal rings. Every particle sits in a closed ring, and there are many \"triangle\" bonding motifs, where three patches bond together. That is the kagome lattice, which has triangular and hexagonal pores. The rings in the observation are six-particle rings. In a kagome lattice built from tip-bonded rods, those rings are the hexagons, and the triangles are the three-patch junctions.\n\n**Earliest clear source for the equivalent system.** Romano and Sciortino, \"Two dimensional assembly of triblock Janus particles into crystal phases in the two-bond-per-patch limit\", *Soft Matter* 7, 5799\u20135804 (2011). I did not read the paper itself. I confirmed the citation from reference lists in two other search results (the Nat. Commun. 2012 article and a ScienceDirect review). A summary of the paper (Romano's publication page on Academia.edu) says three things:\n- The paper tests a simple two-patch effective potential against the experimental kagome findings.\n- The kagome lattice is stable at low temperature and low pressure.\n- The kagome lattice transforms into a hexagonal lattice on increasing pressure.\n\nThe review below says the kagome lattice forms spontaneously when the patch width allows at most two bonds per patch. That matches the \"up to two bonds per patch\" rule here.\n\n**Experimental realisation.** Chen, Bae and Granick, \"Directed self-assembly of a colloidal Kagome lattice\", *Nature* 469, 381\u2013384 (2011). The *Nature Materials* article in my results cites it with this venue, year and page range. The full text I found (OSTI) describes elongated caps that allow two nearest neighbours only when the long patch axes are parallel. It also describes staged assembly that passes through quasi-kagome local order.\n\n**Review.** \"Patchy colloidal particles for programmed self-assembly\", *C. R. Physique* (ScienceDirect, S1631074815003252). Its two-patch section covers the 2D kagome lattice from Romano and Sciortino.\n\n**Other related work found:**\n- Vibrating 2D patchy particles forming kagome lattices, entangled webs and linear fibres, *Soft Matter* 10 (2014), 9167. It covers the time evolution of lattice formation.\n- Programming patchy particles for materials assembly design (differentiable design, PNAS 2024), which stabilises a kagome lattice.\n\n**3. What differs, and whether it matters.**\n- **Particle shape.** The particles here are hard ellipses (axis ratio 2) with patches at the tips. The sources use spheres with polar caps or patches. In both, the patches sit on a rod-like axis, and bonds are nearly collinear and two per patch. I expect the same topology, so I doubt this changes the verdict. The elongated shape probably also favours open kagome order over close-packed order.\n- **Ensemble.** This simulation uses grand-canonical Monte Carlo with a dilute-gas quench. The sources I read used canonical-ensemble simulations and free-energy calculations. A grand-canonical run with a gas quench is a different protocol, but I expect the same phase.\n- **Direct nucleation from the gas at low T.** The \"pair bond peak\" and \"onset lag = 0\" are kinetic details of nucleation. I found nothing that quantifies them, such as a pair-to-triangle lag. Granick's paper describes staged assembly, but I did not extract any quantitative comparison. These specifics could be new, but they are minor.\n- **Hard ellipses with tip patches specifically.** I did not find a paper on exactly this model. I ran 5 of the 9 searches I was allowed, so this absence is weak evidence.\n\n**4. Confidence.** Medium. The kagome lattice from two-patch particles with at most two bonds per patch is firmly established in simulation and experiment. I could not verify the Romano and Sciortino paper's text directly. I also found no exact ellipse-with-tip-patch, grand-canonical study.\n\n**Searches run:**\n- patchy elliptical particles two patches tips self-assembly open lattice grand canonical Monte Carlo rings kagome\n- colloidal ellipsoids sticky tips 2D self-assembly kagome lattice triangles hexagonal rings simulation\n- patchy ellipses tip patches kagome lattice Monte Carlo simulation nucleation hard ellipses aspect ratio 2\n- Romano Sciortino two-dimensional self-assembly kagome lattice two-patch particles\n- elliptical patchy particles kagome lattice self-assembly two-dimensional anisotropic shape patches grand canonical nucleation\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Patchy colloids / 2D self-assembly of two-patch particles (grand-canonical Monte Carlo)\", \"standard_name\": \"Kagome lattice self-assembly of two-patch particles in the two-bond-per-patch limit\", \"confidence\": \"medium\", \"citations\": [\"Romano & Sciortino 2011, Soft Matter 7, 5799 - 2D two-patch (triblock Janus) particles with up to two bonds per patch form a kagome lattice (verified via reference lists and a review, full text not read)\", \"Chen, Bae & Granick 2011, Nature 469, 381 - experimental directed self-assembly of a colloidal kagome lattice from elongated-cap patchy spheres (verified via reference list and full text on OSTI)\", \"Patchy colloidal particles for programmed self-assembly, C. R. Physique (review, ScienceDirect S1631074815003252) - covers 2D kagome from two-patch particles\", \"Soft Matter 2014, 10, 9167 - vibrating 2D patchy particles forming kagome lattices, entangled webs and fibres, with time evolution of lattice formation\"], \"searches\": [\"patchy elliptical particles two patches tips self-assembly open lattice grand canonical Monte Carlo rings kagome\", \"colloidal ellipsoids sticky tips 2D self-assembly kagome lattice triangles hexagonal rings simulation\", \"patchy ellipses tip patches kagome lattice Monte Carlo simulation nucleation hard ellipses aspect ratio 2\", \"Romano Sciortino two-dimensional self-assembly kagome lattice two-patch particles\", \"elliptical patchy particles kagome lattice self-assembly two-dimensional anisotropic shape patches grand canonical nucleation\"], \"notes\": \"I identified the open lattice of triangles and six-rings as kagome. This is an inference from the ring and triangle counts, and I did not see the structure. No exact paper on hard ellipses with tip patches in the grand-canonical ensemble was found, so the shape and ensemble are the differences. The quantitative nucleation details (pair-bond peak, zero pair-to-triangle lag) were not found in the literature I searched. The Romano and Sciortino paper's text was not read directly.\"}\n```",
+ "checked": "2026-11-03 03:07:06"
+}

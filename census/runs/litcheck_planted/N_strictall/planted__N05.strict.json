@@ -1,0 +1,103 @@
+{
+ "class_id": "planted:N05",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Light-heavy (LH) model / particles advected by and modifying a fluctuating landscape: early diffusive stretch followed by late-time coarsening toward ordered phases with macroscopic landscape order (or ordered/disordered coexistence)",
+ "citations": [
+  "Mahapatra, Ramola, Barma, Phys. Rev. Research 2, 043279 (2020), arXiv:2007.02971",
+  "Chakraborty, Pal, Chatterjee, Barma, Phys. Rev. E 93, 050102(R) (2016)",
+  "Chakraborty, Chatterjee, Barma, Phys. Rev. E 96, 022127 (2017)",
+  "Chakraborty, Chatterjee, Barma, Phys. Rev. E 96, 022128 (2017)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Documented qualitatively: an intermediate diffusive power-law stretch before coarsening (consistent with exponent 0.5), a correlation function with a broad maximum followed by late-time power-law decay, and macroscopic landscape ordering or coexistence. Not verified from full text: a late domain-growth exponent of about 1/3 and a crossover near t~1000. The exponent 0.41 reported for b'=0.18 suggests effective, parameter-dependent exponents. Both species push the surface up here, which may place the system in the documented coexistence phase or near the separatrix rather than a fully ordered phase, so the first pass's FDPO label may be imprecise. Not trivial: there is real coarsening, not a frozen absorbing state or a diverged field.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "light-heavy model fluctuating surface coarsening crossover t^1/3 macroscopic hills domain growth"
+  },
+  {
+   "query": "Chakraborty Pal Chatterjee Barma large compact clusters fast dynamics coupled nonequilibrium systems light-heavy"
+  },
+  {
+   "query": "\"light-heavy model\" early-time coarsening t^{1/2} crossover t^{1/3} bunchwise balance macroscopic hill"
+  },
+  {
+   "query": "arXiv light heavy particles fluctuating surface bunchwise balance irreducible sequences coarsening exponent 1/3 FDPO"
+  },
+  {
+   "query": "Chakraborty Chatterjee Barma \"Ordered phases in coupled nonequilibrium systems: Dynamic properties\" coarsening t^{1/3} crossover"
+  },
+  {
+   "query": "arXiv Chakraborty Chatterjee Barma coupled nonequilibrium landscape coarsening \"domain size\" grows t^{1/2} then t^{1/3} ordered phases SPS IPS"
+  },
+  {
+   "query": "arXiv 2007.02971 Mahapatra Ramola Barma irreducible sequences decay power law t^{-1/3} t^{-1/2}"
+  },
+  {
+   "query": "\"light-heavy\" model fluctuating landscape coarsening exponent \"1/3\" ordered phase macroscopic hill valley Chakraborty Barma arXiv 1704"
+  },
+  {
+   "query": "two species particles advected fluctuating landscape coarsening length grows \"t^{1/3}\" or \"1/3\" landscape ordering domain growth Chakraborty Chatterjee"
+  },
+  {
+   "query": "Chakraborty Chatterjee Barma 2017 dynamic properties coarsening \"power law\" landscape ordered disordered coexistence growth exponent"
+  }
+ ],
+ "result_urls": [
+  "https://pith.science/paper/2506.14548",
+  "https://pith.science/paper/2608.07450",
+  "https://pith.science/paper/2607.26920",
+  "https://www.biorxiv.org/content/10.1101/2023.05.31.543153.full.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10427613/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://pubmed.ncbi.nlm.nih.gov/27300811/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.050102",
+  "https://www.bose.res.in/linked-objects/ABSTRACT%20BOOKLET_FINAL.pdf",
+  "https://journals.aps.org/pre/issues/93/5/deliverables/table-of-contents/print/1",
+  "https://link.springer.com/chapter/10.1007/978-3-319-99689-9_2",
+  "https://www.wikidata.org/wiki/Q46532768",
+  "https://journals.aps.org/pre/issues/93/5",
+  "https://www.tifrh.res.in/research/publications/publications-2016/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://sites.ua.edu/sdai/files/2025/01/2010-prse-dai-niethammer-pego_crossoverms.pdf",
+  "https://www.mis.mpg.de/pattern-formation-energy-landscapes-scaling-laws/coarsening",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.2.043279",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://ouci.dntb.gov.ua/en/works/7WwZo2X7/",
+  "https://www.tifrh.res.in/~barma/",
+  "https://www.bose.res.in/Conferences/SSPSM2023/program/abstract_booklet.pdf",
+  "https://www.tifrh.res.in/~kramola/Publications.html",
+  "https://pubmed.ncbi.nlm.nih.gov/28950483/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128",
+  "https://www.wikidata.org/wiki/Q46300337",
+  "https://pubmed.ncbi.nlm.nih.gov/28950631/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.029902",
+  "https://pubmed.ncbi.nlm.nih.gov/28950483/",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://pith.science/paper/1909.01696",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022127",
+  "https://www.tifrh.res.in/~barma/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.022128",
+  "https://pubmed.ncbi.nlm.nih.gov/28950631/",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.029902",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~kramola/Publications.html",
+  "https://www.tifrh.res.in/~barma/",
+  "https://arxiv-export-lb.library.cornell.edu/list/cond-mat.dis-nn/2007?show=106",
+  "https://www.bose.res.in/linked-objects/ABSTRACT%20BOOKLET_FINAL.pdf",
+  "http://www.lptms.universite-paris-saclay.fr/satya-majumdar/files/2010/12/Das01.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://pith.science/paper/2507.03154",
+  "https://www.arxiv-vanity.com/papers/1207.3041/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I'm keeping the first pass's verdict, with medium confidence. Each part of the behaviour is described in the light-heavy (LH) model papers. The one thing I couldn't confirm is the exact numbers: a late exponent of about 0.34 (roughly 1/3) and a crossover near t\u22481000. I couldn't open the full text of any paper, including Mahapatra et al. 2020, so the gap the first pass flagged is still open.\n\n**It's the same system.** Mahapatra, Ramola and Barma (2020) study the LH model, \"a system consisting of two species of particles (light and heavy) coupled to a fluctuating surface (described by tilt fields)\". They report that particle and tilt updates are coupled locally and give different ordered and disordered steady states depending on the rates. Your ring of up/down bonds, A/B/empty sites, particle hops biased by the slope, and peak\u2194dip flips that depend on which particle sits there is this model family. It was first studied by Chakraborty, Pal, Chatterjee and Barma (PRE 93, 050102(R), 2016).\n\n**How each observed feature matches:**\n- **Early exponent \u2248 0.5.** The 2020 paper predicts that between a lattice-cutoff timescale and the start of coarsening there is an intermediate diffusive (power-law) stretch, and says they see it in simulations of the ordered regime. A diffusive stretch fits a t^\u00bd length.\n- **Early domains dissolving, then slow coarsening.** In the same paper, a local correlation function rises linearly from a disordered start and has a broad maximum. It then decays as a power law at late times, which encodes the coarsening toward the ordered phases. That is a short-time build-up followed by a different late-time power law, which looks like your crossover.\n- **Macroscopic hill.** The 2017 static-properties paper says that in all ordered phases the two species separate completely, while the landscape either orders fully into macroscopic regions with distinct slopes, or shows ordered regions coexisting with disordered ones, depending on how each species reshapes the surface. The 2016 paper links this coexistence to coarsening and steady-state dynamics on time scales that grow algebraically with size.\n\n**What I couldn't confirm.** None of the abstracts I could reach gives a late-time domain-growth exponent of 1/3, or any crossover time. A 1/3 is plausible for diffusion-limited coarsening with conserved order, but that is my own inference, not something I verified. The exponent of 0.41 the first pass mentions for b'=0.18 also suggests the late exponent is an effective, parameter-dependent value rather than a clean 1/3. If so, that is ordinary crossover or finite-time behaviour, not new physics. It matters only if someone wants to claim a new universality class, and nothing here supports that.\n\n**One possible mislabel.** Here both A and B push the surface up (b=\u22120.4 at peaks, b'=+0.3 at dips). Under the published sign conventions, that pairing may put the system in the coexistence phase or near the boundary where fluctuation-dominated ordering occurs, not in a fully ordered phase. \"Coarsening to macroscopic phase separation (FDPO)\" may therefore be the wrong phase name. The behaviour is still within the documented phase diagram.\n\n**Not trivial or an artifact.** The growth changes regime, a large hill forms, and the exponents are finite and sensible. That is real coarsening, not a frozen state, a random pattern or a diverged run.\n\n**Searches I ran:** LH-model coarsening crossover with macroscopic hills; the Chakraborty, Pal, Chatterjee and Barma 2016 paper; the Mahapatra, Ramola and Barma 2020 paper (and its arXiv entry, 2007.02971) with the exponents; the 2017 dynamic-properties paper; and a 1/3 exponent in the LH landscape.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Light-heavy (LH) model / particles advected by and modifying a fluctuating landscape: early diffusive stretch followed by late-time coarsening toward ordered phases with macroscopic landscape order (or ordered/disordered coexistence)\", \"citations\": [\"Mahapatra, Ramola, Barma, Phys. Rev. Research 2, 043279 (2020), arXiv:2007.02971\", \"Chakraborty, Pal, Chatterjee, Barma, Phys. Rev. E 93, 050102(R) (2016)\", \"Chakraborty, Chatterjee, Barma, Phys. Rev. E 96, 022127 (2017)\", \"Chakraborty, Chatterjee, Barma, Phys. Rev. E 96, 022128 (2017)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Documented qualitatively: an intermediate diffusive power-law stretch before coarsening (consistent with exponent 0.5), a correlation function with a broad maximum followed by late-time power-law decay, and macroscopic landscape ordering or coexistence. Not verified from full text: a late domain-growth exponent of about 1/3 and a crossover near t~1000. The exponent 0.41 reported for b'=0.18 suggests effective, parameter-dependent exponents. Both species push the surface up here, which may place the system in the documented coexistence phase or near the separatrix rather than a fully ordered phase, so the first pass's FDPO label may be imprecise. Not trivial: there is real coarsening, not a frozen absorbing state or a diverged field.\"}\n```",
+ "checked": "2026-11-03 04:15:43"
+}

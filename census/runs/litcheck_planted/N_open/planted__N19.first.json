@@ -1,0 +1,80 @@
+{
+ "class_id": "planted:N19",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Mass-conserving Keller-Segel / Patlak-Keller-Segel chemotaxis with self-produced attractant (autoinducer) and consumed nutrient (nutrient taxis), reaction-diffusion/active matter",
+ "standard_name": "Coexistence of dense aggregate (droplet) with travelling chemotactic bands; mixed multi-scale oscillatory coarsening in autoinducer-nutrient competing chemotaxis",
+ "confidence": "medium",
+ "citations": [
+  "arXiv 2610.32591 (2026), 'Multi-scale patterns arising from competing chemotactic interactions' (physics.bio-ph) - mass-conserving autoinducer+nutrient chemotaxis model; dense droplet coexisting with travelling bands; authors/venue not seen",
+  "Tyson, Lubkin, Murray 1999, Proc. R. Soc. Lond. B 266:299-304, 'A minimal mechanism for bacterial pattern formation' - attractant secretion + nutrient chemotaxis gives aggregate patterns",
+  "Tyson, Lubkin, Murray 1999, J. Math. Biol. 38:359-375, 'Model and analysis of chemotactic bacterial patterns in a liquid medium' - bacteria/nutrient/chemoattractant PDE system",
+  "Keller & Segel 1971, J. Theor. Biol., 'Traveling bands of chemotactic bacteria: a theoretical analysis' - travelling bands from nutrient consumption (confirmed from reference lists)",
+  "Hillen & Painter 2009, J. Math. Biol., 'A user's guide to PDE models for chemotaxis' - review (listed in search results; not read for this behaviour)"
+ ],
+ "searches": [
+  "chemotaxis model attractant and nutrient taxis travelling bands and aggregates coexist pattern formation",
+  "Keller-Segel nutrient consumption chemotaxis b/(1+b^2) saturating sensitivity two-dimensional pattern spots stripes",
+  "Multi-scale patterns arising from competing chemotactic interactions autoinducer nutrient droplet traveling bands",
+  "Tyson Lubkin Murray model of chemotactic waves nutrient attractant bacteria 1999 Proc R Soc"
+ ],
+ "notes": "Earliest clear source for aggregate+travelling-band coexistence is a very recent preprint (about Oct 2026). I did not read its full equations, so the saturating sensitivity b/(1+b^2), the nutrient kinetics and the parameter values (5, 14, 2.5, 0.75, 0.02) are unconfirmed. Older work (Keller-Segel 1971; Tyson et al. 1999; Budrene-Berg) covers bands or aggregates separately.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model attractant and nutrient taxis travelling bands and aggregates coexist pattern formation"
+  },
+  {
+   "query": "Keller-Segel nutrient consumption chemotaxis b/(1+b^2) saturating sensitivity two-dimensional pattern spots stripes"
+  },
+  {
+   "query": "Multi-scale patterns arising from competing chemotactic interactions autoinducer nutrient droplet traveling bands"
+  },
+  {
+   "query": "Tyson Lubkin Murray model of chemotactic waves nutrient attractant bacteria 1999 Proc R Soc"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://arxiv.org/html/2610.32591",
+  "https://arxiv.org/pdf/2109.06633",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://arxiv.org/pdf/1806.08627",
+  "https://arxiv.org/pdf/2410.13629",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://arxiv.org/pdf/1302.2665",
+  "https://arxiv.org/pdf/1709.07296",
+  "https://www.researchgate.net/publication/401599833_Multi-Species_Keller--Segel_Systems_Analysis_Pattern_Formation_and_Emerging_Mathematical_Structures",
+  "https://arxiv.org/pdf/2504.05054",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://arxiv.org/html/2603.04931v1",
+  "https://arxiv.org/pdf/2405.20637",
+  "https://arxiv.org/pdf/2212.03779",
+  "https://arxiv.org/pdf/2609.02607",
+  "https://arxiv.org/pdf/2206.13292",
+  "https://arxiv.org/pdf/2304.02449",
+  "https://arxiv.org/pdf/1505.06463",
+  "https://arxiv.org/html/2610.32591",
+  "https://arxiv.org/abs/2610.32591",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://arxiv.org/pdf/2109.06633",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.052411",
+  "https://arxiv.org/pdf/1302.2665",
+  "https://www.biorxiv.org/content/10.1101/2021.12.30.474376v1.full.pdf",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2122269119",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8536744/",
+  "https://royalsocietypublishing.org/rspa/article/479/2278/20230328/87667/Existence-of-travelling-waves-in-a-spatial-model",
+  "https://www.semanticscholar.org/paper/A-minimal-mechanism-for-bacterial-pattern-formation-Tyson-Lubkin/25ea910920f1553e159539a98316c6f212dc392b",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://arxiv.org/pdf/1806.08627",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://pubmed.ncbi.nlm.nih.gov/10326253",
+  "https://arxiv.org/pdf/1702.03963",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC1689676",
+  "https://arxiv.org/html/2610.32591"
+ ],
+ "full_text": "**Verdict: KNOWN.** A very recent paper reports this exact behaviour in what looks like this exact model. It is a preprint and I could not read its full equations, so the match is not fully confirmed.\n\n**1. Model family.** This is a mass-conserving Keller\u2013Segel/Patlak\u2013Keller\u2013Segel chemotaxis model with two chemicals. Cells follow a self-produced attractant (an autoinducer) and a consumed nutrient that is resupplied. It is the same family as the Tyson\u2013Lubkin\u2013Murray bacterial-pattern models. Chemotaxis-toward-nutrient models also reproduce travelling Adler/Keller\u2013Segel bands.\n\n**2. The specific behaviour.** The match is arXiv 2610.32591, \"Multi-scale patterns arising from competing chemotactic interactions\" (physics.bio-ph, posted about 11 days before today).\n- It studies a mass-conserving chemotaxis model in which two competing chemicals, autoinducers and nutrients, drive pattern formation. The former acts as an activator and the latter as an inhibitor of coarsening.\n- Its patterns include long-wavelength uninterrupted coarsening, Turing-like arrested coarsening, travelling waves, and mixed multi-scale oscillatory coarsening patterns in which a dense aggregate coexists with a dynamically spreading part of the population.\n- Its Figure 2 matches the observation here: a locally formed high-density droplet moves in a background of travelling cell bands. The authors call these novel patterns, in which aggregates coexist with a background of traveling bands.\n- The model's parameters map onto the rule system. They are the effective chemotactic coefficients \u03ba_a and \u03ba_n, the relative diffusivities \u03b4_a and \u03b4_n of the autoinducer and nutrient, and an inverse nutrient timescale \u03b2. That corresponds to the 5 and 14 drift strengths, the 2.5 and 0.75 diffusivity ratios, and the 0.02 nutrient rates here.\n- The paper also states the mechanism. Self-generated gradients from nutrient consumption cause spreading and travelling pulses. Autoinducer production causes attractive feedback and coarsening. The 5/14 ratio, with nutrient taxis stronger than attractant taxis, sits in the regime where the paper says aggregate formation is suppressed and travelling bands arise when autoinducer coupling is small compared to nutrient response.\n\n**Older precedents for the ingredients.**\n- Tyson, Lubkin & Murray 1999, \"A minimal mechanism for bacterial pattern formation,\" Proc. R. Soc. Lond. B 266, 299\u2013304. Cells secrete aspartate, a potent chemoattractant, and form high-density aggregates in regular patterns.\n- Tyson, Lubkin & Murray 1999, \"Model and analysis of chemotactic bacterial patterns in a liquid medium,\" J. Math. Biol. 38, 359\u2013375. It models bacteria, nutrient and chemoattractant dynamics as a nonlinear PDE system.\n- Keller & Segel 1971, \"Traveling bands of chemotactic bacteria: a theoretical analysis,\" J. Theor. Biol. This is the origin of travelling bands in these models.\n- Review: Hillen & Painter 2009, \"A user's guide to PDE models for chemotaxis,\" J. Math. Biol. It lists the Tyson et al. papers and the Keller\u2013Segel band paper. It is listed in the search results, but I did not read it for this specific behaviour.\n- Another review, Painter 2019 (arXiv 1806.08627), covers chemotaxis models for self-organisation. I only saw its reference list and snippets.\n- The 1999 and 2009 papers are confirmed only through search snippets and reference lists, not read in full.\n- Earlier work, such as the Tyson et al. models and the Budrene\u2013Berg-type spots-and-rings literature, covers aggregates or bands separately. The 2026 preprint is the earliest clear source I found for aggregate-plus-band coexistence.\n\n**3. Citation checks.** I verified the title and subject area of 2610.32591 against its arXiv abstract page. The search results did not show its authors or venue. I verified the Tyson et al. titles, authors, years and journals through PubMed, PMC, Springer and Semantic Scholar. The Keller\u2013Segel 1971 and Hillen\u2013Painter titles are confirmed from reference lists. Hillen\u2013Painter's authors and year (2009) come from memory.\n\n**4. Confidence: medium.** The behaviour, the model structure and even the phrasing of \"dense aggregate coexisting with travelling bands\" all match. Two things keep it from high:\n- The source is a fresh arXiv preprint. I did not see its full equations, so I could not confirm the b/(1+b\u00b2) saturating sensitivity, the exact nutrient kinetics, or the specific parameters (5, 14, 2.5, 0.75).\n- I did not see whether the paper reports parameter values near the 5/14 ratio.\n\nIf the paper's sensitivity is linear rather than saturating, the verdict would shift toward KNOWN-VARIANT. Saturation mainly limits density blow-up, so it probably would not change the qualitative result.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Mass-conserving Keller-Segel / Patlak-Keller-Segel chemotaxis with self-produced attractant (autoinducer) and consumed nutrient (nutrient taxis), reaction-diffusion/active matter\", \"standard_name\": \"Coexistence of dense aggregate (droplet) with travelling chemotactic bands; mixed multi-scale oscillatory coarsening in autoinducer-nutrient competing chemotaxis\", \"confidence\": \"medium\", \"citations\": [\"arXiv 2610.32591 (2026), 'Multi-scale patterns arising from competing chemotactic interactions' (physics.bio-ph) - mass-conserving autoinducer+nutrient chemotaxis model; dense droplet coexisting with travelling bands; authors/venue not seen\", \"Tyson, Lubkin, Murray 1999, Proc. R. Soc. Lond. B 266:299-304, 'A minimal mechanism for bacterial pattern formation' - attractant secretion + nutrient chemotaxis gives aggregate patterns\", \"Tyson, Lubkin, Murray 1999, J. Math. Biol. 38:359-375, 'Model and analysis of chemotactic bacterial patterns in a liquid medium' - bacteria/nutrient/chemoattractant PDE system\", \"Keller & Segel 1971, J. Theor. Biol., 'Traveling bands of chemotactic bacteria: a theoretical analysis' - travelling bands from nutrient consumption (confirmed from reference lists)\", \"Hillen & Painter 2009, J. Math. Biol., 'A user's guide to PDE models for chemotaxis' - review (listed in search results; not read for this behaviour)\"], \"searches\": [\"chemotaxis model attractant and nutrient taxis travelling bands and aggregates coexist pattern formation\", \"Keller-Segel nutrient consumption chemotaxis b/(1+b^2) saturating sensitivity two-dimensional pattern spots stripes\", \"Multi-scale patterns arising from competing chemotactic interactions autoinducer nutrient droplet traveling bands\", \"Tyson Lubkin Murray model of chemotactic waves nutrient attractant bacteria 1999 Proc R Soc\"], \"notes\": \"Earliest clear source for aggregate+travelling-band coexistence is a very recent preprint (about Oct 2026). I did not read its full equations, so the saturating sensitivity b/(1+b^2), the nutrient kinetics and the parameter values (5, 14, 2.5, 0.75, 0.02) are unconfirmed. Older work (Keller-Segel 1971; Tyson et al. 1999; Budrene-Berg) covers bands or aggregates separately.\"}\n```",
+ "checked": "2026-11-03 03:55:22"
+}

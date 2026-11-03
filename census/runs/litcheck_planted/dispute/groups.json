@@ -1,0 +1,94 @@
+{
+ "valid_miss_runs": {
+  "planted:N01": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N05": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N08": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N12": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N13": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N14": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N15": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N16": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N17": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N19": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N20": [
+   "N_blocked_r1",
+   "N_blocked_r2",
+   "N_blocked_r3"
+  ],
+  "planted:N02": [
+   "N_blocked_r2"
+  ],
+  "planted:N04": [
+   "N_blocked_r2"
+  ],
+  "planted:N07": [
+   "N_blocked_r2"
+  ],
+  "planted:N11": [
+   "N_blocked_r3"
+  ]
+ },
+ "groups": {
+  "A": [
+   "planted:N01",
+   "planted:N05",
+   "planted:N11",
+   "planted:N14",
+   "planted:N17"
+  ],
+  "B": [
+   "planted:N02",
+   "planted:N07",
+   "planted:N12",
+   "planted:N15",
+   "planted:N19"
+  ],
+  "C": [
+   "planted:N04",
+   "planted:N08",
+   "planted:N13",
+   "planted:N16",
+   "planted:N20"
+  ]
+ }
+}

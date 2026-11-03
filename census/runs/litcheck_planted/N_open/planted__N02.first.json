@@ -1,0 +1,79 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "reaction-diffusion / Turing patterns (Sel'kov glycolysis kinetics with nonreciprocal chemotactic cross-diffusion)",
+ "standard_name": "Chemotaxis (cross-diffusion)-induced Turing patterns in the Selkov model; nonmonotonic/re-entrant control, spot-to-stripe transition in the extreme nonreciprocal case",
+ "confidence": "medium",
+ "citations": [
+  "Karmakar & Basu 2026, arXiv:2609.01159 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model' - Selkov model with chemotaxis; extreme nonreciprocal case goes spots -> stripes -> uniform as |xi| grows; nonmonotonic k_c and re-entrant transitions",
+  "arXiv:2609.01127 2026 'Nonmonotonic control of pattern formation by chemotaxis' (authors not confirmed from snippet) - Selkov model with reciprocal and extreme nonreciprocal chemotaxis, nonmonotonic k_c, spot-to-stripe transitions",
+  "Sel'kov 1968, Eur. J. Biochem. 4:79 'Self-oscillations in glycolysis' - original kinetics (seen only in reference lists)",
+  "arXiv:1501.04890 (c. 2015) 'Effects of cross-diffusion on Turing patterns in a reaction-diffusion Schnakenberg model' - linear cross-diffusion; Turing instability suppressed when the cross-diffusion coefficient is too large (related case)"
+ ],
+ "searches": [
+  "Sel'kov model cross-diffusion Turing patterns spots stripes cross-diffusion coefficient",
+  "Turing patterns nonlinear cross-diffusion div(u grad v) opposite signs pursuit evasion pattern amplitude vanishes",
+  "Turing patterns with cross-taxis Sel'kov glycolysis model nonreciprocal taxis spots stripes uniform state",
+  "Turing pattern formation cross-diffusion Schnakenberg Brusselator Selkov nonlinear cross-diffusion terms amplitude non-monotonic, pattern suppressed"
+ ],
+ "notes": "Only search snippets were read, not full texts. Specific thresholds (c=0.17 peak, c=0.49 uniform) were not checked against the papers' parameters. The sources are very recent preprints and may not be peer reviewed. No dedicated review of this exact system was found. The equal-sign (c1=c2) variant is covered by the papers' 'fully reciprocal' case, which has contrasting behaviour.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots stripes cross-diffusion coefficient"
+  },
+  {
+   "query": "Turing patterns nonlinear cross-diffusion div(u grad v) opposite signs pursuit evasion pattern amplitude vanishes"
+  },
+  {
+   "query": "Turing patterns with cross-taxis Sel'kov glycolysis model nonreciprocal taxis spots stripes uniform state"
+  },
+  {
+   "query": "Turing pattern formation cross-diffusion Schnakenberg Brusselator Selkov nonlinear cross-diffusion terms amplitude non-monotonic, pattern suppressed"
+  }
+ ],
+ "result_urls": [
+  "https://doi.org/10.3390/math11173745",
+  "https://www.researchgate.net/publication/373731215_Turing_Pattern_Study_of_Reaction_Diffusion_Equations_with_Cross_Diffusion_and_Weak_Allee_Effect",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://arxiv.org/pdf/2512.00599",
+  "https://arxiv.org/pdf/2412.20097",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121819304778",
+  "https://arxiv.org/pdf/2604.18129",
+  "https://link.springer.com/article/10.1186/s13661-017-0856-z",
+  "https://www.researchgate.net/publication/257219924_Turing_instability_and_traveling_fronts_for_a_nonlinear_reaction-diffusion_system_with_cross-diffusion",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://arxiv.org/pdf/1403.0351",
+  "https://arxiv.org/pdf/1211.4412",
+  "https://arxiv.org/pdf/2207.07787",
+  "https://arxiv.org/pdf/1311.1748",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://www.researchgate.net/publication/321038042_Study_of_cross-diffusion_induced_Turing_patterns_in_a_ratio-dependent_prey-predator_model_via_amplitude_equations",
+  "https://arxiv.org/html/2609.01159",
+  "https://arxiv.org/pdf/2609.01127",
+  "https://link.springer.com/article/10.1007/s11538-022-01060-0",
+  "https://arxiv.org/pdf/2609.01159",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://arxiv.org/pdf/1310.2898",
+  "https://pith.science/paper/2609.01159",
+  "https://visualpde.com/visual-stories/turing-morphogenesis/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://arxiv.org/pdf/1501.04890",
+  "https://arxiv.org/pdf/1310.6571",
+  "https://arxiv.org/pdf/2211.10720",
+  "https://www.researchgate.net/publication/271223910_Effects_of_cross-diffusion_on_Turing_patterns_in_a_reaction-diffusion_Schnakenberg_model",
+  "https://arxiv.org/html/2509.20268",
+  "https://www.researchgate.net/publication/255180691_Turing_space_in_reaction-diffusion_systems_with_density-dependent_cross_diffusion",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0220994",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://link.aps.org/doi/10.1103/PhysRevE.88.042925",
+  "https://arxiv.org/pdf/1403.0351"
+ ],
+ "full_text": "**Verdict: KNOWN.** I found a paper that studies this same system and reports the same spots \u2192 stripes \u2192 uniform sequence.\n\n**1. Model family.** This is a reaction\u2013diffusion (Turing-type) system. The kinetics are the Sel'kov glycolysis model, which has the polynomial form u\u0307 = \u2212u + a\u00b7v + u\u00b2v, v\u0307 = b \u2212 a\u00b7v \u2212 u\u00b2v. It is extended with cross-taxis (chemotaxis-like) fluxes, c1\u00b7\u2207\u00b7(u\u2207v) and c2\u00b7\u2207\u00b7(v\u2207u). The sign choice c1 = \u2212c2 is \"extreme nonreciprocal\" taxis, where one species chases the other and the other flees.\n\n**2. Specific behaviour and sources.**\n- The closest source is Karmakar & Basu, \"Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model\" (arXiv 2609.01159). It studies a spatially extended Selkov model with species diffusion plus chemotactic cross-fluxes between the species.\n  - For the extreme nonreciprocal case (\u03be1 = \u03be = \u2212\u03be2), as |\u03be| increases the pattern morphologies change from spots to bands, ultimately giving spatially uniform states.\n  - For \u03be<0 and small |\u03be| the steady patterns are spots, and as |\u03be| increases the spots become stripes.\n  - It also reports a nonmonotonic dependence of k_c on the chemotaxis parameters, with possible re-entrant transitions between uniform and patterned states.\n  - Spot\u2013stripe transitions are tuned by the chemotaxis parameters and by the diffusivity ratios. This matches the variants with different D1/D2 and b.\n- A companion paper, \"Nonmonotonic control of pattern formation by chemotaxis\" (arXiv 2609.01127), covers the same Selkov-with-chemotaxis system. It treats both the fully reciprocal and the extreme nonreciprocal cases. It also discusses spot-to-stripe transitions. I could not confirm its author list from the search snippet.\n- Background on the kinetics: Sel'kov, \"Self-oscillations in glycolysis,\" Eur. J. Biochem. 4:79 (1968). This citation appeared in the search results' reference lists, not as a primary page.\n- Background on cross-diffusion in Turing systems: Schnakenberg with linear cross-diffusion (arXiv 1501.04890) says the Turing instability is suppressed if the cross-diffusion coefficient becomes too large. That is a related, linear-cross-diffusion case of \"pattern fades at strong coupling.\"\n- Review: I did not find a dedicated review of this exact system. The Turing-with-chemotaxis literature is scattered. The Maini et al. chapter \"The Turing Model for Biological Pattern Formation\" mentions Turing systems combined with chemotaxis only in passing.\n\n**3. Verification.** The titles, authors and arXiv IDs of the two Karmakar\u2013Basu papers come from the search results. The arXiv IDs begin with 2609, which would mean a September 2026 posting. That fits today's date, but I did not check it independently. I could only read search snippets, not the full texts. I did not confirm the specific coupling values (sharpest at c \u2248 0.17, gone at c \u2248 0.49) against the papers' parameter values. The \"amplitude maximum then fall\" is consistent with the nonmonotonic and re-entrant claims but not verified quantitatively.\n\n**4. Confidence: medium-high.** The system, the sign structure and the qualitative sequence all match a published study. The \"variant\" lines in the prompt (b=5, D1=0.03, spots\u2192stripes\u2192fade) match the paper's description closely. The caveats are that I could not read the full texts, I did not check numerical thresholds, and the source is a very recent preprint that may not be peer-reviewed. I did not fully rule out earlier sources on Selkov-type systems with taxis.\n\n**Searches run:**\n- \"Sel'kov model cross-diffusion Turing patterns spots stripes cross-diffusion coefficient\"\n- \"Turing patterns nonlinear cross-diffusion div(u grad v) opposite signs pursuit evasion pattern amplitude vanishes\"\n- \"Turing patterns with cross-taxis Sel'kov glycolysis model nonreciprocal taxis spots stripes uniform state\"\n- \"Turing pattern formation cross-diffusion Schnakenberg Brusselator Selkov nonlinear cross-diffusion terms amplitude non-monotonic, pattern suppressed\"\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"reaction-diffusion / Turing patterns (Sel'kov glycolysis kinetics with nonreciprocal chemotactic cross-diffusion)\", \"standard_name\": \"Chemotaxis (cross-diffusion)-induced Turing patterns in the Selkov model; nonmonotonic/re-entrant control, spot-to-stripe transition in the extreme nonreciprocal case\", \"confidence\": \"medium\", \"citations\": [\"Karmakar & Basu 2026, arXiv:2609.01159 'Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model' - Selkov model with chemotaxis; extreme nonreciprocal case goes spots -> stripes -> uniform as |xi| grows; nonmonotonic k_c and re-entrant transitions\", \"arXiv:2609.01127 2026 'Nonmonotonic control of pattern formation by chemotaxis' (authors not confirmed from snippet) - Selkov model with reciprocal and extreme nonreciprocal chemotaxis, nonmonotonic k_c, spot-to-stripe transitions\", \"Sel'kov 1968, Eur. J. Biochem. 4:79 'Self-oscillations in glycolysis' - original kinetics (seen only in reference lists)\", \"arXiv:1501.04890 (c. 2015) 'Effects of cross-diffusion on Turing patterns in a reaction-diffusion Schnakenberg model' - linear cross-diffusion; Turing instability suppressed when the cross-diffusion coefficient is too large (related case)\"], \"searches\": [\"Sel'kov model cross-diffusion Turing patterns spots stripes cross-diffusion coefficient\", \"Turing patterns nonlinear cross-diffusion div(u grad v) opposite signs pursuit evasion pattern amplitude vanishes\", \"Turing patterns with cross-taxis Sel'kov glycolysis model nonreciprocal taxis spots stripes uniform state\", \"Turing pattern formation cross-diffusion Schnakenberg Brusselator Selkov nonlinear cross-diffusion terms amplitude non-monotonic, pattern suppressed\"], \"notes\": \"Only search snippets were read, not full texts. Specific thresholds (c=0.17 peak, c=0.49 uniform) were not checked against the papers' parameters. The sources are very recent preprints and may not be peer reviewed. No dedicated review of this exact system was found. The equal-sign (c1=c2) variant is covered by the papers' 'fully reciprocal' case, which has contrasting behaviour.\"}\n```",
+ "checked": "2026-11-03 03:45:13"
+}

@@ -1,0 +1,64 @@
+{
+ "class_id": "planted:N18",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "classical spin lattice (Landau-Lifshitz precession) coupled to a thermally driven damped oscillator/resonator; discrete time crystal / subharmonic response physics",
+ "standard_name": "discrete time crystal / 'discrete time liquid' (noise-driven period doubling with time-solitons)",
+ "confidence": "medium",
+ "citations": [
+  "Wang, Michael et al. 2026, arXiv:2610.30266 (preprint, 'Discrete time liquids') - thermal noise filtered by a resonator produces period doubling in a 100x100 classical spin lattice with no external drive; temperature window; time-solitons (read only via press coverage: xenospectrum, Quantum Zeitgeist, ScienceAlert)",
+  "Yao, Nayak, Balents, Zaletel 2020, Nature Physics 16, 438-447 - Classical discrete time crystals: period doubling in classical noisy spin/oscillator systems",
+  "Else, Monroe, Nayak, Yao 2020, Annu. Rev. Condens. Matter Phys. 11, 467-499 - Discrete Time Crystals (review)"
+ ],
+ "searches": [
+  "time crystal period doubling spins coupled to thermal noise damped oscillator without periodic drive",
+  "noise-induced subharmonic response spin lattice stochastic resonator thermal bath period doubling discrete time crystal",
+  "discrete time liquid thermal noise resonator classical spin lattice period doubling arXiv Max Planck",
+  "\"Discrete time liquids\" Zuo Wang Paul M. Michael arXiv",
+  "Yao Nayak Bilitewski Vishwanath Classical discrete time crystals Nature Physics 2020"
+ ],
+ "notes": "Primary preprint not read directly; details come from news coverage. Press reports disagree on the co-author's first name (Marios H. vs Paul M. Michael). The specific numbers (1000-period lifetime at T/T0=0.9, no doubling at 0.01) were not verified against the paper. The preprint is not peer-reviewed.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "time crystal period doubling spins coupled to thermal noise damped oscillator without periodic drive"
+  },
+  {
+   "query": "noise-induced subharmonic response spin lattice stochastic resonator thermal bath period doubling discrete time crystal"
+  },
+  {
+   "query": "discrete time liquid thermal noise resonator classical spin lattice period doubling arXiv Max Planck"
+  },
+  {
+   "query": "\"Discrete time liquids\" Zuo Wang Paul M. Michael arXiv"
+  },
+  {
+   "query": "Yao Nayak Bilitewski Vishwanath Classical discrete time crystals Nature Physics 2020"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10149626",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://www.nature.com/articles/s41567-025-03163-6",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ab9fc0/pdf",
+  "https://www.science.org/doi/10.1126/science.abk0603",
+  "https://iontrap.duke.edu/files/2025/03/annurev-conmatphys-031119-050658.pdf&gsessionid=BKjFPHEbs-hL8vbMhLo6XrNC4NAxXkHBoWFeJTbTNadleL3XnUdlaQ",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC8890700/",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://iontrap.duke.edu/files/2025/03/annurev-conmatphys-031119-050658.pdf",
+  "https://www.sciencealert.com/physicists-propose-a-strange-new-state-of-matter-a-liquid-that-can-flow-in-time",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://www.newsy-today.com/max-planck-institute-for-the-physics-of-complex-systems-in-germany-proposes-new-state-of-matter/",
+  "https://www.newsbeep.com/au/943362/",
+  "https://www.nature.com/articles/s41567-019-0782-3",
+  "https://quantumoptics.physics.berkeley.edu/papers",
+  "https://www.microsoft.com/en-us/research/publication/classical-discrete-time-crystals/",
+  "https://www.osti.gov/pages/biblio/1603622"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system looks like a direct reproduction of a very recent preprint. I could only read press coverage of that preprint, not the paper itself.\n\n**1. Model family.** This is a classical spin lattice with Landau\u2013Lifshitz-type precession about a local field. The field is modulated by a noisy damped oscillator, which acts as a cavity mode or resonator coupled to a thermal bath. The period doubling is a subharmonic response, which is the signature of a discrete time crystal (DTC). Here the \"drive\" is the resonator's thermally driven, only partly coherent oscillation, not an external periodic drive.\n\n**2. The specific behaviour.** The close match is Wang, Michael and co-authors, \"Discrete time liquids\", arXiv:2610.30266, posted 21 Oct 2026. I have not read the arXiv page. The details below come from secondary coverage.\n- The preprint reports that thermal noise alone, filtered through a resonator, can produce period doubling in a classical spin lattice.\n- The numerics use classical spins on a 100\u00d7100 square lattice coupled to a resonator in contact with a thermal bath. That is the same lattice size and coupling as your system.\n- No periodic drive was applied from outside, yet within a certain temperature range the spins oscillated at twice the resonator's period.\n- Your \"too cold\" result, with no doubling at T/T0 = 0.01, fits a temperature window. The \"discrete time liquid\" label applies at intermediate resonator temperature and short coherence. The paper's phase labels are free precession, discrete time crystal, discrete time liquid and disordered.\n- Your sign reversals match the paper's \"time solitons\". These are topological defects that disrupt long-range temporal consistency while preserving local periodic behaviour.\n- Your long-coherence variant matches the paper's longer-lived doubling. Period-doubled dynamics persisted beyond long autocorrelation times. The exact \"1000 periods at T/T0 = 0.9\" figure could not be checked from the coverage I found.\n\n**Background and review sources.**\n- Yao, Nayak, Balents and Zaletel, \"Classical discrete time crystals\", Nature Physics 16, 438\u2013447 (2020). It conjectures classical time crystals with true long-range order, and it covers period doubling in classical oscillators and spins with noise and a drive.\n- Else, Monroe, Nayak and Yao, \"Discrete Time Crystals\", Annu. Rev. Condens. Matter Phys. 11, 467\u2013499 (2020). This is the standard review. Its listing is confirmed on the Yao group publications page.\n- The Else et al. review also notes that coupled oscillators with a Langevin bath would count as a classical dissipative time crystal.\n\n**3. Citation check.**\n- The Yao et al. and Else et al. details match the Nature page and the Berkeley publication list.\n- The Wang et al. details come only from news articles (xenospectrum, Quantum Zeitgeist, ScienceAlert).\n- The press reports disagree on the co-author's name (\"Marios H. Michael\" versus \"Paul M. Michael\"). I could not confirm the author list or title from the arXiv page, so check it there.\n\n**4. Confidence: medium-high.** The match is very close in lattice size, resonator and bath, absence of an external drive, the temperature window, and the loss of long-range temporal order through defects. Confidence is not \"high\" because I only saw secondary coverage of the preprint, which is not peer-reviewed. I also could not check the specific numbers: coherence times of 20 and 200 periods, the 10^5-period variant, and the 1000-period lifetime. The underlying phenomenon, period doubling that is rigid because of interactions, is the established DTC concept.\n\n**Searches run:**\n- time crystal period doubling spins coupled to thermal noise damped oscillator without periodic drive\n- noise-induced subharmonic response spin lattice stochastic resonator thermal bath period doubling discrete time crystal\n- discrete time liquid thermal noise resonator classical spin lattice period doubling arXiv Max Planck\n- \"Discrete time liquids\" Zuo Wang Paul M. Michael arXiv\n- Yao Nayak Bilitewski Vishwanath Classical discrete time crystals Nature Physics 2020\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"classical spin lattice (Landau-Lifshitz precession) coupled to a thermally driven damped oscillator/resonator; discrete time crystal / subharmonic response physics\", \"standard_name\": \"discrete time crystal / 'discrete time liquid' (noise-driven period doubling with time-solitons)\", \"confidence\": \"medium\", \"citations\": [\"Wang, Michael et al. 2026, arXiv:2610.30266 (preprint, 'Discrete time liquids') - thermal noise filtered by a resonator produces period doubling in a 100x100 classical spin lattice with no external drive; temperature window; time-solitons (read only via press coverage: xenospectrum, Quantum Zeitgeist, ScienceAlert)\", \"Yao, Nayak, Balents, Zaletel 2020, Nature Physics 16, 438-447 - Classical discrete time crystals: period doubling in classical noisy spin/oscillator systems\", \"Else, Monroe, Nayak, Yao 2020, Annu. Rev. Condens. Matter Phys. 11, 467-499 - Discrete Time Crystals (review)\"], \"searches\": [\"time crystal period doubling spins coupled to thermal noise damped oscillator without periodic drive\", \"noise-induced subharmonic response spin lattice stochastic resonator thermal bath period doubling discrete time crystal\", \"discrete time liquid thermal noise resonator classical spin lattice period doubling arXiv Max Planck\", \"\\\"Discrete time liquids\\\" Zuo Wang Paul M. Michael arXiv\", \"Yao Nayak Bilitewski Vishwanath Classical discrete time crystals Nature Physics 2020\"], \"notes\": \"Primary preprint not read directly; details come from news coverage. Press reports disagree on the co-author's first name (Marios H. vs Paul M. Michael). The specific numbers (1000-period lifetime at T/T0=0.9, no doubling at 0.01) were not verified against the paper. The preprint is not peer-reviewed.\"}\n```",
+ "checked": "2026-11-03 03:14:17"
+}

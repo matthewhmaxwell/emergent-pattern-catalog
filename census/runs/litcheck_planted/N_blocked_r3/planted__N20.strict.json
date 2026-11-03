@@ -1,0 +1,96 @@
+{
+ "class_id": "planted:N20",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Nonreciprocal (vision-cone/anisotropic-kernel) XY model, nematic version; motile +1/2 and passive -1/2 defects as in dry active nematics",
+ "citations": [
+  "Rouzaire, Pearce, Pagonabarraga, Levis, PRL 134, 167101 (2025), arXiv:2401.12637",
+  "Loos, Klapp, Martynec, PRL 130, 198301 (2023)",
+  "Inescapable Anisotropy of Nonreciprocal XY Models, PRL (2025), doi:10.1103/r3dx-7lrd",
+  "Popli, Maitra, Ramaswamy, PRL 135, 088303 (2025)",
+  "Brauns et al., PRL 136, 058302 (2026)",
+  "Shankar et al., PRL 121, 108002 (2018)",
+  "Santhosh et al., R. Soc. Open Sci. 10, 221229 (2023), doi:10.1098/rsos.221229",
+  "Thijssen et al., Phys. Rev. Research 2, 042008 (2020)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "+1/2 speed rising with s and zero -1/2 drift follow from symmetry and match documented active-nematic behaviour; texture-dependent defect dynamics under an anisotropic non-mutual kernel is documented by Rouzaire et al. for the polar case. The twist not found: above s~0.15 a +1 defect splits into four defects (three +1/2 plus one -1/2, i.e. a \u00b11/2 pair is created) for a phase-dependent share of initial textures (0.64 at s=0.5), instead of the standard split into two +1/2. Plausibly meaningful (non-mutual coupling creating defect pairs) but needs checks for edge seeding (open boundaries, L=100), brief pairs that annihilate, and lattice/detection artifacts. Only abstracts and snippets were searched; a nematic follow-up to Rouzaire et al. may already contain this.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "non-reciprocal nematic XY model vision cone +1/2 defects self-propelled"
+  },
+  {
+   "query": "nonreciprocal XY model integer defect splits into four half-integer defects"
+  },
+  {
+   "query": "nonreciprocal nematic alignment lattice half-integer defects motility anisotropic kernel Rouzaire Pearce"
+  },
+  {
+   "query": "non-reciprocal nematic spin model +1/2 defects become motile without flow lattice"
+  },
+  {
+   "query": "\"nonreciprocal\" nematic XY model topological defects arXiv 2025 apolar vision cone"
+  },
+  {
+   "query": "Rouzaire Levis nematic nonreciprocal coupling half-integer defects self-propulsion"
+  },
+  {
+   "query": "+1 defect decays into three +1/2 and one -1/2 defects active nematic"
+  },
+  {
+   "query": "nematic lattice model anisotropic non-reciprocal coupling along director defect self-propulsion integer defect splitting"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.cell.com/newton/fulltext/S2950-6360(25)00283-X",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.130.198301",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://www.emergentmind.com/topics/active-xy-model",
+  "https://journals.aps.org/prl/abstract/10.1103/r3dx-7lrd",
+  "https://pubmed.ncbi.nlm.nih.gov/40929335/",
+  "https://journals.aps.org/prl/abstract/10.1103/2yky-45sr",
+  "https://doi.org/10.1103/PhysRevLett.134.167101",
+  "https://www.repository.cam.ac.uk/bitstreams/3a353046-15b1-48d9-91c4-a99e129e3bde/download",
+  "https://pubmed.ncbi.nlm.nih.gov/40344095/",
+  "https://pith.science/paper/2605.23425",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.134.167101",
+  "https://sites.lsa.umich.edu/shankar-lab/wp-content/uploads/sites/1188/2020/10/Shankar_PRL2018.pdf",
+  "https://pubs.rsc.org/en/content/articlehtml/2021/sm/d1sm00825k",
+  "https://link.aps.org/doi/10.1103/PhysRevE.77.021701",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.121.108002",
+  "https://www.nature.com/articles/s42005-022-01077-w",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://journals.aps.org/prl/abstract/10.1103/xv94-xpz2",
+  "https://royalsocietypublishing.org/rsos/article/10/2/221229/91941/Defect-self-propulsion-in-active-nematic-films",
+  "https://pubmed.ncbi.nlm.nih.gov/39972907/",
+  "https://pith.science/paper/2605.23425",
+  "https://pubmed.ncbi.nlm.nih.gov/40344095/",
+  "https://www.repository.cam.ac.uk/bitstreams/3a353046-15b1-48d9-91c4-a99e129e3bde/download",
+  "https://royalsocietypublishing.org/rsos/article/10/2/221229/91941/Defect-self-propulsion-in-active-nematic-films",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.2.042008",
+  "https://members.cecam.org/storage/booklet_files/BOOKLET_Out-of-equilibrium-phenomena-in-the-presence-of-curvature-and-non-reciprocal-interactions-(1)-1719906884.pdf",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.121.108002",
+  "https://pubmed.ncbi.nlm.nih.gov/41723657/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://cv.cs.columbia.edu/ruoshi/papers/Topological_Defect_Detection.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8791053/",
+  "https://pubmed.ncbi.nlm.nih.gov/36816847",
+  "https://royalsocietypublishing.org/doi/10.1098/rspa.2021.0879",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12247727/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9929493/",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2020.00112/full",
+  "https://sites.lsa.umich.edu/shankar-lab/wp-content/uploads/sites/1188/2020/10/Shankar_PRL2018.pdf",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10350597",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/abe8a8"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** I agree with the first pass. Most of the behaviour is well documented. The one new piece is that a +1 defect splits into four defects above s \u2248 0.15, depending on the texture phase. I couldn't find that described anywhere, but it isn't enough to call the whole result undocumented.\n\n**What's already documented**\n- **Defects in non-mutual XY models.** The closest polar relative is Rouzaire, Pearce, Pagonabarraga and Levis (PRL 2025). They weight the XY coupling by an anisotropic kernel, so that besides the topological charge, the actual shape of the defects becomes crucial to their dynamics. They also report that nonreciprocal coupling twists the spin field, selecting specific defect shapes, dramatically altering the pair annihilation process. Your rule looks like the nematic version of their kernel: a 2\u03c6 dependence, so a site listens equally to both ends of its axis. Defects whose behaviour depends on the texture phase is exactly their main point.\n- **Defects moving in one direction.** In the vision-cone XY model, defects propagate in a directional manner, thereby breaking the parity and time-reversal symmetry of the spin dynamics (Loos, Klapp & Martynec, PRL 2023). Other work shows that non-mutual alignment is akin to a self-propulsion.\n- **+1/2 moves, \u22121/2 doesn't.** This is the standard active-nematic picture. The +1/2 is comet-shaped with a head\u2013tail polarity, while the \u22121/2 has threefold symmetry, and the \u22121/2 remains a non-motile particle. Self-propelled +1/2 defects also appear without any fluid flow, in nematic active solids (Brauns et al., PRL 2026). Your results (+1/2 speed rising with s, zero drift for \u22121/2) follow from symmetry and are expected.\n- **+1 splitting in two.** In nematics, two half-integer defects have less elastic energy than one full-integer defect, so any full-integer defect should be inherently unstable. Splitting into two +1/2 defects is the expected baseline.\n\n**The twist I couldn't find**\nAbove a threshold s \u2248 0.15, a +1 defect splits into four defects for about 64% of starting phases at s = 0.5, and never at s = 0.10. Because total charge is conserved, four defects must be three +1/2 plus one \u22121/2, so an extra \u00b11/2 pair is being created. I found no paper describing this or its dependence on the starting phase.\n\nDoes it matter? Plausibly yes, a little: it would mean non-mutual coupling can create defect pairs from a single integer defect, not just change how existing defects move. But it fits easily within the Rouzaire-type \"shape matters\" picture. Note that my searches only reached abstracts and snippets, and the nematic follow-ups to these papers could easily contain it.\n\n**Real pattern or artifact?**\nThe motility results look like real physics with no sign of artifacts. The four-defect splitting is plausible but not yet verified. Before treating it as real, I'd check that:\n- the extra \u00b11/2 pair survives over time rather than appearing briefly and annihilating;\n- the result doesn't change with lattice size (100 is small, and the edges are open, so the edges could be seeding the extra pair);\n- it isn't caused by the winding-detection method or by pinning to the triangular lattice;\n- the onset at 0.15 holds up with a finer scan of s.\n\n**Searches run:** nonreciprocal nematic XY with vision cone and +1/2 self-propulsion; integer defect splitting into four in nonreciprocal XY models; Rouzaire/Pearce nematic anisotropic kernel; nonreciprocal nematic spin model with motile defects and no flow; nematic nonreciprocal arXiv 2025 (apolar vision cone); +1 decaying into three +1/2 and one \u22121/2; anisotropic nonreciprocal nematic lattice with integer defect splitting.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Nonreciprocal (vision-cone/anisotropic-kernel) XY model, nematic version; motile +1/2 and passive -1/2 defects as in dry active nematics\", \"citations\": [\"Rouzaire, Pearce, Pagonabarraga, Levis, PRL 134, 167101 (2025), arXiv:2401.12637\", \"Loos, Klapp, Martynec, PRL 130, 198301 (2023)\", \"Inescapable Anisotropy of Nonreciprocal XY Models, PRL (2025), doi:10.1103/r3dx-7lrd\", \"Popli, Maitra, Ramaswamy, PRL 135, 088303 (2025)\", \"Brauns et al., PRL 136, 058302 (2026)\", \"Shankar et al., PRL 121, 108002 (2018)\", \"Santhosh et al., R. Soc. Open Sci. 10, 221229 (2023), doi:10.1098/rsos.221229\", \"Thijssen et al., Phys. Rev. Research 2, 042008 (2020)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"+1/2 speed rising with s and zero -1/2 drift follow from symmetry and match documented active-nematic behaviour; texture-dependent defect dynamics under an anisotropic non-mutual kernel is documented by Rouzaire et al. for the polar case. The twist not found: above s~0.15 a +1 defect splits into four defects (three +1/2 plus one -1/2, i.e. a \u00b11/2 pair is created) for a phase-dependent share of initial textures (0.64 at s=0.5), instead of the standard split into two +1/2. Plausibly meaningful (non-mutual coupling creating defect pairs) but needs checks for edge seeding (open boundaries, L=100), brief pairs that annihilate, and lattice/detection artifacts. Only abstracts and snippets were searched; a nematic follow-up to Rouzaire et al. may already contain this.\"}\n```",
+ "checked": "2026-11-03 03:44:08"
+}

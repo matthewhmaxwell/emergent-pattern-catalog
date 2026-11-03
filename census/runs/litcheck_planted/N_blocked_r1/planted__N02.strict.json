@@ -1,0 +1,52 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chemotaxis/cross-taxis-modulated Turing patterns in the Sel'kov glycolysis model (nonmonotonic, re-entrant pattern control with spot-to-stripe transitions)",
+ "citations": [
+  "arXiv:2609.01159 - Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model (Selkov + chemotaxis), https://pith.science/paper/2609.01159",
+  "arXiv:2609.01127 - Nonmonotonic control of pattern formation by chemotaxis, https://pith.science/paper/2609.01127",
+  "Liu, Ge, Shen (2022) Appl. Math. Comput. 431 - glycolysis Sel'kov model with cross-diffusion, Turing patterns"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "The first pass misidentified the kinetics: they are Sel'kov (glycolysis), not Schnakenberg. Two Sept-2026 arXiv papers study Sel'kov kinetics with reciprocal and nonreciprocal mutual chemotaxis and report a nonmonotonic amplitude/wavelength response, chemotaxis-induced pattern suppression and re-entrance, and spot-to-stripe transitions, which together cover every observed feature. Only machine-review summaries were seen, not the full texts; the exact parameters and antisymmetric c1=-c2 choice were not verified. The sweep stops at c~0.5, so a possible predicted re-entry of the pattern at larger nonreciprocal c was not tested. Linear analysis confirms the uniform state is Turing-unstable at c=0, so the patterns are genuine. Suggest checking with a smaller time step that the large-c uniform state is not a numerical artifact.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots stripes"
+  },
+  {
+   "query": "Sel'kov glycolysis model chemotaxis cross-diffusion pattern formation"
+  },
+  {
+   "query": "Nonmonotonic control of pattern formation by chemotaxis Selkov nonreciprocal arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.biorxiv.org/content/10.1101/403600.full.pdf",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "https://www.embopress.org/doi/10.15252/embr.202357405",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "http://carretero.sdsu.edu/publications/postscript/MGR.pdf",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://pith.science/paper/2609.01159",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737",
+  "https://pith.science/paper/2609.01127",
+  "https://pith.science/paper/2609.01127",
+  "https://pith.science/paper/2609.01159",
+  "https://pith.science/paper/2605.15158"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass in two ways: it named the wrong reaction model, and the behaviour turns out to be described for this exact system class.\n\n**1. Wrong model name.** The rules u' = \u2212u + a\u00b7v + u\u00b2v and v' = b \u2212 a\u00b7v \u2212 u\u00b2v, with steady state (b, b/(a+b\u00b2)), are the **Sel'kov glycolysis model**, not Schnakenberg. The two are related, and some papers combine them as a \"Sel'kov\u2013Schnakenberg\" system. But the papers that match this behaviour are Sel'kov papers.\n\n**2. Sel'kov plus mutual chemotaxis has been studied directly.** Two recent arXiv papers (September 2026) cover it. I only saw machine-review summaries on Pith, not the full arXiv texts.\n- **arXiv:2609.01159:** the authors study linear instabilities and pattern formation in a spatially extended Selkov model for glycolysis with diffusion and chemotactic interactions between two species. They conclude that chemotaxis can act as a nonmonotonic control parameter for instability selection, wavelength selection, re-entrant pattern formation, and nonlinear pattern morphology. They treat both reciprocal and nonreciprocal coupling: reciprocal chemotaxis yields uniform-to-pattern-to-uniform sweeps while extreme nonreciprocal chemotaxis yields pattern-to-uniform-to-pattern sweeps.\n- **arXiv:2609.01127:** its numerical simulations of a chemotactic version of the Selkov glycolysis model show pattern amplitudes tracking the predicted curve and reveal chemotaxis-driven spot-to-stripe transitions.\n\n**How the observations line up:**\n- **Amplitude rises then falls (peak at c\u22480.17):** matches the documented non-monotonic amplitude curve.\n- **Spots turning into stripes:** documented.\n- **Pattern gone at c\u22480.49:** matches chemotaxis switching the pattern off. A pattern-to-uniform-to-pattern sequence is predicted for the nonreciprocal case, so the pattern might come back at c > 0.5. The sweep stops too early to test that, which is a gap in the sweep, not a new behaviour.\n\nI could not check the exact parameter values (a=0.015, b=10, D2/D1=1000) or whether their coupling matches the exactly antisymmetric c1 = \u2212c2 used here. These are rule details and don't change the verdict.\n\n**Genuine or artifact: genuine.** Linearising at c=0 with these parameters gives a stable uniform state that is Turing-unstable:\n- Without diffusion it is stable: trace \u2248 1 \u2212 100 < 0, determinant \u2248 100 > 0.\n- With diffusion it destabilises: d\u00b7f_u + g_v \u2248 1000 \u2212 100 > 0, and (900)\u00b2 = 810,000 > 4\u00b7d\u00b7det \u2248 400,000.\n\nSo spots at small c are expected. The result is reproducible across 10 seeds, the morphology changes smoothly, and the large-c state is reported as uniform rather than blown up. That doesn't look like a frozen, diverged or inert state. One thing worth checking: large taxis terms can make explicit time-stepping unstable, so confirm that the \"uniform\" state at c\u22480.49 holds up with a smaller time step.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chemotaxis/cross-taxis-modulated Turing patterns in the Sel'kov glycolysis model (nonmonotonic, re-entrant pattern control with spot-to-stripe transitions)\", \"citations\": [\"arXiv:2609.01159 - Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model (Selkov + chemotaxis), https://pith.science/paper/2609.01159\", \"arXiv:2609.01127 - Nonmonotonic control of pattern formation by chemotaxis, https://pith.science/paper/2609.01127\", \"Liu, Ge, Shen (2022) Appl. Math. Comput. 431 - glycolysis Sel'kov model with cross-diffusion, Turing patterns\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"The first pass misidentified the kinetics: they are Sel'kov (glycolysis), not Schnakenberg. Two Sept-2026 arXiv papers study Sel'kov kinetics with reciprocal and nonreciprocal mutual chemotaxis and report a nonmonotonic amplitude/wavelength response, chemotaxis-induced pattern suppression and re-entrance, and spot-to-stripe transitions, which together cover every observed feature. Only machine-review summaries were seen, not the full texts; the exact parameters and antisymmetric c1=-c2 choice were not verified. The sweep stops at c~0.5, so a possible predicted re-entry of the pattern at larger nonreciprocal c was not tested. Linear analysis confirms the uniform state is Turing-unstable at c=0, so the patterns are genuine. Suggest checking with a smaller time step that the large-c uniform state is not a numerical artifact.\"}\n```",
+ "checked": "2026-11-03 02:28:47"
+}

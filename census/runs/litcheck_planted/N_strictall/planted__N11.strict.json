@@ -1,0 +1,111 @@
+{
+ "class_id": "planted:N11",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Competition-induced Turing-type pattern sequence (hexagonal spots -> stripes/labyrinths -> gaps) in a nonlocal logistic / spatial birth-death model, with higher-order (three-body) competition as the minimal mechanism",
+ "citations": [
+  "Pinto-Ramos et al., 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics', code/data Zenodo 10.5281/zenodo.22937227 (Sept 2026)",
+  "Silvano, Valeriano, Hern\u00e1ndez-Garc\u00eda, L\u00f3pez & Martinez-Garcia, Commun. Phys. 8:326 (2025) - nonlocal FKPP gives hexagonal spots only; nonlocal model shows gaps->labyrinths->spots as mortality increases",
+  "van der Voort, Martinez-Garcia & Doelman, J. Theor. Biol. (2026) - competition-only nonlocal models, spots/stripes/gaps",
+  "Mart\u00ednez-Garc\u00eda et al., GRL 2013 and Phil. Trans. R. Soc. A 372:20140068 (2014) - stripes and spots from nonlocal competition alone",
+  "Gowda et al., Proc. R. Soc. A 472:20150893 (2016) - quadratic-coefficient sign sets gaps vs spots; standard gaps->labyrinth->spots sequence"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Partly overturns the first pass: verdict changed from variant to KNOWN, but the first pass identified the right source. Spots re-appearing at higher death/birth matches the documented mortality-driven gaps->labyrinths->spots sequence, so it is not a new twist. Correction: earlier competition-only models with nonlinear growth already produced stripes; only the plain nonlocal FKPP gives spots alone. Manuscript text not read, so the exact thresholds and the re-entry are not confirmed in it. Possible artifacts to check: an anisotropy index jumping to exactly 1.0 (capped, and stripes may align with the periodic box); spot and gap thresholds sit at the edges of the sweep range; 'death/birth ratio' is undefined at steady state unless the baseline death rate was swept separately.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 11,
+ "search_inputs": [
+  {
+   "query": "higher-order competition spatial birth-death spots stripes gaps pattern formation preprint"
+  },
+  {
+   "query": "three-body competition nonlocal individual-based model stripes gaps hexagonal clusters 2026"
+  },
+  {
+   "query": "higher-order interactions competition-induced pattern formation population stripes spots gaps"
+  },
+  {
+   "query": "higher-order interactions nonlocal competition pattern diversity individual-based model arXiv"
+  },
+  {
+   "query": "Martinez-Garcia nonlocal competition gaps labyrinths spots mortality sequence model"
+  },
+  {
+   "query": "\"higher-order\" competition spatial point process birth-death stripes labyrinths gaps competition alone 2026"
+  },
+  {
+   "query": "Mart\u00ednez-Garc\u00eda 2014 minimal mechanisms vegetation patterns nonlocal competition spots stripes gaps"
+  },
+  {
+   "query": "three-body interactions competition-induced patterns spots stripes gaps nonlocal Fisher-KPP"
+  },
+  {
+   "query": "Silvano Martinez-Garcia higher-order interactions pattern formation nonlocal competition stripes gaps"
+  },
+  {
+   "query": "higher-order interactions pattern formation competition-only populations hexagonal spots stripes gaps preprint 2026 Zenodo"
+  },
+  {
+   "query": "\"Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics\""
+  }
+ ],
+ "result_urls": [
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/102.pdf",
+  "https://www.nature.com/articles/s41598-017-17346-6",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/96.pdf",
+  "https://ui.adsabs.harvard.edu/abs/2025arXiv250302486L/abstract",
+  "https://www.academia.edu/71343942/Pattern_Formation_in_a_Cross_Diffusive_Holling_Tanner_Model",
+  "https://sgthoughts.substack.com/p/the-ai-three-body-problem-june-2026",
+  "https://fortune.com/2026/08/22/ais-three-body-problem-no-single-force-can-dictate-the-outcome/",
+  "https://onlinelibrary.wiley.com/doi/10.1111/sapm.70253",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0304380019303862",
+  "https://www.nature.com/articles/srep11229",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0022519318304247",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4459219/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4962045",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5155543/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12031895/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12031895",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.71336",
+  "https://www.biorxiv.org/content/10.1101/494757.full.pdf",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://royalsocietypublishing.org/rspa/article/472/2187/20150893/57121/Assessing-the-robustness-of-spatial-pattern",
+  "https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013GL058797",
+  "https://www.nature.com/articles/s41598-021-97472-4.pdf",
+  "https://pubs.aip.org/aip/cha/article-abstract/36/3/033112/3382212/Neutral-species-facilitate-coexistence-among?redirectedFrom=fulltext",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9934342/",
+  "https://www.biorxiv.org/content/10.1101/608414.full.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4186217/",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013GL058797",
+  "https://pubmed.ncbi.nlm.nih.gov/25246686/",
+  "https://ifisc.uib-csic.es/es/publications/minimal-mechanisms-for-vegetation-patterns-in-semi/",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://www.sciencedirect.com/science/article/pii/S0022039620303600",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013GL058797",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://pith.science/paper/2512.09488",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0304380019303862",
+  "https://zenodo.org/records/22937227",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://link.springer.com/chapter/10.1007/978-3-032-00873-2_11",
+  "https://onlinelibrary.wiley.com/doi/10.1111/ele.70415",
+  "https://pubmed.ncbi.nlm.nih.gov/41560181/",
+  "https://zenodo.org/records/22937227",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10718426/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.04.05.535749.full.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.12.05.570113.full.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** This partly overturns the first pass. I think it was right about the source but wrong to call this a variant. The sequence you saw (hexagonal spots \u2192 parallel stripes \u2192 empty holes as the three-body term grows, then spots again when deaths rise) is documented behaviour. A 2026 manuscript appears to study this exact mechanism, and the general sequence is textbook pattern formation.\n\n**1. The matching source exists.** A Zenodo record (DOI 10.5281/zenodo.22937227, author handle DPintoRamos) contains the simulation and analysis code, processed reference arrays, and figure-reproduction workflows accompanying the manuscript \"Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics.\" It was published September 24, 2026, version v0.1. I couldn't find or read the manuscript itself, so I haven't confirmed its exact parameters, thresholds or whether it shows the re-entry. That is why confidence is medium-high rather than high.\n\n**2. The pattern sequence is a standard one.** Spots, stripes and gaps in this order are the classic Turing-type sequence. Which pattern wins depends on one coefficient in the near-onset theory: a necessary condition for the stability of gaps is given by a<0, and a necessary condition for the stability of spots is given by a>0. A crowding term that grows with density squared is exactly the kind of extra nonlinearity that changes that coefficient. So moving from spots to stripes to gaps as g increases is what theory predicts, not a new behaviour.\n\n**3. The re-entry of spots is also expected.** In a closely related competition model, as the death rate increases (worse environmental conditions), the model shows a sequence of gaps, labyrinths, and spots. Spots coming back at a death/birth ratio of about 0.55 fits that sequence: higher mortality lowers the average density, which favours spots. I would not treat it as a new feature.\n\n**4. One correction to the first pass.** It said earlier competition-only models predict only spots. That's true only for the simplest version: the nonlocal logistic model subjected to periodic boundary conditions tends to only generate vegetation spots, and its spots have a hexagonal symmetry typical of competition-induced patterns. That matches your result at the lowest g. But competition-only models with nonlinear growth terms already gave steady striped and spotted vegetation patterns back in 2013. A 2014 review reports spots, labyrinths, stripes and gaps in nonlocal models, though some of those include facilitation. What the new manuscript adds is the three-body term as the mechanism, not the behaviour.\n\n**Is it real or an artifact?** It looks like a genuine emergent pattern. Three things in your outputs deserve a check:\n- **Anisotropy jumping from exactly 0 to 1.0** looks like a capped index. In a periodic square box, stripes tend to line up with the box edges, which inflates anisotropy. Try a few box sizes and check whether stripes still form.\n- **Thresholds at the sweep edges:** the spot threshold (3.27e-6) is at the bottom of the sweep (3.3e-6) and the gap threshold (3.93e-5) is at the top (3.9e-5). Those thresholds are probably limited by the sweep range, not real transition points. Extend the range on both sides.\n- **\"Death/birth ratio\" is ambiguous:** at steady state total deaths equal total births, so 0.55 presumably means a separately swept baseline death rate (it is 192/1920 = 0.1 in the stated rule). Confirm what was varied.\n\nNone of this suggests a frozen, diverged or randomly coloured state.\n\n**Searches run:** higher-order or three-body competition with spots, stripes and gaps; competition-only nonlocal models; nonlocal Fisher-KPP patterns; the mortality-driven pattern sequence; the Zenodo record and manuscript title.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Competition-induced Turing-type pattern sequence (hexagonal spots -> stripes/labyrinths -> gaps) in a nonlocal logistic / spatial birth-death model, with higher-order (three-body) competition as the minimal mechanism\", \"citations\": [\"Pinto-Ramos et al., 'Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics', code/data Zenodo 10.5281/zenodo.22937227 (Sept 2026)\", \"Silvano, Valeriano, Hern\u00e1ndez-Garc\u00eda, L\u00f3pez & Martinez-Garcia, Commun. Phys. 8:326 (2025) - nonlocal FKPP gives hexagonal spots only; nonlocal model shows gaps->labyrinths->spots as mortality increases\", \"van der Voort, Martinez-Garcia & Doelman, J. Theor. Biol. (2026) - competition-only nonlocal models, spots/stripes/gaps\", \"Mart\u00ednez-Garc\u00eda et al., GRL 2013 and Phil. Trans. R. Soc. A 372:20140068 (2014) - stripes and spots from nonlocal competition alone\", \"Gowda et al., Proc. R. Soc. A 472:20150893 (2016) - quadratic-coefficient sign sets gaps vs spots; standard gaps->labyrinth->spots sequence\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Partly overturns the first pass: verdict changed from variant to KNOWN, but the first pass identified the right source. Spots re-appearing at higher death/birth matches the documented mortality-driven gaps->labyrinths->spots sequence, so it is not a new twist. Correction: earlier competition-only models with nonlinear growth already produced stripes; only the plain nonlocal FKPP gives spots alone. Manuscript text not read, so the exact thresholds and the re-entry are not confirmed in it. Possible artifacts to check: an anisotropy index jumping to exactly 1.0 (capped, and stripes may align with the periodic box); spot and gap thresholds sit at the edges of the sweep range; 'death/birth ratio' is undefined at steady state unless the baseline death rate was swept separately.\"}\n```",
+ "checked": "2026-11-03 04:20:02"
+}

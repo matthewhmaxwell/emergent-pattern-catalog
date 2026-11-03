@@ -1,0 +1,59 @@
+{
+ "class_id": "planted:N06",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Classical frustrated Heisenberg J1-J2-J3 model on the square lattice (spiral spin liquid with ring-degenerate minimum; statistical physics / frustrated magnetism)",
+ "standard_name": "Spiral spin liquid with half-vortices (fractional momentum vortices with spin-frame rotation), order-by-disorder lattice-nematic transition",
+ "confidence": "medium",
+ "citations": [
+  "Glittum, Yan, Reuther 2026, arXiv:2609.15941 (Zenodo 10.5281/zenodo.23390512) 'Fractional vortices in a spin-isotropic spiral spin liquid' - half-vortices (pi wave-vector winding + pi spin-frame rotation) dense in SSL regime of a square-lattice Heisenberg model, bind below an order-by-disorder transition; 200x200 lattices (read via Pith summary only)",
+  "Yan & Reuther 2022, Phys. Rev. Research 4, 023175 'Low-energy structure of spiral spin liquids' - local momentum vortices as a distinct topological defect in square-lattice J1-J2-J3 XY SSL, Monte Carlo",
+  "Gonzalez, Fancelli, Yan, Reuther 2024, Phys. Rev. B 110, 085106 - SSL and surrounding phases in square-lattice XY model, Monte Carlo phase diagram",
+  "Niggemann et al., J. Phys.: Condens. Matter (IOPscience 10.1088/1361-648X/ab4480) 'Classical spiral spin liquids as a possible route to quantum spin liquids' - overview incl. square-lattice J1-J2-J3 Heisenberg SSL (authors/year not confirmed from search)",
+  "Thermal order by disorder from spiral ring: Phys. Rev. B 81, 214419 (2010) honeycomb J1-J2 - lattice nematic order from spiral degeneracy, Potts transition"
+ ],
+ "searches": [
+  "spiral spin liquid square lattice J1-J2-J3 Monte Carlo topological defects wave vector winding helical",
+  "classical Heisenberg square lattice ring degenerate spiral wave vector ferromagnetic J1 J2 J3 thermal order-by-disorder nematic transition",
+  "defects in spiral spin liquid half-integer winding wave vector dislocation disclination helimagnet frustrated lattice simulation",
+  "Fractional vortices in a spin-isotropic spiral spin liquid arXiv half-vortices Heisenberg square lattice"
+ ],
+ "notes": "Full text of the 2026 preprint not read, only a summary page; exact couplings and numerical values (defect densities, T=0.0268, 0.19) not verified against it. Preprint is recent and possibly not peer reviewed. Yan & Reuther authorship inferred from a later citation. Earliest wave-vector-defect source is the XY-spin 2022 paper; the Heisenberg half-vortex classification is the 2026 preprint.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "spiral spin liquid square lattice J1-J2-J3 Monte Carlo topological defects wave vector winding helical"
+  },
+  {
+   "query": "classical Heisenberg square lattice ring degenerate spiral wave vector ferromagnetic J1 J2 J3 thermal order-by-disorder nematic transition"
+  },
+  {
+   "query": "defects in spiral spin liquid half-integer winding wave vector dislocation disclination helimagnet frustrated lattice simulation"
+  },
+  {
+   "query": "Fractional vortices in a spin-isotropic spiral spin liquid arXiv half-vortices Heisenberg square lattice"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.023175",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ab4480",
+  "https://pith.science/paper/2609.15941",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://link.aps.org/doi/10.1103/PhysRevB.110.085106",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.81.214419",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ae4f4b",
+  "https://www.academia.edu/10565118/Spiral_order_by_disorder_and_lattice_nematic_order_in_a_frustrated_Heisenberg_antiferromagnet_on_the_honeycomb_lattice",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.94.094438",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.023175",
+  "https://pith.science/paper/2609.15941",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://pith.science/paper/2609.15941",
+  "https://zenodo.org/records/23390512",
+  "https://www.osti.gov/biblio/20719599"
+ ],
+ "full_text": "**Verdict: KNOWN.** Confidence is medium-high.\n\n**1. Model family.** This is a classical frustrated Heisenberg J1\u2013J2\u2013J3 model on the square lattice. It has a ring-degenerate minimum in reciprocal space, so it is a spiral spin liquid (SSL). The family sits in statistical physics and frustrated magnetism. Your couplings follow the J3 = J2/2 line, which gives the ring.\n\n**2. The specific behaviour.** The behaviours you list are all described in the literature:\n\n- **Intermediate-temperature SSL and the ordering transition.**\n  - The SSL has a continuous contour of wave vectors in reciprocal space, and phase transitions along the ring-minimum line separate disordered SSL states from low-temperature ordered states that break lattice-rotational symmetry.\n  - The same family of ideas covers spiral order by disorder, in which discrete lattice rotation symmetry stays broken as a thermal nematic. That result is for the honeycomb J1\u2013J2 model.\n- **Defects of the local wave-vector field.**\n  - Yan and Reuther's \"Low-energy structure of spiral spin liquids\" (Phys. Rev. Research 4, 023175, 2022) finds a second type of topological defect, vortices in the local momentum vector field on the coarse-grained lattice, besides the usual spin vortices.\n  - It is done for the XY model with Monte Carlo, on 400\u00d7400 lattices.\n  - I took the authors from a later citation (\"Yan and Reuther^15\") and not from the abstract page.\n- **Half-wound defects with a spin-frame rotation.** This is the closest match to your observations. Glittum, Yan and Reuther, \"Fractional vortices in a spin-isotropic spiral spin liquid\" (arXiv:2609.15941, 2026; data at Zenodo 10.5281/zenodo.23390512), makes these claims:\n  - The elementary defects of a spin-isotropic Heisenberg SSL are half-vortices. Each carries a \u03c0 winding of the spiral wave vector together with a \u03c0 rotation of the spin frame.\n  - Large-scale Monte Carlo on a square-lattice model shows these half-vortices are dense in the SSL regime and bind tightly below an order-by-disorder transition.\n  - They are classified by the order-parameter space [U(1)\u00d7SO(3)]/\u2124\u2082, in which reversing the wave vector is equivalent to reversing the spiral-plane normal.\n  - The summary also mentions a family of vortex types with concerted windings of spin direction, plane normal and wave vector. The simulations use 200\u00d7200 lattices.\n  - This matches your observations: a wave-vector winding of 0.5 turns (\u03c0) for the commonest defect, a rarer class that winds only the spin frame, dense defects in the correlated regime, and a lattice-rotation-breaking transition at low T.\n\n**Review and context sources.**\n- Niggemann et al., \"Classical spiral spin liquids as a possible route to quantum spin liquids\" (J. Phys.: Condens. Matter, IOPscience 10.1088/1361-648X/ab4480). It builds a Heisenberg SSL model on the square lattice with J1, J2 and J3. I only saw the title and abstract, so I can't confirm the author list or year from the search.\n- Gonzalez, Fancelli, Yan and Reuther, \"Magnetic properties of the spiral spin liquid and surrounding phases in the square lattice XY model\" (Phys. Rev. B 110, 085106). This is the XY-model phase-diagram companion paper.\n- The IOPscience article \"The finite-temperature behavior of a triangular Heisenberg antiferromagnet\" covers the thermal behaviour of a Heisenberg SSL, but on the triangular lattice.\n\n**Caveats.**\n- I could only read a summary of the 2026 preprint (a Pith review page) and not the full text. I did not confirm the exact couplings (J1 = \u22121, J2 = 0.28, J3 = 0.14), the 0.66 ring radius, or the numbers 0.03, 0.003, 0.0268 and 0.19.\n- I am therefore treating the preprint as an equivalent system because the model type, lattice size, defect type and transition all match. If those couplings are exactly its model, this is KNOWN. If they differ only in parameters, it is a trivial variant.\n- The preprint is recent (about 48 days old at search time) and may not be peer reviewed.\n- The earliest clear source for wave-vector defects is Yan and Reuther 2022, for the XY model. The earliest source for the Heisenberg half-vortex classification is the 2026 preprint.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Classical frustrated Heisenberg J1-J2-J3 model on the square lattice (spiral spin liquid with ring-degenerate minimum; statistical physics / frustrated magnetism)\", \"standard_name\": \"Spiral spin liquid with half-vortices (fractional momentum vortices with spin-frame rotation), order-by-disorder lattice-nematic transition\", \"confidence\": \"medium\", \"citations\": [\"Glittum, Yan, Reuther 2026, arXiv:2609.15941 (Zenodo 10.5281/zenodo.23390512) 'Fractional vortices in a spin-isotropic spiral spin liquid' - half-vortices (pi wave-vector winding + pi spin-frame rotation) dense in SSL regime of a square-lattice Heisenberg model, bind below an order-by-disorder transition; 200x200 lattices (read via Pith summary only)\", \"Yan & Reuther 2022, Phys. Rev. Research 4, 023175 'Low-energy structure of spiral spin liquids' - local momentum vortices as a distinct topological defect in square-lattice J1-J2-J3 XY SSL, Monte Carlo\", \"Gonzalez, Fancelli, Yan, Reuther 2024, Phys. Rev. B 110, 085106 - SSL and surrounding phases in square-lattice XY model, Monte Carlo phase diagram\", \"Niggemann et al., J. Phys.: Condens. Matter (IOPscience 10.1088/1361-648X/ab4480) 'Classical spiral spin liquids as a possible route to quantum spin liquids' - overview incl. square-lattice J1-J2-J3 Heisenberg SSL (authors/year not confirmed from search)\", \"Thermal order by disorder from spiral ring: Phys. Rev. B 81, 214419 (2010) honeycomb J1-J2 - lattice nematic order from spiral degeneracy, Potts transition\"], \"searches\": [\"spiral spin liquid square lattice J1-J2-J3 Monte Carlo topological defects wave vector winding helical\", \"classical Heisenberg square lattice ring degenerate spiral wave vector ferromagnetic J1 J2 J3 thermal order-by-disorder nematic transition\", \"defects in spiral spin liquid half-integer winding wave vector dislocation disclination helimagnet frustrated lattice simulation\", \"Fractional vortices in a spin-isotropic spiral spin liquid arXiv half-vortices Heisenberg square lattice\"], \"notes\": \"Full text of the 2026 preprint not read, only a summary page; exact couplings and numerical values (defect densities, T=0.0268, 0.19) not verified against it. Preprint is recent and possibly not peer reviewed. Yan & Reuther authorship inferred from a later citation. Earliest wave-vector-defect source is the XY-spin 2022 paper; the Heisenberg half-vortex classification is the 2026 preprint.\"}\n```",
+ "checked": "2026-11-03 02:57:46"
+}

@@ -1,0 +1,116 @@
+{
+ "class_id": "planted:N15",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "active matter: self-propelled particles with non-reciprocal vision-cone position-based steering (no velocity alignment), cognitive/minimal flocking models",
+ "standard_name": "Minimal cognitive flocking model (vision cone, attraction to neighbour positions); intelligent active Brownian particles with visual perception",
+ "confidence": "low",
+ "citations": [
+  "Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal vision-cone model with position-only attraction within a cognitive horizon; reports nematic patterns, aggregates, incidental leaders (read via APS synopsis, not the full paper)",
+  "Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - active Brownian particles steering toward neighbour positions in a vision cone; reports HCP, worm-aggregate and dilute phases",
+  "Negi, Winkler & Gompper 2024, Phys. Rev. Research 6, 013118 - vision-based steering plus alignment; clusters and worms",
+  "Saavedra et al. 2024, Phys. Rev. E 110, 064602 - nonreciprocal vision-cone attraction forms chains and closed loops around obstacles",
+  "Peruani 2017, J. Phys. Soc. Jpn 86, 101010 - hydrodynamic equations for flocking without alignment (listed on author homepage, not opened)"
+ ],
+ "searches": [
+  "self-propelled particles vision cone non-reciprocal attraction network of streams fractal voids junctions",
+  "active particles turn toward visible neighbors positions limited vision angle filament network no alignment",
+  "non-reciprocal visual perception active matter vision cone turning towards neighbors fractal network phase",
+  "self-propelled agents steer toward visible neighbors vision cone network of filaments fractal dimension 1.5 three-way junctions",
+  "nonreciprocal attraction active particles chains network vision cone voids length scale vision range",
+  "swarming agents bearing-only turning toward neighbors limited field of view vein-like network fractal",
+  "Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates",
+  "vision cone active particles network-like structure percolating filaments Negi Winkler Gompper",
+  "non-reciprocal vision-cone self-propelled particles fractal web of streams void size scales with vision range",
+  "Peruani hydrodynamic equations flocking models without velocity alignment vision cone"
+ ],
+ "notes": "The rule system is essentially the Barberis-Peruani model class with inertia and noise. I could not read the full Barberis & Peruani paper, so I could not confirm the sine-of-bearing turning term or whether a fractal or web-like state is described there. No source I read quantifies fractal dimension, void-area scaling (R^3) or junction-degree statistics, so that quantification may be new even though the model and the filament phenomenology are known. Check the Barberis-Peruani full text and Peruani 2017 before calling the network state novel.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 10,
+ "search_inputs": [
+  {
+   "query": "self-propelled particles vision cone non-reciprocal attraction network of streams fractal voids junctions"
+  },
+  {
+   "query": "active particles turn toward visible neighbors positions limited vision angle filament network pattern formation no alignment"
+  },
+  {
+   "query": "non-reciprocal visual perception active matter vision cone turning towards neighbors fractal network phase"
+  },
+  {
+   "query": "self-propelled agents steer toward visible neighbors vision cone, collective motion network of filaments, fractal dimension 1.5, three-way junctions"
+  },
+  {
+   "query": "nonreciprocal attraction active particles chains network \"vision\" cone filamentous network voids length scale vision range"
+  },
+  {
+   "query": "swarming agents bearing-only turning toward neighbors limited field of view vein-like network pattern fractal"
+  },
+  {
+   "query": "Barberis Peruani large-scale patterns minimal cognitive flocking model incidental leaders nematic patterns aggregates"
+  },
+  {
+   "query": "vision cone active particles network-like structure percolating filaments low noise \"network\" steering toward neighbors Negi Winkler Gompper worm"
+  },
+  {
+   "query": "non-reciprocal vision-cone self-propelled particles spontaneously form fractal web of streams, void size scales with vision range"
+  },
+  {
+   "query": "Peruani hydrodynamic equations flocking models without velocity alignment pursuit turn toward neighbors vision cone filaments"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924008543",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.064602",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://pubmed.ncbi.nlm.nih.gov/42268044/",
+  "https://www.science.org/doi/10.1126/science.aau5347",
+  "https://www.science.org/doi/10.1126/science.aau5347",
+  "https://www.cell.com/newton/fulltext/S2950-6360(25)00283-X",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/adc243",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://pubs.rsc.org/sm/article/18/33/6167/788445/Emergent-collective-behavior-of-active-Brownian",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC13269928/",
+  "https://www.nature.com/articles/s41598-026-52749-4",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11043455/",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4674271/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11487077/",
+  "https://pubmed.ncbi.nlm.nih.gov/39916118/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae140c",
+  "https://link.springer.com/article/10.1007/s11721-019-00163-0",
+  "https://link.springer.com/article/10.1007/s11721-017-0140-y",
+  "https://pubmed.ncbi.nlm.nih.gov/38285716",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0094221",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4014465/",
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://www.sciencedirect.com/science/article/pii/S2405896322029858",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://math.univ-cotedazur.fr/~peruani/bactphys.html",
+  "https://www.nature.com/articles/s42005-025-02131-z",
+  "https://www.nature.com/articles/s42005-024-01860-x",
+  "https://www.science.org/doi/abs/10.1126/sciadv.aay0792",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1007697",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://pith.science/paper/2607.08048",
+  "https://www.biorxiv.org/content/10.1101/2020.07.26.222273.full.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.condmatjclub.org/uploads/2022/12/JCCM_December_2022_01.pdf",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://dx.doi.org/10.1103/PhysRevX.14.031008",
+  "https://physics.aps.org/synopsis-for/10.1103/PhysRevLett.117.248001",
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, confidence low-to-medium.** The rule system is a documented model. I found no source that reports the specific network morphology you measured.\n\n**1. Model family**\nThis is active matter: self-propelled particles with non-reciprocal, vision-cone, position-only steering and no velocity alignment. Both ingredients are in the literature.\n- The earliest clear source I found is Barberis & Peruani, PRL 117, 248001 (2016), \"Large-scale patterns in a minimal cognitive flocking model: Incidental leaders, nematic patterns, and aggregates\". The APS synopsis says each particle's motion is influenced by the position, and not the velocity, of its neighbors. It also says individuals are attracted by particles within their vision cone, and only if those particles lie within a cognitive horizon. That matches your rules (1)\u2013(4). I could only read the synopsis and the citing papers, not the paper itself. I therefore could not check whether its turning term uses the sine of the bearing angle, or its exact parameters.\n- A closely related model is Negi, Winkler & Gompper, Soft Matter 18, 6167 (2022), \"Emergent collective behavior of active Brownian particles with visual perception\". It gives an orientational response with limited maneuverability to an instantaneous visual input of the positions of neighbors within a vision cone and a cut-off radius. It reports HCP, worm-aggregate, and dilute phases rather than a network. It is overdamped and has no explicit inertia.\n- A follow-up that adds alignment is Negi, Winkler & Gompper, PRResearch 6, 013118 (2024). Its abstract says particles detect the instantaneous position of the center of mass of neighboring particles within their vision cone.\n- A review-level reference for this model class is Peruani's hydrodynamic treatment of flocking models without alignment, listed on his homepage as J. Phys. Soc. Jpn 86, 101010 (2017). I did not open it, so I can't confirm the details.\n\n**2. The specific behaviour**\nNone of the sources I could read reports the following:\n- a fractal filament network with dimension about 1.5\n- void areas scaling as R\u00b3\n- trivalent junctions dominating, with degree 4 as the maximum and degree 5 or more absent\n\nWhat the literature does report is nearby:\n- Barberis & Peruani describe nematic patterns and aggregates.\n- Saavedra et al., PRE 110, 064602 (2024) report that active particles with nonreciprocal attraction form particle chains, which eventually become closed loops. This is in a disordered-media setting.\n- Citing papers describe this model class as forming clusters, polar filaments, and nematic bands.\n\n**3. What differs, and whether it matters**\n- Your parameter regime is a small cone (\u03c0/8), a long range (R of 5\u201310), small inertia and a low-density, noisy, collisionless box. I did not find this regime studied specifically.\n- The network quantification (fractal dimension, void scaling, junction-degree statistics) appears to be new, even though the rules and the filament and chain phenomenology are not.\n- It is plausible, but unverified, that the \"network\" is the same filament and nematic-pattern regime seen at small vision angles in Barberis & Peruani (2016). If so, your measured exponents would be new quantification of a known state. The R\u00b3 void scaling would then be the most novel item, and I have no explanation for it.\n\n**4. Searches run**\nI ran about 10 searches. They covered the vision-cone family, non-reciprocal and bearing-only steering, networks and fractals with junctions and voids, Barberis\u2013Peruani, and Negi\u2013Winkler\u2013Gompper. None of them returned a paper on fractal dimension, void scaling or junction degree for this class. My search budget ran out before I could read the Barberis & Peruani full text or the Peruani 2017 paper. That is the main reason confidence is not higher. Those two papers are the first things to check for a \"network\" or \"web\" description.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"active matter: self-propelled particles with non-reciprocal vision-cone position-based steering (no velocity alignment), cognitive/minimal flocking models\", \"standard_name\": \"Minimal cognitive flocking model (vision cone, attraction to neighbour positions); intelligent active Brownian particles with visual perception\", \"confidence\": \"low\", \"citations\": [\"Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal vision-cone model with position-only attraction within a cognitive horizon; reports nematic patterns, aggregates, incidental leaders (read via APS synopsis, not the full paper)\", \"Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - active Brownian particles steering toward neighbour positions in a vision cone; reports HCP, worm-aggregate and dilute phases\", \"Negi, Winkler & Gompper 2024, Phys. Rev. Research 6, 013118 - vision-based steering plus alignment; clusters and worms\", \"Saavedra et al. 2024, Phys. Rev. E 110, 064602 - nonreciprocal vision-cone attraction forms chains and closed loops around obstacles\", \"Peruani 2017, J. Phys. Soc. Jpn 86, 101010 - hydrodynamic equations for flocking without alignment (listed on author homepage, not opened)\"], \"searches\": [\"self-propelled particles vision cone non-reciprocal attraction network of streams fractal voids junctions\", \"active particles turn toward visible neighbors positions limited vision angle filament network no alignment\", \"non-reciprocal visual perception active matter vision cone turning towards neighbors fractal network phase\", \"self-propelled agents steer toward visible neighbors vision cone network of filaments fractal dimension 1.5 three-way junctions\", \"nonreciprocal attraction active particles chains network vision cone voids length scale vision range\", \"swarming agents bearing-only turning toward neighbors limited field of view vein-like network fractal\", \"Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates\", \"vision cone active particles network-like structure percolating filaments Negi Winkler Gompper\", \"non-reciprocal vision-cone self-propelled particles fractal web of streams void size scales with vision range\", \"Peruani hydrodynamic equations flocking models without velocity alignment vision cone\"], \"notes\": \"The rule system is essentially the Barberis-Peruani model class with inertia and noise. I could not read the full Barberis & Peruani paper, so I could not confirm the sine-of-bearing turning term or whether a fractal or web-like state is described there. No source I read quantifies fractal dimension, void-area scaling (R^3) or junction-degree statistics, so that quantification may be new even though the model and the filament phenomenology are known. Check the Barberis-Peruani full text and Peruani 2017 before calling the network state novel.\"}\n```",
+ "checked": "2026-11-03 03:35:18"
+}

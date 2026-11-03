@@ -1,0 +1,84 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "2D long-range XY model at the marginal point sigma=2 (J~1/r^4): logarithmic finite-size behaviour from k^2 ln k Goldstone modes, ln ln L phase fluctuations",
+ "citations": [
+  "Yao, Xiao, Zhang, Deng, Fan, PRB 112, 144429 (2025) - Nonclassical regime of the 2D long-range XY model",
+  "Giachetti, Defenu, Ruffo, Trombettoni, PRL 127, 156801 (2021); EPL 133, 57004 (2021)",
+  "Bruno, PRL 87, 137203 (2001) - no LRO for alpha>=2D",
+  "Generalized 2D nonlinear sigma models: ln ln L transverse fluctuations, inverse-log power correlations (PubMed 26764658)",
+  "Critique of arXiv 2512.01956 (LR Heisenberg sigma=2 LRO claim vs Bruno)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Behaviour is documented. Twist: the observed m^2~(ln L)^(-eta(T)) decay to zero matches Bruno's theorem and spin-wave theory, but contradicts Yao/Xiao et al.'s LRO reading (c1+c2/ln L) of the same model; no paper found that explicitly fits (ln L)^(-eta(T)) with eta~T. This is an interpretive dispute, not new physics; the two forms are hard to separate at L<=2048. eta(beta=1)/eta(beta=8)=17, not 8, so eta~T holds only at low T. nu=2.24 not compared with the published sigma=2 value and may be an effective fit if the transition is out of a log-quasi-ordered phase. Only abstracts/summaries were read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "two-dimensional XY model long-range interaction sigma=2 logarithmic magnetization decay Monte Carlo"
+  },
+  {
+   "query": "long-range XY model \u03c3=2 marginal \"ln L\" magnetization power of logarithm spin-wave k^2 ln k"
+  },
+  {
+   "query": "two-dimensional long-range XY \u03c3=2 \"ln ln\" fluctuations no long-range order quasi-long-range logarithmic"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni BKT long-range couplings \u03c3=2 line of fixed points"
+  },
+  {
+   "query": "long-range XY model two dimensions \u03c3=2 magnetization (ln L)^{-\u03b7} temperature dependent exponent"
+  },
+  {
+   "query": "Bruno 2001 absence of spontaneous magnetic order nonzero temperature one- and two-dimensional Heisenberg XY long-range interactions"
+  },
+  {
+   "query": "marginal \u03c3=2 long-range XY two dimensions Mermin-Wagner Bruno contradiction Monte Carlo logarithmic quasi-long-range order 2025"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.054203",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.52.R9",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11120707/",
+  "https://pith.science/paper/2512.01956",
+  "https://www.tcm.phy.cam.ac.uk/~achc2/phase/chap5.pdf",
+  "https://www.osti.gov/etdeweb/biblio/20409012",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0550321399001595",
+  "https://pith.science/paper/2512.01956",
+  "https://pith.science/paper/2506.19637",
+  "https://pubmed.ncbi.nlm.nih.gov/26764658",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://inspirehep.net/literature/1861073",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://arxiv-vanity.com/papers/2104.13217",
+  "https://arts.units.it/bitstream/11368/2995116/2/Self-consistent%20harmonic%20approximation%20in%20presence%20of%20non-local%20couplings.pdf",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://www.sissa.it/it/news/berezinskiikosterlitzthouless-phase-transitions-longrange-couplings-nuovo-articolo-physical",
+  "https://iris.sissa.it/handle/20.500.11767/127058",
+  "https://www.academia.edu/20020476/Correlations_in_the_low_temperature_phase_of_the_two_dimensional_XY_model",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://en.wikipedia.org/wiki/Classical_XY_model",
+  "http://www2.mpi-halle.mpg.de/theory_department/publications/abstract/ext/135/2001/",
+  "https://zenodo.org/records/1184413",
+  "https://www.nature.com/articles/s41535-023-00591-6",
+  "https://www.nature.com/articles/s41586-023-05859-2",
+  "https://www.nature.com/articles/s42005-025-01947-z",
+  "https://www.nature.com/articles/s41567-024-02562-5",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.87.137203",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.033046",
+  "https://www.tcm.phy.cam.ac.uk/~achc2/phase/chap5.pdf",
+  "https://pith.science/paper/2512.01956",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://pubs.rsc.org/en/content/articlehtml/2025/sm/d5sm00208g"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The first pass was right about what kind of system this is. But it left out an open dispute in the literature over whether this system orders at all, and the observed behaviour lands directly on that question.\n\n**What is documented**\n- **Same model, numerically.** Yao, Xiao, Zhang, Deng and Fan (PRB 112, 144429, October 2025) simulated this exact model: the 2D XY model with ~1/r^(2+\u03c3) couplings, including \u03c3=2. They report that in the low-temperature phase, due to the presence of the Goldstone mode, the correlation function saturates to a nonzero constant in the form of a power law for \u03c3<2, with decaying exponent 2\u2212\u03c3, and in the form of the inverse logarithm of distance for \u03c3=2. They also determined critical points and exponents for various \u03c3. So slow, logarithmic finite-size behaviour at \u03c3=2, plus a transition with a measured \u03bd, is published for this system.\n- **The theory.** Giachetti, Defenu, Ruffo and Trombettoni (PRL 127, 156801, 2021) analysed the renormalisation-group picture. They find the usual short-range behaviour, with a BKT transition, if \u03c3>2, and an upper bound \u03c3*=2 for the threshold above which the traditional BKT transition persists. That makes \u03c3=2 the marginal point.\n- **Rigorous result.** Bruno (PRL 87, 137203, 2001): for interactions that decrease monotonically, ferro- or antiferromagnetic long-range order at T>0 is ruled out if \u03b1\u22652D. Here \u03b1=4=2D, so true long-range order is forbidden.\n- **The same behaviour in an equivalent effective theory.** In 2D generalised nonlinear sigma models with a stiff phase, the variance of the transverse spin fluctuations scales with L as ln ln L. Equivalently, for N=2 in 2D, the equal-time spin-spin correlations decay as powers of the inverse logarithm of the separation, with model-dependent exponents. This is exactly the observed m\u00b2 ~ (ln L)^(\u2212\u03b7(T)). It is also what you get from the k\u00b2 ln k spin-wave dispersion of a 1/r\u2074 coupling. The relation 2\u03c0\u00b7slope\u00b7\u03b7 = 1 is just the Gaussian spin-wave identity.\n\n**The twist, and whether it matters**\nYao/Xiao et al. read their \u03c3=2 data as true long-range order, <\u27e8M\u00b2\u27e9 = c\u2081 + c\u2082/ln(L/L\u2080)>, and the same group says the same for the Heisenberg case. A public critique states that the claim of finite-temperature long-range order at \u03c3=2 in the 2D LR Heisenberg model contradicts Bruno's extension of the Mermin\u2013Wagner theorem.\n\nYour observation, a magnetisation that decays to zero as a power of ln L with an exponent that shrinks with temperature, matches Bruno and spin-wave theory, not the long-range-order reading. So the phenomenology isn't new. What it does is take a side in a live interpretive dispute. Over L \u2264 2048, c\u2081 + c\u2082/ln L and A(ln L)^(\u2212\u03b7) are hard to tell apart numerically. I didn't find any paper that explicitly fits (ln L)^(\u2212\u03b7(T)) with \u03b7 \u221d T for this model.\n\n**Points to check**\n- **Exponent vs temperature.** \u03b7 falls from 0.34 to 0.02 when \u03b2 goes from 1 to 8. That's a factor of about 17, not the factor of 8 that \"\u03b7 \u221d T\" implies. \u03b2=1 is probably close to the transition, where non-Gaussian corrections kick in. So \"proportional to temperature\" only holds at low T.\n- **\u03bd = 2.24.** I didn't compare this with Yao et al.'s published \u03c3=2 value. If there really is no long-range order, the transition is out of a log-quasi-ordered phase. A finite power-law \u03bd there may only be an effective fit to something closer to BKT-style (exponential) divergence.\n- **Sources read.** I only saw abstracts and summaries, not full texts.\n\n**Genuine or artifact:** genuine. Pure spin-wave theory with no free parameters reproduces the measured exponent-slope product of 1.0, and the trends are smooth and consistent with temperature. Nothing here looks like a frozen state, an inert coupled field or a numerical divergence.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"2D long-range XY model at the marginal point sigma=2 (J~1/r^4): logarithmic finite-size behaviour from k^2 ln k Goldstone modes, ln ln L phase fluctuations\", \"citations\": [\"Yao, Xiao, Zhang, Deng, Fan, PRB 112, 144429 (2025) - Nonclassical regime of the 2D long-range XY model\", \"Giachetti, Defenu, Ruffo, Trombettoni, PRL 127, 156801 (2021); EPL 133, 57004 (2021)\", \"Bruno, PRL 87, 137203 (2001) - no LRO for alpha>=2D\", \"Generalized 2D nonlinear sigma models: ln ln L transverse fluctuations, inverse-log power correlations (PubMed 26764658)\", \"Critique of arXiv 2512.01956 (LR Heisenberg sigma=2 LRO claim vs Bruno)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Behaviour is documented. Twist: the observed m^2~(ln L)^(-eta(T)) decay to zero matches Bruno's theorem and spin-wave theory, but contradicts Yao/Xiao et al.'s LRO reading (c1+c2/ln L) of the same model; no paper found that explicitly fits (ln L)^(-eta(T)) with eta~T. This is an interpretive dispute, not new physics; the two forms are hard to separate at L<=2048. eta(beta=1)/eta(beta=8)=17, not 8, so eta~T holds only at low T. nu=2.24 not compared with the published sigma=2 value and may be an effective fit if the transition is out of a log-quasi-ordered phase. Only abstracts/summaries were read.\"}\n```",
+ "checked": "2026-11-03 04:21:18"
+}

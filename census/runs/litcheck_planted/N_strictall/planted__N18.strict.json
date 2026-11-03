@@ -1,0 +1,71 @@
+{
+ "class_id": "planted:N18",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Noise-driven (thermal-resonator-induced) discrete time crystal / discrete time liquid with period doubling; low-T free precession, intermediate-T period doubling, high-T disordered",
+ "citations": [
+  "Z. Wang, P. M. Schindler, M. Bukov, M. H. Michael, 'Discrete time liquids', arXiv preprint Oct 2026 (ID reported as 2610.30266, not directly verified) - via xenospectrum.com, quantumzeitgeist.com, ScienceAlert coverage",
+  "A. Pizzi, A. Nunnenkamp, J. Knolle, Phys. Rev. Lett. 127, 140602 (2021)",
+  "A. Pizzi, A. Nunnenkamp, J. Knolle, Phys. Rev. B 104, 094308 (2021)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgraded from VARIANT to KNOWN: every observed feature (2:1 subharmonic response with no external drive, absence at cold bath = documented free-precession phase, presence at intermediate T, finite lifetime set by thermalization in the long-coherence regime) matches the reported phase diagram of the noisy-resonator-coupled classical 2D spin lattice. The spin rule is the Pizzi-Nunnenkamp-Knolle classical prethermal DTC model with the periodic drive replaced by a thermal oscillator. Exact numbers (T/T0=0.9, 0.01, 1000 periods) were not checked against the paper text (only news coverage was available). A realisation-averaged decay cannot by itself tell the time-crystal regime from the time-liquid regime without the correlation-time/thermalisation-time ratio, but both are documented.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "noise-driven discrete time crystal spins coupled to damped oscillator period doubling arXiv"
+  },
+  {
+   "query": "\"time crystal\" noise random oscillator no periodic drive spin lattice time solitons 2025"
+  },
+  {
+   "query": "\"discrete time liquid\" arXiv resonator thermal noise spin lattice"
+  },
+  {
+   "query": "\"discrete time liquid\" time crystal melts noise period doubling"
+  },
+  {
+   "query": "arXiv 2610.30266"
+  },
+  {
+   "query": "Pizzi Nunnenkamp Knolle classical prethermal phases of matter period doubling 2D spins"
+  },
+  {
+   "query": "Zuo Wang time liquid resonator temperature low temperature free precession disordered high temperature period doubling"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10149626",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://www.nature.com/articles/s42005-025-02040-1",
+  "https://iontrap.duke.edu/files/2025/03/annurev-conmatphys-031119-050658.pdf",
+  "https://www.nature.com/articles/s41567-025-03028-y",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://news.google.com/read/CBMirAFBVV95cUxQcy1zdEk1eWlUYU55Um53T3MySWZuNGRsZ2UzV2RzMy1wMTVxMzlwZWlqRXhZa1lvdUhZczhHejF4R1NKMlhHTFpLdjZwOHhBR0NOX2pRN2ROR2toWFl5R0ZyZUlmY2JQcWZzYjljc282SE5Zd1hUNGZFVUtyWF9MSWJ5SnV1bnRRdHRkV3ZBZWx4UWNYcXpkcHc3WFNodmNtXzNVSk9xLVVmbEdy?hl=en-US&gl=US&ceid=US%3Aen",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://github.com/exopoiesis/arxiv-radar-chemistry",
+  "https://en.wikipedia.org/wiki/ArXiv",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.127.140602",
+  "https://www.nature.com/articles/s41467-026-70880-8",
+  "https://pubmed.ncbi.nlm.nih.gov/34652172/",
+  "https://www.tcm.phy.cam.ac.uk/highlights/210927Ju8_ap2076/",
+  "https://phys.org/news/2021-09-basics-approach-unravel-phase.html",
+  "https://awesomepapers.io/quantum-computing/papers/2104.13928",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.104.094308",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4537515",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/5909160",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10103710",
+  "https://www.science.org/doi/10.1126/science.abg8102"
+ ],
+ "full_text": "**Verdict: KNOWN.** The first pass picked the right family, but \"variant\" is too weak. All four features you observed match what has been reported for this model. The one caveat is that I could only read news coverage of the preprint, not the preprint itself.\n\n**What has been reported**\n- **The paper:** Zuo Wang, Paul M. Schindler, Marin Bukov and Marios H. [Michael], \"Discrete time liquids\", posted to arXiv on 21 October 2026. The coverage gives the ID as arXiv:2610.30266, but I could not find that ID or the abstract page in my searches. *Discrete time liquids* \u270d\ufe0f *Zuo Wang, Paul M. Schindler, Marin Bukov and Marios H. Michael, on October 21, 2026 posted a preprint to arXiv.\n- **Same setup as yours:** This spin lattice is coupled to a single resonator mode, modeled as a damped harmonic oscillator in contact with a thermal bath. There is no external periodic drive, and the resonator affects the spins without being affected back: the resonator signal is generated independently of the state of the spin lattice, and thermal fluctuations influence the spins in only one direction.\n- **Ratio of 2:** Although no periodic drive was applied from outside, within a certain temperature range the spins showed \"period doubling,\" oscillating at twice the period of the resonator's oscillation.\n- **No doubling when too cold (T/T0 = 0.01):** At low temperature, thermal fluctuations are too weak to affect the spin motion sufficiently, and the spins continue free precession. Too much noise gives a \"disordered\" phase instead. The paper sorts behaviour into four groups: \"free precession,\" \"discrete time crystal,\" \"discrete time liquid,\" and \"disordered.\"\n- **Doubling at intermediate temperature (T/T0 = 0.9):** At intermediate temperatures, the spins synchronize to half the resonator's oscillation frequency, and clear period doubling appears.\n- **Finite lifetime (~1000 periods) in the long-coherence version:** when the resonator's coherence time is sufficiently longer than the thermalization time, the spin lattice thermalizes before time solitons occur, so a single phase is maintained while the order lasts. A finite lifetime is what this \"time crystal\" regime predicts. With shorter coherence times, the \"time liquid\" regime appears: time solitons occur at irregular times, so even though period doubling remains in individual oscillations, the bias toward a particular phase disappears when the results of many trials are averaged.\n- **Where the spin rule comes from:** the lattice part (each spin precesses about a transverse field plus a coupling to its neighbours' z-components, turning by about \u03c0 per cycle) is the classical model of Pizzi, Nunnenkamp & Knolle. They showed this collective behavior is now showed to also emerge in classical Hamiltonian (nondissipative) dynamics. Your setup swaps their periodic drive for a noisy oscillator, which is exactly the Wang et al. change.\n\n**Genuine pattern or artifact?** It looks genuine, not trivial. The cold-bath case is the documented \"free precession\" phase, not a frozen state. The finite lifetime matches the expected slow loss of order to heating (thermalisation).\n\n**What I could not check**\n- I could not match your exact numbers (T/T0 of 0.9 and 0.01, the 1000-period lifetime) to the paper.\n- From an average over 100 noise runs alone, you cannot tell which regime you are in. A decay after 1000 periods could be the time-crystal regime losing order to heating, or the time-liquid regime losing phase to solitons. The paper separates them by comparing the correlation time with the thermalisation time, with a cutoff at a ratio of 0.418.\n- Either way, both regimes are documented, so this does not change the verdict.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Noise-driven (thermal-resonator-induced) discrete time crystal / discrete time liquid with period doubling; low-T free precession, intermediate-T period doubling, high-T disordered\", \"citations\": [\"Z. Wang, P. M. Schindler, M. Bukov, M. H. Michael, 'Discrete time liquids', arXiv preprint Oct 2026 (ID reported as 2610.30266, not directly verified) - via xenospectrum.com, quantumzeitgeist.com, ScienceAlert coverage\", \"A. Pizzi, A. Nunnenkamp, J. Knolle, Phys. Rev. Lett. 127, 140602 (2021)\", \"A. Pizzi, A. Nunnenkamp, J. Knolle, Phys. Rev. B 104, 094308 (2021)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgraded from VARIANT to KNOWN: every observed feature (2:1 subharmonic response with no external drive, absence at cold bath = documented free-precession phase, presence at intermediate T, finite lifetime set by thermalization in the long-coherence regime) matches the reported phase diagram of the noisy-resonator-coupled classical 2D spin lattice. The spin rule is the Pizzi-Nunnenkamp-Knolle classical prethermal DTC model with the periodic drive replaced by a thermal oscillator. Exact numbers (T/T0=0.9, 0.01, 1000 periods) were not checked against the paper text (only news coverage was available). A realisation-averaged decay cannot by itself tell the time-crystal regime from the time-liquid regime without the correlation-time/thermalisation-time ratio, but both are documented.\"}\n```",
+ "checked": "2026-11-03 04:26:34"
+}

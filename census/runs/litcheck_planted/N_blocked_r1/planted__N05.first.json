@@ -1,0 +1,86 @@
+{
+ "class_id": "planted:N05",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Nonequilibrium lattice gas of two particle species coupled to a fluctuating surface (fluctuation-dominated phase ordering; light-heavy model / sedimenting lattice family)",
+ "standard_name": "Light-heavy (LH) model on a fluctuating surface: coarsening to macroscopic phase separation (FDPO)",
+ "confidence": "low",
+ "citations": [
+  "Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - hard-core particles sliding on a fluctuating surface coarsen with length scale ~ t^{1/z}",
+  "Das, Barma & Majumdar 2001, Phys. Rev. E 64, 046126 - surface-fluctuation-driven coarsening, t^{1/z}, for EW/KPZ surfaces",
+  "Lahiri, Barma & Ramaswamy 2000, Phys. Rev. E 61, 1648 - strong phase separation in sedimenting lattice, two coupled species with density and tilt, macroscopic phase separation (authors from memory, not shown in the search result)",
+  "Mahapatra, Ramola & Barma 2020, Phys. Rev. Research 2, 043279 - LH model: early diffusive power-law stretch, coarsening length scale in ordered phases, phases depend on rates",
+  "Barma 2024, in '50 Years of the Renormalization Group' (World Scientific) - review of FDPO (listed on author page, not read)"
+ ],
+ "searches": [
+  "two-species particles coupled to fluctuating height profile ring coarsening exponent",
+  "ABC model coarsening domain growth exponent 1/3 ring",
+  "lattice gas coupled to dynamical landscape hills Edwards-Wilkinson coarsening",
+  "Light and heavy particles on a fluctuating surface coarsening Das Barma Majumdar",
+  "Particles sliding on a fluctuating surface Das Barma",
+  "light-heavy model fluctuating surface two species vacancies tilt fields",
+  "Mahapatra Ramola Barma light-heavy model arXiv coarsening exponent",
+  "Das Barma Majumdar light heavy Prakash Barma Ramola",
+  "Mahapatra Ramola Barma coarsening t^1/2 or 1/3 ordered phase"
+ ],
+ "notes": "Only abstracts and snippets were read. The exact rate parametrization (0.9/0.1, b=-0.4, b'=0.3) and the specific exponents 0.5 -> 0.34 (0.41 for b'=0.18) with crossover near t=1000 were not confirmed in any source. 0.5 likely reflects z=2 surface diffusion and ~1/3 the conserved-order-parameter value, but this is my inference. Check the full text of Mahapatra et al. 2020 to close the gap.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "two-species particles coupled to fluctuating height profile ring, phase separation coarsening exponent, slope-dependent hopping, interface dynamics"
+  },
+  {
+   "query": "ABC model coarsening domain growth exponent 1/3 ring conserved drive"
+  },
+  {
+   "query": "lattice gas coupled to dynamical landscape particles and fluctuating surface, \"Active\" hills, Edwards-Wilkinson, coarsening arrested"
+  },
+  {
+   "query": "Light and heavy particles on a fluctuating surface coarsening length scale t^{1/2} then t^{1/3} Das Barma Majumdar"
+  },
+  {
+   "query": "Particles sliding on a fluctuating surface: phase separation and power laws Das Barma"
+  },
+  {
+   "query": "light-heavy model fluctuating surface two species vacancies A B tilt fields phase separation hill macroscopic"
+  },
+  {
+   "query": "Mahapatra Ramola Barma light-heavy model arXiv coarsening length scale growth exponent ordered phase hills"
+  },
+  {
+   "query": "Das Barma Majumdar light heavy particles fluctuating surface phase separation vacancies \"light\" \"heavy\" tilt model Prakash Barma Ramola"
+  },
+  {
+   "query": "Mahapatra Ramola Barma light-heavy model coarsening \"t^{1/2}\" OR \"1/3\" domain size ordered phase simulation tilt"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10427613/",
+  "https://journals.aps.org/pre/abstract/10.1103/x8v2-rxhp",
+  "https://www.biorxiv.org/content/10.1101/2023.05.31.543153v1.full.pdf",
+  "http://physics.bu.edu/~redner/896/coarsening.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae09a3",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.64.046126",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.85.1602",
+  "https://ui.adsabs.harvard.edu/abs/2000PhRvL..85.1602D/abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/10970568/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.85.1602",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://physics.iisc.ac.in/~sriram/PRE01648.pdf",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.043279",
+  "https://www.tifrh.res.in/~barma/",
+  "https://www.tifrh.res.in/~barma/?page_id=35",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ad5b45",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10427613/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The model family is known, and the coarsening mechanism in it is documented. I could not read any source that gives the specific exponents you observed (0.5 early, about 0.34 late, crossover near t\u22481000), so those numbers are unconfirmed.\n\n**1. Model family.** This is a driven or nonequilibrium lattice gas on a fluctuating surface. It has two species of hard-core particles (A and B) plus vacancies, coupled to a tilt or height field. The particles feel the local slope, and the particles in turn bias how the slope changes. The literature calls this family \"fluctuation-dominated phase ordering\" (FDPO). The closest named match is the **light\u2013heavy (LH) model**. The surface-coupled lattice models in this family include \"sedimenting lattices\", sliding particles and the LH model.\n\n**2. Specific behaviour and sources.**\n- **Earliest clear source for the family.** Das & Barma, \"Particles Sliding on a Fluctuating Surface: Phase Separation and Power Laws\", Phys. Rev. Lett. 85, 1602 (2000). Hard-core particles slide locally downwards on a fluctuating 1D surface, and an initially random density coarsens with a growing length scale ~t^{1/z}. The result for the one-species model is that the exponent is set by the surface's dynamical exponent z. For a surface with z=2 this gives 1/2. Das, Barma & Majumdar (Phys. Rev. E 64, 046126, 2001) extend this. They report surface-fluctuation-driven coarsening with length scale growing as t^{1/z}.\n- **Two coupled species with a tilt field.** Lahiri, Barma & Ramaswamy, \"Strong phase separation in a model of sedimenting lattices\", Phys. Rev. E 61, 1648 (2000). I identified the authors from memory and from the PDF's location on S. Ramaswamy's page. The search result did not show them. It maps the problem to a 1D lattice model with two coupled species of spins, and each species shows macroscopic phase separation in the steady state. This matches your \"macroscopic hills\" in the late regime.\n- **Closest equivalent system.** Mahapatra, Ramola & Barma, \"Light and heavy particles on a fluctuating surface: Bunchwise balance, irreducible sequences, and local density-height correlations\", Phys. Rev. Research 2, 043279 (2020). It studies early-time and coarsening dynamics of two species coupled to a fluctuating surface described by tilt fields. It predicts an intermediate diffusive (power-law) stretch before coarsening begins, and finds it in simulations of the ordered regime. That is qualitatively like your early t^0.5 regime followed by a crossover. It also says irreducible sequences give a coarsening length scale in the ordered phases at late times. The steady-state phases, ordered or disordered, depend on the microscopic rates. That fits your two parameter sets giving different late exponents (0.41 and 0.34).\n- **Review.** M. Barma, \"Fluctuation-dominated Phase Ordering\", in *50 Years of the Renormalization Group* (World Scientific, 2024). It appears in his publication list, but I did not read it. Barma, Majumdar & Mukamel, J. Phys. A 52, 254001 (2019) is a related overview. I only saw the title in the same list.\n- A later paper, Prakash, Barma & Ramola, J. Stat. Mech. 103208 (2025), concerns the *scaled* LH model, which has a different phase diagram. I did not use it.\n\n**3. What differs, and whether it matters.**\n- I could not confirm that the published LH model uses exactly your rules: the 0.9/0.1 slope-biased hops, the peak/dip flips biased by b = \u22120.4 and b\u2032 = 0.3, and vacancies at one third. Matching these details would need the Mahapatra et al. paper itself, which I did not read.\n- The abstracts I saw do not give a late-time growth exponent near 1/3 or 0.41, or a crossover time near 10\u00b3. The late exponent 0.34 may simply be the conserved-order-parameter value 1/3. That is plausible but unverified. The standard textbook value for a conserved order parameter is t^{1/3} (Redner's coarsening chapter says conserved-order-parameter coarsening gives t^{1/3} growth). The drift to 0.34 and 0.41 may be finite-time effects.\n- The early t^0.5 regime is consistent with z=2 diffusive surface dynamics, because t^{1/z} with z=2 gives 1/2. This is my inference, not something I found stated.\n- It is unclear whether \"early domains dissolve\" at t\u22481000 is the same event the LH paper calls the \"onset of coarsening\". The hills are presumably the macroscopic phase-separated state of the ordered phase.\n\n**4. Confidence: medium-low.** The model family and the qualitative phenomenon (a surface-driven early regime, then coarsening, then macroscopic phase separation) are well documented. I only read abstracts and snippets, not the full texts. I found no quantitative statement of your exponents or of the crossover. That is why I chose KNOWN-VARIANT instead of KNOWN.\n\n**Searches run:**\n- two-species fluctuating height coarsening\n- ABC model coarsening exponent\n- lattice gas with dynamic landscape\n- light-heavy model coarsening\n- Das\u2013Barma sliding particles\n- light-heavy vacancies tilt\n- Mahapatra\u2013Ramola\u2013Barma exponent\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Nonequilibrium lattice gas of two particle species coupled to a fluctuating surface (fluctuation-dominated phase ordering; light-heavy model / sedimenting lattice family)\", \"standard_name\": \"Light-heavy (LH) model on a fluctuating surface: coarsening to macroscopic phase separation (FDPO)\", \"confidence\": \"low\", \"citations\": [\"Das & Barma 2000, Phys. Rev. Lett. 85, 1602 - hard-core particles sliding on a fluctuating surface coarsen with length scale ~ t^{1/z}\", \"Das, Barma & Majumdar 2001, Phys. Rev. E 64, 046126 - surface-fluctuation-driven coarsening, t^{1/z}, for EW/KPZ surfaces\", \"Lahiri, Barma & Ramaswamy 2000, Phys. Rev. E 61, 1648 - strong phase separation in sedimenting lattice, two coupled species with density and tilt, macroscopic phase separation (authors from memory, not shown in the search result)\", \"Mahapatra, Ramola & Barma 2020, Phys. Rev. Research 2, 043279 - LH model: early diffusive power-law stretch, coarsening length scale in ordered phases, phases depend on rates\", \"Barma 2024, in '50 Years of the Renormalization Group' (World Scientific) - review of FDPO (listed on author page, not read)\"], \"searches\": [\"two-species particles coupled to fluctuating height profile ring coarsening exponent\", \"ABC model coarsening domain growth exponent 1/3 ring\", \"lattice gas coupled to dynamical landscape hills Edwards-Wilkinson coarsening\", \"Light and heavy particles on a fluctuating surface coarsening Das Barma Majumdar\", \"Particles sliding on a fluctuating surface Das Barma\", \"light-heavy model fluctuating surface two species vacancies tilt fields\", \"Mahapatra Ramola Barma light-heavy model arXiv coarsening exponent\", \"Das Barma Majumdar light heavy Prakash Barma Ramola\", \"Mahapatra Ramola Barma coarsening t^1/2 or 1/3 ordered phase\"], \"notes\": \"Only abstracts and snippets were read. The exact rate parametrization (0.9/0.1, b=-0.4, b'=0.3) and the specific exponents 0.5 -> 0.34 (0.41 for b'=0.18) with crossover near t=1000 were not confirmed in any source. 0.5 likely reflects z=2 surface diffusion and ~1/3 the conserved-order-parameter value, but this is my inference. Check the full text of Mahapatra et al. 2020 to close the gap.\"}\n```",
+ "checked": "2026-11-03 02:31:37"
+}

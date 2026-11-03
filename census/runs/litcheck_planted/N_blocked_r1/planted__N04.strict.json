@@ -1,0 +1,80 @@
+{
+ "class_id": "planted:N04",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Activity-induced defect proliferation at T=0 (topological instability) with reentrant crystallization in odd/chiral Cosserat (micropolar) active solids; chiral Lennard-Jones solid breakup into rotating hexatic patches",
+ "citations": [
+  "arXiv 2609.09500, Topological instability and reentrant crystallization in active solids (odd Cosserat KTHNY; summary via pith.science)",
+  "Caporusso, Gonnella, Levis, PRL 132, 168201 (2024) Phase coexistence and edge currents in the chiral Lennard-Jones fluid",
+  "Odd active solids: vortices, velocity oscillations and dissipation-free modes, New J. Phys. (2025)",
+  "Reentrant melting of scarred odd crystals by self-shear, Nat. Commun. (2026)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgraded from KNOWN-VARIANT to KNOWN: arXiv 2609.09500 (read only via a review summary) predicts the full sequence: activity shifts the melting temperature, defects proliferate at T=0 above a threshold activity, and crystals reform at higher activity, in odd elastic solids with micropolar (rotational) coupling, which is what rotating ellipses provide. Caporusso et al. 2024 shows the disk version of the solid breaking up. Not confirmed: the restored crystal staying ordered at T=6, above the passive partial-melting temperature of 4.25. Both e_a/e_p=33 and T=6 sit at the edges of the sweep. Possible artifacts: overdamped steps that are too large for strong transverse forces, and high global six-fold order from rigidly rotating ordered patches. Check with a smaller timestep, a larger system, and translational order plus defect density.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "Caporusso transverse forces Lennard-Jones solid odd melting reentrant"
+  },
+  {
+   "query": "elliptical particles transverse non-conservative force chiral solid hexatic re-entrant crystalline order high activity"
+  },
+  {
+   "query": "Caporusso Gonnella Levis chiral solid melting transverse forces hexatic defects arXiv"
+  },
+  {
+   "query": "anisotropic particles odd transverse interactions ellipses Gay-Berne chiral active crystal melting"
+  },
+  {
+   "query": "transverse odd forces dense 2D crystal reentrant ordering large chirality restores hexagonal order Brownian simulation"
+  },
+  {
+   "query": "\"odd\" transverse interactions suppress melting crystal stabilized by chirality higher temperature non-reciprocal solid"
+  },
+  {
+   "query": "Topological instability and reentrant crystallization in active solids odd Cosserat KTHNY"
+  }
+ ],
+ "result_urls": [
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7435481/",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.88.022104",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://doi.org/10.3390/molecules25153498",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8002448/",
+  "https://pubmed.ncbi.nlm.nih.gov/24032772/",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ae4f19",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://link.springer.com/article/10.1140/epje/s10189-022-00230-1",
+  "https://www.science.gov/topicpages/g/gay-berne+liquid+crystal",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://pubmed.ncbi.nlm.nih.gov/41545359/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3041110/",
+  "https://www.nature.com/articles/ncomms1803",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11497608/",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://pith.science/paper/2609.09500",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/add366",
+  "https://pith.science/paper/2609.09500",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12916785/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12916785/"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm upgrading the first pass's \"variant\" call. The match comes from a review summary of a very recent arXiv paper, though, not the full text, so confidence is medium.\n\n**What matches**\n\n1. **The source that matches all three features.** A very recent paper, arXiv 2609.09500, \"Topological instability and reentrant crystallization in active solids,\" extends standard 2D melting theory (KTHNY) to active solids exhibiting both non-reciprocal (odd) elasticity and Cosserat (micropolar) coupling. I could only read an online review summary, not the paper itself. According to that summary:\n   - For perturbatively small values of non-reciprocity, melting still proceeds via defect unbinding, but the melting temperature shifts due to activity.\n   - At a threshold value of non-reciprocity, this shift makes the dislocation core energy negative, leading to the proliferation of defect pairs even at zero temperature. That matches your disorder at T=0 from e_a/e_p \u2248 2.\n   - For still higher activity, the model predicts reentrant crystallization. That matches your order returning at e_a/e_p = 33.\n   - The paper includes a numerical phase diagram of the odd Cosserat solid.\n\n   \"Micropolar\" means each particle also has its own rotation that couples to the lattice. Your rotating ellipses provide exactly that, so your model is a natural way to realise this theory with particles. The paper also claims the reentrant loop is generic: other non-equilibrium solids with different microscopic forces should show the same reentrant loop.\n\n2. **The disk version of your model.** Caporusso, Gonnella and Levis (PRL 2024) studied Brownian disks interacting via a Lennard-Jones potential and a nonconservative transverse force, and found that chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches. This confirms the solid breaking up under activity.\n\n3. **Supporting work.**\n   - Large transverse forces destabilise harmonic chiral crystals: a chiral active crystal with only harmonic springs becomes linearly unstable due to transverse fluctuations.\n   - Reentrant behaviour driven by chiral activity has also been seen in experiments on spinner crystals. That case is reentrant *melting*, not crystallization, and in those experiments at higher densities, increasing \u03c7 enhanced crystallinity.\n   - Your passive \"six-fold oriented only\" state at T = 4.25 is the ordinary two-step (hexatic) melting picture.\n\n**Twist I could not confirm:** that the restored high-activity crystal stays ordered up to T = 6, above the passive partial-melting temperature of 4.25. The paper's phase diagram may show this, but the review summary doesn't say.\n\n**Is it real or an artifact?** The basic sequence (crystal \u2192 disordered from e_a/e_p \u2248 2, even at T = 0 \u2192 crystal again) looks like a genuine emergent effect, because it is predicted in detail. The high-activity numbers need checking:\n- Both e_a/e_p = 33 and T = 6 sit exactly at the edges of your sweep, so they are boundary values, not measured thresholds.\n- Overdamped steps with transverse forces 33 times the potential strength may be numerically stiff.\n- A global six-fold order measure can stay high if large ordered patches rotate rigidly, which would look like \"order\" without being a stable crystal.\n\nBefore claiming that order survives above the passive melting temperature, I'd rerun with a smaller timestep and a larger system, and measure translational order and defect density, not just six-fold order.\n\n**Searches run:** chiral Lennard-Jones solid / transverse-force melting; ellipses or Gay-Berne particles with odd interactions; Caporusso/Levis follow-ups; reentrant ordering at large chirality; odd forces raising the melting temperature; the arXiv 2609.09500 title. Nothing turned up for ellipses specifically, but here that's a difference in the rules, not in the behaviour.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Activity-induced defect proliferation at T=0 (topological instability) with reentrant crystallization in odd/chiral Cosserat (micropolar) active solids; chiral Lennard-Jones solid breakup into rotating hexatic patches\", \"citations\": [\"arXiv 2609.09500, Topological instability and reentrant crystallization in active solids (odd Cosserat KTHNY; summary via pith.science)\", \"Caporusso, Gonnella, Levis, PRL 132, 168201 (2024) Phase coexistence and edge currents in the chiral Lennard-Jones fluid\", \"Odd active solids: vortices, velocity oscillations and dissipation-free modes, New J. Phys. (2025)\", \"Reentrant melting of scarred odd crystals by self-shear, Nat. Commun. (2026)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgraded from KNOWN-VARIANT to KNOWN: arXiv 2609.09500 (read only via a review summary) predicts the full sequence: activity shifts the melting temperature, defects proliferate at T=0 above a threshold activity, and crystals reform at higher activity, in odd elastic solids with micropolar (rotational) coupling, which is what rotating ellipses provide. Caporusso et al. 2024 shows the disk version of the solid breaking up. Not confirmed: the restored crystal staying ordered at T=6, above the passive partial-melting temperature of 4.25. Both e_a/e_p=33 and T=6 sit at the edges of the sweep. Possible artifacts: overdamped steps that are too large for strong transverse forces, and high global six-fold order from rigidly rotating ordered patches. Check with a smaller timestep, a larger system, and translational order plus defect density.\"}\n```",
+ "checked": "2026-11-03 02:30:51"
+}

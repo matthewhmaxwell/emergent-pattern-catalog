@@ -1,0 +1,96 @@
+{
+ "class_id": "planted:N07",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Nonequilibrium statistical physics: conserved-mass transport on a lattice (generalized KMP), chiral/odd diffusion, hyperuniformity",
+ "standard_name": "Chiral mass-transport process with odd diffusion (generalized Kipnis-Marchioro-Presutti model); power-law r^-(d+2) correlations from multidirectional hopping",
+ "confidence": "medium",
+ "citations": [
+  "Das, Hazra, Pradhan ~2026, preprint (Pith 2609.16821; read via summary only) - chiral L-shaped three-site KMP-type model on a square lattice, |r|^-4 isotropic correlations, compressibility minimum vs chirality, square-root cusp at maximal odd diffusion",
+  "Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - multidirectional hopping gives generic 1/r^(d+2) density correlations; talk abstract mentions chiral dynamics",
+  "Maire & Chaix 2025, J. Chem. Phys. 163, 214507 - hyperuniformity and conservation laws in nonequilibrium systems (review-like context)",
+  "Lei & Ni 2019, PNAS 116, 22983 - hyperuniformity in chiral spinner fluids (continuum active-matter analogue)",
+  "Kuroda & Miyazaki 2023, J. Stat. Mech. 103203 - microscopic theory of hyperuniformity in 2D chiral active fluids"
+ ],
+ "searches": [
+  "chiral mass transport lattice model turning hyperuniform density correlations conserved dynamics L-shaped paths",
+  "Kawasaki-like conserved mass transport hyperuniformity chirality optimal turning square-root cusp",
+  "lattice mass transport chiral hopping odd mobility 1/r^4 boundary current",
+  "Microscopic theory for hyperuniformity in two-dimensional chiral active fluid Kuroda Miyazaki",
+  "Hazra Mukherjee Generic power laws multidirectional hopping chiral",
+  "chiral conserved mass transport lattice nonreciprocal Pradhan Mukherjee",
+  "Lei Ni chiral active fluid hyperuniformity 2019",
+  "chiral mass transport lattice multidirectional hopping Onsager matrix structure factor Hazra Pradhan"
+ ],
+ "notes": "The key matching paper (Das, Hazra, Pradhan) was seen only as a Pith summary; its venue and publication status are unverified. The closed-box edge-current variant and the exact 40%/60% keep-fraction rule were not confirmed in any source. The x/y isotropy is inferred from the structure-factor form, not stated directly.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "chiral mass transport lattice model turning hyperuniform density correlations conserved dynamics L-shaped paths"
+  },
+  {
+   "query": "Kawasaki-like conserved mass transport model hyperuniformity tunable by chirality, fluctuations minimized at optimal turning, square-root cusp"
+  },
+  {
+   "query": "lattice mass transport chiral hopping turn left odd mobility power-law correlations 1/r^4 two dimensions hyperuniform steady current boundary"
+  },
+  {
+   "query": "Microscopic theory for hyperuniformity in two-dimensional chiral active fluid Kuroda Miyazaki"
+  },
+  {
+   "query": "Hazra Mukherjee Generic power laws multidirectional hopping chiral dynamics mass turns arXiv"
+  },
+  {
+   "query": "chiral conserved mass transport lattice nonreciprocal turning mass, long-range correlations, hyperuniformity, Pradhan Mukherjee chiral mass transport process"
+  },
+  {
+   "query": "Lei Ni Ma chiral active fluid hyperuniformity Science Advances 2019 Hydrodynamics of random-organizing hyperuniform fluids"
+  },
+  {
+   "query": "chiral mass transport lattice multidirectional hopping chirality Onsager matrix structure factor minimum arXiv Hazra Pradhan chiral"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://journals.aps.org/pre/abstract/10.1103/25s2-6y3m",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non?redirectedFrom=fulltext",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1386947707003943",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12374697",
+  "https://sites.google.com/view/yutakuroda/%E7%99%BA%E8%A1%A8",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.L012048",
+  "https://profs.provost.nagoya-u.ac.jp/html/100006924_ronbn_en.html",
+  "https://meetings.aps.org/Meeting/MAR24/Session/G29",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.L032056",
+  "https://www2.yukawa.kyoto-u.ac.jp/~german-japan2022/S1_Kuroda.pdf",
+  "https://journals.aps.org/prx/abstract/10.1103/fr99-qh7h",
+  "https://link.springer.com/chapter/10.1007/978-981-95-8185-6_6",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://journals.aps.org/pre/issues/112/4",
+  "https://journals.aps.org/pre/issues/112/4/deliverables/table-of-contents/print/2",
+  "https://sites.google.com/iiserkol.ac.in/statphys-kol-xiii/program/talks",
+  "https://journals.aps.org/pre/abstract/10.1103/w9pf-3r76",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non?redirectedFrom=fulltext",
+  "https://www.osti.gov/pages/biblio/1874044",
+  "https://www.pnas.org/doi/10.1073/pnas.1911596116",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.L012048",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.L032056",
+  "https://journals.aps.org/prx/abstract/10.1103/3151-4dnh",
+  "https://journals.aps.org/prx/abstract/10.1103/fr99-qh7h",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://pith.science/paper/2609.16821",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract"
+ ],
+ "full_text": "**Verdict: KNOWN.** The exact system has been described, though only in a very recent preprint that I read as a third-party summary, not the paper itself.\n\n**1. Model family.** This is a conserved-mass transport process on a lattice, in the Kipnis\u2013Marchioro\u2013Presutti (KMP) style. It sits in nonequilibrium statistical physics. The related literature includes odd or chiral diffusion, hyperuniformity and chiral active matter. Each update moves mass along an L-shaped three-site path with a fixed turning sense. That breaks detailed balance and time reversal while keeping the lattice's isotropy.\n\n**2. Specific behaviour.** The best match is Das, Hazra and Pradhan, \"Odd diffusion and power-law correlations in chiral mass-transport processes\" (Pith listing 2609.16821, about 45 days old). I could only read the Pith summary of it, not the paper. The summary matches your four observations:\n- It describes exactly solvable chiral mass-transport processes on a square lattice (generalized KMP models), where mass hops with a preferred rotational sense via simultaneous three-site L-shaped moves.\n- It says odd diffusion alone, without anisotropy, produces algebraic density correlations decaying as ~|r|^-4. That matches your decay exponent of 4.\n- The small-wavenumber structure factor has a nonanalytic term proportional to q_x\u00b2q_y\u00b2/(q_x\u00b2+q_y\u00b2). This form is isotropic in the sense that x and y correlations are equal at large r, which fits your ratio of 1.0. The summary does not state the x/y ratio directly.\n- The zero-wavenumber structure factor (compressibility) decreases with increasing chirality at small odd diffusion, then increases and develops a square-root cusp singularity at a maximal admissible odd-diffusion strength. That matches both your minimum at an optimal turning strength and your cusp exponent of 0.5.\n\nI did not find the closed-box edge current in any source. It is a plausible consequence of odd diffusion at boundaries, but I have not confirmed it.\n\n**Foundations and context.**\n- Hazra, Chakraborty, Mukherjee and Pradhan, \"Generic power laws in higher-dimensional lattice models with multidirectional hopping,\" Phys. Rev. E 112, 044130 (Oct 2025), is the closest published source. It shows that steady-state density-density correlations typically decay as ~1/r^(d+2), which is r^-4 in d=2. The mechanism is multidirectional hopping that breaks detailed balance. A talk abstract for the same work lists center-of-mass-conserving dynamics and chiral dynamics as the two classes that produce algebraic correlations.\n- Related background on hyperuniform fluctuations:\n  - Mukherjee, Tapader, Hazra and Pradhan, \"Anomalous relaxation and hyperuniform fluctuations in center-of-mass conserving systems with broken time-reversal symmetry,\" Phys. Rev. E 110, 024119 (2024). I only saw this in another paper's reference list, so I haven't checked the title against the paper itself.\n  - Maire and Chaix, \"Hyperuniformity and conservation laws in non-equilibrium systems,\" J. Chem. Phys. 163, 214507 (2025). It is a review-like treatment of how conservation laws and driving produce hyperuniformity.\n- Chiral active matter is a continuum analogue, not an equivalent system: Lei and Ni, PNAS 116, 22983 (2019); Kuroda and Miyazaki, J. Stat. Mech. (2023) 103203. These study hyperuniformity in chiral spinner fluids.\n\n**3. Citation checks.** I checked titles, authors and venues for the Hazra et al. paper (PubMed and APS), the Lei\u2013Ni paper (PNAS) and the Kuroda\u2013Miyazaki paper (Nagoya faculty page). The Das\u2013Hazra\u2013Pradhan item comes only from the Pith summary. I could not confirm its venue or publication status, or the exact arXiv identifier.\n\n**4. Confidence: medium-high.** The match is close on all four features, and an established PRE paper supports the r^-(d+2) mechanism and mentions chiral dynamics. The reasons it isn't \"high\" are:\n- I read only a summary of the key preprint.\n- The details of your specific 40%/60% keep-fraction rule and the closed-box edge current are not verified.\n- The summary says the cusp occurs at a \"maximal admissible\" odd-diffusion strength. Your \"maximal turning strength\" is likely the same thing, but I haven't confirmed it.\n\n**Searches run:**\n- chiral mass transport lattice turning hyperuniform\n- Kawasaki-like hyperuniformity chirality cusp\n- chiral hopping odd mobility 1/r^4 boundary current\n- Kuroda\u2013Miyazaki chiral fluid\n- Hazra multidirectional hopping chiral\n- Pradhan chiral mass transport\n- Lei\u2013Ni chiral hyperuniformity\n- Hazra Pradhan chiral Onsager structure factor\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Nonequilibrium statistical physics: conserved-mass transport on a lattice (generalized KMP), chiral/odd diffusion, hyperuniformity\", \"standard_name\": \"Chiral mass-transport process with odd diffusion (generalized Kipnis-Marchioro-Presutti model); power-law r^-(d+2) correlations from multidirectional hopping\", \"confidence\": \"medium\", \"citations\": [\"Das, Hazra, Pradhan ~2026, preprint (Pith 2609.16821; read via summary only) - chiral L-shaped three-site KMP-type model on a square lattice, |r|^-4 isotropic correlations, compressibility minimum vs chirality, square-root cusp at maximal odd diffusion\", \"Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - multidirectional hopping gives generic 1/r^(d+2) density correlations; talk abstract mentions chiral dynamics\", \"Maire & Chaix 2025, J. Chem. Phys. 163, 214507 - hyperuniformity and conservation laws in nonequilibrium systems (review-like context)\", \"Lei & Ni 2019, PNAS 116, 22983 - hyperuniformity in chiral spinner fluids (continuum active-matter analogue)\", \"Kuroda & Miyazaki 2023, J. Stat. Mech. 103203 - microscopic theory of hyperuniformity in 2D chiral active fluids\"], \"searches\": [\"chiral mass transport lattice model turning hyperuniform density correlations conserved dynamics L-shaped paths\", \"Kawasaki-like conserved mass transport hyperuniformity chirality optimal turning square-root cusp\", \"lattice mass transport chiral hopping odd mobility 1/r^4 boundary current\", \"Microscopic theory for hyperuniformity in two-dimensional chiral active fluid Kuroda Miyazaki\", \"Hazra Mukherjee Generic power laws multidirectional hopping chiral\", \"chiral conserved mass transport lattice nonreciprocal Pradhan Mukherjee\", \"Lei Ni chiral active fluid hyperuniformity 2019\", \"chiral mass transport lattice multidirectional hopping Onsager matrix structure factor Hazra Pradhan\"], \"notes\": \"The key matching paper (Das, Hazra, Pradhan) was seen only as a Pith summary; its venue and publication status are unverified. The closed-box edge-current variant and the exact 40%/60% keep-fraction rule were not confirmed in any source. The x/y isotropy is inferred from the structure-factor form, not stated directly.\"}\n```",
+ "checked": "2026-11-03 02:34:07"
+}

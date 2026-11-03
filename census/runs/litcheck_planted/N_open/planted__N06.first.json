@@ -1,0 +1,93 @@
+{
+ "class_id": "planted:N06",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "classical frustrated magnetism: Heisenberg spiral spin liquid on the square lattice (J1-J2-J3), with order-by-disorder lattice-nematic transition",
+ "standard_name": "spiral spin liquid with fractional (half-) vortices in spin, spiral-plane normal and momentum fields; momentum vortices; pancake/ring liquid; lattice-nematic order-by-disorder transition",
+ "confidence": "high",
+ "citations": [
+  "Glittum, Yan, Reuther, 'Fractional vortices in a spin-isotropic spiral spin liquid', arXiv 2609.15941 - half-vortex defects, Z x Z2 classification, specific-heat hump ~0.19 and sharp peak T*~0.0268 with lattice-nematic order, r=3 loops",
+  "Yan & Reuther 2022, Phys. Rev. Research 4, 023175 - momentum vortices in the square-lattice XY J1-J2-J3 spiral spin liquid",
+  "Okumura, Kawamura, Okubo, Motome 2010, J. Phys. Soc. Jpn. 79, 114705 - ring-liquid and pancake-liquid states in the Heisenberg honeycomb spiral model",
+  "Mulder, Ganesh, Capriotti, Paramekanti 2010, Phys. Rev. B 81, 214419 - spiral order by disorder and thermal lattice-nematic transition (honeycomb)",
+  "Generic spiral spin liquids, Front. Phys. 16, 53303 (2021) - review (seen only as a citation entry, not read)"
+ ],
+ "searches": [
+  "spiral spin liquid square lattice classical Monte Carlo topological defects wave vector winding half-integer helix plane",
+  "frustrated J1-J2-J3 Heisenberg square lattice ferromagnetic J1 degenerate spiral ring order by disorder Monte Carlo",
+  "vestigial nematic spiral spin liquid ring degeneracy lattice rotation symmetry breaking specific heat peak classical spins 2D",
+  "Yan Reuther Low-energy structure of spiral spin liquids Physical Review Research 2022 authors",
+  "Okumura Kawamura Todo spin-liquid states J1-J2 classical Heisenberg honeycomb ring pancake 2010 JPSJ"
+ ],
+ "notes": "The 2026 arXiv paper matches the temperatures, r=3 loops and half-vortex structure. I did not read its defect-density values, so the 0.03 and 0.003 values are unchecked. The arXiv number and venue of that paper should be re-verified. The review entry was not read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "spiral spin liquid square lattice classical Monte Carlo topological defects wave vector winding half-integer helix plane"
+  },
+  {
+   "query": "frustrated J1-J2-J3 Heisenberg square lattice ferromagnetic J1 degenerate spiral ring order by disorder Monte Carlo"
+  },
+  {
+   "query": "vestigial nematic spiral spin liquid ring degeneracy lattice rotation symmetry breaking specific heat peak classical spins 2D"
+  },
+  {
+   "query": "Yan Reuther \"Low-energy structure of spiral spin liquids\" Physical Review Research 2022 authors"
+  },
+  {
+   "query": "Okumura Kawamura Todo \"Spin-liquid states in the J1-J2 classical Heisenberg honeycomb ring pancake\" 2010 Journal of the Physical Society of Japan"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://arxiv.org/html/2112.10676",
+  "https://arxiv.org/pdf/2609.15941",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.023175",
+  "https://arxiv.org/abs/2609.15941",
+  "https://www.researchgate.net/publication/361020816_Low-energy_structure_of_spiral_spin_liquids",
+  "https://arxiv.org/pdf/2103.10817",
+  "https://www.researchgate.net/publication/382907612_Magnetic_properties_of_the_spiral_spin_liquid_and_surrounding_phases_in_the_square_lattice_XY_model",
+  "https://link.aps.org/doi/10.1103/PhysRevB.110.085106",
+  "https://arxiv.org/pdf/2405.02075",
+  "https://www.researchgate.net/publication/45900638_The_frustrated_spin-12_J1-J2_Heisenberg_ferromagnet_on_the_square_lattice_Exact_diagonalization_and_Coupled-Cluster_study",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.81.214419",
+  "https://arxiv.org/pdf/1004.1119",
+  "https://arxiv.org/html/1603.06599v1",
+  "https://arxiv.org/pdf/2103.13916",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.94.094438",
+  "https://arxiv.org/pdf/1902.01582",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.94.224403",
+  "https://arxiv.org/pdf/2602.16471",
+  "https://arxiv.org/html/1004.1119v2",
+  "https://arxiv.org/pdf/2609.15941",
+  "https://arxiv.org/html/2409.03825v2",
+  "https://www.researchgate.net/publication/382907612_Magnetic_properties_of_the_spiral_spin_liquid_and_surrounding_phases_in_the_square_lattice_XY_model",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://www.nature.com/articles/s41467-025-57319-2",
+  "https://arxiv.org/html/2112.10676",
+  "https://arxiv.org/html/2501.02122v1",
+  "https://arxiv.org/pdf/2202.09077",
+  "https://arxiv.org/pdf/2310.17607",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.4.023175",
+  "https://refubium.fu-berlin.de/handle/fub188/35799",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.4.023175",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.128.227201",
+  "https://arxiv.org/abs/2112.10676",
+  "https://arxiv.org/pdf/2410.04954",
+  "https://www.physik.fu-berlin.de/en/einrichtungen/ag/ag-reuther/publications/index.html",
+  "https://www.researchgate.net/publication/361020816_Low-energy_structure_of_spiral_spin_liquids",
+  "https://www.researchgate.net/publication/364658752_Line-Graph_Approach_to_Spiral_Spin_Liquids",
+  "https://arxiv.org/html/1004.4441v3",
+  "https://arxiv.org/html/1902.01582",
+  "https://link.springer.com/article/10.1007/s11467-021-1074-9",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.224404",
+  "https://journals.jps.jp/doi/10.7566/JPSJ.86.044704",
+  "https://arxiv.org/pdf/2112.10676",
+  "https://arxiv.org/abs/1902.01582",
+  "https://arxiv.org/pdf/2501.02122",
+  "https://www.researchgate.net/publication/253601176_Phase_diagram_of_the_J1-J2-J3_Heisenberg_model_on_the_honeycomb_lattice_A_series_expansion_study"
+ ],
+ "full_text": "**Verdict: KNOWN.** The simulation reproduces a recent paper on this exact model, including its numbers.\n\n**1. Model family.** This is classical frustrated magnetism: a spin-isotropic (Heisenberg) square-lattice J1\u2013J2\u2013J3 model with ferromagnetic J1 and antiferromagnetic J2 and J3. It has a ring of degenerate spiral ground states, so it is a spiral spin liquid. The sharp low-temperature peak is an order-by-disorder lattice-nematic transition.\n\n**2. The specific behaviour.** The closest source is Glittum, Yan and Reuther, \"Fractional vortices in a spin-isotropic spiral spin liquid\" (arXiv 2609.15941).\n- **System.** It is a square-lattice Heisenberg spiral spin liquid studied with large-scale classical Monte Carlo. Its ground states are planar incommensurate spirals with wave vectors on a continuous ring.\n- **Defects.** It describes vortex types that wind the spin directions, spiral-plane normals and wave-vector orientations together, giving a Z \u00d7 Z2 classification. The elementary defects are half-vortices with fractional 2\u03c0 windings in both spin and momentum space. This matches your commonest defect, with half a turn of wave-vector winding, and your defects that wind only the helix-plane orientation.\n- **Defect density.** The vortices are dense in the spiral-spin-liquid regime and bind tightly below an order-by-disorder phase transition.\n- **Temperatures.** The specific heat shows a broad hump near T \u2248 0.19 \u00b1 0.04 and a sharp peak at T* \u2248 0.0268 \u00b1 0.0004. Your 0.19 and 0.0268 match these values.\n- **Symmetry breaking.** Below the sharp peak the spin structure breaks lattice-rotational symmetry, measured by a lattice-nematic order parameter.\n- **Loop radius.** The paper also uses a loop radius of r = 3, as you do. The \u03b4 = 0.03 in the same passage is presumably the paper's own parameter. I did not check how it maps onto your J2 = 0.28 and J3 = 0.14, but the matching temperatures strongly suggest the same model.\n- **Regimes.** Just below T_hump the system is a pancake liquid, with structure-factor weight throughout the area enclosed by the ring. It evolves continuously into a ring liquid on cooling.\n\n**Earliest sources and one review-like source:**\n- **Earlier Heisenberg ring-liquid work.** Okumura, Kawamura, Okubo and Motome, \"Novel spin-liquid states in the frustrated Heisenberg antiferromagnet on the honeycomb lattice\", J. Phys. Soc. Jpn. 79, 114705 (2010), described \"ring-liquid\" and \"pancake-liquid\" states.\n- **Earlier thermal lattice-nematic transition.** Mulder, Ganesh, Capriotti and Paramekanti, Phys. Rev. B 81, 214419 (2010), found that any nonzero temperature destroys the magnetic order, but the discrete rotational symmetry of the lattice remains broken. This was on the honeycomb lattice.\n- **Earliest momentum-vortex source.** Yan and Reuther, \"Low-energy structure of spiral spin liquids\", Phys. Rev. Research 4, 023175 (2022). It is for XY spins on the square lattice with J1\u2013J2\u2013J3. It identifies \"local momentum vortices\", which differ from spin vortices and shape the low-energy behaviour. It is the closest earlier source, but for XY rather than Heisenberg spins.\n- **Review.** The nearest review I found is \"Generic spiral spin liquids\" (Front. Phys. 16, 53303 (2021)), which I saw only as a citation entry in search results. I did not read it, so treat it as unverified.\n\n**3. Citation checks.** I confirmed the title, authors, year and venue of Yan and Reuther (2022), Okumura et al. (2010) and Mulder et al. (2010) against search results. For Glittum, Yan and Reuther I confirmed the title, authors and arXiv ID. I did not confirm a journal venue. The arXiv ID is unusual (2609\u2026), and the search result lists it as about 50 days old. The Okumura and Mulder papers are cited above only for the ring-liquid and lattice-nematic concepts, not for any of your numbers.\n\n**4. Confidence: high.** The paper matches your model class, your 0.19 hump, your 0.0268 peak, your r = 3 loops, and the half-vortex defects. I have not read the paper's own defect-density values, so I cannot say whether your 0.03 and 0.003 match it. That is the only quantitative point left open, and it does not change the verdict.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"classical frustrated magnetism: Heisenberg spiral spin liquid on the square lattice (J1-J2-J3), with order-by-disorder lattice-nematic transition\", \"standard_name\": \"spiral spin liquid with fractional (half-) vortices in spin, spiral-plane normal and momentum fields; momentum vortices; pancake/ring liquid; lattice-nematic order-by-disorder transition\", \"confidence\": \"high\", \"citations\": [\"Glittum, Yan, Reuther, 'Fractional vortices in a spin-isotropic spiral spin liquid', arXiv 2609.15941 - half-vortex defects, Z x Z2 classification, specific-heat hump ~0.19 and sharp peak T*~0.0268 with lattice-nematic order, r=3 loops\", \"Yan & Reuther 2022, Phys. Rev. Research 4, 023175 - momentum vortices in the square-lattice XY J1-J2-J3 spiral spin liquid\", \"Okumura, Kawamura, Okubo, Motome 2010, J. Phys. Soc. Jpn. 79, 114705 - ring-liquid and pancake-liquid states in the Heisenberg honeycomb spiral model\", \"Mulder, Ganesh, Capriotti, Paramekanti 2010, Phys. Rev. B 81, 214419 - spiral order by disorder and thermal lattice-nematic transition (honeycomb)\", \"Generic spiral spin liquids, Front. Phys. 16, 53303 (2021) - review (seen only as a citation entry, not read)\"], \"searches\": [\"spiral spin liquid square lattice classical Monte Carlo topological defects wave vector winding half-integer helix plane\", \"frustrated J1-J2-J3 Heisenberg square lattice ferromagnetic J1 degenerate spiral ring order by disorder Monte Carlo\", \"vestigial nematic spiral spin liquid ring degeneracy lattice rotation symmetry breaking specific heat peak classical spins 2D\", \"Yan Reuther Low-energy structure of spiral spin liquids Physical Review Research 2022 authors\", \"Okumura Kawamura Todo spin-liquid states J1-J2 classical Heisenberg honeycomb ring pancake 2010 JPSJ\"], \"notes\": \"The 2026 arXiv paper matches the temperatures, r=3 loops and half-vortex structure. I did not read its defect-density values, so the 0.03 and 0.003 values are unchecked. The arXiv number and venue of that paper should be re-verified. The review entry was not read.\"}\n```",
+ "checked": "2026-11-03 03:47:27"
+}

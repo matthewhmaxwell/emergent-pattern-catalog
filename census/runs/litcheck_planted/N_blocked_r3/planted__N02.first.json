@@ -1,0 +1,86 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing) with nonlinear cross-diffusion / cross-taxis; Schnakenberg kinetics",
+ "standard_name": "Schnakenberg model with cross-diffusion / chemotaxis (Keller-Segel-type taxis) coupling to Turing patterning; taxis-induced pattern modification and suppression",
+ "confidence": "medium",
+ "citations": [
+  "Fraga Delfino Kunz, Gerisch, Glover, Headon, Painter, Matthaus 2024 (online 2023), Bull. Math. Biol. 86(1):4 - Schnakenberg Turing system coupled to chemotaxis; coupling can extinguish pattern formation and changes the pattern-forming parameter space",
+  "Yang R. 2022, Nonlinear Dynamics 110:1753-1766 - cross-diffusion in the Schnakenberg system alters Turing instability conditions and gives varied patterns",
+  "Pith preprint 2608.03685 (2026) - effect of chemotactic sensitivity on spot-like and stripe-like Turing patterns in the Schnakenberg model (preprint, summary only)",
+  "Diez, Krause, Maini, Gaffney, Seirin-Lee 2024, Bull. Math. Biol. 86:13 - reaction-cross-diffusion coupling can stabilize the homogeneous state and diminish patterning",
+  "Vanag & Epstein 2009, Phys. Chem. Chem. Phys. - Perspective review on cross-diffusion and pattern formation (chemotaxis as a cross-diffusion source)",
+  "Maini group chapter 'The Turing Model for Biological Pattern Formation' - quadratic nonlinearity favours spots, cubic favours stripes"
+ ],
+ "searches": [
+  "Schnakenberg model cross-diffusion Turing patterns spots stripes nonlinear cross-diffusion div(u grad v)",
+  "cross-taxis reaction-diffusion Schnakenberg pattern formation chemotaxis-like cross-diffusion opposite signs pattern suppression",
+  "Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction-Diffusion and Chemotaxis Bulletin of Mathematical Biology authors",
+  "Schnakenberg cross-diffusion pursuit-evasion taxis opposite signs spots to stripes amplitude non-monotonic cross-diffusion coefficient",
+  "Schnakenberg nonlinear cross-diffusion Turing patterns Gambino Lombardo Sammartino cross-diffusion spots stripes",
+  "Turing patterns cross-diffusion large cross-diffusion suppresses pattern amplitude non-monotonic reaction-diffusion simulation spots stripes uniform"
+ ],
+ "notes": "No source found for the exact parameter set (a=0.015, b=10, D2=1000*D1, antisymmetric taxis c1=-c2) or for the specific amplitude-versus-c curve with peak near 0.17 and extinction near 0.49. Full texts were not read; most evidence is at abstract level. The mechanisms (taxis-modified Turing instability, suppression, spot-to-stripe changes) are documented, so a novel mechanism is unlikely. The thresholds are parameter-specific and could be checked by linear stability analysis.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "Schnakenberg model cross-diffusion Turing patterns spots stripes nonlinear cross-diffusion div(u grad v)"
+  },
+  {
+   "query": "cross-taxis reaction-diffusion Schnakenberg pattern formation chemotaxis-like cross-diffusion opposite signs pattern suppression"
+  },
+  {
+   "query": "Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction\u2013Diffusion and Chemotaxis Bulletin of Mathematical Biology authors"
+  },
+  {
+   "query": "Schnakenberg cross-diffusion pursuit-evasion taxis opposite signs spots to stripes amplitude non-monotonic cross-diffusion coefficient"
+  },
+  {
+   "query": "Schnakenberg nonlinear cross-diffusion Turing patterns Gambino Lombardo Sammartino cross-diffusion spots stripes"
+  },
+  {
+   "query": "Turing patterns cross-diffusion large cross-diffusion suppresses pattern amplitude non-monotonic reaction-diffusion simulation spots stripes uniform"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://link.springer.com/article/10.1007/s11071-026-12479-8",
+  "https://web.mst.edu/~zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2024.1452077/full",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://wp.kntu.ac.ir/mojra/cross%20deiffusion%20and%20pattern%20formation%20in%20reaction-diffusion%20systems.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://pith.science/paper/2608.03685",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2023053?viewType=HTML",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://www.research.ed.ac.uk/en/publications/novel-aspects-in-pattern-formation-arise-from-coupling-turing-rea/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10692013/",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/522.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121819304778",
+  "http://web.science.mq.edu.au/~jtzou/PUBLICATIONS/torus_stability.pdf",
+  "https://doi.org/10.3390/math8081244",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://web.mst.edu/zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://www.science.gov/topicpages/t/turing+wave+pattern.html",
+  "https://www.academia.edu/101664502/Cross_Diffusion_Driven_Instability_in_a_Predator_Prey_System_with_Cross_Diffusion",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570418303034",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://visualpde.com/visual-stories/turing-morphogenesis.html",
+  "https://ruizbaier.github.io/myPapers/rt_narwa13.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** I found no paper that reports this exact parameter set, so the match is by family and mechanism.\n\n**1. Model family.** This is reaction\u2013diffusion pattern formation, specifically a Turing system. The kinetics are Schnakenberg (activator\u2013substrate) kinetics with a nonlinear cross-diffusion or cross-taxis flux. The flux terms c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u) are Keller\u2013Segel-style taxis terms. With c1 = \u2212c2, one species is attracted up the other's gradient while the other is repelled. That is the same structure as pursuit\u2013evasion or predator\u2013prey taxis.\n\n**2. What the literature says.**\n- **Schnakenberg with cross-diffusion.** Yang (2022) adds linear cross-diffusion to the Schnakenberg system. It is no longer necessary to have long-range inhibition and short-range activation for Turing instability with the help of cross-diffusion. That paper is in *Nonlinear Dyn* 110, 1753\u20131766. A related delayed-Schnakenberg paper notes that cross-diffusion coefficients may be positive, negative or even zero. That covers the sign structure of c1 and c2.\n- **Earliest clear source for the taxis form.** Fraga Delfino Kunz, Gerisch, Glover, Headon, Painter and Matth\u00e4us (2024) published \"Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction\u2013Diffusion and Chemotaxis\" in *Bull. Math. Biol.* 86(1), article 4 (online 2023). It couples Schnakenberg kinetics to Keller\u2013Segel chemotaxis. Its abstract says that for some parameter settings, the coupling of the two processes can extinguish the pattern formation, rather than reinforce it. A section heading states that the addition of chemotaxis can suppress diffusion-driven pattern formation. This supports the \"pattern fades at large c\" part of your result. I did not read the paper's full text, so I can't say whether it reports a rise-then-fall amplitude curve.\n- **Chemotaxis effect on Schnakenberg spots and stripes.** A recent preprint (Pith 2608.03685, \"Pattern formation: reactivity is not necessary for chemotaxis-driven instabilities\") examines the effect of the chemotactic sensitivity \u03b2 on the spot-like Turing pattern of the Schnakenberg model. It also examines the stripe-like case with Dv = 30. I only saw the summary, so I can't confirm it contains a spot-to-stripe-to-uniform sequence.\n- **Cross-diffusion and morphology in general.** Cross-diffusion terms are known to switch pattern morphology. In a ratio-dependent predator\u2013prey model, introducing cross-diffusion terms can change a cold-spot pattern to a homogeneous steady state or to mixed stripes and spots. In a fear-effect predator\u2013prey model, spot patterns change to stripes, then mixed patterns, and finally labyrinths as the fear level increases.\n- **Spots versus stripes in Schnakenberg kinetics.** This is standard. Quadratic nonlinear terms favour spots and cubic terms favour stripes. The source is the Maini group chapter \"The Turing Model for Biological Pattern Formation\".\n- **Reviews.** Vanag & Epstein's Perspective \"Cross-diffusion and pattern formation in reaction\u2013diffusion systems\" (*Phys. Chem. Chem. Phys.*, 2009) covers cross-diffusion in general, including chemotaxis as a source of it. Diez, Krause, Maini, Gaffney and Seirin-Lee (2024, *Bull. Math. Biol.* 86:13) treat reaction\u2013cross-diffusion systems in a bilayer geometry. Their conclusion is that coupling can stabilize a homogeneous equilibrium and thus diminish patterning.\n\n**3. What is not directly covered.** I did not find a paper that reports all of the following together:\n- the specific a = 0.015, b = 10, D2 = 1000\u00b7D1 regime;\n- antisymmetric taxis, c1 = \u2212c2;\n- a non-monotonic amplitude curve peaking near c \u2248 0.17 and vanishing near c \u2248 0.49;\n- spot-to-stripe transitions along that sweep.\n\nThe mechanisms are all documented. These are Turing instability modified by taxis, taxis-induced suppression, cross-diffusion-induced morphology change, and a wider or narrower Turing space. The exact numerical thresholds are specific to this parameterisation. They would follow from a linear stability analysis of the system, which the studies above use, but I have not done that analysis here. The thresholds are therefore not something I could find in a source.\n\n**Caveats.**\n- Only the Springer, PMC and Edinburgh pages for Kunz et al. were checked, and only at the abstract level for the other papers. Their full texts were not read.\n- The \"pattern is most intense at intermediate c, then fades\" result is plausible from the cited suppression results. I have not verified that any source plots amplitude against c.\n- The Pith item is a preprint dated 2026, so treat it as unreviewed.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing) with nonlinear cross-diffusion / cross-taxis; Schnakenberg kinetics\", \"standard_name\": \"Schnakenberg model with cross-diffusion / chemotaxis (Keller-Segel-type taxis) coupling to Turing patterning; taxis-induced pattern modification and suppression\", \"confidence\": \"medium\", \"citations\": [\"Fraga Delfino Kunz, Gerisch, Glover, Headon, Painter, Matthaus 2024 (online 2023), Bull. Math. Biol. 86(1):4 - Schnakenberg Turing system coupled to chemotaxis; coupling can extinguish pattern formation and changes the pattern-forming parameter space\", \"Yang R. 2022, Nonlinear Dynamics 110:1753-1766 - cross-diffusion in the Schnakenberg system alters Turing instability conditions and gives varied patterns\", \"Pith preprint 2608.03685 (2026) - effect of chemotactic sensitivity on spot-like and stripe-like Turing patterns in the Schnakenberg model (preprint, summary only)\", \"Diez, Krause, Maini, Gaffney, Seirin-Lee 2024, Bull. Math. Biol. 86:13 - reaction-cross-diffusion coupling can stabilize the homogeneous state and diminish patterning\", \"Vanag & Epstein 2009, Phys. Chem. Chem. Phys. - Perspective review on cross-diffusion and pattern formation (chemotaxis as a cross-diffusion source)\", \"Maini group chapter 'The Turing Model for Biological Pattern Formation' - quadratic nonlinearity favours spots, cubic favours stripes\"], \"searches\": [\"Schnakenberg model cross-diffusion Turing patterns spots stripes nonlinear cross-diffusion div(u grad v)\", \"cross-taxis reaction-diffusion Schnakenberg pattern formation chemotaxis-like cross-diffusion opposite signs pattern suppression\", \"Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction-Diffusion and Chemotaxis Bulletin of Mathematical Biology authors\", \"Schnakenberg cross-diffusion pursuit-evasion taxis opposite signs spots to stripes amplitude non-monotonic cross-diffusion coefficient\", \"Schnakenberg nonlinear cross-diffusion Turing patterns Gambino Lombardo Sammartino cross-diffusion spots stripes\", \"Turing patterns cross-diffusion large cross-diffusion suppresses pattern amplitude non-monotonic reaction-diffusion simulation spots stripes uniform\"], \"notes\": \"No source found for the exact parameter set (a=0.015, b=10, D2=1000*D1, antisymmetric taxis c1=-c2) or for the specific amplitude-versus-c curve with peak near 0.17 and extinction near 0.49. Full texts were not read; most evidence is at abstract level. The mechanisms (taxis-modified Turing instability, suppression, spot-to-stripe changes) are documented, so a novel mechanism is unlikely. The thresholds are parameter-specific and could be checked by linear stability analysis.\"}\n```",
+ "checked": "2026-11-03 03:20:27"
+}

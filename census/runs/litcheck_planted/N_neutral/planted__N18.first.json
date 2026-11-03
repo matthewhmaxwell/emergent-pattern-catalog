@@ -1,0 +1,74 @@
+{
+ "class_id": "planted:N18",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Nonequilibrium statistical physics / time crystals: classical spin lattice (2D) coupled to a thermally driven damped harmonic oscillator (resonator), subharmonic response",
+ "standard_name": "Discrete time liquid (noise-driven classical discrete time crystal with time-solitons / phase slips)",
+ "confidence": "medium",
+ "citations": [
+  "Wang, Schindler, Bukov, Michael 2026, arXiv:2610.30266 'Discrete time liquids' (preprint, not peer-reviewed; author list per Quantum Zeitgeist, read only via press coverage: Xenospectrum, ScienceAlert, Quantum Zeitgeist) - 100x100 classical spins coupled to a thermal-bath-driven damped resonator show period doubling without a periodic drive, only at intermediate temperature, with time-solitons limiting coherence",
+  "Zaletel et al. 2023, Rev. Mod. Phys. 95, 031001 'Colloquium: Quantum and classical discrete time crystals' (first author and title verified from search result) - review; finite-temperature noise causes phase slips in period-doubled motion (periodically driven case)",
+  "Classical discrete time crystals, Nature Physics 2020, doi:10.1038/s41567-019-0782-3 (authors not shown in search result) - noisy, damped, periodically driven classical DTC with activated lifetime; precursor with an external periodic drive"
+ ],
+ "searches": [
+  "time crystal spins coupled to thermal noisy damped oscillator without periodic drive period doubling",
+  "classical discrete time crystal spin lattice stochastic driving finite coherence time period-doubled response noise",
+  "spontaneous time-translation symmetry breaking spins coupled to single harmonic oscillator thermal bath subharmonic response classical",
+  "\"discrete time liquid\" thermal noise spin lattice resonator period doubling arXiv",
+  "discrete time liquid spins coupled to resonator thermal fluctuations no periodic drive",
+  "arxiv 2610.30266 Discrete time liquids Wang Michael"
+ ],
+ "notes": "Primary arXiv text not read directly; match is based on three consistent press summaries. Exact numbers (T/T0=0.9, 0.01, 1000-period lifetime, coupling constants) not verified against the paper. The preprint is only about two weeks old (Oct 2026) and not peer-reviewed. Author list differs between sources.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "time crystal spins coupled to thermal noisy damped oscillator without periodic drive period doubling"
+  },
+  {
+   "query": "classical discrete time crystal spin lattice stochastic driving finite coherence time period-doubled response noise"
+  },
+  {
+   "query": "spontaneous time-translation symmetry breaking spins coupled to single harmonic oscillator thermal bath subharmonic response classical"
+  },
+  {
+   "query": "\"discrete time liquid\" thermal noise spin lattice resonator period doubling arXiv"
+  },
+  {
+   "query": "discrete time liquid spins coupled to resonator thermal fluctuations no periodic drive"
+  },
+  {
+   "query": "arxiv 2610.30266 Discrete time liquids Wang Michael"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10149626",
+  "https://iontrap.duke.edu/files/2025/03/annurev-conmatphys-031119-050658.pdf",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://www.nature.com/articles/s41567-025-03163-6",
+  "https://iontrap.duke.edu/files/2025/03/RevModPhys.95.031001.pdf",
+  "https://iontrap.duke.edu/files/2025/03/RevModPhys.95.031001.pdf",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ab9fc0/pdf",
+  "https://www.nature.com/articles/s41467-021-22583-5",
+  "https://par.nsf.gov/servlets/purl/10149626",
+  "https://iontrap.duke.edu/files/2025/03/annurev-conmatphys-031119-050658.pdf",
+  "https://qci.dlr.de/wp-content/uploads/2025/02/Phys-Rev-Fauseweh-Prolonging-a-discrete-time-crystal-by-quantum-classical-feedback.pdf",
+  "https://www.osti.gov/servlets/purl/2943203",
+  "https://www.nature.com/articles/s41567-019-0782-3",
+  "https://doi.org/10.3390/sym10100518",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10184994",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5013651/",
+  "https://www.sciencealert.com/physicists-propose-a-strange-new-state-of-matter-a-liquid-that-can-flow-in-time",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8058086/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12192115/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://xenospectrum.com/en/discrete-time-liquid-thermal-noise-crystal/",
+  "https://quantumzeitgeist.com/time-crystals-lacking-perfect-temporal-order/",
+  "https://www.sciencealert.com/physicists-propose-a-strange-new-state-of-matter-a-liquid-that-can-flow-in-time"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system is a classical spin-lattice discrete time crystal, or \"discrete time liquid\", driven by a thermally noisy resonator instead of a periodic drive. A preprint from 21 October 2026 reports this setup and behaviour. I only read press coverage of it. I could not open the arXiv abstract, so the match rests on secondary sources.\n\n**1. Model family**\n- This is nonequilibrium statistical physics, specifically time-crystal and subharmonic-response physics.\n- The model is a classical spin lattice (Landau\u2013Lifshitz-type precession) coupled to a single damped harmonic oscillator, which is a resonator or cavity mode.\n- The oscillator is itself noise-driven by a thermal bath.\n- The spins precess by about \u03c0 per oscillator period, so they act like near-\u03c0 pulses. That produces period doubling, as in Floquet discrete time crystals.\n\n**2. The specific behaviour in the literature**\n- **Earliest clear source.** The preprint \"Discrete time liquids\" is arXiv:2610.30266, posted 21 Oct 2026.\n  - The authors are Zuo Wang, Paul M. Schindler, Marin Bukov and Marios H. Michael (Max Planck Institute for the Physics of Complex Systems), according to Quantum Zeitgeist's listing. Other coverage gives only Wang and Michael, so the author list is not fully verified.\n  - It is not peer-reviewed.\n  - Coverage describes the same setup as your system. The team ran numerical calculations on classical spins on a 100\u00d7100 square lattice coupled to a resonator in contact with a thermal bath.\n  - The resonator is a single damped harmonic oscillator mode in contact with a thermal bath.\n  - No periodic drive was applied, yet within a certain temperature range the spins showed period doubling at twice the resonator's period.\n  - The resonator signal has no half-frequency component, so the period doubling arises as a response of the spin lattice.\n- **Match to your temperature observations.** At low temperatures the fluctuations were too weak to produce the pattern, intermediate temperatures gave the rhythm, and high temperatures destroyed the order. This matches your T/T0 = 0.01 (too cold) against 0.9 (doubling).\n- **Match to your coherence-time observations.** The authors interpret the result as a discrete time crystal turning into a discrete time liquid as the resonator's coherence time shortens. This fits your \"sign reversals rarer\" variant at coherence time 200.\n  - The sign reversals correspond to the \"time-solitons\" in the paper. These are topological defects that break long-range temporal consistency but keep local periodic behaviour.\n  - The authors say a time crystal with a finite density of topological time defects can restore time-translation symmetry on average.\n- **Review and background.**\n  - The review is \"Colloquium: Quantum and classical discrete time crystals\" (Zaletel et al., Rev. Mod. Phys. 95, 031001, 2023). I confirmed only the first author and the title from the search result. It states that at finite environment temperature, noise may cause phase slips in the period-doubled motion. It covers the periodically driven case.\n  - \"Classical discrete time crystals\" (Nature Physics, 2020, doi 10.1038/s41567-019-0782-3) is the classical, noisy, periodically driven precursor. It reports an activated classical discrete time crystal, with time-translation symmetry broken out to exponentially long timescales. The author list was not shown in the search result.\n\n**3. Differences that matter**\n- The earlier classical and quantum DTC papers use an external periodic drive. Your system, like the 2026 preprint, replaces it with a thermally noisy resonator.\n- I could not check the specific numbers (0.9, 0.01, a lifetime of about 1000 periods, period 0.001, the 5\u00d7 coupling) against the preprint's text. Coverage gives the qualitative result: a correlation time of 10 cycles or more for the liquid. Coverage also reports that period-doubled dynamics persisted beyond an autocorrelation time of 10^-6. That figure is unclear as quoted and may be garbled.\n- Your long-coherence variant, with a doubled response lasting 1000 periods at T/T0 = 0.9, appears to be a parameter variant of the same model.\n- Coverage says the spin lattice gradually absorbs energy from the resonator and eventually loses spatial order and period doubling. Your 1000-period lifetime may reflect this heating.\n\n**4. Confidence: medium.** The model structure and the phenomenology match closely, and several independent news pieces agree. I could not read the primary paper, and the quantitative details are unverified. I also did not find a peer-reviewed publication.\n\n**Searches run**\n- time crystal spins coupled to thermal noisy damped oscillator without periodic drive period doubling\n- classical discrete time crystal spin lattice stochastic driving finite coherence time period-doubled response noise\n- spontaneous time-translation symmetry breaking spins coupled to single harmonic oscillator thermal bath subharmonic response classical\n- \"discrete time liquid\" thermal noise spin lattice resonator period doubling arXiv\n- discrete time liquid spins coupled to resonator thermal fluctuations no periodic drive\n- arxiv 2610.30266 Discrete time liquids Wang Michael\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Nonequilibrium statistical physics / time crystals: classical spin lattice (2D) coupled to a thermally driven damped harmonic oscillator (resonator), subharmonic response\", \"standard_name\": \"Discrete time liquid (noise-driven classical discrete time crystal with time-solitons / phase slips)\", \"confidence\": \"medium\", \"citations\": [\"Wang, Schindler, Bukov, Michael 2026, arXiv:2610.30266 'Discrete time liquids' (preprint, not peer-reviewed; author list per Quantum Zeitgeist, read only via press coverage: Xenospectrum, ScienceAlert, Quantum Zeitgeist) - 100x100 classical spins coupled to a thermal-bath-driven damped resonator show period doubling without a periodic drive, only at intermediate temperature, with time-solitons limiting coherence\", \"Zaletel et al. 2023, Rev. Mod. Phys. 95, 031001 'Colloquium: Quantum and classical discrete time crystals' (first author and title verified from search result) - review; finite-temperature noise causes phase slips in period-doubled motion (periodically driven case)\", \"Classical discrete time crystals, Nature Physics 2020, doi:10.1038/s41567-019-0782-3 (authors not shown in search result) - noisy, damped, periodically driven classical DTC with activated lifetime; precursor with an external periodic drive\"], \"searches\": [\"time crystal spins coupled to thermal noisy damped oscillator without periodic drive period doubling\", \"classical discrete time crystal spin lattice stochastic driving finite coherence time period-doubled response noise\", \"spontaneous time-translation symmetry breaking spins coupled to single harmonic oscillator thermal bath subharmonic response classical\", \"\\\"discrete time liquid\\\" thermal noise spin lattice resonator period doubling arXiv\", \"discrete time liquid spins coupled to resonator thermal fluctuations no periodic drive\", \"arxiv 2610.30266 Discrete time liquids Wang Michael\"], \"notes\": \"Primary arXiv text not read directly; match is based on three consistent press summaries. Exact numbers (T/T0=0.9, 0.01, 1000-period lifetime, coupling constants) not verified against the paper. The preprint is only about two weeks old (Oct 2026) and not peer-reviewed. Author list differs between sources.\"}\n```",
+ "checked": "2026-11-03 04:09:13"
+}

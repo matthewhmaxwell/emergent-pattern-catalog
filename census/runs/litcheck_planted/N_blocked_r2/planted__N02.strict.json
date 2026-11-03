@@ -1,0 +1,66 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cross-diffusion-modulated Turing patterns (spot\u2192stripe conversion and annihilation) in the Sel'kov (Sel'kov\u2013Schnakenberg) reaction-diffusion model",
+ "citations": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgrades the first pass from KNOWN-VARIANT to KNOWN and corrects the model name: the reaction terms are Sel'kov kinetics, not Schnakenberg. Cross-diffusion in Sel'kov\u2013Schnakenberg is documented as controlling pattern type, converting spots to stripes and annihilating patterns. A rough linearisation of my own predicts a rise-then-fall in pattern strength: opposite-signed coupling adds a destabilising term proportional to -c k^2 and a stabilising term proportional to +c^2 k^4. The same analysis does not clearly predict a return to the uniform state at c=0.49; the fastest-growing pattern stays at high wavenumber and may not be resolved on the grid. That threshold could be an artifact of the grid or time step, or of lost positivity, NaN or clamped values, and should be checked by refining the grid and time step. Spots, the spot-to-stripe change and the amplitude peak look genuine. Sources were read as snippets and abstracts only, not full texts.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots stripes"
+  },
+  {
+   "query": "cross-diffusion suppresses Turing instability opposite sign spot to stripe transition"
+  },
+  {
+   "query": "Sel'kov model with cross-diffusion pattern formation amplitude equations"
+  },
+  {
+   "query": "Sel'kov-Schnakenberg cross-diffusion Turing pattern transition spots stripes suppression"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.biorxiv.org/content/10.1101/403600.full.pdf",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "https://www.embopress.org/doi/10.15252/embr.202357405",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X11010110",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://www.mdpi.com/2227-7390/11/11/2411",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9197828/",
+  "https://pubs.aip.org/aip/adv/article/2/4/042125/21526/Amplitude-equation-for-a-diffusion-reaction-system",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://pubmed.ncbi.nlm.nih.gov/40699978",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121812001459",
+  "https://cpb.iphy.ac.cn/article/doi/10.1088/1674-1056/20/3/034702",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm moving the first pass's \"variant\" label up to plain \"known\". I also correct its model name, and I add a warning about possible numerical artifacts.\n\n**1. The model is Sel'kov, not Schnakenberg.** The reaction terms (\u2212u + a\u00b7v + u\u00b2\u00b7v and b \u2212 a\u00b7v \u2212 u\u00b2\u00b7v) and the steady state (u = b, v = b/(a+b\u00b2)) are the classic Sel'kov glycolysis model. The literature often groups it with Schnakenberg under the name \"Sel'kov\u2013Schnakenberg\". That family is studied directly:\n- Without cross-diffusion, one paper reports that spatio-temporal patterns change from the spot, mixed (spot-stripe) to stripe with the variation of parameters.\n- With cross-diffusion, a 2025 paper uses the cross-diffusion coefficient as the bifurcation parameter. Its simulations show that the cross-diffusion coefficient controls the type of Turing pattern that emerges.\n- A L\u00e9vy-superdiffusion version with cross-diffusion is subtitled \"Formation, conversion, and annihilation of Turing patterns\". That covers this system's three-part sequence: patterns form, spots turn into stripes, and the pattern disappears.\n\n**2. Each observed feature is already described for cross-diffusion systems in general.**\n- Spots turning into stripes as coupling changes: different cross-diffusion coefficient may lead to transition between spot and stripe patterns.\n- Cross-diffusion pushing the system back to a uniform state: the cold spot pattern produced by the self-diffusion model transforms to homogeneous steady state or other types of patterns like mixture of cold spot and stripes.\n- Cross-diffusion working both ways: it can generate two contrasting outcomes: inducing instability or restoring stability.\n\n**3. The rise-then-fall in pattern strength is not new.** I ran a quick linear stability calculation of my own around the steady state, with u\u2080 = 10 and v\u2080 \u2248 0.1. The opposite-signed couplings add two terms to the growth condition:\n- a term proportional to \u2212c\u00b7k\u00b2 (k is the wavenumber), which makes patterns more likely to grow;\n- a term proportional to +c\u00b2\u00b7k\u2074, which suppresses them.\n\nSo the linear term should win at small coupling and the quadratic term at large coupling. A single peak in pattern strength is what this standard analysis predicts. It is not a new effect.\n\n**4. Warning about the \"pattern gone at c = 0.49\" result.** In my rough calculation, this pattern-suppressing term is not strong enough to stabilise the uniform state by c \u2248 0.5 at these parameters. The calculation instead predicts that the wavenumber of the fastest-growing pattern stays high, around k \u2248 6, which may not be resolved on the grid. Whether the uniform state appears therefore depends heavily on the grid spacing and time step.\n\nThe nonlinear drift terms, div(u\u2207v), are also prone to steep spikes and to concentrations going negative. Before trusting the \"uniform\" endpoint, check:\n- that the run conserves mass and keeps concentrations positive;\n- that there are no NaN values or clamped values;\n- that the result holds under grid refinement and smaller time steps.\n\nThe spots, the spot-to-stripe change and the amplitude peak look like a genuine Turing pattern; agreement across 10 random seeds supports that. The disappearance threshold is the one result that could be an artifact.\n\n**What I searched:** \"Sel'kov model cross-diffusion Turing patterns spots stripes\", \"cross-diffusion suppresses Turing instability opposite sign spot to stripe transition\", \"Sel'kov model with cross-diffusion pattern formation amplitude equations\", and \"Sel'kov-Schnakenberg cross-diffusion Turing pattern transition spots stripes suppression\". I read search snippets and abstracts only, not full texts. I found no paper with this exact nonlinear form and the c1 = \u2212c2 sweep. But under the brief's rules, that alone doesn't make the behaviour undocumented.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cross-diffusion-modulated Turing patterns (spot\u2192stripe conversion and annihilation) in the Sel'kov (Sel'kov\u2013Schnakenberg) reaction-diffusion model\", \"citations\": [\"https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692\", \"https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622\", \"https://www.sciencedirect.com/science/article/pii/S0307904X17306960\", \"https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275\", \"https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgrades the first pass from KNOWN-VARIANT to KNOWN and corrects the model name: the reaction terms are Sel'kov kinetics, not Schnakenberg. Cross-diffusion in Sel'kov\u2013Schnakenberg is documented as controlling pattern type, converting spots to stripes and annihilating patterns. A rough linearisation of my own predicts a rise-then-fall in pattern strength: opposite-signed coupling adds a destabilising term proportional to -c k^2 and a stabilising term proportional to +c^2 k^4. The same analysis does not clearly predict a return to the uniform state at c=0.49; the fastest-growing pattern stays at high wavenumber and may not be resolved on the grid. That threshold could be an artifact of the grid or time step, or of lost positivity, NaN or clamped values, and should be checked by refining the grid and time step. Spots, the spot-to-stripe change and the amplitude peak look genuine. Sources were read as snippets and abstracts only, not full texts.\"}\n```",
+ "checked": "2026-11-03 02:54:06"
+}

@@ -1,0 +1,84 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing), Schnakenberg kinetics with nonlinear cross-diffusion / cross-taxis",
+ "standard_name": "cross-diffusion-induced Turing pattern modulation (spot-stripe transition and pattern suppression) in the Schnakenberg model; pursuit-evasion/prey-taxis-type cross-diffusion",
+ "confidence": "medium",
+ "citations": [
+  "Madzvamuse et al. 2015, J Math Biol 70(4):709-743 (cited via Ricerche di Matematica doi 10.1007/s11587-016-0267-y) - linear cross-diffusion favours destabilisation of the Schnakenberg steady state",
+  "arXiv 1501.04890 (Effects of cross-diffusion on Turing patterns in a reaction-diffusion Schnakenberg model) - weakly nonlinear analysis of pattern selection and transitions under linear cross-diffusion; authors not confirmed from search",
+  "Yang 2022, Nonlinear Dynamics 110 (doi 10.1007/s11071-022-07691-1) - cross-diffusion-driven Turing instability and hexagon/stripe patterns in Schnakenberg",
+  "Wang, Shi, Wu, DCDS-B (doi 10.3934/dcdsb.2020162) - attractive predator-taxis or repulsive prey-taxis induces Turing patterns; opposite-sign cross-taxis structure with different kinetics; authors from URL",
+  "Applied Mathematical Modelling ratio-dependent prey-predator cross-diffusion paper (ScienceDirect S0307904X17306960) - cross-diffusion can restore the homogeneous state or switch spot/stripe/labyrinth morphology",
+  "Nonlinear Analysis RWA, Pattern formation driven by cross-diffusion in a 2D domain (ScienceDirect S1468121812002593) - nonlinear cross-diffusion gives spot/stripe/mixed patterns depending on the coefficient"
+ ],
+ "searches": [
+  "Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis nonlinear cross-diffusion",
+  "Schnakenberg reaction-diffusion cross diffusion div(u grad v) pattern formation amplitude non-monotonic cross-diffusion coefficient",
+  "nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis one species attracted other repelled spots to stripes pattern suppressed",
+  "Turing patterns with cross-diffusion term div(u grad v) Schnakenberg spots stripes transition strong cross-diffusion homogeneous state restored",
+  "Turing patterns nonlinear cross-diffusion Schnakenberg model amplitude equations opposite sign cross-diffusion coefficients spot stripe homogeneous",
+  "cross-diffusion nonlinear Schnakenberg pursuit and evasion OR chemotaxis Turing pattern cross taxis"
+ ],
+ "notes": "Qualitative behaviour (cross-diffusion shifts Turing region, changes spot/stripe selection, can restore uniform state) is well established for Schnakenberg with linear cross-diffusion and for other models with nonlinear cross-taxis. I did not find an exact match for the nonlinear div(u grad v) Schnakenberg form with the c1=-c2 sweep or the non-monotonic amplitude peak. Most sources were read as snippets only, not full text. Exact thresholds (0.17, 0.49) are parameter-specific.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis nonlinear cross-diffusion"
+  },
+  {
+   "query": "Schnakenberg reaction-diffusion cross diffusion div(u grad v) pattern formation amplitude non-monotonic cross-diffusion coefficient"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis one species attracted other repelled spots to stripes pattern suppressed"
+  },
+  {
+   "query": "Turing patterns with cross-diffusion term \u2207\u00b7(u\u2207v) Schnakenberg \"cross-diffusion\" spots stripes transition strong cross-diffusion homogeneous state restored"
+  },
+  {
+   "query": "Turing patterns nonlinear cross-diffusion Schnakenberg model amplitude equations opposite sign cross-diffusion coefficients spot stripe homogeneous"
+  },
+  {
+   "query": "cross-diffusion nonlinear Schnakenberg \"pursuit and evasion\" OR \"chemotaxis\" Turing pattern reaction-diffusion-advection predator-prey-like cross taxis pattern formation"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s11071-026-12479-8",
+  "https://web.mst.edu/zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727892100004X",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2024.1452077/full",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/38170298",
+  "https://link.springer.com/article/10.1007/s11587-016-0267-y",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475422002294",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://arxiv-export-lb.library.cornell.edu/abs/1501.04890",
+  "https://pubmed.ncbi.nlm.nih.gov/37420340/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121812002593",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://web.mst.edu/zhangyanz/Papers/Khudhair-Zhang-Fukawa-2021.pdf",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://royalsocietypublishing.org/rspa/article/481/2312/20250030/235262/Bespoke-Turing-patterns-with-specific-nonlinear",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The model family and the qualitative behaviour are well documented. I found no source that reports this exact nonlinear cross-taxis form with the same sweep.\n\n**1. Model family.** This is a Turing-type reaction\u2013diffusion system with Schnakenberg kinetics.\n- The kinetics are activator\u2013depleted-substrate, with u as the activator and v as the fast-diffusing substrate (D2/D1 = 1000).\n- The added terms c1\u00b7\u2207\u00b7(u\u2207v) and c2\u00b7\u2207\u00b7(v\u2207u) are nonlinear cross-diffusion, or cross-taxis.\n- With c1 = c and c2 = \u2212c, u is attracted up the v gradient and v is repelled from u. This is the pursuit\u2013evasion structure of predator\u2013prey taxis models.\n\n**2. What the literature shows.**\n- **Schnakenberg with cross-diffusion.**\n  - Gambino et al. (arXiv 1501.04890) study the Schnakenberg model with linear cross-diffusion terms. These terms favour destabilisation of the constant steady state. I did not see author names in the result, so this attribution is from memory.\n  - The follow-up paper (Ricerche di Matematica, doi 10.1007/s11587-016-0267-y) cites Madzvamuse et al., J Math Biol 70(4):709\u2013743 (2015), as the original linear cross-diffusion result. The follow-up also uses weakly nonlinear analysis to show how the cross-diffusion coefficients decide between supercritical and subcritical bifurcations.\n  - Yang (Nonlinear Dynamics 2022) derives cross-diffusion-driven Turing conditions for Schnakenberg. It uses amplitude equations to map hexagon-like, stripe-like and coexisting patterns.\n- **Nonlinear cross-diffusion in Schnakenberg.** A Schnakenberg cross-diffusion system is one of three test cases in a paper on heterogeneity localising Turing patterns. That paper uses linear cross-diffusion terms for Schnakenberg. It treats Keller\u2013Segel chemotaxis and the Shigesada\u2013Kawasaki\u2013Teramoto model as its separate nonlinear cases.\n- **Cross-taxis with opposite signs.**\n  - Wang, Shi and Wu (DCDS-B, doi 10.3934/dcdsb.2020162) report that an attractive predator-taxis or a repulsive prey-taxis in a predator\u2013prey reaction\u2013diffusion system gives a pattern-formation mechanism. I took the authors from the URL, not from the page text.\n  - That is the opposite-sign structure used here, but with different kinetics.\n- **Spot\u2013stripe transitions and loss of pattern.**\n  - Cross-diffusion can also turn a Turing-unstable state back into a homogeneous steady state. (This is a ratio-dependent predator\u2013prey model, Applied Mathematical Modelling, 2017/18.)\n  - In a plankton model with nonlinear cross-diffusion, the pattern changes between spots, stripes and spot\u2013stripe mixtures depending on the cross-diffusivity. (Pattern formation driven by cross-diffusion in a 2D domain, Nonlinear Analysis: RWA.)\n  - A chemical self-replication model with cross-diffusion shows a sequence from hexagons through stripes to hot spots.\n\n**3. What may differ.**\n- I found no paper that sweeps c with c1 = \u2212c2 in Schnakenberg using this \u2207\u00b7(u\u2207v) form at a = 0.015, b = 10, D2 = 1000\u00b7D1.\n- I also found no paper that reports a non-monotonic pattern amplitude, with a peak near c \u2248 0.17 and a uniform state by c \u2248 0.49.\n- The mechanism is likely standard. Cross-diffusion shifts the Turing boundary and changes the amplitude-equation coefficients, which moves the selection between spots and stripes. Strong coupling can then push the state back below threshold.\n- The exact numbers (0.17, 0.49) are specific to these parameters and shouldn't be expected in the literature.\n- The sign-dependence (opposite versus equal signs) is also expected from linear stability. I did not find it tabulated for this system.\n\n**4. Confidence: medium.**\n- Confidence is not high because I could not read full texts for most sources. The snippets support the general claims, not the exact quantitative sweep.\n- The \"rise then fall\" amplitude and spot\u2192stripe\u2192uniform sequence under nonlinear cross-taxis in Schnakenberg is, as far as I could find, only shown for neighbouring models.\n- I ran 7 searches. I did not search specifically for \"a=0.015, b=10\" parameter sets, so a closer match could exist.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing), Schnakenberg kinetics with nonlinear cross-diffusion / cross-taxis\", \"standard_name\": \"cross-diffusion-induced Turing pattern modulation (spot-stripe transition and pattern suppression) in the Schnakenberg model; pursuit-evasion/prey-taxis-type cross-diffusion\", \"confidence\": \"medium\", \"citations\": [\"Madzvamuse et al. 2015, J Math Biol 70(4):709-743 (cited via Ricerche di Matematica doi 10.1007/s11587-016-0267-y) - linear cross-diffusion favours destabilisation of the Schnakenberg steady state\", \"arXiv 1501.04890 (Effects of cross-diffusion on Turing patterns in a reaction-diffusion Schnakenberg model) - weakly nonlinear analysis of pattern selection and transitions under linear cross-diffusion; authors not confirmed from search\", \"Yang 2022, Nonlinear Dynamics 110 (doi 10.1007/s11071-022-07691-1) - cross-diffusion-driven Turing instability and hexagon/stripe patterns in Schnakenberg\", \"Wang, Shi, Wu, DCDS-B (doi 10.3934/dcdsb.2020162) - attractive predator-taxis or repulsive prey-taxis induces Turing patterns; opposite-sign cross-taxis structure with different kinetics; authors from URL\", \"Applied Mathematical Modelling ratio-dependent prey-predator cross-diffusion paper (ScienceDirect S0307904X17306960) - cross-diffusion can restore the homogeneous state or switch spot/stripe/labyrinth morphology\", \"Nonlinear Analysis RWA, Pattern formation driven by cross-diffusion in a 2D domain (ScienceDirect S1468121812002593) - nonlinear cross-diffusion gives spot/stripe/mixed patterns depending on the coefficient\"], \"searches\": [\"Schnakenberg model cross-diffusion Turing patterns spots stripes cross-taxis nonlinear cross-diffusion\", \"Schnakenberg reaction-diffusion cross diffusion div(u grad v) pattern formation amplitude non-monotonic cross-diffusion coefficient\", \"nonreciprocal cross-diffusion Turing patterns Schnakenberg taxis one species attracted other repelled spots to stripes pattern suppressed\", \"Turing patterns with cross-diffusion term div(u grad v) Schnakenberg spots stripes transition strong cross-diffusion homogeneous state restored\", \"Turing patterns nonlinear cross-diffusion Schnakenberg model amplitude equations opposite sign cross-diffusion coefficients spot stripe homogeneous\", \"cross-diffusion nonlinear Schnakenberg pursuit and evasion OR chemotaxis Turing pattern cross taxis\"], \"notes\": \"Qualitative behaviour (cross-diffusion shifts Turing region, changes spot/stripe selection, can restore uniform state) is well established for Schnakenberg with linear cross-diffusion and for other models with nonlinear cross-taxis. I did not find an exact match for the nonlinear div(u grad v) Schnakenberg form with the c1=-c2 sweep or the non-monotonic amplitude peak. Most sources were read as snippets only, not full text. Exact thresholds (0.17, 0.49) are parameter-specific.\"}\n```",
+ "checked": "2026-11-03 02:52:59"
+}

@@ -1,0 +1,61 @@
+{
+ "class_id": "planted:N12",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: 2D classical XY model with long-range algebraic couplings 1/r^(2+sigma), sigma=2 (marginal point), cluster Monte Carlo",
+ "standard_name": "2D long-range XY model at sigma=2: log-corrected (ln L)^(-eta(T)) magnetization decay, spin-wave scaling with k^2 ln k dispersion",
+ "confidence": "medium",
+ "citations": [
+  "Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 - 2D LR XY MC up to L=8192; ordered phase for sigma<2 and logarithmic scaling in the low-T phase at sigma=2",
+  "Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B (DOI 10.1103/yghs-p5mg) - comprehensive MC; ordered for sigma<=2, crossover to short-range at sigma=2, critical exponents",
+  "Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - theory of BKT with long-range couplings r^(-2-sigma)",
+  "Defenu, Trombettoni, Ruffo 2023, Rev. Mod. Phys. - review of long-range quantum systems (seen only as a citation in snippets, not fully verified)",
+  "arXiv 2512.01956 (2025) - 2D long-range Heisenberg model, same sigma*=2 threshold, 1/ln L decay (close relative)"
+ ],
+ "searches": [
+  "2D XY model long-range interaction 1/r^4 sigma=2 logarithmic magnetization decay power of log L",
+  "long-range XY model two dimensions sigma=2 marginal BKT crossover Monte Carlo",
+  "Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings sigma=2",
+  "Two-Dimensional XY Ferromagnet Induced by Long-Range Interaction CPL authors"
+ ],
+ "notes": "Only abstracts/snippets were read. The exact log-exponent formula and the 2*pi*slope*exponent=1 identity were not verified in the full text; they are consistent with a simple spin-wave estimate (k^2 ln k dispersion giving <theta^2> ~ T ln ln L). The 'NN 1.2 + weak 1/r^4 tail' variant was not found in any source and is inferred from the same theory. The corr-length divergence exponent 2.24 was not compared with the published nu.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "2D XY model long-range interaction 1/r^4 sigma=2 logarithmic magnetization decay power of log L"
+  },
+  {
+   "query": "long-range XY model two dimensions \u03c3=2 marginal Berezinskii-Kosterlitz-Thouless crossover Monte Carlo"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings \u03c3=2"
+  },
+  {
+   "query": "Two-Dimensional XY Ferromagnet Induced by Long-Range Interaction Chinese Physics Letters authors 2024 arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://pith.science/paper/2512.01956",
+  "https://www.osti.gov/pages/servlets/purl/2407304",
+  "https://www.academia.edu/84428022/Berezinskii_Kosterlitz_Thouless_Transition_in_a_Two_Dimensional_Random_Bond_XY_Model_on_a_Square_Lattice",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.054203",
+  "https://iopscience.iop.org/article/10.1088/1402-4896/add62a",
+  "https://academic.oup.com/ptep/article/2024/10/103A02/7783274",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://inspirehep.net/literature/1861073",
+  "https://arxiv-vanity.com/papers/2104.13217",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.156801",
+  "https://link.springer.com/article/10.1007/JHEP02(2023)238",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://cpl.iphy.ac.cn/en/article/id/ba72d8f2-4f3c-466e-9a93-98c4f5ba3723",
+  "https://faculty.ustc.edu.cn/dengyoujin/en/zdylm/688809/list/index.htm"
+ ],
+ "full_text": "**Verdict: KNOWN.** My confidence is medium. I read abstracts and snippets, not the full papers. I did not check the specific numbers, such as 0.34, 0.48 and 2.24, against the papers' data.\n\n**1. Model family.** This is the statistical physics of long-range-interacting classical spin models. Specifically, it is the 2D XY (planar rotor) model with algebraic couplings J(r) \u221d 1/r^(2+\u03c3). Here 1/r\u2074 means \u03c3 = 2, which is the marginal point between long-range and short-range (BKT) behaviour in 2D. It sits on the Mermin\u2013Wagner/BKT side of the field, and the simulations use cluster Monte Carlo.\n\n**2. The behaviour and the sources.**\n- **Earliest clear source for this exact system.** Xiao, Yao, Zhang, Fan and Deng, \"Two-Dimensional XY Ferromagnet Induced by Long-Range Interaction\", Chin. Phys. Lett. 42, 070002 (2025); arXiv 2411.01811 (arXiv number from the CPL reference list; I did not open the arXiv page). They ran long-range Monte Carlo up to L = 8192 on the 2D XY model with \u223c1/r^(2+\u03c3).\n  - They report continuous transitions into a ferromagnetic phase for \u03c3 < 2, with long-range order and power-law correlations from the Goldstone mode.\n  - They also find logarithmic scaling in the low-temperature phase at \u03c3 = 2, which agrees with their theoretical analysis.\n  - This matches the observation of m\u00b2 decaying as a power of log L with an exponent proportional to temperature. A quick spin-wave estimate gives the same picture. At \u03c3 = 2 the coupling in Fourier space goes as k\u00b2 ln(1/k), so \u27e8\u03b8\u00b2\u27e9 grows like T\u00b7ln ln L. That makes m\u00b2 \u223c (ln L)^(\u2212cT) and gives the exponent \u221d T. This estimate is mine, not taken from the paper. The product of 2\u03c0, the correlation-length slope and the exponent equalling 1 is consistent with it.\n- **Companion study.** Yao, Xiao, Zhang, Deng and Fan, \"Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study\", Phys. Rev. B (2025), DOI 10.1103/yghs-p5mg.\n  - For \u03c3 \u2264 2 it finds a second-order transition into a ferromagnetic phase with long-range order, and it puts the crossover to the short-range regime at \u03c3 = 2.\n  - This is the source for the critical exponents, which the correlation-length divergence exponent of 2.24 would be compared against. I did not extract the paper's value of \u03bd.\n- **Theory and review-level background.** Giachetti, Defenu, Ruffo and Trombettoni, \"Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings\", Phys. Rev. Lett. 127, 156801 (2021), arXiv 2104.13217.\n  - It treats the effect of couplings decaying as r^(\u22122\u2212\u03c3) on the BKT transition.\n  - It finds a quasi-ordered phase between Tc and T_BKT for 7/4 < \u03c3 < 2.\n  - The Giachetti\u2013Defenu\u2013Ruffo\u2013Trombettoni papers are the theory framework. The Hefei papers above are the direct numerical match.\n- **Review.** Defenu, Trombettoni and Ruffo, \"Long-range interacting quantum systems\", Rev. Mod. Phys. (2023). I only saw this cited in search snippets, with partial reference text, so I did not verify its title, year or venue.\n- **Close relatives.**\n  - The 2D long-range Heisenberg model (arXiv 2512.01956) has the same \u03c3* = 2 threshold. It reports \u27e8M\u00b2\u27e9 converging to positive values with a 1/ln(L/L0)-type logarithmic decay.\n  - The Villain version with long-range couplings gives RG equations for the vortex potential that differ from the long-range XY model.\n\n**The variant with nearest-neighbour coupling 1.2 plus a weak 1/r\u2074 tail.** I found no source that tests this specific mixed coupling. It is consistent with the theory above. The k\u00b2 ln k term from the tail dominates the k\u00b2 nearest-neighbour term at small k, so the tail should still change the low-T scaling. This part is inference, not a reported result.\n\n**3. Caveats.**\n- I verified the titles, authors, years and venues of the Xiao et al., Yao et al. and Giachetti et al. papers from search results. The review I did not fully verify, as noted above.\n- I did not read the full texts, so I did not confirm the exact log-exponent formula or the 2\u03c0\u00b7slope\u00b7exponent identity. Both are consistent with the abstract-level claims and my spin-wave estimate.\n\n**Searches run:**\n- \"2D XY model long-range interaction 1/r^4 sigma=2 logarithmic magnetization decay power of log L\"\n- \"long-range XY model two dimensions \u03c3=2 marginal Berezinskii-Kosterlitz-Thouless crossover Monte Carlo\"\n- \"Giachetti Defenu Ruffo Trombettoni Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings \u03c3=2\"\n- \"Two-Dimensional XY Ferromagnet Induced by Long-Range Interaction Chinese Physics Letters authors 2024 arXiv\"\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: 2D classical XY model with long-range algebraic couplings 1/r^(2+sigma), sigma=2 (marginal point), cluster Monte Carlo\", \"standard_name\": \"2D long-range XY model at sigma=2: log-corrected (ln L)^(-eta(T)) magnetization decay, spin-wave scaling with k^2 ln k dispersion\", \"confidence\": \"medium\", \"citations\": [\"Xiao, Yao, Zhang, Fan, Deng 2025, Chin. Phys. Lett. 42, 070002 - 2D LR XY MC up to L=8192; ordered phase for sigma<2 and logarithmic scaling in the low-T phase at sigma=2\", \"Yao, Xiao, Zhang, Deng, Fan 2025, Phys. Rev. B (DOI 10.1103/yghs-p5mg) - comprehensive MC; ordered for sigma<=2, crossover to short-range at sigma=2, critical exponents\", \"Giachetti, Defenu, Ruffo, Trombettoni 2021, Phys. Rev. Lett. 127, 156801 - theory of BKT with long-range couplings r^(-2-sigma)\", \"Defenu, Trombettoni, Ruffo 2023, Rev. Mod. Phys. - review of long-range quantum systems (seen only as a citation in snippets, not fully verified)\", \"arXiv 2512.01956 (2025) - 2D long-range Heisenberg model, same sigma*=2 threshold, 1/ln L decay (close relative)\"], \"searches\": [\"2D XY model long-range interaction 1/r^4 sigma=2 logarithmic magnetization decay power of log L\", \"long-range XY model two dimensions sigma=2 marginal BKT crossover Monte Carlo\", \"Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings sigma=2\", \"Two-Dimensional XY Ferromagnet Induced by Long-Range Interaction CPL authors\"], \"notes\": \"Only abstracts/snippets were read. The exact log-exponent formula and the 2*pi*slope*exponent=1 identity were not verified in the full text; they are consistent with a simple spin-wave estimate (k^2 ln k dispersion giving <theta^2> ~ T ln ln L). The 'NN 1.2 + weak 1/r^4 tail' variant was not found in any source and is inferred from the same theory. The corr-length divergence exponent 2.24 was not compared with the published nu.\"}\n```",
+ "checked": "2026-11-03 02:38:26"
+}

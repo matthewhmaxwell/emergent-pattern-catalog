@@ -1,0 +1,79 @@
+{
+ "class_id": "planted:N02",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chemotaxis/cross-taxis-modulated Turing patterns in the Sel'kov glycolysis model (nonmonotonic, re-entrant pattern control; spot-stripe transitions)",
+ "citations": [
+  "arXiv:2609.01159 - Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model (Selkov + chemotaxis; nonmonotonic amplitude, re-entrant patterning, spot-stripe transitions in 2D periodic DNS)",
+  "arXiv:2609.01127 - Nonmonotonic control of pattern formation by chemotaxis (Selkov DNS: nonmonotonic pattern intensity, spot-to-stripe transitions, pattern vanishing/reappearing)",
+  "Acta Physica Sinica 72 (2023), doi:10.7498/aps.72.20230333 - Cross-diffusion-induced transitions between Turing patterns (directional cross-diffusion pushes pattern transitions forward or in reverse)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "The first pass misidentified the kinetics as Schnakenberg; they are Sel'kov. Recent arXiv work on chemotactic Sel'kov documents the same behaviour directly, so the verdict moves from KNOWN-VARIANT to KNOWN. The PDFs were seen only through machine-review summaries, so the exact match to the opposite-sign (c1=c, c2=-c) coupling and to a=0.015, b=10 is unverified. My rough continuum linear analysis says the uniform state stays Turing-unstable for all c>0 with these parameters, so the 'pattern gone at c=0.49' result may come from the grid, a detection threshold, or numerics. Check the discrete dispersion relation before trusting it. The spot and stripe patterns themselves look genuine.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots stripes"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion pursuit evasion Turing pattern suppression spots to stripes"
+  },
+  {
+   "query": "Sel'kov glycolysis model cross-diffusion Turing instability pattern"
+  },
+  {
+   "query": "cross-diffusion non-monotonic pattern amplitude suppression Turing patterns cross-diffusion coefficient increase"
+  },
+  {
+   "query": "Sel'kov model cross-diffusion amplitude equations spot stripe pattern transition numerical simulations"
+  },
+  {
+   "query": "Nonmonotonic control of pattern formation by chemotaxis Selkov arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.biorxiv.org/content/10.1101/403600.full.pdf",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S002251930300170X",
+  "https://www.embopress.org/doi/10.15252/embr.202357405",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://www.academia.edu/71343942/Pattern_Formation_in_a_Cross_Diffusive_Holling_Tanner_Model",
+  "https://bio.libretexts.org/Bookshelves/Evolutionary_Developmental_Biology/Evolutionary_Developmental_Biology_(Rivera)/07:_Patterning/7.1:_Turing_Patterns_to_Generate_Stripes_and_Spots",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121819304778",
+  "https://ideas.repec.org/a/eee/chsofr/v91y2016icp421-429.html",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.034402",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://doi.org/10.3390/biophysica4040036",
+  "https://researchers.westernsydney.edu.au/en/publications/pd-control-of-turing-instability-in-a-fractional-order-selkov-sch/",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://link.springer.com/article/10.1007/s11587-023-00816-7",
+  "https://link.springer.com/article/10.1007/s11587-023-00814-9",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121812001459",
+  "https://link.springer.com/article/10.1007/s44198-026-00394-w",
+  "https://wulixb.iphy.ac.cn/en/article/doi/10.7498/aps.72.20230333",
+  "https://link.springer.com/article/10.1007/s44198-026-00394-w",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://pith.science/paper/2609.01127",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121812001459",
+  "https://pith.science/paper/2609.01159",
+  "https://ideas.repec.org/a/eee/matcom/v202y2022icp246-272.html",
+  "https://pith.science/paper/2609.01127",
+  "https://pith.science/paper/2609.01159",
+  "https://pith.science/paper/2605.15158"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass in two ways: it got the model wrong, and the behaviour is documented directly, not just in relatives.\n\n**1. The model is Sel'kov, not Schnakenberg.** The reaction terms (\u2212u + a\u00b7v + u\u00b2\u00b7v and b \u2212 a\u00b7v \u2212 u\u00b2\u00b7v) and the steady state (u = b, v = b/(a+b\u00b2)) are the Sel'kov glycolysis model. The first pass named the wrong family.\n\n**2. Two recent arXiv papers (September 2026) on this system describe the same behaviour.**\n- arXiv:2609.01159 studies linear instabilities and pattern formation in a spatially extended Selkov model for glycolysis with diffusion and chemotactic interactions between two species. It claims chemotaxis can act as a nonmonotonic control parameter for instability selection, wavelength selection, re-entrant pattern formation, and nonlinear pattern morphology.\n- Its 2D simulations, with periodic edges like yours, confirm the existence of spots and stripes, show amplitude changes with chemotaxis, and reveal spot-stripe transitions.\n- The companion paper (arXiv:2609.01127) reports that direct numerical simulations reproduce the nonmonotonic variation of pattern intensity with chemotaxis strength, plus spot-to-stripe transitions. It argues these are nonlinear in origin.\n- It also predicts that a pattern can disappear and reappear as chemotaxis strength changes. It treats reciprocal and non-reciprocal couplings separately; its own test case is the reciprocal Selkov model.\n\nSo all of your observations are covered: amplitude rises then falls, one spot-to-stripe change, and the pattern disappears at strong coupling. More broadly, earlier work shows that one-way cross-diffusion can push Turing pattern transitions forward or reverse them (Brusselator: cross-diffusion from the inhibitor to the activator enhances the Turing mode... the cross-diffusion from the activator to the inhibitor suppresses the Turing mode).\n\n**Caveats**\n- I only saw machine-written reviews of the two arXiv papers, not the full PDFs. I haven't checked their exact parameters, or whether they ran your opposite-sign coupling (c1 = c, c2 = \u2212c).\n- **Possible artifact in the \"pattern gone\" result.** My own rough linear calculation (with ab\u00b2 \u226b 1 and u\u00b7v \u2248 1 at the steady state) says the uniform state stays Turing-unstable for every c > 0 in the continuous system. The cross terms just shift and widen the unstable band of wavelengths. So a truly uniform end state at c = 0.49 needs explaining. Possible causes are the grid (which wavelengths a 128\u00d7128 grid can represent, which depends on the cell size), a detection threshold, or numerical trouble from clipping or the time step. The spots and stripes themselves look like genuine Turing patterns. Before trusting the vanishing point, check the dispersion relation using the grid's own Laplacian.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chemotaxis/cross-taxis-modulated Turing patterns in the Sel'kov glycolysis model (nonmonotonic, re-entrant pattern control; spot-stripe transitions)\", \"citations\": [\"arXiv:2609.01159 - Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model (Selkov + chemotaxis; nonmonotonic amplitude, re-entrant patterning, spot-stripe transitions in 2D periodic DNS)\", \"arXiv:2609.01127 - Nonmonotonic control of pattern formation by chemotaxis (Selkov DNS: nonmonotonic pattern intensity, spot-to-stripe transitions, pattern vanishing/reappearing)\", \"Acta Physica Sinica 72 (2023), doi:10.7498/aps.72.20230333 - Cross-diffusion-induced transitions between Turing patterns (directional cross-diffusion pushes pattern transitions forward or in reverse)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"The first pass misidentified the kinetics as Schnakenberg; they are Sel'kov. Recent arXiv work on chemotactic Sel'kov documents the same behaviour directly, so the verdict moves from KNOWN-VARIANT to KNOWN. The PDFs were seen only through machine-review summaries, so the exact match to the opposite-sign (c1=c, c2=-c) coupling and to a=0.015, b=10 is unverified. My rough continuum linear analysis says the uniform state stays Turing-unstable for all c>0 with these parameters, so the 'pattern gone at c=0.49' result may come from the grid, a detection threshold, or numerics. Check the discrete dispersion relation before trusting it. The spot and stripe patterns themselves look genuine.\"}\n```",
+ "checked": "2026-11-03 04:13:21"
+}

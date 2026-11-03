@@ -1,0 +1,90 @@
+{
+ "class_id": "planted:N13",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "opinion dynamics: mean-field noisy voter model (Kirman herding model) with stochastic resetting of the magnetization",
+ "standard_name": "Noisy voter / Kirman model finite-size bimodal-unimodal transition (noise ~ 1/N) plus stochastic resetting to fixed magnetization",
+ "confidence": "medium",
+ "citations": [
+  "Kirman 1993, Quarterly Journal of Economics 108:137-156 - original ant/herding model with finite-size bimodal-unimodal behaviour (citation details seen in search results; content not read)",
+  "Carro, Toral, San Miguel 2016, Scientific Reports (The noisy voter model on complex networks) - reviews the all-to-all bimodal-unimodal finite-size transition and the 1/N critical noise",
+  "Ising model with stochastic resetting, 2020, Phys. Rev. Research 2, 033182 - resetting magnetization to fixed m0 at rate r gives a rich (T,r) phase diagram (authors not verified)",
+  "Polarization-induced stress in the noisy voter model, 2024, Physica A - other multi-peaked (W, M, trimodal) phases of noisy voter variants"
+ ],
+ "searches": [
+  "noisy voter model stochastic resetting external shocks magnetization distribution",
+  "Kirman ant model bimodal unimodal transition noise 1/N herding finite-size noisy voter model",
+  "voter model with stochastic resetting to fixed magnetization trimodal distribution",
+  "resetting opinion dynamics noisy voter model global resets phase diagram",
+  "noisy voter model stochastic resetting mean-field finite-size bimodal trimodal resetting rate",
+  "Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics",
+  "resetting voter model consensus time stochastic resetting opinion dynamics"
+ ],
+ "notes": "No paper found that applies stochastic resetting or global shocks to the noisy voter/Kirman model, so the combination may be unstudied; the individual ingredients are known. Threshold prefactor (1/N vs 2/N) depends on noise convention. The six-regime count was not checked against any source.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "noisy voter model stochastic resetting external shocks magnetization distribution"
+  },
+  {
+   "query": "Kirman ant model bimodal unimodal transition noise 1/N herding finite-size noisy voter model"
+  },
+  {
+   "query": "voter model with stochastic resetting to fixed magnetization trimodal distribution"
+  },
+  {
+   "query": "resetting opinion dynamics noisy voter model global resets phase diagram"
+  },
+  {
+   "query": "noisy voter model stochastic resetting mean-field finite-size bimodal trimodal resetting rate"
+  },
+  {
+   "query": "Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics"
+  },
+  {
+   "query": "\"resetting\" voter model consensus time stochastic resetting opinion dynamics"
+  }
+ ],
+ "result_urls": [
+  "https://doi.org/10.3390/e24081140",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9407215/",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://www.emergentmind.com/topics/symmetric-noisy-voter-model",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://www.nature.com/articles/srep24775",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4837380/",
+  "https://digital.csic.es/bitstream/10261/189333/1/PhysRevE.97.012310.pdf",
+  "https://ideas.repec.org/a/eee/phsmap/v515y2019icp81-92.html",
+  "https://doi.org/10.3390/e24081140",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033182",
+  "http://physics.bu.edu/~redner/pubs/pdf/zealots.pdf",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "http://physics.bu.edu/~redner/pubs/pdf/vacillating.pdf",
+  "https://dl.acm.org/doi/10.1007/978-3-030-54921-3_15",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7971088/",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://link.springer.com/chapter/10.1007/978-3-030-54921-3_15",
+  "https://link.springer.com/article/10.1007/s11721-022-00217-w",
+  "https://www.sciencedirect.com/science/article/pii/S1631070519300313",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aae7f5",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4837380/",
+  "https://www.nature.com/articles/srep24775",
+  "https://www.sciencedirect.com/science/article/pii/S0378437124003492",
+  "https://ideas.repec.org/a/eee/phsmap/v515y2019icp81-92.html",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4837380/",
+  "http://e-m-h.org/Lux00.pdf",
+  "http://www.off-ladhyx.polytechnique.fr/people/benzaquen/publications/Moran2020b.pdf",
+  "https://www.ofce.sciences-po.fr/pdf/revue/19-124.pdf",
+  "https://rf.mokslasplius.lt/kirman-ants/",
+  "https://www.ofce.sciences-po.fr/pdf/revue/6-124.pdf",
+  "https://www.gwif.vwl.uni-kiel.de/de/drittmittelprojekte/vw-project/dateien/network-hierarchy-in-kirmans-ant-model-fund-investments-can-create-risks",
+  "https://perso.amse-aixmarseille.fr/trannoy/documents/IntroductionKirmanJEBO_000.pdf",
+  "https://www.tandfonline.com/doi/full/10.1080/1351847X.2025.2508516",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.109.054115",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9407215/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The model and its noise-driven bimodal/unimodal transition are textbook results. I found no paper that studies this model with population-wide resets. The extra peak at 0.3 looks like the standard resetting effect.\n\n**1. Model family**\n- The rule system is the mean-field (all-to-all) noisy voter model, which is equivalent to Kirman's ant/herding model. Opinion dynamics, statistical physics and agent-based economics all use it.\n- Each agent either copies a random other agent or changes opinion at random. The shocks add stochastic resetting of the magnetization (average opinion) to a fixed value, here m\u2080 = 0.3.\n\n**2. What is known**\n- **No shocks, noise threshold.** The noisy voter and Kirman model has a finite-size transition between a bimodal and a unimodal distribution of the average opinion. In the fully-connected case, the system shows a finite-size transition between bimodal and unimodal behavior, depending on the relative size of noise and interaction. The critical noise scales as 1/N. The mean-field critical point is a_c = h/N, and the transition remains a finite-size effect. Your threshold of \u03b7 \u2248 0.002 = 1/500 matches this scaling. The exact prefactor depends on how noise is defined. For example, a flat distribution at 2/(N+2) is quoted in Herding and idiosyncratic choices (ScienceDirect). With a flip-at-random rule, a factor of 2 is plausible.\n- **Earliest sources.** The earliest source for the Kirman form is Kirman 1993, \"Ants, Rationality, and Recruitment\", Quarterly Journal of Economics 108:137\u2013156. The citation details were confirmed in several search results. Granovsky & Madras 1995 is the usual voter-model reference, but I did not verify it here.\n- **Review-level source.** Carro, Toral & San Miguel 2016, \"The noisy voter model on complex networks\", Scientific Reports (nature.com/articles/srep24775). It reviews the all-to-all bimodal/unimodal result and the 1/N scaling.\n- **Resetting to a fixed magnetization.** The closest resetting paper I found is \"Ising model with stochastic resetting\", Phys. Rev. Research 2, 033182 (2020). Its authors weren't shown in the search result, so I'm not naming them. It resets the magnetization to a fixed initial value m0 at a constant rate r, which gives a rich phase diagram in the (T,r) plane. That is the same protocol and the same kind of phase diagram, but for the Ising model.\n- **Other multi-peaked noisy voter results.** Extra peaks and several \"phases\" of the magnetization distribution are known for other noisy voter extensions. One example is the unimodal/bimodal/W/M phases in \"Polarization-induced stress in the noisy voter model\" (Physica A, 2024). Another is the bimodal and trimodal phases of the nonlinear noisy voter model.\n\n**3. What I could not find**\n- No source applies stochastic resetting or global shocks to the noisy voter or Kirman model. I did not find a paper that reports a three-peak distribution with a shock-induced peak at m\u2080 for it.\n- Reasoning on the system itself: with frequent resets, the distribution should put weight near m\u2080 = 0.3. A mixture of the two consensus peaks and a reset peak gives three peaks, and regimes are then set by whether noise and shock rate dominate. This is the expected resetting mechanism and does not need new physics. The count of six regimes is specific to your sweep, and I haven't checked it against any source.\n\n**4. Confidence: medium.** The base model and its threshold are well documented, and the resetting mechanism is well documented in the Ising model. My search for the combination was short (6 distinct queries) and could miss a niche paper, for example on resetting in Kirman-type models or on \"exogenous shocks\" in herding models. I did not verify the authors of the resetting paper, Granovsky & Madras, or the exact \u03b7 prefactor.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"opinion dynamics: mean-field noisy voter model (Kirman herding model) with stochastic resetting of the magnetization\", \"standard_name\": \"Noisy voter / Kirman model finite-size bimodal-unimodal transition (noise ~ 1/N) plus stochastic resetting to fixed magnetization\", \"confidence\": \"medium\", \"citations\": [\"Kirman 1993, Quarterly Journal of Economics 108:137-156 - original ant/herding model with finite-size bimodal-unimodal behaviour (citation details seen in search results; content not read)\", \"Carro, Toral, San Miguel 2016, Scientific Reports (The noisy voter model on complex networks) - reviews the all-to-all bimodal-unimodal finite-size transition and the 1/N critical noise\", \"Ising model with stochastic resetting, 2020, Phys. Rev. Research 2, 033182 - resetting magnetization to fixed m0 at rate r gives a rich (T,r) phase diagram (authors not verified)\", \"Polarization-induced stress in the noisy voter model, 2024, Physica A - other multi-peaked (W, M, trimodal) phases of noisy voter variants\"], \"searches\": [\"noisy voter model stochastic resetting external shocks magnetization distribution\", \"Kirman ant model bimodal unimodal transition noise 1/N herding finite-size noisy voter model\", \"voter model with stochastic resetting to fixed magnetization trimodal distribution\", \"resetting opinion dynamics noisy voter model global resets phase diagram\", \"noisy voter model stochastic resetting mean-field finite-size bimodal trimodal resetting rate\", \"Kirman 1993 Ants, rationality, and recruitment Quarterly Journal of Economics\", \"resetting voter model consensus time stochastic resetting opinion dynamics\"], \"notes\": \"No paper found that applies stochastic resetting or global shocks to the noisy voter/Kirman model, so the combination may be unstudied; the individual ingredients are known. Threshold prefactor (1/N vs 2/N) depends on noise convention. The six-regime count was not checked against any source.\"}\n```",
+ "checked": "2026-11-03 03:31:52"
+}

@@ -1,0 +1,92 @@
+{
+ "class_id": "planted:N14",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Kagome (trihexagonal) lattice self-assembly of two-patch / triblock-Janus-like particles in the two-bonds-per-patch limit",
+ "citations": [
+  "Chen, Bae & Granick, Nature 469, 381 (2011) - Directed self-assembly of a colloidal kagome lattice",
+  "Romano & Sciortino, Soft Matter 7, 5799 (2011) - Two dimensional assembly of triblock Janus particles into crystal phases in the two bond per patch limit",
+  "Eslami et al., JCTC 17, 1742 (2021) - Mechanisms of Nucleation and Solid-Solid-Phase Transitions in Triblock Janus Assemblies",
+  "Patchy elliptic particles in 2D, Mol. Phys. (2019), doi:10.1080/00268976.2019.1592254"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "The elliptical core with tip patches is a rule difference that yields the same triangle-junction/six-ring kagome network as spherical two-patch particles. Zero pair-to-triangle lag matches the experiment, where triangles and strings form together, and depends on sampling resolution. It does not test density-then-order two-step nucleation, so it is not a new twist. Lattice identity is inferred, and fraction_in_rings=1.0 should be checked against snapshots.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "patchy ellipses tip patches kagome lattice self-assembly Monte Carlo two-dimensional"
+  },
+  {
+   "query": "kagome lattice triblock Janus nucleation pathway simulation two-step pair bonds triangle bonds"
+  },
+  {
+   "query": "elliptical patchy particles two patches long axis tips grand canonical Monte Carlo kagome \"ellipses\""
+  },
+  {
+   "query": "patchy elliptic particles patches at vertices self-assembly two dimensions network triangles hexagons"
+  },
+  {
+   "query": "Chen Bae Granick 2011 kagome assembly dynamics triangles form pairs first nucleation growth"
+  },
+  {
+   "query": "\"triangle bonds\" \"pair bonds\" kagome patchy particles grand canonical nucleation"
+  },
+  {
+   "query": "bipatchy ellipses tip patches self-assembly kagome open lattice simulation elongated triblock"
+  },
+  {
+   "query": "kagome lattice triblock Janus nucleation supersaturation one-step versus two-step mechanism temperature dependence simulation"
+  }
+ ],
+ "result_urls": [
+  "https://pubs.acs.org/doi/10.1021/acsnano.9b07849",
+  "https://pubs.rsc.org/en/content/articlelanding/2014/sm/c4sm01818d",
+  "https://www.academia.edu/81432205/Self_assembly_of_kagome_lattices_entangled_webs_and_linear_fibers_with_vibrating_patchy_particles_in_two_dimensions",
+  "https://pubmed.ncbi.nlm.nih.gov/39377339/",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://www.academia.edu/93634182/Self_Assembly_Mechanisms_of_Triblock_Janus_Particles?f_ri=311540",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://pubs.acs.org/jctcce/article-abstract/17/3/1742/576502/Mechanisms-of-Nucleation-and-Solid-Solid-Phase?redirectedFrom=fulltext",
+  "https://pubs.acs.org/doi/10.1021/acs.jctc.1c01116",
+  "https://pubs.rsc.org/sm/article-abstract/7/12/5799/351404/Two-dimensional-assembly-of-triblock-Janus?redirectedFrom=fulltext",
+  "https://pubs.acs.org/doi/10.1021/jacs.8b12165",
+  "https://pith.science/paper/2504.20764",
+  "https://pubs.aip.org/aip/jcp/article-abstract/161/14/144903/3315761/Two-stage-assembly-of-patchy-ellipses-From-bent?redirectedFrom=fulltext",
+  "https://www.tandfonline.com/doi/pdf/10.1080/00268976.2019.1592254",
+  "https://pubs.rsc.org/sm/article/16/11/2774/707460/Hierarchical-self-assembly-of-patchy-colloidal",
+  "https://pubmed.ncbi.nlm.nih.gov/21931193",
+  "https://www.sciencedirect.com/science/article/pii/S2215038224000505",
+  "https://www.osti.gov/servlets/purl/2421639",
+  "https://www.pnas.org/doi/10.1073/pnas.2516695122",
+  "https://www.nature.com/articles/nature09713",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://www.osti.gov/pages/biblio/1875134-directed-self-assembly-colloidal-kagome-lattice",
+  "https://groups.mrl.illinois.edu/granick/publications/2011.html",
+  "https://www.nature.com/articles/ncomms2520",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.14.041063",
+  "https://www.osti.gov/pages/biblio/1876587-triblock-colloids-directed-self-assembly",
+  "https://www.osti.gov/pages/servlets/purl/1875134",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://www.sciencedirect.com/topics/engineering/close-packed-hexagonal",
+  "https://pubs.acs.org/ancac3/article/19/5/5146/3754348/Partially-Bonded-Crystals-A-Pathway-to-Porosity",
+  "https://pubmed.ncbi.nlm.nih.gov/25319927/",
+  "https://www.sciencedirect.com/science/article/abs/pii/B9780081023020000043",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://pubs.acs.org/doi/10.1021/jacs.8b12165",
+  "https://www.tandfonline.com/doi/abs/10.1080/08927022.2019.1593976",
+  "https://onlinelibrary.wiley.com/doi/full/10.1002/smll.202306337",
+  "https://pubs.acs.org/jctcce/article-abstract/17/3/1742/576502/Mechanisms-of-Nucleation-and-Solid-Solid-Phase?redirectedFrom=fulltext",
+  "https://www.osti.gov/servlets/purl/1875134",
+  "https://bpb-us-e1.wpmucdn.com/blogs.rice.edu/dist/2/12644/files/2022/09/1.1943389.pdf",
+  "https://pubs.aip.org/aip/jcp/article/148/12/124506/78317/Crystal-growth-kinetics-of-triblock-Janus-colloids"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass's KNOWN-VARIANT, but only slightly. The behaviour is the documented kagome self-assembly of two-patch particles that can make two bonds per patch. Using ellipses instead of spheres changes the rules, not the behaviour. And the two \"twists\" the first pass flagged don't hold up as new phenomenology.\n\n**Why this is the documented behaviour**\n- **Experiment.** Chen, Bae & Granick (Nature 469, 381, 2011) showed spheres with sticky poles forming a kagome lattice. In that experiment, particles first recognize the existence of neighbors by clustering into kinetically-favored triangles, strings, or a combination of these two. That is the triangle-bond plus pair-bond signal seen here.\n- **Simple simulation model.** Romano & Sciortino (Soft Matter 7, 5799, 2011) used a short-range attraction mimicking hydrophobic interactions and a patch width that allows for a maximum of two contacts per patch. They found the model is able to reproduce the observed crystallisation pathway in the Kagome structure. That is essentially this rule class.\n- **General principle.** When patches allow two bonds each, bonding is maximized in a triangular local geometry, leading to the extended Kagome monolayer.\n- **Ellipses.** Hard ellipses carrying patches have also been simulated (Molecular Physics, 2019). In that work the patchy elliptic particles have two patches located on the co-vertices, i.e. the ends of the short axis rather than the tips. I found no paper with patches at the tips specifically, but that is a rule difference, not a behaviour difference.\n\n**Checking the first pass's possible twists**\n1. **No lag between pair and triangle bonds.** This matches the experiment, where triangles and strings appear together from the start. It is also highly sensitive to how often the simulation was sampled. It is not new.\n2. **Direct gas-to-lattice assembly versus two-step nucleation.** The literature does report two-step nucleation: a two-step mechanism for the nucleation of a kagome lattice from solution was detected. In that mechanism, particles first gather into a compact and disordered liquid cluster, which does not crystallize until it has grown to a threshold size. But \"two-step\" there means getting denser first and ordering later. Bond counts can't test that, so a zero pair-to-triangle lag does not contradict it. The peak of about 90 pair bonds at T=0.07 is consistent with a transient network of strings and partial structures.\n\n**Is it genuine or an artifact?** It looks like a genuine ordered network, not a random colouring, a frozen state or a numerical blow-up. With about 340 triangle junctions and each particle sharing two of them, roughly 510 particles sit in an open lattice. That is reasonable, well below the ~1,300 of close packing. Two caveats:\n- The kagome identification is inferred from the bond geometry. The particle centres sit at the midpoints of a honeycomb of triangle junctions, which is a kagome arrangement. Nothing here confirms it directly.\n- A fraction-in-rings of exactly 1.0 alongside six-ring order of 0.8 suggests the ring counting is generous. It is worth checking against snapshots.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Kagome (trihexagonal) lattice self-assembly of two-patch / triblock-Janus-like particles in the two-bonds-per-patch limit\", \"citations\": [\"Chen, Bae & Granick, Nature 469, 381 (2011) - Directed self-assembly of a colloidal kagome lattice\", \"Romano & Sciortino, Soft Matter 7, 5799 (2011) - Two dimensional assembly of triblock Janus particles into crystal phases in the two bond per patch limit\", \"Eslami et al., JCTC 17, 1742 (2021) - Mechanisms of Nucleation and Solid-Solid-Phase Transitions in Triblock Janus Assemblies\", \"Patchy elliptic particles in 2D, Mol. Phys. (2019), doi:10.1080/00268976.2019.1592254\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"The elliptical core with tip patches is a rule difference that yields the same triangle-junction/six-ring kagome network as spherical two-patch particles. Zero pair-to-triangle lag matches the experiment, where triangles and strings form together, and depends on sampling resolution. It does not test density-then-order two-step nucleation, so it is not a new twist. Lattice identity is inferred, and fraction_in_rings=1.0 should be checked against snapshots.\"}\n```",
+ "checked": "2026-11-03 04:22:52"
+}

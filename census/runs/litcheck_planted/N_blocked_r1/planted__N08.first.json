@@ -1,0 +1,106 @@
+{
+ "class_id": "planted:N08",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "chiral active matter / inertial spinner fluids (rotation-induced phase separation); dumbbell liquid-hexatic systems",
+ "standard_name": "Rotation-induced phase separation (RIPS) of inertial chiral spinners, here with dumbbells and Lifshitz-Slyozov-like coarsening",
+ "confidence": "medium",
+ "citations": [
+  "Digregorio, Pagonabarraga, Vega Reyes 2026, Phys. Rev. Lett. 136, 218301 (arXiv 2504.08533) - inertial self-spinning disks with constant torque phase-separate into a dilute phase and a dense chiral liquid (RIPS), requires large translational inertia",
+  "Ding et al. 2024, Research 7:0356 - repulsive spinners under shear phase-separate into gas plus a hexagonal-lattice dense phase (different mechanism: odd viscosity)",
+  "Massana-Cid, Levis, Hernandez, Pagonabarraga, Tierno 2021, Phys. Rev. Research 3, L042021 - arrested phase separation in chiral colloidal spinners (seen only as a reference-list entry)",
+  "Entropy 27, 692 (2025), Transverse Self-Propulsion Enhances the Aggregation of Active Dumbbells - dilute plus hexatic dense coexistence for dumbbells with a transverse force",
+  "Caporusso, Cugliandolo, Digregorio, Gonnella, Suma 2024, Soft Matter 20, 4208 - 2D active dumbbell phase-separation kinetics, non-universal exponent (axial force, not 1/3)",
+  "Cates & Tailleur 2015, C. R. Physique 16, 316 - review of MIPS and coarsening including dumbbells"
+ ],
+ "searches": [
+  "spinning dumbbells constant torque phase separation hexatic dilute liquid 2D inertial Langevin",
+  "torque-driven active dumbbells phase separation domain growth exponent 1/3",
+  "Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks",
+  "chiral active dumbbells spinning torque liquid-hexatic phase separation inertia Prandtl number",
+  "rotation induced phase separation dumbbells active torque hexatic",
+  "Odd response-induced phase separation of active spinners",
+  "self-spinning dumbbells rotation-induced phase separation hexatic coarsening t^1/3",
+  "chiral active fluid spinners phase separation dense hexagonal crystal dilute gas inertia",
+  "dumbbells chiral torque inertial Langevin Lifshitz-Slyozov hexatic Prandtl"
+ ],
+ "notes": "I found no paper on torque-driven (pure-torque) inertial dumbbells with a hexatic dense phase and a growth exponent of 1/3, so this is a variant of the disk RIPS result, not an exact match. I could only read the PRL abstract and fragments, so I could not check whether it reports a hexatic dense phase, a growth exponent or an onset threshold. The Pe about 1 threshold was not found in any readable source. The 1/3 exponent is the generic Lifshitz-Slyozov value and is unsurprising. Check the full text of the PRL and arXiv 2504.08533 for dumbbell or growth-law content before treating anything as new.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "spinning dumbbells constant torque phase separation hexatic dilute liquid 2D inertial Langevin"
+  },
+  {
+   "query": "torque-driven active dumbbells phase separation domain growth exponent 1/3 two-dimensional chiral"
+  },
+  {
+   "query": "Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks"
+  },
+  {
+   "query": "chiral active dumbbells spinning torque liquid-hexatic phase separation inertia Prandtl number"
+  },
+  {
+   "query": "rotation induced phase separation dumbbells active torque hexatic dense phase large-scale simulation millions"
+  },
+  {
+   "query": "Odd response-induced phase separation of active spinners Ding Research 2024"
+  },
+  {
+   "query": "self-spinning dumbbells rotation-induced phase separation hexatic coarsening t^{1/3} chiral active molecules"
+  },
+  {
+   "query": "chiral active fluid spinners phase separation dense hexagonal crystal dilute gas inertia torque repulsive disks"
+  },
+  {
+   "query": "dumbbells \"chiral\" torque inertial Langevin phase separation Lifshitz-Slyozov coarsening exponent hexatic dense phase Prandtl"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12294323/",
+  "https://doi.org/10.3390/e27070692",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://pith.science/paper/2507.22696",
+  "https://doi.org/10.3390/e27111105",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12651260/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12294323/",
+  "https://doi.org/10.3390/e27070692",
+  "https://pubs.rsc.org/sm/article-abstract/20/21/4208/871652/Phase-separation-kinetics-and-cluster-dynamics-in?redirectedFrom=fulltext",
+  "https://pith.science/paper/2508.13888",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://pubmed.ncbi.nlm.nih.gov/42285078/",
+  "https://www.pnas.org/doi/10.1073/pnas.2532158123",
+  "https://pith.science/citations/0058dad2-1a2f-4e7e-8a42-a61aa5c6e078",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://doi.org/10.3390/e27070692",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/108/56004",
+  "https://doi.org/10.3390/e27070692",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12294323/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12294323/",
+  "https://www.sciencedirect.com/science/article/pii/S1631070515000791",
+  "https://www.academie-sciences.fr/pdf/cr/CRPhys_article_2.pdf",
+  "https://pubs.rsc.org/en/content/articlelanding/2024/sm/d4sm00200h",
+  "https://www.pnas.org/doi/10.1073/pnas.1116334109",
+  "https://spj.science.org/doi/10.34133/research.0356",
+  "http://sm08.iphy.ac.cn/resource/Paper/2024/research.0356.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11075672/",
+  "https://pubmed.ncbi.nlm.nih.gov/38716471/",
+  "https://www.sciencedirect.com/org/science/article/pii/S2639527424003861",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11075672/",
+  "https://www.sciencedirect.com/science/article/pii/S1631070515000791",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12294323/",
+  "https://doi.org/10.3390/e27070692",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh",
+  "https://journals.aps.org/prl/abstract/10.1103/dbgp-pqsh",
+  "https://www.sciencedirect.com/org/science/article/pii/S2639527424003861",
+  "https://pith.science/paper/2607.21269",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.023186",
+  "https://link.aps.org/pdf/10.1103/dbgp-pqsh"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** Phase separation of repulsive, inertial spinners with a constant torque is published for disks. I found no paper that reports the exact dumbbell version with a hexatic dense phase and a growth exponent of 1/3.\n\n**1. Model family.** This is chiral active matter: inertial self-spinning particles under underdamped Langevin dynamics with purely repulsive interactions. The relevant sub-families are \"rotation-induced phase separation\" (RIPS) of chiral spinners and active or passive dumbbell fluids that show liquid\u2013hexatic coexistence.\n\n**2. What the literature says.**\n- **Closest source (disks).** Digregorio, Pagonabarraga and Vega Reyes, \"Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks\", Phys. Rev. Lett. 136, 218301 (published 27 May 2026; arXiv 2504.08533).\n  - Systematic particle rotations in a fluid of disk-shaped spinners can spontaneously lead to phase separation.\n  - A pressure feedback mechanism drives it when the active rotation is not counterbalanced by translational friction. They call it rotation-induced phase separation (RIPS).\n  - The setup matches yours: Langevin dynamics with a thermal bath and a homogeneous, constant torque.\n  - The mechanism needs large translational inertia. Their appendix says phase separation is observed only in the regime of large particles' translational inertia, which is consistent with your weak friction.\n  - The abstract describes a low-density phase coexisting with a dense chiral liquid. The excerpts I could read do not give a six-fold ordered dense phase, a growth exponent, or dumbbells.\n  - The same paper mentions arrested phase separation and an unsteady regime at large spin rates.\n- **Earlier related spinner work.** Ding et al., \"Odd Response-Induced Phase Separation of Active Spinners\", Research 7:0356 (2024).\n  - This is repulsive spinners under external shear, so it is a different mechanism. The dense phase there is closer to a solid stripe with a hexagonal lattice structure than to a liquid.\n  - Massana-Cid, Levis, Hern\u00e1ndez, Pagonabarraga and Tierno, \"Arrested phase separation in chiral fluids of colloidal spinners\", Phys. Rev. Research 3, L042021 (2021). I saw only its reference-list entry, not the paper, so its content is not verified.\n- **Dumbbells, liquid\u2013hexatic coexistence.**\n  - Passive dumbbells show a first-order liquid\u2013hexatic transition.\n  - Active dumbbells with a transverse (perpendicular) force also phase-separate into a dilute phase and a hexatic dense phase. This is Entropy 27, 692 (2025), \"Transverse Self-Propulsion Enhances the Aggregation of Active Dumbbells\". Across all activity, it finds phase separation into dilute and dense phases. The dense phase is hexatic.\n  - That model uses a constant transverse force per dumbbell. This is related to, but not the same as, equal and opposite perpendicular forces on the two beads, which give a pure torque with no net force. It is also not an inertial system.\n- **Coarsening kinetics in 2D active dumbbells.** Caporusso, Cugliandolo, Digregorio, Gonnella and Suma, Soft Matter 20, 4208 (2024).\n  - They report growth faster than in active disk models, with a non-universal exponent, in self-propelled (axial-force) dumbbells.\n  - The exponent of about 0.6 is a different class from your 1/3.\n- **Review.** Cates and Tailleur, \"Motility-induced phase separation and coarsening in active matter\" (C. R. Physique 16, 2015). It covers active dumbbells, with rotating clusters and hexatic and nematic order. It does not treat torque-driven spinners.\n\n**3. The 1/3 exponent.** A growth exponent of 1/3 is the standard Lifshitz\u2013Slyozov value for coarsening with a conserved density. A 2026 review of two-temperature phase separation (via a Pith summary) reports a high-density growth exponent of 0.33, identified with the Lifshitz\u2013Slyozov class. That is a different system, so I would treat 1/3 here as plausible and unsurprising, not as a new result. I did not find it reported for spinning dumbbells.\n\n**4. What differs from your system, and whether it likely matters.**\n- *Dumbbells instead of disks.* This probably does not change the instability. It plausibly explains the six-fold ordered dense phase, since dumbbell fluids freeze through a hexatic phase at area fraction near 0.65 and above. This is untested.\n- *Dense phase character.* The PRL abstract says \"dense chiral liquid\". A hexatic or six-fold ordered dense phase is a difference to check.\n- *Onset at Pe about 1.* I did not find this threshold in any source I could read.\n\n**5. Confidence: medium.** The mechanism and the gas\u2013dense coexistence are firmly documented for inertial spinners. The dumbbell and hexatic specifics rest on neighbouring papers, and I could only read abstracts and fragments of the PRL.\n\n**Searches run:**\n- spinning dumbbells constant torque phase separation hexatic\n- torque-driven active dumbbells domain growth 1/3\n- the PRL title\n- chiral active dumbbells inertia Prandtl\n- rotation-induced phase separation dumbbells\n- odd-response spinners (Ding et al.)\n- self-spinning dumbbells coarsening t^{1/3}\n- chiral spinners dense hexagonal crystal\n- chiral dumbbell Lifshitz\u2013Slyozov Prandtl\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"chiral active matter / inertial spinner fluids (rotation-induced phase separation); dumbbell liquid-hexatic systems\", \"standard_name\": \"Rotation-induced phase separation (RIPS) of inertial chiral spinners, here with dumbbells and Lifshitz-Slyozov-like coarsening\", \"confidence\": \"medium\", \"citations\": [\"Digregorio, Pagonabarraga, Vega Reyes 2026, Phys. Rev. Lett. 136, 218301 (arXiv 2504.08533) - inertial self-spinning disks with constant torque phase-separate into a dilute phase and a dense chiral liquid (RIPS), requires large translational inertia\", \"Ding et al. 2024, Research 7:0356 - repulsive spinners under shear phase-separate into gas plus a hexagonal-lattice dense phase (different mechanism: odd viscosity)\", \"Massana-Cid, Levis, Hernandez, Pagonabarraga, Tierno 2021, Phys. Rev. Research 3, L042021 - arrested phase separation in chiral colloidal spinners (seen only as a reference-list entry)\", \"Entropy 27, 692 (2025), Transverse Self-Propulsion Enhances the Aggregation of Active Dumbbells - dilute plus hexatic dense coexistence for dumbbells with a transverse force\", \"Caporusso, Cugliandolo, Digregorio, Gonnella, Suma 2024, Soft Matter 20, 4208 - 2D active dumbbell phase-separation kinetics, non-universal exponent (axial force, not 1/3)\", \"Cates & Tailleur 2015, C. R. Physique 16, 316 - review of MIPS and coarsening including dumbbells\"], \"searches\": [\"spinning dumbbells constant torque phase separation hexatic dilute liquid 2D inertial Langevin\", \"torque-driven active dumbbells phase separation domain growth exponent 1/3\", \"Phase Separation in a Chiral Active Fluid of Inertial Self-Spinning Disks\", \"chiral active dumbbells spinning torque liquid-hexatic phase separation inertia Prandtl number\", \"rotation induced phase separation dumbbells active torque hexatic\", \"Odd response-induced phase separation of active spinners\", \"self-spinning dumbbells rotation-induced phase separation hexatic coarsening t^1/3\", \"chiral active fluid spinners phase separation dense hexagonal crystal dilute gas inertia\", \"dumbbells chiral torque inertial Langevin Lifshitz-Slyozov hexatic Prandtl\"], \"notes\": \"I found no paper on torque-driven (pure-torque) inertial dumbbells with a hexatic dense phase and a growth exponent of 1/3, so this is a variant of the disk RIPS result, not an exact match. I could only read the PRL abstract and fragments, so I could not check whether it reports a hexatic dense phase, a growth exponent or an onset threshold. The Pe about 1 threshold was not found in any readable source. The 1/3 exponent is the generic Lifshitz-Slyozov value and is unsurprising. Check the full text of the PRL and arXiv 2504.08533 for dumbbell or growth-law content before treating anything as new.\"}\n```",
+ "checked": "2026-11-03 02:34:51"
+}
