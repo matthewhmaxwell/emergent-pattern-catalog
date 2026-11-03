@@ -81,7 +81,7 @@ def main():
                 t = truth[c["class_id"]]; akey = f"{arm}|{c['class_id']}"
                 lk = leak(v, t) if "blocked" in arm or arm in ("N_neutral", "N_strictall") else ""
                 if lk and "leak" in adj.get(akey, {}): lk = adj[akey]["leak"]
-                cites_target = bool(leak(v, t))
+                cites_target = bool(adj[akey]["leak"]) if "leak" in adj.get(akey, {}) else bool(leak(v, t))
                 if setname == "N":
                     ok, how = judge_N(v, adj, akey)
                 else:

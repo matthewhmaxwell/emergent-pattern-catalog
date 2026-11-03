@@ -1,0 +1,211 @@
+{
+ "planted:N01": {
+  "group": "A",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "The exact arithmetic structure of the sync basin at the critical linear charging curve: P_sync = A_{N,1}/N^N via a recurrence, 1 - 1/N^N for prime N, failure ~ C_m N^-(m-1) with m the least prime factor, and survival only of equal-size cluster partitions. All three gate replies themselves called this finite-N endgame undocumented ('twist') yet still returned KNOWN-VARIANT. That is the family-versus-behaviour conflation.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "K. P. O'Keeffe, Transient dynamics of pulse-coupled oscillators with nonlinear charging cu"
+  ]
+ },
+ "planted:N05": {
+  "group": "A",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "In the LHV model with vacancies, at couplings where reverse bias beats aligned bias (b=-0.4 with b'=0.3 or 0.18), early ordered domains dissolve and new ones form. This gives a t^0.5 then t^~0.34 crossover near t~1000, a non-monotonic landscape length scale and oscillating height fluctuations. The vacancy-free LH model is disordered in this regime by the authors' criterion, so the gate-cited LH papers (merger-driven coarsening, z~2) cannot describe it. The gate replies themselves say the two-stage crossover was unverified.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": []
+ },
+ "planted:N11": {
+  "group": "A",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "Gaps (holes in a populated background) from purely competitive dynamics, produced by a squared-density (three-body) crowding term in an individual-based birth-death model. Also new: the re-entrant spots-stripes-spots sequence near death/birth ratio ~0.55 and the analytic selection thresholds. No gate-cited source shows gaps from competition alone (the 2014 paper explicitly failed to find them) or re-entrance. The claim is partly overstated: stripes from competition-only models, including a pairwise linear-death model, were already reported in 2013-2014. So the 'hexagonal-spots-only' framing of the novelty sentence and behaviour summary is narrower than the literature, as the target's own Discussion admits.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Martinez-Garcia, Calabrese, Hernandez-Garcia, Lopez, Vegetation pattern formation in semia",
+   "Martinez-Garcia et al., Minimal mechanisms for vegetation patterns in semiarid regions, Ph"
+  ]
+ },
+ "planted:N14": {
+  "group": "A",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "Kagome order from hard ellipses (aspect ratio 2) with long-axis tip patches. One-step nucleation directly from the gas, with pair and triangle bonds rising together and no chain intermediate, unlike the two-step route reported for triblock spheres. Disordered porous networks characterised with a particle-patch graph. The gate argued that equal bonding topology makes the system the same. The brief treats a different particle shape as a different system, and the target says shape anisotropy is what stabilises the structures. The one-step claim rests on limited sampling, which the authors acknowledge.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Romano & Sciortino, Two-dimensional assembly of triblock Janus particles into crystal phas",
+   "Chen, Bae & Granick, Directed self-assembly of a colloidal kagome lattice, Nature 469, 381",
+   "Fejer & Wales, Design of a Kagome lattice from soft anisotropic particles, Soft Matter 11,"
+  ]
+ },
+ "planted:N17": {
+  "group": "A",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "First particle-level observation, in the standard continuous-symmetry 2D Vicsek model, of side-by-side lanes of band trains travelling in opposite directions. Also new: fat and inverse bands, buckling of long lanes, metastability of the ordered band configurations under a localized perturbation, and the argument that most of these patterns vanish at infinite size. The lane morphology itself was anticipated at kinetic level (Thuroff et al. 2014), which the authors state openly. A reader who treats the Vicsek-derived Boltzmann equation as the same model would call the lane part disputed. Under the brief's equivalence rule (different interaction and level of description, and the target distinguishes them) it is not.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Thuroff, Weber & Frey, Numerical treatment of the Boltzmann equation for self-propelled pa",
+   "Chatterjee, Karmakar, Mangeat, Rieger, Paul, Stability of discrete-symmetry flocks: sandwi"
+  ]
+ },
+ "planted:N02": {
+  "group": "B",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "Non-monotonic, re-entrant dependence of the Turing instability and pattern amplitude on chemotactic (div(u grad v)) coupling strength in the Sel'kov model. Also the divergence of the selected wavevector under strong mutual attraction or repulsion, and spot-to-stripe transitions (with stable stripes) driven by chemotactic strength. No source dated before 2026-09-01 shows these; the gate's sources either lack chemotaxis or add Levy/fractional diffusion plus feedback control.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Li, Xiao, Huang, Karimi, Zheng, Cao, 'PD control of Turing instability in a fractional-ord",
+   "Zhu, Xiao, Huang, He, Rutkowski, Zheng, 'Hybrid control strategy for the Levy superdiffusi"
+  ]
+ },
+ "planted:N07": {
+  "group": "B",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "Chirality (odd diffusion) as the source of r^-4 density correlations under isotropic rules, with the amplitude vanishing at zero chirality. Also new: an exact two-point closure in an interacting chiral model, an optimal odd diffusion that minimises mobility and long-wavelength fluctuations, a square-root cusp near maximal odd diffusion, and an edge current under reflecting walls. The r^-(d+2) law itself in isotropic conserved-mass lattice models was already shown by the same group (Hazra et al. 2025) through a different, non-chiral mechanism.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice "
+  ]
+ },
+ "planted:N12": {
+  "group": "B",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "Identifying the sigma=2 low-temperature phase as log-QLRO, with C(r) ~ (ln r)^-eta_l and eta_l = 1/(2 pi kappa) proportional to T and no true LRO. Classifying the transition into it as continuous, with a nonuniversal power-law xi divergence outside both the GLW and BKT frameworks. Also the instability of short-range QLRO to a weak 1/r^4 tail. The raw phenomenology (logarithmic finite-size scaling, a second-order transition with finite nu at sigma=2) was already reported by the same group, so the novelty is a reinterpretation of partly documented behaviour. That is why confidence is medium rather than high.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Xiao, Yao, Zhang, Fan, Deng, 'Two-dimensional XY ferromagnet induced by long-range interac",
+   "Yao, Xiao, Zhang, Deng, Fan, 'The nonclassical regime of the two-dimensional long-range XY"
+  ]
+ },
+ "planted:N15": {
+  "group": "B",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "At intermediate, finite vision range in the purely vision-based, non-steric model: a persistent, system-spanning, continuously restructuring fractal-like network of particle streams (active foam, D about 1.5) that does not coarsen, together with its void-size scaling and junction statistics. The closest earlier report (Barberis & Peruani 2016) has bands that interconnect only during a transient before coarsening, at short range. Networks in Physarum-trail agents and binary steric iABP mixtures are different systems.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Barberis & Peruani, 'Large-scale patterns in a minimal cognitive flocking model: incidenta"
+  ]
+ },
+ "planted:N19": {
+  "group": "B",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "In a 2D, mass-conserving continuum Keller-Segel model with competing taxis toward an attractant and a nutrient, volume-filling sensitivity and uniform nutrient resupply: a dense aggregate that emerges spontaneously from the perturbed homogeneous state and moves within a background of recurring travelling bands. The paper links this to a mixed band of stationary and oscillatory unstable modes and derives conditions analytically. The coexistence motif itself is older, as a stationary cluster with a travelling pulse in 1D (Saragosti 2010) and dense spots with a spreading ring in 2D agent-based simulations with growth (Curk 2013). The novelty is therefore narrower than 'novel class' implies, and the label rests on the brief's rule that a different dimension makes a different system.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Saragosti, Calvez, Bournaveas, Buguin, Silberzan, Perthame, 'Mathematical description of b",
+   "Curk, Marenduzzo, Dobnikar, 'Chemotactic sensing towards ambient and secreted attractant d",
+   "Brenner, Levitov, Budrene, 'Physical mechanisms for chemotactic pattern formation by bacte"
+  ]
+ },
+ "planted:N04": {
+  "group": "C",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "Two things remain undocumented in the gate-cited sources. First, a temperature-independent threshold in nonreciprocity above which defect pairs proliferate at any T, driven by a negative defect core energy (the 'topological instability'), in a solid with transverse pair forces. Second, reentrant crystallization at higher activity, at temperatures where the passive crystal is liquid. No checked source shows recrystallization at stronger transverse force; the gate's own reply flagged this part as 'not found in the literature'. Prior work documents only that transverse/odd forces can melt or destabilize a 2D crystal.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Caporusso, Gonnella, Levis, Phase coexistence and edge currents in the chiral Lennard-Jone",
+   "Gate cited this as 'Braverman et al., PNAS 122 (2025) doi:10.1073/pnas.2412993122, Melting",
+   "Bililign et al., Motile dislocations knead odd crystals into whorls, Nat. Phys. 18, 212 (2"
+  ]
+ },
+ "planted:N08": {
+  "group": "C",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "Genuine, non-arrested torque-driven phase separation of purely repulsive inertial dumbbells into a dilute liquid and a dense hexatic phase, with binodal/spinodal, t^1/3 coarsening and rigidly rotating clusters. Here the particle shape, not contact friction, converts spin into translation. The underlying mechanism (inertial, density-dependent kinetic energy giving a pressure loop) was already reported for frictional disks by overlapping authors, but in that system the separation is arrested and the dense phase is a liquid.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Digregorio, Pagonabarraga, Vega Reyes, Phase separation in a chiral active fluid of inerti",
+   "Digregorio, Caporusso, Carenza, Gonnella, Moretti, Negro, Semeraro, Suma, Transverse Self-"
+  ]
+ },
+ "planted:N13": {
+  "group": "C",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "medium",
+  "closest": null,
+  "what_remains_new": "The specific system is a mean-field noisy voter model with Poissonian population-wide shocks that reassign the magnetisation to a fixed value. Its phase diagram includes a trimodal regime (the two consensus peaks plus a peak at the shock target) and an asymmetric bimodal regime. The ingredients are documented separately: resetting-induced extra modes in single-particle systems, trimodality in noisy-voter variants under switching environments or partisanship, and a rich resetting phase diagram in the Ising model. So the result is predictable from known pieces but was not reported for this system before the target.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Magoni, Majumdar, Schehr, Ising model with stochastic resetting, PRR 2, 033182 (2020), arX",
+   "Caligiuri & Galla, Noisy voter models in switching environments, PRE 108, 044301 (2023), a",
+   "Llabres, San Miguel, Toral, Partisan voter model: stochastic description and noise-induced"
+  ]
+ },
+ "planted:N16": {
+  "group": "C",
+  "label": "UNCLEAR",
+  "agent_found_disputes": false,
+  "confidence": "low",
+  "closest": "Buglakov, Lelecova, Chertovich, Motility-induced collapse of an active Brownian particle polymer chain, Phys. Chem. Chem. Phys. 27, 1691 (2025), doi:10.1039/D4CP03731F; preprint 'Monomer activity solely induces collapse of polymer chain in a good solvent', ChemRxiv doi:10.26434/chemrxiv-2024-sv81t",
+  "what_remains_new": "Certainly new relative to the readable sources: ring topology with a self-avoidance and entanglement-stabilized globule, spontaneous outward polarization of propulsion caused by rotational inertia, translational inertia opposing collapse, the transition sharpening with J, and a compact size nearly independent of N. If the Buglakov full text confirms collapse followed by re-swelling in a linear underdamped ABP chain with m and J, then the core re-entrant coil-globule transition in inertial ABP polymers without attraction is not new, and the novelty narrows to ring topology and mechanism details.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Locatelli, Bianco, Malgaretti, Activity-induced collapse and arrest of active polymer ring",
+   "Anand, A computer simulation study of a chiral active ring polymer, J. Chem. Phys. (2024) "
+  ]
+ },
+ "planted:N20": {
+  "group": "C",
+  "label": "NOT DISPUTED",
+  "agent_found_disputes": false,
+  "confidence": "high",
+  "closest": null,
+  "what_remains_new": "Three things: a nematic (2-theta) vision-cone nonreciprocal lattice model; self-propulsion of +1/2 defects along their polar axis caused by a nonreciprocal torque with no active stress; and a nonreciprocity-induced 'four-defect' splitting of a +1 defect into three +1/2 and one -1/2. Prior work has nonreciprocity-driven defect motion only for polar XY (integer defects), and flow-free +1/2 self-propulsion only through active stress in solids. The gate's own replies said the splitting was not found.",
+  "n_sources_checked": 4,
+  "describes_yes": [],
+  "describes_partly": [
+   "Rouzaire, Pearce, Pagonabarraga, Levis, Non-reciprocal interactions reshape topological de",
+   "Loos, Klapp, Martynec, Long-range order and directional defect propagation in the nonrecip",
+   "Brauns, O'Leary, Hernandez, Bowick, Marchetti, Active solids: topological defect self-prop"
+  ]
+ }
+}

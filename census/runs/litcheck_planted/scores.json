@@ -267,7 +267,7 @@
     0.23163576165011657
    ],
    "leaks": 6,
-   "cites_target": 7,
+   "cites_target": 6,
    "invalid": 0,
    "verdicts": {
     "KNOWN-VARIANT": 9,
@@ -365,7 +365,7 @@
      "correct": false,
      "how": "behaviour_documented",
      "leak": "",
-     "cites_target": true,
+     "cites_target": false,
      "searches": 9,
      "stop_reason": "end_turn",
      "standard_name": "Rotation-induced phase separation (RIPS) in an inertial chiral spinner fluid; dense phase hexatic as in dumbbell liquid-"
@@ -1040,8 +1040,8 @@
     0.16748809406370713,
     0.766206402340655
    ],
-   "leaks": 9,
-   "cites_target": 9,
+   "leaks": 8,
+   "cites_target": 8,
    "invalid": 1,
    "verdicts": {
     "KNOWN-VARIANT": 10,
@@ -1139,8 +1139,8 @@
      "source": "first",
      "correct": null,
      "how": "invalid (PARSE_FAILED)",
-     "leak": "author digregorio 2026",
-     "cites_target": true,
+     "leak": "",
+     "cites_target": false,
      "searches": 9,
      "stop_reason": "max_tokens",
      "standard_name": ""

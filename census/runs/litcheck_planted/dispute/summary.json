@@ -1,0 +1,18 @@
+{
+ "_note": "Novelty-dispute check (PLANTED_CONTROLS_PLAN.md sensitivity analysis). Agents: claude-opus-5-5 research agents, brief in BRIEF.md, raw outputs in outputs/A-C.json. Pre-specified subset: cards with a valid arm-1 KNOWN reply citing earlier sources.",
+ "counts": {
+  "DISPUTED": 0,
+  "NOT DISPUTED": 14,
+  "UNCLEAR": 1
+ },
+ "plan_subset": {
+  "planted:N02": "NOT DISPUTED",
+  "planted:N05": "NOT DISPUTED",
+  "planted:N07": "NOT DISPUTED",
+  "planted:N11": "NOT DISPUTED",
+  "planted:N12": "NOT DISPUTED",
+  "planted:N14": "NOT DISPUTED",
+  "planted:N19": "NOT DISPUTED"
+ },
+ "agent_found_disputes": []
+}
