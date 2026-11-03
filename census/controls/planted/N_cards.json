@@ -1,0 +1,722 @@
+[
+ {
+  "class_id": "planted:N01",
+  "stage": "planted",
+  "family": "phase",
+  "size": 7,
+  "shortest_len": 0,
+  "program_plain": "World: N identical oscillators, each coupled to every other (no space). Each has a voltage between 0 and 1, drawn uniformly at random at the start. Rules: (1) all voltages rise at the same constant speed (straight-line charging, no leak); (2) when a voltage reaches 1 the oscillator fires and resets to 0, together with any oscillators already firing with it as a group; (3) a firing group of k oscillators kicks every other voltage up by k/N; (4) any oscillator pushed to 1 or above by a kick joins the firing group and fires with it from then on. Run until the grouping stops changing and record whether all N end as one group. Sizes: N from 2 to about 100, many random starts per N (exact enumeration for N up to 8).",
+  "also_in_class_plain": [
+   "Same rules with N prime (2, 3, 5, 7, 11): the only failure is all N staying separate.",
+   "Same rules with even N (4, 6, 8, ...): failures fall off only slowly with N.",
+   "Same rules with N divisible by 3 but not 2 (9, 15, ...)."
+  ],
+  "observed": [
+   {
+    "feature": "full_sync_probability_n4",
+    "gloss": "share of random starts ending as one group, N=4",
+    "value": 0.887
+   },
+   {
+    "feature": "full_sync_probability_n5",
+    "gloss": "share of random starts ending as one group, N=5",
+    "value": 0.99968
+   },
+   {
+    "feature": "full_sync_probability_n6",
+    "gloss": "share of random starts ending as one group, N=6",
+    "value": 0.906
+   },
+   {
+    "feature": "distinct_final_states_n100",
+    "gloss": "number of possible final groupings at N=100, all equal-sized",
+    "value": 9
+   },
+   {
+    "feature": "failure_decay_exponent_even_n",
+    "gloss": "failure probability falls as N to minus this, even N",
+    "value": 1
+   },
+   {
+    "feature": "failure_prefactor_even_n",
+    "gloss": "prefactor of that failure power law for even N",
+    "value": 0.6
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N02",
+  "stage": "planted",
+  "family": "field",
+  "size": 4,
+  "shortest_len": 0,
+  "program_plain": "World: two continuous concentration fields u and v on a 128x128 square grid with wrap-around edges, started at their uniform steady state (u=b, v=b/(a+b^2)) plus small random noise. Rules, integrated forward in time: u changes at rate -u + a*v + u^2*v + D1*(Laplacian of u) + c1*div(u grad v); v changes at rate b - a*v - u^2*v + D2*(Laplacian of v) + c2*div(v grad u). The last terms make each species drift along the other's gradient, with strength and sign set by c1 and c2. Parameters: a=0.015, b=10, D1=0.01, D2=1000*D1. Main sweep: c1=c and c2=-c (opposite signs, so one species is drawn toward the other while the other is pushed away), c from 0.01 to about 0.5.",
+  "also_in_class_plain": [
+   "Same rules with D1=0.1 and D2=100.",
+   "Same rules with b=5, D1=0.03 and c1=-c2 negative: spots turn into stripes, then fade, as |c| grows.",
+   "Same rules with c1=c2=c (equal signs)."
+  ],
+  "observed": [
+   {
+    "feature": "coupling_at_sharpest_pattern",
+    "gloss": "drift coupling c where the steady spot pattern is most intense",
+    "value": 0.17
+   },
+   {
+    "feature": "coupling_pattern_gone",
+    "gloss": "drift coupling c at which the pattern has vanished (uniform)",
+    "value": 0.49
+   },
+   {
+    "feature": "amplitude_maxima_vs_coupling",
+    "gloss": "maxima of pattern amplitude as coupling increases (rise then fall)",
+    "value": 1
+   },
+   {
+    "feature": "spot_to_stripe_transitions",
+    "gloss": "spot-to-stripe morphology changes as coupling magnitude increases",
+    "value": 1
+   },
+   {
+    "feature": "seeds_with_same_outcome",
+    "gloss": "independent random seeds reproducing the morphology sequence",
+    "value": 10
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N03",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: 1000 self-propelled disks (radius 1) in a periodic 2D box at area fraction 0.05, hovering at height 1.1 above a flat wall that chemicals cannot cross. Each disk emits a chemical. Rules each step: (1) each disk moves along its heading at speed 2; (2) it is pulled toward the others along the summed gradient of their screened chemical fields (each decays as exp(-k*r)/r, plus a mirror-image source below the wall), screening k between 0.18 and 0.22; (3) its heading is turned away from that same gradient with a positive turning strength (swept upward from 0); (4) the heading gets rotational noise (Peclet number 100); (5) disks repel on contact. A cluster is more than 10 disks linked within 2.1 radii.",
+  "also_in_class_plain": [
+   "Same rules with screening 0.24-0.28: clusters burst open and the disks escape to a gas.",
+   "Same rules over a chemically permeable surface (no mirror source): only the bursting form, in a small window."
+  ],
+  "observed": [
+   {
+    "feature": "cluster_fraction",
+    "gloss": "time-averaged fraction of disks inside clusters",
+    "value": 1.0
+   },
+   {
+    "feature": "cluster_fraction_fluctuation",
+    "gloss": "temporal fluctuation of the clustered fraction",
+    "value": 0.0
+   },
+   {
+    "feature": "mean_contacts_per_disk",
+    "gloss": "neighbours per disk; stays below 5 (full collapse exceeds 5.6)",
+    "value": 5.0
+   },
+   {
+    "feature": "screening_window_low",
+    "gloss": "lower screening value of the cavity-filled cluster regime",
+    "value": 0.18
+   },
+   {
+    "feature": "screening_window_high",
+    "gloss": "upper screening value of the cavity-filled cluster regime",
+    "value": 0.22
+   },
+   {
+    "feature": "distinct_collective_states",
+    "gloss": "distinct collective states found across the parameter sweep",
+    "value": 5
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N04",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: 10,000 slightly elongated particles (ellipse half-axes 0.55 and 0.65) in a periodic 2D box at density 0.87 (lattice spacing about 1.15). Rules, overdamped Brownian dynamics at temperature T: (1) each pair interacts through an orientation-dependent Lennard-Jones potential of strength e_p (repulsive core, weak attraction, depending on both particles' orientations, which can rotate); (2) each pair also feels a non-conservative force with Lennard-Jones magnitude and strength e_a, directed perpendicular to the line joining them, always in the same rotational sense; (3) thermal noise acts on positions and orientations, orientations relaxing faster. Sweep the ratio e_a/e_p from 0 to 33 and T from 0 to 6; measure six-fold bond order and defect counts.",
+  "also_in_class_plain": [],
+  "observed": [
+   {
+    "feature": "activity_disordered_at_zero_temperature",
+    "gloss": "force ratio e_a/e_p where solid is disordered even at T=0",
+    "value": 2.0
+   },
+   {
+    "feature": "activity_of_restored_order",
+    "gloss": "force ratio e_a/e_p where crystalline order returns",
+    "value": 33.0
+   },
+   {
+    "feature": "temperature_of_restored_order",
+    "gloss": "temperature at which that high-activity solid stays ordered",
+    "value": 6.0
+   },
+   {
+    "feature": "passive_partial_melting_temperature",
+    "gloss": "temperature where the passive solid is only six-fold oriented",
+    "value": 4.25
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N05",
+  "stage": "planted",
+  "family": "grid",
+  "size": 2,
+  "shortest_len": 0,
+  "program_plain": "World: a ring of 16,416 sites; between neighbouring sites is a bond tilted up or down (half of each, random), defining a height profile. Each site holds an A particle, a B particle or nothing (one third each, random). Rules, random sequential updates: (1) a particle swaps with a neighbouring site of different content; a move taking A downhill or B uphill succeeds with probability 0.9, the opposite move with 0.1; (2) a local peak (up-bond then down-bond) and a dip swap: a peak holding A becomes a dip with probability 0.5+b and back with 0.5-b, b=-0.4 (so A pushes ground up); a dip holding B becomes a peak with probability 0.5+b' and back with 0.5-b', b'=0.3; empty sites flip either way with 0.5. Track domain size over time.",
+  "also_in_class_plain": [
+   "Same rules with b'=0.18 (late growth exponent about 0.41)."
+  ],
+  "observed": [
+   {
+    "feature": "early_growth_exponent",
+    "gloss": "power-law exponent of domain size growth before t~1000",
+    "value": 0.5
+   },
+   {
+    "feature": "late_growth_exponent",
+    "gloss": "power-law exponent of domain size growth at late times",
+    "value": 0.34
+   },
+   {
+    "feature": "crossover_time",
+    "gloss": "time at which early domains dissolve and growth slows",
+    "value": 1000
+   },
+   {
+    "feature": "late_macroscopic_hills",
+    "gloss": "macroscopic hills in the height profile in the late regime",
+    "value": 1
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N06",
+  "stage": "planted",
+  "family": "grid",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: a 200x200 square lattice with wrap-around edges; each site holds a classical unit-length 3D spin (random start). Energy: sum over pairs of J_n times the dot product of the two spins, with nearest neighbours J1=-1 (aligning), diagonal neighbours J2=0.28 and straight next-next neighbours J3=0.14 (both anti-aligning). These values make the lowest-energy states planar helical spin textures whose wave vector can point anywhere on a nearly circular ring of radius 0.66. Rules: Metropolis Monte Carlo at temperature T, from the uncorrelated regime (T above 0.2) down to 0.02. Measure the local helix wave vector and helix-plane orientation, and count point defects as their windings around small loops (radius 3 sites).",
+  "also_in_class_plain": [],
+  "observed": [
+   {
+    "feature": "defect_density_intermediate_temperature",
+    "gloss": "point defects per site in the correlated intermediate-temperature regime",
+    "value": 0.03
+   },
+   {
+    "feature": "spin_frame_only_defect_density",
+    "gloss": "density of defects winding only the helix-plane orientation",
+    "value": 0.003
+   },
+   {
+    "feature": "wave_vector_winding_of_common_defect",
+    "gloss": "helix wave-vector rotation (in full turns) around the commonest defect",
+    "value": 0.5
+   },
+   {
+    "feature": "ordering_temperature",
+    "gloss": "sharp specific-heat peak where lattice-rotation symmetry breaks",
+    "value": 0.0268
+   },
+   {
+    "feature": "correlation_onset_temperature",
+    "gloss": "broad specific-heat hump where helical correlations begin",
+    "value": 0.19
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N07",
+  "stage": "planted",
+  "family": "grid",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: an 800x800 square lattice with wrap-around edges; each site holds a continuous mass (mean 1 per site). Rules, repeated: (1) pick a random site and one of the four directions at random; (2) the site keeps 40% of its mass plus a random share of the rest and sends the remainder one step in that direction; (3) the receiving site pools it with its own mass, keeps 60% plus a random share of the rest, and passes the remainder one step to its left (a 90-degree counter-clockwise turn), so mass moves along L-shaped paths that always turn the same way. Rates are identical for all four directions and total mass is conserved. Measure steady-state density-density correlations and long-wavelength fluctuations.",
+  "also_in_class_plain": [
+   "Same rules in a closed box with reflecting walls: a steady mass current circulates along the edges."
+  ],
+  "observed": [
+   {
+    "feature": "correlation_decay_exponent",
+    "gloss": "density correlations decay as distance to minus this power",
+    "value": 4
+   },
+   {
+    "feature": "xy_correlation_ratio",
+    "gloss": "ratio of correlations along x and along y (isotropic)",
+    "value": 1.0
+   },
+   {
+    "feature": "fluctuation_minima_vs_turning",
+    "gloss": "optimal turning strengths minimising long-wavelength density fluctuations",
+    "value": 1
+   },
+   {
+    "feature": "cusp_exponent",
+    "gloss": "square-root cusp exponent of fluctuations near maximal turning strength",
+    "value": 0.5
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N08",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: about 2.1 million dumbbells (two identical beads of diameter 1 joined by a stiff spring) in a square periodic 2D box at area fraction 0.65. Rules, Langevin dynamics with mass: (1) every pair of beads repels on contact (purely repulsive, no attraction); (2) each dumbbell feels a constant torque, equal and opposite forces perpendicular to its axis on its two beads, all spinning the same way, strength set by Peclet number 5 (swept); (3) beads have mass and weak friction (momentum persists; Prandtl number 0.005) plus thermal noise at temperature 0.01. Start homogeneous and watch the local density field.",
+  "also_in_class_plain": [
+   "Other torque strengths above Peclet number about 1, at area fractions inside the coexistence window."
+  ],
+  "observed": [
+   {
+    "feature": "onset_torque_peclet",
+    "gloss": "torque strength above which the uniform state splits apart",
+    "value": 1.0
+   },
+   {
+    "feature": "domain_growth_exponent",
+    "gloss": "exponent of domain size growth with time after splitting",
+    "value": 0.333
+   },
+   {
+    "feature": "coexisting_states",
+    "gloss": "coexisting states: dilute liquid and dense six-fold ordered state",
+    "value": 2
+   },
+   {
+    "feature": "example_area_fraction",
+    "gloss": "global area fraction of the illustrated split state",
+    "value": 0.65
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N09",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: 40,500 rigid banana-shaped particles in a periodic 3D box at packing fraction 0.51; each particle is 16 beads of diameter 1 along a circular arc of length 15 and radius 10. Beads of different particles repel (purely repulsive Lennard-Jones). The particles start in the equilibrium phase where their bend directions rotate helically along one axis. Rules: molecular dynamics at temperature 1 while the box is sheared at constant rate 0.0001 (flow along x, varying with height z), with the helix axis pointing along the flow; shear to strain about 10. Coarse-grain particle orientations on a grid, locate line defects and measure their topological (skyrmion-type) charge.",
+  "also_in_class_plain": [],
+  "observed": [
+   {
+    "feature": "defect_charge",
+    "gloss": "topological charge carried by the twisted defect lines",
+    "value": 0.5
+   },
+   {
+    "feature": "strain_at_tracked_defect",
+    "gloss": "shear strain at which a tracked defect line forms",
+    "value": 4.5
+   },
+   {
+    "feature": "final_helix_flow_angle",
+    "gloss": "final angle (degrees) between helix axis and flow",
+    "value": 90
+   },
+   {
+    "feature": "total_strain",
+    "gloss": "shear strain reached when the system has reordered",
+    "value": 10
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N10",
+  "stage": "planted",
+  "family": "grid",
+  "size": 4,
+  "shortest_len": 0,
+  "program_plain": "World: a large patch (384 rings of tiles) of the non-repeating single-tile tiling found in 2023 that needs no mirror-image tiles; each tile is a cell, neighbours are tiles sharing at least a corner. States 0, 1 and 3; all 0 except a seed of two adjacent tiles in states 1 and 3. Rules, synchronous, first matching rule applies: (1) a 0-cell with at least 3 neighbours in state 0 and at least 1 in state 1 becomes 3; (2) a 3-cell with at least 3 neighbours in state 3 becomes 0; (3) a 3-cell with at least 1 neighbour in state 1 becomes 1; (4) every other cell becomes 0. A window regenerates the tiling ahead of the active cells.",
+  "also_in_class_plain": [
+   "Different four-state threshold rules on the companion 2023 single-tile tiling that uses mirrored tiles (three such rules found)."
+  ],
+  "observed": [
+   {
+    "feature": "rings_travelled",
+    "gloss": "rings of tiles crossed at constant speed without dying",
+    "value": 1000000
+   },
+   {
+    "feature": "speed_rings_per_generation",
+    "gloss": "rings of tiles advanced per generation",
+    "value": 0.5
+   },
+   {
+    "feature": "allowed_headings",
+    "gloss": "number of travel directions observed, 60 degrees apart",
+    "value": 6
+   },
+   {
+    "feature": "heading_error_degrees",
+    "gloss": "deviation of heading from nearest allowed direction, degrees",
+    "value": 0.006
+   },
+   {
+    "feature": "cells_per_traveller",
+    "gloss": "peak number of non-zero cells in each travelling object",
+    "value": 12
+   },
+   {
+    "feature": "launch_success_share",
+    "gloss": "share of two-tile seedings that launch travellers",
+    "value": 0.71
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N11",
+  "stage": "planted",
+  "family": "agents",
+  "size": 4,
+  "shortest_len": 0,
+  "program_plain": "World: individuals at continuous positions in a square periodic domain, starting with 4,000 placed at random. Rules (continuous-time birth and death): (1) each individual gives birth at rate 1920; the offspring lands at a Gaussian offset (standard deviation 0.05); (2) each individual dies at rate 192 + (density of others within radius 1.25) + g times (density within radius 0.0625, squared: a three-body crowding term). Densities are counts divided by disk area. Only competitive (harmful) interactions, no attraction or help. Sweep g from 3.3e-6 to 3.9e-5 and look at the steady spatial pattern.",
+  "also_in_class_plain": [
+   "Same rules with g = 2.35e-5 (spots stretching into stripes).",
+   "Death-to-birth ratio near 0.55: as g rises, spots, then stripes, then spots again."
+  ],
+  "observed": [
+   {
+    "feature": "anisotropy_at_stripe_onset",
+    "gloss": "pattern anisotropy index jumps from 0 to this value",
+    "value": 1.0
+   },
+   {
+    "feature": "g_for_hexagonal_spots",
+    "gloss": "three-body strength where clusters form a hexagonal spot array",
+    "value": 3.27e-06
+   },
+   {
+    "feature": "g_for_stripes",
+    "gloss": "three-body strength where clusters merge into parallel stripes",
+    "value": 3.14e-05
+   },
+   {
+    "feature": "g_for_gaps",
+    "gloss": "three-body strength where empty holes sit in a populated background",
+    "value": 3.93e-05
+   },
+   {
+    "feature": "reentry_death_birth_ratio",
+    "gloss": "death/birth ratio where spots reappear beyond the stripes",
+    "value": 0.55
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N12",
+  "stage": "planted",
+  "family": "grid",
+  "size": 4,
+  "shortest_len": 0,
+  "program_plain": "World: an L x L square lattice with wrap-around edges (L up to 2048), each site holding a planar unit spin (an angle). Energy: minus the sum over all pairs of J(r) times the cosine of their angle difference, where every pair interacts with J(r) proportional to 1/r^4 (r = distance), normalised so that the total coupling per site is fixed. Rules: equilibrium Monte Carlo with cluster updates at inverse temperatures beta = 1, 2, 4, 8 and near the ordering point. Measure the squared magnetisation and the correlation length versus L.",
+  "also_in_class_plain": [
+   "Nearest-neighbour coupling 1.2 plus a weak 1/r^4 tail: the tail still changes the low-temperature scaling."
+  ],
+  "observed": [
+   {
+    "feature": "log_decay_exponent_beta1",
+    "gloss": "magnetisation decays as power of log L; exponent at beta=1",
+    "value": 0.34
+   },
+   {
+    "feature": "log_decay_exponent_beta8",
+    "gloss": "same exponent at beta=8 (proportional to temperature)",
+    "value": 0.02
+   },
+   {
+    "feature": "corr_length_log_slope_beta1",
+    "gloss": "slope of squared correlation-length ratio versus log L, beta=1",
+    "value": 0.48
+   },
+   {
+    "feature": "exponent_slope_product",
+    "gloss": "2*pi times slope times exponent; 1 means spin-wave picture holds",
+    "value": 1.0
+   },
+   {
+    "feature": "corr_length_divergence_exponent",
+    "gloss": "power-law divergence exponent of correlation length at the transition",
+    "value": 2.24
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N13",
+  "stage": "planted",
+  "family": "network",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: 500 agents, each holding opinion +1 or -1, every agent able to interact with every other. Rules each step: pick an agent; with probability eta (around 0.002, the inverse population; swept) it flips its opinion at random; otherwise it copies the opinion of a randomly chosen other agent. Separately, at rate r (swept), a population-wide shock occurs: opinions are instantly reassigned so that the average opinion jumps to 0.3 (65% holding +1). Measure the long-run distribution of the average opinion.",
+  "also_in_class_plain": [],
+  "observed": [
+   {
+    "feature": "distribution_peak_count",
+    "gloss": "peaks in long-run distribution of the average opinion",
+    "value": 3
+   },
+   {
+    "feature": "middle_peak_position",
+    "gloss": "average opinion at the extra, shock-induced peak",
+    "value": 0.3
+   },
+   {
+    "feature": "distinct_regimes",
+    "gloss": "distinct long-run regimes across the noise-versus-shock-rate plane",
+    "value": 6
+   },
+   {
+    "feature": "noise_threshold_without_shocks",
+    "gloss": "noise level separating one-peak and two-peak behaviour without shocks",
+    "value": 0.002
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N14",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: a 2D surface exchanging particles with a reservoir (grand-canonical Monte Carlo; about 1,300 particles at close packing). Particles are hard elliptical disks with axis ratio 2 that cannot overlap; each carries two sticky patches, one at each tip of its long axis (patch half-angle 45 degrees, reach 0.17 particle diameters, bond energy -1), allowing up to two bonds per patch. Rules: Monte Carlo moves (single and cluster translations and rotations, insertions, deletions) at temperature T and chemical potential mu. Start from a dilute gas (density 0.004) quenched to T=0.145 with mu between -5 and 1 (full grid: T 0.055-0.16, mu -7 to 5). Track bonds and closed rings of bonded particles.",
+  "also_in_class_plain": [
+   "Lower temperatures 0.07-0.115 at mu=-5: the same open lattice nucleates directly from the gas, with more defects."
+  ],
+  "observed": [
+   {
+    "feature": "six_ring_order",
+    "gloss": "global order of six-particle rings (1 = perfect lattice of triangles)",
+    "value": 0.8
+   },
+   {
+    "feature": "fraction_in_rings",
+    "gloss": "fraction of particles belonging to closed rings",
+    "value": 1.0
+   },
+   {
+    "feature": "triangle_bonds_after_assembly",
+    "gloss": "three-patch bonding triangles present after equilibration",
+    "value": 340
+   },
+   {
+    "feature": "pair_bond_peak_low_temperature",
+    "gloss": "peak count of two-patch pair bonds during nucleation, T=0.07",
+    "value": 90
+   },
+   {
+    "feature": "pair_triangle_onset_lag",
+    "gloss": "delay between rises of pair and triangle bond counts",
+    "value": 0
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N15",
+  "stage": "planted",
+  "family": "agents",
+  "size": 3,
+  "shortest_len": 0,
+  "program_plain": "World: 10,000 point particles in a 100x100 periodic box (density 1), with no collisions. Rules: (1) each moves forward at constant speed 0.1 along its heading (small inertia); (2) it sees only particles within distance R (5 to 10) inside a vision cone of half-angle pi/8 around its heading; (3) it turns toward the positions of the visible particles, turning rate 3 times the average sine of the angle between its heading and the bearing to each (no copying of their headings); (4) its heading gets rotational noise of strength 0.08. Seeing is one-sided: being seen does not imply seeing back. Run 10 million steps of size 0.005.",
+  "also_in_class_plain": [
+   "Same rules with vision half-angle pi/12.",
+   "Same rules with turning strength 1 (the state extends to wider vision angles)."
+  ],
+  "observed": [
+   {
+    "feature": "pattern_fractal_dimension",
+    "gloss": "fractal dimension of particle pattern (1 = lines, 2 = uniform)",
+    "value": 1.5
+   },
+   {
+    "feature": "void_area_scaling_exponent",
+    "gloss": "areas of empty voids scale as vision range to this power",
+    "value": 3
+   },
+   {
+    "feature": "commonest_junction_degree",
+    "gloss": "number of particle streams meeting at the most common junction",
+    "value": 3
+   },
+   {
+    "feature": "max_common_junction_degree",
+    "gloss": "largest junction degree seen; five or more essentially absent",
+    "value": 4
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N16",
+  "stage": "planted",
+  "family": "agents",
+  "size": 3,
+  "shortest_len": 0,
+  "program_plain": "World: one closed loop of 2048 beads (a chain joined end to end) in open 3D space. Rules, Langevin dynamics with inertia: (1) consecutive beads are linked by springs and all beads repel at contact (no attraction), so the chain cannot cross itself; (2) each bead pushes itself with constant force along its own heading (activity: Peclet number Pe, swept); (3) headings diffuse randomly but with rotational inertia (reduced moment of inertia J swept 0.001-100, e.g. J=5); (4) beads have translational inertia (reduced mass M=0.3), friction and thermal noise. Measure loop size (radius of gyration) versus Pe, J and bead number.",
+  "also_in_class_plain": [
+   "Same rules with J=30: very sharp switch back to an open coil within a narrow Pe window.",
+   "Same rules with J=10: compact loop size nearly independent of bead number."
+  ],
+  "observed": [
+   {
+    "feature": "size_reduction_factor",
+    "gloss": "squared loop size shrinks by over this factor versus passive",
+    "value": 10
+   },
+   {
+    "feature": "activity_of_max_compaction",
+    "gloss": "Peclet number giving the most compact loop",
+    "value": 17
+   },
+   {
+    "feature": "reswelling_activity",
+    "gloss": "Peclet number above which the loop swells back open",
+    "value": 40
+   },
+   {
+    "feature": "size_vs_length_exponent_j10",
+    "gloss": "exponent of loop size versus bead number at J=10 (near zero)",
+    "value": 0
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N17",
+  "stage": "planted",
+  "family": "agents",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: self-propelled point particles in a periodic 2D box (square of side 1200, or rectangular), density 1 per unit area. Rules, discrete time steps: (1) each particle sets its heading to the average heading of all particles within distance 1 (itself included), plus a uniformly random angle in [-eta*pi, eta*pi], with noise eta between 0.28 and 0.35; (2) it moves 0.5 along its new heading. Start from random positions and headings, or from alternating parallel strips of opposite headings. Run up to 10^8 steps and watch the dense travelling stripes that form.",
+  "also_in_class_plain": [
+   "Continuous-time version (sine alignment plus Gaussian angular noise): same phenomenology.",
+   "eta=0.29, density 1, long rectangular box: very long lanes buckle and merge."
+  ],
+  "observed": [
+   {
+    "feature": "parallel_lane_count",
+    "gloss": "side-by-side lanes of stripe trains travelling in opposite directions",
+    "value": 7
+   },
+   {
+    "feature": "random_start_success_share",
+    "gloss": "share of random starts ending in opposite-travelling lanes (1 of 24)",
+    "value": 0.042
+   },
+   {
+    "feature": "noise_window_low",
+    "gloss": "lower noise of window where opposite-travelling lanes form",
+    "value": 0.28
+   },
+   {
+    "feature": "noise_window_high",
+    "gloss": "upper noise of window where opposite-travelling lanes form",
+    "value": 0.35
+   },
+   {
+    "feature": "lane_persistence_steps",
+    "gloss": "time steps lanes persisted without disappearing",
+    "value": 100000000.0
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N18",
+  "stage": "planted",
+  "family": "mixed",
+  "size": 2,
+  "shortest_len": 0,
+  "program_plain": "World: a 100x100 square lattice with wrap-around edges of classical unit spins, all tilted slightly (within 0.2 rad) from the +z axis, coupled to one damped oscillator y(t). Rules: (1) y obeys y'' + gamma*y' + w0^2*y = white noise whose strength is set by a bath temperature (T/T0 = 1); oscillation period 0.001, coherence time 20 to 200 periods; (2) each spin precesses about its local field, whose x-component is g0*(1 - y) and z-component 5*(1 + y)*(sum of z-components of its 4 neighbours), with g0 set so spins turn by pi+0.001 per oscillator period. No external periodic drive. Record z-magnetisation once per period for 10,000 periods, 100 noise realisations.",
+  "also_in_class_plain": [
+   "Coherence time 200 periods instead of 20 (sign reversals rarer).",
+   "Very long coherence (10^5 periods), period 0.2, T/T0 = 0.9: response stays doubled beyond 1000 periods."
+  ],
+  "observed": [
+   {
+    "feature": "response_to_drive_period_ratio",
+    "gloss": "period of magnetisation divided by oscillator period",
+    "value": 2
+   },
+   {
+    "feature": "ordered_bath_temperature",
+    "gloss": "bath temperature (T0 units) sustaining doubling, long-coherence variant",
+    "value": 0.9
+   },
+   {
+    "feature": "too_cold_bath_temperature",
+    "gloss": "bath temperature (T0 units) too weak for doubling, same variant",
+    "value": 0.01
+   },
+   {
+    "feature": "doubled_response_lifetime_periods",
+    "gloss": "periods the doubled response survived in that variant, T/T0=0.9",
+    "value": 1000
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N19",
+  "stage": "planted",
+  "family": "field",
+  "size": 1,
+  "shortest_len": 0,
+  "program_plain": "World: three continuous fields on a 50x50 periodic square: cell density b, an attractant a made by the cells, and a nutrient n eaten by the cells; all start uniform at 1 plus small noise. Rules (dimensionless): (1) b diffuses and drifts up the gradient of a with strength 5*b/(1+b^2) and up the gradient of n with strength 14*b/(1+b^2); cell number is conserved; (2) a diffuses 2.5 times faster than cells, is produced at rate b and decays at rate 1; (3) n diffuses 0.75 times as fast as cells, is consumed at rate 0.02*b*n and resupplied at rate 0.02 everywhere.",
+  "also_in_class_plain": [],
+  "observed": [
+   {
+    "feature": "coexisting_structure_types",
+    "gloss": "kinds of structure coexisting: one dense blob and travelling bands",
+    "value": 2
+   },
+   {
+    "feature": "dense_aggregate_count",
+    "gloss": "dense aggregates sitting in or carried by the bands",
+    "value": 1
+   },
+   {
+    "feature": "attractant_to_nutrient_strength_ratio",
+    "gloss": "attractant/nutrient drift-strength ratio where this appears (5/14)",
+    "value": 0.36
+   }
+  ]
+ },
+ {
+  "class_id": "planted:N20",
+  "stage": "planted",
+  "family": "grid",
+  "size": 8,
+  "shortest_len": 0,
+  "program_plain": "World: a triangular lattice (6 neighbours per site) of linear size 100 with open edges; each site holds a director angle defined modulo 180 degrees. Rules, deterministic (zero noise): each site's angle changes at a rate equal to the sum over its 6 neighbours of w*sin(2*(neighbour angle - own angle)), where w = exp(s*cos(2*phi)) and phi is the angle between the bond to that neighbour and the site's own director, s from 0 to 0.5. A site thus listens more to neighbours lying along its own axis, so influence is not mutual. Start from imposed defect textures (single half-integer defects, or one integer +1 defect with texture phase mu); locate defects by angle winding around triangles.",
+  "also_in_class_plain": [
+   "Continuum version with the corresponding extra torque term: isolated +1/2 defect speed rises with s."
+  ],
+  "observed": [
+   {
+    "feature": "plus_half_speed_trend",
+    "gloss": "sign of change in +1/2 defect self-propulsion speed as s rises",
+    "value": 1
+   },
+   {
+    "feature": "minus_half_defect_drift",
+    "gloss": "intrinsic translation speed of isolated -1/2 defects",
+    "value": 0
+   },
+   {
+    "feature": "four_defect_split_share_s05",
+    "gloss": "share of initial phases where +1 splits into four defects, s=0.5",
+    "value": 0.64
+   },
+   {
+    "feature": "four_defect_split_share_s010",
+    "gloss": "same share at s=0.10",
+    "value": 0.0
+   },
+   {
+    "feature": "four_defect_onset_s",
+    "gloss": "asymmetry strength s above which four-defect splitting appears",
+    "value": 0.15
+   }
+  ]
+ }
+]

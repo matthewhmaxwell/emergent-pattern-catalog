@@ -1,0 +1,988 @@
+[
+ {
+  "arxiv_id": "2609.01668",
+  "v1_date": "2026-09-01",
+  "title": "Arithmetic of the sync basin for pulse-coupled oscillators",
+  "decision": "include",
+  "class_id": "planted:N01",
+  "reason": "pulse-coupled oscillators (simple); Monte Carlo + exact counting; abstract: 'adds a new member to the atlas of exotic basin geometries'"
+ },
+ {
+  "arxiv_id": "2609.01044",
+  "v1_date": "2026-09-01",
+  "title": "Mass-conserving growth percolation in polymer gelation",
+  "decision": "exclude",
+  "reason": "modeling framework; no claim of a new behavior"
+ },
+ {
+  "arxiv_id": "2609.01078",
+  "v1_date": "2026-09-01",
+  "title": "Statistical Language Competition Model with Dynamic Edge Weighting on a Random Network",
+  "decision": "exclude",
+  "reason": "novelty concerns model ingredients, not a new behavior"
+ },
+ {
+  "arxiv_id": "2609.01127",
+  "v1_date": "2026-09-01",
+  "title": "Re-entrance or monotonic: How chemotaxis controls pattern formation",
+  "decision": "exclude",
+  "reason": "companion letter of 2609.01159 (same authors, same model and results, same day); long version used instead"
+ },
+ {
+  "arxiv_id": "2609.01159",
+  "v1_date": "2026-09-01",
+  "title": "Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model",
+  "decision": "include",
+  "class_id": "planted:N02",
+  "reason": "two-species reaction-diffusion with chemotaxis; numerical PDE solutions; intro: 'novel features, which lead to some new physical phenomena'; long companion of 2609.01127 chosen"
+ },
+ {
+  "arxiv_id": "2609.01606",
+  "v1_date": "2026-09-01",
+  "title": "Observable- and state-selective prethermalization and bounds on prethermal lifetimes",
+  "decision": "exclude",
+  "reason": "quantum spin system; behavior is a prethermalization mechanism, not an emergent pattern in a simple classical simulation"
+ },
+ {
+  "arxiv_id": "2609.02047",
+  "v1_date": "2026-09-02",
+  "title": "Phase-delays shape multistability and basin sizes in Kuramoto networks: analytical estimates from network structure",
+  "decision": "exclude",
+  "reason": "multi-q (multi-twisted) states that the paper says were first observed in earlier work; main contribution is a spectral method"
+ },
+ {
+  "arxiv_id": "2609.03123",
+  "v1_date": "2026-09-02",
+  "title": "Death by mutants: unusual multicritical dynamics in a two-species model for absorbing state transitions",
+  "decision": "exclude",
+  "reason": "perturbative renormalization-group analysis only, no simulation"
+ },
+ {
+  "arxiv_id": "2609.03244",
+  "v1_date": "2026-09-03",
+  "title": "Vortex solitons in disclination quasicrystals",
+  "decision": "exclude",
+  "reason": "optical/NLS continuum field in engineered quasicrystal potential; not a simple rule-based model"
+ },
+ {
+  "arxiv_id": "2609.03991",
+  "v1_date": "2026-09-03",
+  "title": "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter",
+  "decision": "include",
+  "class_id": "planted:N03",
+  "reason": "self-propelled phoretic disks; particle simulations; intro: bubbly phases 'not been reported' in particle-resolved phoretic systems"
+ },
+ {
+  "arxiv_id": "2609.04001",
+  "v1_date": "2026-09-03",
+  "title": "Designing corrugated surfaces to guide colloidal self-assembly",
+  "decision": "exclude",
+  "reason": "experimental colloid study"
+ },
+ {
+  "arxiv_id": "2609.04520",
+  "v1_date": "2026-09-03",
+  "title": "Crowding controls the scaling of bus frequency with demand",
+  "decision": "exclude",
+  "reason": "data-driven (bus route data)"
+ },
+ {
+  "arxiv_id": "2609.04692",
+  "v1_date": "2026-09-04",
+  "title": "Low-Dimensional Phase Diagram of Higher-Order Networked Systems",
+  "decision": "exclude",
+  "reason": "analytic dimension-reduction framework"
+ },
+ {
+  "arxiv_id": "2609.04873",
+  "v1_date": "2026-09-04",
+  "title": "Evolution of instability fronts in sine-Gordon equation dynamics",
+  "decision": "exclude",
+  "reason": "analytic Whitham modulation theory"
+ },
+ {
+  "arxiv_id": "2609.07906",
+  "v1_date": "2026-09-07",
+  "title": "Latent geometry organizes higher-order interactions",
+  "decision": "exclude",
+  "reason": "static random-hypergraph ensemble with fitting to real data; novelty is a generative mechanism, not a new dynamical behavior"
+ },
+ {
+  "arxiv_id": "2609.09500",
+  "v1_date": "2026-09-08",
+  "title": "Topological instability and reentrant crystallization in active solids",
+  "decision": "include",
+  "class_id": "planted:N04",
+  "reason": "2D particles with transverse odd forces; Brownian dynamics; abstract: 'we discover a qualitatively distinct mechanism for 2D melting'"
+ },
+ {
+  "arxiv_id": "2609.10463",
+  "v1_date": "2026-09-09",
+  "title": "Protected domains and cooperative invasion on weighted networks",
+  "decision": "exclude",
+  "reason": "analytic proofs on small graphs"
+ },
+ {
+  "arxiv_id": "2609.12680",
+  "v1_date": "2026-09-11",
+  "title": "Chirality enhances diffusion in disordered environments",
+  "decision": "exclude",
+  "reason": "single-walker transport on percolation clusters; not a collective emergent pattern"
+ },
+ {
+  "arxiv_id": "2609.12748",
+  "v1_date": "2026-09-11",
+  "title": "The Mechanics of a Swarm: A Reproducible External Reconstruction of an Unintended Agent-Coordination Episode on a Third-Party Wiki",
+  "decision": "exclude",
+  "reason": "language-model agents; data analysis"
+ },
+ {
+  "arxiv_id": "2609.13349",
+  "v1_date": "2026-09-11",
+  "title": "Speciation, extinction and explosions induced by sudden environmental changes",
+  "decision": "exclude",
+  "reason": "no explicit claim that the behavior is new"
+ },
+ {
+  "arxiv_id": "2609.13110",
+  "v1_date": "2026-09-11",
+  "title": "An on-lattice model for two-dimensional melting",
+  "decision": "exclude",
+  "reason": "new lattice model reproducing known melting scenarios"
+ },
+ {
+  "arxiv_id": "2609.13114",
+  "v1_date": "2026-09-11",
+  "title": "Active elastic theory of self-aligning solids",
+  "decision": "exclude",
+  "reason": "theory of previously reported oscillations"
+ },
+ {
+  "arxiv_id": "2609.14541",
+  "v1_date": "2026-09-13",
+  "title": "Phase ordering kinetics in Light-Heavy-Vacancy model: unusual coarsening dynamics",
+  "decision": "include",
+  "class_id": "planted:N05",
+  "reason": "1D two-species lattice gas on fluctuating landscape; Monte Carlo; abstract/intro: coarsening unlike all conventional phase ordering (early domains dissolve, two exponents)"
+ },
+ {
+  "arxiv_id": "2609.15092",
+  "v1_date": "2026-09-14",
+  "title": "Bias and Correlations in Quasiperiodicity: Impact on Localization in an Extended Aubry-André Model",
+  "decision": "exclude",
+  "reason": "quantum localization model"
+ },
+ {
+  "arxiv_id": "2609.15380",
+  "v1_date": "2026-09-14",
+  "title": "Active pistons extract work by periodic compression alone",
+  "decision": "exclude",
+  "reason": "engine design principle, not a new emergent behavior claim"
+ },
+ {
+  "arxiv_id": "2609.15941",
+  "v1_date": "2026-09-14",
+  "title": "Fractional vortices in a spin-isotropic spiral spin liquid",
+  "decision": "include",
+  "class_id": "planted:N06",
+  "reason": "classical Heisenberg J1-J2-J3 square lattice; Monte Carlo; abstract: 'We uncover a rich family of vortex types' in a regime 'poorly understood'"
+ },
+ {
+  "arxiv_id": "2609.16821",
+  "v1_date": "2026-09-15",
+  "title": "Odd diffusion and power-law correlations in chiral mass-transport processes",
+  "decision": "include",
+  "class_id": "planted:N07",
+  "reason": "chiral mass-transfer lattice model; exact + Monte Carlo; intro: 'fundamentally new fluctuation properties' (power-law correlations from chirality alone)"
+ },
+ {
+  "arxiv_id": "2609.17005",
+  "v1_date": "2026-09-15",
+  "title": "Odd slip at chiral active surfaces",
+  "decision": "exclude",
+  "reason": "analytic continuum theory; no simulated emergent pattern"
+ },
+ {
+  "arxiv_id": "2609.17761",
+  "v1_date": "2026-09-15",
+  "title": "Why Some Strikes Last Longer: The Resilience Paradox of Partially Functional Institutions",
+  "decision": "exclude",
+  "reason": "low-dimensional mean-field ODE; novelty language only 'counterintuitive'"
+ },
+ {
+  "arxiv_id": "2609.20743",
+  "v1_date": "2026-09-17",
+  "title": "Scaling and Condensation of Dry Active Matter Around Circular Obstacles",
+  "decision": "exclude",
+  "reason": "framing is unexplored scaling of a previously characterized vortex; no claim that the behavior itself is new"
+ },
+ {
+  "arxiv_id": "2609.21021",
+  "v1_date": "2026-09-17",
+  "title": "Flow, dynamics and active fracture in hydraulic multicellular systems",
+  "decision": "exclude",
+  "reason": "complex tissue-hydraulics model plus experiments; rules exceed simple-model scope"
+ },
+ {
+  "arxiv_id": "2609.21415",
+  "v1_date": "2026-09-18",
+  "title": "Local Detailed Balance in the Lorenz Model: Replaces the Butterfly with Frenetic Bursting",
+  "decision": "exclude",
+  "reason": "low-dimensional ODE (modified Lorenz)"
+ },
+ {
+  "arxiv_id": "2609.21556",
+  "v1_date": "2026-09-18",
+  "title": "Phase Separation in a system of Brownian inertial rotors",
+  "decision": "include",
+  "class_id": "planted:N08",
+  "reason": "inertial torque-driven repulsive dumbbells; MD; abstract: 'We uncover an emergent phase separation', intro: 'distinct kind of macroscopic phase transition'"
+ },
+ {
+  "arxiv_id": "2609.21999",
+  "v1_date": "2026-09-18",
+  "title": "Merons Mediate Re-Ordering of Curved Rods Under Shear Flow",
+  "decision": "include",
+  "class_id": "planted:N09",
+  "reason": "bent-core bead rods under shear; MD; abstract: 'reveal a new mechanism to create and control merons'"
+ },
+ {
+  "arxiv_id": "2609.22533",
+  "v1_date": "2026-09-18",
+  "title": "Two-Stage Ordering Kinetics in Binary Mixtures of Ellipsoidal Particles",
+  "decision": "exclude",
+  "reason": "no novelty claim"
+ },
+ {
+  "arxiv_id": "2609.22541",
+  "v1_date": "2026-09-18",
+  "title": "Intermittency in Wind-Driven Fires",
+  "decision": "exclude",
+  "reason": "novelty language limited to 'unexpected'; no claim that the behavior is new or previously unreported"
+ },
+ {
+  "arxiv_id": "2609.22579",
+  "v1_date": "2026-09-18",
+  "title": "Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre",
+  "decision": "include",
+  "class_id": "planted:N10",
+  "reason": "threshold cellular automaton on aperiodic monotile; simulation; first CA/gliders on hat and spectre tilings"
+ },
+ {
+  "arxiv_id": "2609.26400",
+  "v1_date": "2026-09-22",
+  "title": "Routes to chaos in a mass-conserving two-species reaction-diffusion model",
+  "decision": "exclude",
+  "reason": "revisits model whose oscillatory states were reported before; no claim the behaviors are new"
+ },
+ {
+  "arxiv_id": "2609.28113",
+  "v1_date": "2026-09-23",
+  "title": "Position-dependent friction in protein folding from a GLE derived with a non-stationary localized projection distribution",
+  "decision": "exclude",
+  "reason": "method paper (projection-operator GLE) applied to protein MD"
+ },
+ {
+  "arxiv_id": "2609.28132",
+  "v1_date": "2026-09-23",
+  "title": "Bifurcation and Multistability in a Collective-Risk Public Goods Game with Quorum-Activated Protection",
+  "decision": "exclude",
+  "reason": "replicator / bifurcation analysis, no simulated emergent pattern"
+ },
+ {
+  "arxiv_id": "2609.28148",
+  "v1_date": "2026-09-23",
+  "title": "Universal splitting of nonequilibrium phase transitions in driven Potts heat engines",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim"
+ },
+ {
+  "arxiv_id": "2609.28593",
+  "v1_date": "2026-09-23",
+  "title": "Boundary and bulk perturbations in vectorial active matter",
+  "decision": "exclude",
+  "reason": "thesis (review-like)"
+ },
+ {
+  "arxiv_id": "2609.28432",
+  "v1_date": "2026-09-23",
+  "title": "Transfer Dynamics and Spectral Cascades in Graph-Coupled Kuramoto Networks",
+  "decision": "exclude",
+  "reason": "method (spectral transfer formalism)"
+ },
+ {
+  "arxiv_id": "2609.29725",
+  "v1_date": "2026-09-24",
+  "title": "Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics",
+  "decision": "include",
+  "class_id": "planted:N11",
+  "reason": "spatial birth-death individual-based model; simulations + field equation; intro: previous studies 'reported only hexagonal arrays', stripes/gaps shown here"
+ },
+ {
+  "arxiv_id": "2609.29900",
+  "v1_date": "2026-09-24",
+  "title": "Degenerate Turing bifurcation and the birth of localised patterns in activator-inhibitor systems",
+  "decision": "exclude",
+  "reason": "analytic bifurcation theory"
+ },
+ {
+  "arxiv_id": "2609.29904",
+  "v1_date": "2026-09-24",
+  "title": "Extracting hydrogel properties by watching hydrogel particles moving through solid ice",
+  "decision": "exclude",
+  "reason": "experimental"
+ },
+ {
+  "arxiv_id": "2609.31059",
+  "v1_date": "2026-09-25",
+  "title": "Collective order reorganizes dissipation and powers an active engine",
+  "decision": "exclude",
+  "reason": "experimental"
+ },
+ {
+  "arxiv_id": "2609.31926",
+  "v1_date": "2026-09-25",
+  "title": "Reversibility and Multiplicity in Liquid-Vapor Phase Change",
+  "decision": "exclude",
+  "reason": "continuum diffuse-interface hydrodynamics, not a simple rule-based model; stationary interfacial solutions rather than an emergent pattern"
+ },
+ {
+  "arxiv_id": "2609.32871",
+  "v1_date": "2026-09-26",
+  "title": "Mpemba effect without a wall",
+  "decision": "exclude",
+  "reason": "single-particle Mpemba effect"
+ },
+ {
+  "arxiv_id": "2609.32945",
+  "v1_date": "2026-09-26",
+  "title": "Active matter within flexible boundaries: a novel experimental approach with T. aceti nematodes",
+  "decision": "exclude",
+  "reason": "experimental (nematodes)"
+ },
+ {
+  "arxiv_id": "2609.33006",
+  "v1_date": "2026-09-26",
+  "title": "Periodically modulated traveling waves in integrate-and-fire networks: recursive speed law and propagation failure",
+  "decision": "exclude",
+  "reason": "no novelty claim"
+ },
+ {
+  "arxiv_id": "2609.33466",
+  "v1_date": "2026-09-27",
+  "title": "Life-time patterns of reinfections: epidemic cohorts as traveling waves",
+  "decision": "exclude",
+  "reason": "compartmental ODE plus data fitting"
+ },
+ {
+  "arxiv_id": "2609.33929",
+  "v1_date": "2026-09-27",
+  "title": "Rare but stable: hidden states in the 1D swarmalator model",
+  "decision": "exclude",
+  "reason": "paper says these patterns were reported in extended swarmalator models"
+ },
+ {
+  "arxiv_id": "2609.35085",
+  "v1_date": "2026-09-28",
+  "title": "Quorum sensing with density-enhanced motility and size regulation",
+  "decision": "exclude",
+  "reason": "no novelty claim"
+ },
+ {
+  "arxiv_id": "2609.35485",
+  "v1_date": "2026-09-28",
+  "title": "Out-of-equilibrium finite-time percolation transitions and spinodal-like behaviors after quenches across magnetic first-order transitions of Ising systems",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim"
+ },
+ {
+  "arxiv_id": "2609.35554",
+  "v1_date": "2026-09-28",
+  "title": "Positional choice and robust collective behavior in fish schools: biohybrid experiments and modeling",
+  "decision": "exclude",
+  "reason": "model fitted to biohybrid fish experiments"
+ },
+ {
+  "arxiv_id": "2609.35594",
+  "v1_date": "2026-09-28",
+  "title": "Bacteriophage Q$β$: Six Decades at the Frontier of Molecular and Viral Evolution",
+  "decision": "exclude",
+  "reason": "review"
+ },
+ {
+  "arxiv_id": "2609.37289",
+  "v1_date": "2026-09-29",
+  "title": "Anomalous transport in periodic systems driven by active fluctuations",
+  "decision": "exclude",
+  "reason": "dissertation; single-particle transport"
+ },
+ {
+  "arxiv_id": "2609.37436",
+  "v1_date": "2026-09-29",
+  "title": "Phase separation, morphology, and metastability in the three-dimensional active Potts model",
+  "decision": "exclude",
+  "reason": "no novelty claim (extends known 2D phenomenology to 3D)"
+ },
+ {
+  "arxiv_id": "2609.39255",
+  "v1_date": "2026-09-30",
+  "title": "Moving against the odds with a cyclic active Brownian ratchet: current enhancement and reversal",
+  "decision": "exclude",
+  "reason": "single-particle ratchet transport; not collective"
+ },
+ {
+  "arxiv_id": "2609.39267",
+  "v1_date": "2026-09-30",
+  "title": "Logarithmic Quasi-Long-Range Order and Novel Continuous Phase Transition in the Two-Dimensional $XY$ Model with $1/r^4$ Interaction",
+  "decision": "include",
+  "class_id": "planted:N12",
+  "reason": "2D XY with 1/r^4 couplings; Monte Carlo; intro: 'a novel logarithmic quasi-long-range ordered (log-QLRO) phase'"
+ },
+ {
+  "arxiv_id": "2609.39439",
+  "v1_date": "2026-09-30",
+  "title": "Active spinners drive passive matter into chiral rotors",
+  "decision": "exclude",
+  "reason": "experiment-led; novelty framed as an open question"
+ },
+ {
+  "arxiv_id": "2609.39728",
+  "v1_date": "2026-09-30",
+  "title": "Dimension-dependent order parameter selection in higher-order Kuramoto dynamics on spheres: continuous versus quantized regimes",
+  "decision": "exclude",
+  "reason": "mathematical analysis; no claim of new behavior"
+ },
+ {
+  "arxiv_id": "2609.39858",
+  "v1_date": "2026-09-30",
+  "title": "Opinion dynamics under large-scale exogenous events",
+  "decision": "include",
+  "class_id": "planted:N13",
+  "reason": "noisy voter model with population-wide shocks; Monte Carlo + master equation; abstract: 'novel trimodal and asymmetric bimodal states'"
+ },
+ {
+  "arxiv_id": "2610.00429",
+  "v1_date": "2026-09-30",
+  "title": "Intermittent quarantine suppresses epidemic spreading beyond simple contact reduction",
+  "decision": "exclude",
+  "reason": "no new-behavior claim"
+ },
+ {
+  "arxiv_id": "2610.01111",
+  "v1_date": "2026-10-01",
+  "title": "Compartmental epidemiological models with infection-driven immune escape",
+  "decision": "exclude",
+  "reason": "mean-field compartmental ODE (instability of an equation, not simulation of interacting units)"
+ },
+ {
+  "arxiv_id": "2610.01730",
+  "v1_date": "2026-10-01",
+  "title": "The role of root allometry and root overlap in vegetation pattern formation",
+  "decision": "exclude",
+  "reason": "linear stability analysis"
+ },
+ {
+  "arxiv_id": "2610.02346",
+  "v1_date": "2026-10-01",
+  "title": "Traveling waves, phase separation and pattern formation in the active stepping stone model",
+  "decision": "exclude",
+  "reason": "abstract claims novel morphologies but text says ring and hexagonal patterns were reported previously; ambiguous"
+ },
+ {
+  "arxiv_id": "2610.02533",
+  "v1_date": "2026-10-01",
+  "title": "Critical behavior of stochastic rumors on the one-dimensional integer lattice",
+  "decision": "exclude",
+  "reason": "rigorous phase-transition results; no claim of new behavior"
+ },
+ {
+  "arxiv_id": "2610.03936",
+  "v1_date": "2026-10-02",
+  "title": "An Absorbing State Model with an Emergent Ising Transition",
+  "decision": "exclude",
+  "reason": "novelty language limited to 'remarkably'/'surprisingly'"
+ },
+ {
+  "arxiv_id": "2610.04450",
+  "v1_date": "2026-10-03",
+  "title": "From Equilibrium Criticality to Universal Collective Phases through Nonreciprocal Coupling of Ordered Systems",
+  "decision": "exclude",
+  "reason": "'previously unreported regime' comes from mean-field bifurcation analysis, not simulation"
+ },
+ {
+  "arxiv_id": "2610.07567",
+  "v1_date": "2026-10-06",
+  "title": "Phase diagram and transition properties of the Blume-Capel model: A Monte Carlo study",
+  "decision": "exclude",
+  "reason": "no explicit claim of new behavior ('counterintuitive' only)"
+ },
+ {
+  "arxiv_id": "2610.07971",
+  "v1_date": "2026-10-06",
+  "title": "Probabilistic neighbors' selection competes with confirmation bias in a bounded confidence model",
+  "decision": "exclude",
+  "reason": "no explicit new-behavior claim; partly data-driven"
+ },
+ {
+  "arxiv_id": "2610.08022",
+  "v1_date": "2026-10-06",
+  "title": "Heterogeneous diffusion with recruitment and mortality",
+  "decision": "exclude",
+  "reason": "single-particle analytic diffusion; not an emergent pattern"
+ },
+ {
+  "arxiv_id": "2610.08522",
+  "v1_date": "2026-10-06",
+  "title": "Networks of triblock ellipses: from kagome order to disordered porous networks",
+  "decision": "include",
+  "class_id": "planted:N14",
+  "reason": "patchy hard ellipses; grand-canonical Monte Carlo; intro: 'the first observation of a kagome lattice assembled from patchy ellipses' + one-step nucleation in contrast to known two-step"
+ },
+ {
+  "arxiv_id": "2610.10709",
+  "v1_date": "2026-10-07",
+  "title": "Beyond Dry Flocking: Shape-Dependent Hydrodynamic Alignment",
+  "decision": "exclude",
+  "reason": "experimental discovery; model only reproduces"
+ },
+ {
+  "arxiv_id": "2610.10818",
+  "v1_date": "2026-10-07",
+  "title": "Multistability and Juggling States in Frustrated Kuramoto Oscillators on Ring Networks",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim in abstract or introduction"
+ },
+ {
+  "arxiv_id": "2610.11147",
+  "v1_date": "2026-10-08",
+  "title": "Energy-barrier characterization of secured basins in coupled oscillators with inertia",
+  "decision": "exclude",
+  "reason": "method for power-grid stability assessment"
+ },
+ {
+  "arxiv_id": "2610.11367",
+  "v1_date": "2026-10-08",
+  "title": "Stochastic resonance in adaptive dynamical networks",
+  "decision": "exclude",
+  "reason": "no novelty claim"
+ },
+ {
+  "arxiv_id": "2610.12436",
+  "v1_date": "2026-10-08",
+  "title": "Ecology of AI Agents: Collaboration Creates a Population Threshold for Takeoff",
+  "decision": "exclude",
+  "reason": "AI-agent population growth ODE; strong Allee effect (known)"
+ },
+ {
+  "arxiv_id": "2610.13748",
+  "v1_date": "2026-10-09",
+  "title": "Arrested phase separation and amorphous patterns in charged binary fluids",
+  "decision": "exclude",
+  "reason": "novelty language in abstract/intro limited to 'surprisingly'; 'discovery' only in conclusion"
+ },
+ {
+  "arxiv_id": "2610.13842",
+  "v1_date": "2026-10-09",
+  "title": "Robust Golden Ratio universality as a consequence of a circulant symmetry",
+  "decision": "exclude",
+  "reason": "golden-ratio universality class reported before (previously needed fine tuning)"
+ },
+ {
+  "arxiv_id": "2610.14928",
+  "v1_date": "2026-10-10",
+  "title": "A mathematical model for fitness effects on viral persistence",
+  "decision": "exclude",
+  "reason": "ODE model tied to new experiment; novelty is the model"
+ },
+ {
+  "arxiv_id": "2610.15835",
+  "v1_date": "2026-10-11",
+  "title": "Emergence of Active Foams in a Minimal Cognitive Flocking Model",
+  "decision": "include",
+  "class_id": "planted:N15",
+  "reason": "vision-cone self-propelled particles; simulations; abstract: 'qualitatively new collective states' (active foams)"
+ },
+ {
+  "arxiv_id": "2610.16188",
+  "v1_date": "2026-10-12",
+  "title": "Self-Avoidance Governs Re-entrant Coil-Globule Transition of Inertial Active Brownian Ring Polymers",
+  "decision": "include",
+  "class_id": "planted:N16",
+  "reason": "active Brownian ring polymer with inertia; Langevin dynamics; abstract: 'we uncover an inertia-driven re-entrant coil-globule transition' (note: overdamped non-monotonic size reported earlier, cited)"
+ },
+ {
+  "arxiv_id": "2610.16331",
+  "v1_date": "2026-10-12",
+  "title": "Dynamical-state switching controls active microrod navigation in porous media",
+  "decision": "exclude",
+  "reason": "experimental microswimmers"
+ },
+ {
+  "arxiv_id": "2610.16608",
+  "v1_date": "2026-10-12",
+  "title": "How Mobile Oscillators Reshape Dynamical Robustness in Complex Networks",
+  "decision": "exclude",
+  "reason": "amplitude death is known; contribution is threshold dependence on heterogeneity"
+ },
+ {
+  "arxiv_id": "2610.17150",
+  "v1_date": "2026-10-12",
+  "title": "Global synchronization in time-varying directed higher-order networks",
+  "decision": "exclude",
+  "reason": "analytic stability criterion"
+ },
+ {
+  "arxiv_id": "2610.17764",
+  "v1_date": "2026-10-13",
+  "title": "Replacement distance controls growth at long wavelengths in a coevolving spatial network",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim"
+ },
+ {
+  "arxiv_id": "2610.18501",
+  "v1_date": "2026-10-13",
+  "title": "Social Norm Diffusion in Societies: Simple or Complex?",
+  "decision": "exclude",
+  "reason": "no novelty claim"
+ },
+ {
+  "arxiv_id": "2610.18506",
+  "v1_date": "2026-10-13",
+  "title": "Directed percolation in higher-order social dilemmas",
+  "decision": "exclude",
+  "reason": "shows known phenomena reproduced by pairwise model"
+ },
+ {
+  "arxiv_id": "2610.22402",
+  "v1_date": "2026-10-14",
+  "title": "Synergistic Self-Driven Nanoconfinement and Dynamical Heterogeneity in Deeply Supercooled \"No Man's Land\" Water",
+  "decision": "exclude",
+  "reason": "atomistic water model (TIP4P/2005); not a simple model"
+ },
+ {
+  "arxiv_id": "2610.21777",
+  "v1_date": "2026-10-15",
+  "title": "Localization induced by Sinai disorder in mass-exchange models",
+  "decision": "exclude",
+  "reason": "exact solution; no simulated new behavior claimed"
+ },
+ {
+  "arxiv_id": "2610.21842",
+  "v1_date": "2026-10-15",
+  "title": "Synchronization induced by stochastic subsystem resetting in complex networks",
+  "decision": "exclude",
+  "reason": "no explicit claim of new behavior"
+ },
+ {
+  "arxiv_id": "2610.22674",
+  "v1_date": "2026-10-15",
+  "title": "Gossip Agents: Reputation through Opinion Dynamics over Evolving Networks",
+  "decision": "exclude",
+  "reason": "multi-agent reinforcement-learning agents"
+ },
+ {
+  "arxiv_id": "2610.23235",
+  "v1_date": "2026-10-16",
+  "title": "Noise-induced transitions between coexisting limit cycles beyond saddle-node bifurcations",
+  "decision": "exclude",
+  "reason": "ghost-induced transitions known; low-dimensional stochastic ODE"
+ },
+ {
+  "arxiv_id": "2610.23418",
+  "v1_date": "2026-10-16",
+  "title": "Stationary analysis of adaptive aspiration dynamics in graph-structured games",
+  "decision": "exclude",
+  "reason": "analytic stationary analysis"
+ },
+ {
+  "arxiv_id": "2610.23468",
+  "v1_date": "2026-10-16",
+  "title": "Multiplayer games on regular graphs under aspiration-driven imitation: Fixation probabilities and the dilution principle",
+  "decision": "exclude",
+  "reason": "analytic fixation probabilities"
+ },
+ {
+  "arxiv_id": "2610.24792",
+  "v1_date": "2026-10-17",
+  "title": "Strategic Origins of Network Structure",
+  "decision": "exclude",
+  "reason": "analytic equilibrium concept plus data inference"
+ },
+ {
+  "arxiv_id": "2610.24865",
+  "v1_date": "2026-10-17",
+  "title": "A mechanism for collective foraging: percolating recruitment cascades coupled to a maximum-entropy field",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim; rules exceed 150 words"
+ },
+ {
+  "arxiv_id": "2610.24923",
+  "v1_date": "2026-10-18",
+  "title": "Frustration and topology in the phase behavior of solute-frustrated $q$-clock models",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim"
+ },
+ {
+  "arxiv_id": "2610.25113",
+  "v1_date": "2026-10-18",
+  "title": "A learner-free swarm reaches the explore-exploit equilibrium: A self-organized attractor approximating the reinforcement-learning solution",
+  "decision": "exclude",
+  "reason": "learning-free swarm compared with neural RL; no explicit new-behavior claim"
+ },
+ {
+  "arxiv_id": "2610.26087",
+  "v1_date": "2026-10-19",
+  "title": "Twitching fiberboids in the collective : A table-top, one-dimensional, active particle gas",
+  "decision": "exclude",
+  "reason": "experimental (fibers); lattice model only rationalizes"
+ },
+ {
+  "arxiv_id": "2610.26129",
+  "v1_date": "2026-10-19",
+  "title": "Generalised Fluctuating Dynamic Density-Functional Theory: Derivation and Applications",
+  "decision": "exclude",
+  "reason": "theory derivation (fluctuating DDFT)"
+ },
+ {
+  "arxiv_id": "2610.26371",
+  "v1_date": "2026-10-19",
+  "title": "An infinite sequence of higher order Ehrenfest transitions in a one-dimensional crystal",
+  "decision": "exclude",
+  "reason": "exactly solvable model; no simulation"
+ },
+ {
+  "arxiv_id": "2610.26428",
+  "v1_date": "2026-10-19",
+  "title": "Systemic collapse emergence from climate-induced perturbations in transportation networks",
+  "decision": "exclude",
+  "reason": "data-driven case study"
+ },
+ {
+  "arxiv_id": "2610.26561",
+  "v1_date": "2026-10-19",
+  "title": "Coexistence phase of the two-dimensional Vicsek model",
+  "decision": "include",
+  "class_id": "planted:N17",
+  "reason": "Vicsek model; simulations; abstract: band patterns 'some of them never observed before'"
+ },
+ {
+  "arxiv_id": "2610.26569",
+  "v1_date": "2026-10-19",
+  "title": "Phase Diagram of the Two-Dimensional Vicsek Model",
+  "decision": "exclude",
+  "reason": "companion short paper of 2610.26561 (same group, same campaign: updated phase diagram)"
+ },
+ {
+  "arxiv_id": "2610.26638",
+  "v1_date": "2026-10-19",
+  "title": "Nucleation-type criticality with infinite number of free-energy minima beyond mean-field theory",
+  "decision": "exclude",
+  "reason": "realizes a previously predicted (de Gennes-type) behavior"
+ },
+ {
+  "arxiv_id": "2610.27787",
+  "v1_date": "2026-10-20",
+  "title": "Emergent Active-Blob Length Scale Governs the Collapse Transition of Tangentially Driven Polymers",
+  "decision": "exclude",
+  "reason": "novelty claimed for a regime ('largely unexplored') and a new scaling variable, not a new behavior"
+ },
+ {
+  "arxiv_id": "2610.28715",
+  "v1_date": "2026-10-20",
+  "title": "Low-Dimensional Reduction of Mean-Field Coupled Dynamical Systems with Units Described by Two Real Variables: Classification and Applications",
+  "decision": "exclude",
+  "reason": "mathematical classification of reducible systems"
+ },
+ {
+  "arxiv_id": "2610.29601",
+  "v1_date": "2026-10-21",
+  "title": "Stochastic resonance in time-delayed bistable active particles",
+  "decision": "exclude",
+  "reason": "single-particle stochastic resonance"
+ },
+ {
+  "arxiv_id": "2610.29670",
+  "v1_date": "2026-10-21",
+  "title": "Energy-fed commitment: a minimal model of random selection followed by reinforcement",
+  "decision": "exclude",
+  "reason": "phenomenological single-structure model; no emergent pattern"
+ },
+ {
+  "arxiv_id": "2610.29719",
+  "v1_date": "2026-10-21",
+  "title": "Hydrodynamics of microalgae in sea spray",
+  "decision": "exclude",
+  "reason": "experimental"
+ },
+ {
+  "arxiv_id": "2610.29902",
+  "v1_date": "2026-10-21",
+  "title": "Morphological instability and negative geometric friction from contact with active and driven particles",
+  "decision": "exclude",
+  "reason": "analytic"
+ },
+ {
+  "arxiv_id": "2610.29931",
+  "v1_date": "2026-10-21",
+  "title": "Two-stage Slowdown of Vacancy-mediated Diffusion in a Lattice Gas Model with Quenched Disorder and Spins",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim"
+ },
+ {
+  "arxiv_id": "2610.30266",
+  "v1_date": "2026-10-21",
+  "title": "Discrete time liquids",
+  "decision": "include",
+  "class_id": "planted:N18",
+  "reason": "classical spin lattice coupled to noisy oscillator; simulations; abstract: 'a new form of spatiotemporal order' (cross-listed cond-mat.stat-mech)"
+ },
+ {
+  "arxiv_id": "2610.30287",
+  "v1_date": "2026-10-21",
+  "title": "Non-Destructive Detection of Early Drought Stress via Spectral Submanifold Analysis",
+  "decision": "exclude",
+  "reason": "data-driven experimental method"
+ },
+ {
+  "arxiv_id": "2610.30745",
+  "v1_date": "2026-10-22",
+  "title": "Core-periphery structure induces double phase transitions in information cascades",
+  "decision": "exclude",
+  "reason": "double phase transitions reported before; new mechanism only"
+ },
+ {
+  "arxiv_id": "2610.30855",
+  "v1_date": "2026-10-22",
+  "title": "From Turing Patterns to Spike Self-Replication and Nucleation in a Growing-Domain Tulip Breaking Virus Model",
+  "decision": "exclude",
+  "reason": "asymptotic analysis of known mechanisms"
+ },
+ {
+  "arxiv_id": "2610.30958",
+  "v1_date": "2026-10-22",
+  "title": "Active phase separation from concentration-dependent diffusion in chemical networks",
+  "decision": "exclude",
+  "reason": "derivation of a known field theory"
+ },
+ {
+  "arxiv_id": "2610.32591",
+  "v1_date": "2026-10-23",
+  "title": "Multi-scale patterns arising from competing chemotactic interactions",
+  "decision": "include",
+  "class_id": "planted:N19",
+  "reason": "three-field chemotaxis PDE; simulations; abstract: 'a novel class of mixed multi-scale oscillatory coarsening patterns'"
+ },
+ {
+  "arxiv_id": "2610.33927",
+  "v1_date": "2026-10-24",
+  "title": "Interplay Between Network Heterogeneity and Activation Thresholds in Global Cascades",
+  "decision": "exclude",
+  "reason": "analytic cascade-threshold analysis; no novelty claim"
+ },
+ {
+  "arxiv_id": "2610.34769",
+  "v1_date": "2026-10-26",
+  "title": "Learning by Confusion Locates a Parametrization-Dependent Fisher Information Maximum",
+  "decision": "exclude",
+  "reason": "machine-learning method"
+ },
+ {
+  "arxiv_id": "2610.36250",
+  "v1_date": "2026-10-26",
+  "title": "cuArms: GPU-Accelerated Conflict-Based Planning for Multi-Arm Manipulation",
+  "decision": "exclude",
+  "reason": "robot motion planning"
+ },
+ {
+  "arxiv_id": "2610.36330",
+  "v1_date": "2026-10-26",
+  "title": "No friction required: Self-locking in entangled assemblies of curved filaments",
+  "decision": "exclude",
+  "reason": "elastic filament mechanics; not a simple rule model"
+ },
+ {
+  "arxiv_id": "2610.36989",
+  "v1_date": "2026-10-27",
+  "title": "A Simulation Testbed for Self-Governing Human-Machine Institutions",
+  "decision": "exclude",
+  "reason": "language-model agents"
+ },
+ {
+  "arxiv_id": "2610.37990",
+  "v1_date": "2026-10-27",
+  "title": "Symmetry-resolved periods in a cyclic-dominance automaton: separating intrinsic from lattice-induced periodicity",
+  "decision": "exclude",
+  "reason": "known automaton; new period-measurement scheme"
+ },
+ {
+  "arxiv_id": "2610.39037",
+  "v1_date": "2026-10-28",
+  "title": "Nonreciprocity Propels Nematic Defects",
+  "decision": "include",
+  "class_id": "planted:N20",
+  "reason": "nematic lattice with vision-cone coupling; simulations; abstract: consequences for nematic defects 'remain unexplored', route 'distinct from active-stress-driven motion'; 20th include, screening stopped"
+ },
+ {
+  "arxiv_id": "2610.39113",
+  "v1_date": "2026-10-29",
+  "title": "Frequency-induced Tipping: Resonance-Driven Tipping in a Threshold Predator-Prey System",
+  "decision": "exclude",
+  "reason": "two-variable forced ODE (tipping), not an emergent many-unit pattern; also after the 20th include"
+ },
+ {
+  "arxiv_id": "2610.39405",
+  "v1_date": "2026-10-29",
+  "title": "Aging and protocol dependence of thermal activation events in structural glasses",
+  "decision": "exclude",
+  "reason": "no explicit claim of new behavior ('surprisingly' only); after the 20th include"
+ },
+ {
+  "arxiv_id": "2610.40081",
+  "v1_date": "2026-10-29",
+  "title": "The coupled spread of information and potential-driven motion in evacuating agent populations",
+  "decision": "exclude",
+  "reason": "no novelty claim; after the 20th include"
+ },
+ {
+  "arxiv_id": "2610.40894",
+  "v1_date": "2026-10-29",
+  "title": "Basis statistics for phylogenetic tree shape: tree balance formulas beyond expectations",
+  "decision": "exclude",
+  "reason": "mathematical phylogenetics; after the 20th include"
+ },
+ {
+  "arxiv_id": "2610.41016",
+  "v1_date": "2026-10-29",
+  "title": "Chirality inversion and odd transport in a suspension of living rotors",
+  "decision": "exclude",
+  "reason": "experimental"
+ },
+ {
+  "arxiv_id": "2610.41161",
+  "v1_date": "2026-10-30",
+  "title": "Frustration-Induced $1/6$-Vortex-Paired Phase in a Kagome XY Model",
+  "decision": "exclude",
+  "reason": "tensor-network computation, not simulation; after the 20th include"
+ },
+ {
+  "arxiv_id": "2611.00154",
+  "v1_date": "2026-10-30",
+  "title": "Weak-coupling selection and finite-torus entropy in the triangular Ising antiferromagnet",
+  "decision": "exclude",
+  "reason": "mathematical proof; after the 20th include"
+ },
+ {
+  "arxiv_id": "2611.00222",
+  "v1_date": "2026-10-30",
+  "title": "Spatial structure promotes coexistence, resilience, and synergy in microbial communities",
+  "decision": "exclude",
+  "reason": "no explicit novelty claim; after the 20th include"
+ },
+ {
+  "arxiv_id": "2611.00618",
+  "v1_date": "2026-10-31",
+  "title": "Kinetics of Self-Organization in One Component Active Matter Systems",
+  "decision": "exclude",
+  "reason": "no novelty claim; after the 20th include"
+ }
+]

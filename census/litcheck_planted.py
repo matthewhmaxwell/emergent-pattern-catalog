@@ -34,9 +34,17 @@ def load(setname):
     return cards, truth
 
 
+def _host(d):
+    d = re.sub(r"^[a-z]+://", "", d.strip().lower()).split("/")[0]
+    return d[4:] if d.startswith("www.") else d
+
+
 def blocked_for(t):
-    extra = [d for d in [t.get("journal_domain")] + list(t.get("author_domains") or []) if d]
-    return (BASE_BLOCK + [d for d in extra if d not in BASE_BLOCK])[:64]
+    extra = [_host(d) for d in [t.get("journal_domain")] + list(t.get("author_domains") or []) if d]
+    out = []
+    for d in BASE_BLOCK + extra:
+        if d and "." in d and d not in out: out.append(d)
+    return out[:64]
 
 
 def _search_tool(max_uses, blocked):

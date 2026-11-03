@@ -1,0 +1,516 @@
+{
+ "planted:N01": {
+  "class_id": "planted:N01",
+  "kind": "novel",
+  "arxiv_id": "2609.01668",
+  "title": "Arithmetic of the sync basin for pulse-coupled oscillators",
+  "authors": [
+   "K. P. O'Keeffe"
+  ],
+  "v1_date": "2026-09-01",
+  "categories": [
+   "nlin.AO",
+   "nlin.CD"
+  ],
+  "novelty_quote": "The result adds a new member to the atlas of exotic basin geometries: alongside fractal, riddled, and tentacled basins, we now have a basin that is arithmetic.",
+  "coined_terms": [
+   "arithmetic basin",
+   "equal-size principle"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "At linear charging, all-to-all pulse-coupled oscillators end fully synchronised with probability set by the prime factorisation of N (1-1/N^N for prime N; failures ~N^-(m-1) with m the least prime factor), and only equal-size cluster states survive."
+ },
+ "planted:N02": {
+  "class_id": "planted:N02",
+  "kind": "novel",
+  "arxiv_id": "2609.01159",
+  "title": "Chemotaxis-induced linear instabilities and pattern formation in a reaction-diffusion model",
+  "authors": [
+   "Mintu Karmakar",
+   "Abhik Basu"
+  ],
+  "v1_date": "2026-09-01",
+  "categories": [
+   "nlin.PS",
+   "cond-mat.soft",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "This has several novel features, which lead to some new physical phenomena.",
+  "coined_terms": [
+   "chemotaxis-induced instability",
+   "fully reciprocal chemotaxis",
+   "extreme nonreciprocal chemotaxis",
+   "reciprocal chemotaxis",
+   "nonreciprocal chemotaxis"
+  ],
+  "journal_domain": null,
+  "author_domains": [
+   "github.com/mkarmakar094"
+  ],
+  "behavior_summary": "In a two-species reaction-diffusion (glycolysis-type) model with mutual chemotaxis, steady Turing pattern amplitude varies non-monotonically with chemotactic strength (re-entrant uniform/patterned transitions) and spots turn into stripes as chemotaxis grows."
+ },
+ "planted:N03": {
+  "class_id": "planted:N03",
+  "kind": "novel",
+  "arxiv_id": "2609.03991",
+  "title": "Boundary- and Screening-Induced Bubbly Phases in Autophoretic Active Matter",
+  "authors": [
+   "Kingshuk Panja",
+   "Günther Turk",
+   "Rajesh Singh"
+  ],
+  "v1_date": "2026-09-03",
+  "categories": [
+   "cond-mat.soft",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "Despite these advances, controlled bubbly phases have, to the best of our knowledge, not been reported in particle-resolved systems with phoretic interactions.",
+  "coined_terms": [
+   "boiling bubbles",
+   "bursting bubbles",
+   "bubbly phases",
+   "boundary- and screening-induced bubbly phases"
+  ],
+  "journal_domain": null,
+  "author_domains": [
+   "softmatter.gitlab.io"
+  ],
+  "behavior_summary": "Autophoretic disks with chemo-attractive forces and chemo-repulsive torques above a no-flux wall form dense clusters filled with circulating cavities (boiling bubbles) or clusters that repeatedly rupture (bursting bubbles), between full collapse and dynamic clustering."
+ },
+ "planted:N04": {
+  "class_id": "planted:N04",
+  "kind": "novel",
+  "arxiv_id": "2609.09500",
+  "title": "Topological instability and reentrant crystallization in active solids",
+  "authors": [
+   "Zory Davoyan",
+   "Aditya Jha",
+   "Anton Souslov"
+  ],
+  "v1_date": "2026-09-08",
+  "categories": [
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "However, at a threshold value of non-reciprocity, we discover a qualitatively distinct mechanism for 2D melting, which we call topological instability.",
+  "coined_terms": [
+   "topological instability",
+   "reentrant crystallization",
+   "odd Cosserat solid"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "A 2D solid with transverse (odd) pair forces melts by defect-pair proliferation at any temperature above a threshold activity, and recrystallises at higher activity even at temperatures where the passive crystal is liquid."
+ },
+ "planted:N05": {
+  "class_id": "planted:N05",
+  "kind": "novel",
+  "arxiv_id": "2609.14541",
+  "title": "Phase ordering kinetics in Light-Heavy-Vacancy model: unusual coarsening dynamics",
+  "authors": [
+   "Chandradip Khamrai",
+   "Sakuntala Chatterjee"
+  ],
+  "v1_date": "2026-09-13",
+  "categories": [
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "Unlike conventional phase-ordering systems, where coarsening proceeds through the formation and merger of ordered domains, here we find that domains formed at early times become unsustainable at later times.",
+  "coined_terms": [
+   "LHV model",
+   "light-heavy-vacancy",
+   "FPPS-II",
+   "VIPS",
+   "aligned bias",
+   "reverse bias"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "In a 1D two-species driven lattice gas on a fluctuating landscape, early ordered domains disintegrate and new ones form, giving two coarsening exponents (0.5 then 0.34) and a non-monotonic landscape length scale."
+ },
+ "planted:N06": {
+  "class_id": "planted:N06",
+  "kind": "novel",
+  "arxiv_id": "2609.15941",
+  "title": "Fractional vortices in a spin-isotropic spiral spin liquid",
+  "authors": [
+   "Cecilie Glittum",
+   "Han Yan",
+   "Johannes Reuther"
+  ],
+  "v1_date": "2026-09-14",
+  "categories": [
+   "cond-mat.str-el",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "We uncover a rich family of vortex types involving concerted windings of spin directions, spiral-plane normals, and wave-vector orientations, yielding a $\\mathds{Z}\\times\\mathds{Z}_{2}$ classification.",
+  "coined_terms": [
+   "half-momentum vortex",
+   "half-momentum antivortex",
+   "momentum vortex",
+   "fractional vortices",
+   "pancake liquid",
+   "ring liquid"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "In a classical Heisenberg spiral spin liquid on the square lattice, Monte Carlo shows a dense gas (~3%) of half-winding vortices of the spiral wave vector that bind into tight pairs and fuse below an order-by-disorder transition."
+ },
+ "planted:N07": {
+  "class_id": "planted:N07",
+  "kind": "novel",
+  "arxiv_id": "2609.16821",
+  "title": "Odd diffusion and power-law correlations in chiral mass-transport processes",
+  "authors": [
+   "Koushik Das",
+   "Animesh Hazra",
+   "Punyabrata Pradhan"
+  ],
+  "v1_date": "2026-09-15",
+  "categories": [
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "However, the broken symmetries give rise to fundamentally new fluctuation properties.",
+  "coined_terms": [
+   "chiral mass chipping model",
+   "chiral MCM",
+   "odd diffusion"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "Isotropic mass-transfer rules with a fixed rotational sense (L-shaped chiral moves) produce r^-4 power-law density correlations in the steady state, with long-wavelength fluctuations minimised at an optimal chirality and a square-root cusp near maximal odd diffusion."
+ },
+ "planted:N08": {
+  "class_id": "planted:N08",
+  "kind": "novel",
+  "arxiv_id": "2609.21556",
+  "title": "Phase Separation in a system of Brownian inertial rotors",
+  "authors": [
+   "Lucio Mauro Carenza",
+   "Pasquale Digregorio",
+   "Massimiliano Semeraro",
+   "Antonio Suma",
+   "Ignacio Pagonabarraga",
+   "Giuseppe Gonnella"
+  ],
+  "v1_date": "2026-09-18",
+  "categories": [
+   "cond-mat.soft",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "We uncover an emergent phase separation in a system of inertial dumbbells put into persistent rotation by a constant applied torque, breaking chiral symmetry, while interacting with each other through repulsive hard-core interactions.",
+  "coined_terms": [
+   "Brownian inertial rotors"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "Purely repulsive inertial dumbbells driven by constant torques phase-separate into a dilute liquid and a dense hexatic phase (binodal, spinodal, t^1/3 coarsening), with rigidly rotating clusters; inertia is essential."
+ },
+ "planted:N09": {
+  "class_id": "planted:N09",
+  "kind": "novel",
+  "arxiv_id": "2609.21999",
+  "title": "Merons Mediate Re-Ordering of Curved Rods Under Shear Flow",
+  "authors": [
+   "Nicholas W. Hackney",
+   "Joel T. Clemmer",
+   "Thomas O'Connor",
+   "Gary S. Grest"
+  ],
+  "v1_date": "2026-09-18",
+  "categories": [
+   "cond-mat.soft"
+  ],
+  "novelty_quote": "These findings reveal a new mechanism to create and control merons and highlight the potential application of bent-core liquid crystals in designing functional material with specific optical and computational properties.",
+  "coined_terms": [
+   "topological machines"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "Shearing the twist-bend nematic of bent rods along its helix axis makes it yield and nucleate charge-1/2 double-twist defect lines (merons) that rotate the helices into a stable orientation perpendicular to the flow."
+ },
+ "planted:N10": {
+  "class_id": "planted:N10",
+  "kind": "novel",
+  "arxiv_id": "2609.22579",
+  "title": "Gliders on Aperiodic Monotilings: Cellular Automata on the Hat and Spectre",
+  "authors": [
+   "James Edmond"
+  ],
+  "v1_date": "2026-09-18",
+  "categories": [
+   "nlin.CG"
+  ],
+  "novelty_quote": "Evolutionary search then discovers gliders on both monotilings; tracked by a sliding window that regenerates the patch along the flight, they travel one million rings at constant speed and heading.",
+  "coined_terms": [
+   "compass law",
+   "six-spoke compass",
+   "flying vocabulary",
+   "lane-locking",
+   "mortal travelers",
+   "looper",
+   "priority-table rules"
+  ],
+  "journal_domain": null,
+  "author_domains": [
+   "offlattice.org",
+   "github.com/jamesedmond"
+  ],
+  "behavior_summary": "Simple threshold cellular automata on the aperiodic hat and spectre monotilings support gliders that travel indefinitely at constant speed with headings quantised to six directions."
+ },
+ "planted:N11": {
+  "class_id": "planted:N11",
+  "kind": "novel",
+  "arxiv_id": "2609.29725",
+  "title": "Higher-Order Competition as a Minimal Mechanism for Spatial Pattern Diversity in Population Dynamics",
+  "authors": [
+   "David Pinto-Ramos",
+   "Anudeep Surendran",
+   "Ricardo Martinez-Garcia"
+  ],
+  "v1_date": "2026-09-24",
+  "categories": [
+   "nlin.AO",
+   "physics.bio-ph"
+  ],
+  "novelty_quote": "However, previous studies of the standard two-dimensional nonlocal FKPP equation reported only hexagonal arrays of population clusters.",
+  "coined_terms": [
+   "higher-order competition"
+  ],
+  "journal_domain": null,
+  "author_domains": [
+   "github.com/DPintoRamos"
+  ],
+  "behavior_summary": "Adding a three-body competition term to a purely competitive spatial birth-death model breaks the hexagonal-spots-only restriction, giving stripes and gaps and an unusual spots-stripes-spots sequence."
+ },
+ "planted:N12": {
+  "class_id": "planted:N12",
+  "kind": "novel",
+  "arxiv_id": "2609.39267",
+  "title": "Logarithmic Quasi-Long-Range Order and Novel Continuous Phase Transition in the Two-Dimensional $XY$ Model with $1/r^4$ Interaction",
+  "authors": [
+   "Xianzhi Pan",
+   "Zhijie Fan",
+   "Youjin Deng"
+  ],
+  "v1_date": "2026-09-30",
+  "categories": [
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "First, using Gaussian spin-wave theory, we show that the low-temperature phase at $\\sigma=2$ is a novel logarithmic quasi-long-range ordered (log-QLRO) phase, with $C(r)\\sim(\\ln r)^{-\\eta_{\\ell}}$ and $\\eta_{\\ell}=1/(2\\pi\\kappa)\\propto T$ , where $\\kappa$ is the dimensionless LR coupling strength.",
+  "coined_terms": [
+   "log-QLRO",
+   "logarithmic quasi-long-range order"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "The 2D XY model with 1/r^4 couplings has a low-temperature phase whose correlations decay as a power of log r, entered through a continuous transition with power-law divergent correlation length (neither BKT nor Landau type)."
+ },
+ "planted:N13": {
+  "class_id": "planted:N13",
+  "kind": "novel",
+  "arxiv_id": "2609.39858",
+  "title": "Opinion dynamics under large-scale exogenous events",
+  "authors": [
+   "Gerard Argany Herrera",
+   "Lucila G. Alvarez-Zuzek",
+   "Oriol Artime"
+  ],
+  "v1_date": "2026-09-30",
+  "categories": [
+   "physics.soc-ph",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "For the case of the all-to-all noisy voter model under exogenous events, we unveil a rich phase diagram characterized by novel trimodal and asymmetric bimodal states.",
+  "coined_terms": [
+   "trimodal phase",
+   "upper asymmetric bimodal",
+   "lower asymmetric bimodal",
+   "shock-dominated phase",
+   "delta-shocks"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "A noisy voter model hit by random population-wide opinion shocks shows trimodal and asymmetric bimodal stationary opinion distributions in addition to the usual unimodal and bimodal ones."
+ },
+ "planted:N14": {
+  "class_id": "planted:N14",
+  "kind": "novel",
+  "arxiv_id": "2610.08522",
+  "title": "Networks of triblock ellipses: from kagome order to disordered porous networks",
+  "authors": [
+   "Susanne Wagner",
+   "Gerhard Kahl",
+   "Carina Karner"
+  ],
+  "v1_date": "2026-10-06",
+  "categories": [
+   "cond-mat.soft",
+   "cond-mat.mes-hall"
+  ],
+  "novelty_quote": "This is – to the best of our knowledge – the first observation of a kagome lattice assembled from patchy ellipses.",
+  "coined_terms": [
+   "particle-patch graph",
+   "loop order parameter",
+   "creeping"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "Hard ellipses with two polar sticky patches self-assemble into a kagome lattice that nucleates in one step directly from the gas (no chain intermediate), and into disordered porous networks at other conditions."
+ },
+ "planted:N15": {
+  "class_id": "planted:N15",
+  "kind": "novel",
+  "arxiv_id": "2610.15835",
+  "title": "Emergence of Active Foams in a Minimal Cognitive Flocking Model",
+  "authors": [
+   "Aryan Dwivedi",
+   "Diganta Bhaskar",
+   "Anil Kumar Dasanna"
+  ],
+  "v1_date": "2026-10-11",
+  "categories": [
+   "cond-mat.soft",
+   "physics.bio-ph"
+  ],
+  "novelty_quote": "We find that this regime exhibits a rich state diagram that combines characteristics of both limiting cases while giving rise to qualitatively new collective states.",
+  "coined_terms": [
+   "active foams",
+   "active foam"
+  ],
+  "journal_domain": null,
+  "author_domains": [
+   "github.com/Aryan-360"
+  ],
+  "behavior_summary": "Self-propelled particles that only steer toward neighbours inside a narrow finite-range vision cone form a system-spanning, continuously restructuring fractal-like network of particle streams (dimension ~1.5) that never coarsens."
+ },
+ "planted:N16": {
+  "class_id": "planted:N16",
+  "kind": "novel",
+  "arxiv_id": "2610.16188",
+  "title": "Self-Avoidance Governs Re-entrant Coil-Globule Transition of Inertial Active Brownian Ring Polymers",
+  "authors": [
+   "Rakesh Palariya",
+   "Arindam Panda",
+   "Roland G. Winkler",
+   "Sunil P Singh"
+  ],
+  "v1_date": "2026-10-12",
+  "categories": [
+   "cond-mat.soft"
+  ],
+  "novelty_quote": "Using Langevin dynamics simulations of an active Brownian ring polymer with translational and rotational inertia, we uncover an inertia-driven re-entrant coil–globule transition in the absence of any attractive interactions.",
+  "coined_terms": [
+   "ABRP+TRI"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "A self-avoiding ring of active Brownian beads with rotational inertia collapses into a dense globule (over tenfold smaller) at intermediate activity with outward-polarised propulsion, then re-swells at high activity; translational inertia opposes collapse."
+ },
+ "planted:N17": {
+  "class_id": "planted:N17",
+  "kind": "novel",
+  "arxiv_id": "2610.26561",
+  "title": "Coexistence phase of the two-dimensional Vicsek model",
+  "authors": [
+   "Yu Duan",
+   "Hugues Chaté",
+   "Benoît Mahault",
+   "Xia-qing Shi"
+  ],
+  "v1_date": "2026-10-19",
+  "categories": [
+   "cond-mat.stat-mech",
+   "cond-mat.soft"
+  ],
+  "novelty_quote": "Here we report on the diversity of band patterns observed in its coexistence phase –some of them never observed before–, but we also argue that most disappear in the infinite-size limit, leaving nevertheless a different picture than anticipated previously.",
+  "coined_terms": [
+   "counter-going smectic lanes",
+   "fat bands",
+   "inverse bands",
+   "cross-sea"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "In the coexistence phase of the 2D Vicsek model, side-by-side lanes of band trains travelling in opposite directions (and fat/inverse bands) form at particle level; long lanes buckle and the ordered band states are metastable."
+ },
+ "planted:N18": {
+  "class_id": "planted:N18",
+  "kind": "novel",
+  "arxiv_id": "2610.30266",
+  "title": "Discrete time liquids",
+  "authors": [
+   "Zuo Wang",
+   "Paul M. Schindler",
+   "Marin Bukov",
+   "Marios H. Michael"
+  ],
+  "v1_date": "2026-10-21",
+  "categories": [
+   "cond-mat.str-el",
+   "cond-mat.quant-gas",
+   "cond-mat.stat-mech",
+   "quant-ph"
+  ],
+  "novelty_quote": "Here we identify discrete time liquids – a new form of spatiotemporal order characterized by short-range temporal coherence as a result of time-solitons.",
+  "coined_terms": [
+   "discrete time liquids",
+   "time liquid",
+   "time-solitons",
+   "time-soliton"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "A classical spin lattice driven only by a thermally fluctuating cavity mode shows robust period-doubled response that stochastically switches sign (temporal defects), giving finite temporal coherence."
+ },
+ "planted:N19": {
+  "class_id": "planted:N19",
+  "kind": "novel",
+  "arxiv_id": "2610.32591",
+  "title": "Multi-scale patterns arising from competing chemotactic interactions",
+  "authors": [
+   "Agniva Datta",
+   "Robert Großmann",
+   "Carsten Beta"
+  ],
+  "v1_date": "2026-10-23",
+  "categories": [
+   "physics.bio-ph",
+   "cond-mat.soft",
+   "cond-mat.stat-mech"
+  ],
+  "novelty_quote": "We show that this can give rise to diverse patterns including long wavelength uninterrupted coarsening, Turing-like arrested coarsening, traveling waves as well as a novel class of mixed multi-scale oscillatory coarsening patterns, where a dense aggregate coexist with a dynamically spreading part of the population.",
+  "coined_terms": [
+   "exceptional instability",
+   "multi-scale oscillatory coarsening"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "A Keller-Segel model with chemotaxis toward a self-made attractant and a consumed nutrient produces a dense aggregate coexisting with travelling bands of cells."
+ },
+ "planted:N20": {
+  "class_id": "planted:N20",
+  "kind": "novel",
+  "arxiv_id": "2610.39037",
+  "title": "Nonreciprocity Propels Nematic Defects",
+  "authors": [
+   "Yunpeng Cao",
+   "Yu Du",
+   "Yao Li"
+  ],
+  "v1_date": "2026-10-28",
+  "categories": [
+   "cond-mat.soft"
+  ],
+  "novelty_quote": "Nonreciprocal interactions are a generic source of nonequilibrium dynamics, yet their consequences for nematic topological defects remain unexplored.",
+  "coined_terms": [
+   "nematic nonreciprocal torque",
+   "four-defect mode",
+   "3(+1/2)-1/2 four-defect mode",
+   "binary splitting mode"
+  ],
+  "journal_domain": null,
+  "author_domains": [],
+  "behavior_summary": "Vision-cone-type nonreciprocal coupling on a nematic lattice makes +1/2 defects self-propel along their polar axis without active stress, and makes +1 defects split into three +1/2 and one -1/2 defect at strong nonreciprocity."
+ }
+}
