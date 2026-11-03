@@ -1,0 +1,113 @@
+{
+ "setting": {
+  "a": 0.015,
+  "b": 10.0,
+  "D1": 0.01,
+  "D2": 10.0,
+  "c": 0.17,
+  "c1": 0.17,
+  "c2": -0.17,
+  "dx": 0.04908738521234052,
+  "init_noise": 0.01,
+  "dt": 0.01,
+  "W_census": 64,
+  "W_area4": 128,
+  "W": 128,
+  "domain": "2 pi",
+  "seeds": 1,
+  "T": 500,
+  "cs": [
+   0.01,
+   0.17,
+   0.49
+  ]
+ },
+ "cost_s_per_time_unit": 1.8114023208618164,
+ "paper": {
+  "source": "Figs. 17-18 (D1 = 0.01, D = 1000): fuzzy spots at 0.01, sharp spots at 0.17, uniform at 0.49; amplitude Delta_phi first rises then falls with c",
+  "expected": "Delta_phi(0.17) > Delta_phi(0.01); Delta_phi(0.49) = 0"
+ },
+ "tolerance": "mean Delta_phi(0.17) > mean Delta_phi(0.01) and Delta_phi(0.49) < 0.01 * Delta_phi(0.17) in every seed, no blow-up at 0.49",
+ "linear_theory_Eq22_minDet": {
+  "0.01": {
+   "min_Det": -115.84634688906664,
+   "k2_at_min": 46.44
+  },
+  "0.17": {
+   "min_Det": -285.3874399077138,
+   "k2_at_min": 54.68
+  },
+  "0.49": {
+   "min_Det": -312.7536853692946,
+   "k2_at_min": 34.84
+  }
+ },
+ "results": {
+  "0.01": {
+   "Delta_phi": [
+    6.275438771576905
+   ],
+   "Delta_psi": [
+    0.020820233172641894
+   ],
+   "Delta_phi_mean": 6.275438771576905,
+   "stationarity": [
+    0.0076256225657007366
+   ],
+   "mean_u": [
+    9.99999955058791
+   ],
+   "unstable": false,
+   "steps_run": 500,
+   "final_substeps": 100,
+   "truncated_by_deadline": false,
+   "seconds": 779.0693471431732
+  },
+  "0.17": {
+   "Delta_phi": [
+    13.020943299825358
+   ],
+   "Delta_psi": [
+    0.023273141593000226
+   ],
+   "Delta_phi_mean": 13.020943299825358,
+   "stationarity": [
+    0.012923588694850498
+   ],
+   "mean_u": [
+    10.000000483108373
+   ],
+   "unstable": false,
+   "steps_run": 500,
+   "final_substeps": 100,
+   "truncated_by_deadline": false,
+   "seconds": 663.2080535888672
+  },
+  "0.49": {
+   "Delta_phi": [
+    23.758965084921183
+   ],
+   "Delta_psi": [
+    0.03741515757669208
+   ],
+   "Delta_phi_mean": 23.758965084921183,
+   "stationarity": [
+    0.01902717879041619
+   ],
+   "mean_u": [
+    10.000002239905694
+   ],
+   "unstable": false,
+   "steps_run": 500,
+   "final_substeps": 200,
+   "truncated_by_deadline": false,
+   "seconds": 1374.195848941803
+  }
+ },
+ "leg_larger_at_017": true,
+ "leg_absent_at_049": false,
+ "seconds": 2830.4879467487335,
+ "pass": false,
+ "secs": 2832.3,
+ "run": "2026-11-03 11:56:23"
+}

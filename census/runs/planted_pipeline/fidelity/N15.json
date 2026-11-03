@@ -1,0 +1,34 @@
+{
+ "setting": {
+  "N": 10000,
+  "box": 100.0,
+  "Rv": 5.0,
+  "theta": "pi/8",
+  "Omega": 3.0,
+  "Dr": 0.08,
+  "v0": 0.1,
+  "dt": 0.005
+ },
+ "time_units_run": 210,
+ "integration_steps": 42000,
+ "frames": 22,
+ "measured": {
+  "corr_dim_last_half": 1.419,
+  "corr_dim_sd": 0.012,
+  "box_dim_last_half": 1.517,
+  "struct_length_q3": 4.41,
+  "struct_length_q4": 4.32,
+  "length_ratio_q4_q3": 0.979,
+  "spanning_share": 0.979
+ },
+ "paper": {
+  "corr_dim": 1.5,
+  "non_coarsening": true,
+  "run_time_units": 50000
+ },
+ "tolerance": "1.3 <= D <= 1.7 and l(q4)/l(q3) <= 1.25",
+ "pass": true,
+ "elapsed_s": 6639.7,
+ "secs": 6640.6,
+ "run": "2026-11-03 12:23:45"
+}

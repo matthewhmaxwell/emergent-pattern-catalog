@@ -1,0 +1,153 @@
+{
+ "setting": {
+  "kappa_a": 11.1,
+  "kappa_n": 14.0,
+  "delta_a": 2.5,
+  "delta_n": 0.75,
+  "beta": 0.084,
+  "dx": 1.0,
+  "init_noise": 0.01,
+  "dt_max": 0.01,
+  "W_census": 64,
+  "W_area4": 128,
+  "W": 50,
+  "seeds": 3,
+  "T": 3250
+ },
+ "cost_s_per_time_unit_patterned": 0.6787870049476623,
+ "paper": {
+  "source": "Fig. 2 (said to correspond to dispersion K of Fig. 3, the red 'exceptional' region; L = 50): one dense droplet (b ~ 10) moving in a background of travelling bands",
+  "dense_aggregate_count": 1,
+  "coexisting_structure_types": 2
+ },
+ "deviation": "P1: headline = point K of Fig. 3A (kappa_a 11.1 +- 0.2, beta 0.084 +- 0.003) instead of the Fig. 2 caption values (kappa_a 5, beta 0.02), which are linearly stable by Eq. 2",
+ "tolerance": "per run: >= 50 % of late-window frame pairs with N_agg = 1 (b > 5, >= 4 sites), aggregate mass fraction 0.05-0.9, background std >= 0.1, background motion R >= 0.3; pass if a majority of seeds show it (at the headline, point K)",
+ "linear_theory_Eq2": {
+  "headline_K": {
+   "max_re_sigma": 0.2124027282832346,
+   "q": 0.586669293787784,
+   "omega": 0.0
+  },
+  "caption_values": {
+   "max_re_sigma": -0.0009855241722184277,
+   "q": 0.2368417688602784,
+   "omega": 0.057946435880375666
+  }
+ },
+ "headline_K": {
+  "params": {
+   "ka": 11.1,
+   "beta": 0.084
+  },
+  "unstable": false,
+  "steps_run": 3250,
+  "substeps": 325000,
+  "seconds": 1917.8859672546387,
+  "per_seed": [
+   {
+    "share_pairs_ok": 1.0,
+    "shows_behaviour": true,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "1": 162
+    },
+    "mean_agg_mass_frac": 0.6354458530807443,
+    "mean_bg_std": 0.33930169359282103,
+    "mean_motion": 1.5857857971107416,
+    "mean_b_max": 12.863824750170295,
+    "pairs": 162,
+    "t_from": 1625.0
+   },
+   {
+    "share_pairs_ok": 1.0,
+    "shows_behaviour": true,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "1": 162
+    },
+    "mean_agg_mass_frac": 0.6396343946294158,
+    "mean_bg_std": 0.35846039055312584,
+    "mean_motion": 1.5605484282954891,
+    "mean_b_max": 12.870661929801658,
+    "pairs": 162,
+    "t_from": 1625.0
+   },
+   {
+    "share_pairs_ok": 1.0,
+    "shows_behaviour": true,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "1": 162
+    },
+    "mean_agg_mass_frac": 0.6394441136850973,
+    "mean_bg_std": 0.3603027129291193,
+    "mean_motion": 1.5602369672588579,
+    "mean_b_max": 12.86919014542191,
+    "pairs": 162,
+    "t_from": 1625.0
+   }
+  ],
+  "seeds_showing": 3,
+  "passes": true
+ },
+ "caption_values_diagnostic": {
+  "params": {
+   "ka": 5.0,
+   "beta": 0.02
+  },
+  "unstable": false,
+  "steps_run": 3250,
+  "substeps": 325000,
+  "seconds": 1823.9661493301392,
+  "per_seed": [
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 0.0,
+    "n_agg_hist": {
+     "0": 162
+    },
+    "mean_agg_mass_frac": 0.0,
+    "mean_bg_std": 8.553723063679404e-05,
+    "mean_motion": 0.8574926014697094,
+    "mean_b_max": 1.000162543705952,
+    "pairs": 162,
+    "t_from": 1625.0
+   },
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 0.0,
+    "n_agg_hist": {
+     "0": 162
+    },
+    "mean_agg_mass_frac": 0.0,
+    "mean_bg_std": 0.00011201552450974936,
+    "mean_motion": 0.958584660777395,
+    "mean_b_max": 1.0001953796104148,
+    "pairs": 162,
+    "t_from": 1625.0
+   },
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 0.0,
+    "n_agg_hist": {
+     "0": 162
+    },
+    "mean_agg_mass_frac": 0.0,
+    "mean_bg_std": 6.799387179397711e-05,
+    "mean_motion": 0.7944273686636182,
+    "mean_b_max": 1.000333548328023,
+    "pairs": 162,
+    "t_from": 1625.0
+   }
+  ],
+  "seeds_showing": 0,
+  "passes": false
+ },
+ "pass": true,
+ "seconds": 3880.5763959884644,
+ "secs": 3882.9,
+ "run": "2026-11-03 12:13:54"
+}

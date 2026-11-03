@@ -1,0 +1,81 @@
+{
+ "check": "probability of full synchrony from uniform random starts, N = 4, 5, 6 (paper eq. 4)",
+ "setting": {
+  "gamma": 0.0,
+  "kick": "k/N",
+  "absorption": true
+ },
+ "tolerance": "enumeration count == paper A_{N,1}; |P_MC - A_{N,1}/N^N| <= 4 binomial SE",
+ "per_N": {
+  "4": {
+   "enumeration": "227/256",
+   "paper": "227/256",
+   "paper_rounded": 0.887,
+   "P_enum": 0.88671875,
+   "P_mc": 0.8866321,
+   "se_mc": 0.00010022405320003652,
+   "z": -0.8645629191130573,
+   "final_cluster_counts_enum": {
+    "1": 227,
+    "2": 28,
+    "4": 1
+   },
+   "final_cluster_counts_mc": {
+    "1": 8866321,
+    "2": 1094563,
+    "4": 39116
+   },
+   "unresolved": 0,
+   "enum_pass": true,
+   "mc_pass": true
+  },
+  "5": {
+   "enumeration": "3124/3125",
+   "paper": "3124/3125",
+   "paper_rounded": 0.99968,
+   "P_enum": 0.99968,
+   "P_mc": 0.9996805,
+   "se_mc": 5.655949080393024e-06,
+   "z": 0.0884024931716893,
+   "final_cluster_counts_enum": {
+    "1": 3124,
+    "5": 1
+   },
+   "final_cluster_counts_mc": {
+    "1": 9996805,
+    "5": 3195
+   },
+   "unresolved": 0,
+   "enum_pass": true,
+   "mc_pass": true
+  },
+  "6": {
+   "enumeration": "42275/46656",
+   "paper": "42275/46656",
+   "paper_rounded": 0.906,
+   "P_enum": 0.9060999657064472,
+   "P_mc": 0.9061273,
+   "se_mc": 9.224034792498475e-05,
+   "z": 0.2963377108568313,
+   "final_cluster_counts_enum": {
+    "1": 42275,
+    "2": 3930,
+    "3": 450,
+    "6": 1
+   },
+   "final_cluster_counts_mc": {
+    "1": 9061273,
+    "2": 842088,
+    "3": 96442,
+    "6": 197
+   },
+   "unresolved": 0,
+   "enum_pass": true,
+   "mc_pass": true
+  }
+ },
+ "n_mc": 10000000,
+ "pass": true,
+ "secs": 188.2,
+ "run": "2026-11-03 10:21:51"
+}

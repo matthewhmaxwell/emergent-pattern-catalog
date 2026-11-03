@@ -1,0 +1,151 @@
+{
+ "check": "peaks of the stationary distribution of m at the trimodal setting (Fig. 6 d)",
+ "setting": {
+  "N": 500,
+  "eta": 0.00031622776601683794,
+  "r": 3.1622776601683795e-05,
+  "m_r": 0.3,
+  "m_0": 0.3
+ },
+ "tolerance": {
+  "a": "exact PMFs (census rules, eq. 27), binned as in b: exactly 3 peaks with relative prominence >= 0.1 at -1, +1 and the m_r bin",
+  "b": "simulated binned density (25-state bins + consensus cells): exactly 3 peaks with relative prominence >= 0.1 at -1, +1 and the m_r bin; KS distance to exact <= 0.02"
+ },
+ "paper": {
+  "peaks": 3,
+  "middle_peak": 0.3
+ },
+ "exact": {
+  "binned": {
+   "census_rules": {
+    "binned_peaks_m": [
+     -1.0,
+     0.30000000000000004,
+     1.0
+    ],
+    "pass": true
+   },
+   "paper_eq27": {
+    "binned_peaks_m": [
+     -1.0,
+     0.30000000000000004,
+     1.0
+    ],
+    "pass": true
+   }
+  },
+  "census_rules_state_peaks_m": [
+   -1.0,
+   0.30000000000000004,
+   1.0
+  ],
+  "paper_eq27_state_peaks_m": [
+   -1.0,
+   0.30000000000000004,
+   1.0
+  ],
+  "pmf_at_peaks": [
+   0.005263863898403502,
+   0.005731556176699586,
+   0.030411199539071218
+  ],
+  "consensus_mass": 0.03567506343747472
+ },
+ "simulation": {
+  "replicas": 2000,
+  "burn_sweeps": 1000,
+  "sample_sweeps": 4000,
+  "ks_distance": 0.0009539380882496659,
+  "binned_peaks_m": [
+   -1.0,
+   0.30000000000000004,
+   1.0
+  ],
+  "consensus_mass": 0.0350505,
+  "pmf_sim_at_exact_peaks": [
+   0.005113125,
+   0.005745875,
+   0.029937375
+  ],
+  "binned_density_sim": [
+   0.005113,
+   0.000373,
+   0.000236,
+   0.000281,
+   0.000368,
+   0.000467,
+   0.000603,
+   0.000779,
+   0.001012,
+   0.001309,
+   0.001706,
+   0.002248,
+   0.003018,
+   0.004146,
+   0.005337,
+   0.004441,
+   0.003454,
+   0.0027,
+   0.002126,
+   0.001685,
+   0.001432,
+   0.002233,
+   0.029937
+  ],
+  "binned_density_exact": [
+   0.005264,
+   0.000388,
+   0.000249,
+   0.000292,
+   0.000367,
+   0.000467,
+   0.000598,
+   0.00077,
+   0.000995,
+   0.001295,
+   0.001698,
+   0.002251,
+   0.003024,
+   0.004131,
+   0.005324,
+   0.004447,
+   0.003458,
+   0.0027,
+   0.00212,
+   0.001686,
+   0.001439,
+   0.00224,
+   0.030411
+  ],
+  "bin_centres_m": [
+   -1.0,
+   -0.974,
+   -0.9,
+   -0.8,
+   -0.7,
+   -0.6,
+   -0.5,
+   -0.4,
+   -0.3,
+   -0.2,
+   -0.1,
+   0.0,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.974,
+   1.0
+  ]
+ },
+ "a_pass": true,
+ "b_pass": true,
+ "pass": true,
+ "secs": 2846.9,
+ "run": "2026-11-03 11:53:54"
+}

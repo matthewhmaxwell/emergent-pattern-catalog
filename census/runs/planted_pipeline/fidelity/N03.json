@@ -1,0 +1,39 @@
+{
+ "setting": {
+  "N": 1000,
+  "box": 250.66,
+  "kappa": 0.2,
+  "mu_r": 0.3,
+  "Lambda_c": 1.0,
+  "Pe": 100,
+  "v0": 2.0,
+  "phi": 0.05
+ },
+ "time_units_run": 2460,
+ "late_window": [
+  1640,
+  2460
+ ],
+ "late_frames": 82,
+ "measured": {
+  "S_mean": 1.0,
+  "sigma_S": 0.0,
+  "Q_mean": 5.14,
+  "cavity_frame_share": 0.0,
+  "cavity_count_mean": 0.0,
+  "cavity_area_mean": 0.0
+ },
+ "paper": {
+  "boiling": {
+   "S": 1.0,
+   "sigma_S": 0.0,
+   "Q": "< 5.0 (Fig. 3b ~4.4)"
+  },
+  "full_collapse_Q": "> 5.6"
+ },
+ "tolerance": "S_mean >= 0.9, sigma_S <= 0.05, Q_mean < 5.0, cavity in >= 50% of late frames",
+ "pass": false,
+ "elapsed_s": 6504.0,
+ "secs": 6504.9,
+ "run": "2026-11-03 12:21:29"
+}

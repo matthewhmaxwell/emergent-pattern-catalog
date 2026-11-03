@@ -1,0 +1,77 @@
+{
+ "setting": {
+  "phi": 0.65,
+  "T": 0.01,
+  "gamma": 0.01,
+  "m": 1.0,
+  "dt": 0.002,
+  "Pe": [
+   5.0,
+   0.0
+  ]
+ },
+ "estimated_s_per_bead_tau": 0.0003177327802404761,
+ "runs": [
+  {
+   "Pe": 5.0,
+   "N_beads": 4096,
+   "box": 70.35,
+   "grid": 4,
+   "cell_sigma": 17.59,
+   "time_units": 5847,
+   "frames_used": 468,
+   "peaks": [
+    [
+     0.648,
+     28.79
+    ]
+   ],
+   "unstable": false,
+   "phi_loc_mean": 0.65,
+   "phi_loc_sd": 0.0082
+  },
+  {
+   "Pe": 0.0,
+   "N_beads": 4096,
+   "box": 70.35,
+   "grid": 4,
+   "cell_sigma": 17.59,
+   "time_units": 300,
+   "frames_used": 24,
+   "peaks": [
+    [
+     0.648,
+     30.84
+    ]
+   ],
+   "unstable": false,
+   "phi_loc_mean": 0.65,
+   "phi_loc_sd": 0.0068
+  }
+ ],
+ "measured": {
+  "Pe5_coexisting": null,
+  "Pe0_peaks": [
+   [
+    0.648,
+    30.84
+   ]
+  ]
+ },
+ "paper": {
+  "Pe5_binodal_approx": [
+   0.55,
+   0.73
+  ],
+  "Pe2.5_fig6_peaks": [
+   0.57,
+   0.71
+  ],
+  "Pe0": "single peak at phi"
+ },
+ "tolerance": "Pe=5: two peaks >= 0.08 apart, low in [0.45,0.62], high in [0.68,0.80]; Pe=0: one peak within 0.02 of 0.65",
+ "pass": false,
+ "elapsed_s": 6389.2,
+ "secs": 6389.9,
+ "run": "2026-11-03 12:19:34"
+}

@@ -1,0 +1,37 @@
+{
+ "domain": 10.0,
+ "N0": 4000,
+ "t_total": 0.426,
+ "seconds_per_refresh_est": 0.7582,
+ "estimated_s": 6457.7,
+ "runs": [
+  {
+   "gamma": 3.14e-05,
+   "t_planned": 0.4258828288899018,
+   "t_reached": 0.4259,
+   "A_median": 0.10729215132487373,
+   "spot_psi6_median": 0.42117759165542556,
+   "pop_mean": 162388.85,
+   "snapshots": 20,
+   "authors_A": 0.169
+  },
+  {
+   "gamma": 3.27e-06,
+   "t_planned": 0.4258828288899018,
+   "t_reached": 0.2081,
+   "A_median": 0.01595727159216998,
+   "spot_psi6_median": 0.8872631142951709,
+   "pop_mean": 206126.0,
+   "snapshots": 1,
+   "authors_A": 0.025
+  }
+ ],
+ "elapsed_s": 6840.4,
+ "paper": "Fig. 1/2a and authors' IBM cache: A = 0.025 (3.27e-6, hexagonal spots), 0.916 (2.356e-5, stripes), 0.169 (3.14e-5, gaps)",
+ "tolerance": "plan check: A(3.14e-5) >= 0.6 and A(3.27e-6) <= 0.3 with spot psi6 >= 0.6; paper match: every |A - authors' A| <= 0.15 and spot psi6 >= 0.6 at 3.27e-6",
+ "plan_check_pass": false,
+ "paper_match_pass": true,
+ "pass": false,
+ "secs": 6841.4,
+ "run": "2026-11-03 12:41:15"
+}

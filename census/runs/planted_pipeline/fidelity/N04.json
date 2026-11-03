@@ -1,0 +1,27 @@
+{
+ "setting": "rho 0.87, T 6, e_a/e_p 33 vs 0",
+ "N": 400,
+ "box": "rectangle commensurate with a perfect triangular lattice",
+ "t_total": 8.363530372355013,
+ "dt_headline": 1e-05,
+ "dt_passive": 0.00025,
+ "estimated_s": 5760.0,
+ "headline": {
+  "psi6_global": 0.870663057023952,
+  "psi6_local": 0.8941046444510808,
+  "g6_5a": 0.9339898306806728,
+  "defect_fraction": 0.0
+ },
+ "passive": {
+  "psi6_global": 0.8242053355099976,
+  "psi6_local": 0.863284364458645,
+  "g6_5a": 0.8933271781615207,
+  "defect_fraction": 0.0004761904761904762
+ },
+ "n_deep_overlap": 0,
+ "paper": "Fig. 1(b): e_a/e_p=33, T=6 ordered (g6 flat); e_a/e_p=0, T=6 liquid (g6 decays)",
+ "tolerance": "PASS if psi6_global(headline) - psi6_global(passive) >= 0.2 and g6_5a(headline) >= 0.3 > g6_5a(passive)",
+ "pass": false,
+ "secs": 4170.0,
+ "run": "2026-11-03 12:45:37"
+}
