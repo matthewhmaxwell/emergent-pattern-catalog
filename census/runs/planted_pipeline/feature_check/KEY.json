@@ -1,0 +1,14 @@
+{
+ "K01": "pipeline:N02:F0",
+ "K02": "pipeline:N02:F1",
+ "K03": "pipeline:N03:A",
+ "K04": "pipeline:N04:A",
+ "K05": "pipeline:N07:F0",
+ "K06": "pipeline:N11:F0",
+ "K07": "pipeline:N12:C.phase",
+ "K08": "pipeline:N15:A",
+ "K09": "pipeline:N17:A",
+ "K10": "pipeline:N19:F0",
+ "K11": "pipeline:N19:F1",
+ "K12": "pipeline:N19:F2"
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "card": "K01",
+    "label": "PARTLY",
+    "feature": "f_std",
+    "needs_sweep_or_comparison": true,
+    "reason": "f_std is pattern amplitude at the single setting c=0.17, and f_n_blobs responds to spots versus stripes, but the paper's measure is how amplitude and pattern type change across chemotactic strength (non-monotonic, c=0.01 versus c=0.49). That needs a sweep over c, so no feature from this one run can be YES."
+  },
+  {
+    "card": "K02",
+    "label": "PARTLY",
+    "feature": "f_std",
+    "needs_sweep_or_comparison": true,
+    "reason": "This is the same system, setting and feature set as K01: f_std gives amplitude at one c and f_n_blobs responds to spot/stripe morphology. The non-monotonic amplitude and the spots-to-stripes change are defined across a sweep in c, which one run cannot give."
+  },
+  {
+    "card": "K03",
+    "label": "PARTLY",
+    "feature": "a_density_cv",
+    "needs_sweep_or_comparison": false,
+    "reason": "a_density_cv and a_nn_ratio track clustering, which relates to the paper's cluster fraction. But they would read the same for full collapse or ordinary dynamic clustering, and no feature detects circulating cavities inside clusters. a_ang_mom is global about the centroid, so local circulation inside clusters largely cancels out of it."
+  },
+  {
+    "card": "K04",
+    "label": "NO",
+    "feature": "a_nn_ratio",
+    "needs_sweep_or_comparison": true,
+    "reason": "The paper's measure is six-fold bond-orientational (hexatic) order and defects. No card feature computes local angular order of positions: a_nn_ratio is mean spacing, which barely separates solid from liquid at this density, and a_polar/a_local_align are particle-heading alignment. The measure is also defined relative to the passive system at the same temperature, which needs a comparison run."
+  },
+  {
+    "card": "K05",
+    "label": "PARTLY",
+    "feature": "f_peak_k",
+    "needs_sweep_or_comparison": false,
+    "reason": "f_peak_k (location of the radial power-spectrum peak, which shifts when long-wavelength density fluctuations are suppressed) and f_moran (lag-1 density autocorrelation) are the same kind of quantity as the paper's density-density correlation. Neither gives the decay exponent, though, so neither can show an r^-4 tail versus ordinary short-range correlations. The fitted exponent can come from one steady-state run; the achiral version is the paper's reference contrast, not a required input to the exponent."
+  },
+  {
+    "card": "K06",
+    "label": "PARTLY",
+    "feature": "f_n_blobs",
+    "needs_sweep_or_comparison": false,
+    "reason": "f_n_blobs responds to pattern type: many regions for spots, few elongated regions for stripes, one connected region for gaps. But it also depends on wavelength and noise, so it does not separate stripes from hexagonal spots the way the paper's anisotropy index does. The radial spectrum features (f_peak_sharp, f_peak_k) are angle-averaged and discard anisotropy."
+  },
+  {
+    "card": "K07",
+    "label": "PARTLY",
+    "feature": "p_r",
+    "needs_sweep_or_comparison": true,
+    "reason": "p_r is the global magnetisation magnitude, so p_r^2 is the paper's quantity, but at one system size only. The paper's measure is how squared magnetisation decays with L (as a power of log L), which needs a sweep over system size, so no single-run feature can be YES."
+  },
+  {
+    "card": "K08",
+    "label": "PARTLY",
+    "feature": "a_density_cv",
+    "needs_sweep_or_comparison": false,
+    "reason": "a_density_cv and a_nn_ratio respond to particles collecting into streams, but compact clusters or bands would read the same way. No feature measures fractal dimension, system-spanning connectivity, or whether the structure coarsens over time. Those could all be taken from one run (box counting on snapshots, tracking over time), but they are not on the card."
+  },
+  {
+    "card": "K09",
+    "label": "PARTLY",
+    "feature": "a_polar",
+    "needs_sweep_or_comparison": false,
+    "reason": "Lanes moving in opposite directions would lower global a_polar while a_local_align stays high, so these features respond to the behaviour. But a low a_polar also arises from ordinary disorder or band dynamics, and no feature resolves side-by-side lanes or their directions of travel. Lanes are visible in a single run, so no sweep is needed."
+  },
+  {
+    "card": "K10",
+    "label": "PARTLY",
+    "feature": "f_n_blobs",
+    "needs_sweep_or_comparison": false,
+    "reason": "f_n_blobs (number of high-density regions) and f_change (motion) respond to an aggregate plus moving bands. They cannot tell one aggregate coexisting with travelling bands apart from several aggregates, pure bands, or ordinary coarsening in Keller-Segel models. The coexistence is a single-run observation."
+  },
+  {
+    "card": "K11",
+    "label": "PARTLY",
+    "feature": "f_n_blobs",
+    "needs_sweep_or_comparison": false,
+    "reason": "This is the same system and feature set as K10. f_n_blobs and f_change respond to aggregates and motion, but neither identifies a single dense aggregate coexisting with travelling bands rather than ordinary aggregation or banding."
+  },
+  {
+    "card": "K12",
+    "label": "PARTLY",
+    "feature": "f_n_blobs",
+    "needs_sweep_or_comparison": false,
+    "reason": "This is the same system and feature set as K10/K11, and the judgement is the same. Blob count and frame-to-frame change respond to the behaviour, but no feature distinguishes aggregate-plus-travelling-band coexistence from ordinary Keller-Segel patterns."
+  }
+]
