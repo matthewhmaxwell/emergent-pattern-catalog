@@ -1,0 +1,111 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion / Turing pattern formation with nonlinear (taxis-type) cross-diffusion; Sel'kov (Schnakenberg-type activator-substrate depletion) kinetics",
+ "standard_name": "Cross-diffusion-driven Turing instability / Turing patterns in Sel'kov-Schnakenberg systems with cross-diffusion (chemotaxis-type, nonreciprocal)",
+ "confidence": "medium",
+ "citations": [
+  "Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. 70:709-743 - cross-diffusion-driven instability conditions for activator-depleted kinetics (Schnakenberg etc.), no need for a large diffusion ratio",
+  "Gambino, Lombardo, Lupo & Sammartino 2016, Ricerche di Matematica (arXiv:1501.04890) - Schnakenberg model with linear cross-diffusion, Turing region enlarged, super/subcritical bifurcations",
+  "Gambino, Lombardo & Sammartino 2012, Math. Comput. Simul. 82:1112-1132 - nonlinear cross-diffusion destabilises uniform state and initiates patterns",
+  "Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction-Diffusion and Chemotaxis, Bull. Math. Biol. 2023 - chemotaxis coupled to Schnakenberg Turing system",
+  "Applied Mathematics and Computation vol. 431 (2022) - Sel'kov glycolysis model with cross-diffusion, Turing instability (authors not seen)",
+  "Schnakenberg 1979, J. Theor. Biol. 81:389-400 - original kinetics (seen only as a citation in the Madzvamuse abstract)",
+  "Brauns & Marchetti 2024, Phys. Rev. X 14, 021014 - nonreciprocal pattern formation of conserved fields (conceptually related, not a direct match)"
+ ],
+ "searches": [
+  "Schnakenberg model cross-diffusion Turing patterns chemotaxis-like cross-diffusion opposite signs",
+  "Turing patterns cross-diffusion nonreciprocal Schnakenberg pattern formation without self-diffusion ratio large D",
+  "Schnakenberg nonlinear cross-diffusion div(u grad v) chemotaxis-like attraction repulsion pattern formation spots stripes",
+  "nonreciprocal cross-diffusion Turing instability activator attracted to inhibitor Schnakenberg Brusselator",
+  "Turing patterns reaction-diffusion-taxis Schnakenberg kinetics nonlinear cross-diffusion",
+  "Brauns Marchetti nonreciprocal pattern formation of conserved fields",
+  "Madzvamuse Ndakwo Barreira cross-diffusion-driven instability J Math Biol 2015",
+  "Gambino Lombardo Sammartino Turing instability nonlinear cross-diffusion Schnakenberg-type",
+  "Selkov model cross-diffusion chemotaxis Turing pattern formation"
+ ],
+ "notes": "No source found for the exact combination of Sel'kov kinetics, nonlinear taxis cross-diffusion and opposite-sign c1=-c2=c. Most published Schnakenberg/Sel'kov work uses linear cross-diffusion, and the linearised problem about the uniform state is equivalent to the linear case with effective coefficients c1*b and c2*v*. D2/D1=1000 already puts the system in the classical Turing regime, so the observed pattern is probably a modified standard Turing pattern. Identifying the kinetics as Sel'kov is my own reading of the equations. The specific parameter point (a=0.015, b=10, c=0.17) and the quantitative metrics were not checked against the literature, and I did not compute the stability threshold myself. Several cited papers were seen only as abstracts or reference lists.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "Schnakenberg model cross-diffusion Turing patterns chemotaxis-like cross-diffusion opposite signs"
+  },
+  {
+   "query": "Turing patterns cross-diffusion nonreciprocal Schnakenberg pattern formation without self-diffusion ratio large D"
+  },
+  {
+   "query": "Schnakenberg nonlinear cross-diffusion div(u grad v) chemotaxis-like attraction repulsion pattern formation spots stripes"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion Turing instability activator attracted to inhibitor, inhibitor repelled, Schnakenberg Brusselator"
+  },
+  {
+   "query": "Turing patterns reaction-diffusion-taxis Schnakenberg kinetics nonlinear cross-diffusion linear stability simulations \"taxis\""
+  },
+  {
+   "query": "Brauns Marchetti nonreciprocal pattern formation of conserved fields"
+  },
+  {
+   "query": "Madzvamuse Ndakwo Barreira Cross-diffusion-driven instability for reaction-diffusion systems: analysis and simulations J Math Biol 2015"
+  },
+  {
+   "query": "Gambino Lombardo Sammartino Turing instability nonlinear cross-diffusion Schnakenberg-type pattern"
+  },
+  {
+   "query": "Selkov model cross-diffusion chemotaxis Turing pattern formation Selkov glycolysis nonlinear cross-diffusion"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "http://www.aimspress.com/article/doi/10.3934/era.2023211",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2023053?viewType=HTML",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/38170298",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://github.com/Patra-arya/turing_pattern",
+  "https://arxiv-export-lb.library.cornell.edu/abs/1501.04890",
+  "https://abis-files.ktu.edu.tr/avesis/7241067d-50ec-4858-9f4d-19e4ff55b6dd?AWSAccessKeyId=BFPT5LOWPQFEY89CIJ1D&Expires=1790634345&Signature=AaArCgBMVeJAHKepNZr2PBk%2BAIA%3D",
+  "https://link.springer.com/article/10.1007/s11071-026-12479-8",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://www.lhscientificpublishing.com/journals/articles/DOI-10.5890-DNC.2013.11.001.aspx",
+  "http://www.mcc.caltech.edu/BNU/Notes7_2.pdf",
+  "https://portal.mardi4nfdi.de/wiki/Cross-diffusion-driven_instability_for_reaction-diffusion_systems:_analysis_and_simulations",
+  "https://par.nsf.gov/servlets/purl/10156645",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01225-5",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://par.nsf.gov/biblio/10535384",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.15.011010",
+  "https://www2.yukawa.kyoto-u.ac.jp/~yitp-ysf2022/slides/Marchetti.pdf",
+  "https://par.nsf.gov/biblio/10634047-stability-coherent-pattern-formation-through-invasion-fitzhughnagumo-system",
+  "https://par.nsf.gov/biblio/10486333-non-reciprocal-interactions-spatially-propagate-fluctuations-ising-model",
+  "https://par.nsf.gov/search/author:%22Marchetti,%20M%20Cristina%22",
+  "https://www.mpi-cbg.de/research/researchgroups/fridtjof-brauns/research-focus",
+  "https://par.nsf.gov/biblio/10534553-standing-traveling-waves-minimal-nonlinearly-dispersive-lattice-model",
+  "https://pubmed.ncbi.nlm.nih.gov/24671430/",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "https://dergipark.org.tr/en/pub/jmsm/article/1650309",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2017.07.044",
+  "http://www.aimsciences.org/article/doi/10.3934/dcds.2016.36.2133",
+  "https://www.worldscientific.com/doi/10.1142/S0218127425500518",
+  "https://www.proquest.com/docview/1652480048?pq-origsite=gscholar&fromopenview=true",
+  "https://link.springer.com/article/10.1007/s10440-014-9903-2",
+  "https://ouci.dntb.gov.ua/en/works/9ZkBRPv7/",
+  "https://link.springer.com/article/10.1007/s11587-016-0267-y",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2022063",
+  "https://iris.unipa.it/retrieve/handle/10447/198369/1215524/198369.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The pattern-forming behaviour is well documented. I found no source that matches your exact rule system, which has Sel'kov kinetics and nonlinear taxis-type cross-diffusion with c1 = \u2212c2.\n\n**1. Model family.** This is a two-species reaction\u2013cross-diffusion system, so it belongs to reaction-diffusion and Turing pattern formation.\n- The kinetics are u' = \u2212u + a\u00b7v + u\u00b2v and v' = b \u2212 a\u00b7v \u2212 u\u00b2v. That is the Sel'kov glycolysis model, which is a Schnakenberg-type activator\u2013substrate-depletion system (the u\u00b2v autocatalysis with substrate v supplied at rate b). I identified it from the equations. The searches did not confirm the name for this exact form.\n- The cross terms c1\u00b7\u2207\u00b7(u\u2207v) and c2\u00b7\u2207\u00b7(v\u2207u) are Keller\u2013Segel-style taxis terms, a nonlinear form of cross-diffusion.\n- With c1 = c and c2 = \u2212c, u is attracted up v's gradient while v is repelled from u. This is a nonreciprocal coupling.\n- D2/D1 = 1000, so the system should already be Turing-unstable without cross-diffusion. The cross terms then modify an existing instability instead of creating a new one.\n\n**2. What the simulation shows.** The Moran's I of 0.967 means strong spatial autocorrelation, so the field is organised into structure. The sharp spectral peak at k \u2248 0.047 means a dominant wavelength. About 2.6 blobs is a small, coarse-scale, spot-like pattern. This is a standard Turing-type pattern selected by a finite wavenumber. I did not run any simulation myself. I am judging this only from the numbers you gave.\n\n**3. Literature found.**\n- **Earliest and general source (Turing patterns in Schnakenberg-type systems):** Schnakenberg, J. Theor. Biol. 81:389\u2013400 (1979). I only saw this cited in the Madzvamuse paper's abstract. I did not open it.\n- **Linear cross-diffusion in activator\u2013depleted kinetics:** Madzvamuse, Ndakwo & Barreira, \"Cross-diffusion-driven instability for reaction-diffusion systems: analysis and simulations,\" J. Math. Biol. 70:709\u2013743 (2015). It derives cross-diffusion-driven instability conditions that generalise the classical ones. It also shows that one species no longer needs to diffuse much faster than the other.\n- **Linear cross-diffusion in the Schnakenberg model, super- and sub-critical bifurcations:** Gambino, Lombardo, Lupo & Sammartino, Ricerche di Matematica (2016), arXiv:1501.04890. It studies the Turing mechanism for Schnakenberg kinetics with linear cross-diffusion, and finds that the cross terms favour destabilising the uniform state.\n- **Nonlinear cross-diffusion:** Gambino, Lombardo & Sammartino, Math. Comput. Simul. 82:1112\u20131132 (2012). It shows that cross-diffusion destabilises the uniform equilibrium and starts spatial patterns. That paper is not Schnakenberg or Sel'kov kinetics.\n- **Taxis plus Schnakenberg kinetics:** \"Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction\u2013Diffusion and Chemotaxis,\" Bull. Math. Biol. (2023). It couples chemotaxis to a reaction\u2013diffusion system with Turing instability. I did not check which sign combinations it covers.\n- **Sel'kov with cross-diffusion:** an Applied Mathematics and Computation paper (vol. 431, 2022). It builds a Sel'kov glycolysis model with cross-diffusion and proves Turing instability at the periodic solutions. I did not see its authors, so I have not listed it as a citation.\n- **Review-level source:** Maini's chapter \"The Turing Model for Biological Pattern Formation\" covers Schnakenberg spot and stripe patterns. I saw the chapter text but did not confirm its venue or year. For the nonreciprocal angle, Brauns & Marchetti, \"Nonreciprocal pattern formation of conserved fields,\" Phys. Rev. X 14, 021014 (2024) is relevant. It is about mass-conserving systems, so it is not a direct match for this non-conserved reaction system.\n\n**4. What differs from your system, and whether it matters.**\n- The published Schnakenberg and Sel'kov cross-diffusion work mostly uses linear cross-diffusion (a full diffusion matrix). Yours is nonlinear, with the flux proportional to the concentration times the other species' gradient.\n- Around the uniform state at u = b and v = b/(a+b\u00b2), the linear stability analysis is mathematically similar to the linear case, with effective cross-diffusion coefficients c1\u00b7b and c2\u00b7v*. Linear cross-diffusion therefore gives the linear stability picture. Cross-diffusion terms can still change the nonlinear pattern selection and amplitude.\n- The opposite-sign pairing (c1 = \u2212c2) is the part I could not find treated for this specific kinetics. The general reaction-cross-diffusion theory should cover it. Cross-diffusion can enlarge the unstable region, and a Turing pattern emerges here. That is what the theory predicts for this large diffusion ratio.\n- I did not find a source for the particular parameter point (a = 0.015, b = 10, c = 0.17), so the quantitative spot count and wavelength are not checked against anything.\n\n**5. Confidence: medium.**\n- The qualitative behaviour (a stationary Turing pattern with a finite-wavelength peak, modified by cross-diffusion) is firmly established for Schnakenberg and Sel'kov systems.\n- The exact combination of Sel'kov kinetics, nonlinear taxis cross-diffusion and opposite signs was not found. My searches were limited, and several relevant papers were visible only as abstracts or reference lists.\n- A direct linear stability calculation would settle whether c = 0.17 is above or below the cross-diffusion threshold.\n\n**Searches run:**\n- Schnakenberg cross-diffusion Turing opposite signs\n- Schnakenberg nonreciprocal cross-diffusion and large diffusion ratio\n- Schnakenberg nonlinear cross-diffusion div(u grad v) chemotaxis\n- nonreciprocal cross-diffusion Turing, activator attracted and inhibitor repelled\n- reaction-diffusion-taxis Schnakenberg\n- Brauns & Marchetti nonreciprocal pattern formation\n- Madzvamuse et al. 2015\n- Gambino, Lombardo & Sammartino nonlinear cross-diffusion\n- Selkov cross-diffusion chemotaxis\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion / Turing pattern formation with nonlinear (taxis-type) cross-diffusion; Sel'kov (Schnakenberg-type activator-substrate depletion) kinetics\", \"standard_name\": \"Cross-diffusion-driven Turing instability / Turing patterns in Sel'kov-Schnakenberg systems with cross-diffusion (chemotaxis-type, nonreciprocal)\", \"confidence\": \"medium\", \"citations\": [\"Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. 70:709-743 - cross-diffusion-driven instability conditions for activator-depleted kinetics (Schnakenberg etc.), no need for a large diffusion ratio\", \"Gambino, Lombardo, Lupo & Sammartino 2016, Ricerche di Matematica (arXiv:1501.04890) - Schnakenberg model with linear cross-diffusion, Turing region enlarged, super/subcritical bifurcations\", \"Gambino, Lombardo & Sammartino 2012, Math. Comput. Simul. 82:1112-1132 - nonlinear cross-diffusion destabilises uniform state and initiates patterns\", \"Novel Aspects in Pattern Formation Arise from Coupling Turing Reaction-Diffusion and Chemotaxis, Bull. Math. Biol. 2023 - chemotaxis coupled to Schnakenberg Turing system\", \"Applied Mathematics and Computation vol. 431 (2022) - Sel'kov glycolysis model with cross-diffusion, Turing instability (authors not seen)\", \"Schnakenberg 1979, J. Theor. Biol. 81:389-400 - original kinetics (seen only as a citation in the Madzvamuse abstract)\", \"Brauns & Marchetti 2024, Phys. Rev. X 14, 021014 - nonreciprocal pattern formation of conserved fields (conceptually related, not a direct match)\"], \"searches\": [\"Schnakenberg model cross-diffusion Turing patterns chemotaxis-like cross-diffusion opposite signs\", \"Turing patterns cross-diffusion nonreciprocal Schnakenberg pattern formation without self-diffusion ratio large D\", \"Schnakenberg nonlinear cross-diffusion div(u grad v) chemotaxis-like attraction repulsion pattern formation spots stripes\", \"nonreciprocal cross-diffusion Turing instability activator attracted to inhibitor Schnakenberg Brusselator\", \"Turing patterns reaction-diffusion-taxis Schnakenberg kinetics nonlinear cross-diffusion\", \"Brauns Marchetti nonreciprocal pattern formation of conserved fields\", \"Madzvamuse Ndakwo Barreira cross-diffusion-driven instability J Math Biol 2015\", \"Gambino Lombardo Sammartino Turing instability nonlinear cross-diffusion Schnakenberg-type\", \"Selkov model cross-diffusion chemotaxis Turing pattern formation\"], \"notes\": \"No source found for the exact combination of Sel'kov kinetics, nonlinear taxis cross-diffusion and opposite-sign c1=-c2=c. Most published Schnakenberg/Sel'kov work uses linear cross-diffusion, and the linearised problem about the uniform state is equivalent to the linear case with effective coefficients c1*b and c2*v*. D2/D1=1000 already puts the system in the classical Turing regime, so the observed pattern is probably a modified standard Turing pattern. Identifying the kinetics as Sel'kov is my own reading of the equations. The specific parameter point (a=0.015, b=10, c=0.17) and the quantitative metrics were not checked against the literature, and I did not compute the stability threshold myself. Several cited papers were seen only as abstracts or reference lists.\"}\n```",
+ "checked": "2026-11-04 11:26:40"
+}

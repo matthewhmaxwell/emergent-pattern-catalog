@@ -1,0 +1,57 @@
+{
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Vicsek model (metric-neighbour alignment with angular noise, constant speed, periodic 2D box)",
+ "standard_name": "Vicsek flocking transition; polar-ordered phase with density segregation (liquid-gas coexistence, travelling bands)",
+ "confidence": "medium",
+ "citations": [
+  "Vicsek, Czirok, Ben-Jacob, Cohen, Shochet, Phys. Rev. Lett. 75, 1226 (1995), doi:10.1103/PhysRevLett.75.1226",
+  "Gregoire & Chate, Onset of Collective and Cohesive Motion, Phys. Rev. Lett. 92, 025702 (2004)",
+  "Chate, Ginelli, Gregoire, Raynaud, Collective motion of self-propelled particles interacting without cohesion, Phys. Rev. E 77, 046113 (2008), arXiv:0712.2062",
+  "Chatterjee, PHYS 563 term paper: The Flocking Transition, a Review of the Vicsek Model (UCSD 2017), a student review, not formal",
+  "Wikipedia: Vicsek model"
+ ],
+ "searches": [
+  "Vicsek model phase transition first order traveling bands Gregoire Chate onset of collective and cohesive motion",
+  "Chate Ginelli Gregoire Raynaud Collective motion of self-propelled particles interacting without cohesion",
+  "Vicsek 1995 Novel type of phase transition in a system of self-driven particles"
+ ],
+ "notes": "Standard Vicsek model with noise amplitude 1 rad and v/r=0.5 at density 1. The high density CV with moderate polar order and near-zero angular momentum matches the documented band/coexistence regime of the Vicsek model. The small box (L=20) probably explains the non-textbook fingerprint through finite-size effects. The 2008 PRE paper was verified only via its abstract and secondary sources. I did not run the simulation or check the exact parameter point against a published phase diagram.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Vicsek model phase transition first order traveling bands Gr\u00e9goire Chat\u00e9 onset of collective and cohesive motion"
+  },
+  {
+   "query": "Chat\u00e9 Ginelli Gr\u00e9goire Raynaud Collective motion of self-propelled particles interacting without cohesion"
+  },
+  {
+   "query": "Vicsek 1995 Novel type of phase transition in a system of self-driven particles"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10486331",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://www.math.uni-rostock.de/~wj/projects/Swarm/190808763_MSc_Dissertation.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437113002690",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.92.025702",
+  "https://en.wikipedia.org/wiki/Vicsek_model",
+  "https://abdn.elsevierpure.com/en/publications/collective-motion-of-self-propelled-particles-interacting-without/",
+  "https://ui.adsabs.harvard.edu/abs/2008PhRvE..77d6113C/abstract",
+  "https://www.nature.com/articles/nature09312",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.134.058201",
+  "https://www.nature.com/articles/nature12673",
+  "https://proceedings.centre-mersenne.org/articles/10.5802/slsedp.32/",
+  "https://qiniu.pattern.swarma.org/attachment/Novel%20Type%20of%20Phase%20Transition%20in%20a%20System%20of%20Self-Driven%20Particles.pdf",
+  "https://ui.adsabs.harvard.edu/abs/1995PhRvL..75.1226V/abstract",
+  "https://ouci.dntb.gov.ua/en/works/lDoaVAq4/",
+  "https://pubmed.ncbi.nlm.nih.gov/10060237/",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://www.bibsonomy.org/bibtex/82603bb1d038cd1683e720eba4be713e",
+  "https://jglobal.jst.go.jp/en/detail?JGLOBAL_ID=200902121349950557"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the standard Vicsek model, and the behaviour is its flocking transition with phase-separated, high-density regions. I did not find the exact parameter set in a source, so that part is inferred.\n\n**1. Model family.** This is the Vicsek model (self-propelled particles with metric-neighbour alignment and angular noise, periodic 2D box).\n- Each particle takes the mean heading of its neighbours within radius 1, including itself, plus uniform angular noise.\n- It then moves a fixed step.\n- The original paper describes it this way: particles are driven with a constant absolute velocity and at each time step assume the average direction of motion of the particles in their neighborhood with some random perturbation added.\n- Here the noise is uniform in \u00b11 rad, which is a full width of 2 rad in Vicsek's notation.\n- The step is 0.5 per unit interaction radius, so v/r = 0.5.\n- The density is 1.\n- Both v/r and the density are far from Vicsek's original slow, dense regime, but they are ordinary points in the model's parameter space.\n\n**2. The specific behaviour.** The observed numbers are:\n- Polar order of 0.644 (flocking).\n- A density coefficient of variation of 1.22 (strongly inhomogeneous density).\n- Local alignment of 0.46.\n- Near-zero angular momentum, so there is no vortex or milling.\n\nTogether these describe a polarly ordered state with strong density segregation. This is the known coexistence or banding regime of the Vicsek model, not a new route.\n\n- **Earliest source:** Vicsek et al., PRL 75, 1226 (1995). It reported a kinetic phase transition from no transport to finite net transport through spontaneous symmetry breaking of the rotational symmetry. It called the transition continuous. That later turned out to be wrong for the standard model.\n- **Correction on the transition order:** Gr\u00e9goire & Chat\u00e9, PRL 92, 025702 (2004). They found this phase transition, in two space dimensions, is always discontinuous, including for the minimal Vicsek model.\n- **Full characterisation:** Chat\u00e9, Ginelli, Gr\u00e9goire & Raynaud, PRE 77, 046113 (2008), \"Collective motion of self-propelled particles interacting without cohesion.\" The abstract I could read says only that it is a comprehensive study of Vicsek-style self-propelled particle models in two and three space dimensions. I am relying on memory and on secondary sources (below) for its content on bands and on the effect of speed.\n- **Review:** the PHYS 563 essay by Chatterjee, \"The Flocking Transition: A Review of the Vicsek Model.\" It says the transition is actually 1st order, with an intermediate coexistence regime of high density ordered bands traveling in a disordered background. This is a student essay, not a formal review. The Wikipedia entry on the Vicsek model agrees. It describes finite-size liquid bands emerge in a gas environment and move along their transverse direction.\n\n**3. Differences that might matter.**\n- The box is small (L=20, N=400). Real bands span the box and are strongly finite-size dependent. A CV of 1.2 with polar order of 0.64 is plausible for one band or a few dense clusters in the coexistence region. That would explain why the fingerprint does not match textbook homogeneous-flock pictures.\n- The lattice-direction initial headings only set the initial condition. They should not change the stationary state, and I found nothing suggesting they do.\n- Large v/r and a noise amplitude of 1 rad sit in the regime Chat\u00e9 et al. explored by varying speed and noise. I could not read that paper's text, so I did not verify the claim in detail.\n- I did not run the simulation, so I cannot confirm that the observed state is a band rather than a transient or a cluster.\n\n**4. Confidence: medium-high.**\n- The model identification is certain.\n- The match between the observed signature (polar order together with high density variance) and the documented banded coexistence regime is strong.\n- Confidence is not higher because I verified the 2004 and 1995 citations directly but the 2008 paper only through its abstract and secondary sources.\n- The exact parameter point is also not matched to a published phase diagram.\n\n**Searches run:**\n- Vicsek model first order transition traveling bands, Gr\u00e9goire Chat\u00e9.\n- Chat\u00e9 Ginelli Gr\u00e9goire Raynaud collective motion without cohesion.\n- Vicsek 1995 novel type of phase transition.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Vicsek model (metric-neighbour alignment with angular noise, constant speed, periodic 2D box)\", \"standard_name\": \"Vicsek flocking transition; polar-ordered phase with density segregation (liquid-gas coexistence, travelling bands)\", \"confidence\": \"medium\", \"citations\": [\"Vicsek, Czirok, Ben-Jacob, Cohen, Shochet, Phys. Rev. Lett. 75, 1226 (1995), doi:10.1103/PhysRevLett.75.1226\", \"Gregoire & Chate, Onset of Collective and Cohesive Motion, Phys. Rev. Lett. 92, 025702 (2004)\", \"Chate, Ginelli, Gregoire, Raynaud, Collective motion of self-propelled particles interacting without cohesion, Phys. Rev. E 77, 046113 (2008), arXiv:0712.2062\", \"Chatterjee, PHYS 563 term paper: The Flocking Transition, a Review of the Vicsek Model (UCSD 2017), a student review, not formal\", \"Wikipedia: Vicsek model\"], \"searches\": [\"Vicsek model phase transition first order traveling bands Gregoire Chate onset of collective and cohesive motion\", \"Chate Ginelli Gregoire Raynaud Collective motion of self-propelled particles interacting without cohesion\", \"Vicsek 1995 Novel type of phase transition in a system of self-driven particles\"], \"notes\": \"Standard Vicsek model with noise amplitude 1 rad and v/r=0.5 at density 1. The high density CV with moderate polar order and near-zero angular momentum matches the documented band/coexistence regime of the Vicsek model. The small box (L=20) probably explains the non-textbook fingerprint through finite-size effects. The 2008 PRE paper was verified only via its abstract and secondary sources. I did not run the simulation or check the exact parameter point against a published phase diagram.\"}\n```",
+ "checked": "2026-11-04 11:34:09"
+}

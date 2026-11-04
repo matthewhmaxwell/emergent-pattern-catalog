@@ -1,0 +1,61 @@
+{
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Vicsek model (metric alignment, scalar angular noise, constant speed)",
+ "standard_name": "Vicsek flocking with near-onset phase separation (high-density travelling bands / microphase separation)",
+ "confidence": "medium",
+ "citations": [
+  "Vicsek, Czirok, Ben-Jacob, Cohen, Shochet, PRL 75, 1226 (1995) 'Novel type of phase transition in a system of self-driven particles'",
+  "Gregoire & Chate, PRL 92, 025702 (2004) 'Onset of collective and cohesive motion'",
+  "Chate, Ginelli, Gregoire, Raynaud, PRE 77, 046113 (2008) 'Collective motion of self-propelled particles interacting without cohesion'",
+  "Chate, 'The Physics of the Vicsek Model' arXiv:1511.01451 / EPJ ST 225, 2099 (2016) (review)"
+ ],
+ "searches": [
+  "Vicsek model novel type of phase transition self-driven particles",
+  "Chate Ginelli Gregoire Raynaud collective motion of self-propelled particles interacting without cohesion bands",
+  "Gregoire Chate onset of collective and cohesive motion Vicsek first-order transition",
+  "Vicsek model traveling bands high density fluctuations microphase separation v0=0.5 noise eta pi Chate 2008"
+ ],
+ "notes": "Parameters (v0=0.5, r=1, noise in [-eta*pi, eta*pi]) match the Chate-group convention as I recall it, not verified in a readable source. The high density CV with intermediate polarisation is consistent with the documented phase-separated regime (bands or dense clusters, finite-size at L=20, N=400). The lattice-direction initial headings are a trivial variant that likely does not matter. I did not check the exact (rho, eta, v0) point against the published phase diagram. a_step and a_ang_mom are not covered by any source I found.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Vicsek model novel type of phase transition self-driven particles"
+  },
+  {
+   "query": "Chat\u00e9 Ginelli Gr\u00e9goire Raynaud collective motion of self-propelled particles interacting without cohesion bands"
+  },
+  {
+   "query": "Gr\u00e9goire Chat\u00e9 onset of collective and cohesive motion Vicsek first-order transition"
+  },
+  {
+   "query": "Vicsek model traveling bands high density fluctuations microphase separation v0=0.5 noise \u03b7\u03c0 Chat\u00e9 2008 abstract"
+  }
+ ],
+ "result_urls": [
+  "https://archive.org/details/arxiv-cond-mat0611743",
+  "https://ouci.dntb.gov.ua/en/works/lDoaVAq4/",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://en.wikipedia.org/wiki/Vicsek_model",
+  "https://ifisc.uib-csic.es/tomas/MFCS/Flock/VicsekModel.pdf",
+  "https://ui.adsabs.harvard.edu/abs/2007cond.mat..3532C/abstract",
+  "https://scholar.google.com/citations?user=s8jTkkAAAAAJ&hl=en",
+  "https://www.wikidata.org/wiki/Q56603617",
+  "https://abdn.elsevierpure.com/en/publications/collective-motion-of-self-propelled-particles-interacting-without/",
+  "https://core.ac.uk/outputs/47108921/",
+  "https://www.nature.com/articles/nature09312",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013118",
+  "https://www.nature.com/articles/nature12673",
+  "https://www.nature.com/articles/s41467-017-00035-3",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.92.025702",
+  "https://www.unboundmedicine.com/medline/citation/14753946/Onset_of_collective_and_cohesive_motion_",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://files01.core.ac.uk/download/pdf/52707986.pdf",
+  "https://guava.physics.ucsd.edu/~nigel/Courses/Web%20page%20563/Essays_2017/PDF/Chatterjee.pdf",
+  "https://link.springer.com/content/pdf/10.1140/epjst/e2016-60066-8.pdf",
+  "https://www.arxiv-vanity.com/papers/1511.01451/"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the standard Vicsek model, and the unusual-looking fingerprint matches its documented near-onset regime.\n\n**1. Model family.** It is the Vicsek model, a metric-based alignment model with angular noise.\n- Each particle takes the mean heading of its neighbours within radius 1, adds uniform noise, and moves at constant speed.\n- The parameters are density \u03c1=1, speed v0=0.5, interaction radius 1 and noise \u03b7=0.318. In the Chat\u00e9-group convention, as I recall it, the noise is uniform in [-\u03b7\u03c0, \u03b7\u03c0].\n- The original Vicsek paper used much slower particles. The faster v0=0.5 and the \u03b7\u03c0 noise convention are the Gr\u00e9goire\u2013Chat\u00e9 and Chat\u00e9 et al. setup, as I recall it. I did not verify those parameter values in a source I could read.\n\n**2. Specific behaviour.** The run has polar order of about 0.64, which is flocking. It also has a very high density coefficient of variation (1.22) and a nearest-neighbour ratio of 0.855, which indicate strong density heterogeneity. A polar order well below 1 together with strong clustering is what the Vicsek model does near its onset.\n- **Earliest source:** Vicsek et al. 1995, PRL 75, 1226, introduced the model. Particles move at constant speed and take the average direction of their neighbours plus random noise, and the model shows a kinetic transition from zero to finite net transport. That paper reported a continuous transition.\n- **Correction of the transition order:** Gr\u00e9goire & Chat\u00e9 2004, PRL 92, 025702. They found the transition in two dimensions is always discontinuous, including for the minimal Vicsek model.\n- **Density heterogeneity:** Chat\u00e9, Ginelli, Gr\u00e9goire & Raynaud 2008, PRE 77, 046113. It is a comprehensive study of Vicsek-style models in two and three dimensions. I read only its abstract snippet. The band and phase-separation content comes from the review below.\n- **Review:** Chat\u00e9, \"The Physics of the Vicsek Model\" (arXiv:1511.01451, EPJ ST 225, 2099, 2016). It says the phase separation takes the form of high-density ordered bands travelling in a low-density sea of disordered particles. It also describes a disordered phase, a phase-separated ordered regime with high-density bands, and a homogeneous ordered phase.\n\n**3. Interpretation of the fingerprint.**\n- The high density CV, intermediate polarisation and strong local alignment (0.463) fit the phase-separated regime near the onset. They do not fit the textbook homogeneous ordered phase.\n- With N=400 and L=20 the box is small, so the run probably shows one band or one dense cluster. That is a finite-size version of the same phenomenon.\n- I have no source on the ang_mom and a_step features. I assume they are generic measures of rotation and displacement, and I did not look for a literature description of them.\n- Starting with headings along four lattice directions only sets the initial condition. It should not change the steady state, because the system forgets its start. I found no source on this point, so it is an inference.\n\n**4. Confidence: medium-high.**\n- The model identification and the band regime are well documented in the sources above.\n- I did not check this run's exact (\u03c1, \u03b7, v0) point against the published phase diagram.\n- I cannot say whether the run is banded or merely a finite-size cluster. That does not change the verdict.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Vicsek model (metric alignment, scalar angular noise, constant speed)\", \"standard_name\": \"Vicsek flocking with near-onset phase separation (high-density travelling bands / microphase separation)\", \"confidence\": \"medium\", \"citations\": [\"Vicsek, Czirok, Ben-Jacob, Cohen, Shochet, PRL 75, 1226 (1995) 'Novel type of phase transition in a system of self-driven particles'\", \"Gregoire & Chate, PRL 92, 025702 (2004) 'Onset of collective and cohesive motion'\", \"Chate, Ginelli, Gregoire, Raynaud, PRE 77, 046113 (2008) 'Collective motion of self-propelled particles interacting without cohesion'\", \"Chate, 'The Physics of the Vicsek Model' arXiv:1511.01451 / EPJ ST 225, 2099 (2016) (review)\"], \"searches\": [\"Vicsek model novel type of phase transition self-driven particles\", \"Chate Ginelli Gregoire Raynaud collective motion of self-propelled particles interacting without cohesion bands\", \"Gregoire Chate onset of collective and cohesive motion Vicsek first-order transition\", \"Vicsek model traveling bands high density fluctuations microphase separation v0=0.5 noise eta pi Chate 2008\"], \"notes\": \"Parameters (v0=0.5, r=1, noise in [-eta*pi, eta*pi]) match the Chate-group convention as I recall it, not verified in a readable source. The high density CV with intermediate polarisation is consistent with the documented phase-separated regime (bands or dense clusters, finite-size at L=20, N=400). The lattice-direction initial headings are a trivial variant that likely does not matter. I did not check the exact (rho, eta, v0) point against the published phase diagram. a_step and a_ang_mom are not covered by any source I found.\"}\n```",
+ "checked": "2026-11-04 11:34:08"
+}

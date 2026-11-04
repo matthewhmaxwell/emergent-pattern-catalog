@@ -1,0 +1,47 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Turing spot (localized spot) pattern in the Sel'kov-Schnakenberg reaction-diffusion model, with taxis-type cross-diffusion acting as a perturbation",
+ "citations": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "Upgrades first pass from variant to known. Linear check: f_u~+1.0, g_v~-100, det~100; with D2/D1=1000 the plain Turing condition (900 > ~632) holds, so the instability is diffusion-driven, not cross-diffusion-driven. Taxis terms linearise to ~+1.7*Lap(v) in the u equation and ~-0.017*Lap(u) in the v equation, so they shift the threshold and wavelength only. Few coarse blobs (n~2.5, low peak k) are consistent with high-diffusion-ratio spike patterns and spot merging. High Moran and peak sharpness indicate a genuine pattern, not noise, divergence or a frozen state. Exact flux form not found in the literature, but that is a rule-tuple gap, not a behaviour gap. Sources were read as snippets and abstracts only. Suggested control: rerun with c=0.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns div(u grad v) spots"
+  },
+  {
+   "query": "Sel'kov Schnakenberg spike solutions large b Turing spots localized"
+  },
+  {
+   "query": "Schnakenberg nonlinear cross-diffusion chemotaxis-type taxis terms Turing patterns spots pursuit evasion"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X03008515",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121818305832",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm confirming the first pass's conclusion, but I'd change its label from KNOWN-VARIANT to KNOWN. What you're seeing is a Turing pattern of a few spots in the Sel'kov\u2013Schnakenberg reaction\u2013diffusion model. The cross-taxis terms only adjust it slightly; they aren't what creates it.\n\n**Main point: these parameters make spots even without the cross terms.** My own linear-stability check:\n- At the steady state (u=10, v\u22480.1) the Jacobian entries are about f_u \u2248 +1.0, f_v \u2248 100, g_u \u2248 \u22122.0, g_v \u2248 \u2212100. The trace is negative and the determinant is \u2248 100 (positive), so the uniform state is stable when there is no diffusion.\n- The Turing condition with d = D2/D1 = 1000 is d\u00b7f_u + g_v > 2\u221a(d\u00b7det). That gives 900 > ~632, so plain diffusion already destabilises the uniform state.\n- Linearised about the steady state, the taxis terms are about c1\u00b7u* = +1.7 (on the Laplacian of v) and c2\u00b7v* \u2248 \u22120.017 (on the Laplacian of u). That shifts the threshold and wavelength, and probably the spot shape, but doesn't create the instability.\n- So the first pass's label \"cross-diffusion-driven\" overstates things. This is a diffusion-driven Turing instability with cross-diffusion added on top.\n\n**Literature that documents the behaviour:**\n- Turing instability in the diffusive Sel'kov\u2013Schnakenberg system has been analysed, and spatio-temporal patterns change from the spot, mixed (spot-stripe) to stripe with the variation of parameters, which can be verified by a series of numerical simulations.\n- With cross-diffusion added, by introducing linear cross-diffusion into Schnakenberg system, [the authors] derive cross-diffusion-driven Turing instability conditions. It has been revealed that it is no longer necessary to have long-range inhibition and short-range activation for Turing instability with the help of cross-diffusion.\n- A 2017 review of the closely related Sel'kov\u2013Schnakenberg family says these models can explain cell polarization and the formation of localized reactive spots via Turing patterns. A fractional-order *cross-diffusive* Sel'kov\u2013Schnakenberg system has also been studied (fractional-order cross-diffusive Sel'kov-Schnakenberg system).\n- Taxis-type (nonlinear) cross-diffusion is a known ingredient of pursuit\u2013evasion models, where the mechanism of propagation of waves depends on the 'taxis' represented by non-linear cross-diffusion terms. Coupling Schnakenberg kinetics to chemotaxis has also been studied. There, merging spots, are characteristic for chemotaxis systems and are observed when chemotaxis dominates, and patterns stabilise when the Turing process dominates. That would explain the low spot count (~2.5) and low peak wavenumber (0.047) as spot merging or coarsening.\n\n**Is it real or an artifact?** The metrics point to a real pattern, not a degenerate one:\n- High spatial autocorrelation (Moran 0.975) and a sharp spectral peak (0.953) rule out random noise or a diverged field.\n- There are a few distinct blobs, not a uniform frozen state.\n\n**Limits:**\n- I couldn't find a paper with exactly this flux form (u carried along v's gradient, v pushed down u's gradient, equal and opposite strengths) on Sel'kov kinetics. Per your instructions, that doesn't make it new, because the behaviour is the standard one.\n- I read search snippets and abstracts only, not full papers, and I didn't compare blob count or wavenumber against any published numbers.\n- The fact that the pattern is only a few blobs could be a domain-size or grid-resolution effect rather than a genuine twist. Running the same simulation with c=0 would show directly how much the cross terms change.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Turing spot (localized spot) pattern in the Sel'kov-Schnakenberg reaction-diffusion model, with taxis-type cross-diffusion acting as a perturbation\", \"citations\": [\"https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"https://link.springer.com/article/10.1007/s11071-022-07691-1\", \"https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692\", \"https://pmc.ncbi.nlm.nih.gov/articles/PMC10692013\", \"https://www.sciencedirect.com/science/article/pii/S0307904X17306960\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"Upgrades first pass from variant to known. Linear check: f_u~+1.0, g_v~-100, det~100; with D2/D1=1000 the plain Turing condition (900 > ~632) holds, so the instability is diffusion-driven, not cross-diffusion-driven. Taxis terms linearise to ~+1.7*Lap(v) in the u equation and ~-0.017*Lap(u) in the v equation, so they shift the threshold and wavelength only. Few coarse blobs (n~2.5, low peak k) are consistent with high-diffusion-ratio spike patterns and spot merging. High Moran and peak sharpness indicate a genuine pattern, not noise, divergence or a frozen state. Exact flux form not found in the literature, but that is a rule-tuple gap, not a behaviour gap. Sources were read as snippets and abstracts only. Suggested control: rerun with c=0.\"}\n```",
+ "checked": "2026-11-04 11:28:28"
+}

@@ -1,0 +1,78 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing) with nonlinear cross-diffusion/taxis; Sel'kov glycolysis kinetics",
+ "standard_name": "Cross-diffusion-driven Turing pattern formation in the Sel'kov (Sel'kov-Schnakenberg) model",
+ "confidence": "medium",
+ "citations": [
+  "Liu, Ge & Shen 2022, Applied Mathematics and Computation 431 - Sel'kov glycolysis model with cross-diffusion shows Turing instability (abstract only)",
+  "Bashkirtseva 2022, Math. Methods Appl. Sci. - Sel'kov glycolytic model with diffusion: Turing zone and multi-peak patterns",
+  "Sel'kov 1968, Eur. J. Biochem. 4, 79 - original glycolysis model (as cited in the PubMed record for a glycolytic wave paper)",
+  "Diez, Krause, Maini, Gaffney et al. 2023, Bull. Math. Biol. - cross-diffusion includes chemotaxis; Turing conditions for reaction-cross-diffusion systems",
+  "Designing reaction-cross-diffusion systems with Turing and wave instabilities (PMC12426155; authors and year not verified) - cross-diffusion can induce Turing instability in general"
+ ],
+ "searches": [
+  "cross-diffusion Selkov model Turing patterns opposite signs chemotaxis-like",
+  "Sel'kov glycolysis reaction-diffusion nonlinear cross-diffusion div(u grad v)",
+  "Sel'kov nonlinear cross-diffusion Turing patterns taxis attracted repelled",
+  "Turing patterns cross-diffusion u grad v v grad u opposite sign Selkov Schnakenberg pursuit-evasion",
+  "Sel'kov cross-diffusion large diffusion ratio spots stripes",
+  "nonreciprocal cross-diffusion Turing pattern formation antisymmetric"
+ ],
+ "notes": "Exact flux form div(u grad v) / div(v grad u) with c1=-c2 on these Sel'kov parameters was not found; only abstracts and snippets were read, so the flux form in Liu et al. is unconfirmed. Observed quantities (blob count, peak wavenumber) were not compared to any paper. Behaviour is consistent with ordinary Turing instability modified by cross-diffusion, so a novel mechanism seems unlikely.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "cross-diffusion Selkov model Turing patterns cross-diffusion opposite signs chemotaxis-like"
+  },
+  {
+   "query": "Sel'kov glycolysis reaction-diffusion nonlinear cross-diffusion div(u grad v) pattern formation"
+  },
+  {
+   "query": "Sel'kov model nonlinear cross-diffusion Turing patterns taxis one species attracted other repelled simulation"
+  },
+  {
+   "query": "Turing patterns reaction-diffusion with cross-diffusion flux u\u2207v, v\u2207u opposite sign \"Sel'kov\" OR \"Selkov\" OR \"Schnakenberg\" pursuit-evasion"
+  },
+  {
+   "query": "Turing patterns cross-diffusion Sel'kov model \"cross-diffusion\" taxis large-diffusion ratio D2=1000 D1 spots stripes"
+  },
+  {
+   "query": "nonreciprocal cross-diffusion Turing pattern formation reaction-diffusion antisymmetric cross-diffusion travelling patterns"
+  }
+ ],
+ "result_urls": [
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/522.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://pubmed.ncbi.nlm.nih.gov/36478341/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0096300318302066",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10764571/",
+  "https://www.aimsciences.org//article/doi/10.3934/dcdss.2017053",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077923003740",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570410004697",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12426155/",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/522.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The model and the kind of behaviour are well documented. I did not find a source for this exact flux form with opposite-sign coefficients.\n\n**1. Model family.** This is reaction\u2013diffusion pattern formation with nonlinear cross-diffusion, also called taxis. The kinetics are the Sel'kov glycolysis model in its Strogatz-style two-variable form, equivalent to the Sel'kov\u2013Schnakenberg system.\n- Sel'kov's original model is Eur. J. Biochem. 4, 79 (1968), as cited in the PubMed record for a later glycolytic-wave paper.\n- The cross terms c\u00b7div(u\u2207v) and c'\u00b7div(v\u2207u) are the chemotaxis-like or \"cross-diffusion\" fluxes. One search result states that cross-diffusion encompasses chemotaxis as a special case (Diez et al., Bull. Math. Biol. 2023).\n\n**2. What the literature says.**\n- **Sel'kov kinetics with cross-diffusion.** Liu, Ge & Shen (2022), *Applied Mathematics and Computation* 431, \"Dynamics of periodic solutions in the reaction-diffusion glycolysis model: Mathematical mechanisms of Turing pattern formation\". They set up a Sel'kov glycolysis reaction-diffusion model with cross-diffusion and prove that Turing instability emerges at the periodic solutions. I only saw the abstract, so I don't know whether their cross-diffusion is the same form as here.\n- **Sel'kov kinetics with plain diffusion.** Bashkirtseva (2022), *Math. Methods Appl. Sci.*, \"Selkov glycolytic model with diffusion: Patterns, multistability, and stochastic transitions\". It determines the Turing instability zone and describes spatial structures with different numbers of peaks, depending on the diffusion coefficients.\n- **Cross-diffusion in related kinetics.** A study of a fractional-order Sel'kov\u2013Schnakenberg model found that the cross-diffusion coefficient controls which Turing pattern type emerges. A free-energy framework for self- and cross-diffusion in a Gray\u2013Scott-type system (*Commun. Nonlinear Sci. Numer. Simul.*, ScienceDirect S1007570421004020) describes this system as a generalisation of a special case of the Sel'kov model.\n- **General theory.** Cross-diffusion terms can induce Turing instabilities even in systems where both components' self-diffusion coefficients are equal. This comes from \"Designing reaction-cross-diffusion systems with Turing and wave instabilities\" (PMC12426155). I did not verify its authors or year from the search output.\n- **Predator\u2013prey analogue.** In ratio-dependent predator\u2013prey cross-diffusion models, a positive coefficient means the prey is repelled from the predator, and a negative one means it is attracted. That is the same attract/repel structure as c1 = c, c2 = \u2212c, but in different kinetics.\n\n**3. Match to the observation.** The simulation shows stable spatial structure with a sharp peak at a single wavenumber and a few blobs on the grid. This is the standard cross-diffusion-modified Turing patterning described above. It is not an unusual result. A very large diffusion ratio (D2 = 1000\u00b7D1) is also the classic Turing regime.\n\n**4. What differs, and whether it likely matters.**\n- I found no source that uses this exact flux form, div(u\u2207v) and div(v\u2207u), with exactly antisymmetric coefficients (c1 = \u2212c2), on Sel'kov kinetics with these parameters (a = 0.015, b = 10). The abstracts I saw describe cross-diffusion on Sel'kov-type kinetics, but I couldn't confirm their flux form or sign conventions.\n- Linear stability analysis for any such system gives the same kind of result, because cross-diffusion modifies the Jacobian's diffusion matrix. The specific outcome (blob count, wavenumber 0.047) therefore probably follows from the standard Turing analysis. I judge a novel mechanism unlikely.\n- I did not verify the specific numbers (f_n_blobs, peak k) against any paper.\n\n**Confidence: medium.** I am confident about the model family and the general phenomenon. The exact-parameter, exact-flux match is unverified because I could only read abstracts and snippets.\n\n**Searches run:**\n- Cross-diffusion Selkov model Turing patterns, opposite signs\n- Sel'kov glycolysis reaction-diffusion nonlinear cross-diffusion div(u grad v)\n- Sel'kov nonlinear cross-diffusion taxis, one species attracted and the other repelled\n- Turing patterns with u\u2207v and v\u2207u cross-diffusion flux, Sel'kov/Schnakenberg, pursuit-evasion\n- Sel'kov cross-diffusion with large diffusion ratio, spots and stripes\n- Nonreciprocal cross-diffusion Turing patterns\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing) with nonlinear cross-diffusion/taxis; Sel'kov glycolysis kinetics\", \"standard_name\": \"Cross-diffusion-driven Turing pattern formation in the Sel'kov (Sel'kov-Schnakenberg) model\", \"confidence\": \"medium\", \"citations\": [\"Liu, Ge & Shen 2022, Applied Mathematics and Computation 431 - Sel'kov glycolysis model with cross-diffusion shows Turing instability (abstract only)\", \"Bashkirtseva 2022, Math. Methods Appl. Sci. - Sel'kov glycolytic model with diffusion: Turing zone and multi-peak patterns\", \"Sel'kov 1968, Eur. J. Biochem. 4, 79 - original glycolysis model (as cited in the PubMed record for a glycolytic wave paper)\", \"Diez, Krause, Maini, Gaffney et al. 2023, Bull. Math. Biol. - cross-diffusion includes chemotaxis; Turing conditions for reaction-cross-diffusion systems\", \"Designing reaction-cross-diffusion systems with Turing and wave instabilities (PMC12426155; authors and year not verified) - cross-diffusion can induce Turing instability in general\"], \"searches\": [\"cross-diffusion Selkov model Turing patterns opposite signs chemotaxis-like\", \"Sel'kov glycolysis reaction-diffusion nonlinear cross-diffusion div(u grad v)\", \"Sel'kov nonlinear cross-diffusion Turing patterns taxis attracted repelled\", \"Turing patterns cross-diffusion u grad v v grad u opposite sign Selkov Schnakenberg pursuit-evasion\", \"Sel'kov cross-diffusion large diffusion ratio spots stripes\", \"nonreciprocal cross-diffusion Turing pattern formation antisymmetric\"], \"notes\": \"Exact flux form div(u grad v) / div(v grad u) with c1=-c2 on these Sel'kov parameters was not found; only abstracts and snippets were read, so the flux form in Liu et al. is unconfirmed. Observed quantities (blob count, peak wavenumber) were not compared to any paper. Behaviour is consistent with ordinary Turing instability modified by cross-diffusion, so a novel mechanism seems unlikely.\"}\n```",
+ "checked": "2026-11-04 11:27:52"
+}

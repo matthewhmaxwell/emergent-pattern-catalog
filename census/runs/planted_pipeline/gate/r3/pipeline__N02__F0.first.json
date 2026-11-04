@@ -1,0 +1,90 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing pattern formation) with nonlinear cross-diffusion / cross-taxis, Sel'kov (Selkov-Schnakenberg) kinetics",
+ "standard_name": "Cross-diffusion (cross-taxis) modified Turing pattern formation in the Sel'kov glycolysis model",
+ "confidence": "low",
+ "citations": [
+  "Bashkirtseva et al 2022, Math. Methods Appl. Sci. 'Selkov glycolytic model with diffusion: Patterns, multistability, and stochastic transitions' - Turing zone and multi-peak spatial patterns in Selkov model (self-diffusion only)",
+  "Liu, Ge, Shen 2022, Applied Mathematics and Computation 431 'Dynamics of periodic solutions in the reaction-diffusion glycolysis model: Mathematical mechanisms of Turing pattern formation' - Sel'kov model with (linear) cross-diffusion, Turing instability",
+  "Cross-diffusion induced spatiotemporal patterns in Schnakenberg reaction-diffusion model, Nonlinear Dynamics 2022 - linear cross-diffusion changes Turing conditions and patterns",
+  "Excitable FitzHugh-Nagumo model with cross-diffusion: long-range activation instabilities, Ricerche di Matematica 2023 - out-of-phase cross-Turing patterns",
+  "Cross-diffusion induced patterns for a single-step enzymatic reaction, Communications Physics 2020 - attractive/repulsive taxis-type cross-diffusion drives patterns",
+  "Turing Pattern Formation in Reaction-Cross-Diffusion Systems with a Bilayer Geometry (PMC10764571) - cross-diffusion includes chemotaxis as special case"
+ ],
+ "searches": [
+  "Sel'kov model cross-diffusion Turing pattern opposite sign cross-diffusion pursuit evasion",
+  "Turing patterns cross-diffusion div(u grad v) Selkov glycolysis model D2=1000 D1",
+  "Turing patterns with cross-taxis nonreciprocal chemotactic terms Selkov Schnakenberg Brusselator pursuit-evasion",
+  "Sel'kov model nonlinear cross-diffusion pattern formation c1 c2 opposite sign chemotaxis-like flux",
+  "Turing instability cross-diffusion drift along gradient of other species Sel'kov sign of cross-diffusion",
+  "cross-diffusion Turing patterns Sel'kov a=0.015 b=10 spots stripes Laplacian div(u grad v)",
+  "Turing patterns cross-diffusion Selkov amplitude equation Fanelli Tsyganov cross-taxis",
+  "Cross-diffusion-driven Turing instability Sel'kov system linear cross diffusion pattern selection"
+ ],
+ "notes": "Only abstracts/snippets read, not full texts. No source found for the exact combination of Sel'kov kinetics with nonlinear taxis-form cross-diffusion of opposite sign at D2/D1=1000. D2=1000*D1 may already give a classical Turing instability at c=0, in which case the cross term mainly modifies the pattern. I did not verify this with the simulation or a stability analysis. Earliest source on cross-taxis in two-species reaction-diffusion systems not identified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing pattern opposite sign cross-diffusion pursuit evasion"
+  },
+  {
+   "query": "Turing patterns cross-diffusion div(u grad v) Selkov glycolysis model D2=1000 D1 pattern formation"
+  },
+  {
+   "query": "Turing patterns with cross-taxis nonreciprocal chemotactic terms reaction-diffusion Selkov Schnakenberg Brusselator pursuit-evasion"
+  },
+  {
+   "query": "Sel'kov model nonlinear cross-diffusion pattern formation c1 c2 opposite sign chemotaxis-like flux u\u2207v"
+  },
+  {
+   "query": "Turing instability reaction-diffusion with cross-diffusion drift along gradient of other species, Sel'kov, sign of cross-diffusion, activator inhibitor, Turing patterns when diffusion ratio small"
+  },
+  {
+   "query": "cross-diffusion Turing patterns Sel'kov a=0.015 b=10 oscillatory spots stripes Laplacian div(u grad v)"
+  },
+  {
+   "query": "Turing patterns \"cross-diffusion\" Selkov model numerical simulation amplitude equation Fanelli Tsyganov cross-taxis activator-inhibitor chemotactic"
+  },
+  {
+   "query": "Cross-diffusion-driven Turing instability Sel'kov system linear cross diffusion pattern selection spots stripes"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0362546X13000837",
+  "https://pubmed.ncbi.nlm.nih.gov/21176436/",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0001053",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2023053?viewType=HTML",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077923003740",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10764571/",
+  "http://carretero.sdsu.edu/publications/postscript/MGR.pdf",
+  "https://www.nature.com/articles/s42005-020-00427-w",
+  "https://link.springer.com/article/10.1007/s10114-023-1184-0",
+  "https://pubmed.ncbi.nlm.nih.gov/42476333/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692",
+  "https://link.springer.com/article/10.1140/epjb/e2013-30649-7",
+  "https://link.springer.com/article/10.1007/s11587-023-00814-9",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "https://www.mdpi.com/2504-3110/8/12/743",
+  "https://doi.org/10.3390/math11173745",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://doi.org/10.3390/math8081244",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077916302259",
+  "https://www.mdpi.com/2227-7390/11/11/2411",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium-low confidence.** The behaviour is a Turing-type stationary spatial pattern, and the pieces are all documented. I did not find a source for this exact combination, which is Sel'kov kinetics with chemotaxis-form cross-diffusion and opposite-sign coefficients.\n\n**1. Model family.** This is reaction\u2013diffusion pattern formation. The kinetics are the Sel'kov glycolysis model, also written as the Selkov\u2013Schnakenberg form. The cross terms c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u) are nonlinear cross-diffusion, or \"cross-taxis\" (chemotaxis-like flux). The sign setup c1=c, c2=\u2212c is the pursuit\u2013evasion pairing, where one species is attracted and the other repelled.\n\n**2. What the literature shows.**\n- **Sel'kov kinetics produce Turing patterns.** A study of the Selkov glycolytic model with diffusion determines the Turing instability zone and describes waveform spatial structures with different numbers of peaks, depending on the diffusion coefficients. This is Bashkirtseva et al. 2022, *Math. Methods Appl. Sci.*, which I found via a Wiley listing. It matches the observed peaked, structured fields (high Moran's I, sharp spectral peak).\n- **The Sel'kov model with cross-diffusion has been studied.** Liu, Ge & Shen (2022, *Applied Mathematics and Computation* 431) establish a Sel'kov glycolysis model with cross-diffusion and prove that Turing instability emerges at the periodic solutions. The year and venue come from the RePEc entry. That paper uses linear cross-diffusion (d21), not the u\u2207v taxis form.\n- **Cross-diffusion alters Turing patterning in general.** Introducing linear cross-diffusion into the Schnakenberg system gives cross-diffusion-driven Turing conditions, and the classic short-range-activation, long-range-inhibition requirement is no longer needed. This is *Nonlinear Dynamics* 2022. Another source reports out-of-phase \"cross-Turing\" patterns, in which high concentration of one species coincides with low density of the other. That is from an excitable FitzHugh\u2013Nagumo model with cross-diffusion (*Ricerche di Matematica*, 2023).\n- **Nonlinear and chemotaxis-type cross-diffusion is a recognised class.** Cross-diffusion encompasses chemotaxis as a special case. That is from a bilayer reaction-cross-diffusion paper (PMC10764571). A related paper on enzymes covers repulsive nonspecific interactions, where cross-diffusion feedback leads to spontaneous spatial pattern formation (*Communications Physics*, 2020). It also treats attraction and repulsion by sign.\n\n**3. What differs from the simulated system.** I found no paper that combines all of the following:\n- Sel'kov kinetics.\n- The nonlinear taxis form div(u\u2207v).\n- Opposite-sign c1 = \u2212c2.\n- D2/D1 = 1000.\n\nWith D2 = 1000\u00b7D1, the system may already be Turing-unstable at c=0, since Sel'kov kinetics with a fast-diffusing v are a classical activator\u2013substrate pair. If so, the cross-taxis term would mainly modify wavelength, amplitude and pattern type, not create the instability. That would make the observed pattern an ordinary Turing pattern, and the difference from the literature is probably not important. I did not check this, because the search results gave no analysis of the exact case. I did not run the simulation or the linear stability analysis.\n\n**4. Confidence and limits.** Confidence is medium-low because:\n- I could not read full texts, only abstracts and snippets.\n- I did not find the earliest source on cross-taxis in two-species reaction\u2013diffusion systems.\n- I did not find a review specific to cross-diffusion Turing patterns. The closest surveys are the Maini-group chapter on the Turing model and the papers above.\n\nThe \"KNOWN-VARIANT\" call rests on the absence of an exact match in about 9 searches, not on any evidence that the variation matters.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing pattern formation) with nonlinear cross-diffusion / cross-taxis, Sel'kov (Selkov-Schnakenberg) kinetics\", \"standard_name\": \"Cross-diffusion (cross-taxis) modified Turing pattern formation in the Sel'kov glycolysis model\", \"confidence\": \"low\", \"citations\": [\"Bashkirtseva et al 2022, Math. Methods Appl. Sci. 'Selkov glycolytic model with diffusion: Patterns, multistability, and stochastic transitions' - Turing zone and multi-peak spatial patterns in Selkov model (self-diffusion only)\", \"Liu, Ge, Shen 2022, Applied Mathematics and Computation 431 'Dynamics of periodic solutions in the reaction-diffusion glycolysis model: Mathematical mechanisms of Turing pattern formation' - Sel'kov model with (linear) cross-diffusion, Turing instability\", \"Cross-diffusion induced spatiotemporal patterns in Schnakenberg reaction-diffusion model, Nonlinear Dynamics 2022 - linear cross-diffusion changes Turing conditions and patterns\", \"Excitable FitzHugh-Nagumo model with cross-diffusion: long-range activation instabilities, Ricerche di Matematica 2023 - out-of-phase cross-Turing patterns\", \"Cross-diffusion induced patterns for a single-step enzymatic reaction, Communications Physics 2020 - attractive/repulsive taxis-type cross-diffusion drives patterns\", \"Turing Pattern Formation in Reaction-Cross-Diffusion Systems with a Bilayer Geometry (PMC10764571) - cross-diffusion includes chemotaxis as special case\"], \"searches\": [\"Sel'kov model cross-diffusion Turing pattern opposite sign cross-diffusion pursuit evasion\", \"Turing patterns cross-diffusion div(u grad v) Selkov glycolysis model D2=1000 D1\", \"Turing patterns with cross-taxis nonreciprocal chemotactic terms Selkov Schnakenberg Brusselator pursuit-evasion\", \"Sel'kov model nonlinear cross-diffusion pattern formation c1 c2 opposite sign chemotaxis-like flux\", \"Turing instability cross-diffusion drift along gradient of other species Sel'kov sign of cross-diffusion\", \"cross-diffusion Turing patterns Sel'kov a=0.015 b=10 spots stripes Laplacian div(u grad v)\", \"Turing patterns cross-diffusion Selkov amplitude equation Fanelli Tsyganov cross-taxis\", \"Cross-diffusion-driven Turing instability Sel'kov system linear cross diffusion pattern selection\"], \"notes\": \"Only abstracts/snippets read, not full texts. No source found for the exact combination of Sel'kov kinetics with nonlinear taxis-form cross-diffusion of opposite sign at D2/D1=1000. D2=1000*D1 may already give a classical Turing instability at c=0, in which case the cross term mainly modifies the pattern. I did not verify this with the simulation or a stability analysis. Earliest source on cross-taxis in two-species reaction-diffusion systems not identified.\"}\n```",
+ "checked": "2026-11-04 11:26:20"
+}

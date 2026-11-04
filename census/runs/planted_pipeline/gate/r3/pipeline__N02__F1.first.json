@@ -1,0 +1,89 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion with nonlinear (taxis-type) cross-diffusion; Sel'kov/Schnakenberg-type activator-depleted kinetics",
+ "standard_name": "Cross-diffusion-induced Turing (stationary spot/blob) pattern formation in the Sel'kov-Strogatz glycolysis model with taxis / pursuit-evasion coupling",
+ "confidence": "medium",
+ "citations": [
+  "Madzvamuse, Ndakwo & Barreira 2014, J. Math. Biol. 70:709-743 - linear cross-diffusion in activator-depleted (Schnakenberg) kinetics enlarges Turing parameter space and gives patterns",
+  "Bashkirtseva, Pankratov & Ryashko 2023, Physica D 455:133890 - Sel'kov-Strogatz kinetics identical to this system with ordinary diffusion: Turing patterns, multistability",
+  "Bashkirtseva et al. 2022, Math. Methods Appl. Sci. - Selkov glycolytic model with diffusion: patterns with varying peak numbers",
+  "Liu, Ge & Shen 2022, Appl. Math. Comput. 431 - Sel'kov glycolysis model with cross-diffusion, Turing instability",
+  "Madzvamuse, Barreira & Gerisch (Springer chapter) - review of cross-diffusion in reaction-diffusion models (reference list only seen)"
+ ],
+ "searches": [
+  "cross-diffusion Turing patterns Sel'kov model opposite sign cross-diffusion chemotaxis-like pattern formation",
+  "Schnakenberg model cross-diffusion nonreciprocal div(u grad v) Turing patterns large diffusion ratio",
+  "Selkov model nonlinear cross-diffusion Turing pattern formation a=0.015 b=10",
+  "Turing patterns nonlinear cross-diffusion div(u grad v) opposite sign pursuit-evasion",
+  "Selkov glycolysis model with cross-diffusion taxis term pattern formation",
+  "Madzvamuse Ndakwo Barreira 2014 Cross-diffusion-driven instability",
+  "Sel'kov-Strogatz glycolysis nonlinear cross-diffusion Turing patterns Bashkirtseva Ryashko"
+ ],
+ "notes": "No source found that treats the exact nonlinear div(u grad v) / div(v grad u) opposite-sign taxis coupling on Sel'kov-Strogatz kinetics; closest are linear cross-diffusion on Schnakenberg/Sel'kov and diffusion-only Sel'kov-Strogatz. Full texts not read; the nonlinear coupling may shift thresholds or wavelength selection, and this was not checked.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "cross-diffusion Turing patterns Sel'kov model opposite sign cross-diffusion chemotaxis-like pattern formation"
+  },
+  {
+   "query": "Schnakenberg model cross-diffusion nonreciprocal div(u grad v) Turing patterns large diffusion ratio"
+  },
+  {
+   "query": "Selkov model nonlinear cross-diffusion Turing pattern formation a=0.015 b=10 oscillatory stationary patterns"
+  },
+  {
+   "query": "Turing patterns nonlinear cross-diffusion \"div(u grad v)\" opposite sign pursuit-evasion reaction-diffusion simulation"
+  },
+  {
+   "query": "Selkov glycolysis model with cross-diffusion taxis term pattern formation"
+  },
+  {
+   "query": "Madzvamuse Ndakwo Barreira 2014 Cross-diffusion-driven instability for reaction-diffusion systems Journal of Mathematical Biology"
+  },
+  {
+   "query": "Sel'kov\u2013Strogatz glycolysis model nonlinear cross-diffusion Turing patterns Bashkirtseva Ryashko"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://arxiv-export-lb.library.cornell.edu/abs/1501.04890",
+  "http://www.aimspress.com/article/doi/10.3934/era.2023211",
+  "https://github.com/Patra-arya/turing_pattern",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://doi.org/10.3390/math13152404",
+  "https://link.springer.com/article/10.1007/s11071-022-07977-4",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://ui.adsabs.harvard.edu/abs/2020arXiv200410687B/abstract",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077923003740",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "https://www.wikidata.org/wiki/Q46913950",
+  "https://ouci.dntb.gov.ua/en/works/9ZkBRPv7/",
+  "https://www.aimsciences.org//article/doi/10.3934/dcdsb.2018163",
+  "https://aimsciences.org/journals/displayArticlesnew.jsp?paperID=11724",
+  "https://link.springer.com/chapter/10.1007/978-3-319-63082-3_61",
+  "https://portal.mardi4nfdi.de/wiki/Cross-diffusion-driven_instability_for_reaction-diffusion_systems:_analysis_and_simulations",
+  "https://www.proquest.com/docview/1652480048?pq-origsite=gscholar&fromopenview=true",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077923003740",
+  "https://link.springer.com/article/10.1140/epjb/e2016-70674-4",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://link.springer.com/article/10.1007/s11538-022-01060-0"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** Cross-diffusion-induced stationary Turing-type patterns in this reaction system are well documented. I found no source that treats this exact nonlinear taxis coupling with opposite signs on these kinetics.\n\n**1. Model family.** This is a reaction\u2013diffusion system with cross-diffusion, which is chemotaxis- or taxis-like (pursuit\u2013evasion for opposite signs).\n- The kinetics are the Sel'kov glycolysis model in the Sel'kov\u2013Strogatz form. This is the Schnakenberg/Sel'kov family, with u as the autocatalytic species and v as the substrate.\n- The kinetics are written exactly this way in the Physica D paper below: du/dt = \u2212u + av + u\u00b2v + D_u \u2202\u00b2u/\u2202x\u00b2, dv/dt = b \u2212 av \u2212 u\u00b2v + D_v \u2202\u00b2v/\u2202x\u00b2.\n- The D2/D1 = 1000 ratio is a large inhibitor/activator diffusion contrast, which is the classical Turing set-up.\n\n**2. What the literature says.**\n- **Diffusion only (no cross terms).** Bashkirtseva, Pankratov and Ryashko (Physica D 455, 2023, \"Quantitative analysis of pattern formation in a multistable model of glycolysis with diffusion\") study this same kinetics. They report a variety of coexisting patterns induced by Turing instability. The Wiley paper (Bashkirtseva et al., Math. Methods Appl. Sci. 2022, \"Selkov glycolytic model with diffusion: Patterns, multistability, and stochastic transitions\") also describes spatial structures with different numbers of peaks, depending on the diffusion coefficients.\n- **Linear cross-diffusion in the Schnakenberg model.** This is the closest earlier work, and it is the earliest clear source I verified. Madzvamuse, Ndakwo and Barreira, \"Cross-diffusion-driven instability for reaction-diffusion systems: analysis and simulations\", J. Math. Biol. 70, 709\u2013743 (2014), report that parameter spaces induced by cross-diffusion are substantially larger and different from those without cross-diffusion.\n- **Sign of the cross term.** A later paper on a Schnakenberg system with cross-diffusion and delay notes that the cross-diffusion coefficients d12 and d21 can be positive or negative.\n- **Sel'kov with cross-diffusion.** Liu, Ge and Shen, Appl. Math. Comput. 431 (2022), study a reaction-diffusion glycolysis Sel'kov model with cross-diffusion. The search snippet does not say whether the coupling is linear or nonlinear.\n- **Reviews and context.**\n  - Madzvamuse, Barreira and Gerisch, \"Cross-Diffusion in Reaction-Diffusion Models: Analysis, Numerics, and Applications\" (Springer chapter) is relevant, but I only saw its reference list.\n  - Maini's chapter \"The Turing Model for Biological Pattern Formation\" mentions that Turing systems combined with chemotaxis give patterns of varying wavelength.\n  - A prey\u2013predator paper notes that pursuit\u2013evasion \"taxis\" is represented by non-linear cross-diffusion terms.\n\n**3. What differs from the setting here.**\n- Most of the cross-diffusion literature uses linear cross-diffusion (d12\u2207\u00b2v). The system here uses nonlinear, density-weighted taxis fluxes, div(u\u2207v) and div(v\u2207u).\n- I did not find a paper that combines Sel'kov\u2013Strogatz kinetics with the opposite-sign taxis coupling (c1 = c, c2 = \u2212c). Antisymmetric nonreciprocal coupling is, however, standard in pursuit\u2013evasion models.\n- The observed outcome is a sharp, stationary, Turing-like blob/spot pattern. It has a Moran's I of 0.975 and a peak at low wavenumber, k \u2248 0.047, which is a few domain-scale blobs. This is the generic outcome of cross-diffusion-driven or taxis-driven instability, so the difference in coupling form probably does not change the qualitative behaviour.\n- Possible effects of the nonlinear coupling are a different threshold and wavelength selection, and possibly coarsening or oscillatory (Turing\u2013Hopf) behaviour. I did not check these. The actual onset threshold at c = 0.17 is not something I could confirm from the literature.\n\n**4. Confidence and caveats.** Confidence is medium. The family and the behaviour are clearly covered. I could not read full texts, so the exact form of the cross-diffusion in the Sel'kov papers is unverified. Nothing I found reports the quantitative blob statistics. Searches were limited to about 8 queries.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion with nonlinear (taxis-type) cross-diffusion; Sel'kov/Schnakenberg-type activator-depleted kinetics\", \"standard_name\": \"Cross-diffusion-induced Turing (stationary spot/blob) pattern formation in the Sel'kov-Strogatz glycolysis model with taxis / pursuit-evasion coupling\", \"confidence\": \"medium\", \"citations\": [\"Madzvamuse, Ndakwo & Barreira 2014, J. Math. Biol. 70:709-743 - linear cross-diffusion in activator-depleted (Schnakenberg) kinetics enlarges Turing parameter space and gives patterns\", \"Bashkirtseva, Pankratov & Ryashko 2023, Physica D 455:133890 - Sel'kov-Strogatz kinetics identical to this system with ordinary diffusion: Turing patterns, multistability\", \"Bashkirtseva et al. 2022, Math. Methods Appl. Sci. - Selkov glycolytic model with diffusion: patterns with varying peak numbers\", \"Liu, Ge & Shen 2022, Appl. Math. Comput. 431 - Sel'kov glycolysis model with cross-diffusion, Turing instability\", \"Madzvamuse, Barreira & Gerisch (Springer chapter) - review of cross-diffusion in reaction-diffusion models (reference list only seen)\"], \"searches\": [\"cross-diffusion Turing patterns Sel'kov model opposite sign cross-diffusion chemotaxis-like pattern formation\", \"Schnakenberg model cross-diffusion nonreciprocal div(u grad v) Turing patterns large diffusion ratio\", \"Selkov model nonlinear cross-diffusion Turing pattern formation a=0.015 b=10\", \"Turing patterns nonlinear cross-diffusion div(u grad v) opposite sign pursuit-evasion\", \"Selkov glycolysis model with cross-diffusion taxis term pattern formation\", \"Madzvamuse Ndakwo Barreira 2014 Cross-diffusion-driven instability\", \"Sel'kov-Strogatz glycolysis nonlinear cross-diffusion Turing patterns Bashkirtseva Ryashko\"], \"notes\": \"No source found that treats the exact nonlinear div(u grad v) / div(v grad u) opposite-sign taxis coupling on Sel'kov-Strogatz kinetics; closest are linear cross-diffusion on Schnakenberg/Sel'kov and diffusion-only Sel'kov-Strogatz. Full texts not read; the nonlinear coupling may shift thresholds or wavelength selection, and this was not checked.\"}\n```",
+ "checked": "2026-11-04 11:27:45"
+}

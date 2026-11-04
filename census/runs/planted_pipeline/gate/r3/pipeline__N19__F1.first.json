@@ -1,0 +1,80 @@
+{
+ "class_id": "pipeline:N19:F1",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Keller-Segel (Patlak-Keller-Segel) chemotaxis PDE: auto-attractant plus nutrient chemotaxis, with saturating (volume-filling-type) sensitivity",
+ "standard_name": "Chemotactic aggregation / Keller-Segel instability forming spots (Budrene-Berg-type bacterial patterns)",
+ "confidence": "high",
+ "citations": [
+  "Budrene & Berg 1991, Nature 349:630-633 - complex spot/ring patterns by chemotactic E. coli (cited in reference lists; paper not read)",
+  "Budrene & Berg 1995, Nature 376:49-53 - dynamics of symmetrical pattern formation by chemotactic bacteria (cited in reference lists; paper not read)",
+  "Tyson, Lubkin & Murray 1999, Proc. R. Soc. B 266:299-304 - minimal three-PDE (cells, attractant, nutrient) model of spots/stripes",
+  "Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - linear analysis of pattern growth from a uniform state",
+  "Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - chemotaxis to both nutrient and secreted attractant; fixed spots, motile spots and rings depending on the sensitivity ratio",
+  "Hillen & Painter 2009, J. Math. Biol. 58:183-217 - review of chemotaxis PDE models and auto-attractant patterning"
+ ],
+ "searches": [
+  "chemotaxis model bacterial patterns attractant nutrient b/(1+b^2) Budrene Berg",
+  "Tyson Lubkin Murray liquid medium",
+  "Curk Marenduzzo Dobnikar ambient and secreted attractant",
+  "Keller-Segel nutrient attractant two-field sensitivity b/(1+b^2) spots",
+  "Tyson Lubkin Murray minimal mechanism Proc R Soc B 1999"
+ ],
+ "notes": "No source with exactly these parameters was found, so it is the same model class rather than an identical system. I did not check whether Tyson et al. use b/(1+b^2) specifically. I did not run the simulation, so I cannot say whether the spots are static or coarsen. Budrene & Berg and Hillen & Painter were confirmed only from reference lists and search snippets.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model bacterial patterns attractant produced by cells and nutrient consumed, sensitivity b/(1+b^2), Turing-like spots Budrene Berg"
+  },
+  {
+   "query": "Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium"
+  },
+  {
+   "query": "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli authors PLoS ONE 2013"
+  },
+  {
+   "query": "Keller-Segel nutrient attractant two-field chemotaxis chemotactic sensitivity b/(1+b^2) simulation spots nutrient consumption resupply"
+  },
+  {
+   "query": "Tyson Lubkin Murray minimal mechanism bacterial pattern formation chemotaxis nutrient attractant model equations spots Salmonella Proc R Soc B 1999"
+  }
+ ],
+ "result_urls": [
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://link.springer.com/chapter/10.1007/978-3-319-96842-1_6",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.088201",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://link.springer.com/article/10.1007/s00211-008-0188-0",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://faculty.washington.edu/rjl/pubs/chemotaxis/chemotaxis.pdf",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://www.wikidata.org/wiki/Q35009007",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://ouci.dntb.gov.ua/en/works/lDQbDrd9/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5056481/",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10274659/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11646970/",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://math.gmu.edu/~mholzer/1dchemotaxis.pdf",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://royalsocietypublishing.org/rspb/article-abstract/266/1416/299/69727/A-minimal-mechanism-for-bacterial-pattern?redirectedFrom=fulltext",
+  "https://www.pnas.org/doi/full/10.1073/pnas.1001994107",
+  "https://link.springer.com/chapter/10.1007/978-3-319-03759-2_4",
+  "https://faculty.washington.edu/rjl/pubs/chemotaxis/chemotaxis.pdf",
+  "http://www.macs.hw.ac.uk/~painter/assets/files/kjp017.pdf",
+  "https://eudml.org/doc/222319",
+  "https://www.mdpi.com/1422-0067/14/5/9205"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is a continuum Keller\u2013Segel chemotaxis system, and the behaviour is the standard chemotactic aggregation into spots.\n\n**1. Model family.** The system is a Patlak\u2013Keller\u2013Segel chemotaxis reaction\u2013advection\u2013diffusion model with three fields. Cells both secrete an attractant and climb a nutrient gradient. The nutrient is consumed by the cells and resupplied uniformly. The sensitivity b/(1+b\u00b2) is a density-dependent saturating form of the kind that Painter and Hillen call volume-filling or quorum-sensing.\n\n**2. The behaviour.** A uniform state plus small noise is unstable to chemotactic self-trapping. The observed features fit this: high spatial autocorrelation (f_moran 0.98), a large standard deviation in density (f_std 1.99), about 1.3 distinct blobs, and sharp peaks. The mean stays at 1.0 because cell number is conserved. The result is a spot or aggregate pattern.\n\n- **Earliest experimental source.** Budrene & Berg 1991 (Nature 349:630\u2013633) and 1995 (Nature 376:49\u201353). These are the E. coli and Salmonella spot and ring patterns. I confirmed the citations from reference lists in the search results. I did not read the papers themselves.\n- **Earliest model with this structure.** Tyson, Lubkin & Murray 1999, \"A minimal mechanism for bacterial pattern formation\", Proc. R. Soc. B 266:299\u2013304. It is a three-PDE model of cells, attractant and nutrient. The abstract says it captures the experimentally observed spots and stripes.\n- **Linear analysis of the uniform state.** Tyson, Lubkin & Murray 1999, \"Model and analysis of chemotactic bacterial patterns in a liquid medium\", J. Math. Biol. 38:359\u2013375. It analyses patterns that arise from disturbances to a uniform state.\n- **Closest match to the rule system.** Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878. It is an agent-based model with chemotaxis towards both a nutrient and a secreted attractant. Weak nutrient sensing gives fixed spots. Stronger nutrient sensing gives motile spots. Still stronger sensing gives a ring that breaks up into spots. This is the same two-signal competition that the 14 versus 11.1 sensitivities set up.\n- **Review.** Hillen & Painter 2009, \"A user's guide to PDE models for chemotaxis\", J. Math. Biol. 58:183\u2013217. I confirmed it in the search results. It covers auto-attractant pattern formation and the volume-filling sensitivity forms.\n- **Nutrient-attractant simulations.** A Hulzebos thesis (Iowa State) simulates a cell, attractant and nutrient system and reports a spot pattern. A Physica D 2019 paper (395:24\u201336) simulates Keller\u2013Segel with sensitivities to both attractant and nutrient. I did not verify the authors or titles of either, so I am not citing them as sources.\n\n**3. Caveats.**\n- I did not find a paper that uses exactly these parameters. They are 11.1 and 14 for the two sensitivities, diffusivity ratios of 2.5 and 0.75, and a nutrient rate of 0.084. I am treating this as the same model class rather than an identical system.\n- I did not check whether Tyson et al. use the b/(1+b\u00b2) form specifically. The saturating sensitivity only limits collapse, so it is unlikely to change the qualitative result.\n- The simulation is pure aggregation with no cell growth, so it differs from the growing colonies in the experiments. That is a difference in setting and does not change the mechanism.\n- I did not run the simulation, so I cannot say whether the spots are static or coarsen over time. Curk et al. say spots eventually coarsen.\n\n**Confidence: high** that the behaviour class is known. The mechanism is well documented across experiments, models and reviews. Confidence is lower, at medium, that no paper reports this exact parameter regime.\n\n**Searches run:**\n- chemotaxis model with attractant and nutrient, b/(1+b\u00b2) sensitivity, Budrene\u2013Berg spots\n- Tyson, Lubkin & Murray liquid medium\n- Curk et al. authors\n- Keller\u2013Segel nutrient and attractant with b/(1+b\u00b2)\n- Tyson minimal mechanism\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Keller-Segel (Patlak-Keller-Segel) chemotaxis PDE: auto-attractant plus nutrient chemotaxis, with saturating (volume-filling-type) sensitivity\", \"standard_name\": \"Chemotactic aggregation / Keller-Segel instability forming spots (Budrene-Berg-type bacterial patterns)\", \"confidence\": \"high\", \"citations\": [\"Budrene & Berg 1991, Nature 349:630-633 - complex spot/ring patterns by chemotactic E. coli (cited in reference lists; paper not read)\", \"Budrene & Berg 1995, Nature 376:49-53 - dynamics of symmetrical pattern formation by chemotactic bacteria (cited in reference lists; paper not read)\", \"Tyson, Lubkin & Murray 1999, Proc. R. Soc. B 266:299-304 - minimal three-PDE (cells, attractant, nutrient) model of spots/stripes\", \"Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - linear analysis of pattern growth from a uniform state\", \"Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - chemotaxis to both nutrient and secreted attractant; fixed spots, motile spots and rings depending on the sensitivity ratio\", \"Hillen & Painter 2009, J. Math. Biol. 58:183-217 - review of chemotaxis PDE models and auto-attractant patterning\"], \"searches\": [\"chemotaxis model bacterial patterns attractant nutrient b/(1+b^2) Budrene Berg\", \"Tyson Lubkin Murray liquid medium\", \"Curk Marenduzzo Dobnikar ambient and secreted attractant\", \"Keller-Segel nutrient attractant two-field sensitivity b/(1+b^2) spots\", \"Tyson Lubkin Murray minimal mechanism Proc R Soc B 1999\"], \"notes\": \"No source with exactly these parameters was found, so it is the same model class rather than an identical system. I did not check whether Tyson et al. use b/(1+b^2) specifically. I did not run the simulation, so I cannot say whether the spots are static or coarsen. Budrene & Berg and Hillen & Painter were confirmed only from reference lists and search snippets.\"}\n```",
+ "checked": "2026-11-04 11:35:15"
+}

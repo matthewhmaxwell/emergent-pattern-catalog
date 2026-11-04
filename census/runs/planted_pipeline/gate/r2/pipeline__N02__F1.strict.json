@@ -1,0 +1,60 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Stationary Turing (diffusion-driven) spot/stripe pattern in the Sel'kov glycolysis model, mildly enhanced by pursuit-evasion cross-diffusion",
+ "citations": [
+  "Wang, Zhou, Jiang et al., Turing instability and pattern formation in a diffusive Sel'kov-Schnakenberg system, J Math Chem 61, 1036-1062 (2023)",
+  "M.X. Wang, Non-constant positive steady states of the Sel'kov model, J. Differ. Equ. 190, 600-620 (2003)",
+  "Li, Xiao, Huang, Karimi et al., PD control of Turing instability in a fractional-order Sel'kov-Schnakenberg model (cross-diffusion as bifurcation parameter), J. Franklin Inst. (2025)",
+  "Hybrid control strategy for the Levy superdiffusion Sel'kov-Schnakenberg model with cross-diffusion, Chaos 35, 073142 (2025)",
+  "Wang, Shi, Wu, prey-taxis/predator-taxis induced patterns, DCDS-B (2021), doi:10.3934/dcdsb.2020162"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Linear stability: uniform state stable (tr~-99, det~100); already Turing-unstable without taxis (D2fu+D1gv~9.0 > 2sqrt(D1D2det)~6.3, unstable k^2 13-77). Taxis terms linearise to +1.7*Lap(v) in u and +0.017*Lap(u) in v; both destabilise (quantity rises to ~14.1, band widens to k^2 ~7.6-102); tr(J-k^2D)<0 so only stationary patterns. Tightens the first pass's 'variant' to KNOWN: the twist is in the rules, not the behaviour. Caveat: if grid spacing is 1, the RD band cannot be resolved (5-point Laplacian reaches only k^2 ~8), and the long-wave peak_k~0.047 / ~2.5 blobs would then be suspect (possible numerical or coarsening artifact). Check grid spacing / domain length.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns"
+  },
+  {
+   "query": "Sel'kov model chemotaxis cross-diffusion pattern formation stationary spots"
+  },
+  {
+   "query": "M.X. Wang non-constant positive steady states of the Sel'kov model Turing patterns"
+  },
+  {
+   "query": "opposite sign cross-taxis pursuit evasion reaction-diffusion Turing patterns"
+  }
+ ],
+ "result_urls": [
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://link.springer.com/article/10.1007/s10440-024-00666-x",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121821001292",
+  "https://researchers.westernsydney.edu.au/en/publications/pd-control-of-turing-instability-in-a-fractional-order-selkov-sch/",
+  "http://carretero.sdsu.edu/publications/postscript/MGR.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X03008515",
+  "https://ejamjournal.com/index.php/ejam/article/view/ejam.20231349",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727891200173X",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://link.springer.com/article/10.1007/s10114-005-0789-9",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X03008515",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570422002283",
+  "https://onlinelibrary.wiley.com/doi/10.1155/2013/921401",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X09002674/pdf?md5=b6117888b619af16c2cbcbbec1a21edb&pid=1-s2.0-S0022247X09002674-main.pdf",
+  "https://link.springer.com/article/10.1007/s00332-020-09617-w",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475424000028",
+  "https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is a standard stationary Turing pattern in the Sel'kov model. The cross-diffusion terms only change the numbers a bit; they don't change the kind of pattern. That tightens the first pass's \"variant\" call rather than reversing its family.\n\n**1. Linear stability analysis (the first pass skipped this)**\n- **Steady state:** u* = 10 and v* \u2248 0.09999. The Jacobian entries are f_u \u2248 +1.000, f_v \u2248 100.0, g_u \u2248 \u22122.000 and g_v \u2248 \u2212100.0. The trace is about \u221299 and the determinant about 100, so the uniform state is stable without diffusion.\n- **Without cross-diffusion (D1 = 0.01, D2 = 10):** D2\u00b7f_u + D1\u00b7g_v \u2248 9.0, which beats 2\u221a(D1\u00b7D2\u00b7det) \u2248 6.3. So the system is already Turing-unstable. The unstable band is k\u00b2 between about 13 and 77, peaking near k\u00b2 \u2248 45.\n- **With cross-diffusion (c1 = +0.17, c2 = \u22120.17):** linearised, these add +1.7\u00b7\u0394v to the u equation and +0.017\u00b7\u0394u to the v equation. Both cross terms push towards instability, raising the key quantity from 9.0 to about 14.1. The unstable band widens to roughly k\u00b2 7.6\u2013102. The cross-diffusion matrix stays well-posed (determinant \u2248 0.129 > 0).\n- **No oscillating or travelling patterns:** the trace minus k\u00b2(D1 + D2) is always negative, so only stationary patterns can form.\n\nSo the first pass guessed right: the pattern exists without cross-diffusion, which only widens and shifts the band. In plain terms, u is pushed away from v and v is drawn towards u, a pursuit\u2013evasion set-up. Separately, D2/D1 = 1000 already makes the system Turing-unstable without any taxis.\n\n**2. Literature**\n- Spot, spot\u2013stripe and stripe Turing patterns in a diffusive Sel'kov(-Schnakenberg) system are derived with weakly nonlinear analysis and confirmed in simulations (the theory shows patterns change \"from the spot, mixed (spot-stripe) to stripe with the variation of parameters\", verified numerically).\n- Steady non-uniform states of the Sel'kov model are a classic result: M. Wang, Non-constant positive steady states of the Sel'kov model, J. Differ. Equ. 190, 600\u2013620 (2003).\n- Sel'kov\u2013Schnakenberg with cross-diffusion has been studied, using the cross-diffusion coefficient as the bifurcation parameter, and in a L\u00e9vy superdiffusion Sel'kov\u2013Schnakenberg model with cross-diffusion.\n- For two-way taxis with opposite signs, Wang\u2013Shi\u2013Wu found that repulsive prey-taxis and attractive predator-taxis help to generate spatial patterns. That matches the destabilising signs I calculated here.\n\n**3. Twist and artifact check**\n- I found no paper with this exact combination: Sel'kov kinetics, taxis-type terms div(u\u2207v), and c1 = \u2212c2. But the behaviour (stationary spots or stripes from a Turing instability) is fully documented, so that gap isn't a finding.\n- **Grid-spacing risk:** if the grid spacing is 1, the 5-point Laplacian on a 64\u00d764 grid only reaches k\u00b2 \u2248 8. The pure reaction-diffusion band (13\u201377) would then be unresolvable, and the cross-diffusion band (from 7.6) would just touch grid-scale modes. That would predict a checkerboard, not the long-wave pattern implied by peak_k \u2248 0.047 (about 3 wavelengths across) and about 2.5 blobs.\n- So the pattern is only meaningful if the grid spacing is small (domain a few units across). If the spacing really is 1, the structure may be a numerical artifact or coarsening behaviour. The grid spacing should be checked.\n- **Otherwise genuine:** Moran's I of 0.975 and a std of about 0.024 on a mean of about 0.08 (if that is the v field, it's roughly 25\u201330% modulation) point to a real stationary pattern, not noise or a frozen uniform state.\n\nSearches I ran: Sel'kov cross-diffusion Turing patterns; Sel'kov chemotaxis cross-diffusion stationary patterns; Wang's Sel'kov steady states; opposite-sign cross-taxis / pursuit\u2013evasion Turing patterns.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Stationary Turing (diffusion-driven) spot/stripe pattern in the Sel'kov glycolysis model, mildly enhanced by pursuit-evasion cross-diffusion\", \"citations\": [\"Wang, Zhou, Jiang et al., Turing instability and pattern formation in a diffusive Sel'kov-Schnakenberg system, J Math Chem 61, 1036-1062 (2023)\", \"M.X. Wang, Non-constant positive steady states of the Sel'kov model, J. Differ. Equ. 190, 600-620 (2003)\", \"Li, Xiao, Huang, Karimi et al., PD control of Turing instability in a fractional-order Sel'kov-Schnakenberg model (cross-diffusion as bifurcation parameter), J. Franklin Inst. (2025)\", \"Hybrid control strategy for the Levy superdiffusion Sel'kov-Schnakenberg model with cross-diffusion, Chaos 35, 073142 (2025)\", \"Wang, Shi, Wu, prey-taxis/predator-taxis induced patterns, DCDS-B (2021), doi:10.3934/dcdsb.2020162\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Linear stability: uniform state stable (tr~-99, det~100); already Turing-unstable without taxis (D2fu+D1gv~9.0 > 2sqrt(D1D2det)~6.3, unstable k^2 13-77). Taxis terms linearise to +1.7*Lap(v) in u and +0.017*Lap(u) in v; both destabilise (quantity rises to ~14.1, band widens to k^2 ~7.6-102); tr(J-k^2D)<0 so only stationary patterns. Tightens the first pass's 'variant' to KNOWN: the twist is in the rules, not the behaviour. Caveat: if grid spacing is 1, the RD band cannot be resolved (5-point Laplacian reaches only k^2 ~8), and the long-wave peak_k~0.047 / ~2.5 blobs would then be suspect (possible numerical or coarsening artifact). Check grid spacing / domain length.\"}\n```",
+ "checked": "2026-11-04 11:29:12"
+}

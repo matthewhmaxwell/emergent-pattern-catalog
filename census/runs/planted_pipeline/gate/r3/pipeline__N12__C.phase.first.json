@@ -1,0 +1,67 @@
+{
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "2D classical XY (planar rotator) model with algebraically decaying long-range interactions 1/r^(2+sigma), sigma=2, single-spin Monte Carlo",
+ "standard_name": "Long-range XY model in 2D at sigma=2 (long-range-ordered ferromagnetic phase / BKT with long-range couplings)",
+ "confidence": "medium",
+ "citations": [
+  "Yao, Xiao, Zhang, Deng, Fan, 'Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study', Phys. Rev. B (https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg)",
+  "Giachetti, Defenu, Ruffo, Trombettoni, 'Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings', PRL 127, 156801 (2021)",
+  "'Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings', PRL (https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb)",
+  "Kosterlitz, 'Phase Transitions in Long-Range Ferromagnetic Chains', PRL 37, 1577 (1976)",
+  "Zenodo raw data for Yao et al. (observables M2, corr2_L) https://zenodo.org/records/17205163",
+  "Hasenbusch, J. Phys. A 38, 5869 (2005), xi_2nd/L in the short-range XY model"
+ ],
+ "searches": [
+  "two-dimensional long-range XY model 1/r^{2+sigma} sigma=2 Berezinskii-Kosterlitz-Thouless Monte Carlo",
+  "Kosterlitz long-range XY model renormalization group power-law interactions spin waves vortices crossover sigma=2",
+  "Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings PRL 2021",
+  "Kac normalization long-range XY model 2D magnetization finite temperature sigma=2 marginal Monte Carlo correlation length",
+  "Kosterlitz 1976 long-range ferromagnetic chains; Joyce 1966 long-range 2D order"
+ ],
+ "notes": "The run is the sigma=2 case of the 2D long-range XY model. The ordered, vortex-poor state (p_r about 0.73, local r about 0.86, vortex density 0.006) is consistent with the reported ferromagnetic phase for sigma<=2. Not verified: whether beta=1 with this coupling normalisation lies below Tc, the exact sigma=2 boundary behaviour (sources differ on sigma<2 vs sigma<=2), and what the 'lattice phase locking' test measures. Full texts were not read; only abstracts and previews. L=64 and 1000 sweeps from a random start are small and short and may not be fully equilibrated.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "two-dimensional long-range XY model 1/r^{2+\u03c3} \u03c3=2 Berezinskii-Kosterlitz-Thouless Monte Carlo"
+  },
+  {
+   "query": "Kosterlitz long-range XY model renormalization group power-law interactions spin waves vortices crossover \u03c3=2"
+  },
+  {
+   "query": "Giachetti Defenu Ruffo Trombettoni Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings PRL 2021"
+  },
+  {
+   "query": "Kac normalization long-range XY model 2D magnetization finite temperature \u03c3=2 marginal Monte Carlo correlation length second-moment"
+  },
+  {
+   "query": "Kosterlitz 1976 Phase transitions in long-range ferromagnetic chains PRL; Joyce 1966 long-range classical Heisenberg XY 2D \u03c3=2 order at finite temperature"
+  }
+ ],
+ "result_urls": [
+  "https://cpl.iphy.ac.cn/en/article/pdf/preview/10.1088/0256-307X/42/7/070002.pdf",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://iopscience.iop.org/article/10.1088/1402-4896/add62a",
+  "https://arpi.unipi.it/retrieve/b59abad7-348b-4f83-b48a-6a6100123025/PhysRevD.103.014510.pdf",
+  "https://www.cond-mat.de/events/correl24/manuscripts/benfatto.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://d-nb.info/1202848079/34",
+  "https://link.aps.org/doi/10.1103/PhysRevB.102.104505",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://iom.cnr.it/publications/?page=162",
+  "https://scholar.google.com.vn/citations?user=isMcw-wAAAAJ&hl=th",
+  "https://scholargps.com/scholars/14271713276393/guido-giachetti",
+  "https://iris.sissa.it/handle/20.500.11767/127058",
+  "https://arts.units.it/browse?authority=journal24898&etal=-1&offset=33&order=ASC&rpp=20&sort_by=1&starts_with=T&type=relationJournal",
+  "https://iris.sissa.it/cris/rp/rp06379?type=all",
+  "https://www.sissa.it/it/news/berezinskiikosterlitzthouless-phase-transitions-longrange-couplings-nuovo-articolo-physical",
+  "https://iopscience.iop.org/article/10.1088/0305-4470/38/26/003",
+  "https://zenodo.org/records/17205163",
+  "https://link.aps.org/pdf/10.1103/PhysRevLett.37.1577",
+  "https://inspirehep.net/literature/1861073",
+  "https://www.lpthe.jussieu.fr/~leticia/TEACHING/Master2020/intro-phase-transitions.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.**\n\n**Model family.** This is the 2D classical XY (planar rotator) model with algebraically decaying long-range couplings, J(r) \u221d 1/r^(2+\u03c3). Here 1/r\u2074 means \u03c3 = 2, which sits exactly on the boundary between the long-range and short-range regimes. The dynamics are ordinary single-spin Metropolis-type Monte Carlo. The observables are M\u00b2 and the correlation length, probably as \u03be/L.\n\n**Is the behaviour reported?**\n- The setup matches the 2D long-range XY Monte Carlo literature. Yao, Xiao, Zhang, Deng and Fan (Phys. Rev. B, \"Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study\") study the 2D XY model with \u223c1/r^(2+\u03c3) couplings. They report that for \u03c3\u22642, the system undergoes a second-order phase transition into a ferromagnetic phase characterized by the emergence of long-range order. They also give compelling evidence that the crossover between nonclassical and short-range regimes occurs at \u03c3=2.\n- That paper's raw-data record lists the same observables as this run: \"M2\" (squared magnetization) and \"corr2_L\" (the ratio of correlation length to system size).\n- A companion Letter version reports continuous phase transitions into a ferromagnetic phase for \u03c3<2, which exhibit the simultaneous emergence of a long-ranged order and a power-law decaying correlation function due to the Goldstone mode. I only saw a preview, and its abstract fragment says \u03c3<2 where the PRB abstract says \u03c3\u22642. The \u03c3=2 edge case is therefore stated slightly differently in the two sources, and I did not resolve that.\n- Theory: Giachetti, Defenu, Ruffo and Trombettoni, PRL 127, 156801 (2021), consider the effect of long-range decaying couplings \u223cr-2-\u03c3 on the BKT transition. They find a quasi-ordered phase for 7/4<\u03c3<2 in a finite temperature range Tc<T<TBKT. A follow-up PRL, \"Persistence of the BKT transition with long-range couplings\", argues that spin waves renormalize the interaction between vortices, which stabilizes the BKT transition.\n- Earliest source: Kosterlitz, PRL 37, 1577 (1976), is a renormalization-group treatment of long-range chains near r\u207b\u00b2. It notes very close analogies to the short-range problem near two dimensions. The idea that long-range couplings change the BKT picture is therefore old. I did not find a 1976-era source for the 2D case specifically. The clearest source for 2D with Monte Carlo data is Yao et al.\n- For short-range reference, I checked Hasenbusch (J. Phys. A 38, 5869 (2005)). It uses \u03be_2nd/L as a finite-size observable in the XY model.\n\n**What the observed numbers mean.**\n- The high local order (0.855), the global order (0.727) and the very low vortex density (0.006) describe an ordered, vortex-poor, ferromagnetically locked state. That is what the literature predicts for \u03c3=2 below Tc.\n- \"Lattice phase locking\" is probably just the generic label for this ordered state. It does not suggest a different phenomenon.\n- I could not verify that \u03b2 = 1 with this coupling normalisation lies below Tc. The ordered state would be the expected result if it does.\n- Possible differences that I judge unlikely to matter:\n  - the system is small (L = 64);\n  - the run is short (1000 sweeps from a random start, so it may not be fully equilibrated);\n  - there is a single temperature rather than a scan;\n  - the Kac-type normalisation of the total coupling.\n\n**Confidence: medium-high.** The model family, the observables and the ordered-phase outcome all match published work. The remaining uncertainty is that I could not read the full texts, so I could not check Tc for this normalisation or the exact \u03c3=2 boundary behaviour. I also don't know what the \"lattice phase locking\" test measures.\n\n**Searches run:**\n1. 2D long-range XY 1/r^(2+\u03c3) \u03c3=2 BKT Monte Carlo\n2. Kosterlitz long-range XY renormalization group spin waves vortices \u03c3=2\n3. Giachetti, Defenu, Ruffo and Trombettoni, BKT with long-range couplings\n4. Kac normalization long-range XY 2D magnetization \u03c3=2 correlation length\n5. Kosterlitz 1976 long-range chains; Joyce 1966\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"2D classical XY (planar rotator) model with algebraically decaying long-range interactions 1/r^(2+sigma), sigma=2, single-spin Monte Carlo\", \"standard_name\": \"Long-range XY model in 2D at sigma=2 (long-range-ordered ferromagnetic phase / BKT with long-range couplings)\", \"confidence\": \"medium\", \"citations\": [\"Yao, Xiao, Zhang, Deng, Fan, 'Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study', Phys. Rev. B (https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg)\", \"Giachetti, Defenu, Ruffo, Trombettoni, 'Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings', PRL 127, 156801 (2021)\", \"'Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings', PRL (https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb)\", \"Kosterlitz, 'Phase Transitions in Long-Range Ferromagnetic Chains', PRL 37, 1577 (1976)\", \"Zenodo raw data for Yao et al. (observables M2, corr2_L) https://zenodo.org/records/17205163\", \"Hasenbusch, J. Phys. A 38, 5869 (2005), xi_2nd/L in the short-range XY model\"], \"searches\": [\"two-dimensional long-range XY model 1/r^{2+sigma} sigma=2 Berezinskii-Kosterlitz-Thouless Monte Carlo\", \"Kosterlitz long-range XY model renormalization group power-law interactions spin waves vortices crossover sigma=2\", \"Giachetti Defenu Ruffo Trombettoni BKT phase transitions with long-range couplings PRL 2021\", \"Kac normalization long-range XY model 2D magnetization finite temperature sigma=2 marginal Monte Carlo correlation length\", \"Kosterlitz 1976 long-range ferromagnetic chains; Joyce 1966 long-range 2D order\"], \"notes\": \"The run is the sigma=2 case of the 2D long-range XY model. The ordered, vortex-poor state (p_r about 0.73, local r about 0.86, vortex density 0.006) is consistent with the reported ferromagnetic phase for sigma<=2. Not verified: whether beta=1 with this coupling normalisation lies below Tc, the exact sigma=2 boundary behaviour (sources differ on sigma<2 vs sigma<=2), and what the 'lattice phase locking' test measures. Full texts were not read; only abstracts and previews. L=64 and 1000 sweeps from a random start are small and short and may not be fully equilibrated.\"}\n```",
+ "checked": "2026-11-04 11:33:10"
+}

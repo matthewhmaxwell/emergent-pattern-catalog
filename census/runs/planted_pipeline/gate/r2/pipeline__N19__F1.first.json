@@ -1,0 +1,88 @@
+{
+ "class_id": "pipeline:N19:F1",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Keller-Segel (Patlak-Keller-Segel) chemotaxis reaction-diffusion-advection system with autochemotaxis plus nutrient taxis",
+ "standard_name": "Chemotactic instability / autochemotactic aggregation (Budrene-Berg-type spot and aggregate patterns) in a Keller-Segel model",
+ "confidence": "medium",
+ "citations": [
+  "Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - pattern formation analysed as growth of disturbances to a uniform state in a bacterial chemotaxis model",
+  "Brenner, Levitov & Budrene 1998, Biophys. J. 74:1677-1693 - physical theory of chemotactic aggregate and ring formation with excreted attractant",
+  "Woodward et al. 1995, Biophys. J. 68:2181-2189 - cell-chemotaxis model of Salmonella spot and ring patterns, with sensitivity falling at high attractant",
+  "Physica D 395 (2019) 24-36, Interactions of solitary pulses of E. coli in a one-dimensional nutrient gradient - Keller-Segel model with secreted attractant and nutrient-consumption gradient (1-D)",
+  "PLOS ONE 2013 (e74878), Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli - self-trapping feedback and spots with combined nutrient and secreted attractant taxis",
+  "A user's guide to PDE models for chemotaxis, J. Math. Biol. 2009 - review of chemotaxis PDE models and their patterning properties"
+ ],
+ "searches": [
+  "chemotaxis attractant production nutrient consumption taxis b/(1+b^2) spots",
+  "Keller-Segel nutrient taxis self-produced attractant receptor saturation patterns",
+  "Physica D 2019 Keller-Segel nutrient attractant pulses",
+  "Tyson Lubkin Murray liquid medium",
+  "Brenner Levitov Budrene 1998",
+  "Interactions of solitary pulses E. coli authors"
+ ],
+ "notes": "No source with exactly these equations (no growth, nutrient resupplied and used as a second attractant, density-saturating sensitivity b/(1+b^2)) was found. The core behaviour is generic. Review authors and year were not shown in the search listing. Exact earliest-source priority between Keller-Segel 1970, Budrene-Berg 1991, and Tyson 1999 was not fully verified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model bacteria attractant production and nutrient consumption taxis, sensitivity b/(1+b^2), Turing-like spots pattern formation"
+  },
+  {
+   "query": "Keller-Segel nutrient taxis and self-produced attractant, receptor saturation chemotactic sensitivity, spatiotemporal patterns, stationary spots"
+  },
+  {
+   "query": "Physica D 2019 Keller-Segel chemotaxis bacteria attractant nutrient gradient consumption Turing instability pulse formation two behaviors"
+  },
+  {
+   "query": "Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium"
+  },
+  {
+   "query": "Brenner Levitov Budrene Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal 1998"
+  },
+  {
+   "query": "Interactions of solitary pulses of E. coli in a one-dimensional nutrient gradient Physica D 2019 authors"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.repository.cam.ac.uk/bitstreams/687d4e1f-43e5-4bfa-a398-3b588107cc24/download",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://www.damtp.cam.ac.uk/user/jrt51/papers/Watteaux2015.pdf",
+  "https://link.springer.com/article/10.1140/epje/s10189-021-00009-w",
+  "https://doi.org/10.1016/S0006-3495(95)80400-5",
+  "https://escholarship.org/content/qt55t836xf/qt55t836xf.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0022039625010174",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.pnas.org/doi/10.1073/pnas.2309251121",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10274659/",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278918305128",
+  "https://www.biorxiv.org/content/10.1101/2023.06.01.543315.full.pdf",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7960630/",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://pubmed.ncbi.nlm.nih.gov/10326253",
+  "https://link.springer.com/article/10.1007/s00366-018-0638-y",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.088201",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://brennergroup.seas.harvard.edu/publications/physical-mechanisms-chemotactic-pattern-formation-bacteria",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1001994107",
+  "https://www.pnas.org/doi/10.1073/pnas.1006363107",
+  "https://link.springer.com/article/10.1023/A:1005153720027",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023095",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278918305128",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://www.linkedin.com/in/gyoung25/",
+  "https://www.pnas.org/doi/10.1073/pnas.1808200116",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1000890"
+ ],
+ "full_text": "**Verdict: KNOWN, with medium confidence.** The behaviour is the textbook chemotactic (Keller\u2013Segel-type) instability, which breaks a uniform state into dense cell aggregates. I did not find a paper with exactly these equations.\n\n**1. Model family.** This is a Keller\u2013Segel (Patlak\u2013Keller\u2013Segel) chemotaxis reaction\u2013diffusion\u2013advection system. It has:\n- a conserved cell density b;\n- a self-produced, decaying attractant a, which makes the cells attract each other (autochemotaxis);\n- a nutrient n that the cells consume and that is resupplied, with the cells also climbing the nutrient gradient.\n\nThe sensitivity b/(1+b\u00b2) falls off at high density. This is a density-dependent saturation, related to \"volume-filling\" and quorum-type sensitivities.\n\n**2. The behaviour.** The observed outcome is a uniform state plus noise that grows into a strongly structured field. The numbers support this: the Moran's I of 0.984 means strong spatial autocorrelation, the std of 1.99 means large amplitude, and about 1.3 blobs on the f_n_blobs scale (probably a few blobs). Mean density stays at 1, as expected when cell number is conserved. Aggregation and spot formation from a uniform state through chemotactic instability is well documented:\n- Tyson, Lubkin & Murray (1999, J. Math. Biol. 38:359\u2013375), \"Model and analysis of chemotactic bacterial patterns in a liquid medium.\" They give a simple analysis of the patterns their model generates, which arise from disturbances to a spatially uniform solution state. This is the closest earliest source I could read, but the abstract does not show whether its model has nutrient taxis.\n- Brenner, Levitov & Budrene (1998, Biophys. J. 74:1677\u20131693), \"Physical mechanisms for chemotactic pattern formation by bacteria.\" It gives a theory of E. coli pattern formation with excreted attractant, in which the bacteria organise into swarm rings and aggregates through chemoattractant signalling. It is a mechanistic physics treatment.\n- Woodward et al. (1995, Biophys. J. 68:2181\u20132189), \"Spatio-temporal patterns generated by Salmonella typhimurium.\" It is a cell\u2013chemotaxis model for self-organisation, and the Budrene\u2013Berg experiments (Nature 1991, 1995) are its experimental basis. The snippet I saw says perforated rings (spots) and rings were observed in the experiments, and that sensitivity to gradients of c decreases as c rises. That is the same kind of saturating sensitivity as here, though the snippets did not give the exact functional form.\n- Mechanism: a density fluctuation raises local attractant secretion, which draws in more bacteria, which raises secretion further. This is the PLOS ONE (2013) E. coli model, \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli.\" It also covers combined nutrient and secreted-attractant taxis, which gives spots that can be motile.\n- Nutrient plus attractant coupling in a Keller\u2013Segel model: Physica D 395 (2019) 24\u201336, \"Interactions of solitary pulses of E. coli in a one-dimensional nutrient gradient.\" Its pulses are maintained by cell\u2013cell interaction through a secreted chemoattractant, while their direction follows a nutrient gradient the bacteria create by consuming nutrient. It is 1-D and about pulses, not 2-D blobs.\n- Review: \"A user's guide to PDE models for chemotaxis\" (J. Math. Biol., 2009). Its abstract says it reviews the formulation of these models from a biological perspective, contrasts their patterning properties, and summarises key analytical results. I verified the title and abstract in the search results, but only through its listing. I did not see the authors or year on the page.\n\n**3. What differs from the literature.** Most of these models include cell growth and death, and a few have no nutrient or only one signal. Here there is no growth, and the nutrient is consumed and resupplied. It acts as a second attractant, not as a growth substrate. The sensitivity b/(1+b\u00b2) is specific to this system. I found no exact match for this parameter set. The ingredients are all standard, and the pattern-forming mechanism (the attractant-driven instability) should be unchanged. Nutrient taxis and depletion could change the blob number, their stability or their motion. I could not check this against a source.\n\n**Confidence: medium.** The general behaviour is firmly established, and I read several sources. I did not confirm that any paper uses exactly these equations. I also did not check blob coarsening, merging or motion in 2-D for this specific coupling.\n\n**Searches run:**\n- chemotaxis attractant production and nutrient consumption pattern formation\n- Keller\u2013Segel nutrient taxis and self-produced attractant, saturating sensitivity\n- Physica D 2019 nutrient gradient pulses\n- Tyson, Lubkin & Murray 1999\n- Brenner, Levitov & Budrene 1998\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Keller-Segel (Patlak-Keller-Segel) chemotaxis reaction-diffusion-advection system with autochemotaxis plus nutrient taxis\", \"standard_name\": \"Chemotactic instability / autochemotactic aggregation (Budrene-Berg-type spot and aggregate patterns) in a Keller-Segel model\", \"confidence\": \"medium\", \"citations\": [\"Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - pattern formation analysed as growth of disturbances to a uniform state in a bacterial chemotaxis model\", \"Brenner, Levitov & Budrene 1998, Biophys. J. 74:1677-1693 - physical theory of chemotactic aggregate and ring formation with excreted attractant\", \"Woodward et al. 1995, Biophys. J. 68:2181-2189 - cell-chemotaxis model of Salmonella spot and ring patterns, with sensitivity falling at high attractant\", \"Physica D 395 (2019) 24-36, Interactions of solitary pulses of E. coli in a one-dimensional nutrient gradient - Keller-Segel model with secreted attractant and nutrient-consumption gradient (1-D)\", \"PLOS ONE 2013 (e74878), Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli - self-trapping feedback and spots with combined nutrient and secreted attractant taxis\", \"A user's guide to PDE models for chemotaxis, J. Math. Biol. 2009 - review of chemotaxis PDE models and their patterning properties\"], \"searches\": [\"chemotaxis attractant production nutrient consumption taxis b/(1+b^2) spots\", \"Keller-Segel nutrient taxis self-produced attractant receptor saturation patterns\", \"Physica D 2019 Keller-Segel nutrient attractant pulses\", \"Tyson Lubkin Murray liquid medium\", \"Brenner Levitov Budrene 1998\", \"Interactions of solitary pulses E. coli authors\"], \"notes\": \"No source with exactly these equations (no growth, nutrient resupplied and used as a second attractant, density-saturating sensitivity b/(1+b^2)) was found. The core behaviour is generic. Review authors and year were not shown in the search listing. Exact earliest-source priority between Keller-Segel 1970, Budrene-Berg 1991, and Tyson 1999 was not fully verified.\"}\n```",
+ "checked": "2026-11-04 11:36:41"
+}

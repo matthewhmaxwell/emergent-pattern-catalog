@@ -1,0 +1,91 @@
+{
+ "class_id": "pipeline:N07:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "stochastic mass transport process (conserved continuous-mass lattice model, non-equilibrium, chiral/odd transport)",
+ "standard_name": "chiral mass transport process; non-CoM-conserving MTP (non-hyperuniform) vs CoM-conserving MTP hyperuniformity",
+ "confidence": "low",
+ "citations": [
+  "Greenblatt & Lebowitz, J. Phys. A (year unverified) - Product measure steady states of generalized zero range processes / mass transport processes; product-measure condition",
+  "Hazra, Mukherjee, Pradhan 2025, J. Stat. Mech. 023201 - hyperuniformity in 2D MTPs requires center-of-mass conservation, S(q)~q^2",
+  "Maire et al. 2025, J. Chem. Phys. 163, 214507 (arXiv:2509.04242) - conservation laws (mass multipoles) set hyperuniform exponent; hyperuniformity from partially conserved motion is not robust",
+  "Wojcik & Kalz, New J. Phys. - chiral random walk lattice model for odd diffusion",
+  "Kalz/odd diffusivity literature (Hargus et al., Odd diffusivity of chiral random motion) - collective diffusion coefficient unaffected by odd diffusion",
+  "Science Advances (aau7423) - hyperuniform fluids of circle active particles; mechanism is CoM-conserving collisions plus Fickian diffusion"
+ ],
+ "searches": [
+  "conserved mass transfer lattice model chiral L-shaped moves hyperuniform density correlations",
+  "non-equilibrium conserved lattice model odd/chiral transport broken detailed balance long-range density correlations",
+  "mass transport process chiral two-step update turn left lattice steady state density correlations",
+  "Hyperuniformity in mass transport processes with center-of-mass conservation",
+  "chiral active lattice gas odd diffusion hyperuniform steady state structure factor",
+  "Hyperuniformity and conservation laws in non-equilibrium systems four models multipole conservation",
+  "chiral conserved lattice dynamics odd diffusion stochastic mass transport 2D hyperuniformity CoM conservation"
+ ],
+ "notes": "No paper found with this exact two-hop always-left-turn rule. My own analysis (not from a source) is that per-event CoM change a*d + b*l(d) is non-zero, so the CoM-conservation route to hyperuniformity does not apply and a generic non-hyperuniform MTP is expected. The simulation's numbers were not checked against any source. Greenblatt-Lebowitz year/authors not verified. It is not verified whether this rule has a product-measure steady state.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "conserved mass transfer lattice model chiral L-shaped moves hyperuniform density correlations"
+  },
+  {
+   "query": "non-equilibrium conserved lattice model odd/chiral transport broken detailed balance long-range density correlations dipolar conserved noise"
+  },
+  {
+   "query": "mass transport process chiral two-step update turn left lattice steady state density correlations non-reciprocal"
+  },
+  {
+   "query": "Hyperuniformity in mass transport processes with center-of-mass conservation Rajesh Majumdar Pal"
+  },
+  {
+   "query": "chiral active lattice gas odd diffusion hyperuniform steady state structure factor conserved dynamics"
+  },
+  {
+   "query": "Hyperuniformity and conservation laws in non-equilibrium systems four models multipole conservation arXiv"
+  },
+  {
+   "query": "random averaging mass redistribution lattice rotation-symmetric chirality breaks parity steady-state structure factor S(k) finite k peak clustering"
+  },
+  {
+   "query": "chiral conserved lattice dynamics odd diffusion stochastic mass transport 2D hyperuniformity \"odd\" CoM conservation angular"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10382421",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.phys.ens.psl.eu/~wiese/pdf/Manna-hyperuniform.pdf",
+  "https://www.osti.gov/pages/servlets/purl/1874044",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ad4b83",
+  "https://vtechworks.lib.vt.edu/server/api/core/bitstreams/5617ff36-21cd-489b-af95-a3fdb6630989/content",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/14/7/075004",
+  "https://cmsr.rutgers.edu/images/people/lebowitz_joel/publications-archived/greenblatt_509.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/36578289/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://pubs.aip.org/aip/jcp/article/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ad5c56",
+  "https://pubmed.ncbi.nlm.nih.gov/39295006/",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ad5b45",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ab5f17",
+  "https://scholarlypublications.universiteitleiden.nl/access/item:2902998/view",
+  "https://www.nature.com/articles/s41467-017-01378-7",
+  "https://www.science.org/doi/10.1126/sciadv.aau7423",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://pubs.aip.org/aip/jcp/article/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non",
+  "https://pubmed.ncbi.nlm.nih.gov/41347732/",
+  "https://ludovicberthier.github.io/divers/4b8v-4sbh.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/4j35-6jxb",
+  "https://www.damtp.cam.ac.uk/user/tong/gaugetheory/5chisb.pdf",
+  "https://en.wikipedia.org/wiki/Chiral_symmetry_breaking",
+  "https://saalburg.aei.mpg.de/wp-content/uploads/sites/25/2017/03/wiese.pdf",
+  "https://journals.aps.org/prd/abstract/10.1103/PhysRevD.90.034507",
+  "https://www.pnas.org/doi/10.1073/pnas.2201279119",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/aeaf77",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11497608/",
+  "https://par.nsf.gov/servlets/purl/10318148",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077926007551"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, low confidence.** I found no paper on this exact rule, and I could not check the simulation's numbers against any source.\n\n**1. Model family.** This is a stochastic mass-transport process (MTP) on a periodic square lattice. Mass is continuous, the dynamics are random-sequential, and total mass is conserved. Chirality is added because the second hop always turns left. That is an odd, parity-breaking but isotropic-in-rate rule, so detailed balance is broken. The closest literatures are:\n- mass-transport processes and generalized zero-range processes;\n- hyperuniformity in non-equilibrium conserved systems;\n- chiral and odd-diffusion lattice models.\n\n**2. What the literature says about this behaviour.**\n- **Generic MTPs.** The mass-transport process is defined and its product-measure steady states are characterised in Greenblatt & Lebowitz, J. Phys. A, \"Product measure steady states of generalized zero range processes\". The search result shows the process and the factorizability condition. I did not see the year or full author list, so those are unverified. If a rule like this one has a factorised steady state, density correlations would be short-ranged and S(k\u21920) would be finite, with no hyperuniformity. I did not test whether this rule satisfies the factorizability condition.\n- **Hyperuniformity needs a center-of-mass conservation law.** Hazra, Mukherjee & Pradhan, J. Stat. Mech. (2025) 023201, \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results\", treat 1D and 2D MTPs with broken detailed balance. They find dynamic and static fluctuations are more suppressed in systems with CoMC, resulting in an extreme ('class-I') hyperuniformity in certain cases. They also give S(q) \u223c q\u00b2, implying a class-I spatial hyperuniformity.\n- **Review-level source.** Maire et al., J. Chem. Phys. 163, 214507 (2025), \"Hyperuniformity and conservation laws in non-equilibrium systems\" (arXiv:2509.04242), argue that hyperuniformity emerges generically from the interplay between conservation laws and non-equilibrium driving. With m conserved multipoles, S(k) \u223c k^m. They also report that hyperuniformity arising from conserved noise and partially conserved average motion is not robust against non-linear perturbations.\n- **Chirality alone.** Chiral and odd-diffusion lattice models exist, for example W\u00f3jcik & Kalz, New J. Phys., \"The chiral random walk: a quantum-inspired framework for odd diffusion\". Odd diffusivity is reported to leave the collective diffusion coefficient unchanged: the collective diffusion coefficient is unaffected from odd diffusion. Chiral circle-swimmer fluids show hyperuniformity, for example the Science Advances paper \"Nonequilibrium strongly hyperuniform fluids of circle active particles with large local density fluctuations\", but there the mechanism is center-of-mass-conserving collisions plus Fickian diffusion.\n\n**3. Fit to this rule.** For one move, the center of mass shifts by a\u00b7d + b\u00b7l(d). Here a is the mass sent in the first hop, b the mass passed on in the second, d the chosen direction and l(d) its left turn. This is not zero event by event. It averages to zero only over the four directions. So the noise is not dipole-conserving, and the Hazra et al. and Maire et al. mechanism for hyperuniformity does not apply. I expect an ordinary non-hyperuniform MTP with finite long-wavelength fluctuations and some short-range structure. That fits the reported spatial structure (Moran 0.10, about 6 blobs, a finite-k peak at 0.417). Chirality is probably a minor modification, since it only adds odd (antisymmetric) transport terms. A rule with exactly this two-step left-turn structure is not described in anything I found.\n\n**What differs from the closest sources, and whether it matters.** The closest sources are CoM-conserving MTPs and chiral random walks. Neither has the two-hop, always-left-turning mass-sharing move. I judge that it probably does not matter for the main result, which is non-hyperuniform fluctuations, but I have not tested that.\n\n**Confidence: low.** Only 7 searches were run, and I found no paper that simulates this exact rule. I did not check the Hazra et al. or Maire et al. text for a model close to this one. I also did not compute the structure factor myself.\n\n**Searches run:**\n- conserved mass transfer lattice chiral L-shaped hyperuniform\n- non-equilibrium conserved lattice odd/chiral broken detailed balance\n- mass transport process chiral two-step left turn\n- Hyperuniformity in MTPs with CoM conservation\n- chiral active lattice gas odd diffusion hyperuniform\n- Hyperuniformity and conservation laws in non-equilibrium systems\n- chiral conserved lattice stochastic mass transport 2D CoM\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"stochastic mass transport process (conserved continuous-mass lattice model, non-equilibrium, chiral/odd transport)\", \"standard_name\": \"chiral mass transport process; non-CoM-conserving MTP (non-hyperuniform) vs CoM-conserving MTP hyperuniformity\", \"confidence\": \"low\", \"citations\": [\"Greenblatt & Lebowitz, J. Phys. A (year unverified) - Product measure steady states of generalized zero range processes / mass transport processes; product-measure condition\", \"Hazra, Mukherjee, Pradhan 2025, J. Stat. Mech. 023201 - hyperuniformity in 2D MTPs requires center-of-mass conservation, S(q)~q^2\", \"Maire et al. 2025, J. Chem. Phys. 163, 214507 (arXiv:2509.04242) - conservation laws (mass multipoles) set hyperuniform exponent; hyperuniformity from partially conserved motion is not robust\", \"Wojcik & Kalz, New J. Phys. - chiral random walk lattice model for odd diffusion\", \"Kalz/odd diffusivity literature (Hargus et al., Odd diffusivity of chiral random motion) - collective diffusion coefficient unaffected by odd diffusion\", \"Science Advances (aau7423) - hyperuniform fluids of circle active particles; mechanism is CoM-conserving collisions plus Fickian diffusion\"], \"searches\": [\"conserved mass transfer lattice model chiral L-shaped moves hyperuniform density correlations\", \"non-equilibrium conserved lattice model odd/chiral transport broken detailed balance long-range density correlations\", \"mass transport process chiral two-step update turn left lattice steady state density correlations\", \"Hyperuniformity in mass transport processes with center-of-mass conservation\", \"chiral active lattice gas odd diffusion hyperuniform steady state structure factor\", \"Hyperuniformity and conservation laws in non-equilibrium systems four models multipole conservation\", \"chiral conserved lattice dynamics odd diffusion stochastic mass transport 2D hyperuniformity CoM conservation\"], \"notes\": \"No paper found with this exact two-hop always-left-turn rule. My own analysis (not from a source) is that per-event CoM change a*d + b*l(d) is non-zero, so the CoM-conservation route to hyperuniformity does not apply and a generic non-hyperuniform MTP is expected. The simulation's numbers were not checked against any source. Greenblatt-Lebowitz year/authors not verified. It is not verified whether this rule has a product-measure steady state.\"}\n```",
+ "checked": "2026-11-04 11:31:47"
+}

@@ -1,0 +1,46 @@
+{
+ "class_id": "pipeline:N04:A",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Chiral (odd/transverse-force) Lennard-Jones fluid: chirality-broken solid / rotating hexatic patches, density inhomogeneity (cf. bubbles induced by odd interactions)",
+ "citations": [
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://pubmed.ncbi.nlm.nih.gov/39972852/"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Downgrades first-pass VARIANT to KNOWN: the only difference (mild ellipticity, AR~1.18, orientation-coupled LJ) leaves no trace in the observed phenomenology; polar/local alignment ~0 means the orientation field is effectively inert noise. Observed features (high local regularity nn_ratio~1.98 at density 0.87, density CV 0.43, no alignment) match the chiral-LJ broken-solid and odd-interaction bubble phenomenology; the metrics cannot tell rotating hexatic patches from bubbles, and psi6/defect counts were not reported, so the hexatic claim is unverified. A high nn_ratio is partly a trivial consequence of high density. Verified from abstracts/snippets only; phase-diagram location for e_a/e_p=33, T=6 not checked.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "transverse forces interacting Brownian particles odd Lennard-Jones melting hexatic"
+  },
+  {
+   "query": "\"transverse forces\" Brownian particles crystal melting chiral pair force simulation"
+  },
+  {
+   "query": "anisotropic elliptical particles odd transverse interactions chiral fluid simulation"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://pubmed.ncbi.nlm.nih.gov/39972852/",
+  "https://www.sciencedirect.com/science/article/pii/S1875389210002142/pdf?md5=f864851d80942fe8edc64cac27e69fef&pid=1-s2.0-S1875389210002142-main.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/33656044/",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9705321/",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral",
+  "https://link.springer.com/article/10.1140/epje/s10189-023-00265-y"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's \"variant\" call. The behaviour is documented, and the ellipse twist doesn't show up anywhere in the measured behaviour.\n\n**The matching system.** The first pass matched the right paper, and I checked its abstract. The \"Chiral Lennard-Jones fluid\" paper (PRL 132, 168201) studies Brownian disks interacting via a Lennard-Jones potential and a nonconservative transverse force, mimicking colloids spinning at a given rate. That is rules (1)\u2013(3), but with disks. It reports that transverse forces increase surface tension and generate edge currents at the liquid-gas interface, and that chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches.\n\n**A second documented outcome fits too.** A dense system with strong odd forces is also described by the \"bubbles induced by odd interactions\" (BIO) work (J. Chem. Phys. 162, 161101). There, at a packing where the system shows a homogeneous solid-like configuration in the absence of odd interactions, odd forces create bubbles held open by an effective centrifugal force associated with the circular motion of particles along the bubble's surface, driven by transverse interactions. The high density variation you measured (density CV 0.43) together with very regular local spacing (nearest-neighbour ratio about 1.98) fits bubbles or hexatic patches equally well. Your metrics can't tell them apart, but both are documented. More broadly, reviews describe odd forces destabilising chiral crystals, with individually rotating grain boundary domains and self-propelled dislocations. Odd forces are also known to always promote diffusion.\n\n**What the \"twist\" amounts to.** The only difference is the slightly elliptical, orientation-coupled particles (aspect ratio about 1.18). That is a rule difference, not a difference in behaviour:\n- Polar order (0.04) and local alignment (\u22120.04) are essentially zero. With fast orientation relaxation at T = 6, the orientation field is effectively passive noise.\n- None of the measured features depends on the ellipticity.\n- I found no paper on elliptical particles with odd pair forces. Given the above, that gap doesn't matter.\n\n**Caveats:**\n- The rule says six-fold bond order and defect counts were measured, but neither appears in the reported features. So the specific \"rotating hexatic patches\" claim isn't actually checked by these data. Only \"dense, locally regular, inhomogeneous, unaligned\" is.\n- I verified abstracts and snippets only, not full texts or phase diagrams. I didn't check that e_a/e_p = 33 at T = 6 falls in the melted-solid or bubble region of the published diagrams.\n\n**Genuine or artifact?** It looks genuine, but weakly characterised. A nearest-neighbour ratio near the hexagonal limit argues against a diverged simulation or overlapping particles. The high density variation argues against a frozen uniform crystal. However, at density 0.87 even a plain dense liquid gives a high nearest-neighbour ratio, so that number alone shows little. The near-zero alignment is just the inert orientation field, not a pattern.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Chiral (odd/transverse-force) Lennard-Jones fluid: chirality-broken solid / rotating hexatic patches, density inhomogeneity (cf. bubbles induced by odd interactions)\", \"citations\": [\"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201\", \"https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral\", \"https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html\", \"https://pubmed.ncbi.nlm.nih.gov/39972852/\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Downgrades first-pass VARIANT to KNOWN: the only difference (mild ellipticity, AR~1.18, orientation-coupled LJ) leaves no trace in the observed phenomenology; polar/local alignment ~0 means the orientation field is effectively inert noise. Observed features (high local regularity nn_ratio~1.98 at density 0.87, density CV 0.43, no alignment) match the chiral-LJ broken-solid and odd-interaction bubble phenomenology; the metrics cannot tell rotating hexatic patches from bubbles, and psi6/defect counts were not reported, so the hexatic claim is unverified. A high nn_ratio is partly a trivial consequence of high density. Verified from abstracts/snippets only; phase-diagram location for e_a/e_p=33, T=6 not checked.\"}\n```",
+ "checked": "2026-11-04 11:30:51"
+}

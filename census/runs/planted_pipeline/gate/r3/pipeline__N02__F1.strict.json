@@ -1,0 +1,42 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Diffusion-driven Turing spot pattern in Sel'kov(-Schnakenberg) glycolysis kinetics, enhanced by pattern-promoting (pursuit-evasion) nonlinear taxis cross-diffusion",
+ "citations": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy",
+  "https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Linear analysis: with c=0 the steady state is already Turing-unstable (D2 fu + D1 gv = 9 > 0; 81 > 40). Taxis at c=0.17 adds -1.7k^2 and +0.017k^2 coupling terms, deepening the most negative det(k) from about -102 to about -285 and shifting k^2 from about 45 to about 55. So the cross-diffusion modulates the instability rather than inducing it, and the behaviour is plain known Turing spots, not a variant. The first pass's 'cross-diffusion-induced' label is wrong. Caveat: the measured peak_k=0.047 cycles/pixel only matches the predicted wavelength (about 0.85) if the grid spacing is about 0.04; this should be checked, along with the explicit-scheme time step given D2=10.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns"
+  },
+  {
+   "query": "pursuit-evasion cross-diffusion div(u grad v) Turing patterns reaction-diffusion opposite signs taxis"
+  }
+ ],
+ "result_urls": [
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://link.springer.com/article/10.1007/s10440-024-00666-x",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121821001292",
+  "https://researchers.westernsydney.edu.au/en/publications/pd-control-of-turing-instability-in-a-fractional-order-selkov-sch/",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass. The behaviour is ordinary diffusion-driven Turing spot formation in Sel'kov-type glycolysis kinetics. The cross-diffusion terms only change how strong the pattern is and its wavelength. They are not what causes it.\n\n**1. The first pass got the cause wrong.** I linearised the system around its steady state (u* = 10, v* \u2248 0.1):\n- The reaction terms alone give trace = \u221299 and determinant \u2248 100, so the uniform state is stable without diffusion.\n- With diffusion only (c = 0), the standard Turing test passes: D2\u00b7f_u + D1\u00b7g_v = 10 \u2212 1 = 9 > 0, and 9\u00b2 = 81 > 4\u00b7D1\u00b7D2\u00b7det = 40. Turing modes are unstable even with no taxis coupling at all. The worst-case value of det(k) is about \u2212102 at k\u00b2 \u2248 45.\n- Adding the taxis terms at c = 0.17 changes the coupling coefficients by \u22121.7\u00b7k\u00b2 (u\u2194v) and +0.017\u00b7k\u00b2 (v\u2194u). The worst case becomes about \u2212285 at k\u00b2 \u2248 55. So the coupling makes the instability stronger and shifts the wavelength slightly, from about 0.94 to about 0.85 length units.\n- So \"cross-diffusion-induced Turing\" is the wrong name. The coupling only makes an existing Turing instability stronger.\n\n**2. The behaviour is documented.**\n- Turing instability and pattern formation have been studied directly in the diffusive Sel'kov\u2013Schnakenberg system. In that work, spatio-temporal patterns change from the spot, mixed (spot-stripe) to stripe with the variation of parameters, which can be verified by a series of numerical simulations.\n- The same model with cross-diffusion has also been studied: a L\u00e9vy superdiffusion Sel'kov\u2013Schnakenberg model with cross-diffusion, including when Turing patterns form.\n- Opposite-sign taxis coupling is a known pursuit\u2013evasion mechanism, represented by non-linear cross-diffusion terms.\n- The general rules for how taxis sign affects Turing patterns are documented: attractive prey-taxis and repulsive predator-taxis compress the spatial patterns, while repulsive prey-taxis and attractive predator-taxis help to generate spatial patterns. Here u moves away from high v and v moves toward high u. That fits the pattern-promoting case, and matches my calculation that the coupling enhances the instability.\n\n**3. Is the pattern real or an artifact?** It looks like a genuine pattern. Spatial correlation is very high (Moran 0.975), the spectral peak is sharp (0.953), and the field is finite and structured. It doesn't look like random colouring, a diverged field or a uniform frozen state. Two caveats:\n- **Grid spacing.** The measured peak (0.047 cycles per pixel, so a wavelength of about 21 pixels and roughly 3 blobs across) only fits the predicted wavelength of about 0.85 if the grid spacing is about 0.04. With a spacing of 1, it doesn't fit, and the low peak could then be coarsening or aliasing. I couldn't check this because the spacing isn't given.\n- **Time step.** D2 = 10 is large, so an explicit time-stepping scheme needs a small step. The output looks bounded, but the step size should be confirmed.\n\nI didn't find a paper using exactly this nonlinear div(u\u2207v) / div(v\u2207u) coupling on the Strogatz form of Sel'kov's equations. That gap is in the rule combination, not in the behaviour.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Diffusion-driven Turing spot pattern in Sel'kov(-Schnakenberg) glycolysis kinetics, enhanced by pattern-promoting (pursuit-evasion) nonlinear taxis cross-diffusion\", \"citations\": [\"https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy\", \"https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf\", \"https://www.sciencedirect.com/science/article/pii/S0307904X17306960\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Linear analysis: with c=0 the steady state is already Turing-unstable (D2 fu + D1 gv = 9 > 0; 81 > 40). Taxis at c=0.17 adds -1.7k^2 and +0.017k^2 coupling terms, deepening the most negative det(k) from about -102 to about -285 and shifting k^2 from about 45 to about 55. So the cross-diffusion modulates the instability rather than inducing it, and the behaviour is plain known Turing spots, not a variant. The first pass's 'cross-diffusion-induced' label is wrong. Caveat: the measured peak_k=0.047 cycles/pixel only matches the predicted wavelength (about 0.85) if the grid spacing is about 0.04; this should be checked, along with the explicit-scheme time step given D2=10.\"}\n```",
+ "checked": "2026-11-04 11:28:28"
+}

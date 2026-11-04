@@ -1,0 +1,67 @@
+{
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "2D classical XY model with algebraically decaying long-range couplings 1/r^(2+sigma), sigma=2 (marginal), single-spin Metropolis Monte Carlo",
+ "standard_name": "2D long-range XY model at sigma=2 (BKT / quasi-long-range vs long-range order crossover); spin-wave-dominated vortex-poor ordered phase",
+ "confidence": "medium",
+ "citations": [
+  "Bruno, P. Phys. Rev. Lett. 87, 137203 (2001): Absence of spontaneous magnetic order at nonzero temperature in 1D and 2D Heisenberg and XY systems with long-range interactions",
+  "Giachetti, Defenu, Ruffo, Trombettoni, Phys. Rev. Lett. 127, 156801 (2021), arXiv:2104.13217",
+  "Giachetti, Defenu, Ruffo, Trombettoni, Phys. Rev. B 106, 014106 (2022): BKT transitions in classical and quantum long-range systems",
+  "Yao, Xiao, Zhang, Deng, Fan, Phys. Rev. B 112 (2025), doi:10.1103/yghs-p5mg, arXiv:2411.01811",
+  "Walther, Willsher, Knolle, Phys. Rev. Lett. (2026): Persistence of the BKT transition with long-range couplings"
+ ],
+ "searches": [
+  "Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings XY model 1/r^{2+\u03c3} \u03c3=2",
+  "two-dimensional long-range XY model Monte Carlo power-law interactions finite-temperature order magnetization",
+  "Bruno Absence of spontaneous magnetic order at nonzero temperature in one- and two-dimensional Heisenberg and XY systems with long-range interactions",
+  "Nonclassical regime of the two-dimensional long-range XY model comprehensive Monte Carlo study arXiv"
+ ],
+ "notes": "Only abstracts and snippets were read, not full texts. 'Lattice phase locking' is not a standard term in this literature and no source using it was found. The observed state (high m, high local order, low vortex density) is consistent with the ordered or quasi-ordered phase at the marginal exponent sigma=2. Literature is divided on whether sigma=2 has true LRO (Yao 2025: yes, inverse-log correlations), a BKT-type phase (Giachetti 2021), or no direct magnetized-to-disordered transition (Walther 2026). Bruno's theorem sits exactly at the alpha=2D boundary. The run's position relative to T_c or T_BKT was not checked, and it depends on how the coupling is normalised.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings XY model 1/r^{2+\u03c3} \u03c3=2"
+  },
+  {
+   "query": "two-dimensional long-range XY model Monte Carlo power-law interactions finite-temperature order magnetization"
+  },
+  {
+   "query": "Bruno Absence of spontaneous magnetic order at nonzero temperature in one- and two-dimensional Heisenberg and XY systems with long-range interactions"
+  },
+  {
+   "query": "Nonclassical regime of the two-dimensional long-range XY model comprehensive Monte Carlo study arXiv"
+  }
+ ],
+ "result_urls": [
+  "https://link.aps.org/doi/10.1103/PhysRevLett.127.156801",
+  "https://arxiv-vanity.com/papers/2104.13217",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://inspirehep.net/literature/1861073",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://portal.fis.tum.de/en/publications/persistence-of-the-berezinskii-kosterlitz-thouless-transition-wit/",
+  "https://link.aps.org/doi/10.1103/PhysRevB.106.014106",
+  "https://www.nature.com/articles/s41535-023-00591-6",
+  "https://osti.gov/servlets/purl/2407304",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.054203",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.52.R9",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11120707/",
+  "http://www2.mpi-halle.mpg.de/theory_department/publications/abstract/ext/135/2001/",
+  "https://zenodo.org/records/1184413",
+  "https://www.nature.com/articles/s41586-023-05859-2",
+  "https://www.nature.com/articles/s41535-023-00591-6",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.87.137203",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.033046",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11976925/",
+  "https://doi.org/10.3390/sym12122061",
+  "https://zenodo.org/records/17206870",
+  "https://doi.org/10.1103/yghs-p5mg",
+  "https://link.aps.org/doi/10.1103/yghs-p5mg",
+  "https://journals.aps.org/prb/accepted/81077O58S211415f934e829480aa32dbc97e3ccbd",
+  "https://www.worldscientific.com/doi/abs/10.1142/S0129183195000265"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system is the 2D long-range XY model at the marginal exponent \u03c3 = 2. I'm only partly sure of one detail: the \"lattice phase locking\" label doesn't match the literature I found.\n\n**1. Model family.** This is the classical 2D XY model (planar rotors) with power-law couplings J(r) \u221d 1/r^(2+\u03c3). The 1/r\u2074 coupling gives \u03c3 = 2. It is simulated by Metropolis-type single-spin Monte Carlo on a periodic L = 64 lattice. The observables are m\u00b2, a correlation length, and vortex density.\n\n**2. The specific behaviour.** The run shows a high magnetisation (r \u2248 0.73), strong local alignment (0.855) and very few vortices (density 0.006). This is an ordered or quasi-ordered, spin-wave-dominated, vortex-poor state at \u03c3 = 2. The literature covers this point:\n\n- **Bruno 2001 (rigorous bound).** For monotonically decreasing interactions, ferro- or antiferromagnetic order at T>0 is ruled out if \u03b1 \u2265 2D. In 2D, 1/r\u2074 sits exactly at this boundary, so true long-range order at T > 0 is not guaranteed. A 64\u00d764 system can still look strongly magnetised.\n- **Giachetti, Defenu, Ruffo and Trombettoni, PRL 127, 156801 (2021), the earliest clear modern treatment.** They study couplings ~ r^(-2-\u03c3) on the BKT transition. They report for 7/4<\u03c3<2, a quasiordered phase in a finite temperature range Tc<T<T_BKT, between a symmetry-broken phase and a disordered phase. They also state that the BKT transition and its vortex proliferation are the mechanism that ends the ordered phase.\n- **Giachetti et al., PRB 106, 014106 (2022), field-theory follow-up.** It uses a field-theoretical treatment and the self-consistent harmonic approximation, and it discusses the Villain approximation. It is the nearest thing to a review that I found.\n- **Yao, Xiao, Zhang, Deng and Fan, PRB 112 (2025), Monte Carlo study.** This is the closest match to the simulation itself. They find for \u03c3 \u2264 2, a second-order transition into a ferromagnetic phase with long-range order. They also report that in the low-temperature phase the correlation function saturates to a non-zero constant, as an inverse logarithm of distance for \u03c3=2.\n- **Walther, Willsher and Knolle, PRL 2026.** They argue the BKT transition persists for arbitrary long-range exponents. They find no direct transition from the magnetized to the disordered phase, which differs from the earlier results.\n\n**Conflict in the literature.** The sources disagree about whether \u03c3 = 2 has a true ordered phase, a BKT-type phase, or a crossover. They agree that the low-temperature regime is spin-wave dominated with few vortices, which matches the observed state.\n\n**3. Citation check.** I read the abstracts and snippets for Bruno 2001, Giachetti 2021, Giachetti 2022, Yao 2025 and Walther 2026 in the search results. I did not read the full texts. I did not verify the specific temperature of this run against any phase boundary.\n\n**4. Caveat on \"lattice phase locking\".** This is not a standard term in the long-range XY literature, and I found no source using it. The \"standard quantitative test\" it passes is probably just a generic order or locking diagnostic. The physical behaviour behind it is high magnetisation with a low vortex density, and that is documented. The run's fingerprint is atypical for textbook examples because 1/r\u2074 at \u03b2 = 1 sits at the marginal exponent. At that exponent, finite-size order, inverse-log correlations and BKT-type physics all overlap.\n\n**5. Confidence: medium-high.** The model family and the ordered or quasi-ordered, vortex-poor behaviour are well documented. I am less sure about two points. First, which phase the run lies in depends on the coupling normalisation and on T relative to the transition temperature (T_c or T_BKT), and I did not check this. Second, it is unsettled whether \u03c3 = 2 is truly ordered. Neither point changes the KNOWN verdict.\n\n**Searches run:**\n- \"Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings XY model 1/r^{2+\u03c3} \u03c3=2\"\n- \"two-dimensional long-range XY model Monte Carlo power-law interactions finite-temperature order magnetization\"\n- \"Bruno Absence of spontaneous magnetic order at nonzero temperature in one- and two-dimensional Heisenberg and XY systems with long-range interactions\"\n- \"Nonclassical regime of the two-dimensional long-range XY model comprehensive Monte Carlo study arXiv\"\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"2D classical XY model with algebraically decaying long-range couplings 1/r^(2+sigma), sigma=2 (marginal), single-spin Metropolis Monte Carlo\", \"standard_name\": \"2D long-range XY model at sigma=2 (BKT / quasi-long-range vs long-range order crossover); spin-wave-dominated vortex-poor ordered phase\", \"confidence\": \"medium\", \"citations\": [\"Bruno, P. Phys. Rev. Lett. 87, 137203 (2001): Absence of spontaneous magnetic order at nonzero temperature in 1D and 2D Heisenberg and XY systems with long-range interactions\", \"Giachetti, Defenu, Ruffo, Trombettoni, Phys. Rev. Lett. 127, 156801 (2021), arXiv:2104.13217\", \"Giachetti, Defenu, Ruffo, Trombettoni, Phys. Rev. B 106, 014106 (2022): BKT transitions in classical and quantum long-range systems\", \"Yao, Xiao, Zhang, Deng, Fan, Phys. Rev. B 112 (2025), doi:10.1103/yghs-p5mg, arXiv:2411.01811\", \"Walther, Willsher, Knolle, Phys. Rev. Lett. (2026): Persistence of the BKT transition with long-range couplings\"], \"searches\": [\"Berezinskii-Kosterlitz-Thouless phase transitions with long-range couplings XY model 1/r^{2+\u03c3} \u03c3=2\", \"two-dimensional long-range XY model Monte Carlo power-law interactions finite-temperature order magnetization\", \"Bruno Absence of spontaneous magnetic order at nonzero temperature in one- and two-dimensional Heisenberg and XY systems with long-range interactions\", \"Nonclassical regime of the two-dimensional long-range XY model comprehensive Monte Carlo study arXiv\"], \"notes\": \"Only abstracts and snippets were read, not full texts. 'Lattice phase locking' is not a standard term in this literature and no source using it was found. The observed state (high m, high local order, low vortex density) is consistent with the ordered or quasi-ordered phase at the marginal exponent sigma=2. Literature is divided on whether sigma=2 has true LRO (Yao 2025: yes, inverse-log correlations), a BKT-type phase (Giachetti 2021), or no direct magnetized-to-disordered transition (Walther 2026). Bruno's theorem sits exactly at the alpha=2D boundary. The run's position relative to T_c or T_BKT was not checked, and it depends on how the coupling is normalised.\"}\n```",
+ "checked": "2026-11-04 11:34:35"
+}

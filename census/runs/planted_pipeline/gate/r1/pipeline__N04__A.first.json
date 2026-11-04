@@ -1,0 +1,71 @@
+{
+ "class_id": "pipeline:N04:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "chiral/odd active matter (Brownian particles with non-conservative transverse pair forces; odd elasticity, 2D melting)",
+ "standard_name": "chiral Lennard-Jones fluid / odd crystal melting via dislocation proliferation into rotating hexatic patches",
+ "confidence": "medium",
+ "citations": [
+  "Braverman, Scheibner, VanSaders, Vitelli 2021, Phys. Rev. Lett. 127, 268001 - odd elasticity modifies dislocations; MD with LJ radial plus transverse forces; transverse forces lower plastic yield",
+  "Caporusso et al. 2024, Phys. Rev. Lett. 132, 168201 - chiral LJ Brownian disks with transverse force; solid breaks into dense fluid of rotating hexatic patches",
+  "PNAS 2025 (authors not verified), 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' - odd forces cause dislocation gliding and crystal fragmentation",
+  "Emergent phenomena in chiral active matter, Nat. Sci. Open 2024 (snippet only) - review noting grain boundaries gliding and individually rotating domains in odd crystals",
+  "Fruchart, Scheibner, Vitelli 2023, Annu. Rev. Condens. Matter Phys. 14, 471 - review on odd viscosity and odd elasticity (listed only, not read)"
+ ],
+ "searches": [
+  "transverse non-conservative pairwise force chiral particles elliptical Lennard-Jones Brownian dynamics hexatic order defects",
+  "odd interactions perpendicular pair force Brownian particles crystal melting nonreciprocal transverse force 2D",
+  "Phys. Rev. Lett. 127, 268001 transverse forces dislocation crystal melting chiral active matter",
+  "anisotropic elliptical particles chiral Lennard-Jones transverse force Gay-Berne spinning colloids hexatic rotating patches",
+  "Topological defects in solids with odd elasticity Braverman Scheibner VanSaders Vitelli"
+ ],
+ "notes": "Published work uses isotropic disks; the weakly elliptical, orientation-dependent-LJ particles here are the only difference found, and are unlikely to change the qualitative behaviour. The six reported metrics have no direct literature counterpart, so I matched on behaviour. I did not read any paper in full.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "transverse non-conservative pairwise force chiral particles elliptical Lennard-Jones Brownian dynamics hexatic order defects"
+  },
+  {
+   "query": "odd interactions perpendicular pair force Brownian particles crystal melting nonreciprocal transverse force 2D"
+  },
+  {
+   "query": "Phys. Rev. Lett. 127, 268001 transverse forces dislocation crystal melting chiral active matter"
+  },
+  {
+   "query": "anisotropic elliptical particles chiral Lennard-Jones transverse force Gay-Berne spinning colloids hexatic rotating patches"
+  },
+  {
+   "query": "Topological defects in solids with odd elasticity Braverman Scheibner VanSaders Vitelli"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "https://dx.doi.org/10.1103/PhysRevLett.132.168201",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "http://ccl.northwestern.edu/2005/beyondlj.pdf",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://www.osti.gov/pages/servlets/purl/1352626",
+  "https://pubmed.ncbi.nlm.nih.gov/40215281/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077926007551",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9705321/",
+  "https://link.springer.com/article/10.1140/epje/s10189-023-00265-y",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.131.108301",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "http://mw.concord.org/modeler/articles/beyondlj.pdf",
+  "https://par.nsf.gov/servlets/purl/10313788",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://researchdiscovery.drexel.edu/esploro/outputs/journalArticle/Topological-Defects-in-Solids-with-Odd/991021877483704721",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033100",
+  "https://journals.aps.org/prl/issues/127/26",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.127.268001",
+  "https://researchdiscovery.drexel.edu/esploro/profile/bryan_vansaders/output/all?institution=01DRXU_INST",
+  "https://scholar.google.com/citations?user=dfOW1kQAAAAJ&hl=en",
+  "https://home.uchicago.edu/~vitelli/publications.html"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The closest published system uses disks. The rule system here uses slightly elongated particles with orientation-dependent interactions.\n\n**1. Model family.** This is chiral or odd active matter. Overdamped Brownian particles interact through a conservative Lennard-Jones potential plus a pairwise non-conservative transverse (odd) force. The transverse force has no radial component and always has the same rotational sense. It is the \"chiral Lennard-Jones fluid\" or \"odd crystal\" setting, studied in 2D with defect and hexatic-order diagnostics.\n\n**2. Specific behaviour.**\n- **What the run shows.** With e_a/e_p = 33, the transverse force is far stronger than the conservative one. A starting crystal at density about 0.87 loses its six-fold order and produces many defects. Density becomes very uneven (density CV 0.43). Polar order is near zero (0.04) and local alignment is near zero (\u22120.036). The nearest-neighbour ratio of 1.975 is well above 1, so there is no clumping in the clustering sense. I read these numbers as describing a driven fluid with large density fluctuations, not an aligned or flocking state. The input doesn't define the metrics, so this is my interpretation.\n- **Earliest clear source.** Braverman, Scheibner, VanSaders and Vitelli, \"Topological Defects in Solids with Odd Elasticity\", Phys. Rev. Lett. 127, 268001 (2021). Odd elastic moduli modify defect-induced strain and can reverse the stability of bound dislocation pairs. Isolated dislocations can self-propel through microscopic work cycles at their cores. The paper's molecular-dynamics simulations used a Lennard-Jones radial force plus transverse forces. It reports that introducing transverse forces generally lowers the plastic yield. The snippet cuts off there, so I haven't seen the rest of that sentence.\n- **Closest match.** Caporusso et al., \"Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid\", Phys. Rev. Lett. 132, 168201 (2024). It studies Brownian disks interacting via a Lennard-Jones potential and a nonconservative transverse force. It reports that chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches. This is the same rule structure with isotropic particles.\n- **Related melting work.** \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals\" (PNAS, 2025) treats odd (transverse) forces as a separate case from nonreciprocal ones. It says odd forces produce a net simple shear on a dislocation and cause its gliding. A \"dislocation proliferation then fragmentation of the crystal\" picture appears there too. The search result has no author list, so I haven't verified the authors.\n- **Review.** Grain boundaries glide over one another and individually rotating domains \"knead\" the odd crystal. This comes from \"Emergent phenomena in chiral active matter\" (Nat. Sci. Open, 2024), which I saw only as a search snippet. Fruchart, Scheibner and Vitelli, \"Odd Viscosity and Odd Elasticity\", Annu. Rev. Condens. Matter Phys. 14, 471 (2023), is also a relevant review. It was confirmed only as a listed publication, and I didn't read it.\n\n**3. What differs, and whether it matters.**\n- **Particle shape.** The particles here are weakly elliptical (half-axes 0.55 and 0.65), with Gay-Berne-like orientation-dependent interactions and rotating orientations. The published work uses isotropic disks. I found no paper on chiral transverse-force Lennard-Jones fluids with elliptical particles.\n- **Likely effect.** At aspect ratio about 1.18, the shape anisotropy is small, and orientations relax quickly. I expect it to change quantitative details such as thresholds, not the qualitative melting into a defected, density-heterogeneous chiral fluid.\n- **Parameters.** The values e_a/e_p = 33 and T = 6 are probably deep in the melted regime, so this is not a boundary case. I haven't checked the exact thresholds in the papers.\n\n**4. Confidence: medium.** The mechanism and the observable signatures (hexatic breakdown, defect proliferation, rotating hexatic patches, density inhomogeneity) are well covered for disks. The ellipse variant is a short, targeted gap, and I ran only about six searches, so a paper on anisotropic chiral particles could exist. I didn't read the full text of any of these papers. The six metrics (nn_ratio, density_cv, polar order and so on) have no clear counterpart in the literature, so I matched on behaviour, not numbers.\n\n**Searches run:**\n- transverse non-conservative pairwise force chiral particles elliptical Lennard-Jones Brownian dynamics hexatic order defects\n- odd interactions perpendicular pair force Brownian particles crystal melting nonreciprocal transverse force 2D\n- Phys. Rev. Lett. 127, 268001 transverse forces dislocation crystal melting chiral active matter\n- anisotropic elliptical particles chiral Lennard-Jones transverse force Gay-Berne spinning colloids hexatic rotating patches\n- Topological defects in solids with odd elasticity Braverman Scheibner VanSaders Vitelli\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"chiral/odd active matter (Brownian particles with non-conservative transverse pair forces; odd elasticity, 2D melting)\", \"standard_name\": \"chiral Lennard-Jones fluid / odd crystal melting via dislocation proliferation into rotating hexatic patches\", \"confidence\": \"medium\", \"citations\": [\"Braverman, Scheibner, VanSaders, Vitelli 2021, Phys. Rev. Lett. 127, 268001 - odd elasticity modifies dislocations; MD with LJ radial plus transverse forces; transverse forces lower plastic yield\", \"Caporusso et al. 2024, Phys. Rev. Lett. 132, 168201 - chiral LJ Brownian disks with transverse force; solid breaks into dense fluid of rotating hexatic patches\", \"PNAS 2025 (authors not verified), 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' - odd forces cause dislocation gliding and crystal fragmentation\", \"Emergent phenomena in chiral active matter, Nat. Sci. Open 2024 (snippet only) - review noting grain boundaries gliding and individually rotating domains in odd crystals\", \"Fruchart, Scheibner, Vitelli 2023, Annu. Rev. Condens. Matter Phys. 14, 471 - review on odd viscosity and odd elasticity (listed only, not read)\"], \"searches\": [\"transverse non-conservative pairwise force chiral particles elliptical Lennard-Jones Brownian dynamics hexatic order defects\", \"odd interactions perpendicular pair force Brownian particles crystal melting nonreciprocal transverse force 2D\", \"Phys. Rev. Lett. 127, 268001 transverse forces dislocation crystal melting chiral active matter\", \"anisotropic elliptical particles chiral Lennard-Jones transverse force Gay-Berne spinning colloids hexatic rotating patches\", \"Topological defects in solids with odd elasticity Braverman Scheibner VanSaders Vitelli\"], \"notes\": \"Published work uses isotropic disks; the weakly elliptical, orientation-dependent-LJ particles here are the only difference found, and are unlikely to change the qualitative behaviour. The six reported metrics have no direct literature counterpart, so I matched on behaviour. I did not read any paper in full.\"}\n```",
+ "checked": "2026-11-04 11:29:45"
+}

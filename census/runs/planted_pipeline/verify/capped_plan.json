@@ -1,0 +1,555 @@
+{
+ "written": "2026-11-04 11:37:54",
+ "cap_cpu_h": 24.0,
+ "skip_over_cpu_h": 36.0,
+ "n_jobs_driver": 53,
+ "jobs": [
+  {
+   "card": "N02",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 1077.5,
+   "projected_cpu_h": 1.0,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 1077.5,
+   "projected_cpu_h": 3.99,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 1077.5,
+   "projected_cpu_h": 2.99,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3
+   ],
+   "tag": "sub_3",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    4
+   ],
+   "tag": "sub_4",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    5
+   ],
+   "tag": "sub_5",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    6
+   ],
+   "tag": "sub_6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    4
+   ],
+   "tag": "sub_3-4",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    5
+   ],
+   "tag": "sub_3-5",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    6
+   ],
+   "tag": "sub_3-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    4,
+    5
+   ],
+   "tag": "sub_4-5",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    4,
+    6
+   ],
+   "tag": "sub_4-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    5,
+    6
+   ],
+   "tag": "sub_5-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    4,
+    5
+   ],
+   "tag": "sub_3-4-5",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    4,
+    6
+   ],
+   "tag": "sub_3-4-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    3,
+    5,
+    6
+   ],
+   "tag": "sub_3-5-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N02",
+   "kind": "sub",
+   "arg": [
+    4,
+    5,
+    6
+   ],
+   "tag": "sub_4-5-6",
+   "flag_stage_s": 680.0,
+   "projected_cpu_h": 0.63,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N03",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 16975.4,
+   "projected_cpu_h": 15.72,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N03",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 16975.4,
+   "projected_cpu_h": 62.87,
+   "decision": "not run: projected over 1.5 x cap"
+  },
+  {
+   "card": "N03",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 16975.4,
+   "projected_cpu_h": 47.15,
+   "decision": "not run: projected over 1.5 x cap"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    2
+   ],
+   "tag": "sub_2",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    3
+   ],
+   "tag": "sub_3",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    5
+   ],
+   "tag": "sub_5",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    2,
+    3
+   ],
+   "tag": "sub_2-3",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    2,
+    5
+   ],
+   "tag": "sub_2-5",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N03",
+   "kind": "sub",
+   "arg": [
+    3,
+    5
+   ],
+   "tag": "sub_3-5",
+   "flag_stage_s": 15759.6,
+   "projected_cpu_h": 14.59,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N04",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 28930.1,
+   "projected_cpu_h": 26.79,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N04",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 28930.1,
+   "projected_cpu_h": 107.15,
+   "decision": "not run: projected over 1.5 x cap"
+  },
+  {
+   "card": "N04",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 28930.1,
+   "projected_cpu_h": 80.36,
+   "decision": "not run: projected over 1.5 x cap"
+  },
+  {
+   "card": "N04",
+   "kind": "sub",
+   "arg": [
+    1
+   ],
+   "tag": "sub_1",
+   "flag_stage_s": 28924.6,
+   "projected_cpu_h": 26.78,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N04",
+   "kind": "sub",
+   "arg": [
+    2
+   ],
+   "tag": "sub_2",
+   "flag_stage_s": 28924.6,
+   "projected_cpu_h": 26.78,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N07",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 13.3,
+   "projected_cpu_h": 0.01,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N07",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 13.3,
+   "projected_cpu_h": 0.05,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N07",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 13.3,
+   "projected_cpu_h": 0.04,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N11",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 12606.3,
+   "projected_cpu_h": 11.67,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N11",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 12606.3,
+   "projected_cpu_h": 46.69,
+   "decision": "not run: projected over 1.5 x cap"
+  },
+  {
+   "card": "N11",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 12606.3,
+   "projected_cpu_h": 35.02,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N11",
+   "kind": "sub",
+   "arg": [
+    3
+   ],
+   "tag": "sub_3",
+   "flag_stage_s": 12605.2,
+   "projected_cpu_h": 11.67,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N11",
+   "kind": "sub",
+   "arg": [
+    4
+   ],
+   "tag": "sub_4",
+   "flag_stage_s": 12605.2,
+   "projected_cpu_h": 11.67,
+   "decision": "not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs"
+  },
+  {
+   "card": "N12",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 361.8,
+   "projected_cpu_h": 0.34,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N12",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 361.8,
+   "projected_cpu_h": 1.34,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N12",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 361.8,
+   "projected_cpu_h": 1.0,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N15",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 3541.1,
+   "projected_cpu_h": 3.28,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N15",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 3541.1,
+   "projected_cpu_h": 13.12,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N15",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 3541.1,
+   "projected_cpu_h": 9.84,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N17",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 14.5,
+   "projected_cpu_h": 0.01,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N17",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 14.5,
+   "projected_cpu_h": 0.05,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N17",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 14.5,
+   "projected_cpu_h": 0.04,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N19",
+   "kind": "cond",
+   "arg": "census",
+   "tag": "census",
+   "flag_stage_s": 925.8,
+   "projected_cpu_h": 0.86,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N19",
+   "kind": "cond",
+   "arg": "area4",
+   "tag": "area4",
+   "flag_stage_s": 925.8,
+   "projected_cpu_h": 3.43,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N19",
+   "kind": "cond",
+   "arg": "len3",
+   "tag": "len3",
+   "flag_stage_s": 925.8,
+   "projected_cpu_h": 2.57,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N19",
+   "kind": "sub",
+   "arg": [
+    1
+   ],
+   "tag": "sub_1",
+   "flag_stage_s": 517.7,
+   "projected_cpu_h": 0.48,
+   "decision": "run (24 CPU-h limit)"
+  },
+  {
+   "card": "N19",
+   "kind": "sub",
+   "arg": [
+    2
+   ],
+   "tag": "sub_2",
+   "flag_stage_s": 517.7,
+   "projected_cpu_h": 0.48,
+   "decision": "run (24 CPU-h limit)"
+  }
+ ],
+ "run_cpu_h_projected": 142.9
+}

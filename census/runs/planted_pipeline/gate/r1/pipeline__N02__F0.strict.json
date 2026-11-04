@@ -1,0 +1,55 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Diffusion-driven Turing spot/spike pattern (substrate-depletion) in the Sel'kov-Schnakenberg glycolysis model, modulated by opposite-sign taxis cross-diffusion, with spike coarsening",
+ "citations": [
+  "Wang, Zhou, Jiang et al., Turing instability and pattern formation in a diffusive Sel'kov-Schnakenberg system, J Math Chem 61 (2023) https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "Pattern formation in a reaction-diffusion system with space-dependent feed rate (Schnakenberg spike coarsening) https://personal.math.ubc.ca/~jcwei/density-final.pdf",
+  "Hybrid control strategy for the Levy superdiffusion Sel'kov-Schnakenberg model with cross-diffusion, Chaos 35 (2025) https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622",
+  "Wang, Shi, Wu, predator-prey with prey-taxis and predator-taxis, DCDS-B 2021 https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf",
+  "Chase-and-Run and Chirality in Nonlocal Models of Pattern Formation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12521325/"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Own linear-stability check (not from a source): at a=0.015, b=10, D1=0.01, D2=10 the c=0 system already satisfies the Turing conditions (D2 fu + D1 gv ~ 9 > 0; 81 > 4 D1 D2 det ~ 40), so the instability is diffusion-driven and the 'cross-diffusion-induced' label is wrong; with my sign reading the antisymmetric taxis terms (c=0.17) reinforce aggregation at u peaks. Mean u = b = 10 is exactly what u+v balance requires (d(u+v)/dt = b - u), so the run did not blow up. std > mean means tall narrow spikes; ~2.6 blobs fits spike coarsening. Unverified: whether the pattern is stationary or chase-and-run/travelling (that class is documented too), and the grid-scale issue (linear fastest-growing wavelength ~1 cell at dx=1, so the observed scale probably reflects nonlinear coarsening or discretisation). Brauns & Marchetti not verified; no full texts read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns"
+  },
+  {
+   "query": "reaction-diffusion chemotaxis spike aggregation coarsening few large spots cross-diffusion Schnakenberg"
+  },
+  {
+   "query": "reaction-diffusion with mutual taxis both species div(u grad v) Turing patterns spikes Schnakenberg OR Sel'kov"
+  },
+  {
+   "query": "non-reciprocal cross-diffusion Turing patterns chase-and-run pursuit evasion taxis reaction-diffusion"
+  }
+ ],
+ "result_urls": [
+  "https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622/Hybrid-control-strategy-for-the-Levy?redirectedFrom=fulltext",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://link.springer.com/article/10.1007/s10440-024-00666-x",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121821001292",
+  "https://researchers.westernsydney.edu.au/en/publications/pd-control-of-turing-instability-in-a-fractional-order-selkov-sch/",
+  "https://www.mathstat.dal.ca/~tkolokol/papers/density.pdf",
+  "https://personal.math.ubc.ca/~jcwei/density-final.pdf",
+  "https://par.nsf.gov/servlets/purl/10156645",
+  "https://www.aimsciences.org//article/doi/10.3934/dcdss.2017053",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2023053?viewType=HTML",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475414002468",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12521325/"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm overturning the first pass in one specific way. This is the ordinary Turing spot (or spike) pattern of the Sel'kov\u2013Schnakenberg reaction. My own linear-stability check shows the cross terms aren't needed for the instability, so calling it \"cross-diffusion-induced\" gets the cause wrong. I didn't open any full texts, and I couldn't check whether the pattern is stationary.\n\n**1. The plain reaction-diffusion system is already Turing-unstable (my own calculation, not from a source).** At the steady state (u=10, v\u22480.1), with a=0.015 and b=10, the Jacobian is roughly:\n- f_u \u2248 +1 (u is the autocatalytic activator)\n- f_v \u2248 100\n- g_u \u2248 \u22122\n- g_v \u2248 \u2212100 (v is the substrate that gets used up)\n\nThe trace is about \u221299 and the determinant about 100, so without diffusion the steady state is stable. With D1=0.01 and D2=10, the Turing conditions both hold:\n- D2\u00b7f_u + D1\u00b7g_v \u2248 9 > 0\n- 9\u00b2 = 81 > 4\u00b7D1\u00b7D2\u00b7det \u2248 40\n\nSo setting c=0 should already give patterns. The opposite-sign taxis terms with c=0.17 only change the pattern. As I read the signs, both terms move material towards the u-rich peaks (u drifts down the v gradient, v drifts up the u gradient), which reinforces the self-concentrating spot instability rather than causing it.\n\n**2. This behaviour is documented.**\n- Spatial patterns in the diffusive Sel'kov\u2013Schnakenberg model are standard. Simulations show them changing from the spot, mixed (spot-stripe) to stripe with the variation of parameters (Wang et al., J Math Chem 2023).\n- The Schnakenberg model generates localized spike patterns. These spike patterns show competition or coarsening instability, which fits the very low blob count here (about 2.6 blobs).\n- Cross-diffusion versions of the model have also been studied: one paper introduces a L\u00e9vy superdiffusion Sel'kov\u2013Schnakenberg model with cross-diffusion.\n- Opposite-sign taxis on a Turing system has been analysed in predator\u2013prey models. There, the attraction/repulsion sign combination decides whether the taxis compress the spatial patterns, while repulsive prey-taxis and attractive predator-taxis help to generate spatial patterns (Wang, Shi & Wu, DCDS-B 2021).\n- Pursue-and-flee taxis can also produce stationary patterns, spatio-temporal oscillations, and 'population chase-and-run'. That's the main open question for this run: if the blobs were travelling, it would still be a documented class, but nobody checked.\n\n**3. Genuine pattern or artefact?** It looks genuine:\n- Spatial autocorrelation (Moran's I) is 0.967 and the spectral peak is sharp.\n- The mean u of exactly 10.0 is a good sign. Adding the two rate equations gives d(u+v)/dt = b \u2212 u, so the average u must settle at b=10 if the run is healthy. A blown-up simulation would break this.\n- A standard deviation larger than the mean means tall, narrow spikes, which is normal for a substrate-depletion model with a 1000:1 diffusion ratio.\n\n**Caveat on grid resolution:** with unit grid spacing, linear theory puts the fastest-growing wavelength at about one grid cell (k\u00b2 \u2248 31.6). So the observed long-wavelength blobs probably come from nonlinear coarsening, or partly from how the simulation is discretised, not from the linear Turing scale. Explicit integration with D2=10 also needs a very small time step. Neither point suggests anything new.\n\n**Searches I ran:** Sel'kov cross-diffusion Turing; Schnakenberg spike coarsening; mutual taxis in Schnakenberg/Sel'kov; non-reciprocal cross-diffusion and chase-and-run. I didn't verify the Brauns & Marchetti work on non-reciprocal conserved fields.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Diffusion-driven Turing spot/spike pattern (substrate-depletion) in the Sel'kov-Schnakenberg glycolysis model, modulated by opposite-sign taxis cross-diffusion, with spike coarsening\", \"citations\": [\"Wang, Zhou, Jiang et al., Turing instability and pattern formation in a diffusive Sel'kov-Schnakenberg system, J Math Chem 61 (2023) https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"Pattern formation in a reaction-diffusion system with space-dependent feed rate (Schnakenberg spike coarsening) https://personal.math.ubc.ca/~jcwei/density-final.pdf\", \"Hybrid control strategy for the Levy superdiffusion Sel'kov-Schnakenberg model with cross-diffusion, Chaos 35 (2025) https://pubs.aip.org/aip/cha/article-abstract/35/7/073142/3355622\", \"Wang, Shi, Wu, predator-prey with prey-taxis and predator-taxis, DCDS-B 2021 https://jxshix.people.wm.edu/shi/2021-Wang-Shi-Wu-DCDSB.pdf\", \"Chase-and-Run and Chirality in Nonlocal Models of Pattern Formation https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12521325/\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Own linear-stability check (not from a source): at a=0.015, b=10, D1=0.01, D2=10 the c=0 system already satisfies the Turing conditions (D2 fu + D1 gv ~ 9 > 0; 81 > 4 D1 D2 det ~ 40), so the instability is diffusion-driven and the 'cross-diffusion-induced' label is wrong; with my sign reading the antisymmetric taxis terms (c=0.17) reinforce aggregation at u peaks. Mean u = b = 10 is exactly what u+v balance requires (d(u+v)/dt = b - u), so the run did not blow up. std > mean means tall narrow spikes; ~2.6 blobs fits spike coarsening. Unverified: whether the pattern is stationary or chase-and-run/travelling (that class is documented too), and the grid-scale issue (linear fastest-growing wavelength ~1 cell at dx=1, so the observed scale probably reflects nonlinear coarsening or discretisation). Brauns & Marchetti not verified; no full texts read.\"}\n```",
+ "checked": "2026-11-04 11:27:13"
+}

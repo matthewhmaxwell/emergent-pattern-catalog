@@ -1,0 +1,65 @@
+{
+ "class_id": "pipeline:N03:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter - chemotactic/self-phoretic active Brownian particles (Keller-Segel-like with rotational chemotaxis)",
+ "standard_name": "dynamic clustering from competing translational attraction and rotational (anti-chemotactic) repulsion in self-phoretic active particles",
+ "confidence": "medium",
+ "citations": [
+  "Pohl & Stark 2014, PRL 112, 238303 - dynamic clustering appears when translational attraction and rotational repulsion compete; pure attraction gives chemotactic collapse (Keller-Segel mapping)",
+  "Pohl & Stark 2015, Eur. Phys. J. E - extended state diagram, screening and dynamic clustering 2 (abstract only read)",
+  "Saha, Golestanian & Ramaswamy 2014, Phys. Rev. E 89, 062316 - clusters, asters, oscillations in chemotactic colloids (citation verified only via reference lists)",
+  "Liebchen & L\u00f6wen 2018, Acc. Chem. Res. 51, 2982 - review of synthetic chemotaxis and collective behaviour",
+  "Interactions in active colloids, J. Phys.: Condens. Matter (c. 2021) - Yukawa-type screened phoretic interactions (authors and year not verified)"
+ ],
+ "searches": [
+  "self-phoretic active particles dynamic clustering chemotactic collapse screened chemical field rotational chemotaxis",
+  "active colloids near wall chemical field image source screened Yukawa phoretic clustering polar order Peclet",
+  "Synthetic chemotaxis and collective behavior in active matter Liebchen Lowen Accounts of Chemical Research",
+  "Saha Golestanian Ramaswamy Clusters, asters, and collective oscillations in chemotactic colloids"
+ ],
+ "notes": "Wall with mirror-image source and fixed screening length k=0.2 differ from Pohl-Stark's density-dependent screening; probably not qualitatively important. Cannot distinguish dynamic clustering 1/2 vs collapse from the summary numbers alone. Only abstracts or snippets were read for the cited papers.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "self-phoretic active particles dynamic clustering chemotactic collapse screened chemical field rotational chemotaxis"
+  },
+  {
+   "query": "active colloids near wall chemical field image source screened Yukawa phoretic clustering polar order P\u00e9clet"
+  },
+  {
+   "query": "Synthetic chemotaxis and collective behavior in active matter Liebchen L\u00f6wen Accounts of Chemical Research"
+  },
+  {
+   "query": "Saha Golestanian Ramaswamy Clusters, asters, and collective oscillations in chemotactic colloids"
+  }
+ ],
+ "result_urls": [
+  "https://link.aps.org/doi/10.1103/PhysRevLett.112.238303",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://pubmed.ncbi.nlm.nih.gov/26314260",
+  "https://depositonce.tu-berlin.de/items/c69d03d6-4736-4530-be3f-6688c973f581",
+  "https://pubs.rsc.org/sm/article/19/13/2297/788566/The-interplay-between-chemo-phoretic-interactions",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11227538",
+  "https://www.pnas.org/doi/10.1073/pnas.2609894123",
+  "https://pubs.acs.org/doi/abs/10.1021/acs.accounts.8b00215",
+  "https://www.osti.gov/biblio/2421666",
+  "https://www.tu-darmstadt.de/studieren/studieninteressierte/internationale_studieninteressierte/kurzzeitprogramme_und_sommeruniversitaet/irep_1/artikel_details_de_en_312832.en.jsp",
+  "https://www.ipkm.tu-darmstadt.de/research_ipkm/liebchen_group/publications_liebchen/index.en.jsp",
+  "https://scispace.com/papers/synthetic-chemotaxis-and-collective-behavior-in-active-4l3jzjanvg",
+  "https://ouci.dntb.gov.ua/en/works/4Y168b84/",
+  "https://www.nature.com/articles/s41467-022-34484-2",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2122269119",
+  "https://ouci.dntb.gov.ua/en/works/4Y168b84/",
+  "https://physics.iisc.ac.in/~ccmt/member/sriram/",
+  "https://physics.iisc.ac.in/~sriram/research.html",
+  "https://journals.aps.org/prresearch/abstract/10.1103/xrph-vgf3",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.228302",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.124.168003",
+  "https://scholar.google.com/citations?user=-uTRMxIAAAAJ&hl=en"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm medium-to-high confident. The wall and the fixed-screening field are small differences that probably don't change the qualitative result.\n\n**1. Model family.** This is active matter, specifically chemotactic or self-phoretic active Brownian particles. Each disk emits a chemical field. It translates up the gradient (attraction) and rotates its heading away from the gradient (rotational repulsion). This is the Keller\u2013Segel-like \"synthetic chemotaxis\" class.\n\n**2. The behaviour.** Your simulation shows strong clumping (nearest-neighbour ratio 0.48, density CV 3.7) with essentially no polar order (0.019). So you have dense clusters that aren't aligned flocks. That matches the dynamic clustering described for self-phoretic particles with competing translational and rotational phoretic responses.\n\n- **Earliest clear source.** Pohl & Stark, \"Dynamic Clustering and Chemotactic Collapse of Self-Phoretic Active Particles\", PRL 112, 238303 (2014). The abstract says their Brownian dynamics simulations show pronounced dynamic clustering only when these two phoretic contributions give rise to competing attractive and repulsive interactions, respectively. It also says that in case of mere attraction a chemotactic collapse occurs directly from the gaslike into the collapsed state, predicted by mapping onto the Keller\u2013Segel model. Your rule set (attractive translation plus turn-away rotation) is the competing case.\n- **Follow-up.** Pohl & Stark, Eur. Phys. J. E (2015), \"Self-phoretic active particles interacting by diffusiophoresis: A numerical study of the collapsed state and dynamic clustering\". It says this creates effective repulsive and attractive interactions between particles depending on the sign of the translational and rotational diffusiophoretic parameters. It also covers the role of screening and larger area fractions. I only saw the abstract, not the full text.\n- **Related theory.** Saha, Golestanian & Ramaswamy, \"Clusters, asters, and collective oscillations in chemotactic colloids\", Phys. Rev. E 89, 062316 (2014). The search returned only reference-list entries for this paper, so I confirmed the citation details but not its content.\n- **Review.** Liebchen & L\u00f6wen, \"Synthetic Chemotaxis and Collective Behavior in Active Matter\", Acc. Chem. Res. 51, 2982\u20132990 (2018). It reviews recent progress in the theoretical description of synthetic chemotaxis mainly based on simulations and field theoretical descriptions.\n- **Screened (Yukawa) interactions.** The review \"Interactions in active colloids\" (J. Phys.: Condens. Matter, c. 2021) says that if the phoretic field decays, the colloids are expected to show effective Yukawa (screened-Coulomb) interactions. That supports your exp(-kr)/r field. I did not verify the authors or exact year.\n\n**3. Differences from the published work.**\n- **Wall and image source.** Your disks hover above a wall that chemicals cannot cross, with a mirror-image source. I found no paper using exactly this setup in the Pohl\u2013Stark framework. It only modifies the field's spatial form, so I expect it not to change the qualitative clustering.\n- **Screening.** Pohl\u2013Stark screen the interaction through density, because the field can't diffuse freely in crowded clusters. Your k = 0.20 is a fixed screening length. This could shift quantitative cluster-size statistics.\n- **Discrete update.** Yours is a discrete-step rule rather than Langevin dynamics. This is unlikely to matter.\n- **Not checked.** I can't tell from the summary numbers whether your state is dynamic clustering 1, dynamic clustering 2, or collapse. Cluster-size distributions would settle that.\n\n**4. Searches run.**\n- self-phoretic active particles dynamic clustering chemotactic collapse screened chemical field rotational chemotaxis\n- active colloids near wall chemical field image source screened Yukawa phoretic clustering polar order P\u00e9clet\n- Synthetic chemotaxis and collective behavior in active matter Liebchen L\u00f6wen Accounts of Chemical Research\n- Saha Golestanian Ramaswamy Clusters, asters, and collective oscillations in chemotactic colloids\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter - chemotactic/self-phoretic active Brownian particles (Keller-Segel-like with rotational chemotaxis)\", \"standard_name\": \"dynamic clustering from competing translational attraction and rotational (anti-chemotactic) repulsion in self-phoretic active particles\", \"confidence\": \"medium\", \"citations\": [\"Pohl & Stark 2014, PRL 112, 238303 - dynamic clustering appears when translational attraction and rotational repulsion compete; pure attraction gives chemotactic collapse (Keller-Segel mapping)\", \"Pohl & Stark 2015, Eur. Phys. J. E - extended state diagram, screening and dynamic clustering 2 (abstract only read)\", \"Saha, Golestanian & Ramaswamy 2014, Phys. Rev. E 89, 062316 - clusters, asters, oscillations in chemotactic colloids (citation verified only via reference lists)\", \"Liebchen & L\u00f6wen 2018, Acc. Chem. Res. 51, 2982 - review of synthetic chemotaxis and collective behaviour\", \"Interactions in active colloids, J. Phys.: Condens. Matter (c. 2021) - Yukawa-type screened phoretic interactions (authors and year not verified)\"], \"searches\": [\"self-phoretic active particles dynamic clustering chemotactic collapse screened chemical field rotational chemotaxis\", \"active colloids near wall chemical field image source screened Yukawa phoretic clustering polar order Peclet\", \"Synthetic chemotaxis and collective behavior in active matter Liebchen Lowen Accounts of Chemical Research\", \"Saha Golestanian Ramaswamy Clusters, asters, and collective oscillations in chemotactic colloids\"], \"notes\": \"Wall with mirror-image source and fixed screening length k=0.2 differ from Pohl-Stark's density-dependent screening; probably not qualitatively important. Cannot distinguish dynamic clustering 1/2 vs collapse from the summary numbers alone. Only abstracts or snippets were read for the cited papers.\"}\n```",
+ "checked": "2026-11-04 11:29:05"
+}

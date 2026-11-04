@@ -1,0 +1,47 @@
+{
+ "class_id": "pipeline:N19:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Chemotaxis pattern formation (Keller-Segel-type reaction-diffusion-advection with nutrient taxis)",
+ "standard_name": "Chemotactic aggregation / Keller-Segel self-trapping instability (Budrene-Berg spot patterns)",
+ "confidence": "medium",
+ "citations": [
+  "Brenner, Levitov, Budrene 1998, Biophys J 74(4):1677-1693 - physical/theoretical model of chemotactic pattern formation by bacteria (title/authors/venue verified; text not read)",
+  "Budrene & Berg 1991 Nature 349:630 and 1995 Nature 376:49 - experimental patterns of E. coli (verified as reference entries only)",
+  "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE 2013 - self-trapping feedback with nutrient consumption and nutrient taxis; strong nutrient sensing suppresses spots",
+  "Physica D 395 (2019) 24-36 - Keller-Segel with nutrient-gradient taxis and attractant production, Turing-type instability (title/authors not shown in snippet)",
+  "Brenner 2010 PNAS 107(26):11653-11654 - commentary on the field"
+ ],
+ "searches": [
+  "chemotaxis model bacteria attractant nutrient consumption pattern formation b/(1+b^2) sensitivity spots Turing-like",
+  "Brenner Levitov Budrene Physical mechanisms for chemotactic pattern formation by bacteria"
+ ],
+ "notes": "Exact b/(1+b^2) sensitivity with uniformly resupplied nutrient in a periodic box not found verbatim; likely immaterial. Strong nutrient taxis (14 > 11.1) may change the regime in growing colonies per the PLoS ONE paper, but that setting differs. Linear stability thresholds were not checked.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model bacteria attractant nutrient consumption pattern formation b/(1+b^2) sensitivity spots Turing-like"
+  },
+  {
+   "query": "Brenner Levitov Budrene Physical mechanisms for chemotactic pattern formation by bacteria"
+  }
+ ],
+ "result_urls": [
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://www.repository.cam.ac.uk/bitstreams/687d4e1f-43e5-4bfa-a398-3b588107cc24/download",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://brennergroup.seas.harvard.edu/publications/physical-mechanisms-chemotactic-pattern-formation-bacteria",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1006363107",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2122269119",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1001994107",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023095",
+  "https://www.cambridge.org/core/books/abs/experimental-and-computational-techniques-in-soft-condensed-matter-physics/structure-and-patterns-in-bacterial-colonies/234C550F6508922F6D568212EA2E8A5F",
+  "https://www.biorxiv.org/content/10.1101/2021.06.09.447728v1.full",
+  "https://link.springer.com/article/10.1007/s11538-010-9586-4"
+ ],
+ "full_text": "**Verdict: KNOWN, with medium confidence.** The system is the standard Keller\u2013Segel-type chemotaxis model used for Budrene\u2013Berg E. coli patterns. The model has cells, a self-secreted attractant, and a consumed nutrient that cells also follow. A uniform state is unstable, so it coarsens into spots or blobs.\n\n**1. Model family.** This is chemotaxis pattern formation, a reaction\u2013diffusion\u2013advection system. It is a Keller\u2013Segel model with these features:\n- Attractant production and decay.\n- Nutrient consumption and resupply.\n- Taxis toward both the attractant and the nutrient.\n- A saturating sensitivity, b/(1+b\u00b2), which is volume-filling or receptor-saturation type.\n\n**2. The behaviour.** Cells start nearly uniform and spontaneously form localized dense blobs. The Moran's I of 0.977 and the large standard deviation of 2.3 mean strong spatial structure, and the mean stays at 1 because cell number is conserved. This is the self-trapping or chemotactic collapse instability. Local accumulation raises local attractant, which draws in more cells.\n\n**3. Sources I checked.**\n- Brenner, Levitov & Budrene (1998), \"Physical Mechanisms for Chemotactic Pattern Formation by Bacteria\", *Biophysical Journal* 74(4), 1677\u20131693. The Harvard Brenner group page confirms title, authors, year and venue. It is the earliest clear theory source in my results. I did not read its text, so I am relying on its title and its frequent citation as the standard theory of this pattern formation. It builds on the experiments of Budrene & Berg, *Nature* 349, 630 (1991) and *Nature* 376, 49 (1995). Both are confirmed as reference entries in the search results.\n- Physica D 395 (2019), 24\u201336. This is a Keller\u2013Segel model in which cells make a chemoattractant and also move along a nutrient gradient they create by consuming it. It treats the pulse-like patterns as a Turing-type instability. The search result did not show the full title or authors, so I can't give a full citation.\n- Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, *PLoS ONE* 2013, doi 10.1371/journal.pone.0074878. It is a particle-based model with secreted attractant, nutrient consumption and nutrient taxis. The essential mechanism is a self-trapping feedback: local accumulation raises attractant secretion, which draws in more bacteria. It also reports that when nutrient-gradient sensitivity is doubled, spots no longer form in the wake of the advancing ring. Its authors are not shown in the snippet.\n- Review: Brenner, \"Chemotactic patterns without chemotaxis\", *PNAS* 107(26), 11653\u201311654 (2010). This is a commentary on the field. The chemotaxis coefficient and pattern-formation context are confirmed in the result.\n\n**4. Caveats.**\n- I did not find a paper using exactly this b/(1+b\u00b2) sensitivity together with a uniformly resupplied nutrient in a 2D periodic box. Equivalent saturating or volume-filling Keller\u2013Segel forms are widely studied, so I doubt the difference matters.\n- Nutrient taxis here is stronger than attractant taxis (14 vs 11.1). The 2013 PLoS ONE particle model suggests strong nutrient sensing can suppress spots in a growing colony. That is a different setting, with growth and a moving front. My results don't show whether a closed periodic box behaves the same way.\n- The mix of aggregates and mobile blobs in the simulation could depend on the parameters. I did not check the linear-stability threshold.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Chemotaxis pattern formation (Keller-Segel-type reaction-diffusion-advection with nutrient taxis)\", \"standard_name\": \"Chemotactic aggregation / Keller-Segel self-trapping instability (Budrene-Berg spot patterns)\", \"confidence\": \"medium\", \"citations\": [\"Brenner, Levitov, Budrene 1998, Biophys J 74(4):1677-1693 - physical/theoretical model of chemotactic pattern formation by bacteria (title/authors/venue verified; text not read)\", \"Budrene & Berg 1991 Nature 349:630 and 1995 Nature 376:49 - experimental patterns of E. coli (verified as reference entries only)\", \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE 2013 - self-trapping feedback with nutrient consumption and nutrient taxis; strong nutrient sensing suppresses spots\", \"Physica D 395 (2019) 24-36 - Keller-Segel with nutrient-gradient taxis and attractant production, Turing-type instability (title/authors not shown in snippet)\", \"Brenner 2010 PNAS 107(26):11653-11654 - commentary on the field\"], \"searches\": [\"chemotaxis model bacteria attractant nutrient consumption pattern formation b/(1+b^2) sensitivity spots Turing-like\", \"Brenner Levitov Budrene Physical mechanisms for chemotactic pattern formation by bacteria\"], \"notes\": \"Exact b/(1+b^2) sensitivity with uniformly resupplied nutrient in a periodic box not found verbatim; likely immaterial. Strong nutrient taxis (14 > 11.1) may change the regime in growing colonies per the PLoS ONE paper, but that setting differs. Linear stability thresholds were not checked.\"}\n```",
+ "checked": "2026-11-04 11:35:56"
+}

@@ -1,0 +1,66 @@
+{
+ "class_id": "pipeline:N11:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Clustering in spatial birth-death point processes: nonlocal (top-hat) competition-induced cluster crystals if domain >> R; otherwise reproductive-pair-correlation ('Brownian bug') clustering under effectively global competition",
+ "citations": [
+  "Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, Phys. Rev. E 70, 016216 (2004)",
+  "Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda, PRL 98, 258101 (2007)",
+  "Young, Roberts & Stuhne, Nature 412, 328 (2001)",
+  "Law et al., Ecology 84, 252 (2003)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Downgrade from KNOWN-VARIANT to KNOWN: the observed features (~5 sharp blobs, Moran ~0.56) show no new behaviour. The three-body crowding term is a rule-level local saturation (estimated g*rho^2 ~ hundreds, comparable to the 192 baseline death rate), not a phenomenological twist. Key caveat: the domain size is unspecified. If it is a unit torus, R=1.25 wraps the whole domain, competition is global and the Turing mechanism cannot act, so the clustering would instead be Young-et-al reproductive-correlation clustering (offspring offset 0.05, about 1920 births per individual). Either way the behaviour is documented. Sources were checked via abstracts and indexed pages, not full texts.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Young Roberts Stuhne reproductive pair correlations clustering of organisms Brownian bugs"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering nonlocal competition interacting particles top-hat kernel"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez 2004 clustering advection patterns population dynamics neighborhood-dependent rates"
+  },
+  {
+   "query": "individual-based model higher-order three-body competition death rate spatial pattern nonlocal"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/11460162/",
+  "https://ouci.dntb.gov.ua/en/works/4Mp8rBN7/",
+  "https://www.nature.com/articles/srep42415",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0197224",
+  "https://www.sciencedirect.com/science/article/pii/S1738573317303170",
+  "https://www.osti.gov/pages/biblio/1835779-img965626-fig",
+  "https://www.oecd-nea.org/science/wpncs/amct/workingarea/meeting2014/EGAMCT2014_07.pdf",
+  "https://www.nature.com/articles/s41467-020-15780-1",
+  "https://www.journals.uchicago.edu/doi/10.1086/430727",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://link.springer.com/article/10.1140/epjst/e2007-00167-x",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.98.258101",
+  "https://ifisc.uib-csic.es/en/publications/species-clustering-in-competitive-lotka-volterra-m/",
+  "https://pubmed.ncbi.nlm.nih.gov/19620117/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ad2b57",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0025556418305947",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "https://link.aps.org/doi/10.1103/PhysRevE.70.016216",
+  "https://ui.adsabs.harvard.edu/abs/2004PhRvE..70a6216H/abstract",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4493154/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://link.springer.com/article/10.1007/s10955-012-0506-x",
+  "https://ifisc.uib-csic.es/en/publications/nonlocal-birth-death-competitive-dynamics-with-vol/",
+  "https://user.iiasa.ac.at/~dieckman/reprints/LawEtal2003.pdf",
+  "https://link.springer.com/article/10.1007/s11538-021-00886-4"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm overturning the first pass's \"variant\" label, but only slightly. Persistent dense clusters in a spatial birth\u2013death model with only competition are well documented, and the observed features show nothing beyond that. The one open question is which known mechanism produces them here. That depends on the domain size, which isn't given.\n\n**Mechanism A: nonlocal-competition (Turing-like) clustering.** This holds if the domain is several times larger than the competition radius of 1.25. The particle version of exactly this model is Hern\u00e1ndez-Garc\u00eda & L\u00f3pez (2004). Individuals have birth and death rates depending on the number of other individuals in their neighborhood. The model shows an inhomogeneous quasistationary pattern with many different clusters of particles arranged periodically in space, caused by a finite-wavelength instability leading to pattern formation. Pigolotti et al. (2007) give the general condition: behaviour change[s] dramatically when the Fourier transform of this kernel is not positive definite, due to a pattern-forming instability. The top-hat kernel used here is a particularly common choice due to its simplicity. That makes the first pass's family correct in this case.\n\n**Mechanism B: clustering from local reproduction (\"Brownian bugs\").** This applies if the domain is a unit torus. A radius of 1.25 then covers the whole domain, so competition is effectively global and the top-hat instability can't act. The pattern-forming wavelength (roughly 1.6\u20132 \u00d7 1.25) wouldn't fit in the box anyway. Clustering can still arise, because offspring land only 0.05 from their parent and there are about 1,920 births per individual per time unit. Young, Roberts & Stuhne (Nature 2001) showed that organisms reproducing by binary division and dying at constant rates, spontaneously aggregate[s]. The reason: birth occurs only in the vicinity of another individual while death occurs everywhere. The first pass missed this possibility.\n\nIn both cases the observed features (about 5 blobs, Moran's I \u2248 0.56, sharp peaks) are documented behaviour.\n\n**The three-body term.** I found no source using this exact short-range squared crowding term. But it's a local saturation term: it limits how dense a cluster can get. That is a change in the rules, not a new behaviour, and the measured features show no extra structure such as rings, flat-topped plateaus or oscillations. Rough check: if a cluster holds a few thousand individuals per unit area, g \u00d7 density\u00b2 is in the hundreds. That's comparable to the baseline death rate of 192, so the term probably affects cluster height without creating anything new.\n\n**Genuine or artifact?** It looks genuine. Moran's I of 0.56 with about 5 sharp blobs isn't random noise, and the field changes over time (f_change \u2248 12), so it isn't frozen. The run is long enough: about 1,920 birth events per individual. One caveat: in mechanism B, cluster size, number and position fluctuate rather than settling into a periodic lattice.\n\n**Searches run:** Brownian-bug reproductive clustering; Hern\u00e1ndez-Garc\u00eda\u2013L\u00f3pez nonlocal competition with a top-hat kernel; their 2004 neighbourhood-dependent-rates paper; higher-order three-body competition in individual-based models. I read abstracts and indexed pages, not full texts, and I did not read Fuentes et al. 2003.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Clustering in spatial birth-death point processes: nonlocal (top-hat) competition-induced cluster crystals if domain >> R; otherwise reproductive-pair-correlation ('Brownian bug') clustering under effectively global competition\", \"citations\": [\"Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, Phys. Rev. E 70, 016216 (2004)\", \"Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda, PRL 98, 258101 (2007)\", \"Young, Roberts & Stuhne, Nature 412, 328 (2001)\", \"Law et al., Ecology 84, 252 (2003)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Downgrade from KNOWN-VARIANT to KNOWN: the observed features (~5 sharp blobs, Moran ~0.56) show no new behaviour. The three-body crowding term is a rule-level local saturation (estimated g*rho^2 ~ hundreds, comparable to the 192 baseline death rate), not a phenomenological twist. Key caveat: the domain size is unspecified. If it is a unit torus, R=1.25 wraps the whole domain, competition is global and the Turing mechanism cannot act, so the clustering would instead be Young-et-al reproductive-correlation clustering (offspring offset 0.05, about 1920 births per individual). Either way the behaviour is documented. Sources were checked via abstracts and indexed pages, not full texts.\"}\n```",
+ "checked": "2026-11-04 11:32:38"
+}

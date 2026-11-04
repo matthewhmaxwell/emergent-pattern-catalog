@@ -1,0 +1,83 @@
+{
+ "class_id": "pipeline:N04:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "chiral active matter / odd (transverse-force) Brownian particles in 2D (LJ + non-conservative perpendicular pair force), with weakly anisotropic Gay-Berne-like particles",
+ "standard_name": "Chiral Lennard-Jones fluid: odd-crystal melting into rotating hexatic patches / motile-dislocation (odd elastic) whorl state",
+ "confidence": "medium",
+ "citations": [
+  "Caporusso, Gonnella, Levis 2024, Phys. Rev. Lett. 132, 168201 - Brownian disks with LJ + transverse force; chirality breaks the solid into a dense fluid of rotating hexatic patches",
+  "Bililign et al. (Nature Physics, c.2021-22), 'Motile dislocations knead odd crystals into whorls' - transverse forces give motile dislocations and a polycrystalline whorl state (author list and year not shown in search results)",
+  "Braverman et al. 2021, Phys. Rev. Lett. 127, 268001 - defects in odd-elastic solids, overdamped MD with LJ radial and transverse forces (title truncated in the result; authors unverified)",
+  "PNAS 2025 (doi 10.1073/pnas.2412993122), 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' - odd crystals melt via motile dislocations (authors not shown)",
+  "Nature Communications 2026, 'Reentrant melting of scarred odd crystals by self-shear' - experimental spinners, psi6 bond order vs chiral activity",
+  "Review: 'Emergent phenomena in chiral active matter' (Nano Select/NSO, 2024) and 'Modeling chiral active particles: from circular motion to odd interactions' (J. Stat. Mech. 2026)"
+ ],
+ "searches": [
+  "elliptical particles Lennard-Jones transverse non-conservative force perpendicular chiral Brownian dynamics hexatic order defects",
+  "odd interactions transverse pairwise forces melting crystal Brownian particles bond-orientational order",
+  "Gay-Berne ellipse transverse force chiral active matter nonreciprocal rotational interaction crystal defects",
+  "anisotropic elliptical spinners odd interaction transverse force nematic hexatic order simulation ellipse chiral fluid",
+  "Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid authors Phys. Rev. Lett. 132 168201",
+  "chiral active ellipsoids odd interactions transverse force orientation-dependent potential Brownian simulation"
+ ],
+ "notes": "No paper found that combines slightly elliptical Gay-Berne-type particles with an LJ-magnitude transverse force at e_a/e_p about 33. I judged the ellipticity (aspect ratio about 1.2) unlikely to change the qualitative melting into a defective, density-inhomogeneous chiral fluid; that is inference, not a sourced finding. I read only abstracts and snippets, not full texts. Some Bililign, Braverman and PNAS author and year details were not visible in the results.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "elliptical particles Lennard-Jones transverse non-conservative force perpendicular chiral Brownian dynamics hexatic order defects"
+  },
+  {
+   "query": "odd interactions transverse pairwise forces melting crystal Brownian particles bond-orientational order"
+  },
+  {
+   "query": "Gay-Berne ellipse transverse force chiral active matter nonreciprocal rotational interaction crystal defects"
+  },
+  {
+   "query": "anisotropic elliptical spinners odd interaction transverse force nematic hexatic order simulation ellipse chiral fluid"
+  },
+  {
+   "query": "Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid authors Phys. Rev. Lett. 132 168201"
+  },
+  {
+   "query": "chiral active ellipsoids odd interactions transverse force orientation-dependent potential Brownian simulation"
+  }
+ ],
+ "result_urls": [
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.168201",
+  "http://ccl.northwestern.edu/2005/beyondlj.pdf",
+  "https://www.nature.com/articles/s42005-024-01674-x",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.131.108301",
+  "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11052700",
+  "https://pubs.rsc.org/sm/article/21/37/7228/912770/Lattice-dependent-orientational-order-in-active",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://pubmed.ncbi.nlm.nih.gov/36922133/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://research-information.bris.ac.uk/en/publications/non-reciprocal-interactions-drive-emergent-chiral-crystallites/",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://www.pnas.org/doi/10.1073/pnas.2201279119",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5547169/",
+  "https://dx.doi.org/10.1103/PhysRevLett.132.168201",
+  "https://pubmed.ncbi.nlm.nih.gov/38701478/",
+  "https://journals.aps.org/prl/issues/132/16",
+  "https://journals.aps.org/prresearch/abstract/10.1103/yntx-ss9r",
+  "https://journals.aps.org/pre/abstract/10.1103/k8vq-dw2w",
+  "https://www.pnas.org/doi/10.1073/pnas.2532158123",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023094",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ae3d28",
+  "https://www.nature.com/articles/s42005-023-01442-3",
+  "https://www.nature.com/articles/s41467-024-45531-5",
+  "https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral",
+  "https://www.nature.com/articles/s42005-024-01637-2",
+  "https://www.nature.com/articles/s42005-024-01674-x",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8630027/"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The behaviour is known for round particles. I found no paper that uses these exact elliptical particles, but the difference probably doesn't matter for the headline behaviour.\n\n**1. Model family.** This is chiral active matter, also called odd-interaction or transverse-force matter. It is a 2D overdamped Brownian system with a conservative Lennard-Jones (LJ) force plus a non-conservative pairwise force perpendicular to the line joining the particles. The perpendicular force always has the same rotational sense. It conserves momentum but exerts a net torque on each pair.\n\n**2. The behaviour and where it is described.** With e_a/e_p = 33 the transverse drive dominates the conservative force. The dense solid at density 0.87 should not stay a clean hexagonal crystal.\n- The expected result is a strongly inhomogeneous dense fluid. In the simulation, density CV is 0.433, nearest-neighbour ratio is 1.975, and bond order and defects reflect a broken or defective lattice. Polar order is near zero (0.04) and local alignment is about zero (\u22120.036). That is expected, because the particles have no self-propulsion and the driving is purely transverse.\n- Earliest clear source for the dense-fluid case: Caporusso, Gonnella & Levis, \"Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid\", Phys. Rev. Lett. 132, 168201 (2024). Their model is Brownian disks with an LJ potential plus a nonconservative transverse force. Chirality can also break the solid phase, giving rise to a dense fluid made of rotating hexatic patches. This is the closest match. The setup is the same except that the particles are disks.\n- Crystal destabilisation by transverse forces is described earlier. Bililign et al., \"Motile dislocations knead odd crystals into whorls\" (Nature Physics, 2021/22), shows that transverse forces organize colloidal spinners into odd elastic crystals crisscrossed by motile dislocations. The result is a polycrystal made of grains with tunable length scale and rotation rate. The search results gave the title and abstract but not the author list, year or volume, so the venue details are from memory.\n- Related: Braverman, Scheibner, VanSaders & Vitelli, PRL 127, 268001 (2021), on topological defects in odd-elastic solids. The search result was an accepted manuscript with a truncated title. It uses overdamped molecular dynamics with an LJ radial force and an LJ-form transverse force. It reports that introducing transverse forces generally lowers the plastic yield stress. I could not read the author list in the results, so those names are unverified.\n- Related: \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals\" (PNAS, 2025; doi 10.1073/pnas.2412993122). The authors and year are not shown in the results, so those details are from the search metadata only.\n- Related: \"Reentrant melting of scarred odd crystals by self-shear\" (Nature Communications, 2026). It is a granular-spinner experiment using the hexagonal bond-order parameter \u03c86.\n- Review: \"Emergent phenomena in chiral active matter\" (Newton/Nanoscale-type review in *Nano Select / NSO*, 2024; nso-journal.org). Its chiral-crystals section says competition between non-reciprocal and elastic forces leads to self-propelled dislocations and defects gliding through a chiral active crystal. A second review is \"Modeling chiral active particles: from circular motion to odd interactions\" (J. Stat. Mech., 2026).\n\n**3. What differs.** The particles here are slightly elliptical (axes 0.55 and 0.65, aspect ratio about 1.2) with an orientation-dependent LJ potential and rotational degrees of freedom. The transverse force depends only on the separation, not on orientation. The ellipse literature I found covers active Brownian ellipsoids and Gay-Berne particles (Nature Communications Physics 2024), and polar chiral active ellipsoids. None of it combines a transverse odd force with a Gay-Berne-type LJ potential.\n\nThis probably doesn't change the result. At aspect ratio about 1.2, with orientations relaxing fast, the particles are nearly round. The transverse drive at e_a/e_p = 33 is far larger than the anisotropic part of the conservative force, so the outcome should be set by the disk-like odd-crystal melting mechanism. I did not find a paper confirming this, and a weak orientational coupling could shift the quantitative defect counts. That part is my inference.\n\n**4. Searches run (each returned relevant results unless noted).**\n- elliptical particles LJ transverse force chiral Brownian hexatic defects\n- odd interactions transverse pairwise forces melting crystal bond-orientational order\n- Gay-Berne ellipse transverse force chiral active nonreciprocal\n- anisotropic elliptical spinners odd interaction nematic hexatic\n- Caporusso Gonnella Levis PRL 132 168201 (author check; it returned the PRL, PubMed and APS records)\n- chiral active ellipsoids odd interactions orientation-dependent potential (no exact match)\n\n**5. Confidence: medium.** The disk version of the behaviour is well documented by several independent groups. I could only read abstracts and snippets, not full texts, so I did not check the exact parameter regime (e_a/e_p about 33, T = 6, t = 30). I also found no direct study of elliptical odd-LJ particles, though my search for one was not exhaustive.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"chiral active matter / odd (transverse-force) Brownian particles in 2D (LJ + non-conservative perpendicular pair force), with weakly anisotropic Gay-Berne-like particles\", \"standard_name\": \"Chiral Lennard-Jones fluid: odd-crystal melting into rotating hexatic patches / motile-dislocation (odd elastic) whorl state\", \"confidence\": \"medium\", \"citations\": [\"Caporusso, Gonnella, Levis 2024, Phys. Rev. Lett. 132, 168201 - Brownian disks with LJ + transverse force; chirality breaks the solid into a dense fluid of rotating hexatic patches\", \"Bililign et al. (Nature Physics, c.2021-22), 'Motile dislocations knead odd crystals into whorls' - transverse forces give motile dislocations and a polycrystalline whorl state (author list and year not shown in search results)\", \"Braverman et al. 2021, Phys. Rev. Lett. 127, 268001 - defects in odd-elastic solids, overdamped MD with LJ radial and transverse forces (title truncated in the result; authors unverified)\", \"PNAS 2025 (doi 10.1073/pnas.2412993122), 'Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals' - odd crystals melt via motile dislocations (authors not shown)\", \"Nature Communications 2026, 'Reentrant melting of scarred odd crystals by self-shear' - experimental spinners, psi6 bond order vs chiral activity\", \"Review: 'Emergent phenomena in chiral active matter' (Nano Select/NSO, 2024) and 'Modeling chiral active particles: from circular motion to odd interactions' (J. Stat. Mech. 2026)\"], \"searches\": [\"elliptical particles Lennard-Jones transverse non-conservative force perpendicular chiral Brownian dynamics hexatic order defects\", \"odd interactions transverse pairwise forces melting crystal Brownian particles bond-orientational order\", \"Gay-Berne ellipse transverse force chiral active matter nonreciprocal rotational interaction crystal defects\", \"anisotropic elliptical spinners odd interaction transverse force nematic hexatic order simulation ellipse chiral fluid\", \"Phase Coexistence and Edge Currents in the Chiral Lennard-Jones Fluid authors Phys. Rev. Lett. 132 168201\", \"chiral active ellipsoids odd interactions transverse force orientation-dependent potential Brownian simulation\"], \"notes\": \"No paper found that combines slightly elliptical Gay-Berne-type particles with an LJ-magnitude transverse force at e_a/e_p about 33. I judged the ellipticity (aspect ratio about 1.2) unlikely to change the qualitative melting into a defective, density-inhomogeneous chiral fluid; that is inference, not a sourced finding. I read only abstracts and snippets, not full texts. Some Bililign, Braverman and PNAS author and year details were not visible in the results.\"}\n```",
+ "checked": "2026-11-04 11:29:44"
+}

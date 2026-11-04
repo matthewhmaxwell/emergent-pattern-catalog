@@ -1,0 +1,42 @@
+{
+ "class_id": "pipeline:N15:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: self-propelled particles with non-reciprocal position-based (bearing-only) steering in a vision cone",
+ "standard_name": "Minimal cognitive flocking model (vision-cone position-based attraction without alignment); intelligent active Brownian particles (iABPs); aggregate/clustering regime",
+ "confidence": "medium",
+ "citations": [
+  "Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal cognitive flocking model with vision cone, position-based attraction and no velocity alignment; yields aggregates, polar files with incidental leaders, nematic order",
+  "Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - 'Emergent collective behavior of active Brownian particles with visual perception': iABPs with vision-cone steering, clustering enhanced by larger range",
+  "Negi et al. 2021, Soft Matter 21(8) 1529 (3D with velocity alignment) - dense low-polarization clusters at wide vision angles",
+  "Phys. Rev. Research 7, 023234 (2025) - topological-vision variant of position-based nonreciprocal attraction"
+ ],
+ "searches": [
+  "minimal cognitive flocking model vision cone self-propelled particles turn toward visible neighbors clustering without alignment",
+  "non-reciprocal vision cone attraction self-propelled particles noise clusters low polar order"
+ ],
+ "notes": "Author names for the PRL paper and the exact publication years of the Soft Matter papers are partly from memory or from snippet hints, not fully confirmed on the pages. I did not check the exact turning law (3 x mean sine of bearing) or the parameter point (R=5, half-angle pi/8, noise 0.08) against the originals. The match is to the aggregate regime, not a verified parameter-for-parameter reproduction.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "minimal cognitive flocking model vision cone self-propelled particles turn toward visible neighbors clustering without alignment"
+  },
+  {
+   "query": "non-reciprocal vision cone attraction self-propelled particles noise clusters low polar order"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1140/epje/s10189-025-00482-7",
+  "https://pubs.rsc.org/sm/article/18/33/6167/788445/Emergent-collective-behavior-of-active-Brownian",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://www.cell.com/newton/fulltext/S2950-6360(25)00283-X",
+  "https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.7.023234",
+  "https://pubs.rsc.org/sm/article/21/8/1529/872219/Collective-dynamics-of-intelligent-active-Brownian",
+  "https://iopscience.iop.org/article/10.1088/1674-1056/adf4a7",
+  "https://link.springer.com/article/10.1140/epje/i2018-11653-4"
+ ],
+ "full_text": "**Verdict: KNOWN.** The rule system is essentially the \"minimal cognitive flocking model\" of Barberis and Peruani. High-density clustering with almost no polar order is one of its reported regimes.\n\n**1. Model family.** This is active matter, specifically self-propelled or active Brownian particles with non-reciprocal, position-based (bearing-only) steering inside a vision cone.\n- The model has no velocity alignment and no collisions.\n- Each particle turns toward the positions of the neighbours it sees.\n- Because the vision cone is one-sided, Newton's third law is broken.\n\n**2. The specific behaviour and its sources.**\n- **Earliest clear source.** Barberis & Peruani, \"Large-Scale Patterns in a Minimal Cognitive Flocking Model: Incidental Leaders, Nematic Patterns, and Aggregates\", Phys. Rev. Lett. 117, 248001 (2016).\n  - The model has active particles with no memory. They interact through a short-ranged, position-based attractive force that acts inside a vision cone, and they lack velocity-velocity alignment.\n  - Depending on parameters, it produces aggregates or milling-like patterns, moving locally polar files with incidental leaders, and macroscopic nematic structures.\n  - The authors conclude that position-based active models represent a new class of active systems, fundamentally different from velocity-alignment-based flocking.\n  - Your observation matches the aggregate regime: strong clumping (nearest-neighbour ratio 0.44, density CV 2.1) with weak global polarity (0.07).\n  - The author names come from my memory. The search result confirmed the title and the PRL reference, but the snippet did not list the authors.\n- **Follow-up and review-like source.** \"Emergent collective behavior of active Brownian particles with visual perception\", Soft Matter 18, 6167 (2022). The authors are Negi, Winkler and Gompper; the snippet names \"Negi et al.\" and I did not confirm the full author list or year from the page.\n  - It extends active Brownian dynamics with an orientational response of limited maneuverability to the positions of neighbours within a vision cone and a cut-off radius.\n  - It notes that a larger cut-off radius puts more particles in the vision cone, which enhances clustering and cohesion.\n- **Related work.**\n  - The 3D extension (Soft Matter 2021, with velocity alignment) reports dense clusters with low polarization and nearly stationary behaviour.\n  - A 2025 Phys. Rev. Research paper on topological vision uses the same position-based non-reciprocal attraction.\n  - A 2025 Newton paper on a vision-cone XY lattice gas finds aster clusters.\n\n**3. Differences from the original model.** I did not check the exact functional form of the turning law or the parameter values against the papers. The original model uses a short-ranged attractive force and an angular response that may differ in detail from \"3 \u00d7 mean sine of bearing angle\". Rotational noise, finite speed and the cone are all present in both. The narrow cone (half-angle \u03c0/8) and the low speed put this run in the clustering regime rather than the nematic or file regimes. I would not expect these details to change the classification.\n\n**Confidence: medium-high.** The model structure matches closely and the paper's regimes include aggregates without alignment. I could not read the full text to confirm that the specific parameter point (R = 5, half-angle \u03c0/8, noise 0.08) falls in the aggregate region.\n\n**Searches run:**\n- \"minimal cognitive flocking model vision cone self-propelled particles turn toward visible neighbors clustering without alignment\"\n- \"non-reciprocal vision cone attraction self-propelled particles noise clusters low polar order\"\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: self-propelled particles with non-reciprocal position-based (bearing-only) steering in a vision cone\", \"standard_name\": \"Minimal cognitive flocking model (vision-cone position-based attraction without alignment); intelligent active Brownian particles (iABPs); aggregate/clustering regime\", \"confidence\": \"medium\", \"citations\": [\"Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - minimal cognitive flocking model with vision cone, position-based attraction and no velocity alignment; yields aggregates, polar files with incidental leaders, nematic order\", \"Negi, Winkler & Gompper 2022, Soft Matter 18, 6167 - 'Emergent collective behavior of active Brownian particles with visual perception': iABPs with vision-cone steering, clustering enhanced by larger range\", \"Negi et al. 2021, Soft Matter 21(8) 1529 (3D with velocity alignment) - dense low-polarization clusters at wide vision angles\", \"Phys. Rev. Research 7, 023234 (2025) - topological-vision variant of position-based nonreciprocal attraction\"], \"searches\": [\"minimal cognitive flocking model vision cone self-propelled particles turn toward visible neighbors clustering without alignment\", \"non-reciprocal vision cone attraction self-propelled particles noise clusters low polar order\"], \"notes\": \"Author names for the PRL paper and the exact publication years of the Soft Matter papers are partly from memory or from snippet hints, not fully confirmed on the pages. I did not check the exact turning law (3 x mean sine of bearing) or the parameter point (R=5, half-angle pi/8, noise 0.08) against the originals. The match is to the aggregate regime, not a verified parameter-for-parameter reproduction.\"}\n```",
+ "checked": "2026-11-04 11:33:41"
+}

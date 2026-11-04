@@ -1,0 +1,71 @@
+{
+ "class_id": "pipeline:N07:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Disordered (non-hyperuniform) steady state of a conserved stochastic mass transport process with correlated multi-site transfers; generic long-range (~1/r^(d+2)) correlations from detailed-balance-breaking conservative dynamics",
+ "citations": [
+  "Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (DOI 10.1103/sn1k-k8ng)",
+  "Hazra, Mukherjee, Pradhan, 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results', J. Stat. Mech. (10.1088/1742-5468/ada88c)",
+  "Garrido, Lebowitz, Maes, Spohn, 'Long-range correlations for conservative dynamics', Phys. Rev. A 42, 1954 (1990)",
+  "Evans, Majumdar, Zia, 'Factorized steady states in mass transport models', J. Phys. A 37 (2004)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Downgrades the first pass from 'variant' to plain KNOWN: the reported features (std 0.64, Moran 0.10, ~6 blobs) show only a featureless fluctuating field with weak nearest-neighbour correlation, and nothing in them measures chirality. The first pass's centre-of-mass argument (CoM not conserved, so no hyperuniformity) agrees with the cited exact results. A possible handed angular term in small-q S(q), allowed because the rule keeps 90-degree rotation symmetry but breaks mirror symmetry, is not described in sources found but was not observed either; testing it needs anisotropic 2D S(q) on larger lattices. Treating the two-site L-shaped transfer as equivalent to the cited 'multidirectional hopping' is my own inference. Whether this rule has a factorized (product-form) steady state was not checked. 'Greenblatt-Lebowitz' not found; probably refers to Garrido-Lebowitz-Maes-Spohn 1990.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "center of mass conserving mass transport process hyperuniformity lattice random fraction"
+  },
+  {
+   "query": "chiral odd diffusivity lattice mass transport model density correlations"
+  },
+  {
+   "query": "\"Generic power laws in higher-dimensional lattice models with multidirectional hopping\" arXiv"
+  },
+  {
+   "query": "Garrido Lebowitz Maes Spohn long-range correlations conservative dynamics anisotropic"
+  },
+  {
+   "query": "random averaging process mass transport factorized steady state Krug Garcia"
+  },
+  {
+   "query": "chiral lattice gas broken parity long-range correlations structure factor odd diffusion nonequilibrium steady state"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.110.024119",
+  "https://ui.adsabs.harvard.edu/abs/2019PhRvE..99b2115M/abstract",
+  "https://par.nsf.gov/servlets/purl/10318148",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://pubs.aip.org/aip/jcp/article-abstract/165/3/034501/3398439/Kinetic-theory-of-chiral-active-disks-Odd?redirectedFrom=fulltext",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://link.aps.org/doi/10.1103/sn1k-k8ng",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033234",
+  "https://link.springer.com/article/10.1023/B:JOSS.0000028062.57459.52",
+  "https://sites.math.rutgers.edu/~lebowitz/PUBLIST/publist.html",
+  "https://cmsr.rutgers.edu/research-cmsr/publications-cmsr",
+  "https://journals.aps.org/pre/abstract/10.1103/r6d8-bcd1",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013074",
+  "https://fys.kuleuven.be/english/staff/christ/publications",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.158002",
+  "https://www.nature.com/articles/s41598-021-93091-1",
+  "https://www.pnas.org/doi/10.1073/pnas.1013209108",
+  "https://www.osti.gov/etdeweb/biblio/20497545",
+  "https://iopscience.iop.org/article/10.1088/0305-4470/37/25/L02",
+  "https://www.osti.gov/etdeweb/biblio/20741820",
+  "https://warwick.ac.uk/fac/cross_fac/complexity/study/emmcs/outcomes/studentprojects/luis_carlos_garcia_del_molino_m1_project.pdf",
+  "https://vtechworks.lib.vt.edu/bitstreams/09259a56-5462-4a05-9168-ca893cd426ab/download",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC5691086",
+  "https://journals.aps.org/pre/pdf/10.1103/r6d8-bcd1"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's \"variant\" call. The observed behaviour is a featureless, fluctuating, non-hyperuniform density field, the generic disordered steady state of a conserved stochastic mass-transport model. Nothing in the reported numbers shows any chirality.\n\n**What the literature covers**\n- **Model class.** Continuous-mass lattice models with random-fraction transfer are a long-studied family. Evans, Majumdar and Zia covered models that encompass both discrete and continuous masses and parallel and random sequential dynamics. They also gave conditions for a product-form (factorized) steady state. For this rule I don't know whether one exists. Because each event correlates two sites, I'd guess not, but I haven't checked that.\n- **Large-scale correlations, closest match.** Hazra, Chakraborty, Mukherjee and Pradhan (Phys. Rev. E, around 2025) studied the 2D case. They show that conserved-mass transport processes on hypercubic lattices with d>1, with multidirectional hopping that respect all symmetries of the lattice, exhibit power-law correlations for generic parameter values. Density-density correlations typically decay as \u223c1/r^(d+2), which is 1/r\u2074 in 2D. In their models several chunks of masses... can hop out simultaneously from a lattice site in multiple directions, consequently breaking detailed balance. This rule is different: one event moves mass in two linked hops across two sites. Calling it equivalent is my own reading, but the ingredients match (mass conserved, lattice-rotation symmetric, diffusive, detailed balance broken).\n- **Older framework.** Garrido, Lebowitz, Maes and Spohn, \"Long-range correlations for conservative dynamics\", Phys. Rev. A 42, 1954 (1990), with follow-ups for anisotropic zero-range and exclusion processes. The first pass had not verified its \"Greenblatt-Lebowitz\" reference; I found no such paper, and this is probably the work it meant.\n- **Hyperuniformity contrast.** Hazra, Mukherjee and Pradhan (J. Stat. Mech.) give exact results for models where both mass and centre of mass are conserved. These reach S(q) \u223c q\u00b2, implying a class-I spatial hyperuniformity. The first pass's reasoning holds up: an L-shaped transfer with random fractions shifts the centre of mass on average, so that route to hyperuniformity doesn't apply.\n\n**Possible twist (not observed)**\nBecause every path turns left, the rule keeps the square lattice's 90-degree rotation symmetry but breaks mirror symmetry. That should allow a handed term in how S(q) behaves at small q (an angular term proportional to q\u2093q_y(q\u2093\u00b2\u2212q_y\u00b2)/q\u2074). I found no paper describing this for lattice mass transport. The odd-diffusivity work concerns tracer random walks and fluids, not lattice structure factors. However, none of the reported features measures handedness or the angular shape of correlations, so the twist is a hypothesis, not observed phenomenology. It's not enough for a VARIANT verdict.\n\n**Trivial or genuine?**\nI'd call it trivial: not a numerical failure, but not an emergent pattern either.\n- The mean of 1.0 just reflects mass conservation.\n- The spread (std 0.64) is the ordinary order-one spread you expect from random-fraction mass splitting.\n- Moran's I of about 0.10 means only weak nearest-neighbour correlation, as expected when each event moves mass between neighbouring sites.\n- About 6 \"blobs\" is consistent with noise.\n- The peak at k = 0.417 has unclear units. It could be a short-range anticorrelation left by the two-hop moves, or just finite-size noise.\n- A 64\u00d764 lattice can't resolve a weak 1/r\u2074 tail.\n\nTo actually test the chiral twist, you'd need to measure the full 2D S(q) on larger lattices, average over many runs, and look for a handed angular term.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Disordered (non-hyperuniform) steady state of a conserved stochastic mass transport process with correlated multi-site transfers; generic long-range (~1/r^(d+2)) correlations from detailed-balance-breaking conservative dynamics\", \"citations\": [\"Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (DOI 10.1103/sn1k-k8ng)\", \"Hazra, Mukherjee, Pradhan, 'Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results', J. Stat. Mech. (10.1088/1742-5468/ada88c)\", \"Garrido, Lebowitz, Maes, Spohn, 'Long-range correlations for conservative dynamics', Phys. Rev. A 42, 1954 (1990)\", \"Evans, Majumdar, Zia, 'Factorized steady states in mass transport models', J. Phys. A 37 (2004)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Downgrades the first pass from 'variant' to plain KNOWN: the reported features (std 0.64, Moran 0.10, ~6 blobs) show only a featureless fluctuating field with weak nearest-neighbour correlation, and nothing in them measures chirality. The first pass's centre-of-mass argument (CoM not conserved, so no hyperuniformity) agrees with the cited exact results. A possible handed angular term in small-q S(q), allowed because the rule keeps 90-degree rotation symmetry but breaks mirror symmetry, is not described in sources found but was not observed either; testing it needs anisotropic 2D S(q) on larger lattices. Treating the two-site L-shaped transfer as equivalent to the cited 'multidirectional hopping' is my own inference. Whether this rule has a factorized (product-form) steady state was not checked. 'Greenblatt-Lebowitz' not found; probably refers to Garrido-Lebowitz-Maes-Spohn 1990.\"}\n```",
+ "checked": "2026-11-04 11:32:40"
+}

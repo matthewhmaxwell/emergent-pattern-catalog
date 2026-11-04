@@ -1,0 +1,93 @@
+{
+ "class_id": "pipeline:N03:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: chemotactic/self-phoretic active Brownian particles with screened (Yukawa) self-generated chemical fields",
+ "standard_name": "dynamic clustering of self-phoretic active particles (translational attraction + rotational repulsion / negative autochemotaxis)",
+ "confidence": "medium",
+ "citations": [
+  "Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering when translational attraction competes with rotational repulsion; chemotactic collapse for pure attraction",
+  "Pohl & Stark 2015, Eur. Phys. J. E 38 - state diagram, dynamic clustering 1/2, role of screening in clusters",
+  "Saha, Golestanian & Ramaswamy 2014, Phys. Rev. E 89, 062316 - clusters, asters and oscillations in chemotactic colloids (continuum/particle model; citation verified, not read)",
+  "Liebchen, Marenduzzo, Pagonabarraga & Cates 2015, Phys. Rev. Lett. 115, 258301 - chemorepulsion generates clustering with self-limiting cluster size",
+  "Liebchen & Lowen 2018, Acc. Chem. Res. 51, 2982 - review of synthetic chemotaxis and collective behaviour"
+ ],
+ "searches": [
+  "chemotactic active Brownian particles screened Yukawa chemical field attraction reorientation clustering",
+  "phoretic active colloids near wall no-flux image source screened chemical field clustering",
+  "Pohl Stark Dynamic clustering and chemotactic collapse of self-phoretic active particles",
+  "Liebchen Marenduzzo Pagonabarraga Cates chemorepulsive active colloids",
+  "Saha Golestanian Ramaswamy clusters asters chemotactic colloids",
+  "Liebchen Lowen synthetic chemotaxis review",
+  "Pohl Stark hover above wall no-flux image dynamic clustering"
+ ],
+ "notes": "The wall with mirror-image source (hovering height 1.1) was not found verbatim in the literature; likely only modifies the pair kernel. Observed metrics show clustering without polar order but do not distinguish dynamic-clustering from collapsed state.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "chemotactic active Brownian particles screened Yukawa chemical field attraction and reorientation clustering phase separation"
+  },
+  {
+   "query": "phoretic active colloids near wall no-flux image source screened chemical field clustering simulation"
+  },
+  {
+   "query": "Pohl Stark Dynamic clustering and chemotactic collapse of self-phoretic active particles PRL 2014"
+  },
+  {
+   "query": "Liebchen Marenduzzo Deseigne Cates Clustering and pattern formation in chemorepulsive active colloids"
+  },
+  {
+   "query": "Saha Golestanian Ramaswamy Clusters, asters, and collective oscillations in chemotactic colloids"
+  },
+  {
+   "query": "Liebchen L\u00f6wen Synthetic chemotaxis and collective behavior in active matter Accounts of Chemical Research"
+  },
+  {
+   "query": "Pohl Stark self-phoretic particles hover above wall no-flux image screened Yukawa translational attraction rotational repulsion dynamic clustering"
+  }
+ ],
+ "result_urls": [
+  "https://boulderschool.yale.edu/sites/default/files/files/BIalke-Speck-Lowen-JNCS2015.pdf",
+  "https://journals.aps.org/prresearch/pdf/10.1103/qdlc-249z",
+  "https://iopscience.iop.org/article/10.1088/1361-648X/ac3a86",
+  "https://www.intechopen.com/chapters/67626",
+  "https://pubs.rsc.org/sm/article/19/13/2297/788566/The-interplay-between-chemo-phoretic-interactions",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.112.238303",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.128301",
+  "https://journals.aps.org/prl/issues/112/23",
+  "https://dx.doi.org/10.1103/PhysRevResearch.5.L032038",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9214524/",
+  "https://journals.aps.org/prl/recent?page=1311",
+  "https://www.research.ed.ac.uk/en/publications/clustering-and-pattern-formation-in-chemorepulsive-active-colloid/",
+  "https://ubics.ub.edu/people_post.php?id=37",
+  "https://pubs.aip.org/aip/jcp/article-abstract/152/1/014903/198664/Clustering-induced-velocity-reversals-of-active?redirectedFrom=fulltext",
+  "https://www.ipkm.tu-darmstadt.de/research_ipkm/liebchen_group/publications_liebchen/index.en.jsp",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.8.031080",
+  "https://core.ac.uk/reader/43553263",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2122269119",
+  "https://ouci.dntb.gov.ua/en/works/4Y168b84/",
+  "https://physics.iisc.ac.in/~ccmt/member/sriram/",
+  "https://physics.iisc.ac.in/~sriram/research.html",
+  "https://journals.aps.org/prresearch/abstract/10.1103/xrph-vgf3",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.131.228302",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.124.168003",
+  "https://scholar.google.com/citations?user=-uTRMxIAAAAJ&hl=en",
+  "https://pubs.acs.org/doi/abs/10.1021/acs.accounts.8b00215",
+  "https://www.osti.gov/biblio/2421666",
+  "https://www.ipkm.tu-darmstadt.de/research_ipkm/liebchen_group/publications_liebchen/index.en.jsp",
+  "https://www.tu-darmstadt.de/studieren/studieninteressierte/internationale_studieninteressierte/kurzzeitprogramme_und_sommeruniversitaet/irep_1/artikel_details_de_en_312832.en.jsp",
+  "https://journals.aps.org/prresearch/abstract/10.1103/qdlc-249z",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7101431/",
+  "https://ouci.dntb.gov.ua/en/works/4Y168b84/",
+  "https://www.nature.com/articles/s41467-022-34484-2",
+  "https://link.springer.com/article/10.1140/epje/i2015-15093-4",
+  "https://harvest.aps.org/v2/journals/articles/10.1103/RevModPhys.88.045006/fulltext",
+  "https://pubmed.ncbi.nlm.nih.gov/26314260",
+  "https://depositonce.tu-berlin.de/items/c69d03d6-4736-4530-be3f-6688c973f581",
+  "https://ouci.dntb.gov.ua/en/works/9jeP3jpl/"
+ ],
+ "full_text": "**Verdict: KNOWN.** Confidence is medium to high. The wall and image-source detail is the only part I could not confirm.\n\n**1. Model family**\nThis is active matter: self-propelled (active Brownian) disks with chemotactic or phoretic coupling to their own emitted chemical field. In the literature these are called self-phoretic or chemotactic active colloids. The coupling has two parts:\n- A translational pull up the gradient of a screened (Yukawa, exp(\u2212kr)/r) field.\n- A rotational torque that turns the heading away from the gradient.\n\n**2. The specific behaviour**\nThe observed behaviour is clustering at low area fraction (0.05). Nearest-neighbour ratio is 0.48 and density CV is 3.7, with no polar order (0.019) and no net angular momentum. This is the \"dynamic clustering\" state of self-phoretic particles. It arises when translational attraction competes with rotational repulsion, meaning the particles attract but swim away from each other.\n\n- **Earliest clear source:** Pohl & Stark (2014), \"Dynamic Clustering and Chemotactic Collapse of Self-Phoretic Active Particles\", Phys. Rev. Lett. 112, 238303. Their Brownian dynamics simulations show pronounced dynamic clustering only when the two phoretic contributions give competing attractive and repulsive interactions. With mere attraction, a chemotactic collapse occurs directly from the gas-like into the collapsed state.\n- **Follow-up:** Pohl & Stark (2015), Eur. Phys. J. E 38, \"Self-phoretic active particles interacting by diffusiophoresis: A numerical study of the collapsed state and dynamic clustering\". Translational and rotational phoretic parameters create effective repulsive and attractive interactions, and a delicate balance of these causes dynamic clustering. The oscillations disappear if the phoretic interactions within compact clusters are not screened. This matches your screened setup.\n- **Related continuum and particle models:**\n  - Saha, Golestanian & Ramaswamy (2014), Phys. Rev. E 89, 062316, \"Clusters, asters, and collective oscillations in chemotactic colloids\". I confirmed the citation but did not read the paper.\n  - Liebchen, Marenduzzo, Pagonabarraga & Cates (2015), Phys. Rev. Lett. 115, 258301. They show that migration away from self-produced chemicals generates a generic route to clustering and pattern formation. These clusters have a self-limiting area that grows linearly with self-propulsion speed.\n- **Review:** Liebchen & L\u00f6wen (2018), \"Synthetic Chemotaxis and Collective Behavior in Active Matter\", Acc. Chem. Res. 51, 2982. It reviews recent theoretical progress on synthetic chemotaxis, mainly from simulations and field-theoretic descriptions. A second review is \"Interactions in active colloids\" (J. Phys.: Condens. Matter, 2022).\n\n**3. Caveats**\n- I did not find a source that uses exactly your wall geometry: disks hovering at height 1.1 over a no-flux wall, with a mirror-image source. For a no-flux wall, the image charge is the standard way to satisfy the boundary condition, and it only modifies the effective pair kernel. I don't expect it to change the qualitative result, but I did not verify it in the literature.\n- Your metrics show clustering with no alignment. They do not distinguish between a dynamic-clustering state (finite clusters that keep merging and splitting) and a collapsed state. Your parameters (screening k = 0.20, turning strength 0.30, Pe = 100) would have to be mapped onto Pohl and Stark's state diagram to say which one you are in.\n- Some details in the searched sources, such as exact parameter values, came from snippets and not full-text reading.\n- Three of the four sources I checked (Pohl & Stark 2014 and 2015, Liebchen et al. 2015) confirmed title, authors, year and venue directly. For Saha et al. and Liebchen & L\u00f6wen, I confirmed citation details through reference lists and publisher pages.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: chemotactic/self-phoretic active Brownian particles with screened (Yukawa) self-generated chemical fields\", \"standard_name\": \"dynamic clustering of self-phoretic active particles (translational attraction + rotational repulsion / negative autochemotaxis)\", \"confidence\": \"medium\", \"citations\": [\"Pohl & Stark 2014, Phys. Rev. Lett. 112, 238303 - dynamic clustering when translational attraction competes with rotational repulsion; chemotactic collapse for pure attraction\", \"Pohl & Stark 2015, Eur. Phys. J. E 38 - state diagram, dynamic clustering 1/2, role of screening in clusters\", \"Saha, Golestanian & Ramaswamy 2014, Phys. Rev. E 89, 062316 - clusters, asters and oscillations in chemotactic colloids (continuum/particle model; citation verified, not read)\", \"Liebchen, Marenduzzo, Pagonabarraga & Cates 2015, Phys. Rev. Lett. 115, 258301 - chemorepulsion generates clustering with self-limiting cluster size\", \"Liebchen & Lowen 2018, Acc. Chem. Res. 51, 2982 - review of synthetic chemotaxis and collective behaviour\"], \"searches\": [\"chemotactic active Brownian particles screened Yukawa chemical field attraction reorientation clustering\", \"phoretic active colloids near wall no-flux image source screened chemical field clustering\", \"Pohl Stark Dynamic clustering and chemotactic collapse of self-phoretic active particles\", \"Liebchen Marenduzzo Pagonabarraga Cates chemorepulsive active colloids\", \"Saha Golestanian Ramaswamy clusters asters chemotactic colloids\", \"Liebchen Lowen synthetic chemotaxis review\", \"Pohl Stark hover above wall no-flux image dynamic clustering\"], \"notes\": \"The wall with mirror-image source (hovering height 1.1) was not found verbatim in the literature; likely only modifies the pair kernel. Observed metrics show clustering without polar order but do not distinguish dynamic-clustering from collapsed state.\"}\n```",
+ "checked": "2026-11-04 11:29:06"
+}

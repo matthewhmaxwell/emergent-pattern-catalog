@@ -1,0 +1,52 @@
+{
+ "class_id": "pipeline:N04:A",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Odd (transverse-force) crystal: self-propelled dislocations, crystal whorl state / odd-crystal melting",
+ "citations": [
+  "Braverman, Scheibner, VanSaders, Vitelli, PRL 127, 268001 (2021) - Topological Defects in Solids with Odd Elasticity",
+  "Bililign et al., Nature Physics (2021) - Motile dislocations knead odd crystals into whorls",
+  "Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (2025)",
+  "Anomalous grain dynamics and grain locomotion of odd crystals (transverse phase-field crystal), PubMed 41105709"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Upgraded from VARIANT to KNOWN: the radial-plus-transverse Lennard-Jones force model is the Braverman et al. model; the 18% elongation and fast orientation relaxation make the orientation field inert (polar 0.04, local alignment -0.036). The reported metrics (clumping ratio about 2 = near-lattice spacing, moderate density variation, no alignment) are consistent with plain dense repulsive packing and do not show whorls or motile dislocations; the six-fold order and defect counts were not reported. Marked trivial because the observed features are packing artifacts, though the underlying odd-crystal dynamics are real and documented. Whether this run is in the whorl state or melted (transverse force 33x potential strength, T=6) cannot be told without grain-rotation, defect-velocity or mean-square-displacement measurements.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Braverman Scheibner VanSaders Vitelli topological defects solids odd elasticity transverse force Lennard-Jones"
+  },
+  {
+   "query": "melting two-dimensional odd crystal transverse interactions Brownian hexatic dislocations simulation"
+  },
+  {
+   "query": "odd elastic crystal melting transverse forces dislocations self-propel thermal fluctuations particle simulation 2D"
+  }
+ ],
+ "result_urls": [
+  "https://par.nsf.gov/servlets/purl/10313788",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://knowledge.uchicago.edu/record/7681/files/Scheibner_uchicago_0330D_17011.pdf",
+  "https://researchdiscovery.drexel.edu/esploro/outputs/journalArticle/Topological-Defects-in-Solids-with-Odd/991021877483704721",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033100",
+  "https://muckrack.com/lara-braverman",
+  "https://par.nsf.gov/search/author:%22Scheibner,%20Colin%22",
+  "https://scholar.google.com/citations?user=dfOW1kQAAAAJ&hl=en",
+  "https://pubs.rsc.org/sm/article/13/8/1548/547196/Two-dimensional-melting-of-colloids-with-long",
+  "https://ui.adsabs.harvard.edu/abs/2022APS..MARG20008G/abstract",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://www.ens-lyon.fr/en/article/research/motile-dislocations-knead-odd-crystals-whorls",
+  "https://pubmed.ncbi.nlm.nih.gov/41105709/",
+  "https://par.nsf.gov/servlets/purl/10313788",
+  "https://www.pnas.org/doi/10.1073/pnas.2412993122",
+  "https://par.nsf.gov/servlets/purl/10138501",
+  "https://pubmed.ncbi.nlm.nih.gov/40215281/"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm upgrading the first pass from \"variant\" to \"known\", but I agree with its identification. One caveat matters: the six reported numbers don't actually show the odd-crystal behaviour. They are mostly what you'd expect from a dense packing of particles that repel at short range.\n\n**The model is in the literature.** Braverman, Scheibner, VanSaders and Vitelli (PRL 127, 268001, 2021) simulated particles interacting with a radial force F\u2225(r) given by a Lennard-Jones (LJ) force and three different realizations of the transverse force F\u22a5(r). One of those is a transverse force with LJ magnitude, which is rule (2) here. They found that odd elastic moduli modify the strain induced by topological defects and their interactions, even reversing the stability of, otherwise, bound dislocation pairs, and that isolated dislocations can self propel via microscopic work.\n\n**The behaviour is documented too.**\n- Bililign et al., \"Motile dislocations knead odd crystals into whorls\" (Nature Physics, 2021). They report that an isolated dislocation moves ballistically when transverse forces are present. These motile topological defects organize into a polycrystal made of grains with tunable length scale and rotation rate. Simulations of both a minimal model and fully resolved hydrodynamics establish the generic nature of this crystal whorl state.\n- A 2025 PNAS paper on how non-reciprocal solids melt contrasts the two kinds of force: odd forces satisfy Newton's action\u2013reaction symmetry, but their transverse direction induces a net torque on a pair of particles.\n- A continuum field model reproduces self-rotating crystallites, dislocation self-propulsion and proliferation, and fragmentation in polycrystals.\n\n**The elliptical shape doesn't change anything.** With half-axes of 0.55 and 0.65 the particles are only about 18% elongated, and orientations relax faster than positions. The measurements confirm the orientations do nothing: polar order is 0.04 and local alignment is \u22120.036, both essentially zero. The shape is not a meaningful twist on the known behaviour.\n\n**Real pattern or artifact?** The dynamics underneath are real. But nothing in the reported metrics demonstrates them:\n- **Clumping ratio of 1.975:** this means very evenly spaced particles, near the lattice limit (a perfect hexagonal lattice gives about 2.15 on the usual nearest-neighbour test). Any dense packing of repulsive particles at density 0.87 would score about this.\n- **Density variation (0.433):** this is moderate. With only 400 particles it could just be noise from how the box is divided up.\n- **No alignment:** the orientation field is effectively an inert passenger.\n- **Missing measurements:** the six-fold bond order and defect counts were supposedly measured but aren't reported. Nothing measures grain rotation or defect motion either. So the \"rotating hexatic patches\" in the first-pass description are inferred, not observed.\n\nI've therefore marked the observed features as trivial. To check whether this run is in the whorl state or simply melted, you'd need grain rotation rates, defect speeds or mean-square displacement. That's especially relevant because the transverse force is 33 times the potential strength and the temperature is high (6).\n\nI read the abstracts and indexed text of these sources, not the full papers.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Odd (transverse-force) crystal: self-propelled dislocations, crystal whorl state / odd-crystal melting\", \"citations\": [\"Braverman, Scheibner, VanSaders, Vitelli, PRL 127, 268001 (2021) - Topological Defects in Solids with Odd Elasticity\", \"Bililign et al., Nature Physics (2021) - Motile dislocations knead odd crystals into whorls\", \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (2025)\", \"Anomalous grain dynamics and grain locomotion of odd crystals (transverse phase-field crystal), PubMed 41105709\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Upgraded from VARIANT to KNOWN: the radial-plus-transverse Lennard-Jones force model is the Braverman et al. model; the 18% elongation and fast orientation relaxation make the orientation field inert (polar 0.04, local alignment -0.036). The reported metrics (clumping ratio about 2 = near-lattice spacing, moderate density variation, no alignment) are consistent with plain dense repulsive packing and do not show whorls or motile dislocations; the six-fold order and defect counts were not reported. Marked trivial because the observed features are packing artifacts, though the underlying odd-crystal dynamics are real and documented. Whether this run is in the whorl state or melted (transverse force 33x potential strength, T=6) cannot be told without grain-rotation, defect-velocity or mean-square-displacement measurements.\"}\n```",
+ "checked": "2026-11-04 11:30:29"
+}

@@ -1,0 +1,76 @@
+{
+ "class_id": "pipeline:N07:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "nonequilibrium statistical physics: conserved-mass transport process on a lattice with chiral multidirectional hopping (broken detailed balance)",
+ "standard_name": "generic power-law (long-range) density correlations in conserved-mass transport with multidirectional/chiral hopping; related to hyperuniformity from conservation laws",
+ "confidence": "medium",
+ "citations": [
+  "Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - conserved-mass multidirectional hopping (incl. chiral dynamics) gives generic ~1/r^(d+2) density-density correlations for d>1",
+  "Garrido, Lebowitz, Maes, Spohn 1990, Phys. Rev. A 42, 1954 - long-range correlations for conservative dynamics (seen only in reference lists)",
+  "Grinstein, Lee, Sachdev 1990, PRL 64, 1927 - conservation laws, anisotropy, SOC in noisy nonequilibrium systems (seen only in reference lists)",
+  "Hyperuniformity and conservation laws in non-equilibrium systems, 2025, J. Chem. Phys. 163, 214507 - hyperuniformity arises generically from conservation laws plus nonequilibrium driving (authors not verified)",
+  "Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results, J. Stat. Mech. (IOP) - related CoM-conserving case, S(q)~q^2 (authors not verified)"
+ ],
+ "searches": [
+  "conserved mass transport lattice model chiral turning L-shaped paths density correlations hyperuniform",
+  "hyperuniformity conserved stochastic mass transport model non-equilibrium dipole conserving noise lattice",
+  "chiral active lattice gas odd transport density fluctuations conserved dynamics broken detailed balance structure factor",
+  "Generic power laws in higher-dimensional lattice models with multidirectional hopping chiral dynamics authors Phys. Rev. E 2025",
+  "Garrido Lebowitz Maes Spohn conservative stochastic dynamics long-range correlations; Grinstein Lee Sachdev"
+ ],
+ "notes": "Only abstracts and talk summaries were read, not the full Hazra et al. paper, so exact equivalence of its chiral model to this rule set (L-shaped two-step move, 40%/60% keep fractions) is inferred. Whether the steady state is hyperuniform or has enhanced fluctuations depends on the model's Onsager matrix. The simulation's blob and Moran metrics are generic finite-size signatures, not published quantities.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "conserved mass transport lattice model chiral turning L-shaped paths density correlations hyperuniform"
+  },
+  {
+   "query": "hyperuniformity conserved stochastic mass transport model non-equilibrium dipole conserving noise lattice"
+  },
+  {
+   "query": "chiral active lattice gas odd transport density fluctuations conserved dynamics broken detailed balance structure factor"
+  },
+  {
+   "query": "Generic power laws in higher-dimensional lattice models with multidirectional hopping chiral dynamics authors Phys. Rev. E 2025"
+  },
+  {
+   "query": "Garrido Lebowitz Maes Spohn conservative stochastic dynamics long-range correlations; Grinstein Lee Sachdev power-law correlations conserved noise anisotropic"
+  }
+ ],
+ "result_urls": [
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.phys.ens.psl.eu/~wiese/pdf/Manna-hyperuniform.pdf",
+  "https://journals.aps.org/prc/pdf/10.1103/PhysRevC.99.045204",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non?redirectedFrom=fulltext",
+  "https://www.phys.ens.psl.eu/~wiese/pdf/Manna-hyperuniform.pdf",
+  "https://link.aps.org/doi/10.1103/PhysRevResearch.6.033242",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://www.osti.gov/pages/servlets/purl/1854338",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/ad7490",
+  "https://scholarlypublications.universiteitleiden.nl/access/item:2902998/view",
+  "https://www.nature.com/articles/s41467-017-01378-7",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://www.nature.com/articles/s41567-021-01360-7",
+  "https://link.aps.org/doi/10.1103/sn1k-k8ng",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://journals.aps.org/pre/issues/112/4",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://journals.aps.org/pre/issues/112/4/deliverables/table-of-contents/online/1",
+  "https://journals.aps.org/pre/issues/112/4/deliverables/table-of-contents/print/2",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.023147",
+  "https://journals.aps.org/pre/abstract/10.1103/r6d8-bcd1",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011039",
+  "https://link.springer.com/article/10.1007/s10955-016-1575-z",
+  "https://pubs.aip.org/aip/jcp/article-abstract/163/21/214507/3374152/Hyperuniformity-and-conservation-laws-in-non?redirectedFrom=fulltext",
+  "https://link.springer.com/article/10.1023/A:1014555927320",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013074",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC41399/"
+ ],
+ "full_text": "**Verdict: KNOWN, with medium confidence.** The model is a conserved-mass transport process with \"chiral\" multidirectional hopping, and its generic power-law density correlations were published in 2025. I could only read abstracts, so I did not confirm that the paper's chiral model matches this rule set exactly.\n\n**1. Model family.** This is nonequilibrium statistical physics: a conserved-mass transport process (a continuous-mass, Zero-Range or Kipnis\u2013Marchioro\u2013Presutti-type lattice model). Detailed balance is broken by the chiral forced turn. The long-wavelength measurements are the usual hyperuniformity and long-range-correlation diagnostics.\n\n**2. The specific behaviour.** On a hypercubic lattice with d>1, conserved-mass transport with multidirectional hopping gives power-law correlations. These appear even far from any phase transition. Mass is sent out along several directions in a coordinated way, and this breaks detailed balance. The authors say the model class \"explains why\" center-of-mass-conserving dynamics produce long-ranged correlations.\n\n- The earliest clear source is Hazra, Chakraborty, Mukherjee and Pradhan, \"Generic power laws in higher-dimensional lattice models with multidirectional hopping\", Phys. Rev. E 112, 044130 (published 17 Oct 2025). Their abstract gives the steady-state density-density correlation as decaying as \u223c1/r^{(d+2)} at large distance, with a strength set by the bulk diffusion coefficient and the Onsager (mobility) matrix.\n- Pradhan's talk abstract for the same work names two example classes: (i) center-of-mass-conserving dynamics and (ii) chiral dynamics, both of which produce algebraically decaying correlations. Your L-shaped, always-left-turning rule matches the chiral class as I read it, but I did not see the paper's model definition.\n- The wider background is older. Spohn (1983), Garrido\u2013Lebowitz\u2013Maes\u2013Spohn, \"Long-range correlations for conservative dynamics\", Phys. Rev. A 42, 1954 (1990), and Grinstein\u2013Lee\u2013Sachdev, PRL 64, 1927 (1990) showed that conserved noise with anisotropic or driven dynamics generically gives long-range correlations. I confirmed these only as entries in other papers' reference lists, not by reading them.\n\n**3. Review-level and related sources.**\n- \"Hyperuniformity and conservation laws in non-equilibrium systems\", J. Chem. Phys. 163, 214507 (2025). It shows that hyperuniformity emerges generically from the interplay between conservation laws and non-equilibrium driving. I did not verify its authors.\n- \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results\", J. Stat. Mech. (IOP, about 2025). It covers the closely related case where center of mass is also conserved, giving S(q)~q\u00b2. I did not verify its authors.\n- The odd or chiral active-fluid literature (for example \"Odd viscosity in chiral active fluids\", Nature Communications 2017) is the continuum analogue of the chiral part. It does not describe this lattice model.\n\n**Caveats.**\n- The prediction is for a quiet, noise-driven steady state: algebraic, anisotropy-controlled density correlations with a non-analytic S(q) at small q. Whether this chiral model is hyperuniform or has enhanced fluctuations depends on its Onsager matrix, and I did not read that.\n- The observed metrics (blob count, Moran's I \u2248 0.1, peak k \u2248 0.42) are weak, finite-size (64\u00d764) signatures of that correlated structure. They are not themselves the published quantities. A peak at nonzero k would be a feature beyond a pure power law and is worth checking against the paper's S(q).\n- The 40%/60% keep fractions and the random shares are a particular parametrization. The paper's claim is that the power law is generic over parameters, so this should not matter.\n\n**Searches run:**\n1. Conserved mass transport lattice chiral L-shaped hyperuniform.\n2. Hyperuniformity conserved mass transport dipole-conserving noise.\n3. Chiral active lattice gas odd transport density fluctuations.\n4. Hazra et al. paper title lookup.\n5. Garrido/Lebowitz/Maes/Spohn and Grinstein/Lee/Sachdev lookup.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"nonequilibrium statistical physics: conserved-mass transport process on a lattice with chiral multidirectional hopping (broken detailed balance)\", \"standard_name\": \"generic power-law (long-range) density correlations in conserved-mass transport with multidirectional/chiral hopping; related to hyperuniformity from conservation laws\", \"confidence\": \"medium\", \"citations\": [\"Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - conserved-mass multidirectional hopping (incl. chiral dynamics) gives generic ~1/r^(d+2) density-density correlations for d>1\", \"Garrido, Lebowitz, Maes, Spohn 1990, Phys. Rev. A 42, 1954 - long-range correlations for conservative dynamics (seen only in reference lists)\", \"Grinstein, Lee, Sachdev 1990, PRL 64, 1927 - conservation laws, anisotropy, SOC in noisy nonequilibrium systems (seen only in reference lists)\", \"Hyperuniformity and conservation laws in non-equilibrium systems, 2025, J. Chem. Phys. 163, 214507 - hyperuniformity arises generically from conservation laws plus nonequilibrium driving (authors not verified)\", \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results, J. Stat. Mech. (IOP) - related CoM-conserving case, S(q)~q^2 (authors not verified)\"], \"searches\": [\"conserved mass transport lattice model chiral turning L-shaped paths density correlations hyperuniform\", \"hyperuniformity conserved stochastic mass transport model non-equilibrium dipole conserving noise lattice\", \"chiral active lattice gas odd transport density fluctuations conserved dynamics broken detailed balance structure factor\", \"Generic power laws in higher-dimensional lattice models with multidirectional hopping chiral dynamics authors Phys. Rev. E 2025\", \"Garrido Lebowitz Maes Spohn conservative stochastic dynamics long-range correlations; Grinstein Lee Sachdev\"], \"notes\": \"Only abstracts and talk summaries were read, not the full Hazra et al. paper, so exact equivalence of its chiral model to this rule set (L-shaped two-step move, 40%/60% keep fractions) is inferred. Whether the steady state is hyperuniform or has enhanced fluctuations depends on the model's Onsager matrix. The simulation's blob and Moran metrics are generic finite-size signatures, not published quantities.\"}\n```",
+ "checked": "2026-11-04 11:31:01"
+}

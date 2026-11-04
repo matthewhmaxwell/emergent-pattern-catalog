@@ -1,0 +1,89 @@
+{
+ "class_id": "pipeline:N11:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Spatial birth-death point process / individual-based nonlocal competition (Bolker-Pacala, nonlocal Fisher-KPP); pattern-forming instability",
+ "standard_name": "Competition-induced clustering / finite-wavelength (Turing-like) instability from nonlocal competition kernel with negative Fourier transform",
+ "confidence": "medium",
+ "citations": [
+  "Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2004, Phys. Rev. E 70, 016216 - birth/death rates depending on neighbours give periodic quasistationary clusters and a finite-wavelength instability (abstract read only)",
+  "Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda 2007, Phys. Rev. Lett. 98, 258101 - pattern-forming instability when the competition kernel's Fourier transform is not positive definite",
+  "Silvano, Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2025, Commun. Phys. (s42005-025-02246-3) - recent statement of the negative-Fourier-transform condition for nonlocal logistic/FKPP patterns",
+  "Law et al. 2003, Ecology 84(1), 252-262 - individual-based model with Gaussian dispersal and competition kernels",
+  "Fournier & M\u00e9l\u00e9ard 2004, Ann. Appl. Probab. 14(4), 1880-1919 - microscopic locally regulated population and its macroscopic limit",
+  "Review: 'Spatial patterns of competing random walkers', ScienceDirect S1476945X14000701 - competition produces clustering and periodic patterns (authors/year not shown in search result)"
+ ],
+ "searches": [
+  "spatial birth-death process three-body competition pattern formation nonlocal competition Gaussian dispersal individual-based",
+  "higher-order interactions spatial point process birth death clustering Turing pattern competition only",
+  "Hern\u00e1ndez-Garc\u00eda L\u00f3pez Clustering, advection, and patterns ... Physical Review E 2004",
+  "Pigolotti L\u00f3pez Hern\u00e1ndez-Garc\u00eda Species clustering in competitive Lotka-Volterra models PRL 2007",
+  "nonlocal competition cubic nonlinearity stabilizes pattern, spatial birth-death, Bolker-Pacala, Gaussian dispersal, top-hat kernel, mean-field limit",
+  "nonlocal competition pattern formation higher-order (quadratic density) local saturation term, individual-based clusters, Fourier transform kernel negative",
+  "Fournier M\u00e9l\u00e9ard microscopic probabilistic description of a locally regulated population and macroscopic approximations"
+ ],
+ "notes": "Core clustering mechanism is well established. The specific three-body (density-squared, radius 0.0625) death term was not found in any source; it likely acts as a short-range saturation that sets cluster density and width, not the existence of patterns. I did not read full texts of the PRE or PRL papers, and did not verify analytically that the parameters (R=1.25, sigma=0.05) lie in the unstable regime.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "spatial birth-death process three-body competition pattern formation nonlocal competition Gaussian dispersal individual-based"
+  },
+  {
+   "query": "higher-order interactions spatial point process birth death clustering Turing pattern competition only"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez Clustering, advection, and patterns in a model of population dynamics with neighborhood-dependent rates Physical Review E 2004"
+  },
+  {
+   "query": "Pigolotti L\u00f3pez Hern\u00e1ndez-Garc\u00eda Species clustering in competitive Lotka-Volterra models Physical Review Letters 2007"
+  },
+  {
+   "query": "nonlocal competition cubic nonlinearity stabilizes pattern, spatial birth-death, Bolker-Pacala, Gaussian dispersal, top-hat competition kernel, mean-field limit"
+  },
+  {
+   "query": "nonlocal competition pattern formation higher-order (quadratic density) local saturation term, individual-based clusters, Fourier transform kernel negative, stochastic simulation"
+  },
+  {
+   "query": "Fournier M\u00e9l\u00e9ard microscopic probabilistic description of a locally regulated population and macroscopic approximations"
+  }
+ ],
+ "result_urls": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S1476945X14000701",
+  "https://user.iiasa.ac.at/~dieckman/reprints/LawEtal2003.pdf",
+  "https://ifisc.uib-csic.es/en/publications/nonlocal-birth-death-competitive-dynamics-with-vol/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077926003036",
+  "https://link.aps.org/doi/10.1103/PhysRevE.70.016216",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4493154/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://link.springer.com/article/10.1007/s10955-012-0506-x",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.98.258101",
+  "https://futur.upc.edu/15431905",
+  "https://pubmed.ncbi.nlm.nih.gov/17678058/",
+  "https://futur.upc.edu/353568/p/9/'unitURL'|translate",
+  "https://ifisc.uib-csic.es/documents/1584/memoria07.pdf",
+  "https://link.springer.com/article/10.1007/s00285-010-0370-8",
+  "https://royalsocietypublishing.org/rsta/article/367/1901/3183/17621/Species-competition-coexistence-exclusion-and",
+  "https://link.springer.com/article/10.1007/s12080-009-0056-2",
+  "https://user.iiasa.ac.at/~dieckman/reprints/LawEtal2003.pdf",
+  "https://link.springer.com/article/10.1007/s00285-007-0072-z",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278913000559",
+  "https://sites.google.com/view/sylvie-meleard/publications",
+  "https://link.springer.com/article/10.1007/s00285-011-0478-5",
+  "https://link.springer.com/chapter/10.1007/978-3-031-73423-6_8",
+  "https://link.springer.com/article/10.1007/s00285-010-0345-9",
+  "https://ems.press/content/book-chapter-files/33352",
+  "https://link.springer.com/article/10.1007/s00285-015-0889-9",
+  "https://link.springer.com/chapter/10.1007/978-3-0348-0122-5_9",
+  "https://link.springer.com/article/10.1007/s00285-007-0072-z"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The clustering itself is well documented. I found no source for the specific three-body term.\n\n**1. Model family.** This is a spatial birth\u2013death point process with nonlocal competition, in the Bolker\u2013Pacala / Law\u2013Dieckmann individual-based family. It is also called the \"nonlocal Fisher\u2013KPP\" or neighbourhood-dependent-rates class. The competition is a top-hat kernel of radius 1.25, much wider than the dispersal (\u03c3 = 0.05). The g-term adds a short-range, density-squared death rate on top of that.\n\n**2. The behaviour.** In purely competitive systems of this kind, the homogeneous state can lose stability to a finite-wavelength instability. The population then breaks into clusters arranged roughly periodically. The condition is that the competition kernel's Fourier transform goes negative at some wavenumber, and dispersal must be weak relative to the competition range. A top-hat kernel meets this condition. That fits your observations of positive Moran's I, several blobs, and sharp peaks.\n\nSources I checked:\n- **Earliest clear source:** Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, \"Clustering, advection, and patterns in a model of population dynamics with neighborhood-dependent rates\", Phys. Rev. E 70, 016216 (2004).\n  - The abstract describes birth and death rates that depend on neighbour number. It reports a quasistationary pattern of periodically arranged clusters and a finite-wavelength instability in the macroscopic density equation.\n  - I could only read the abstract, not the full paper.\n- **Review:** \"Spatial patterns of competing random walkers\", ScienceDirect (S1476945X14000701).\n  - It reviews individual-based competition models in which individuals perform Gaussian and L\u00e9vy flights. It says competition produces clustering and periodic patterns.\n  - The search result did not show the authors, journal or year, so I can't give a full citation.\n- **Related work:**\n  - Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda, \"Species clustering in competitive Lotka-Volterra models\", Phys. Rev. Lett. 98, 258101 (2007), covers the same Fourier-kernel criterion in niche space.\n  - Silvano, Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, \"Flow spatial structure determines pattern instabilities in nonlocal models of population dynamics\", Commun. Phys. (2025), restates the criterion. It says patterns form at low diffusion when competition decays sharply enough with distance.\n  - Law et al., Ecology 84(1), 252\u2013262 (2003), is an individual-based model with Gaussian dispersal and competition kernels.\n  - Fournier & M\u00e9l\u00e9ard, \"A microscopic probabilistic description of a locally regulated population and macroscopic approximations\", Ann. Appl. Probab. 14(4), 1880\u20131919 (2004), gives the large-population limit.\n\n**3. What differs in your system.** The g\u00b7(density within 0.0625)\u00b2 term is a three-body, short-range crowding death rate. The standard models use pairwise competition only. The pairwise term already produces the clustering, so the three-body term most likely acts as a regulator. Without it, the nonlinear stage of the instability would let clusters grow very dense. With it, cluster density and width are probably capped.\n\nAt uniform density the g-term is about 500, against about 4000 from the pairwise term. In dense clusters it would grow much larger. I would expect it to change cluster size and sharpness, not whether clusters form. I did not find a paper that analyses this exact combination, so that part is unconfirmed.\n\n**4. Searches run** are listed in the JSON below. Each was a single query. I did not search specifically for \"three-body\" or cubic terms in spatial birth\u2013death models beyond the queries listed.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Spatial birth-death point process / individual-based nonlocal competition (Bolker-Pacala, nonlocal Fisher-KPP); pattern-forming instability\", \"standard_name\": \"Competition-induced clustering / finite-wavelength (Turing-like) instability from nonlocal competition kernel with negative Fourier transform\", \"confidence\": \"medium\", \"citations\": [\"Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2004, Phys. Rev. E 70, 016216 - birth/death rates depending on neighbours give periodic quasistationary clusters and a finite-wavelength instability (abstract read only)\", \"Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda 2007, Phys. Rev. Lett. 98, 258101 - pattern-forming instability when the competition kernel's Fourier transform is not positive definite\", \"Silvano, Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2025, Commun. Phys. (s42005-025-02246-3) - recent statement of the negative-Fourier-transform condition for nonlocal logistic/FKPP patterns\", \"Law et al. 2003, Ecology 84(1), 252-262 - individual-based model with Gaussian dispersal and competition kernels\", \"Fournier & M\u00e9l\u00e9ard 2004, Ann. Appl. Probab. 14(4), 1880-1919 - microscopic locally regulated population and its macroscopic limit\", \"Review: 'Spatial patterns of competing random walkers', ScienceDirect S1476945X14000701 - competition produces clustering and periodic patterns (authors/year not shown in search result)\"], \"searches\": [\"spatial birth-death process three-body competition pattern formation nonlocal competition Gaussian dispersal individual-based\", \"higher-order interactions spatial point process birth death clustering Turing pattern competition only\", \"Hern\u00e1ndez-Garc\u00eda L\u00f3pez Clustering, advection, and patterns ... Physical Review E 2004\", \"Pigolotti L\u00f3pez Hern\u00e1ndez-Garc\u00eda Species clustering in competitive Lotka-Volterra models PRL 2007\", \"nonlocal competition cubic nonlinearity stabilizes pattern, spatial birth-death, Bolker-Pacala, Gaussian dispersal, top-hat kernel, mean-field limit\", \"nonlocal competition pattern formation higher-order (quadratic density) local saturation term, individual-based clusters, Fourier transform kernel negative\", \"Fournier M\u00e9l\u00e9ard microscopic probabilistic description of a locally regulated population and macroscopic approximations\"], \"notes\": \"Core clustering mechanism is well established. The specific three-body (density-squared, radius 0.0625) death term was not found in any source; it likely acts as a short-range saturation that sets cluster density and width, not the existence of patterns. I did not read full texts of the PRE or PRL papers, and did not verify analytically that the parameters (R=1.25, sigma=0.05) lie in the unstable regime.\"}\n```",
+ "checked": "2026-11-04 11:33:25"
+}

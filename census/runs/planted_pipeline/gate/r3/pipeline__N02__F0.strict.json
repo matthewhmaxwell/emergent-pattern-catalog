@@ -1,0 +1,54 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Turing spot/spike patterns (with competition-driven coarsening) in Sel'kov-Schnakenberg activator-substrate kinetics at large diffusivity ratio; cross-diffusion acts as a perturbation",
+ "citations": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.mathstat.dal.ca/~tkolokol/papers/density.pdf",
+  "https://ui.adsabs.harvard.edu/abs/2021Nonli..34..273K/abstract",
+  "http://web.science.mq.edu.au/~jtzou/PUBLICATIONS/torus_stability.pdf",
+  "https://www.mathstat.dal.ca/~tkolokol/papers/sc3d.pdf",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Hand-computed linear stability: at c=0 the steady state (a=0.015, b=10, d=1000) is Turing-unstable (d*f_u+g_v~899>0; 899^2>4*d*det~4e5), so the pattern does not depend on the cross-taxis terms. The observed features (std>mean, mean held at b, sharp peaks, ~2-3 blobs) match documented localized Sel'kov/Schnakenberg spike patterns after competition-driven coarsening. Moved from variant to known because no new behaviour is shown. Caveats: the linear critical wavelength (~0.94 length units) is below one grid cell if dx=1, so check grid resolution; run a c=0 control to measure any real cross-taxis effect on spot number or spacing. Sources read as snippets only.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots"
+  },
+  {
+   "query": "Schnakenberg model spot patterns large diffusivity ratio spike coarsening competition instability"
+  },
+  {
+   "query": "reaction-diffusion cross-taxis opposite signs pursuit evasion Turing patterns Schnakenberg"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X03008515",
+  "https://ui.adsabs.harvard.edu/abs/2021Nonli..34..273K/abstract",
+  "http://web.science.mq.edu.au/~jtzou/PUBLICATIONS/torus_stability.pdf",
+  "https://personal.math.ubc.ca/~jcwei/density-final.pdf",
+  "https://www.mathstat.dal.ca/~tkolokol/papers/sc3d.pdf",
+  "https://www.mathstat.dal.ca/~tkolokol/papers/density.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/517.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm moving the first pass's \"variant\" label to \"known\". The cross-taxis term is probably a small change to a well-documented pattern, not the cause of it.\n\n**1. The pattern doesn't need the cross terms (my own stability check).** I worked out the stability of the plain system (c=0) by hand at the stated settings. The constant state is stable without diffusion. But the diffusion-driven (Turing) conditions hold comfortably: d\u00b7f_u + g_v \u2248 899 > 0, and 899\u00b2 \u2248 8.1\u00d710\u2075 > 4\u00b7d\u00b7det \u2248 4\u00d710\u2075, where d = D2/D1 = 1000. So the first pass's unchecked worry is right: u is the self-amplifying species, v is the fast-diffusing fuel, and patterns form even with c=0. The literature states the general point directly. Because the Sel'kov-Schnakenberg reaction-diffusion model embodies a classical activator-inhibitor scheme, it produces Turing patterns, and spatio-temporal patterns change from the spot, mixed (spot-stripe) to stripe with the variation of parameters.\n\n**2. The observed features match documented spot patterns.** The u field has a spread larger than its mean (13 vs 10), the mean is held at the steady value b=10, the pattern is sharp, it has strong spatial structure (Moran 0.97), and there are only about 2\u20133 blobs. That is the textbook picture of tall, isolated spots in this family of models when one species diffuses much faster than the other. In the limit \u03b5\u21920, the system (1.1) is well known to generate patterns consisting of spots (or spikes)... corresponding to high localized concentrations. Having so few blobs fits a known coarsening process. Spot patterns lose spots through a \"competition instability\", which is believed to be a key mechanism for initiating a coarsening process, and in 2D a competition instability is triggered leading to the annihilation of one or more spots. This has been studied for this model on a torus, which is the same geometry as a wrap-around grid ([Tzou et al.](http://web.science.mq.edu.au/~jtzou/PUBLICATIONS/torus_stability.pdf)).\n\n**3. Cross-diffusion in these models is well studied.** Papers have looked at introducing linear cross-diffusion into Schnakenberg system, and found that the Turing instability region is strongly influenced by cross-diffusion coefficients. The exact form used here (each species drifting along the other's gradient, with opposite signs, and Sel'kov reactions) wasn't found. But by the stated criterion, a new rule combination isn't a discovery unless it produces new behaviour. Nothing in the metrics (fixed spots, a few blobs, no travelling waves or oscillations) shows a cross-term effect beyond what the plain system does. If the twist is that c=0.17 changes how many spots survive or how far apart they sit, that would only matter with a comparison run at c=0, which hasn't been done.\n\n**Trivial or artifact?** Probably neither. The mean is held at the steady value and the field hasn't blown up, so it hasn't diverged. Large, sharp, structured spots aren't random colouring or a frozen trivial state. Two caveats:\n- **Scale mismatch:** With D1=0.01 and a grid spacing of 1, the fastest-growing linear wavelength is about 0.94, which is smaller than one grid cell. The observed peak (k\u22480.047, roughly 21 cells per wavelength if measured in cycles per cell) is much coarser. That fits strong coarsening, but it could also mean the grid is too coarse to resolve the spots. It's worth checking the grid spacing and re-running on a finer grid.\n- **Missing control:** Without the c=0 run, the cross-taxis effect can't be separated from the plain pattern.\n\nSearches I ran: Sel'kov cross-diffusion Turing spots; Schnakenberg spike coarsening and competition at large diffusivity ratio; cross-taxis with opposite signs (pursuit\u2013evasion) in Schnakenberg-type models. I read search snippets, not full texts.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Turing spot/spike patterns (with competition-driven coarsening) in Sel'kov-Schnakenberg activator-substrate kinetics at large diffusivity ratio; cross-diffusion acts as a perturbation\", \"citations\": [\"https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"https://www.mathstat.dal.ca/~tkolokol/papers/density.pdf\", \"https://ui.adsabs.harvard.edu/abs/2021Nonli..34..273K/abstract\", \"http://web.science.mq.edu.au/~jtzou/PUBLICATIONS/torus_stability.pdf\", \"https://www.mathstat.dal.ca/~tkolokol/papers/sc3d.pdf\", \"https://link.springer.com/article/10.1007/s11071-022-07691-1\", \"https://www.sciencedirect.com/science/article/abs/pii/S0960077922008384\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Hand-computed linear stability: at c=0 the steady state (a=0.015, b=10, d=1000) is Turing-unstable (d*f_u+g_v~899>0; 899^2>4*d*det~4e5), so the pattern does not depend on the cross-taxis terms. The observed features (std>mean, mean held at b, sharp peaks, ~2-3 blobs) match documented localized Sel'kov/Schnakenberg spike patterns after competition-driven coarsening. Moved from variant to known because no new behaviour is shown. Caveats: the linear critical wavelength (~0.94 length units) is below one grid cell if dx=1, so check grid resolution; run a c=0 control to measure any real cross-taxis effect on spot number or spacing. Sources read as snippets only.\"}\n```",
+ "checked": "2026-11-04 11:27:05"
+}

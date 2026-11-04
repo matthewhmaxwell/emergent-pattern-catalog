@@ -1,0 +1,68 @@
+{
+ "class_id": "pipeline:N19:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Keller-Segel-type chemotaxis reaction-diffusion-advection (bacterial pattern formation) with secreted attractant and consumed nutrient that is also an attractant",
+ "standard_name": "Chemotactic (Keller-Segel) aggregation instability forming spots/aggregates; bacterial chemotactic pattern formation",
+ "confidence": "medium",
+ "citations": [
+  "Tyson, Lubkin & Murray 1999, J Math Biol 38:359-375 - model of bacteria, nutrient and attractant in liquid medium; patterns from instability of the uniform state (linear analysis)",
+  "Tyson, Lubkin & Murray 1999, Proc R Soc Lond B 266:299-304 - minimal mechanism for bacterial pattern formation incl. temporary spots in liquid medium",
+  "Brenner, Levitov & Budrene 1998, Biophys J 74(4):1677-1693 - physical mechanism of aggregate formation via secreted attractant",
+  "Woodward et al. 1995, Biophys J 68:2181-2189 - Salmonella spatio-temporal patterns (seen only as a reference-list entry)",
+  "PMC3789734 (2013) - cell-based model of chemotaxis to nutrient and secreted attractant; fixed spots at weak nutrient sensing (authors/journal not shown in the retrieved page)",
+  "Hillen & Painter, J Math Biol (2009), A user's guide to PDE models for chemotaxis - review (title confirmed in search results; authors/year from memory)"
+ ],
+ "searches": [
+  "chemotaxis model bacteria attractant and nutrient taxis pattern formation b/(1+b^2) sensitivity aggregates",
+  "Keller-Segel nutrient consumption chemotaxis towards nutrient and self-produced attractant Turing instability spots stripes",
+  "Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal",
+  "Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium nutrient attractant"
+ ],
+ "notes": "Exact saturating sensitivity b/(1+b^2) and the specific parameter values were not matched to a specific paper; I read only search snippets, not full texts. The system has no cell growth and a uniformly resupplied nutrient, unlike most published bacterial models (growth/batch nutrient); this likely does not change the existence of the instability.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "chemotaxis model bacteria attractant and nutrient taxis pattern formation b/(1+b^2) sensitivity aggregates"
+  },
+  {
+   "query": "Keller-Segel nutrient consumption chemotaxis towards nutrient and self-produced attractant Turing instability spots stripes"
+  },
+  {
+   "query": "Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal"
+  },
+  {
+   "query": "Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium nutrient attractant"
+  }
+ ],
+ "result_urls": [
+  "https://www-users.cse.umn.edu/~othmer/papers/siambacpaper.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/xml/nlm?isPublishedV2=false",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://visualpde.com/visual-stories/turing-morphogenesis/",
+  "https://en.wikipedia.org/wiki/Keller%E2%80%93Segel_system",
+  "https://brennergroup.seas.harvard.edu/publications/physical-mechanisms-chemotactic-pattern-formation-bacteria",
+  "https://pnas.org/content/107/26/11653.full",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1001994107",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1006363107",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2105138118",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3455968/",
+  "https://www.cambridge.org/core/books/abs/physics-of-bacteria/chemotaxis-and-detection/A0A4AC1A25C0303D5BD50C73750D1FD5",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://pubmed.ncbi.nlm.nih.gov/10326253",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC1689676",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3676780/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is the spontaneous formation of high-density spots by chemotactic aggregation. I'm medium-confident that this system is equivalent to published models, because I couldn't read the exact equations in the sources.\n\n**1. Model family.** This is a Keller\u2013Segel-type chemotaxis reaction\u2013diffusion\u2013advection system, which is a form of bacterial pattern formation. There are three fields: cell density, a self-secreted attractant, and a consumed nutrient that is also an attractant. The uniform state is unstable to a Turing-like chemotactic instability, and cell number is conserved. The observed numbers fit this. `f_moran` is 0.977, meaning strong spatial structure. `f_std` is 2.336 and `f_n_blobs` is 1.29, so there are several sharp blobs or spots. `f_mean` is 1.0, as expected for conserved mass.\n\n**2. Evidence for this behaviour.**\n- **Earliest and closest source.** Tyson, Lubkin & Murray (1999, *J Math Biol* 38:359\u2013375) model bacteria, nutrient and chemoattractant in a liquid medium. Patterns arise from disturbances to a spatially uniform solution state, and they analyse these by linear stability. A companion paper, Tyson, Lubkin & Murray (1999, *Proc R Soc B* 266:299\u2013304), describes temporary spots formed in a liquid medium by both E. coli and S. typhimurium.\n- **Experimental background.** Woodward et al. (1995, *Biophys J* 68:2181\u20132189) is the experimental and modelling paper on *Salmonella* spatio-temporal patterns. I saw it only as a reference-list entry, not the paper itself.\n- **Physical mechanism.** Brenner, Levitov & Budrene (1998, *Biophys J* 74(4):1677\u20131693) explain aggregate formation by cells and secreted attractant. Aggregate formation corresponds to finite time singularities in which the bacterial density diverges at a point.\n- **Taxis to both signals.** Cell-based simulations of E. coli taxis to both nutrient and secreted attractant are in \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli\" (PMC3789734, 2013). The page I retrieved did not show its authors or journal. It describes a self-trapping feedback mechanism. For weak nutrient sensing the bacterial colony forms a pattern with fixed spots.\n- **Review.** Hillen & Painter, \"A user's guide to PDE models for chemotaxis\" (*J Math Biol*, 2009). I confirmed the title and the review's scope in the search results, but the snippet didn't show the authors or year. I attribute them from memory.\n- **Same family, with a nutrient.** Hulzebos' thesis, *Keller-Segel models for chemotaxis*, covers a nutrient\u2013attractant Keller\u2013Segel variant. Its model has attractant production by cells and nutrient consumption, with a diffusion ratio between attractant and nutrient.\n\n**3. Differences from the published models.**\n- The signal-dependent, saturating sensitivity b/(1+b\u00b2) is a density-dependent saturation. This is a standard regularisation that prevents blow-up. I did not verify that this exact functional form appears in the sources above.\n- This system has no cell growth, and the nutrient is resupplied uniformly instead of being a finite batch. Growth mainly changes whether spots persist or oscillate. It doesn't change whether the instability exists. For example, for essentially negligible cell growth, this model undergoes a Turing-like instability to form a spatial pattern of spots of high cell density. That quote comes from a VisualPDE page about a Keller\u2013Segel growth model, not this system. I treat these differences as unlikely to matter for the verdict.\n\n**4. Confidence: medium.** The qualitative behaviour, spot formation from a uniform state with secreted attractant plus nutrient taxis, is clearly established. I could not confirm that the exact parameter set and the 1+b\u00b2 form match a specific paper, and I did not see the full text of the primary papers.\n\n**Searches run:**\n- chemotaxis model bacteria attractant and nutrient taxis pattern formation b/(1+b^2) sensitivity aggregates\n- Keller-Segel nutrient consumption chemotaxis towards nutrient and self-produced attractant Turing instability spots stripes\n- Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal\n- Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium nutrient attractant\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Keller-Segel-type chemotaxis reaction-diffusion-advection (bacterial pattern formation) with secreted attractant and consumed nutrient that is also an attractant\", \"standard_name\": \"Chemotactic (Keller-Segel) aggregation instability forming spots/aggregates; bacterial chemotactic pattern formation\", \"confidence\": \"medium\", \"citations\": [\"Tyson, Lubkin & Murray 1999, J Math Biol 38:359-375 - model of bacteria, nutrient and attractant in liquid medium; patterns from instability of the uniform state (linear analysis)\", \"Tyson, Lubkin & Murray 1999, Proc R Soc Lond B 266:299-304 - minimal mechanism for bacterial pattern formation incl. temporary spots in liquid medium\", \"Brenner, Levitov & Budrene 1998, Biophys J 74(4):1677-1693 - physical mechanism of aggregate formation via secreted attractant\", \"Woodward et al. 1995, Biophys J 68:2181-2189 - Salmonella spatio-temporal patterns (seen only as a reference-list entry)\", \"PMC3789734 (2013) - cell-based model of chemotaxis to nutrient and secreted attractant; fixed spots at weak nutrient sensing (authors/journal not shown in the retrieved page)\", \"Hillen & Painter, J Math Biol (2009), A user's guide to PDE models for chemotaxis - review (title confirmed in search results; authors/year from memory)\"], \"searches\": [\"chemotaxis model bacteria attractant and nutrient taxis pattern formation b/(1+b^2) sensitivity aggregates\", \"Keller-Segel nutrient consumption chemotaxis towards nutrient and self-produced attractant Turing instability spots stripes\", \"Brenner Levitov Budrene 1998 Physical mechanisms for chemotactic pattern formation by bacteria Biophysical Journal\", \"Tyson Lubkin Murray model and analysis of chemotactic bacterial patterns in a liquid medium nutrient attractant\"], \"notes\": \"Exact saturating sensitivity b/(1+b^2) and the specific parameter values were not matched to a specific paper; I read only search snippets, not full texts. The system has no cell growth and a uniformly resupplied nutrient, unlike most published bacterial models (growth/batch nutrient); this likely does not change the existence of the instability.\"}\n```",
+ "checked": "2026-11-04 11:34:39"
+}

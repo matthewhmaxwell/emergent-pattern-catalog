@@ -1,0 +1,60 @@
+{
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "2D classical XY model with long-range power-law couplings J(r)~1/r^(2+sigma), sigma=2 (marginal), Metropolis Monte Carlo",
+ "standard_name": "Long-range ordered phase of the 2D long-range XY model at sigma=2 (spin-wave dominated, Goldstone-mode, inverse-log correlation saturation); BKT-vs-LRO crossover at sigma*=2",
+ "confidence": "medium",
+ "citations": [
+  "Giachetti, Defenu, Ruffo, Trombettoni, 'Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings', PRL 127, 156801 (2021)",
+  "Giachetti, Defenu, Ruffo, Trombettoni, 'Self-consistent harmonic approximation in presence of non-local couplings', EPL 133, 57004 (2021)",
+  "Giachetti, Trombettoni, Ruffo, Defenu, 'Berezinskii-Kosterlitz-Thouless transitions in classical and quantum long-range systems', PRB 106, 014106 (2022)",
+  "'Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study', Phys. Rev. B (2025), doi 10.1103/yghs-p5mg",
+  "'Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings', PRL (2025/26), doi 10.1103/9y2v-ybdb"
+ ],
+ "searches": [
+  "2D XY model long-range interactions 1/r^{2+sigma} BKT transition sigma=2 Giachetti Defenu Ruffo Trombettoni",
+  "two-dimensional long-range XY model spin waves magnetization Monte Carlo power-law interaction vortices",
+  "Giachetti Trombettoni Ruffo Defenu BKT transitions in classical and quantum long-range systems review sigma=2 Monte Carlo",
+  "Monte Carlo long-range XY model two dimensions power-law exponent quasi-long-range order magnetization finite size"
+ ],
+ "notes": "Only abstracts/snippets read, not full texts. Temperature relative to the transition not verified (normalisation unclear). 'Lattice phase locking' likely a generic global-alignment detector; the high m^2, high local order and low vortex density fit a spin-wave-dominated ordered phase. sigma=2 exact boundary still debated in the literature (BKT persistence vs LRO), but ordered-phase behaviour at sigma<=2 is documented. A single 64x64 run cannot distinguish inverse-log saturation from BKT-like QLRO without scaling analysis.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "2D XY model long-range interactions 1/r^{2+\u03c3} BKT transition \u03c3=2 Giachetti Defenu Ruffo Trombettoni"
+  },
+  {
+   "query": "two-dimensional long-range XY model spin waves magnetization Monte Carlo power-law interaction vortices"
+  },
+  {
+   "query": "Giachetti Trombettoni Ruffo Defenu Berezinskii-Kosterlitz-Thouless transitions in classical and quantum long-range systems review \u03c3=2 Monte Carlo"
+  },
+  {
+   "query": "Monte Carlo long-range XY model two dimensions power-law exponent quasi-long-range order magnetization finite size"
+  }
+ ],
+ "result_urls": [
+  "https://arts.units.it/bitstream/11368/2995116/2/Self-consistent%20harmonic%20approximation%20in%20presence%20of%20non-local%20couplings.pdf",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://epljournal.edpsciences.org/articles/epl/abs/2021/05/epl20507/epl20507.html",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://www.osti.gov/pages/servlets/purl/2407304",
+  "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.102.104505",
+  "https://ino.cnr.it/?p=a13441&page_id=3403",
+  "https://arts.units.it/retrieve/3d5e4625-f9ca-4655-aeca-9a9a8271df98/prl_127_156801_p_05_10_21-Post_print.pdf",
+  "https://scholar.google.com/citations?hl=it&user=isMcw-wAAAAJ",
+  "https://journals.aps.org/prl/abstract/10.1103/9y2v-ybdb",
+  "https://journals.aps.org/prb/issues/106/1",
+  "https://iris.sissa.it/retrieve/e10575bf-6d49-41e1-858a-642a47d0b05d/TESI%20Giachetti.pdf",
+  "https://journals.aps.org/prxquantum/abstract/10.1103/cww3-j1vd",
+  "https://iopscience.iop.org/article/10.1088/1751-8113/40/14/001",
+  "https://pubmed.ncbi.nlm.nih.gov/29906976/",
+  "https://www.osti.gov/etdeweb/biblio/20906837",
+  "https://journals.aps.org/prb/abstract/10.1103/yghs-p5mg",
+  "https://pubmed.ncbi.nlm.nih.gov/42360964/"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is the ordered, magnetised phase of the 2D XY model with power-law couplings at the marginal exponent \u03c3 = 2. Confidence is medium-high.\n\n**1. Model family.**\n- This is the 2D classical XY model with long-range couplings J(r) \u221d 1/r^(2+\u03c3).\n- Here 1/r\u2074 means \u03c3 = 2, and the dynamics are single-spin Metropolis-type Monte Carlo.\n- The \"lattice phase locking\" label looks like a generic test for global phase alignment.\n- The fingerprint is a high squared magnetisation (p_r \u2248 0.73), a high local order parameter (p_local_r \u2248 0.86) and very few vortices (density \u2248 0.006). That is what a spin-wave-dominated ordered phase looks like.\n\n**2. The specific behaviour.**\n- **Most direct source:** the PRB paper \"Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study\". I read only the abstract.\n  - For \u03c3 \u2264 2, the system undergoes a second-order phase transition into a ferromagnetic phase with long-range order.\n  - In the low-temperature phase the correlation function saturates to a nonzero constant. The approach is a power law for \u03c3 < 2 and an inverse logarithm of distance for \u03c3 = 2.\n  - This matches the observation: a large finite m\u00b2 and a correlation length that is likely limited by the lattice size.\n- **Theory and earliest clear source I verified:** Giachetti, Defenu, Ruffo and Trombettoni, PRL 127, 156801 (2021).\n  - The paper describes a quasiordered phase in a finite temperature range for 7/4 < \u03c3 < 2.\n  - It also states that for \u03c3 < 2, at low enough temperature, the model is magnetised. The snippet cuts off there, so I did not confirm the rest of the sentence.\n  - The companion EPL paper reports that for \u03c3 > 2 the BKT mechanism occurs. Its authors also note that the \u03c3* = 2 threshold is only an upper bound.\n- **Review:** Giachetti, Trombettoni, Ruffo and Defenu, \"BKT transitions in classical and quantum long-range systems\", PRB 106, 014106 (2022). I confirmed that it exists and its abstract. It is a more general treatment of this question.\n- **Later work:** the 2025\u201326 PRL \"Persistence of the BKT transition with long-range couplings\" says the model hosts a magnetized low-temperature phase for sufficiently small \u03c3. It also argues that the BKT transition persists for all \u03c3.\n- **Caveat on literature status:** the literature still debates the exact \u03c3 = 2 boundary and the fate of the BKT transition there. The ordered-phase behaviour at \u03c3 = 2 is nonetheless explicitly documented.\n\n**3. What I could not check.**\n- I did not verify the temperature scale. \"Total coupling per site fixed\" at \u03b2 = 1 may or may not lie below the transition. The high m\u00b2 suggests it does.\n- I only saw abstracts and snippets, not full texts.\n- I did not search for the original Mermin\u2013Wagner extensions to power-law couplings, so I make no claim about them.\n\n**4. Why KNOWN rather than KNOWN-VARIANT.**\n- The system is the standard model at the exponent studied, with Monte Carlo and equilibrium measurements.\n- The lattice size (64 \u00d7 64) and the sweep count (1000) are ordinary finite-size and sampling choices.\n- The \"unusual fingerprint\" is probably the usual ordered-phase signature of \u03c3 \u2264 2, which differs from textbook short-range quasi-long-range order.\n- A single run at fixed T and L cannot tell the inverse-log correlation saturation apart from a BKT-like state without a scaling analysis.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"2D classical XY model with long-range power-law couplings J(r)~1/r^(2+sigma), sigma=2 (marginal), Metropolis Monte Carlo\", \"standard_name\": \"Long-range ordered phase of the 2D long-range XY model at sigma=2 (spin-wave dominated, Goldstone-mode, inverse-log correlation saturation); BKT-vs-LRO crossover at sigma*=2\", \"confidence\": \"medium\", \"citations\": [\"Giachetti, Defenu, Ruffo, Trombettoni, 'Berezinskii-Kosterlitz-Thouless Phase Transitions with Long-Range Couplings', PRL 127, 156801 (2021)\", \"Giachetti, Defenu, Ruffo, Trombettoni, 'Self-consistent harmonic approximation in presence of non-local couplings', EPL 133, 57004 (2021)\", \"Giachetti, Trombettoni, Ruffo, Defenu, 'Berezinskii-Kosterlitz-Thouless transitions in classical and quantum long-range systems', PRB 106, 014106 (2022)\", \"'Nonclassical regime of the two-dimensional long-range XY model: A comprehensive Monte Carlo study', Phys. Rev. B (2025), doi 10.1103/yghs-p5mg\", \"'Persistence of the Berezinskii-Kosterlitz-Thouless Transition with Long-Range Couplings', PRL (2025/26), doi 10.1103/9y2v-ybdb\"], \"searches\": [\"2D XY model long-range interactions 1/r^{2+sigma} BKT transition sigma=2 Giachetti Defenu Ruffo Trombettoni\", \"two-dimensional long-range XY model spin waves magnetization Monte Carlo power-law interaction vortices\", \"Giachetti Trombettoni Ruffo Defenu BKT transitions in classical and quantum long-range systems review sigma=2 Monte Carlo\", \"Monte Carlo long-range XY model two dimensions power-law exponent quasi-long-range order magnetization finite size\"], \"notes\": \"Only abstracts/snippets read, not full texts. Temperature relative to the transition not verified (normalisation unclear). 'Lattice phase locking' likely a generic global-alignment detector; the high m^2, high local order and low vortex density fit a spin-wave-dominated ordered phase. sigma=2 exact boundary still debated in the literature (BKT persistence vs LRO), but ordered-phase behaviour at sigma<=2 is documented. A single 64x64 run cannot distinguish inverse-log saturation from BKT-like QLRO without scaling analysis.\"}\n```",
+ "checked": "2026-11-04 11:33:16"
+}

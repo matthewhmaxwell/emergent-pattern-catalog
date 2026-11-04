@@ -1,0 +1,121 @@
+{
+ "class_id": "pipeline:N11:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "Spatial birth-death point process / individual-based nonlocal competition (Bolker-Pacala, Law-Dieckmann; nonlocal Fisher-KPP)",
+ "standard_name": "Nonlocal-competition-induced clustering (Turing-like instability when the competition kernel's Fourier transform is negative; top-hat kernel)",
+ "confidence": "medium",
+ "citations": [
+  "Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2004, Phys. Rev. E 70, 016216 - clustering in birth-death model with neighborhood-dependent rates",
+  "Fuentes, Kuperman & Kenkre 2003, Phys. Rev. Lett. 91, 158104 - nonlocal competition pattern formation (verified only via citing papers' reference lists)",
+  "Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda 2007, Phys. Rev. Lett. 98, 258101 - pattern instability when kernel Fourier transform is not positive definite; constant kernels included",
+  "Leimar et al. 2008, Evolution - sign structure of the kernel's Fourier transform determines clustering; box-like kernels oscillate in sign",
+  "Hern\u00e1ndez-Garc\u00eda, L\u00f3pez, Pigolotti & Andersen 2009, Phil. Trans. R. Soc. A 367, 3183 - review of competition-induced clustering",
+  "L\u00f3pez, Colombo, Hern\u00e1ndez-Garc\u00eda & Mart\u00ednez-Garc\u00eda 2025, Springer chapter - review of competition/repulsion pattern formation",
+  "Law, Murrell & Dieckmann 2003, Ecology 84, 252-262 - spatial logistic individual-based model and moment closure"
+ ],
+ "searches": [
+  "spatial birth-death process nonlocal competition pattern formation higher-order three-body crowding",
+  "individual-based competition kernel top-hat clustering Fourier transform negative Gaussian dispersal",
+  "Hernandez-Garcia Lopez clustering advection patterns neighborhood-dependent rates",
+  "Pigolotti Lopez Hernandez-Garcia species clustering competitive Lotka-Volterra",
+  "Colombo Martinez-Garcia pulsed interactions pattern formation",
+  "higher-order interactions three-body competition pattern formation point process clusters",
+  "Fuentes Kuperman Kenkre nonlocal interaction pattern formation 2003",
+  "Law Murrell Dieckmann spatial logistic equations 2003",
+  "individual-based top-hat kernel birth-death Gaussian dispersal local density-dependent mortality"
+ ],
+ "notes": "Pairwise top-hat clustering is firmly established. The short-range quadratic (three-body) death term was not found in any source; it likely acts as a local saturation that limits cluster density and shifts the threshold, but this is inference, not a sourced result. The domain size is unspecified; a radius of 1.25 on a unit torus would wrap around, which changes the interpretation. The Fuentes et al. 2003 paper was not read directly.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 9,
+ "search_inputs": [
+  {
+   "query": "spatial birth-death process nonlocal competition pattern formation higher-order three-body crowding interactions"
+  },
+  {
+   "query": "individual-based model competition kernel top-hat clustering Fourier transform negative instability Gaussian dispersal Law Dieckmann"
+  },
+  {
+   "query": "Hern\u00e1ndez-Garc\u00eda L\u00f3pez Clustering, advection, and patterns in a model of population dynamics with neighborhood-dependent rates"
+  },
+  {
+   "query": "Pigolotti L\u00f3pez Hern\u00e1ndez-Garc\u00eda Species clustering in competitive Lotka-Volterra models"
+  },
+  {
+   "query": "Colombo Mart\u00ednez-Garc\u00eda Calabrese L\u00f3pez Hern\u00e1ndez-Garc\u00eda pulsed interactions unify reaction-diffusion and spatial nonlocal models pattern formation"
+  },
+  {
+   "query": "higher-order interactions three-body competition stabilize pattern formation nonlocal competition individual-based point process clusters"
+  },
+  {
+   "query": "Fuentes Kuperman Kenkre Nonlocal interaction effects on pattern formation in population dynamics Phys. Rev. Lett. 2003"
+  },
+  {
+   "query": "Law Murrell Dieckmann Population growth in space and time: spatial logistic equations Ecology 2003"
+  },
+  {
+   "query": "individual-based simulation clusters periodic pattern nonlocal competition top-hat kernel birth-death particles Gaussian dispersal local density-dependent mortality stabilizing"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/267708v2.full",
+  "https://link.springer.com/article/10.1007/s11538-021-00886-4",
+  "https://www.biorxiv.org/content/10.1101/267708.full.pdf",
+  "https://ifisc.uib-csic.es/en/publications/nonlocal-birth-death-competitive-dynamics-with-vol/",
+  "https://link.springer.com/chapter/10.1007/978-3-032-00873-2_11",
+  "https://onlinelibrary.wiley.com/doi/10.1111/j.1558-5646.2008.00334.x",
+  "https://sciencedirect.com/science/article/pii/S0022519326000664?via=ihub%3D",
+  "https://personalpages.manchester.ac.uk/staff/sergei.fedotov/aggregation.pdf",
+  "https://pure.iiasa.ac.at/id/eprint/10718/1/IR-13-045.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC4493154/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://link.springer.com/article/10.1007/s10955-012-0506-x",
+  "https://ui.adsabs.harvard.edu/abs/2004PhRvE..70a6216H/abstract",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://journals.aps.org/pre/abstract/10.1103/nrg2-2xj9",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1002/2013GL058797",
+  "https://pubmed.ncbi.nlm.nih.gov/17678058/",
+  "https://ifisc.uib-csic.es/en/publications/species-clustering-in-competitive-lotka-volterra-m/",
+  "https://royalsocietypublishing.org/rsta/article/367/1901/3183/17621/Species-competition-coexistence-exclusion-and",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.98.258101",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC6358094/",
+  "https://futur.upc.edu/15431905",
+  "https://link.springer.com/article/10.1007/s00285-010-0370-8",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1006688&rev=1",
+  "https://futur.upc.edu/353568/p/9/'unitURL'|translate",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ad2b57",
+  "https://link.springer.com/chapter/10.1007/978-3-032-00873-2_11",
+  "https://www.ufz.de/index.php?de=36838&pub_data%5BJPUBVZ_ID%5D=77",
+  "https://pubmed.ncbi.nlm.nih.gov/36800461/",
+  "https://link.springer.com/article/10.1007/s11538-021-00886-4",
+  "https://www.biorxiv.org/content/10.1101/748517.full.pdf",
+  "https://link.springer.com/article/10.1007/s12080-020-00481-8",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC12031895",
+  "https://michalska-smith.com/pdfs/higherorder.pdf",
+  "https://ouci.dntb.gov.ua/en/works/7XmWDJM4/",
+  "https://link.springer.com/article/10.1007/s11538-022-01098-0",
+  "https://link.springer.com/article/10.1007/s11538-018-0410-x",
+  "https://link.springer.com/article/10.1007/s11538-017-0373-3",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://link.springer.com/article/10.1007/s00033-012-0286-9",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7470875/",
+  "https://www.nature.com/articles/s42005-025-02246-3",
+  "https://esajournals.onlinelibrary.wiley.com/doi/10.1890/0012-9658(2003)084%5B0252:PGISAT%5D2.0.CO;2",
+  "https://eprints.whiterose.ac.uk/id/eprint/6017/",
+  "https://pure.iiasa.ac.at/id/eprint/6889/",
+  "https://link.springer.com/article/10.1007/s12080-013-0202-8",
+  "https://pure.york.ac.uk/portal/en/publications/population-growth-in-space-and-time-spatial-logistic-equations",
+  "https://doi.org/10.1890/13-0147.1",
+  "https://user.iiasa.ac.at/~dieckman/",
+  "https://link.springer.com/chapter/10.1007/978-3-7091-1785-9_4",
+  "https://scholar.google.com/citations?user=rAcGGSgAAAAJ&hl=en",
+  "https://www.biorxiv.org/content/10.64898/2026.02.05.703943v1.full.pdf",
+  "https://www.biorxiv.org/content/10.1101/2024.07.24.604988v2.full",
+  "https://personalpages.manchester.ac.uk/staff/sergei.fedotov/aggregation.pdf",
+  "https://www.biorxiv.org/content/10.1101/2024.07.24.604988v2.full.pdf",
+  "https://zenodo.org/records/10871267"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT, medium confidence.** The core mechanism is well described. I found no source for the exact three-body term.\n\n**1. Model family.** This is a spatial birth\u2013death point process (an individual-based model) with nonlocal competition. It is also called a Bolker\u2013Pacala or Law\u2013Dieckmann spatial logistic model, or the individual-based version of the nonlocal Fisher\u2013KPP equation. The standard names for the behaviour are \"nonlocal-competition-induced clustering\" and \"Turing-like instability of the homogeneous state, driven by a competition kernel whose Fourier transform goes negative\". Your pairwise term is a flat disk (\"top-hat\") competition kernel of radius 1.25. Dispersal is a narrow Gaussian.\n\n**2. Is the behaviour reported?**\n- **Earliest clear sources.** Competition-only clustering with neighbourhood-dependent birth and death rates is in Hern\u00e1ndez-Garc\u00eda & L\u00f3pez, \"Clustering, advection, and patterns in a model of population dynamics with neighborhood-dependent rates\", Phys. Rev. E 70, 016216 (2004). The model has reproducing individuals or particles with birth and death rates that depend on the number of other individuals in their neighbourhood. The ADS record confirms the title, authors, venue and date.\n- A Hern\u00e1ndez-Garc\u00eda et al. review dates the first clustering reports to 2003\u20132005. It says clustering under Lotka\u2013Volterra-type competition had already been observed (Fuentes et al. 2003; Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2004, 2005).\n- Fuentes, Kuperman & Kenkre, \"Nonlocal interaction effects on pattern formation in population dynamics\", Phys. Rev. Lett. 91, 158104 (2003). I verified the citation only through other papers' reference lists. I did not read the paper itself.\n- **Why a top-hat kernel clusters.** Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda, \"Species clustering in competitive Lotka-Volterra models\", Phys. Rev. Lett. 98, 258101 (2007). The models change dramatically when the Fourier transform of the kernel is not positive definite, because of a pattern-forming instability. The abstract names constant kernels as one case.\n- Leimar et al. (2008, Evolution) say the same for box-like kernels. A Gaussian's Fourier transform stays positive for all frequencies, whereas a box-like kernel's transform has tails that oscillate in sign. Negative values of the transform can induce pattern formation and set the spatial scale of the pattern.\n- A recent paper, *J. Theor. Biol.* 2026 (I did not check the author list or title), states that a key requirement for patterns in most of these models is that the Fourier transform of the competition kernel takes negative values. It also finds that the top-hat kernel triggers the earliest Turing bifurcation among the kernels considered.\n- **Reviews.** Hern\u00e1ndez-Garc\u00eda, L\u00f3pez, Pigolotti & Andersen, \"Species competition: coexistence, exclusion and clustering\", Phil. Trans. R. Soc. A 367, 3183 (2009). Also a 2025 book chapter, L\u00f3pez, Colombo, Hern\u00e1ndez-Garc\u00eda & Mart\u00ednez-Garc\u00eda, \"Spatial Competition and Repulsion: Pattern Formation and the Role of Movement\" (Springer). It says that although competition and repulsion are both anti-crowding interactions, collective effects can produce clusters that arrange periodically.\n- **Individual-based framework.** Law, Murrell & Dieckmann, \"Population growth in space and time: spatial logistic equations\", Ecology 84, 252\u2013262 (2003). It covers an individual-based model with localized dispersal and competition and its spatial-moment approximation.\n\n**3. What differs in your system.** Your death rate adds a short-range three-body term, g\u00b7(density within 0.0625)\u00b2. This acts as a strong local saturation. It is a second, small interaction scale, about the same size as the dispersal width of 0.05.\n- I found no paper using this exact term in a competition-only birth\u2013death process. A search on higher-order interactions returned only species-coexistence theory (e.g. \"Higher order interactions and species coexistence\", *Theor. Ecol.*), which is not spatial pattern formation.\n- The term is purely competitive and short-range, so it most likely does not create the instability. The long-range top-hat pairwise term does. I expect the cubic-like term to cap cluster density and raise the instability threshold.\n- That is my inference, not a result I found in a source. A linear stability analysis would confirm it.\n- The measured features (Moran's I of 0.56, about 5 blobs, sharp peaks) fit a clustered steady state. I cannot judge from the summary numbers whether the pattern is a true steady state or a slowly coarsening one.\n- One caveat: a competition radius of 1.25 on a \"square periodic domain\" only makes sense if the domain is much larger than 1. If it is the unit square, the kernel wraps around the torus, and that would change the interpretation.\n\n**4. Confidence and searches.** Confidence is medium. The mechanism and the clustering are clearly established across several independent groups. The three-body variant rests on a few searches that returned nothing, and my own reasoning, not a source, supports the claim that it does not change the mechanism.\n\nSearches run:\n1. spatial birth-death process nonlocal competition pattern formation higher-order three-body crowding\n2. individual-based competition kernel top-hat clustering Fourier transform\n3. Hern\u00e1ndez-Garc\u00eda L\u00f3pez clustering, advection, and patterns\n4. Pigolotti L\u00f3pez Hern\u00e1ndez-Garc\u00eda species clustering\n5. Colombo Mart\u00ednez-Garc\u00eda \u2026 pulsed interactions\n6. higher-order interactions three-body competition pattern formation point process\n7. Fuentes Kuperman Kenkre 2003\n8. Law Murrell Dieckmann 2003 spatial logistic\n9. individual-based top-hat kernel birth-death local density-dependent mortality\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"Spatial birth-death point process / individual-based nonlocal competition (Bolker-Pacala, Law-Dieckmann; nonlocal Fisher-KPP)\", \"standard_name\": \"Nonlocal-competition-induced clustering (Turing-like instability when the competition kernel's Fourier transform is negative; top-hat kernel)\", \"confidence\": \"medium\", \"citations\": [\"Hern\u00e1ndez-Garc\u00eda & L\u00f3pez 2004, Phys. Rev. E 70, 016216 - clustering in birth-death model with neighborhood-dependent rates\", \"Fuentes, Kuperman & Kenkre 2003, Phys. Rev. Lett. 91, 158104 - nonlocal competition pattern formation (verified only via citing papers' reference lists)\", \"Pigolotti, L\u00f3pez & Hern\u00e1ndez-Garc\u00eda 2007, Phys. Rev. Lett. 98, 258101 - pattern instability when kernel Fourier transform is not positive definite; constant kernels included\", \"Leimar et al. 2008, Evolution - sign structure of the kernel's Fourier transform determines clustering; box-like kernels oscillate in sign\", \"Hern\u00e1ndez-Garc\u00eda, L\u00f3pez, Pigolotti & Andersen 2009, Phil. Trans. R. Soc. A 367, 3183 - review of competition-induced clustering\", \"L\u00f3pez, Colombo, Hern\u00e1ndez-Garc\u00eda & Mart\u00ednez-Garc\u00eda 2025, Springer chapter - review of competition/repulsion pattern formation\", \"Law, Murrell & Dieckmann 2003, Ecology 84, 252-262 - spatial logistic individual-based model and moment closure\"], \"searches\": [\"spatial birth-death process nonlocal competition pattern formation higher-order three-body crowding\", \"individual-based competition kernel top-hat clustering Fourier transform negative Gaussian dispersal\", \"Hernandez-Garcia Lopez clustering advection patterns neighborhood-dependent rates\", \"Pigolotti Lopez Hernandez-Garcia species clustering competitive Lotka-Volterra\", \"Colombo Martinez-Garcia pulsed interactions pattern formation\", \"higher-order interactions three-body competition pattern formation point process clusters\", \"Fuentes Kuperman Kenkre nonlocal interaction pattern formation 2003\", \"Law Murrell Dieckmann spatial logistic equations 2003\", \"individual-based top-hat kernel birth-death Gaussian dispersal local density-dependent mortality\"], \"notes\": \"Pairwise top-hat clustering is firmly established. The short-range quadratic (three-body) death term was not found in any source; it likely acts as a local saturation that limits cluster density and shifts the threshold, but this is inference, not a sourced result. The domain size is unspecified; a radius of 1.25 on a unit torus would wrap around, which changes the interpretation. The Fuentes et al. 2003 paper was not read directly.\"}\n```",
+ "checked": "2026-11-04 11:31:56"
+}

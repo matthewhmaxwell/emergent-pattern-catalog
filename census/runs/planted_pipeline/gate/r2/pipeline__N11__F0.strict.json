@@ -1,0 +1,43 @@
+{
+ "class_id": "pipeline:N11:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Competition-induced periodic clustering (finite-wavelength instability) in individual-based nonlocal competition / nonlocal Fisher-KPP model (Hernandez-Garcia & Lopez 2004 'Brownian bug'-type birth-death model)",
+ "citations": [
+  "Hernandez-Garcia E, Lopez C. Phys Rev E 70, 016216 (2004) https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "Landscape-induced spatial oscillations in population dynamics, PMC7876042 https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "Enhanced species coexistence in Lotka-Volterra competition models due to nonlocal interactions https://pubmed.ncbi.nlm.nih.gov/34425135/"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "high",
+ "notes": "Rough linear-stability check: top-hat 2D kernel FT minimum about -0.13 at kR about 5.1 (k about 4.1, wavelength about 1.5); effective D about 2.4; uniform density about 1728; growth about -40+228>0, so strongly unstable. The short-range three-body g*rho^2 term matters only inside dense clusters and caps peak density/width; it does not create the pattern. Blob count depends on domain size (not given). Statistics are consistent with a genuine periodic cluster pattern, not an artifact.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 2,
+ "search_inputs": [
+  {
+   "query": "clustering nonlocal competition individual-based model birth death Hern\u00e1ndez-Garc\u00eda L\u00f3pez 2004 patterns"
+  },
+  {
+   "query": "three-body interactions nonlocal competition pattern formation population clusters higher-order interactions"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1742-5468/aa7283",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0132261",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042",
+  "https://pubmed.ncbi.nlm.nih.gov/37414005/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278913000559",
+  "https://pubmed.ncbi.nlm.nih.gov/33779843/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12364762/",
+  "https://www.biorxiv.org/content/10.1101/2025.07.14.664706.full.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/34425135/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0096300317301911",
+  "https://royalsocietypublishing.org/doi/10.1098/rspa.2021.0564"
+ ],
+ "full_text": "**Verdict: KNOWN.** The first pass was right about what drives the behaviour, and I found nothing in the observations that it missed.\n\n**What has already been published**\n- **The main result.** Hern\u00e1ndez-Garc\u00eda & L\u00f3pez (PRE 70, 016216, 2004) describe almost exactly this system: individuals whose birth and death rates depend on the number of other individuals in their neighborhood. They report that the model shows an inhomogeneous quasistationary pattern with many different clusters of particles arranged periodically in space. They also show analytically that there is a finite-wavelength instability leading to pattern formation. Their model uses a flat (top-hat) counting radius, the same type of competition rule as here.\n- **The continuum version.** The same behaviour shows up in the nonlocal Fisher-KPP equation. Whether patterns form depends primarily on the particular properties of the kernel and, secondarily, on the values of the diffusion and reproduction rates.\n- **Short-range plus long-range competition.** The extra short-range term here is similar to models that combine local and nonlocal competition. In those models, nonlocal interactions can create spatial patterns of population densities in which highly populated clumps alternate with unpopulated regions. The strength of the local term mainly changes the shape of each clump, not whether clumps form .\n\n**My own check that these parameters should form patterns** (a rough calculation, not from a source)\n- A flat 2D disk of radius R has a Fourier transform proportional to 2J\u2081(kR)/kR. This dips to about \u22120.13 near kR \u2248 5.1, so at R = 1.25 the most unstable wavenumber is k \u2248 4.1. That gives a wavelength of about 1.5.\n- Spreading offspring with \u03c3 = 0.05 at birth rate 1920 acts like diffusion with D \u2248 1920 \u00d7 0.05\u00b2/2 \u2248 2.4.\n- Ignoring g, the uniform density is about 1920 \u2212 192 = 1728.\n- Growth rate at k \u2248 4.1: \u2212D\u00b7k\u00b2 + 1728 \u00d7 0.13 \u2248 \u221240 + 228, which is clearly positive. So the uniform state is strongly unstable and spots should form.\n- The number of spots (~5) depends on the domain size, which wasn't given, so I can't check that figure directly.\n\n**What the three-body term does**\n- g\u00b7\u03c1\u00b2 (with \u03c1 counted within radius 0.0625) is tiny at average density. It only matters inside dense clusters, where \u03c1 can reach about 10\u2074\u201310\u2075 and the term reaches about 10\u00b3\u201310\u2074.\n- So it caps how dense and narrow each cluster gets; it doesn't create the pattern. I couldn't find this exact term in the literature, but it changes a detail of the clusters, not the type of behaviour.\n\n**Is it a real pattern or an artifact?** It looks real:\n- Moran's I of 0.56 means strong spatial clustering, not a random scatter.\n- There is a definite number of blobs with a sharp peak, which matches spots on a regular spacing.\n- A mean of about 40 with moderate fluctuation rules out extinction or a numerical blow-up.\n- f_change \u2248 12 most likely reflects demographic noise in the quasi-steady state. Leftover drift is also possible after only one time unit, though with rates near 2000 that is many generations.\n\n**Searches I ran:** (1) clustering from nonlocal competition in individual-based birth\u2013death models (Hern\u00e1ndez-Garc\u00eda & L\u00f3pez); (2) three-body or higher-order interactions in nonlocal competition pattern formation. Neither turned up a different kind of behaviour that this system might show.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Competition-induced periodic clustering (finite-wavelength instability) in individual-based nonlocal competition / nonlocal Fisher-KPP model (Hernandez-Garcia & Lopez 2004 'Brownian bug'-type birth-death model)\", \"citations\": [\"Hernandez-Garcia E, Lopez C. Phys Rev E 70, 016216 (2004) https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.016216\", \"Landscape-induced spatial oscillations in population dynamics, PMC7876042 https://pmc.ncbi.nlm.nih.gov/articles/PMC7876042\", \"Enhanced species coexistence in Lotka-Volterra competition models due to nonlocal interactions https://pubmed.ncbi.nlm.nih.gov/34425135/\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"high\", \"notes\": \"Rough linear-stability check: top-hat 2D kernel FT minimum about -0.13 at kR about 5.1 (k about 4.1, wavelength about 1.5); effective D about 2.4; uniform density about 1728; growth about -40+228>0, so strongly unstable. The short-range three-body g*rho^2 term matters only inside dense clusters and caps peak density/width; it does not create the pattern. Blob count depends on domain size (not given). Statistics are consistent with a genuine periodic cluster pattern, not an artifact.\"}\n```",
+ "checked": "2026-11-04 11:33:58"
+}

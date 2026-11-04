@@ -1,0 +1,95 @@
+{
+ "class_id": "pipeline:N19:F2",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "Reaction-diffusion-chemotaxis (Patlak-Keller-Segel) with self-produced attractant and consumed nutrient taxis",
+ "standard_name": "Keller-Segel chemotactic aggregation / chemotactic instability leading to spot formation (with nutrient taxis)",
+ "confidence": "medium",
+ "citations": [
+  "Keller & Segel 1971, J. Theor. Biol. 30:225-234 - original chemotactic aggregation model (seen only in reference lists)",
+  "Brenner, Levitov & Budrene 1998, Biophysical Journal - Physical mechanisms for chemotactic pattern formation by bacteria (model section seen; year/volume not checked)",
+  "Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - model and analysis of chemotactic bacterial patterns in liquid medium, with nutrient; patterns arise from perturbing a uniform state",
+  "Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - chemotaxis toward both ambient nutrient and secreted attractant; spots and motile spots",
+  "Hillen & Painter 2009, J. Math. Biol. - A user's guide to PDE models for chemotaxis (review; abstract seen)"
+ ],
+ "searches": [
+  "Keller-Segel chemotaxis two chemicals attractant and nutrient consumption pattern formation bacteria aggregation",
+  "chemotactic sensitivity b/(1+b^2) saturating Turing instability bacterial pattern nutrient taxis and self-produced attractant",
+  "Chemotactic Sensing towards Ambient and Secreted Attractant ... authors PLoS ONE 2013",
+  "Cates Marenduzzo Pagonabarraga Tailleur arrested phase separation reproducing bacteria",
+  "Tyson Lubkin Murray 1999 J Math Biol",
+  "Keller-Segel chemotaxis toward nutrient and self-produced attractant resupplied nutrient spots coarsening"
+ ],
+ "notes": "Exact functional form b/(1+b^2) with both attractant and nutrient taxis, no growth, uniform nutrient resupply, and these parameters was not located in a readable source; closest are Curk 2013 (particle/continuum hybrid with growth) and Tyson 1999 (growth, finite nutrient). Differences are unlikely to change the qualitative blob-formation result, but long-time dynamics (coarsening vs steady spots) were not verified.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 6,
+ "search_inputs": [
+  {
+   "query": "Keller-Segel chemotaxis two chemicals attractant and nutrient consumption pattern formation bacteria aggregation"
+  },
+  {
+   "query": "chemotactic sensitivity b/(1+b^2) saturating Turing instability bacterial pattern nutrient taxis and self-produced attractant"
+  },
+  {
+   "query": "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli authors PLoS ONE 2013 Marenduzzo"
+  },
+  {
+   "query": "Cates Marenduzzo Pagonabarraga Tailleur arrested phase separation in reproducing bacteria chemotaxis spots"
+  },
+  {
+   "query": "Tyson Lubkin Murray Model and analysis of chemotactic bacterial patterns in a liquid medium J Math Biol 1999"
+  },
+  {
+   "query": "Keller-Segel chemotaxis toward nutrient and self-produced attractant consumed nutrient resupplied spots coarsening continuum model"
+  }
+ ],
+ "result_urls": [
+  "https://math.gmu.edu/~mholzer/1dchemotaxis.pdf",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://en.wikipedia.org/wiki/Keller%E2%80%93Segel_system",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8354456/",
+  "https://doi.org/10.3390/math14050748",
+  "https://www.cell.com/fulltext/S0006-3495(98)77880-4",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://www.damtp.cam.ac.uk/user/jrt51/papers/Watteaux2015.pdf",
+  "https://www.pnas.org/doi/10.1073/pnas.2105138118",
+  "https://math.gmu.edu/~mholzer/1dchemotaxis.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074878",
+  "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.00040/full",
+  "https://www.wikidata.org/wiki/Q35009007",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0214719",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://ouci.dntb.gov.ua/en/works/lDQbDrd9/",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5056481/",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.1006363107",
+  "https://www.princeton.edu/~akosmrlj/pdf/2023_Zhao_PRL.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900656",
+  "https://pubmed.ncbi.nlm.nih.gov/20562344/",
+  "https://www.pnas.org/doi/10.1073/pnas.2115496119",
+  "https://www.sciencedaily.com/releases/2010/09/100915084803.htm",
+  "https://www2.ph.ed.ac.uk/~dmarendu/pub.html",
+  "https://www.sciencedirect.com/science/article/pii/S1631070515000791",
+  "https://www.research.ed.ac.uk/en/publications/arrested-phase-separation-in-reproducing-bacteria-creates-a-gener/",
+  "https://link.springer.com/article/10.1007/s002850050153",
+  "https://link.springer.com/chapter/10.1007/978-3-030-65505-1_12",
+  "https://dl.acm.org/doi/abs/10.1016/j.camwa.2014.10.023",
+  "https://link.springer.com/article/10.1007/s00285-013-0748-5",
+  "https://link.springer.com/article/10.1007/s00285-008-0201-3",
+  "https://www.global-sci.com/ijnam/article/view/10414",
+  "https://faculty.washington.edu/rjl/pubs/chemotaxis/chemotaxis.pdf",
+  "https://eudml.org/doc/222319",
+  "https://pubs.aip.org/aip/cha/article-abstract/14/3/562/135402/Hydrodynamics-of-bacterial-colonies-Phase-diagrams?redirectedFrom=fulltext",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10274659/",
+  "https://www.pnas.org/doi/10.1073/pnas.2504064122",
+  "https://www.pnas.org/doi/10.1073/pnas.2309251121",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://math.gmu.edu/~mholzer/1dchemotaxis.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** The system is a Keller\u2013Segel-type chemotaxis model. Its spontaneous clustering into a few sharp blobs is the standard result for such models. I could not find a paper with exactly these equations and parameters, so my confidence is medium.\n\n**1. Model family.** This is reaction\u2013diffusion\u2013chemotaxis, which is the Patlak\u2013Keller\u2013Segel family. It is a continuum model of bacterial or cell chemotaxis, and it sits between mathematical biology and active matter.\n- The cell density b drifts up gradients of two fields, with a saturating sensitivity b/(1+b\u00b2).\n- The first field is a self-produced, decaying attractant a.\n- The second is a consumed, resupplied nutrient n.\n- The uniform state is unstable to chemotactic collapse, so clusters form from small noise.\n\n**2. The specific behaviour.** The observations (very high Moran's I of 0.987, a few sharp blobs, large density variance) describe spontaneous aggregation into discrete spots from a near-uniform start.\n- The Keller\u2013Segel literature says this is expected. A Holzer-group paper on the 1D and 2D Keller\u2013Segel model says it is well known that the Keller-Segel model gives rise to spatial patterns in the bacterial concentration. It also describes periodic patterns that go on to coarsen (peaks merge or one grows at another's expense).\n- **Earliest clear sources.**\n  - Keller & Segel, \"Model for chemotaxis,\" J. Theor. Biol. 30, 225\u2013234 (1971). I only saw this in a reference list, not the paper itself. It was introduced in the 1970s by Evelyn Fox Keller and Lee Segel to explain aggregation in *Dictyostelium discoideum*.\n  - Brenner, Levitov & Budrene, \"Physical Mechanisms for Chemotactic Pattern Formation by Bacteria,\" Biophysical Journal (1998). I checked its model section. It has a bacterial diffusion constant, a chemotactic coefficient, and attractant production and diffusion. I did not confirm its year or volume from the page.\n  - Tyson, Lubkin & Murray, \"Model and analysis of chemotactic bacterial patterns in a liquid medium,\" J. Math. Biol. 38, 359\u2013375 (1999). Patterns arise from disturbances to a uniform state, and the paper uses a linear analysis of each mode. This is a liquid-medium model with a nutrient.\n- **Closest equivalent.** Curk, Marenduzzo & Dobnikar, \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli,\" PLoS ONE 8(10): e74878 (2013). It simulates cells that sense both ambient nutrient and a self-secreted attractant, as in this system. For slightly stronger nutrient sensing the bacteria still form spots, but these are now mobile and chemotactic, as they can glide up a nutrient gradient.\n- **Review.** Hillen & Painter, \"A user's guide to PDE models for chemotaxis,\" J. Math. Biol. (2009). It reviews the formulations, contrasts their patterning properties and classifies the solution forms. I saw the title and abstract and its reference list, but not the full text.\n\n**3. Where this system differs from the literature.**\n- The b/(1+b\u00b2) sensitivity is a receptor-saturation form. I did not find it in a source I could read for this exact two-signal setup.\n- This system has no cell growth, which many of the bacterial pattern models include, such as Tyson et al.\n- Nutrient is resupplied uniformly rather than being a finite initial store.\n- The 2.5\u00d7 and 0.75\u00d7 diffusion ratios and the specific rate constants did not match any paper I found.\n\nNone of these changes should alter the qualitative result. Saturating sensitivity usually limits blow-up, so the clusters end up bounded rather than singular. The blobs may be transient or coarsening, or they may reach a steady state, depending on parameters. I did not check which applies here.\n\n**4. Confidence: medium.** The clustering behaviour itself is textbook. I could not read the primary papers' equations, so I could not confirm that any of them contains this exact form with these parameters.\n\n**Searches run:**\n- Keller-Segel chemotaxis with two chemicals (attractant and nutrient) and bacterial aggregation.\n- Chemotactic sensitivity b/(1+b\u00b2), saturating, with a Turing-type instability.\n- Curk/Marenduzzo/Dobnikar authors check.\n- Cates et al. 2010 (arrested phase separation).\n- Tyson, Lubkin & Murray 1999.\n- Keller-Segel with nutrient resupply, spots and coarsening.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"Reaction-diffusion-chemotaxis (Patlak-Keller-Segel) with self-produced attractant and consumed nutrient taxis\", \"standard_name\": \"Keller-Segel chemotactic aggregation / chemotactic instability leading to spot formation (with nutrient taxis)\", \"confidence\": \"medium\", \"citations\": [\"Keller & Segel 1971, J. Theor. Biol. 30:225-234 - original chemotactic aggregation model (seen only in reference lists)\", \"Brenner, Levitov & Budrene 1998, Biophysical Journal - Physical mechanisms for chemotactic pattern formation by bacteria (model section seen; year/volume not checked)\", \"Tyson, Lubkin & Murray 1999, J. Math. Biol. 38:359-375 - model and analysis of chemotactic bacterial patterns in liquid medium, with nutrient; patterns arise from perturbing a uniform state\", \"Curk, Marenduzzo & Dobnikar 2013, PLoS ONE 8(10):e74878 - chemotaxis toward both ambient nutrient and secreted attractant; spots and motile spots\", \"Hillen & Painter 2009, J. Math. Biol. - A user's guide to PDE models for chemotaxis (review; abstract seen)\"], \"searches\": [\"Keller-Segel chemotaxis two chemicals attractant and nutrient consumption pattern formation bacteria aggregation\", \"chemotactic sensitivity b/(1+b^2) saturating Turing instability bacterial pattern nutrient taxis and self-produced attractant\", \"Chemotactic Sensing towards Ambient and Secreted Attractant ... authors PLoS ONE 2013\", \"Cates Marenduzzo Pagonabarraga Tailleur arrested phase separation reproducing bacteria\", \"Tyson Lubkin Murray 1999 J Math Biol\", \"Keller-Segel chemotaxis toward nutrient and self-produced attractant resupplied nutrient spots coarsening\"], \"notes\": \"Exact functional form b/(1+b^2) with both attractant and nutrient taxis, no growth, uniform nutrient resupply, and these parameters was not located in a readable source; closest are Curk 2013 (particle/continuum hybrid with growth) and Tyson 1999 (growth, finite nutrient). Differences are unlikely to change the qualitative blob-formation result, but long-time dynamics (coarsening vs steady spots) were not verified.\"}\n```",
+ "checked": "2026-11-04 11:35:48"
+}

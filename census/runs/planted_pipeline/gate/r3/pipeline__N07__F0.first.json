@@ -1,0 +1,72 @@
+{
+ "class_id": "pipeline:N07:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "statistical physics: nonequilibrium conserved-mass transport / stochastic lattice gas with multidirectional (chiral) hopping",
+ "standard_name": "Generic power-law (~1/r^(d+2)) density correlations in conserved-mass transport with multidirectional chiral hopping",
+ "confidence": "medium",
+ "citations": [
+  "Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - conserved-mass transport with multidirectional hopping (incl. chiral dynamics) gives generic ~1/r^(d+2) density correlations in d>1",
+  "Hazra, Mukherjee, Pradhan 2025, J. Stat. Mech. - mass transport with center-of-mass conservation, S(q)~q^2 hyperuniformity (related variant)",
+  "Garrido, Lebowitz, Maes, Spohn 1990, Phys. Rev. A 42, 1954 - long-range correlations generic for conservative dynamics without detailed balance",
+  "Cheng, Garrido, Lebowitz, Valles 1991, Europhys. Lett. 14, 507 - long-range correlations with conservative anisotropic dynamics"
+ ],
+ "searches": [
+  "conserved mass transport lattice chiral L-shaped moves turn left density correlations hyperuniform",
+  "conserved noise odd chiral mass transport model fluctuations anisotropic correlations stochastic lattice, continuous mass, random fraction transfer",
+  "conserved-mass transport multidirectional hopping power-law correlations chiral dynamics center-of-mass conserving arXiv",
+  "Hazra Pradhan chiral mass transport model counterclockwise turn power-law density correlations 1/r^{d+2} arXiv",
+  "Garrido Lebowitz Maes Spohn long-range correlations for conservative dynamics 1990 Physical Review A"
+ ],
+ "notes": "Full text of the PRE paper was not read; I did not confirm that its chiral model is identical to the two-step 'receive then turn left' rule here. If it differs in detail, treat this as KNOWN-VARIANT, since the mechanism and expected power law are the same. The 40%/60% retention and random-share parameters may change the prefactor and sign. The blob count and peak-k statistics are not standard literature quantities.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "conserved mass transport lattice chiral L-shaped moves turn left density correlations hyperuniform"
+  },
+  {
+   "query": "conserved noise odd chiral mass transport model fluctuations anisotropic correlations stochastic lattice, continuous mass, random fraction transfer"
+  },
+  {
+   "query": "conserved-mass transport multidirectional hopping power-law correlations chiral dynamics center-of-mass conserving arXiv"
+  },
+  {
+   "query": "Hazra Pradhan chiral mass transport model counterclockwise turn power-law density correlations 1/r^{d+2} arXiv"
+  },
+  {
+   "query": "Garrido Lebowitz Maes Spohn long-range correlations for conservative dynamics 1990 Physical Review A"
+  }
+ ],
+ "result_urls": [
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.osti.gov/pages/servlets/purl/1874044",
+  "https://www.nature.com/articles/s41377-025-02025-3",
+  "https://www.nature.com/articles/s41467-025-56283-1",
+  "https://par.nsf.gov/servlets/purl/10382421",
+  "https://statphys26.sciencesconf.org/conference/statphys26/pages/PosterBookOfAbstracts.pdf",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://www.icts.res.in/program/mftheory/title-and-abstract",
+  "https://pubmed.ncbi.nlm.nih.gov/41250458/",
+  "https://sites.google.com/iiserkol.ac.in/statphys-kol-xiii/program/talks",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://www.osti.gov/servlets/purl/2421727",
+  "https://dx.doi.org/10.1103/PhysRevLett.134.156301",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://journals.aps.org/pre/issues/112/4",
+  "https://iopscience.iop.org/article/10.1088/1742-5468/ada88c",
+  "https://www.pnas.org/doi/pdf/10.1073/pnas.2320256121",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033234",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013074",
+  "https://journals.aps.org/pre/abstract/10.1103/r6d8-bcd1",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.158002",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033234",
+  "https://cmsr.rutgers.edu/research-cmsr/publications-cmsr",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011039",
+  "https://www.pnas.org/doi/10.1073/pnas.1013209108",
+  "https://link.springer.com/article/10.1023/B:JOSS.0000022379.95508.b2",
+  "https://link.springer.com/article/10.1023/A:1023047703307"
+ ],
+ "full_text": "**Verdict: KNOWN.** The rule system looks like the \"chiral dynamics\" class of conserved-mass transport models. These models are reported to have generic power-law density correlations.\n\n**1. Model family.** This is statistical physics: a conserved-mass transport process, or mass-conserving stochastic lattice gas, on a periodic 2D lattice. Detailed balance is broken in the bulk. The L-shaped \"always turn left\" rule is a chiral version of multidirectional hopping.\n\n**2. The behaviour in the literature.**\n- **Closest source, and the one I'd cite as the main reference.** Hazra, Chakraborty, Mukherjee and Pradhan, \"Generic power laws in higher-dimensional lattice models with multidirectional hopping\", Phys. Rev. E 112(4), 044130 (Oct 2025).\n  - It shows that conserved-mass transport on a d-dimensional hypercubic lattice (d>1), with multidirectional hopping that respects the lattice symmetries, gives power-law correlations for generic parameter values.\n  - The steady-state density-density correlations typically decay as ~1/r^(d+2). The prefactor is set by the bulk-diffusion coefficient and the Onsager (mobility) matrix.\n  - A talk abstract for the same work lists two illustrated classes: centre-of-mass-conserving dynamics and chiral dynamics, both of which produce algebraically decaying correlations.\n- **Earlier related paper from the same group.** Hazra, Mukherjee and Pradhan, \"Hyperuniformity in mass transport processes with center-of-mass conservation: some exact results\", J. Stat. Mech. (2025). It treats the centre-of-mass-conserving case. It gives S(q) ~ q\u00b2, a class-I hyperuniformity.\n- **Foundational source, and the closest thing to a review.** Garrido, Lebowitz, Maes and Spohn, \"Long-range correlations for conservative dynamics\", Phys. Rev. A 42, 1954 (1990). I confirmed the citation from reference lists and Lebowitz's publication list. It appears there as Phys. Rev. A 42, 1954\u20131968, 1990. The principle is that conserved, non-detailed-balance dynamics generically produce long-range correlations. Cheng, Garrido, Lebowitz and Vall\u00e9s, Europhys. Lett. 14, 507 (1991), extended this to anisotropic conservative dynamics.\n\n**3. How this matches the simulation.**\n- The 2D result predicts a q-space structure factor with a non-analytic, direction-dependent form at small q. That fits \"long-wavelength fluctuations\" and \"density-density correlations\" as the measured quantities.\n- The positive Moran's I (0.10) is consistent with spatial correlation.\n- I could not read the full text of the PRE paper, so I did not check its exact chiral model against this one. The L-shaped, two-step move may be a specific instance of that model. The sign of the correlations (enhanced or suppressed fluctuations, anisotropy at small q) may depend on the parameters, such as the 40%/60% retention.\n- The simulation's other numbers (f_n_blobs, f_peak_k) are not standard quantities, and I found nothing specific to them.\n\n**4. Confidence: medium.**\n- It is high that the general mechanism (conserved mass, broken detailed balance, power-law correlations) is known.\n- It is medium that the chiral model is the same as this one. The evidence is a conference abstract and the PRE abstract, not the full paper.\n- A finite 64\u00d764 lattice shows only the finite-size version of the power laws.\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"statistical physics: nonequilibrium conserved-mass transport / stochastic lattice gas with multidirectional (chiral) hopping\", \"standard_name\": \"Generic power-law (~1/r^(d+2)) density correlations in conserved-mass transport with multidirectional chiral hopping\", \"confidence\": \"medium\", \"citations\": [\"Hazra, Chakraborty, Mukherjee, Pradhan 2025, Phys. Rev. E 112, 044130 - conserved-mass transport with multidirectional hopping (incl. chiral dynamics) gives generic ~1/r^(d+2) density correlations in d>1\", \"Hazra, Mukherjee, Pradhan 2025, J. Stat. Mech. - mass transport with center-of-mass conservation, S(q)~q^2 hyperuniformity (related variant)\", \"Garrido, Lebowitz, Maes, Spohn 1990, Phys. Rev. A 42, 1954 - long-range correlations generic for conservative dynamics without detailed balance\", \"Cheng, Garrido, Lebowitz, Valles 1991, Europhys. Lett. 14, 507 - long-range correlations with conservative anisotropic dynamics\"], \"searches\": [\"conserved mass transport lattice chiral L-shaped moves turn left density correlations hyperuniform\", \"conserved noise odd chiral mass transport model fluctuations anisotropic correlations stochastic lattice, continuous mass, random fraction transfer\", \"conserved-mass transport multidirectional hopping power-law correlations chiral dynamics center-of-mass conserving arXiv\", \"Hazra Pradhan chiral mass transport model counterclockwise turn power-law density correlations 1/r^{d+2} arXiv\", \"Garrido Lebowitz Maes Spohn long-range correlations for conservative dynamics 1990 Physical Review A\"], \"notes\": \"Full text of the PRE paper was not read; I did not confirm that its chiral model is identical to the two-step 'receive then turn left' rule here. If it differs in detail, treat this as KNOWN-VARIANT, since the mechanism and expected power law are the same. The 40%/60% retention and random-share parameters may change the prefactor and sign. The blob count and peak-k statistics are not standard literature quantities.\"}\n```",
+ "checked": "2026-11-04 11:31:03"
+}

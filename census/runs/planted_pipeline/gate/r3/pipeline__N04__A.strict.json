@@ -1,0 +1,65 @@
+{
+ "class_id": "pipeline:N04:A",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Odd (transverse-force / chiral) Brownian solid-fluid: motile-dislocation self-kneading odd crystal / melted chiral fluid",
+ "citations": [
+  "Braverman, Scheibner, VanSaders, Vitelli, Topological Defects in Solids with Odd Elasticity, PRL 127, 268001 (2021)",
+  "Bililign et al., Motile dislocations knead odd crystals into whorls, Nat. Phys. 18, 212-218 (2022)",
+  "Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (doi 10.1073/pnas.2412993122)",
+  "Bubble phase induced by odd interactions in chiral systems, J. Chem. Phys. 162, 161101 (2025)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Downgraded from KNOWN-VARIANT to KNOWN: weak ellipticity (aspect ratio ~1.18) is a change in the rules, not the behaviour. Orientation order is at noise level (polar 0.04 < 1/sqrt(400) = 0.05), so anisotropy is effectively inert. The nearest-neighbour ratio ~1.98 means evenly spaced, near-crystalline packing, not clustering. The density variation of 0.43 is most likely small-N counting noise; overdamped dynamics rules out the inertia-driven bubble phase. The six-fold bond order and defect counts were not reported, so whorl-polycrystal vs molten chiral fluid cannot be told apart; the first pass's 'rotating hexatic patches' is unsupported but either state is documented. Only abstracts and snippets were read.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "Braverman Scheibner VanSaders Vitelli topological defects solids odd elasticity transverse pair force"
+  },
+  {
+   "query": "Bililign motile dislocations knead odd crystals into whorls"
+  },
+  {
+   "query": "transverse interparticle forces two-dimensional melting hexatic odd crystal Brownian simulation void phase"
+  },
+  {
+   "query": "odd elasticity transverse forces Brownian particles emergence of void phase"
+  }
+ ],
+ "result_urls": [
+  "https://researchdiscovery.drexel.edu/esploro/outputs/journalArticle/Topological-Defects-in-Solids-with-Odd/991021877483704721",
+  "https://muckrack.com/lara-braverman",
+  "https://link.aps.org/accepted/10.1103/PhysRevLett.127.268001",
+  "https://journals.aps.org/prl/issues/127/26",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033100",
+  "https://par.nsf.gov/search/author:%22Scheibner,%20Colin%22",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.109.044126",
+  "https://researchdiscovery.drexel.edu/esploro/profile/bryan_vansaders/output/all?institution=01DRXU_INST",
+  "https://scholar.google.com/citations?user=dfOW1kQAAAAJ&hl=en",
+  "https://infoscience.epfl.ch/entities/publication/0689cd29-df19-4984-8336-87c9d4ec58ff",
+  "https://bird.bcamath.org/handle/20.500.11824/1407?show=full&locale-attribute=en",
+  "https://www.nature.com/articles/s41567-021-01429-3",
+  "https://www.nature.com/articles/s41586-025-08646-3",
+  "https://www.ens-lyon.fr/en/article/research/motile-dislocations-knead-odd-crystals-whorls",
+  "https://www.pnas.org/doi/abs/10.1073/pnas.2412993122?af=R",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.033100",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9705321/",
+  "https://osti.gov/scitech/servlets/purl/6411081",
+  "https://iopscience.iop.org/article/10.1088/1367-2630/add366",
+  "https://irvinelab.uchicago.edu/papers/1902.07760.pdf",
+  "https://www.nature.com/articles/s41467-026-68510-4",
+  "https://www.nso-journal.org/articles/nso/full_html/2024/04/NSO20230086/NSO20230086.html",
+  "https://www.annualreviews.org/content/journals/10.1146/annurev-conmatphys-040821-125506",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9352703/",
+  "https://pubs.aip.org/aip/jcp/article/162/16/161101/3344858/Bubble-phase-induced-by-odd-interactions-in-chiral",
+  "https://www.pnas.org/doi/10.1073/pnas.2411956121"
+ ],
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass from \"variant\" to \"known\". The family it picked is right, but the slight ellipticity isn't a real twist in the behaviour. Also, the data you reported can't support its specific \"rotating hexatic patches / whorl\" label.\n\n**1. Which known system this is.** Overdamped particles with a central repulsion plus a pair force perpendicular to the line between them, always turning the same way, are the standard microscopic model of odd elasticity.\n- Braverman, Scheibner, VanSaders & Vitelli (PRL 127, 268001, 2021) start from the point that crystallography typically studies particles whose forces are the gradient of a potential, and dropping that assumption gives a continuum elasticity with extra \"odd\" moduli. They report that topological defects behave differently and isolated dislocations can self-propel.\n- In the matching experiment and minimal model (Bililign et al., Nat. Phys. 18, 212, 2022), transverse forces organize colloidal spinners into odd elastic crystals crisscrossed by motile dislocations. These defects form a polycrystal whose grain size and rotation rate can be tuned, and simulations establish that this crystal-whorl state is generic.\n- The melting side is also covered: topological defects and nonreciprocal interactions should invariably conspire to deform and ultimately destroy crystals.\n\nSo both possible outcomes, a defective whorl crystal or a molten chiral fluid, are documented. Your strong transverse force (33 times the potential strength) at high temperature falls inside that phase space.\n\n**2. The density non-uniformity is not a new effect.** The one documented clustering mechanism, a bubble phase, needs inertia. The authors state that overdamped odd-interacting particles cannot sustain persistent rotation and generate the centrifugal forces required to stabilize the bubbles. Your system is overdamped, and the nearest-neighbour ratio of about 1.98 means the particles are evenly spread, not clumped (a perfect hexagonal lattice gives about 2.15, a random scatter 1.0). A density variation of 0.43 is most likely just counting noise from 400 particles split into small bins, not real clustering. I'd treat it as a measurement effect unless a larger system shows otherwise.\n\n**3. The ellipticity doesn't add anything.**\n- The aspect ratio is only about 1.18.\n- The transverse force doesn't depend on orientation.\n- Polar order (0.04) is below the pure-noise level of 1/\u221a400 = 0.05, and local alignment (\u22120.036) is essentially zero. So the orientations are random and don't feed into the behaviour.\n- I found no paper on elliptical particles with transverse forces, but that is a gap in the rule combination, not in the behaviour.\n\n**4. Genuine pattern or artifact?** Not an artifact: the particles move (step size 0.16), the evenly spaced packing is physical, and nothing looks frozen or numerically blown up. But the reported numbers are weak. The six-fold bond order and defect counts you said you measured are missing from the output. Without them, you can't tell a whorl polycrystal from a dense chiral liquid, and the first pass's \"rotating hexatic patches\" claim goes beyond the data.\n\n**Limits of this check:** I only read abstracts and snippets, not full texts. I didn't confirm whether Braverman et al. used exactly a Lennard-Jones-shaped transverse force. Besides those two papers, I looked for literature on melting and void phases under transverse forces.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Odd (transverse-force / chiral) Brownian solid-fluid: motile-dislocation self-kneading odd crystal / melted chiral fluid\", \"citations\": [\"Braverman, Scheibner, VanSaders, Vitelli, Topological Defects in Solids with Odd Elasticity, PRL 127, 268001 (2021)\", \"Bililign et al., Motile dislocations knead odd crystals into whorls, Nat. Phys. 18, 212-218 (2022)\", \"Melting of nonreciprocal solids: How dislocations propel and fission in flowing crystals, PNAS (doi 10.1073/pnas.2412993122)\", \"Bubble phase induced by odd interactions in chiral systems, J. Chem. Phys. 162, 161101 (2025)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Downgraded from KNOWN-VARIANT to KNOWN: weak ellipticity (aspect ratio ~1.18) is a change in the rules, not the behaviour. Orientation order is at noise level (polar 0.04 < 1/sqrt(400) = 0.05), so anisotropy is effectively inert. The nearest-neighbour ratio ~1.98 means evenly spaced, near-crystalline packing, not clustering. The density variation of 0.43 is most likely small-N counting noise; overdamped dynamics rules out the inertia-driven bubble phase. The six-fold bond order and defect counts were not reported, so whorl-polycrystal vs molten chiral fluid cannot be told apart; the first pass's 'rotating hexatic patches' is unsupported but either state is documented. Only abstracts and snippets were read.\"}\n```",
+ "checked": "2026-11-04 11:30:30"
+}

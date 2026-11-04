@@ -1,0 +1,81 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion (Turing) with nonlinear cross-diffusion / taxis; Sel'kov-Strogatz glycolysis kinetics",
+ "standard_name": "cross-diffusion-induced Turing pattern formation (non-reciprocal taxis coupling) in the Sel'kov-Strogatz/Schnakenberg-type model",
+ "confidence": "medium",
+ "citations": [
+  "Vanag & Epstein 2009, Phys. Chem. Chem. Phys. 11, 897 - Perspective showing cross-diffusion can produce spatial and spatiotemporal patterns",
+  "Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. - cross-diffusion-driven instability: analysis and simulations, relaxes the need for a large diffusion ratio",
+  "Bashkirtseva, Pankratov & Ryashko 2023, Physica D 455 - Sel'kov-Strogatz model with plain diffusion, stationary Turing-type patterns (same kinetics, no cross-diffusion)",
+  "Fractional-order Sel'kov-Schnakenberg model with cross-diffusion, 2025 - Turing threshold vs cross-diffusion coefficient",
+  "Physical interactions in non-ideal fluids promote Turing patterns 2023, J. R. Soc. Interface - activator-inhibitor repulsion lowers the Turing requirements"
+ ],
+ "searches": [
+  "Sel'kov model cross-diffusion Turing patterns nonreciprocal cross-diffusion div(u grad v)",
+  "Turing pattern cross-diffusion opposite signs chemotaxis-like pursuit evasion reaction-diffusion glycolysis Sel'kov",
+  "Sel'kov glycolysis model cross-diffusion term pattern formation simulation stripes spots chemotactic cross-diffusion coefficients opposite sign",
+  "Turing patterns with nonlinear cross-diffusion Sel'kov activator attracted inhibitor repelled non-reciprocal",
+  "Bashkirtseva Ryashko Sel'kov-Strogatz cross-diffusion pattern formation",
+  "Vanag Epstein cross-diffusion and pattern formation in reaction-diffusion systems",
+  "Sel'kov-Strogatz model cross-diffusion Turing patterns chemotactic flux stationary patterns"
+ ],
+ "notes": "No paper found with this exact combination (Sel'kov-Strogatz kinetics plus antisymmetric div(u grad v) cross terms, D2/D1=1000, c=0.17). Not checked: whether the pattern is stationary or oscillatory/travelling, and non-reciprocal conserved-field literature (e.g. Brauns & Marchetti), cited from memory only and not verified. Mostly abstracts were read, not full texts.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 7,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns nonreciprocal cross-diffusion div(u grad v)"
+  },
+  {
+   "query": "Turing pattern cross-diffusion opposite signs chemotaxis-like pursuit evasion reaction-diffusion glycolysis Sel'kov"
+  },
+  {
+   "query": "Sel'kov glycolysis model cross-diffusion term pattern formation simulation stripes spots chemotactic cross-diffusion coefficients opposite sign"
+  },
+  {
+   "query": "Turing patterns with nonlinear cross-diffusion \"Sel'kov\" activator attracted inhibitor repelled non-reciprocal"
+  },
+  {
+   "query": "Bashkirtseva Ryashko Sel'kov\u2013Strogatz cross-diffusion pattern formation"
+  },
+  {
+   "query": "Vanag Epstein cross-diffusion and pattern formation in reaction-diffusion systems"
+  },
+  {
+   "query": "Sel'kov\u2013Strogatz model cross-diffusion Turing patterns chemotactic flux \u2207\u00b7(u\u2207v) stationary patterns"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12426155/",
+  "https://link.springer.com/article/10.1007/s10440-024-00666-x",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://people.maths.ox.ac.uk/maini/PKM%20publications/462.pdf",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737",
+  "https://www.nature.com/articles/s42005-020-00427-w",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1468121812001459",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10336379/",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://link.springer.com/article/10.1140/epjb/e2016-70674-4",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077923003740",
+  "https://link.springer.com/article/10.1140/epjb/e2019-100291-4",
+  "https://wp.kntu.ac.ir/mojra/cross%20deiffusion%20and%20pattern%20formation%20in%20reaction-diffusion%20systems.pdf",
+  "https://www.nature.com/articles/s42005-020-00427-w",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "https://pubmed.ncbi.nlm.nih.gov/19177206/",
+  "https://pubs.rsc.org/en/content/articlelanding/2009/cp/b813825g",
+  "https://ijdb.ehu.eus/article/072484vv",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570422002283",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/abs/pii/S016727891200173X",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475411002692"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The mechanism is well known. I did not find a paper that simulates this exact Sel'kov\u2013Strogatz setup with opposite-sign nonlinear cross-diffusion at these parameters.\n\n**1. Model family.** This is a reaction\u2013diffusion system with nonlinear cross-diffusion, a chemotaxis-like flux.\n- The kinetics are the Sel'kov\u2013Strogatz glycolysis model. It is closely related to Schnakenberg and Gray\u2013Scott kinetics.\n- The Gray\u2013Scott system, introduced in 1983, can be seen as a reaction\u2013diffusion generalization of a special case of the 1968 Sel'kov glycolysis model.\n- With D2 = 1000\u00b7D1, this is a classical Turing setup (fast inhibitor, slow activator). The cross terms c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u) add taxis-type fluxes.\n- Opposite signs (c1 = c, c2 = \u2212c) make the coupling non-reciprocal. One species chases and the other flees.\n\n**2. What the literature shows.**\n- **Spatially extended Sel'kov\u2013Strogatz model.** Bashkirtseva, Pankratov and Ryashko studied it in Physica D 455 (2023), \"Quantitative analysis of pattern formation in a multistable model of glycolysis with diffusion\". Their equations are u_t = \u2212u + av + u\u00b2v + Du u_xx and v_t = b \u2212 av \u2212 u\u00b2v + Dv v_xx. These are the same kinetics as your system, with plain diffusion only. They report that diffusion suppresses homogeneous self-oscillations and produces stationary non-homogeneous patterns.\n- **Earliest clear source for cross-diffusion producing patterns.** Vanag and Epstein, \"Cross-diffusion and pattern formation in reaction\u2013diffusion systems\", Phys. Chem. Chem. Phys. 11, 897 (2009), a Perspective. They show with model calculations that cross-diffusion can lead to spatial and spatiotemporal patterns, even in relatively simple systems. This works as both the earliest source and the review.\n- **Cross-diffusion in general.** Madzvamuse and co-authors, in J. Math. Biol. (2015), \"Cross-diffusion-driven instability for reaction-diffusion systems: analysis and simulations\". Their main result is that cross-diffusion removes the need for one species to diffuse much faster than the other. The parameter spaces without cross-diffusion are sub-spaces of the cross-diffusion induced ones.\n- **Cross-diffusion on Sel'kov\u2013Schnakenberg kinetics.**\n  - A 2025 paper on a fractional-order Sel'kov\u2013Schnakenberg model (Journal of the Franklin Institute, as I infer from the ScienceDirect URL; the search result doesn't name the journal) treats the cross-diffusion coefficient as the bifurcation parameter. It derives a Turing threshold as a function of that coefficient.\n  - A Turing\u2013Hopf paper on a general Selkov\u2013Schnakenberg system (Chaos, Solitons & Fractals, as I infer from the URL) cites work by Yi et al. on the effect of time delay or cross-diffusion in the Schnakenberg model.\n- **Opposite-sign (attraction/repulsion) coupling.**\n  - A Royal Society Interface (2023) paper, \"Physical interactions in non-ideal fluids promote Turing patterns\", finds that weak repulsion between activator and inhibitor can substantially lower the required differential diffusivity and reaction nonlinearity.\n  - A Communications Physics enzyme paper shows cross-diffusion fluxes that push one species away from another's high concentration.\n\n**3. What differs, and whether it matters.**\n- I found no source that combines (a) the Sel'kov\u2013Strogatz kinetics, (b) a taxis-type flux of the form div(u\u2207v), with c1 = \u2212c2 antisymmetric (non-reciprocal) coupling, and (c) a 64\u00d764 periodic grid with D2/D1 = 1000.\n- That fits KNOWN-VARIANT, since the individual ingredients are each documented.\n- I think it probably doesn't change the physics.\n  - A 1000-fold diffusion ratio already gives a Turing-unstable system, so cross-diffusion mostly shifts thresholds and pattern selection.\n  - The observed features are a large spread (f_std \u2248 13), high spatial autocorrelation (Moran's I \u2248 0.97) and sharp spectral peaks. These match stationary Turing spots or stripes with a dominant wavenumber.\n  - Non-reciprocal coupling can, in principle, add oscillatory or travelling-wave instabilities. I did not check whether that happens here, so I can't say whether the pattern is stationary.\n- I did not check Brauns and Marchetti's work on non-reciprocal pattern formation of conserved fields, or other non-reciprocal Cahn\u2013Hilliard or active-matter literature. It could describe the chase-and-flee dynamics more directly, but only by name from memory, not verified.\n\n**4. Confidence: medium.** The general phenomenon is solidly documented, and I verified the Vanag\u2013Epstein and Madzvamuse citations against the search results. The \"no exact match\" part rests on only a handful of searches, mostly returning abstracts. I could not read full texts to confirm there is no exact-parameter match.\n\n**Searches run:**\n- Sel'kov cross-diffusion Turing patterns, non-reciprocal.\n- Opposite-sign cross-diffusion in a Sel'kov glycolysis model.\n- Sel'kov\u2013Strogatz cross-diffusion (Bashkirtseva and Ryashko).\n- Vanag\u2013Epstein cross-diffusion review.\n- Sel'kov\u2013Strogatz with a chemotactic-flux form.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion (Turing) with nonlinear cross-diffusion / taxis; Sel'kov-Strogatz glycolysis kinetics\", \"standard_name\": \"cross-diffusion-induced Turing pattern formation (non-reciprocal taxis coupling) in the Sel'kov-Strogatz/Schnakenberg-type model\", \"confidence\": \"medium\", \"citations\": [\"Vanag & Epstein 2009, Phys. Chem. Chem. Phys. 11, 897 - Perspective showing cross-diffusion can produce spatial and spatiotemporal patterns\", \"Madzvamuse, Ndakwo & Barreira 2015, J. Math. Biol. - cross-diffusion-driven instability: analysis and simulations, relaxes the need for a large diffusion ratio\", \"Bashkirtseva, Pankratov & Ryashko 2023, Physica D 455 - Sel'kov-Strogatz model with plain diffusion, stationary Turing-type patterns (same kinetics, no cross-diffusion)\", \"Fractional-order Sel'kov-Schnakenberg model with cross-diffusion, 2025 - Turing threshold vs cross-diffusion coefficient\", \"Physical interactions in non-ideal fluids promote Turing patterns 2023, J. R. Soc. Interface - activator-inhibitor repulsion lowers the Turing requirements\"], \"searches\": [\"Sel'kov model cross-diffusion Turing patterns nonreciprocal cross-diffusion div(u grad v)\", \"Turing pattern cross-diffusion opposite signs chemotaxis-like pursuit evasion reaction-diffusion glycolysis Sel'kov\", \"Sel'kov glycolysis model cross-diffusion term pattern formation simulation stripes spots chemotactic cross-diffusion coefficients opposite sign\", \"Turing patterns with nonlinear cross-diffusion Sel'kov activator attracted inhibitor repelled non-reciprocal\", \"Bashkirtseva Ryashko Sel'kov-Strogatz cross-diffusion pattern formation\", \"Vanag Epstein cross-diffusion and pattern formation in reaction-diffusion systems\", \"Sel'kov-Strogatz model cross-diffusion Turing patterns chemotactic flux stationary patterns\"], \"notes\": \"No paper found with this exact combination (Sel'kov-Strogatz kinetics plus antisymmetric div(u grad v) cross terms, D2/D1=1000, c=0.17). Not checked: whether the pattern is stationary or oscillatory/travelling, and non-reciprocal conserved-field literature (e.g. Brauns & Marchetti), cited from memory only and not verified. Mostly abstracts were read, not full texts.\"}\n```",
+ "checked": "2026-11-04 11:26:21"
+}

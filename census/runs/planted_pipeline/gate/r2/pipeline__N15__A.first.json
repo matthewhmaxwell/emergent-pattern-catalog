@@ -1,0 +1,54 @@
+{
+ "class_id": "pipeline:N15:A",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN",
+ "model_family": "active matter: self-propelled particles with non-reciprocal vision-cone, position-based (bearing-only) steering, no velocity alignment",
+ "standard_name": "Minimal cognitive flocking model (vision-cone position-based attraction); aggregation without alignment",
+ "confidence": "medium",
+ "citations": [
+  "Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - vision-cone position-based attraction without alignment yields large-scale patterns incl. aggregates and nematic patterns",
+  "Phys. Rev. Research 6, 013118 (2024), 'Collective behavior of self-steering active particles with velocity alignment and visual perception' - related vision-cone steering model with added polar alignment; large vision angles give close-packed aggregates",
+  "Barberis & Peruani 2024, Phys. Rev. X 14, 031008 'Flocking by Turning Away' - related variant with turning away rather than toward neighbours"
+ ],
+ "searches": [
+  "Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates",
+  "vision cone non-reciprocal attraction self-propelled particles bearing-only turn toward visible neighbors clustering no alignment",
+  "Barberis Peruani 2016 Phys. Rev. Lett. 117, 248001 abstract minimal cognitive flocking model vision cone"
+ ],
+ "notes": "Only the abstract of the 2016 paper was checked, not the full text. Your system differs in having no excluded volume or collisions, a long interaction range (R=5), sin-bearing turning with rotational noise and a narrow cone (pi/8); these are probably parameter variants within the same class. The Peruani 'Hydrodynamic equations for flocking models without alignment' paper was seen only in a publication list and was not verified. The 'Science 2019?' date for Zhang et al. is from memory, not from the search results.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates"
+  },
+  {
+   "query": "vision cone non-reciprocal attraction self-propelled particles bearing-only turn toward visible neighbors clustering no alignment"
+  },
+  {
+   "query": "Barberis Peruani 2016 Phys. Rev. Lett. 117, 248001 abstract \"minimal cognitive flocking model\" vision cone"
+  }
+ ],
+ "result_urls": [
+  "https://link.aps.org/doi/10.1103/PhysRevX.14.031008",
+  "https://www.sciencedirect.com/science/article/pii/S2405896322029858",
+  "https://www.nature.com/articles/s42005-025-02466-7",
+  "https://www.science.org/doi/abs/10.1126/sciadv.aay0792",
+  "https://perso.u-cergy.fr/~pmperuani/publications.html",
+  "https://www.nature.com/articles/s42005-025-02131-z",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1007697",
+  "https://www.sciencedirect.com/science/article/pii/S295063602500283X",
+  "https://www.nature.com/articles/s42005-025-02131-z.pdf",
+  "https://www.science.org/doi/10.1126/science.aau5347",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://link.aps.org/doi/10.1103/PhysRevLett.117.248001",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023234",
+  "https://ouci.dntb.gov.ua/en/works/lo8PYDj9/",
+  "https://doi.org/10.1103/PhysRevX.14.031008",
+  "https://doi.org/10.1103/PhysRevResearch.6.013118",
+  "https://link.springer.com/chapter/10.1007/978-3-031-71533-4_12",
+  "https://www.nature.com/articles/s42005-025-02466-7"
+ ],
+ "full_text": "**Verdict: KNOWN.** The behaviour is clustering into dense aggregates with almost no polar order. It appears in a vision-cone, position-based, non-reciprocal model with no velocity alignment.\n\n**1. Model family.** This is active matter, specifically self-propelled particles with non-reciprocal, vision-cone, bearing-only steering. It is a \"flocking without alignment\" or minimal cognitive flocking model. Each particle turns toward the positions of the neighbours it sees, in the way the Barberis\u2013Peruani model does.\n\n**2. The specific behaviour.** The earliest clear source is Barberis & Peruani, PRL 117, 248001 (2016). Its abstract, as returned by the search, describes active particles, with no memory, that interact by a short-ranged, position-based, attractive force, which acts inside a vision cone (VC), and lack velocity-velocity alignment. It adds that due to the VC that breaks Newton's third law the system shows various complex, large-scale, self-organized patterns. The title names these patterns as incidental leaders, nematic patterns and aggregates. Your simulation shows strong clumping (nn_ratio 0.437, density CV 2.1) and weak polar order (0.071). That matches the aggregate regime, and it is consistent with the paper's finding that these systems do not become polar flocks.\n\nThe closest relatives found:\n- **Review-level and follow-up context.** Barberis & Peruani's 2016 paper is cited as the origin of the vision-cone, position-based class in later work. One example is Phys. Rev. Research 6, 013118 (2024), \"Collective behavior of self-steering active particles with velocity alignment and visual perception\". It reports that for large vision angles... the iABPs form large close-packed aggregates. That model adds polar alignment, so it is a relative rather than an exact match.\n- **Related vision-cone work.**\n  - Zhang et al., Science (2019?), \"Group formation and cohesion of active particles with visual perception\u2013dependent motility\". It uses a motility change rather than steering.\n  - The non-reciprocal vision-cone XY lattice-gas model, which uses alignment.\n  - Barberis & Peruani's \"Flocking by Turning Away\", PRX 14, 031008 (2024). Here particles turn away from neighbours rather than toward them.\n- **Hydrodynamics.** Peruani's \"Hydrodynamic equations for flocking models without alignment\" appears in his publication list. I did not open it and have not checked its venue or year.\n\n**3. Differences from your system.** I did not find a review that covers this class, and I did not read the full text of the 2016 paper. As I recall it, the 2016 model has short-range attraction with particle size or excluded volume, and a different turning-law normalisation. Your system has no collisions and uses a long range (R = 5, one quarter of the box). It also uses sin-of-bearing turning with rotational noise and a small half-angle (\u03c0/8). These are parameter and detail differences within the same position-based, non-reciprocal class. I don't expect them to change the qualitative result of aggregation without polar order. I haven't checked whether your specific numbers, such as the exact CV, fall in the paper's aggregate regime.\n\n**4. Confidence: medium.** I verified the title, authors, year and venue of the 2016 paper against its APS page. Its abstract matches the rule structure. I did not read the full text to confirm the exact turning law or the aggregate phase boundaries.\n\n**Searches run:**\n- Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates\n- vision cone non-reciprocal attraction self-propelled particles bearing-only turn toward visible neighbors clustering no alignment\n- Barberis Peruani 2016 Phys. Rev. Lett. 117, 248001 abstract \"minimal cognitive flocking model\" vision cone\n\n```json\n{\"verdict\": \"KNOWN\", \"model_family\": \"active matter: self-propelled particles with non-reciprocal vision-cone, position-based (bearing-only) steering, no velocity alignment\", \"standard_name\": \"Minimal cognitive flocking model (vision-cone position-based attraction); aggregation without alignment\", \"confidence\": \"medium\", \"citations\": [\"Barberis & Peruani 2016, Phys. Rev. Lett. 117, 248001 - vision-cone position-based attraction without alignment yields large-scale patterns incl. aggregates and nematic patterns\", \"Phys. Rev. Research 6, 013118 (2024), 'Collective behavior of self-steering active particles with velocity alignment and visual perception' - related vision-cone steering model with added polar alignment; large vision angles give close-packed aggregates\", \"Barberis & Peruani 2024, Phys. Rev. X 14, 031008 'Flocking by Turning Away' - related variant with turning away rather than toward neighbours\"], \"searches\": [\"Barberis Peruani minimal cognitive flocking model incidental leaders nematic patterns aggregates\", \"vision cone non-reciprocal attraction self-propelled particles bearing-only turn toward visible neighbors clustering no alignment\", \"Barberis Peruani 2016 Phys. Rev. Lett. 117, 248001 abstract minimal cognitive flocking model vision cone\"], \"notes\": \"Only the abstract of the 2016 paper was checked, not the full text. Your system differs in having no excluded volume or collisions, a long interaction range (R=5), sin-bearing turning with rotational noise and a narrow cone (pi/8); these are probably parameter variants within the same class. The Peruani 'Hydrodynamic equations for flocking models without alignment' paper was seen only in a publication list and was not verified. The 'Science 2019?' date for Zhang et al. is from memory, not from the search results.\"}\n```",
+ "checked": "2026-11-04 11:35:03"
+}
