@@ -95,3 +95,5 @@ census/runs/planted_pipeline/superseded/ and is not scored; r1-r3 were relaunche
   the paper's cluster updates at several temperatures versus system size; N17 drops "and watch the dense travelling
   stripes that form" (a description of the paper's long runs, not of the 1,000-step census run) and states the census
   start (random headings along the four lattice directions).
+- Erratum (2026-11-04): the compute-cap note above gives N04 as 0.2 time units per census step; the frozen module
+  (census/planted_models/n04.py, STEP and HEADLINE) uses 0.03 time units (3,000 steps of dt = 1e-5), which is what ran.
