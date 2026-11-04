@@ -1,0 +1,41 @@
+{
+ "class_id": "pipeline:N15:A",
+ "card": "N15",
+ "view": "A",
+ "stage": "planted-pipeline",
+ "family": "agents",
+ "size": 1,
+ "program_plain": "World: 400 point particles in a 20x20 periodic box (density 1), with no collisions. Rules: (1) each moves forward at constant speed 0.1 along its heading (small inertia); (2) it sees only particles within distance R = 5 inside a vision cone of half-angle pi/8 around its heading; (3) it turns toward the positions of the visible particles, turning rate 3 times the average sine of the angle between its heading and the bearing to each (no copying of their headings); (4) its heading gets rotational noise of strength 0.08. Seeing is one-sided: being seen does not imply seeing back. Run 200,000 steps of size 0.005.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "a_density_cv",
+   "value": 2.134
+  },
+  {
+   "feature": "a_step",
+   "value": 1.855
+  },
+  {
+   "feature": "a_nn_ratio",
+   "value": 0.437
+  },
+  {
+   "feature": "a_polar",
+   "value": 0.071
+  },
+  {
+   "feature": "a_polar_std",
+   "value": 0.034
+  },
+  {
+   "feature": "a_ang_mom",
+   "value": 0.028
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "a_density_cv=2.134, a_step=1.855, a_nn_ratio=0.437, a_polar=0.071, a_polar_std=0.034, a_ang_mom=0.028",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: 400 point particles in a 20x20 periodic box (density 1), with no collisions. Rules: (1) each moves forward at constant speed 0.1 along its heading (small inertia); (2) it sees only particles within distance R = 5 inside a vision cone of half-angle pi/8 around its heading; (3) it turns toward the positions of the visible particles, turning rate 3 times the average sine of the angle between its heading and the bearing to each (no copying of their headings); (4) its heading gets rotational noise of strength 0.08. Seeing is one-sided: being seen does not imply seeing back. Run 200,000 steps of size 0.005.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - a_density_cv = 2.134  ()\n  - a_step = 1.855  ()\n  - a_nn_ratio = 0.437  (clumping (below 1 = clustered))\n  - a_polar = 0.071  (agents align direction (polar order))\n  - a_polar_std = 0.034  ()\n  - a_ang_mom = 0.028  ()\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": []
+}

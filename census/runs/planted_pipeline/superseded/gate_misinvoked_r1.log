@@ -1,0 +1,4 @@
+[None] pipeline:N02:F0 (litcheck)
+  ../planted_pipeline/gate/None/pipeline__N02__F0.first.json -> KNOWN-VARIANT (8 searches, 38s)
+  ../planted_pipeline/gate/None/pipeline__N02__F0.strict.json -> KNOWN (4 searches, 51s)
+[None] pipeline:N02:F1 (litcheck)

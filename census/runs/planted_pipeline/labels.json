@@ -1,0 +1,240 @@
+[
+ {
+  "card": "N01",
+  "view": "N.phase",
+  "family": "network-phase",
+  "status": "NAMED",
+  "behaviour": "network synchronization",
+  "also": [],
+  "shown": [
+   "network synchronization"
+  ],
+  "fp": {
+   "p_freq_spread": 0.0,
+   "p_r": 1.0,
+   "p_r_std": 0.0
+  }
+ },
+ {
+  "card": "N02",
+  "view": "F0",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 0.04024,
+   "f_mean": 10.0,
+   "f_moran": 0.9667899999999999,
+   "f_n_blobs": 2.614356666666667,
+   "f_peak_k": 0.04688,
+   "f_peak_sharp": 0.7676866666666666,
+   "f_std": 13.028853333333336
+  }
+ },
+ {
+  "card": "N02",
+  "view": "F1",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 8.666666666666668e-05,
+   "f_mean": 0.08016,
+   "f_moran": 0.9748733333333334,
+   "f_n_blobs": 2.53397,
+   "f_peak_k": 0.04688,
+   "f_peak_sharp": 0.9529366666666667,
+   "f_std": 0.023633333333333336
+  }
+ },
+ {
+  "card": "N03",
+  "view": "A",
+  "family": "agents",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "a_ang_mom": 0.018443333333333336,
+   "a_density_cv": 3.662053333333333,
+   "a_local_align": 0.0,
+   "a_nn_ratio": 0.48155666666666663,
+   "a_polar": 0.01909,
+   "a_polar_std": 0.006716666666666667,
+   "a_step": 5.053936666666666
+  }
+ },
+ {
+  "card": "N04",
+  "view": "A",
+  "family": "agents",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "a_ang_mom": 0.015836666666666666,
+   "a_density_cv": 0.43259333333333333,
+   "a_local_align": -0.03552333333333333,
+   "a_nn_ratio": 1.9749433333333333,
+   "a_polar": 0.03956666666666667,
+   "a_polar_std": 0.020956666666666665,
+   "a_step": 0.16133
+  }
+ },
+ {
+  "card": "N07",
+  "view": "F0",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 0.6615866666666667,
+   "f_mean": 1.0,
+   "f_moran": 0.10171999999999999,
+   "f_n_blobs": 5.9197500000000005,
+   "f_peak_k": 0.41666333333333333,
+   "f_peak_sharp": 0.05997666666666666,
+   "f_std": 0.6434466666666666
+  }
+ },
+ {
+  "card": "N11",
+  "view": "F0",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 12.077836666666665,
+   "f_mean": 39.74975333333333,
+   "f_moran": 0.56372,
+   "f_n_blobs": 5.305063333333333,
+   "f_peak_k": 0.09375,
+   "f_peak_sharp": 0.42683,
+   "f_std": 14.747826666666667
+  }
+ },
+ {
+  "card": "N12",
+  "view": "C.phase",
+  "family": "lattice-phase",
+  "status": "KNOWN-BEHAVIOUR-ATYPICAL-LOOK",
+  "behaviour": null,
+  "also": [
+   "lattice phase locking"
+  ],
+  "shown": [
+   "lattice phase locking"
+  ],
+  "fp": {
+   "p_freq_spread": 0.07197,
+   "p_local_r": 0.8550366666666666,
+   "p_r": 0.7271466666666666,
+   "p_r_std": 0.015966666666666667,
+   "p_vortex_density": 0.00586
+  }
+ },
+ {
+  "card": "N15",
+  "view": "A",
+  "family": "agents",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "a_ang_mom": 0.028223333333333336,
+   "a_density_cv": 2.1344333333333334,
+   "a_local_align": 0.0050999999999999995,
+   "a_nn_ratio": 0.4365666666666667,
+   "a_polar": 0.07133,
+   "a_polar_std": 0.033556666666666665,
+   "a_step": 1.8554366666666666
+  }
+ },
+ {
+  "card": "N17",
+  "view": "A",
+  "family": "agents",
+  "status": "KNOWN-BEHAVIOUR-ATYPICAL-LOOK",
+  "behaviour": null,
+  "also": [
+   "flocking"
+  ],
+  "shown": [
+   "flocking"
+  ],
+  "fp": {
+   "a_ang_mom": 0.04815333333333333,
+   "a_density_cv": 1.2207400000000002,
+   "a_local_align": 0.46258333333333335,
+   "a_nn_ratio": 0.8554166666666667,
+   "a_polar": 0.6441233333333334,
+   "a_polar_std": 0.04326,
+   "a_step": 7.486946666666667
+  }
+ },
+ {
+  "card": "N19",
+  "view": "F0",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 0.34319999999999995,
+   "f_mean": 0.9999799999999999,
+   "f_moran": 0.97668,
+   "f_n_blobs": 1.2903966666666669,
+   "f_peak_k": 0.03125,
+   "f_peak_sharp": 0.37263333333333337,
+   "f_std": 2.336066666666667
+  }
+ },
+ {
+  "card": "N19",
+  "view": "F1",
+  "family": "field",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 0.27946,
+   "f_mean": 0.9999799999999999,
+   "f_moran": 0.9840133333333334,
+   "f_n_blobs": 1.2903966666666669,
+   "f_peak_k": 0.03125,
+   "f_peak_sharp": 0.4022833333333334,
+   "f_std": 1.9931866666666667
+  }
+ },
+ {
+  "card": "N19",
+  "view": "F2",
+  "family": "F2",
+  "status": "UNNAMED",
+  "behaviour": null,
+  "also": [],
+  "shown": [],
+  "fp": {
+   "f_change": 0.35376,
+   "f_mean": 2.5380566666666664,
+   "f_moran": 0.9871533333333332,
+   "f_n_blobs": 1.3296599999999998,
+   "f_peak_k": 0.026039999999999997,
+   "f_peak_sharp": 0.4650533333333333,
+   "f_std": 0.7951166666666666
+  }
+ }
+]

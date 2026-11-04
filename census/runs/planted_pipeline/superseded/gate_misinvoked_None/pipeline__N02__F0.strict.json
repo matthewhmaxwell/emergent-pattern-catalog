@@ -1,0 +1,49 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Turing spot (spike) pattern in the Sel'kov(-Schnakenberg) reaction-diffusion model, cross-diffusion-enhanced",
+ "citations": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://pubmed.ncbi.nlm.nih.gov/14683341"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Hand linear analysis, not checked by simulation: the c=0 baseline is Turing-unstable (stable without diffusion: trace -99, det 100; D2*fu + D1*gv = 9, 81 > 40; fastest-growing k ~5.6). Linearised cross-terms (+1.7 Lap v in the u equation, -0.017 Lap u in the v equation) deepen the instability (minimum determinant ~-286 vs ~-102) and shift the fastest-growing k to ~7.4. They modify an existing instability rather than create a new one. Sign: u is repelled by v and v is attracted to u, the reverse of predator-prey pursuit-evasion since v is the consumed substrate. Mean u = b is expected because u+v changes at rate b-u. The pattern is stationary, high-amplitude spikes, with no sign of pursuit-evasion 'taxis waves'. Overturn is mild: the first pass called this a variant without naming any change in behaviour. Only ~2.6 blobs may mean coarsening or the start of collapse; check that u stays positive and that the result holds with a finer time step and grid. No paper found with this exact taxis pairing on Sel'kov kinetics, which is a rule-level gap only.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns spots"
+  },
+  {
+   "query": "Sel'kov model nonlinear cross-diffusion chemotaxis pattern formation"
+  },
+  {
+   "query": "pursuit-evasion taxis cross-diffusion opposite signs Turing spots reaction-diffusion"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s10910-023-01452-0",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692",
+  "http://www.numdam.org/articles/10.1016/j.crma.2019.10.011/",
+  "https://www.sciencedirect.com/science/article/pii/S0022247X03008515",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "http://carretero.sdsu.edu/publications/postscript/MGR.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://biomath.math.bas.bg/biomath/index.php/conference/article/download/85/171/737",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://jxshix.people.wm.edu/shi/2018-Wu-Shi-Wang-M3AS.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/14683341",
+  "https://www.sciencedirect.com/science/article/pii/S0096300323006732"
+ ],
+ "full_text": "**Verdict: KNOWN.** This is a stationary Turing pattern of large-amplitude spots in Sel'kov kinetics. The cross-diffusion makes the same instability stronger and moves it to a shorter wavelength. It does not create a new kind of behaviour. This mildly overturns the first pass: I found no change in what the pattern does that would justify calling it a variant.\n\n**My hand calculations (not checked by simulation)**\n- **Without cross-diffusion (c=0):** the steady state is u=10, v\u22480.1. The reaction terms give f_u\u22481, f_v\u2248100, g_u\u2248\u22122, g_v\u2248\u2212100. Trace is \u221299 and determinant is 100, so the uniform state is stable without diffusion. The Turing condition is met: D2\u00b7f_u + D1\u00b7g_v = 9, and 81 > 4\u00b7D1\u00b7D2\u00b7det = 40. The fastest-growing wavenumber is k\u22485.6. This confirms the first pass's hand calculation: the baseline is already Turing-unstable.\n- **With c=0.17, linearised:** the u equation gets a term c\u00b7u*\u00b7\u2207\u00b2v \u2248 1.7\u2207\u00b2v. The v equation gets \u2212c\u00b7v*\u00b7\u2207\u00b2u \u2248 \u22120.017\u2207\u00b2u. The growth determinant becomes 100 \u2212 14.1k\u00b2 + 0.129k\u2074. Its minimum is about \u2212286, versus about \u2212102 without cross-diffusion. The fastest-growing wavenumber moves from about 5.6 to about 7.4. So the cross-terms deepen and shorten an instability that already exists. They neither cause it nor suppress it.\n- **Sign convention:** with c1=+c, u is pushed down the v gradient (u is repelled by v). With c2=\u2212c, v is drawn up the u gradient (v is attracted to u). Since u consumes v through the u\u00b2v term, v plays the \"prey\" role. This is the reverse of ecological pursuit\u2013evasion, where the predator chases and the prey flees. The linear result above does not depend on that interpretation.\n\n**What the literature documents**\n- Spot, mixed spot\u2013stripe and stripe Turing patterns in the diffusive Sel'kov\u2013Schnakenberg system have been analysed and simulated. The theoretical analysis shows that spatio-temporal patterns change from the spot, mixed (spot-stripe) to stripe with the variation of parameters.\n- This model class is known to form localized reactive spots via Turing patterns.\n- Cross-diffusion is well documented to change Turing patterns rather than create new types. For example, in predator\u2013prey models the homogeneous steady state ... looses its stability and produces various patterns like cold spot, mixture of spots and stripes, labyrinthine due to the influence of cross-diffusion terms.\n- A Gray\u2013Scott system described as a reaction\u2013diffusion generalization of a special case of the Sel'kov model of glycolysis has been studied with self- and cross-diffusion added.\n- Taxis terms of opposite sign are the standard pursuit\u2013evasion setup. There, taxis can produce non-Turing travelling \"taxis waves\" that pass through each other (Tsyganov et al. 2003). The observed field is stationary and spotty, so it does not look like that regime.\n\n**Is it genuine or an artifact?** It looks genuine.\n- A Moran's I of 0.967 and a sharp spectral peak mean real spatial structure, not random colouring.\n- The mean of 10.0 equals b. This is expected: adding the two rate equations gives u + v changing at b \u2212 u, so the average of u settles at b.\n- A standard deviation of 13 against a mean of 10 means tall, narrow u spikes. That is typical of Sel'kov kinetics with small a.\n\n**Caveats:**\n- I did not find a paper with this exact pair of opposite-sign nonlinear taxis terms on Sel'kov kinetics. Under your criteria that does not count as a discovery.\n- Only about 2.6 blobs is few. That could mean coarsening, or the start of chemotaxis-style collapse. Check that u stays positive and that the result holds when you refine the time step and grid.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Turing spot (spike) pattern in the Sel'kov(-Schnakenberg) reaction-diffusion model, cross-diffusion-enhanced\", \"citations\": [\"https://link.springer.com/article/10.1007/s10910-023-01452-0\", \"https://www.sciencedirect.com/science/article/abs/pii/S0016003225003692\", \"https://www.sciencedirect.com/science/article/pii/S0307904X17306960\", \"https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020\", \"https://pubmed.ncbi.nlm.nih.gov/14683341\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Hand linear analysis, not checked by simulation: the c=0 baseline is Turing-unstable (stable without diffusion: trace -99, det 100; D2*fu + D1*gv = 9, 81 > 40; fastest-growing k ~5.6). Linearised cross-terms (+1.7 Lap v in the u equation, -0.017 Lap u in the v equation) deepen the instability (minimum determinant ~-286 vs ~-102) and shift the fastest-growing k to ~7.4. They modify an existing instability rather than create a new one. Sign: u is repelled by v and v is attracted to u, the reverse of predator-prey pursuit-evasion since v is the consumed substrate. Mean u = b is expected because u+v changes at rate b-u. The pattern is stationary, high-amplitude spikes, with no sign of pursuit-evasion 'taxis waves'. Overturn is mild: the first pass called this a variant without naming any change in behaviour. Only ~2.6 blobs may mean coarsening or the start of collapse; check that u stays positive and that the result holds with a finer time step and grid. No paper found with this exact taxis pairing on Sel'kov kinetics, which is a rule-level gap only.\"}\n```",
+ "checked": "2026-11-04 11:25:09"
+}

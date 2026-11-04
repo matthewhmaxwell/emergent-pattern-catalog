@@ -1,0 +1,41 @@
+{
+ "class_id": "pipeline:N02:F1",
+ "card": "N02",
+ "view": "F1",
+ "stage": "planted-pipeline",
+ "family": "field",
+ "size": 1,
+ "program_plain": "World: two continuous concentration fields u and v on a 64x64 square grid with wrap-around edges, started at their uniform steady state (u=b, v=b/(a+b^2)) plus small random noise. Rules, integrated forward in time: u changes at rate -u + a*v + u^2*v + D1*(Laplacian of u) + c1*div(u grad v); v changes at rate b - a*v - u^2*v + D2*(Laplacian of v) + c2*div(v grad u). The last terms make each species drift along the other's gradient, with strength and sign set by c1 and c2. Parameters: a=0.015, b=10, D1=0.01, D2=1000*D1. Setting: c1=c and c2=-c (opposite signs, so one species is drawn toward the other while the other is pushed away), c=0.17.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "f_n_blobs",
+   "value": 2.534
+  },
+  {
+   "feature": "f_moran",
+   "value": 0.975
+  },
+  {
+   "feature": "f_peak_sharp",
+   "value": 0.953
+  },
+  {
+   "feature": "f_mean",
+   "value": 0.08
+  },
+  {
+   "feature": "f_peak_k",
+   "value": 0.047
+  },
+  {
+   "feature": "f_std",
+   "value": 0.024
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "f_n_blobs=2.534, f_moran=0.975, f_peak_sharp=0.953, f_mean=0.08, f_peak_k=0.047, f_std=0.024",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: two continuous concentration fields u and v on a 64x64 square grid with wrap-around edges, started at their uniform steady state (u=b, v=b/(a+b^2)) plus small random noise. Rules, integrated forward in time: u changes at rate -u + a*v + u^2*v + D1*(Laplacian of u) + c1*div(u grad v); v changes at rate b - a*v - u^2*v + D2*(Laplacian of v) + c2*div(v grad u). The last terms make each species drift along the other's gradient, with strength and sign set by c1 and c2. Parameters: a=0.015, b=10, D1=0.01, D2=1000*D1. Setting: c1=c and c2=-c (opposite signs, so one species is drawn toward the other while the other is pushed away), c=0.17.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - f_n_blobs = 2.534  ()\n  - f_moran = 0.975  (field forms spatial structure)\n  - f_peak_sharp = 0.953  (sharp field pattern)\n  - f_mean = 0.08  ()\n  - f_peak_k = 0.047  ()\n  - f_std = 0.024  ()\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": []
+}

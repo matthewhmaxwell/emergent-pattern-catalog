@@ -1,0 +1,14 @@
+pipeline:N02:F0 litcheck no leak hits []
+pipeline:N02:F1 litcheck no leak hits []
+pipeline:N03:A litcheck LEAK HITS: ['title-word:screening']
+pipeline:N04:A litcheck no leak hits []
+pipeline:N07:F0 litcheck LEAK HITS: ['title-word:correlations']
+pipeline:N11:F0 litcheck LEAK HITS: ['title-word:higher', 'title-word:spatial']
+pipeline:N12:C.phase review no leak hits []
+pipeline:N15:A litcheck no leak hits []
+pipeline:N17:A review no leak hits []
+pipeline:N19:F0 litcheck no leak hits []
+pipeline:N19:F1 litcheck no leak hits []
+pipeline:N19:F2 litcheck no leak hits []
+12 cards
+EXIT 0

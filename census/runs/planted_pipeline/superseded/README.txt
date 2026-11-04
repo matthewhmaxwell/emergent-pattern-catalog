@@ -1,0 +1,1 @@
+2026-11-04 11:23 UTC: gate launched with the run name as a positional argument (CLI expects --run); the three processes wrote to gate/None/ concurrently and completed only pipeline:N02:F0 (first + strict, all KNOWN-VARIANT -> KNOWN) before being stopped at 11:26. Kept here as a record; not part of r1-r3, not scored.

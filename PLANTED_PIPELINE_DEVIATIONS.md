@@ -45,6 +45,30 @@ the per-step probability, so the per-step shock probability is scaled as 10^-4.5
 1.2e-5 at 800). Holding it fixed per step, the module's first choice, would weaken the middle peak at 200 nodes to 3%
 of the tallest (paper's setting: 18%) and change the shape again at 800 nodes in the verification stage.
 
+## P6. Enforcing the verification compute cap (2026-11-04, after the code freeze and the screen/name/card stages, before any verification output)
+The plan's step 5 records a condition that "cannot finish within 24 CPU-hours" as not run; the frozen driver has no
+limit. The flag stage showed the module authors' compute-cap timings were low for the slowest models (single-threaded
+census-scale cost of the real program, 3 seeds: N04 8.0 h against an estimate of about 50 min; N03 4.4 h; N11 3.5 h).
+`census/planted_verify_capped.py` runs the driver's own job list and worker (`planted_pipeline._vworker`, unchanged)
+under this rule, fixed before any verification job ran:
+- projected cost = flag-stage seconds x 10/3 seeds x (1 census, 4 for 4x area, 3 for 3x length); for particles at
+  fixed density and for fields this is a lower bound on the scaled cost;
+- a condition projected over 36 CPU-hours (1.5 x the cap) is recorded as not run without an attempt (N03, N04 and N11
+  at 4x area; N03 and N04 at 3x length);
+- every other job runs in its own process with a 24-CPU-hour limit (RLIMIT_CPU); a job killed by the limit is not run;
+- sub-programs of a model whose 4x-area or 3x-length condition is not run are not run: the frozen `classify_one`
+  returns ARTIFACT (or NOT RUNNABLE) before it reads sub-programs, so they cannot change the class.
+Behaviors lost this way are reported separately as the plan requires ("lost to the compute cap"), not as artifacts of
+the pipeline's judgement.
+The compute-cap reductions of the census step (Notes below) were set from the module authors' timings; the census-scale
+runs therefore took longer than the plan's 60 CPU-minutes for N03, N04 and N11. Longer runs only bring the census run
+closer to the paper's protocol; no result is changed by this, and it is reported as a limitation.
+
+## Operational note (2026-11-04)
+The first gate launch passed the run name positionally (the CLI expects `--run`); three processes wrote to gate/None/
+and completed one card (pipeline:N02:F0) before being stopped. That output is kept in
+census/runs/planted_pipeline/superseded/ and is not scored; r1-r3 were relaunched with `--run`.
+
 ## Notes (within the plan, recorded for transparency)
 - Compute-cap reductions of the time per census step (plan, "Census scale"): N04 0.2 time units, N11 1e-3 time units;
   values and timings in the modules.

@@ -1,0 +1,218 @@
+{
+ "card": "N19",
+ "cid": "planted:N19",
+ "seed0": 2872812592,
+ "layers": "F",
+ "status": "FLAGGED",
+ "views": {
+  "F0": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.8416,
+     "fp": {
+      "f_std": 2.36081,
+      "f_mean": 0.99986,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.36459,
+      "f_n_blobs": 1.38629,
+      "f_change": 0.34296,
+      "f_moran": 0.97641
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8373,
+     "fp": {
+      "f_std": 2.32998,
+      "f_mean": 0.99996,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.39606,
+      "f_n_blobs": 1.38629,
+      "f_change": 0.33586,
+      "f_moran": 0.97746
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8545,
+     "fp": {
+      "f_std": 2.31741,
+      "f_mean": 1.00012,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.35725,
+      "f_n_blobs": 1.09861,
+      "f_change": 0.35078,
+      "f_moran": 0.97617
+     },
+     "checks": {}
+    }
+   ]
+  },
+  "F1": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.836,
+     "fp": {
+      "f_std": 2.00909,
+      "f_mean": 0.99986,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.38394,
+      "f_n_blobs": 1.38629,
+      "f_change": 0.28165,
+      "f_moran": 0.98372
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8312,
+     "fp": {
+      "f_std": 2.00039,
+      "f_mean": 0.99996,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.42891,
+      "f_n_blobs": 1.38629,
+      "f_change": 0.27348,
+      "f_moran": 0.9848
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8475,
+     "fp": {
+      "f_std": 1.97008,
+      "f_mean": 1.00012,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.394,
+      "f_n_blobs": 1.09861,
+      "f_change": 0.28325,
+      "f_moran": 0.98352
+     },
+     "checks": {}
+    }
+   ]
+  },
+  "F2": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.8317,
+     "fp": {
+      "f_std": 0.84025,
+      "f_mean": 2.62411,
+      "f_peak_k": 0.01562,
+      "f_peak_sharp": 0.49496,
+      "f_n_blobs": 1.09861,
+      "f_change": 0.36329,
+      "f_moran": 0.98795
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8286,
+     "fp": {
+      "f_std": 0.73894,
+      "f_mean": 2.46988,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.43552,
+      "f_n_blobs": 1.79176,
+      "f_change": 0.336,
+      "f_moran": 0.98649
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8437,
+     "fp": {
+      "f_std": 0.80616,
+      "f_mean": 2.52018,
+      "f_peak_k": 0.03125,
+      "f_peak_sharp": 0.46468,
+      "f_n_blobs": 1.09861,
+      "f_change": 0.36199,
+      "f_moran": 0.98702
+     },
+     "checks": {}
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "per_seed": [
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "2": 40,
+     "3": 10
+    },
+    "mean_agg_mass_frac": 0.6095616749142038,
+    "mean_bg_std": 0.3546302200285398,
+    "mean_motion": 1.5529670708943653,
+    "mean_b_max": 12.337251033782959,
+    "pairs": 50,
+    "t_from": 500
+   },
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "2": 49,
+     "3": 1
+    },
+    "mean_agg_mass_frac": 0.6144325550782953,
+    "mean_bg_std": 0.3363593600855146,
+    "mean_motion": 1.5761057570076937,
+    "mean_b_max": 12.775868835449218,
+    "pairs": 50,
+    "t_from": 500
+   },
+   {
+    "share_pairs_ok": 0.0,
+    "shows_behaviour": false,
+    "share_pairs_ok_n_agg_ge_1": 1.0,
+    "n_agg_hist": {
+     "2": 50
+    },
+    "mean_agg_mass_frac": 0.6182256170986757,
+    "mean_bg_std": 0.33722381555700964,
+    "mean_motion": 1.5527808420577074,
+    "mean_b_max": 12.36495367050171,
+    "pairs": 50,
+    "t_from": 500
+   }
+  ],
+  "seeds_showing": 0,
+  "present": false,
+  "seeds_showing_n_agg_ge_1": 3,
+  "present_n_agg_ge_1": true,
+  "tolerance": "decision: per seed >= 50 % of frame pairs (t >= 500) with exactly one dense aggregate in moving bands, in >= 2 of 3 seeds; present_n_agg_ge_1 (reported only): the same with at least one aggregate, to show a scale effect (slow merging in the 64 x 64 world)"
+ },
+ "sim_s": 517.7,
+ "total_s": 925.8,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

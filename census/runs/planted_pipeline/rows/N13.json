@@ -1,0 +1,132 @@
+{
+ "card": "N13",
+ "cid": "planted:N13",
+ "seed0": 2967955859,
+ "layers": "N",
+ "status": "NONE",
+ "views": {
+  "N": {
+   "flagged": false,
+   "em_seeds": 0,
+   "driven": false,
+   "seeds": [
+    {
+     "emergent": false,
+     "evidence": 0.3098
+    },
+    {
+     "emergent": false,
+     "evidence": 0.3191
+    },
+    {
+     "emergent": false,
+     "evidence": 0.2767
+    }
+   ]
+  }
+ },
+ "knockout_run": false,
+ "presence": {
+  "measure": "distribution of the mean opinion m over the census run (all frames, all seeds)",
+  "N": 200,
+  "frames": 501,
+  "binned_peaks_m": [
+   -1.0,
+   0.30000000000000004,
+   1.0
+  ],
+  "n_peaks": 3,
+  "share_consensus": 0.07917498336660013,
+  "share_near_m_r": 0.1377245508982036,
+  "per_seed_mean_m": [
+   0.4116,
+   0.4019,
+   0.0422
+  ],
+  "binned_density": [
+   0.01331,
+   0.00355,
+   0.00121,
+   0.00042,
+   0.00018,
+   0.00085,
+   0.00181,
+   0.00218,
+   0.0029,
+   0.00369,
+   0.0049,
+   0.00647,
+   0.01089,
+   0.01421,
+   0.00974,
+   0.00653,
+   0.0055,
+   0.00417,
+   0.00387,
+   0.00392,
+   0.06587
+  ],
+  "bin_centres_m": [
+   -1.0,
+   -0.98,
+   -0.91,
+   -0.8,
+   -0.69,
+   -0.58,
+   -0.47,
+   -0.36,
+   -0.25,
+   -0.14,
+   -0.03,
+   0.08,
+   0.19,
+   0.3,
+   0.41,
+   0.52,
+   0.63,
+   0.74,
+   0.85,
+   0.95,
+   1.0
+  ],
+  "exact_stationary_peaks_m": [
+   -1.0,
+   0.30000000000000004,
+   1.0
+  ],
+  "exact_binned_density": [
+   0.0062,
+   0.00094,
+   0.00063,
+   0.00073,
+   0.00094,
+   0.00123,
+   0.00162,
+   0.00213,
+   0.00284,
+   0.00381,
+   0.00517,
+   0.00712,
+   0.01,
+   0.0132,
+   0.01083,
+   0.00822,
+   0.00627,
+   0.00483,
+   0.00383,
+   0.00421,
+   0.03572
+  ],
+  "exact_consensus_mass": 0.04192515109630397,
+  "expected_shocks_per_seed": 39.52847075210475,
+  "note": "one census run is short compared with the stationary mixing of the distribution"
+ },
+ "sim_s": 6.9,
+ "total_s": 6.9,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

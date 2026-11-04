@@ -1,0 +1,41 @@
+{
+ "class_id": "pipeline:N19:F2",
+ "card": "N19",
+ "view": "F2",
+ "stage": "planted-pipeline",
+ "family": "F2",
+ "size": 1,
+ "program_plain": "World: three continuous fields on a 64x64 periodic square: cell density b, an attractant a made by the cells, and a nutrient n eaten by the cells; all start uniform at 1 plus small noise. Rules (dimensionless): (1) b diffuses and drifts up the gradient of a with strength 11.1*b/(1+b^2) and up the gradient of n with strength 14*b/(1+b^2); cell number is conserved; (2) a diffuses 2.5 times faster than cells, is produced at rate b and decays at rate 1; (3) n diffuses 0.75 times as fast as cells, is consumed at rate 0.084*b*n and resupplied at rate 0.084 everywhere.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "f_mean",
+   "value": 2.538
+  },
+  {
+   "feature": "f_n_blobs",
+   "value": 1.33
+  },
+  {
+   "feature": "f_moran",
+   "value": 0.987
+  },
+  {
+   "feature": "f_std",
+   "value": 0.795
+  },
+  {
+   "feature": "f_peak_sharp",
+   "value": 0.465
+  },
+  {
+   "feature": "f_change",
+   "value": 0.354
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "f_mean=2.538, f_n_blobs=1.33, f_moran=0.987, f_std=0.795, f_peak_sharp=0.465, f_change=0.354",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: three continuous fields on a 64x64 periodic square: cell density b, an attractant a made by the cells, and a nutrient n eaten by the cells; all start uniform at 1 plus small noise. Rules (dimensionless): (1) b diffuses and drifts up the gradient of a with strength 11.1*b/(1+b^2) and up the gradient of n with strength 14*b/(1+b^2); cell number is conserved; (2) a diffuses 2.5 times faster than cells, is produced at rate b and decays at rate 1; (3) n diffuses 0.75 times as fast as cells, is consumed at rate 0.084*b*n and resupplied at rate 0.084 everywhere.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - f_mean = 2.538  ()\n  - f_n_blobs = 1.33  ()\n  - f_moran = 0.987  (field forms spatial structure)\n  - f_std = 0.795  ()\n  - f_peak_sharp = 0.465  (sharp field pattern)\n  - f_change = 0.354  ()\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": []
+}

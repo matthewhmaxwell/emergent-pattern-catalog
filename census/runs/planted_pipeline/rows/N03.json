@@ -1,0 +1,107 @@
+{
+ "card": "N03",
+ "cid": "planted:N03",
+ "seed0": 3496946613,
+ "layers": "A",
+ "status": "FLAGGED",
+ "views": {
+  "A": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.9207,
+     "fp": {
+      "a_local_align": -0.0,
+      "a_polar": 0.01874,
+      "a_polar_std": 0.00483,
+      "a_nn_ratio": 0.48138,
+      "a_density_cv": 3.62811,
+      "a_ang_mom": 0.04374,
+      "a_step": 5.38251
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.9407,
+     "fp": {
+      "a_local_align": -0.0,
+      "a_polar": 0.01749,
+      "a_polar_std": 0.00921,
+      "a_nn_ratio": 0.4817,
+      "a_density_cv": 3.83646,
+      "a_ang_mom": 0.00764,
+      "a_step": 5.2961
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8914,
+     "fp": {
+      "a_local_align": -0.0,
+      "a_polar": 0.02104,
+      "a_polar_std": 0.00611,
+      "a_nn_ratio": 0.48159,
+      "a_density_cv": 3.52159,
+      "a_ang_mom": 0.00395,
+      "a_step": 4.4832
+     },
+     "checks": {
+      "flocking": false
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "per_seed": [
+   {
+    "S_mean": 1.0,
+    "sigma_S": 0.0,
+    "Q_mean": 5.35,
+    "cavity_frame_share": 0.0,
+    "cavity_count_mean": 0.0,
+    "boiling_like": false
+   },
+   {
+    "S_mean": 1.0,
+    "sigma_S": 0.0,
+    "Q_mean": 5.5,
+    "cavity_frame_share": 0.0,
+    "cavity_count_mean": 0.0,
+    "boiling_like": false
+   },
+   {
+    "S_mean": 1.0,
+    "sigma_S": 0.0,
+    "Q_mean": 5.27,
+    "cavity_frame_share": 0.0,
+    "cavity_count_mean": 0.0,
+    "boiling_like": false
+   }
+  ],
+  "boiling_like_seeds": 0,
+  "paper": {
+   "S": 1.0,
+   "sigma_S": 0.0,
+   "Q": "< 5.0 (full collapse > 5.6)"
+  }
+ },
+ "sim_s": 15759.6,
+ "total_s": 16975.4,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

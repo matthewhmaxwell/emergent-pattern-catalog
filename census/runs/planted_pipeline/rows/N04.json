@@ -1,0 +1,100 @@
+{
+ "card": "N04",
+ "cid": "planted:N04",
+ "seed0": 1328536567,
+ "layers": "A",
+ "status": "FLAGGED",
+ "views": {
+  "A": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.7452,
+     "fp": {
+      "a_local_align": -0.01835,
+      "a_polar": 0.03676,
+      "a_polar_std": 0.01717,
+      "a_nn_ratio": 1.97727,
+      "a_density_cv": 0.42521,
+      "a_ang_mom": 0.02167,
+      "a_step": 0.17402
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.7361,
+     "fp": {
+      "a_local_align": -0.0531,
+      "a_polar": 0.04283,
+      "a_polar_std": 0.02532,
+      "a_nn_ratio": 1.98031,
+      "a_density_cv": 0.42895,
+      "a_ang_mom": 0.0134,
+      "a_step": 0.1549
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.7256,
+     "fp": {
+      "a_local_align": -0.03512,
+      "a_polar": 0.03911,
+      "a_polar_std": 0.02038,
+      "a_nn_ratio": 1.96725,
+      "a_density_cv": 0.44362,
+      "a_ang_mom": 0.01244,
+      "a_step": 0.15507
+     },
+     "checks": {
+      "flocking": false
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "psi6_global": 0.8541269664908828,
+  "psi6_local": 0.8795891525250044,
+  "g6_5a": 0.9288236456215787,
+  "defect_fraction": 0.0008974358974358975,
+  "per_seed": [
+   {
+    "psi6_global": 0.8543340462209356,
+    "psi6_local": 0.8796334499760275,
+    "g6_5a": 0.9299533414570013,
+    "defect_fraction": 0.0003846153846153846
+   },
+   {
+    "psi6_global": 0.8544690441397307,
+    "psi6_local": 0.8798604540133952,
+    "g6_5a": 0.9276847320468617,
+    "defect_fraction": 0.0015384615384615385
+   },
+   {
+    "psi6_global": 0.8535778091119822,
+    "psi6_local": 0.87927355358559,
+    "g6_5a": 0.928832863360873,
+    "defect_fraction": 0.0007692307692307692
+   }
+  ],
+  "note": "global |<psi6>| and local <|psi6|> over Delaunay neighbours; g6 at 5 lattice spacings"
+ },
+ "sim_s": 28924.6,
+ "total_s": 28930.1,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

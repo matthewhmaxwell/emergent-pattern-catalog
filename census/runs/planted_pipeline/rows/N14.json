@@ -1,0 +1,130 @@
+{
+ "card": "N14",
+ "cid": "planted:N14",
+ "seed0": 931176866,
+ "layers": "F",
+ "status": "NONE",
+ "views": {
+  "F0": {
+   "flagged": false,
+   "em_seeds": 0,
+   "driven": false,
+   "seeds": [
+    {
+     "emergent": false,
+     "evidence": 0.0001
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0
+    }
+   ]
+  }
+ },
+ "knockout_run": false,
+ "presence": {
+  "Gamma6": 0.029091731151807687,
+  "n_L": 0.3884971178074626,
+  "rho": 0.2600308641975309,
+  "c6": 0.1365079365079365,
+  "per_seed": [
+   {
+    "N": 333,
+    "rho": 0.2569444444444445,
+    "n_bonds": 442,
+    "motifs": {
+     "triangle": 104,
+     "pair": 97,
+     "single": 111,
+     "open_triangle": 15,
+     "size4": 1
+    },
+    "Gamma6": 0.028613567634707134,
+    "n_L": 0.3993993993993994,
+    "n_loops": 15,
+    "c6": 0.26666666666666666,
+    "loop_sizes": {
+     "4": 1,
+     "6": 4,
+     "8": 1,
+     "10": 2,
+     "11": 1,
+     "12": 1,
+     "13": 1,
+     "14": 2,
+     "39": 1,
+     "98": 1
+    }
+   },
+   {
+    "N": 348,
+    "rho": 0.26851851851851855,
+    "n_bonds": 464,
+    "motifs": {
+     "triangle": 116,
+     "pair": 88,
+     "open_triangle": 14,
+     "single": 130
+    },
+    "Gamma6": 0.029175253980088984,
+    "n_L": 0.3994252873563218,
+    "n_loops": 12,
+    "c6": 0.0,
+    "loop_sizes": {
+     "5": 2,
+     "7": 3,
+     "8": 2,
+     "11": 1,
+     "15": 1,
+     "20": 1,
+     "59": 1,
+     "110": 1
+    }
+   },
+   {
+    "N": 330,
+    "rho": 0.25462962962962965,
+    "n_bonds": 443,
+    "motifs": {
+     "triangle": 108,
+     "single": 111,
+     "pair": 94,
+     "open_triangle": 11,
+     "size4": 1
+    },
+    "Gamma6": 0.029486371840626944,
+    "n_L": 0.36666666666666664,
+    "n_loops": 14,
+    "c6": 0.14285714285714285,
+    "loop_sizes": {
+     "5": 2,
+     "6": 2,
+     "7": 1,
+     "8": 1,
+     "9": 1,
+     "10": 1,
+     "12": 1,
+     "17": 1,
+     "21": 1,
+     "26": 1,
+     "41": 1,
+     "59": 1
+    }
+   }
+  ],
+  "rho_from_F": 0.25,
+  "paper": "Fig. 5(n), T=0.145, mu=-4: Gamma6 ~0.79, n_L ~0.97, rho ~0.42 (after >= 2e6 cycles)"
+ },
+ "sim_s": 4313.4,
+ "total_s": 4313.7,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

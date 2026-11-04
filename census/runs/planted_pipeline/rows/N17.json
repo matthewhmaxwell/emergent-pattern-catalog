@@ -1,0 +1,90 @@
+{
+ "card": "N17",
+ "cid": "planted:N17",
+ "seed0": 3337285647,
+ "layers": "A",
+ "status": "FLAGGED",
+ "views": {
+  "A": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.9846,
+     "fp": {
+      "a_local_align": 0.4552,
+      "a_polar": 0.63792,
+      "a_polar_std": 0.03471,
+      "a_nn_ratio": 0.90388,
+      "a_density_cv": 1.17371,
+      "a_ang_mom": 0.01428,
+      "a_step": 7.42917
+     },
+     "checks": {
+      "flocking": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.9329,
+     "fp": {
+      "a_local_align": 0.46848,
+      "a_polar": 0.67242,
+      "a_polar_std": 0.05844,
+      "a_nn_ratio": 0.84601,
+      "a_density_cv": 1.10345,
+      "a_ang_mom": 0.08563,
+      "a_step": 7.68944
+     },
+     "checks": {
+      "flocking": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8667,
+     "fp": {
+      "a_local_align": 0.46407,
+      "a_polar": 0.62203,
+      "a_polar_std": 0.03663,
+      "a_nn_ratio": 0.81636,
+      "a_density_cv": 1.38506,
+      "a_ang_mom": 0.04455,
+      "a_step": 7.34223
+     },
+     "checks": {
+      "flocking": true
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "per_seed": [
+   {
+    "band_mode_share": 0.38,
+    "polarization": 0.639
+   },
+   {
+    "band_mode_share": 0.471,
+    "polarization": 0.689
+   },
+   {
+    "band_mode_share": 0.442,
+    "polarization": 0.633
+   }
+  ],
+  "note": "lanes of counter-propagating band trains cannot fit a 20 x 20 box"
+ },
+ "sim_s": 9.5,
+ "total_s": 14.5,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "class_id": "pipeline:N03:A",
+ "card": "N03",
+ "view": "A",
+ "stage": "planted-pipeline",
+ "family": "agents",
+ "size": 1,
+ "program_plain": "World: 400 self-propelled disks (radius 1) in a periodic 2D box (square of side 158.5) at area fraction 0.05, hovering at height 1.1 above a flat wall that chemicals cannot cross. Each disk emits a chemical. Rules each step: (1) each disk moves along its heading at speed 2; (2) it is pulled toward the others along the summed gradient of their screened chemical fields (each decays as exp(-k*r)/r, plus a mirror-image source below the wall), screening k = 0.20; (3) its heading is turned away from that same gradient with turning strength 0.30; (4) the heading gets rotational noise (Peclet number 100); (5) disks repel on contact. A cluster is more than 10 disks linked within 2.1 radii. Run 100 tau (tau = 1/rotational diffusion rate, the heading's persistence time).",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "a_step",
+   "value": 5.054
+  },
+  {
+   "feature": "a_density_cv",
+   "value": 3.662
+  },
+  {
+   "feature": "a_nn_ratio",
+   "value": 0.482
+  },
+  {
+   "feature": "a_polar",
+   "value": 0.019
+  },
+  {
+   "feature": "a_ang_mom",
+   "value": 0.018
+  },
+  {
+   "feature": "a_polar_std",
+   "value": 0.007
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "a_step=5.054, a_density_cv=3.662, a_nn_ratio=0.482, a_polar=0.019, a_ang_mom=0.018, a_polar_std=0.007",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: 400 self-propelled disks (radius 1) in a periodic 2D box (square of side 158.5) at area fraction 0.05, hovering at height 1.1 above a flat wall that chemicals cannot cross. Each disk emits a chemical. Rules each step: (1) each disk moves along its heading at speed 2; (2) it is pulled toward the others along the summed gradient of their screened chemical fields (each decays as exp(-k*r)/r, plus a mirror-image source below the wall), screening k = 0.20; (3) its heading is turned away from that same gradient with turning strength 0.30; (4) the heading gets rotational noise (Peclet number 100); (5) disks repel on contact. A cluster is more than 10 disks linked within 2.1 radii. Run 100 tau (tau = 1/rotational diffusion rate, the heading's persistence time).\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - a_step = 5.054  ()\n  - a_density_cv = 3.662  ()\n  - a_nn_ratio = 0.482  (clumping (below 1 = clustered))\n  - a_polar = 0.019  (agents align direction (polar order))\n  - a_ang_mom = 0.018  ()\n  - a_polar_std = 0.007  ()\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": [
+  "title-word:screening"
+ ]
+}

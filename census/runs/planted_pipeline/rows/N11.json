@@ -1,0 +1,78 @@
+{
+ "card": "N11",
+ "cid": "planted:N11",
+ "seed0": 2647291765,
+ "layers": "F",
+ "status": "FLAGGED",
+ "views": {
+  "F0": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.8331,
+     "fp": {
+      "f_std": 14.96441,
+      "f_mean": 39.91699,
+      "f_peak_k": 0.09375,
+      "f_peak_sharp": 0.46411,
+      "f_n_blobs": 5.28827,
+      "f_change": 12.06407,
+      "f_moran": 0.58041
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.8277,
+     "fp": {
+      "f_std": 13.67552,
+      "f_mean": 39.76733,
+      "f_peak_k": 0.09375,
+      "f_peak_sharp": 0.29496,
+      "f_n_blobs": 5.3799,
+      "f_change": 12.10661,
+      "f_moran": 0.51061
+     },
+     "checks": {}
+    },
+    {
+     "emergent": true,
+     "evidence": 0.813,
+     "fp": {
+      "f_std": 15.60355,
+      "f_mean": 39.56494,
+      "f_peak_k": 0.09375,
+      "f_peak_sharp": 0.52142,
+      "f_n_blobs": 5.24702,
+      "f_change": 12.06283,
+      "f_moran": 0.60014
+     },
+     "checks": {}
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "anisotropy_median": 0.21573439181919374,
+  "anisotropy_per_seed": [
+   0.18322851851637695,
+   0.21812690482381447,
+   0.23156555174635557
+  ],
+  "spot_psi6_median": 0.4290715751728448,
+  "pop_max_ratio": 40.909,
+  "note": "A ~ 1 stripes, ~ 0 spots/gaps (authors' IBM: 0.17 at 3.14e-5 = gaps, 0.92 at 2.36e-5 = stripes)"
+ },
+ "sim_s": 12605.2,
+ "total_s": 12606.3,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

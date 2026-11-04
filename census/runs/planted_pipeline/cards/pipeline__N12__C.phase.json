@@ -1,0 +1,39 @@
+{
+ "class_id": "pipeline:N12:C.phase",
+ "card": "N12",
+ "view": "C.phase",
+ "stage": "planted-pipeline",
+ "family": "lattice-phase",
+ "size": 1,
+ "program_plain": "World: a 64 x 64 square lattice with wrap-around edges, each site holding a planar unit spin (an angle). Energy: minus the sum over all pairs of J(r) times the cosine of their angle difference, where every pair interacts with J(r) proportional to 1/r^4 (r = distance), normalised so that the total coupling per site is fixed. Rules: equilibrium Monte Carlo with single-spin updates (one sweep of all sites per step) at inverse temperature beta = 1, from random angles, for 1000 sweeps. Measure the squared magnetisation and the correlation length.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "p_local_r",
+   "value": 0.855
+  },
+  {
+   "feature": "p_r",
+   "value": 0.727
+  },
+  {
+   "feature": "p_freq_spread",
+   "value": 0.072
+  },
+  {
+   "feature": "p_r_std",
+   "value": 0.016
+  },
+  {
+   "feature": "p_vortex_density",
+   "value": 0.006
+  }
+ ],
+ "kind": "review",
+ "shown": [
+  "lattice phase locking"
+ ],
+ "obs_inline": "p_local_r=0.855, p_r=0.727, p_freq_spread=0.072, p_r_std=0.016, p_vortex_density=0.006",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: a 64 x 64 square lattice with wrap-around edges, each site holding a planar unit spin (an angle). Energy: minus the sum over all pairs of J(r) times the cosine of their angle difference, where every pair interacts with J(r) proportional to 1/r^4 (r = distance), normalised so that the total coupling per site is fixed. Rules: equilibrium Monte Carlo with single-spin updates (one sweep of all sites per step) at inverse temperature beta = 1, from random angles, for 1000 sweeps. Measure the squared magnetisation and the correlation length.\n\nSAME CLASS ALSO INCLUDES:\n\n\nWHAT WAS OBSERVED (standout features; higher = stronger): p_local_r=0.855, p_r=0.727, p_freq_spread=0.072, p_r_std=0.016, p_vortex_density=0.006\n\nIMPORTANT CONTEXT: this run passes the standard quantitative test for the known behaviour(s): lattice phase locking -- but its overall fingerprint does not look like textbook examples of it. The question is whether THIS form / route of that behaviour (or anything else it is doing) is documented.\n\nThis appears across 1 rule programs.",
+ "leak_hits": []
+}

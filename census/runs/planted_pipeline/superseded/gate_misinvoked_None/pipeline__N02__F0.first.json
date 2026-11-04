@@ -1,0 +1,94 @@
+{
+ "class_id": "pipeline:N02:F0",
+ "model": "claude-sonnet-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "model_family": "reaction-diffusion / Turing patterns with nonlinear (chemotaxis-like) cross-diffusion; Sel'kov glycolysis kinetics",
+ "standard_name": "Cross-diffusion-modified Turing pattern formation in the Sel'kov model",
+ "confidence": "medium",
+ "citations": [
+  "Vanag & Epstein 2009, Phys. Chem. Chem. Phys. 11, 897-912 - foundational work on cross-diffusion and pattern formation in reaction-diffusion systems (seen only as a reference-list entry, not opened)",
+  "Madzvamuse et al. 2015, J. Math. Biol. (Springer s00285-014-0779-6) - cross-diffusion-driven instability; no need for fast/slow diffusivity ratio or activator-inhibitor kinetics",
+  "Liu, Ge & Shen 2022, Appl. Math. Comput. 431 - Sel'kov glycolysis model with (linear) cross-diffusion and Turing instability",
+  "Bashkirtseva 2022, Math. Methods Appl. Sci. - Selkov model with diffusion: Turing zone, multistable patterns",
+  "Meng et al. 2023, Acta Physica Sinica 72 - direction of cross-diffusion determines enhancement/suppression of Turing modes (Brusselator)",
+  "Menou, Luo & Zwicker 2023, J. R. Soc. Interface 20:20230244 - repulsive interactions induce cross-diffusion and stabilise Turing patterns"
+ ],
+ "searches": [
+  "cross-diffusion Selkov model Turing patterns nonlinear cross-diffusion opposite signs",
+  "Sel'kov glycolysis model cross-diffusion pattern formation chemotaxis-like",
+  "Sel'kov model cross-diffusion Turing patterns amplitude equation",
+  "Turing patterns cross-diffusion div(u grad v) opposite sign Schnakenberg Brusselator Selkov",
+  "Sel'kov reaction-diffusion nonreciprocal cross-diffusion chemotaxis-like flux",
+  "Vanag Epstein cross-diffusion pattern formation PCCP 2009",
+  "Menou Luo Zwicker 2023",
+  "Turing patterns cross-diffusion Sel'kov a=0.015 b=10"
+ ],
+ "notes": "No source found for the exact combination of nonlinear opposite-signed div(u grad v)/div(v grad u) cross-diffusion on Sel'kov kinetics at these parameters. The baseline (c=0) should be Turing-unstable by my hand calculation, which I did not verify by simulation. Cross-diffusion at c=0.17 is large relative to D1, so morphology could differ from the baseline. Check the sign convention of c1 against 'attracted/repelled'.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 8,
+ "search_inputs": [
+  {
+   "query": "cross-diffusion Selkov model Turing patterns nonlinear cross-diffusion div(u grad v) opposite signs"
+  },
+  {
+   "query": "Sel'kov glycolysis model cross-diffusion pattern formation chemotaxis-like pursuit evasion"
+  },
+  {
+   "query": "Sel'kov model cross-diffusion Turing patterns \"cross-diffusion\" glycolysis amplitude equation stationary patterns"
+  },
+  {
+   "query": "Turing patterns reaction-diffusion with cross-diffusion terms \u2207\u00b7(u\u2207v) opposite sign cross-diffusion pattern formation Schnakenberg Brusselator Selkov"
+  },
+  {
+   "query": "Sel'kov reaction-diffusion nonreciprocal cross-diffusion chemotaxis-like flux u\u2207v Turing pattern numerical 2D"
+  },
+  {
+   "query": "Vanag Epstein cross-diffusion and pattern formation in reaction\u2013diffusion systems PCCP 2009"
+  },
+  {
+   "query": "Menou Luo Zwicker Physical interactions in non-ideal fluids promote Turing patterns J. R. Soc. Interface 2023"
+  },
+  {
+   "query": "Turing patterns cross-diffusion Sel'kov a=0.015 b=10 cross-diffusion repulsive attractive interactions activator inhibitor"
+  }
+ ],
+ "result_urls": [
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0362546X13000837",
+  "https://www.sciencedirect.com/science/article/abs/pii/S1007570421004020",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278923002440",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0303264709000549",
+  "https://www.mdpi.com/2673-4125/4/4/36",
+  "https://onlinelibrary.wiley.com/doi/10.1002/mma.8083",
+  "https://www.sciencedirect.com/science/article/pii/S0307904X17306960",
+  "https://ideas.repec.org/a/eee/apmaco/v431y2022ics0096300322003988.html",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924009275",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378475421001166",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0362546X13000837",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10764571/",
+  "https://link.springer.com/article/10.1007/s11071-022-07691-1",
+  "https://wulixb.iphy.ac.cn/en/article/doi/10.7498/aps.72.20230333",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full",
+  "https://link.springer.com/article/10.1007/s00285-014-0779-6",
+  "https://sites.google.com/brandeis.edu/epstein-group/publications",
+  "https://www.nature.com/articles/s42005-020-00427-w",
+  "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0190176",
+  "https://journals.aps.org/prresearch/abstract/10.1103/vtnv-2hw6",
+  "https://pubmed.ncbi.nlm.nih.gov/37434500",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10336379/",
+  "https://pure.mpg.de/rest/items/item_3526301_2/component/file_3526347/content",
+  "https://journals.aps.org/prresearch/abstract/10.1103/vtnv-2hw6",
+  "https://ncbi.nlm.nih.gov/pmc/articles/PMC10336379",
+  "https://github.com/zwicker-group/paper-non-ideal-turing-patterns",
+  "https://royalsocietypublishing.org/rsif/article/20/204/20230244/90455/Physical-interactions-in-non-ideal-fluids-promote",
+  "https://www.science.org/doi/10.1126/sciadv.adj2457",
+  "https://journals.aps.org/pre/supplemental/10.1103/PhysRevE.108.034206/SI.pdf",
+  "https://www.biorxiv.org/content/10.1101/2023.05.30.542795v2.full.pdf",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC10336379/",
+  "https://link.springer.com/article/10.1007/s11538-023-01237-1"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The behaviour is a Turing-type stationary pattern in a Sel'kov model with cross-diffusion. I found no paper that studies this exact setting.\n\n**1. Model family.** This is reaction\u2013diffusion pattern formation, specifically reaction\u2013cross-diffusion Turing systems.\n- The kinetics are the Sel'kov glycolysis model in its dimensionless form. Searches show it is studied as a diffusive system. One paper calls a related system a reaction\u2013diffusion generalization of a special case of the 1968 Sel'kov glycolysis model. Other papers treat a distributed Selkov model with diffusion, where a Turing instability zone gives non-homogeneous patterns.\n- The extra terms, c1\u00b7div(u\u2207v) and c2\u00b7div(v\u2207u), are nonlinear cross-diffusion. They are chemotaxis-like fluxes, and cross-diffusion encompasses chemotaxis as a special case.\n\n**2. Is the behaviour known?** I checked the kinetics by hand rather than citing them. At u=b, v\u22480.1, the Jacobian is [[1, 100.015], [\u22122, \u2212100.015]]. The trace is negative and the determinant is positive, so the fixed point is stable. u is the self-activating species, and the diffusivity ratio is 1000. Without cross-diffusion the system should therefore already form classical Turing patterns. That fits the observed high spatial autocorrelation (Moran I = 0.967) and the sharp spectral peak at a single wavenumber (k \u2248 0.047). I did not simulate it, so I can't confirm this baseline.\n\nThe literature supports these points:\n- **Cross-diffusion changes Turing patterns in general.** With cross-diffusion, one species no longer has to diffuse much faster than the other, and an activator\u2013inhibitor mechanism is no longer required. This is the review-level source (Madzvamuse et al., J. Math. Biol., 2015). The standard earlier reference is Vanag & Epstein, \"Cross-diffusion and pattern formation in reaction\u2013diffusion systems,\" Phys. Chem. Chem. Phys. 11, 897\u2013912 (2009). It appears in the Epstein group's publication list and in several reference lists, but I did not open the paper itself.\n- **The sign and direction of cross-diffusion matter.**\n  - In a Brusselator study, cross-diffusion from inhibitor to activator enhances the Turing mode, while cross-diffusion from activator to inhibitor suppresses it. The source is Meng et al., Acta Physica Sinica 72 (2023).\n  - Repulsive cross-coupling promotes patterns. Weak repulsive interactions stabilize patterns by inducing cross-diffusion. The source is Menou, Luo & Zwicker, J. R. Soc. Interface 20:20230244 (2023).\n- **Sel'kov with cross-diffusion has been studied.** Liu, Ge & Shen, Applied Mathematics and Computation 431 (2022), found a reaction-diffusion glycolysis Sel'kov model with cross-diffusion, in which Turing instability emerges at the periodic solutions. The details I could see were linear cross-diffusion coefficients (d21).\n\n**3. What differs from the literature.** No source I found covers the opposite-signed, density-weighted fluxes div(u\u2207v) and div(v\u2207u) in Sel'kov kinetics at these parameters, so this is a variant rather than an exact match.\n- The Sel'kov cross-diffusion paper uses linear cross-diffusion. The nonlinear, chemotaxis-type form is covered by other models, such as a toxic-phytoplankton\u2013zooplankton model with nonlinear cross-diffusion. I don't think this difference changes the qualitative result of a cross-diffusion-modified Turing pattern.\n- The effect of c = 0.17 is large relative to D1. The effective u cross-coefficient is about c\u00b7u \u2248 1.7, against D1 = 0.01. The effective v cross-coefficient is only about 0.017, against D2 = 10. So u's motion is dominated by the chemotaxis-like term. This could change the pattern's wavelength and morphology relative to the baseline. I did not find a source that quantifies it.\n- The sign convention may matter. In \u2202t u = \u2026 + c1\u00b7div(u\u2207v), a positive c1 makes u move down the v gradient (repulsion). That is the opposite of the plain-words description (\"drawn toward\"). Check which species is attracted before comparing with the literature.\n\n**Searches run:**\n- Selkov cross-diffusion Turing\n- Sel'kov cross-diffusion chemotaxis pursuit-evasion\n- Sel'kov cross-diffusion amplitude equation\n- \u2207\u00b7(u\u2207v) opposite-sign cross-diffusion Turing\n- Sel'kov nonreciprocal cross-diffusion\n- Vanag & Epstein 2009\n- Menou/Luo/Zwicker 2023\n- Sel'kov with the specific parameters\n\n**Confidence: medium.** Both the model class and the general effect of cross-diffusion on Turing patterns are well established. I could not read full texts for most citations, only abstracts and snippets. I also didn't find a paper using this exact nonlinear, opposite-signed form on Sel'kov kinetics, so I can't rule out that one exists.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"model_family\": \"reaction-diffusion / Turing patterns with nonlinear (chemotaxis-like) cross-diffusion; Sel'kov glycolysis kinetics\", \"standard_name\": \"Cross-diffusion-modified Turing pattern formation in the Sel'kov model\", \"confidence\": \"medium\", \"citations\": [\"Vanag & Epstein 2009, Phys. Chem. Chem. Phys. 11, 897-912 - foundational work on cross-diffusion and pattern formation in reaction-diffusion systems (seen only as a reference-list entry, not opened)\", \"Madzvamuse et al. 2015, J. Math. Biol. (Springer s00285-014-0779-6) - cross-diffusion-driven instability; no need for fast/slow diffusivity ratio or activator-inhibitor kinetics\", \"Liu, Ge & Shen 2022, Appl. Math. Comput. 431 - Sel'kov glycolysis model with (linear) cross-diffusion and Turing instability\", \"Bashkirtseva 2022, Math. Methods Appl. Sci. - Selkov model with diffusion: Turing zone, multistable patterns\", \"Meng et al. 2023, Acta Physica Sinica 72 - direction of cross-diffusion determines enhancement/suppression of Turing modes (Brusselator)\", \"Menou, Luo & Zwicker 2023, J. R. Soc. Interface 20:20230244 - repulsive interactions induce cross-diffusion and stabilise Turing patterns\"], \"searches\": [\"cross-diffusion Selkov model Turing patterns nonlinear cross-diffusion opposite signs\", \"Sel'kov glycolysis model cross-diffusion pattern formation chemotaxis-like\", \"Sel'kov model cross-diffusion Turing patterns amplitude equation\", \"Turing patterns cross-diffusion div(u grad v) opposite sign Schnakenberg Brusselator Selkov\", \"Sel'kov reaction-diffusion nonreciprocal cross-diffusion chemotaxis-like flux\", \"Vanag Epstein cross-diffusion pattern formation PCCP 2009\", \"Menou Luo Zwicker 2023\", \"Turing patterns cross-diffusion Sel'kov a=0.015 b=10\"], \"notes\": \"No source found for the exact combination of nonlinear opposite-signed div(u grad v)/div(v grad u) cross-diffusion on Sel'kov kinetics at these parameters. The baseline (c=0) should be Turing-unstable by my hand calculation, which I did not verify by simulation. Cross-diffusion at c=0.17 is large relative to D1, so morphology could differ from the baseline. Check the sign convention of c1 against 'attracted/repelled'.\"}\n```",
+ "checked": "2026-11-04 11:24:16"
+}

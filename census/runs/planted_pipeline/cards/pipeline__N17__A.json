@@ -1,0 +1,43 @@
+{
+ "class_id": "pipeline:N17:A",
+ "card": "N17",
+ "view": "A",
+ "stage": "planted-pipeline",
+ "family": "agents",
+ "size": 1,
+ "program_plain": "World: 400 self-propelled point particles in a periodic 2D box (square of side 20), density 1 per unit area. Rules, discrete time steps: (1) each particle sets its heading to the average heading of all particles within distance 1 (itself included), plus a uniformly random angle in [-eta*pi, eta*pi], with noise eta = 0.318 (a random angle between -1 and 1 radian); (2) it moves 0.5 along its new heading. Start from random positions and random headings along the four lattice directions. Run 1,000 steps.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "a_step",
+   "value": 7.487
+  },
+  {
+   "feature": "a_density_cv",
+   "value": 1.221
+  },
+  {
+   "feature": "a_nn_ratio",
+   "value": 0.855
+  },
+  {
+   "feature": "a_polar",
+   "value": 0.644
+  },
+  {
+   "feature": "a_local_align",
+   "value": 0.463
+  },
+  {
+   "feature": "a_ang_mom",
+   "value": 0.048
+  }
+ ],
+ "kind": "review",
+ "shown": [
+  "flocking"
+ ],
+ "obs_inline": "a_step=7.487, a_density_cv=1.221, a_nn_ratio=0.855, a_polar=0.644, a_local_align=0.463, a_ang_mom=0.048",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: 400 self-propelled point particles in a periodic 2D box (square of side 20), density 1 per unit area. Rules, discrete time steps: (1) each particle sets its heading to the average heading of all particles within distance 1 (itself included), plus a uniformly random angle in [-eta*pi, eta*pi], with noise eta = 0.318 (a random angle between -1 and 1 radian); (2) it moves 0.5 along its new heading. Start from random positions and random headings along the four lattice directions. Run 1,000 steps.\n\nSAME CLASS ALSO INCLUDES:\n\n\nWHAT WAS OBSERVED (standout features; higher = stronger): a_step=7.487, a_density_cv=1.221, a_nn_ratio=0.855, a_polar=0.644, a_local_align=0.463, a_ang_mom=0.048\n\nIMPORTANT CONTEXT: this run passes the standard quantitative test for the known behaviour(s): flocking -- but its overall fingerprint does not look like textbook examples of it. The question is whether THIS form / route of that behaviour (or anything else it is doing) is documented.\n\nThis appears across 1 rule programs.",
+ "leak_hits": []
+}

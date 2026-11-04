@@ -1,0 +1,44 @@
+{
+ "class_id": "pipeline:N11:F0",
+ "card": "N11",
+ "view": "F0",
+ "stage": "planted-pipeline",
+ "family": "field",
+ "size": 1,
+ "program_plain": "World: individuals at continuous positions in a square periodic domain, starting with 4,000 placed at random. Rules (continuous-time birth and death): (1) each individual gives birth at rate 1920; the offspring lands at a Gaussian offset (standard deviation 0.05); (2) each individual dies at rate 192 + (density of others within radius 1.25) + g times (density within radius 0.0625, squared: a three-body crowding term). Densities are counts divided by disk area. Only competitive (harmful) interactions, no attraction or help. Set g = 3.14e-5 and run for 1 time unit; look at the steady spatial pattern.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "f_mean",
+   "value": 39.75
+  },
+  {
+   "feature": "f_std",
+   "value": 14.748
+  },
+  {
+   "feature": "f_change",
+   "value": 12.078
+  },
+  {
+   "feature": "f_n_blobs",
+   "value": 5.305
+  },
+  {
+   "feature": "f_moran",
+   "value": 0.564
+  },
+  {
+   "feature": "f_peak_sharp",
+   "value": 0.427
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "f_mean=39.75, f_std=14.748, f_change=12.078, f_n_blobs=5.305, f_moran=0.564, f_peak_sharp=0.427",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: individuals at continuous positions in a square periodic domain, starting with 4,000 placed at random. Rules (continuous-time birth and death): (1) each individual gives birth at rate 1920; the offspring lands at a Gaussian offset (standard deviation 0.05); (2) each individual dies at rate 192 + (density of others within radius 1.25) + g times (density within radius 0.0625, squared: a three-body crowding term). Densities are counts divided by disk area. Only competitive (harmful) interactions, no attraction or help. Set g = 3.14e-5 and run for 1 time unit; look at the steady spatial pattern.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - f_mean = 39.75  ()\n  - f_std = 14.748  ()\n  - f_change = 12.078  ()\n  - f_n_blobs = 5.305  ()\n  - f_moran = 0.564  (field forms spatial structure)\n  - f_peak_sharp = 0.427  (sharp field pattern)\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": [
+  "title-word:higher",
+  "title-word:spatial"
+ ]
+}

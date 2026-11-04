@@ -1,0 +1,74 @@
+{
+ "card": "N08",
+ "cid": "planted:N08",
+ "seed0": 2984361578,
+ "layers": "A",
+ "status": "NONE",
+ "views": {
+  "A": {
+   "flagged": false,
+   "em_seeds": 0,
+   "driven": false,
+   "seeds": [
+    {
+     "emergent": false,
+     "evidence": 0.0655
+    },
+    {
+     "emergent": false,
+     "evidence": 0.1045
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0946
+    }
+   ]
+  }
+ },
+ "knockout_run": false,
+ "presence": {
+  "per_seed": [
+   {
+    "peaks": [
+     [
+      0.648,
+      12.3
+     ]
+    ],
+    "two_phase": false,
+    "phi_loc_sd": 0.0354
+   },
+   {
+    "peaks": [
+     [
+      0.648,
+      12.2
+     ]
+    ],
+    "two_phase": false,
+    "phi_loc_sd": 0.0359
+   },
+   {
+    "peaks": [
+     [
+      0.648,
+      12.65
+     ]
+    ],
+    "two_phase": false,
+    "phi_loc_sd": 0.0335
+   }
+  ],
+  "two_phase_seeds": 0,
+  "grid_cells": 4,
+  "note": "census box side 31.1 sigma; paper grid 20 sigma, binodal ~0.55/0.73 at Pe = 5"
+ },
+ "sim_s": 402.3,
+ "total_s": 402.7,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

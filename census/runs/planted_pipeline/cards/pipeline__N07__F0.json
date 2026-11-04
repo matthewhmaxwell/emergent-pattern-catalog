@@ -1,0 +1,43 @@
+{
+ "class_id": "pipeline:N07:F0",
+ "card": "N07",
+ "view": "F0",
+ "stage": "planted-pipeline",
+ "family": "field",
+ "size": 1,
+ "program_plain": "World: a 64x64 square lattice with wrap-around edges; each site holds a continuous mass (mean 1 per site). Rules, repeated: (1) pick a random site and one of the four directions at random; (2) the site keeps 40% of its mass plus a random share of the rest and sends the remainder one step in that direction; (3) the receiving site pools it with its own mass, keeps 60% plus a random share of the rest, and passes the remainder one step to its left (a 90-degree counter-clockwise turn), so mass moves along L-shaped paths that always turn the same way. Rates are identical for all four directions and total mass is conserved. Measure steady-state density-density correlations and long-wavelength fluctuations.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "f_n_blobs",
+   "value": 5.92
+  },
+  {
+   "feature": "f_mean",
+   "value": 1.0
+  },
+  {
+   "feature": "f_change",
+   "value": 0.662
+  },
+  {
+   "feature": "f_std",
+   "value": 0.643
+  },
+  {
+   "feature": "f_peak_k",
+   "value": 0.417
+  },
+  {
+   "feature": "f_moran",
+   "value": 0.102
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "f_n_blobs=5.92, f_mean=1.0, f_change=0.662, f_std=0.643, f_peak_k=0.417, f_moran=0.102",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: a 64x64 square lattice with wrap-around edges; each site holds a continuous mass (mean 1 per site). Rules, repeated: (1) pick a random site and one of the four directions at random; (2) the site keeps 40% of its mass plus a random share of the rest and sends the remainder one step in that direction; (3) the receiving site pools it with its own mass, keeps 60% plus a random share of the rest, and passes the remainder one step to its left (a 90-degree counter-clockwise turn), so mass moves along L-shaped paths that always turn the same way. Rates are identical for all four directions and total mass is conserved. Measure steady-state density-density correlations and long-wavelength fluctuations.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - f_n_blobs = 5.92  ()\n  - f_mean = 1.0  ()\n  - f_change = 0.662  ()\n  - f_std = 0.643  ()\n  - f_peak_k = 0.417  ()\n  - f_moran = 0.102  (field forms spatial structure)\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": [
+  "title-word:correlations"
+ ]
+}

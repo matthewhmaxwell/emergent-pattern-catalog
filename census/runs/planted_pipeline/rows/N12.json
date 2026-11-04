@@ -1,0 +1,153 @@
+{
+ "card": "N12",
+ "cid": "planted:N12",
+ "seed0": 2065190686,
+ "layers": "C",
+ "status": "FLAGGED",
+ "views": {
+  "C": {
+   "flagged": false,
+   "em_seeds": 0,
+   "driven": false,
+   "seeds": [
+    {
+     "emergent": false,
+     "evidence": 0.0894
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0894
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0894
+    }
+   ]
+  },
+  "C.phase": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.8763,
+     "fp": {
+      "p_r": 0.71707,
+      "p_r_std": 0.01912,
+      "p_local_r": 0.85263,
+      "p_vortex_density": 0.00586,
+      "p_freq_spread": 0.07512
+     },
+     "checks": {
+      "lattice phase locking": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.9438,
+     "fp": {
+      "p_r": 0.73798,
+      "p_r_std": 0.01433,
+      "p_local_r": 0.8565,
+      "p_vortex_density": 0.00586,
+      "p_freq_spread": 0.06993
+     },
+     "checks": {
+      "lattice phase locking": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.9369,
+     "fp": {
+      "p_r": 0.72639,
+      "p_r_std": 0.01445,
+      "p_local_r": 0.85598,
+      "p_vortex_density": 0.00586,
+      "p_freq_spread": 0.07086
+     },
+     "checks": {
+      "lattice phase locking": true
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "measure": "squared magnetisation M^2 = |mean spin|^2 per frame (paper's order parameter)",
+  "L": 64,
+  "M2_late_mean_per_seed": [
+   0.5081699020334683,
+   0.5421152452690866,
+   0.5238452720710983
+  ],
+  "M2_final_per_seed": [
+   0.5004584215717985,
+   0.5617594317877491,
+   0.5082822439637087
+  ],
+  "M2_every_100_steps": [
+   [
+    0.0001,
+    0.4335,
+    0.5131,
+    0.4661,
+    0.5745,
+    0.5338,
+    0.5865,
+    0.5116,
+    0.5615,
+    0.4805,
+    0.5005
+   ],
+   [
+    0.0002,
+    0.257,
+    0.5028,
+    0.5541,
+    0.5589,
+    0.4886,
+    0.5378,
+    0.5292,
+    0.5504,
+    0.5326,
+    0.5618
+   ],
+   [
+    0.0004,
+    0.2801,
+    0.5061,
+    0.5607,
+    0.5367,
+    0.5554,
+    0.5051,
+    0.5373,
+    0.5596,
+    0.5012,
+    0.5083
+   ]
+  ],
+  "xi_over_L_sq_late": [
+   0.9320220110669033,
+   3.2553067194304552,
+   1.3207818859278209
+  ],
+  "vortex_density_final": [
+   0.005859375,
+   0.005859375,
+   0.005859375
+  ],
+  "paper_fit_M2_at_L": 0.5391113160990906,
+  "note": "paper fit (Table 3) is for L >= 128; the value at the census L is an extrapolation; the census run starts hot and may not have reached equilibrium"
+ },
+ "sim_s": 359.6,
+ "total_s": 361.8,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

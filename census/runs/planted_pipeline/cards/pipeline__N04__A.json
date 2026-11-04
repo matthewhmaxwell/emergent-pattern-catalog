@@ -1,0 +1,41 @@
+{
+ "class_id": "pipeline:N04:A",
+ "card": "N04",
+ "view": "A",
+ "stage": "planted-pipeline",
+ "family": "agents",
+ "size": 1,
+ "program_plain": "World: 400 slightly elongated particles (ellipse half-axes 0.55 and 0.65) in a periodic 2D box at density 0.87 (lattice spacing about 1.15). Rules, overdamped Brownian dynamics at temperature T: (1) each pair interacts through an orientation-dependent Lennard-Jones potential of strength e_p (repulsive core, weak attraction, depending on both particles' orientations, which can rotate); (2) each pair also feels a non-conservative force with Lennard-Jones magnitude and strength e_a, directed perpendicular to the line joining them, always in the same rotational sense; (3) thermal noise acts on positions and orientations, orientations relaxing faster. Set e_a/e_p = 33 and T = 6 and run for 30 time units; measure six-fold bond order and defect counts.",
+ "also_in_class_plain": [],
+ "observed": [
+  {
+   "feature": "a_nn_ratio",
+   "value": 1.975
+  },
+  {
+   "feature": "a_density_cv",
+   "value": 0.433
+  },
+  {
+   "feature": "a_step",
+   "value": 0.161
+  },
+  {
+   "feature": "a_polar",
+   "value": 0.04
+  },
+  {
+   "feature": "a_local_align",
+   "value": -0.036
+  },
+  {
+   "feature": "a_polar_std",
+   "value": 0.021
+  }
+ ],
+ "kind": "litcheck",
+ "shown": [],
+ "obs_inline": "a_nn_ratio=1.975, a_density_cv=0.433, a_step=0.161, a_polar=0.04, a_local_align=-0.036, a_polar_std=0.021",
+ "text": "THE RULE SYSTEM (plain words):\nWorld: 400 slightly elongated particles (ellipse half-axes 0.55 and 0.65) in a periodic 2D box at density 0.87 (lattice spacing about 1.15). Rules, overdamped Brownian dynamics at temperature T: (1) each pair interacts through an orientation-dependent Lennard-Jones potential of strength e_p (repulsive core, weak attraction, depending on both particles' orientations, which can rotate); (2) each pair also feels a non-conservative force with Lennard-Jones magnitude and strength e_a, directed perpendicular to the line joining them, always in the same rotational sense; (3) thermal noise acts on positions and orientations, orientations relaxing faster. Set e_a/e_p = 33 and T = 6 and run for 30 time units; measure six-fold bond order and defect counts.\n\nOTHER RULE SYSTEMS IN THE SAME BEHAVIOUR CLASS (parameter variants):\n  (none distinct)\n\nWHAT WAS OBSERVED IN THE SIMULATION (standout quantitative features; higher = stronger):\n  - a_nn_ratio = 1.975  (clumping (below 1 = clustered))\n  - a_density_cv = 0.433  ()\n  - a_step = 0.161  ()\n  - a_polar = 0.04  (agents align direction (polar order))\n  - a_local_align = -0.036  (local alignment)\n  - a_polar_std = 0.021  ()\n\nThis behaviour appears across 1 distinct rule programs of this structure.",
+ "leak_hits": []
+}

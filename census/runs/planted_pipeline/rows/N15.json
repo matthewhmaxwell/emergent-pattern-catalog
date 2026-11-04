@@ -1,0 +1,99 @@
+{
+ "card": "N15",
+ "cid": "planted:N15",
+ "seed0": 3473604372,
+ "layers": "A",
+ "status": "FLAGGED",
+ "views": {
+  "A": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 1.0,
+     "fp": {
+      "a_local_align": -0.04254,
+      "a_polar": 0.0674,
+      "a_polar_std": 0.01903,
+      "a_nn_ratio": 0.45515,
+      "a_density_cv": 2.08883,
+      "a_ang_mom": 0.02878,
+      "a_step": 1.87454
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 1.0,
+     "fp": {
+      "a_local_align": 0.02458,
+      "a_polar": 0.0942,
+      "a_polar_std": 0.05572,
+      "a_nn_ratio": 0.44453,
+      "a_density_cv": 2.07268,
+      "a_ang_mom": 0.05093,
+      "a_step": 1.86347
+     },
+     "checks": {
+      "flocking": false
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 1.0,
+     "fp": {
+      "a_local_align": 0.03326,
+      "a_polar": 0.05239,
+      "a_polar_std": 0.02592,
+      "a_nn_ratio": 0.41002,
+      "a_density_cv": 2.24179,
+      "a_ang_mom": 0.00496,
+      "a_step": 1.8283
+     },
+     "checks": {
+      "flocking": false
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "per_seed": [
+   {
+    "corr_dim": 1.337,
+    "box_dim": 1.329,
+    "length_ratio_q4_q3": 1.034,
+    "spanning_share": 0.971
+   },
+   {
+    "corr_dim": 1.303,
+    "box_dim": 1.247,
+    "length_ratio_q4_q3": 0.933,
+    "spanning_share": 0.947
+   },
+   {
+    "corr_dim": 1.321,
+    "box_dim": 1.317,
+    "length_ratio_q4_q3": 0.991,
+    "spanning_share": 0.978
+   }
+  ],
+  "corr_dim_mean": 1.32,
+  "fractal_network": true,
+  "non_coarsening": true,
+  "note": "census box 20 = 4 Rv; the paper's foam voids reach radius ~25 (Sec. III E), larger than the box"
+ },
+ "sim_s": 3475.1,
+ "total_s": 3541.1,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}

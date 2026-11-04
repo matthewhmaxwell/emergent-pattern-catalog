@@ -1,0 +1,114 @@
+{
+ "card": "N01",
+ "cid": "planted:N01",
+ "seed0": 3590312234,
+ "layers": "N",
+ "status": "FLAGGED",
+ "views": {
+  "N": {
+   "flagged": false,
+   "em_seeds": 0,
+   "driven": false,
+   "seeds": [
+    {
+     "emergent": false,
+     "evidence": 0.0
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0
+    },
+    {
+     "emergent": false,
+     "evidence": 0.0
+    }
+   ]
+  },
+  "N.phase": {
+   "flagged": true,
+   "em_seeds": 3,
+   "driven": true,
+   "seeds": [
+    {
+     "emergent": true,
+     "evidence": 0.7964,
+     "fp": {
+      "p_r": 1.0,
+      "p_r_std": 0.0,
+      "p_freq_spread": 0.0
+     },
+     "checks": {
+      "network synchronization": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.797,
+     "fp": {
+      "p_r": 1.0,
+      "p_r_std": 0.0,
+      "p_freq_spread": 0.0
+     },
+     "checks": {
+      "network synchronization": true
+     }
+    },
+    {
+     "emergent": true,
+     "evidence": 0.7955,
+     "fp": {
+      "p_r": 1.0,
+      "p_r_std": 0.0,
+      "p_freq_spread": 0.0
+     },
+     "checks": {
+      "network synchronization": true
+     }
+    }
+   ]
+  }
+ },
+ "knockout_run": true,
+ "presence": {
+  "measure": "final grouping per run (synchrony / equal-size clusters)",
+  "note": "plan: the new behaviour (P_sync set by the prime factors of N) is a property of many starts across N and is not observable in one census run",
+  "share_synchronised": 1.0,
+  "runs": [
+   {
+    "fully_synchronised": true,
+    "n_clusters": 1,
+    "cluster_sizes": [
+     200
+    ],
+    "equal_sizes": true,
+    "settled_by_step": 5
+   },
+   {
+    "fully_synchronised": true,
+    "n_clusters": 1,
+    "cluster_sizes": [
+     200
+    ],
+    "equal_sizes": true,
+    "settled_by_step": 5
+   },
+   {
+    "fully_synchronised": true,
+    "n_clusters": 1,
+    "cluster_sizes": [
+     200
+    ],
+    "equal_sizes": true,
+    "settled_by_step": 5
+   }
+  ]
+ },
+ "sim_s": 2.2,
+ "total_s": 3.4,
+ "meta": {
+  "steps_run": 1000,
+  "frozen_at": null,
+  "absorbed_at": null,
+  "unstable": false
+ }
+}
