@@ -1,0 +1,1557 @@
+[
+ {
+  "card": "N01",
+  "scope": "in",
+  "flagged": [
+   "N.phase"
+  ],
+  "labels": [
+   [
+    "N.phase",
+    "NAMED",
+    "network synchronization"
+   ]
+  ],
+  "presence": {
+   "measure": "final grouping per run (synchrony / equal-size clusters)",
+   "note": "plan: the new behaviour (P_sync set by the prime factors of N) is a property of many starts across N and is not observable in one census run",
+   "share_synchronised": 1.0,
+   "runs": [
+    {
+     "fully_synchronised": true,
+     "n_clusters": 1,
+     "cluster_sizes": [
+      200
+     ],
+     "equal_sizes": true,
+     "settled_by_step": 5
+    },
+    {
+     "fully_synchronised": true,
+     "n_clusters": 1,
+     "cluster_sizes": [
+      200
+     ],
+     "equal_sizes": true,
+     "settled_by_step": 5
+    },
+    {
+     "fully_synchronised": true,
+     "n_clusters": 1,
+     "cluster_sizes": [
+      200
+     ],
+     "equal_sizes": true,
+     "settled_by_step": 5
+    }
+   ]
+  },
+  "fidelity": true,
+  "cards": [],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "name"
+ },
+ {
+  "card": "N02",
+  "scope": "in",
+  "flagged": [
+   "F0",
+   "F1"
+  ],
+  "labels": [
+   [
+    "F0",
+    "UNNAMED",
+    null
+   ],
+   [
+    "F1",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "Delta_phi": [
+    12.945704154790983,
+    12.948473505406588,
+    13.190703465358768
+   ],
+   "Delta_psi": [
+    0.02303874605060001,
+    0.023033817854252018,
+    0.02484822960535988
+   ],
+   "mean_u": [
+    9.999999980831664,
+    9.999999993076406,
+    10.000000134466626
+   ],
+   "stationarity": [
+    0.004073074633704815,
+    0.0025643894908076027,
+    0.005924672952441181
+   ],
+   "pattern": [
+    true,
+    true,
+    true
+   ],
+   "steady": [
+    true,
+    true,
+    true
+   ],
+   "present": true,
+   "tolerance": "Delta_phi > 0.01 mean(u) and last-frame rms change < 0.05 Delta_phi, in >= 2 of 3 seeds"
+  },
+  "fidelity": false,
+  "cards": [
+   {
+    "id": "pipeline:N02:F0",
+    "kind": "litcheck",
+    "features": [
+     "f_std",
+     "f_mean",
+     "f_n_blobs",
+     "f_moran",
+     "f_peak_sharp",
+     "f_peak_k"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "DECOMPOSES",
+    "stage3": false,
+    "stage3a": null,
+    "stage3b": null
+   },
+   {
+    "id": "pipeline:N02:F1",
+    "kind": "litcheck",
+    "features": [
+     "f_n_blobs",
+     "f_moran",
+     "f_peak_sharp",
+     "f_mean",
+     "f_peak_k",
+     "f_std"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "DECOMPOSES",
+    "stage3": false,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N03",
+  "scope": "in",
+  "flagged": [
+   "A"
+  ],
+  "labels": [
+   [
+    "A",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "per_seed": [
+    {
+     "S_mean": 1.0,
+     "sigma_S": 0.0,
+     "Q_mean": 5.35,
+     "cavity_frame_share": 0.0,
+     "cavity_count_mean": 0.0,
+     "boiling_like": false
+    },
+    {
+     "S_mean": 1.0,
+     "sigma_S": 0.0,
+     "Q_mean": 5.5,
+     "cavity_frame_share": 0.0,
+     "cavity_count_mean": 0.0,
+     "boiling_like": false
+    },
+    {
+     "S_mean": 1.0,
+     "sigma_S": 0.0,
+     "Q_mean": 5.27,
+     "cavity_frame_share": 0.0,
+     "cavity_count_mean": 0.0,
+     "boiling_like": false
+    }
+   ],
+   "boiling_like_seeds": 0,
+   "paper": {
+    "S": 1.0,
+    "sigma_S": 0.0,
+    "Q": "< 5.0 (full collapse > 5.6)"
+   }
+  },
+  "fidelity": false,
+  "cards": [
+   {
+    "id": "pipeline:N03:A",
+    "kind": "litcheck",
+    "features": [
+     "a_step",
+     "a_density_cv",
+     "a_nn_ratio",
+     "a_polar",
+     "a_ang_mom",
+     "a_polar_std"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "ARTIFACT",
+    "stage3": null,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N04",
+  "scope": "in",
+  "flagged": [
+   "A"
+  ],
+  "labels": [
+   [
+    "A",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "psi6_global": 0.8541269664908828,
+   "psi6_local": 0.8795891525250044,
+   "g6_5a": 0.9288236456215787,
+   "defect_fraction": 0.0008974358974358975,
+   "per_seed": [
+    {
+     "psi6_global": 0.8543340462209356,
+     "psi6_local": 0.8796334499760275,
+     "g6_5a": 0.9299533414570013,
+     "defect_fraction": 0.0003846153846153846
+    },
+    {
+     "psi6_global": 0.8544690441397307,
+     "psi6_local": 0.8798604540133952,
+     "g6_5a": 0.9276847320468617,
+     "defect_fraction": 0.0015384615384615385
+    },
+    {
+     "psi6_global": 0.8535778091119822,
+     "psi6_local": 0.87927355358559,
+     "g6_5a": 0.928832863360873,
+     "defect_fraction": 0.0007692307692307692
+    }
+   ],
+   "note": "global |<psi6>| and local <|psi6|> over Delaunay neighbours; g6 at 5 lattice spacings"
+  },
+  "fidelity": false,
+  "cards": [
+   {
+    "id": "pipeline:N04:A",
+    "kind": "litcheck",
+    "features": [
+     "a_nn_ratio",
+     "a_density_cv",
+     "a_step",
+     "a_polar",
+     "a_local_align",
+     "a_polar_std"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "NOT RUNNABLE",
+    "stage3": null,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N05",
+  "scope": "out",
+  "reason": "one-dimensional ring",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N06",
+  "scope": "out",
+  "reason": "three-component spin vectors",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N07",
+  "scope": "in",
+  "flagged": [
+   "F0"
+  ],
+  "labels": [
+   [
+    "F0",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "r": [
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    7.0,
+    8.0,
+    9.0,
+    10.0
+   ],
+   "c4": [
+    0.029022608466055172,
+    0.007244014881195819,
+    0.0016965111241181452,
+    0.0006424287638222621,
+    0.00019198240140696503,
+    -1.9673480259545385e-05,
+    0.0001069867380250762,
+    -5.282729016395528e-05,
+    -0.00022313160739556082,
+    -0.00019220764254933003
+   ],
+   "c4_se": [
+    0.00018502435542305418,
+    0.00026582634387016616,
+    0.00021649348114529974,
+    0.00015991989377927695,
+    0.0001791660786721316,
+    9.304935927934466e-05,
+    0.00017507961182739733,
+    0.00012357663232590547,
+    0.00016100233876883575,
+    6.856605076536838e-05
+   ],
+   "c0": [
+    0.009576279805108058,
+    -0.0003002301505120877,
+    -0.0004680848297957682,
+    -0.00043109743905072516,
+    -0.000588852352934712,
+    -0.000651903968557169,
+    -0.0004692108060120204,
+    -0.00043909355096911033,
+    -0.0004948141299004439,
+    -0.0004895569165951863
+   ],
+   "axis_C": [
+    0.03859888827116324,
+    0.00694378473068373,
+    0.0014484780803149671,
+    0.00022085472596266014,
+    -0.0005441179864142895,
+    -0.0007705637249792778,
+    -0.0004870310741701633,
+    -0.00039588927754673897,
+    -0.0004676704027078457,
+    -0.0008723202295736612
+   ],
+   "axis_C_se": [
+    0.000469026573440947,
+    0.00039637725177784185,
+    0.0003363957213260185,
+    0.00027636089749794333,
+    0.00039891691504820233,
+    0.00033001842096277626,
+    0.00027888010791719646,
+    0.0003100977032547747,
+    0.0004156009507872841,
+    0.000256015215108174
+   ],
+   "variance": 0.41410528405466906,
+   "fit_range": [
+    2,
+    8
+   ],
+   "fit": {
+    "A_eta4": 0.11740600488194816,
+    "sd_A_eta4": 0.004106988159134946,
+    "eta": 3.730238273914352,
+    "sd_eta": 0.2412132464267837,
+    "A": 0.09649581280272353,
+    "sd_A": 0.017434498123692625
+   },
+   "r4_power_law": true,
+   "n_blocks": 12,
+   "present": true,
+   "frames_used": 243,
+   "t_min": 200,
+   "tolerance": "3.5 <= eta <= 4.5 and A > 3 sd_A (decision); the rest is reported only",
+   "A_eta4": {
+    "value": 0.11740600488194816,
+    "sd": 0.004106988159134946,
+    "paper": 0.11
+   },
+   "vs_theory": {
+    "W": 64,
+    "r": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "theory_c4": [
+     0.006922652207708877,
+     0.0015228111961848364,
+     0.00045166145293436526,
+     0.00017620852636675546,
+     8.360907216137337e-05,
+     4.468746352392172e-05,
+     2.6555545555418118e-05
+    ],
+    "theory_variance": 0.41482842193002933,
+    "measured_over_theory_scale": 1.053608137298047,
+    "sd_scale": 0.03682234082697896,
+    "chi2_per_dof_unscaled": 0.7581833065586849
+   }
+  },
+  "fidelity": true,
+  "cards": [
+   {
+    "id": "pipeline:N07:F0",
+    "kind": "litcheck",
+    "features": [
+     "f_n_blobs",
+     "f_mean",
+     "f_change",
+     "f_std",
+     "f_peak_k",
+     "f_moran"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "SINGLE MECHANISM",
+    "stage3": true,
+    "stage3a": "CLOSELY RELATED",
+    "stage3b": "CLOSELY RELATED"
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N08",
+  "scope": "in",
+  "flagged": [],
+  "labels": [],
+  "presence": {
+   "per_seed": [
+    {
+     "peaks": [
+      [
+       0.648,
+       12.3
+      ]
+     ],
+     "two_phase": false,
+     "phi_loc_sd": 0.0354
+    },
+    {
+     "peaks": [
+      [
+       0.648,
+       12.2
+      ]
+     ],
+     "two_phase": false,
+     "phi_loc_sd": 0.0359
+    },
+    {
+     "peaks": [
+      [
+       0.648,
+       12.65
+      ]
+     ],
+     "two_phase": false,
+     "phi_loc_sd": 0.0335
+    }
+   ],
+   "two_phase_seeds": 0,
+   "grid_cells": 4,
+   "note": "census box side 31.1 sigma; paper grid 20 sigma, binodal ~0.55/0.73 at Pe = 5"
+  },
+  "fidelity": false,
+  "cards": [],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "flag"
+ },
+ {
+  "card": "N09",
+  "scope": "out",
+  "reason": "three-dimensional space",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N10",
+  "scope": "out",
+  "reason": "aperiodic tiling",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N11",
+  "scope": "in",
+  "flagged": [
+   "F0"
+  ],
+  "labels": [
+   [
+    "F0",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "anisotropy_median": 0.21573439181919374,
+   "anisotropy_per_seed": [
+    0.18322851851637695,
+    0.21812690482381447,
+    0.23156555174635557
+   ],
+   "spot_psi6_median": 0.4290715751728448,
+   "pop_max_ratio": 40.909,
+   "note": "A ~ 1 stripes, ~ 0 spots/gaps (authors' IBM: 0.17 at 3.14e-5 = gaps, 0.92 at 2.36e-5 = stripes)"
+  },
+  "fidelity": false,
+  "cards": [
+   {
+    "id": "pipeline:N11:F0",
+    "kind": "litcheck",
+    "features": [
+     "f_mean",
+     "f_std",
+     "f_change",
+     "f_n_blobs",
+     "f_moran",
+     "f_peak_sharp"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "strict",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "ARTIFACT",
+    "stage3": null,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N12",
+  "scope": "in",
+  "flagged": [
+   "C.phase"
+  ],
+  "labels": [
+   [
+    "C.phase",
+    "KNOWN-BEHAVIOUR-ATYPICAL-LOOK",
+    null
+   ]
+  ],
+  "presence": {
+   "measure": "squared magnetisation M^2 = |mean spin|^2 per frame (paper's order parameter)",
+   "L": 64,
+   "M2_late_mean_per_seed": [
+    0.5081699020334683,
+    0.5421152452690866,
+    0.5238452720710983
+   ],
+   "M2_final_per_seed": [
+    0.5004584215717985,
+    0.5617594317877491,
+    0.5082822439637087
+   ],
+   "M2_every_100_steps": [
+    [
+     0.0001,
+     0.4335,
+     0.5131,
+     0.4661,
+     0.5745,
+     0.5338,
+     0.5865,
+     0.5116,
+     0.5615,
+     0.4805,
+     0.5005
+    ],
+    [
+     0.0002,
+     0.257,
+     0.5028,
+     0.5541,
+     0.5589,
+     0.4886,
+     0.5378,
+     0.5292,
+     0.5504,
+     0.5326,
+     0.5618
+    ],
+    [
+     0.0004,
+     0.2801,
+     0.5061,
+     0.5607,
+     0.5367,
+     0.5554,
+     0.5051,
+     0.5373,
+     0.5596,
+     0.5012,
+     0.5083
+    ]
+   ],
+   "xi_over_L_sq_late": [
+    0.9320220110669033,
+    3.2553067194304552,
+    1.3207818859278209
+   ],
+   "vortex_density_final": [
+    0.005859375,
+    0.005859375,
+    0.005859375
+   ],
+   "paper_fit_M2_at_L": 0.5391113160990906,
+   "note": "paper fit (Table 3) is for L >= 128; the value at the census L is an extrapolation; the census run starts hot and may not have reached equilibrium"
+  },
+  "fidelity": true,
+  "cards": [
+   {
+    "id": "pipeline:N12:C.phase",
+    "kind": "review",
+    "features": [
+     "p_local_r",
+     "p_r",
+     "p_freq_spread",
+     "p_r_std",
+     "p_vortex_density"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "SINGLE MECHANISM",
+    "stage3": false,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N13",
+  "scope": "in",
+  "flagged": [],
+  "labels": [],
+  "presence": {
+   "measure": "distribution of the mean opinion m over the census run (all frames, all seeds)",
+   "N": 200,
+   "frames": 501,
+   "binned_peaks_m": [
+    -1.0,
+    0.30000000000000004,
+    1.0
+   ],
+   "n_peaks": 3,
+   "share_consensus": 0.07917498336660013,
+   "share_near_m_r": 0.1377245508982036,
+   "per_seed_mean_m": [
+    0.4116,
+    0.4019,
+    0.0422
+   ],
+   "binned_density": [
+    0.01331,
+    0.00355,
+    0.00121,
+    0.00042,
+    0.00018,
+    0.00085,
+    0.00181,
+    0.00218,
+    0.0029,
+    0.00369,
+    0.0049,
+    0.00647,
+    0.01089,
+    0.01421,
+    0.00974,
+    0.00653,
+    0.0055,
+    0.00417,
+    0.00387,
+    0.00392,
+    0.06587
+   ],
+   "bin_centres_m": [
+    -1.0,
+    -0.98,
+    -0.91,
+    -0.8,
+    -0.69,
+    -0.58,
+    -0.47,
+    -0.36,
+    -0.25,
+    -0.14,
+    -0.03,
+    0.08,
+    0.19,
+    0.3,
+    0.41,
+    0.52,
+    0.63,
+    0.74,
+    0.85,
+    0.95,
+    1.0
+   ],
+   "exact_stationary_peaks_m": [
+    -1.0,
+    0.30000000000000004,
+    1.0
+   ],
+   "exact_binned_density": [
+    0.0062,
+    0.00094,
+    0.00063,
+    0.00073,
+    0.00094,
+    0.00123,
+    0.00162,
+    0.00213,
+    0.00284,
+    0.00381,
+    0.00517,
+    0.00712,
+    0.01,
+    0.0132,
+    0.01083,
+    0.00822,
+    0.00627,
+    0.00483,
+    0.00383,
+    0.00421,
+    0.03572
+   ],
+   "exact_consensus_mass": 0.04192515109630397,
+   "expected_shocks_per_seed": 39.52847075210475,
+   "note": "one census run is short compared with the stationary mixing of the distribution"
+  },
+  "fidelity": true,
+  "cards": [],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "flag"
+ },
+ {
+  "card": "N14",
+  "scope": "in",
+  "flagged": [],
+  "labels": [],
+  "presence": {
+   "Gamma6": 0.029091731151807687,
+   "n_L": 0.3884971178074626,
+   "rho": 0.2600308641975309,
+   "c6": 0.1365079365079365,
+   "per_seed": [
+    {
+     "N": 333,
+     "rho": 0.2569444444444445,
+     "n_bonds": 442,
+     "motifs": {
+      "triangle": 104,
+      "pair": 97,
+      "single": 111,
+      "open_triangle": 15,
+      "size4": 1
+     },
+     "Gamma6": 0.028613567634707134,
+     "n_L": 0.3993993993993994,
+     "n_loops": 15,
+     "c6": 0.26666666666666666,
+     "loop_sizes": {
+      "4": 1,
+      "6": 4,
+      "8": 1,
+      "10": 2,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 2,
+      "39": 1,
+      "98": 1
+     }
+    },
+    {
+     "N": 348,
+     "rho": 0.26851851851851855,
+     "n_bonds": 464,
+     "motifs": {
+      "triangle": 116,
+      "pair": 88,
+      "open_triangle": 14,
+      "single": 130
+     },
+     "Gamma6": 0.029175253980088984,
+     "n_L": 0.3994252873563218,
+     "n_loops": 12,
+     "c6": 0.0,
+     "loop_sizes": {
+      "5": 2,
+      "7": 3,
+      "8": 2,
+      "11": 1,
+      "15": 1,
+      "20": 1,
+      "59": 1,
+      "110": 1
+     }
+    },
+    {
+     "N": 330,
+     "rho": 0.25462962962962965,
+     "n_bonds": 443,
+     "motifs": {
+      "triangle": 108,
+      "single": 111,
+      "pair": 94,
+      "open_triangle": 11,
+      "size4": 1
+     },
+     "Gamma6": 0.029486371840626944,
+     "n_L": 0.36666666666666664,
+     "n_loops": 14,
+     "c6": 0.14285714285714285,
+     "loop_sizes": {
+      "5": 2,
+      "6": 2,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "10": 1,
+      "12": 1,
+      "17": 1,
+      "21": 1,
+      "26": 1,
+      "41": 1,
+      "59": 1
+     }
+    }
+   ],
+   "rho_from_F": 0.25,
+   "paper": "Fig. 5(n), T=0.145, mu=-4: Gamma6 ~0.79, n_L ~0.97, rho ~0.42 (after >= 2e6 cycles)"
+  },
+  "fidelity": false,
+  "cards": [],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "flag"
+ },
+ {
+  "card": "N15",
+  "scope": "in",
+  "flagged": [
+   "A"
+  ],
+  "labels": [
+   [
+    "A",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "per_seed": [
+    {
+     "corr_dim": 1.337,
+     "box_dim": 1.329,
+     "length_ratio_q4_q3": 1.034,
+     "spanning_share": 0.971
+    },
+    {
+     "corr_dim": 1.303,
+     "box_dim": 1.247,
+     "length_ratio_q4_q3": 0.933,
+     "spanning_share": 0.947
+    },
+    {
+     "corr_dim": 1.321,
+     "box_dim": 1.317,
+     "length_ratio_q4_q3": 0.991,
+     "spanning_share": 0.978
+    }
+   ],
+   "corr_dim_mean": 1.32,
+   "fractal_network": true,
+   "non_coarsening": true,
+   "note": "census box 20 = 4 Rv; the paper's foam voids reach radius ~25 (Sec. III E), larger than the box"
+  },
+  "fidelity": true,
+  "cards": [
+   {
+    "id": "pipeline:N15:A",
+    "kind": "litcheck",
+    "features": [
+     "a_density_cv",
+     "a_step",
+     "a_nn_ratio",
+     "a_polar",
+     "a_polar_std",
+     "a_ang_mom"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "SINGLE MECHANISM",
+    "stage3": false,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N16",
+  "scope": "out",
+  "reason": "three-dimensional space",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N17",
+  "scope": "in",
+  "flagged": [
+   "A"
+  ],
+  "labels": [
+   [
+    "A",
+    "KNOWN-BEHAVIOUR-ATYPICAL-LOOK",
+    null
+   ]
+  ],
+  "presence": {
+   "per_seed": [
+    {
+     "band_mode_share": 0.38,
+     "polarization": 0.639
+    },
+    {
+     "band_mode_share": 0.471,
+     "polarization": 0.689
+    },
+    {
+     "band_mode_share": 0.442,
+     "polarization": 0.633
+    }
+   ],
+   "note": "lanes of counter-propagating band trains cannot fit a 20 x 20 box"
+  },
+  "fidelity": null,
+  "cards": [
+   {
+    "id": "pipeline:N17:A",
+    "kind": "review",
+    "features": [
+     "a_step",
+     "a_density_cv",
+     "a_nn_ratio",
+     "a_polar",
+     "a_local_align",
+     "a_ang_mom"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "ARTIFACT",
+    "stage3": null,
+    "stage3a": null,
+    "stage3b": null
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N18",
+  "scope": "out",
+  "reason": "three-component spin vectors",
+  "lost_at": "engine scope"
+ },
+ {
+  "card": "N19",
+  "scope": "in",
+  "flagged": [
+   "F0",
+   "F1",
+   "F2"
+  ],
+  "labels": [
+   [
+    "F0",
+    "UNNAMED",
+    null
+   ],
+   [
+    "F1",
+    "UNNAMED",
+    null
+   ],
+   [
+    "F2",
+    "UNNAMED",
+    null
+   ]
+  ],
+  "presence": {
+   "per_seed": [
+    {
+     "share_pairs_ok": 0.0,
+     "shows_behaviour": false,
+     "share_pairs_ok_n_agg_ge_1": 1.0,
+     "n_agg_hist": {
+      "2": 40,
+      "3": 10
+     },
+     "mean_agg_mass_frac": 0.6095616749142038,
+     "mean_bg_std": 0.3546302200285398,
+     "mean_motion": 1.5529670708943653,
+     "mean_b_max": 12.337251033782959,
+     "pairs": 50,
+     "t_from": 500
+    },
+    {
+     "share_pairs_ok": 0.0,
+     "shows_behaviour": false,
+     "share_pairs_ok_n_agg_ge_1": 1.0,
+     "n_agg_hist": {
+      "2": 49,
+      "3": 1
+     },
+     "mean_agg_mass_frac": 0.6144325550782953,
+     "mean_bg_std": 0.3363593600855146,
+     "mean_motion": 1.5761057570076937,
+     "mean_b_max": 12.775868835449218,
+     "pairs": 50,
+     "t_from": 500
+    },
+    {
+     "share_pairs_ok": 0.0,
+     "shows_behaviour": false,
+     "share_pairs_ok_n_agg_ge_1": 1.0,
+     "n_agg_hist": {
+      "2": 50
+     },
+     "mean_agg_mass_frac": 0.6182256170986757,
+     "mean_bg_std": 0.33722381555700964,
+     "mean_motion": 1.5527808420577074,
+     "mean_b_max": 12.36495367050171,
+     "pairs": 50,
+     "t_from": 500
+    }
+   ],
+   "seeds_showing": 0,
+   "present": false,
+   "seeds_showing_n_agg_ge_1": 3,
+   "present_n_agg_ge_1": true,
+   "tolerance": "decision: per seed >= 50 % of frame pairs (t >= 500) with exactly one dense aggregate in moving bands, in >= 2 of 3 seeds; present_n_agg_ge_1 (reported only): the same with at least one aggregate, to show a scale effect (slow merging in the 64 x 64 world)"
+  },
+  "fidelity": true,
+  "cards": [
+   {
+    "id": "pipeline:N19:F0",
+    "kind": "litcheck",
+    "features": [
+     "f_std",
+     "f_n_blobs",
+     "f_mean",
+     "f_moran",
+     "f_peak_sharp",
+     "f_change"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "COMBINATION EFFECT",
+    "stage3": true,
+    "stage3a": "DOCUMENTED",
+    "stage3b": "CLOSELY RELATED"
+   },
+   {
+    "id": "pipeline:N19:F1",
+    "kind": "litcheck",
+    "features": [
+     "f_std",
+     "f_n_blobs",
+     "f_mean",
+     "f_moran",
+     "f_peak_sharp",
+     "f_change"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "COMBINATION EFFECT",
+    "stage3": true,
+    "stage3a": "DOCUMENTED",
+    "stage3b": "CLOSELY RELATED"
+   },
+   {
+    "id": "pipeline:N19:F2",
+    "kind": "litcheck",
+    "features": [
+     "f_mean",
+     "f_n_blobs",
+     "f_moran",
+     "f_std",
+     "f_peak_sharp",
+     "f_change"
+    ],
+    "runs": [
+     {
+      "run": "r1",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r2",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     },
+     {
+      "run": "r3",
+      "verdict": "KNOWN",
+      "source": "first",
+      "correct": false,
+      "how": "verdict",
+      "leak": "",
+      "close": false,
+      "silent": false
+     }
+    ],
+    "majority_correct": false,
+    "majority_silent": false,
+    "verify_class": "COMBINATION EFFECT",
+    "stage3": true,
+    "stage3a": "DOCUMENTED",
+    "stage3b": "CLOSELY RELATED"
+   }
+  ],
+  "survives_registered": false,
+  "survives_lenient": false,
+  "survives_verification": false,
+  "lost_at": "gate"
+ },
+ {
+  "card": "N20",
+  "scope": "out",
+  "reason": "triangular lattice, open edges, imposed defect textures",
+  "lost_at": "engine scope"
+ }
+]

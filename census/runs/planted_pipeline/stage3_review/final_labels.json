@@ -1,0 +1,18 @@
+{
+ "pipeline:N19:F2": {
+  "final_label": "CLOSELY RELATED",
+  "agent_output": "outputs/S01.json"
+ },
+ "pipeline:N07:F0": {
+  "final_label": "CLOSELY RELATED",
+  "agent_output": "outputs/S02.json"
+ },
+ "pipeline:N19:F1": {
+  "final_label": "CLOSELY RELATED",
+  "agent_output": "outputs/S03.json"
+ },
+ "pipeline:N19:F0": {
+  "final_label": "CLOSELY RELATED",
+  "agent_output": "outputs/S04.json"
+ }
+}
