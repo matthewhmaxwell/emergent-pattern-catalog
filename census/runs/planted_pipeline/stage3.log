@@ -1,0 +1,5 @@
+  ../planted_pipeline/stage3/verdicts/pipeline__N07__F0.json -> KNOWN-VARIANT (4 searches, 40s)
+  ../planted_pipeline/stage3/verdicts/pipeline__N19__F0.json -> KNOWN (5 searches, 50s)
+  ../planted_pipeline/stage3/verdicts/pipeline__N19__F1.json -> KNOWN (4 searches, 40s)
+  ../planted_pipeline/stage3/verdicts/pipeline__N19__F2.json -> KNOWN (3 searches, 32s)
+STAGE3 EXIT 0

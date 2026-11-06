@@ -1,0 +1,49 @@
+{
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Attraction-repulsion Keller-Segel chemotaxis (self-secreted attractant + consumed-nutrient acting as long-range slow chemorepellent): time-periodic / merging-emerging dynamic aggregates",
+ "citations": [
+  "Liu, Shi, Wang (2013) Pattern formation of the attraction-repulsion Keller-Segel system, DCDS-B 18:2597, doi:10.3934/dcdsb.2013.18.2597",
+  "Painter & Hillen (2011) Spatio-temporal chaos in a chemotaxis model, Physica D 240:363, doi:10.1016/j.physd.2010.09.011",
+  "Chemotaxis-Induced Phase Separation, Phys. Rev. Lett. (2025), doi:10.1103/2933-45qc"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Linearising n=1-m shows nutrient chemotaxis is chemorepulsion from a slowly decaying (0.084), longer-range (~3 vs ~1.6) signal produced by cells, so the model is the attraction-repulsion Keller-Segel model with volume-filling-type sensitivity. Knock-outs match the documented result: attractant only gives static coarsened aggregates; repellent only stays uniform; both give persistent dynamics. The coarse features (mean/std/change) cannot tell periodic rippling from chaotic merging-emerging, but either is documented. Not an artifact: holds up across seeds, 4x area and 3x run length.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 3,
+ "search_inputs": [
+  {
+   "query": "attraction-repulsion chemotaxis model spatio-temporal oscillating aggregates Painter Hillen"
+  },
+  {
+   "query": "chemotaxis self-produced attractant and consumed nutrient dynamic aggregates merging splitting model"
+  },
+  {
+   "query": "attraction-repulsion chemotaxis Turing instability oscillatory patterns time-periodic aggregates two chemicals"
+  }
+ ],
+ "result_urls": [
+  "https://link.springer.com/article/10.1007/s11538-015-0080-x",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278910002617",
+  "https://journals.aps.org/prl/abstract/10.1103/2933-45qc",
+  "https://ui.adsabs.harvard.edu/abs/2011PhyD..240..363P/abstract",
+  "https://researchportal.hw.ac.uk/en/publications/spatio-temporal-chaos-in-a-chemotaxis-model/",
+  "https://www.math.fsu.edu/~cryzowic/journalclub/papersFA25/11_19_2025.pdf",
+  "https://www.pnas.org/doi/10.1073/pnas.2309251121",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC11502788/",
+  "https://www.pnas.org/doi/10.1073/pnas.2504064122",
+  "https://www.polyu.edu.hk/ama/profile/zawang/Liu-Shi-Wang-DCDSB.pdf",
+  "http://staff.ustc.edu.cn/~hzhlj/paper/179.pdf",
+  "https://www.aimsciences.org//article/doi/10.3934/dcdsb.2013.18.2597",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0960077924012888",
+  "https://livrepository.liverpool.ac.uk/3188942/1/2024_preprint1.pdf"
+ ],
+ "full_text": "**Verdict: KNOWN.** This overturns the first pass's \"variant\" label, though only mildly. What the simulation shows is the documented behaviour of attraction\u2013repulsion Keller\u2013Segel chemotaxis: the attraction alone gives frozen aggregates, and adding the repulsion makes them keep moving.\n\n**Why the nutrient acts as a repellent.** Close to n \u2248 1, write n = 1 \u2212 m. Then m is made by cells at about 0.084\u00b7b, decays at 0.084 and diffuses at 0.75. Moving up the gradient of n is the same as moving down the gradient of m. So the system is effectively Keller\u2013Segel with two signals:\n- **Attractant a:** short range, about \u221a(2.5/1) \u2248 1.6, and fast (decays at rate 1).\n- **Effective repellent m:** longer range, about \u221a(0.75/0.084) \u2248 3.0, and roughly 12 times slower.\n\nThe cell drift saturates as b/(1+b\u00b2), which is a volume-filling-type form. The consumption term b\u00b7n is not linear, but that is a detail, not a change in mechanism.\n\n**What the literature documents:**\n- The attraction\u2013repulsion Keller\u2013Segel model provably has time-periodic patterns and steady state patterns. Liu, Shi and Wang conclude that chemotactic competitive interaction between attraction and repulsion can produce periodic patterns which are impossible for the chemotaxis model with a single chemical.\n- That last point matches the knock-out results exactly. Attractant only: static aggregates (f_change 0.02). Nutrient only: stays uniform. Both together: lasting motion (f_change 0.34).\n- Related Keller\u2013Segel models, including volume-filling versions, show spatio-temporal patterning in which the pattern of aggregates evolves through alternating merging and emerging events in either time-periodic or arrhythmic fashion (Painter & Hillen 2011). In that paper the effect that interrupts aggregates merging into ever-larger ones is cell growth, not a repellent.\n- Recent theory also says aggregates normally coarsen and that is interrupted and reversed by cell growth and death. Together, both stable and spatiotemporally dynamic aggregates emerge. In this system, the nutrient depletion around each aggregate plays that interrupting role.\n\n**Twist checked:** Here the repellent comes from consumption of a resupplied nutrient, with a saturating drift and the classic sensitivity b/(1+b\u00b2). That is a change in the rules, not in the behaviour. The measured features don't show anything new: smaller, still-moving aggregates and a raised variance.\n\n**Artifact check:** Unlikely to be an artifact. It is not a frozen or absorbing state, since f_change is about 0.34 and stays at that size with 3\u00d7 run length and 4\u00d7 area. It is not a diverged field either: the spreads across seeds are small and the knock-out is exactly uniform. One limit: the three features are coarse summaries. They can't tell periodic rippling from irregular merging and emerging, so I haven't identified which documented regime this is.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Attraction-repulsion Keller-Segel chemotaxis (self-secreted attractant + consumed-nutrient acting as long-range slow chemorepellent): time-periodic / merging-emerging dynamic aggregates\", \"citations\": [\"Liu, Shi, Wang (2013) Pattern formation of the attraction-repulsion Keller-Segel system, DCDS-B 18:2597, doi:10.3934/dcdsb.2013.18.2597\", \"Painter & Hillen (2011) Spatio-temporal chaos in a chemotaxis model, Physica D 240:363, doi:10.1016/j.physd.2010.09.011\", \"Chemotaxis-Induced Phase Separation, Phys. Rev. Lett. (2025), doi:10.1103/2933-45qc\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Linearising n=1-m shows nutrient chemotaxis is chemorepulsion from a slowly decaying (0.084), longer-range (~3 vs ~1.6) signal produced by cells, so the model is the attraction-repulsion Keller-Segel model with volume-filling-type sensitivity. Knock-outs match the documented result: attractant only gives static coarsened aggregates; repellent only stays uniform; both give persistent dynamics. The coarse features (mean/std/change) cannot tell periodic rippling from chaotic merging-emerging, but either is documented. Not an artifact: holds up across seeds, 4x area and 3x run length.\"}\n```",
+ "checked": "2026-11-06 03:27:27",
+ "provisional_label": "DOCUMENTED"
+}

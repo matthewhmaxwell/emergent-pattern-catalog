@@ -1,0 +1,64 @@
+{
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Conserved-mass random-fraction chipping / random averaging process with multidirectional (two-step) hopping on a 2D lattice",
+ "citations": [
+  "Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (2025), https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "Das, Chatterjee, Pradhan, 'Spatial correlations, additivity, and fluctuations in conserved-mass transport processes', PRE 93, 062135 (2016)",
+  "Rajesh & Majumdar, 'Conserved Mass Models and Particle Systems in One Dimension', J. Stat. Phys. (2000)",
+  "Garrido, Lebowitz, Maes, Spohn, 'Long-range correlations for conservative dynamics', PRA 42, 1954 (1990)",
+  "Hargus et al., 'Odd Diffusivity of Chiral Random Motion', PRL (2021)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": false,
+ "confidence": "medium",
+ "notes": "The observed features (lower site-mass variance, positive nearest-neighbour Moran's I, a lower change statistic) are the standard local steady-state signatures of random-fraction conserved-mass transport. The twist is chirality: fixed left-turn L-shaped transfers that break mirror symmetry but keep 90-degree rotational symmetry. Not found for lattice mass transport; probably irrelevant to static density correlations, since isotropic odd diffusivity gives a divergence-free flux (my reasoning, not tested in the sources). The power-law tail (1/r^4 in 2D) predicted by Hazra et al. was not measured; a structure-factor test is needed to check whether chirality changes its strength.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 4,
+ "search_inputs": [
+  {
+   "query": "conserved mass transport model random fraction chipping steady state Rajesh Majumdar"
+  },
+  {
+   "query": "long-range correlations conservative dynamics nonequilibrium Garrido Lebowitz Maes Spohn anisotropy"
+  },
+  {
+   "query": "conserved mass transport model two dimensions density correlations fluctuations random fraction chipping Chakraborty Pradhan"
+  },
+  {
+   "query": "chiral lattice gas odd diffusivity hopping turn left nonequilibrium correlations"
+  }
+ ],
+ "result_urls": [
+  "http://www.lptms.universite-paris-saclay.fr/satya-majumdar/files/2010/12/RajeshMaj00.pdf",
+  "https://www.ias.ac.in/article/fulltext/pram/064/06/0859-0869",
+  "https://vtechworks.lib.vt.edu/server/api/core/bitstreams/0f6d717c-6b02-419e-8668-8a1c6c178833/content",
+  "https://www.osti.gov/etdeweb/biblio/20497545",
+  "https://www.osti.gov/etdeweb/biblio/22301530",
+  "https://www.imsc.res.in/~rrajesh/Publications/alpha.pdf",
+  "https://pubmed.ncbi.nlm.nih.gov/11308716/",
+  "https://ui.adsabs.harvard.edu/abs/1990PhRvA..42.1954G/abstract",
+  "https://sites.math.rutgers.edu/~lebowitz/PUBLIST/publist.html",
+  "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011039",
+  "https://iopscience.iop.org/article/10.1209/0295-5075/14/6/002",
+  "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.158002",
+  "https://link.springer.com/article/10.1023/B:JOSS.0000028062.57459.52",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.023147",
+  "https://journals.aps.org/pre/abstract/10.1103/r6d8-bcd1",
+  "https://www.pnas.org/doi/10.1073/pnas.1013209108",
+  "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013074",
+  "https://pubmed.ncbi.nlm.nih.gov/27415236/",
+  "https://pubmed.ncbi.nlm.nih.gov/34005942/",
+  "https://web.iitd.ac.in/~varsha/G_epjb.pdf",
+  "https://www.imsc.res.in/~rrajesh/Publications/alpha.pdf",
+  "https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng",
+  "https://par.nsf.gov/servlets/purl/10318148",
+  "https://www.nature.com/articles/s42005-022-01032-9",
+  "https://vtechworks.lib.vt.edu/bitstreams/09259a56-5462-4a05-9168-ca893cd426ab/download"
+ ],
+ "full_text": "**Verdict: KNOWN-VARIANT.** The first pass's verdict stands, but on firmer ground than \"variant of some known model.\" What you observed is ordinary steady-state behaviour of random-fraction conserved-mass transport. The one twist is the fixed-handedness L-shaped path, and it is unlikely to matter for these measurements.\n\n**What the system is.** Each site keeps a random fraction of its mass and passes the rest to a neighbour, so this is a random-fraction chipping model. That family has been studied since the asymmetric random average process (Krug & Garcia). Rajesh & Majumdar calculated exact steady-state mass-mass correlations for it, including the continuous mass model where mass transport has no bias in direction. In your version the second step sends mass on to a diagonal site, so each event spreads mass to more than one neighbour.\n\n**Closest match.** Hazra, Chakraborty, Mukherjee & Pradhan (Phys. Rev. E, about a year ago) cover exactly this situation. They show that on hypercubic lattices with d>1, conserved-mass transport processes, with multidirectional hopping that respect all symmetries of the lattice, exhibit power-law correlations for generic parameter values. The density-density correlations typically decay as \u223c1/r(d+2) at large distance, although in a restricted parameter regime, the correlations can also be short ranged. In the same research line, Das, Chatterjee & Pradhan (2016) exactly calculated two-point correlations for chipping and diffusion processes and found them in general short-ranged. The older general result is Garrido\u2013Lebowitz\u2013Maes\u2013Spohn: for conservative dynamics that break detailed balance, exponential decay of spatial correlations... appears here as the exception.\n\n**How your three features fit:**\n- **f_moran \u2248 0.10 (nearest-neighbour correlation):** this is the short-range part of the correlation function these papers calculate. Moving correlated mass between neighbours is enough to produce it.\n- **f_std (lower variance than the knock-out):** expected. Pooling and redistributing mass narrows the single-site distribution, and this is the main quantity the random-fraction model papers compute.\n- **f_change:** a related local measure of how much site masses change. Nothing about it is unexpected.\n- None of the three tests whether correlations decay as a power law at long distance. The rule says long-wavelength fluctuations were to be measured, but no structure factor or correlation-decay result was reported.\n\n**The twist: chirality.** Always turning left breaks mirror symmetry while keeping 90-degree rotational symmetry. In continuous random walks, left-turn-only motion is known to produce odd diffusivity (Hargus et al.). I found no paper on chiral two-step chipping on a lattice. I doubt it matters for static density correlations. With 90-degree symmetry, the odd part of the diffusion tensor produces a flux with no divergence, so it should drop out of the density equation, and the noise term stays symmetric. This is my reasoning, not something I found tested. Hazra et al. assume full lattice symmetry, so whether chirality changes the strength of the 1/r\u2074 tail is technically open. A structure-factor measurement would settle it.\n\n**Genuine or artifact?** Genuine, but mundane. The effects are robust to seeds, area and run length, conserve mass, and the field does not diverge, freeze or stop interacting. What they show is the expected local signature of neighbour-sharing transport, not a new pattern.\n\n**Searches run:** random-fraction chipping steady states (Rajesh\u2013Majumdar); long-range correlations in conservative dynamics (Garrido\u2013Lebowitz\u2013Maes\u2013Spohn); correlations and fluctuations in 2D conserved-mass models (Pradhan group); chiral lattice gases and odd diffusivity.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Conserved-mass random-fraction chipping / random averaging process with multidirectional (two-step) hopping on a 2D lattice\", \"citations\": [\"Hazra, Chakraborty, Mukherjee, Pradhan, 'Generic power laws in higher-dimensional lattice models with multidirectional hopping', Phys. Rev. E (2025), https://journals.aps.org/pre/abstract/10.1103/sn1k-k8ng\", \"Das, Chatterjee, Pradhan, 'Spatial correlations, additivity, and fluctuations in conserved-mass transport processes', PRE 93, 062135 (2016)\", \"Rajesh & Majumdar, 'Conserved Mass Models and Particle Systems in One Dimension', J. Stat. Phys. (2000)\", \"Garrido, Lebowitz, Maes, Spohn, 'Long-range correlations for conservative dynamics', PRA 42, 1954 (1990)\", \"Hargus et al., 'Odd Diffusivity of Chiral Random Motion', PRL (2021)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": false, \"confidence\": \"medium\", \"notes\": \"The observed features (lower site-mass variance, positive nearest-neighbour Moran's I, a lower change statistic) are the standard local steady-state signatures of random-fraction conserved-mass transport. The twist is chirality: fixed left-turn L-shaped transfers that break mirror symmetry but keep 90-degree rotational symmetry. Not found for lattice mass transport; probably irrelevant to static density correlations, since isotropic odd diffusivity gives a divergence-free flux (my reasoning, not tested in the sources). The power-law tail (1/r^4 in 2D) predicted by Hazra et al. was not measured; a structure-factor test is needed to check whether chirality changes its strength.\"}\n```",
+ "checked": "2026-11-06 03:25:19",
+ "provisional_label": "CLOSELY RELATED"
+}

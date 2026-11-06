@@ -1,0 +1,71 @@
+{
+ "model": "claude-opus-5-5",
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Attraction-repulsion Keller-Segel chemotaxis (self-attractant + effective repellent via nutrient depletion), producing sustained spatio-temporal aggregate dynamics",
+ "citations": [
+  "Liu, Shi, Wang, Pattern formation of the attraction-repulsion Keller-Segel system, DCDS-B 18 (2013) 2597",
+  "Painter & Hillen, Spatio-temporal chaos in a chemotaxis model, Physica D 240 (2011) 363",
+  "Painter, Continuous models for cell migration in tissues (dual-signal temporal patterns)",
+  "Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE (2013)",
+  "Multiscale models of taxis-driven patterning in bacterial populations (attractant + nutrient PKS, nutrient-depletion-driven motion)",
+  "Wang & Hillen, Pattern formation for a chemotaxis model with volume filling, Chaos 17 (2007)"
+ ],
+ "undocumented_phenomenology": "",
+ "overturns_first_pass": true,
+ "confidence": "medium",
+ "notes": "Nutrient with consumption b*n and uniform resupply linearizes to a slow (rate 0.084), longer-range (~3 vs ~1.6) cell-produced repellent, so the system is an attraction-repulsion KS model. Attractant-only gives frozen/coarsening aggregates (f_change~0.01), matching the zero-growth KS coarsening literature; nutrient-only stays uniform; together, sustained dynamics as in ARKS time-periodic/irregular patterns. Upgraded from variant to known because the mechanism is the documented one. Saturating sensitivity b/(1+b^2) is a volume-filling-type form, not a phenomenological twist. Minor caveat: f_change decays from 0.35 to 0.25 at 3x run length, so there may be slow partial coarsening; no exact 2D simulation with this nutrient-based parameterisation was located.",
+ "stop_reason": "end_turn",
+ "web_searches_used": 5,
+ "search_inputs": [
+  {
+   "query": "attraction-repulsion chemotaxis model spatiotemporal oscillating aggregates merging splitting volume filling"
+  },
+  {
+   "query": "chemotaxis toward attractant and consumed nutrient pattern dynamics aggregates move nutrient depletion simulation"
+  },
+  {
+   "query": "attractive-repulsive chemotaxis two signals spatio-temporal irregular patterns no cell growth Painter Hillen"
+  },
+  {
+   "query": "Keller-Segel self-attractant plus nutrient taxis consumption replenishment travelling spots oscillating aggregates two-dimensional"
+  },
+  {
+   "query": "attraction-repulsion chemotaxis without growth time-periodic travelling aggregates spatiotemporal patterns simulations 2D"
+  }
+ ],
+ "result_urls": [
+  "https://www.polyu.edu.hk/ama/profile/zawang/Chaos07.pdf",
+  "https://link.springer.com/article/10.1007/s10255-025-0020-y",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278910002617",
+  "https://www.mimuw.edu.pl/~pdemb/pliki/hillen_presentation.pdf",
+  "https://link.aps.org/doi/10.1103/2933-45qc",
+  "https://par.nsf.gov/servlets/purl/10095435",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC3789734/",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC2752049/",
+  "https://www.biorxiv.org/content/10.1101/2021.06.09.447728v1.full",
+  "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3789734/",
+  "https://www.nature.com/articles/s41586-019-1733-y",
+  "https://www.biorxiv.org/content/10.1101/2024.01.25.577248.full.pdf",
+  "https://www.nature.com/articles/s41598-017-13183-9",
+  "http://www.macs.hw.ac.uk/~painter/assets/files/kjp021.pdf",
+  "https://www.polyu.edu.hk/ama/profile/zawang/Chaos07.pdf",
+  "https://journals.aps.org/prl/abstract/10.1103/2933-45qc",
+  "https://researchportal.hw.ac.uk/en/publications/spatio-temporal-chaos-in-a-chemotaxis-model/",
+  "https://aimsciences.org/journals/displayArticles.jsp?paperID=9140",
+  "https://ui.adsabs.harvard.edu/abs/2011PhyD..240..363P/abstract",
+  "https://www.tse-fr.eu/sites/default/files/medias/doc/by/blanchet/dec_2010/b4.pdf",
+  "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1009231",
+  "https://faculty.sites.iastate.edu/jyan/files/inline-files/Hulzebos-thesis.pdf",
+  "https://en.wikipedia.org/wiki/Keller%E2%80%93Segel_system",
+  "https://www.polyu.edu.hk/ama/profile/zawang/Liu-Shi-Wang-DCDSB.pdf",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278910002617",
+  "https://www.aimsciences.org/article/doi/10.3934/dcdsb.2022151",
+  "https://www.polyu.edu.hk/ama/profile/zawang/Chaos07.pdf",
+  "https://www.aimsciences.org//article/doi/10.3934/dcdsb.2013.18.2597"
+ ],
+ "full_text": "**Verdict: KNOWN.** This behaviour is already documented. My one caveat is that I found no paper using this exact nutrient-plus-attractant setup with this sensitivity function in 2D and showing the same moving patterns.\n\n**Why the nutrient acts as a repellent.** Cells eat the nutrient where they are dense, and it is resupplied everywhere at a slow rate (0.084). So for small changes, nutrient level \u2248 1 minus a smoothed copy of cell density. Moving up the nutrient gradient is therefore the same as moving away from a slow, long-range signal that the cells themselves make. That makes the system a standard attraction-repulsion Keller-Segel model:\n- **Attractant:** short range (\u221a2.5 \u2248 1.6 length units) and fast (turns over at rate 1).\n- **Effective repellent (nutrient shortage):** longer range (\u221a(0.75/0.084) \u2248 3) and about 12 times slower.\n\nShort-range attraction combined with slower, longer-range repulsion is the textbook recipe for patterns that keep changing over time instead of settling down.\n\n**How the sub-programs match the literature:**\n- **Attractant only (rule 1):** strong clumps that barely change (f_std 2.46, f_change 0.01), meaning a frozen or slowly coarsening set of clumps. This is the documented case without growth, where multiple-peak patterns are unstable and a coarsening process forms that leads (over long time scales) to a unique global aggregation.\n- **Nutrient only (rule 2):** stays uniform. Repulsion alone just smooths things out, which is expected.\n- **Both together:** clumps that keep changing (f_change 0.35). This is the documented attraction-repulsion result. Liu, Shi and Wang prove that the attraction-repulsion Keller-Segel system has both time-periodic and steady patterns, and argue that chemotactic competitive interaction between attraction and repulsion can produce periodic patterns which are impossible for the chemotaxis model with a single chemical. Painter's review of dual-signal models also reports temporal patterns (nonuniform solutions undergoing sustained temporal dynamics).\n\n**Same model in biological form.** Bacterial models that combine self-secreted attractant with taxis toward a nutrient the cells consume are well established. In one, the motion of the swarm ring is driven by local nutrient depletion, with the integrity resulting from the high concentration of the attractant. A simulation study of E. coli shows dynamical patterns formed by a bacterial colony which chemotactically senses gradients in both chemoattractant and nutrient concentrations.\n\n**Related continually changing clump dynamics.** Painter and Hillen show models with a volume-filling sensitivity that undergo a sustained spatio-temporal sequence of merging (two aggregations coalesce) and emerging (a new aggregation appears). There, cell growth does the job that the nutrient-shortage repulsion does here. The sensitivity used here, b/(1+b\u00b2), is another crowding-limited form, so it is not a meaningful difference in behaviour.\n\n**Not a trivial or artifact outcome:**\n- With interactions removed, both measures drop to zero.\n- Neither single rule reproduces the full result.\n- Both measures hold up at 4\u00d7 the area and 3\u00d7 the run length.\n- A density spread of 2.3 around a mean of 1 means sharp, real clumps, not random noise.\n- The sensitivity is bounded, so the strong clumping cannot run away numerically.\n\nOne small warning: f_change falls from 0.35 to 0.25 at 3\u00d7 run length. That still passes the \"at least half its size\" test, but it could mean slow partial coarsening on top of the ongoing dynamics.\n\n**Compared with the first pass:** I'm upgrading \"variant\" to \"known\". The behaviour is not a new twist on Keller-Segel; it is the documented attraction-repulsion behaviour, reached through nutrient depletion instead of a secreted repellent.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Attraction-repulsion Keller-Segel chemotaxis (self-attractant + effective repellent via nutrient depletion), producing sustained spatio-temporal aggregate dynamics\", \"citations\": [\"Liu, Shi, Wang, Pattern formation of the attraction-repulsion Keller-Segel system, DCDS-B 18 (2013) 2597\", \"Painter & Hillen, Spatio-temporal chaos in a chemotaxis model, Physica D 240 (2011) 363\", \"Painter, Continuous models for cell migration in tissues (dual-signal temporal patterns)\", \"Chemotactic Sensing towards Ambient and Secreted Attractant Drives Collective Behaviour of E. coli, PLoS ONE (2013)\", \"Multiscale models of taxis-driven patterning in bacterial populations (attractant + nutrient PKS, nutrient-depletion-driven motion)\", \"Wang & Hillen, Pattern formation for a chemotaxis model with volume filling, Chaos 17 (2007)\"], \"undocumented_phenomenology\": \"\", \"overturns_first_pass\": true, \"confidence\": \"medium\", \"notes\": \"Nutrient with consumption b*n and uniform resupply linearizes to a slow (rate 0.084), longer-range (~3 vs ~1.6) cell-produced repellent, so the system is an attraction-repulsion KS model. Attractant-only gives frozen/coarsening aggregates (f_change~0.01), matching the zero-growth KS coarsening literature; nutrient-only stays uniform; together, sustained dynamics as in ARKS time-periodic/irregular patterns. Upgraded from variant to known because the mechanism is the documented one. Saturating sensitivity b/(1+b^2) is a volume-filling-type form, not a phenomenological twist. Minor caveat: f_change decays from 0.35 to 0.25 at 3x run length, so there may be slow partial coarsening; no exact 2D simulation with this nutrient-based parameterisation was located.\"}\n```",
+ "checked": "2026-11-06 03:26:11",
+ "provisional_label": "DOCUMENTED"
+}

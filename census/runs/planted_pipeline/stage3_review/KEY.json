@@ -1,0 +1,18 @@
+{
+ "S01": {
+  "class_id": "pipeline:N19:F2",
+  "cutoff": "2026-10-23"
+ },
+ "S02": {
+  "class_id": "pipeline:N07:F0",
+  "cutoff": "2026-09-15"
+ },
+ "S03": {
+  "class_id": "pipeline:N19:F1",
+  "cutoff": "2026-10-23"
+ },
+ "S04": {
+  "class_id": "pipeline:N19:F0",
+  "cutoff": "2026-10-23"
+ }
+}
