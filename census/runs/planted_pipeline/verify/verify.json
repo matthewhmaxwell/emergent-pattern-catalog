@@ -1,0 +1,814 @@
+[
+ {
+  "pid": "pipeline:N02:F0",
+  "card": "N02",
+  "view": "F0",
+  "flagged": true,
+  "discrepant": [
+   "f_std"
+  ],
+  "features": {
+   "f_std": {
+    "median_real": 13.1913,
+    "median_ko": 0.0,
+    "effect": 13.1913,
+    "scale": 0.2638,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 12.9831,
+     "len3": 13.1914
+    }
+   }
+  },
+  "robust": [
+   "f_std"
+  ],
+  "class": "DECOMPOSES",
+  "reproduced_by_rules": [
+   4,
+   5
+  ],
+  "stage3": false
+ },
+ {
+  "pid": "pipeline:N02:F1",
+  "card": "N02",
+  "view": "F1",
+  "flagged": true,
+  "discrepant": [
+   "f_n_blobs"
+  ],
+  "features": {
+   "f_n_blobs": {
+    "median_real": 2.602,
+    "median_ko": 0.0,
+    "effect": 2.602,
+    "scale": 0.052,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 3.7612,
+     "len3": 2.6391
+    }
+   }
+  },
+  "robust": [
+   "f_n_blobs"
+  ],
+  "class": "DECOMPOSES",
+  "reproduced_by_rules": [
+   4,
+   5
+  ],
+  "stage3": false
+ },
+ {
+  "pid": "pipeline:N03:A",
+  "card": "N03",
+  "view": "A",
+  "flagged": false,
+  "discrepant": [
+   "a_step",
+   "a_density_cv",
+   "a_nn_ratio",
+   "a_polar",
+   "a_ang_mom",
+   "a_polar_std"
+  ],
+  "features": {
+   "a_step": {
+    "median_real": 4.5902,
+    "median_ko": 55.7495,
+    "effect": -51.1592,
+    "scale": 1.7397,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "a_density_cv": {
+    "median_real": 3.5347,
+    "median_ko": 0.796,
+    "effect": 2.7388,
+    "scale": 0.0866,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "a_nn_ratio": {
+    "median_real": 0.4822,
+    "median_ko": 0.9804,
+    "effect": -0.4981,
+    "scale": 0.0293,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "a_polar": {
+    "median_real": 0.0157,
+    "median_ko": 0.0501,
+    "effect": -0.0344,
+    "scale": 0.0064,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "a_ang_mom": {
+    "median_real": 0.0055,
+    "median_ko": 0.0221,
+    "effect": -0.0167,
+    "scale": 0.0149,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "a_polar_std": {
+    "median_real": 0.0064,
+    "median_ko": 0.0237,
+    "effect": -0.0172,
+    "scale": 0.0023,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   }
+  },
+  "robust": [],
+  "class": "ARTIFACT"
+ },
+ {
+  "pid": "pipeline:N04:A",
+  "card": "N04",
+  "view": "A",
+  "flagged": true,
+  "discrepant": [
+   "a_density_cv",
+   "a_nn_ratio"
+  ],
+  "class": "NOT RUNNABLE",
+  "reason": "census: not run; area4: not run; len3: not run"
+ },
+ {
+  "pid": "pipeline:N07:F0",
+  "card": "N07",
+  "view": "F0",
+  "flagged": true,
+  "discrepant": [
+   "f_n_blobs",
+   "f_mean",
+   "f_change",
+   "f_std",
+   "f_peak_k",
+   "f_moran"
+  ],
+  "features": {
+   "f_n_blobs": {
+    "median_real": 5.9428,
+    "median_ko": 6.0544,
+    "effect": -0.1116,
+    "scale": 0.2399,
+    "interaction_driven": false,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.0978,
+     "len3": -0.0858
+    }
+   },
+   "f_mean": {
+    "median_real": 1.0,
+    "median_ko": 1.0,
+    "effect": 0.0,
+    "scale": 0.04,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.0,
+     "len3": 0.0
+    }
+   },
+   "f_change": {
+    "median_real": 0.6632,
+    "median_ko": 0.7889,
+    "effect": -0.1258,
+    "scale": 0.029,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.1253,
+     "len3": -0.1505
+    }
+   },
+   "f_std": {
+    "median_real": 0.6421,
+    "median_ko": 0.8158,
+    "effect": -0.1737,
+    "scale": 0.0292,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.1732,
+     "len3": -0.1733
+    }
+   },
+   "f_peak_k": {
+    "median_real": 0.4531,
+    "median_ko": 0.4688,
+    "effect": -0.0156,
+    "scale": 0.0232,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.0156,
+     "len3": 0.0078
+    }
+   },
+   "f_moran": {
+    "median_real": 0.1004,
+    "median_ko": 0.0001,
+    "effect": 0.1003,
+    "scale": 0.0111,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.0976,
+     "len3": 0.0928
+    }
+   }
+  },
+  "robust": [
+   "f_change",
+   "f_std",
+   "f_moran"
+  ],
+  "class": "SINGLE MECHANISM",
+  "stage3": true
+ },
+ {
+  "pid": "pipeline:N11:F0",
+  "card": "N11",
+  "view": "F0",
+  "flagged": true,
+  "discrepant": [
+   "f_change",
+   "f_moran",
+   "f_n_blobs"
+  ],
+  "features": {
+   "f_change": {
+    "median_real": 12.0876,
+    "median_ko": 0.0,
+    "effect": 12.0876,
+    "scale": 0.2418,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "f_moran": {
+    "median_real": 0.5576,
+    "median_ko": 0.0009,
+    "effect": 0.5568,
+    "scale": 0.0112,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   },
+   "f_n_blobs": {
+    "median_real": 5.373,
+    "median_ko": 6.2832,
+    "effect": -0.9102,
+    "scale": 0.2331,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": null,
+     "len3": null
+    }
+   }
+  },
+  "robust": [],
+  "class": "ARTIFACT"
+ },
+ {
+  "pid": "pipeline:N12:C.phase",
+  "card": "N12",
+  "view": "C.phase",
+  "flagged": false,
+  "discrepant": [
+   "p_local_r",
+   "p_r",
+   "p_freq_spread",
+   "p_r_std",
+   "p_vortex_density"
+  ],
+  "features": {
+   "p_local_r": {
+    "median_real": 0.8556,
+    "median_ko": 0.4495,
+    "effect": 0.4061,
+    "scale": 0.0261,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.4043,
+     "len3": 0.4034
+    }
+   },
+   "p_r": {
+    "median_real": 0.731,
+    "median_ko": 0.0136,
+    "effect": 0.7174,
+    "scale": 0.0149,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.6893,
+     "len3": 0.7191
+    }
+   },
+   "p_freq_spread": {
+    "median_real": 0.0736,
+    "median_ko": 0.3239,
+    "effect": -0.2503,
+    "scale": 0.0079,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.2475,
+     "len3": -0.241
+    }
+   },
+   "p_r_std": {
+    "median_real": 0.0157,
+    "median_ko": 0.0068,
+    "effect": 0.0088,
+    "scale": 0.001,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.0175,
+     "len3": 0.006
+    }
+   },
+   "p_vortex_density": {
+    "median_real": 0.0071,
+    "median_ko": 0.3313,
+    "effect": -0.3242,
+    "scale": 0.0068,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.326,
+     "len3": -0.3267
+    }
+   }
+  },
+  "robust": [
+   "p_local_r",
+   "p_r",
+   "p_freq_spread",
+   "p_r_std",
+   "p_vortex_density"
+  ],
+  "class": "SINGLE MECHANISM",
+  "stage3": false
+ },
+ {
+  "pid": "pipeline:N15:A",
+  "card": "N15",
+  "view": "A",
+  "flagged": false,
+  "discrepant": [
+   "a_density_cv",
+   "a_step",
+   "a_nn_ratio",
+   "a_polar",
+   "a_polar_std",
+   "a_ang_mom"
+  ],
+  "features": {
+   "a_density_cv": {
+    "median_real": 2.2414,
+    "median_ko": 0.7777,
+    "effect": 1.4637,
+    "scale": 0.0717,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 1.1934,
+     "len3": 1.5164
+    }
+   },
+   "a_step": {
+    "median_real": 1.8623,
+    "median_ko": 1.5512,
+    "effect": 0.3111,
+    "scale": 0.0683,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.3083,
+     "len3": 1.8805
+    }
+   },
+   "a_nn_ratio": {
+    "median_real": 0.4267,
+    "median_ko": 1.0083,
+    "effect": -0.5816,
+    "scale": 0.0422,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": -0.5492,
+     "len3": -0.5588
+    }
+   },
+   "a_polar": {
+    "median_real": 0.0768,
+    "median_ko": 0.043,
+    "effect": 0.0339,
+    "scale": 0.0058,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.0125,
+     "len3": 0.0339
+    }
+   },
+   "a_polar_std": {
+    "median_real": 0.0385,
+    "median_ko": 0.0213,
+    "effect": 0.0172,
+    "scale": 0.0048,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.007,
+     "len3": 0.0135
+    }
+   },
+   "a_ang_mom": {
+    "median_real": 0.0193,
+    "median_ko": 0.0174,
+    "effect": 0.0019,
+    "scale": 0.0133,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.0149,
+     "len3": 0.0008
+    }
+   }
+  },
+  "robust": [
+   "a_density_cv",
+   "a_step",
+   "a_nn_ratio"
+  ],
+  "class": "SINGLE MECHANISM",
+  "stage3": false
+ },
+ {
+  "pid": "pipeline:N17:A",
+  "card": "N17",
+  "view": "A",
+  "flagged": true,
+  "discrepant": [
+   "a_ang_mom",
+   "a_step"
+  ],
+  "features": {
+   "a_ang_mom": {
+    "median_real": 0.1088,
+    "median_ko": 0.0426,
+    "effect": 0.0662,
+    "scale": 0.0551,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.0307,
+     "len3": 0.1431
+    }
+   },
+   "a_step": {
+    "median_real": 7.5339,
+    "median_ko": 6.1417,
+    "effect": 1.3923,
+    "scale": 0.2735,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": 1.4507,
+     "len3": -0.887
+    }
+   }
+  },
+  "robust": [],
+  "class": "ARTIFACT"
+ },
+ {
+  "pid": "pipeline:N19:F0",
+  "card": "N19",
+  "view": "F0",
+  "flagged": false,
+  "discrepant": [
+   "f_std",
+   "f_n_blobs",
+   "f_mean",
+   "f_moran",
+   "f_peak_sharp",
+   "f_change"
+  ],
+  "features": {
+   "f_std": {
+    "median_real": 2.3332,
+    "median_ko": 0.0,
+    "effect": 2.3332,
+    "scale": 0.0467,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 2.3708,
+     "len3": 2.5848
+    }
+   },
+   "f_n_blobs": {
+    "median_real": 1.0986,
+    "median_ko": 0.3466,
+    "effect": 0.752,
+    "scale": 0.5138,
+    "interaction_driven": false,
+    "persistent": true,
+    "control_effects": {
+     "area4": 1.1078,
+     "len3": 0.6931
+    }
+   },
+   "f_mean": {
+    "median_real": 1.0,
+    "median_ko": 1.0,
+    "effect": 0.0,
+    "scale": 0.04,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": 0.0,
+     "len3": 0.0
+    }
+   },
+   "f_moran": {
+    "median_real": 0.9771,
+    "median_ko": 0.0,
+    "effect": 0.9771,
+    "scale": 0.0195,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.021,
+     "len3": 0.9849
+    }
+   },
+   "f_peak_sharp": {
+    "median_real": 0.4058,
+    "median_ko": 0.713,
+    "effect": -0.3072,
+    "scale": 0.0612,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.6198,
+     "len3": 0.4298
+    }
+   },
+   "f_change": {
+    "median_real": 0.3539,
+    "median_ko": 0.0,
+    "effect": 0.3539,
+    "scale": 0.0071,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.3139,
+     "len3": 0.2525
+    }
+   }
+  },
+  "robust": [
+   "f_std",
+   "f_change"
+  ],
+  "class": "COMBINATION EFFECT",
+  "stage3": true
+ },
+ {
+  "pid": "pipeline:N19:F1",
+  "card": "N19",
+  "view": "F1",
+  "flagged": false,
+  "discrepant": [
+   "f_std",
+   "f_n_blobs",
+   "f_mean",
+   "f_moran",
+   "f_peak_sharp",
+   "f_change"
+  ],
+  "features": {
+   "f_std": {
+    "median_real": 2.0006,
+    "median_ko": 0.0,
+    "effect": 2.0006,
+    "scale": 0.04,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 2.0477,
+     "len3": 2.3258
+    }
+   },
+   "f_n_blobs": {
+    "median_real": 1.0986,
+    "median_ko": 0.3466,
+    "effect": 0.752,
+    "scale": 0.5138,
+    "interaction_driven": false,
+    "persistent": true,
+    "control_effects": {
+     "area4": 1.2516,
+     "len3": 0.6931
+    }
+   },
+   "f_mean": {
+    "median_real": 1.0,
+    "median_ko": 1.0,
+    "effect": 0.0,
+    "scale": 0.04,
+    "interaction_driven": false,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.0,
+     "len3": 0.0
+    }
+   },
+   "f_moran": {
+    "median_real": 0.9845,
+    "median_ko": 0.0,
+    "effect": 0.9845,
+    "scale": 0.0197,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.0141,
+     "len3": 0.9897
+    }
+   },
+   "f_peak_sharp": {
+    "median_real": 0.4483,
+    "median_ko": 0.7139,
+    "effect": -0.2656,
+    "scale": 0.0452,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.6038,
+     "len3": 0.4958
+    }
+   },
+   "f_change": {
+    "median_real": 0.2882,
+    "median_ko": 0.0,
+    "effect": 0.2882,
+    "scale": 0.0058,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.2493,
+     "len3": 0.2092
+    }
+   }
+  },
+  "robust": [
+   "f_std",
+   "f_change"
+  ],
+  "class": "COMBINATION EFFECT",
+  "stage3": true
+ },
+ {
+  "pid": "pipeline:N19:F2",
+  "card": "N19",
+  "view": "F2",
+  "flagged": false,
+  "discrepant": [
+   "f_mean",
+   "f_n_blobs",
+   "f_moran",
+   "f_std",
+   "f_peak_sharp",
+   "f_change"
+  ],
+  "features": {
+   "f_mean": {
+    "median_real": 2.4823,
+    "median_ko": 1.0,
+    "effect": 1.4823,
+    "scale": 0.0696,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 1.5531,
+     "len3": 1.9036
+    }
+   },
+   "f_n_blobs": {
+    "median_real": 1.6094,
+    "median_ko": 0.3466,
+    "effect": 1.2629,
+    "scale": 0.5063,
+    "interaction_driven": false,
+    "persistent": true,
+    "control_effects": {
+     "area4": 1.4544,
+     "len3": 1.2425
+    }
+   },
+   "f_moran": {
+    "median_real": 0.9878,
+    "median_ko": 0.0,
+    "effect": 0.9878,
+    "scale": 0.0198,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.0111,
+     "len3": 0.9917
+    }
+   },
+   "f_std": {
+    "median_real": 0.7749,
+    "median_ko": 0.0,
+    "effect": 0.7749,
+    "scale": 0.0186,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.7821,
+     "len3": 0.8895
+    }
+   },
+   "f_peak_sharp": {
+    "median_real": 0.4681,
+    "median_ko": 0.0686,
+    "effect": 0.3995,
+    "scale": 0.1017,
+    "interaction_driven": true,
+    "persistent": false,
+    "control_effects": {
+     "area4": -0.5501,
+     "len3": 0.6853
+    }
+   },
+   "f_change": {
+    "median_real": 0.3442,
+    "median_ko": 0.0,
+    "effect": 0.3442,
+    "scale": 0.0069,
+    "interaction_driven": true,
+    "persistent": true,
+    "control_effects": {
+     "area4": 0.288,
+     "len3": 0.3636
+    }
+   }
+  },
+  "robust": [
+   "f_mean",
+   "f_std",
+   "f_change"
+  ],
+  "class": "COMBINATION EFFECT",
+  "stage3": true
+ }
+]

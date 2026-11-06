@@ -1,7 +1,54 @@
-{"reviewed": "2026-11-04, before any gate call",
+{
+ "reviewed": "2026-11-04, before any gate call",
  "rule": "PLANTED_PIPELINE_PLAN step 3: cards checked against the planted leak list (PLANTED_CONTROLS_PLAN: title words beyond common ones, author surnames, coined terms, identifiers) before any gate call",
  "hits": {
-  "pipeline:N03:A": {"hits": ["title-word:screening"], "decision": "not a leak", "reason": "model parameter (chemical screening constant k) in the frozen planted rule text; the same word was in the frozen planted card N03, which passed the planted leak check and ran in the planted controls"},
-  "pipeline:N07:F0": {"hits": ["title-word:correlations"], "decision": "not a leak", "reason": "generic measurement term in the frozen planted rule text; same word in the frozen planted card N07"},
-  "pipeline:N11:F0": {"hits": ["title-word:higher", "title-word:spatial"], "decision": "not a leak", "reason": "spatial: generic term in the frozen planted rule text, same word in the frozen planted card N11; higher: census card template boilerplate (higher = stronger), present on every census card"}},
- "no_hits": ["pipeline:N02:F0", "pipeline:N02:F1", "pipeline:N04:A", "pipeline:N12:C.phase", "pipeline:N15:A", "pipeline:N17:A", "pipeline:N19:F0", "pipeline:N19:F1", "pipeline:N19:F2"]}
+  "pipeline:N03:A": {
+   "hits": [
+    "title-word:screening"
+   ],
+   "decision": "not a leak",
+   "reason": "model parameter (chemical screening constant k) in the frozen planted rule text; the same word was in the frozen planted card N03, which passed the planted leak check and ran in the planted controls"
+  },
+  "pipeline:N07:F0": {
+   "hits": [
+    "title-word:correlations"
+   ],
+   "decision": "not a leak",
+   "reason": "generic measurement term in the frozen planted rule text; same word in the frozen planted card N07"
+  },
+  "pipeline:N11:F0": {
+   "hits": [
+    "title-word:higher",
+    "title-word:spatial"
+   ],
+   "decision": "not a leak",
+   "reason": "spatial: generic term in the frozen planted rule text, same word in the frozen planted card N11; higher: census card template boilerplate (higher = stronger), present on every census card"
+  }
+ },
+ "no_hits": [
+  "pipeline:N02:F0",
+  "pipeline:N02:F1",
+  "pipeline:N04:A",
+  "pipeline:N12:C.phase",
+  "pipeline:N15:A",
+  "pipeline:N17:A",
+  "pipeline:N19:F0",
+  "pipeline:N19:F1",
+  "pipeline:N19:F2"
+ ],
+ "stage3_cards": {
+  "reviewed": "2026-11-06, before the Stage 3 (a) call",
+  "pipeline:N07:F0": {
+   "hits": [
+    "title-word:correlations"
+   ],
+   "decision": "not a leak",
+   "reason": "the same rule-text term as on the N07 gate card (reviewed above)"
+  },
+  "no_hits": [
+   "pipeline:N19:F0",
+   "pipeline:N19:F1",
+   "pipeline:N19:F2"
+  ]
+ }
+}

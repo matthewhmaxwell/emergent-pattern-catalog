@@ -1,0 +1,93 @@
+N02     census    1.00 h  run (24 CPU-h limit)
+N02      area4    3.99 h  run (24 CPU-h limit)
+N02       len3    2.99 h  run (24 CPU-h limit)
+N02      sub_3    0.63 h  run (24 CPU-h limit)
+N02      sub_4    0.63 h  run (24 CPU-h limit)
+N02      sub_5    0.63 h  run (24 CPU-h limit)
+N02      sub_6    0.63 h  run (24 CPU-h limit)
+N02    sub_3-4    0.63 h  run (24 CPU-h limit)
+N02    sub_3-5    0.63 h  run (24 CPU-h limit)
+N02    sub_3-6    0.63 h  run (24 CPU-h limit)
+N02    sub_4-5    0.63 h  run (24 CPU-h limit)
+N02    sub_4-6    0.63 h  run (24 CPU-h limit)
+N02    sub_5-6    0.63 h  run (24 CPU-h limit)
+N02  sub_3-4-5    0.63 h  run (24 CPU-h limit)
+N02  sub_3-4-6    0.63 h  run (24 CPU-h limit)
+N02  sub_3-5-6    0.63 h  run (24 CPU-h limit)
+N02  sub_4-5-6    0.63 h  run (24 CPU-h limit)
+N03     census   15.72 h  run (24 CPU-h limit)
+N03      area4   62.87 h  not run: projected over 1.5 x cap
+N03       len3   47.15 h  not run: projected over 1.5 x cap
+N03      sub_2   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N03      sub_3   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N03      sub_5   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N03    sub_2-3   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N03    sub_2-5   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N03    sub_3-5   14.59 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N04     census   26.79 h  run (24 CPU-h limit)
+N04      area4  107.15 h  not run: projected over 1.5 x cap
+N04       len3   80.36 h  not run: projected over 1.5 x cap
+N04      sub_1   26.78 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N04      sub_2   26.78 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N07     census    0.01 h  run (24 CPU-h limit)
+N07      area4    0.05 h  run (24 CPU-h limit)
+N07       len3    0.04 h  run (24 CPU-h limit)
+N11     census   11.67 h  run (24 CPU-h limit)
+N11      area4   46.69 h  not run: projected over 1.5 x cap
+N11       len3   35.02 h  run (24 CPU-h limit)
+N11      sub_3   11.67 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N11      sub_4   11.67 h  not run: area4 or len3 not run, so verify.classify_one cannot read sub-programs
+N12     census    0.34 h  run (24 CPU-h limit)
+N12      area4    1.34 h  run (24 CPU-h limit)
+N12       len3    1.00 h  run (24 CPU-h limit)
+N15     census    3.28 h  run (24 CPU-h limit)
+N15      area4   13.12 h  run (24 CPU-h limit)
+N15       len3    9.84 h  run (24 CPU-h limit)
+N17     census    0.01 h  run (24 CPU-h limit)
+N17      area4    0.05 h  run (24 CPU-h limit)
+N17       len3    0.04 h  run (24 CPU-h limit)
+N19     census    0.86 h  run (24 CPU-h limit)
+N19      area4    3.43 h  run (24 CPU-h limit)
+N19       len3    2.57 h  run (24 CPU-h limit)
+N19      sub_1    0.48 h  run (24 CPU-h limit)
+N19      sub_2    0.48 h  run (24 CPU-h limit)
+53 driver jobs; 38 to run; projected 142.9 CPU-h
+verify N15 len3 33771.8s 33772s
+verify N15 area4 42994.7s 42995s
+verify N11 census 47241.4s 47242s
+verify N02 area4 14387.6s 14388s
+verify N03 census 53377.5s 53378s
+verify N19 area4 11986.3s 11987s
+verify N15 census 10225.7s 10226s
+verify N02 len3 9504.4s 9505s
+verify N02 census 2886.7s 2887s
+verify N12 len3 3239.2s 3240s
+verify N12 area4 5973.9s 5974s
+verify N19 len3 8374.1s 8375s
+verify N02 sub_3 1175.2s 1176s
+verify N02 sub_4 1175.3s 1176s
+verify N19 census 2812.1s 2812s
+verify N02 sub_3-4 1204.5s 1205s
+verify N02 sub_5 1681.6s 1682s
+verify N02 sub_6 1845.6s 1846s
+verify N02 sub_3-5 1483.1s 1483s
+verify N02 sub_3-6 1489.5s 1490s
+verify N02 sub_3-4-5 75.7s 76s
+verify N02 sub_4-6 1483.1s 1484s
+verify N02 sub_4-5 2892.8s 2893s
+verify N02 sub_3-4-6 1485.0s 1485s
+verify N02 sub_5-6 2199.7s 2200s
+verify N02 sub_3-5-6 1886.1s 1887s
+verify N19 sub_2 1439.7s 1440s
+verify N02 sub_4-5-6 1969.8s 1970s
+verify N19 sub_1 1940.7s 1941s
+verify N07 len3 144.6s 145s
+verify N12 census 1217.6s 1218s
+verify N07 area4 252.2s 253s
+verify N17 len3 83.5s 84s
+verify N07 census 55.4s 56s
+verify N17 census 45.9s 46s
+verify N17 area4 426.0s 427s
+verify N11 len3 KILLED by the 24 CPU-h limit 94657s
+verify N04 census KILLED by the 24 CPU-h limit 94684s
+VERIFY DONE 2026-11-05 13:55:58
