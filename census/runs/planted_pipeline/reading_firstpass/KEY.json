@@ -1,0 +1,80 @@
+{
+ "R01": {
+  "run": "r3",
+  "card": "pipeline:N11:F0",
+  "pass": "first",
+  "file": "C04"
+ },
+ "R02": {
+  "run": "r2",
+  "card": "pipeline:N07:F0",
+  "pass": "first",
+  "file": "C03"
+ },
+ "R03": {
+  "run": "r2",
+  "card": "pipeline:N04:A",
+  "pass": "first",
+  "file": "C01"
+ },
+ "R04": {
+  "run": "r2",
+  "card": "pipeline:N02:F1",
+  "pass": "first",
+  "file": "C02"
+ },
+ "R05": {
+  "run": "r2",
+  "card": "pipeline:N11:F0",
+  "pass": "first",
+  "file": "C04"
+ },
+ "R06": {
+  "run": "r3",
+  "card": "pipeline:N02:F0",
+  "pass": "first",
+  "file": "C05"
+ },
+ "R07": {
+  "run": "r2",
+  "card": "pipeline:N02:F0",
+  "pass": "first",
+  "file": "C05"
+ },
+ "R08": {
+  "run": "r3",
+  "card": "pipeline:N04:A",
+  "pass": "first",
+  "file": "C01"
+ },
+ "R09": {
+  "run": "r1",
+  "card": "pipeline:N11:F0",
+  "pass": "first",
+  "file": "C04"
+ },
+ "R10": {
+  "run": "r1",
+  "card": "pipeline:N04:A",
+  "pass": "first",
+  "file": "C01"
+ },
+ "R11": {
+  "run": "r1",
+  "card": "pipeline:N02:F1",
+  "pass": "first",
+  "file": "C02"
+ },
+ "R12": {
+  "run": "r1",
+  "card": "pipeline:N02:F0",
+  "pass": "first",
+  "file": "C05"
+ },
+ "R13": {
+  "run": "r3",
+  "card": "pipeline:N02:F1",
+  "pass": "first",
+  "file": "C02"
+ }
+}
