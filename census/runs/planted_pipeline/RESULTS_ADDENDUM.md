@@ -32,7 +32,7 @@ phenomena mostly received (61 of 84 CLOSELY RELATED).
 
 ## Notes
 - N19: f_moran fails persistence at 4x area, and f_peak_sharp at 3x length (F0, F1) or 4x area (F2), because the
-  knock-out field is uniform to within 1e-8 (census) to about 6e-6 (4x area) and whether that residue passes the
+  knock-out field is uniform to within about 1e-7 (census) and 1e-5 (4x area) and whether that residue passes the
   fingerprint's zero-variance cutoff changes with size and length (knock-out Moran's I 0 at census size, about 1.0 at
   4x area; sharpness 0.07 to 0.71 at census size, 1.0 at 4x area, 0 at 3x length); the real runs have f_moran 0.98 in
   both sizes. Frozen classes unchanged; f_std and f_change are the robust features.

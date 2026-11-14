@@ -97,3 +97,7 @@ census/runs/planted_pipeline/superseded/ and is not scored; r1-r3 were relaunche
   start (random headings along the four lattice directions).
 - Erratum (2026-11-04): the compute-cap note above gives N04 as 0.2 time units per census step; the frozen module
   (census/planted_models/n04.py, STEP and HEADLINE) uses 0.03 time units (3,000 steps of dt = 1e-5), which is what ran.
+- Recorded 2026-11-06, after the fact (found by the write-up audit): the plan's fidelity budget ("the largest size
+  and length that fit 2 CPU-hours") was applied as 2 hours of wall-clock time on a shared machine at load 11 to 16
+  (FIDELITY.md), which gave each check less compute than the plan allowed. It bears on N08 and N14, whose checks failed
+  for lack of size or run length. Not logged as a deviation at the time.

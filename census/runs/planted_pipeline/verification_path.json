@@ -1,6 +1,6 @@
 {"note": "where each in-scope behavior is lost on the verification path (PLANTED_PIPELINE_PLAN Scoring (b)); written 2026-11-06 from verify/verify.json, stage3/verdicts and stage3_review/final_labels.json",
  "N01": {"lost_at": "namer", "detail": "no card"},
- "N02": {"lost_at": "verification (decomposes)", "detail": "F0 f_std and F1 f_n_blobs reproduced by interaction rules 4 and 5 (autocatalysis + drift of u up grad v)"},
+ "N02": {"lost_at": "verification (decomposes)", "detail": "F0 f_std and F1 f_n_blobs reproduced by interaction rules 4 and 5 (autocatalysis + drift of u along grad v, which with c1 > 0 carries u away from v)"},
  "N03": {"lost_at": "verification (compute cap)", "detail": "4x area and 3x length projected 63 and 47 CPU-h, not run; frozen class ARTIFACT"},
  "N04": {"lost_at": "verification (compute cap)", "detail": "census condition killed at 24 CPU-h; 4x area and 3x length projected 107 and 80 CPU-h, not run; NOT RUNNABLE"},
  "N07": {"lost_at": "Stage 3 (b)", "detail": "single mechanism, mismatch-flagged; Stage 3 (a) KNOWN-VARIANT; source review CLOSELY RELATED (the target paper, dated on the cutoff day, was found and excluded)"},

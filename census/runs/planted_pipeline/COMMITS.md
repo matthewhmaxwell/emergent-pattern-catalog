@@ -1,5 +1,6 @@
 # Planted pipeline commits (branch emergence-census)
 
+- `7c9b964` 2026-11-06 planted pipeline: corrections after the write-up fidelity audit; plug-in review reports archived; post hoc blinded reading of the 13 first-pass KNOWN-VARIANT replies
 - `0227f8b` 2026-11-06 planted pipeline: Stage 3 (b) source review (4 of 4 CLOSELY RELATED), report (0 of 20 on every path), addendum
 - `93fe982` 2026-11-06 planted pipeline: Stage 3 (a) (N07 KNOWN-VARIANT; N19 F0-F2 KNOWN) and Stage 3 (b) inputs
 - `16d256c` 2026-11-06 planted pipeline: verification (36 of 38 jobs; N04 census and N11 len3 killed at the 24 CPU-h cap) and frozen classes; Stage 3 cards
