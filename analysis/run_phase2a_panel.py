@@ -337,7 +337,7 @@ def _augment_history_p27(history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return history
 
 
-def make_p27_detector_fn(n_permutations: int = 99, seed: int = 42):
+def make_p27_detector_fn(n_permutations: int = 199, seed: int = 42):  # was 99 (see P13)
     from epc.detectors.p27_spatial_reciprocity import detect_p27
     def fn(history, metadata=None):
         aug = _augment_history_p27(history)
@@ -345,7 +345,7 @@ def make_p27_detector_fn(n_permutations: int = 99, seed: int = 42):
     return fn
 
 
-def make_p22_detector_fn(n_permutations: int = 99, seed: int = 42):
+def make_p22_detector_fn(n_permutations: int = 199, seed: int = 42):  # was 99 (see P13)
     from epc.detectors.p22_information_cascade import P22CascadeDetector
     detector = P22CascadeDetector(n_permutations=n_permutations, seed=seed)
     def fn(history, metadata=None):
@@ -550,7 +550,7 @@ def build_p13_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
     return runs, metadata
 
 
-def make_p13_detector_fn(n_null_runs: int = 99):
+def make_p13_detector_fn(n_null_runs: int = 199):  # was 99: floors null_p at 0.01, confirmation unreachable in battery and transfer matrix (panel already passed 199)
     from epc.detectors.p13_excitable_waves import P13ExcitableWaveDetector
     detector = P13ExcitableWaveDetector(n_null_runs=n_null_runs)
     def fn(history, metadata=None):
