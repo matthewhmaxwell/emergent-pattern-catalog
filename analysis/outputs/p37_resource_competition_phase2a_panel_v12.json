@@ -1,0 +1,411 @@
+{
+  "pattern_id": "P37",
+  "head_commit": "88027590f7c77297419570f8f6dec889030abe89",
+  "panel_version": "1.2",
+  "detector_format": "abundance_resource_timeseries",
+  "elapsed_seconds": 91.14,
+  "detector_invariance": {
+    "permutation_invariant": true,
+    "time_shuffle_invariant": true,
+    "primary_metric": "coexistence oscillation: median per-species late-window CV, n_persist >= 3"
+  },
+  "canonical_positive": {
+    "n_seeds": 5,
+    "scores": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+    ],
+    "mean_score": 0.9,
+    "results": [
+      {
+        "seed_index": 0,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true,
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1469
+      },
+      {
+        "seed_index": 1,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true,
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1439
+      },
+      {
+        "seed_index": 2,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true,
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1553
+      },
+      {
+        "seed_index": 3,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true,
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1648
+      },
+      {
+        "seed_index": 4,
+        "score": 0.9,
+        "verdict": "definitive",
+        "detected": true,
+        "rejection_stage": "FIRED",
+        "cont_metric": 0.1853
+      }
+    ]
+  },
+  "synthetic": [
+    {
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.6045
+    },
+    {
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.2973
+    },
+    {
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.5037
+    },
+    {
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.9208
+    },
+    {
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.1484
+    },
+    {
+      "substrate": "permutation_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_permutation_invariant"
+    },
+    {
+      "substrate": "time_shuffled",
+      "verdict": "SKIPPED-degenerate-by-construction",
+      "skip_reason": "primary_metric_time_shuffle_invariant"
+    },
+    {
+      "substrate": "constant",
+      "seed": 1843824992,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "linear_gradient",
+      "seed": 184566854,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.1158
+    },
+    {
+      "substrate": "checkerboard",
+      "seed": 1497586438,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.5037
+    }
+  ],
+  "catalog": [
+    {
+      "substrate": "P11_lotka_volterra",
+      "kind": "catalog_mate",
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "P12_rps",
+      "kind": "catalog_mate",
+      "score": 0.4,
+      "verdict": "screening",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.2499
+    },
+    {
+      "substrate": "p37_may_leonard",
+      "kind": "synthetic_supplement",
+      "seed": 432652533,
+      "score": 0.4,
+      "verdict": "screening",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.4279
+    },
+    {
+      "substrate": "p37_forced_stable_coexistence",
+      "kind": "synthetic_supplement",
+      "seed": 202244314,
+      "score": 0.9,
+      "verdict": "definitive",
+      "detected": true,
+      "rejection_stage": "FIRED",
+      "cont_metric": 0.2069
+    }
+  ],
+  "failed_regime": [
+    {
+      "substrate": "competitive_exclusion",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 200,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "competitive_exclusion",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 201,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "stable_coexistence",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 202,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "stable_coexistence",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 203,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "single_resource",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 204,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "single_resource",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 205,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "hw_uniform_consumption",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 206,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "hw_uniform_consumption",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 207,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "hw_low_supply",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 208,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    },
+    {
+      "substrate": "hw_low_supply",
+      "params": {
+        "t_max": 3000.0,
+        "dt": 0.02,
+        "n_frames": 80
+      },
+      "seed": 209,
+      "score": 0.0,
+      "verdict": "none",
+      "detected": false,
+      "rejection_stage": "METRIC",
+      "cont_metric": 0.0
+    }
+  ],
+  "class_b_composition": {
+    "substrate_type": "population_resource",
+    "catalog_mates": [
+      "P11_lotka_volterra",
+      "P12_rps"
+    ],
+    "synthetic_supplements": [
+      "p37_may_leonard",
+      "p37_forced_stable_coexistence"
+    ]
+  },
+  "class_c_status": "populated",
+  "class_c_n_a_reason": null,
+  "summary": {
+    "n_negatives": 22,
+    "overall_tnr": 0.5454545454545454,
+    "class_a_size_total": 10,
+    "class_a_size_evaluated": 8,
+    "synthetic": {
+      "n": 8,
+      "tnr": 0.125,
+      "advisory": false
+    },
+    "catalog": {
+      "n": 4,
+      "tnr": 0.25,
+      "advisory": true
+    },
+    "failed_regime": {
+      "n": 10,
+      "tnr": 1.0,
+      "advisory": false
+    },
+    "synthetic_tnr": 0.125,
+    "catalog_tnr": 0.25,
+    "catalog_tnr_advisory": true,
+    "failed_regime_tnr": 1.0,
+    "cohens_d_positive_vs_panel": 1.3595769370464157,
+    "effect_size_undefined": false,
+    "effect_size_basis": "tier_confidence",
+    "cohens_d_continuous": -0.0908914521958907,
+    "continuous_metric": "coexistence_oscillation",
+    "continuous_metric_direction": "higher",
+    "continuous_n_pos": 5,
+    "continuous_n_neg": 22,
+    "continuous_saturated": false,
+    "continuous_pos_values": [
+      0.1469,
+      0.1439,
+      0.1553,
+      0.1648,
+      0.1853
+    ],
+    "continuous_neg_values": [
+      0.6045,
+      0.2973,
+      0.5037,
+      0.9208,
+      0.1484,
+      0.0,
+      0.1158,
+      0.5037,
+      0.0,
+      0.2499,
+      0.4279,
+      0.2069,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "effect_size_note": "cohens_d_positive_vs_panel is over the DISCRETE tier-confidence (NaN at perfect separation); cohens_d_continuous is the faithful effect size over the pattern's CONTINUOUS canonical metric (positives vs pooled negatives, oriented).",
+    "verdict": "PARTIAL"
+  }
+}
