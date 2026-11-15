@@ -29,6 +29,7 @@ Usage::
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p29
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p32
     PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p30
+    PYTHONPATH=. python3.12 analysis/run_phase2a_panel.py p33   # also p34 p35 p36 p37, or p33-p37
 
 Outputs:
     analysis/outputs/p18_phase2a_panel.json
@@ -88,6 +89,11 @@ from epc.phase2a.failed_regimes import p4_territoriality as p4_failed
 from epc.phase2a.failed_regimes import p29_trail_network as p29_failed
 from epc.phase2a.failed_regimes import p32_specialization as p32_failed
 from epc.phase2a.failed_regimes import p30_autopoiesis as p30_failed
+from epc.phase2a.failed_regimes import p33_active_nematic as p33_failed
+from epc.phase2a.failed_regimes import p34_adaptive_network as p34_failed
+from epc.phase2a.failed_regimes import p35_entropy_crystal as p35_failed
+from epc.phase2a.failed_regimes import p36_pareto_exchange as p36_failed
+from epc.phase2a.failed_regimes import p37_resource_competition as p37_failed
 
 
 # --- Canonical positives -----------------------------------------------------
@@ -2179,6 +2185,16 @@ def main(argv: Optional[List[str]] = None) -> int:
         summaries["P32"] = run_p32()
     if which in ("p30",):
         summaries["P30"] = run_p30()
+    if which in ("p33", "p33-p37"):
+        summaries["P33"] = run_p33()
+    if which in ("p34", "p33-p37"):
+        summaries["P34"] = run_p34()
+    if which in ("p35", "p33-p37"):
+        summaries["P35"] = run_p35()
+    if which in ("p36", "p33-p37"):
+        summaries["P36"] = run_p36()
+    if which in ("p37", "p33-p37"):
+        summaries["P37"] = run_p37()
 
     def _fmt(x):
         return "  N/A " if x is None else f"{x:>5.3f}"
@@ -2197,9 +2213,6 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     return 0
 
-
-if __name__ == "__main__":
-    raise SystemExit(main())
 
 
 def make_p33_detector_fn(n_permutations: int = 49, seed: int = 42):
@@ -2245,3 +2258,162 @@ def make_p37_detector_fn(seed: int = 42):
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
+
+
+# --- P33-P37: discovery-phase patterns, full Phase-2a panels (v12) ----------
+#
+# Canonical positives = the standalone validations' positives (analysis/discovery/
+# p3[3-7]_*.py), same model and parameters, seeds 0-4. Detectors are the frozen
+# battery factories above, called with their defaults. Class A uses the new
+# discovery formats (epc/phase2a/synthetic_discovery.py) or, for P36, the existing
+# scalar_wealth format; Class B comes from catalog.DISCOVERY_CLASS_B; Class C from
+# epc/phase2a/failed_regimes/p3[3-7]_*.py. Write-up:
+# docs/validation_rebuild/p33_p37_full_panels.md.
+
+P33_P37_OUT = {
+    "P33": "analysis/outputs/p33_active_nematic_phase2a_panel_v12.json",
+    "P34": "analysis/outputs/p34_adaptive_network_phase2a_panel_v12.json",
+    "P35": "analysis/outputs/p35_entropy_crystal_phase2a_panel_v12.json",
+    "P36": "analysis/outputs/p36_pareto_exchange_phase2a_panel_v12.json",
+    "P37": "analysis/outputs/p37_resource_competition_phase2a_panel_v12.json",
+}
+
+
+def build_p33_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """Active nematic: 64x64 director lattice, eta=0.18, 400 steps / 60 frames,
+    from a uniformly random (disordered) director field."""
+    from epc.models.active_nematic import active_nematic_field
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        h, m = active_nematic_field(seed, eta=0.18)
+        runs.append(h)
+        if seed == 0:
+            metadata = m
+    return runs, metadata
+
+
+def build_p34_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """Adaptive voter (rewire-to-same) N=200, mean degree 4, phi=0.99, 400k updates,
+    80 frames, from a connected Erdos-Renyi graph with random opinions."""
+    from epc.models.adaptive_network import adaptive_voter
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        h, m = adaptive_voter(seed, N=200, mean_deg=4, phi=0.99, max_steps=400000, n_frames=80)
+        runs.append(h)
+        if seed == 0:
+            metadata = m
+    return runs, metadata
+
+
+def build_p35_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """Soft-disk compression with annealed noise to eta=0.74: N=196, L=14, 2500
+    steps / 80 frames, from uniformly random positions."""
+    from epc.models.entropy_crystal import hard_disk_crystallization
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        h, m = hard_disk_crystallization(seed, N=196, L=14.0, eta_end=0.74, n_steps=2500,
+                                         n_frames=80, noise0=0.16)
+        runs.append(h)
+        if seed == 0:
+            metadata = m
+    return runs, metadata
+
+
+def build_p36_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """Heterogeneous CC kinetic exchange, lambda_i ~ U[0,1), N=3000, 5000 sweeps /
+    40 frames, from equal wealth."""
+    from epc.models.kinetic_exchange import kinetic_exchange
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        h, m = kinetic_exchange(seed)
+        runs.append(h)
+        if seed == 0:
+            metadata = m
+    return runs, metadata
+
+
+def build_p37_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], Dict[str, Any]]:
+    """Huisman-Weissing 5 species / 5 resources chemostat, t=3000, 80 frames, from
+    low seed-varied initial abundances."""
+    from epc.models.resource_competition import resource_competition
+    runs: List[List[Dict[str, Any]]] = []
+    metadata: Dict[str, Any] = {}
+    for seed in range(n_seeds):
+        h, m = resource_competition(seed)
+        runs.append(h)
+        if seed == 0:
+            metadata = m
+    return runs, metadata
+
+
+def _p35_substrate_box(detector_fn):
+    """Score each P35 substrate in its OWN periodic box.
+
+    The P35 detector reads the box only from ``metadata['box_size']`` (used to
+    wrap neighbour distances), and run_panel passes the canonical positive's
+    metadata (L=14) to every substrate. Catalog mates and look-alikes live in
+    other boxes (7, 10, 16, 18, 20, 50, ...); wrapping them at L=14 would plant
+    spurious neighbours. Substrates whose frames carry ``box_size`` are scored
+    with it, as the standalone validation did (its ``_with_box``); all others,
+    the positives included, get the canonical metadata unchanged. The detector
+    itself is not modified.
+    """
+    def fn(history, metadata=None):
+        md = dict(metadata or {})
+        if history and isinstance(history[0], dict) and history[0].get("box_size"):
+            md["box_size"] = float(history[0]["box_size"])
+        return detector_fn(history, md)
+    return fn
+
+
+def run_p33(out_path: str = P33_P37_OUT["P33"], verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P33 panel -> {out_path}")
+    positives, metadata = build_p33_positives(n_seeds=5)
+    return run_panel(make_p33_detector_fn(), pattern_id="P33", detector_format="orientation_field",
+                     canonical_positive_runs=positives, canonical_metadata=metadata,
+                     failed_regime_module=p33_failed, output_path=out_path, verbose=verbose)
+
+
+def run_p34(out_path: str = P33_P37_OUT["P34"], verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P34 panel -> {out_path}")
+    positives, metadata = build_p34_positives(n_seeds=5)
+    return run_panel(make_p34_detector_fn(), pattern_id="P34", detector_format="adjacency_timeseries",
+                     canonical_positive_runs=positives, canonical_metadata=metadata,
+                     failed_regime_module=p34_failed, output_path=out_path, verbose=verbose)
+
+
+def run_p35(out_path: str = P33_P37_OUT["P35"], verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P35 panel -> {out_path}")
+    positives, metadata = build_p35_positives(n_seeds=5)
+    return run_panel(_p35_substrate_box(make_p35_detector_fn()), pattern_id="P35",
+                     detector_format="positions",
+                     canonical_positive_runs=positives, canonical_metadata=metadata,
+                     failed_regime_module=p35_failed, output_path=out_path, verbose=verbose)
+
+
+def run_p36(out_path: str = P33_P37_OUT["P36"], verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P36 panel -> {out_path}")
+    positives, metadata = build_p36_positives(n_seeds=5)
+    return run_panel(make_p36_detector_fn(), pattern_id="P36", detector_format="scalar_wealth",
+                     canonical_positive_runs=positives, canonical_metadata=metadata,
+                     failed_regime_module=p36_failed, output_path=out_path, verbose=verbose)
+
+
+def run_p37(out_path: str = P33_P37_OUT["P37"], verbose: bool = True) -> Dict[str, Any]:
+    print(f"--- Running P37 panel -> {out_path}")
+    positives, metadata = build_p37_positives(n_seeds=5)
+    return run_panel(make_p37_detector_fn(), pattern_id="P37",
+                     detector_format="abundance_resource_timeseries",
+                     canonical_positive_runs=positives, canonical_metadata=metadata,
+                     failed_regime_module=p37_failed, output_path=out_path, verbose=verbose)
+
+
+# Guard moved to the end of the module (it previously sat above the P33-P37
+# factories, so `python analysis/run_phase2a_panel.py p33` would have reached
+# main() before those factories were defined).
+if __name__ == "__main__":
+    raise SystemExit(main())

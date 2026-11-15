@@ -20,6 +20,8 @@ from typing import Any, Callable, Dict, List
 
 import numpy as np
 
+from epc.phase2a import synthetic_discovery as _sd  # P33-P37 formats
+
 
 GRID_DEFAULT_SHAPE = (64, 64)
 GRID_DEFAULT_STEPS = 200
@@ -705,6 +707,8 @@ def random_uniform_field(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "uniform")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "random_uniform", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -769,6 +773,8 @@ def random_gaussian_field(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "gaussian")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "random_gaussian", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -835,6 +841,8 @@ def random_binary_field(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "binary")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "random_binary", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -903,6 +911,8 @@ def spatial_white_noise_series(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "white_noise")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "spatial_white_noise", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -998,6 +1008,8 @@ def temporal_white_noise_per_cell(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "white_noise")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "temporal_white_noise", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1184,6 +1196,9 @@ def permutation_shuffled_positive(
     if format == "scalar_wealth":
         # Gini is permutation-invariant -> degenerate; skipped via permutation_invariant=True.
         return list(positive) if positive else []
+    if format in _sd.FORMATS:
+        # Discovery-phase formats (P33-P37): see synthetic_discovery.
+        return _sd.permutation_shuffled_discovery(format, seed, positive)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1341,6 +1356,8 @@ def constant_field(
             return []
         idx = rng.permutation(len(positive))
         return [dict(positive[int(i)], step=t) for t, i in enumerate(idx)]
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "constant", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1426,6 +1443,8 @@ def linear_gradient_field(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "gradient")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "linear_gradient", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 
@@ -1534,6 +1553,8 @@ def periodic_checkerboard(
         return _particle_membrane_null_history(rng, n_steps=n_steps)
     if format == "scalar_wealth":
         return _scalar_wealth_null(rng, "binary")
+    if format in _sd.FORMATS:
+        return _sd.null_history(format, "checkerboard", seed, n_steps=n_steps)
     raise ValueError(f"unknown format: {format}")
 
 

@@ -67,6 +67,11 @@ SUBSTRATE_PARAMS: Dict[str, Dict[str, Any]] = {
     "P4_scent_marking_territory": {"n_agents": 4, "grid_size": 32, "deposition_rate": 0.1, "decay_rate": 0.03, "repulsion_strength": 2.0, "home_attraction": 2.0, "temperature": 0.5, "n_steps": 5000, "snapshot_interval": 50, "seed": 0},
     "P29_ant_trail_network": {"n_nodes": 7, "n_agents": 40, "grid_size": 100, "alpha": 2.0, "beta": 3.0, "deposition_rate": 10.0, "evaporation_rate": 0.05, "n_steps": 500, "snapshot_interval": 10, "seed": 0},
     "P32_response_threshold": {"n_agents": 20, "n_tasks": 3, "reinforcement_rate": 0.05, "forgetting_rate": 0.01, "stimulus_rate": 0.1, "initial_threshold": 0.5, "n_steps": 500, "seed": 0},
+    # P28 yard-sale condensation: the P28 canonical-positive parameters (run_phase2a_panel.
+    # build_p28_positives: N=1000, f=0.5, no saving/tax, 100 frames x 2000 transactions,
+    # equal start); seed 0 is not among the P28 positive seeds (1-5). Added for the P36
+    # panel (scalar_wealth catalog mate), validation rebuild panels v12.
+    "P28_yard_sale": {"n_agents": 1000, "f": 0.5, "n_frames": 100, "n_tx_per_frame": 2000, "seed": 0},
 }
 
 CATALOG_IDS_FIXED = [
@@ -457,6 +462,19 @@ def _gen_p32_response_threshold(p: Dict[str, Any]) -> Dict[str, Any]:
     return {"kind": "task_allocation_timeseries", "history": history}
 
 
+
+def _gen_p28_yard_sale(p: Dict[str, Any]) -> Dict[str, Any]:
+    """P28 canonical yard-sale condensation (scalar_wealth), t=0 equal state recorded."""
+    from epc.models.yard_sale import YardSale
+    m = YardSale(n_agents=p["n_agents"], f=p["f"], lambda_save=0.0, chi=0.0,
+                 init_mode="equal", seed=p["seed"])
+    s0 = m.setup()
+    W = [np.asarray(s0["wealth"], dtype=np.float64).copy()]
+    for _ in range(p["n_frames"]):
+        W.append(np.asarray(m.step(n_transactions=p["n_tx_per_frame"])["wealth"],
+                            dtype=np.float64).copy())
+    return {"kind": "scalar_wealth", "wealth": np.stack(W)}
+
 _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P1_schelling": _gen_p1_schelling,
     "P3_gray_scott": _gen_p3_gray_scott,
@@ -484,6 +502,7 @@ _GENERATORS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "P4_scent_marking_territory": _gen_p4_scent_marking_territory,
     "P29_ant_trail_network": _gen_p29_ant_trail_network,
     "P32_response_threshold": _gen_p32_response_threshold,
+    "P28_yard_sale": _gen_p28_yard_sale,
 }
 
 
@@ -1386,6 +1405,126 @@ def _adapt_to_particle_membrane(
     return history
 
 
+
+# --- Adapters for the discovery-phase formats (P33-P37, panels v12) ---------
+#
+# Unlike _adapt_to_particles these never TILE a short trajectory (replaying it
+# would plant an artificial periodicity and restart the transient mid-run): a
+# native longer than target_steps is subsampled uniformly, a shorter one is kept
+# at its own length. Every frame carries the substrate's own geometry.
+
+def _subsample_idx(T: int, target_steps: int) -> np.ndarray:
+    if T > target_steps:
+        return np.linspace(0, T - 1, target_steps).astype(int)
+    return np.arange(T)
+
+
+def _particles_native_xy(native: Dict[str, Any]):
+    """(headings (T,N), positions (T,N,2) in [0, box), box) of a particles native.
+    Open-space natives (D'Orsogna; positions centred on 0, box = 2 x extent + margin
+    by _gen_p6_dorsogna) are translated by box/2 into [0, box) -- a pure translation."""
+    H = np.asarray(native["headings"], dtype=np.float64)
+    P = np.asarray(native["positions"], dtype=np.float64)
+    box = float(native.get("box_size", float(P.max()) + 1e-9))
+    if float(P.min()) < 0.0:
+        P = P + box / 2.0
+    return H, np.mod(P, box), box
+
+
+def _adapt_to_orientation_field(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
+    """Particle catalog substrate -> P33 orientation input: per-agent positions,
+    unit velocities along the heading, headings, and the substrate's own box_size
+    (the P33 detector bins headings onto its director grid itself)."""
+    if native.get("kind") != "particles":
+        raise ValueError(f"orientation_field adapter: unsupported native kind {native.get('kind')!r}")
+    H, P, box = _particles_native_xy(native)
+    out = []
+    for i, t in enumerate(_subsample_idx(H.shape[0], target_steps)):
+        out.append({"positions": P[t], "velocities": np.column_stack([np.cos(H[t]), np.sin(H[t])]),
+                    "headings": H[t], "box_size": box, "step": i})
+    return out
+
+
+def _adapt_to_positions(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
+    """Particle catalog substrate -> P35 input: positions + the substrate's own box_size."""
+    if native.get("kind") != "particles":
+        raise ValueError(f"positions adapter: unsupported native kind {native.get('kind')!r}")
+    _, P, box = _particles_native_xy(native)
+    return [{"positions": P[t], "box_size": box, "step": i}
+            for i, t in enumerate(_subsample_idx(P.shape[0], target_steps))]
+
+
+def _lattice_graph(rows: int, cols: int, moore: bool = True) -> np.ndarray:
+    """Periodic lattice interaction graph (Moore 8-neighbour, or von Neumann)."""
+    n = rows * cols
+    A = np.zeros((n, n), dtype=np.int8)
+    rr, cc = np.meshgrid(np.arange(rows), np.arange(cols), indexing="ij")
+    me = (rr * cols + cc).ravel()
+    offs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    if moore:
+        offs += [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+    for dr, dc in offs:
+        nb = (((rr + dr) % rows) * cols + (cc + dc) % cols).ravel()
+        A[me, nb] = 1
+    np.fill_diagonal(A, 0)
+    return A
+
+
+def _adapt_to_adjacency(native: Dict[str, Any], target_steps: int = 200,
+                        lattice_max_frames: int = 40) -> List[Dict[str, Any]]:
+    """Catalog substrate -> P34 input (adjacency time series + node opinions).
+
+    opinions (Hegselmann-Krause): the bounded-confidence INTERACTION graph agents
+        actually average over, A_ij = 1 iff |x_i - x_j| < epsilon, re-derived every
+        frame (it evolves as opinions cluster); opinions = the opinion values.
+    grid_binary (voter): the fixed periodic Moore lattice graph the voter model
+        updates on, with the cell states as node opinions. Subsampled to
+        ``lattice_max_frames`` frames because the detector holds a dense float
+        copy of every frame (1024 x 1024 nodes here).
+    """
+    kind = native.get("kind")
+    if kind == "opinions":
+        X = np.asarray(native["opinions"], dtype=np.float64)
+        eps = float(native["epsilon"])
+        out = []
+        for i, t in enumerate(_subsample_idx(X.shape[0], target_steps)):
+            A = (np.abs(X[t][:, None] - X[t][None, :]) < eps).astype(np.int8)
+            np.fill_diagonal(A, 0)
+            out.append({"adjacency": A, "opinions": X[t].copy(), "step": i})
+        return out
+    if kind == "grid_binary":
+        G = np.asarray(native["grids"])
+        A = _lattice_graph(G.shape[1], G.shape[2], moore=True)
+        return [{"adjacency": A, "opinions": G[t].ravel().astype(int), "step": i}
+                for i, t in enumerate(_subsample_idx(G.shape[0], min(target_steps, lattice_max_frames)))]
+    raise ValueError(f"adjacency adapter: unsupported native kind {kind!r}")
+
+
+def _adapt_to_scalar_wealth(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
+    if native.get("kind") != "scalar_wealth":
+        raise ValueError(f"scalar_wealth adapter: unsupported native kind {native.get('kind')!r}")
+    W = np.asarray(native["wealth"], dtype=np.float64)
+    return [{"wealth": W[t].copy(), "step": i}
+            for i, t in enumerate(_subsample_idx(W.shape[0], target_steps))]
+
+
+def _adapt_to_abundance_resource(native: Dict[str, Any], target_steps: int = 200) -> List[Dict[str, Any]]:
+    """Lattice population substrate -> P37 input. abundances = the global density of
+    each species state (1..n_states-1); resources = [fraction of EMPTY sites] -- free
+    space is the shared, depletable resource every species needs to reproduce into
+    (Lotka-Volterra lattice: prey birth into empty sites; RPS: reproduction into
+    empty sites)."""
+    if native.get("kind") != "grid_categorical":
+        raise ValueError(f"abundance_resource adapter: unsupported native kind {native.get('kind')!r}")
+    G = np.asarray(native["grids"])
+    n_states = int(native.get("n_states", int(G.max()) + 1))
+    out = []
+    for i, t in enumerate(_subsample_idx(G.shape[0], target_steps)):
+        g = G[t]
+        out.append({"abundances": np.array([float(np.mean(g == s_)) for s_ in range(1, n_states)]),
+                    "resources": np.array([float(np.mean(g == 0))]), "step": i})
+    return out
+
 def load_catalog_substrate_for_format(
     substrate_id: str,
     target_format: str,
@@ -1428,6 +1567,17 @@ def load_catalog_substrate_for_format(
         return _adapt_to_task_allocation(native, target_steps=target_steps)
     if target_format == "particle_membrane":
         return _adapt_to_particle_membrane(native, target_steps=target_steps)
+    # Discovery-phase formats (P33-P37, panels v12).
+    if target_format == "orientation_field":
+        return _adapt_to_orientation_field(native, target_steps=target_steps)
+    if target_format == "positions":
+        return _adapt_to_positions(native, target_steps=target_steps)
+    if target_format == "adjacency_timeseries":
+        return _adapt_to_adjacency(native, target_steps=target_steps)
+    if target_format == "scalar_wealth":
+        return _adapt_to_scalar_wealth(native, target_steps=target_steps)
+    if target_format == "abundance_resource_timeseries":
+        return _adapt_to_abundance_resource(native, target_steps=target_steps)
     raise ValueError(f"unknown target_format: {target_format}")
 
 
@@ -1490,6 +1640,48 @@ PATTERN_TO_SUBSTRATE_ID: Dict[str, str] = {
 }
 
 
+
+# === Class B for the discovery-phase patterns P33-P37 (panels v12) ============
+#
+# The five patterns are not in MODEL_REGISTRY, so their substrate type is
+# declared here. They are deliberately NOT added to PATTERN_TO_SUBSTRATE_ID: that
+# would make them catalog mates in the (already committed) panels of P2/P5/P6/
+# P7/P17/P19/P28, changing those panels on re-run. Each entry gives
+#   substrate_type  -> automatic catalog mates = every PATTERN_TO_SUBSTRATE_ID
+#                      pattern of that type (standard v1.1 rule);
+#   extra_mates     -> catalog substrates of a different registry type that are
+#                      the closest catalog phenomena on this pattern's substrate,
+#                      loaded through the catalog generators + a format adapter;
+#   lookalikes      -> Class B' synthetic look-alikes (epc/phase2a/
+#                      discovery_lookalikes.py), always added.
+# Rationale per pattern in docs/validation_rebuild/p33_p37_full_panels.md.
+DISCOVERY_CLASS_B: Dict[str, Dict[str, Any]] = {
+    # Active nematic: a self-propelled orientation field -> continuous_2d active
+    # matter (P2 ABP, P5 Vicsek, P6 D'Orsogna, P7 lanes, P17 sensing, P19 informed).
+    "P33": {"substrate_type": "continuous_2d", "extra_mates": [],
+            "lookalikes": ["p33_polar_flock_field", "p33_milling_vortex_field"]},
+    # Adaptive-network fission: substrate = evolving network, an ontology value no
+    # catalog pattern occupied before P34. Closest catalog phenomena = opinion
+    # dynamics on an interaction graph: P21 HK (bounded-confidence graph, which
+    # itself evolves) and P18 voter (fixed lattice graph).
+    "P34": {"substrate_type": "evolving_network",
+            "extra_mates": ["P18_voter", "P21_hegselmann_krause"],
+            "lookalikes": ["p34_static_modular", "p34_pre_fragmented", "p34_ba_growth"]},
+    # Entropy crystallization: point particles in a periodic box -> continuous_2d.
+    "P35": {"substrate_type": "continuous_2d", "extra_mates": [],
+            "lookalikes": ["p35_static_crystal", "p35_keller_segel", "p35_agent_active_nematic"]},
+    # Pareto exchange: conserved scalar wealth -> scalar_wealth (mate: P28 yard-sale).
+    "P36": {"substrate_type": "scalar_wealth", "extra_mates": [],
+            "lookalikes": ["p36_yard_sale_condensation", "p36_lognormal_static",
+                           "p36_bouchaud_mezard", "p36_yard_sale_redistribution"]},
+    # Resource competition: species abundances + a shared depletable resource.
+    # No catalog pattern has this registry type; the catalog's population
+    # dynamics on a shared resource (free space) are P11 Lotka-Volterra and P12 RPS.
+    "P37": {"substrate_type": "population_resource",
+            "extra_mates": ["P11_lotka_volterra", "P12_rps"],
+            "lookalikes": ["p37_may_leonard", "p37_forced_stable_coexistence"]},
+}
+
 def _build_substrate_type_by_pattern() -> Dict[str, str]:
     """Map pattern_id → substrate_type, sourced from MODEL_REGISTRY.
 
@@ -1525,6 +1717,9 @@ def _build_substrate_type_by_pattern() -> Dict[str, str]:
     # P15/GoL, P1/Schelling) the detector must discriminate for easy network mates.
     # Reverted to the registry lattice_2d type so Class B holds the real neighbors.
     canonical["P21"] = "network"
+    # Discovery-phase patterns (not in MODEL_REGISTRY): declared Class B types.
+    for pid, cfg in DISCOVERY_CLASS_B.items():
+        canonical[pid] = cfg["substrate_type"]
     return canonical
 
 
@@ -1563,6 +1758,12 @@ def class_b_for_pattern(pattern_id: str) -> Dict[str, Any]:
         mates = mates[:10]
 
     supplements = list(SUPPLEMENTS_BY_SUBSTRATE_TYPE.get(sub_type, [])) if len(mates) < 3 else []
+
+    # Discovery-phase patterns P33-P37: explicit cross-type mates + look-alikes.
+    disc = DISCOVERY_CLASS_B.get(pattern_id)
+    if disc is not None:
+        mates += [m for m in disc["extra_mates"] if m not in mates]
+        supplements += [x for x in disc["lookalikes"] if x not in supplements]
 
     return {
         "catalog_mates": mates,
