@@ -150,6 +150,9 @@ class RPSSpatialModel(BaseModel):
         For 'custom' init_mode.
     seed : int
         RNG seed for reproducibility.
+    kernel : str
+        'python' (default, reference loop) or 'numba' (compiled loop over the
+        same pre-drawn random arrays; bit-identical results; needs numba).
 
     Examples
     --------
@@ -189,8 +192,17 @@ class RPSSpatialModel(BaseModel):
         init_mode: str = "random",
         init_grid: np.ndarray | None = None,
         seed: int = 42,
+        kernel: str = "python",
     ) -> None:
         super().__init__(seed=seed)
+
+        # Inner-loop implementation. "python" (default) is the reference
+        # loop below. "numba" applies the SAME pre-drawn arrays in the SAME
+        # order with a compiled loop (repro v2, P12); it is checked
+        # bit-identical against "python" in tests/test_rps_numba_kernel.py.
+        if kernel not in ("python", "numba"):
+            raise ValueError("kernel must be 'python' or 'numba'")
+        self.kernel = kernel
 
         if selection_rate <= 0:
             raise ValueError(f"selection_rate must be > 0, got {selection_rate}")
@@ -308,6 +320,19 @@ class RPSSpatialModel(BaseModel):
         # Reaction-type roll: uniform in [0, 1)
         reaction_roll = self.rng.random(size=N)
 
+        if self.kernel == "numba":
+            n_sel, n_rep, n_exc = _get_numba_generation_kernel()(
+                self._grid, site_rows, site_cols, nbr_idx, reaction_roll,
+                self._offsets, self._p_selection, self._p_reproduction,
+            )
+            self._last_reaction_counts = {
+                "selection": int(n_sel),
+                "reproduction": int(n_rep),
+                "exchange": int(n_exc),
+            }
+            self._step_count += 1
+            return self._snapshot()
+
         # We unfortunately cannot vectorize the APPLICATION of updates
         # (concurrent modifications would violate async semantics). Loop
         # through and apply sequentially.
@@ -424,6 +449,7 @@ class RPSSpatialModel(BaseModel):
             "interaction_type": "cyclic_dominance",
             "update_mode": "asynchronous_gillespie",
             "seed": self.seed,
+            "kernel": self.kernel,
             "reference": "Reichenbach, Mobilia & Frey (2007), Nature 448, 1046-1049",
         }
 
@@ -478,3 +504,68 @@ class RPSSpatialModel(BaseModel):
             # non-empty cells plays the role of "activity density"
             "activity_density": (a_count + b_count + c_count) / total,
         }
+
+
+# ---------------------------------------------------------------------------
+# Compiled inner loop (repro v2, P12). Same per-step logic as the loop in
+# RPSSpatialModel.step(), applied to the same pre-drawn arrays in the same
+# order: selection only if s_i dominates s_j (DOMINATES[s] == s % 3 + 1),
+# reproduction only into an empty neighbour, exchange if the states differ.
+# numba is imported lazily so the catalog default does not depend on it.
+# ---------------------------------------------------------------------------
+
+_NUMBA_GENERATION_KERNEL = None
+
+
+def _get_numba_generation_kernel():
+    global _NUMBA_GENERATION_KERNEL
+    if _NUMBA_GENERATION_KERNEL is None:
+        import numba
+
+        @numba.njit(cache=False)
+        def _generation(grid, site_rows, site_cols, nbr_idx, reaction_roll,
+                        offsets, p_sel, p_rep):
+            rows = grid.shape[0]
+            cols = grid.shape[1]
+            n_sel = 0
+            n_rep = 0
+            n_exc = 0
+            # Same double the Python loop compares against (p_sel + p_rep).
+            p_sel_rep = p_sel + p_rep
+            for k in range(site_rows.shape[0]):
+                r = site_rows[k]
+                c = site_cols[k]
+                d = nbr_idx[k]
+                # Periodic wrap; offsets are in {-1, 0, 1}, so this equals
+                # Python's (r + dr) % rows.
+                nr = r + offsets[d, 0]
+                if nr < 0:
+                    nr += rows
+                elif nr >= rows:
+                    nr -= rows
+                nc = c + offsets[d, 1]
+                if nc < 0:
+                    nc += cols
+                elif nc >= cols:
+                    nc -= cols
+                s_i = grid[r, c]
+                s_j = grid[nr, nc]
+                roll = reaction_roll[k]
+                if roll < p_sel:
+                    if s_i != 0 and s_j != 0:
+                        if s_j == (s_i % 3) + 1:
+                            grid[nr, nc] = 0
+                            n_sel += 1
+                elif roll < p_sel_rep:
+                    if s_i != 0 and s_j == 0:
+                        grid[nr, nc] = s_i
+                        n_rep += 1
+                else:
+                    if s_i != s_j:
+                        grid[r, c] = s_j
+                        grid[nr, nc] = s_i
+                        n_exc += 1
+            return n_sel, n_rep, n_exc
+
+        _NUMBA_GENERATION_KERNEL = _generation
+    return _NUMBA_GENERATION_KERNEL

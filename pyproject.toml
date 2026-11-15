@@ -21,6 +21,10 @@ dev = [
     "pytest>=7.3.0",
     "jupyter>=1.0.0",
 ]
+# Compiled inner loop for RPSSpatialModel(kernel="numba") (repro v2, P12).
+fast = [
+    "numba>=0.60",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

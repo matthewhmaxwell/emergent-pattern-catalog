@@ -246,3 +246,109 @@ class ThresholdUnit:
             'has_noise_sweep': True,
             'reference': 'Collins et al. (1995)',
         }
+
+
+# ---------------------------------------------------------------------------
+# Vectorised driver (repro v2, P26). Code addition only: the update rule is
+# the one in BistableDoubleWell.simulate(), applied to all trials at once.
+# Instead of one dict per step per trial it returns Fourier projections of
+# x(t) over a measurement window, so a 3.8e5-step x 400-trial run fits in
+# memory. simulate() and the catalog defaults are unchanged.
+# ---------------------------------------------------------------------------
+
+def double_well_fourier_driver(
+    params: DoubleWellParams,
+    D: float,
+    n_trials: int,
+    n_burn: int,
+    n_meas: int,
+    omegas: Optional[List[float]] = None,
+    rng: Optional[np.random.Generator] = None,
+    normals: Optional[np.ndarray] = None,
+    chunk: int = 4096,
+    return_trajectory: bool = False,
+) -> Dict[str, Any]:
+    """Integrate n_trials independent copies of the double well together.
+
+    Update rule (identical to ``BistableDoubleWell.simulate``, Euler-Maruyama):
+        t      = step_i * dt
+        signal = A * sin(2 pi f t)
+        drift  = a*x - b*x**3 + signal
+        noise  = sqrt(2 D) * z * sqrt(dt),   z ~ N(0, 1)   (0 if D == 0)
+        x      = x + drift*dt + noise
+    with x recorded *before* the update at each step (as simulate() records
+    it) and trial k started in the well -sqrt(a/b) (k even) or +sqrt(a/b)
+    (k odd), as in simulate().
+
+    Steps 0 .. n_burn-1 are burn-in; steps n_burn .. n_burn+n_meas-1 form the
+    measurement window of length T = n_meas*dt. For every angular frequency
+    w in ``omegas`` the driver returns, per trial,
+        X_k(w) = sum_{window} x(t) exp(-i w t) dt
+    (complex, shape (len(omegas), n_trials)). The caller forms
+    c_k = (2/T) X_k(Omega).
+
+    Normals come from ``normals`` (shape (n_burn+n_meas, n_trials), row =
+    step) when given, else from ``rng.standard_normal`` drawn in chunks of
+    ``chunk`` steps (row-major: step, then trial).
+    """
+    p = params
+    n_total = int(n_burn) + int(n_meas)
+    if omegas is None:
+        omegas = [2.0 * np.pi * p.signal_frequency]
+    omegas_arr = np.asarray(omegas, dtype=np.float64)
+    if normals is not None:
+        normals = np.asarray(normals, dtype=np.float64)
+        if normals.shape != (n_total, n_trials):
+            raise ValueError(
+                f"normals shape {normals.shape} != {(n_total, n_trials)}"
+            )
+    elif rng is None:
+        raise ValueError("need rng or normals")
+
+    well_pos = np.sqrt(p.a / p.b)
+    x = np.where(np.arange(n_trials) % 2 == 0, -well_pos, well_pos).astype(np.float64)
+
+    s2D = np.sqrt(2.0 * D)
+    sdt = np.sqrt(p.dt)
+    proj_re = np.zeros((len(omegas_arr), n_trials), dtype=np.float64)
+    proj_im = np.zeros((len(omegas_arr), n_trials), dtype=np.float64)
+    traj = np.empty((n_total, n_trials), dtype=np.float64) if return_trajectory else None
+    buf = np.empty((chunk, n_trials), dtype=np.float64)
+
+    start = 0
+    while start < n_total:
+        m = min(chunk, n_total - start)
+        steps = np.arange(start, start + m)
+        t = steps * p.dt
+        sig = p.signal_amplitude * np.sin(2.0 * np.pi * p.signal_frequency * t)
+        if D > 0:
+            z = normals[start:start + m] if normals is not None else rng.standard_normal((m, n_trials))
+            noise = s2D * z * sdt
+        else:
+            noise = np.zeros((m, n_trials))
+        for k in range(m):
+            buf[k] = x
+            drift = p.a * x - p.b * x**3 + sig[k]
+            x = x + drift * p.dt + noise[k]
+        if traj is not None:
+            traj[start:start + m] = buf[:m]
+        # Fourier projection over the part of this chunk inside the window
+        lo = max(start, n_burn)
+        hi = min(start + m, n_total)
+        if hi > lo:
+            tw = np.arange(lo, hi) * p.dt
+            ph = np.outer(omegas_arr, tw)            # (n_omega, len)
+            seg = buf[lo - start:hi - start]          # (len, n_trials)
+            proj_re += (np.cos(ph) @ seg) * p.dt
+            proj_im -= (np.sin(ph) @ seg) * p.dt
+        start += m
+
+    out: Dict[str, Any] = {
+        "X": proj_re + 1j * proj_im,
+        "omegas": omegas_arr,
+        "T": n_meas * p.dt,
+        "x_final": x,
+    }
+    if traj is not None:
+        out["trajectory"] = traj
+    return out
