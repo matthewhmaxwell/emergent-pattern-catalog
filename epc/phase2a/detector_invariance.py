@@ -284,14 +284,15 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "or growth check, so for a stationary wealth distribution a shuffled "
                                       "history scores the same in expectation (unlike P28, whose detector "
                                       "requires emergent monotonic Gini growth)."),
-    "P37": InvarianceFlags(True,  True,  "coexistence oscillation: median per-species late-window CV, n_persist >= 3",
-                            rationale="perm_inv=True: per-species CVs (median) and the persisting-species "
-                                      "count are invariant to relabelling species (the abundance-format "
-                                      "permutation). time_shuffle_inv=True: the CV is a mean/std over the "
-                                      "last third of the frames and persistence is judged against the global "
-                                      "peak; no autocorrelation, period or ordering enters, so for sustained "
-                                      "oscillation a shuffled history's last third is a random sample of the "
-                                      "same frames (preserved in expectation)."),
+    "P37": InvarianceFlags(True,  False, "v2: community oscillation band vs permutation surrogates, gated by coexistence + resource coupling",
+                            rationale="perm_inv=True: the pooled band statistic is a mean over species, "
+                                      "persistence is a species count and the coupling statistic a max over "
+                                      "species-resource pairs, all invariant to relabelling species. "
+                                      "time_shuffle_inv=False (changed with the v2 detector, post-panel fix "
+                                      "2026-11-15): the oscillation test reads the temporal order of each "
+                                      "series (its spectrum), so a frame-shuffled positive is a meaningful "
+                                      "negative. The v1 detector (late-window CV, order-free) was declared "
+                                      "True; the frozen v12 panel used that value."),
 }
 
 

@@ -2251,10 +2251,12 @@ def make_p36_detector_fn(seed: int = 42):
     return fn
 
 
-def make_p37_detector_fn(seed: int = 42):
-    """P37 resource-competition (Huisman-Weissing) detector fn for the battery."""
+def make_p37_detector_fn(n_surrogates: int = 199, seed: int = 42):
+    """P37 resource-competition (Huisman-Weissing) detector fn for the battery.
+    v2 (post-panel fix 2026-11-15): permutation / phase-randomised surrogate tests,
+    199 draws by default (p can reach 0.005, below the 0.01 confirmation level)."""
     from epc.detectors.p37_resource_competition import P37ResourceCompetitionDetector
-    _det = P37ResourceCompetitionDetector(seed=seed)
+    _det = P37ResourceCompetitionDetector(n_surrogates=n_surrogates, seed=seed)
     def fn(history, metadata=None):
         return _det.detect(history, metadata)
     return fn
@@ -2275,7 +2277,10 @@ P33_P37_OUT = {
     "P34": "analysis/outputs/p34_adaptive_network_phase2a_panel_v12.json",
     "P35": "analysis/outputs/p35_entropy_crystal_phase2a_panel_v12.json",
     "P36": "analysis/outputs/p36_pareto_exchange_phase2a_panel_v12.json",
-    "P37": "analysis/outputs/p37_resource_competition_phase2a_panel_v12.json",
+    # P37 points at the post-panel-fix output: the frozen v1-detector record
+    # analysis/outputs/p37_resource_competition_phase2a_panel_v12.json (commit
+    # 3163bcd) must not be overwritten by a re-run with the v2 detector.
+    "P37": "analysis/outputs/p37_resource_competition_phase2a_panel_v12_fixed.json",
 }
 
 
@@ -2404,6 +2409,7 @@ def run_p36(out_path: str = P33_P37_OUT["P36"], verbose: bool = True) -> Dict[st
 
 
 def run_p37(out_path: str = P33_P37_OUT["P37"], verbose: bool = True) -> Dict[str, Any]:
+    """P37 panel with the v2 (post-panel fix) detector -> ..._v12_fixed.json."""
     print(f"--- Running P37 panel -> {out_path}")
     positives, metadata = build_p37_positives(n_seeds=5)
     return run_panel(make_p37_detector_fn(), pattern_id="P37",
