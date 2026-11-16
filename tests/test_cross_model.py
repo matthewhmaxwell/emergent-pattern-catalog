@@ -236,7 +236,15 @@ class TestP23CrossModel:
         )
 
     def test_p23_both_models_detected(self):
-        """Both MG and El Farol should be detected."""
+        """Both MG and El Farol should be detected.
+
+        Test maintenance: the Minority Game now runs at the canonical panel
+        length (analysis/run_phase2a_panel.py build_p23_positives: N=101, m=6,
+        S=2, 3000 rounds). Since 094ca57 the confirmation tier requires
+        adaptation (attendance variance falls from the first to the second
+        half of the run); at 1000 rounds seed 42 reaches CONFIRMATION, at 3000
+        DEFINITIVE. Same change as cdbc85d made for the P23 e2e tests.
+        """
         from epc.models.minority_game import (
             MinorityGame, MinorityGameParams,
             ElFarolBar, ElFarolParams,
@@ -245,9 +253,9 @@ class TestP23CrossModel:
 
         det = P23AnticoordinationDetector(n_permutations=199, seed=42)
 
-        # Minority Game
+        # Minority Game (canonical run length, see docstring)
         mg = MinorityGame(MinorityGameParams(
-            n_agents=101, memory=6, n_rounds=1000, seed=42,
+            n_agents=101, memory=6, n_strategies=2, n_rounds=3000, seed=42,
         ))
         mg_result = det.detect(mg.simulate(), mg.get_metadata())
 
