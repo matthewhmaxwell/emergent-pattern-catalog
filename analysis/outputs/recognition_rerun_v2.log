@@ -1,0 +1,66 @@
+P1 [('P1', 'definitive'), ('P1', 'definitive'), ('P1', 'definitive'), ('P1', 'definitive'), ('P1', 'definitive')] 439s
+P2 [('P2', 'none'), ('P2', 'screening'), ('P2', 'definitive'), ('P2', 'definitive'), ('P2', 'definitive')] 883s
+P3 [('P3', 'definitive'), ('P3', 'definitive'), ('P3', 'definitive'), ('P3', 'definitive'), ('P3', 'definitive')] 885s
+P4 [('P4', 'definitive'), ('P4', 'definitive'), ('P4', 'confirmation'), ('P4', 'confirmation'), ('P4', 'definitive')] 1020s
+P5 [('P5', 'definitive'), ('P5', 'definitive'), ('P5', 'definitive'), ('P5', 'definitive'), ('P5', 'definitive')] 1254s
+P6 [('P6', 'definitive'), ('P6', 'definitive'), ('P6', 'definitive'), ('P6', 'definitive'), ('P6', 'definitive')] 1416s
+P7 [('P7', 'confirmation'), ('P7', 'confirmation'), ('P7', 'confirmation'), ('P7', 'confirmation'), ('P7', 'confirmation')] 1547s
+P8 [('P8', 'definitive'), ('P8', 'definitive'), ('P8', 'definitive'), ('P8', 'definitive'), ('P8', 'definitive')] 1583s
+P9 [('P9', 'definitive'), ('P9', 'definitive'), ('P9', 'definitive'), ('P9', 'definitive'), ('P9', 'definitive')] 1669s
+P10 [('P10', 'definitive'), ('P10', 'definitive'), ('P10', 'definitive'), ('P10', 'definitive'), ('P10', 'definitive')] 1698s
+P11 [('P11', 'definitive'), ('P11', 'definitive'), ('P11', 'definitive'), ('P11', 'definitive'), ('P11', 'definitive')] 2089s
+P12 [('P12', 'confirmation'), ('P12', 'definitive'), ('P12', 'definitive'), ('P12', 'definitive'), ('P12', 'confirmation')] 2285s
+P13 [('P13', 'confirmation'), ('P13', 'confirmation'), ('P13', 'confirmation'), ('P13', 'confirmation'), ('P13', 'confirmation')] 3418s
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/matthewhmaxwell/epc-venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+P14 [('P14', 'confirmation'), ('P14', 'confirmation'), ('P14', 'confirmation'), ('P14', 'confirmation'), ('P14', 'confirmation')] 3465s
+P15 [('P15', 'definitive'), ('P15', 'definitive'), ('P15', 'definitive'), ('P15', 'screening'), ('P15', 'screening')] 3637s
+P16 [('P16', 'definitive'), ('P16', 'definitive'), ('P16', 'definitive'), ('P16', 'definitive'), ('P16', 'definitive')] 3645s
+P17 [('P17', 'definitive'), ('P17', 'screening'), ('P17', 'confirmation'), ('P17', 'definitive'), ('P17', 'definitive')] 3647s
+P18 [('P18', 'definitive'), ('P18', 'definitive'), ('P18', 'definitive'), ('P18', 'definitive'), ('P18', 'definitive')] 3679s
+P19 [('P19', 'definitive'), ('P2', 'none'), ('P19', 'definitive'), ('P19', 'definitive'), ('P19', 'definitive')] 3726s
+P20 [('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive')] 3806s
+P21 [('P21', 'definitive'), ('P21', 'definitive'), ('P21', 'definitive'), ('P21', 'definitive'), ('P21', 'definitive')] 3806s
+P22 [('P22', 'definitive'), ('P22', 'definitive'), ('P22', 'definitive'), ('P22', 'definitive'), ('P22', 'definitive')] 3813s
+P23 [('P23', 'definitive'), ('P23', 'definitive'), ('P23', 'definitive'), ('P23', 'definitive'), ('P23', 'definitive')] 3816s
+P24 [('P24', 'definitive'), ('P24', 'definitive'), ('P24', 'definitive'), ('P24', 'definitive'), ('P24', 'definitive')] 3818s
+P25 [('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive')] 3821s
+P26 [('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive')] 4436s
+P27 [('P27', 'screening'), ('P8', 'none'), ('P27', 'screening'), ('P27', 'none'), ('P27', 'definitive')] 4442s
+P28 [('P28', 'definitive'), ('P28', 'definitive'), ('P28', 'definitive'), ('P28', 'definitive'), ('P28', 'definitive')] 4445s
+P29 [('P29', 'screening'), ('P29', 'definitive'), ('P29', 'screening'), ('P29', 'screening'), ('P29', 'screening')] 4452s
+P30 [('P30', 'definitive'), ('P30', 'definitive'), ('P30', 'definitive'), ('P30', 'definitive'), ('P30', 'definitive')] 4550s
+/home/matthewhmaxwell/emergent-pattern-catalog/epc/detectors/p32_specialization.py:100: RuntimeWarning: divide by zero encountered in log2
+  log_probs = np.where(probs > 0, np.log2(probs), 0.0)
+P32 [('P32', 'definitive'), ('P32', 'definitive'), ('P32', 'definitive'), ('P32', 'definitive'), ('P32', 'definitive')] 4586s
+P33 [('P33', 'definitive'), ('P33', 'definitive'), ('P33', 'definitive'), ('P33', 'definitive'), ('P33', 'definitive')] 5384s
+P34 [('P34', 'definitive'), ('P34', 'definitive'), ('P34', 'definitive'), ('P34', 'definitive'), ('P34', 'definitive')] 5418s
+P35 [('P35', 'definitive'), ('P35', 'definitive'), ('P35', 'definitive'), ('P35', 'definitive'), ('P35', 'definitive')] 5493s
+P36 [('P36', 'definitive'), ('P36', 'definitive'), ('P36', 'definitive'), ('P36', 'definitive'), ('P36', 'definitive')] 5499s
+P37 [('P37', 'definitive'), ('P37', 'definitive'), ('P37', 'definitive'), ('P37', 'definitive'), ('P37', 'definitive')] 5534s
+cross P16 [('P16', 'definitive'), ('P16', 'definitive'), ('P16', 'confirmation'), ('P16', 'definitive'), ('P16', 'confirmation')]
+cross P20 [('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive'), ('P20', 'definitive')]
+cross P23 [('P23', 'definitive'), ('P23', 'confirmation'), ('P23', 'confirmation'), ('P23', 'definitive'), ('P23', 'none')]
+cross P24 [('P24', 'none'), ('P24', 'none'), ('P24', 'none'), ('P24', 'none'), ('P24', 'none')]
+cross P25 [('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive'), ('P25', 'definitive')]
+cross P26 [('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive'), ('P26', 'definitive')]
+cross P29 [('P29', 'screening'), ('P29', 'definitive'), ('P29', 'screening'), ('P29', 'screening'), ('P29', 'screening')]
+RECOGNITION DONE 5603

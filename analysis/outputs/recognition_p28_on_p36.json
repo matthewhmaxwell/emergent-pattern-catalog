@@ -1,0 +1,322 @@
+[
+ {
+  "seed": 0,
+  "P28": {
+   "pattern_id": "P28",
+   "detected": true,
+   "tier": "CONFIRMATION",
+   "confidence": 0.7,
+   "primary_metric": {
+    "gini_final": 0.7783,
+    "gini_initial": 0.0,
+    "gini_delta": 0.7783,
+    "conservation_drift": 0.0,
+    "mean_wealth": 1.0,
+    "n_agents": 3000,
+    "n_frames_used": 41,
+    "screening_rejection_reason": "none"
+   },
+   "secondary_metrics": {
+    "top_1pct_share": 0.4551,
+    "top_10pct_share": 0.7223,
+    "max_share": 0.0911,
+    "monotonic_fraction": 0.85,
+    "relative_gini_growth": 0.7783,
+    "alpha_hill": 1.0788,
+    "hill_k_used": 300,
+    "hill_w_min": 1.2815
+   },
+   "effect_size": {
+    "cohens_d": 55.3978,
+    "raw_value": 0.7783,
+    "null_mean": 0.4999,
+    "null_std": 0.005
+   },
+   "null_p_value": 0.005,
+   "null_type": "SURROGATE",
+   "exclusion_results": {},
+   "metadata_available": true,
+   "notes": ""
+  },
+  "P36": {
+   "pattern_id": "P36",
+   "detected": true,
+   "tier": "definitive",
+   "confidence": 0.9,
+   "primary_metric": {
+    "pareto_advantage": 0.3032
+   },
+   "secondary_metrics": {
+    "alpha_hill": 1.056,
+    "ks_pareto": 0.0462,
+    "ks_exp": 0.3495,
+    "gini": 0.774,
+    "max_share": 0.0837,
+    "gates_pass": true
+   },
+   "null_p_value": 1.0,
+   "null_type": "panel-discrimination",
+   "exclusion_results": {
+    "not_condensed": true,
+    "power_law_over_exp": true
+   },
+   "notes": "alpha=1.06 ks_par=0.046 ks_exp=0.349 adv=+0.303 gini=0.77 max_share=0.084."
+  }
+ },
+ {
+  "seed": 1,
+  "P28": {
+   "pattern_id": "P28",
+   "detected": true,
+   "tier": "SCREENING",
+   "confidence": 0.6,
+   "primary_metric": {
+    "gini_final": 0.7162,
+    "gini_initial": 0.0,
+    "gini_delta": 0.7162,
+    "conservation_drift": 0.0,
+    "mean_wealth": 1.0,
+    "n_agents": 3000,
+    "n_frames_used": 41,
+    "screening_rejection_reason": "none"
+   },
+   "secondary_metrics": {
+    "top_1pct_share": 0.3182,
+    "top_10pct_share": 0.6435,
+    "max_share": 0.0394,
+    "monotonic_fraction": 0.575,
+    "relative_gini_growth": 0.7162,
+    "alpha_hill": 1.1754,
+    "hill_k_used": 300,
+    "hill_w_min": 1.6296
+   },
+   "effect_size": {
+    "cohens_d": 43.0355,
+    "raw_value": 0.7162,
+    "null_mean": 0.4999,
+    "null_std": 0.005
+   },
+   "null_p_value": 0.005,
+   "null_type": "SURROGATE",
+   "exclusion_results": {},
+   "metadata_available": true,
+   "notes": ""
+  },
+  "P36": {
+   "pattern_id": "P36",
+   "detected": true,
+   "tier": "definitive",
+   "confidence": 0.9,
+   "primary_metric": {
+    "pareto_advantage": 0.2452
+   },
+   "secondary_metrics": {
+    "alpha_hill": 1.133,
+    "ks_pareto": 0.0383,
+    "ks_exp": 0.2835,
+    "gini": 0.719,
+    "max_share": 0.0381,
+    "gates_pass": true
+   },
+   "null_p_value": 1.0,
+   "null_type": "panel-discrimination",
+   "exclusion_results": {
+    "not_condensed": true,
+    "power_law_over_exp": true
+   },
+   "notes": "alpha=1.13 ks_par=0.038 ks_exp=0.284 adv=+0.245 gini=0.72 max_share=0.038."
+  }
+ },
+ {
+  "seed": 2,
+  "P28": {
+   "pattern_id": "P28",
+   "detected": true,
+   "tier": "CONFIRMATION",
+   "confidence": 0.7,
+   "primary_metric": {
+    "gini_final": 0.7766,
+    "gini_initial": 0.0,
+    "gini_delta": 0.7766,
+    "conservation_drift": 0.0,
+    "mean_wealth": 1.0,
+    "n_agents": 3000,
+    "n_frames_used": 41,
+    "screening_rejection_reason": "none"
+   },
+   "secondary_metrics": {
+    "top_1pct_share": 0.443,
+    "top_10pct_share": 0.7188,
+    "max_share": 0.0699,
+    "monotonic_fraction": 0.8,
+    "relative_gini_growth": 0.7766,
+    "alpha_hill": 1.0515,
+    "hill_k_used": 300,
+    "hill_w_min": 1.2764
+   },
+   "effect_size": {
+    "cohens_d": 55.0529,
+    "raw_value": 0.7766,
+    "null_mean": 0.4999,
+    "null_std": 0.005
+   },
+   "null_p_value": 0.005,
+   "null_type": "SURROGATE",
+   "exclusion_results": {},
+   "metadata_available": true,
+   "notes": ""
+  },
+  "P36": {
+   "pattern_id": "P36",
+   "detected": true,
+   "tier": "definitive",
+   "confidence": 0.9,
+   "primary_metric": {
+    "pareto_advantage": 0.2882
+   },
+   "secondary_metrics": {
+    "alpha_hill": 1.07,
+    "ks_pareto": 0.0387,
+    "ks_exp": 0.3269,
+    "gini": 0.775,
+    "max_share": 0.0658,
+    "gates_pass": true
+   },
+   "null_p_value": 1.0,
+   "null_type": "panel-discrimination",
+   "exclusion_results": {
+    "not_condensed": true,
+    "power_law_over_exp": true
+   },
+   "notes": "alpha=1.07 ks_par=0.039 ks_exp=0.327 adv=+0.288 gini=0.77 max_share=0.066."
+  }
+ },
+ {
+  "seed": 3,
+  "P28": {
+   "pattern_id": "P28",
+   "detected": true,
+   "tier": "CONFIRMATION",
+   "confidence": 0.7,
+   "primary_metric": {
+    "gini_final": 0.7808,
+    "gini_initial": 0.0,
+    "gini_delta": 0.7808,
+    "conservation_drift": 0.0,
+    "mean_wealth": 1.0,
+    "n_agents": 3000,
+    "n_frames_used": 41,
+    "screening_rejection_reason": "none"
+   },
+   "secondary_metrics": {
+    "top_1pct_share": 0.4576,
+    "top_10pct_share": 0.7233,
+    "max_share": 0.0634,
+    "monotonic_fraction": 0.8,
+    "relative_gini_growth": 0.7808,
+    "alpha_hill": 1.1025,
+    "hill_k_used": 300,
+    "hill_w_min": 1.3077
+   },
+   "effect_size": {
+    "cohens_d": 55.8988,
+    "raw_value": 0.7808,
+    "null_mean": 0.4999,
+    "null_std": 0.005
+   },
+   "null_p_value": 0.005,
+   "null_type": "SURROGATE",
+   "exclusion_results": {},
+   "metadata_available": true,
+   "notes": ""
+  },
+  "P36": {
+   "pattern_id": "P36",
+   "detected": true,
+   "tier": "definitive",
+   "confidence": 0.9,
+   "primary_metric": {
+    "pareto_advantage": 0.3381
+   },
+   "secondary_metrics": {
+    "alpha_hill": 1.103,
+    "ks_pareto": 0.0347,
+    "ks_exp": 0.3728,
+    "gini": 0.78,
+    "max_share": 0.0597,
+    "gates_pass": true
+   },
+   "null_p_value": 1.0,
+   "null_type": "panel-discrimination",
+   "exclusion_results": {
+    "not_condensed": true,
+    "power_law_over_exp": true
+   },
+   "notes": "alpha=1.10 ks_par=0.035 ks_exp=0.373 adv=+0.338 gini=0.78 max_share=0.060."
+  }
+ },
+ {
+  "seed": 4,
+  "P28": {
+   "pattern_id": "P28",
+   "detected": true,
+   "tier": "SCREENING",
+   "confidence": 0.6,
+   "primary_metric": {
+    "gini_final": 0.7765,
+    "gini_initial": 0.0,
+    "gini_delta": 0.7765,
+    "conservation_drift": 0.0,
+    "mean_wealth": 1.0,
+    "n_agents": 3000,
+    "n_frames_used": 41,
+    "screening_rejection_reason": "none"
+   },
+   "secondary_metrics": {
+    "top_1pct_share": 0.448,
+    "top_10pct_share": 0.7241,
+    "max_share": 0.1029,
+    "monotonic_fraction": 0.775,
+    "relative_gini_growth": 0.7765,
+    "alpha_hill": 0.9927,
+    "hill_k_used": 300,
+    "hill_w_min": 1.1598
+   },
+   "effect_size": {
+    "cohens_d": 55.0426,
+    "raw_value": 0.7765,
+    "null_mean": 0.4999,
+    "null_std": 0.005
+   },
+   "null_p_value": 0.005,
+   "null_type": "SURROGATE",
+   "exclusion_results": {},
+   "metadata_available": true,
+   "notes": ""
+  },
+  "P36": {
+   "pattern_id": "P36",
+   "detected": true,
+   "tier": "definitive",
+   "confidence": 0.9,
+   "primary_metric": {
+    "pareto_advantage": 0.2896
+   },
+   "secondary_metrics": {
+    "alpha_hill": 0.982,
+    "ks_pareto": 0.0423,
+    "ks_exp": 0.3319,
+    "gini": 0.772,
+    "max_share": 0.0928,
+    "gates_pass": true
+   },
+   "null_p_value": 1.0,
+   "null_type": "panel-discrimination",
+   "exclusion_results": {
+    "not_condensed": true,
+    "power_law_over_exp": true
+   },
+   "notes": "alpha=0.98 ks_par=0.042 ks_exp=0.332 adv=+0.290 gini=0.77 max_share=0.093."
+  }
+ }
+]
