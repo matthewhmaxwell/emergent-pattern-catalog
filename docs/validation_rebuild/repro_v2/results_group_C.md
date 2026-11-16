@@ -41,3 +41,12 @@ Two spec observations, recorded before running:
 Compute: measured on the shared VPS before the runs, the P12 L = 100 generation costs about 0.5 ms (spec: about
 0.3 ms), and the P28 pure-Python transaction about 3.2 us (spec: 1.5-2 us). Both are within about 2x of the spec's
 estimates, so the protocols run as written. The optional P12 L = 200 runs (30-45 CPU-h in the spec) are not run.
+
+Compute log, 2026-11-16 01:50 UTC (P26 complete; P12 L = 40 primary complete; P12 L = 100 primary and P28 running;
+no P12 or P28 rule evaluated). From the run times of the first 207 L = 100 realisations, a generation costs about
+0.73 ms on the shared VPS (four other compute processes are running), so the P12 L = 100 primary projects to about
+20 CPU-h (spec: about 8) and diagnostic D2 at L = 100 to about 19 CPU-h (spec: about 5 for D1 and D2 together; D1
+costs nothing because it is read from the primary runs). This is slow but workable, so nothing is changed: the
+order is P12 primary, then D2 at L = 40, then D2 at L = 100, within the two-process limit. Reading those run times
+also showed that most early low-M realisations ran to G_max. No target, tolerance, size, seed count or rule has
+been or will be changed.
