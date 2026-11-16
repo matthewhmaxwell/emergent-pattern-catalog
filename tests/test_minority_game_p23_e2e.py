@@ -48,9 +48,14 @@ class TestP23OnMinorityGame:
     """P23 detector on canonical Minority Game regimes."""
 
     def test_definitive_on_efficient_regime(self):
-        """α ≈ 0.63 (m=6, N=101): efficient phase → DEFINITIVE."""
+        """α ≈ 0.63 (m=6, N=101), canonical run length (3000 rounds): DEFINITIVE.
+
+        Since 094ca57 the detector's confirmation tier requires adaptation (attendance
+        variance falls from the first to the second half of the run), so the test uses
+        the panel's canonical length; at 1000 rounds this seed reaches CONFIRMATION.
+        """
         mg = MinorityGame(MinorityGameParams(
-            n_agents=101, memory=6, n_rounds=1000, seed=42,
+            n_agents=101, memory=6, n_strategies=2, n_rounds=3000, seed=42,
         ))
         history = mg.simulate()
         det = P23AnticoordinationDetector(n_permutations=199, seed=42)
@@ -93,9 +98,9 @@ class TestP23OnMinorityGame:
         assert len(bundle['attendance']) == 500
 
     def test_confidence_at_definitive(self):
-        """Definitive should have confidence ≥ 0.75."""
+        """Definitive should have confidence ≥ 0.75 (canonical run length, see above)."""
         mg = MinorityGame(MinorityGameParams(
-            n_agents=101, memory=6, n_rounds=1000, seed=42,
+            n_agents=101, memory=6, n_strategies=2, n_rounds=3000, seed=42,
         ))
         det = P23AnticoordinationDetector(n_permutations=199, seed=42)
         result = det.detect(mg.simulate(), mg.get_metadata())
