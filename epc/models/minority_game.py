@@ -31,12 +31,29 @@ class MinorityGameParams:
     n_strategies: int = 2        # S: strategies per agent
     n_rounds: int = 500
     seed: int = 42
+    # Options added for the literature reproduction (repro v2, group A, P23).
+    # The defaults reproduce the catalog runs bit for bit.
+    #   tie_break: 'first'  -> np.argmax, ties go to strategy 0 (catalog default)
+    #              'random' -> ties broken by a coin toss (Challet & Marsili 1999;
+    #                          Granath & Perez-Diaz 2016). For S = 2 the coin is
+    #                          rng.integers(0, 2, N), drawn every round.
+    #   payoff:    'sign'   -> U_s += -a_s sign(A), i.e. +1 / -1 (catalog default)
+    #              'linear' -> U_s += -a_s A (Challet, Marsili & Zecchina 2000,
+    #                          Eq. 4; the 1/P factor does not change argmax)
+    tie_break: str = 'first'
+    payoff: str = 'sign'
 
     def __post_init__(self) -> None:
         if self.n_agents % 2 == 0:
             raise ValueError(f"n_agents must be odd, got {self.n_agents}")
         if self.memory < 1:
             raise ValueError(f"memory must be >= 1, got {self.memory}")
+        if self.tie_break not in ('first', 'random'):
+            raise ValueError(f"tie_break must be 'first' or 'random', got {self.tie_break!r}")
+        if self.payoff not in ('sign', 'linear'):
+            raise ValueError(f"payoff must be 'sign' or 'linear', got {self.payoff!r}")
+        if self.tie_break == 'random' and self.n_strategies != 2:
+            raise ValueError("tie_break='random' is implemented for n_strategies=2 only")
 
 
 @dataclass
@@ -114,6 +131,12 @@ class MinorityGame:
 
             # Each agent plays their best strategy
             best_strat = np.argmax(self.scores, axis=1)
+            if self.params.tie_break == 'random':
+                # Coin toss between the two strategies when their scores tie
+                coin = self.rng.integers(0, 2, self.N)
+                best_strat = np.where(
+                    self.scores[:, 0] == self.scores[:, 1], coin, best_strat,
+                )
             choices = self.strategies[
                 np.arange(self.N), best_strat, mu
             ]
@@ -131,9 +154,17 @@ class MinorityGame:
 
             # Update strategy scores: +1 for each strategy that would have
             # predicted the winning side for this history pattern
+            # (payoff='linear': -(2*pred - 1) * (2*attendance - N), computed
+            # in int64 because the strategy tables are int8)
             for s in range(self.S):
                 predictions = self.strategies[:, s, mu]
-                self.scores[:, s] += np.where(predictions == winning_side, 1, -1)
+                if self.params.payoff == 'linear':
+                    self.scores[:, s] += (
+                        -(2 * predictions.astype(np.int64) - 1)
+                        * (2 * attendance - self.N)
+                    )
+                else:
+                    self.scores[:, s] += np.where(predictions == winning_side, 1, -1)
 
             # Update history bits
             self.history_bits = np.roll(self.history_bits, -1)
