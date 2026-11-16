@@ -1082,3 +1082,11 @@ SUPPLEMENT_BUILDERS: Dict[str, Callable[..., List[Dict[str, Any]]]] = {
     "dense_cluster_particles": dense_cluster_particles,
     "dispersed_typed_regions": dispersed_typed_regions,
 }
+
+
+# Class B' look-alikes for the discovery-phase patterns P33-P37 (panels v12).
+# Attached per pattern through epc.phase2a.catalog.DISCOVERY_CLASS_B, never via
+# SUPPLEMENTS_BY_SUBSTRATE_TYPE, so no other pattern's Class B changes.
+from epc.phase2a.discovery_lookalikes import LOOKALIKE_BUILDERS as _DISCOVERY_LOOKALIKES  # noqa: E402
+
+SUPPLEMENT_BUILDERS.update(_DISCOVERY_LOOKALIKES)

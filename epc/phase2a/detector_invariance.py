@@ -248,6 +248,51 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
                                       "|mean(x·signal)| is order-invariant within each group → "
                                       "the inverted-U curve is identical after shuffling. "
                                       "Sprint 75 panel run confirmed: time_shuffled FP at definitive."),
+    # --- Discovery-phase patterns P33-P37 (full panels v12, validation rebuild) ---
+    # Flags set from each frozen detector's primary-metric DEFINITION before the
+    # full panels were run (not flipped after seeing a false positive). Every
+    # skipped substrate was also scored as an out-of-TNR diagnostic; outcomes in
+    # docs/validation_rebuild/p33_p37_full_panels.md.
+    "P33": InvarianceFlags(False, True,  "coherent +-1/2 defect density D* (gated by S_loc, phi, |L|)",
+                            rationale="perm_inv=False: S_loc (block-scale director average) and the "
+                                      "plaquette winding behind the defect count depend on which sites "
+                                      "are adjacent; permuting sites destroys both. time_shuffle_inv=True: "
+                                      "D*, S_loc, phi and |L| are per-frame scores averaged over the second "
+                                      "half of the frames; no order enters within that window, and for a "
+                                      "sustained (stationary) defect gas a shuffled history's second half is "
+                                      "a random sample of the same frames, so the detection-tier metric is "
+                                      "preserved in expectation (only the confirmation tier's emergence "
+                                      "check reads frame order). Same per-frame family as P1/P3/P5/P6/P30."),
+    "P34": InvarianceFlags(False, False, "coevolution-driven modularity gain Q_late - Q_early",
+                            rationale="perm_inv=False: the Class A permutation for adjacency re-places "
+                                      "the final graph's EDGES at random (trail_network convention), "
+                                      "which changes modularity. time_shuffle_inv=False: Q_early is read "
+                                      "from the first 3 frames and Q_late from the last quarter; frame "
+                                      "order is the signal (emergence from a connected start)."),
+    "P35": InvarianceFlags(True,  False, "local psi6 gain psi6_late - psi6_early",
+                            rationale="perm_inv=True: local psi6 is a mean over particles of a "
+                                      "neighbour-bond statistic; relabelling particle indices (the "
+                                      "positions-format permutation) leaves it exactly unchanged -> "
+                                      "degenerate-by-construction. time_shuffle_inv=False: early = frames "
+                                      "1-3, late = last 5 frames; frame order is the signal."),
+    "P36": InvarianceFlags(True,  True,  "Pareto-over-exponential tail advantage (ks_exp - ks_pareto), gated",
+                            rationale="perm_inv=True: Hill alpha, KS distances, Gini and max-share are "
+                                      "functions of the sorted wealth vector, invariant to agent "
+                                      "relabelling (as P28). time_shuffle_inv=True: the detector takes "
+                                      "medians/means of per-frame tail statistics over the last quarter of "
+                                      "frames; no order enters within that window and there is no emergence "
+                                      "or growth check, so for a stationary wealth distribution a shuffled "
+                                      "history scores the same in expectation (unlike P28, whose detector "
+                                      "requires emergent monotonic Gini growth)."),
+    "P37": InvarianceFlags(True,  False, "v2: community oscillation band vs permutation surrogates, gated by coexistence + resource coupling",
+                            rationale="perm_inv=True: the pooled band statistic is a mean over species, "
+                                      "persistence is a species count and the coupling statistic a max over "
+                                      "species-resource pairs, all invariant to relabelling species. "
+                                      "time_shuffle_inv=False (changed with the v2 detector, post-panel fix "
+                                      "2026-11-15): the oscillation test reads the temporal order of each "
+                                      "series (its spectrum), so a frame-shuffled positive is a meaningful "
+                                      "negative. The v1 detector (late-window CV, order-free) was declared "
+                                      "True; the frozen v12 panel used that value."),
 }
 
 

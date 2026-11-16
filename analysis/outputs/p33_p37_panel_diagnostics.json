@@ -1,0 +1,1040 @@
+{
+  "skipped_class_a": {
+    "P33:time_shuffled": {
+      "skip_reason": "primary_metric_time_shuffle_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "screening",
+          "confidence": 0.4,
+          "primary_metric": {
+            "coherent_half_defect_density": 0.12920783547794118
+          },
+          "secondary_metrics": {
+            "S_loc": 0.4528866615200824,
+            "polar_phi": 0.013548774074221467,
+            "half_def_density": 0.12920783547794118,
+            "integer_def_density": 0.0,
+            "angular_momentum": 0.012050431410728696,
+            "S_loc_init": 0.508329708571114,
+            "min_hdef": 0.09912109375,
+            "emerged": 0.0,
+            "sustained": 1.0,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "screening",
+          "confidence": 0.4,
+          "primary_metric": {
+            "coherent_half_defect_density": 0.12530158547794118
+          },
+          "secondary_metrics": {
+            "S_loc": 0.45826266823805656,
+            "polar_phi": 0.013397329034868226,
+            "half_def_density": 0.12530158547794118,
+            "integer_def_density": 0.0,
+            "angular_momentum": 0.010556199000988073,
+            "S_loc_init": 0.4352402492955923,
+            "min_hdef": 0.099609375,
+            "emerged": 0.0,
+            "sustained": 1.0,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "screening",
+          "confidence": 0.4,
+          "primary_metric": {
+            "coherent_half_defect_density": 0.12568933823529413
+          },
+          "secondary_metrics": {
+            "S_loc": 0.45516957428811944,
+            "polar_phi": 0.012654392050992214,
+            "half_def_density": 0.12568933823529413,
+            "integer_def_density": 0.0,
+            "angular_momentum": 0.010609354258080274,
+            "S_loc_init": 0.46879045767031496,
+            "min_hdef": 0.10205078125,
+            "emerged": 0.0,
+            "sustained": 1.0,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.85,
+          "primary_metric": {
+            "coherent_half_defect_density": 0.12130916819852941
+          },
+          "secondary_metrics": {
+            "S_loc": 0.46726934446136703,
+            "polar_phi": 0.012315191164525638,
+            "half_def_density": 0.12130916819852941,
+            "integer_def_density": 0.0,
+            "angular_momentum": 0.011788026412954273,
+            "S_loc_init": 0.23300584680077419,
+            "min_hdef": 0.09912109375,
+            "emerged": 1.0,
+            "sustained": 1.0,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "screening",
+          "confidence": 0.4,
+          "primary_metric": {
+            "coherent_half_defect_density": 0.1259478400735294
+          },
+          "secondary_metrics": {
+            "S_loc": 0.45834174440628805,
+            "polar_phi": 0.011323907302859475,
+            "half_def_density": 0.1259478400735294,
+            "integer_def_density": 0.0,
+            "angular_momentum": 0.010976209903541607,
+            "S_loc_init": 0.4987795642541674,
+            "min_hdef": 0.09912109375,
+            "emerged": 0.0,
+            "sustained": 1.0,
+            "gates_pass": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    },
+    "P35:permutation_shuffled": {
+      "skip_reason": "primary_metric_permutation_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "psi6_gain": 0.11822757908136633
+          },
+          "secondary_metrics": {
+            "psi6_early": 0.36789748632824565,
+            "psi6_late": 0.486125065409612,
+            "psi6_gain": 0.11822757908136633,
+            "gates_pass": 1.0,
+            "sustained": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "psi6_gain": 0.11822757908136622
+          },
+          "secondary_metrics": {
+            "psi6_early": 0.36789748632824576,
+            "psi6_late": 0.486125065409612,
+            "psi6_gain": 0.11822757908136622,
+            "gates_pass": 1.0,
+            "sustained": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "psi6_gain": 0.11822757908136633
+          },
+          "secondary_metrics": {
+            "psi6_early": 0.36789748632824565,
+            "psi6_late": 0.486125065409612,
+            "psi6_gain": 0.11822757908136633,
+            "gates_pass": 1.0,
+            "sustained": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "psi6_gain": 0.11822757908136633
+          },
+          "secondary_metrics": {
+            "psi6_early": 0.36789748632824565,
+            "psi6_late": 0.486125065409612,
+            "psi6_gain": 0.11822757908136633,
+            "gates_pass": 1.0,
+            "sustained": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "psi6_gain": 0.11822757908136633
+          },
+          "secondary_metrics": {
+            "psi6_early": 0.36789748632824565,
+            "psi6_late": 0.486125065409612,
+            "psi6_gain": 0.11822757908136633,
+            "gates_pass": 1.0,
+            "sustained": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    },
+    "P36:permutation_shuffled": {
+      "skip_reason": "primary_metric_permutation_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.3032
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0462,
+            "ks_exp": 0.3495,
+            "gini": 0.774,
+            "max_share": 0.0837,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.3032
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0462,
+            "ks_exp": 0.3495,
+            "gini": 0.774,
+            "max_share": 0.0837,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.3032
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0462,
+            "ks_exp": 0.3495,
+            "gini": 0.774,
+            "max_share": 0.0837,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.3032
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0462,
+            "ks_exp": 0.3495,
+            "gini": 0.774,
+            "max_share": 0.0837,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.3032
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0462,
+            "ks_exp": 0.3495,
+            "gini": 0.774,
+            "max_share": 0.0837,
+            "gates_pass": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    },
+    "P36:time_shuffled": {
+      "skip_reason": "primary_metric_time_shuffle_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.238
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.056,
+            "ks_pareto": 0.0518,
+            "ks_exp": 0.2898,
+            "gini": 0.75,
+            "max_share": 0.0534,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.2407
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.073,
+            "ks_pareto": 0.0491,
+            "ks_exp": 0.2898,
+            "gini": 0.744,
+            "max_share": 0.0519,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.2936
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.083,
+            "ks_pareto": 0.0386,
+            "ks_exp": 0.3322,
+            "gini": 0.744,
+            "max_share": 0.0557,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.2508
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.065,
+            "ks_pareto": 0.0518,
+            "ks_exp": 0.3026,
+            "gini": 0.744,
+            "max_share": 0.0492,
+            "gates_pass": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "pareto_advantage": 0.2425
+          },
+          "secondary_metrics": {
+            "alpha_hill": 1.083,
+            "ks_pareto": 0.0473,
+            "ks_exp": 0.2898,
+            "gini": 0.736,
+            "max_share": 0.0453,
+            "gates_pass": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    },
+    "P37:permutation_shuffled": {
+      "skip_reason": "primary_metric_permutation_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1469
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1469,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1469
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1469,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1469
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1469,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1469
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1469,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1469
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1469,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    },
+    "P37:time_shuffled": {
+      "skip_reason": "primary_metric_time_shuffle_invariant",
+      "runs": [
+        {
+          "seed": 0,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1768
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1768,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 1,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1925
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1925,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 2,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.2615
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.2615,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 3,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1759
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1759,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        },
+        {
+          "seed": 4,
+          "detected": true,
+          "tier": "definitive",
+          "confidence": 0.9,
+          "primary_metric": {
+            "coexistence_oscillation": 0.1553
+          },
+          "secondary_metrics": {
+            "osc_cv": 0.1553,
+            "n_persist": 5.0,
+            "n_resources": 5.0,
+            "n_species": 5.0,
+            "multi_species": 1.0
+          }
+        }
+      ],
+      "n_detected": 5
+    }
+  },
+  "p35_canonical_box_mates": {
+    "P17_collective_sensing": {
+      "own_box": 20.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.36276039593954335,
+          "psi6_late": 0.3544006600537205,
+          "psi6_gain": -0.008359735885822839,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3611306393813865,
+          "psi6_late": 0.3544006600537205,
+          "psi6_gain": -0.0067299793276660025,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      }
+    },
+    "P19_informed_minority": {
+      "own_box": 10.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3569802394149637,
+          "psi6_late": 0.3819231401791144,
+          "psi6_gain": 0.024942900764150677,
+          "gates_pass": 0.0,
+          "sustained": 1.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3596888958219903,
+          "psi6_late": 0.3853695297298468,
+          "psi6_gain": 0.025680633907856465,
+          "gates_pass": 0.0,
+          "sustained": 1.0
+        }
+      }
+    },
+    "P2_abp": {
+      "own_box": 16.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3743738997060717,
+          "psi6_late": 0.36712897372746794,
+          "psi6_gain": -0.007244925978603767,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3545281724171269,
+          "psi6_late": 0.3726344114864962,
+          "psi6_gain": 0.018106239069369257,
+          "gates_pass": 0.0,
+          "sustained": 1.0
+        }
+      }
+    },
+    "P5_vicsek": {
+      "own_box": 7.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.358675288464589,
+          "psi6_late": 0.35967312634034815,
+          "psi6_gain": 0.0009978378757591333,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3596732277927564,
+          "psi6_late": 0.3582810155015223,
+          "psi6_gain": -0.0013922122912340962,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      }
+    },
+    "P6_dorsogna": {
+      "own_box": 14.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.9187972207042866,
+          "psi6_late": 0.3553609308327651,
+          "psi6_gain": -0.5634362898715215,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.9187972207042866,
+          "psi6_late": 0.3553609308327651,
+          "psi6_gain": -0.5634362898715215,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      }
+    },
+    "P7_lane_formation": {
+      "own_box": 20.0,
+      "scored_with_own_box": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.346385199501747,
+          "psi6_late": 0.36840997541666287,
+          "psi6_gain": 0.02202477591491586,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      },
+      "scored_with_canonical_L14": {
+        "detected": false,
+        "tier": "none",
+        "confidence": 0.0,
+        "primary_metric": {
+          "psi6_gain": 0.0
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.3527336510320242,
+          "psi6_late": 0.3624055352201789,
+          "psi6_gain": 0.009671884188154678,
+          "gates_pass": 0.0,
+          "sustained": 0.0
+        }
+      }
+    }
+  },
+  "fired_negatives": {
+    "P33": [
+      {
+        "cls": "B",
+        "substrate": "P17_collective_sensing",
+        "kind": "catalog_mate",
+        "seed": null,
+        "panel_tier": "screening",
+        "detected": true,
+        "tier": "screening",
+        "confidence": 0.4,
+        "primary_metric": {
+          "coherent_half_defect_density": 0.006572420634920635
+        },
+        "secondary_metrics": {
+          "S_loc": 0.8985006233545574,
+          "polar_phi": 0.08784280768863045,
+          "half_def_density": 0.006572420634920635,
+          "integer_def_density": 0.0,
+          "angular_momentum": 0.05632701763561081,
+          "S_loc_init": 0.8309560848443914,
+          "min_hdef": 0.003472222222222222,
+          "emerged": 0.0,
+          "sustained": 0.0,
+          "gates_pass": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "B",
+        "substrate": "P7_lane_formation",
+        "kind": "catalog_mate",
+        "seed": null,
+        "panel_tier": "screening",
+        "detected": true,
+        "tier": "screening",
+        "confidence": 0.4,
+        "primary_metric": {
+          "coherent_half_defect_density": 0.011510416666666669
+        },
+        "secondary_metrics": {
+          "S_loc": 0.48498018184885067,
+          "polar_phi": 0.004555951483472256,
+          "half_def_density": 0.011510416666666669,
+          "integer_def_density": 0.0,
+          "angular_momentum": 0.03094098022748104,
+          "S_loc_init": 0.516989497377333,
+          "min_hdef": 0.005208333333333333,
+          "emerged": 0.0,
+          "sustained": 1.0,
+          "gates_pass": 1.0
+        },
+        "reproduces_panel_tier": true
+      }
+    ],
+    "P34": [],
+    "P35": [
+      {
+        "cls": "C",
+        "substrate": "fluid_eta_end=0.65",
+        "seed": 207,
+        "panel_tier": "confirmation",
+        "detected": true,
+        "tier": "confirmation",
+        "confidence": 0.6,
+        "primary_metric": {
+          "psi6_gain": 0.07268699448466365
+        },
+        "secondary_metrics": {
+          "psi6_early": 0.36320192866372425,
+          "psi6_late": 0.4358889231483879,
+          "psi6_gain": 0.07268699448466365,
+          "gates_pass": 1.0,
+          "sustained": 1.0
+        },
+        "reproduces_panel_tier": true
+      }
+    ],
+    "P36": [],
+    "P37": [
+      {
+        "cls": "A",
+        "substrate": "random_uniform",
+        "seed": 191664963,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.6045
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.6045,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "random_gaussian",
+        "seed": 1662057957,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.2973
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.2973,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "random_binary",
+        "seed": 1405681631,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.5037
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.5037,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "spatial_white_noise",
+        "seed": 942484272,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.9208
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.9208,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "temporal_white_noise",
+        "seed": 929893137,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.1484
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.1484,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "linear_gradient",
+        "seed": 184566854,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.1158
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.1158,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "A",
+        "substrate": "checkerboard",
+        "seed": 1497586438,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.5037
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.5037,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "B",
+        "substrate": "P12_rps",
+        "kind": "catalog_mate",
+        "seed": null,
+        "panel_tier": "screening",
+        "detected": true,
+        "tier": "screening",
+        "confidence": 0.4,
+        "primary_metric": {
+          "coexistence_oscillation": 0.2499
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.2499,
+          "n_persist": 3.0,
+          "n_resources": 1.0,
+          "n_species": 3.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "B",
+        "substrate": "p37_may_leonard",
+        "kind": "synthetic_supplement",
+        "seed": 432652533,
+        "panel_tier": "screening",
+        "detected": true,
+        "tier": "screening",
+        "confidence": 0.4,
+        "primary_metric": {
+          "coexistence_oscillation": 0.4279
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.4279,
+          "n_persist": 3.0,
+          "n_resources": 1.0,
+          "n_species": 3.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      },
+      {
+        "cls": "B",
+        "substrate": "p37_forced_stable_coexistence",
+        "kind": "synthetic_supplement",
+        "seed": 202244314,
+        "panel_tier": "definitive",
+        "detected": true,
+        "tier": "definitive",
+        "confidence": 0.9,
+        "primary_metric": {
+          "coexistence_oscillation": 0.2069
+        },
+        "secondary_metrics": {
+          "osc_cv": 0.2069,
+          "n_persist": 5.0,
+          "n_resources": 5.0,
+          "n_species": 5.0,
+          "multi_species": 1.0
+        },
+        "reproduces_panel_tier": true
+      }
+    ]
+  }
+}

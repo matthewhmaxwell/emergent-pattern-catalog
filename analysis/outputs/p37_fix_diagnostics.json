@@ -1,0 +1,844 @@
+{
+  "panel": "analysis/outputs/p37_resource_competition_phase2a_panel_v12_fixed.json",
+  "rows": [
+    {
+      "cls": "A",
+      "substrate": "random_uniform",
+      "seed": 191664963,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.6045,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.5731,
+      "p_osc": 0.675,
+      "z_osc": -0.47164427372408585,
+      "p_coupling": 0.58,
+      "coupling_corr": 0.2712980667411217,
+      "n_window": 100,
+      "species_p": [
+        0.71,
+        0.565,
+        0.21,
+        0.725,
+        0.54
+      ],
+      "species_amp": [
+        0.5731,
+        0.5097,
+        0.5962,
+        0.5922,
+        0.5558
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "random_gaussian",
+      "seed": 1662057957,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.2973,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.305,
+      "p_osc": 0.455,
+      "z_osc": 0.07483820466355834,
+      "p_coupling": 0.51,
+      "coupling_corr": 0.2742360416933137,
+      "n_window": 100,
+      "species_p": [
+        0.945,
+        0.325,
+        0.18,
+        0.115,
+        0.8
+      ],
+      "species_amp": [
+        0.2934,
+        0.2661,
+        0.305,
+        0.3299,
+        0.3141
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "random_binary",
+      "seed": 1405681631,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.5037,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.4943,
+      "p_osc": 0.515,
+      "z_osc": -0.11996600275046024,
+      "p_coupling": 0.73,
+      "coupling_corr": 0.26037162461498786,
+      "n_window": 100,
+      "species_p": [
+        0.305,
+        0.325,
+        0.94,
+        0.495,
+        0.205
+      ],
+      "species_amp": [
+        0.4569,
+        0.5408,
+        0.4943,
+        0.4683,
+        0.4979
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "spatial_white_noise",
+      "seed": 942484272,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.9208,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.9604,
+      "p_osc": 0.27,
+      "z_osc": 0.6466126254624257,
+      "p_coupling": 0.775,
+      "coupling_corr": 0.25430509724278144,
+      "n_window": 100,
+      "species_p": [
+        0.49,
+        0.975,
+        0.01,
+        0.34,
+        0.645
+      ],
+      "species_amp": [
+        0.9604,
+        0.8802,
+        0.9786,
+        0.9826,
+        0.8749
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "temporal_white_noise",
+      "seed": 929893137,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.1484,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1473,
+      "p_osc": 0.005,
+      "z_osc": 6.131981154707589,
+      "p_coupling": 0.29,
+      "coupling_corr": 0.5994809665829317,
+      "n_window": 100,
+      "species_p": [
+        0.05,
+        0.02,
+        0.98,
+        0.005,
+        0.625
+      ],
+      "species_amp": [
+        0.0924,
+        0.1473,
+        0.1517,
+        0.0934,
+        0.213
+      ]
+    },
+    {
+      "cls": "A-skipped(out of TNR)",
+      "substrate": "permutation_shuffled",
+      "seed": 0,
+      "detected": true,
+      "tier": "screening",
+      "sustained_oscillation": 3.5858,
+      "v1_coexistence_oscillation": 0.1469,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1746,
+      "p_osc": 0.01,
+      "z_osc": 3.5858159279394495,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9953353599726069,
+      "n_window": 40,
+      "species_p": [
+        0.055,
+        0.075,
+        0.06,
+        0.015,
+        0.345
+      ],
+      "species_amp": [
+        0.1233,
+        0.1097,
+        0.1746,
+        0.1804,
+        0.1982
+      ]
+    },
+    {
+      "cls": "A-skipped(out of TNR)",
+      "substrate": "permutation_shuffled",
+      "seed": 1,
+      "detected": true,
+      "tier": "definitive",
+      "sustained_oscillation": 4.0136,
+      "v1_coexistence_oscillation": 0.1469,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1746,
+      "p_osc": 0.005,
+      "z_osc": 4.013619795516073,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9953353599726069,
+      "n_window": 40,
+      "species_p": [
+        0.09,
+        0.015,
+        0.33,
+        0.06,
+        0.04
+      ],
+      "species_amp": [
+        0.1097,
+        0.1804,
+        0.1982,
+        0.1233,
+        0.1746
+      ]
+    },
+    {
+      "cls": "A-skipped(out of TNR)",
+      "substrate": "permutation_shuffled",
+      "seed": 2,
+      "detected": true,
+      "tier": "screening",
+      "sustained_oscillation": 3.5858,
+      "v1_coexistence_oscillation": 0.1469,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1746,
+      "p_osc": 0.01,
+      "z_osc": 3.5858159279394495,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9953353599726069,
+      "n_window": 40,
+      "species_p": [
+        0.055,
+        0.075,
+        0.06,
+        0.015,
+        0.345
+      ],
+      "species_amp": [
+        0.1233,
+        0.1097,
+        0.1746,
+        0.1804,
+        0.1982
+      ]
+    },
+    {
+      "cls": "A-skipped(out of TNR)",
+      "substrate": "permutation_shuffled",
+      "seed": 3,
+      "detected": true,
+      "tier": "definitive",
+      "sustained_oscillation": 3.9669,
+      "v1_coexistence_oscillation": 0.1469,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1746,
+      "p_osc": 0.005,
+      "z_osc": 3.9669403526970366,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9953353599726069,
+      "n_window": 40,
+      "species_p": [
+        0.09,
+        0.035,
+        0.33,
+        0.065,
+        0.01
+      ],
+      "species_amp": [
+        0.1097,
+        0.1233,
+        0.1982,
+        0.1746,
+        0.1804
+      ]
+    },
+    {
+      "cls": "A-skipped(out of TNR)",
+      "substrate": "permutation_shuffled",
+      "seed": 4,
+      "detected": true,
+      "tier": "definitive",
+      "sustained_oscillation": 3.4567,
+      "v1_coexistence_oscillation": 0.1469,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1746,
+      "p_osc": 0.005,
+      "z_osc": 3.4567313766323724,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9953353599726069,
+      "n_window": 40,
+      "species_p": [
+        0.055,
+        0.075,
+        0.025,
+        0.36,
+        0.04
+      ],
+      "species_amp": [
+        0.1233,
+        0.1097,
+        0.1804,
+        0.1982,
+        0.1746
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "time_shuffled",
+      "seed": 1843824992,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": -0.2565,
+      "v1_coexistence_oscillation": 0.1783,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.1827,
+      "p_osc": 0.605,
+      "z_osc": -0.25651732843579006,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9943077027467299,
+      "n_window": 40,
+      "species_p": [
+        0.295,
+        0.24,
+        0.47,
+        0.85,
+        0.76
+      ],
+      "species_amp": [
+        0.1974,
+        0.1887,
+        0.1346,
+        0.1827,
+        0.1162
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "constant",
+      "seed": 184566854,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 5,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 100,
+      "species_p": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "species_amp": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "linear_gradient",
+      "seed": 1497586438,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.1158,
+      "n_persist": 5,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 100,
+      "species_p": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "species_amp": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "cls": "A",
+      "substrate": "checkerboard",
+      "seed": 432652533,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": -12.3367,
+      "v1_coexistence_oscillation": 0.5037,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.4999,
+      "p_osc": 1.0,
+      "z_osc": -12.336696990702256,
+      "p_coupling": 0.005,
+      "coupling_corr": 1.0000000000000004,
+      "n_window": 100,
+      "species_p": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "species_amp": [
+        0.4999,
+        0.4999,
+        0.4999,
+        0.4999,
+        0.4999
+      ]
+    },
+    {
+      "cls": "B",
+      "substrate": "P11_lotka_volterra",
+      "seed": null,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0042,
+      "p_osc": 1.0,
+      "z_osc": -2.5314252602717153,
+      "p_coupling": 0.005,
+      "coupling_corr": 0.9467847669069152,
+      "n_window": 50,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0042
+      ]
+    },
+    {
+      "cls": "B",
+      "substrate": "P12_rps",
+      "seed": null,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.2499,
+      "n_persist": 3,
+      "n_material": 3,
+      "n_sustained": 3,
+      "median_amp": 0.2591,
+      "p_osc": 0.005,
+      "z_osc": 6.463981796624351,
+      "p_coupling": 0.22,
+      "coupling_corr": 0.5040207367738863,
+      "n_window": 100,
+      "species_p": [
+        0.695,
+        0.005,
+        0.005
+      ],
+      "species_amp": [
+        0.2908,
+        0.2535,
+        0.2591
+      ]
+    },
+    {
+      "cls": "B",
+      "substrate": "p37_may_leonard",
+      "seed": 202244314,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.4084,
+      "n_persist": 3,
+      "n_material": 3,
+      "n_sustained": 3,
+      "median_amp": 0.4116,
+      "p_osc": 0.005,
+      "z_osc": 13.913791242841762,
+      "p_coupling": 0.5,
+      "coupling_corr": 0.27309262389761274,
+      "n_window": 40,
+      "species_p": [
+        0.005,
+        0.005,
+        0.005
+      ],
+      "species_amp": [
+        0.3961,
+        0.4116,
+        0.4118
+      ]
+    },
+    {
+      "cls": "B",
+      "substrate": "p37_forced_stable_coexistence",
+      "seed": 1130604997,
+      "panel_tier": "screening",
+      "detected": true,
+      "tier": "screening",
+      "sustained_oscillation": 25.4975,
+      "v1_coexistence_oscillation": 0.2069,
+      "n_persist": 5,
+      "n_material": 5,
+      "n_sustained": 5,
+      "median_amp": 0.2091,
+      "p_osc": 0.005,
+      "z_osc": 25.49745236096678,
+      "p_coupling": 0.03,
+      "coupling_corr": 0.9874128515095466,
+      "n_window": 40,
+      "species_p": [
+        0.005,
+        0.005,
+        0.005,
+        0.005,
+        0.005
+      ],
+      "species_amp": [
+        0.209,
+        0.2091,
+        0.2092,
+        0.2092,
+        0.209
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "competitive_exclusion",
+      "seed": 200,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 30,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "competitive_exclusion",
+      "seed": 201,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 30,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "stable_coexistence",
+      "seed": 202,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 5,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "species_amp": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "stable_coexistence",
+      "seed": 203,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 5,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "species_amp": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "single_resource",
+      "seed": 204,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 30,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "single_resource",
+      "seed": 205,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 30,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "hw_uniform_consumption",
+      "seed": 206,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "hw_uniform_consumption",
+      "seed": 207,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "hw_low_supply",
+      "seed": 208,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    },
+    {
+      "cls": "C",
+      "substrate": "hw_low_supply",
+      "seed": 209,
+      "panel_tier": "none",
+      "detected": false,
+      "tier": "none",
+      "sustained_oscillation": 0.0,
+      "v1_coexistence_oscillation": 0.0,
+      "n_persist": 1,
+      "n_material": 0,
+      "n_sustained": 0,
+      "median_amp": 0.0,
+      "p_osc": 1.0,
+      "z_osc": 0.0,
+      "p_coupling": 1.0,
+      "coupling_corr": null,
+      "n_window": 40,
+      "species_p": [
+        1.0
+      ],
+      "species_amp": [
+        0.0
+      ]
+    }
+  ]
+}

@@ -370,6 +370,13 @@ def run_panel(
     elif detector_format == "scalar_wealth":
         # Scalar-wealth generators use their own defaults (n_agents, n_frames).
         pass  # n_steps already in class_a_kwargs
+    elif detector_format in ("orientation_field", "adjacency_timeseries", "positions",
+                             "abundance_resource_timeseries"):
+        # Discovery-phase formats (P33 / P34 / P35 / P37), generators in
+        # epc/phase2a/synthetic_discovery.py. Geometry defaults are the canonical
+        # positive's (64x64 director lattice / 200 nodes / 196 disks in a 14-box /
+        # 5 species x 5 resources); n_steps = number of frames.
+        pass  # n_steps already in class_a_kwargs
 
     class_a_total = len(synth_mod.SYNTHETIC_GENERATORS)
     for i, (sub_id, gen) in enumerate(synth_mod.SYNTHETIC_GENERATORS.items()):
