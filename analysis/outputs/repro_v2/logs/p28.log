@@ -1,0 +1,105 @@
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2801: G=0.5120 halves 0.5120/0.5119 (483.5 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2802: G=0.5122 halves 0.5126/0.5118 (469.7 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2803: G=0.5111 halves 0.5118/0.5105 (472.4 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2804: G=0.5127 halves 0.5132/0.5122 (560.8 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2805: G=0.5128 halves 0.5124/0.5131 (555.4 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2806: G=0.5117 halves 0.5123/0.5111 (517.0 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2807: G=0.5126 halves 0.5129/0.5123 (488.6 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2808: G=0.5119 halves 0.5120/0.5118 (480.9 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2809: G=0.5128 halves 0.5124/0.5133 (481.3 s)
+[p28] A tau=0.2 f=0.05 init=equal burn x1 seed=2810: G=0.5115 halves 0.5112/0.5119 (492.6 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2801: G=0.3824 halves 0.3830/0.3818 (280.7 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2802: G=0.3833 halves 0.3834/0.3832 (283.1 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2803: G=0.3829 halves 0.3821/0.3836 (286.8 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2804: G=0.3831 halves 0.3828/0.3834 (294.4 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2805: G=0.3824 halves 0.3819/0.3830 (295.6 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2806: G=0.3832 halves 0.3834/0.3831 (296.5 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2807: G=0.3827 halves 0.3827/0.3828 (286.7 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2808: G=0.3825 halves 0.3825/0.3825 (276.0 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2809: G=0.3829 halves 0.3827/0.3830 (287.1 s)
+[p28] A tau=0.5 f=0.05 init=equal burn x1 seed=2810: G=0.3831 halves 0.3833/0.3829 (293.2 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2801: G=0.2978 halves 0.2980/0.2976 (230.2 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2802: G=0.2979 halves 0.2979/0.2978 (229.5 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2803: G=0.2974 halves 0.2975/0.2973 (232.7 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2804: G=0.2977 halves 0.2977/0.2977 (230.6 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2805: G=0.2978 halves 0.2980/0.2977 (223.9 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2806: G=0.2981 halves 0.2983/0.2979 (224.5 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2807: G=0.2976 halves 0.2976/0.2976 (229.4 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2808: G=0.2979 halves 0.2982/0.2975 (231.5 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2809: G=0.2980 halves 0.2980/0.2980 (224.2 s)
+[p28] A tau=1.0 f=0.05 init=equal burn x1 seed=2810: G=0.2979 halves 0.2977/0.2982 (220.8 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2801: G=0.3834 halves 0.3832/0.3835 (1127.6 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2802: G=0.3828 halves 0.3828/0.3828 (1122.6 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2803: G=0.3829 halves 0.3827/0.3830 (1132.7 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2804: G=0.3831 halves 0.3822/0.3840 (1114.4 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2805: G=0.3828 halves 0.3830/0.3825 (1125.5 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2806: G=0.3834 halves 0.3833/0.3835 (1095.4 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2807: G=0.3824 halves 0.3818/0.3831 (1074.3 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2808: G=0.3831 halves 0.3832/0.3831 (1096.6 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2809: G=0.3840 halves 0.3841/0.3838 (1091.7 s)
+[p28] A tau=0.5 f=0.025 init=equal burn x1 seed=2810: G=0.3837 halves 0.3838/0.3835 (1092.5 s)
+[p28] finite-f check: |G(0.05)-G(0.025)| = 0.0003; extrapolation triggered = False
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2801: G=0.3833 halves 0.3834/0.3833 (274.1 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2802: G=0.3828 halves 0.3827/0.3829 (271.2 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2803: G=0.3833 halves 0.3836/0.3830 (274.0 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2804: G=0.3829 halves 0.3829/0.3829 (274.8 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2805: G=0.3832 halves 0.3833/0.3832 (268.7 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2806: G=0.3832 halves 0.3832/0.3831 (270.2 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2807: G=0.3828 halves 0.3827/0.3829 (268.7 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2808: G=0.3837 halves 0.3838/0.3836 (252.7 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2809: G=0.3832 halves 0.3834/0.3831 (256.0 s)
+[p28] A tau=0.5 f=0.05 init=exponential burn x1 seed=2810: G=0.3825 halves 0.3829/0.3821 (277.5 s)
+[p28] B seed=2821: slope=2.6763e-11 intercept=0.0001218 (236.1 s)
+[p28] B seed=2822: slope=2.6772e-11 intercept=0.0001237 (230.7 s)
+[p28] B seed=2823: slope=2.6743e-11 intercept=0.0001234 (243.6 s)
+[p28] B seed=2824: slope=2.6832e-11 intercept=0.0001225 (240.3 s)
+[p28] B seed=2825: slope=2.6812e-11 intercept=0.0001231 (240.5 s)
+[p28] B seed=2826: slope=2.6800e-11 intercept=0.0001235 (241.1 s)
+[p28] B seed=2827: slope=2.6795e-11 intercept=0.0001232 (236.5 s)
+[p28] B seed=2828: slope=2.6779e-11 intercept=0.0001222 (239.4 s)
+[p28] B seed=2829: slope=2.6811e-11 intercept=0.0001243 (233.1 s)
+[p28] B seed=2830: slope=2.6793e-11 intercept=0.0001224 (237.4 s)
+{
+ "PASS_A": true,
+ "rows": [
+  {
+   "tau": 0.2,
+   "G_target_Eq61": 0.5235722074549463,
+   "G_sim": 0.5121260854637955,
+   "G_sim_se": 0.00018806740027337883,
+   "gated_value_from": "f = 0.05",
+   "deviation": -0.011446121991150804,
+   "within_0.02": true,
+   "G_target_at_2tau_reference": 0.4212659768698559
+  },
+  {
+   "tau": 0.5,
+   "G_target_Eq61": 0.3893149262672415,
+   "G_sim": 0.3828559038220146,
+   "G_sim_se": 0.00010843323611423896,
+   "gated_value_from": "f = 0.05",
+   "deviation": -0.006459022445226892,
+   "within_0.02": true,
+   "G_target_at_2tau_reference": 0.2968944837004929
+  },
+  {
+   "tau": 1.0,
+   "G_target_Eq61": 0.2968944837004929,
+   "G_sim": 0.2978114118262546,
+   "G_sim_se": 6.39549380143466e-05,
+   "gated_value_from": "f = 0.05",
+   "deviation": 0.0009169281257617179,
+   "within_0.02": true,
+   "G_target_at_2tau_reference": 0.21856175109271964
+  }
+ ],
+ "finite_f": {
+  "G_f0.05": 0.3828559038220146,
+  "G_f0.025": 0.3831486744676675,
+  "diff": -0.00029277064565286226,
+  "threshold": 0.01,
+  "extrapolation_triggered": false
+ },
+ "B_mean_slope": 2.678994845300271e-11,
+ "PASS_B": false
+}

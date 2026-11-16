@@ -82,3 +82,48 @@ intrawell divergence the source describes as D -> 0 does not appear in this rang
 
 No deviation. Runtime 5,235 CPU-s (1.45 CPU-h; spec estimate < 1 CPU-h): 3,273 s main, 1,285 s dt check, 678 s
 frame check. Code commit of all runs: 90cfbe2.
+
+## P28 wealth condensation with redistribution: PASS (P28-A); P28-B FAIL (reported only)
+
+### P28-A (primary)
+
+Target: Boghosian et al. 2017 Physica A Eq. (61), G_inf = 1/(1 + 2.3682 tau^0.5943), from steady-state solutions of
+the redistributive Fokker-Planck equation. Model: `YardSale` unchanged, N = 5000, f = 0.05, lambda_save = 0,
+R = redistribute_every = 2500 = N/2, chi = tau f^2, equal start, advanced only by step(2500). Seeds 2801-2810 per
+tau; burn-in max(20/tau, 20) tau-bar; Gini sampled after every tax over a 50 tau-bar window (20,000 samples per
+seed).
+
+| tau | Eq. (61) | Measured G (mean +- SE, 10 seeds) | Deviation | Rule: |dev| <= 0.02 |
+|---|---|---|---|---|
+| 0.2 | 0.5236 | 0.51213 +- 0.00019 | -0.0114 | pass |
+| 0.5 | 0.3893 | 0.38286 +- 0.00011 | -0.0065 | pass |
+| 1.0 | 0.2969 | 0.29781 +- 0.00006 | +0.0009 | pass |
+
+P28-A PASS. The deviation grows as tau falls (all three are below or at the fit, largest at tau = 0.2); a factor-2
+error in the tau mapping would have moved G by 0.09-0.10 (Eq. 61 at 2 tau: 0.421, 0.297, 0.219).
+
+Required checks, applied as fixed in the spec:
+- Stationarity (10-seed means of first and second half of the window must agree within 0.005): differences
+  -0.00027, +0.00014, -0.00016 at tau = 0.2, 0.5, 1.0 (largest single-seed half difference 0.0015). No rerun.
+- Finite-f check (tau = 0.5 at f = 0.025, chi = 3.125e-4): G = 0.38315 +- 0.00014, |G(0.05) - G(0.025)| = 0.0003,
+  under the 0.01 threshold, so the gated values are the f = 0.05 values and no extrapolation runs were needed.
+
+Reported, not gated: tau = 0.5 from `init_mode='exponential'` (start above G_inf) gives 0.38310 +- 0.00011,
+against 0.38286 from the equal start, so the steady state is approached from both sides to within 0.0003.
+
+### P28-B (reported, does not gate P28)
+
+Target: Boghosian 2014 PRE Fig. 5 fit, slope of 1/a(t) = 2.04046e-5 per transaction (band [1.73, 2.35]e-5). Model:
+N = 5e4, f = 0.25, no tax, w0 = 100, seeds 2821-2830, 16 times t = 5e6 ... 8e7; a(t) from the fitted w_min and
+Eq. (37) as the spec writes it.
+
+Mean slope 2.679e-11 +- 0.008e-11 per transaction (all 10 seeds within 2.674-2.683e-11); mean intercept 1.23e-4
+(source 3.93). P28-B FAIL, by a factor of about 7.6e5. This is the outcome recorded as expected in the pre-run
+notes: with a normalised to N agents as in Eqs. (35)-(37), 1/a = ln(w_max/w_min)/N, which is of order 1e-3 here.
+The run itself is consistent with the source's description of the dynamics: the fitted ln w_min falls from -4.5 at
+t = 5e6 to -103 at t = 8e7, and the poorest agent reaches ln w = -158 at t = 8e7 (source, p. 11: about -150 at
+t = 1e8). 1/a is close to linear in t, as the source reports, but on a scale about 1e6 times smaller than the
+published fit, so the published numbers are not in the units of Eq. (37).
+
+No deviation. Runtime 26,299 CPU-s (7.3 CPU-h; spec estimate about 4 CPU-h): tau = 0.2, 0.5, 1.0 main 5,002 + 2,880
++ 2,277 s; f = 0.025 check 11,073 s; exponential start 2,688 s; P28-B 2,379 s. Code commit of all runs: 90cfbe2.
