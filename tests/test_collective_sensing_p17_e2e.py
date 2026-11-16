@@ -127,7 +127,15 @@ class TestDetectorCanonical:
 
     @pytest.mark.slow
     def test_canonical_regime_reaches_confirmation(self):
-        """Detector reaches at least CONFIRMATION on canonical collective sensing."""
+        """Detector reaches at least CONFIRMATION on canonical collective sensing.
+
+        Test maintenance: 72c9d35 rewrote P17 to measure the recorded history
+        instead of re-simulating the model at several group sizes (S2 Text, P17
+        row), so primary_metric no longer has 'ci_at_max_N'. The same quantity,
+        the chemotactic index of the N=50 group, is now measured directly on
+        the history as 'chemotactic_index'; the 0.1 floor is kept. The
+        group-size arguments below are accepted but unused since 72c9d35.
+        """
         model = CollectiveSensingModel(
             n_agents=50, box_size=20.0, v_max=0.4,
             turn_noise=0.3, sensing_noise=0.8,
@@ -152,7 +160,7 @@ class TestDetectorCanonical:
             f"Expected at least screening, got {result.tier}; notes: {result.notes}"
         )
         assert result.confidence >= 0.500
-        assert result.primary_metric["ci_at_max_N"] > 0.1
+        assert result.primary_metric["chemotactic_index"] > 0.1
 
     @pytest.mark.slow
     def test_null_regime_does_not_fire(self):
