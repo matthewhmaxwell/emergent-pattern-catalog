@@ -1,0 +1,1810 @@
+{
+ "self": {
+  "P1": [
+   {
+    "verdict": "MATCH",
+    "match": "P1",
+    "top": "P1",
+    "top_tier": "definitive",
+    "fired": [
+     "P1"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P1",
+    "top": "P1",
+    "top_tier": "definitive",
+    "fired": [
+     "P1"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P1",
+    "top": "P1",
+    "top_tier": "definitive",
+    "fired": [
+     "P1"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P1",
+    "top": "P1",
+    "top_tier": "definitive",
+    "fired": [
+     "P1"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P1",
+    "top": "P1",
+    "top_tier": "definitive",
+    "fired": [
+     "P1"
+    ]
+   }
+  ],
+  "P2": [
+   {
+    "verdict": "EMERGENT-UNCLASSIFIED",
+    "match": null,
+    "top": "P2",
+    "top_tier": "none",
+    "fired": []
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P2",
+    "top": "P2",
+    "top_tier": "screening",
+    "fired": [
+     "P2"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P2",
+    "top": "P2",
+    "top_tier": "definitive",
+    "fired": [
+     "P2"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P2",
+    "top": "P2",
+    "top_tier": "definitive",
+    "fired": [
+     "P2"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P2",
+    "top": "P2",
+    "top_tier": "definitive",
+    "fired": [
+     "P2"
+    ]
+   }
+  ],
+  "P3": [
+   {
+    "verdict": "MATCH",
+    "match": "P3",
+    "top": "P3",
+    "top_tier": "definitive",
+    "fired": [
+     "P3"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P3",
+    "top": "P3",
+    "top_tier": "definitive",
+    "fired": [
+     "P3"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P3",
+    "top": "P3",
+    "top_tier": "definitive",
+    "fired": [
+     "P3"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P3",
+    "top": "P3",
+    "top_tier": "definitive",
+    "fired": [
+     "P3"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P3",
+    "top": "P3",
+    "top_tier": "definitive",
+    "fired": [
+     "P3"
+    ]
+   }
+  ],
+  "P4": [
+   {
+    "verdict": "MATCH",
+    "match": "P4",
+    "top": "P4",
+    "top_tier": "definitive",
+    "fired": [
+     "P4"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P4",
+    "top": "P4",
+    "top_tier": "definitive",
+    "fired": [
+     "P4"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P4",
+    "top": "P4",
+    "top_tier": "confirmation",
+    "fired": [
+     "P4"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P4",
+    "top": "P4",
+    "top_tier": "confirmation",
+    "fired": [
+     "P4",
+     "P35"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P4",
+    "top": "P4",
+    "top_tier": "definitive",
+    "fired": [
+     "P4"
+    ]
+   }
+  ],
+  "P5": [
+   {
+    "verdict": "MATCH",
+    "match": "P5",
+    "top": "P5",
+    "top_tier": "definitive",
+    "fired": [
+     "P5"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P5",
+    "top": "P5",
+    "top_tier": "definitive",
+    "fired": [
+     "P5"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P5",
+    "top": "P5",
+    "top_tier": "definitive",
+    "fired": [
+     "P5"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P5",
+    "top": "P5",
+    "top_tier": "definitive",
+    "fired": [
+     "P5"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P5",
+    "top": "P5",
+    "top_tier": "definitive",
+    "fired": [
+     "P5"
+    ]
+   }
+  ],
+  "P6": [
+   {
+    "verdict": "MATCH",
+    "match": "P6",
+    "top": "P6",
+    "top_tier": "definitive",
+    "fired": [
+     "P6"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P6",
+    "top": "P6",
+    "top_tier": "definitive",
+    "fired": [
+     "P6"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P6",
+    "top": "P6",
+    "top_tier": "definitive",
+    "fired": [
+     "P6"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P6",
+    "top": "P6",
+    "top_tier": "definitive",
+    "fired": [
+     "P6"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P6",
+    "top": "P6",
+    "top_tier": "definitive",
+    "fired": [
+     "P6"
+    ]
+   }
+  ],
+  "P7": [
+   {
+    "verdict": "MATCH",
+    "match": "P7",
+    "top": "P7",
+    "top_tier": "confirmation",
+    "fired": [
+     "P7",
+     "P33"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P7",
+    "top": "P7",
+    "top_tier": "confirmation",
+    "fired": [
+     "P7",
+     "P33"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P7",
+    "top": "P7",
+    "top_tier": "confirmation",
+    "fired": [
+     "P7",
+     "P33"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P7",
+    "top": "P7",
+    "top_tier": "confirmation",
+    "fired": [
+     "P7",
+     "P33"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P7",
+    "top": "P7",
+    "top_tier": "confirmation",
+    "fired": [
+     "P7",
+     "P33"
+    ]
+   }
+  ],
+  "P8": [
+   {
+    "verdict": "MATCH",
+    "match": "P8",
+    "top": "P8",
+    "top_tier": "definitive",
+    "fired": [
+     "P8"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P8",
+    "top": "P8",
+    "top_tier": "definitive",
+    "fired": [
+     "P8"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P8",
+    "top": "P8",
+    "top_tier": "definitive",
+    "fired": [
+     "P8"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P8",
+    "top": "P8",
+    "top_tier": "definitive",
+    "fired": [
+     "P8"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P8",
+    "top": "P8",
+    "top_tier": "definitive",
+    "fired": [
+     "P8"
+    ]
+   }
+  ],
+  "P9": [
+   {
+    "verdict": "MATCH",
+    "match": "P9",
+    "top": "P9",
+    "top_tier": "definitive",
+    "fired": [
+     "P9"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P9",
+    "top": "P9",
+    "top_tier": "definitive",
+    "fired": [
+     "P9"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P9",
+    "top": "P9",
+    "top_tier": "definitive",
+    "fired": [
+     "P9"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P9",
+    "top": "P9",
+    "top_tier": "definitive",
+    "fired": [
+     "P9"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P9",
+    "top": "P9",
+    "top_tier": "definitive",
+    "fired": [
+     "P9"
+    ]
+   }
+  ],
+  "P10": [
+   {
+    "verdict": "MATCH",
+    "match": "P10",
+    "top": "P10",
+    "top_tier": "definitive",
+    "fired": [
+     "P10"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P10",
+    "top": "P10",
+    "top_tier": "definitive",
+    "fired": [
+     "P10"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P10",
+    "top": "P10",
+    "top_tier": "definitive",
+    "fired": [
+     "P10"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P10",
+    "top": "P10",
+    "top_tier": "definitive",
+    "fired": [
+     "P10"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P10",
+    "top": "P10",
+    "top_tier": "definitive",
+    "fired": [
+     "P10"
+    ]
+   }
+  ],
+  "P11": [
+   {
+    "verdict": "MATCH",
+    "match": "P11",
+    "top": "P11",
+    "top_tier": "definitive",
+    "fired": [
+     "P11"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P11",
+    "top": "P11",
+    "top_tier": "definitive",
+    "fired": [
+     "P11"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P11",
+    "top": "P11",
+    "top_tier": "definitive",
+    "fired": [
+     "P11"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P11",
+    "top": "P11",
+    "top_tier": "definitive",
+    "fired": [
+     "P11"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P11",
+    "top": "P11",
+    "top_tier": "definitive",
+    "fired": [
+     "P11"
+    ]
+   }
+  ],
+  "P12": [
+   {
+    "verdict": "MATCH",
+    "match": "P12",
+    "top": "P12",
+    "top_tier": "confirmation",
+    "fired": [
+     "P12",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P12",
+    "top": "P12",
+    "top_tier": "definitive",
+    "fired": [
+     "P12",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P12",
+    "top": "P12",
+    "top_tier": "definitive",
+    "fired": [
+     "P12",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P12",
+    "top": "P12",
+    "top_tier": "definitive",
+    "fired": [
+     "P12",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P12",
+    "top": "P12",
+    "top_tier": "confirmation",
+    "fired": [
+     "P12",
+     "P18"
+    ]
+   }
+  ],
+  "P13": [
+   {
+    "verdict": "MATCH",
+    "match": "P13",
+    "top": "P13",
+    "top_tier": "confirmation",
+    "fired": [
+     "P13",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P13",
+    "top": "P13",
+    "top_tier": "confirmation",
+    "fired": [
+     "P13",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P13",
+    "top": "P13",
+    "top_tier": "confirmation",
+    "fired": [
+     "P13",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P13",
+    "top": "P13",
+    "top_tier": "confirmation",
+    "fired": [
+     "P13",
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P13",
+    "top": "P13",
+    "top_tier": "confirmation",
+    "fired": [
+     "P13",
+     "P18"
+    ]
+   }
+  ],
+  "P14": [
+   {
+    "verdict": "MATCH",
+    "match": "P14",
+    "top": "P14",
+    "top_tier": "confirmation",
+    "fired": [
+     "P14"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P14",
+    "top": "P14",
+    "top_tier": "confirmation",
+    "fired": [
+     "P14"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P14",
+    "top": "P14",
+    "top_tier": "confirmation",
+    "fired": [
+     "P14"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P14",
+    "top": "P14",
+    "top_tier": "confirmation",
+    "fired": [
+     "P14"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P14",
+    "top": "P14",
+    "top_tier": "confirmation",
+    "fired": [
+     "P14"
+    ]
+   }
+  ],
+  "P15": [
+   {
+    "verdict": "MATCH",
+    "match": "P15",
+    "top": "P15",
+    "top_tier": "definitive",
+    "fired": [
+     "P15"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P15",
+    "top": "P15",
+    "top_tier": "definitive",
+    "fired": [
+     "P15"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P15",
+    "top": "P15",
+    "top_tier": "definitive",
+    "fired": [
+     "P15"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P15",
+    "top": "P15",
+    "top_tier": "screening",
+    "fired": [
+     "P15"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P15",
+    "top": "P15",
+    "top_tier": "screening",
+    "fired": [
+     "P15"
+    ]
+   }
+  ],
+  "P16": [
+   {
+    "verdict": "MATCH",
+    "match": "P16",
+    "top": "P16",
+    "top_tier": "definitive",
+    "fired": [
+     "P16"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P16",
+    "top": "P16",
+    "top_tier": "definitive",
+    "fired": [
+     "P16"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P16",
+    "top": "P16",
+    "top_tier": "definitive",
+    "fired": [
+     "P16"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P16",
+    "top": "P16",
+    "top_tier": "definitive",
+    "fired": [
+     "P16"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P16",
+    "top": "P16",
+    "top_tier": "definitive",
+    "fired": [
+     "P16"
+    ]
+   }
+  ],
+  "P17": [
+   {
+    "verdict": "MATCH",
+    "match": "P17",
+    "top": "P17",
+    "top_tier": "definitive",
+    "fired": [
+     "P17"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P17",
+    "top": "P17",
+    "top_tier": "screening",
+    "fired": [
+     "P17"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P17",
+    "top": "P17",
+    "top_tier": "confirmation",
+    "fired": [
+     "P17"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P17",
+    "top": "P17",
+    "top_tier": "definitive",
+    "fired": [
+     "P17"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P17",
+    "top": "P17",
+    "top_tier": "definitive",
+    "fired": [
+     "P17"
+    ]
+   }
+  ],
+  "P18": [
+   {
+    "verdict": "MATCH",
+    "match": "P18",
+    "top": "P18",
+    "top_tier": "definitive",
+    "fired": [
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P18",
+    "top": "P18",
+    "top_tier": "definitive",
+    "fired": [
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P18",
+    "top": "P18",
+    "top_tier": "definitive",
+    "fired": [
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P18",
+    "top": "P18",
+    "top_tier": "definitive",
+    "fired": [
+     "P18"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P18",
+    "top": "P18",
+    "top_tier": "definitive",
+    "fired": [
+     "P18"
+    ]
+   }
+  ],
+  "P19": [
+   {
+    "verdict": "MATCH",
+    "match": "P19",
+    "top": "P19",
+    "top_tier": "definitive",
+    "fired": [
+     "P19"
+    ]
+   },
+   {
+    "verdict": "EMERGENT-UNCLASSIFIED",
+    "match": null,
+    "top": "P2",
+    "top_tier": "none",
+    "fired": []
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P19",
+    "top": "P19",
+    "top_tier": "definitive",
+    "fired": [
+     "P19"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P19",
+    "top": "P19",
+    "top_tier": "definitive",
+    "fired": [
+     "P19"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P19",
+    "top": "P19",
+    "top_tier": "definitive",
+    "fired": [
+     "P19"
+    ]
+   }
+  ],
+  "P20": [
+   {
+    "verdict": "MATCH",
+    "match": "P20",
+    "top": "P20",
+    "top_tier": "definitive",
+    "fired": [
+     "P20"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P20",
+    "top": "P20",
+    "top_tier": "definitive",
+    "fired": [
+     "P20"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P20",
+    "top": "P20",
+    "top_tier": "definitive",
+    "fired": [
+     "P20"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P20",
+    "top": "P20",
+    "top_tier": "definitive",
+    "fired": [
+     "P20"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P20",
+    "top": "P20",
+    "top_tier": "definitive",
+    "fired": [
+     "P20"
+    ]
+   }
+  ],
+  "P21": [
+   {
+    "verdict": "MATCH",
+    "match": "P21",
+    "top": "P21",
+    "top_tier": "definitive",
+    "fired": [
+     "P21"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P21",
+    "top": "P21",
+    "top_tier": "definitive",
+    "fired": [
+     "P21"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P21",
+    "top": "P21",
+    "top_tier": "definitive",
+    "fired": [
+     "P21"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P21",
+    "top": "P21",
+    "top_tier": "definitive",
+    "fired": [
+     "P21"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P21",
+    "top": "P21",
+    "top_tier": "definitive",
+    "fired": [
+     "P21"
+    ]
+   }
+  ],
+  "P22": [
+   {
+    "verdict": "MATCH",
+    "match": "P22",
+    "top": "P22",
+    "top_tier": "definitive",
+    "fired": [
+     "P22"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P22",
+    "top": "P22",
+    "top_tier": "definitive",
+    "fired": [
+     "P22"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P22",
+    "top": "P22",
+    "top_tier": "definitive",
+    "fired": [
+     "P22"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P22",
+    "top": "P22",
+    "top_tier": "definitive",
+    "fired": [
+     "P22"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P22",
+    "top": "P22",
+    "top_tier": "definitive",
+    "fired": [
+     "P22"
+    ]
+   }
+  ],
+  "P23": [
+   {
+    "verdict": "MATCH",
+    "match": "P23",
+    "top": "P23",
+    "top_tier": "definitive",
+    "fired": [
+     "P23"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P23",
+    "top": "P23",
+    "top_tier": "definitive",
+    "fired": [
+     "P23"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P23",
+    "top": "P23",
+    "top_tier": "definitive",
+    "fired": [
+     "P23"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P23",
+    "top": "P23",
+    "top_tier": "definitive",
+    "fired": [
+     "P23"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P23",
+    "top": "P23",
+    "top_tier": "definitive",
+    "fired": [
+     "P23"
+    ]
+   }
+  ],
+  "P24": [
+   {
+    "verdict": "MATCH",
+    "match": "P24",
+    "top": "P24",
+    "top_tier": "definitive",
+    "fired": [
+     "P24"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P24",
+    "top": "P24",
+    "top_tier": "definitive",
+    "fired": [
+     "P24"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P24",
+    "top": "P24",
+    "top_tier": "definitive",
+    "fired": [
+     "P24"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P24",
+    "top": "P24",
+    "top_tier": "definitive",
+    "fired": [
+     "P24"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P24",
+    "top": "P24",
+    "top_tier": "definitive",
+    "fired": [
+     "P24"
+    ]
+   }
+  ],
+  "P25": [
+   {
+    "verdict": "MATCH",
+    "match": "P25",
+    "top": "P25",
+    "top_tier": "definitive",
+    "fired": [
+     "P25"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P25",
+    "top": "P25",
+    "top_tier": "definitive",
+    "fired": [
+     "P25"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P25",
+    "top": "P25",
+    "top_tier": "definitive",
+    "fired": [
+     "P25"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P25",
+    "top": "P25",
+    "top_tier": "definitive",
+    "fired": [
+     "P25"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P25",
+    "top": "P25",
+    "top_tier": "definitive",
+    "fired": [
+     "P25"
+    ]
+   }
+  ],
+  "P26": [
+   {
+    "verdict": "MATCH",
+    "match": "P26",
+    "top": "P26",
+    "top_tier": "definitive",
+    "fired": [
+     "P26"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P26",
+    "top": "P26",
+    "top_tier": "definitive",
+    "fired": [
+     "P26"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P26",
+    "top": "P26",
+    "top_tier": "definitive",
+    "fired": [
+     "P26"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P26",
+    "top": "P26",
+    "top_tier": "definitive",
+    "fired": [
+     "P26"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P26",
+    "top": "P26",
+    "top_tier": "definitive",
+    "fired": [
+     "P26"
+    ]
+   }
+  ],
+  "P27": [
+   {
+    "verdict": "MATCH",
+    "match": "P27",
+    "top": "P27",
+    "top_tier": "screening",
+    "fired": [
+     "P27"
+    ]
+   },
+   {
+    "verdict": "NO-EMERGENCE",
+    "match": null,
+    "top": "P8",
+    "top_tier": "none",
+    "fired": []
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P27",
+    "top": "P27",
+    "top_tier": "screening",
+    "fired": [
+     "P27"
+    ]
+   },
+   {
+    "verdict": "EMERGENT-UNCLASSIFIED",
+    "match": null,
+    "top": "P27",
+    "top_tier": "none",
+    "fired": []
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P27",
+    "top": "P27",
+    "top_tier": "definitive",
+    "fired": [
+     "P27"
+    ]
+   }
+  ],
+  "P28": [
+   {
+    "verdict": "MATCH",
+    "match": "P28",
+    "top": "P28",
+    "top_tier": "definitive",
+    "fired": [
+     "P28"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P28",
+    "top": "P28",
+    "top_tier": "definitive",
+    "fired": [
+     "P28"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P28",
+    "top": "P28",
+    "top_tier": "definitive",
+    "fired": [
+     "P28"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P28",
+    "top": "P28",
+    "top_tier": "definitive",
+    "fired": [
+     "P28"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P28",
+    "top": "P28",
+    "top_tier": "definitive",
+    "fired": [
+     "P28"
+    ]
+   }
+  ],
+  "P29": [
+   {
+    "verdict": "MATCH",
+    "match": "P29",
+    "top": "P29",
+    "top_tier": "screening",
+    "fired": [
+     "P29"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P29",
+    "top": "P29",
+    "top_tier": "definitive",
+    "fired": [
+     "P29"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P29",
+    "top": "P29",
+    "top_tier": "screening",
+    "fired": [
+     "P29"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P29",
+    "top": "P29",
+    "top_tier": "screening",
+    "fired": [
+     "P29"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P29",
+    "top": "P29",
+    "top_tier": "screening",
+    "fired": [
+     "P29"
+    ]
+   }
+  ],
+  "P30": [
+   {
+    "verdict": "MATCH",
+    "match": "P30",
+    "top": "P30",
+    "top_tier": "definitive",
+    "fired": [
+     "P30"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P30",
+    "top": "P30",
+    "top_tier": "definitive",
+    "fired": [
+     "P30"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P30",
+    "top": "P30",
+    "top_tier": "definitive",
+    "fired": [
+     "P30"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P30",
+    "top": "P30",
+    "top_tier": "definitive",
+    "fired": [
+     "P30"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P30",
+    "top": "P30",
+    "top_tier": "definitive",
+    "fired": [
+     "P30"
+    ]
+   }
+  ],
+  "P32": [
+   {
+    "verdict": "MATCH",
+    "match": "P32",
+    "top": "P32",
+    "top_tier": "definitive",
+    "fired": [
+     "P32"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P32",
+    "top": "P32",
+    "top_tier": "definitive",
+    "fired": [
+     "P32"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P32",
+    "top": "P32",
+    "top_tier": "definitive",
+    "fired": [
+     "P32"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P32",
+    "top": "P32",
+    "top_tier": "definitive",
+    "fired": [
+     "P32"
+    ]
+   },
+   {
+    "verdict": "MATCH",
+    "match": "P32",
+    "top": "P32",
+    "top_tier": "definitive",
+    "fired": [
+     "P32"
+    ]
+   }
+  ]
+ },
+ "cross": {
+  "P16": {
+   "model": "BooleanGRN",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P16",
+     "top": "P16",
+     "top_tier": "definitive",
+     "fired": [
+      "P16"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P16",
+     "top": "P16",
+     "top_tier": "definitive",
+     "fired": [
+      "P16"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P16",
+     "top": "P16",
+     "top_tier": "confirmation",
+     "fired": [
+      "P16"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P16",
+     "top": "P16",
+     "top_tier": "definitive",
+     "fired": [
+      "P16"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P16",
+     "top": "P16",
+     "top_tier": "confirmation",
+     "fired": [
+      "P16"
+     ]
+    }
+   ]
+  },
+  "P20": {
+   "model": "FractionThreshold",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P20",
+     "top": "P20",
+     "top_tier": "definitive",
+     "fired": [
+      "P20"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P20",
+     "top": "P20",
+     "top_tier": "definitive",
+     "fired": [
+      "P20"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P20",
+     "top": "P20",
+     "top_tier": "definitive",
+     "fired": [
+      "P20"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P20",
+     "top": "P20",
+     "top_tier": "definitive",
+     "fired": [
+      "P20"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P20",
+     "top": "P20",
+     "top_tier": "definitive",
+     "fired": [
+      "P20"
+     ]
+    }
+   ]
+  },
+  "P23": {
+   "model": "El Farol",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P23",
+     "top": "P23",
+     "top_tier": "definitive",
+     "fired": [
+      "P23"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P23",
+     "top": "P23",
+     "top_tier": "confirmation",
+     "fired": [
+      "P23"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P23",
+     "top": "P23",
+     "top_tier": "confirmation",
+     "fired": [
+      "P23"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P23",
+     "top": "P23",
+     "top_tier": "definitive",
+     "fired": [
+      "P23"
+     ]
+    },
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P23",
+     "top_tier": "none",
+     "fired": []
+    }
+   ]
+  },
+  "P24": {
+   "model": "integral controller",
+   "runs": [
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P24",
+     "top_tier": "none",
+     "fired": []
+    },
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P24",
+     "top_tier": "none",
+     "fired": []
+    },
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P24",
+     "top_tier": "none",
+     "fired": []
+    },
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P24",
+     "top_tier": "none",
+     "fired": []
+    },
+    {
+     "verdict": "NO-EMERGENCE",
+     "match": null,
+     "top": "P24",
+     "top_tier": "none",
+     "fired": []
+    }
+   ]
+  },
+  "P25": {
+   "model": "MultiBasinGRN",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P25",
+     "top": "P25",
+     "top_tier": "definitive",
+     "fired": [
+      "P25"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P25",
+     "top": "P25",
+     "top_tier": "definitive",
+     "fired": [
+      "P25"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P25",
+     "top": "P25",
+     "top_tier": "definitive",
+     "fired": [
+      "P25"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P25",
+     "top": "P25",
+     "top_tier": "definitive",
+     "fired": [
+      "P25"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P25",
+     "top": "P25",
+     "top_tier": "definitive",
+     "fired": [
+      "P25"
+     ]
+    }
+   ]
+  },
+  "P26": {
+   "model": "ThresholdUnit",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P26",
+     "top": "P26",
+     "top_tier": "definitive",
+     "fired": [
+      "P26"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P26",
+     "top": "P26",
+     "top_tier": "definitive",
+     "fired": [
+      "P26"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P26",
+     "top": "P26",
+     "top_tier": "definitive",
+     "fired": [
+      "P26"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P26",
+     "top": "P26",
+     "top_tier": "definitive",
+     "fired": [
+      "P26"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P26",
+     "top": "P26",
+     "top_tier": "definitive",
+     "fired": [
+      "P26"
+     ]
+    }
+   ]
+  },
+  "P29": {
+   "model": "Physarum",
+   "runs": [
+    {
+     "verdict": "MATCH",
+     "match": "P29",
+     "top": "P29",
+     "top_tier": "screening",
+     "fired": [
+      "P29"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P29",
+     "top": "P29",
+     "top_tier": "definitive",
+     "fired": [
+      "P29"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P29",
+     "top": "P29",
+     "top_tier": "screening",
+     "fired": [
+      "P29"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P29",
+     "top": "P29",
+     "top_tier": "screening",
+     "fired": [
+      "P29"
+     ]
+    },
+    {
+     "verdict": "MATCH",
+     "match": "P29",
+     "top": "P29",
+     "top_tier": "screening",
+     "fired": [
+      "P29"
+     ]
+    }
+   ]
+  }
+ },
+ "elapsed_s": 4805
+}

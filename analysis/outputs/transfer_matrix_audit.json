@@ -1,0 +1,1689 @@
+{
+ "n_models": 40,
+ "n_detectors": 32,
+ "n_compatible_cells": 121,
+ "n_seeds": 5,
+ "tier_rule": "median",
+ "cells": [
+  {
+   "model": "zhang_sequential",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": true
+  },
+  {
+   "model": "zhang_sequential",
+   "detector": "P31",
+   "tier": "n/a_nonredundancy",
+   "detected": false,
+   "on_diagonal": true
+  },
+  {
+   "model": "zhang_threaded",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": true
+  },
+  {
+   "model": "zhang_threaded",
+   "detector": "P31",
+   "tier": "n/a_nonredundancy",
+   "detected": false,
+   "on_diagonal": true
+  },
+  {
+   "model": "schelling",
+   "detector": "P1",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "schelling",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "schelling",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "schelling",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "schelling",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "schelling",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "schelling",
+   "detector": "P18",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P13",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "greenberg_hastings",
+   "detector": "P18",
+   "tier": "screening",
+   "seed_tiers": [
+    "screening",
+    "screening",
+    "screening",
+    "screening",
+    "screening"
+   ],
+   "detected": true,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P15",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "screening",
+    "screening"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "game_of_life",
+   "detector": "P18",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "btw_sandpile",
+   "detector": "P14",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "vicsek",
+   "detector": "P5",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "vicsek",
+   "detector": "P6",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "vicsek",
+   "detector": "P2",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "vicsek",
+   "detector": "P7",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "vicsek",
+   "detector": "P17",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "vicsek",
+   "detector": "P19",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "dorsogna",
+   "detector": "P5",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "dorsogna",
+   "detector": "P6",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "dorsogna",
+   "detector": "P2",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "dorsogna",
+   "detector": "P7",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "dorsogna",
+   "detector": "P17",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "kuramoto",
+   "detector": "P9",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "kuramoto",
+   "detector": "P10",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "kuramoto_nonlocal",
+   "detector": "P9",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "kuramoto_nonlocal",
+   "detector": "P10",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P27",
+   "tier": "screening",
+   "seed_tiers": [
+    "screening",
+    "none",
+    "screening",
+    "none",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "nowak_may",
+   "detector": "P18",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "hegselmann_krause",
+   "detector": "P21",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P22",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "sir_epidemic",
+   "detector": "P18",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P12",
+   "tier": "definitive",
+   "seed_tiers": [
+    "confirmation",
+    "definitive",
+    "definitive",
+    "definitive",
+    "confirmation"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "rps_spatial",
+   "detector": "P18",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "confirmation",
+    "screening",
+    "confirmation",
+    "confirmation",
+    "screening"
+   ],
+   "detected": true,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P11",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "lotka_volterra",
+   "detector": "P18",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "gray_scott",
+   "detector": "P3",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "nagel_schreckenberg",
+   "detector": "P8",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "abp",
+   "detector": "P5",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "abp",
+   "detector": "P6",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "abp",
+   "detector": "P2",
+   "tier": "definitive",
+   "seed_tiers": [
+    "none",
+    "screening",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "abp",
+   "detector": "P7",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "abp",
+   "detector": "P17",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "abp",
+   "detector": "P19",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "yard_sale",
+   "detector": "P28",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "voter",
+   "detector": "P1",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P13",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P15",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P22",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P12",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P11",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "voter",
+   "detector": "P18",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "lane_formation",
+   "detector": "P5",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lane_formation",
+   "detector": "P6",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lane_formation",
+   "detector": "P2",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "lane_formation",
+   "detector": "P7",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation",
+    "confirmation"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "lane_formation",
+   "detector": "P17",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P5",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P6",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P2",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P7",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P17",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "screening",
+    "confirmation",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "collective_sensing",
+   "detector": "P19",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P5",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P6",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P2",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P7",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P17",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": false
+  },
+  {
+   "model": "informed_minority",
+   "detector": "P19",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "none",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "proportional_homeostat",
+   "detector": "P24",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "bistable_double_well",
+   "detector": "P26",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "minority_game",
+   "detector": "P23",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "el_farol",
+   "detector": "P23",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "definitive",
+    "confirmation",
+    "confirmation",
+    "definitive",
+    "none"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "hopfield",
+   "detector": "P16",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "boolean_grn",
+   "detector": "P16",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "confirmation",
+    "definitive",
+    "confirmation"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "canalized_landscape",
+   "detector": "P25",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "multi_basin_grn",
+   "detector": "P25",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "autoinducer_quorum",
+   "detector": "P20",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "fraction_threshold",
+   "detector": "P20",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "scent_marking_territory",
+   "detector": "P4",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "confirmation",
+    "confirmation",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "pheromone_repulsion_territory",
+   "detector": "P4",
+   "tier": "confirmation",
+   "seed_tiers": [
+    "screening",
+    "confirmation",
+    "confirmation",
+    "definitive",
+    "none"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "ant_trail_network",
+   "detector": "P29",
+   "tier": "screening",
+   "seed_tiers": [
+    "screening",
+    "definitive",
+    "screening",
+    "screening",
+    "screening"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "physarum_network",
+   "detector": "P29",
+   "tier": "screening",
+   "seed_tiers": [
+    "screening",
+    "definitive",
+    "screening",
+    "screening",
+    "screening"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "response_threshold",
+   "detector": "P32",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  },
+  {
+   "model": "no_reinforcement",
+   "detector": "P32",
+   "tier": "none",
+   "seed_tiers": [
+    "none",
+    "none",
+    "none",
+    "none",
+    "none"
+   ],
+   "detected": false,
+   "on_diagonal": true
+  },
+  {
+   "model": "autopoiesis",
+   "detector": "P30",
+   "tier": "definitive",
+   "seed_tiers": [
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive",
+    "definitive"
+   ],
+   "detected": true,
+   "on_diagonal": true
+  }
+ ]
+}
