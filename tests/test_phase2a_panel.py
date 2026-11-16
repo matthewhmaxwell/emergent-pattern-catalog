@@ -171,19 +171,37 @@ def test_class_b_p9_oscillator_one_mate_two_supplements():
     assert "subcritical_kuramoto" in r["synthetic_supplements"]
 
 
-def test_class_b_p18_network_override():
-    """P18 reclassified to network per v1.1 spec; mate is P21_hegselmann_krause + 2 supps."""
+def test_class_b_p18_lattice_2d_real_neighbors():
+    """P18 Class B holds its real lattice neighbours (replaces the v1.1 network override test).
+
+    Test maintenance: 87fe0b6 reverted the v1.1 reclassification of P18 to
+    "network", which had swapped the hard lattice look-alikes for an easy
+    network mate and manufactured the panel PASS (S2 Text, P18 row: "lattice
+    look-alikes restored"). P18 is lattice_2d again; its Class B is the eight
+    lattice_2d catalog mates, including the three hard neighbours (P1
+    Schelling, P13 Greenberg-Hastings, P15 Game of Life), and no P21.
+    """
     r = catalog_mod.class_b_for_pattern("P18")
-    assert r["substrate_type"] == "network"
-    assert r["catalog_mates"] == ["P21_hegselmann_krause"]
-    assert len(r["synthetic_supplements"]) >= 2
+    assert r["substrate_type"] == "lattice_2d"
+    assert set(r["catalog_mates"]) == {
+        "P1_schelling", "P11_lotka_volterra", "P12_rps", "P13_greenberg_hastings",
+        "P14_btw_sandpile", "P15_gol", "P22_sir_epidemic", "P27_nowak_may",
+    }
+    assert "P21_hegselmann_krause" not in r["catalog_mates"]
+    assert r["synthetic_supplements"] == []
 
 
-def test_class_b_p21_network_override():
-    """P21 reclassified to network per v1.1 spec; mate is P18_voter + 2 supps."""
+def test_class_b_p21_network_no_catalog_mate_after_p18_revert():
+    """P21 stays "network", but has no catalog mate since P18 left that class.
+
+    Test maintenance: P18_voter was P21's only network-class mate. After
+    87fe0b6 reverted P18 to lattice_2d, P21's Class B is the two synthetic
+    network supplements only (as in the regenerated P21 panel record).
+    """
     r = catalog_mod.class_b_for_pattern("P21")
     assert r["substrate_type"] == "network"
-    assert r["catalog_mates"] == ["P18_voter"]
+    assert r["catalog_mates"] == []
+    assert set(r["synthetic_supplements"]) == {"random_graph_evolution", "network_random_walks"}
 
 
 def test_class_b_p1_lattice_2d_seven_or_more_mates_no_supplements():
@@ -204,8 +222,12 @@ def test_class_b_unknown_pattern_returns_empty():
 
 
 def test_substrate_type_overrides_p18_and_p21():
-    """Sanity: the v1.1 reclassification for voter and HK is in effect."""
-    assert catalog_mod.SUBSTRATE_TYPE_BY_PATTERN["P18"] == "network"
+    """Sanity: HK (P21) keeps the v1.1 network override; voter (P18) does not.
+
+    Test maintenance: 87fe0b6 reverted the P18 override to the registry
+    lattice_2d type (see test_class_b_p18_lattice_2d_real_neighbors).
+    """
+    assert catalog_mod.SUBSTRATE_TYPE_BY_PATTERN["P18"] == "lattice_2d"
     assert catalog_mod.SUBSTRATE_TYPE_BY_PATTERN["P21"] == "network"
 
 
@@ -277,12 +299,16 @@ def test_p21_native_kind_is_opinions():
     assert "epsilon" in native and native["epsilon"] == p["epsilon"]
 
 
-def test_p18_class_b_now_includes_p21_generator():
-    """After Sprint 32 P21 generator landed, P18's network catalog-mate is loadable."""
-    r = catalog_mod.class_b_for_pattern("P18")
-    assert "P21_hegselmann_krause" in r["catalog_mates"]
-    # And the substrate id is now backed by a real generator.
+def test_p21_generator_registered_and_used_as_p34_mate():
+    """The P21 generator stays registered and is a Class B mate of P34.
+
+    Test maintenance: replaces test_p18_class_b_now_includes_p21_generator.
+    Since 87fe0b6, P21 is no longer a P18 mate (asserted in
+    test_class_b_p18_lattice_2d_real_neighbors); the generator's remaining
+    Class B use is as a mate of P34 adaptive-network fission.
+    """
     assert "P21_hegselmann_krause" in catalog_mod._GENERATORS
+    assert "P21_hegselmann_krause" in catalog_mod.class_b_for_pattern("P34")["catalog_mates"]
 
 
 # Sprint 33 — three new lattice_2d generators (P11, P13, P22) needed for P14/P15 Class B.
@@ -349,13 +375,18 @@ def test_panel_version_constant_is_one_two():
     ("P6",  True,  True),   # Sprint 49: perm_inv=True (|L| sum over particles) + time_shuffle_inv=True. C-p6-time-shuffle-fp.
     ("P8",  True,  True),   # Sprint 49: both True — stopped_fraction is time-average invariant. C-p8-perm-shuffled-fp + C-p8-time-shuffle-fp.
     ("P11", False, True),
-    ("P18", True,  True),
+    ("P18", False, False),  # 87fe0b6: primary is the time-ordered Moran's I coarsening trend (spatial + temporal), so neither shuffle is invariant; the spec-table True/True wrongly skipped the time-shuffled null.
     ("P21", True,  False),  # Sprint 49: perm_inv=True (dip test on histogram, permutation-invariant). C-p21-perm-shuffled-fp closed.
-    ("P28", True,  True),
+    ("P28", True,  False),  # 2f40e9a: condensation must emerge with monotonic Gini growth, which frame shuffling destroys; the spec-table True came from scoring the final-frame Gini only.
     ("P27", False, True),   # provisional per spec Change 2
 ])
 def test_invariance_flags_match_v1_2_spec_table(pid, perm, time):
-    """Spec v1.2 §Change 2 authoritative flag values per pattern."""
+    """Spec v1.2 §Change 2 flag values per pattern, as amended by the validation rebuild.
+
+    Test maintenance: the P18 and P28 rows follow the rebuild commits named in
+    their comments, which changed each detector's primary metric to a
+    time-ordered one and corrected the flags in epc/phase2a/detector_invariance.py.
+    """
     f = get_flags(pid)
     assert f.permutation_invariant is perm, f"{pid} perm_inv: spec={perm} got={f.permutation_invariant}"
     assert f.time_shuffle_invariant is time, f"{pid} time_inv: spec={time} got={f.time_shuffle_invariant}"
@@ -581,7 +612,9 @@ class _DiscriminatingStub:
     The panel runner calls the detector first against the canonical positive
     seeds, then against the negative substrates. With ``n_positive`` matching
     the positive-seed count we get a clean separation: positives always fire,
-    negatives never fire — Cohen's d → +∞ and verdict → PASS.
+    negatives never fire. The scores are constant within each group, so since
+    d0a38df the discrete-score Cohen's d is NaN (undefined), not +inf, and
+    the verdict is TNR-PASS-EFFECT-UNDEFINED, not PASS.
     """
 
     def __init__(self, n_positive: int):
@@ -657,9 +690,17 @@ def test_panel_writes_json_with_v1_1_schema(tmp_path):
     assert set(on_disk["class_b_composition"].keys()) >= {"catalog_mates", "synthetic_supplements", "substrate_type"}
     assert "class_c_status" in on_disk
     assert on_disk["class_c_status"] == "populated"
-    # Discriminating stub: TNR=1.0 (negs all rejected), positives all fire → d very large → PASS.
+    # Discriminating stub: TNR=1.0 (negs all rejected), positives all fire.
+    # Test maintenance: before d0a38df the constant scores gave d=+inf, which
+    # passed the effect-size gate and yielded PASS (S2 Text, harness finding
+    # 1). Since d0a38df the discrete-score d is undefined and the verdict
+    # says so; the STUB pattern has no continuous canonical metric, so
+    # cohens_d_continuous (6802134) is not computed either.
     assert on_disk["summary"]["overall_tnr"] == 1.0
-    assert on_disk["summary"]["verdict"] == "PASS"
+    assert on_disk["summary"]["verdict"] == "TNR-PASS-EFFECT-UNDEFINED"
+    assert on_disk["summary"]["effect_size_undefined"] is True
+    assert on_disk["summary"]["effect_size_basis"] == "tier_confidence"
+    assert on_disk["summary"]["cohens_d_continuous"] is None
     # Class B is empty for unknown STUB pattern (substrate_type is None) → n_negatives = 10 (Class A) + 0 (Class B) + 10 (Class C) = 20.
     assert on_disk["summary"]["n_negatives"] == 20
 
