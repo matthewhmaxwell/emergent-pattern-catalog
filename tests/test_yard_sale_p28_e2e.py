@@ -7,23 +7,24 @@ Coverage:
 - Within-family negatives:
     * lambda=0.5 (saving propensity) -> rejected at screening
     * chi=0.001 (moderate redistribution) -> SCREENING (top_1pct < 0.15)
-    * chi=0.0001 (mild redistribution) -> CONFIRMATION (metadata blocks DEF)
-- Too-early trap (f=0.01, t=100k) -> rejected at screening
+    * chi=0.0001 (mild redistribution) -> CONFIRMATION (top-1% share just
+      below the DEF floor; metadata no longer gates any tier, 2f40e9a)
+- Too-early trap (f=0.01, t=100k) -> rejected at screening (not emergent)
 - Substrate-mismatch (non-wealth state histories) -> rejected
 - Model replication (Boghosian 2014 qualitative: Gini -> 1 at long time)
 - Multi-seed reproducibility at canonical positive -> all DEFINITIVE
 - Registry checks (Sprint 17 registrations present)
 
-Tiering philosophy (Decision 47-49):
+Tiering since 2f40e9a (mechanism from the trajectory, not metadata; S2 Text,
+P28 row). The Decision 49 metadata-mechanism null (four self-reported
+booleans gating DEFINITIVE) was removed.
   Primary = Gini coefficient at final frame.
-  CONFIRMATION = Gini > 0.55, top_1pct > 0.15, monotonic_frac > 0.80,
+  SCREENING    = total wealth conserved (drift <= 1%), condensation emerges
+                 from near-equality (initial Gini <= 0.30, rise >= 0.20),
+                 Gini >= 0.65, top_1pct >= 0.05.
+  CONFIRMATION = Gini >= 0.75, top_1pct >= 0.15, monotonic_frac >= 0.80,
                  null_p < 0.01.
-  DEFINITIVE   = CONFIRMATION + Gini > 0.80, top_1pct > 0.30 AND
-                 metadata-mechanism null:
-                   has_conserved_resource=True,
-                   has_multiplicative_stake=True,
-                   has_saving_propensity=False,
-                   has_redistribution=False.
+  DEFINITIVE   = CONFIRMATION + Gini >= 0.85, top_1pct >= 0.30.
 
 Timing budget:
 - Fast-half: each test <= 15s, total ~2 min.
@@ -225,11 +226,13 @@ class TestP28Negatives:
         assert res.detected  # screening floor passed
 
     def test_mild_redistribution_confirmation_not_definitive(self):
-        """chi=0.0001 -> Gini ~0.89, looks condensed — but metadata gate
-        blocks DEFINITIVE (has_redistribution=True).
+        """chi=0.0001 -> Gini ~0.89, looks condensed, held at CONFIRMATION.
 
         This is the Sprint 17 "mechanism matters" test analogous to
-        Sprint 16's P2 milling test.
+        Sprint 16's P2 milling test. Test maintenance (docstring only): the
+        metadata gate (has_redistribution=True) that held this run below
+        DEFINITIVE was removed in 2f40e9a. At seed 42 the run is now held at
+        CONFIRMATION by its top-1% share (0.289 against the 0.30 DEF floor).
         """
         res, meta = _run_ys_p28(f=0.1, chi=0.0001, total_tx=2_000_000,
                                 seed=42)
@@ -243,15 +246,24 @@ class TestP28Negatives:
         assert res.secondary_metrics["top_1pct_share"] > 0.20
 
     def test_too_early_below_floor_rejected(self):
-        """Short run (t=100k at f=0.01) -> Gini ~0.08 -> rejected."""
+        """Short run (t=100k at f=0.01) -> Gini ~0.08 -> rejected.
+
+        Test maintenance: since 2f40e9a screening checks emergence (Gini must
+        rise by at least 0.20 from an initial value of at most 0.30) before
+        the Gini floor (raised 0.40 -> 0.65 in the same commit), so the
+        reported reason is condensation_not_emergent. The run is still below
+        the screening floor, which is asserted separately.
+        """
         res, _ = _run_ys_p28(f=0.01, total_tx=100_000, n_checkpoints=20,
                              seed=42)
         assert res.tier == DetectionTier.SCREENING
         assert not res.detected
         assert (
             res.primary_metric["screening_rejection_reason"]
-            == "gini_below_screening_floor"
+            == "condensation_not_emergent"
         )
+        assert res.primary_metric["gini_delta"] < 0.20
+        assert res.primary_metric["gini_final"] < 0.65
 
     def test_substrate_mismatch_rejection(self):
         """Synthetic state history with no 'wealth' observable -> rejected."""
@@ -276,12 +288,27 @@ class TestP28Negatives:
 
 
 # -----------------------------------------------------------------------------
-# Mechanistic null (Decision 49) — direct flag manipulation
+# Mechanism from the trajectory (2f40e9a), replacing the Decision 49
+# metadata-mechanism null
 # -----------------------------------------------------------------------------
+#
+# Test maintenance: this class used to pin the four-flag mechanistic null
+# (test_missing_conserved_flag_blocks_definitive,
+# test_missing_multiplicative_stake_blocks_definitive,
+# test_saving_propensity_flag_blocks_definitive,
+# test_redistribution_flag_blocks_definitive,
+# test_metadata_absent_blocks_definitive). 2f40e9a removed that gate because
+# flipping one self-reported flag on the same trajectory flipped CONFIRMATION
+# and DEFINITIVE (S2 Text, P28 row: "tiers read four self-reported flags" ->
+# "mechanism from the trajectory"). Those five tests are replaced by a test
+# that the flags no longer change the tier, and by tests of the trajectory
+# gates that now do the flags' job: conservation (was has_conserved_resource)
+# and emergence from near-equality. The saving-propensity and redistribution
+# look-alikes are covered by TestP28Negatives above (Gini floor).
 
 
 class TestP28MechanisticNull:
-    """Pin the four-flag mechanistic-null gate (Decision 49)."""
+    """Tier is set by the trajectory; metadata flags do not gate it (2f40e9a)."""
 
     @pytest.fixture
     def canonical_history(self):
@@ -301,44 +328,52 @@ class TestP28MechanisticNull:
         res = det.detect(history, model_metadata=meta)
         assert res.tier == DetectionTier.DEFINITIVE
 
-    def test_missing_conserved_flag_blocks_definitive(self, canonical_history):
-        history, meta = canonical_history
-        tampered = dict(meta)
-        tampered["has_conserved_resource"] = False
-        det = P28WealthCondensationDetector(n_permutations=199, seed=42)
-        res = det.detect(history, model_metadata=tampered)
-        assert res.tier == DetectionTier.CONFIRMATION
+    @pytest.mark.parametrize("tamper", [
+        {"has_conserved_resource": False},
+        {"has_multiplicative_stake": False},
+        {"has_saving_propensity": True},
+        {"has_redistribution": True},
+        None,  # no metadata at all
+    ])
+    def test_metadata_flags_do_not_change_tier(self, canonical_history, tamper):
+        """Flipping any mechanism flag, or dropping metadata, leaves DEFINITIVE.
 
-    def test_missing_multiplicative_stake_blocks_definitive(self, canonical_history):
+        The metadata-flip invariance that 2f40e9a verified in
+        analysis/validation_rebuild/p28_mechanism_discrimination.py.
+        """
         history, meta = canonical_history
-        tampered = dict(meta)
-        tampered["has_multiplicative_stake"] = False
+        if tamper is None:
+            md = None
+        else:
+            md = dict(meta)
+            md.update(tamper)
         det = P28WealthCondensationDetector(n_permutations=199, seed=42)
-        res = det.detect(history, model_metadata=tampered)
-        assert res.tier == DetectionTier.CONFIRMATION
+        res = det.detect(history, model_metadata=md)
+        assert res.tier == DetectionTier.DEFINITIVE, (tamper, res.tier.value)
 
-    def test_saving_propensity_flag_blocks_definitive(self, canonical_history):
-        history, meta = canonical_history
-        tampered = dict(meta)
-        tampered["has_saving_propensity"] = True
-        det = P28WealthCondensationDetector(n_permutations=199, seed=42)
-        res = det.detect(history, model_metadata=tampered)
-        assert res.tier == DetectionTier.CONFIRMATION
-
-    def test_redistribution_flag_blocks_definitive(self, canonical_history):
-        history, meta = canonical_history
-        tampered = dict(meta)
-        tampered["has_redistribution"] = True
-        det = P28WealthCondensationDetector(n_permutations=199, seed=42)
-        res = det.detect(history, model_metadata=tampered)
-        assert res.tier == DetectionTier.CONFIRMATION
-
-    def test_metadata_absent_blocks_definitive(self, canonical_history):
-        history, _ = canonical_history
+    def test_non_conserved_lookalike_rejected_by_conservation_gate(self):
+        """Bouchaud-Mezard multiplicative growth (total wealth drifts) is
+        rejected at screening by measured conservation drift, the job the
+        has_conserved_resource flag used to do."""
+        from epc.phase2a.failed_regimes import p28_wealth as fr
+        regime = next(r for r in fr.CONFIG["regimes"] if r["label"] == "bouchaud_mezard")
+        history = fr.build_substrate(regime)
         det = P28WealthCondensationDetector(n_permutations=199, seed=42)
         res = det.detect(history, model_metadata=None)
-        # No metadata -> mechanism gate fails, so at most CONFIRMATION
-        assert res.tier <= DetectionTier.CONFIRMATION
+        assert not res.detected
+        assert res.primary_metric["screening_rejection_reason"] == "resource_not_conserved"
+        assert res.primary_metric["conservation_drift"] > 0.01
+
+    def test_pre_condensed_input_rejected_by_emergence_gate(self, canonical_history):
+        """The same canonical run with its first half removed starts already
+        condensed (initial Gini ~0.89), so condensation does not emerge from
+        near-equality and screening rejects it (2f40e9a emergence gate)."""
+        history, meta = canonical_history
+        det = P28WealthCondensationDetector(n_permutations=199, seed=42)
+        res = det.detect(history[len(history) // 2:], model_metadata=meta)
+        assert not res.detected
+        assert res.primary_metric["screening_rejection_reason"] == "condensation_not_emergent"
+        assert res.primary_metric["gini_initial"] > 0.30
 
 
 # -----------------------------------------------------------------------------

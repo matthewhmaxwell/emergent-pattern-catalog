@@ -596,18 +596,26 @@ class TestSprint24Schelling0p5Regression:
     future change that resurfaces the Schelling FP is caught regardless
     of which threshold a regression touches.
 
-    The test asserts the EXACT post-fix tier outcome: tier ==
-    CONFIRMATION (the metric path through screening + confirmation is
-    valid, but the P1 exclusion gate does not clear because Schelling's
-    metadata lacks an 'update' token). This is stronger than asserting
-    "not DEFINITIVE" because it pins the architectural intent of C6:
-    Schelling is honestly reported as confirmation-tier evidence with
-    nearest-neighbor exclusions still ambiguous.
+    The Sprint 24 version asserted tier == CONFIRMATION on every seed.
+
+    Test maintenance: 6087340 (P18 PARTIAL -> PASS) raised
+    SCREENING_MORAN_FINAL_MIN from 0.30 to 0.40 to reject the Lotka-Volterra
+    lattice (final Moran's I about 0.32). Schelling at these thresholds has
+    final-quarter Moran's I 0.375-0.410, so the new floor splits the seeds:
+    seeds 0, 1 and 4 (0.375, 0.377, 0.386) are now rejected at screening and
+    seeds 2 and 3 (0.4007, 0.4096) still pass screening and stop at
+    CONFIRMATION. The per-seed outcomes are pinned below. The P1 exclusion
+    is only evaluated after screening, so the metadata-keyed P1 invariant is
+    now checked by calling _check_exclusions directly.
     """
 
     SEEDS = [0, 1, 2, 3, 4]
     L = 64
     N_STEPS = 300
+    # Expected tier per seed at the 6087340 screening floor (identical for
+    # thresholds 0.43 and 0.5). None = rejected at screening (not detected).
+    EXPECTED_TIER = {0: None, 1: None, 2: DetectionTier.CONFIRMATION,
+                     3: DetectionTier.CONFIRMATION, 4: None}
 
     @pytest.fixture(scope="class")
     def schelling_runs_at_high_threshold(self):
@@ -648,27 +656,38 @@ class TestSprint24Schelling0p5Regression:
 
     @pytest.mark.parametrize("threshold", [0.43, 0.5])
     @pytest.mark.parametrize("seed", SEEDS)
-    def test_schelling_high_threshold_pinned_at_confirmation(
+    def test_schelling_high_threshold_pinned_tier(
         self, threshold, seed, schelling_runs_at_high_threshold
     ):
-        """Sprint 24 architectural pin: Schelling thr ∈ {0.43, 0.5}
-        reaches exactly CONFIRMATION (not screening, not definitive).
+        """Pinned per-seed tier for Schelling thr ∈ {0.43, 0.5}.
 
-        This pins the C6 design intent: Schelling has confirmable
-        metric signature for P18-style coarsening (Moran growth, wall
-        decay) but the P1 nearest-neighbor exclusion is "inconclusive"
-        because the model's metadata lacks an 'update' token, so the
-        DEFINITIVE gate is correctly held back.
+        Replaces test_schelling_high_threshold_pinned_at_confirmation (all
+        seeds CONFIRMATION). Since 6087340 raised the screening floor on the
+        final-quarter Moran's I to 0.40, seeds whose value is below 0.40 are
+        rejected at screening; the others still pass screening and
+        confirmation and are held below DEFINITIVE (Sprint 24 C5/C2).
         """
         h = schelling_runs_at_high_threshold[(threshold, seed)]
         det = P18ConsensusDetector(n_permutations=199, seed=0)
         meta = {"threshold": threshold, "density": 0.9}
         r = det.detect(h, model_metadata=meta)
-        assert r.tier == DetectionTier.CONFIRMATION, (
-            f"Sprint 24 C6 architectural pin: Schelling thr={threshold} "
-            f"seed={seed} expected CONFIRMATION, got {r.tier.name}. "
-            f"primary={r.primary_metric}, exclusions={r.exclusion_results}"
-        )
+        mfq = r.primary_metric["moran_final_qtr_mean"]
+        expected = self.EXPECTED_TIER[seed]
+        if expected is None:
+            assert not r.detected, (
+                f"Schelling thr={threshold} seed={seed} expected rejection at "
+                f"screening (moran_final_qtr {mfq:.4f} < 0.40), got {r.tier.name}. "
+                f"primary={r.primary_metric}"
+            )
+            assert mfq <= det.SCREENING_MORAN_FINAL_MIN
+        else:
+            assert r.detected and r.tier == expected, (
+                f"Schelling thr={threshold} seed={seed} expected {expected.name}, "
+                f"got detected={r.detected} {r.tier.name}. "
+                f"primary={r.primary_metric}, exclusions={r.exclusion_results}"
+            )
+            assert mfq > det.SCREENING_MORAN_FINAL_MIN
+            assert r.exclusion_results.get("P1") == "inconclusive"
 
     @pytest.mark.parametrize("threshold", [0.43, 0.5])
     @pytest.mark.parametrize("seed", SEEDS)
@@ -686,13 +705,20 @@ class TestSprint24Schelling0p5Regression:
         Removing this invariant (e.g., adding an 'update' key to
         Schelling's metadata that contains 'copy'/'imitation'/'voter')
         would be a registry-level change requiring its own audit.
+
+        Test maintenance: since 6087340 seeds 0, 1 and 4 fail screening, and
+        detect() then returns no exclusion results. The invariant is a
+        property of _check_exclusions, so it is now checked by calling it
+        directly on every seed.
         """
         h = schelling_runs_at_high_threshold[(threshold, seed)]
         det = P18ConsensusDetector(n_permutations=199, seed=0)
         meta = {"threshold": threshold, "density": 0.9}
-        r = det.detect(h, model_metadata=meta)
-        assert r.exclusion_results.get("P1") == "inconclusive", (
+        _, exclusions = det._check_exclusions(
+            h, meta, det._estimate_timescale(h, meta)
+        )
+        assert exclusions.get("P1") == "inconclusive", (
             f"Sprint 24 invariant: Schelling thr={threshold} seed={seed} "
             f"P1 exclusion expected 'inconclusive', got "
-            f"{r.exclusion_results.get('P1')!r}. exclusions={r.exclusion_results}"
+            f"{exclusions.get('P1')!r}. exclusions={exclusions}"
         )
