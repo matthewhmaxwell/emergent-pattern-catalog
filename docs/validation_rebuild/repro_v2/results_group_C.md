@@ -4,6 +4,16 @@ Specs: `group_C.md` (frozen at 39688e3), sections 3 (Protocol) and 4 (Tolerance 
 conduct: `REPRO_V2_PLAN.md`. Results files: `analysis/outputs/repro_v2/P26.json`, `P12.json`, `P28.json`; raw
 per-run records in `analysis/outputs/repro_v2/raw/`. Scripts: `analysis/repro_v2/`.
 
+## Summary
+
+| Pattern | Primary rule | Measured against target | Reported only |
+|---|---|---|---|
+| P26 stochastic resonance | PASS (4 of 4) | eta_max 12.42 +- 0.07 (12.23, band 11.62-12.84); D_max 0.1537 (0.150 +- 0.015); eta(0.20) 10.76 (10.8 +- 8%); eta(0.30) 6.52 (6.5 +- 8%) | SNR local max at D = 0.14 (vertex 0.136) vs 0.125 |
+| P12 cyclic dominance | FAIL (conditions 1, 2 fail; 3 passes) | P_ext far below Fig. 2b at every point: mean signed dev -0.484 (L = 40), -0.435 (L = 100); limit +-0.05 | D1 and D2 fail further below; M_c statement not reproduced |
+| P28 wealth condensation | PASS (P28-A) | G = 0.5121, 0.3829, 0.2978 vs Eq. (61) 0.5236, 0.3893, 0.2969 at tau = 0.2, 0.5, 1.0 (limit 0.02) | P28-B FAIL: slope 2.68e-11 vs 2.04e-5 (units of the source fit, see section) |
+
+No deviations from the frozen protocols. Total compute about 46.5 CPU-h (P26 1.5, P28 7.3, P12 37.7).
+
 ## Notes written before any full run
 
 These were recorded and committed before the first full-run result existed. None changes a target, tolerance,
@@ -93,7 +103,7 @@ R = redistribute_every = 2500 = N/2, chi = tau f^2, equal start, advanced only b
 tau; burn-in max(20/tau, 20) tau-bar; Gini sampled after every tax over a 50 tau-bar window (20,000 samples per
 seed).
 
-| tau | Eq. (61) | Measured G (mean +- SE, 10 seeds) | Deviation | Rule: |dev| <= 0.02 |
+| tau | Eq. (61) | Measured G (mean +- SE, 10 seeds) | Deviation | Rule: abs(dev) <= 0.02 |
 |---|---|---|---|---|
 | 0.2 | 0.5236 | 0.51213 +- 0.00019 | -0.0114 | pass |
 | 0.5 | 0.3893 | 0.38286 +- 0.00011 | -0.0065 | pass |
@@ -148,8 +158,8 @@ G_max = N(2 + MN/2) (the spec's conversion of t = N to our generations).
 
 | Rule (spec section 4) | Outcome |
 |---|---|
-| 1. L = 100: every |dev| <= 0.10 and mean signed dev within +-0.05 | fail (max |dev| 0.523, mean -0.435) |
-| 2. L = 40: same two conditions | fail (max |dev| 0.700, mean -0.484) |
+| 1. L = 100: every abs(dev) <= 0.10 and mean signed dev within +-0.05 | fail (max abs(dev) 0.523, mean -0.435) |
+| 2. L = 40: same two conditions | fail (max abs(dev) 0.700, mean -0.484) |
 | 3. Sharpening: P(L = 100) < P(L = 40) at the 5 points M <= 2.83e-4 | pass (5 of 5) |
 
 P12 FAIL. P_ext rises with M and falls with L, as in the source, but at every point it is far below the figure:
@@ -161,13 +171,14 @@ Reported diagnostics (cannot turn the FAIL into a PASS):
 - D1, G = N generations (read from the primary runs, absorption generation <= N): L = 40 P_hat = 0.024, 0.018,
   0.036, 0.082, 0.170, 0.228, 0.464 (mean dev -0.657); L = 100 P_hat = 0.000, 0.000, 0.000, 0.032, 0.078, 0.208,
   0.274 (mean dev -0.541). Conditions 1 and 2 fail, 3 passes.
-- D2, our code at M/2 run to N(2 + (M/2)N/2): running at the time of this note (L = 40 in progress, L = 100 next); results follow below when complete.
+- D2, our code at M/2 run to floor(N(2 + (M/2)N/2)): L = 40 P_hat = 0.038, 0.044, 0.048, 0.062, 0.124, 0.208, 0.418 (mean dev -0.668, max abs dev 0.846); L = 100 P_hat = 0.000, 0.000, 0.000, 0.000, 0.006, 0.086, 0.270 (mean dev -0.573, max abs dev 0.825). Conditions 1 and 2 fail, 3 passes. M/2 at grid index k equals M at index k - 2, and the seed formula gives seed(k, r) = seed(k - 2, r + 20), so 480 of the 500 D2 realisations at each of the five upper M points are the same runs as primary realisations two grid steps lower (2,400 matched pairs per L, all with identical outcomes). D2 therefore adds little beyond the primary curve read at lower M.
+- Both alternative conventions the spec named (D1, D2) lie further below the figure than the primary does; neither closes the gap.
 
 Median absorption generation among absorbed runs at L = 100 ranges from 9,356 (M = 5.66e-4) to 16,283
 (M = 2.83e-4), against G_max = 23,535-48,284; full quartiles and 10-bin histograms are in P12.json.
 
 No deviation from the protocol. Spec notes recorded before the runs (above): the seed formula's overlap across M
 within one L, and the optional L = 200 not run. Runtime: primary L = 40 2,126 CPU-s, primary L = 100 69,092 CPU-s
-(19.2 CPU-h; spec estimate about 8). Code: primary L = 40 and the first 1,450 L = 100 realisations ran at 90cfbe2,
+(19.2 CPU-h; spec estimate about 8); D2 L = 40 2,094 CPU-s, D2 L = 100 62,476 CPU-s (17.4 CPU-h; spec: about 5 for D1 and D2). Code: primary L = 40 and the first 1,450 L = 100 realisations ran at 90cfbe2,
 the remaining 2,050 L = 100 realisations through the work-queue mode at cfd9075 (model and per-realisation code
-identical; the queue mode only distributes realisations over two workers). Numba 0.68.1, numpy 2.5.0.
+identical; the queue mode only distributes realisations over two workers); all D2 runs at cfd9075. Numba 0.68.1, numpy 2.5.0.
