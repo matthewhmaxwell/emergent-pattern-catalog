@@ -385,3 +385,169 @@ python analysis/validation_rebuild/p33_p37_panel_diagnostics.py         # out-of
   `p34_adaptive_network_…_v12.json`, `p35_entropy_crystal_…_v12.json`,
   `p36_pareto_exchange_…_v12.json`, `p37_resource_competition_…_v12.json`,
   `p33_p37_class_c_groundtruth.json`, `p33_p37_panel_diagnostics.json`.
+
+---
+
+## Post-panel fix: P37 detector v2 (IN-SAMPLE)
+
+**Everything above this line is the frozen record and is unchanged.** That
+includes the P37 result: 12/22, definitive on structureless noise, continuous d
+−0.09, in `analysis/outputs/p37_resource_competition_phase2a_panel_v12.json`,
+produced by the v1 detector at 8802759. This section reports a fix to the P37
+detector made **after the frozen panel had been seen**. The fixed panel result is
+therefore **in-sample**: it shows that the v2 detector rejects these particular
+negatives, not that it generalises. Only P37 was changed; the P33 and P35
+detectors and their false positives stay as found.
+
+- **Code:** 0a0b1c7. Files: `epc/detectors/p37_resource_competition.py`,
+  `epc/metrics/competition_dynamics.py` (new `sustained_oscillation_test`; the v1
+  `coexistence_oscillation` is kept unchanged), `epc/phase2a/continuous_metrics.py`,
+  `epc/phase2a/detector_invariance.py`, and `analysis/run_phase2a_panel.py`.
+- **Output:** `analysis/outputs/p37_resource_competition_phase2a_panel_v12_fixed.json`
+  (`head_commit` 0a0b1c7).
+- **Per-negative detail:** `analysis/validation_rebuild/p37_fix_diagnostics.py` →
+  `analysis/outputs/p37_fix_diagnostics.json`.
+
+### What changed and why
+The detector's own docstring and its source (Huisman & Weissing 1999, *Nature*
+402:407; 2001, *Ecology* 82:2682) describe the pattern as species competing for
+shared depletable resources that **coexist through sustained oscillation**. The v1
+detector measured something weaker: at least 3 species persist and their
+late-window coefficient of variation exceeds 0.05. In other words, persistence
+plus fluctuation, which white noise, drift and alternation all share. v2 tests
+the documented signature directly, over the last half of the frames:
+
+| test | v2 definition | what it is meant to exclude |
+|---|---|---|
+| coexistence | ≥ 3 species persist (late mean > 1% of global peak); ≥ 3 of them with detrended amplitude std/mean > 0.05 | exclusion; fixed points; a pure linear drift (zero detrended amplitude) |
+| sustained oscillation | pooled over persisting species, the share of each linearly detrended series' variance in its dominant 3-bin periodogram band. The band needs ≥ 3 cycles per window and must sit below the Nyquist band (frequency < 0.45 per frame, so period-2 alternation is excluded). Tested against 199 surrogates that permute each series independently (amplitude distribution kept, temporal order destroyed): p_osc, z_osc | white noise (no dominant band); period-2 alternation (out of band); time-shuffled oscillation |
+| coupling to the resource field | max \|corr\| between detrended abundances and detrended resources at lags ≤ 2 frames, against 199 multivariate phase-randomised resource surrogates (each resource keeps its spectrum and the resources keep their mutual relations; alignment with the abundances is destroyed): p_coupling | a "resources" series that is unrelated to the abundances, or constant |
+
+Tiers:
+- **screening:** coexistence, p_osc < 0.05 and p_coupling < 0.05.
+- **confirmation:** additionally p_osc < 0.01, p_coupling < 0.01 and ≥ 4 species persisting.
+- **definitive:** additionally median amplitude > 0.10, and ≥ 3 species whose
+  second-half amplitude is at least half their first-half amplitude ("sustained").
+
+Null draws are 199 for both tests (`make_p37_detector_fn(n_surrogates=199)`);
+the minimum attainable p is 0.005.
+
+**The canonical continuous metric had to change.** The v1 metric
+(`coexistence_oscillation`, the late-window CV) is the quantity that does not
+separate the pattern (d −0.09 on the frozen panel). `CONTINUOUS_METRIC["P37"]` is
+now `sustained_oscillation`: z_osc when coexistence and coupling (p < 0.05) hold,
+and 0 otherwise. The v1 score is still reported in
+`primary_metric["coexistence_oscillation"]` for comparison.
+
+**The invariance flag changed with the metric.** P37's `time_shuffle_invariant` is
+now False, because v2 reads temporal order. So the time-shuffled positive is now
+scored as a Class A negative (Class A evaluated: 9, versus 8 in the frozen
+panel). `permutation_invariant` stays True: species relabelling leaves every v2
+statistic unchanged.
+
+The positive recordings are coarsely sampled: 37.5 time units per frame, with a
+dominant period of about 3–4 frames. That is why the band reaches up to a
+frequency of 0.45 per frame rather than stopping at 3 frames per cycle.
+
+### What was seen before the v2 design was fixed (so the reader can judge tuning)
+Scored with the **v1** detector before or while v2 was designed:
+- **Smoke test** (v1): random_uniform, permutation_shuffled, time_shuffled,
+  checkerboard, P11, P12, May–Leonard, forced stable coexistence, and two Class C
+  regimes.
+- **The full frozen panel**, run twice (v1).
+- **`p33_p37_panel_diagnostics.py`** (v1): for every negative that fired, its
+  osc_cv, persistence and tier (the frozen table above), plus the skipped
+  permutation and time shuffles.
+- **The Class C ground-truth scan** (`p33_p37_class_c_groundtruth.py`), which reads
+  the models' own late-window CV and persistence on candidate non-forming regimes.
+- **I wrote every Class A generator and look-alike myself**, so the generic null
+  classes the design names (white noise, red noise, drift, alternation) were
+  known from that.
+
+Scored with **v2** before commit 0a0b1c7 fixed the design: **the five canonical
+positives only**. No panel negative was scored with v2 until the design was
+committed. The checks on positives are kept in
+`docs/validation_rebuild/p37_fix_design_checks/`:
+- `inspect_pos.py`: autocorrelations and periodogram peaks of the positives.
+- `pos_test2.py`: the pooled oscillation and coupling statistics on the positives.
+
+One design change was driven by the positives. The first version required ≥ 3
+species *individually* significant (each p < 0.05). That detected only 3 of the 5
+positives: seeds 0 and 4 had just 2 such species each, because a 40-frame window
+of a near-aliased chaotic oscillation gives a single-species test little power.
+It was replaced by the pooled community test above, which tests the same
+hypothesis at the level of the community. With it, all positives reach
+p_osc = 0.005 (z 3.8–10.3), and all have p_coupling = 0.005: every species is
+strongly anticorrelated, −0.96 to −1.0 at lag 0, with one of the resources. The thresholds (0.05 / 0.01, amplitude floors 0.05 / 0.10, ≥ 3 cycles,
+Nyquist band 0.45, lags ≤ 2) were set by convention or carried over from v1. None
+was adjusted after any negative was scored, and nothing changed after the fixed
+panel ran.
+
+### Fixed-panel results (v2 detector, in-sample)
+**Positives:** 5/5 **definitive** (sustained_oscillation z = 3.82, 6.12, 8.67,
+10.27, 3.78; p_osc and p_coupling 0.005 for every seed).
+
+| | n | TNR | false positives |
+|---|---|---|---|
+| Class A | 9 (permutation_shuffled skipped) | 9/9 = 1.000 | none |
+| Class B | 4 (advisory, n < 5) | 3/4 = 0.750 | p37_forced_stable_coexistence (screening) |
+| Class C | 10 | 10/10 = 1.000 | none |
+| overall | 23 | **22/23 = 0.957** | 1 |
+
+- Continuous d on the **new** metric (`sustained_oscillation`): **1.06**.
+- Discrete (tier-confidence) d: 11.50.
+- Harness verdict: **PASS**. Class B is advisory at n = 4, so it does not gate.
+- Run time: harness 106 s, about 140 s wall clock including the positives.
+
+Which test rejected each negative (from `p37_fix_diagnostics.json`):
+
+| negative | v1 (frozen) | v2 | rejected by |
+|---|---|---|---|
+| random_uniform, random_gaussian, random_binary, spatial_white_noise | definitive ×4 | none ×4 | oscillation (p_osc 0.27–0.68) |
+| temporal_white_noise (log-random walk) | definitive | none | **coupling only** (p_coupling 0.29); oscillation test *passed* (p_osc 0.005, z 6.1) |
+| time_shuffled (now evaluated) | skipped | none | oscillation (p_osc 0.61) |
+| constant, linear_gradient | none / definitive | none | amplitude (no detrended fluctuation) |
+| checkerboard (period-2) | definitive | none | oscillation (out of band; p_osc 1.0) |
+| P11_lotka_volterra | none | none | coexistence (1 species persists in the window) |
+| P12_rps | screening | none | **coupling only** (p_coupling 0.22); oscillation passed (p_osc 0.005, z 6.5) |
+| p37_may_leonard | screening | none | **coupling only** (p_coupling 0.50); oscillation passed (p_osc 0.005, z 13.9) |
+| p37_forced_stable_coexistence | definitive | **screening (FP)** | passes oscillation (z 25.5) and coupling (p 0.03); stops at screening because p_coupling ≥ 0.01 |
+| all 10 Class C | none | none | amplitude or coexistence (fixed points, exclusion) |
+| permutation_shuffled (skipped, out of TNR, 5 seeds) | skipped | 5/5 detected | degenerate by construction: it is the positive with species relabelled |
+
+### Caveats a reader should weigh
+1. **The oscillation test does not reject red noise.** The log-random walk passes
+   it, because its low-frequency power falls inside the ≥ 3-cycle band of a
+   100-frame window, and the permutation null is white. It is rejected only by
+   the coupling test. The design reasoning had expected the 3-cycle floor to be
+   enough; it was not.
+2. **Three Class B rejections rest on the coupling test, and that test has little
+   power for narrowband signals.** The look-alikes are P12 RPS, May–Leonard and
+   the random walk above. Phase-randomising a near-periodic resource series
+   produces another near-periodic series that aligns with the abundances by
+   chance about as often as the real one does. May–Leonard's "resource" is
+   literally 1 − Σx, perfectly coupled by construction, and it is still not
+   significant. So those rejections should not be read as the detector
+   recognising field-mediated versus direct competition; they reflect the test's
+   weak power on smooth periodic data. For the broadband chaotic positives the
+   same test is decisive (p 0.005).
+3. **The forced look-alike remains a false positive at screening.** Externally
+   forced oscillation of a stable coexistence chemostat is oscillatory, resource
+   coupled, and multi-species. Nothing in the v2 signature separates endogenous
+   from exogenous oscillation.
+4. **The continuous d of 1.06 is modest.** The forced look-alike scores
+   z = 25.5, above every positive. Checkerboard scores z = −12.3: its alternation
+   is perfectly "coupled", and its band statistic sits far below the null.
+5. **In-sample.** Every negative here was seen under v1, and some generic null
+   classes were reasoned about explicitly during the design. A fresh negative
+   panel, especially red noise without a resource field, narrowband direct-
+   interaction oscillators, and forced systems, would be needed before claiming
+   the fix generalises.
+6. **The battery's generic emergence channel was not changed.**
+   `epc/phase2a/emergence.py` still uses the v1 `coexistence_oscillation` (the
+   coexistence-oscillation channel), so that channel keeps v1's non-specificity.
+   It is out of scope here and flagged for follow-up.
+7. **Re-running `analysis/run_phase2a_panel.py p37` now uses v2 and writes the
+   `_fixed` file.** To reproduce the frozen P37 record, check out 3163bcd. Note
+   that `p33_p37_panel_diagnostics.py` reads the P37 output path, so a re-run
+   would now describe the fixed panel.
