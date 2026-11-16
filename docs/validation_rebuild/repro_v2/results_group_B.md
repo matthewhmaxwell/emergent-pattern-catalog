@@ -48,7 +48,7 @@ touches is evaluated.
 
 - **P10-D1 (logged 2026-11-16 04:05 UTC, before T10.1 and T10.2 are evaluated): the P10 dt check is reported as
   not run.** The declared reading names the two lowest-numbered Stage A chimera seeds, and no paper-IC seed formed a
-  chimera (seeds 0-4 at the time of logging; provisional until seeds 5-9 finish). The dt check is reported only; no
+  chimera (seeds 0-4 at the time of logging; final at 05:12 UTC: none of seeds 0-9). The dt check is reported only; no
   gating rule, target, tolerance, size or seed count changed. Repeating the fallback realizations at
   dt_paper = 0.0125 instead was considered and not done, because it was not what was declared. Approved by the
   coordinator under the owner's standing rule.
@@ -61,7 +61,8 @@ touches is evaluated.
 - **P10 IC transcription check.** The arXiv posting (nlin/0407045v1, Fig. 1 caption) gives phi(x) = a exp(-b x^2) r
   with a = 6, b = 30, r uniform on [-1/2, 1/2], x in [-pi, pi], dt = 0.025, 200,000 iterations, A = 0.995,
   beta = 0.18, N = 256. This matches group_B.md and `init_mode="as2004"`.
-- **P10 paper-IC seeds 0-4 at N = 256, beta = 0.18: all full sync.** r_bar = 1.0000, f_drift = 0,
-  R_min = R_max = 1.0000, and Delta = 0.9838 = cos(0.18). That is the in-phase state's rotation rate in paper units,
-  which confirms the time conversion. If fewer than 5 of the 10 seeds reach a chimera, the pre-registered fallback
-  runs, and T10.1 and T10.2 are evaluated on fallback realizations, labelled as such.
+- **P10 paper-IC seeds 0-9 at N = 256, beta = 0.18: all ten full sync** (basin fraction 0/10). Each has
+  r_bar = 1.0000, f_drift = 0, R_min = R_max = 1.0000 and Delta = 0.9838 = cos(0.18). That is the in-phase state's
+  rotation rate in paper units, which confirms the time conversion. Because fewer than 5 of 10 seeds reached a
+  chimera, the pre-registered fallback runs (seeds 100, 101, ...), and T10.1 and T10.2 are evaluated on fallback
+  realizations, labelled as such.
