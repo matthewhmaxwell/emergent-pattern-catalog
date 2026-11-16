@@ -1,0 +1,84 @@
+queue2 start 2026-11-16T01:05:21+00:00 commit a21b04ded2c1d4e6a1bc20bd04d92654c465f1ff
+t=  100 exact_vN=0.19153 FK_Eq23=0.21291 (+11.2%) FK+2gamma=0.19746 exact_Moore=0.24385
+t=  300 exact_vN=0.16954 FK_Eq23=0.18531 (+9.3%) FK+2gamma=0.17350 exact_Moore=0.21946
+t=  500 exact_vN=0.16089 FK_Eq23=0.17478 (+8.6%) FK+2gamma=0.16423 exact_Moore=0.20967
+t= 1000 exact_vN=0.15044 FK_Eq23=0.16227 (+7.9%) FK+2gamma=0.15314 exact_Moore=0.19768
+t= 2000 exact_vN=0.14124 FK_Eq23=0.15142 (+7.2%) FK+2gamma=0.14344 exact_Moore=0.18696
+t= 3000 exact_vN=0.13635 FK_Eq23=0.14573 (+6.9%) FK+2gamma=0.13832 exact_Moore=0.18120
+vonNeumann slope d(1/rho)/dln t over t=300..3000: 0.6234; asymptotic 1/(2 pi D) = 0.6366
+Moore slope d(1/rho)/dln t over t=300..3000: 0.4179; asymptotic 1/(2 pi D) = 0.4244
+
+P18 L=512 von_neumann seed=0 45.7s
+P18 L=512 von_neumann seed=1 48.1s
+P18 L=512 von_neumann seed=2 45.9s
+P18 L=512 von_neumann seed=3 49.0s
+P18 L=512 von_neumann seed=4 47.4s
+P18 L=512 von_neumann seed=5 47.1s
+P18 L=512 von_neumann seed=6 47.0s
+P18 L=512 von_neumann seed=7 46.9s
+P18 L=512 von_neumann seed=8 45.2s
+P18 L=512 von_neumann seed=9 47.2s
+P18 L=512 von_neumann seed=10 47.4s
+P18 L=512 von_neumann seed=11 47.5s
+P18 L=512 von_neumann seed=12 45.9s
+P18 L=512 von_neumann seed=13 46.4s
+P18 L=512 von_neumann seed=14 46.1s
+P18 L=512 von_neumann seed=15 44.4s
+P18 L=512 von_neumann seed=16 46.8s
+P18 L=512 von_neumann seed=17 49.1s
+P18 L=512 von_neumann seed=18 48.2s
+P18 L=512 von_neumann seed=19 48.7s
+{'rule': 'SE(t=3000) <= 0.01 rho_exact(3000) with seeds 0-19; otherwise add seeds up to 40', 'n_seeds': 20, 'se_3000': 0.0012510462834925747, 'requirement': 0.001363547423814691, 'met': True, 'action': 'none', 'timestamp': '2026-11-16T01:47:41+0000'}
+P18 L=256 von_neumann seed=0 12.4s
+P18 L=256 von_neumann seed=1 12.6s
+P18 L=256 von_neumann seed=2 12.6s
+P18 L=256 von_neumann seed=3 13.1s
+P18 L=256 von_neumann seed=4 13.9s
+P18 L=256 von_neumann seed=5 12.2s
+P18 L=256 von_neumann seed=6 13.5s
+P18 L=256 von_neumann seed=7 13.3s
+P18 L=256 von_neumann seed=8 12.7s
+P18 L=256 von_neumann seed=9 13.4s
+P18 L=256 moore seed=0 12.7s
+P18 L=256 moore seed=1 15.5s
+P18 L=256 moore seed=2 14.5s
+P18 L=256 moore seed=3 13.5s
+P18 L=256 moore seed=4 14.6s
+P18 L=256 moore seed=5 15.2s
+P18 L=256 moore seed=6 14.6s
+P18 L=256 moore seed=7 14.9s
+P18 L=256 moore seed=8 14.7s
+P18 L=256 moore seed=9 12.8s
+invariance PASS {1.85: None, 1.95: None}
+P27 L=1000 b=1.9 seed=0 113.9s
+P27 L=1000 b=1.9 seed=1 124.9s
+P27 L=1000 b=1.9 seed=2 118.7s
+P27 L=1000 b=1.9 seed=3 115.1s
+P27 L=1000 b=1.9 seed=4 123.9s
+P27 L=1000 b=1.9 seed=5 124.8s
+P27 L=1000 b=1.9 seed=6 128.7s
+P27 L=1000 b=1.9 seed=7 118.6s
+P27 L=1000 b=1.9 seed=8 109.3s
+P27 L=1000 b=1.9 seed=9 112.8s
+P27 L=500 b=1.9 seed=0 28.9s
+P27 L=500 b=1.9 seed=1 28.6s
+P27 L=500 b=1.9 seed=2 29.7s
+P27 L=500 b=1.9 seed=3 30.0s
+P27 L=500 b=1.9 seed=4 29.6s
+P27 L=500 b=1.9 seed=5 30.4s
+P27 L=500 b=1.9 seed=6 30.7s
+P27 L=500 b=1.9 seed=7 29.6s
+P27 L=500 b=1.9 seed=8 29.4s
+P27 L=500 b=1.9 seed=9 31.0s
+P27 L=200 b=1.9 seed=0 5.1s
+P27 L=200 b=1.9 seed=1 5.2s
+P27 L=200 b=1.9 seed=2 4.6s
+P27 L=200 b=1.9 seed=3 4.3s
+P27 L=200 b=1.9 seed=4 4.9s
+P27 L=200 b=1.9 seed=5 4.8s
+P27 L=200 b=1.9 seed=6 4.5s
+P27 L=200 b=1.9 seed=7 4.7s
+P27 L=200 b=1.9 seed=8 4.2s
+P27 L=200 b=1.9 seed=9 5.0s
+queue2 done 2026-11-16T02:18:06+00:00
+QUEUE2_EXIT 0

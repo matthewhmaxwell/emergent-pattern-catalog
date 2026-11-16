@@ -1,0 +1,24 @@
+[
+  {
+    "P": 128,
+    "N": 355,
+    "alpha": 0.36056338028169016,
+    "n_seeds": 20,
+    "burn_rounds": 51200,
+    "seedmean_first_half": 0.1716899823943662,
+    "seedmean_second_half": 0.16568447183098595,
+    "rel_diff": 0.036246671139504534,
+    "fails_5pct": false
+  },
+  {
+    "P": 128,
+    "N": 365,
+    "alpha": 0.3506849315068493,
+    "n_seeds": 20,
+    "burn_rounds": 51200,
+    "seedmean_first_half": 0.1950294520547945,
+    "seedmean_second_half": 0.18929590753424658,
+    "rel_diff": 0.0302887927965935,
+    "fails_5pct": false
+  }
+]
