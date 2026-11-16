@@ -109,16 +109,21 @@ DETECTOR_INVARIANCE_FLAGS: Dict[str, InvarianceFlags] = {
     "P19": InvarianceFlags(False, False, "influence-asymmetry TE ratio",
                             rationale="Spatial + temporal information flow."),
     "P21": InvarianceFlags(True,  False, "dip test on opinion distribution",
-                            rationale="perm_inv=True: Hartigan dip test operates on the sorted opinion "
-                                      "value histogram — permuting the N=100 opinion values from a "
-                                      "bimodal HK positive preserves the bimodal shape exactly → "
-                                      "permutation_shuffled is degenerate-by-construction. "
-                                      "time_shuffle_inv=False: shuffling temporal order mixes early "
-                                      "unimodal pre-convergence steps with late bimodal steps; the HK "
-                                      "trajectory is NOT time-order-independent, so time_shuffled "
-                                      "remains a meaningful test (not skipped). "
-                                      "C-p21-perm-shuffled-fp (Sprint 48); C-p21-time-shuffled-fp "
-                                      "remains open (HK convergence-timing issue, not invariance)."),
+                            rationale="perm_inv=True: P21 counts opinion clusters from gaps in the "
+                                      "sorted opinion values (screening needs >= 2 clusters and a "
+                                      "largest gap above 0.10; confirmation adds variance above "
+                                      "0.01). Sorting discards agent identity, so permuting the N=100 "
+                                      "opinion values of a bimodal HK positive leaves the cluster "
+                                      "count, gap and variance unchanged → permutation_shuffled is "
+                                      "degenerate-by-construction. (The Hartigan dip statistic is "
+                                      "still computed and reported but no longer gates any tier.) "
+                                      "time_shuffle_inv=False: the emergence check reads the first "
+                                      "frame (it must not already be clustered) and persistence counts "
+                                      "consecutive clustered frames back from the last one; shuffling "
+                                      "temporal order changes both, so time_shuffled remains a "
+                                      "meaningful test (not skipped). C-p21-perm-shuffled-fp "
+                                      "(Sprint 48); C-p21-time-shuffled-fp closed by 352f5e8 "
+                                      "(emergence required at screening)."),
     "P22": InvarianceFlags(False, False, "cascade size / propagation speed",
                             rationale="Network-temporal structure."),
     "P24": InvarianceFlags(True,  True,  "deviation integral / recovery trajectory",

@@ -558,17 +558,24 @@ class P18ConsensusDetector(BaseDetector):
         P15 (persistent computation): Moran plateau below 0.30 with sparse
           alive fraction indicates GoL-like decay, excluded by metric
           thresholds (moran_final >= 0.30 AND minority_final >= 0.05).
-        P1  (similarity aggregation): metadata-keyed. Returns "excluded"
-          only if model metadata's `update` key contains 'copy', 'imitation',
-          or 'voter'; returns "inconclusive" otherwise (including for
-          Schelling, whose metadata keys are `threshold` and `density`).
+        P1  (similarity aggregation): metadata-keyed. The P1 exclusion
+          counts as cleared ("excluded") only if the metadata `update`
+          field contains 'copy', 'imitation' or 'voter'; otherwise, or
+          with no metadata, it is "inconclusive" (Schelling's metadata
+          keys are `threshold` and `density`, so Schelling is always
+          inconclusive). _check_definitive requires all three exclusions,
+          P1 included, to be "excluded", so DEFINITIVE requires that
+          `update` token.
           For canonical Schelling at threshold = 0.375 the metric gates
-          alone reject below CONFIRMATION (Sprint 21 5-seed audit), so the
-          inconclusive P1 outcome does not yield a false-positive
-          DEFINITIVE. For Schelling at threshold = 0.5 the metric gates
-          DO admit the model to DEFINITIVE with P1 marked "inconclusive";
-          this is recorded as Sprint 21 carry-forward #20b in
-          REPLICATION_NOTES.md.
+          alone reject below CONFIRMATION (Sprint 21 5-seed audit).
+          Schelling at thresholds 0.43 and 0.5 (identical outcomes) does
+          not reach DEFINITIVE (Sprint 24: 0.45 DEFINITIVE Moran floor plus
+          the P1 requirement above; carry-forward #20b closed). Since
+          6087340 raised the screening floor on final-quarter Moran's I
+          from 0.30 to 0.40, seeds 0, 1 and 4 (0.375-0.386) are rejected at
+          screening and seeds 2 and 3 (0.401, 0.410) reach CONFIRMATION and
+          stop there. tests/test_voter_p18_e2e.py
+          (TestSprint24Schelling0p5Regression) pins these per-seed outcomes.
         """
         results: dict[str, str] = {}
         metrics = self._trajectory_metrics(state_history)

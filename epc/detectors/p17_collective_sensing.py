@@ -161,12 +161,23 @@ def _run_group_ci(
 class P17CollectiveSensingDetector:
     """Detector for P17 — distributed sensing / collective gradient detection.
 
-    Detection methodology:
-        1. Run the model at multiple group sizes N ∈ {1, 5, 10, 25, 50}
-        2. Compute CI at each N (averaged over n_seeds seeds)
-        3. Screening: CI(N_max) > CI(N=1) + threshold
-        4. Confirmation: positive slope of CI vs log(N) + permutation null
-        5. Definitive: monotonic increase + large effect size + p < 0.005
+    detect() works from one recorded trajectory; it does not re-run the
+    model at several group sizes:
+        - Screening: group cohesive (dispersion < 0.10), individuals too
+          noisy to climb alone (individual SNR < 0.5), and chemotactic
+          index > 0.05.
+        - Confirmation: the group approaches the true field peak more than
+          random target points (random-target null p < 0.10).
+        - Definitive: chemotactic index > 0.30 and null p < 0.05.
+
+    Validation note: all reported P17 validation results (Phase-2a panel,
+    transfer matrix, recognition, out-of-distribution battery) use the
+    harness function make_p17_detector_fn in analysis/run_phase2a_panel.py,
+    not this class. That function computes the chemotactic index from the
+    recorded history with field-sample, signal-to-noise and spread
+    (cohesion) prerequisites and tiers at index above 0.10, 0.20 and 0.30,
+    with no null model. This class (random-target null, different
+    thresholds) is exercised by the tests only.
     """
 
     def __init__(

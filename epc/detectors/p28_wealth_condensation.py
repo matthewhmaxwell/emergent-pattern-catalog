@@ -36,8 +36,12 @@ DETECTOR TIERS:
 Prerequisites (all required for any detection):
   1. 'wealth' observable as (N,) non-negative float, N >= 50.
   2. At least 3 frames in measurement window for monotonicity check.
-  3. Total wealth approximately conserved across the run (relative
-     drift < 1% tolerated, a loose check; YS is exactly conservative).
+  3. Total wealth conserved across the run: relative drift above 1% is
+     rejected at screening (resource_not_conserved); YS is exactly
+     conservative.
+  4. Condensation emerged from near-equality: initial Gini <= 0.30 and
+     Gini growth >= 0.20, else rejected at screening
+     (condensation_not_emergent).
 
 Primary metric: Gini coefficient at the final frame of measurement.
   Pure YS: Gini grows monotonically toward 1.0. Well-mixed (DY 2001)
@@ -57,34 +61,38 @@ Null model: well-mixed Boltzmann-Gibbs (Dragulescu-Yakovenko 2001).
   Under the null of "symmetric-exchange produced ergodic well-mixing",
   Gini ~= 0.5 in expectation; a CONDENSING system has Gini > null.
 
-Tier logic:
-  Screening: prereqs pass + Gini > 0.40 + top_1pct > 0.05.
-  Confirmation: screening + Gini > 0.55 + top_1pct > 0.15 +
-                monotonic_fraction > 0.80 + null_p < 0.01.
-  Definitive: confirmation + Gini > 0.80 + top_1pct > 0.30 +
-              mechanistic-null flags affirm condensation regime
-              (has_conserved_resource=True,
-               has_multiplicative_stake=True,
-               has_saving_propensity=False,
-               has_redistribution=False).
+Tier logic (since 2f40e9a; values are the class constants):
+  Screening: prereqs pass (including conservation and emergence) +
+             Gini >= 0.65 (super-Boltzmann) + top_1pct >= 0.05.
+  Confirmation: screening + Gini >= 0.75 + top_1pct >= 0.15 +
+                monotonic_fraction >= 0.80 + null_p < 0.01.
+  Definitive: confirmation + Gini >= 0.85 + top_1pct >= 0.30 +
+              the trajectory mechanism signature: resource conserved
+              (drift <= 1%), condensation emerged from near-equality
+              (initial Gini <= 0.30, growth >= 0.20) and monotonic
+              growth (fraction >= 0.80). These three are already
+              enforced at screening and confirmation and are re-checked
+              in _determine_tier.
 
-The mechanistic-null gate separates CONFIRMATION from DEFINITIVE in
-the same way P2's MIPS gate does (Sprint 16, Decision 43). Systems
-with saving propensity > 0 or nonzero redistribution produce a
-finite-Gini plateau that can still satisfy CONFIRMATION
-(Sprint 17 Phase 1d.3 shows chi = 0.0001 gives Gini = 0.77). The
-DEFINITIVE tier reserves the scientific claim "the mechanism producing
-this inequality is symmetric fair exchange of a conserved resource
-under multiplicative stakes" for cases where the metadata affirms
-exactly that setup.
+DEFINITIVE no longer reads metadata. Before 2f40e9a it also required
+four self-reported flags (has_conserved_resource=True,
+has_multiplicative_stake=True, has_saving_propensity=False,
+has_redistribution=False), so flipping one flag on the same trajectory
+moved the result between CONFIRMATION and DEFINITIVE. The tiers now
+come from the wealth trajectory alone. _mechanistic_null_passes still
+reads the four flags, but nothing calls it (retained for reference).
+Saving-propensity and redistribution variants plateau at a finite Gini
+(about 0.27 and 0.58 in the 2f40e9a calibration) and are rejected by
+the 0.65 screening floor.
 
 EMPIRICAL CALIBRATION (Sprint 17 Phase 1, N=1000, f=0.05-0.30,
 equal init, 50 measurement checkpoints):
 
   Canonical positive (YS, f=0.05, lambda=0, chi=0, t=5M):
     Gini = 0.90, top_1pct = 0.23, monotonic_frac = 0.99, alpha ~ 1.0
-    -> CONFIRMATION (score above 0.55, monotonic); DEFINITIVE with
-       metadata flags affirmed.
+    -> CONFIRMATION under the current gates (top_1pct 0.23 is below
+       the 0.30 DEFINITIVE floor); before 2f40e9a it reached DEFINITIVE
+       when the metadata flags were affirmed.
 
   Canonical positive (YS, f=0.30, t=5M):
     Gini = 0.996, top_1pct = 0.99, monotonic_frac = 0.99
@@ -92,12 +100,13 @@ equal init, 50 measurement checkpoints):
 
   Within-family negatives (all N=1000, t=2M):
     YS lambda=0.5 (saving propensity): Gini = 0.29 -> rejected at
-      screening (Gini < 0.40).
+      screening (Gini below the screening floor).
     YS chi=0.001 (redistribution): Gini = 0.13 -> rejected at
       screening.
     YS chi=0.0001 (very mild redistribution): Gini = 0.77 with
-      monotonic growth -> passes CONFIRMATION, BUT metadata
-      has_redistribution=True rejects DEFINITIVE.
+      monotonic growth -> CONFIRMATION at most (Gini clears the 0.75
+      confirmation floor but not the 0.85 DEFINITIVE floor); the
+      has_redistribution metadata flag no longer plays a role.
 
   Substrate-mismatch negatives (all 15 other registered models):
     All rejected at registry level (no 'wealth' observable).
@@ -286,7 +295,8 @@ class P28WealthCondensationDetector(BaseDetector):
             self._screening_rejection_reason = "too_few_agents"
             return warnings
 
-        # Conservation sanity check (loose)
+        # Conservation check: only a warning here; _check_screening makes
+        # it a hard rejection (resource_not_conserved) since 2f40e9a.
         totals = np.array([w.sum() for w in wealth_frames], dtype=np.float64)
         mean_total = float(totals.mean())
         if mean_total > 0:
@@ -298,9 +308,8 @@ class P28WealthCondensationDetector(BaseDetector):
                     f"not conserve the resource (e.g., redistribution is "
                     f"active or there's a bug)"
                 )
-                # Not a hard rejection — YS with chi>0 can drift
-                # slightly, and we want the detector to still be able to
-                # flag it.
+                # Not a hard rejection at this stage (warning only); the
+                # hard conservation gate is in _check_screening.
 
         self._measurement_frames = wealth_frames
         return warnings
@@ -493,16 +502,22 @@ class P28WealthCondensationDetector(BaseDetector):
             "null_std": ns,
         }
 
+    # Retained for reference; not called. Removed from tiering in 2f40e9a:
+    # the tiers now come from the trajectory (see _determine_tier).
     def _mechanistic_null_passes(
         self, model_metadata: dict[str, Any] | None
     ) -> dict[str, Any]:
-        """Check P28 metadata flags for the condensation-mechanism gate.
+        """Check P28 metadata flags for the old condensation-mechanism gate.
 
-        Required for DEFINITIVE:
+        Retained for reference; not called. Before 2f40e9a DEFINITIVE
+        required these four self-reported flags:
           has_conserved_resource = True
           has_multiplicative_stake = True
           has_saving_propensity = False
           has_redistribution = False
+        Since 2f40e9a the tiers come from the wealth trajectory
+        (conservation, emergence, monotonic growth) and this method's
+        result does not affect any tier.
 
         Returns dict with 'passes' bool and per-flag diagnostic.
         """
@@ -564,7 +579,7 @@ class P28WealthCondensationDetector(BaseDetector):
         bonuses["effect_size_gt_1"] = abs(effect_size.get("cohens_d", 0.0)) > 1.0
         bonuses["all_secondaries"] = gini_ok and top1_ok and mono_ok
 
-        # DEFINITIVE: stronger magnitudes + metadata-mechanism
+        # DEFINITIVE: stronger magnitudes + trajectory-derived mechanism
         gini_def = gini_final >= self._DEF_GINI_MIN
         top1_def = top1 >= self._DEF_TOP1PCT_MIN
         if not (gini_def and top1_def):

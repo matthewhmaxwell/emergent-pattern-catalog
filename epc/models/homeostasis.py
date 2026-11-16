@@ -149,7 +149,10 @@ class IntegralHomeostat:
     The integral controller accumulates error over time and applies
     corrective action proportional to the accumulated error. This
     provides a second, independent homeostat implementation for T1b
-    cross-model generalization testing.
+    cross-model generalization testing. With P = 0 and no damping it
+    oscillates about the setpoint rather than regulating to it (the closed
+    loop is x'' = -gain * (x - setpoint) wherever the perturbation is
+    constant).
 
     Parameters
     ----------

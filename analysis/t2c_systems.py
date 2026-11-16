@@ -315,9 +315,19 @@ def recog_p23_el_farol(seed: int = 0) -> Built:
 
 
 def recog_p24_integral(seed: int = 0) -> Built:
-    """P24 homeostasis via an INTEGRAL controller (detector was tuned on the
-    proportional one). Known generalization limit: ranks P24 #1 but the firing
-    threshold is calibrated to the proportional transient."""
+    """Integral-only controller (P = 0) on a pure integrator, registered as a
+    P24 recognition case (the P24 detector was tuned on the proportional
+    homeostat).
+
+    The P24 detector does not fire here, and that is the correct outcome, not
+    a generalization limit of the detector. With no proportional term the
+    closed loop has no damping (x'' = -gain * (x - setpoint) wherever the
+    perturbation is constant), so the system oscillates instead of settling.
+    In the cross-model runs the mean absolute deviation over the last fifth of
+    the run, after the perturbation has ended, is 4.4 to 9.9 against a
+    perturbation amplitude of 5. The system does not regulate, so there is no
+    homeostasis for P24 to detect.
+    """
     from epc.models.homeostasis import IntegralHomeostat, HomeostatParams, PerturbationSchedule
     m = IntegralHomeostat(HomeostatParams(setpoint=10.0, gain=1.0, dt=0.1,
                                           noise_std=0.5, seed=seed))

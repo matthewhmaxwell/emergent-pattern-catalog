@@ -1094,22 +1094,30 @@ def build_p17_positives(n_seeds: int = 5) -> tuple[List[List[Dict[str, Any]]], D
 def make_p17_detector_fn(seed: int = 42):
     """P17 panel detector_fn: history-based CI evaluation with field prerequisite.
 
-    The full P17 detector re-runs the model at multiple group sizes (N-scaling
-    test). For the panel, we evaluate whether a *given* trajectory shows the
-    P17 signature using two literature-grounded content prerequisites:
+    Differs from P17CollectiveSensingDetector (epc/detectors/p17_collective_sensing.py:
+    different prerequisites, no null model, different thresholds); all reported
+    P17 validation results use this function, the class only the tests.
+
+    This function evaluates whether a *given* trajectory shows the P17
+    signature using three content prerequisites:
 
     **Prerequisite 1** (field presence): History must contain ``field_samples``
     key — P17 requires an external scalar field. Motion alone (random walks,
     flocking) without field-inference is out of P17's domain (Berdahl 2013:
     "the mechanism requires environmental information").
 
-    **Prerequisite 2** (group CI must scale with N): A single-size high-CI run
+    **Prerequisite 2** (group advantage): A single-size high-CI run
     is not P17 if individuals can succeed alone. When field_samples variance is
-    very low relative to amplitude (SNR > 5 for single agent), the field is
+    very low relative to amplitude (single-agent SNR > 3: mean |field sample|
+    over mean per-agent temporal std, second half of the run), the field is
     trivially detectable without group amplification → reject. This eliminates
     "field too strong" false positives.
 
-    Tier thresholds (after prerequisites pass):
+    **Prerequisite 3** (social cohesion / spread): mean distance to the group
+    centroid over the second half of the run must be at most 0.20 of the box
+    size; dispersed agents are rejected.
+
+    Tier thresholds (after prerequisites pass; no null model):
     - Screening: CI > 0.10
     - Confirmation: CI > 0.20
     - Definitive: CI > 0.30

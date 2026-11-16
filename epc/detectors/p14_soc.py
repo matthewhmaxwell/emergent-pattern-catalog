@@ -266,8 +266,10 @@ def detect_p14(
         create false positives). Real discrimination is carried by the tau
         range, the LR-vs-exponential test, the MLE/log-binned
         slope-consistency screening gate, and the secondary SOC signatures.
-        It gates DEFINITIVE only as an extra provenance requirement when
-        genuine model metadata is supplied.
+        It is one of the CONFIRMATION gates (with the LR-vs-exponential
+        test, the tau range and a secondary signature), so False holds the
+        result at SCREENING; since DEFINITIVE is reachable only from
+        CONFIRMATION, False also blocks DEFINITIVE. Default True.
     tau_range : tuple
         Plausible range for τ.
     
