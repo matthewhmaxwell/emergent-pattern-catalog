@@ -1,0 +1,35 @@
+{
+ "programs": 3000,
+ "errors": 0,
+ "views": 5972,
+ "false_flags": 0,
+ "bound": "rate <= 0.050% (95%, rule of three)",
+ "by_family": {
+  "agents": {
+   "views": 1625,
+   "flagged": 0
+  },
+  "grid": {
+   "views": 1480,
+   "flagged": 0
+  },
+  "field": {
+   "views": 2193,
+   "flagged": 0
+  },
+  "network": {
+   "views": 292,
+   "flagged": 0
+  },
+  "network-phase": {
+   "views": 138,
+   "flagged": 0
+  },
+  "lattice-phase": {
+   "views": 244,
+   "flagged": 0
+  }
+ },
+ "flagged": [],
+ "seconds": 4712
+}

@@ -1,0 +1,577 @@
+{
+ "criterion": "PASS = flagged under the census rule with 10 seeds (>=2 seeds emergent AND interaction-driven by the paired knock-out) AND the behaviour named/shown by the namer, AND emergent in >= half of the 10 seeds",
+ "behaviours": {
+  "cyclic waves and spirals": {
+   "g1": {
+    "census_minimum_len": 13,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=3 | C.CYCLE(th=3,p=1.0)",
+      "len": 13,
+      "seconds": 4
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=3 | C.CYCLE(th=3,p=1.0)",
+     "len": 13,
+     "bits": "0001001101000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.CYCLE",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 18,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=3 | C[any] NEXT_GE(th=1) -> COPY_RAND() p=1.0",
+      "len": 18,
+      "seconds": 8
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=3 | C[any] NEXT_GE(th=1) -> COPY_RAND() p=1.0",
+     "len": 18,
+     "bits": "000100011000011000"
+    }
+   }
+  },
+  "domain coarsening": {
+   "g1": {
+    "census_minimum_len": 11,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=2 | C.COPY(p=0.1)",
+      "len": 11,
+      "seconds": 7
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=2 | C.COPY(p=0.1)",
+     "len": 11,
+     "bits": "00001000010"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.COPY",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 14,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=2 | C[any] ALWAYS() -> COPY_RAND() p=0.1",
+      "len": 14,
+      "seconds": 7
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=2 | C[any] ALWAYS() -> COPY_RAND() p=0.1",
+     "len": 14,
+     "bits": "00001000011010"
+    }
+   }
+  },
+  "flocking": {
+   "g1": {
+    "census_minimum_len": 14,
+    "tried": [
+     {
+      "shown": true,
+      "view": "A",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "A kA=1 v=1.0 eta=0.3 | A.ALIGN(r=1.0)",
+      "len": 14,
+      "seconds": 37
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "A kA=1 v=1.0 eta=0.3 | A.ALIGN(r=1.0)",
+     "len": 14,
+     "bits": "00100000000000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "A.ALIGN",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 17,
+    "tried": [
+     {
+      "shown": true,
+      "view": "A",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "A kA=1 v=1.0 eta=0.3 | A[any] ALWAYS() -> HEAD_MEAN(b=any,r=1.0) p=1.0",
+      "len": 17,
+      "seconds": 37
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "A kA=1 v=1.0 eta=0.3 | A[any] ALWAYS() -> HEAD_MEAN(b=any,r=1.0) p=1.0",
+     "len": 17,
+     "bits": "00100000000000000"
+    }
+   }
+  },
+  "lattice phase locking": {
+   "g1": {
+    "census_minimum_len": 9,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C.phase",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=1 | C.KURA(K=1.0)",
+      "len": 9,
+      "seconds": 28
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=1 | C.KURA(K=1.0)",
+     "len": 9,
+     "bits": "000001000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.KURA",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 11,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C.phase",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=1 | C[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+      "len": 11,
+      "seconds": 28
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=1 | C[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+     "len": 11,
+     "bits": "00000100000"
+    }
+   }
+  },
+  "network consensus": {
+   "g1": {
+    "census_minimum_len": 10,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=3 | N.COPY(p=1.0)",
+      "len": 10,
+      "seconds": 8
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=3 | N.COPY(p=1.0)",
+     "len": 10,
+     "bits": "0101000000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "N.COPY",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 14,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=2 | N[any] ALWAYS() -> COPY_RAND() p=1.0",
+      "len": 14,
+      "seconds": 8
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=2 | N[any] ALWAYS() -> COPY_RAND() p=1.0",
+     "len": 14,
+     "bits": "01001000011000"
+    }
+   }
+  },
+  "network fragmentation": {
+   "g1": {
+    "census_minimum_len": 11,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=2 | N.REWIRE(p=1.0)",
+      "len": 11,
+      "seconds": 24
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=2 | N.REWIRE(p=1.0)",
+     "len": 11,
+     "bits": "01001111000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "N.REWIRE",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 14,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=2 | N[any] ALWAYS() -> REWIRE_SAME() p=1.0",
+      "len": 14,
+      "seconds": 24
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=2 | N[any] ALWAYS() -> REWIRE_SAME() p=1.0",
+     "len": 14,
+     "bits": "01001000111000"
+    }
+   }
+  },
+  "network synchronization": {
+   "g1": {
+    "census_minimum_len": 9,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N.phase",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=1 | N.KURA(K=1.0)",
+      "len": 9,
+      "seconds": 11
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=1 | N.KURA(K=1.0)",
+     "len": 9,
+     "bits": "010001000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "N.KURA",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 11,
+    "tried": [
+     {
+      "shown": true,
+      "view": "N.phase",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+      "len": 11,
+      "seconds": 11
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+     "len": 11,
+     "bits": "01000100000"
+    }
+   }
+  },
+  "power-law avalanches": {
+   "g1": {
+    "census_minimum_len": 15,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C.aval",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=4 | C.SAND(p=0.001)",
+      "len": 15,
+      "seconds": 35
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=4 | C.SAND(p=0.001)",
+     "len": 15,
+     "bits": "000111110111100"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.SAND",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 18,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C.aval",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=4 | C[any] ALWAYS() -> ADD_GRAIN() p=0.001",
+      "len": 18,
+      "seconds": 33
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=4 | C[any] ALWAYS() -> ADD_GRAIN() p=0.001",
+     "len": 18,
+     "bits": "000110000111111100"
+    }
+   }
+  },
+  "segregation with vacancies": {
+   "g1": {
+    "census_minimum_len": 11,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=3 | C.SCHELL(th=0.5)",
+      "len": 11,
+      "seconds": 5
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=3 | C.SCHELL(th=0.5)",
+     "len": 11,
+     "bits": "00010110000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.SCHELL",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 18,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 10,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=3 | C[any] NEXT_GE(th=3) -> MOVE_EMPTY() p=0.1",
+      "len": 18,
+      "seconds": 5
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=3 | C[any] NEXT_GE(th=3) -> MOVE_EMPTY() p=0.1",
+     "len": 18,
+     "bits": "000100011001110010"
+    }
+   }
+  },
+  "spatial game chaos": {
+   "g1": {
+    "census_minimum_len": 15,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 6,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "CF kC=2 fields=1 D=[0.2] | C.GAME(g=(1.9, 0.0))",
+      "len": 15,
+      "seconds": 13
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "CF kC=2 fields=1 D=[0.2] | C.GAME(g=(1.9, 0.0))",
+     "len": 15,
+     "bits": "101010001010000"
+    },
+    "rule_knockouts": [
+     {
+      "removed": "C.GAME",
+      "result": "sole rule -> interaction-free -> behaviour absent by construction (necessary)"
+     }
+    ]
+   },
+   "g2": {
+    "census_minimum_len": 16,
+    "tried": [
+     {
+      "shown": true,
+      "view": "C",
+      "emergent_seeds": 9,
+      "S": 10,
+      "driven": true,
+      "pass": true,
+      "prog": "C kC=2 | C[any] ALWAYS() -> IMITATE_BEST(g=(1.9, 0.0)) p=1.0",
+      "len": 16,
+      "seconds": 10
+     }
+    ],
+    "confirmed_minimum": {
+     "prog": "C kC=2 | C[any] ALWAYS() -> IMITATE_BEST(g=(1.9, 0.0)) p=1.0",
+     "len": 16,
+     "bits": "0000100011000000"
+    }
+   }
+  }
+ },
+ "avalanche_confirmation": {
+  "g1": [
+   {
+    "prog": "C kC=4 | C.SAND(p=0.001)",
+    "len": 15,
+    "grammar": "g1",
+    "tiers": [
+     "confirmation",
+     "confirmation",
+     "confirmation"
+    ],
+    "confirmed": true
+   },
+   {
+    "prog": "CF kC=4 fields=1 D=[0.2] | C.SAND(p=0.001)",
+    "len": 18,
+    "grammar": "g1",
+    "tiers": [
+     "confirmation",
+     "confirmation",
+     "none"
+    ],
+    "confirmed": true
+   },
+   {
+    "prog": "CF kC=4 fields=1 D=[0.05] | C.SAND(p=0.001)",
+    "len": 18,
+    "grammar": "g1",
+    "tiers": [
+     "confirmation",
+     "none",
+     "confirmation"
+    ],
+    "confirmed": true
+   }
+  ],
+  "g2": [
+   {
+    "prog": "C kC=4 | C[any] ALWAYS() -> ADD_GRAIN() p=0.001",
+    "len": 18,
+    "grammar": "g2",
+    "tiers": [
+     "confirmation",
+     "confirmation",
+     "confirmation"
+    ],
+    "confirmed": true
+   },
+   {
+    "prog": "C kC=4 | C[3] ALWAYS() -> ADD_GRAIN() p=0.003",
+    "len": 18,
+    "grammar": "g2",
+    "tiers": [
+     "none",
+     "none",
+     "none"
+    ],
+    "confirmed": false
+   },
+   {
+    "prog": "C kC=4 | C[any] SAME_LT(th=0.2) -> ADD_GRAIN() p=0.1",
+    "len": 19,
+    "grammar": "g2",
+    "tiers": [
+     "confirmation",
+     "confirmation",
+     "confirmation"
+    ],
+    "confirmed": true
+   }
+  ]
+ }
+}

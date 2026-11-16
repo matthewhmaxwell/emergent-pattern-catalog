@@ -1,0 +1,59 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial Prisoner's Dilemma (synchronous imitate-the-best cellular automaton, Moore neighbourhood + self-interaction, weak PD S=0) with added stochastic one-way D->C reversion noise",
+  "standard_name": "Spatial chaos in the spatial Prisoner's Dilemma (Nowak & May), with noise (Mukherji et al. stochastic spatial PD)",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829 (https://www.nature.com/articles/359826a0)",
+   "Nowak & May 1993, The spatial dilemmas of evolution, Int. J. Bifurcation Chaos 3:35-78 (confirmed via reference lists)",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys. Rep. 446:97-216 (arXiv:cond-mat/0607344), sec. 6.5",
+   "Mukherji, Rajan & Slagle 1996, Robustness of cooperation, Nature 379:125 (described in arXiv:0910.0955)",
+   "Nowak, Bonhoeffer & May 1996, Nature 379:126 (reply; described in arXiv:0910.0955 and Szabo-Toke ref list)",
+   "Szabo & Toke 1998, Evolutionary prisoner's dilemma game on a square lattice, Phys. Rev. E 58 (https://public.ek-cer.hu/~szabo/szabo_pre98.pdf)",
+   "arXiv:0910.0955 Dynamic phase transition in PD on a lattice with stochastic modifications"
+  ],
+  "searches": [
+   "Nowak May spatial prisoner's dilemma evolutionary games and spatial chaos 1992",
+   "spatial prisoner's dilemma imitate best neighbour defector spontaneously becomes cooperator probability noise cellular automaton",
+   "spatial evolutionary games review Szabo Fath evolutionary games on graphs",
+   "Mukherji Rajan Slagle 1996 spatial prisoner's dilemma cooperators cheat small probability Nowak May noise",
+   "spatial prisoner's dilemma one-way mutation defectors to cooperators random reversion lattice imitate best Nowak May T=1.9"
+  ],
+  "notes": "Core behaviour (C/D coexistence with chaotic spatiotemporal dynamics at b~1.8-2) is textbook; noise perturbations of this model were studied in 1996-98. Difference: noise here is D->C only (literature's is C->D, or random seeding of both), and starts are 50/50. No source found studying D->C-only reversion; this gap may reflect search limits. Expected effect is a noise-sustained steady mosaic (many domains, finite correlation length) rather than deterministic transient chaos. Primary-paper full texts were not read; the Nowak-May b-range is from memory and secondary sources.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Spatial chaos / dynamic C-D coexistence in the Nowak-May spatial Prisoner's Dilemma (1.8<b<2), with stochastic noise (Mukherji et al. 1996 robustness variants)",
+ "citations": [
+  "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359",
+  "Nowak & May 1993, The spatial dilemmas of evolution, IJBC",
+  "Mukherji, Rajan & Slagle 1996, Robustness of cooperation, Nature 379; Nowak, Bonhoeffer & May reply",
+  "arXiv:0910.0955 (stochastic modifications of lattice PD)",
+  "arXiv:2311.08119 (Hamming distance measure of spatial chaos, 1.8<T<2)",
+  "Izquierdo, Izquierdo & Sandholm, Agent-Based Evolutionary Game Dynamics, ch. III-1"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Payoffs, neighbourhood, self-interaction and synchronous imitate-the-best update reproduce Nowak-May exactly; b=1.9 is in the chaotic window. Noise is known to leave this regime intact. No paper found using defector-to-cooperator-only noise, but that is a rule detail with no distinct behaviour: a lone injected cooperator in a defector region scores 1 vs >=1.9 for its defector neighbours and is removed in the same step, so the expected effect is only extra fragmentation and a slight pro-cooperation bias. The 'non-textbook fingerprint' (higher domain count, shorter correlation length) fits this. Possible artifact: if the grid is measured before the game step, one-cell specks from the 3% flips would inflate n_domains and shorten corrlen; check measurement timing. The underlying chaos is a genuine emergent pattern.",
+ "searches_used": 1,
+ "full_text": "**Verdict: KNOWN.** What you observed is Nowak\u2013May spatial chaos with a small amount of noise added. The direction of the noise (defectors turning into cooperators only) changes the rules, but I found nothing to suggest it produces a different kind of behaviour.\n\n**Why the core behaviour is textbook**\n- **The game itself is the Nowak\u2013May model.** Your setup matches it exactly: R=1, S=P=0, T=b=1.9, 8 neighbours plus yourself, everyone updates at once by copying the best scorer. One paper using this setup describes it as each agent copying the strategy of its Moore neighbor that has the highest payoff, including themselves, with the chaotic window at 1.8 < T < 2. Your b=1.9 sits in the middle of that window.\n- **The behaviour is the documented one.** Cooperators and defectors live side by side, with clusters of both types of players expanding, colliding and fragmenting. The model is known to produce chaotic and kaleidoscopic patterns (Nowak and May, 1993).\n- **Your measurements fit this.** Many domains (4.14), a short correlation length, exactly two types, a largest domain well below the whole grid, and reversals are what you'd expect from fragmenting, coexisting clusters. This is a real emergent pattern, not a dead or frozen state.\n\n**Noise has been studied**\nMukherji et al. (1996) tested whether cooperation survives noise. Their versions included random introduction of cooperators and defectors at any site and spontaneous conversion of cooperators into defectors with some probability. Nowak et al. replied stating that, their results are robust with respect to these modifications, and cooperation is found to persist in the system even in presence of high values of noise. Later work also confirm[s] that the results from original model, prisoner's dilemma on a lattice, are reasonably robust with respect to noise.\n\n**The one-way noise is a rule detail, not new behaviour**\nI found no paper using defector-to-cooperator flips only, which the first pass also noted. But that is exactly the \"undocumented rule combination\" case you warned about. Here is why I'd expect it to matter little (my own reasoning, not run or tested):\n- A cooperator injected alone among defectors scores 1, while each defector next to it scores at least 1.9. So the lone cooperator is copied over in the same step.\n- Only injections at cooperator\u2013defector boundaries or in pairs can last. At most they add a little more fragmentation and a slight pro-cooperation bias.\n- That fits \"spatial chaos, but not quite the textbook fingerprint\" without needing anything new.\n\n**Possible artifact**\nIf the grid is measured before the game step, rather than after, the 3% flips would add many one-cell cooperator specks. That would inflate the domain count and shorten the correlation length. Since flips happen before the game in each step, measuring at the end of the step should mostly avoid this, but it's worth checking. The underlying chaos is not an artifact.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Spatial chaos / dynamic C-D coexistence in the Nowak-May spatial Prisoner's Dilemma (1.8<b<2), with stochastic noise (Mukherji et al. 1996 robustness variants)\", \"citations\": [\"Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359\", \"Nowak & May 1993, The spatial dilemmas of evolution, IJBC\", \"Mukherji, Rajan & Slagle 1996, Robustness of cooperation, Nature 379; Nowak, Bonhoeffer & May reply\", \"arXiv:0910.0955 (stochastic modifications of lattice PD)\", \"arXiv:2311.08119 (Hamming distance measure of spatial chaos, 1.8<T<2)\", \"Izquierdo, Izquierdo & Sandholm, Agent-Based Evolutionary Game Dynamics, ch. III-1\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Payoffs, neighbourhood, self-interaction and synchronous imitate-the-best update reproduce Nowak-May exactly; b=1.9 is in the chaotic window. Noise is known to leave this regime intact. No paper found using defector-to-cooperator-only noise, but that is a rule detail with no distinct behaviour: a lone injected cooperator in a defector region scores 1 vs >=1.9 for its defector neighbours and is removed in the same step, so the expected effect is only extra fragmentation and a slight pro-cooperation bias. The 'non-textbook fingerprint' (higher domain count, shorter correlation length) fits this. Possible artifact: if the grid is measured before the game step, one-cell specks from the 3% flips would inflate n_domains and shorten corrlen; check measurement timing. The underlying chaos is a genuine emergent pattern.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.FLIP(a=1,b=0,p=0.03) ; C.GAME(g=(1.9, 0.0))",
+ "len": 21,
+ "stage": "g1",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 6,
+ "groups": [
+  "grid|spatial game chaos|13",
+  "grid|spatial game chaos|14",
+  "grid|spatial game chaos|16",
+  "grid|spatial game chaos|17",
+  "grid|spatial game chaos|18"
+ ],
+ "checked": "2026-10-25 00:23:55"
+}

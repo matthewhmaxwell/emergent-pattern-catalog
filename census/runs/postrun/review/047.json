@@ -1,0 +1,66 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Hybrid of Schelling segregation (with vacancies, random-vacancy relocation) and Griffeath/Fisch-Gravner-Griffeath cyclic cellular automaton (3 states, Moore neighbourhood, threshold 1)",
+  "standard_name": "Schelling segregation with vacancies (domain coarsening/clustering), perturbed by cyclic-CA (excitable/rock-paper-scissors-like) type updates",
+  "confidence": "medium",
+  "citations": [
+   "Schelling T.C. (1971) J. Math. Sociol. 1:143 (seen only as a reference in search results)",
+   "Vinkovic D., Kirman A. (2006) A physical analogue of the Schelling model, PNAS 103:19261",
+   "Dall'Asta L., Castellano C., Marsili M. (2008) Statistical physics of the Schelling model of segregation, arXiv:0707.1681",
+   "Fisch R., Gravner J., Griffeath D. (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes (Birkhauser), doi 10.1007/978-1-4612-0451-0_8",
+   "Fisch R., Gravner J., Griffeath D. (1991) Threshold-range scaling of excitable cellular automata, Stat. Comput. 1:23-39",
+   "Hazan A., Randon-Furling J. (2012) A Schelling model with switching agents, arXiv:1212.4929",
+   "Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067 (T=1 quenches incoherent local oscillations)"
+  ],
+  "searches": [
+   "cyclic cellular automaton Griffeath threshold range spirals demons Fisch Gravner",
+   "Schelling segregation model combined with cyclic dominance rock-paper-scissors mobility vacancies",
+   "Schelling model vacancies domain coarsening segregation review Vinkovic Kirman",
+   "Schelling segregation agents change type cyclically, coupled opinion dynamics and relocation, domain formation",
+   "cyclic cellular automaton with empty sites and mobile agents Schelling-like relocation"
+  ],
+  "notes": "Both component mechanisms and the segregation/coarsening outcome are well documented. No source found for this specific coupling (synchronous threshold-1 CCA plus Schelling relocation). Closest are Schelling models with switching agents or Schelling-Voter hybrids, and cyclic empty/prey/predator lattice models. Key uncertainty: whether the cyclic rule acts on vacancies (type 0), which would break vacancy conservation and could explain the atypical fingerprint (negative activity trend, correlation length 1, one dominant domain). Searches were limited, so unindexed work cannot be excluded.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Cyclic cellular automaton (Griffeath CCA, kappa=3, theta=1, Moore) / rock-paper-scissors with 'empty' as a cyclic species; mobility-driven loss of diversity toward a near-monoculture absorbing state (Reichenbach-Mobilia-Frey). The 'segregation with vacancies' match is a measurement artifact.",
+ "citations": [
+  "Fisch, Gravner & Griffeath (1991), Cyclic cellular automata in two dimensions / Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Durrett & Griffeath (1993), Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3)",
+  "Reichenbach, Mobilia & Frey (2007), Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448:1046-1049",
+  "arXiv nlin/0507067, Quantifying Self-Organization in Cyclic Cellular Automata"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Type 0 (empty) is part of the cycle 0->1->2->0, so 'vacancies' act as a third RPS species rather than an inert background; any all-one-type state is absorbing. The outcome hardly changes across Schelling thresholds 0.3-0.6 and cycle probabilities 0.1-1.0, so the CCA dominates and Schelling relocation acts as long-range mixing that speeds up loss of coexistence on a 64x64 torus. Largest domain 0.858, falling activity and correlation length 1.0 indicate collapse toward near-monoculture, not true Schelling segregation. The exact CCA+Schelling coupling is unpublished, but that is a rule combination, not new behaviour. Not simulated directly; checking whether runs end fully uniform, and whether CCA alone gives the same patches, would confirm this.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is a three-state cyclic cellular automaton (Griffeath's cyclic CA: each cell can only be taken over by the next type in the cycle) that is losing its diversity. In effect it is a rock-paper-scissors system where the moving pieces speed up the loss. The \"segregation with vacancies\" label is mostly a side effect of how the test measures things, not real Schelling segregation (Schelling's model of agents moving away from unlike neighbours).\n\n**Why the label misleads.** In rule (1), type 0 (empty) is part of the cycle: 0\u21921\u21922\u21920. So \"empty\" behaves like a third species, not a fixed background of vacancies. That makes the system rock-paper-scissors with empty space as one player, plus random long jumps (rule 2). A whole lattice of one type is a dead end: once every cell is type t, no neighbour is t+1, so nothing changes again. The class result also barely changes when the Schelling threshold goes from 0.3 to 0.6, or the cycle probability from 0.1 to 1.0. That points to the cycle rule driving the outcome, with the Schelling move only acting as mixing.\n\n**How the fingerprint fits.**\n- **Threshold 1, three states, 8 neighbours:** this is the most excitable setting. In Fisch\u2013Gravner\u2013Griffeath's results, at very low thresholds, the entire lattice eventually oscillates periodically; sometimes the oscillation takes the form of large spiral waves which grow to engulf the entire lattice. For the 8-neighbour rule they note T=1 \"quenches\" incoherent local oscillations, rather than forming lasting spirals. That fits the falling activity (\u22120.851) and the maxed-out correlation length (1.0).\n- **Moving agents break up coexistence:** in rock-paper-scissors lattices, a critical threshold of motility is identified, above which biodiversity is lost, but below which an entanglement of travelling spiral waves emerges. Also, when species mobility is high, spatial homogeneity results and biodiversity is lost. Schelling relocation is a strong form of mobility because it jumps anywhere on the lattice. On a small 64\u00d764 torus, that pushes the system toward its one-type dead end.\n- **Largest domain 0.858, about 5 domains, reversals 0.56:** one type covers about 86% of the lattice, with a few surviving patches that still turn over. That is a system on its way to (or stuck just short of) a single type, not a mixed pattern of segregated groups.\n\n**What I couldn't find.** I found no paper on this exact pairing of a threshold-1 cyclic CA with Schelling relocation. As you said, that is a rule combination, not new behaviour. The behaviour itself (collapse toward one type, faster with mobility, and the cyclic CA's own large patches being read as \"segregated domains\") is covered by the papers above. I did not run the system myself. Two things would confirm this reading: whether runs end with all cells one type, and whether turning off rule 2 still gives large patches.\n\n**Emergent or artifact?** The collapse is a real process, but the end state is degenerate: almost the whole lattice is one type. The \"segregation\" verdict is an artifact. Large one-type patches score as segregated even though the Schelling rule hardly matters.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Cyclic cellular automaton (Griffeath CCA, kappa=3, theta=1, Moore) / rock-paper-scissors with 'empty' as a cyclic species; mobility-driven loss of diversity toward a near-monoculture absorbing state (Reichenbach-Mobilia-Frey). The 'segregation with vacancies' match is a measurement artifact.\", \"citations\": [\"Fisch, Gravner & Griffeath (1991), Cyclic cellular automata in two dimensions / Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Durrett & Griffeath (1993), Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3)\", \"Reichenbach, Mobilia & Frey (2007), Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448:1046-1049\", \"arXiv nlin/0507067, Quantifying Self-Organization in Cyclic Cellular Automata\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Type 0 (empty) is part of the cycle 0->1->2->0, so 'vacancies' act as a third RPS species rather than an inert background; any all-one-type state is absorbing. The outcome hardly changes across Schelling thresholds 0.3-0.6 and cycle probabilities 0.1-1.0, so the CCA dominates and Schelling relocation acts as long-range mixing that speeds up loss of coexistence on a 64x64 torus. Largest domain 0.858, falling activity and correlation length 1.0 indicate collapse toward near-monoculture, not true Schelling segregation. The exact CCA+Schelling coupling is unpublished, but that is a rule combination, not new behaviour. Not simulated directly; checking whether runs end fully uniform, and whether CCA alone gives the same patches, would confirm this.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=1,p=1.0) ; C.SCHELL(th=0.5)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 140,
+ "groups": [
+  "grid|segregation with vacancies|8",
+  "grid|segregation with vacancies|9",
+  "grid|segregation with vacancies|10",
+  "grid|segregation with vacancies|11",
+  "grid|segregation with vacancies|12",
+  "grid|segregation with vacancies|13",
+  "grid|segregation with vacancies|17",
+  "grid|segregation with vacancies|25",
+  "grid|segregation with vacancies|20",
+  "grid|segregation with vacancies|24",
+  "grid|segregation with vacancies|21",
+  "grid|segregation with vacancies|29",
+  "grid|segregation with vacancies|30",
+  "grid|segregation with vacancies|31"
+ ],
+ "checked": "2026-10-25 00:08:45"
+}

@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial evolutionary 2x2 game on a lattice (Nowak-May imitate-the-best cellular automaton, Moore neighbourhood with self-interaction) with unconditional neighbour-swap mobility and optional strategy-flip noise; payoffs T>R>S>P make it a snowdrift/Hawk-Dove game",
+  "standard_name": "Spatial evolutionary game (Nowak-May spatial chaos) with random mobility; spatial snowdrift/Hawk-Dove game",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829, doi:10.1038/359826a0",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys. Rep. 446:97 (arXiv cond-mat/0607344), review",
+   "Killingback & Doebeli 1996, Spatial evolutionary game theory: Hawks and Doves revisited, Proc R Soc B 263:1135",
+   "Hauert & Doebeli 2004, Spatial structure often inhibits the evolution of cooperation in the snowdrift game, Nature 428:643",
+   "Vainstein, Silva & Arenzon 2007, Does mobility decrease cooperation?, J Theor Biol 244:722 (arXiv q-bio/0608009)",
+   "Sicardi, Fort, Vainstein & Arenzon 2009, Random mobility and spatial structure often enhance cooperation, J Theor Biol 256:240 (arXiv 0809.1479)",
+   "Meloni et al. 2009, Effects of mobility in a population of Prisoner's Dilemma players, PRE 79:067101 (arXiv 0905.3189)"
+  ],
+  "searches": [
+   "Nowak May 1992 Evolutionary games and spatial chaos Nature",
+   "spatial prisoner's dilemma random mobility swap neighbors cooperation Vainstein Arenzon",
+   "Effects of mobility in a population of prisoner's dilemma players Meloni",
+   "Spatial structure often inhibits cooperation snowdrift game Hauert Doebeli Nature 2004",
+   "Killingback Doebeli Spatial evolutionary game theory: Hawks and Doves revisited chaotic dynamics",
+   "spatial games exchange of neighboring players stirring Nowak May imitate best neighbour mixing rate domains"
+  ],
+  "notes": "Payoffs R=1,P=0,T=1.5,S=0.5 give a snowdrift ordering (T>R>S>P), not a PD; the g=(1.3,0.0) sibling is the exact Nowak-May form. The Nowak-May chaotic regime for the PD is reportedly b~1.8-2 (from a secondary GitHub write-up, not checked in the paper), so the observed single-dominant-domain fingerprint (largest domain 0.83, 2 types, 1 reversal) probably reflects coarsening or near-fixation and not the classic kaleidoscopic chaos; the 'spatial chaos' test pass is likely generic. I found no source for the exact full-lattice neighbour-swap mobility. The published mobility studies use empty sites or continuous-space agents, and one (Meloni) reports loss of coexistence. I could not read the full texts of the Nowak-May or Killingback-Doebeli papers.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Spatial snowdrift (Hawk-Dove) game with imitate-the-best updating plus random mobility/mutation (Hauert-Doebeli 2004; Sicardi et al. 2009); Nowak-May spatial game sibling at b=1.3 (outside the 1.8-2 chaotic band)",
+ "citations": [
+  "https://www.nature.com/articles/nature02360",
+  "https://arxiv.org/abs/0809.1479",
+  "https://homepage.univie.ac.at/Karl.Sigmund/GeolEcolInter00.pdf",
+  "https://arxiv.org/pdf/2311.08119",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437121003174"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Payoffs (T=1.5,R=1,S=0.5,P=0) are snowdrift, c/(2b-c)=0.5; the g=(1.3,0) sibling is Nowak-May at b=1.3, below the 1.8-2 chaotic band where deterministic dynamics are frozen/periodic. Observed fingerprint (largest domain 0.83, entropy 0.578 bits so minority about 14%, about 4.6 small domains, corrlen 2, one majority reversal) matches documented spatial snowdrift coexistence with small, filament-like minority clusters. The 'spatial game chaos' tag most likely comes from turnover caused by stochastic swaps/flips rather than chaos intrinsic to the game. Not yet confirmed: re-run with swap and flip turned off to check. The coexistence pattern itself is genuine but known; the 'artifact' flag refers to the chaos classification. Exact frozen/periodic bands at b=1.3 were taken from secondary sources, not checked in the original Nowak-May paper.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I found no twist in the observed behaviour that the literature doesn't already cover. What looks unusual is how the run got tagged as \"spatial game chaos\", which is probably a side effect of the added randomness rather than anything new.\n\n**1. The first pass was right that the main game isn't a Prisoner's Dilemma.** The payoffs T=1.5, R=1, S=0.5, P=0 put S above P, so it's a snowdrift (Hawk-Dove) game. In the standard benefit/cost form, when one cooperates and the other defects, the latter receives T = b while the former is penalized with the total cost S = b - c. That gives b=1.5, c=1, so the cost-to-benefit ratio c/(2b\u2212c) is 0.5. Hauert & Doebeli covered this case in their Nature paper: spatial structure reduces the proportion of cooperators for a wide range of parameters, and eliminates cooperation if the cost-to-benefit ratio is high. In spatial snowdrift, cooperators form small filament-like clusters and lack the ability to give rise to compact clusters on lattice. That fits what was measured: correlation length 2 and about 4.6 small minority patches.\n\n**2. The g=(1.3, 0) sibling is outside the chaotic regime.** That sibling is the exact Nowak-May game. On the 8-neighbour-plus-self lattice, their chaotic regime is 1.8 < T < 2.0, where the frequency of cooperators converges to 0.3178. A separate study that measured chaos directly confirms that at 1.8 < T \u2264 2 the dynamics is chaotic, while for the other regions only a few periodic states are present. At b=1.3 the deterministic rule settles into frozen or periodic patterns. So this class doesn't reach the textbook chaos regime at all, which explains why its fingerprint doesn't look textbook.\n\n**3. The added randomness is also well studied.** Random swapping (mobility) in spatial PD, snowdrift and stag hunt games is a standard topic. Sicardi et al. found that random dilution and mobility may suppress the inhibiting factors of the spatial structure in the Snowdrift game. Rare one-way flips (mutation) are a routine noise term on top of imitate-the-best updating.\n\n**4. What the numbers describe.** A type entropy of 0.578 bits means the minority type is roughly 14% of the lattice. The largest domain covers 0.83 of it, and there was one reversal in which type was the majority. Put together, that's one dominant type with a small, short-range, broken-up minority that keeps getting stirred by swaps and flips. This is the known coexistence pattern for spatial snowdrift, or a noise-perturbed frozen Nowak-May state. My best explanation for the \"spatial game chaos\" tag is that the test picks up the turnover caused by swaps and flips, not chaos produced by the game rule itself. I haven't confirmed this. The check would be to turn off swap and flip: if the activity stops, it was noise.\n\n**Is it genuine or an artifact?** The coexisting clusters are a genuine emergent pattern, but a familiar one. The chaos label is most likely an artifact. One limit: I didn't check the original Nowak-May paper for the exact frozen/periodic bands near b=1.3. I'm relying on the cited secondary sources for that.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Spatial snowdrift (Hawk-Dove) game with imitate-the-best updating plus random mobility/mutation (Hauert-Doebeli 2004; Sicardi et al. 2009); Nowak-May spatial game sibling at b=1.3 (outside the 1.8-2 chaotic band)\", \"citations\": [\"https://www.nature.com/articles/nature02360\", \"https://arxiv.org/abs/0809.1479\", \"https://homepage.univie.ac.at/Karl.Sigmund/GeolEcolInter00.pdf\", \"https://arxiv.org/pdf/2311.08119\", \"https://www.sciencedirect.com/science/article/abs/pii/S0378437121003174\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Payoffs (T=1.5,R=1,S=0.5,P=0) are snowdrift, c/(2b-c)=0.5; the g=(1.3,0) sibling is Nowak-May at b=1.3, below the 1.8-2 chaotic band where deterministic dynamics are frozen/periodic. Observed fingerprint (largest domain 0.83, entropy 0.578 bits so minority about 14%, about 4.6 small domains, corrlen 2, one majority reversal) matches documented spatial snowdrift coexistence with small, filament-like minority clusters. The 'spatial game chaos' tag most likely comes from turnover caused by stochastic swaps/flips rather than chaos intrinsic to the game. Not yet confirmed: re-run with swap and flip turned off to check. The coexistence pattern itself is genuine but known; the 'artifact' flag refers to the chaos classification. Exact frozen/periodic bands at b=1.3 were taken from secondary sources, not checked in the original Nowak-May paper.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.SWAP(p=0.05)",
+ "len": 20,
+ "stage": "g1",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 15,
+ "groups": [
+  "grid|spatial game chaos|15"
+ ],
+ "checked": "2026-10-25 00:19:33"
+}

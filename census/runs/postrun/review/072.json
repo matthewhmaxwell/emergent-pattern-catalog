@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Adaptive/coevolving voter model with homophilic (rewire-to-same) rewiring, plus an evolutionary weak Prisoner's Dilemma imitate-best layer",
+  "standard_name": "Coevolving (adaptive) voter model: consensus/fragmentation transition (Holme-Newman; Vazquez-Eguiluz-San Miguel)",
+  "confidence": "medium",
+  "citations": [
+   "Holme & Newman 2006, Phys Rev E 74:056108, arXiv:physics/0603023",
+   "Vazquez, Eguiluz, San Miguel 2008, PRL 100:108702, arXiv:0710.4910",
+   "Gross & Blasius 2008, J R Soc Interface 5:259-271 (review; seen as citation only)",
+   "Perc & Szolnoki 2010, Biosystems 99:109-125 (review; abstract only)",
+   "Durrett et al. 2012 PNAS 109:3682 Graph fission in an evolving voter model (rewire-to-same)",
+   "Zimmermann & Eguiluz 2005 PRE 72:056118; Pacheco, Traulsen, Nowak 2006 PRL 97:258103 (PD + imitate-best + rewiring; seen as citations)"
+  ],
+  "searches": [
+   "Nonequilibrium phase transition in the coevolution of networks and opinions Holme Newman",
+   "Generic absorbing transition in coevolution dynamics Vazquez Eguiluz San Miguel",
+   "coevolutionary games mini review Perc Szolnoki rewiring prisoner's dilemma imitate best neighbour network fragmentation",
+   "coevolution network rewiring to same strategy prisoner's dilemma imitation fragmentation into cooperator and defector components",
+   "Adaptive coevolutionary networks: a review Gross Blasius fragmentation transition voter model"
+  ],
+  "notes": "Rewiring at p=1 is above the Vazquez critical p_c=(mu-2)/(mu-1)=2/3 for mean degree 4, so segregation into same-type components is the expected regime. The specific stacking of voter-copy plus payoff imitate-best plus homophilic rewiring in one synchronous update was not found in any source I read; this is the variant. The persistent edge turnover and oscillation features are not explained by the sources found. The only oscillation analogue was a rational-choice synchronous PD model. Full texts of the reviews were not read.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Coevolving (adaptive) voter model, fragmented absorbing phase above p_c (Holme-Newman 2006; Vazquez-Eguiluz-San Miguel 2008); game layer = Zimmermann-Eguiluz-San Miguel adaptive PD with unconditional imitation",
+ "citations": [
+  "Vazquez, Eguiluz, San Miguel, PRL 100, 108702 (2008) arXiv:0710.4910",
+  "Holme & Newman, PRE 74, 056108 (2006)",
+  "Diakonova, Eguiluz, San Miguel, Noise in coevolving networks, PRE 92, 032803 (2015) arXiv:1411.5181",
+  "Min & San Miguel et al., Fragmentation transitions in a coevolving nonlinear voter model, Sci Rep (2017)",
+  "Zimmermann, Eguiluz, San Miguel, PRE 72, 056118 (2005)",
+  "Network coevolution drives segregation... coordination games (PMC9938167)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Rewiring at p=1 is far above p_c=2/3 for mean degree 4, so splitting into components that each agree internally is the expected result. The consensus test passes because of within-component agreement, which is why the fingerprint isn't textbook global consensus. The many-components-plus-large-giant pattern matches documented shattered fragmentation (not verified here whether isolated nodes occur). Edge turnover follows almost mechanically from rewiring every mixed-type link each step. The moderate oscillation is likely an artifact of updating all nodes at once (not checked against a source). The game layer is a second force toward agreement and doesn't change the regime. The behaviour is genuinely emergent but forced by the parameters. What the first pass called new was only the exact rule combination, which doesn't count as a discovery.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What it found new was a particular combination of rules, not a new behaviour, and by your own criterion that doesn't count.\n\n**What the run is doing.** Every feature points to the fragmented, frozen phase of the coevolving voter model. That model has two parts: nodes copy a neighbour's type, and links between different types get rewired. Vazquez, Egu\u00edluz and San Miguel showed it has an absorbing transition from an active to a frozen phase at a critical value p_c = (\u03bc\u22122)/(\u03bc\u22121) that depends only on the average degree \u03bc. In finite systems, the active and frozen phases correspond to a connected and a fragmented network respectively. With average degree 4, p_c = 2/3. Your rewiring rate of 1.0 is well above that, so fragmentation is the expected outcome. The general phase picture is also documented: a dynamically active coexistence phase in a single component network, absorbing consensus phase in a single component network, and absorbing phase in a fragmented network. Holme and Newman's earlier model shows the same switch from a regime in which opinions are arbitrarily diverse to one in which most individuals hold the same opinion.\n\n**Why it doesn't look like textbook consensus.** It passes the consensus test because each component agrees internally, not because the whole network agrees. That is what the fragmented phase looks like. The combination of a high component count with a large giant component (n_components \u2248 1.1, n_giant \u2248 0.96) also matches a known pattern. In noisy versions of the model, noise targeting a fraction of nodes preserves the transitions but introduces shattered fragmentation with its characteristic fraction of isolated nodes and one or two giant components. I didn't confirm whether your third rule allows isolated nodes, but the pattern is consistent with that.\n\n**The game layer adds nothing new.** The game step has nodes copy their best-scoring neighbour on an adaptive network with rewiring. That is the Zimmermann\u2013Egu\u00edluz\u2013San Miguel setup: each agent plays a Prisoner's Dilemma game with its local neighbors, collects an aggregate payoff, and imitates the strategy of its best neighbor. Copying the best neighbour combined with network plasticity is also known to drive segregation (the title of a 2023 study of coordination games). Here, if type and strategy are the same thing, the game step is just a second force pushing neighbours to agree. Adding it on top of random-neighbour copying doesn't change which regime the system ends up in.\n\n**Is it genuine or trivial?** The fragmentation is a real emergent effect, but this setup more or less forces it:\n- **Edge turnover (0.979)** comes almost directly from the rules: every mixed-type link is cut and rewired on every step.\n- **Degree spread (0.625)** is the usual side effect of rewiring to random nodes.\n- **Oscillation (0.275)** is moderate. I suspect it comes from updating all nodes at the same time, which lets pairs of neighbours keep swapping types, rather than from any structured cycle. I couldn't find a source on this specifically.\n- The two other rule programs in the class (different rule order) behave the same way. That is consistent with the outcome being set by the rewiring rate rather than by how the rules interact.\n\nNothing in the observed behaviour is left unexplained.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Coevolving (adaptive) voter model, fragmented absorbing phase above p_c (Holme-Newman 2006; Vazquez-Eguiluz-San Miguel 2008); game layer = Zimmermann-Eguiluz-San Miguel adaptive PD with unconditional imitation\", \"citations\": [\"Vazquez, Eguiluz, San Miguel, PRL 100, 108702 (2008) arXiv:0710.4910\", \"Holme & Newman, PRE 74, 056108 (2006)\", \"Diakonova, Eguiluz, San Miguel, Noise in coevolving networks, PRE 92, 032803 (2015) arXiv:1411.5181\", \"Min & San Miguel et al., Fragmentation transitions in a coevolving nonlinear voter model, Sci Rep (2017)\", \"Zimmermann, Eguiluz, San Miguel, PRE 72, 056118 (2005)\", \"Network coevolution drives segregation... coordination games (PMC9938167)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Rewiring at p=1 is far above p_c=2/3 for mean degree 4, so splitting into components that each agree internally is the expected result. The consensus test passes because of within-component agreement, which is why the fingerprint isn't textbook global consensus. The many-components-plus-large-giant pattern matches documented shattered fragmentation (not verified here whether isolated nodes occur). Edge turnover follows almost mechanically from rewiring every mixed-type link each step. The moderate oscillation is likely an artifact of updating all nodes at once (not checked against a source). The game layer is a second force toward agreement and doesn't change the regime. The behaviour is genuinely emergent but forced by the parameters. What the first pass called new was only the exact rule combination, which doesn't count as a discovery.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=2 | N.COPY(p=1.0) ; N.GAME(g=(1.9, 0.0)) ; N.REWIRE(p=1.0)",
+ "len": 23,
+ "stage": "novelty",
+ "shown": [
+  "network consensus"
+ ],
+ "size": 3,
+ "groups": [
+  "network|network consensus|17"
+ ],
+ "checked": "2026-10-25 00:35:54"
+}

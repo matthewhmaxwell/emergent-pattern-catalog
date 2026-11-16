@@ -1,0 +1,51 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Cyclic cellular automata / Greenberg-Hastings excitable CA with threshold, hybridised with voter-model (random copy / majority) updates; cyclically dominated voter model / stochastic rock-paper-scissors",
+  "standard_name": "Cyclic cellular automaton (spiral waves, domain coarsening) / cyclic voter model (Tainaka-Itoh)",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, in Spatial Stochastic Processes, Birkhauser (https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8)",
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (cited in Reiter, https://webbox.lafayette.edu/~reiterc/mvq/mscca/ms_cca2_pp.pdf)",
+   "Durrett & Griffeath (1993) Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2:183-208 (seen in reference lists only, https://arxiv.org/pdf/2108.06404)",
+   "Szabo & Szolnoki, Three-state cyclic voter model extended with Potts energy, PRE 65 036115 (https://arxiv.org/pdf/cond-mat/0110255)",
+   "Szabo & Fath, Evolutionary games on graphs, Phys. Rep. 446 (2007) (https://arxiv.org/pdf/cond-mat/0607344)",
+   "Mitarai et al., Three is much more than two in coarsening dynamics of cyclic competitions (https://arxiv.org/pdf/1512.00769)",
+   "Wikipedia: Cyclic cellular automaton (https://en.wikipedia.org/wiki/Cyclic_cellular_automaton)"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold range spirals Fisch Gravner Griffeath",
+   "cyclic voter model copy neighbor rock-paper-scissors domain coarsening spirals stochastic cellular automaton"
+  ],
+  "notes": "Qualitative behaviour (cyclic waves/spirals plus domain coarsening) is well documented for CCA and for cyclic voter / RPS models. The specific hybrid update (trigger on successor neighbour, then copy a random neighbour's state; or voter/majority plus stochastic CCA) was not found as an exactly described rule, so the verdict is KNOWN-VARIANT. The difference probably does not change the qualitative phenomenology. I read abstracts and snippets, not the full original FGG papers, and the specific fingerprint metrics were not checked against any paper. Only two searches were run.",
+  "searches_used": 2
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cyclic-dominance domain coarsening (cyclic CA / cyclic Lotka-Volterra / cyclic voter model; N=4 coarsening with static interfaces between neutral pairs)",
+ "citations": [
+  "Frachebourg, Krapivsky, Ben-Naim, Spatial organization in cyclic Lotka-Volterra systems, Phys Rev E 54:6186 (1996), arXiv cond-mat/9606069",
+  "Fisch, Gravner, Griffeath, Cyclic Cellular Automata in Two Dimensions (1991)",
+  "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata, nlin/0507067",
+  "Szabo & Sznaider, Phase transition and selection in a four-species cyclic Lotka-Volterra model, q-bio/0310017"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Successor-triggered random-neighbour copying is a cyclic CA diluted by a voter step; this weakens the cyclic drive and favours coarsening over spirals. Four states persisting, falling activity and moderate Moran's I match the documented N=4 cyclic coarsening, where neutral pairs (0-2, 1-3) form static interfaces. The 3-state stochastic CYCLE(th=2) variants fall within the documented CCA threshold regimes. The undocumented exact rule set is not a discovery. Domain metrics may be snapshots of an ongoing coarsening or freezing process (measurement-timing caveat, not new behaviour).",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** What was observed is ordinary cyclic-dominance domain coarsening. I found no twist in the behaviour itself that the literature doesn't already cover. The first pass's \"KNOWN-VARIANT\" rested on the exact update rule being undocumented, and an unusual rule doesn't count as a discovery.\n\n**Why it's known**\n\n- **The main rule is a cyclic CA with a voter-style step.** A cell is triggered by any neighbour in its successor state, then copies a random neighbour instead of the successor. The textbook rule is that each cell remains unchanged until some neighboring cell has a modular value exactly one unit larger than that of the cell itself, at which point it copies its neighbor's value. Copying a random neighbour weakens that cycle push and adds voter-like smoothing. Both of those lead towards coarsening rather than lasting spirals.\n- **Four states that persist while domains grow is the standard result for N=4.** For cyclic Lotka-Volterra systems, the arising spatial patterns form a mosaic of single-species domains with algebraically growing size, \u2113(t)\u223ct^\u03b1, where \u03b1=3/4 (1/2) and 1/3 for N=3 with sequential (parallel) dynamics and N=4. For N<5 ... single-species domains arise and grow indefinitely, and the process exhibits coarsening. With 4 species, there appear static interfaces denoted by S (AC, BD, CA, and DB), in addition to the previously defined right moving interfaces. Pairs of states that don't interact (0\u20132 and 1\u20133) form borders that stay put. That explains all three readings together: 4 types surviving, falling activity (\u22121.03), and a Moran's I of only 0.595 rather than near 1. That 1996 analysis is 1-D; the general rule that fixation depends on the number of species versus the dimension, and that moving invasion fronts otherwise maintain a self-organizing polydomain structure, is also documented.\n- **The 3-state variants with stochastic CYCLE(th=2) fall within the documented threshold behaviour of cyclic CAs.** The CCA has three generic forms of long-term behavior, depending on the size of the threshold relative to the range. Possible outcomes include static blocks, periodic spirals and an intermediate range of thresholds where incoherent traveling waves form, propagate for a while, and then disperse. Mixing in COPY or MAJ steps only adds known voter or majority coarsening. I haven't checked where exactly each 3-state variant falls in that range.\n- **Not looking like textbook spirals is expected.** Spirals win only when the push around the cycle is strong. Here random copying dilutes it, so you get the coarsening and dying-down regime instead of a lattice taken over by spirals.\n\n**Real pattern or artifact?** It's a real emergent pattern (domain growth with interfaces), not a numerical artifact. It is generic, though: 27 different rule programs land on it, which is what you'd expect from a common attractor. One caution: the falling activity suggests the runs may be heading to a frozen state with non-interacting neighbours. So the measured domain counts and correlation length could just be a snapshot partway through coarsening. That's a measurement-timing issue, not new behaviour.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cyclic-dominance domain coarsening (cyclic CA / cyclic Lotka-Volterra / cyclic voter model; N=4 coarsening with static interfaces between neutral pairs)\", \"citations\": [\"Frachebourg, Krapivsky, Ben-Naim, Spatial organization in cyclic Lotka-Volterra systems, Phys Rev E 54:6186 (1996), arXiv cond-mat/9606069\", \"Fisch, Gravner, Griffeath, Cyclic Cellular Automata in Two Dimensions (1991)\", \"Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata, nlin/0507067\", \"Szabo & Sznaider, Phase transition and selection in a four-species cyclic Lotka-Volterra model, q-bio/0310017\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Successor-triggered random-neighbour copying is a cyclic CA diluted by a voter step; this weakens the cyclic drive and favours coarsening over spirals. Four states persisting, falling activity and moderate Moran's I match the documented N=4 cyclic coarsening, where neutral pairs (0-2, 1-3) form static interfaces. The 3-state stochastic CYCLE(th=2) variants fall within the documented CCA threshold regimes. The undocumented exact rule set is not a discovery. Domain metrics may be snapshots of an ongoing coarsening or freezing process (measurement-timing caveat, not new behaviour).\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C[any] NEXT_GE(th=1) -> COPY_RAND() p=1.0",
+ "len": 18,
+ "stage": "g2",
+ "shown": [
+  "cyclic waves and spirals",
+  "domain coarsening"
+ ],
+ "size": 27,
+ "groups": [
+  "grid|cyclic waves and spirals+domain coarsening|1"
+ ],
+ "checked": "2026-10-24 23:55:43"
+}

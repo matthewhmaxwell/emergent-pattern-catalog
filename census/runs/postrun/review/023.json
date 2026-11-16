@@ -1,0 +1,50 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial evolutionary game on a lattice (Nowak-May imitate-the-best, Moore neighbourhood with self-interaction) with payoffs in the snowdrift/hawk-dove ordering (T>R>S>P), plus voter-model-style random-neighbour copy noise",
+  "standard_name": "Spatial snowdrift game with imitate-best dynamics (spatial game chaos / domain formation) under voter-type imitation noise",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829, https://www.nature.com/articles/359826a0",
+   "Hauert & Doebeli 2004, Spatial structure often inhibits the evolution of cooperation in the snowdrift game, Nature 428:643-646, https://www.nature.com/articles/nature02360",
+   "Roca, Cuesta & Sanchez 2009, Evolutionary game theory: Temporal and spatial effects beyond replicator dynamics (review), arXiv:0911.1720",
+   "Li, Ke, Lin & Hui 2012, Phys Rev E 85:021111 (unconditional imitation snowdrift on lattices; title seen only in a reference list, content unverified)",
+   "Wu & Holme, Effects of strategy-migration direction and noise in the evolutionary spatial prisoner's dilemma, arXiv:0907.3287 (voter-model-like dynamics)",
+   "Szabo & Fath, Evolutionary games on graphs, arXiv:cond-mat/0607344 (noise and update-rule effects)"
+  ],
+  "searches": [
+   "spatial snowdrift game imitate best neighbour lattice Hauert Doebeli spatial structure inhibits cooperation",
+   "Nowak May evolutionary games and spatial chaos 1992 imitate best neighbour",
+   "spatial evolutionary game imitation noise random neighbour copy voter-model mutation domain coarsening cooperators defectors"
+  ],
+  "notes": "The payoffs T=1.5, R=1, S=0.5, P=0 are snowdrift, not PD (S>P). Every ingredient is documented separately. I found no source for the exact combination of deterministic imitate-best plus an independent voter-copy layer with these parameters. The atypical fingerprint (many small domains, short correlation length) is consistent with snowdrift filamentous clusters plus continual noise, which is my inference rather than a sourced claim. Full texts of the 1992 and 2004 papers were not read; only abstracts and secondary descriptions.",
+  "searches_used": 3
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Spatial snowdrift (hawk-dove) game with imitate-best updating on Moore lattice (Hauert-Doebeli 2004, r=0.5), relaxing to near-dominance of one strategy with residual small clusters; extra voter-type noise is incidental",
+ "citations": [
+  "Hauert C., Doebeli M. (2004) Spatial structure often inhibits the evolution of cooperation in the snowdrift game. Nature 428:643-646, doi:10.1038/nature02360",
+  "Fu F., Nowak M.A., Hauert C. (2010) Invasion and expansion of cooperators in lattice populations. J. Theor. Biol. 266:358-366",
+  "Doebeli M., Hauert C. (2005) Models of cooperation based on the Prisoner's Dilemma and the Snowdrift game. Ecology Letters 8:748-766"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Payoffs T=1.5,R=1,S=0.5,P=0 equal the Hauert-Doebeli snowdrift form with b=1.5, c=1 (r=0.5); this mapping is my own derivation. The fingerprint (largest domain ~0.95, ~3 domains, correlation length ~2, one reversal, falling activity) is a near-takeover with leftover clusters, not real coarsening or sustained chaos, so the coarsening/chaos labels look like metric mismatch. The class is unchanged across copy p=0.003-0.1, biased flip and swap, so the noise layer is irrelevant and an undocumented rule combination is not a discovery. Flagged trivial because the endpoint is degenerate, not because of a code bug. Not checked: which strategy dominates, and Hauert-Doebeli's exact cooperator level for the Moore neighbourhood with imitate-best at r=0.5.",
+ "searches_used": 1,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The run looks like a spatial snowdrift game heading toward one type taking over most of the lattice. Nothing in its fingerprint needs a new explanation.\n\n**1. The game is exactly the standard Hauert\u2013Doebeli setup.** The snowdrift game pays T=b, R=b\u2212c/2, S=b\u2212c, P=0. With b=1.5 and c=1 that gives T=1.5, R=1, S=0.5, P=0, which are your numbers exactly. The cost-to-benefit ratio is r = c/(2b\u2212c) = 0.5. That is the parameterisation of Hauert & Doebeli, *Nature* 428 (2004) (I worked out this mapping myself; it isn't quoted from the paper). Their main result: \"In unstructured snowdrift games, intermediate levels of cooperation persist. Unexpectedly, spatial structure reduces the proportion of cooperators for a wide range of parameters.\" They also describe the shape of the clusters: in the spatial snowdrift game cooperators form only small filament-like clusters, which make it advantageous to adopt strategies opposite to neighbouring ones. Later work adds that in the snowdrift game, spatial structure may inhibit the spread of cooperation if imitation is applied.\n\n**2. The fingerprint is a near-takeover, not textbook coarsening or chaos.** One domain covers about 95% of the lattice. There are only about 3 domains, a correlation length of about 2 cells, a single reversal, and activity is falling. That reads as one type almost taking over, with a few small leftover clusters. This is the \"space suppresses one strategy\" outcome described above, plus some extra drift from the random-copy step. The run scores as \"domain coarsening\" and \"spatial game chaos\", but those labels look like a mismatch between the metrics and what is happening. It isn't a new mechanism.\n\n**3. The noise rule doesn't matter, which counts against novelty.** The same class gives this fingerprint when the second rule is neighbour-copying at p=0.1, 0.03 or 0.003, a biased flip, or swapping. So the behaviour comes from the game step, and the second rule is incidental. That a particular rule combination hasn't been written up is not a discovery.\n\n**What I couldn't check:** whether the dominant ~95% type is cooperators or defectors in your runs. I also couldn't confirm the exact cooperator level Hauert\u2013Doebeli report for the 8-neighbour lattice with imitate-the-best at r=0.5. Neither would change the verdict: either way the result sits inside that paper's documented outcomes.\n\n**Emergent or trivial:** it's real game dynamics, not a code bug. But the endpoint is degenerate (one type almost everywhere), so the \"standout\" features carry little information. I've marked it trivial for that reason.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Spatial snowdrift (hawk-dove) game with imitate-best updating on Moore lattice (Hauert-Doebeli 2004, r=0.5), relaxing to near-dominance of one strategy with residual small clusters; extra voter-type noise is incidental\", \"citations\": [\"Hauert C., Doebeli M. (2004) Spatial structure often inhibits the evolution of cooperation in the snowdrift game. Nature 428:643-646, doi:10.1038/nature02360\", \"Fu F., Nowak M.A., Hauert C. (2010) Invasion and expansion of cooperators in lattice populations. J. Theor. Biol. 266:358-366\", \"Doebeli M., Hauert C. (2005) Models of cooperation based on the Prisoner's Dilemma and the Snowdrift game. Ecology Letters 8:748-766\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Payoffs T=1.5,R=1,S=0.5,P=0 equal the Hauert-Doebeli snowdrift form with b=1.5, c=1 (r=0.5); this mapping is my own derivation. The fingerprint (largest domain ~0.95, ~3 domains, correlation length ~2, one reversal, falling activity) is a near-takeover with leftover clusters, not real coarsening or sustained chaos, so the coarsening/chaos labels look like metric mismatch. The class is unchanged across copy p=0.003-0.1, biased flip and swap, so the noise layer is irrelevant and an undocumented rule combination is not a discovery. Flagged trivial because the endpoint is degenerate, not because of a code bug. Not checked: which strategy dominates, and Hauert-Doebeli's exact cooperator level for the Moore neighbourhood with imitate-best at r=0.5.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.COPY(p=0.1)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 121,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|1"
+ ],
+ "checked": "2026-10-24 23:45:06"
+}

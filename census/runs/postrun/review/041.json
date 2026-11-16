@@ -1,0 +1,63 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial evolutionary 2x2 game on a lattice (Nowak-May-type synchronous imitate-the-best), with optional stochastic copy/swap (imitation-noise/mobility) steps and a neighbour-count gate",
+  "standard_name": "Spatial chaos / domain coarsening in spatial evolutionary games under imitate-the-best (Nowak-May); spatial Hawk-Dove/snowdrift variant",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829 (verified via citing sources, e.g. arXiv 2607.24638, arXiv 1511.07740 refs)",
+   "Nowak & May 1993, The spatial dilemmas of evolution, IJBC 3:35-78 (seen only in reference lists, e.g. arXiv 2306.16628)",
+   "Killingback & Doebeli 1996, Spatial evolutionary game theory: Hawks and Doves revisited, Proc R Soc B 263:1135 (abstract read, royalsocietypublishing.org/doi/10.1098/rspb.1996.0166)",
+   "Hauert & Doebeli 2004, Nature 428:643 (abstract read)",
+   "Hauert 2002, Effects of space in 2x2 games, IJBC 12:1531 (snippet only)",
+   "arXiv 2607.24638, Spectral cartography of spatiotemporal chaos in canonical 2x2 games (read abstract/intro)",
+   "arXiv 1511.07740, Spatial social dilemmas: dilution, mobility and grouping effects with imitation dynamics (conclusions read)",
+   "Wu, Fu & Wang, Evolutionary games and spatial periodicity, arXiv 2209.08267 (read abstract/intro)",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys Rep 446 (review; seen as a citation with abstract snippet only)",
+   "Roca, Cuesta & Sanchez, arXiv 0911.1720 (review; snippet only)"
+  ],
+  "searches": [
+   "Nowak May evolutionary games and spatial chaos imitate best neighbour deterministic lattice",
+   "spatial evolutionary game imitate the best coarsening domains snowdrift stag hunt lattice review Szabo Fath",
+   "Killingback Doebeli spatial evolutionary game theory Hawks and Doves revisited chaotic dynamics",
+   "Hauert Effects of space in 2x2 games spatial chaos snowdrift deterministic imitate best",
+   "evolutionary games with mobility random exchange of neighbors spatial prisoner's dilemma domain coarsening"
+  ],
+  "notes": "Payoff mapping g=(1.5,0.5) is uncertain; if (T,S) it is Hawk-Dove/snowdrift. The CNT_GE count gate and the GAME+COPY/SWAP composites have no exact literature match found. The odd fingerprint (many small domains, corrlen 2) is plausibly due to noise/mobility or a payoff pair outside the canonical PD chaos window, but this is not confirmed. I did not read the full texts of Hauert 2002, Killingback-Doebeli or Szabo-Fath.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Frozen/static regime (1<b<1.8) of the Nowak-May spatial Prisoner's Dilemma under imitate-the-best: one type nearly takes over, leaving small frozen minority clusters; noise/random-mobility variants (Vainstein-Arenzon, Sicardi et al.)",
+ "citations": [
+  "Nowak & May 1992, Nature 359:826 (Evolutionary games and spatial chaos)",
+  "Szabo & Fath, Evolutionary games on graphs, arXiv cond-mat/0607344",
+  "Wu, Fu & Wang, Evolutionary games and spatial periodicity, arXiv 2209.08267",
+  "Sicardi, Fort, Vainstein & Arenzon 2009, J Theor Biol 256:240",
+  "Vainstein, Silva & Arenzon 2007, J Theor Biol 244:722"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The fingerprint (largest domain ~0.90, ~4 domains, corrlen 2, one reversal) means near-fixation with frozen islands, not Nowak-May chaos (chaos needs 1.8<b<2, cooperator fraction ~0.318). The spatial-chaos tag is likely a false positive. COPY/SWAP members add mutation-like noise or random mobility, both studied. The CNT_GE gate only adds inertia. Payoff mapping (1.5,0.5) is uncertain (PD vs snowdrift), but both are documented. Trivial in the sense of a low-complexity absorbing/frozen outcome, not a code artifact.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is a downgrade from the first pass's KNOWN-VARIANT. The run looks like the frozen, low-temptation regime of the Nowak\u2013May spatial Prisoner's Dilemma, not a new form of spatial chaos. I found nothing in the behaviour that is unaccounted for.\n\n**Why I disagree with the first pass**\n\n- **The payoff puts it in a known frozen regime.** If g=(1.5, 0.5) gives a temptation of about b=1.5, the rule sits in Nowak\u2013May's 1<b<1.8 band. The chaotic regime only applies for 1.8 < b < 2, cooperators and defectors coexist indefinitely in a chaotically shifting balance. Below 1.8, the cluster rules are: (b < 1.8) big D cluster will shrink; (b < 2) 2x2 or larger cluster of C will continue to grow. In that regime equilibrium frequency of cooperators depends upon the initial conditions.\n- **The fingerprint matches that regime.** One domain covers about 90% of the grid (largest_domain 0.897). There are about 4 domains in total, a correlation length of 2, one reversal and moderate clustering (Moran's I 0.5). That is one type taking over, with a few small leftover islands of the other type that stop changing. Real Nowak\u2013May chaos looks different: the cooperator fraction hovers around 0.318, with clusters of both types of players expanding, colliding and fragmenting.\n- **The \"chaos\" label is probably a false positive.** A single reversal followed by a 90% majority is not chaos. The \"domain coarsening\" label fits better, but it is coarsening that stops early and freezes.\n- **The other rule programs in the class change nothing important.** The COPY versions add small random copying, which works like mutation noise. The SWAP versions (p\u22480.002\u20130.01) add random movement, which is a studied extension: the effects of an unconditional move rule in the spatial Prisoner's Dilemma, Snowdrift and Stag Hunt games have been examined, and Vainstein and Arenzon extended the original Nowak\u2013May PDG model by considering a regular lattice where some sites are empty, which allows diffusion of individuals. At these low rates, movement just stirs the small leftover islands a little.\n- **The count gate doesn't matter.** CNT_GE(th=3) only lets a cell update when enough neighbours meet a condition, which mostly freezes things further. The exact rule combination being unpublished is not a discovery.\n\n**Trivial or emergent?** Low complexity, but not a pure artifact. It is a real, documented spatial-game outcome: local selection drives the grid to near-fixation and leaves small frozen islands. It is not sustained pattern formation. Whether it reads as Prisoner's Dilemma or snowdrift depends on how (1.5, 0.5) maps onto the payoffs, which I couldn't confirm. Both versions are well documented, so the verdict holds either way.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Frozen/static regime (1<b<1.8) of the Nowak-May spatial Prisoner's Dilemma under imitate-the-best: one type nearly takes over, leaving small frozen minority clusters; noise/random-mobility variants (Vainstein-Arenzon, Sicardi et al.)\", \"citations\": [\"Nowak & May 1992, Nature 359:826 (Evolutionary games and spatial chaos)\", \"Szabo & Fath, Evolutionary games on graphs, arXiv cond-mat/0607344\", \"Wu, Fu & Wang, Evolutionary games and spatial periodicity, arXiv 2209.08267\", \"Sicardi, Fort, Vainstein & Arenzon 2009, J Theor Biol 256:240\", \"Vainstein, Silva & Arenzon 2007, J Theor Biol 244:722\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The fingerprint (largest domain ~0.90, ~4 domains, corrlen 2, one reversal) means near-fixation with frozen islands, not Nowak-May chaos (chaos needs 1.8<b<2, cooperator fraction ~0.318). The spatial-chaos tag is likely a false positive. COPY/SWAP members add mutation-like noise or random mobility, both studied. The CNT_GE gate only adds inertia. Payoff mapping (1.5,0.5) is uncertain (PD vs snowdrift), but both are documented. Trivial in the sense of a low-complexity absorbing/frozen outcome, not a code artifact.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C[any] CNT_GE(b=0,th=3) -> IMITATE_BEST(g=(1.5, 0.5)) p=1.0",
+ "len": 19,
+ "stage": "g2",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 27,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|3",
+  "grid|domain coarsening+spatial game chaos|4",
+  "grid|domain coarsening+spatial game chaos|5",
+  "grid|domain coarsening+spatial game chaos|6",
+  "grid|domain coarsening+spatial game chaos|7",
+  "grid|domain coarsening+spatial game chaos|8"
+ ],
+ "checked": "2026-10-25 00:02:15"
+}

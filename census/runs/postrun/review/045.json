@@ -1,0 +1,60 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Threshold cyclic cellular automaton (Greenberg-Hastings/CCA, 3 colours, Moore range 1, T=3) combined with a synchronous 3-opinion voter-model copy step (siblings: swap/mobility, majority); i.e. cyclic dominance on a lattice with neutral stochastic mixing (cyclic voter / rock-paper-scissors with mobility)",
+  "standard_name": "Cyclic cellular automaton spiral waves / cyclic voter model and RPS-with-mobility spiral waves",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, Spatial Stochastic Processes, Birkhauser (https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8)",
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+   "Szabo & Szolnoki, A three-state cyclic voter model extended with Potts energy, arXiv cond-mat/0110255",
+   "Reichenbach, Mobilia, Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, arXiv 0709.0217",
+   "Reichenbach, Mobilia, Frey, Self-organization of mobile populations in cyclic competition, arXiv 0801.1798",
+   "Szolnoki et al., Cyclic dominance in evolutionary games: a review, arXiv 1408.6828",
+   "Frachebourg, Krapivsky, Ben-Naim, Spatial organization in cyclic Lotka-Volterra systems, Phys Rev E 54, 6186 (1996)",
+   "Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067 (T=3 turbulent/metastable phase, 4 colours)"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold spirals Fisch Gravner Griffeath",
+   "voter model combined with cyclic cellular automaton noise spiral waves lattice",
+   "stochastic cyclic dominance rock-paper-scissors lattice spiral waves mobility copying neighbour",
+   "Frachebourg Krapivsky Ben-Naim spatial organization in cyclic Lotka-Volterra systems",
+   "cyclic cellular automaton with random neighbour copying noise: spirals persist, voter model coarsening three states"
+  ],
+  "notes": "No source found for the exact hybrid (deterministic threshold-cyclic CA + every-step neutral voter copy, p=1). Difference from textbook: invasion is a deterministic threshold rule and the stochasticity/mixing comes from a neutral voter step (or swap/majority in siblings); strong mixing explains small domains (corrlen ~4.7) and non-textbook spiral fingerprint, consistent with Szabo-Szolnoki short correlation length and Mobilia/Frey mobility-dependent spiral scale. Fisch-Gravner-Griffeath papers seen only via reference lists/abstracts, not full text. No source found for 3-colour T=3 Moore CCA specifically; the T=3 turbulent phase source is for 4 colours.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN-VARIANT",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Noisy cyclic cellular automaton (Griffeath 313 rule, R1/T3/C3/Moore) in the turbulent / small-spiral regime; related to cyclic particle systems and rock-paper-scissors-with-mobility spiral waves",
+ "citations": [
+  "Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Fisch, Gravner & Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes",
+  "Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45",
+  "Reichenbach, Mobilia & Frey (2007) Nature 448:1046",
+  "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067)",
+  "MCell Cyclic CA rule lexicon: 313 rule R1/T3/C3/NM (psoup.math.wisc.edu)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "The cyclic step is exactly Griffeath's 313 rule. The voter-copy, swap and majority steps act as mixing or noise, like the mobility step in rock-paper-scissors models. The atypical fingerprint (correlation length about 4.7, high reversal rate of 0.5) fits noise-limited turbulent cyclic domains. The high reversal rate is most likely flicker caused by copying every step with p=1, not new dynamics. No source simulates exactly 313 plus synchronous every-step voter copying, but that is a new rule combination, not new behaviour. Suggested check: compare against plain 313 and lower the copy probability step by step; a smooth crossover from spirals to small turbulent domains would confirm KNOWN.",
+ "searches_used": 5,
+ "full_text": "**Verdict: KNOWN-VARIANT, leaning toward KNOWN.** The behaviour itself is documented. What hasn't been written up is this exact pairing of mechanisms, and that alone isn't a discovery.\n\n**1. The cyclic step is a known, named rule.** Rule (2) with 3 types, the 8-cell neighbourhood and threshold 3 is Griffeath's \"313\" rule. The MCell rule list gives it as R1/T3/C3/NM and calls it \"the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization.\" It belongs to the threshold\u2013range cyclic automaton family, where a cell's color advances by 1 if there are at least Threshold cells of the next color in its neighbourhood. That family's phases are mapped out. At intermediate thresholds incoherent traveling waves form, propagate, collide and disperse (the \"turbulent\" phase). For larger neighbourhoods, a complex mix of color blocks and partial spirals, called turbulence, can form.\n\n**2. Adding a random copying or swapping step is also covered.** Rule (1) is a voter-model step; the SWAP siblings are an exchange step. Both work like mobility in rock-paper-scissors models. In those models, a critical threshold of motility is identified, above which biodiversity is lost, but below which an entanglement of travelling spiral waves emerges. The authors say this is robust, it does not depend on the details of cyclic competition or spatial environment. The stochastic, continuous-time version of cyclic competition is Bramson & Griffeath's cyclic particle system. The deterministic automaton was proposed by Bramson and Griffeath as the deterministic counterpart of the cyclic particle system. So this hybrid sits between two well-studied relatives.\n\n**3. Why the fingerprint isn't textbook.** A correlation length of about 4.7 cells on a 64\u00d764 grid, a few domains, balanced types (entropy \u2248 1) and a high reversal rate (0.5) look like strongly noise-disrupted cyclic waves. Copying a random neighbour every step with p=1 is heavy noise, so cells near domain borders flip back and forth. That likely explains most of the high reversal score; it's probably not new dynamics. My reading is that this sits in the known \"turbulent / noisy cyclic domains\" regime, with the noise keeping spiral cores small and short-lived. I found nothing in the behaviour that the literature leaves unexplained. The only gap is that no paper simulates exactly 313 plus every-step synchronous voter copying.\n\n**Genuine or artifact?** The cyclic wave activity is genuine: it passes the standard test, and the deterministic 313 core is known to self-organise. The odd parts of the fingerprint (small domains, high reversals) are best read as what the noise step does to known dynamics, not a new pattern. 45 rule programs landing in the same class is what you'd expect if they all share a cyclic step plus a mixing step.\n\n**How to make this KNOWN outright:** run 313 with no copy step on the same 64\u00d764 grid with the same metrics, then turn the copy probability down gradually. If you see a smooth crossover from spirals to small turbulent domains, this is the standard noise-versus-spiral-size trade-off.\n\n```json\n{\"verdict\": \"KNOWN-VARIANT\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Noisy cyclic cellular automaton (Griffeath 313 rule, R1/T3/C3/Moore) in the turbulent / small-spiral regime; related to cyclic particle systems and rock-paper-scissors-with-mobility spiral waves\", \"citations\": [\"Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Fisch, Gravner & Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes\", \"Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45\", \"Reichenbach, Mobilia & Frey (2007) Nature 448:1046\", \"Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067)\", \"MCell Cyclic CA rule lexicon: 313 rule R1/T3/C3/NM (psoup.math.wisc.edu)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"The cyclic step is exactly Griffeath's 313 rule. The voter-copy, swap and majority steps act as mixing or noise, like the mobility step in rock-paper-scissors models. The atypical fingerprint (correlation length about 4.7, high reversal rate of 0.5) fits noise-limited turbulent cyclic domains. The high reversal rate is most likely flicker caused by copying every step with p=1, not new dynamics. No source simulates exactly 313 plus synchronous every-step voter copying, but that is a new rule combination, not new behaviour. Suggested check: compare against plain 313 and lower the copy probability step by step; a smooth crossover from spirals to small turbulent domains would confirm KNOWN.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.COPY(p=1.0) ; C.CYCLE(th=3,p=1.0)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals"
+ ],
+ "size": 45,
+ "groups": [
+  "grid|cyclic waves and spirals|3",
+  "grid|cyclic waves and spirals|5",
+  "grid|cyclic waves and spirals|6",
+  "grid|cyclic waves and spirals|11",
+  "grid|cyclic waves and spirals|12"
+ ],
+ "checked": "2026-10-25 00:05:54"
+}

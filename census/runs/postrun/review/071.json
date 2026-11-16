@@ -1,0 +1,48 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Adaptive (coevolving) network with cyclic dominance: rock-paper-scissors / cyclic adaptive voter model with rewire-to-same homophilic rewiring",
+  "standard_name": "Adaptive rock-paper-scissors opinion model (Demirel et al. 2011); cyclic extension of the adaptive voter model with consensus/fragmentation transitions",
+  "confidence": "medium",
+  "citations": [
+   "Demirel, Prizak, Reddy, Gross, 'Cyclic dominance in adaptive networks', Eur. Phys. J. B 84, 541 (2011); arXiv:1011.1124 (https://arxiv.org/abs/1011.1124; https://link.springer.com/article/10.1140/epjb/e2011-10844-4)",
+   "Szolnoki et al., 'Cyclic dominance in evolutionary games: A review', arXiv:1408.6828",
+   "Guo et al., 'Adaptive cyclically dominating game on co-evolving networks', arXiv:1605.03370 / EPJB 2017",
+   "Vazquez, Eguiluz, San Miguel (2008) adaptive voter model, as summarized in arXiv:2507.11521 (summary only; not read directly)",
+   "Brunet et al., 'A multi-opinion evolving voter model with infinitely many phase transitions', arXiv:1303.7434, which cites the Boehme and Gross three-opinion rewire-to-same study"
+  ],
+  "searches": [
+   "adaptive network cyclic dominance rock-paper-scissors rewiring same-type nodes fragmentation",
+   "cyclic voter model adaptive network three opinions rewiring consensus oscillation",
+   "Demirel Prizak Reddy Gross cyclic dominance adaptive networks loser rewires link to random node same opinion heteroclinic consensus phases"
+  ],
+  "notes": "Key differences: parallel per-node updates with independent rewire (0.2) and conversion (0.1) probabilities, versus asynchronous one-link-per-step updates with rewire-or-adopt as exclusive alternatives; Erdos-Renyi start (mean degree 4) versus random regular; threshold >=1 neighbour for conversion. I could not confirm Demirel's rewiring target (random or same-type) from readable text. Probably no change to the qualitative behaviour (consensus reached via cyclic dynamics, oscillation, fragmentation competition), but the exact phase boundaries likely shift. The unusual fingerprint (oscillation plus consensus gain) matches Demirel's 'consensus approached where unstable' paradox. I found no paper reporting the specific metrics (n_components, edge turnover, degree CV) for this cyclic model.",
+  "searches_used": 3
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Adaptive rock-paper-scissors (cyclic-dominance) opinion model on coevolving networks; consensus / oscillatory / fragmentation phases of adaptive multi-state voter dynamics",
+ "citations": [
+  "Demirel G., Prizak R., Reddy P.N., Gross T., Cyclic dominance in adaptive networks, Eur. Phys. J. B 84, 541-548 (2011); arXiv:1011.1124",
+  "Bohme G.A., Gross T., Fragmentation transitions in multi-state voter models, Phys. Rev. E (2012)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "The observed oscillation, consensus gain, fragmentation (small same-type pieces breaking off a large component) and high edge turnover all match phases reported by Demirel et al. Parallel updating, an Erdos-Renyi start and a convert-if-any-neighbour rule are rule differences, not new behaviour. The mixed oscillation-plus-consensus fingerprint probably comes from parameters near a phase boundary or from pooling the 4 rule programs. The small network (200 nodes) and rewiring away every mixed-type link mean consensus is partly built into the rules (a finite-size effect), but the behaviour is genuine and documented. Exact phase-boundary positions were not checked against the full text.",
+ "searches_used": 1,
+ "full_text": "**Verdict: KNOWN.** The behaviour has a published match. What's new here is the exact rule combination, and by your criterion that isn't a discovery. So I'm downgrading the first pass from KNOWN-VARIANT.\n\n**Matching model.** Demirel, Prizak, Reddy & Gross studied rock-paper-scissors on an adaptive network. Every agent holds one of three opinions: rock, paper or scissors. In each timestep a random link is picked and the game is played between its two nodes. The loser either adopts the winner's opinion or rewires the link. That covers both of your rules: cyclic conversion (t becomes t+1) and cutting links between different types to reconnect with the same type. They show, analytically and numerically, nonequilibrium phase transitions as the rewiring strength changes. The transitions separate four phases with different opinion and topology dynamics, and one phase settles to an arbitrary consensus opinion. The paper also has an explicit oscillatory phase (\"Cyclic succession in the oscillatory phase\"). It was published in Eur. Phys. J. B 84, 541\u2013548 (2011). The related network-splitting results for multi-state adaptive voter models are in B\u00f6hme & Gross, \"Fragmentation transitions in multi-state voter models\".\n\n**How your fingerprint lines up:**\n- **Oscillation (0.617):** the cyclic-succession phase.\n- **Consensus gain (0.563):** the consensus phase.\n- **Components 1.269, giant 0.93:** a few small same-type pieces break off while most nodes stay in one large component. This is the standard fragmentation result for adaptive voter models.\n- **Edge turnover 0.98:** expected whenever homophilic rewiring keeps running while conversion keeps creating new mixed-type links.\n\nThe differences the first pass flagged are all rule details, not new behaviour:\n- every node updates in parallel each step, with separate rewire and conversion probabilities, instead of one link per step with a single \"rewire or adopt\" choice;\n- the starting network is random (Erd\u0151s\u2013R\u00e9nyi) rather than random-regular;\n- a node converts if at least one neighbour is the next type.\n\nThese shift where the phase boundaries fall. They don't create a behaviour that's missing from the paper.\n\n**Emergent or artifact?** Mostly genuine and well documented, with some finite-size effects. With only 200 nodes, the system can reach full consensus quickly. Also, rule 1 cuts every mixed-type link, which by construction pushes the network toward single-type clusters that can no longer convert each other. The \"consensus\" is therefore partly guaranteed by the rules rather than discovered. The part that doesn't look like a textbook case is the mix of oscillation and consensus in one run. That most likely comes from parameters sitting near the boundary between the oscillatory and consensus phases, or from averaging over the 4 rule programs, rather than from a new route to consensus.\n\n**Limit:** I checked the abstract and figure captions, not the full phase diagram. So I can't confirm that the exact phase-boundary positions under parallel updating appear in print.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Adaptive rock-paper-scissors (cyclic-dominance) opinion model on coevolving networks; consensus / oscillatory / fragmentation phases of adaptive multi-state voter dynamics\", \"citations\": [\"Demirel G., Prizak R., Reddy P.N., Gross T., Cyclic dominance in adaptive networks, Eur. Phys. J. B 84, 541-548 (2011); arXiv:1011.1124\", \"Bohme G.A., Gross T., Fragmentation transitions in multi-state voter models, Phys. Rev. E (2012)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"The observed oscillation, consensus gain, fragmentation (small same-type pieces breaking off a large component) and high edge turnover all match phases reported by Demirel et al. Parallel updating, an Erdos-Renyi start and a convert-if-any-neighbour rule are rule differences, not new behaviour. The mixed oscillation-plus-consensus fingerprint probably comes from parameters near a phase boundary or from pooling the 4 rule programs. The small network (200 nodes) and rewiring away every mixed-type link mean consensus is partly built into the rules (a finite-size effect), but the behaviour is genuine and documented. Exact phase-boundary positions were not checked against the full text.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=3 | N.REWIRE(p=0.2) ; N.CYCLE(th=1,p=0.1)",
+ "len": 22,
+ "stage": "g1",
+ "shown": [
+  "network consensus"
+ ],
+ "size": 4,
+ "groups": [
+  "network|network consensus|15",
+  "network|network consensus|16"
+ ],
+ "checked": "2026-10-25 00:34:44"
+}

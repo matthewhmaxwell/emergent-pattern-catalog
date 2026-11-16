@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Coevolutionary evolutionary game on adaptive network (imitate-best weak PD + homophilic partner-switching rewiring; adaptive-voter-like)",
+  "standard_name": "Adaptive-network consensus / coevolving prisoner's dilemma with homophilic rewiring (adaptive voter model analogue)",
+  "confidence": "medium",
+  "citations": [
+   "Zimmermann, Egu\u00edluz, San Miguel, PRE 69, 065102 (2004), arXiv cond-mat/0405370",
+   "Zimmermann & Egu\u00edluz, PRE 72, 056118 (2005)",
+   "Holme & Newman, PRE 74, 056108 (2006), arXiv physics/0603023",
+   "Durrett et al., Graph fission in an evolving voter model, PNAS 2012",
+   "Perc & Szolnoki, Coevolutionary games - a mini review, BioSystems 99, 109 (2010), arXiv 0910.0826",
+   "Gross & Blasius, Adaptive Coevolutionary Networks: A Review, arXiv 0709.1858",
+   "Evolutionary prisoner's dilemma games coevolving on adaptive networks, J. Complex Networks 6, 1 (2018), arXiv 1702.05119"
+  ],
+  "searches": [
+   "coevolutionary game adaptive network rewiring cooperators defectors imitate best neighbor weak prisoner's dilemma network fragmentation",
+   "adaptive network evolutionary game link rewiring to same-strategy nodes homophily consensus fragmentation",
+   "Zimmermann Eguiluz coevolution of dynamical states and interactions in dynamic networks",
+   "Perc Szolnoki Coevolutionary games - a mini review",
+   "Holme Newman nonequilibrium phase transition in the coevolution of networks and opinions",
+   "game-based coevolution rewire to same-strategy players network splits into cooperator and defector components imitate best"
+  ],
+  "notes": "Consensus on a single giant component at low rewiring (p=0.01) is the expected adaptive-voter-type outcome. No source found combining synchronous imitate-best weak-PD with rewiring to a random same-strategy node. Closest are Zimmermann et al. (random-target rewiring, imitate-best) and Holme-Newman/Durrett (same-opinion rewiring, voter copying). Oscillation and edge turnover likely come from synchronous best-take-over dynamics, which I did not verify in the literature. Only abstracts and snippets were read, not full texts. Final consensus state (C vs D) was not checked.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Adaptive/coevolving network consensus (Holme-Newman / rewire-to-same evolving voter model, low-rewiring regime); coevolutionary imitate-best Prisoner's Dilemma (Zimmermann-Eguiluz-San Miguel)",
+ "citations": [
+  "Holme & Newman, Phys Rev E 74, 056108 (2006)",
+  "Durrett et al., Graph fission in an evolving voter model, PNAS (2012) - rewire-to-same variant",
+  "Zimmermann, Eguiluz & San Miguel, Phys Rev E 69, 065102(R) (2004)",
+  "Zimmermann & Eguiluz, Phys Rev E 72, 056118 (2005)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "p=0.01 is far below the fragmentation threshold (~0.46 at mean degree 4), so synchronous imitate-best weak-PD dynamics reach a single-strategy state before rewiring can split the network; giant component kept. Turnover, degree-CV and oscillation are leftovers from the early phase; rewiring stops completely at consensus because no different-type links remain. Using a same-type rewiring target instead of a random one changes the rules, not the behaviour. Re-check only if oscillation persists after consensus.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** The behaviour here, consensus on one connected network while rewiring is slow, is the textbook result for networks where opinions and links change together. It's also close to trivial: at this rewiring rate the game decides the outcome almost by itself.\n\n**Why this is known behaviour**\n\n- **Opinion side.** Holme and Newman's model has two processes, copying a neighbour or rewiring to someone who agrees. When rewiring is the weaker process, \"a giant community of like-minded individuals forms.\" At average degree 4, the switch happens at a critical parameter value \u03c6_c \u2248 0.458. A 0.01 rewiring chance is far below that.\n- **Your exact rewiring rule is covered.** Your rule (cut a link to a different-type neighbour, reconnect to a random same-type node) is the \"rewire-to-same\" model of Durrett et al. (PNAS). They report this rewire-to-same model has a phase transition similar to that of Holme and Newman.\n- **Game side.** Zimmermann, Egu\u00edluz and San Miguel studied the same setup: each agent plays a Prisoner's Dilemma game with its local neighbors, collects an aggregate payoff, and imitates the strategy of its best neighbor. They found the system typically reaches either a full-defective state or a highly cooperative steady state. One of their two outcomes is a single-strategy state, which is what you see.\n- **The only real difference.** In their model, a cut link goes to another randomly chosen agent, whereas yours goes to a same-type node. That changes the rules, not the observed behaviour. With p=0.01, very few links get rewired before the whole network has adopted one strategy, so the target rule hardly matters.\n\n**Do the features reflect a real pattern or an artifact?** Mostly the expected result of the game dominating, not a new route to consensus.\n- **Single component (n_giant \u2248 1, n_components high):** a 200-node random network with average degree 4 starts with a giant component. Rewiring is too slow to split it before consensus.\n- **Oscillation (0.57):** probably the usual flip-flopping of everyone updating at once under best-neighbour copying during the early phase, before one strategy takes over.\n- **Edge turnover and degree spread (~0.55):** these come from the few rewirings during that early phase. After consensus there are no different-type links left, so rewiring stops completely. This differs from Holme\u2013Newman, where edges keep being rearranged within groups after consensus . That difference follows directly from your rule, so it isn't new behaviour.\n- **Type entropy (0.35):** a moderate value is consistent with a mostly one-type end state.\n- **Why it doesn't look like textbook consensus:** consensus here comes from payoff-driven copying (probably defection sweeping the network at T=1.9), not from the usual voter-model drift. That route is itself documented in the Zimmermann line of work.\n\n**Caveat:** I don't know which strategy wins, or whether the run reaches full consensus or stops at a near-absorbing mixed state. If a stable mostly-cooperative state with leader nodes appeared instead, that would be the separate, also documented Zimmermann outcome. If the oscillation persists after consensus, that would not fit this explanation and would be worth a closer look.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Adaptive/coevolving network consensus (Holme-Newman / rewire-to-same evolving voter model, low-rewiring regime); coevolutionary imitate-best Prisoner's Dilemma (Zimmermann-Eguiluz-San Miguel)\", \"citations\": [\"Holme & Newman, Phys Rev E 74, 056108 (2006)\", \"Durrett et al., Graph fission in an evolving voter model, PNAS (2012) - rewire-to-same variant\", \"Zimmermann, Eguiluz & San Miguel, Phys Rev E 69, 065102(R) (2004)\", \"Zimmermann & Eguiluz, Phys Rev E 72, 056118 (2005)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"p=0.01 is far below the fragmentation threshold (~0.46 at mean degree 4), so synchronous imitate-best weak-PD dynamics reach a single-strategy state before rewiring can split the network; giant component kept. Turnover, degree-CV and oscillation are leftovers from the early phase; rewiring stops completely at consensus because no different-type links remain. Using a same-type rewiring target instead of a random one changes the rules, not the behaviour. Re-check only if oscillation persists after consensus.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=2 | N.REWIRE(p=0.01) ; N.GAME(g=(1.9, 0.0))",
+ "len": 19,
+ "stage": "novelty",
+ "shown": [
+  "network consensus"
+ ],
+ "size": 8,
+ "groups": [
+  "network|network consensus|8"
+ ],
+ "checked": "2026-10-25 00:01:07"
+}

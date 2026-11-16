@@ -1,0 +1,59 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling-class segregation with vacancies coupled to a stochastic threshold cyclic cellular automaton (Fisch-Gravner-Griffeath CCA / RPS-type cyclic dominance with empty state and mobility)",
+  "standard_name": "Schelling segregation coarsening (vacancy-mediated) combined with cyclic competition/threshold CCA",
+  "confidence": "medium",
+  "citations": [
+   "Vinkovic & Kirman, A physical analogue of the Schelling model, PNAS 103:19261 (2006)",
+   "Dall'Asta, Castellano, Marsili, Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002 (2008), arXiv:0707.1681",
+   "Fisch, Gravner, Griffeath, Threshold-range scaling of excitable cellular automata, Stat. Comput. 1:23-39 (1991)",
+   "Durrett & Griffeath, Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3) (1993)",
+   "Reichenbach, Mobilia, Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448:1046 (2007), arXiv:0709.0217",
+   "Szolnoki et al., Cyclic dominance in evolutionary games: a review, J. R. Soc. Interface 11:20140735 (2014) (seen only in a reference list)",
+   "Hazan & Randon-Furling, A Schelling model with switching agents, arXiv:1212.4929",
+   "Rogers & McKane, A unified framework for Schelling's model of segregation, arXiv:1104.1971"
+  ],
+  "searches": [
+   "Schelling segregation combined with cyclic dominance rock-paper-scissors lattice model",
+   "cyclic cellular automaton threshold range Fisch Gravner Griffeath spiral domains",
+   "Reichenbach Mobilia Frey mobility promotes and jeopardizes biodiversity rock-paper-scissors games",
+   "Schelling model vacancies domain coarsening segregation physics Vinkovic Kirman Dall'Asta",
+   "Schelling segregation agents change type cyclic conversion mobile agents spiral waves",
+   "rock-paper-scissors model agents relocate when unhappy with neighbours Schelling-type mobility vacancies cyclic species"
+  ],
+  "notes": "Coarsening/segregation with vacancies is well documented for Schelling dynamics, and threshold-cyclic dynamics and RPS with mobility are well documented separately. I found no source for the specific hybrid (homophily-triggered long-range jumps plus a stochastic threshold cycle that includes the empty state). Differences likely to matter: Schelling jumps are non-random and long-range, which favours coarsening over spirals; the cycle makes vacancy density dynamic; p=0.1 stochastic update blurs the deterministic CCA phases. The negative result comes from a limited search (6 distinct queries, about 8 in total, no Google Scholar). Full text was read for few sources; several were judged from abstracts and snippets.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Stochastic threshold cyclic cellular automaton (Fisch-Gravner-Griffeath 313-type rule, R1/T3/C3/Moore, vacancy as one cyclic state) with Schelling vacancy-mediated segregation; patchy fixation/turbulence-like mosaic with weak coarsening",
+ "citations": [
+  "http://psoup.math.wisc.edu/mcell/rullex_cycl.html",
+  "https://arxiv.org/pdf/nlin/0507067",
+  "https://www.stat.cmu.edu/~cshalizi/462/readings/Cyclic%20Cellular%20Automata%20in%20Two%20Dimensions%20(Fisch,%20Gravner%20and%20Griffeath).pdf",
+  "https://www.nature.com/articles/s41598-022-23224-7",
+  "https://www.researchgate.net/publication/349704369_Antipredator_behavior_in_the_rock-paper-scissors_model",
+  "https://arxiv.org/pdf/1407.0621"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium",
+ "notes": "With kC=3 and type 0 = empty, there are only two agent types and the cycle runs empty->1->2->empty: an excitable/CCA-type cycle (a stochastic form of the 313 rule), not a three-species RPS game. Observed fingerprint (about 5 domains, correlation length about 2.7, Moran's I 0.58, all three types kept, falling activity) matches small patchy domains that are segregated by Schelling moves and kept small by cyclic turnover. Coarsening is weak, not textbook. The same behaviour across Schelling thresholds 0.2/0.3, cycle probabilities 0.03/0.1 and both rule orders points to a generic outcome. The specific hybrid of Schelling relocation and an empty-inclusive threshold cycle is not documented as such, but that is only a rule-combination gap, not new behaviour. Upgrade only if long-time growth laws or surviving waves/spirals are shown that existing theory does not predict.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I disagree with the first pass's \"KNOWN-VARIANT\". The behaviour is a weakly coarsened, patchy, partly segregated mosaic that is settling down. Each part of it is already described in the literature. The only new thing is the exact combination of rules, and as you said, that doesn't count as a discovery.\n\n**What the system actually is.** With 3 types and type 0 being empty, there are only two kinds of agent plus vacancies. The cycle runs empty \u2192 1 \u2192 2 \u2192 empty. So rule (1) is not a three-species rock-paper-scissors game. It is a random, slowed-down version of the standard cyclic cellular automaton with range 1, threshold 3, 3 colours and the 8-cell neighbourhood (the rule known as \"313\"). Each update a cell's color advances by 1 if there are at least Threshold cells of the next color nearby, and R1/T3/C3/NM is a named, catalogued rule. In practice, empty cells get filled by type 1, type 2 takes over type 1, and type 2 empties out when surrounded by vacancy. That is an excitable-medium cycle in the Greenberg\u2013Hastings family. Rule (2) is ordinary Schelling relocation to a random empty cell.\n\n**How each observed feature is accounted for:**\n- **Patchy, moderately segregated state.** Threshold cyclic automata have three known long-run outcomes. At high thresholds, the CCA forms homogeneous blocks of solid colors, which are completely static \u2014 so-called fixation behavior. In between, incoherent traveling waves form, propagate for a while, and then disperse. With a 0.1 (or 0.03) update probability plus Schelling jumps, the sharp spirals of the deterministic 313 rule would be expected to break up into irregular patches. About 5 domains, a correlation length of about 2.7 and a Moran's I of 0.58 fit that.\n- **Activity falling over time.** Schelling models at moderate tolerance go to a segregated, slowly settling state. The documented phases are frozen, segregated and mixed, and at high tolerance small clusters are continuously created and annihilated. A falling activity trend as unhappy movers run out, partly offset by cyclic turnover, is the expected path.\n- **Why it doesn't look like a textbook example.** The cycle keeps destroying and re-seeding domains, so they stay small. Cyclic invasion producing ever-changing local segregation is standard: The local species segregation continuously changes because of the cyclic predation interactions. Having all three types survive (3 types, type entropy about 0.9) is also the expected spatial outcome, since spatial cyclic games are generally characterized by intriguing complex spatio\u2013temporal patterns sustaining the species coexistence.\n\n**Is it a genuine pattern or an artifact?** It is genuine but weak. A correlation length of about 2.7 cells on a 64\u00d764 grid is not a strongly coarsened state. The pattern holds across Schelling thresholds of 0.2 and 0.3, cycle probabilities of 0.03 and 0.1, and either rule order. That points to a generic \"local clustering plus random turnover\" state rather than a fine-tuned effect. It is not a bug or artifact, but it is unremarkable.\n\n**What I could not find.** I found no paper that combines Schelling relocation with a threshold cycle that includes the empty state. That is only the rule-combination gap. I see no feature here that the cyclic-automaton or Schelling literature leaves unexplained. To upgrade the verdict, you would need evidence the existing theory doesn't predict. Examples: domain sizes that keep growing as a power law (rather than stalling), or wave or spiral structures that survive the random relocations.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Stochastic threshold cyclic cellular automaton (Fisch-Gravner-Griffeath 313-type rule, R1/T3/C3/Moore, vacancy as one cyclic state) with Schelling vacancy-mediated segregation; patchy fixation/turbulence-like mosaic with weak coarsening\", \"citations\": [\"http://psoup.math.wisc.edu/mcell/rullex_cycl.html\", \"https://arxiv.org/pdf/nlin/0507067\", \"https://www.stat.cmu.edu/~cshalizi/462/readings/Cyclic%20Cellular%20Automata%20in%20Two%20Dimensions%20(Fisch,%20Gravner%20and%20Griffeath).pdf\", \"https://www.nature.com/articles/s41598-022-23224-7\", \"https://www.researchgate.net/publication/349704369_Antipredator_behavior_in_the_rock-paper-scissors_model\", \"https://arxiv.org/pdf/1407.0621\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium\", \"notes\": \"With kC=3 and type 0 = empty, there are only two agent types and the cycle runs empty->1->2->empty: an excitable/CCA-type cycle (a stochastic form of the 313 rule), not a three-species RPS game. Observed fingerprint (about 5 domains, correlation length about 2.7, Moran's I 0.58, all three types kept, falling activity) matches small patchy domains that are segregated by Schelling moves and kept small by cyclic turnover. Coarsening is weak, not textbook. The same behaviour across Schelling thresholds 0.2/0.3, cycle probabilities 0.03/0.1 and both rule orders points to a generic outcome. The specific hybrid of Schelling relocation and an empty-inclusive threshold cycle is not documented as such, but that is only a rule-combination gap, not new behaviour. Upgrade only if long-time growth laws or surviving waves/spirals are shown that existing theory does not predict.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=3,p=0.1) ; C.SCHELL(th=0.3)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 143,
+ "groups": [
+  "grid|domain coarsening+segregation with vacancies|7",
+  "grid|domain coarsening+segregation with vacancies|9"
+ ],
+ "checked": "2026-10-25 00:11:17"
+}

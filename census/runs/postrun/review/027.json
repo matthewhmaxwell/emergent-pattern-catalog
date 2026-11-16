@@ -1,0 +1,56 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling-type segregation model with vacancies (Moore neighbourhood, periodic lattice), with 3 agent types and added weak Kawasaki-like neighbour-swap noise",
+  "standard_name": "Schelling segregation / vacancy-mediated coarsening, multi-type, with exchange noise",
+  "confidence": "medium",
+  "citations": [
+   "Schelling T. (1971) Dynamic models of segregation, J. Math. Sociol. 1:143-186 (seen only as a reference entry)",
+   "Dall'Asta, Castellano, Marsili (2008) Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002, arXiv:0707.1681",
+   "Gauvin, Vannimenus, Nadal (2009) Phase diagram of a Schelling segregation model, Eur. Phys. J. B 70:293, arXiv:0903.4694",
+   "Rogers & McKane (2011) A unified framework for Schelling's model of segregation, arXiv:1104.1971",
+   "Hazan & Randon-Furling (2012/13) A Schelling model with switching agents, arXiv:1212.4929",
+   "Understanding the social context of the Schelling segregation model, PNAS (three-group simulations), doi:10.1073/pnas.0708155105"
+  ],
+  "searches": [
+   "Schelling segregation model with random exchange noise of neighbouring agents and vacancies",
+   "Schelling model three groups multiple types domains segregation vacancies statistical physics",
+   "Statistical physics of the Schelling model of segregation Dall'Asta Castellano Marsili",
+   "Grauwin Goffette Bertin Nadal Competition between collective and individual dynamics Schelling PNAS",
+   "Schelling model more than two groups three colors segregation simulation domains Moore neighborhood"
+  ],
+  "notes": "Core behaviour (segregation with vacancies, multi-domain/arrested patterns at high vacancy density) is well documented. Differences from the sources: 3 types instead of 2, and a direct neighbour-swap (Kawasaki-like) noise term, which Hazan & Randon-Furling explicitly exclude. No source found that combines threshold-driven random-vacancy moves with small-probability swaps, and no source reports the domain-count or correlation-length values. Full texts of the closest papers and Schelling 1971 were not read. The NEXT_GE(th=3) MOVE_EMPTY members of the class were not interpreted.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Schelling segregation with vacancies under noise (Schelling-Ising model at finite temperature / noisy Schelling); noise-limited or arrested coarsening",
+ "citations": [
+  "Stauffer & Solomon, Ising, Schelling and self-organising segregation, Eur. Phys. J. B 57, 473 (2007), arXiv:physics/0701051",
+  "Odor, Self-organizing two-temperature Ising model describing human segregation, arXiv:0710.1496",
+  "Stauffer et al., Urban and Scientific Segregation: The Schelling-Ising Model, arXiv:0710.5237",
+  "Dall'Asta, Castellano & Marsili, Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002 (2008)",
+  "Aging effects in Schelling segregation model, Sci. Rep. (2022), s41598-022-23224-7"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The first pass misread the type count: type 0 is empty, so this is the standard two-agent-type Schelling model with vacancies (the sigma = +/-1, 0 encoding). Random neighbour swapping is satisfaction-blind exchange noise, equivalent to finite or infinite temperature, which is documented to shrink or destroy segregated domains (Odor; Stauffer et al.). The short correlation length, moderate Moran's I and about 6 domains match noise-limited small-domain segregation. The high reversal score is likely flicker caused by the swaps, not a separate effect. The class includes non-Schelling 4-type rules (kC=4, move when 3 or more neighbours are the next type), so the fingerprint is generic. The pattern is genuine but weak, and partly shaped by the 64x64 grid size and the noise rate.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is the standard two-group Schelling model with vacancies, plus random noise that limits how far segregation goes. The first pass called it KNOWN-VARIANT, and I think that's wrong for three reasons.\n\n**1. The first pass got the type count wrong.** The rule says \"3 types\" but type 0 is empty. So this is the usual setup: two kinds of agents plus vacancies. The literature uses exactly this encoding: each site takes one of three values: \u00b11 for the two kinds of agents and 0 for vacancies, and agents can only move if the vacancy density is above zero. Dropping \"3 types instead of 2\" removes half of the first pass's case for a variant.\n\n**2. The swap step is just noise, and Schelling with noise is well studied.** Swapping neighbours at random with probability 0.1, regardless of how satisfied they are, works like exchange dynamics at infinite temperature. In other words, it's random mixing.\n- Stauffer & Solomon noted the link between the Schelling model and the Ising model for ferromagnetism, and introduced thermal fluctuations in the microscopic dynamics.\n- A later study notes that letting satisfied agents move too produces a noise effect that acts like temperature in statistical physics.\n- \u00d3dor's two-temperature version found that above T\u2082 = 0.135, the noise breaks up the segregated, ordered domains. In a five-group version, with strong noise, segregation is greatly reduced, though gradually rather than in a sudden jump. That five-group work also covers multi-type Schelling, so even a true three-agent-type reading wouldn't be new.\n- That Hazan & Randon-Furling leave out swap moves only means one paper didn't use this mechanism. It doesn't make the behaviour undocumented.\n\n**3. The \"not textbook\" fingerprint is what noise-limited segregation should look like.** The measurements show short correlation length (1.67 cells), moderate spatial clustering (Moran 0.37), about 6 domains on a 64\u00d764 grid, and frequent reversals (0.955). Together that means small domains that keep forming and dissolving: segregation held back by noise rather than coarsening fully. That matches the documented reduction or loss of segregation under noise. Many small frozen clusters are also documented without noise: restricted movement tends to freeze into small clusters (\"solid-like\"), while unrestricted movement lets clusters keep growing (\"liquid-like\"). Dall'Asta et al. report phase transitions typical of kinetically constrained models, unusual coarsening, and percolation-related effects. The high reversal score most likely comes directly from the random swaps flipping cells back and forth, so it isn't an independent feature.\n\n**The same-class list is a warning sign about the measurements.** The 243-program class includes non-Schelling rules with 4 types (kC=4) that move cells when 3 or more neighbours are of the next type. This summary groups very different rules under one profile, which suggests the profile captures generic \"weak clustering plus vacancies\" rather than a specific new route to segregation.\n\n**Genuine or artifact?** It's a real emergent pattern, but a weak one: clustering is clearly above random yet well short of full segregation. Some features are by-products of the setup. The high reversal score is almost certainly swap flicker, and the 64\u00d764 grid limits how big domains can get. Nothing here is unexplained.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Schelling segregation with vacancies under noise (Schelling-Ising model at finite temperature / noisy Schelling); noise-limited or arrested coarsening\", \"citations\": [\"Stauffer & Solomon, Ising, Schelling and self-organising segregation, Eur. Phys. J. B 57, 473 (2007), arXiv:physics/0701051\", \"Odor, Self-organizing two-temperature Ising model describing human segregation, arXiv:0710.1496\", \"Stauffer et al., Urban and Scientific Segregation: The Schelling-Ising Model, arXiv:0710.5237\", \"Dall'Asta, Castellano & Marsili, Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002 (2008)\", \"Aging effects in Schelling segregation model, Sci. Rep. (2022), s41598-022-23224-7\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The first pass misread the type count: type 0 is empty, so this is the standard two-agent-type Schelling model with vacancies (the sigma = +/-1, 0 encoding). Random neighbour swapping is satisfaction-blind exchange noise, equivalent to finite or infinite temperature, which is documented to shrink or destroy segregated domains (Odor; Stauffer et al.). The short correlation length, moderate Moran's I and about 6 domains match noise-limited small-domain segregation. The high reversal score is likely flicker caused by the swaps, not a separate effect. The class includes non-Schelling 4-type rules (kC=4, move when 3 or more neighbours are the next type), so the fingerprint is generic. The pattern is genuine but weak, and partly shaped by the 64x64 grid size and the noise rate.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.SWAP(p=0.1) ; C.SCHELL(th=0.5)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 243,
+ "groups": [
+  "grid|segregation with vacancies|2",
+  "grid|segregation with vacancies|3",
+  "grid|segregation with vacancies|5",
+  "grid|segregation with vacancies|7"
+ ],
+ "checked": "2026-10-24 23:49:47"
+}

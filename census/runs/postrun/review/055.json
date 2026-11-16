@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial evolutionary game (deterministic synchronous imitate-the-best on a Moore lattice with self-interaction), with an added noisy 2-state threshold/majority 'cyclic' flip",
+  "standard_name": "Spatial chaos in evolutionary games (Nowak & May); here in the snowdrift/hawk-dove payoff regime",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829 (https://www.semanticscholar.org/paper/Evolutionary-games-and-spatial-chaos-Nowak-May/a690eb4c7ab6c2733478fa9ac3379fa2cdea7271)",
+   "Nowak & May 1993, The spatial dilemmas of evolution, Int. J. Bifurc. Chaos 3:35-78 (https://www.worldscientific.com/doi/10.1142/S0218127493000040)",
+   "Nowak, Bonhoeffer & May 1994, More spatial games, Int. J. Bifurc. Chaos 4:33-56 (https://dx.doi.org/10.1142/S0218127494000046)",
+   "Szabo & Fath, Evolutionary games on graphs (review), arXiv cond-mat/0607344",
+   "Hamming distance as a measure of spatial chaos in evolutionary games, arXiv 2311.08119",
+   "From Local Payoffs to Global Instabilities: spectral cartography of spatiotemporal chaos in canonical 2x2 games, arXiv 2607.24638 (only seen in search fragments)",
+   "Killingback & Doebeli 1996, Proc R Soc B 263:1135 (https://royalsocietypublishing.org/doi/10.1098/rspb.1996.0166)"
+  ],
+  "searches": [
+   "Nowak May spatial chaos evolutionary games dynamic fractals imitate best neighbour",
+   "spatial prisoner's dilemma imitate best neighbor sucker's payoff S>0 cellular automaton chaotic kaleidoscope",
+   "Killingback Doebeli spatial evolutionary game theory Hawks and Doves revisited chaotic dynamics",
+   "Nowak Bonhoeffer May More spatial games T S plane chaotic regions deterministic imitate best",
+   "spatial snowdrift game deterministic imitate best neighbour spatial chaos Moore neighbourhood self-interaction"
+  ],
+  "notes": "Payoffs T=1.5,R=1,S=0.5,P=0 give T>R>S>P, i.e. snowdrift/hawk-dove rather than the PD (S=P=0) of the original chaos papers. The 2026 arXiv payoff-plane paper appears to cover the snowdrift region for synchronous imitate-the-best, but I only saw fragments, so chaos at these exact parameters is not source-verified. No source found for the 2-type cyclic majority-flip add-on; it is likely a minor perturbation, since game-only variants are in the same class. The atypical fingerprint is plausibly due to the payoff regime and smoothing, which is my inference.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Spatial snowdrift/hawk-dove game with deterministic best-takes-over imitation (Nowak-May CA with self-interaction; Hauert & Doebeli 2004 snowdrift regime)",
+ "citations": [
+  "Hauert & Doebeli 2004, Nature 428:643 (doi:10.1038/nature02360)",
+  "Szabo & Fath 2007, Evolutionary games on graphs, arXiv:cond-mat/0607344",
+  "Fu, Nowak & Hauert 2010, JTB, Invasion and expansion of cooperators in lattice populations: PD vs snowdrift",
+  "Sysi-Aho et al. 2005, Spatial snowdrift game with myopic agents, arXiv:physics/0411091",
+  "Traulsen & Claussen 2004, Similarity based cooperation and spatial segregation, arXiv:cond-mat/0404694 (deterministic best-takes-over, Moore)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium",
+ "notes": "Payoffs map to snowdrift with b=1.5, c=1, r=0.5. With 2 types, the cycle rule is just a 7/8 or 8/8 majority flip that cleans up near-isolated cells; it's irrelevant because a no-cycle-rule variant in the same class behaves the same. The fingerprint (~4 domains, largest about 90%, correlation length 2, 1 reversal) means near-consensus with a few small islands, which is the known snowdrift clustering. It isn't textbook Nowak-May spatial chaos, so the chaos-test pass is probably a metric artifact of edge flicker and stochastic flips. Not a discovery: the exact rule combination is undocumented, but the behaviour is documented.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is a spatial snowdrift (hawk-dove) game with deterministic, synchronous \"copy the best neighbour\" updating, played on an 8-neighbour lattice with self-interaction. That setup is well studied. The \"chaos\" label probably doesn't describe what the run is doing. I'm downgrading the first pass's KNOWN-VARIANT.\n\n**1. The game is a standard snowdrift game.** With T=1.5 > R=1 > S=0.5 > P=0, it's the snowdrift game with benefit b=1.5, cost c=1 and cost-to-benefit ratio r = c/(2b\u2212c) = 0.5. The key reference is Hauert & Doebeli (2004). They found that \"spatial structure reduces the proportion of cooperators for a wide range of parameters\", and their supplement gives results for alternative update rules. A later summary says that in the spatial snowdrift game cooperators form only small filament-like clusters, unlike the large compact clusters seen in the prisoner's dilemma. The exact setup (8 neighbours, self-interaction, synchronous best-takes-over) is the standard Nowak\u2013May cellular automaton. Reviews note that self-interactions favor cooperators, and become relevant in the formation of a number of specific patterns. Snowdrift games on 8-neighbour lattices with deterministic best-takes-over updating have been analysed repeatedly. For example, in one such model strategies are updated due to the deterministic \"best takes over\" rule; i switches to the strategy among its nearest neighbors that reached the highest payoff.\n\n**2. The cycle rule hardly matters.** With only 2 types, \"become t+1 if at least 7 neighbours are t+1\" just means \"flip to a near-unanimous local majority\". It cleans up isolated cells or nearly isolated cells. The same class includes a variant with no cycle rule at all (the CNT_LE \u2192 IMITATE_BEST program), so the behaviour comes from the game. Neither the order of the two rules nor the threshold and probability settings (7 at 0.1, or 8 at 1.0) changes it. That's the \"different rules, same behaviour\" situation.\n\n**3. The fingerprint doesn't look like chaos.** About 4 domains, one of which covers about 90% of the lattice, with a correlation length of 2 and one reversal, describes a near-consensus state. It's one strategy as a \"sea\" with a few small, short-range islands, which fits the known snowdrift picture of small embedded clusters. Textbook Nowak\u2013May spatial chaos has many domains of comparable size and keeps fluctuating at intermediate frequency. The pass on the chaos test most likely comes from flickering at the edges of the islands. In the stochastic variants, the 0.1-probability cycle flips add to this. The moderate activity trend (0.53) fits that too. Without the time series I can't rule out a slow drift toward absorption.\n\n**4. Nothing here is unexplained.** A clustered, mostly-one-strategy outcome in the spatial snowdrift game at r=0.5 is what this literature describes. I didn't check the exact cooperator fraction at r=0.5 for best-takes-over against Hauert & Doebeli's supplement, which is why confidence is medium rather than high.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Spatial snowdrift/hawk-dove game with deterministic best-takes-over imitation (Nowak-May CA with self-interaction; Hauert & Doebeli 2004 snowdrift regime)\", \"citations\": [\"Hauert & Doebeli 2004, Nature 428:643 (doi:10.1038/nature02360)\", \"Szabo & Fath 2007, Evolutionary games on graphs, arXiv:cond-mat/0607344\", \"Fu, Nowak & Hauert 2010, JTB, Invasion and expansion of cooperators in lattice populations: PD vs snowdrift\", \"Sysi-Aho et al. 2005, Spatial snowdrift game with myopic agents, arXiv:physics/0411091\", \"Traulsen & Claussen 2004, Similarity based cooperation and spatial segregation, arXiv:cond-mat/0404694 (deterministic best-takes-over, Moore)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium\", \"notes\": \"Payoffs map to snowdrift with b=1.5, c=1, r=0.5. With 2 types, the cycle rule is just a 7/8 or 8/8 majority flip that cleans up near-isolated cells; it's irrelevant because a no-cycle-rule variant in the same class behaves the same. The fingerprint (~4 domains, largest about 90%, correlation length 2, 1 reversal) means near-consensus with a few small islands, which is the known snowdrift clustering. It isn't textbook Nowak-May spatial chaos, so the chaos-test pass is probably a metric artifact of edge flicker and stochastic flips. Not a discovery: the exact rule combination is undocumented, but the behaviour is documented.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.CYCLE(th=7,p=0.1) ; C.GAME(g=(1.5, 0.5))",
+ "len": 20,
+ "stage": "g1",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 82,
+ "groups": [
+  "grid|spatial game chaos|9"
+ ],
+ "checked": "2026-10-25 00:18:13"
+}

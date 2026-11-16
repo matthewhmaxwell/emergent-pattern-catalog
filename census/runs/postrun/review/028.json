@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling relocation model (vacancies, threshold satisfaction) coupled with voter-model neighbour copying (Schelling-Voter hybrid; multi-state voter with empty state)",
+  "standard_name": "Schelling-Voter model; domain coarsening / segregation with vacancies",
+  "confidence": "medium",
+  "citations": [
+   "Caridi, Nemi\u00f1a, Pinasco, Schiaffino (2013) Schelling-voter model: An application to language competition, Chaos Solitons & Fractals 56:216-221 (CONICET record, https://repositoriosdigitales.mincyt.gob.ar/vufind/Record/CONICETDig_f6f5064e7e1908568609f71ca083d692)",
+   "Caridi, Pinasco, Saintier, Schiaffino (2017) Characterizing segregation in the Schelling-Voter model, Physica A 487:125-142 (https://www.sciencedirect.com/science/article/abs/pii/S0378437117306118)",
+   "Gracia-Lazaro, Lafuerza, Floria, Moreno (2009) Residential segregation and cultural dissemination: An Axelrod-Schelling model, Phys Rev E 80:046123 (https://arxiv.org/abs/0907.2360)",
+   "Algebraic coarsening in voter models with intermediate states (https://arxiv.org/pdf/0806.0817)",
+   "Aging effects in Schelling segregation model, Sci Rep 2022 (https://www.nature.com/articles/s41598-022-23224-7) for Schelling coarsening exponents"
+  ],
+  "searches": [
+   "Schelling segregation model combined with voter model opinion copying neighbors",
+   "voter model with vacancies coarsening domain growth mobile agents Schelling relocation",
+   "Schelling model with opinion dynamics: agents change type and move, coevolution segregation and conformity",
+   "Residential segregation and cultural dissemination: An Axelrod-Schelling model",
+   "Schelling-voter model language competition Nemi\u00f1a Pinasco Saintier Caridi Physica A 2014",
+   "voter model with empty sites copying vacancy state three-state voter model with empty state coarsening"
+  ],
+  "notes": "The hybrid and its segregation/coarsening phenomenology are documented. Differences: here copying is unconditional (p=1, every cell every step) and not limited to unhappy agents; vacancies appear to be copyable, so vacancy density is not conserved (an inference); 3-4 types; synchronous updates. The unconditional-copy and copyable-vacancy regime was not found in the literature. This may explain the atypical fingerprint, but that is untested. Only abstracts and snippets were read, so confidence is medium.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Multi-state (synchronous) voter-model coarsening without surface tension, perturbed by Schelling relocation noise; related to the Schelling-Voter hybrid",
+ "citations": [
+  "Dornic, Chate, Chave, Hinrichsen, Critical coarsening without surface tension: the voter universality class, PRL 87, 045701 (2001)",
+  "Characterizing segregation in the Schelling-Voter model, Physica A (2017), S0378437117306118",
+  "Dall'Asta & Galla, Algebraic coarsening in voter models with intermediate states, arXiv:0806.0817",
+  "Aging effects in Schelling segregation model, Sci. Rep. (2022) / arXiv:2204.01417",
+  "Ising-doped voter model, arXiv:1706.03575"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Unconditional copying by every cell (including empty ones, by my reading of the rules) every step makes this mainly a 3-state voter model; vacancies are not conserved, so the 'segregation with vacancies' label is mostly an artifact. The fingerprint (about 6 domains, short correlation length, all types surviving, high reversals) fits slow logarithmic voter coarsening caught at finite time on 64x64, with Schelling moves as noise. The interchangeability of rule order and threshold across 33 programs supports this. To check: if interface density decays as a power law rather than 1/ln t, or vacancy density stays constant, upgrade to KNOWN-VARIANT (Schelling-Voter coarsening).",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm changing the first pass's KNOWN-VARIANT to KNOWN. The behaviour is mostly multi-state voter-model coarsening with some noise added. The \"Schelling segregation\" part is largely a labelling artifact, not a separate route to segregation.\n\n**Why the first pass's framing doesn't hold**\n- The documented Schelling\u2013Voter hybrid works differently. There, an unhappy agent is selected at random, and she chooses to play one of two different games: either she migrates to another place where she will be happy (with probability p), or she changes her own type (with probability 1\u2212p). In this system, every cell copies a random neighbour every step, whether or not it is unhappy.\n- That makes rule (2), applied to all cells including empty ones, a synchronous voter model with three states, where \"empty\" is one of the states. This is my reading of the rule text, not something I measured. If it's right, vacancies are not conserved, so the vacancy mechanism behind Schelling coarsening doesn't apply as such.\n- The copying rule is strong enough to swamp the move rule. That explains why 33 rule programs with thresholds from 0.2 to 0.4, either rule order and 3\u20134 types all give the same fingerprint. The threshold and the order barely matter.\n\n**Why the observed fingerprint matches voter coarsening**\n- The 2D voter model is a known marginal case. It coarsens through interfacial noise, not curvature. It is characterized by a slow, logarithmic decay of the density of interfaces \u03c1\u223c1/ln t (as opposed to the algebraic decay \u03c1\u223c1/L(t)\u223ct^(-1/z) of curvature-driven growth). It also produces patterns with clusters of all sizes between 1 and \u221at.\n- That fits what was seen: about 6 domains, a short correlation length (about 2.3), all 3 types still present at high entropy, and frequent reversals (flickering at interfaces). On a 64\u00d764 grid, voter coarsening hasn't finished by the end of a finite run. The Schelling moves just add noise on top.\n- This also explains why it \"passes the coarsening test but doesn't look like a textbook case.\" Schelling-type coarsening shows algebraic growth. For example, one study finds the interface density decays as a power law with an exponent \u03b1\u22430.5 for the limit of small vacancy density. Voter coarsening is logarithmic and tensionless, so it looks different.\n- Related variants that I did not check against this run:\n  - Adding intermediate states can restore an effective surface tension.\n  - Even a small number of Ising-type agents can switch the dynamics to curvature-driven growth. Even a very small (\u223c1%) fraction of Ising agents changes the tensionless dynamics into the curvature-driven Ising-like dynamics.\n  - Schelling moves acting as noise sit within this known family of perturbed voter models.\n\n**Genuine pattern or artifact?** The coarsening itself is real but generic: plain voter-model ordering that was still incomplete when the run stopped. Calling it \"segregation with vacancies\" is an artifact of how the rules are described. Updating every cell at once may increase the reversal count. I'm not aware of any feature here that a multi-state synchronous voter model with added noise wouldn't reproduce.\n\n**What would change my verdict:** If interface density over time decays algebraically rather than as 1/ln t, or if the vacancy fraction stays constant (meaning empty cells aren't actually copied), I'd move to KNOWN-VARIANT. It would then be Schelling-driven coarsening with voter noise, closer to the hybrid model above. A t-vs-\u03c1 log-plot would settle it.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Multi-state (synchronous) voter-model coarsening without surface tension, perturbed by Schelling relocation noise; related to the Schelling-Voter hybrid\", \"citations\": [\"Dornic, Chate, Chave, Hinrichsen, Critical coarsening without surface tension: the voter universality class, PRL 87, 045701 (2001)\", \"Characterizing segregation in the Schelling-Voter model, Physica A (2017), S0378437117306118\", \"Dall'Asta & Galla, Algebraic coarsening in voter models with intermediate states, arXiv:0806.0817\", \"Aging effects in Schelling segregation model, Sci. Rep. (2022) / arXiv:2204.01417\", \"Ising-doped voter model, arXiv:1706.03575\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Unconditional copying by every cell (including empty ones, by my reading of the rules) every step makes this mainly a 3-state voter model; vacancies are not conserved, so the 'segregation with vacancies' label is mostly an artifact. The fingerprint (about 6 domains, short correlation length, all types surviving, high reversals) fits slow logarithmic voter coarsening caught at finite time on 64x64, with Schelling moves as noise. The interchangeability of rule order and threshold across 33 programs supports this. To check: if interface density decays as a power law rather than 1/ln t, or vacancy density stays constant, upgrade to KNOWN-VARIANT (Schelling-Voter coarsening).\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.SCHELL(th=0.5) ; C.COPY(p=1.0)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 33,
+ "groups": [
+  "grid|domain coarsening+segregation with vacancies|6"
+ ],
+ "checked": "2026-10-24 23:50:54"
+}

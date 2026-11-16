@@ -1,0 +1,59 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Threshold cyclic cellular automaton (Griffeath / Fisch-Gravner-Griffeath; Greenberg-Hastings-like excitable medium) combined with a neighbour pair-exchange (mobility) step, as in spatial rock-paper-scissors / cyclic Lotka-Volterra lattice models",
+  "standard_name": "Cyclic CCA spiral waves (4 states, Moore range-1, threshold 2), with mobility via pair exchange (rock-paper-scissors with mobility)",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner & Griffeath (1991) Cyclic cellular automata in two dimensions, in Spatial Stochastic Processes (Springer) https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8",
+   "Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Stat. Comput. 1:23-39",
+   "Quantifying Self-Organization in Cyclic Cellular Automata, arXiv:nlin/0507067 (4-colour range-1 Moore CCA: T=2 spirals, T=3 turbulence, T>=4 fixation)",
+   "Reichenbach, Mobilia & Frey (2007) Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448:1046, arXiv:0709.0217",
+   "Reichenbach, Mobilia & Frey (2008) Self-organization of mobile populations in cyclic competition, J. Theor. Biol. 254:368, arXiv:0801.1798",
+   "Szolnoki et al. (2014) Cyclic dominance in evolutionary games: a review, J. R. Soc. Interface 11:20140735, arXiv:1408.6828",
+   "Mobilia, Rucklidge & Szczesny (2016) The influence of mobility rate on spiral waves in spatial rock-paper-scissors games, Games 7:24, arXiv:1608.08932",
+   "Syga et al. (2019) A lattice-gas cellular automaton model for discrete excitable media, in Spirals and Vortices (Springer)"
+  ],
+  "searches": [
+   "cyclic cellular automaton with random neighbour swapping mobility spiral waves",
+   "Reichenbach Mobilia Frey mobility promotes and jeopardizes biodiversity rock-paper-scissors games",
+   "Fisch Gravner Griffeath cyclic cellular automaton threshold range spirals",
+   "cyclic cellular automaton with stirring or particle diffusion, mobile cells excitable medium spiral waves",
+   "Greenberg-Hastings excitable media with mobile agents random walkers spiral waves lattice swap",
+   "Reichenbach Mobilia Frey Self-organization of mobile populations in cyclic competition exchange pair spirals",
+   "excitable cellular automaton with cell mixing/stirring exchange of neighbouring cells spiral waves high mobility destroys",
+   "Cyclic dominance in evolutionary games: a review Szolnoki Mobilia mobility spiral"
+  ],
+  "notes": "Rule (1) is exactly the standard CCA spiral case (kappa=4, Moore, T=2). Rule (2) is the pair-exchange mobility of Reichenbach et al. Differences: deterministic and synchronous with swap probability 1 per step (maximum mobility), versus stochastic asynchronous dynamics with a tunable exchange rate in the RPS literature. No source found for this exact deterministic CCA plus synchronous-swap combination. Likely effect is quantitative: smaller or noisier spirals, more domains, shorter correlation length than static-CCA textbook figures. Not a new phenomenon, but the regime is not explicitly documented. FGG 1991 was verified only via abstract and metadata, not the full text.",
+  "searches_used": 8
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cyclic cellular automaton (Griffeath CCA, kappa=4, Moore range-1, threshold 2: spiral-wave regime) with pair-exchange mobility (cyclic dominance / rock-paper-scissors-type mixing that fragments spirals)",
+ "citations": [
+  "https://arxiv.org/abs/nlin/0507067",
+  "https://link.springer.com/article/10.1007/BF01890834",
+  "https://en.wikipedia.org/wiki/Cyclic_cellular_automaton",
+  "https://arxiv.org/abs/1205.4914",
+  "https://arxiv.org/abs/1608.08932",
+  "https://arxiv.org/abs/1403.4319"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Rule 1 is exactly the documented FGG CCA spiral case (4 colors, Moore r=1, T=2). Pair-exchange mobility in 4-species cyclic lattice systems is documented (Roman et al. 2012), and so is the effect of exchange rate on spiral visibility. Observed fingerprint (equal shares of all 4 types, ~4-cell correlation length, high Moran, fragmented patches, ~50% activity) fits spirals broken up by swapping on every step on a small 64x64 torus; this is a parameter-regime difference, not new behaviour. Artifact risk: if the swap step is a deterministic global pattern (same shift or fixed pairing every step), it only translates or permutes the CCA, so the result would be trivially equivalent to plain CCA. Check by running rule 1 alone. Treated as non-trivial only if the swap pairing is randomised.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** Rule (1) is the textbook case, and I couldn't find any behaviour here that isn't already described. The odd overall fingerprint is most likely because the swap step breaks up the spirals.\n\n**Rule (1) on its own is the standard spiral case.** It is Griffeath's cyclic cellular automaton with 4 states, the 8-cell neighbourhood and threshold 2. Fisch, Gravner and Griffeath map exactly this space: T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 \"quenches\" incoherent local oscillations. The standard illustrations of this phase diagram use these same settings: the number of colors is fixed to 4, the rule uses a range-one box-shaped neighborhood, and the initial conditions are a uniform random mixture of colors. So this rule pairing isn't new.\n\n**Rule (2), swapping neighbours, is the standard way to add movement in cyclic-competition models.** There are two standard ways to implement mobility in systems where at most one particle is allowed at any lattice site: diffusion, realised through the hopping of particles to empty sites, and particle swapping, where particles on neighbouring sites exchange places. The four-type cyclic case with swapping has been studied directly. It study[ies] numerically domain growth and interface fluctuations in one- and two-dimensional lattice systems composed of four species that interact in a cyclic way. Particle mobility is implemented through exchanges of particles located on neighboring lattice sites. How swap rate changes the spirals is also documented: researchers investigate when the pair-exchange rate is responsible for spiral waves to become elusive in stochastic lattice simulations.\n\n**Why the fingerprint doesn't look like textbook spirals.** The measurements show all 4 types in equal proportions (entropy 0.999), short correlation length (~4.3 cells), strong local clustering (Moran 0.69), many small patches and about half the cells changing each step. That fits cyclic waves broken into small fragments by swapping on every step, which is the known pattern of mixing degrading spirals. On a 64\u00d764 grid, finite size also limits how big the spirals can get. Nothing measured here falls outside that picture. I also don't count the first pass's \"deterministic, synchronous, swap every step\" as a twist in the behaviour. That is a different implementation of the update, and the effect it has (fragmented, noisy waves) is the expected one.\n\n**Is it real or an artifact? It depends on how the swap is coded, and I can't see that.**\n- If each step uses random neighbour pairs, the result is a real emergent pattern: cyclic waves under strong stirring.\n- If the swap is a fixed global pattern (every cell moving the same direction, or the same pairs every step), it just moves or reshuffles the grid without changing the waves. The run would then be plain CCA in a moving frame or a scrambled CCA, and the \"variant\" would be meaningless.\n- **Check to do:** run rule (1) alone and compare. If the swap version only adds a shift or relabels positions, it's trivial.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cyclic cellular automaton (Griffeath CCA, kappa=4, Moore range-1, threshold 2: spiral-wave regime) with pair-exchange mobility (cyclic dominance / rock-paper-scissors-type mixing that fragments spirals)\", \"citations\": [\"https://arxiv.org/abs/nlin/0507067\", \"https://link.springer.com/article/10.1007/BF01890834\", \"https://en.wikipedia.org/wiki/Cyclic_cellular_automaton\", \"https://arxiv.org/abs/1205.4914\", \"https://arxiv.org/abs/1608.08932\", \"https://arxiv.org/abs/1403.4319\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Rule 1 is exactly the documented FGG CCA spiral case (4 colors, Moore r=1, T=2). Pair-exchange mobility in 4-species cyclic lattice systems is documented (Roman et al. 2012), and so is the effect of exchange rate on spiral visibility. Observed fingerprint (equal shares of all 4 types, ~4-cell correlation length, high Moran, fragmented patches, ~50% activity) fits spirals broken up by swapping on every step on a small 64x64 torus; this is a parameter-regime difference, not new behaviour. Artifact risk: if the swap step is a deterministic global pattern (same shift or fixed pairing every step), it only translates or permutes the CCA, so the result would be trivially equivalent to plain CCA. Check by running rule 1 alone. Treated as non-trivial only if the swap pairing is randomised.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C.CYCLE(th=2,p=1.0) ; C.SWAP(p=1.0)",
+ "len": 21,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals"
+ ],
+ "size": 2,
+ "groups": [
+  "grid|cyclic waves and spirals|13"
+ ],
+ "checked": "2026-10-25 00:27:36"
+}

@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Synchronous majority-vote (zero-temperature Ising/Glauber-like) cellular automaton with local swap/exchange mobility (majority-vote model with agent diffusion)",
+  "standard_name": "Domain coarsening / consensus in the majority-vote model with agent diffusion (mobility); zero-T Glauber coarsening with stirring",
+  "confidence": "medium",
+  "citations": [
+   "https://demonstrations.wolfram.com/CellularAutomataWithMajorityRule/ (Wolfram Demonstrations Project, 2011)",
+   "https://arxiv.org/pdf/2604.10082 (Coarsening and Bifurcations in Wide-Range 2D Totalistic CA)",
+   "https://arxiv.org/pdf/1204.3885 (Impact of site dilution and agent diffusion on the majority-vote model)",
+   "https://arxiv.org/pdf/1911.00131 (Majority voter model with diffusion, mobility alpha)",
+   "https://arxiv.org/pdf/0710.3256 (Castellano, Fortunato, Loreto: Statistical physics of social dynamics; review)",
+   "https://link.springer.com/chapter/10.1007/978-3-319-53733-7_29 (Color War: CA with majority rule)",
+   "Toffoli & Margolus, Cellular Automata Machines (1987), via Fourmilab rule docs https://www.fourmilab.ch/cellab/manual/rules.html"
+  ],
+  "searches": [
+   "majority rule cellular automaton with random swap diffusion domain coarsening mobile agents",
+   "majority vote model with mobility Kawasaki exchange coarsening lattice",
+   "Toffoli Margolus cellular automata machines vote rule with diffusion phase separation",
+   "coarsening with stirring: zero-temperature Glauber combined with Kawasaki exchange",
+   "voter model coarsening with mobile agents swapping neighbors consensus time diffusion",
+   "synchronous majority rule cellular automaton random site exchange Moore neighborhood consensus domain growth"
+  ],
+  "notes": "Each ingredient (majority CA coarsening, majority vote with agent diffusion, voter/Glauber coarsening) is documented. No source found for the exact deterministic p=1 synchronous majority + p=1 local swap regime. Likely difference: swap rate comparable to majority rate drives the system toward well-mixed mean-field majority dynamics (fast consensus, few domains, decaying activity), unlike curvature-driven coarsening in textbook examples. This explanation is my inference, not verified in a source. Toffoli-Margolus and the 2026 arXiv paper were not read in full text.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Zero-temperature-like majority/Glauber domain coarsening with Kawasaki stirring (Glauber+Kawasaki / diffusive majority-vote), ending in consensus or stripe states on a finite torus",
+ "citations": [
+  "De Masi, Ferrari, Lebowitz, J. Stat. Phys. 44:589 (1986) Reaction-diffusion equations for interacting particle systems",
+  "Diffusive majority-vote model, Phys. Rev. E 105, 034105 (2022)",
+  "Spirin, Krapivsky, Redner, Freezing in Ising ferromagnets, PRE (2001)",
+  "Barros, Krapivsky, Redner, arXiv:0905.3521 (stripe-state probabilities)",
+  "Goles & Olivos (1980) period-2 property of synchronous majority automata"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Swaps break the frozen and period-2 states of all-at-once majority updating, allowing coarsening up to domain sizes near the 64x64 grid size (corrlen 14). Activity falls with total boundary length. n_types/n_domains fit a mix of consensus and stripe-like end states. That mix is a known finite-size effect, though the exact proportion is unclear with few seeds and fluctuating boundaries. The atypical fingerprint comes from grid size and measurement effects, not new behaviour. The ordering is genuine, not an artifact, but the result is standard.",
+ "searches_used": 4,
+ "full_text": "**Verdict: KNOWN.** This is ordinary two-type majority-rule domain coarsening with mixing (stirring), ending in the usual finite-lattice outcomes: either one type takes over or a few large domains/stripes remain. I couldn't find any feature of the behaviour that is new. The fact that this exact rule combination isn't in the literature doesn't count as a discovery.\n\n**What each ingredient maps to**\n- **Majority flips plus neighbour swaps.** This is the Glauber-plus-Kawasaki (spin-flip plus stirring) setup. Studies of it look at interacting spin (particle) systems on a lattice under the combined influence of spin flip (Glauber) and simple exchange (Kawasaki) dynamics. When swaps are fast, the macroscopic density... evolves according to an autonomous nonlinear diffusion-reaction equation. Majority rule with moving agents has also been studied directly: a diffusive majority-vote model in which spins are allowed to jump to a random neighbor node... and in the second stage, the spins in the same node can change its values according to the majority-vote update rule. It shows a consensus phase.\n- **Why the swaps matter.** Updated all at once, majority rule on its own gets stuck. On a finite grid, every trajectory eventually reaches a fixed point or a cycle of period two. The swaps break these frozen or flip-flopping states, so coarsening can continue. That is the documented role of noise or stirring, not a new mechanism.\n- **Where it ends up.** In 2D at zero noise, the system reaches either a frozen stripe state with probability approximately 1/3 or the ground state with probability approximately 2/3. With periodic edges the predicted stripe probability is about 0.3390\u2026.\n\n**Reading the fingerprint**\n- **g_corrlen = 14:** about L/4.5 on a 64\u00d764 grid, so domain size is nearing the system size. This is late-stage coarsening that is running into the lattice size.\n- **Negative activity trend, activity_cv = 0.7:** flips and visible swaps only happen at domain boundaries. Activity therefore tracks total boundary length, which shrinks as domains grow, with bursts when domains merge or disappear.\n- **g_n_types = 1.667, g_n_domains = 1.29:** this looks like a mix of runs where one type wins and runs where both survive as one or two large domains. That is the consensus-or-stripes split described above. Read it with care, though. If 1.667 averages 3 seeds, it means 2 of 3 runs kept both types, which is more stripe-like endings than the ~1/3 benchmark. The swaps may also keep stripe boundaries wandering rather than frozen. Either way, this is a known finite-size effect with too few runs to be a new phenomenon.\n- **g_reversals = 1.0:** probably one change in direction (an early transient, then decay). This is consistent with normal coarsening and not a sign of anything else.\n- **Same class across 6 programs:** the related programs (majority at p=0.1, sandpile toppling plus majority, an added diffusing field) all give the same result. That points to generic ordering behaviour, not a quirk of one rule set.\n\n**Why it doesn't look textbook:** it uses 8 neighbours, updates every cell at once, and has strong stirring. It is also measured on a small grid where domains approach system size, so there is no clean power-law growth, and the end states are a mix of outcomes. These are effects of grid size and how the run was measured, not a new route to ordering. The coarsening itself is real, but nothing about this form of it is new.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Zero-temperature-like majority/Glauber domain coarsening with Kawasaki stirring (Glauber+Kawasaki / diffusive majority-vote), ending in consensus or stripe states on a finite torus\", \"citations\": [\"De Masi, Ferrari, Lebowitz, J. Stat. Phys. 44:589 (1986) Reaction-diffusion equations for interacting particle systems\", \"Diffusive majority-vote model, Phys. Rev. E 105, 034105 (2022)\", \"Spirin, Krapivsky, Redner, Freezing in Ising ferromagnets, PRE (2001)\", \"Barros, Krapivsky, Redner, arXiv:0905.3521 (stripe-state probabilities)\", \"Goles & Olivos (1980) period-2 property of synchronous majority automata\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Swaps break the frozen and period-2 states of all-at-once majority updating, allowing coarsening up to domain sizes near the 64x64 grid size (corrlen 14). Activity falls with total boundary length. n_types/n_domains fit a mix of consensus and stripe-like end states. That mix is a known finite-size effect, though the exact proportion is unclear with few seeds and fluctuating boundaries. The atypical fingerprint comes from grid size and measurement effects, not new behaviour. The ordering is genuine, not an artifact, but the result is standard.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.MAJ(p=1.0) ; C.SWAP(p=1.0)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 6,
+ "groups": [
+  "grid|domain coarsening|8"
+ ],
+ "checked": "2026-10-24 23:44:04"
+}

@@ -1,0 +1,51 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial evolutionary 2x2 game (Nowak-May imitate-the-best on Moore lattice with self-interaction) coupled with a stochastic threshold flip rule (2-state degenerate cyclic CA, i.e. noisy near-unanimous majority flip)",
+  "standard_name": "Spatial games / spatial chaos (Nowak-May), here in the Snowdrift/Hawk-Dove payoff ordering (T>R>S>P) with added stochastic majority-type flips; domain coarsening",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829, doi:10.1038/359826a0",
+   "Nowak & May 1993, The spatial dilemmas of evolution, Int. J. Bifurc. Chaos 3:35-78",
+   "Szab\u00f3 & F\u00e1th, Evolutionary games on graphs (review), arXiv cond-mat/0607344",
+   "Szab\u00f3 & T\u0151ke, Evolutionary prisoner's dilemma game on a square lattice, arXiv cond-mat/9710096 (noisy update)",
+   "Killingback & Doebeli 1996, Spatial evolutionary game theory: Hawks and Doves revisited, Proc. R. Soc. B 263:1135-1144 (title seen only in a reference list, not read)",
+   "Hauert & Doebeli 2004, Spatial structure often inhibits the evolution of cooperation in the snowdrift game, Nature 428:643-646 (title seen only in a reference list, not read)"
+  ],
+  "searches": [
+   "spatial prisoner's dilemma Nowak May cooperators defectors lattice self-interaction copy best neighbour domains coarsening",
+   "spatial evolutionary game with stochastic majority-vote flip noise lattice cooperation domains",
+   "Nowak May 1992 evolutionary games and spatial chaos"
+  ],
+  "notes": "Payoffs T=1.5,R=1,S=0.5,P=0 give a snowdrift ordering, not a PD, which likely explains the non-textbook fingerprint (many small domains, short correlation length). The 7-of-8 threshold rule with k=2 reduces to a stochastic majority flip that heals isolated cells. No source was found that treats this exact hybrid. I did not search specifically for threshold/majority dynamics coupled to spatial games, or for deterministic best-neighbour imitation in snowdrift, so a direct precedent may exist. The Kuramoto variant was not examined and is assumed to have little effect with 2 types.",
+  "searches_used": 3
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Spatial snowdrift / Hawk-Dove game with imitate-the-best updating (Nowak-May spatial games; Hauert-Doebeli spatial snowdrift)",
+ "citations": [
+  "Nowak & May 1992, Nature 359:826-829, Evolutionary games and spatial chaos",
+  "Hauert & Doebeli 2004, Nature 428:643-646, Spatial structure often inhibits the evolution of cooperation in the snowdrift game",
+  "Killingback & Doebeli 1996, Proc R Soc B 263:1135-1144, Hawks and Doves revisited",
+  "Fu, Nowak & Hauert 2010, J Theor Biol 266:358-366, PD vs snowdrift invasion on lattices"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Payoffs T=1.5>R=1>S=0.5>P=0 are snowdrift (b=1.5, c=1, r=0.5), not a Prisoner's Dilemma. Anti-coordination pressure gives fine-grained mixtures (corrlen about 2, about 4 domains), which explains the non-textbook fingerprint. The 'domain coarsening' label is likely a classifier misfire: there is no domain growth at corrlen 2 on a 64x64 lattice. The 7-of-8 rule with 2 types is just a weak stochastic removal of isolated cells that the game overwrites. The equivalence class (rule order, p=0.01 vs 0.03, adding KURA) confirms the game dominates. The positive activity trend and single reversal are plausibly noise from the random flips knocking the deterministic game out of frozen or periodic states.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I disagree with the first pass's KNOWN-VARIANT. Nothing in this fingerprint goes beyond the spatial snowdrift (Hawk-Dove) game with imitate-the-best updating. The \"domain coarsening\" label looks like a misfire of the classifier.\n\n**1. The game rule is a textbook Nowak\u2013May model, but with snowdrift payoffs.** Each cell plays its 8 neighbours and itself, and copies the best scorer. That is exactly the 1992 setup: every agent plays the game with all his neighbors (once with each neighbor) and with himself, then adopt[s] the strategy of one of the agents in this set who has obtained the greatest payoff. Nowak and May used CD-payoff = DD-payoff = 0, CC-payoff = 1, DC-payoff = 1.85, which is a borderline Prisoner's Dilemma. Here T=1.5 > R=1 > S=0.5 > P=0. That is the snowdrift ordering, with benefit b=1.5, cost c=1 and cost-to-benefit ratio r=0.5. That case is also well documented. Hauert & Doebeli showed that spatial structure reduces the proportion of cooperators for a wide range of parameters, because in this game it pays to adopt strategies that are opposite to neighboring strategies. That anti-coordination pressure is exactly what produces many small, interleaved patches rather than growing domains. Related work covers the same ground: Killingback & Doebeli (Spatial evolutionary game theory: Hawks and Doves revisited) and Fu, Nowak & Hauert (Invasion and expansion of cooperators in lattice populations: Prisoner's dilemma vs. snowdrift games).\n\n**2. A quick payoff check supports this.** These numbers are my own arithmetic, not from a source:\n- A cooperator with k cooperating neighbours scores 4.5 + 0.5k.\n- A defector with m cooperating neighbours scores 1.5m.\n- So a lone cooperator among defectors scores 4.5 against their 1.5, and invades.\n- A lone defector among cooperators scores 12 against their 8, and also invades.\n\nNeither strategy can grow a large clean domain, so you get fine-grained mixtures that either freeze or keep flickering. That fits the observed short correlation length (2) and roughly 4 domains.\n\n**3. The extra \"cycle\" rule barely matters.** With only 2 types, \"flip if at least 7 of 8 neighbours are the other type, with probability 0.03\" just removes isolated cells now and then, like a weak, noisy majority vote. The game update overwrites it every step. The evidence is the equivalence class itself: swapping the rule order, changing p from 0.03 to 0.01, or adding the Kuramoto-style rule (KURA) all give the same behaviour. So the game dominates and the other rules are minor noise. Its main visible effect is probably the small positive activity trend and the single reversal: random flips knock the deterministic game out of frozen or periodic states.\n\n**4. \"Domain coarsening\" doesn't fit.** A correlation length of 2 on a 64\u00d764 lattice, with about 4 domains, is not coarsening. The largest-domain score of 0.916 most likely means one strategy dominates the board with leftover patches of the other. That is a typical snowdrift outcome at r=0.5, not domains growing over time. The non-textbook fingerprint comes from using snowdrift payoffs where the test expected Prisoner's Dilemma ones, not from new behaviour.\n\n**Genuine or trivial?** The spatial game pattern is a real emergent pattern, but a known one. The \"coarsening\" tag and the cycle rule's contribution are artifacts or negligible.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Spatial snowdrift / Hawk-Dove game with imitate-the-best updating (Nowak-May spatial games; Hauert-Doebeli spatial snowdrift)\", \"citations\": [\"Nowak & May 1992, Nature 359:826-829, Evolutionary games and spatial chaos\", \"Hauert & Doebeli 2004, Nature 428:643-646, Spatial structure often inhibits the evolution of cooperation in the snowdrift game\", \"Killingback & Doebeli 1996, Proc R Soc B 263:1135-1144, Hawks and Doves revisited\", \"Fu, Nowak & Hauert 2010, J Theor Biol 266:358-366, PD vs snowdrift invasion on lattices\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Payoffs T=1.5>R=1>S=0.5>P=0 are snowdrift (b=1.5, c=1, r=0.5), not a Prisoner's Dilemma. Anti-coordination pressure gives fine-grained mixtures (corrlen about 2, about 4 domains), which explains the non-textbook fingerprint. The 'domain coarsening' label is likely a classifier misfire: there is no domain growth at corrlen 2 on a 64x64 lattice. The 7-of-8 rule with 2 types is just a weak stochastic removal of isolated cells that the game overwrites. The equivalence class (rule order, p=0.01 vs 0.03, adding KURA) confirms the game dominates. The positive activity trend and single reversal are plausibly noise from the random flips knocking the deterministic game out of frozen or periodic states.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.CYCLE(th=7,p=0.03) ; C.GAME(g=(1.5, 0.5))",
+ "len": 22,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 16,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|9"
+ ],
+ "checked": "2026-10-25 00:29:21"
+}

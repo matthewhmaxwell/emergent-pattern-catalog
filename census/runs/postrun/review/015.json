@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Stochastic threshold cyclic cellular automaton / cyclic invasion (rock-paper-scissors-type) dynamics on a random graph, with COPY_MAJ variants close to cyclic voter / threshold voter models",
+  "standard_name": "Cyclic cellular automaton (CCA, Griffeath) / cyclic dominance (RPS) on networks; consensus = fixation / extinction of species",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (seen only as citations)",
+   "Fisch, Gravner, Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes (Springer chapter page seen)",
+   "Gravner, Lyu, Sivakoff (2018) Limiting behavior of 3-color excitable media on arbitrary graphs, Ann. Appl. Probab. 28:3324-3357, arXiv:1610.07320 (abstract read)",
+   "Reichenbach, Mobilia, Frey (2006) Coexistence versus extinction in the stochastic cyclic Lotka-Volterra model, Phys. Rev. E 74, 051907 (abstract read)",
+   "Szabo & Fath (2007) Evolutionary games on graphs, Phys. Rep. 446, 97 (review; seen only as a citation in arXiv:2409.14581)",
+   "Szabo et al., Rock-scissors-paper game on regular small-world networks, arXiv:cond-mat/0305133 (abstract read)",
+   "Durrett & Steif (1993) Fixation results for threshold voter systems, Ann. Probab. 21 (seen only as a citation)"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold range scaling excitable Fisch Gravner Griffeath",
+   "cyclic dominance three-state rock-paper-scissors random network consensus extinction threshold neighbors",
+   "Limiting behavior of 3-color excitable media on arbitrary graphs Fisch Gravner Griffeath random graph synchronization",
+   "stochastic cyclic cellular automaton random graph fixation consensus threshold 2 cyclic voter model networks",
+   "Reichenbach Mobilia Frey coexistence versus extinction in the stochastic cyclic Lotka-Volterra model"
+  ],
+  "notes": "Both ingredients are documented: threshold fixation versus fluctuation in CCA, and finite-size extinction leading to single-species consensus in cyclic dominance. I found no paper on the specific stochastic (p=0.1), asynchronous, theta=2 CCA on a small ER graph (N=200, mean degree 4). The non-textbook fingerprint (no spirals, partial consensus, residual cyclic changes) is expected: the topology is non-spatial, updates are noisy, and theta=2 on low-degree nodes freezes parts of the network. Full texts were not read, and the exact parameter regime was not found in any source.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Threshold cyclic cellular automaton fixation (Fisch-Gravner-Griffeath threshold-range scaling) on Erdos-Renyi graphs / finite-size cyclic-dominance extinction",
+ "citations": [
+  "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Gravner, Lyu, Sivakoff (2018) Limiting behavior of 3-color excitable media on arbitrary graphs, Ann. Appl. Probab. 28:3324-3357 (arXiv:1610.07320)",
+  "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067)",
+  "Szolnoki & Szabo (2004) Phase transitions for rock-scissors-paper game on different networks, PRE 70:037102",
+  "arXiv:1003.2922 RPS on complex networks, finite-size extinction"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Threshold 2 at mean degree 4 is in the high-threshold fixation regime, comparable to T>=4 on the Moore neighbourhood. The partial consensus and residual entropy (0.512) are best explained by structure: about 9% of nodes in G(200, p) with <k>=4 have degree below 2 and can never update, and small disconnected components cannot join the giant cluster's dominant type. Degree_cv is a graph statistic, not a dynamical one. The class also contains COPY_MAJ rules that behave the same way, which points to generic coarsening plus fixation rather than anything specific to the cyclic rule. The exact theta=2, p=0.1 asynchronous case on a small ER graph is untested in the literature, but by the stated criterion that is not a discovery. Suggested check: rerun on a minimum-degree-2 or random regular graph; if consensus becomes complete or near-complete, the artifact explanation is confirmed.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What this system does is threshold-driven cyclic coarsening that freezes in place (fixation), on a finite random graph. The ways its fingerprint differs from textbook consensus are mostly explained by the graph's structure, not by any new dynamics.\n\n**1. The behaviour is documented.** Raising the threshold in a cyclic cellular automaton is known to switch it from endless cycling to freezing. The standard description says that the CCA has three generic forms of long-term behavior, depending on the size of the threshold relative to the range, and that at high thresholds, the CCA forms homogeneous blocks of solid colors, which are completely static \u2014 so-called fixation behavior. On the Moore neighbourhood (8 neighbours), fixation occurs with T\u22654. That is a threshold of about half the neighbourhood. Here the threshold is 2 against an average of 4 links, the same ratio, so freezing into a few large single-type blocks is what you'd expect.\n\n**2. The random-network setting is also covered.** Gravner, Lyu and Sivakoff studied the 3-colour version on arbitrary graphs and establish a phase transition on the Erd\u0151s\u2013R\u00e9nyi random graph. Their work covers the threshold-1, synchronous case, not exactly this one. Separately, in finite cyclic-dominance (rock-paper-scissors) populations, random fluctuations can push the system to the extinction of at least one of the three strategies (there are three points on the boundary corresponding to the survival of only one strategy). Szolnoki and Szab\u00f3 (Phys. Rev. E 70, 037102, 2004) cover rock-paper-scissors on several network types. The combination of \u03b8=2, probability 0.1 and asynchronous updates is just an untested parameter set. It isn't a new kind of behaviour.\n\n**3. Why the fingerprint isn't textbook: mostly a graph artifact.** These figures are my own arithmetic, not from a source:\n- In a random graph with 200 nodes and average degree 4, about 0.09 of nodes (e^-4\u00b7(1+4)) have fewer than 2 links. That's roughly 18 nodes, about 3\u20134 of them with no links at all. With a threshold of 2, these nodes can never change, so they keep their random starting type for good.\n- Small separate pieces of the graph (n_components > 1, n_giant \u2248 0.99) can't follow the main cluster either.\n- Together these leave a floor of mixed types that won't go away. That explains why consensus is only partial (gain 0.488) and why type entropy stays at 0.512.\n- n_degree_cv is a property of the graph itself, not the dynamics.\n- n_cyclic_changes (0.443) is the expected burst of cyclic invasions before the system freezes.\n- The class also contains copy-the-majority rules that behave the same way. That suggests the shared outcome is generic \"local majority-like coarsening, then fixation\", not something specific to the cyclic rule.\n\n**Is it a real emergent pattern?** Partly. The coarsening into blocks is real, known self-organisation. The \"non-textbook\" part of the fingerprint is trivial, a mix of finite size and frozen low-degree nodes. To check this, you could rerun on a graph where every node has at least 2 links (minimum degree 2, or a random regular graph). If consensus then becomes complete or near-complete, the artifact explanation is confirmed.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Threshold cyclic cellular automaton fixation (Fisch-Gravner-Griffeath threshold-range scaling) on Erdos-Renyi graphs / finite-size cyclic-dominance extinction\", \"citations\": [\"Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Gravner, Lyu, Sivakoff (2018) Limiting behavior of 3-color excitable media on arbitrary graphs, Ann. Appl. Probab. 28:3324-3357 (arXiv:1610.07320)\", \"Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067)\", \"Szolnoki & Szabo (2004) Phase transitions for rock-scissors-paper game on different networks, PRE 70:037102\", \"arXiv:1003.2922 RPS on complex networks, finite-size extinction\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Threshold 2 at mean degree 4 is in the high-threshold fixation regime, comparable to T>=4 on the Moore neighbourhood. The partial consensus and residual entropy (0.512) are best explained by structure: about 9% of nodes in G(200, p) with <k>=4 have degree below 2 and can never update, and small disconnected components cannot join the giant cluster's dominant type. Degree_cv is a graph statistic, not a dynamical one. The class also contains COPY_MAJ rules that behave the same way, which points to generic coarsening plus fixation rather than anything specific to the cyclic rule. The exact theta=2, p=0.1 asynchronous case on a small ER graph is untested in the literature, but by the stated criterion that is not a discovery. Suggested check: rerun on a minimum-degree-2 or random regular graph; if consensus becomes complete or near-complete, the artifact explanation is confirmed.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=3 | N.CYCLE(th=2,p=0.1)",
+ "len": 15,
+ "stage": "g1",
+ "shown": [
+  "network consensus"
+ ],
+ "size": 40,
+ "groups": [
+  "network|network consensus|3"
+ ],
+ "checked": "2026-10-24 23:38:40"
+}

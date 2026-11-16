@@ -1,0 +1,51 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Adaptive/coevolutionary network with same-state (homophilic) link rewiring (Holme-Newman adaptive voter model family), degenerate single-type, no node-state dynamics; equivalent to random fixed-link-count rewiring toward a random k-out/Erdos-Renyi-like graph",
+  "standard_name": "Rewiring-induced network fragmentation (adaptive voter model fragmentation transition) / relaxation to random-graph stationary state",
+  "confidence": "low",
+  "citations": [
+   "Holme & Newman, Phys. Rev. E 74, 056108 (2006), arXiv:physics/0603023",
+   "Analytical calculation of fragmentation transitions in adaptive networks, arXiv:1012.1213",
+   "Structural transitions induced by adaptive rewiring in networks with fixed states, arXiv:2511.15043",
+   "Adaptive Dynamical Networks (review), arXiv:2304.05652",
+   "Opinion dynamics: Statistical physics and beyond (review), arXiv:2507.11521",
+   "Gunderson, Connected components in Erdos-Renyi random graphs (lecture notes, Bristol)"
+  ],
+  "searches": [
+   "adaptive network rewiring to same-state node fragmentation transition opinion coevolution",
+   "random edge rewiring fixed out-degree k random graph dynamics fragmentation components degree heterogeneity",
+   "Holme Newman nonequilibrium phase transition coevolution of networks and opinions rewiring",
+   "random k-out graph connectivity isolated vertices connected components Poisson in-degree"
+  ],
+  "notes": "Fragmentation via same-state rewiring is well documented. Differences: no state dynamics and, apparently, a single type, so there is no homophily-driven transition. The fragmentation is probably random-graph relaxation (isolated nodes / small components, broad degree distribution), not a critical fragmentation transition. That is an inference, not a documented result. DSL semantics (directed vs undirected, meaning of REWIRE_SAME, source of the type-entropy and modularity features) were not verified. The p and kN dependence was not tested.",
+  "searches_used": 4
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Homophilic same-type rewiring with frozen node types -> segregation into one component per type (phi=1 / frozen-opinion limit of the Holme-Newman adaptive voter model; graph fission)",
+ "citations": [
+  "Holme & Newman, Phys. Rev. E 74, 056108 (2006)",
+  "Durrett et al., Graph fission in an evolving voter model, PNAS 109, 3682 (2012)",
+  "Henry, Pralat & Zhang, Emergence of segregation in evolving social networks, PNAS (2011)",
+  "Vazquez, Eguiluz & San Miguel, Generic absorbing transition in coevolution dynamics, PRL 100, 108702 (2008)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The first pass's 'single type' premise conflicts with type entropy 0.689 and type modularity 0.40; kN is the number of types. n_components of about 2.5 fits one component per type for kN=2-4. With no state dynamics this is the trivial absorbing endpoint of same-type rewiring, so there is no critical transition. Edge turnover is churn from ALWAYS() rewiring edges that already join same-type nodes. Incomplete sorting (modularity 0.4, giant component about 0.5) is probably from averaging over the p=0.1 variants and/or a finite run length.",
+ "searches_used": 1,
+ "full_text": "I disagree with the first pass's mechanism. My verdict is that this behaviour is **KNOWN**, and it looks like a trivial, built-in outcome rather than a genuine emergent pattern.\n\n**What the first pass got wrong.** It assumed there is only one node type. The feature values say otherwise:\n- Type entropy is 0.689 and type modularity is 0.401. Neither makes sense with one type.\n- Read `kN=2/3/4` as the number of node types. The average of 2.5 components then sits right between 2 and 4, which fits roughly one cluster per type.\n\nSo this is not random-graph relaxation. Nodes keep fixed type labels and edges are always rewired to nodes of the same type, which pulls the graph apart into separate same-type groups.\n\n**Where it is documented.** This is the frozen-opinion limit (\u03c6 = 1) of the Holme\u2013Newman adaptive voter model, run with opinions that never change:\n- Holme and Newman describe the two ingredients: opinions spread over networks, and people with the same opinion are likely to become acquainted. Their model undergoes a continuous phase transition as the balance between those two processes changes.\n- In that line of work, the rewiring-dominated regime is described as an absorbing phase in a fragmented network.\n- Durrett et al., \"Graph fission in an evolving voter model\" (PNAS 2012), and Henry, Pra\u0142at & Zhang, \"Emergence of segregation in evolving social networks\" (PNAS), cover the same thing: fixed or slowly changing labels plus same-type rewiring leads to segregation and fission (cited together here).\n\nYour rules simply delete the opinion-copying step. In this family of models that is the trivial endpoint: there is no competing process, so there is no transition to find.\n\n**Why each feature is expected:**\n- **About 2.5 components, giant component about 0.5:** roughly one component per type (2\u20134 types), so the largest holds about 1/kN to 1/2 of the nodes. The values are averaged over kN and p.\n- **High type modularity and type entropy:** these just measure the starting labels and how sorted the graph has become. The numbers fall short of complete sorting, probably because of the p = 0.1 variants or runs not yet finished.\n- **Edge turnover of about 0.49:** `ALWAYS()` keeps rewiring edges that already join same-type nodes, so edges keep reshuffling inside each type group with no structural change. That is churn built into the rule, not ongoing dynamics.\n- **Degree CV of about 0.65:** the usual spread of degrees in a randomly rewired graph.\n\n**Trivial or artifact?** Trivial. The final structure is fixed in advance by the starting type labels. It passes the fragmentation test without looking like textbook examples because there is no critical point. Every value of p only changes how quickly the graph sorts itself, not where it ends up. Seeing it across 89 programs fits that: many rule variants share the same absorbing state.\n\n**Undocumented phenomenology:** none found.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Homophilic same-type rewiring with frozen node types -> segregation into one component per type (phi=1 / frozen-opinion limit of the Holme-Newman adaptive voter model; graph fission)\", \"citations\": [\"Holme & Newman, Phys. Rev. E 74, 056108 (2006)\", \"Durrett et al., Graph fission in an evolving voter model, PNAS 109, 3682 (2012)\", \"Henry, Pralat & Zhang, Emergence of segregation in evolving social networks, PNAS (2011)\", \"Vazquez, Eguiluz & San Miguel, Generic absorbing transition in coevolution dynamics, PRL 100, 108702 (2008)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The first pass's 'single type' premise conflicts with type entropy 0.689 and type modularity 0.40; kN is the number of types. n_components of about 2.5 fits one component per type for kN=2-4. With no state dynamics this is the trivial absorbing endpoint of same-type rewiring, so there is no critical transition. Edge turnover is churn from ALWAYS() rewiring edges that already join same-type nodes. Incomplete sorting (modularity 0.4, giant component about 0.5) is probably from averaging over the p=0.1 variants and/or a finite run length.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=2 | N[0] ALWAYS() -> REWIRE_SAME() p=1.0",
+ "len": 15,
+ "stage": "g2",
+ "shown": [
+  "network fragmentation"
+ ],
+ "size": 89,
+ "groups": [
+  "network|network fragmentation|2"
+ ],
+ "checked": "2026-10-24 23:35:09"
+}

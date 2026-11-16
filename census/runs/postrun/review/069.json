@@ -1,0 +1,61 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Stochastic (alpha-asynchronous) 3-colour cyclic cellular automaton / Greenberg-Hastings-like excitable medium with spontaneous excitation; equivalent to lattice cyclic-dominance (rock-paper-scissors) / SIRS-type models",
+  "standard_name": "Cyclic cellular automaton spiral/travelling waves (Fisch-Gravner-Griffeath); stochastic spiral waves in lattice rock-paper-scissors / SIRS",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Cyclic cellular automata in two dimensions, in Spatial Stochastic Processes (Springer chapter page)",
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (via Durrett & Griffeath 'Medley of spirals from cyclic cellular automata' abstract)",
+   "Quantifying Self-Organization in Cyclic Cellular Automata, arXiv:nlin/0507067 (T=1 Moore quenches local oscillations; T=2 spirals)",
+   "MCell Cyclic CA lexicon, psoup.math.wisc.edu/mcell/rullex_cycl.html (R1/T3/C3 only self-organizing 3-colour range-1 rule)",
+   "Reichenbach, Mobilia, Frey (2007) Nature 448:1046, arXiv:0709.0217",
+   "Szolnoki et al., Cyclic dominance in evolutionary games: A review",
+   "Kinouchi & Copelli (2006) Nature Physics 2:348, Optimal dynamical range of excitable networks at criticality (seen secondhand)",
+   "Ackland et al., Oscillation in the SIRS model, arXiv:2504.00670 / J. Theor. Biol.",
+   "Games 7(3):24, The Influence of Mobility Rate on Spiral Waves in Spatial RPS Games"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold 1 Moore neighborhood spirals Fisch Gravner Griffeath",
+   "stochastic cyclic cellular automaton spontaneous excitation noise spiral waves three states probabilistic",
+   "stochastic rock-paper-scissors lattice spiral waves domains cyclic dominance review",
+   "asynchronous stochastic cyclic cellular automaton update probability spirals random sequential update three-state cyclic",
+   "probabilistic Greenberg-Hastings spontaneous activation rate lattice spiral waves target patterns noise-induced",
+   "stochastic SIRS lattice model spiral waves three-state cyclic spontaneous infection probability",
+   "Reichenbach Mobilia Frey mobility promotes and jeopardizes biodiversity rock-paper-scissors Nature 2007",
+   "Kinouchi Copelli excitable cellular automaton spontaneous activation Greenberg-Hastings stochastic"
+  ],
+  "notes": "Deterministic 3-colour T=1 Moore CCA is not a textbook spiral-former, so the fine-grained, short-correlation-length fingerprint is consistent with asynchronous (p=0.1) updating plus the spontaneous 0->1 nucleation term acting like noise or mutation. I found no source describing this exact hybrid (all-contact cyclic rule with a spontaneous drive on one state, alpha-async, Moore, T=1, k=3). The explanation of the domain count and correlation length is my inference, not sourced. Primary Fisch et al. texts were not readable, only abstracts and secondary summaries.",
+  "searches_used": 8
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Fluctuating species clusters / quenched incoherent local oscillation in stochastic 3-state cyclic dominance (cyclic particle system, Tainaka lattice RPS) with mutation-like spontaneous conversion; not coherent CCA spirals",
+ "citations": [
+  "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions",
+  "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067): T=1 quenches incoherent local oscillations",
+  "MCell CCA lexicon (Griffeath): R1/T3/C3/NM only self-organizing 3-colour range-1 rule",
+  "Tainaka, Lattice model for the Lotka-Volterra system (2D stable state)",
+  "He, Mobilia, T\u00e4uber / arXiv 1111.1674: conserved lattice RPS shows fluctuating clusters, no spirals",
+  "Mobilia et al., Games 7, 24 (2016); Reichenbach-Mobilia-Frey: mutation-rate Hopf threshold for spirals",
+  "Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Correlation length about 1 and interface fraction about 0.53 indicate no coherent waves. Passing the spiral test most likely reflects the type cycling (reversals about 0.5), not spatial wave structure. The spontaneous 0->1 rate equals the contact rate, putting the system in the strong-noise/mutation regime; the one-way flow likely explains the unequal type abundances (entropy 0.887). The exact rule combination is unpublished, but its behaviour is not new. The first pass's KNOWN-VARIANT rating is downgraded because the fine-grained fingerprint is exactly what the literature describes for this setup.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** This doesn't look like a new form of spiral waves. What the run shows is a fine-grained mix of three types cycling through each other, with almost no spatial structure. That behaviour is already described in the literature on cyclic cellular automata and rock-paper-scissors lattice models. I think the \"cyclic waves and spirals\" label is a false positive. Most likely the run passes the test because the types keep cycling, not because there are any coherent waves.\n\n**1. The fully synchronous version of this rule isn't known to make spirals.** In the standard cyclic cellular automaton studies, T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 \"quenches\" incoherent local oscillations. For the specific case of 3 types with the 8-cell neighbourhood, the MCell rule catalogue calls the threshold-3 rule \"the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization.\" So \"3 types, threshold 1, 8 neighbours\" was never expected to produce clean spirals.\n\n**2. The random-update version matches a documented pattern: shifting clusters, not spirals.** With each cell updating only with probability 0.1, the system behaves like the cyclic particle system of Bramson and Griffeath, or Tainaka's lattice rock-paper-scissors model. The literature says in the simplest spatial stochastic RPS realizations of cyclic three-species competition, a conservation law for the total number of reactants is incorporated, and no spiral patterns become apparent in lattice simulations, but instead fluctuating species clusters are observed. Your rule is like that: every move is one cell converting directly into another type, with no empty sites. Tainaka found that the dynamics of the system strongly depend on the lattice dimension (d). When d=2, the system approaches the stable state regardless of initial conditions.\n\n**3. The spontaneous 0\u21921 rule acts like a strong one-way mutation, which breaks up structure.** In rock-paper-scissors models with mutation, spirals only exist below a critical rate: at mean-field level a supercritical Hopf bifurcation (HB) occurs at \u03bc_H = \u03c3/[6(3+\u03c3)] and yields a stable limit cycle when \u03bc < \u03bc_H. Here the spontaneous rate (0.1) equals the contact-driven rate (0.1). That probably puts the system well into the strong-noise, well-mixed regime. It also explains the reduced type entropy (0.887), since the one-way 0\u21921 flow should make the three types unequal in abundance.\n\n**Genuine pattern or artifact?** The cycling is real. But a correlation length of 1 on a 64\u00d764 grid, together with an interface fraction of about 0.53 and about 7 domains, means there is essentially no structure beyond neighbouring cells. That is the expected signature of noise-dominated cyclic competition, not a new emergent pattern. I couldn't find a paper on this exact rule combination (threshold-1 cycling with p=0.1 plus a one-way 0\u21921 term). But per your criterion, an unpublished rule combination isn't a discovery when its behaviour is documented.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Fluctuating species clusters / quenched incoherent local oscillation in stochastic 3-state cyclic dominance (cyclic particle system, Tainaka lattice RPS) with mutation-like spontaneous conversion; not coherent CCA spirals\", \"citations\": [\"Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions\", \"Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (nlin/0507067): T=1 quenches incoherent local oscillations\", \"MCell CCA lexicon (Griffeath): R1/T3/C3/NM only self-organizing 3-colour range-1 rule\", \"Tainaka, Lattice model for the Lotka-Volterra system (2D stable state)\", \"He, Mobilia, T\u00e4uber / arXiv 1111.1674: conserved lattice RPS shows fluctuating clusters, no spirals\", \"Mobilia et al., Games 7, 24 (2016); Reichenbach-Mobilia-Frey: mutation-rate Hopf threshold for spirals\", \"Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Correlation length about 1 and interface fraction about 0.53 indicate no coherent waves. Passing the spiral test most likely reflects the type cycling (reversals about 0.5), not spatial wave structure. The spontaneous 0->1 rate equals the contact rate, putting the system in the strong-noise/mutation regime; the one-way flow likely explains the unequal type abundances (entropy 0.887). The exact rule combination is unpublished, but its behaviour is not new. The first pass's KNOWN-VARIANT rating is downgraded because the fine-grained fingerprint is exactly what the literature describes for this setup.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=1,p=0.1) ; C.FLIP(a=0,b=1,p=0.1)",
+ "len": 22,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals"
+ ],
+ "size": 2,
+ "groups": [
+  "grid|cyclic waves and spirals|15"
+ ],
+ "checked": "2026-10-25 00:33:14"
+}

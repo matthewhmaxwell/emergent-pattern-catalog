@@ -1,0 +1,913 @@
+{
+ "atypical_views": 37860,
+ "groups": 155,
+ "phenomena": 73,
+ "list": [
+  {
+   "rep": "N kN=4 | N.COPY(p=1.0)",
+   "len": 10,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 2785,
+   "groups": [
+    "network|network consensus|1",
+    "network|network consensus|2"
+   ]
+  },
+  {
+   "rep": "C kC=1 | C[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=0.1",
+   "len": 11,
+   "shown": [
+    "lattice phase locking"
+   ],
+   "size": 2575,
+   "groups": [
+    "lattice-phase|lattice phase locking|1",
+    "lattice-phase|lattice phase locking|4"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.MAJ(p=1.0)",
+   "len": 11,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 5622,
+   "groups": [
+    "grid|domain coarsening|1",
+    "grid|domain coarsening|15",
+    "grid|domain coarsening|10",
+    "grid|domain coarsening|6",
+    "grid|domain coarsening|7",
+    "grid|domain coarsening|9"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.REWIRE(p=1.0)",
+   "len": 11,
+   "shown": [
+    "network fragmentation"
+   ],
+   "size": 1175,
+   "groups": [
+    "network|network fragmentation|1"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.SCHELL(th=0.2)",
+   "len": 12,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 553,
+   "groups": [
+    "grid|segregation with vacancies|1",
+    "grid|segregation with vacancies|22"
+   ]
+  },
+  {
+   "rep": "N kN=1 | N.KURA(K=0.2)",
+   "len": 12,
+   "shown": [
+    "network synchronization"
+   ],
+   "size": 1974,
+   "groups": [
+    "network-phase|network synchronization|1"
+   ]
+  },
+  {
+   "rep": "C kC=1 | C.KURA(K=1.0) ; C.KURA(K=1.0)",
+   "len": 13,
+   "shown": [
+    "lattice phase locking"
+   ],
+   "size": 379,
+   "groups": [
+    "lattice-phase|lattice phase locking|2",
+    "lattice-phase|lattice phase locking|3"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=3,p=0.1)",
+   "len": 13,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 1608,
+   "groups": [
+    "grid|domain coarsening|2",
+    "grid|domain coarsening|4",
+    "grid|domain coarsening|17"
+   ]
+  },
+  {
+   "rep": "N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=0.2) p=0.1",
+   "len": 14,
+   "shown": [
+    "network synchronization"
+   ],
+   "size": 162,
+   "groups": [
+    "network-phase|network synchronization|2"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.COPY(p=0.005)",
+   "len": 14,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 820,
+   "groups": [
+    "grid|domain coarsening|3",
+    "grid|domain coarsening|5"
+   ]
+  },
+  {
+   "rep": "N kN=2 | N[0] ALWAYS() -> REWIRE_SAME() p=1.0",
+   "len": 15,
+   "shown": [
+    "network fragmentation"
+   ],
+   "size": 89,
+   "groups": [
+    "network|network fragmentation|2"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.CYCLE(th=1,p=0.3)",
+   "len": 15,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 96,
+   "groups": [
+    "grid|cyclic waves and spirals|1",
+    "grid|cyclic waves and spirals|10",
+    "grid|cyclic waves and spirals|16",
+    "grid|cyclic waves and spirals|17"
+   ]
+  },
+  {
+   "rep": "A kA=1 v=1.0 eta=1.0 | A.ALIGN(r=0.5)",
+   "len": 15,
+   "shown": [
+    "flocking"
+   ],
+   "size": 15721,
+   "groups": [
+    "agents|flocking|1",
+    "agents|flocking|3",
+    "agents|flocking|2"
+   ]
+  },
+  {
+   "rep": "N kN=2 | N.CONTAG(a=0,b=1,th=3,p=0.1)",
+   "len": 15,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 113,
+   "groups": [
+    "network|network consensus|9"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.CYCLE(th=2,p=0.1)",
+   "len": 15,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 40,
+   "groups": [
+    "network|network consensus|3"
+   ]
+  },
+  {
+   "rep": "CF kC=2 fields=1 D=[0.2] | C.GAME(g=(1.9, 0.0))",
+   "len": 15,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 601,
+   "groups": [
+    "grid|spatial game chaos|1",
+    "grid|spatial game chaos|5",
+    "grid|spatial game chaos|11"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C[any] ALWAYS() -> IMITATE_BEST(g=(1.5, 0.5)) p=0.1",
+   "len": 16,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 87,
+   "groups": [
+    "grid|spatial game chaos|2",
+    "grid|spatial game chaos|3"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.COPY(p=1.0) ; N.REWIRE(p=1.0)",
+   "len": 16,
+   "shown": [
+    "network fragmentation"
+   ],
+   "size": 193,
+   "groups": [
+    "network|network fragmentation|8",
+    "network|network fragmentation|7",
+    "network|network fragmentation|4",
+    "network|network fragmentation|6"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.COPY(p=1.0) ; N.REWIRE(p=0.1)",
+   "len": 16,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 244,
+   "groups": [
+    "network|network consensus|4",
+    "network|network consensus|5",
+    "network|network consensus|14",
+    "network|network consensus|7"
+   ]
+  },
+  {
+   "rep": "N kN=4 | N.COPY(p=0.1) ; N.KURA(K=0.1)",
+   "len": 16,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 100,
+   "groups": [
+    "network|network consensus|13"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.COPY(p=1.0) ; C.GAME(g=(1.5, 0.5))",
+   "len": 17,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 97,
+   "groups": [
+    "grid|spatial game chaos|4"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.MAJ(p=1.0) ; C.SWAP(p=1.0)",
+   "len": 17,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 6,
+   "groups": [
+    "grid|domain coarsening|8"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.COPY(p=0.1)",
+   "len": 17,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 121,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|1"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.SWAP(p=0.1)",
+   "len": 17,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 45,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|2"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.MAJ(p=1.0) ; C.SCHELL(th=0.3)",
+   "len": 17,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 78,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|1",
+    "grid|domain coarsening+segregation with vacancies|8"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.SWAP(p=1.0) ; C.SCHELL(th=0.5)",
+   "len": 17,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 82,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|2",
+    "grid|domain coarsening+segregation with vacancies|5",
+    "grid|domain coarsening+segregation with vacancies|3"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.SWAP(p=0.1) ; C.SCHELL(th=0.5)",
+   "len": 17,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 243,
+   "groups": [
+    "grid|segregation with vacancies|2",
+    "grid|segregation with vacancies|3",
+    "grid|segregation with vacancies|5",
+    "grid|segregation with vacancies|7"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.SCHELL(th=0.5) ; C.COPY(p=1.0)",
+   "len": 17,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 33,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|6"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.MAJ(p=1.0) ; N.REWIRE(p=0.1)",
+   "len": 17,
+   "shown": [
+    "network fragmentation"
+   ],
+   "size": 83,
+   "groups": [
+    "network|network fragmentation|3",
+    "network|network fragmentation|5"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C[any] NEXT_GE(th=1) -> SWAP_RAND() p=1.0",
+   "len": 18,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 15,
+   "groups": [
+    "grid|domain coarsening|11",
+    "grid|domain coarsening|12"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C[any] SAME_LT(th=0.5) -> MOVE_EMPTY() p=1.0",
+   "len": 18,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 306,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|4",
+    "grid|domain coarsening+segregation with vacancies|11"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C[1] SAME_LT(th=0.3) -> MOVE_EMPTY() p=0.1",
+   "len": 18,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 32,
+   "groups": [
+    "grid|segregation with vacancies|4",
+    "grid|segregation with vacancies|28",
+    "grid|segregation with vacancies|18"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C[any] NEXT_GE(th=1) -> SET_NEXT() p=0.1",
+   "len": 18,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 178,
+   "groups": [
+    "grid|cyclic waves and spirals|9",
+    "grid|cyclic waves and spirals|2"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C[any] NEXT_GE(th=1) -> COPY_RAND() p=1.0",
+   "len": 18,
+   "shown": [
+    "cyclic waves and spirals",
+    "domain coarsening"
+   ],
+   "size": 27,
+   "groups": [
+    "grid|cyclic waves and spirals+domain coarsening|1"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N[any] NEXT_GE(th=1) -> COPY_RAND() p=0.1",
+   "len": 18,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 89,
+   "groups": [
+    "network|network consensus|10"
+   ]
+  },
+  {
+   "rep": "N kN=4 | N[any] ALWAYS() -> COPY_RAND() p=0.2",
+   "len": 18,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 49,
+   "groups": [
+    "network|network consensus|12"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.MAJ(p=0.1) ; C.GAME(g=(1.5, -0.5))",
+   "len": 18,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 89,
+   "groups": [
+    "grid|spatial game chaos|6",
+    "grid|spatial game chaos|8",
+    "grid|spatial game chaos|10"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.COPY(p=1.0) ; C.SCHELL(th=0.7)",
+   "len": 18,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 123,
+   "groups": [
+    "grid|segregation with vacancies|6",
+    "grid|segregation with vacancies|14"
+   ]
+  },
+  {
+   "rep": "N kN=4 | N.CYCLE(th=3,p=1.0) ; N.COPY(p=0.1)",
+   "len": 18,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 25,
+   "groups": [
+    "network|network consensus|6"
+   ]
+  },
+  {
+   "rep": "N kN=2 | N.REWIRE(p=0.01) ; N.GAME(g=(1.9, 0.0))",
+   "len": 19,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 8,
+   "groups": [
+    "network|network consensus|8"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C[any] CNT_GE(b=0,th=3) -> IMITATE_BEST(g=(1.5, 0.5)) p=1.0",
+   "len": 19,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 27,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|3",
+    "grid|domain coarsening+spatial game chaos|4",
+    "grid|domain coarsening+spatial game chaos|5",
+    "grid|domain coarsening+spatial game chaos|6",
+    "grid|domain coarsening+spatial game chaos|7",
+    "grid|domain coarsening+spatial game chaos|8"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C[any] CNT_LE(b=0,th=3) -> IMITATE_BEST(g=(1.9, 0.0)) p=0.1",
+   "len": 19,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 10,
+   "groups": [
+    "grid|spatial game chaos|19",
+    "grid|spatial game chaos|7",
+    "grid|spatial game chaos|12"
+   ]
+  },
+  {
+   "rep": "A kA=1 v=0.3 eta=0.1 | A[any] ALWAYS() -> HEAD_MEAN(b=any,r=0.5) p=1.0",
+   "len": 19,
+   "shown": [
+    "flocking"
+   ],
+   "size": 445,
+   "groups": [
+    "agents|flocking|4"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.SWAP(p=1.0) ; C.CYCLE(th=3,p=0.1)",
+   "len": 19,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 29,
+   "groups": [
+    "grid|domain coarsening|13"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.COPY(p=1.0) ; C.CYCLE(th=3,p=1.0)",
+   "len": 19,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 45,
+   "groups": [
+    "grid|cyclic waves and spirals|3",
+    "grid|cyclic waves and spirals|5",
+    "grid|cyclic waves and spirals|6",
+    "grid|cyclic waves and spirals|11",
+    "grid|cyclic waves and spirals|12"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.MAJ(p=1.0) ; C.CYCLE(th=1,p=1.0)",
+   "len": 19,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 10,
+   "groups": [
+    "grid|cyclic waves and spirals|4",
+    "grid|cyclic waves and spirals|7",
+    "grid|cyclic waves and spirals|8",
+    "grid|cyclic waves and spirals|14"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=1,p=1.0) ; C.SCHELL(th=0.5)",
+   "len": 19,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 140,
+   "groups": [
+    "grid|segregation with vacancies|8",
+    "grid|segregation with vacancies|9",
+    "grid|segregation with vacancies|10",
+    "grid|segregation with vacancies|11",
+    "grid|segregation with vacancies|12",
+    "grid|segregation with vacancies|13",
+    "grid|segregation with vacancies|17",
+    "grid|segregation with vacancies|25",
+    "grid|segregation with vacancies|20",
+    "grid|segregation with vacancies|24",
+    "grid|segregation with vacancies|21",
+    "grid|segregation with vacancies|29",
+    "grid|segregation with vacancies|30",
+    "grid|segregation with vacancies|31"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=3,p=0.1) ; C.MAJ(p=1.0)",
+   "len": 19,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 29,
+   "groups": [
+    "grid|domain coarsening|16"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=3,p=0.1) ; C.SCHELL(th=0.3)",
+   "len": 19,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 143,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|7",
+    "grid|domain coarsening+segregation with vacancies|9"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.CYCLE(th=1,p=1.0) ; C.SCHELL(th=0.3)",
+   "len": 19,
+   "shown": [
+    "cyclic waves and spirals",
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 3,
+   "groups": [
+    "grid|cyclic waves and spirals+domain coarsening+segregation with vacancies|1",
+    "grid|cyclic waves and spirals+domain coarsening+segregation with vacancies|2"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.SCHELL(th=0.5) ; C.CYCLE(th=1,p=1.0)",
+   "len": 19,
+   "shown": [
+    "cyclic waves and spirals",
+    "segregation with vacancies"
+   ],
+   "size": 9,
+   "groups": [
+    "grid|cyclic waves and spirals+segregation with vacancies|1",
+    "grid|cyclic waves and spirals+segregation with vacancies|2",
+    "grid|cyclic waves and spirals+segregation with vacancies|3"
+   ]
+  },
+  {
+   "rep": "N kN=4 | N.MAJ(p=1.0) ; N.REWIRE(p=0.03)",
+   "len": 19,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 8,
+   "groups": [
+    "network|network consensus|11"
+   ]
+  },
+  {
+   "rep": "N kN=4 | N.CYCLE(th=1,p=1.0) ; N.REWIRE(p=1.0)",
+   "len": 19,
+   "shown": [
+    "network consensus",
+    "network fragmentation"
+   ],
+   "size": 5,
+   "groups": [
+    "network|network consensus+network fragmentation|1",
+    "network|network consensus+network fragmentation|2",
+    "network|network consensus+network fragmentation|4"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.MAJ(p=0.003) ; C.GAME(g=(1.3, 0.0))",
+   "len": 20,
+   "shown": [
+    "domain coarsening"
+   ],
+   "size": 25,
+   "groups": [
+    "grid|domain coarsening|14"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.CYCLE(th=7,p=0.1) ; C.GAME(g=(1.5, 0.5))",
+   "len": 20,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 82,
+   "groups": [
+    "grid|spatial game chaos|9"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.SWAP(p=0.05)",
+   "len": 20,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 15,
+   "groups": [
+    "grid|spatial game chaos|15"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.FLIP(a=1,b=0,p=0.1) ; C.SCHELL(th=0.5)",
+   "len": 20,
+   "shown": [
+    "domain coarsening",
+    "segregation with vacancies"
+   ],
+   "size": 38,
+   "groups": [
+    "grid|domain coarsening+segregation with vacancies|10"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.FLIP(a=1,b=0,p=0.1) ; C.SCHELL(th=0.3)",
+   "len": 20,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 45,
+   "groups": [
+    "grid|segregation with vacancies|15",
+    "grid|segregation with vacancies|16",
+    "grid|segregation with vacancies|26"
+   ]
+  },
+  {
+   "rep": "N kN=2 | N.MAJ(p=1.0) ; N.REWIRE(p=0.5)",
+   "len": 20,
+   "shown": [
+    "network consensus",
+    "network fragmentation"
+   ],
+   "size": 11,
+   "groups": [
+    "network|network consensus+network fragmentation|3"
+   ]
+  },
+  {
+   "rep": "CA kC=4 kA=3 v=0.3 eta=0.3 | C.CYCLE(th=3,p=1.0)",
+   "len": 20,
+   "shown": [
+    "cyclic waves and spirals",
+    "domain coarsening"
+   ],
+   "size": 9,
+   "groups": [
+    "grid|cyclic waves and spirals+domain coarsening|4",
+    "grid|cyclic waves and spirals+domain coarsening|3"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.FLIP(a=1,b=0,p=0.03) ; C.GAME(g=(1.9, 0.0))",
+   "len": 21,
+   "shown": [
+    "spatial game chaos"
+   ],
+   "size": 6,
+   "groups": [
+    "grid|spatial game chaos|13",
+    "grid|spatial game chaos|14",
+    "grid|spatial game chaos|16",
+    "grid|spatial game chaos|17",
+    "grid|spatial game chaos|18"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=3,p=0.3) ; C.SWAP(p=1.0)",
+   "len": 21,
+   "shown": [
+    "cyclic waves and spirals",
+    "domain coarsening"
+   ],
+   "size": 3,
+   "groups": [
+    "grid|cyclic waves and spirals+domain coarsening|2"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.MAJ(p=0.005) ; C.SCHELL(th=0.7)",
+   "len": 21,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 2,
+   "groups": [
+    "grid|segregation with vacancies|19"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.CYCLE(th=2,p=1.0) ; C.SWAP(p=1.0)",
+   "len": 21,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 2,
+   "groups": [
+    "grid|cyclic waves and spirals|13"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.SCHELL(th=0.5) ; C.SAND(p=0.001)",
+   "len": 21,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 11,
+   "groups": [
+    "grid|segregation with vacancies|23"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.CYCLE(th=7,p=0.03) ; C.GAME(g=(1.5, 0.5))",
+   "len": 22,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 16,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|9"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.FLIP(a=1,b=0,p=0.01) ; C.GAME(g=(1.3, 0.0))",
+   "len": 22,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 6,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|10"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CONTAG(a=0,b=1,th=3,p=1.0) ; C.SCHELL(th=0.3)",
+   "len": 22,
+   "shown": [
+    "segregation with vacancies"
+   ],
+   "size": 7,
+   "groups": [
+    "grid|segregation with vacancies|27"
+   ]
+  },
+  {
+   "rep": "C kC=3 | C.CYCLE(th=1,p=0.1) ; C.FLIP(a=0,b=1,p=0.1)",
+   "len": 22,
+   "shown": [
+    "cyclic waves and spirals"
+   ],
+   "size": 2,
+   "groups": [
+    "grid|cyclic waves and spirals|15"
+   ]
+  },
+  {
+   "rep": "C kC=4 | C.CYCLE(th=3,p=1.0) ; C.KURA(K=0.3)",
+   "len": 22,
+   "shown": [
+    "cyclic waves and spirals",
+    "domain coarsening"
+   ],
+   "size": 2,
+   "groups": [
+    "grid|cyclic waves and spirals+domain coarsening|5"
+   ]
+  },
+  {
+   "rep": "N kN=3 | N.REWIRE(p=0.2) ; N.CYCLE(th=1,p=0.1)",
+   "len": 22,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 4,
+   "groups": [
+    "network|network consensus|15",
+    "network|network consensus|16"
+   ]
+  },
+  {
+   "rep": "N kN=2 | N.COPY(p=1.0) ; N.GAME(g=(1.9, 0.0)) ; N.REWIRE(p=1.0)",
+   "len": 23,
+   "shown": [
+    "network consensus"
+   ],
+   "size": 3,
+   "groups": [
+    "network|network consensus|17"
+   ]
+  },
+  {
+   "rep": "C kC=2 | C.SWAP(p=0.3) ; C.CYCLE(th=4,p=0.01) ; C.GAME(g=(1.3, 0.0)) ; C.KURA(K=1.0)",
+   "len": 38,
+   "shown": [
+    "domain coarsening",
+    "spatial game chaos"
+   ],
+   "size": 2,
+   "groups": [
+    "grid|domain coarsening+spatial game chaos|11"
+   ]
+  }
+ ]
+}

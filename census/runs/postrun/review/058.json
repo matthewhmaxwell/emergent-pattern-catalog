@@ -1,0 +1,53 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation model with vacancies (Moore lattice, random relocation of unhappy agents) plus an irreversible type-to-vacancy decay (agent removal without inflow)",
+  "standard_name": "Schelling segregation with vacancies (diluted/high-vacancy segregated phase, surface-tension coarsening); closest variant: open-city Schelling / BEG model",
+  "confidence": "medium",
+  "citations": [
+   "Vinkovic & Kirman, A physical analogue of the Schelling model, PNAS 103:19261 (2006), https://www.pnas.org/doi/10.1073/pnas.0609371103",
+   "Gauvin, Vannimenus & Nadal, Phase diagram of a Schelling segregation model, arXiv:0903.4694 (Eur. Phys. J. B 2009)",
+   "Schelling segregation in an open city: a kinetically constrained Blume-Emery-Griffiths spin-1 system, arXiv:1002.3758",
+   "A Schelling model with switching agents, arXiv:1212.4929",
+   "Aging effects in Schelling segregation model, Sci. Rep. (2022), https://www.nature.com/articles/s41598-022-23224-7"
+  ],
+  "searches": [
+   "Schelling segregation model agents spontaneously leave become vacant one group depletion",
+   "Schelling model with vacancies increasing over time agent exit mortality segregation dynamics",
+   "Schelling segregation model Vinkovic Kirman physical analogy unlike-neighbour domains coarsening vacancies",
+   "Schelling model open system agents enter and leave city vacancies turnover segregation",
+   "Schelling segregation vacancy density high dilute phase separation clusters percolation vacancy fraction effect"
+  ],
+  "notes": "Base behaviour and the high-vacancy diluted small-cluster regime are documented. No source describes an irreversible one-sided type-to-empty decay giving a growing vacancy density; the open-city model is the nearest analogue. The model's 3 types may mean empty plus two agent types, or empty plus types 1 and 2 with type 1 going extinct. Interpretation of the non-textbook fingerprint (many small domains, corrlen about 1, falling activity) as the diluted regime is an inference, not tested by simulation. Schelling 1969/1971 originals were not retrieved.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Absorbing/frozen state of Schelling dynamics after one species goes extinct (the move rule stops doing anything once only one agent type remains; the leftover type-2 vs empty pattern is mistaken for diluted segregation)",
+ "citations": [
+  "https://arxiv.org/abs/0903.4694",
+  "https://arxiv.org/pdf/1812.06008",
+  "https://arxiv.org/pdf/2608.16557",
+  "https://www.nature.com/articles/s41598-022-23224-7"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Type 1 decays irreversibly (p=0.1/step, essentially gone within ~50-100 steps; FLIP 1->2 variant likewise merges it into type 2). With only one agent type left, same-type share = 1 for every agent with occupied neighbours, so the Schelling rule never fires and the system freezes. n_types=2, negative activity trend, many small domains with corrlen=1 are the frozen leftover pattern of one type in a mostly empty grid, not two groups separating. If isolated agents are scored share=0, there is a brief spell of random relocation and clumping before freezing; still trivial. The segregation test passed because empty cells are counted as a type. Not a discovery; the first pass's KNOWN-VARIANT label overstated it.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN, and the result is trivial.** This isn't a new form of segregation. The decay rule wipes out one agent type, and that turns the Schelling move rule off. I'm fairly sure the \"segregation with vacancies\" test passed by mistake. I didn't run the model; this comes from working through the rules and checking them against the literature.\n\n**What the rules force to happen**\n1. Type 1 turns into empty with probability 0.1 per step and never comes back. After 50 steps only about 0.5% of the starting type-1 cells are left (0.9\u2075\u2070 \u2248 0.005). After about 100 steps there are effectively none. The FLIP(1\u21922) member of the class does the same thing, except type 1 becomes type 2.\n2. That leaves empty cells plus one agent type. Every occupied neighbour of a type-2 cell is also type 2, so its same-type share is 1. That's above every threshold in the class (0.2\u20130.5), so nobody wants to move.\n   - Possible exception: some code scores a cell with no occupied neighbours as share 0. If so, isolated type-2 cells keep jumping to random empty cells until they land next to another one. That gives a short spell of clumping that dies away, and then the system freezes all the same.\n3. Either way it ends stuck in an absorbing state. The literature shows Schelling dynamics always end up absorbed once every agent is satisfied: \"the Schelling dynamics converges to an absorbing state with probability 1.\" Here every agent becomes satisfied as soon as type 1 is gone.\n\n**Why the numbers look the way they do**\n- **g_n_types = 2:** only empty and type 2 remain.\n- **g_activity_trend = \u22123.9:** some moving happens while type 1 is still dying out, then movement drops to zero.\n- **g_n_domains = 5.8 with g_corrlen = 1:** these are scattered type-2 patches in a mostly empty grid. They're leftovers from the random start, with no structure at longer distances. That's an occupied-versus-empty pattern, not two groups separating.\n- **g_reversals and g_type_entropy:** these come from the early phase while type 1 is still disappearing.\n\n**Why the segregation test was fooled**\nA segregation score that treats empty cells as a third type will find \"domains\" between type 2 and empty space. Real Schelling segregation is about two agent types separating. Gauvin et al. define a diluted segregation state where homogeneous communities are separated from other by large empty buffers, which it's tempting to match this to. But that state still needs two agent groups. Here only one group is left, so the match is just how the score is built.\n\n**Where the first pass went wrong**\nIt called this a known variant of diluted, high-vacancy Schelling. The real mechanism is simpler: one type goes extinct and the move rule stops doing anything. The 45 rule programs producing this behaviour fit that, since any type-to-empty or type-to-type flip that never reverses gives the same collapse.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Absorbing/frozen state of Schelling dynamics after one species goes extinct (the move rule stops doing anything once only one agent type remains; the leftover type-2 vs empty pattern is mistaken for diluted segregation)\", \"citations\": [\"https://arxiv.org/abs/0903.4694\", \"https://arxiv.org/pdf/1812.06008\", \"https://arxiv.org/pdf/2608.16557\", \"https://www.nature.com/articles/s41598-022-23224-7\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Type 1 decays irreversibly (p=0.1/step, essentially gone within ~50-100 steps; FLIP 1->2 variant likewise merges it into type 2). With only one agent type left, same-type share = 1 for every agent with occupied neighbours, so the Schelling rule never fires and the system freezes. n_types=2, negative activity trend, many small domains with corrlen=1 are the frozen leftover pattern of one type in a mostly empty grid, not two groups separating. If isolated agents are scored share=0, there is a brief spell of random relocation and clumping before freezing; still trivial. The segregation test passed because empty cells are counted as a type. Not a discovery; the first pass's KNOWN-VARIANT label overstated it.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.FLIP(a=1,b=0,p=0.1) ; C.SCHELL(th=0.3)",
+ "len": 20,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 45,
+ "groups": [
+  "grid|segregation with vacancies|15",
+  "grid|segregation with vacancies|16",
+  "grid|segregation with vacancies|26"
+ ],
+ "checked": "2026-10-25 00:21:48"
+}

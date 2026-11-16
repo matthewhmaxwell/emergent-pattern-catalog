@@ -1,0 +1,60 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Cyclic cellular automaton (Griffeath; 3 states, Moore range 1, T=1) coupled with zero-temperature Potts/majority-vote smoothing, i.e. a deterministic cyclic Potts / cyclic voter-with-surface-tension system",
+  "standard_name": "Cyclic cellular automaton spiral/wave dynamics with Potts-type coarsening (active cyclic Potts model; cyclic voter model with Potts energy)",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, Spatial Stochastic Processes (Springer) https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8",
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 https://www.math.ucdavis.edu/~gravner/papers/fgg.pdf",
+   "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata https://arxiv.org/abs/nlin/0507067",
+   "Reiter, Medley of spirals from cyclic cellular automata, Computers & Graphics https://www.sciencedirect.com/science/article/abs/pii/S0097849309001137",
+   "Szabo & Szolnoki (2002) Three-state cyclic voter model extended with Potts energy, PRE 65, 036115 https://link.aps.org/doi/10.1103/PhysRevE.65.036115",
+   "Noguchi, van Wijland, Fournier, Cycling and spiral-wave modes in an active cyclic Potts model https://arxiv.org/abs/2311.05257",
+   "Noguchi, Coarsening dynamics for spiral and disordered waves in active Potts models https://arxiv.org/abs/2509.17408",
+   "Hellouin de Menibus & Le Borgne (2021) 1D rock-paper-scissors CCA, Ann. Appl. Probab. https://arxiv.org/abs/1903.12622"
+  ],
+  "searches": [
+   "cyclic cellular automaton Griffeath spirals threshold 1 Moore neighborhood three states",
+   "cyclic cellular automaton combined with majority vote smoothing rule spiral waves domain coarsening",
+   "rock-paper-scissors cellular automaton majority rule interface motion curvature driven cyclic dominance",
+   "active Potts model cyclic flips spiral waves three-state coarsening",
+   "cyclic cellular automaton with noise or smoothing, majority vote plus cyclic update, T=1 quench",
+   "Szabo Szolnoki Three-state cyclic voter model extended with Potts energy",
+   "Fisch Gravner Griffeath Cyclic cellular automata in two dimensions"
+  ],
+  "notes": "Both ingredients and their qualitative combination are documented (CCA waves/spirals; cyclic dominance + Potts surface tension giving spirals and a saturated wavelength). Differences: synchronous deterministic dynamics with a hard every-step 8-neighbour majority rule, no thermal or nucleation noise, T=1 (plain 3-colour T=1 CCA is not a textbook spiral former), and the diffusing-field (CF) variants and rule-order variants, none of which I found documented. The short correlation length (~3) and few domains suggest a saturated short-wavelength wave state rather than large CCA spirals, which is qualitatively consistent with the saturation at a characteristic wavelength reported for active Potts models. I found no source showing this exact deterministic composition; I could not read the 1991 papers or the Szabo-Szolnoki full text, only abstracts and citations.",
+  "searches_used": 7
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cyclic cellular automaton (Griffeath CCA, kappa=3, theta=1, Moore) demon/spiral locally periodic state; cf. cyclic voter/Potts models with surface tension",
+ "citations": [
+  "Fisch, Gravner, Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes",
+  "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Szabo & Szolnoki (2002) Three-state cyclic voter model extended with Potts energy, PRE 65, 036115",
+  "Cycling and spiral-wave modes in an active cyclic Potts model, arXiv:2311.05257",
+  "Coarsening dynamics for spiral and disordered waves in active Potts models, arXiv:2509.17408"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium",
+ "notes": "The threshold-1 cyclic update dominates: the order of rules and the diffusing field D (apparently uncoupled) make no difference. The majority step only blurs the CCA's period-3 local cycling. The unusual fingerprint is the very short wavelength (~3 cells; corrlen=3, ~4 domains) with near-constant turnover (reversals 0.94), which reads as a fine texture on 64x64 rather than large spirals. n_types and entropy are maxed by 3-state symmetry alone. This was inferred from the reported metrics; the run was not reproduced. Check snapshots for spiral cores or defects to rule out a lattice-locked stripe artifact (64 is not divisible by 3, so some defects are expected). The first pass's KNOWN-VARIANT rested on rule differences, not on new behaviour.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** What this run does is the threshold-1, 3-colour cyclic cellular automaton (CCA) settling into small repeating patterns that cycle with period 3. The every-step majority rule changes the details but not the kind of behaviour. I couldn't find any twist in what the system actually does that the literature doesn't already cover. The first pass's \"KNOWN-VARIANT\" rested on differences in the rules (synchronous, deterministic, a hard 8-neighbour majority, no noise). That's a different rule combination, not new behaviour.\n\nI didn't run the system myself. The reading below comes from the numbers you reported.\n\n**Why it fits the known behaviour**\n- **Rule (2) by itself is the classic CCA.** Each cell takes its neighbour's value when that neighbour is exactly one step ahead in the cycle. Cyclic cellular automata in two or more dimensions exhibit complex spiraling behavior. Fisch, Gravner and Griffeath studied exactly this family: deterministic oscillating lattice dynamics with parallel discrete-time updating, parametrized by range, neighbourhood shape, threshold \u03b8 and number of states \u03ba. Your run is \u03ba=3, \u03b8=1, Moore neighbourhood. From random starts, these rules self-organize, typically by nucleating locally periodic 'ram's horns' or spirals. In the long run they are taken over by \"demons\", small loops of all three colours that keep turning over forever: on an infinite lattice demons are expected to occur somewhere with probability one, so demon domination is the expected long-term state.\n- **Adding a smoothing / surface-tension term to cyclic dominance is also documented.** Szab\u00f3 and Szolnoki found that with surface tension, the evolution is governed by spiral formation whose geometry depends on the strength of cyclic dominance. In active cyclic Potts models, the correlation length grows and then levels off at characteristic wavelengths. That same model can also flip into whole-lattice cycling: at low cycling energy the homogeneous dominant state cycles by nucleation and growth, while spiral waves form at high energy.\n\n**Why the fingerprint looks unusual (my inference, not tested)**\n- **Very short wavelength.** With \u03b8=1 on 8 neighbours, the cycling step is so strong that the pattern settles at about the shortest wavelength possible, roughly 3 cells: a correlation length of 3.0 and about 4 domains. At that scale, spirals on a 64\u00d764 grid look like fine-grained texture rather than the large spirals in textbook pictures.\n- **Constant turnover.** Reversals of 0.94 mean almost every cell changes state almost every step. That is what you'd expect once the lattice is locked into period-3 local cycles.\n- **The majority rule barely matters.** Swapping the order of the two rules gives the same outcome, and so does adding the diffusing field (D=0.05 or 0.2) that nothing appears to read. Both point to the cycling rule dominating, with majority only blurring the result. The diffusing field showing up in the same class looks like an artifact of how the class was grouped, not part of the behaviour.\n\n**Genuine or trivial?** It's genuine self-organization: textbook CCA demon/spiral behaviour, not a frozen or uniform state. It does sit near the degenerate end, though. Some metrics are maxed out by symmetry alone: with three balanced types, n_types=3 and entropy=1 come for free. A pattern at the shortest possible wavelength is also close to \"everything just cycles.\" To make sure it isn't a single stripe pattern locked to the lattice, check snapshots for spiral cores or defects. A plane wave with wavelength 3 can't wrap cleanly around 64 cells (64 isn't divisible by 3), so some defects should be there.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cyclic cellular automaton (Griffeath CCA, kappa=3, theta=1, Moore) demon/spiral locally periodic state; cf. cyclic voter/Potts models with surface tension\", \"citations\": [\"Fisch, Gravner, Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes\", \"Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Szabo & Szolnoki (2002) Three-state cyclic voter model extended with Potts energy, PRE 65, 036115\", \"Cycling and spiral-wave modes in an active cyclic Potts model, arXiv:2311.05257\", \"Coarsening dynamics for spiral and disordered waves in active Potts models, arXiv:2509.17408\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium\", \"notes\": \"The threshold-1 cyclic update dominates: the order of rules and the diffusing field D (apparently uncoupled) make no difference. The majority step only blurs the CCA's period-3 local cycling. The unusual fingerprint is the very short wavelength (~3 cells; corrlen=3, ~4 domains) with near-constant turnover (reversals 0.94), which reads as a fine texture on 64x64 rather than large spirals. n_types and entropy are maxed by 3-state symmetry alone. This was inferred from the reported metrics; the run was not reproduced. Check snapshots for spiral cores or defects to rule out a lattice-locked stripe artifact (64 is not divisible by 3, so some defects are expected). The first pass's KNOWN-VARIANT rested on rule differences, not on new behaviour.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.MAJ(p=1.0) ; C.CYCLE(th=1,p=1.0)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals"
+ ],
+ "size": 10,
+ "groups": [
+  "grid|cyclic waves and spirals|4",
+  "grid|cyclic waves and spirals|7",
+  "grid|cyclic waves and spirals|8",
+  "grid|cyclic waves and spirals|14"
+ ],
+ "checked": "2026-10-25 00:07:16"
+}

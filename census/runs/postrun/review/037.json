@@ -1,0 +1,57 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial evolutionary game (synchronous imitate-the-best cellular automaton, Moore neighbourhood with self-interaction) plus stochastic majority-rule/conformity smoothing",
+  "standard_name": "Spatial chaos in the spatial Prisoner's Dilemma (Nowak-May), with conformity/majority-vote updating",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829, https://www.nature.com/articles/359826a0",
+   "Nowak & May 1993, The spatial dilemmas of evolution, Int J Bifurcation Chaos 3:35-78, https://www.worldscientific.com/doi/10.1142/S0218127493000040",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys Rep 446:97-216, https://arxiv.org/pdf/cond-mat/0607344",
+   "Szolnoki & Perc 2015, Conformity enhances network reciprocity in evolutionary social dilemmas, J R Soc Interface 12:20141299, https://core.ac.uk/outputs/42932284/",
+   "Szolnoki & Perc 2016, Leaders should not be conformists in evolutionary social dilemmas, Sci Rep 6:23633, https://www.nature.com/articles/srep23633",
+   "Schweitzer/Behera/Muhlenbein-type analytic regions for Nowak's b values, arXiv cond-mat/0211605"
+  ],
+  "searches": [
+   "Nowak May Evolutionary games and spatial chaos Nature 1992",
+   "spatial prisoner's dilemma imitate best neighbour combined with majority rule opinion dynamics cellular automaton",
+   "spatial game chaos with noise or conformity majority update coexistence cooperators defectors lattice dynamic patterns",
+   "spatial prisoner's dilemma conformist majority rule update mixed with imitate best, cooperation lattice",
+   "Nowak May The spatial dilemmas of evolution general payoff matrix S negative chaotic region kaleidoscope",
+   "evolutionary game lattice majority vote opinion dynamics coupled strategy imitation synchronous cellular automaton domains",
+   "Szolnoki Perc Conformity enhances network reciprocity in evolutionary social dilemmas"
+  ],
+  "notes": "Core phenomenon (spatiotemporal chaos with persistent C/D coexistence under synchronous imitate-best) is textbook. Differences: payoffs T=1.5, S=-0.5 rather than the S=P=0 weak PD; a per-step stochastic majority overwrite on all cells rather than a fixed conformist subpopulation with Fermi updating. No source found for this exact combination or payoff set. The majority step likely smooths domain boundaries, which would explain the high domain count and correlation length and the non-textbook fingerprint. This is plausible but untested, and the chaos threshold for negative S is not verified from a source.",
+  "searches_used": 7
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Spatial Prisoner's Dilemma coexistence/spatial chaos (Nowak-May 1992) with conformity-smoothed domains (Szolnoki & Perc 2015, 'Conformity enhances network reciprocity')",
+ "citations": [
+  "Nowak & May, Nature 359, 826-829 (1992)",
+  "Szolnoki & Perc, J. R. Soc. Interface 12, 20141299 (2015)",
+  "Cui & Wu, Physica A 392, 1500-1509 (2013)",
+  "Szolnoki & Perc, Sci. Rep. (2016) 'Leaders should not be conformists'",
+  "https://wisc.pb.unizin.org/agent-based-evolutionary-game-dynamics/chapter/iii-1/"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Fewer, smoother clusters than textbook Nowak-May chaos are the documented effect of mixing majority-copying (conformity) with best-neighbour imitation. The differences are rule-level only (strict PD S=-0.5, all cells updating at once, every cell conforming with p=0.1 instead of a fixed conformist subgroup) and do not change the behaviour class. The rising activity trend and single reversal are weak evidence and may be a slow transient on a 64x64 grid. ~3.6 domains alongside a correlation length of 2.3 may reflect how the metrics are normalised. Pattern is genuine but generic, not an artifact.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The run shows cooperators and defectors coexisting in a small number of smoothed-out clusters on a lattice where agents imitate the best-scoring neighbour. That is a known effect of adding conformity (copying the local majority) to the spatial Prisoner's Dilemma. I found no feature that needs a new behavioural explanation.\n\n**Base behaviour.** In Nowak & May's model, every agent plays itself and its 8 neighbours, then all agents update at once by copying the best-scoring cell in that group, choosing at random between ties. The result is cooperators and defectors coexisting, with clusters of both types of players expanding, colliding and fragmenting. Your class contains this exact setup: the members with payoffs (1.9, 0) are almost exactly Nowak & May's chaotic setting, DC-payoff = 1.85 with CD = DD = 0.\n\n**Why the fingerprint isn't textbook.** The step where each cell copies its neighbourhood majority with probability 0.1 is a conformity rule. Mixing majority-copying with payoff-driven copying is well studied:\n- Szolnoki & Perc found that spatial selection for cooperation is enhanced if an appropriate fraction of the population chooses the most common rather than the most profitable strategy.\n- They also showed that conformists can form an efficient surface around cooperative clusters and guarantee smooth interfaces between diverse strategy domains.\n- Later work reports conformity induces within-cluster behavioral homogeneity and between-cluster behavioral diversity.\n- More generally, some works have considered the mixed rule in combination with the payoff-driven and conformity-driven strategy update procedures, and in some of them cooperators can survive with defectors under the mixed update rule.\n\nThe observed features fit this. About 3.6 domains means fewer, smoother clusters than pure Nowak\u2013May chaos produces. A type entropy of 0.83 (roughly a 25/75 split) means stable coexistence. That explains why the run passes the spatial-chaos test but doesn't look like textbook spatial chaos.\n\n**Differences from the literature, all at the rule level rather than in the behaviour:**\n- **Payoffs:** S = \u22120.5 is a strict Prisoner's Dilemma, not the \"weak\" version with S = 0.\n- **Update scheme:** everyone updates at once by copying the best scorer; Szolnoki & Perc updated one random cell at a time with a probabilistic (Fermi) rule.\n- **Who conforms:** every cell conforms with probability 0.1 each step, rather than a fixed subgroup of conformists.\n\nAs you said, an undocumented rule combination isn't a discovery. The behaviour is the same.\n\n**Is it a real pattern or an artifact?** It's a real emergent pattern, but a generic one. \"2 types\" only says that both strategies survived. The rising activity and single trend reversal are thin evidence: they could be a slow transient on a small 64\u00d764 grid. I can't verify that from summary statistics alone. One oddity: about 3.6 domains alongside a correlation length of only 2.3 is a bit inconsistent. It may come from how these metrics are normalised rather than from the dynamics. Neither point is a sign of new phenomenology.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Spatial Prisoner's Dilemma coexistence/spatial chaos (Nowak-May 1992) with conformity-smoothed domains (Szolnoki & Perc 2015, 'Conformity enhances network reciprocity')\", \"citations\": [\"Nowak & May, Nature 359, 826-829 (1992)\", \"Szolnoki & Perc, J. R. Soc. Interface 12, 20141299 (2015)\", \"Cui & Wu, Physica A 392, 1500-1509 (2013)\", \"Szolnoki & Perc, Sci. Rep. (2016) 'Leaders should not be conformists'\", \"https://wisc.pb.unizin.org/agent-based-evolutionary-game-dynamics/chapter/iii-1/\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Fewer, smoother clusters than textbook Nowak-May chaos are the documented effect of mixing majority-copying (conformity) with best-neighbour imitation. The differences are rule-level only (strict PD S=-0.5, all cells updating at once, every cell conforming with p=0.1 instead of a fixed conformist subgroup) and do not change the behaviour class. The rising activity trend and single reversal are weak evidence and may be a slow transient on a 64x64 grid. ~3.6 domains alongside a correlation length of 2.3 may reflect how the metrics are normalised. Pattern is genuine but generic, not an artifact.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.MAJ(p=0.1) ; C.GAME(g=(1.5, -0.5))",
+ "len": 18,
+ "stage": "g1",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 89,
+ "groups": [
+  "grid|spatial game chaos|6",
+  "grid|spatial game chaos|8",
+  "grid|spatial game chaos|10"
+ ],
+ "checked": "2026-10-24 23:58:26"
+}

@@ -1,0 +1,59 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation with vacancies coupled to synchronous majority-rule (zero-temperature Potts/voter-like) cellular automaton; Schelling-voter hybrid",
+  "standard_name": "Domain coarsening in Schelling segregation with vacancies (Schelling-voter / kinetically constrained Blume-Capel-BEG type)",
+  "confidence": "medium",
+  "citations": [
+   "Dall'Asta, Castellano, Marsili 2008, Statistical physics of the Schelling model of segregation (J. Stat. Mech. L07002), coarsening with non-conserved order parameter, seen via ResearchGate snippet",
+   "Gauvin, Vannimenus, Nadal 2009, Phase diagram of a Schelling segregation model, EPJ B 70, 293-304, arXiv:0903.4694",
+   "Schelling segregation in an open city: kinetically constrained Blume-Emery-Griffiths spin-1 system, arXiv:1002.3758",
+   "Aging effects in Schelling segregation model, Sci. Rep. 2022, arXiv:2204.01417 (alpha~0.5 coarsening, power-law domain growth)",
+   "Schelling-voter model: An application to language competition, Chaos Solitons Fractals (ScienceDirect S0960077913001720)",
+   "Topology Controlled Potts Coarsening, arXiv:1812.05655 (frozen states in T=0 Potts coarsening)"
+  ],
+  "searches": [
+   "Schelling segregation model combined with majority rule opinion dynamics vacancies domain coarsening",
+   "Schelling model with vacancies coarsening domain growth law interfaces Potts model",
+   "coupled Schelling segregation and opinion conformity cellular automaton cultural type adoption and relocation",
+   "Schelling segregation coupled with opinion dynamics co-evolution residence opinion lattice",
+   "majority rule cellular automaton diluted vacancies coarsening frozen domains zero-temperature Potts dilution",
+   "Schelling model with imitation adopt neighbors type and relocate hybrid voter model mobility",
+   "Gauvin Vannimenus Nadal phase diagram of a Schelling segregation model"
+  ],
+  "notes": "Coarsening/segregation with vacancies is well documented for Schelling and Potts-like systems, and a Schelling-voter hybrid exists. Differences: published hybrids are asynchronous and stochastic with 2 types, with the voter/move choice applied only to unhappy agents. This system is deterministic and synchronous, applies majority adoption to all cells every step, and has 3-4 types. No source found for this exact combination. Atypical fingerprint (long corrlen, ~2.3 surviving types, declining activity) is plausibly frozen or metastable multi-state Potts-like coarsening with vacancy-lined interfaces, but I did not verify this. Could not read the Schelling-voter paper in full; did not verify its authors or date.",
+  "searches_used": 7
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Majority-vote CA / zero-temperature Glauber (Potts-like) coarsening to frozen domains or consensus, with a nearly inert Schelling move step (limit of Schelling-voter hybrids)",
+ "citations": [
+  "Moore 1997, Majority-Vote Cellular Automata, Ising Dynamics, and P-Completeness, J. Stat. Phys. 88",
+  "Dominguez Arroyo 2020, Artificial Life Simulation of the Majority Vote (Moore neighbourhood majority CA converges to stable/unanimous states)",
+  "arXiv 1301.0151, Stochastic dynamics on hypergraphs and the spatial majority rule model (clustering conjecture)",
+  "Characterizing segregation in the Schelling-Voter model (Physica A)",
+  "Schelling-voter model: an application to language competition",
+  "Aging effects in Schelling segregation model, Sci. Rep. 2022 (Schelling coarsening, interface exponent ~0.5)",
+  "physics/0609079 (Schelling equivalent to zero-T spin-exchange kinetic Ising with vacancies; majority rule as zero-T spin-flip Ising)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "The synchronous p=1 majority rule over all 3 states, empty included, controls the dynamics: domains grow and freeze, activity falls, types can be voted out (low g_n_types), and synchronous ties likely cause the reversals (inferred, not confirmed). Because vacancies take part in the vote they are not conserved, so 'segregation with vacancies' is partly a mislabel. The 0.3-tolerance Schelling move rarely fires once neighbourhoods are uniform, which fits threshold/probability changes landing in the same class. No paper found on this exact rule combination, but the behaviour is standard majority-vote freezing coarsening. The first pass's KNOWN-VARIANT rested on rule-setup differences, not on different behaviour.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is ordinary majority-vote coarsening that ends up frozen, with the Schelling move rule doing very little. It isn't a new kind of segregation. The first pass called it KNOWN-VARIANT because the published Schelling\u2013voter hybrids are set up differently. But the instructions say a different rule setup doesn't count as a discovery. The behaviour itself is documented.\n\n**Why the fingerprint doesn't look like textbook Schelling.** Rule (1) is a majority vote applied to every cell at once, every step, with probability 1. On a Moore (8-neighbour) lattice this rule settles down by itself: Moore-neighbourhood majority-vote CAs are Class 1, converging to a stable pattern, and converge to unanimity when one type starts with a large enough majority. Majority rule is a well-known way to model this: for dimensions above 1, majority rule is implemented as a zero-temperature spin-flip kinetic Ising model. For random-sequential majority rule, the model with an odd neighbourhood size is conjectured to cluster in any dimension. Moore (1997) studies the synchronous majority-vote CA directly and ties it to zero-temperature single spin-flip Ising dynamics.\n\nHow each observed feature follows:\n- **Long correlation length, few domains, large largest domain:** majority rule grows domains, which then freeze or reach consensus.\n- **Falling activity:** the system is freezing.\n- **Reversals:** most likely the period-2 flip-flopping that synchronous majority rules produce at ties and interfaces (this is my inference, I didn't confirm it).\n- **Fewer surviving types (g_n_types well below 3):** a key detail is that \"empty\" (type 0) votes in the majority rule like any other type. So the number of vacancies isn't fixed. Empty cells can form their own domains, grow, or disappear, and agent types can be voted out entirely. That's majority-vote type loss, not Schelling's conserved segregation.\n- **The Schelling rule hardly matters:** once majority voting has made neighbourhoods uniform, almost no agent falls below the 0.3 tolerance threshold, so few ever move. That would explain why changing the threshold (0.6, 0.7) or the majority probability (0.1) lands in the same class.\n\n**Is it already in the literature?** Yes. Schelling with vacancies is mathematically equivalent to the zero-temperature spin-exchange kinetic Ising model with vacancies, and its coarsening laws are measured; for example, interface density decays as a power law with exponent \u22480.5 at low vacancy density. Hybrids that mix moving and type-changing exist: in the Schelling\u2013Voter model an unhappy agent can change her place or her state to be happy. This system is just the limiting case where type-changing (by majority) applies to everyone and wins out.\n\n**Genuine or trivial?** The domains really do form on their own, but the result is close to trivial. One rule (majority vote) controls everything and the system heads for a frozen or near-consensus state. Calling it \"segregation with vacancies\" is partly a labelling artifact, because vacancies aren't conserved here.\n\n**Caveat:** I didn't find a paper on exactly a synchronous 3-state Moore majority CA with a Schelling move step and vacancies that can be voted in or out. Under the stated criterion, that missing rule combination doesn't make the behaviour new.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Majority-vote CA / zero-temperature Glauber (Potts-like) coarsening to frozen domains or consensus, with a nearly inert Schelling move step (limit of Schelling-voter hybrids)\", \"citations\": [\"Moore 1997, Majority-Vote Cellular Automata, Ising Dynamics, and P-Completeness, J. Stat. Phys. 88\", \"Dominguez Arroyo 2020, Artificial Life Simulation of the Majority Vote (Moore neighbourhood majority CA converges to stable/unanimous states)\", \"arXiv 1301.0151, Stochastic dynamics on hypergraphs and the spatial majority rule model (clustering conjecture)\", \"Characterizing segregation in the Schelling-Voter model (Physica A)\", \"Schelling-voter model: an application to language competition\", \"Aging effects in Schelling segregation model, Sci. Rep. 2022 (Schelling coarsening, interface exponent ~0.5)\", \"physics/0609079 (Schelling equivalent to zero-T spin-exchange kinetic Ising with vacancies; majority rule as zero-T spin-flip Ising)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"The synchronous p=1 majority rule over all 3 states, empty included, controls the dynamics: domains grow and freeze, activity falls, types can be voted out (low g_n_types), and synchronous ties likely cause the reversals (inferred, not confirmed). Because vacancies take part in the vote they are not conserved, so 'segregation with vacancies' is partly a mislabel. The 0.3-tolerance Schelling move rarely fires once neighbourhoods are uniform, which fits threshold/probability changes landing in the same class. No paper found on this exact rule combination, but the behaviour is standard majority-vote freezing coarsening. The first pass's KNOWN-VARIANT rested on rule-setup differences, not on different behaviour.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.MAJ(p=1.0) ; C.SCHELL(th=0.3)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 78,
+ "groups": [
+  "grid|domain coarsening+segregation with vacancies|1",
+  "grid|domain coarsening+segregation with vacancies|8"
+ ],
+ "checked": "2026-10-24 23:47:36"
+}

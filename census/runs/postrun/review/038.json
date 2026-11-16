@@ -1,0 +1,52 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation with vacancies coupled to voter-model copying (Schelling-Voter hybrid), 4-state, Moore lattice",
+  "standard_name": "Schelling-Voter model / Schelling segregation with vacancies (voter-driven domain coarsening)",
+  "confidence": "medium",
+  "citations": [
+   "Caridi, Nemi\u00f1a, Pinasco, Schiaffino, Schelling-voter model: An application to language competition, Chaos Solitons & Fractals (ScienceDirect S0960077913001720)",
+   "Caridi, Pinasco, Saintier, Schiaffino, Characterizing segregation in the Schelling-Voter model, Physica A 487 (2017) 125-142, doi:10.1016/j.physa.2017.05.092",
+   "Starnini, Baronchelli, Pastor-Satorras, Ordering dynamics of the multi-state voter model, arXiv:1207.5810",
+   "A Schelling model with switching agents, arXiv:1212.4929",
+   "Tipping Points in Schelling Segregation, arXiv:1311.5934"
+  ],
+  "searches": [
+   "Schelling segregation model combined with voter model imitation agents change type and relocate",
+   "Schelling model with conversion of agents to neighbor's type, vacancies, domain coarsening",
+   "Schelling-Voter model more than two types multiple languages segregation extinction patterns Schiaffino Saintier",
+   "voter model with vacancies empty sites copying neighbor state including empty, multi-state coarsening domains"
+  ],
+  "notes": "Differences from the published Schelling-Voter model: copying is unconditional (every cell, every step) rather than only for unhappy agents; there are 4 states rather than 2; copying of empty neighbours may make vacancy density non-conserved (unconfirmed from the rule text); updating is synchronous rather than sequential. These likely change quantitative fingerprints (domain count, surviving types) but not the qualitative mechanism (voter coarsening plus Schelling relocation at boundaries). No source found on exactly the unconditional multi-type version. Only abstracts and snippets were read, not full texts.",
+  "searches_used": 4
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Multi-state voter-model coarsening (2D, interfacial-noise driven) with a Schelling relocation perturbation; cf. Schelling\u2013Voter model",
+ "citations": [
+  "https://www.sciencedirect.com/science/article/abs/pii/S0378437117306118",
+  "https://arxiv.org/html/1506.05321",
+  "https://arxiv.org/html/1903.09198",
+  "https://arxiv.org/abs/0806.0817",
+  "https://www.lpthe.jussieu.fr/~leticia/RAPPORTS/alessandro-tartaglia.pdf"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Copying every cell every step makes this a 4-state voter model in which the empty state is one of the copied opinions (my reading of the rule text, so vacancies are not conserved); Schelling moves only add mixing. A snapshot with many fractal domains, most types surviving, short correlation length and high interface density is what slow 2D voter coarsening looks like at 64x64 and finite time. The 'segregation with vacancies' label is partly an artifact. The pattern is real emergent ordering, but well known. Untested: whether coarsening is logarithmic or algebraic (needs time series). The p=0.1 variants lean more on movement and sit closer to the published Schelling-Voter hybrid.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. Its list of differences is accurate, but those are differences in the rules. None of them adds behaviour that the literature doesn't already cover.\n\n**What's actually driving the pattern.** Rule (1) is a plain voter model: the multi-state voter model (VM) is one of the most studied models of non-equilibrium statistical physics. In the main program it runs on every cell, every step, so it dominates. The movement rule just adds a bit of extra mixing on top. As I read the rule text, the empty state (type 0) gets copied like any other type. So in practice this is a 4-state voter model where \"empty\" is one of the opinions. Empty cells aren't conserved, which means the \"vacancies\" here aren't really vacancies in the Schelling sense.\n\n**Why the fingerprint fits voter coarsening, not textbook Schelling.**\n- **Many domains (6.7), 3\u20134 of the 4 types still present, short correlation length, high interface density.** This is what a 2D voter model looks like partway through. It does coarsen toward a single domain, but very slowly: the density of active interfaces vanishes only as 1/ln(t/\u03c4). On a 64\u00d764 grid you'd expect to catch several domains with most types still surviving.\n- **Ragged rather than compact domains.** Voter dynamics is driven solely by interfacial noise, and domains keep their fractal geometry at all scales even late in the dynamics. That's why the run passes a segregation test but doesn't look like classic Schelling, which forms compact blocks.\n- **Combining Schelling and voter dynamics is itself published.** In the Schelling\u2013Voter model, unhappy agents can not only move elsewhere but also adapt to a new state. The differences here (everyone copies, not just unhappy agents; 4 types; updates happen all at once) don't create a new kind of behaviour. They just push the system further toward the voter end.\n- **Possible open detail, unchecked.** Multi-state voter models can coarsen algebraically, and adding intermediate states restores an effective surface tension. Your measurements are from a single moment, so I can't tell which growth law applies. That would be a question for a time-series measurement, not something visible in the current fingerprint.\n\n**Real pattern or artifact?** The pattern is real, but it's ordinary, well-documented voter coarsening caught before it finishes. The \"segregation with vacancies\" label is partly an artifact: the empty state is just one more copied type, and the movement threshold matters little. That would explain why 123 programs, including the order-swapped and p=0.1 versions, land in the same class. The p=0.1 versions are the weakest point of this argument. With copying that rare, movement matters more, and those runs could sit closer to the published Schelling\u2013Voter hybrid. They're still covered by known work.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Multi-state voter-model coarsening (2D, interfacial-noise driven) with a Schelling relocation perturbation; cf. Schelling\u2013Voter model\", \"citations\": [\"https://www.sciencedirect.com/science/article/abs/pii/S0378437117306118\", \"https://arxiv.org/html/1506.05321\", \"https://arxiv.org/html/1903.09198\", \"https://arxiv.org/abs/0806.0817\", \"https://www.lpthe.jussieu.fr/~leticia/RAPPORTS/alessandro-tartaglia.pdf\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Copying every cell every step makes this a 4-state voter model in which the empty state is one of the copied opinions (my reading of the rule text, so vacancies are not conserved); Schelling moves only add mixing. A snapshot with many fractal domains, most types surviving, short correlation length and high interface density is what slow 2D voter coarsening looks like at 64x64 and finite time. The 'segregation with vacancies' label is partly an artifact. The pattern is real emergent ordering, but well known. Untested: whether coarsening is logarithmic or algebraic (needs time series). The p=0.1 variants lean more on movement and sit closer to the published Schelling-Voter hybrid.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C.COPY(p=1.0) ; C.SCHELL(th=0.7)",
+ "len": 18,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 123,
+ "groups": [
+  "grid|segregation with vacancies|6",
+  "grid|segregation with vacancies|14"
+ ],
+ "checked": "2026-10-24 23:59:22"
+}

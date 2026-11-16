@@ -1,0 +1,57 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Stochastic (probabilistic-update) cyclic cellular automaton, Moore range-1, 4 states, threshold 1; equivalent to spatial cyclic-dominance (rock-paper-scissors-like) lattice models, with an optional voter/copy step",
+  "standard_name": "Cyclic cellular automaton / Greenberg-Hastings-type excitable-medium spiral waves; spatial cyclic dominance (4-species RPS) spiral waves",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath 1991, Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (seen via reference list in arxiv.org/html/nlin/0507067)",
+   "Durrett & Griffeath 1993, Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3):183-208 (projecteuclid abstract)",
+   "https://en.wikipedia.org/wiki/Cyclic_cellular_automaton",
+   "https://arxiv.org/html/nlin/0507067 (Moore range-1: T=1 quenches incoherent oscillations, T=2 spirals)",
+   "https://theses.liacs.nl/pdf/16-SaskiaHiltemann.pdf (4-colour Moore r=1 T=1: fluctuation, cycle 4)",
+   "Szolnoki et al. 2014, Cyclic dominance in evolutionary games: a review, J. R. Soc. Interface 11:20140735 (arxiv.org/html/1408.6828)",
+   "Szabo, Szolnoki, Sznaider 2007 PRE 76 051921 and Szabo & Szolnoki 2008 PRE 77 011906 (titles seen in reference lists only, contents not verified)",
+   "https://www.tandfonline.com/doi/pdf/10.1080/14689367.2024.2307515 (four-species cyclic dominance forms alliances of neutral species)",
+   "https://www.researchgate.net/publication/225178004_Stochastic_cellular_automata_modeling_of_excitable_systems"
+  ],
+  "searches": [
+   "cyclic cellular automaton Griffeath spirals threshold range Moore neighborhood",
+   "stochastic cyclic cellular automaton probabilistic update spiral waves excitable medium Greenberg-Hastings",
+   "asynchronous stochastic cyclic cellular automaton 4 states Moore neighborhood threshold 1 probability update spirals domains",
+   "cyclic dominance four species lattice rock-paper-scissors-lizard-Spock spiral waves Szabo Fath evolutionary games on graphs"
+  ],
+  "notes": "Behaviour (cyclic waves/spirals) is firmly known. Deterministic Moore theta=1 CCA is reported to quench into incoherent oscillations; the probabilistic firing here restores wave/spiral dynamics, and I found no paper treating this exact parameter set. The fine-grained fingerprint (corrlen 1.0, many domains) is consistent with the high-excitability regime and with 4-species cyclic-dominance alliance domains. Not verified: formal equivalence to the 4-species models, the COPY+CYCLE ordering effects, and the full text of the classic papers.",
+  "searches_used": 4
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Stochastic (asynchronous) cyclic cellular automaton / Bramson-Griffeath cyclic particle system: 'forest-fire' stochastic cyclic wave fronts (noisy spirals), kappa=4, threshold 1, Moore neighbourhood",
+ "citations": [
+  "Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45",
+  "Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Fisch, Gravner & Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes, Birkhauser",
+  "https://arxiv.org/pdf/2108.06404"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Probabilistic firing (p=0.1-0.5) is a discrete-time version of the asynchronous cyclic particle system that the deterministic CCA was designed to imitate. FGG 1991 explicitly describe the random versions as producing 'forest fire' equilibria with stochastic wave fronts, which explains why the run passes the spiral test but doesn't look like a textbook spiral. kappa=4 is in the mixing/clustering (non-fixating) regime. The COPY variants add voter-type noise, a known kind of perturbation. The few domains and high interface fit noisy short-wavelength waves on a small 64x64 grid. corrlen=1.0 looks like a capped or normalised metric, not a real feature. No paper with this exact parameter set was found, but that is a rule combination, not new behaviour.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm moving this down from the first pass's KNOWN-VARIANT. The first pass treated the random firing as a twist. It isn't one: random-update versions of the cyclic automaton are the original setting that the deterministic automaton was built to imitate.\n\n**What the rule is.** This is a cyclic cellular automaton (CCA) with 4 states, the 8-cell neighbourhood and a threshold of 1. The only change is that cells don't all update every step: each one that is able to advance does so with probability 0.3. The basic rule is the textbook one: each cell remains unchanged until some neighboring cell has a modular value exactly one unit larger than that of the cell itself, at which point it copies its neighbor's value.\n\n**The random version is documented.**\n- Bramson and Griffeath studied random-update cyclic systems first. The CCA was proposed by Bramson and Griffeath as the deterministic counterpart of the cyclic particle system, in which vertices update their colors asynchronously. Firing with probability 0.3 per step is a discrete-time stand-in for that.\n- The behaviour seen here, noisy wave fronts rather than clean spirals, is described directly in Fisch, Gravner and Griffeath (1991). Their abstract says the deterministic rules show nucleation of locally periodic 'ram's horns' or spirals, while corresponding random processes give rise to a variety of 'forest fire' equilibria that display large-scale stochastic wave fronts. A fingerprint that passes the spiral test but doesn't look like a textbook spiral picture is what that random regime predicts.\n- With 4 colours, the mixing regime is expected. For the random system, N \u2265 5 fixates, while 3 or 4 colours clusters, meaning that contiguous regions of all one type grow arbitrarily large.\n- The other programs in the class are covered too. Changing p (0.1, 0.2, 0.5) only changes the rate. Adding COPY mixes in voter-model-style imitation noise, which roughens the fronts but doesn't change what kind of behaviour this is. None of that is new behaviour, only a different rule combination.\n\n**Genuine pattern or artifact?** It looks like a genuine emergent pattern, but a small and noisy one. All 4 types stay present in equal proportions (entropy 1.0), there are about 7 domains, a lot of interface (0.65) and steady activity (0.42). That fits short-wavelength, noisy cyclic waves on a small 64\u00d764 grid, where only a few rough spiral cores fit and the random firing blurs the fronts. It is not frozen and not uniform noise.\n\nOne caution: a correlation length of exactly 1.0 looks like a metric that has hit its cap or been normalised, not a measured physical length. It shouldn't be read as a new feature.\n\n**What I didn't find:** a paper running this exact set of numbers. Per your framing, that's a missing rule combination, not missing behaviour.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Stochastic (asynchronous) cyclic cellular automaton / Bramson-Griffeath cyclic particle system: 'forest-fire' stochastic cyclic wave fronts (noisy spirals), kappa=4, threshold 1, Moore neighbourhood\", \"citations\": [\"Bramson & Griffeath (1989) Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45\", \"Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Fisch, Gravner & Griffeath (1991) Cyclic cellular automata in two dimensions, Spatial Stochastic Processes, Birkhauser\", \"https://arxiv.org/pdf/2108.06404\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Probabilistic firing (p=0.1-0.5) is a discrete-time version of the asynchronous cyclic particle system that the deterministic CCA was designed to imitate. FGG 1991 explicitly describe the random versions as producing 'forest fire' equilibria with stochastic wave fronts, which explains why the run passes the spiral test but doesn't look like a textbook spiral. kappa=4 is in the mixing/clustering (non-fixating) regime. The COPY variants add voter-type noise, a known kind of perturbation. The few domains and high interface fit noisy short-wavelength waves on a small 64x64 grid. corrlen=1.0 looks like a capped or normalised metric, not a real feature. No paper with this exact parameter set was found, but that is a rule combination, not new behaviour.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C.CYCLE(th=1,p=0.3)",
+ "len": 15,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals"
+ ],
+ "size": 96,
+ "groups": [
+  "grid|cyclic waves and spirals|1",
+  "grid|cyclic waves and spirals|10",
+  "grid|cyclic waves and spirals|16",
+  "grid|cyclic waves and spirals|17"
+ ],
+ "checked": "2026-10-24 23:36:18"
+}

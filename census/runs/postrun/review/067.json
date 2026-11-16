@@ -1,0 +1,56 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial prisoner's dilemma (weak PD, imitate-the-best, Moore neighbourhood with self-interaction, synchronous) with a one-way spontaneous D->C noise term",
+  "standard_name": "Spatial prisoner's dilemma / spatial chaos with domain coarsening of cooperator and defector clusters; noisy spatial PD (Mukherji et al.-type perturbation, opposite direction)",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Nature 359:826-829, Evolutionary games and spatial chaos",
+   "Nowak & May 1993, Int. J. Bifurcation Chaos 3:35-78, The spatial dilemmas of evolution",
+   "Nowak, Bonhoeffer & May 1994, Int. J. Bifurcation Chaos 4:33-56, More spatial games (doi 10.1142/S0218127494000046)",
+   "Nowak, Bonhoeffer & May 1994, PNAS 91:4877, Spatial games and the maintenance of cooperation",
+   "Mukherji, Rajan & Slagle 1996, Nature 379:125-126, Robustness of cooperation (and Nowak et al. reply)",
+   "Szabo & Fath 2007, Phys. Rep. 446:97-216, Evolutionary games on graphs (review)",
+   "arXiv:0910.0955, Dynamic phase transition in prisoner's dilemma on a lattice with stochastic modifications (C->D noise)",
+   "Cooperation percolation in spatial PD, New J. Phys. 16:013010 (b<4/3 regime)"
+  ],
+  "searches": [
+   "Nowak May 1992 Evolutionary games and spatial chaos Nature imitate best neighbour",
+   "spatial prisoner's dilemma domain coarsening cooperator defector clusters imitate-the-best lattice mutation",
+   "spatial prisoner's dilemma defector spontaneously converts to cooperator unidirectional mutation lattice",
+   "Szabo Fath Evolutionary games on graphs review square lattice imitate best coarsening domain growth",
+   "Mukherji Rajan Slatkin 1995 all-or-none noise spatial prisoner's dilemma Nowak Bonhoeffer May reply robustness"
+  ],
+  "notes": "Core model and the cooperator/defector domain dynamics are textbook. The documented noise is C->D or symmetric, while this rule is D->C (mirror image). I found no paper that studies the one-way D->C case directly, but it is a small, expected perturbation. The non-textbook fingerprint (nearly all-C world with defector islands, declining activity) is probably a consequence of the D->C source. I did not read full texts of the Nowak/Mukherji papers and did not search for the S=-0.5 two-game variants.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Nowak-May spatial Prisoner's Dilemma (low-b, cooperator-dominated frozen/oscillating regime) with strategy-mutation noise (Mukherji et al. 1996 perturbation class)",
+ "citations": [
+  "Nowak & May 1992, Nature 359:826 'Evolutionary games and spatial chaos'",
+  "Nowak & May 1993, Int. J. Bifurcation Chaos 3:35",
+  "Mukherji, Rajan & Slagle 1996 (robustness of cooperation under noise) and Nowak et al. reply",
+  "Helbing & Yu, arXiv:0903.4054 (T=1.3 spatial PD with strategy mutations incl. D->C)",
+  "arXiv:0910.0955 (stochastic spatial PD variants)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "At b=1.3 the Nowak-May dynamics is in the cooperator-dominated regime, not the 1.8<b<2 chaotic regime. One-way D->C noise makes all-C absorbing, so the 'coarsening' fingerprint (largest_domain~0.94, falling activity, one reversal) is relaxation toward an absorbing near-all-C state, not true coarsening or sustained chaos. Strictly one-way D->C noise has no dedicated paper I found, but that is an exact-rule detail, not a new behaviour. Other class members using COPY noise and a second game were not verified.",
+ "searches_used": 1,
+ "full_text": "**Verdict: KNOWN.** This is the Nowak\u2013May spatial Prisoner's Dilemma with a small amount of strategy-mutation noise. Nothing in what was observed needs a new explanation, and the \"domain coarsening\" signal is most likely the system running down into a near-absorbing, cooperator-dominated state rather than real emergent coarsening.\n\n**Why it's known**\n- **The core model is textbook.** Payoffs R=1, P=0, S=0, T=b with b between 1 and 2, on a lattice with deterministic copy-the-best-neighbour updating, is the Nowak\u2013May parameterization of the spatial PD. The original authors studied PD on a two dimensional array with synchronous updating and explored the asymptotic behavior for various values of the parameter b.\n- **Noise toward cooperation is already covered.** Mukherji et al. tested perturbations including random introduction of cooperators and defectors at any site and spontaneous conversion of cooperators into defectors with some probability. Nowak et al. replied stating that, their results are robust with respect to these modifications. The one-way defector-to-cooperator flip here is just the cooperator half of \"random introduction of cooperators and defectors\".\n- **The exact payoff and this noise direction appear in Helbing & Yu.** Their imitation-plus-noise runs use T=1.3, R=1, P=0.1, S=0, and their figures mark each defector who became a cooperator as a separate category. Their P=0.1 differs slightly from P=0 here. I did not find a paper on purely one-way D\u2192C noise, but by the stated criterion an undocumented rule combination is not a discovery.\n\n**Why the fingerprint isn't textbook (my reasoning, not checked against a source)**\n- b=1.3 is in the low-temptation range of Nowak\u2013May. There, cooperators dominate and defectors survive only as small static or oscillating clusters. You don't get the 1.8<b<2 \"spatial chaos\" regime with its kaleidoscope patterns and roughly 0.318 cooperator fraction.\n- Because the noise only ever turns defectors into cooperators, all-cooperator is an absorbing state. The noise wears away the leftover defector clusters, and nothing creates new defectors.\n- That fits every observed feature:\n  - largest domain \u22480.935, meaning the cooperator sea;\n  - a few remaining domains;\n  - activity falling over time;\n  - a single reversal.\n- So passing the \"coarsening\" and \"spatial game chaos\" tests is a side effect of the metrics. This is relaxation toward a frozen or absorbing state, not curvature-driven coarsening and not sustained chaos.\n\n**Caveat on the class grouping.** The other programs listed in the same class use different noise (a COPY rule) and a second game (1.5, \u22120.5). Their behaviour should match only if they also end up in a cooperator-dominated, nearly frozen state. I did not verify that.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Nowak-May spatial Prisoner's Dilemma (low-b, cooperator-dominated frozen/oscillating regime) with strategy-mutation noise (Mukherji et al. 1996 perturbation class)\", \"citations\": [\"Nowak & May 1992, Nature 359:826 'Evolutionary games and spatial chaos'\", \"Nowak & May 1993, Int. J. Bifurcation Chaos 3:35\", \"Mukherji, Rajan & Slagle 1996 (robustness of cooperation under noise) and Nowak et al. reply\", \"Helbing & Yu, arXiv:0903.4054 (T=1.3 spatial PD with strategy mutations incl. D->C)\", \"arXiv:0910.0955 (stochastic spatial PD variants)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"At b=1.3 the Nowak-May dynamics is in the cooperator-dominated regime, not the 1.8<b<2 chaotic regime. One-way D->C noise makes all-C absorbing, so the 'coarsening' fingerprint (largest_domain~0.94, falling activity, one reversal) is relaxation toward an absorbing near-all-C state, not true coarsening or sustained chaos. Strictly one-way D->C noise has no dedicated paper I found, but that is an exact-rule detail, not a new behaviour. Other class members using COPY noise and a second game were not verified.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.FLIP(a=1,b=0,p=0.01) ; C.GAME(g=(1.3, 0.0))",
+ "len": 22,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 6,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|10"
+ ],
+ "checked": "2026-10-25 00:30:32"
+}

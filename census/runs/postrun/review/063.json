@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling-class segregation with vacancies (Moore neighbourhood, threshold relocation) plus rare neighbourhood-majority type adoption (Potts/voter-like conformity), 4 types",
+  "standard_name": "Schelling segregation with vacancies (domain coarsening); hybrid with majority-vote/switching agents (cf. Axelrod-Schelling, Flip Schelling)",
+  "confidence": "medium",
+  "citations": [
+   "Gauvin, Vannimenus, Nadal (2009) Phase diagram of a Schelling segregation model, Eur. Phys. J. B 70, 293 - arXiv:0903.4694",
+   "Dall'Asta, Castellano, Marsili (2008) Statistical physics of the Schelling model of segregation - arXiv:0707.1681",
+   "Rogers & McKane (2011) A unified framework for Schelling's model of segregation - arXiv:1104.1971 (review)",
+   "Hazan et al. (2012) A Schelling model with switching agents - arXiv:1212.4929",
+   "Gracia-Lazaro et al. (2009) Residential segregation and cultural dissemination: An Axelrod-Schelling model - arXiv:0907.2360",
+   "Blaesius, Friedrich, Krejca, Molitor (2021) The Flip Schelling Process - arXiv:2102.09856",
+   "Aging effects in Schelling segregation model, Sci. Rep. 2022 (coarsening exponent) - doi via nature.com/articles/s41598-022-23224-7"
+  ],
+  "searches": [
+   "Schelling segregation model agents also change type by neighbourhood majority imitation vacancies",
+   "Phase diagram of a Schelling segregation model Gauvin Vannimenus Nadal",
+   "Schelling model with conversion opinion dynamics majority rule mobility coevolution segregation domains",
+   "Flip Schelling Process agents change type based on predominant neighborhood type open-city",
+   "Schelling model multiple types four groups domain coarsening vacancies Potts"
+  ],
+  "notes": "Segregation with vacancies is well known. The exact hybrid (4 types, vacancies, rare local-majority type adoption, non-conserved type counts) was not found as a single paper. Closest are Axelrod-Schelling (imitation plus mobility), Schelling with random switching agents (no majority rule), and Flip Schelling (majority flips, no vacancies, 2 types). Likely differences: type counts not conserved, so slow drift or extinction of types is possible, and 4-type junction coarsening. Only abstracts and snippets of the closest papers were read.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Schelling segregation with vacancies (multi-type, Potts-like), arrested/slow coarsening; Schelling-Voter / Flip-Schelling hybrid class",
+ "citations": [
+  "Gauvin, Vannimenus, Nadal 2009, Phase diagram of a Schelling segregation model (arXiv:0903.4694)",
+  "Abella et al. 2022, Aging effects in Schelling segregation model, Sci. Rep. (s41598-022-23224-7)",
+  "Characterizing segregation in the Schelling-Voter model, Physica A 2017 (S0378437117306118)",
+  "Blasius, Friedrich, Krejca, Molitor, The Flip Schelling Process (arXiv:2102.09856)",
+  "Hazan & Randon-Furling, A Schelling model with switching agents (arXiv:1212.4929)",
+  "Beyond Shannon Entropy in Schelling Segregation, Complexities 2026 (10.3390/complexities2030023)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "The fingerprint (about 6 domains, all types persisting, correlation length about 2.3, falling activity) is what a run partway through slow coarsening, or stuck near the frozen/segregated boundary, looks like at threshold 0.7 with 8 neighbours on a 64x64 grid. Rare local-majority type changes (p=0.005) are a weak perturbation already covered by the Schelling-Voter, Flip Schelling and switching-agent models. Three agent types instead of two is covered by Potts-type generalisations. Possible counting of 'empty' in the majority rule makes vacancy density variable, as in open-city Schelling models. Downgraded the first pass's KNOWN-VARIANT because no new behaviour was found, only an unpublished rule combination. The CYCLE variant was not searched separately.",
+ "searches_used": 4,
+ "full_text": "**Verdict: KNOWN.** I couldn't find this exact rule combination in one paper, but the behaviour itself is documented. A missing paper for these specific rules isn't a discovery, and I found no twist in the behaviour itself, so I'm not keeping the first pass's KNOWN-VARIANT label.\n\n**What is documented**\n\n1. **Schelling segregation with vacancies, including stalled and slow-coarsening states.** Schelling models with vacancies have three phases. For this region, the Schelling model presents 3 different phases: frozen, segregated and mixed. At low tolerance the system freezes in a disordered state, given that there are no satisfying vacancies for any kind of agent. In the segregated phase, the interface density decreases as \u27e8\u03c1(t)\u27e9 \u223c t^\u2212\u03b1 so the domains should grow in our model following a power-law with time. A threshold of 0.7 is quite intolerant: with 8 neighbours, an agent effectively needs about 6 of 8 occupied neighbours to match. On a 64\u00d764 grid, a snapshot of slow or stalled coarsening would show about 6 domains, a short correlation length (about 2.3), and falling activity. That explains your fingerprint without anything new.\n\n2. **The hybrid of moving and type-changing agents is a published model class.** The Schelling\u2013Voter model is a mix of the classical Schelling segregation model with the Voter model. In it an unhappy agent can change her place or her state to be happy, and its parameters are the propensity to change type and the density of empty sites. Its outcomes include the extinction of one of the states, the coexistence of both, segregated patterns with conglomerated clusters of agents of the same state, and a diluted region. Your run, where all types survive in separate domains, matches the coexistence/segregated regime. Related models:\n   - The Flip Schelling Process, where agents choose their type based on the majority in their neighborhood.\n   - Hazan & Randon-Furling's switching agents, which can lead to the emergence of intermediate patterns (e.g. mixture of patches, fuzzy interfaces). That is close to your \"not textbook\" fingerprint.\n   - A 2026 paper says outright that adding updates to an agent's affiliation (its type) still counts as Schelling dynamics: such models retain the defining spatial structure of a Schelling model\u2014local satisfaction, vacancies, and relocation\u2014while adding an opinion-like state variable.\n\n3. **More than two types.** The Potts-model link to Schelling is long established, and it allows situations with more than two profiles.\n\n**Remaining differences (none changes the behaviour)**\n- **Three agent types instead of two.** Covered by the Potts-type generalisations above.\n- **Type changes are unconditional and very rare (p = 0.005).** They are a weak extra perturbation on top of moving, not the main driver.\n- **The majority rule may count \"empty\" as a type.** If so, empty cells can appear and disappear and the vacancy density isn't fixed. Open-city Schelling models with a reservoir already have a variable vacancy density, so this alone doesn't make the behaviour new.\n- **The CYCLE variant in the same class.** I didn't search it separately. I'm assuming it gives the same fingerprint, as the class grouping implies.\n\n**Genuine or artifact?** The domains really do emerge from the rules; they aren't produced by how the run was measured. But this is weak, incomplete ordering, probably near the boundary between frozen and segregated given the strict threshold. The short correlation length most likely reflects stopping the run partway through slow coarsening or getting stuck, not a new kind of state. It's not trivial, but it's not new either.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Schelling segregation with vacancies (multi-type, Potts-like), arrested/slow coarsening; Schelling-Voter / Flip-Schelling hybrid class\", \"citations\": [\"Gauvin, Vannimenus, Nadal 2009, Phase diagram of a Schelling segregation model (arXiv:0903.4694)\", \"Abella et al. 2022, Aging effects in Schelling segregation model, Sci. Rep. (s41598-022-23224-7)\", \"Characterizing segregation in the Schelling-Voter model, Physica A 2017 (S0378437117306118)\", \"Blasius, Friedrich, Krejca, Molitor, The Flip Schelling Process (arXiv:2102.09856)\", \"Hazan & Randon-Furling, A Schelling model with switching agents (arXiv:1212.4929)\", \"Beyond Shannon Entropy in Schelling Segregation, Complexities 2026 (10.3390/complexities2030023)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"The fingerprint (about 6 domains, all types persisting, correlation length about 2.3, falling activity) is what a run partway through slow coarsening, or stuck near the frozen/segregated boundary, looks like at threshold 0.7 with 8 neighbours on a 64x64 grid. Rare local-majority type changes (p=0.005) are a weak perturbation already covered by the Schelling-Voter, Flip Schelling and switching-agent models. Three agent types instead of two is covered by Potts-type generalisations. Possible counting of 'empty' in the majority rule makes vacancy density variable, as in open-city Schelling models. Downgraded the first pass's KNOWN-VARIANT because no new behaviour was found, only an unpublished rule combination. The CYCLE variant was not searched separately.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C.MAJ(p=0.005) ; C.SCHELL(th=0.7)",
+ "len": 21,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 2,
+ "groups": [
+  "grid|segregation with vacancies|19"
+ ],
+ "checked": "2026-10-25 00:26:20"
+}

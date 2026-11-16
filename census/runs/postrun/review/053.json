@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Cyclic cellular automaton (Griffeath cyclic CA / rock-paper-scissors cyclic dominance) co-evolving with network topology via homophilic rewire-to-same rule (adaptive network / adaptive voter model class)",
+  "standard_name": "Adaptive (co-evolutionary) rock-paper-scissors / cyclic dominance on adaptive networks, with consensus and fragmentation transitions",
+  "confidence": "medium",
+  "citations": [
+   "Demirel, Prizak, Reddy, Gross (2011) Cyclic dominance in adaptive networks, Eur. Phys. J. B 84:541; arXiv:1011.1124",
+   "Guo et al. (2017) Adaptive cyclically dominating game on co-evolving networks, Eur. Phys. J. B; arXiv:1605.03370",
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions (Spatial Stochastic Processes, Birkhauser)",
+   "Szolnoki et al. Cyclic dominance in evolutionary games: a review, arXiv:1408.6828",
+   "Fragmentation transitions in adaptive voter models, e.g. arXiv:1012.1213 (Analytical calculation of fragmentation transitions in adaptive networks)"
+  ],
+  "searches": [
+   "cyclic dominance rock-paper-scissors adaptive network rewiring fragmentation",
+   "adaptive voter model fragmentation transition rewiring to same opinion node",
+   "cyclic cellular automaton Griffeath random network coevolving topology",
+   "cyclic cellular automaton on complex networks small-world random graph spirals synchronization",
+   "Guo 2020 adaptive network cyclic dominance four strategies rewiring heteroclinic"
+  ],
+  "notes": "Differences from the closest literature (Demirel 2011, Guo 2017): synchronous deterministic updates with every rule applied every step (they use asynchronous random link selection with a rewire-vs-adopt probability); 4 types rather than 3; threshold-1 cyclic CA rule; adoption and rewiring are not mutually exclusive. These probably shift regimes but not the qualitative consensus/oscillation/fragmentation structure. No paper found using a synchronous 4-state Griffeath CA on a rewiring graph, so the exact variant is unconfirmed rather than confirmed silent. Early adaptive-voter-model papers (Holme & Newman 2006, Vazquez et al. 2008) and the Gross & Blasius 2008 review are from memory and not verified here. Full texts were not read.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Fragmentation (rewiring-dominated absorbing) phase of coevolving voter / adaptive cyclic-dominance (rock-paper-scissors) models; opinion rule = Griffeath cyclic cellular automaton (threshold 1, 4 types)",
+ "citations": [
+  "Holme & Newman, Phys. Rev. E 74, 056108 (2006)",
+  "Demirel, Prizak, Reddy & Gross, Eur. Phys. J. B 84, 541 (2011), arXiv:1011.1124",
+  "Guo et al., Eur. Phys. J. B (2017), arXiv:1605.03370",
+  "Fisch, Gravner & Griffeath, Cyclic Cellular Automata in Two Dimensions (1991)",
+  "Coevolving nonlinear voter model fragmentation transitions, Sci. Rep. (2017)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Rule 2 deterministically rewires every link between different types every step, so after the first step every link joins same-type nodes; rule 1 can then never fire and the system freezes into at most 4 single-type groups within about 1-2 steps. That explains the high component count, the giant component (largest type), high edge turnover (about 75% of links rewired once), higher degree spread, small consensus gain and transient oscillation. This is the infinite-rewiring limit of the known fragmentation phase. The first pass's differences (all-at-once updates, 4 types, threshold 1) are differences in rules, not in behaviour. Check: if mixed-type links hit 0 by step 1-2 with no later oscillation, it is confirmed trivial; lasting oscillation would mean the code differs from the stated rules.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** This is the rewiring-dominated, fragmented end state of an adaptive network where opinions and links change together. What you are seeing is almost certainly a near-trivial result of the update scheme, not a new emergent pattern. The first pass was too generous in calling it KNOWN-VARIANT, because the differences it listed are differences in the rules, not in the behaviour.\n\n**What the rules force (my own reasoning; I can't see your time series):**\n- Rule (2) runs every step, for every node, on every link to a different type. So after rule (1) fires once, every link between two different types is replaced by a link to a same-type node.\n- After that one pass, every link joins two nodes of the same type. Rule (1) needs a neighbour of type t+1, so it can never fire again. Rule (2) has nothing left to cut. The system freezes within about one to two steps.\n- Your features follow from that:\n  - **Fragmentation and many components:** the network splits into at most 4 single-type groups, plus any nodes left with no links.\n  - **Large giant component:** that is just the most common type.\n  - **High edge turnover:** in a random start, roughly 3/4 of links join different types, and all of them get rewired in one go.\n  - **Higher degree spread:** rewiring sends links to random targets and strips links from the nodes left behind.\n  - **Modest consensus gain:** a single update of the cyclic rule shifts the type counts a little, then everything freezes.\n  - **Moderate oscillation:** probably just that first transient flip, not lasting cycling.\n- That would explain why the run passes the consensus/fragmentation test but doesn't look like the textbook cases. The textbook cases reach the same end slowly; here it happens in one step.\n\n**What the literature already covers:**\n- **Two-opinion-style co-evolution:** Holme & Newman built a model where opinion dynamics combine with assortative network formation, revealing an apparent phase transition between regimes in which one process or the other dominates. A later review of related models describes three phases: an active coexistence phase in a single connected network, an absorbing consensus phase in a single network, and an absorbing phase in a fragmented network. Your run sits at the extreme, fragmented end.\n- **Cyclic dominance on adaptive networks:** Demirel et al. found nonequilibrium phase transitions as a function of the rewiring strength, separating four distinct phases. Their summary covers stationary coexistence, oscillatory cycling, heteroclinic consensus, and fragmentation. A related model (Guo et al.) has one connected network that keeps interacting below a critical rewiring probability, and splits apart above it.\n- **The opinion rule itself:** rule (1) is Griffeath's cyclic cellular automaton. In it, a cell copies a neighbour whose value is exactly one higher (cyclically). This has been studied on arbitrary graphs and trees, and with 4 types.\n\n**What isn't in the literature, and doesn't matter:** I found no paper with exactly this combination: updates applied to all nodes at once, every rule every step, 4 types, threshold 1, and adoption and rewiring as separate sweeps. But that only changes how fast the known fragmented state is reached (instantly). It adds no new behaviour. I couldn't find any feature in your fingerprint that the extreme-rewiring limit doesn't explain.\n\n**A quick check:** plot the number of mixed-type links and the type counts against time. If mixed links drop to zero by step 1 or 2 and everything stays frozen, it's an artifact. If oscillation persists after that, it's worth another look. Persistent oscillation would contradict the argument above, which would mean the actual code differs from the rule description (for example, rewiring only a sample of links).\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Fragmentation (rewiring-dominated absorbing) phase of coevolving voter / adaptive cyclic-dominance (rock-paper-scissors) models; opinion rule = Griffeath cyclic cellular automaton (threshold 1, 4 types)\", \"citations\": [\"Holme & Newman, Phys. Rev. E 74, 056108 (2006)\", \"Demirel, Prizak, Reddy & Gross, Eur. Phys. J. B 84, 541 (2011), arXiv:1011.1124\", \"Guo et al., Eur. Phys. J. B (2017), arXiv:1605.03370\", \"Fisch, Gravner & Griffeath, Cyclic Cellular Automata in Two Dimensions (1991)\", \"Coevolving nonlinear voter model fragmentation transitions, Sci. Rep. (2017)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Rule 2 deterministically rewires every link between different types every step, so after the first step every link joins same-type nodes; rule 1 can then never fire and the system freezes into at most 4 single-type groups within about 1-2 steps. That explains the high component count, the giant component (largest type), high edge turnover (about 75% of links rewired once), higher degree spread, small consensus gain and transient oscillation. This is the infinite-rewiring limit of the known fragmentation phase. The first pass's differences (all-at-once updates, 4 types, threshold 1) are differences in rules, not in behaviour. Check: if mixed-type links hit 0 by step 1-2 with no later oscillation, it is confirmed trivial; lasting oscillation would mean the code differs from the stated rules.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=4 | N.CYCLE(th=1,p=1.0) ; N.REWIRE(p=1.0)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "network consensus",
+  "network fragmentation"
+ ],
+ "size": 5,
+ "groups": [
+  "network|network consensus+network fragmentation|1",
+  "network|network consensus+network fragmentation|2",
+  "network|network consensus+network fragmentation|4"
+ ],
+ "checked": "2026-10-25 00:15:35"
+}

@@ -1,0 +1,52 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation model (Moore neighbourhood, vacancies, threshold relocation) coupled to a Life-like B3 birth/contagion rule that fills vacancies with type 1",
+  "standard_name": "Schelling segregation with vacancies (segregated/mixed/frozen phases); nearest variant: open-city Schelling model with non-conserved vacancy density",
+  "confidence": "medium",
+  "citations": [
+   "Gauvin, Vannimenus, Nadal, Phase diagram of a Schelling segregation model, Eur. Phys. J. B 70, 293 (2009), arXiv:0903.4694",
+   "Vinkovic & Kirman, A physical analogue of the Schelling model, PNAS 103, 19261 (2006)",
+   "Rogers & McKane, A unified framework for Schelling's model of segregation, arXiv:1104.1971 (2011)",
+   "Gauvin, Nadal, Vannimenus, Schelling segregation in an open city: a kinetically constrained Blume-Emery-Griffiths spin-1 system, arXiv:1002.3758",
+   "Symmetric preferences, asymmetric outcomes: tipping dynamics in an open-city segregation model, arXiv:2602.09795",
+   "Schelling 1969/1971/1978 (seen only via secondary citation)"
+  ],
+  "searches": [
+   "Schelling segregation model with vacancies, birth into empty cells, population growth dynamics",
+   "Schelling model vacancy density phase transition segregated domains Vinkovic Kirman",
+   "Schelling segregation coupled with cellular automaton Game of Life birth rule neighbors",
+   "Schelling model open city entry of new agents into vacancies, vacancies filled, domain coarsening, one group dominates",
+   "Schelling segregation dynamic population growth reproduction neighbors threshold cellular automaton colonization empty sites"
+  ],
+  "notes": "Core Schelling-with-vacancies segregation is well established. The variant is that vacancies are filled endogenously by a local B3 rule for type 1, so agent number and type ratio are not conserved. Open-city models are the closest literature but use global entry/exit rather than local contagion. I found no paper describing the exact local-birth coupling, but the search was limited (about 7 queries) and did not cover ecology or spatial-competition literature. Interpretation of g_n_types=2 is uncertain. Schelling 1971 was not read directly.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Schelling segregation with vacancies driven into the low-vacancy frozen/jammed phase (vacancy exhaustion via threshold-3 bootstrap-percolation-type growth of type 1)",
+ "citations": [
+  "https://arxiv.org/pdf/0903.4694",
+  "https://www.nature.com/articles/s41598-022-23224-7",
+  "https://arxiv.org/pdf/1812.06008",
+  "https://arxiv.org/pdf/1010.4691"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Type 0 = empty. No rule removes type 2 or creates empties, so n_types=2 almost certainly means vacancies are gone. Rule 1 is monotone threshold-3 growth (bootstrap-percolation-like) that uses up the vacancies; Schelling moves then stop and the state freezes into a partially segregated two-colour, vacancy-free configuration (short corr length, moderate Moran, one large type-1 cluster, type-1-skewed composition). Sibling programs using random FLIP filling land in the same class, so the local contagion is not essential: any vacancy sink gives this fingerprint. The atypical-for-segregation fingerprint is an interrupted-coarsening/jamming artifact. The only novelty is the untested rule combination, which does not count as a discovery. Not verified by simulation.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What's new here is the route, not the behaviour, and the route is two well-studied mechanisms run together. The unusual fingerprint mostly comes from the vacancies running out, which is a fairly trivial cause.\n\n**What these rules force (worked out by hand, not simulated)**\n- Type 0 is the empty state. Nothing in the rules ever turns a type-2 cell into anything else, and nothing ever creates an empty cell. Rule (1) only removes empties, and moves just relocate them. So the drop to **n_types = 2** almost certainly means the empty cells disappeared, not type 2.\n- Rule (1) on its own is known threshold growth, or bootstrap percolation: occupied sites stay occupied, and empty sites become occupied once three or more neighbours are occupied. Here the threshold is 3 on the 8-neighbour lattice, and only type-1 cells count.\n- Once the empties are gone, no Schelling move is possible, so the system freezes. The literature already describes the low-vacancy frozen regime, where everyone is unhappy but no-one can express their intolerant behaviour due to the lack of free spaces. It also notes that Schelling moves need a non-zero vacancy density, and that the frozen\u2013segregated boundary depends on the vacancy density.\n- So the run is: partial Schelling clustering while some vacancies remain, then type 1 grows into the empties until they run out, then the pattern is locked in. The pattern is two colours with no vacancies and partial segregation: a short correlation length (2), moderate Moran's I (0.48), one large type-1 cluster covering about 54% of the lattice, and several domains.\n- The type entropy of 0.582 points to an uneven mix, with type 1 well ahead, which fits it gaining all the former vacancies. The exact split depends on whether the entropy is in nats or bits, which I don't know.\n\n**Why I call it trivial, or an artifact of the setup**\n- Two of the sibling programs replace the threshold-3 growth with random filling (FLIP, p=0.3) and still land in the same class. So the local contagion isn't what produces the fingerprint. Any steady drain on vacancies gives it.\n- It also explains why the run passes the segregation-with-vacancies test but doesn't look like textbook segregation. Textbook segregation keeps vacancies and stays dynamic. Here it's a snapshot of interrupted coarsening.\n- This is a jammed end state, not a new self-organised pattern.\n\n**What isn't covered:** I didn't find a paper that pairs bootstrap-percolation filling with Schelling moves. But that's an unpublished rule combination, not undocumented behaviour. One thing to check: if any run kept vacancies and stayed dynamic over the long term, that would point to a balance between growth and moves and would deserve a second look. The measured n_types = 2 argues against it.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Schelling segregation with vacancies driven into the low-vacancy frozen/jammed phase (vacancy exhaustion via threshold-3 bootstrap-percolation-type growth of type 1)\", \"citations\": [\"https://arxiv.org/pdf/0903.4694\", \"https://www.nature.com/articles/s41598-022-23224-7\", \"https://arxiv.org/pdf/1812.06008\", \"https://arxiv.org/pdf/1010.4691\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Type 0 = empty. No rule removes type 2 or creates empties, so n_types=2 almost certainly means vacancies are gone. Rule 1 is monotone threshold-3 growth (bootstrap-percolation-like) that uses up the vacancies; Schelling moves then stop and the state freezes into a partially segregated two-colour, vacancy-free configuration (short corr length, moderate Moran, one large type-1 cluster, type-1-skewed composition). Sibling programs using random FLIP filling land in the same class, so the local contagion is not essential: any vacancy sink gives this fingerprint. The atypical-for-segregation fingerprint is an interrupted-coarsening/jamming artifact. The only novelty is the untested rule combination, which does not count as a discovery. Not verified by simulation.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CONTAG(a=0,b=1,th=3,p=1.0) ; C.SCHELL(th=0.3)",
+ "len": 22,
+ "stage": "g1",
+ "shown": [
+  "segregation with vacancies"
+ ],
+ "size": 7,
+ "groups": [
+  "grid|segregation with vacancies|27"
+ ],
+ "checked": "2026-10-25 00:31:40"
+}

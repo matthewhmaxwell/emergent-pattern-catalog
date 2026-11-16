@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation model (lattice, Moore neighbourhood, vacancies, threshold-triggered random relocation) coupled to a type-changing process (FLIP/CYCLE); here one-way decay of type 1 to vacancy",
+  "standard_name": "Schelling segregation with vacancies: domain coarsening / phase separation (variant with non-conserved, rising vacancy density due to type-selective decay)",
+  "confidence": "medium",
+  "citations": [
+   "Dall'Asta, Castellano, Marsili, Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002 (2008), arXiv:0707.1681",
+   "Vinkovic & Kirman, A physical analogue of the Schelling model, PNAS 103:19261 (2006), doi:10.1073/pnas.0609371103",
+   "Gauvin, Vannimenus, Nadal, Phase diagram of a Schelling segregation model, EPJB 70:293 (2009), arXiv:0903.4694",
+   "Gauvin, Nadal, Vannimenus, Schelling segregation in an open city: a kinetically constrained BEG spin-1 system, PRE 81:066120 (2010), arXiv:1002.3758",
+   "Ortega/Ramasco et al., Aging effects in Schelling segregation model, Sci. Rep. (2022), arXiv:2204.01417 (coarsening exponent alpha ~0.5)",
+   "Hazan & Randon-Furling, A Schelling model with switching agents, arXiv:1212.4929 (spontaneous type switching, related to FLIP/CYCLE)",
+   "Rogers & McKane, A unified framework for Schelling's model of segregation, arXiv:1104.1971 (framework paper; closest to a review among retrieved sources)",
+   "arXiv:2602.09795 (open-city Schelling-like reaction network with birth/death; decay not type-selective)"
+  ],
+  "searches": [
+   "Schelling segregation model with vacancies domain coarsening scaling",
+   "Schelling model agents spontaneously leaving, type conversion, three types, population turnover",
+   "Schelling model with agent death and replacement, extinction of one group, segregation dynamics",
+   "Gauvin Vannimenus Nadal phase diagram of a Schelling segregation model",
+   "Schelling model open system agents entering leaving city vacancy density changes birth death segregation lattice",
+   "Vinkovic Kirman physical analogue of the Schelling model coarsening"
+  ],
+  "notes": "Core coarsening and segregation with vacancies is well documented. The distinctive element is one-way, type-selective decay (type 1 to vacancy), which drives type extinction (n_types=2), rising vacancy density, and a negative activity trend. Nearest literature is open-city Schelling (Gauvin 2010) and birth-death Schelling reaction networks (2026), neither with type-selective decay. Move rule is unconstrained (agents move to random empty cell regardless of satisfaction there), unlike the constrained Dall'Asta-style variants. Other class members (FLIP a=0,b=1 fills vacancies; CYCLE rotates types) differ in vacancy dynamics. Did not retrieve Castellano-Fortunato-Loreto review or Schelling's originals, so these are not cited.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Schelling segregation with vacancies (diluted/high-vacancy regime) reduced to a single species by irreversible type decay; absorbing frozen state",
+ "citations": [
+  "Gauvin, Vannimenus & Nadal, Phase diagram of a Schelling segregation model, EPJB 70:293 (2009), arXiv:0903.4694",
+  "Gauvin, Nadal & Vannimenus, Schelling segregation in an open city, PRE 81:066120 (2010), arXiv:1002.3758",
+  "Barthelemy, The statistical physics of cities, arXiv:1905.01953 (Box 1, vacancy percolation limits cluster growth)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "One-way conversion (type1->empty at p=0.1, or empty->type1) wipes out one type in about 70-100 steps (n_types=2). With one agent type left, every agent that has occupied neighbours is satisfied, so movement stops (negative activity trend). Domains are random single-species clusters among empties (corrlen=1). The coarsening/segregation signal is an artifact of the extinction, not interface-driven coarsening. Leftover reversals probably come from isolated agents with no occupied neighbours, depending on how the code handles 0/0. Not checked: the kC=4 CYCLE member could behave differently before it collapses. The exact rule combination isn't documented, but the behaviour it produces is.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN, and the result is trivial: it comes from the rules wiping out one cell type, not from any new segregation process.** I disagree with the first pass's KNOWN-VARIANT call. Its \"twist\" (the vacancy fraction rising as one type decays) is not new behaviour. It just leaves a Schelling system that has nothing left to segregate.\n\n**Working through the rules (my own reasoning, not taken from a source)**\n- Each type-1 cell turns empty with probability 0.1 per step, and nothing ever creates new type-1 cells. About 1,365 type-1 cells start out, and each survives t steps with probability 0.9^t. So they are almost certainly all gone within roughly 70\u2013100 steps. That is exactly what n_types = 2.0 records: only empty and type 2 remain.\n- Once only one agent type is left, any agent with at least one occupied neighbour has a same-type share of 1, so it is always satisfied. Movement stops, which explains the negative activity trend. The only possible leftover activity is agents with no occupied neighbours. Whether those count as unhappy depends on how the code handles 0/0, and that would also explain the modest reversals score.\n- What remains is a sparse lattice of one species, frozen in place. The \"domains\" are just random clusters of type-2 cells among empties. A correlation length of 1.0 confirms there is no structure beyond a single cell. The high n_domains score and the \"coarsening\" signal mostly reflect the type-1 cells disappearing and the empty areas merging. Nothing is growing through interface dynamics.\n- The other rules in the same class collapse the same way. Empty\u2192type-1 (FLIP a=0, b=1) fills the vacancies with one type until movement freezes. Type-1\u2192empty does the reverse. One-way conversion always ends with a single species dominating. I did not check the kC=4 CYCLE member myself; a threshold-3 cyclic rule could act differently before it settles.\n\n**What the literature covers**\n- Schelling with vacancies, including 8-neighbour lattices, the tolerance vs. vacancy-density phase diagram, and a \"diluted\" phase at high vacancy: for high values of vacancies (V > 0.65) and low values of tolerance (S > 0.5), there is a diluted segregation state where homogeneous communities are separated from other by large empty buffers (Gauvin, Vannimenus & Nadal 2009).\n- Vacancies blocking domain growth: if the vacancy density is too large, a cluster of void sites percolates through the system and prevents the growth of spin clusters. The clusters are then limited to the typical cluster size governed by the void density.\n- Agent numbers that change over time: in the open-city version, the system is open, [and] we do not fix the total number of agents, nor the ratio of red/blue agents, and a parameter D controls the flux of agents leaving or entering the lattice, acting as a chemical potential for the vacancy density.\n- I found no paper on Schelling with one-way decay that targets a single type. But that is a rule combination, not a behaviour. With one species, there is simply no Schelling problem left to study.\n\n**Why it passes the test but doesn't look like the textbook case:** the test spots fewer domains and less activity over time. Here both come from one species going extinct and the survivors freezing in place, not from same-type clusters merging.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Schelling segregation with vacancies (diluted/high-vacancy regime) reduced to a single species by irreversible type decay; absorbing frozen state\", \"citations\": [\"Gauvin, Vannimenus & Nadal, Phase diagram of a Schelling segregation model, EPJB 70:293 (2009), arXiv:0903.4694\", \"Gauvin, Nadal & Vannimenus, Schelling segregation in an open city, PRE 81:066120 (2010), arXiv:1002.3758\", \"Barthelemy, The statistical physics of cities, arXiv:1905.01953 (Box 1, vacancy percolation limits cluster growth)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"One-way conversion (type1->empty at p=0.1, or empty->type1) wipes out one type in about 70-100 steps (n_types=2). With one agent type left, every agent that has occupied neighbours is satisfied, so movement stops (negative activity trend). Domains are random single-species clusters among empties (corrlen=1). The coarsening/segregation signal is an artifact of the extinction, not interface-driven coarsening. Leftover reversals probably come from isolated agents with no occupied neighbours, depending on how the code handles 0/0. Not checked: the kC=4 CYCLE member could behave differently before it collapses. The exact rule combination isn't documented, but the behaviour it produces is.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.FLIP(a=1,b=0,p=0.1) ; C.SCHELL(th=0.5)",
+ "len": 20,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 38,
+ "groups": [
+  "grid|domain coarsening+segregation with vacancies|10"
+ ],
+ "checked": "2026-10-25 00:20:41"
+}

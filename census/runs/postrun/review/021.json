@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial evolutionary 2x2 game (synchronous imitate-the-best on Moore lattice incl. self), composed with a voter-model random-neighbour copy step; payoffs in snowdrift regime (T>R>S>P)",
+  "standard_name": "Spatial game chaos (Nowak-May spatial chaos; Hamming-distance damage-spreading test), with voter-model noise/mixing",
+  "confidence": "medium",
+  "citations": [
+   "Nowak MA & May RM (1992) Evolutionary games and spatial chaos, Nature 359:826-829 (abstract via Semantic Scholar)",
+   "Nowak MA & May RM (1993) The spatial dilemmas of evolution, Int. J. Bifurcation Chaos 3:35-78 (worldscientific.com/doi/abs/10.1142/S0218127493000040)",
+   "Hauert C (2001) Fundamental clusters in spatial 2x2 games, Proc R Soc B 268:761-769 (PMC1088667)",
+   "Hauert C & Doebeli M (2004) Spatial structure often inhibits the evolution of cooperation in the snowdrift game, Nature 428:643-646 (nature.com/articles/nature02360)",
+   "Szabo G & Fath G, Evolutionary games on graphs (arXiv:cond-mat/0607344) - review",
+   "Hamming distance as a measure of spatial chaos in evolutionary games (arXiv:2311.08119)",
+   "From Local Payoffs to Global Instabilities: spectral cartography of spatiotemporal chaos in 2x2 games (arXiv:2607.24638)"
+  ],
+  "searches": [
+   "Nowak May evolutionary games and spatial chaos imitate best neighbour cellular automaton",
+   "spatial structure often inhibits evolution of cooperation in the snowdrift game",
+   "spatial game voter model random neighbour copying combined with imitate-the-best update lattice",
+   "Hauert fundamental clusters in spatial 2x2 games snowdrift synchronous imitate best Moore neighbourhood",
+   "spatial evolutionary game random imitation noise spatial chaos Nowak May robustness to noise"
+  ],
+  "notes": "The chaos test is likely passed trivially because the voter-copy step makes dynamics stochastic, so Hamming divergence is expected regardless of the game; this is noise-driven divergence, not Nowak-May deterministic chaos. The low-structure fingerprint (about 5 domains, corrlen 2, entropy about 0.99) fits a voter-model-coarsened state. The meaning of C.SWAP was not verified in the literature. No source was found for the exact composed rule (voter copy plus imitate-best), though I ran few searches for it.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Spatial snowdrift (hawk-dove) game with imitate-best plus strong random mixing (voter copying / random swaps): noise-mixed C/D coexistence near the well-mixed equilibrium; the chaos-test pass comes from the random steps, not Nowak-May deterministic spatial chaos",
+ "citations": [
+  "Hauert & Doebeli 2004, Nature 428:643 (spatial snowdrift, filament clusters, anti-correlation)",
+  "Nowak & May 1992, Nature 359:826 (deterministic spatial chaos)",
+  "Vainstein & Arenzon 2014, Physica A (PD and snowdrift with random mobility, imitation dynamics)",
+  "Vainstein, Silva & Arenzon 2007, JTB 244:722; Sicardi et al. 2009, JTB 256:240 (random mobility)",
+  "arXiv:2311.08119 (Hamming-distance chaos measure; stochasticity speeds up divergence)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Payoffs T=1.5>R=1>S=0.5>P=0 put this in snowdrift order; the well-mixed equilibrium is exactly 0.5 cooperators, matching type entropy ~0.99. Copy/swap at p=1.0 every step is strong noise and mixing, so Hamming divergence is expected and does not show deterministic chaos. Corrlen 2 and ~5 domains fit noise-broken filament or speckle coexistence. Exception: the g=(1.3,0) member is a weak Prisoner's Dilemma (mixed-population outcome is all defectors), yet it gives the same fingerprint; this points to the noise, not the game, setting the statistics. Not checked: whether that member actually sits at a ~50/50 split.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** This is not documented as a new form of spatial game chaos, and the \"chaos\" label is probably an artifact of the noise. The first pass was right about the noise but too generous in calling it a variant. Nothing in what was observed needs a new mechanism.\n\n**1. The game is a snowdrift game, not a Prisoner's Dilemma.** With T=1.5 > R=1 > S=0.5 > P=0, the payoffs are in the snowdrift (hawk\u2013dove) order. Hauert & Doebeli showed that in unstructured snowdrift games, intermediate levels of cooperation persist. Unexpectedly, spatial structure reduces the proportion of cooperators for a wide range of parameters. They also describe the spatial patterns: while in the spatial prisoner's dilemma cooperators can survive by forming large, compact clusters, in the spatial snowdrift game cooperators form only small filament-like clusters. That is, it is advantageous to adopt strategies that are opposite to neighboring strategies. Small, broken-up clusters fit the short correlation length (2) and the several small domains (about 5). Also, the well-mixed snowdrift equilibrium is (S\u2212P)/[(S\u2212P)+(T\u2212R)] = 0.5/1.0 = **0.5 cooperators**. That would give a type entropy close to 1, which matches the observed 0.989. My reading is that the system behaves like a randomly mixed snowdrift population sitting at its textbook coexistence point.\n\n**2. The mixing steps are a documented ingredient.** Copying a random neighbour every step (a voter-model step) or swapping with a neighbour at p=1.0 is very strong random mixing. Random movement in lattice games has been studied: one line of work used movement that was Brownian random walk like, i.e. diffusive, not relying on any type of explicit, genotypic or phenotypic assortment, and also being strategy-independent. Comparisons across games found that random migration plays the cooperation inhibiting role in spatial structures in the SDG, while playing the cooperation enhancing role in PDG and SHG. Vainstein & Arenzon present an extensive, systematic study of the Prisoner's Dilemma and Snowdrift games on a square lattice under a synchronous, noiseless imitation dynamics, including random mobility. Their setup is the closest published match to the SWAP and GAME versions in this class.\n\n**3. Why the chaos test result is probably an artifact.** Nowak\u2013May chaos is defined as a purely deterministic, spatial version of the Prisoners' Dilemma that produces chaotically changing spatial patterns. Here a random step (copy or swap at p=1.0) runs every step, so two copies of the run will drift apart in Hamming distance whatever the game does. Even work that measures chaos this way notes that in the case of the game exhibiting a degree of stochasticity, the distance increases more rapidly. That is why the test can't tell real chaos from plain noise here. The activity of 0.46 and the single reversal look like noise churning around a mixed equilibrium, not the shifting patterns Nowak and May described.\n\n**Caveats:**\n- **The g=(1.3, 0.0) member doesn't fit the snowdrift explanation.** With S=P it is the weak Prisoner's Dilemma, whose mixed-population outcome is all defectors. It still lands in the same fingerprint class, probably because the random step keeps both types around. That supports the idea that the noise sets the fingerprint, not the game. I can't confirm from here that it actually sits at the same roughly 50/50 split.\n- **The domain count is ambiguous.** A value of about 5 could just as well describe random speckle; it isn't evidence of structure.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Spatial snowdrift (hawk-dove) game with imitate-best plus strong random mixing (voter copying / random swaps): noise-mixed C/D coexistence near the well-mixed equilibrium; the chaos-test pass comes from the random steps, not Nowak-May deterministic spatial chaos\", \"citations\": [\"Hauert & Doebeli 2004, Nature 428:643 (spatial snowdrift, filament clusters, anti-correlation)\", \"Nowak & May 1992, Nature 359:826 (deterministic spatial chaos)\", \"Vainstein & Arenzon 2014, Physica A (PD and snowdrift with random mobility, imitation dynamics)\", \"Vainstein, Silva & Arenzon 2007, JTB 244:722; Sicardi et al. 2009, JTB 256:240 (random mobility)\", \"arXiv:2311.08119 (Hamming-distance chaos measure; stochasticity speeds up divergence)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Payoffs T=1.5>R=1>S=0.5>P=0 put this in snowdrift order; the well-mixed equilibrium is exactly 0.5 cooperators, matching type entropy ~0.99. Copy/swap at p=1.0 every step is strong noise and mixing, so Hamming divergence is expected and does not show deterministic chaos. Corrlen 2 and ~5 domains fit noise-broken filament or speckle coexistence. Exception: the g=(1.3,0) member is a weak Prisoner's Dilemma (mixed-population outcome is all defectors), yet it gives the same fingerprint; this points to the noise, not the game, setting the statistics. Not checked: whether that member actually sits at a ~50/50 split.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.COPY(p=1.0) ; C.GAME(g=(1.5, 0.5))",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 97,
+ "groups": [
+  "grid|spatial game chaos|4"
+ ],
+ "checked": "2026-10-24 23:42:41"
+}

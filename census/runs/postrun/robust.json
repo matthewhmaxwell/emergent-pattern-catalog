@@ -1,0 +1,265 @@
+{
+ "definition": "fraction of all census programs with the same rule structure as the confirmed minimal program (substrates, type counts, field count, rule templates; all rule/agent/diffusion parameters free) whose run is flagged and shows the behaviour",
+ "behaviours": {
+  "cyclic waves and spirals": {
+   "g1": {
+    "minimal": "C kC=3 | C.CYCLE(th=3,p=1.0)",
+    "structure": [
+     "C",
+     "('kC=3',)",
+     "fields=0",
+     "('C.CYCLE',)"
+    ],
+    "programs_with_structure": 112,
+    "showing_behaviour": 7,
+    "fraction": 0.062
+   },
+   "g2": {
+    "minimal": "C kC=3 | C[any] NEXT_GE(th=1) -> COPY_RAND() p=1.0",
+    "structure": [
+     "C",
+     "('kC=3',)",
+     "fields=0",
+     "('C[any] NEXT_GE() -> COPY_RAND()',)"
+    ],
+    "programs_with_structure": 48,
+    "showing_behaviour": 6,
+    "fraction": 0.125
+   }
+  },
+  "domain coarsening": {
+   "g1": {
+    "minimal": "C kC=2 | C.COPY(p=0.1)",
+    "structure": [
+     "C",
+     "('kC=2',)",
+     "fields=0",
+     "('C.COPY',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 8,
+    "fraction": 0.571
+   },
+   "g2": {
+    "minimal": "C kC=2 | C[any] ALWAYS() -> COPY_RAND() p=0.1",
+    "structure": [
+     "C",
+     "('kC=2',)",
+     "fields=0",
+     "('C[any] ALWAYS() -> COPY_RAND()',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 8,
+    "fraction": 0.571
+   }
+  },
+  "flocking": {
+   "g1": {
+    "minimal": "A kA=1 v=1.0 eta=0.3 | A.ALIGN(r=1.0)",
+    "structure": [
+     "A",
+     "('kA=1',)",
+     "fields=0",
+     "('A.ALIGN',)"
+    ],
+    "programs_with_structure": 216,
+    "showing_behaviour": 186,
+    "fraction": 0.861
+   },
+   "g2": {
+    "minimal": "A kA=1 v=1.0 eta=0.3 | A[any] ALWAYS() -> HEAD_MEAN(b=any,r=1.0) p=1.0",
+    "structure": [
+     "A",
+     "('kA=1',)",
+     "fields=0",
+     "('A[any] ALWAYS() -> HEAD_MEAN()',)"
+    ],
+    "programs_with_structure": 1488,
+    "showing_behaviour": 756,
+    "fraction": 0.508
+   }
+  },
+  "lattice phase locking": {
+   "g1": {
+    "minimal": "C kC=1 | C.KURA(K=1.0)",
+    "structure": [
+     "C",
+     "('kC=1',)",
+     "fields=0",
+     "('C.KURA',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 4,
+    "fraction": 0.286
+   },
+   "g2": {
+    "minimal": "C kC=1 | C[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+    "structure": [
+     "C",
+     "('kC=1',)",
+     "fields=0",
+     "('C[any] ALWAYS() -> PHASE_COUPLE()',)"
+    ],
+    "programs_with_structure": 196,
+    "showing_behaviour": 30,
+    "fraction": 0.153
+   }
+  },
+  "network consensus": {
+   "g1": {
+    "minimal": "N kN=3 | N.COPY(p=1.0)",
+    "structure": [
+     "N",
+     "('kN=3',)",
+     "fields=0",
+     "('N.COPY',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 5,
+    "fraction": 0.357
+   },
+   "g2": {
+    "minimal": "N kN=2 | N[any] ALWAYS() -> COPY_RAND() p=1.0",
+    "structure": [
+     "N",
+     "('kN=2',)",
+     "fields=0",
+     "('N[any] ALWAYS() -> COPY_RAND()',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 4,
+    "fraction": 0.286
+   }
+  },
+  "network fragmentation": {
+   "g1": {
+    "minimal": "N kN=2 | N.REWIRE(p=1.0)",
+    "structure": [
+     "N",
+     "('kN=2',)",
+     "fields=0",
+     "('N.REWIRE',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 8,
+    "fraction": 0.571
+   },
+   "g2": {
+    "minimal": "N kN=2 | N[any] ALWAYS() -> REWIRE_SAME() p=1.0",
+    "structure": [
+     "N",
+     "('kN=2',)",
+     "fields=0",
+     "('N[any] ALWAYS() -> REWIRE_SAME()',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 8,
+    "fraction": 0.571
+   }
+  },
+  "network synchronization": {
+   "g1": {
+    "minimal": "N kN=1 | N.KURA(K=1.0)",
+    "structure": [
+     "N",
+     "('kN=1',)",
+     "fields=0",
+     "('N.KURA',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 4,
+    "fraction": 0.286
+   },
+   "g2": {
+    "minimal": "N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=1.0) p=1.0",
+    "structure": [
+     "N",
+     "('kN=1',)",
+     "fields=0",
+     "('N[any] ALWAYS() -> PHASE_COUPLE()',)"
+    ],
+    "programs_with_structure": 196,
+    "showing_behaviour": 24,
+    "fraction": 0.122
+   }
+  },
+  "power-law avalanches": {
+   "g1": {
+    "minimal": "C kC=4 | C.SAND(p=0.001)",
+    "structure": [
+     "C",
+     "('kC=4',)",
+     "fields=0",
+     "('C.SAND',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 1,
+    "fraction": 0.071
+   },
+   "g2": {
+    "minimal": "C kC=4 | C[any] ALWAYS() -> ADD_GRAIN() p=0.001",
+    "structure": [
+     "C",
+     "('kC=4',)",
+     "fields=0",
+     "('C[any] ALWAYS() -> ADD_GRAIN()',)"
+    ],
+    "programs_with_structure": 14,
+    "showing_behaviour": 1,
+    "fraction": 0.071
+   }
+  },
+  "segregation with vacancies": {
+   "g1": {
+    "minimal": "C kC=3 | C.SCHELL(th=0.5)",
+    "structure": [
+     "C",
+     "('kC=3',)",
+     "fields=0",
+     "('C.SCHELL',)"
+    ],
+    "programs_with_structure": 6,
+    "showing_behaviour": 6,
+    "fraction": 1.0
+   },
+   "g2": {
+    "minimal": "C kC=3 | C[any] NEXT_GE(th=3) -> MOVE_EMPTY() p=0.1",
+    "structure": [
+     "C",
+     "('kC=3',)",
+     "fields=0",
+     "('C[any] NEXT_GE() -> MOVE_EMPTY()',)"
+    ],
+    "programs_with_structure": 48,
+    "showing_behaviour": 12,
+    "fraction": 0.25
+   }
+  },
+  "spatial game chaos": {
+   "g1": {
+    "minimal": "CF kC=2 fields=1 D=[0.2] | C.GAME(g=(1.9, 0.0))",
+    "structure": [
+     "CF",
+     "('kC=2',)",
+     "fields=1",
+     "('C.GAME',)"
+    ],
+    "programs_with_structure": 36,
+    "showing_behaviour": 4,
+    "fraction": 0.111
+   },
+   "g2": {
+    "minimal": "C kC=2 | C[any] ALWAYS() -> IMITATE_BEST(g=(1.9, 0.0)) p=1.0",
+    "structure": [
+     "C",
+     "('kC=2',)",
+     "fields=0",
+     "('C[any] ALWAYS() -> IMITATE_BEST())',)"
+    ],
+    "programs_with_structure": 84,
+    "showing_behaviour": 19,
+    "fraction": 0.226
+   }
+  }
+ }
+}

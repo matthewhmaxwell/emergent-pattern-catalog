@@ -1,0 +1,27 @@
+23:13:12 minimal cyclic waves and spirals [g1] 13b pass=True em=10/10
+23:13:21 minimal cyclic waves and spirals [g2] 18b pass=True em=10/10
+23:13:33 minimal domain coarsening [g1] 11b pass=True em=10/10
+23:13:40 minimal domain coarsening [g2] 14b pass=True em=10/10
+23:14:22 minimal flocking [g1] 14b pass=True em=10/10
+23:15:00 minimal flocking [g2] 17b pass=True em=10/10
+23:15:34 minimal lattice phase locking [g1] 9b pass=True em=10/10
+23:16:03 minimal lattice phase locking [g2] 11b pass=True em=10/10
+23:16:16 minimal network consensus [g1] 10b pass=True em=10/10
+23:16:24 minimal network consensus [g2] 14b pass=True em=10/10
+23:16:53 minimal network fragmentation [g1] 11b pass=True em=10/10
+23:17:18 minimal network fragmentation [g2] 14b pass=True em=10/10
+23:17:34 minimal network synchronization [g1] 9b pass=True em=10/10
+23:17:46 minimal network synchronization [g2] 11b pass=True em=10/10
+23:18:26 minimal power-law avalanches [g1] 15b pass=True em=10/10
+23:18:59 minimal power-law avalanches [g2] 18b pass=True em=10/10
+23:19:11 minimal segregation with vacancies [g1] 11b pass=True em=10/10
+23:19:16 minimal segregation with vacancies [g2] 18b pass=True em=10/10
+23:19:34 minimal spatial game chaos [g1] 15b pass=True em=6/10
+23:19:44 minimal spatial game chaos [g2] 16b pass=True em=9/10
+23:21:07 avalanche g1 15b -> ['confirmation', 'confirmation', 'confirmation'] confirmed=True
+23:22:27 avalanche g1 18b -> ['confirmation', 'confirmation', 'none'] confirmed=True
+23:23:49 avalanche g1 18b -> ['confirmation', 'none', 'confirmation'] confirmed=True
+23:25:10 avalanche g2 18b -> ['confirmation', 'confirmation', 'confirmation'] confirmed=True
+23:26:31 avalanche g2 18b -> ['none', 'none', 'none'] confirmed=False
+23:26:45 avalanche g2 19b -> ['confirmation', 'confirmation', 'confirmation'] confirmed=True
+23:26:45 minimal: done

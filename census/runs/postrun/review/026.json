@@ -1,0 +1,59 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Schelling segregation model with vacancies (Moore neighbourhood, threshold relocation to random empty cells) plus a Kawasaki-like neighbour-swap/copy noise layer, 3 agent types",
+  "standard_name": "Schelling segregation with vacancies / coarsening (segregated phase), with Kawasaki-type perturbation",
+  "confidence": "medium",
+  "citations": [
+   "Vinkovic & Kirman 2006, A physical analogue of the Schelling model, PNAS 103:19261, https://www.pnas.org/doi/10.1073/pnas.0609371103",
+   "Dall'Asta, Castellano, Marsili 2008, Statistical physics of the Schelling model of segregation, arXiv:0707.1681",
+   "Gauvin, Vannimenus, Nadal 2009, Phase diagram of a Schelling segregation model, arXiv:0903.4694",
+   "Hazan & Randon-Furling 2013, A Schelling model with switching agents, arXiv:1212.4929 / EPJB",
+   "Barret & Torri 2023, Hydrodynamic limit of the Schelling model with spontaneous Glauber and Kawasaki dynamics, arXiv:2302.09866",
+   "Clark & Fossett 2008, Understanding the social context of the Schelling segregation model, PNAS 105:4109 (three-group simulations)",
+   "Aging effects in Schelling segregation model, Sci. Rep. 2022, https://www.nature.com/articles/s41598-022-23224-7 (coarsening exponent ~1/2, recent source)"
+  ],
+  "searches": [
+   "Schelling segregation model vacancies domain coarsening physical analogue",
+   "Schelling model with random swaps diffusion noise Kawasaki exchange segregation",
+   "Schelling model three groups multiple types segregation domain growth correlation length",
+   "Schelling model more than two groups multi-ethnic segregation domains simulation vacancies",
+   "Schelling segregation with random neighbour exchange all agents diffusing mixing competes with segregation arrested coarsening"
+  ],
+  "notes": "Coarsening and segregation with vacancies are well documented. Differences from the literature: three equal types, and an unconditional full-rate (p=1) neighbour swap or copy on every step, which differs from spontaneous Kawasaki perturbations in Barret & Torri. The swap probably acts as persistent small-scale scrambling that explains the high reversal rate and activity CV, but that is an inference, not something a source states. I found no paper on this exact combination, but I cannot exclude an unindexed one.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Noisy (finite-temperature) multi-group Schelling segregation with vacancies; Schelling model with spontaneous Kawasaki/Glauber dynamics, noise-arrested coarsening in a Potts-like system",
+ "citations": [
+  "https://arxiv.org/pdf/2302.09866",
+  "https://www.nature.com/articles/s41598-022-23224-7",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC9653388",
+  "https://arxiv.org/pdf/0711.3615",
+  "https://arxiv.org/html/cond-mat/0409679",
+  "https://arxiv.org/pdf/0903.4694",
+  "https://arxiv.org/pdf/0711.2212"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Downgraded from the first pass's KNOWN-VARIANT: three types and p=1 swap/copy are differences in the rules, not in the behaviour. Swap = Kawasaki noise and copy = Glauber noise on top of Schelling moves, both studied (Barret/Torri-type hydrodynamic limit). Finite domains (corrlen ~11, ~6 domains on 64x64) match the documented intermediate-noise regime of small clusters without unbounded growth (Stauffer and coworkers). The pattern is real but generic. type_entropy=1.0 and n_types=3 likely reflect conserved equal type counts from the random start (assuming normalised entropy); high reversals and activity_cv likely reflect forced swap churn at domain edges. Domain count may depend on lattice size (Singh et al.).",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is noisy Schelling segregation with vacancies and more than two groups, held at finite-size domains by the swap noise. I don't see anything in the behaviour that the literature doesn't already cover. I'm downgrading the first pass's KNOWN-VARIANT, because what made it a \"variant\" was the exact rules (three types, swap rate p=1), not anything new in what the system does. That's the \"unusual rule tuple\" case the brief says not to count.\n\n**How each observed feature maps onto existing work:**\n\n1. **Segregation and coarsening with vacancies.** The noisy Schelling model with vacancies has a mapped phase diagram with three phases: frozen, segregated and mixed. In the segregated phase, coarsening is measured as a power-law decay with an exponent \u03b1 \u2243 0.5 in the interface density.\n2. **Swap and copy as noise on top of Schelling moves.** This exact pairing has been studied. There are rigorous hydrodynamic-limit results for the Schelling model with spontaneous Glauber and Kawasaki dynamics, which predict a mixed, a segregated and a metastable segregation phase. Your SWAP rule plays the Kawasaki role (neighbours exchange places) and COPY plays the Glauber role (a cell's type gets replaced). A swap rate of 1 just means strong noise. That doesn't make it a new mechanism.\n3. **Finite domains instead of full separation** (correlation length about 11 and about 6 domains on a 64\u00d764 grid). Stauffer's Schelling\u2013Ising work with tolerance and noise as temperatures reports exactly this regime: for intermediate T, we get small clusters but no large domains, and for low T the domains grow to infinite sizes. Continual swapping stops coarsening at a finite size where ordering and noise balance. That's probably why the run passes the coarsening test but doesn't look like the textbook picture.\n4. **Three types.** Schelling models with Q groups are long-standing. For example, there is a Potts-like model of Q ethnic groups covering ghetto formation and its prevention by an increasing social temperature. The link to the Potts model for more than two profiles is standard.\n5. **Small lattice.** Schelling-type aggregation on small lattices has its own warnings in the literature. Singh et al. argue that the global aggregation that Schelling observed is a small lattice phenomenon. A count of about 6 domains on a 64\u00d764 grid could well depend on the lattice size.\n\n**Genuine pattern or artifact?** The ordering is real but generic: a balance between noise and segregation is expected, not exotic. Some of the \"standout\" numbers are probably trivial outcomes:\n- **Type entropy of 1.0 and 3 types:** these most likely just reflect the random equal start. Swapping conserves type counts. This assumes the entropy is normalised to its maximum.\n- **Reversals of about 0.95 and the activity variability:** these are most likely the constant back-and-forth swapping at domain edges from the forced p=1 swap, not a coherent new dynamic.\n- **Spread across 82 programs:** many different rules land in the same broad class, which fits a generic attractor better than a special mechanism.\n\n**What remains unchecked:** I didn't find a paper running three equal types with an unconditional full-rate swap on 8 neighbours. That gap is in the parameters, not the behaviour. The only open questions are numbers: how the steady-state domain size depends on noise strength, threshold and lattice size. Those are standard measurements, not new phenomena.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Noisy (finite-temperature) multi-group Schelling segregation with vacancies; Schelling model with spontaneous Kawasaki/Glauber dynamics, noise-arrested coarsening in a Potts-like system\", \"citations\": [\"https://arxiv.org/pdf/2302.09866\", \"https://www.nature.com/articles/s41598-022-23224-7\", \"https://pmc.ncbi.nlm.nih.gov/articles/PMC9653388\", \"https://arxiv.org/pdf/0711.3615\", \"https://arxiv.org/html/cond-mat/0409679\", \"https://arxiv.org/pdf/0903.4694\", \"https://arxiv.org/pdf/0711.2212\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Downgraded from the first pass's KNOWN-VARIANT: three types and p=1 swap/copy are differences in the rules, not in the behaviour. Swap = Kawasaki noise and copy = Glauber noise on top of Schelling moves, both studied (Barret/Torri-type hydrodynamic limit). Finite domains (corrlen ~11, ~6 domains on 64x64) match the documented intermediate-noise regime of small clusters without unbounded growth (Stauffer and coworkers). The pattern is real but generic. type_entropy=1.0 and n_types=3 likely reflect conserved equal type counts from the random start (assuming normalised entropy); high reversals and activity_cv likely reflect forced swap churn at domain edges. Domain count may depend on lattice size (Singh et al.).\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.SWAP(p=1.0) ; C.SCHELL(th=0.5)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 82,
+ "groups": [
+  "grid|domain coarsening+segregation with vacancies|2",
+  "grid|domain coarsening+segregation with vacancies|5",
+  "grid|domain coarsening+segregation with vacancies|3"
+ ],
+ "checked": "2026-10-24 23:48:42"
+}

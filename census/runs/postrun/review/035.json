@@ -1,0 +1,57 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Graph (kNN) cellular automaton combining voter-model copying with cyclic/Greenberg-Hastings successor-state (excitable) gating",
+  "standard_name": "Voter model consensus (Clifford-Sudbury/Holley-Liggett) in a stochastic cyclic cellular automaton / cyclic-dominance voter model on a network",
+  "confidence": "medium",
+  "citations": [
+   "Castellano, Fortunato, Loreto, Statistical physics of social dynamics, Rev. Mod. Phys. 81 (2009), arXiv:0710.3256",
+   "Clifford & Sudbury, A model for spatial conflict, Biometrika 60 (1973) (seen only as a reference list entry)",
+   "Fisch, Gravner, Griffeath, Cyclic Cellular Automata in Two Dimensions (1991), Spatial Stochastic Processes",
+   "Durrett & Griffeath, Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3) (1993)",
+   "Cyclic Cellular Automata and Greenberg-Hastings Models on Regular Trees, arXiv:2108.06404",
+   "Limiting behavior of 3-color excitable media on arbitrary graphs, arXiv:1610.07320",
+   "Demirel et al., Opinion formation and cyclic dominance in adaptive networks, arXiv:1011.1124",
+   "Rock-scissors-paper game on regular small-world networks, arXiv:cond-mat/0305133"
+  ],
+  "searches": [
+   "cyclic cellular automaton Griffeath Fisch Gravner threshold range neighbors spirals",
+   "voter model consensus time on networks review Castellano Fortunato Loreto statistical physics of social dynamics",
+   "cyclic dominance voter model rock-paper-scissors copy neighbor consensus random network",
+   "cyclic cellular automaton on random graphs complex networks Greenberg-Hastings oscillation consensus",
+   "noisy voter model combined with cyclic dominance successor state copy neighbor probability networks synchronization"
+  ],
+  "notes": "Consensus is the standard voter-model outcome. The hybrid rule (copy a random neighbour when a successor-state neighbour exists, with probability 0.1) differs from the cyclic cellular automaton (which copies the successor) and from standard voter and noisy voter models, and I found no paper describing exactly it. The oscillation and cyclic-change features likely come from the cyclic component. The meaning of kN (neighbour count vs state count) is ambiguous. I did not search kNN-graph cyclic automata or an 'excitable voter model' specifically, and only skimmed search results rather than reading papers in full.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Absorbing consensus in a three-state cyclic voter / cyclic particle system (rock-paper-scissors on networks): transient cyclic oscillation followed by fixation to a homogeneous state",
+ "citations": [
+  "Bramson & Griffeath 1989, Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45",
+  "Szabo & Szolnoki 2002, A three-state cyclic voter model extended with Potts energy, PRE 65:036115",
+  "Szolnoki & Szabo 2004, Phase transitions for rock-scissors-paper game on different networks, PRE 70:037102",
+  "Szabo, Szolnoki & Izsak 2004, Rock-scissors-paper game on regular small-world networks, J. Phys. A 37:2599",
+  "Demirel et al. 2011, Opinion formation and cyclic dominance in adaptive networks (arXiv:1011.1124)",
+  "Fisch, Gravner & Griffeath 1991, Cyclic cellular automata in two dimensions",
+  "Clifford & Sudbury 1973; Holley & Liggett 1975 (voter model)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The class mixes voter copying with cyclic successor-stepping; both parent models and their hybrid (three-state cyclic voter model) are documented, as is oscillation ending in an absorbing homogeneous state on networks. Consensus is the generic absorbing outcome of copy dynamics on a finite graph, so it is real but not distinctive. The rule changes node states only, so n_components, n_giant and n_degree_cv most likely describe the fixed network, which would explain the non-textbook fingerprint. Only the exact gated random-copy rule (p=0.1) lacks a specific paper, and an undocumented rule combination is not a discovery.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The first pass found a new rule, not a new behaviour. Every observed feature (cyclic switching, oscillation, then consensus) is already described for three-state cyclic-dominance systems on graphs.\n\n**What the rule is.** A node changes only when a neighbour holds its successor state, as in a cyclic cellular automaton. But it copies a random neighbour rather than the successor, so it's a voter model gated by cyclic dominance. The other programs in this class mix pure copying (voter) with pure successor-stepping (cyclic automaton), so the whole class sits between two well-studied models.\n\n**Each feature against the literature:**\n- **Cyclic dynamics and fixation in this 3-state setting.** Bramson & Griffeath, \"Flux and fixation in cyclic particle systems\" (1989), is the standard reference, and the cyclic cellular automaton was proposed by Bramson and Griffeath as the deterministic counterpart of the cyclic particle system. For 3 or 4 colours the 1-D systems cluster, meaning that contiguous regions of all one type grow arbitrarily large. That clustering is the mechanism behind consensus on a finite network.\n- **Voter copying combined with cyclic dominance.** This exact hybrid has been studied: Szab\u00f3 & Szolnoki, \"A three-state cyclic voter model extended with Potts energy\" (Phys. Rev. E 65, 036115, 2002).\n- **Oscillation followed by absorbing consensus on networks.** In the rock-paper-scissors model on small-world networks, the amplitude of oscillation increases with the measure of randomness and the increasing oscillation terminates at one of the absorbing (homogeneous) states. That is the same route as here: oscillation, then cyclic changes, then consensus.\n- **Oscillation, consensus and fragmentation in cyclic opinion models.** Demirel et al. report stationary phase, oscillatory phase, consensus phase, and fragmented phase regimes.\n\n**Is it a real pattern or trivial?** The consensus is real but generic. On a finite graph, any copy-based dynamics eventually reaches an absorbing single-state configuration, and the cyclic gate mostly changes how fast. The odd fingerprint is probably explained by the setup rather than new behaviour:\n- The rule changes node states only, never edges, so `n_components`, `n_giant` and `n_degree_cv` most likely describe the fixed network rather than anything the dynamics did.\n- The modest oscillation and cyclic-change scores are the expected transient before absorption.\n- The fact that 89 programs converge on this fingerprint suggests a broad, generic attractor, not a fine-tuned effect.\n\nOne caveat: I didn't find a paper on this exact gated-copy rule (copy a random neighbour only when a successor neighbour exists, at p=0.1). But the rule combination isn't the question, and its behaviour is covered by the work above.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Absorbing consensus in a three-state cyclic voter / cyclic particle system (rock-paper-scissors on networks): transient cyclic oscillation followed by fixation to a homogeneous state\", \"citations\": [\"Bramson & Griffeath 1989, Flux and fixation in cyclic particle systems, Ann. Probab. 17:26-45\", \"Szabo & Szolnoki 2002, A three-state cyclic voter model extended with Potts energy, PRE 65:036115\", \"Szolnoki & Szabo 2004, Phase transitions for rock-scissors-paper game on different networks, PRE 70:037102\", \"Szabo, Szolnoki & Izsak 2004, Rock-scissors-paper game on regular small-world networks, J. Phys. A 37:2599\", \"Demirel et al. 2011, Opinion formation and cyclic dominance in adaptive networks (arXiv:1011.1124)\", \"Fisch, Gravner & Griffeath 1991, Cyclic cellular automata in two dimensions\", \"Clifford & Sudbury 1973; Holley & Liggett 1975 (voter model)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The class mixes voter copying with cyclic successor-stepping; both parent models and their hybrid (three-state cyclic voter model) are documented, as is oscillation ending in an absorbing homogeneous state on networks. Consensus is the generic absorbing outcome of copy dynamics on a finite graph, so it is real but not distinctive. The rule changes node states only, so n_components, n_giant and n_degree_cv most likely describe the fixed network, which would explain the non-textbook fingerprint. Only the exact gated random-copy rule (p=0.1) lacks a specific paper, and an undocumented rule combination is not a discovery.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=3 | N[any] NEXT_GE(th=1) -> COPY_RAND() p=0.1",
+ "len": 18,
+ "stage": "g2",
+ "shown": [
+  "network consensus"
+ ],
+ "size": 89,
+ "groups": [
+  "network|network consensus|10"
+ ],
+ "checked": "2026-10-24 23:56:49"
+}

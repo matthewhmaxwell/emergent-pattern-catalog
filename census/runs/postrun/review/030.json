@@ -1,0 +1,60 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Three-state cyclic dominance / cyclic cellular automaton (Griffeath-Fisch) with exchange (swap) mobility; conserved Kawasaki-type exchange with a cyclic-neighbour gate (related to ABC and Schelling swap models)",
+  "standard_name": "Domain coarsening (segregation) in cyclic-dominance (rock-paper-scissors) systems with swap mobility / conserved ABC-type exchange coarsening",
+  "confidence": "medium",
+  "citations": [
+   "Reichenbach, Mobilia, Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, arXiv:0709.0217",
+   "Mobility and asymmetry effects in one-dimensional rock-paper-scissors games, PRE 81, 021917, arXiv:1002.0516",
+   "Cyclic competition of four species: domains and interfaces, arXiv:1205.4914",
+   "Evans, Kafri, Koduvely, Mukamel, Phase separation in one-dimensional driven diffusive systems, PRL 80, 425 (1998), arXiv:cond-mat/9707340",
+   "Evans, Kafri, Koduvely, Mukamel, Phase separation and coarsening in 1D driven diffusive systems, PRE 58, 2764 (1998)",
+   "Kafri, Biron, Evans, Mukamel, Slow coarsening in a class of driven systems, Eur. Phys. J. B, arXiv:cond-mat/0004014",
+   "Dall'Asta, Castellano, Marsili, Statistical physics of the Schelling model of segregation, J. Stat. Mech. L07002 (2008), arXiv:0707.1681",
+   "Fisch, Gravner, Griffeath, Cyclic Cellular Automata in Two Dimensions (1991); Durrett & Griffeath, Asymptotic behavior of excitable cellular automata, Exp. Math. 1993",
+   "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata, arXiv:nlin/0507067",
+   "Cyclic dominance in evolutionary games: A review (Szolnoki et al.), abstract only"
+  ],
+  "searches": [
+   "cyclic dominance rock-paper-scissors cellular automaton swap mobility exchange domains coarsening",
+   "Schelling segregation model cyclic intolerance three types unhappy agents swap domain coarsening",
+   "cyclic cellular automaton Griffeath Fisch threshold range spiral waves with random swapping",
+   "ABC model Evans Kafri Koduvely Mukamel phase separation driven diffusive system three species cyclic exchange",
+   "ABC model two dimensions coarsening conserved cyclic exchange lattice simulation domains",
+   "cyclic cellular automaton with mobility random swapping neighbors spiral waves domain growth",
+   "Coarsening in a class of driven systems three types of particles two dimensions logarithmically slow Fermi function interfaces",
+   "Schelling model multiple groups segregation domains coarsening Potts-like three groups statistical physics"
+  ],
+  "notes": "Coarsening in cyclic 3-state systems with swaps is documented (Reichenbach/Mobilia/Frey; Mobilia 1D; four-species 2D). The exact rule (swap gated by a successor-colour neighbour with a random partner, or threshold CCA plus p=1 swap) was not found in any source. Differences from the closest models: no directional drive (unlike ABC), no reactions in rule 1 (composition conserved), and parallel deterministic CCA plus swap in the CYCLE variants. The coarsening exponent for these variants is not established and may differ from t^1/3 or ABC logarithmic growth. I could not read the full text of most cited papers, only the abstracts and snippets returned by search.",
+  "searches_used": 8
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Conserved (Kawasaki/Schelling-type) segregation coarsening with interface-gated swap mobility",
+ "citations": [
+  "Kawasaki 1966 conserved spin-exchange; L~t^1/3 (arXiv 1208.2050; arXiv 2509.04556)",
+  "Schelling model coarsening / equivalence to zero-T infinite-range Kawasaki (arXiv cond-mat/0305154; Sci Rep 2022 Aging effects in Schelling model, arXiv 2204.01417)",
+  "Voter models with conserved dynamics (arXiv 1208.2050)",
+  "Reichenbach, Mobilia, Frey, Nature 448, 1046 (2007) - contrast: spirals need non-conserved replacement dynamics"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium",
+ "notes": "The core rule only swaps, so colour counts are conserved; n_types=3 and type_entropy=1.0 are carried over from the initial state, not emergent. With 3 cyclic colours every unlike boundary has a cell allowed to move while bulk cells are frozen, which is Schelling/zero-T Kawasaki-like segregation; the small corrlen, moderate Moran's I and reversals fit slow conserved coarsening with rough boundaries at a finite time. Cyclic-dominance (RPS) framing is misleading: no spirals or species loss, as expected under conservation. Partial artifact risk: the CYCLE(th=7/8) members rarely or never trigger cycling and, if SWAP is an unconditional random-neighbour exchange (assumed, not verified), reduce to near-random swapping whose 'domains' may be finite-time clumps; check domain size vs time (L(t)) per member before treating the 15-program class as one behaviour.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** This is conserved segregation driven by swaps that happen only at boundaries. It's the same family as zero-temperature Kawasaki dynamics, the Schelling segregation model and voter models with conserved densities. The rock-paper-scissors framing doesn't explain what you saw.\n\n**Why the rock-paper-scissors framing is misleading.** The defining rule (and both CNT_GE members) only swaps cells. It never changes a cell's colour, so how much of each colour exists stays fixed. That means `g_n_types=3` and `g_type_entropy=1.0` are just the starting mix carried forward. They are not emergent. In the 2D mobility model of Reichenbach, Mobilia and Frey, the patterns come from colour replacement, and the dynamics give a critical threshold of motility above which biodiversity is lost, but below which an entanglement of travelling spiral waves emerges. A related 1D/4-species paper shows that spiral formation takes place only without a conservation law for the total density. Your rule conserves colour counts, so you shouldn't expect spirals or species dying out. You see neither, so the first pass's analogy was the wrong one.\n\n**What the rule actually does.** With 3 colours in a cycle, any two different colours are always \"next\" to each other one way or the other. So every boundary between colours has at least one cell allowed to move, while cells inside a solid domain stay put. Moving cells swap with a random neighbour, with no check on whether the swap helps. That is Schelling-style \"unhappy agents move\" dynamics. A related precedent: the zero temperature Ising model with infinite range Kawasaki dynamics evolves via exchanges of spins of opposite signs belonging to domain walls... equivalent to the Shelling's segregation model. Coarsening under conserved, local swaps is textbook. In the conserved Kawasaki dynamics... one finds n=1/3, and the additional conservation law makes domains grow significantly slower. Voter-type models with local conservation, explicitly motivated by Schelling, have also been studied (phase separation dynamics in models of the voter type, but with local conservation of the order parameter. Similar to the celebrated Schelling model). The kC=2 CNT_GE member is plain Schelling: a cell moves when at least 5 of its neighbours are colour 0.\n\n**Why the fingerprint looks \"non-textbook\".** The small correlation length (about 6), the moderate Moran's I (0.63), about 6 domains and the reversals are what you'd expect from slow conserved coarsening seen at a finite time. The random, unconditional partner choice also roughens the boundaries; similar rough-boundary delays have been reported for Schelling variants (rougher interfaces, causing such delay). None of this is new behaviour.\n\n**Artifact concerns.**\n- The three CYCLE members with threshold 7 or 8 almost never meet the cycling condition, and with p=0.1 they rarely act even when they do. They are effectively pure p=1 swapping.\n- I'm assuming SWAP means an unconditional random-neighbour exchange; I didn't verify the grammar. If that's right, those members are close to a random mixing walk. Then the small \"domains\" would just be finite-time or finite-lattice clumps, not real coarsening.\n- So the 15-program class probably mixes real interface-gated segregation with near-trivial members. Before counting this as one behaviour, check each member's domain-size growth against time (L(t)).\n- The colour diversity numbers are guaranteed by conservation and say nothing.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Conserved (Kawasaki/Schelling-type) segregation coarsening with interface-gated swap mobility\", \"citations\": [\"Kawasaki 1966 conserved spin-exchange; L~t^1/3 (arXiv 1208.2050; arXiv 2509.04556)\", \"Schelling model coarsening / equivalence to zero-T infinite-range Kawasaki (arXiv cond-mat/0305154; Sci Rep 2022 Aging effects in Schelling model, arXiv 2204.01417)\", \"Voter models with conserved dynamics (arXiv 1208.2050)\", \"Reichenbach, Mobilia, Frey, Nature 448, 1046 (2007) - contrast: spirals need non-conserved replacement dynamics\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium\", \"notes\": \"The core rule only swaps, so colour counts are conserved; n_types=3 and type_entropy=1.0 are carried over from the initial state, not emergent. With 3 cyclic colours every unlike boundary has a cell allowed to move while bulk cells are frozen, which is Schelling/zero-T Kawasaki-like segregation; the small corrlen, moderate Moran's I and reversals fit slow conserved coarsening with rough boundaries at a finite time. Cyclic-dominance (RPS) framing is misleading: no spirals or species loss, as expected under conservation. Partial artifact risk: the CYCLE(th=7/8) members rarely or never trigger cycling and, if SWAP is an unconditional random-neighbour exchange (assumed, not verified), reduce to near-random swapping whose 'domains' may be finite-time clumps; check domain size vs time (L(t)) per member before treating the 15-program class as one behaviour.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C[any] NEXT_GE(th=1) -> SWAP_RAND() p=1.0",
+ "len": 18,
+ "stage": "g2",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 15,
+ "groups": [
+  "grid|domain coarsening|11",
+  "grid|domain coarsening|12"
+ ],
+ "checked": "2026-10-24 23:52:59"
+}

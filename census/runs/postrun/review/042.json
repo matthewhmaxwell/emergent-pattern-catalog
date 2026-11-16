@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial (lattice) Prisoner's Dilemma, Nowak-May imitate-the-best-neighbour cellular automaton, here with probabilistic (partially asynchronous) and count-gated updating",
+  "standard_name": "Spatial chaos / evolutionary kaleidoscope in the Nowak-May spatial Prisoner's Dilemma (b~1.9), with asynchronous/probabilistic update variants",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829, doi:10.1038/359826a0",
+   "Nowak & May 1993, The spatial dilemmas of evolution, Int. J. Bifurcat. Chaos 3:35-78",
+   "Huberman & Glance 1993, Evolutionary games and computer simulations, PNAS 90:7716-7718",
+   "Nowak, Bonhoeffer & May 1994, Spatial games and the maintenance of cooperation, PNAS 91:4877-4881",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys. Rep. (arXiv cond-mat/0607344)",
+   "Roca, Cuesta & Sanchez, Evolutionary game theory: temporal and spatial effects beyond replicator dynamics (arXiv 0911.1720)",
+   "Grilo & Correia, Asynchronous spatial evolutionary games (Biosystems) and What makes spatial PD sensitive to asynchronism",
+   "Wu, Fu & Wang, Evolutionary games and spatial periodicity (arXiv 2209.08267)",
+   "Mukherji et al. 1996 (update-failure extension; seen only via the Izquierdo et al. textbook exercise, not read directly)"
+  ],
+  "searches": [
+   "Nowak May 1992 Evolutionary games and spatial chaos Nature",
+   "Huberman Glance evolutionary games and computer simulations asynchronous updating spatial chaos disappears",
+   "spatial prisoner's dilemma stochastic synchronous update probability imitate best neighbor Nowak May robustness review"
+  ],
+  "notes": "Base rule at b=1.9 is the original Nowak-May spatial chaos regime. Differences: per-cell update probability 0.1-0.3 (between synchronous and fully asynchronous updating) and a neighbour-count gate. The gate has no specific literature match, but is likely a minor modification. The negative activity trend and non-textbook fingerprint are consistent with known transient and periodic-cycle behaviour and with the known sensitivity to update scheme. Mukherji 1996 and Grilo & Correia were not read in full, and the count-gated and MAJ/COPY class members were not searched individually.",
+  "searches_used": 3
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Loss of spatial chaos under asynchronous/semi-synchronous updating in the Nowak-May spatial Prisoner's Dilemma (Huberman-Glance effect); settling into static C/D domains",
+ "citations": [
+  "Nowak & May 1992, Nature 359:826",
+  "Huberman & Glance 1993, PNAS 90:7716",
+  "Nowak, Bonhoeffer & May 1994, PNAS 91:4877",
+  "Semi-synchronous updates in the PD: first-order phase transition, arXiv:0910.0961"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "b=1.9 with imitate-the-best and partial updating (p=0.1-0.3) is the documented semi-synchronous/asynchronous case. Few domains, short correlation length, 2 types and falling activity mean the lattice is settling into fixed blocks, not textbook chaos. Passing the chaos test is probably an early transient or update noise. The neighbour-count gate and the other rules in the class (majority+game, several games+copy) are different routes to the same known domain-settling result.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I don't think this is even a variant. What you observed matches a well-documented result: the \"spatial chaos\" of Nowak-May disappears when not every cell updates at once, and the lattice settles into a few still blocks of one strategy.\n\n**Why the first pass was too generous**\n\n1. **The base rule is Nowak-May at its chaotic setting.** In the original model each cell copies the neighbour with the highest score, which at b\u22481.9 produces complex and persistent spatial patterns, allowing cooperators and defectors to coexist through the constant formation and breakup of clusters.\n2. **Updating only 10\u201330% of cells per step is a studied scheme, not a new twist.** Huberman & Glance (1993) found that with one-cell-at-a-time updating, the matrix converges rapidly to steady-state and does not display the widely changing spatial patterns observed in the synchronous case. Nowak, Bonhoeffer & May (1994) agreed that the interesting behavior for 1.8 < b < 2 in the deterministic game has disappeared, though cooperators and defectors still coexist. The in-between case, where a fraction p of agents update each step, has its own paper: a detailed study of more realistic system of semi-synchronous updates where pN agents are updated at every time instant, which reports a first-order phase transition.\n3. **Your fingerprint is what those papers describe:** only 2 strategies left, about 4 domains, a correlation length of 2, activity falling over time, and a single reversal. That is a lattice slowing down into a few fixed blocks, not textbook chaos. In the extreme case the lattice ends up as a single static solid slab of one color. Your runs look like they stopped just short of that, in the coexistence state Nowak, Bonhoeffer & May describe.\n4. **The neighbour-count gate (CNT_LE / CNT_GE) has no exact match in the literature, but it doesn't change the behaviour.** It just thins out further which cells can update, which acts like another form of asynchrony. The other rules in the same class reach the same frozen-block result by different routes: majority voting plus a game, or several games plus rare copying. That a mix of mechanisms coarsens into domains is also well known. Under your own criterion, a new rule combination that produces known behaviour is not a discovery.\n\n**Real pattern or artifact?** The domains themselves are real emergent clusters. But the \"chaos\" label looks like a misclassification: either the test is picking up the early transient before things settle, or it is reacting to random update noise. The overall result is a near-frozen, almost trivial end state. So I've marked it as trivial/artifact, meaning the chaos classification, not the clusters.\n\n**Nothing left unexplained**, as far as I can find.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Loss of spatial chaos under asynchronous/semi-synchronous updating in the Nowak-May spatial Prisoner's Dilemma (Huberman-Glance effect); settling into static C/D domains\", \"citations\": [\"Nowak & May 1992, Nature 359:826\", \"Huberman & Glance 1993, PNAS 90:7716\", \"Nowak, Bonhoeffer & May 1994, PNAS 91:4877\", \"Semi-synchronous updates in the PD: first-order phase transition, arXiv:0910.0961\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"b=1.9 with imitate-the-best and partial updating (p=0.1-0.3) is the documented semi-synchronous/asynchronous case. Few domains, short correlation length, 2 types and falling activity mean the lattice is settling into fixed blocks, not textbook chaos. Passing the chaos test is probably an early transient or update noise. The neighbour-count gate and the other rules in the class (majority+game, several games+copy) are different routes to the same known domain-settling result.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C[any] CNT_LE(b=0,th=3) -> IMITATE_BEST(g=(1.9, 0.0)) p=0.1",
+ "len": 19,
+ "stage": "g2",
+ "shown": [
+  "spatial game chaos"
+ ],
+ "size": 10,
+ "groups": [
+  "grid|spatial game chaos|19",
+  "grid|spatial game chaos|7",
+  "grid|spatial game chaos|12"
+ ],
+ "checked": "2026-10-25 00:03:10"
+}

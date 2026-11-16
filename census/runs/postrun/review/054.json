@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Nowak-May spatial Prisoner's Dilemma (synchronous imitate-the-best, Moore neighbourhood with self-interaction, b=1.3) combined with rare stochastic local-majority (conformity / zero-temperature-Ising-like) updates",
+  "standard_name": "Spatial evolutionary PD with imitate-the-best: cooperator/defector domain growth and frozen low-b patterns, perturbed by conformity (mixed payoff+conformity update)",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829 (verified via secondary sources only)",
+   "Nowak, Bonhoeffer & May 1994, Spatial games and the maintenance of cooperation, PNAS 91:4877 (https://www.pnas.org/doi/pdf/10.1073/pnas.91.11.4877)",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys. Rep. 446:97-216 (https://arxiv.org/pdf/cond-mat/0607344), review",
+   "Szabo & Toke 1998, Evolutionary prisoner's dilemma game on a square lattice, PRE 58:69 (https://arxiv.org/pdf/cond-mat/9710096)",
+   "Cooperation percolation in spatial prisoner's dilemma game, New J. Phys. 16:013010 (https://iopscience.iop.org/article/10.1088/1367-2630/16/1/013010)",
+   "Mixed payoff-driven plus conformity-driven update spatial PD (ResearchGate 257218945, abstract only)",
+   "Szolnoki & Perc conformity and cooperation (cited in ResearchGate 342181309, abstract only)"
+  ],
+  "searches": [
+   "Nowak May spatial prisoner's dilemma evolutionary games and spatial chaos imitate best neighbour lattice",
+   "spatial prisoner's dilemma domain coarsening cooperator clusters majority rule noise lattice",
+   "evolutionary games on graphs review Szabo Fath spatial games cooperator defector domain growth",
+   "spatial prisoner's dilemma conformity majority rule imitation mixed update cooperation lattice",
+   "Nowak May spatial game imitate-the-best static patterns b<4/3 frozen clusters small perturbation avalanches"
+  ],
+  "notes": "Base model, its frozen low-b patterns, cluster growth and conformity-hybrid updates are documented. I found no source on this exact hybrid (deterministic synchronous imitate-the-best plus rare synchronous majority sweeps) or on the bursty, decaying activity it produces (high activity CV, negative trend). The likely route is freeze, then rare majority-triggered local avalanches, which is my inference and not sourced. Mukherji et al. 1996 was seen only as a textbook exercise reference, not read. SWAP variants with (T,S)=(1.5,-0.5) leave the Nowak-May line but stay within the general T-S plane literature. Not tested against simulation.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Nowak-May spatial (weak) Prisoner's Dilemma, imitate-the-best cellular automaton, sub-chaotic low-temptation regime (frozen/periodic C-D clusters), with sparse noise/conformity perturbations",
+ "citations": [
+  "Nowak & May 1992 Nature 359:826 'Evolutionary games and spatial chaos'",
+  "Nowak & May 1993 Int J Bif Chaos 3:35 'The spatial dilemmas of evolution'",
+  "Szabo & Fath, Evolutionary games on graphs, arXiv cond-mat/0607344 sec 6.5",
+  "Hamming distance as a measure of spatial chaos in evolutionary games, arXiv 2311.08119 (only periodic states outside 1.8<T<=2)",
+  "Mukherji et al. 1996 (noisy perturbation of Nowak-May), via Izquierdo et al. textbook",
+  "Szolnoki & Perc 2015 J R Soc Interface 12:20141299 (conformity + payoff hybrid updates)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "T=1.3 and 1.5 with 8+1 neighbourhood are below the chaotic threshold (1.8), so the deterministic imitate-the-best CA relaxes to frozen or low-period cluster patterns, giving the negative activity trend. Rare majority/swap events (p<=0.005) set off brief local cascades in an otherwise frozen grid, giving the high activity CV. Many domains with correlation length about 2 means small frozen clusters, not ongoing coarsening, so the coarsening classification is probably an artifact of activity dying out. No source covers this exact hybrid rule, but the behaviour itself is generic. It would only be a variant if the bursts showed scale-free avalanche statistics, which these features don't establish. The Mukherji et al. 1996 results were not directly checked; it is cited only as a documented noisy extension of the model.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What you observed is the textbook Nowak\u2013May spatial Prisoner's Dilemma at low temptation. That game settles into a frozen or periodic pattern, and rare random flips occasionally kick it back into short bursts of change. The \"domain coarsening\" label is probably wrong: these features fit a system relaxing into a frozen pattern, not domains that keep growing.\n\n**1. The core rule is exactly the Nowak\u2013May model.** In that model players on a square lattice play the game with all their neighbours, add up the payoffs, and then each player imitates the strategy of those neighboring players (including herself) who has scored the highest payoff. Due to the deterministic, simultaneous update this evolutionary rule defines a cellular automaton. Your payoffs (R=1, P=S=0, T=b) are their standard rescaled matrix. With S=0 this is called the \"weak\" dilemma, but when played as a spatial game the weak version has the same qualitative properties as the typical version with c<0. That covers the (1.5, \u22120.5) members of the class too. The \"8 neighbours plus yourself\" setup is also theirs: every player plays also with herself, i.e., it is an 8+1 neighborhood.\n\n**2. Why activity dies away (negative trend).** A scan of the deterministic Moore-neighbourhood game found chaos only for 1.8 < T \u2264 2 \u2026 whereas for the other regions only a few periodic states are present. The same study says the system only changes behaviour at some thresholds by the nature of the game rules, and not continuously. That explains why runs at T=1.3 and T=1.5 fall in the same class. Both are below the chaotic threshold, so after the opening shake-out the grid freezes or cycles, and activity drops.\n\n**3. Why activity is bursty (high CV).** The majority-vote or swap events happen with probability 0.001\u20130.005, so the frozen pattern is only rarely disturbed. Each disturbance sets off a brief local cascade before the grid freezes again. That is the predictable result of a nearly frozen deterministic system plus sparse noise. Adding small random perturbations to Nowak\u2013May is itself a documented extension: proposed by Mukherji et al. (1996): After following the Nowak and May update rule, each cooperator has a small independent probability, \u03d5, of cheating by switching to defection. I only saw that extension described in a textbook exercise, not their actual results. Mixing payoff-copying with conformity is also an established line of work: some works have considered the mixed rule in combination with the payoff-driven and conformity-driven strategy update procedures. One example is Szolnoki & Perc, J. R. Soc. Interface 2015.\n\n**4. Why I'm calling the coarsening label an artifact.** Many domains with a correlation length of about 2 means lots of small clusters, not large domains merging over time. The negative activity trend most likely passed the coarsening test because the boundaries stop moving once the grid freezes, not because domains grow. Getting the same behaviour across 25 rule programs, both update types and both payoff settings also points to the generic frozen low-temptation regime rather than anything specific to this exact rule combination.\n\n**What is still unconfirmed:** I found no paper on this exact hybrid (simultaneous imitate-the-best plus rare majority sweeps) or one that measures its burst statistics. But by your own criterion, an undocumented rule combination is not a discovery. I found nothing to suggest the bursts are anything other than noise-triggered relaxation. They would only count as new if they showed heavy-tailed, scale-free avalanche sizes, which these summary features can't show.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Nowak-May spatial (weak) Prisoner's Dilemma, imitate-the-best cellular automaton, sub-chaotic low-temptation regime (frozen/periodic C-D clusters), with sparse noise/conformity perturbations\", \"citations\": [\"Nowak & May 1992 Nature 359:826 'Evolutionary games and spatial chaos'\", \"Nowak & May 1993 Int J Bif Chaos 3:35 'The spatial dilemmas of evolution'\", \"Szabo & Fath, Evolutionary games on graphs, arXiv cond-mat/0607344 sec 6.5\", \"Hamming distance as a measure of spatial chaos in evolutionary games, arXiv 2311.08119 (only periodic states outside 1.8<T<=2)\", \"Mukherji et al. 1996 (noisy perturbation of Nowak-May), via Izquierdo et al. textbook\", \"Szolnoki & Perc 2015 J R Soc Interface 12:20141299 (conformity + payoff hybrid updates)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"T=1.3 and 1.5 with 8+1 neighbourhood are below the chaotic threshold (1.8), so the deterministic imitate-the-best CA relaxes to frozen or low-period cluster patterns, giving the negative activity trend. Rare majority/swap events (p<=0.005) set off brief local cascades in an otherwise frozen grid, giving the high activity CV. Many domains with correlation length about 2 means small frozen clusters, not ongoing coarsening, so the coarsening classification is probably an artifact of activity dying out. No source covers this exact hybrid rule, but the behaviour itself is generic. It would only be a variant if the bursts showed scale-free avalanche statistics, which these features don't establish. The Mukherji et al. 1996 results were not directly checked; it is cited only as a documented noisy extension of the model.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.MAJ(p=0.003) ; C.GAME(g=(1.3, 0.0))",
+ "len": 20,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 25,
+ "groups": [
+  "grid|domain coarsening|14"
+ ],
+ "checked": "2026-10-25 00:16:49"
+}

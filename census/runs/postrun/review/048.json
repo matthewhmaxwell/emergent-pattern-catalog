@@ -1,0 +1,55 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "3-state cyclic-dominance (cyclic cellular automaton) coupled with majority-vote / zero-temperature Potts smoothing on a 2D lattice (active cyclic Potts-like)",
+  "standard_name": "Domain coarsening (Allen-Cahn/LAC, zero-T Potts/majority vote) with slow cyclic invasion: homogeneous cycling mode of the active cyclic Potts model",
+  "confidence": "medium",
+  "citations": [
+   "Olejarz, Krapivsky, Redner, Zero-Temperature Coarsening in the 2d Potts Model, J. Stat. Mech. 2013 P06018, arXiv:1305.1038",
+   "Barros, Krapivsky, Redner, Freezing into Stripe States in 2D Ferromagnets, arXiv:0905.3521",
+   "Hellouin de Menibus & Le Borgne, Asymptotic behaviour of the 1D rock-paper-scissors cyclic cellular automaton, Ann. Appl. Probab. 31(5) 2021, arXiv:1903.12622 (summarising Fisch)",
+   "Noguchi, van Wijland, Rieu, Cycling and spiral-wave modes in an active cyclic Potts model, arXiv:2311.05257",
+   "Noguchi et al., Spatiotemporal patterns in the active cyclic Potts model, New J. Phys., arXiv:2407.02985",
+   "Noguchi, Coarsening dynamics for spiral and disordered waves in active Potts models, Phys. Rev. E 113, 054108 (2026), arXiv:2509.17408",
+   "Szabo & Szolnoki, Three-state cyclic voter model extended with Potts energy, Phys. Rev. E 65, 036115 (2002), arXiv:cond-mat/0110255"
+  ],
+  "searches": [
+   "cyclic cellular automaton with majority rule coarsening three-state rock-paper-scissors domain growth",
+   "cyclic dominance curvature-driven coarsening majority vote surface tension spiral waves suppressed lattice",
+   "Coarsening dynamics for spiral and disordered waves in active Potts models cyclic flipping Monte Carlo",
+   "Potts model with cyclic state flipping spiral waves nonequilibrium Potts oscillation Ginzburg-Landau",
+   "zero-temperature Potts model quench 2D stripes metastable states coarsening freezing"
+  ],
+  "notes": "Both ingredients are well documented and the active cyclic Potts model is the nearest combined system. Differences: synchronous, deterministic-majority, threshold-based Moore-8 CA versus Metropolis/Glauber energy-based MC; no paper found for this exact rule pair. Surviving n_types=2, falling activity and the non-textbook fingerprint are probably freezing into stripe or metastable states and stalled cyclic fronts under strong smoothing (my interpretation, not verified in a source). Only abstracts and snippets were read, not full texts.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Zero-temperature Potts / majority-vote domain coarsening (LAC) with cyclic-dominance-biased fixation: extinction of one type and absorbing near-consensus (fixation regime of threshold cyclic CA)",
+ "citations": [
+  "Fisch, Gravner & Griffeath 1991, Cyclic cellular automata in two dimensions (fixation at high threshold)",
+  "Fisch, Gravner & Griffeath 1991, Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+  "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067",
+  "Noguchi et al., Cycling and spiral-wave modes in an active cyclic Potts model, arXiv:2311.05257",
+  "Noguchi, Coarsening dynamics for spiral and disordered waves in active Potts models (LAC t^1/2)",
+  "Reichenbach, Mobilia & Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games (absorbing single-species states)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Disagrees with the first pass's HC label: HC needs noise-driven nucleation, which a threshold rule requiring >=3 successor neighbours cannot provide, so uniform regions are absorbing and the run freezes rather than cycles. n_types=2, largest_domain~0.96 and the negative activity trend are the late, finite-size stage of coarsening plus extinction on 64x64. Reversals are likely a rule-order effect (cyclic flip then majority revert). Coarsening is a real collective effect, but the standout features are close to what a dominant majority rule guarantees on a small lattice.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** This is ordinary domain coarsening on a finite lattice, ending in fixation: one type dies out, and one of the two survivors moves toward taking over the whole grid. I disagree with the first pass on one point: calling this the \"homogeneous cycling\" mode of the active cyclic Potts model is the wrong label.\n\n**Why it isn't homogeneous cycling (HC).** In HC, one state covers the lattice and then switches to the next state in the cycle, driven by random nucleation. The authors of that model say the HC dynamics is caused by nucleation and growth, so that it has no counterpart in deterministic models. Your rule has no noise source that could nucleate a new state. Rule (1) only fires if at least 3 neighbours already hold the next type. So once a type is gone, it can't come back, and a uniform region is a dead end. The run shows the opposite of cycling: activity falls (trend \u22122.86), only 2 types remain, and the largest domain covers about 96% of the grid. That is a system sliding into a frozen state.\n\n**What it actually is (all documented):**\n- **Majority-vote coarsening:** rule (2) applied every step is zero-temperature Potts / majority-rule coarsening. The active Potts coarsening literature reports correlation length and cluster size growing following the Lifshitz-Allen-Cahn (LAC) law (\u221dt^{1/2}).\n- **Threshold-driven fixation in cyclic cellular automata:** a high threshold relative to neighbourhood size pushes a cyclic automaton out of its spiral regime. At high thresholds, the CCA forms homogeneous blocks of solid colors, which are completely static \u2014 so-called fixation behavior. With 8 neighbours, fixation occurs with T\u22654. Your threshold of 3, firing with probability 0.1 and immediately overruled by majority vote, is effectively a weaker, sub-spiral driving force, in the same spirit as the \"freezing\" regime where the automaton stops forming spirals at all and freezes into a static state.\n- **Extinction cascade in cyclic competition:** on finite lattices, the only absorbing states where no reactions (and therefore no fluctuations) occur, are the uniform configurations where only one species survives. Once one of three cyclic types is gone, the remaining pair is a one-way predator\u2013prey interface, and the predator spreads.\n\n**Why the fingerprint looks \"non-textbook.\"** Two types left, one big domain and falling activity is the late, size-limited stage of coarsening plus extinction on a small 64\u00d764 grid. It isn't a new route. The reversals (0.85) most likely come from the order of the rules: a cell flips cyclically in rule (1), and the majority step reverts it. That is an update-scheme effect, not a new behaviour.\n\n**Is it emergent or trivial?** Coarsening is a real collective effect. But the standout features (high correlation length, few types, falling activity) are just what a dominant majority rule plus finite-size absorption produces. That near-trivial reading fits the other members of the class too, such as the threshold-6 cycle with a copy rule.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Zero-temperature Potts / majority-vote domain coarsening (LAC) with cyclic-dominance-biased fixation: extinction of one type and absorbing near-consensus (fixation regime of threshold cyclic CA)\", \"citations\": [\"Fisch, Gravner & Griffeath 1991, Cyclic cellular automata in two dimensions (fixation at high threshold)\", \"Fisch, Gravner & Griffeath 1991, Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39\", \"Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067\", \"Noguchi et al., Cycling and spiral-wave modes in an active cyclic Potts model, arXiv:2311.05257\", \"Noguchi, Coarsening dynamics for spiral and disordered waves in active Potts models (LAC t^1/2)\", \"Reichenbach, Mobilia & Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games (absorbing single-species states)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Disagrees with the first pass's HC label: HC needs noise-driven nucleation, which a threshold rule requiring >=3 successor neighbours cannot provide, so uniform regions are absorbing and the run freezes rather than cycles. n_types=2, largest_domain~0.96 and the negative activity trend are the late, finite-size stage of coarsening plus extinction on 64x64. Reversals are likely a rule-order effect (cyclic flip then majority revert). Coarsening is a real collective effect, but the standout features are close to what a dominant majority rule guarantees on a small lattice.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=3,p=0.1) ; C.MAJ(p=1.0)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 29,
+ "groups": [
+  "grid|domain coarsening|16"
+ ],
+ "checked": "2026-10-25 00:09:58"
+}

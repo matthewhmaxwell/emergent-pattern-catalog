@@ -1,0 +1,61 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Cyclic cellular automaton (Griffeath; 4 states, Moore range 1, threshold 1) coupled to Schelling-type vacancy-based relocation; related to spatial rock-paper-scissors / May-Leonard models with empty sites and mobility",
+  "standard_name": "Cyclic cellular automaton spiral waves + Schelling segregation/coarsening with vacancies (mobility-disrupted cyclic waves)",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39",
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, in Spatial Stochastic Processes (Springer) https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8",
+   "Durrett & Griffeath (1993) Asymptotic behavior of excitable cellular automata, Experimental Mathematics 2(3):183-208",
+   "Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067",
+   "Vinkovic & Kirman (2006) A physical analogue of the Schelling model, PNAS 103:19261",
+   "Dall'Asta, Castellano, Marsili, Statistical physics of the Schelling model of segregation, arXiv 0707.1681",
+   "Gauvin, Vannimenus, Nadal (2009) Phase diagram of a Schelling segregation model, arXiv 0903.4694",
+   "A unified framework for Schelling's model of segregation, arXiv 1104.1971 (review)",
+   "Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games (Frey group; authors/journal not shown in search result)",
+   "Szolnoki et al., Cyclic dominance in evolutionary games: A review, arXiv 1408.6828"
+  ],
+  "searches": [
+   "Schelling segregation model coupled with cyclic cellular automaton rock-paper-scissors spirals",
+   "cyclic competition mobility vacancies spiral waves rock-paper-scissors empty sites Schelling-like movement",
+   "Fisch Gravner Griffeath cyclic cellular automaton threshold range spirals",
+   "cyclic cellular automaton with moving agents unhappy agents relocate to vacant sites spiral waves domains",
+   "Schelling model domain coarsening vacancies segregation dynamics Vinkovic Kirman Gauvin Vannimenus Nadal",
+   "cyclic dominance combined with Schelling segregation tolerance threshold agents move lattice spiral waves"
+  ],
+  "notes": "Both component behaviours (CCA waves/spirals; Schelling segregation/coarsening with vacancies) and the closest hybrid class (RPS with vacancies+mobility, where vacancies fragment spirals) are well documented. No source found for the exact deterministic CCA (empty state as part of the cycle) + Schelling like-fraction relocation hybrid; differences are the empty state being a cycle state and relocation being triggered preferentially at wave fronts. Likely a quantitative variation, not a new phenomenon. CCA T=1 'quench' claim is from a secondary source; Frey-group paper attribution is from memory and unverified.",
+  "searches_used": 6
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Cyclic cellular automaton (Griffeath), Moore range-1, 4 colours, threshold 1: quenched incoherent local-oscillation / near-noise phase (no spirals); segregation-move rule is a minor perturbation",
+ "citations": [
+  "Shalizi & Shalizi, Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067 (T=1 box neighbourhood, 4 colours: incoherent local oscillations, period-4 cycling, twisting single-colour bands)",
+  "MCell rules lexicon, Cyclic CA (too-low threshold gives disordered soup almost indistinguishable from noise)",
+  "Fisch, Gravner & Griffeath 1991, Threshold-range scaling of excitable cellular automata",
+  "Reichenbach, Mobilia & Frey, Nature 448:1046 (2007) (mobility destroys cyclic spiral coexistence)",
+  "Mobilia, Rucklidge & Szczesny, Games 7:24 (2016) (mobility-driven spiral breakup)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The first pass's 'mobility-disrupted spiral waves' reading is wrong: Moore-neighbourhood threshold-1 CCA with 4 states never forms spirals (spirals need T=2). Correlation length 2, about 6 domains, entropy 0.96 and Moran 0.44 match the documented quenched-oscillation phase. Activity of about 0.61 (rather than close to 1) is a quantitative effect of segregation moves desynchronising cells or of how activity is measured, not new phenomenology. Making empty one of the cycle states and the segregation threshold (0.3 or 0.4) do not change the phase. The rule combination is new, the behaviour is not.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** The first pass got the mechanism wrong. This isn't spirals broken up by moving agents. It's the textbook low-threshold phase of the cyclic cellular automaton, where cells oscillate locally without forming waves. The segregation (moving) rule adds little on top of that.\n\n**Why the first pass was wrong**\n\nRule (1) on its own is Griffeath's cyclic cellular automaton (CCA): 4 states, 8 neighbours, threshold 1. The empty state is just one of the 4 colours in the cycle. That exact setting is already described in the literature, and it does not produce spirals:\n- One paper used exactly this setup for its figures: the number of colors is fixed to 4, the rule uses a range-one box-shaped neighborhood, and the initial conditions are a uniform random mixture of colors.\n- For that neighbourhood, T=1 and T=2 are both locally periodic, but T=2 produces spiral waves, while T=1 \"quenches\" incoherent local oscillations.\n- What it looks like: a slight departure from uniform randomness, in the shape of connected twisting single-color bands, and the CA as a whole oscillates with period 4, each cell cycling through the colors.\n- More generally, a disordered soup virtually indistinguishable from noise results if the threshold is too low. Spirals only appear at intermediate thresholds.\n\n**How the observed numbers fit**\n- **Correlation length 2, about 6 domains, type entropy 0.96:** a near-uniform mix with only short-range structure. That matches the \"twisting bands\" description, not spirals and not coarsening.\n- **Moran 0.44:** moderate local clustering, which fits weak band structure.\n- **Activity 0.61:** the pure rule would give close to 1, since nearly every cell has a successor-colour neighbour. The shortfall is most likely the segregation rule moving cells around and knocking them out of step, or just how activity is measured. That's a small quantitative change to a known phase, not new behaviour.\n- **Why it \"passes\" the spiral, coarsening and segregation tests yet looks untextbook:** the tests pick up the period-4 cycling and the local clustering, but the system never reaches the spiral or coarsened state.\n\n**Related work on the moving part.** Reichenbach, Mobilia and Frey showed that in cyclic-competition models when mobility exceeds a certain value, biodiversity is jeopardized and lost, and later work showed how non-linear mobility can cause the far-field breakup of spiral waves. Here, though, there are no spirals for the moves to break up. The threshold-1 rule already rules them out, so this work is related but isn't the explanation.\n\n**The 3 rule programs** share the same 4-state, threshold-1 cycle. Changing the segregation threshold (0.3 vs 0.4) doesn't change the phase, which supports the cycle rule being what drives the behaviour.\n\n**Emergent or trivial?** Mostly trivial. It's a documented near-noise phase with weak band structure. The rules are a new combination, but the behaviour isn't new.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Cyclic cellular automaton (Griffeath), Moore range-1, 4 colours, threshold 1: quenched incoherent local-oscillation / near-noise phase (no spirals); segregation-move rule is a minor perturbation\", \"citations\": [\"Shalizi & Shalizi, Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067 (T=1 box neighbourhood, 4 colours: incoherent local oscillations, period-4 cycling, twisting single-colour bands)\", \"MCell rules lexicon, Cyclic CA (too-low threshold gives disordered soup almost indistinguishable from noise)\", \"Fisch, Gravner & Griffeath 1991, Threshold-range scaling of excitable cellular automata\", \"Reichenbach, Mobilia & Frey, Nature 448:1046 (2007) (mobility destroys cyclic spiral coexistence)\", \"Mobilia, Rucklidge & Szczesny, Games 7:24 (2016) (mobility-driven spiral breakup)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The first pass's 'mobility-disrupted spiral waves' reading is wrong: Moore-neighbourhood threshold-1 CCA with 4 states never forms spirals (spirals need T=2). Correlation length 2, about 6 domains, entropy 0.96 and Moran 0.44 match the documented quenched-oscillation phase. Activity of about 0.61 (rather than close to 1) is a quantitative effect of segregation moves desynchronising cells or of how activity is measured, not new phenomenology. Making empty one of the cycle states and the segregation threshold (0.3 or 0.4) do not change the phase. The rule combination is new, the behaviour is not.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=4 | C.CYCLE(th=1,p=1.0) ; C.SCHELL(th=0.3)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals",
+  "domain coarsening",
+  "segregation with vacancies"
+ ],
+ "size": 3,
+ "groups": [
+  "grid|cyclic waves and spirals+domain coarsening+segregation with vacancies|1",
+  "grid|cyclic waves and spirals+domain coarsening+segregation with vacancies|2"
+ ],
+ "checked": "2026-10-25 00:12:32"
+}

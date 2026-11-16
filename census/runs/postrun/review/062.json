@@ -1,0 +1,56 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Stochastic cyclic cellular automaton (Griffeath/Fisch-Gravner-Griffeath 313 rule, 3 states, Moore range 1, threshold 3) with neighbour-swap mobility; equivalent to spatial rock-paper-scissors (cyclic competition) with pair exchange",
+  "standard_name": "Cyclic cellular automaton (313 rule) / spatial rock-paper-scissors with mobility: spiral waves, turbulence and domain coarsening",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner & Griffeath (1991) Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (https://link.springer.com/article/10.1007/BF01890834)",
+   "Fisch, Gravner & Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, in Spatial Stochastic Processes (https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8)",
+   "Shalizi et al., Quantifying Self-Organization in Cyclic Cellular Automata (arXiv nlin/0507067) - review-level description of T=3 turbulence",
+   "Reichenbach, Mobilia & Frey (2007) Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448:1046 (https://www.nature.com/articles/nature06095)",
+   "Szolnoki et al., The Influence of Mobility Rate on Spiral Waves in Spatial Rock-Paper-Scissors Games, Games 7(3):24 (arXiv 1608.08932)",
+   "Spirals and coarsening patterns in the competition of many species (arXiv 1403.4319) - swapping vs diffusion mobility",
+   "Three is much more than two in coarsening dynamics of cyclic competitions (PubMed 27176330)",
+   "MCell Cyclic CA lexicon, rule 313 (http://psoup.math.wisc.edu/mcell/rullex_cycl.html)"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold range 1 Moore neighborhood spirals Fisch Gravner Griffeath",
+   "Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games spiral waves",
+   "stochastic cyclic cellular automaton with random swapping mobility spiral waves lattice exchange",
+   "cyclic cellular automaton threshold with particle diffusion mobility swap neighbours spirals domain coarsening",
+   "cyclic Potts model threshold rock-paper-scissors coarsening domain growth three-state cyclic dominance lattice"
+  ],
+  "notes": "Each component is documented, but the exact combination (probabilistic threshold-3 CCA update, p=1 per-step neighbour swap, either order) was not found in a single paper. The untextbook fingerprint is plausibly explained by T=3 CCA being metastable/turbulent, the stochastic p=0.3 update, and strong mixing. Persistence of three-type coexistence at maximal swap rate is somewhat at odds with the Reichenbach high-mobility extinction result, probably because of the threshold-3 rule, but this was not verified.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Spatial rock-paper-scissors / cyclic cellular automaton (Griffeath 313, R1/T3/C3/Moore) with mobility: coexistence regime with mixing-blurred cyclic waves / turbulent patches",
+ "citations": [
+  "Reichenbach, Mobilia & Frey, Nature 448:1046-1049 (2007), Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games",
+  "Fisch, Gravner & Griffeath, Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (1991)",
+  "Fisch, Gravner & Griffeath, Cyclic Cellular Automata in Two Dimensions, Spatial Stochastic Processes (1991)",
+  "MCell rules lexicon, 313 R1/T3/C3/NM (Griffeath)",
+  "Szolnoki et al., Cyclic dominance in evolutionary games: A review, arXiv:1408.6828"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "Downgraded from first-pass KNOWN-VARIANT: the novelty was only in the exact rule combination. Full type entropy plus Moran 0.64 plus correlation length ~6 on a 64x64 grid fits the documented below-critical-mobility coexistence state, where swaps blur the waves into small, steady-size patches. The 'domain coarsening' label is probably a misclassification (likely an early transient, not ongoing growth). The pattern is emergent, not a leftover of the start state, because order persists against p=1 swaps. Remaining caveat: if the swap uses a fixed deterministic pairing, grid-geometry artifacts can't be ruled out; consistency across 3 programs and both rule orders argues against this.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm moving this down from the first pass's KNOWN-VARIANT. The first pass's reason was that no single paper uses this exact rule combination, and as you said, that isn't a discovery. What the system does is documented, and the \"untextbook\" fingerprint can be explained by known effects.\n\n**What the rule is**\n- Without the swap, rule (1) is the \"313\" cyclic cellular automaton: range 1, threshold 3, 3 states, 8 neighbours. The only differences are that it updates at random (p=0.3 or 0.5) instead of all at once, and it runs on a 64\u00d764 wrap-around grid. In the standard catalogue, 313 is \"the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization\", and it sports a number of distinct spiral types. The general rule family is set out in Fisch, Gravner and Griffeath: colors advance by contact with at least a threshold number of successor colors in a prescribed local neighborhood.\n- Adding neighbour swaps makes the cells mobile, which turns this into spatial rock-paper-scissors with mobility. Reichenbach, Mobilia and Frey (Nature 2007) found a critical threshold of motility above which biodiversity is lost, but below which an entanglement of travelling spiral waves emerges and biodiversity is maintained. They state this is robust and does not depend on the details of cyclic competition or spatial environment, so a threshold-based cyclic update is covered by the same picture. Later work confirms that the characteristic length scale of spiral waves increases with increasing mobility.\n\n**How the observed numbers fit**\n- **All three types present, maximum entropy (1.0):** the system is in the coexistence regime, below critical mobility.\n- **Moran 0.64, correlation length about 6, about 5.5 domains:** these fit a stationary pattern with a fixed size scale, i.e. cyclic waves turned into turbulent patches by mixing. Much of the blurring probably comes from the swaps (p=1 every step), which break up the sharp wavefronts and spiral cores. The random update and the 64\u00d764 grid are further guesses that I haven't verified. With a grid of 64, a size scale of about 6 means only a few patches fit. That is the documented trend of size scale against mobility and competition rate, not new behaviour.\n- **Cyclic changes 0.41:** this confirms the rock\u2192paper\u2192scissors cycling keeps running instead of freezing.\n- **\"Domain coarsening\" label:** this is probably wrong. A correlation length of about 6 with no sign of growth points to a steady, non-coarsening state. Any coarsening is likely just the early transient. That's a labelling problem, not a new phenomenon.\n\n**Emergent or artifact?** The pattern looks genuinely emergent but generic. A Moran's I of 0.64 surviving swaps at p=1 every step means the cyclic rule is actively rebuilding spatial order against strong mixing. It isn't left over from the starting state, and the system doesn't collapse to one type. One caveat I can't check: if the swap uses a fixed, deterministic pairing rather than random neighbour pairs, the grid geometry could produce artifacts. The fact that the behaviour holds across 3 rule programs, in either rule order, argues against that.\n\n**What isn't accounted for:** nothing at the level of behaviour. The only gap is that no paper reports numbers for this exact setup (313 with random updates plus a full swap every step), and that's a parameter gap, not a new phenomenon.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Spatial rock-paper-scissors / cyclic cellular automaton (Griffeath 313, R1/T3/C3/Moore) with mobility: coexistence regime with mixing-blurred cyclic waves / turbulent patches\", \"citations\": [\"Reichenbach, Mobilia & Frey, Nature 448:1046-1049 (2007), Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games\", \"Fisch, Gravner & Griffeath, Threshold-range scaling of excitable cellular automata, Statistics and Computing 1:23-39 (1991)\", \"Fisch, Gravner & Griffeath, Cyclic Cellular Automata in Two Dimensions, Spatial Stochastic Processes (1991)\", \"MCell rules lexicon, 313 R1/T3/C3/NM (Griffeath)\", \"Szolnoki et al., Cyclic dominance in evolutionary games: A review, arXiv:1408.6828\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"Downgraded from first-pass KNOWN-VARIANT: the novelty was only in the exact rule combination. Full type entropy plus Moran 0.64 plus correlation length ~6 on a 64x64 grid fits the documented below-critical-mobility coexistence state, where swaps blur the waves into small, steady-size patches. The 'domain coarsening' label is probably a misclassification (likely an early transient, not ongoing growth). The pattern is emergent, not a leftover of the start state, because order persists against p=1 swaps. Remaining caveat: if the swap uses a fixed deterministic pairing, grid-geometry artifacts can't be ruled out; consistency across 3 programs and both rule orders argues against this.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=3,p=0.3) ; C.SWAP(p=1.0)",
+ "len": 21,
+ "stage": "g1",
+ "shown": [
+  "cyclic waves and spirals",
+  "domain coarsening"
+ ],
+ "size": 3,
+ "groups": [
+  "grid|cyclic waves and spirals+domain coarsening|2"
+ ],
+ "checked": "2026-10-25 00:25:05"
+}

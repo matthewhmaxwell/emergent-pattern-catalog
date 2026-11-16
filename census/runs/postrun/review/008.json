@@ -1,0 +1,56 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Cyclic cellular automaton (Griffeath/Fisch-Gravner; R1/T3/C3 Moore) with asynchronous (alpha-synchronous, p=0.1) updating; sibling MAJ rules belong to zero-temperature Potts/voter coarsening",
+  "standard_name": "Domain coarsening in cyclic-dominance (rock-paper-scissors) systems / CCA metastable 'turbulent' phase",
+  "confidence": "medium",
+  "citations": [
+   "Fisch, Gravner, Griffeath (1991) Cyclic Cellular Automata in Two Dimensions, Spatial Stochastic Processes (Springer) https://link.springer.com/chapter/10.1007/978-1-4612-0451-0_8",
+   "Shalizi & Shalizi, Quantifying Self-Organization in Cyclic Cellular Automata, arXiv nlin/0507067",
+   "MCell Cyclic CA lexicon (rule 313) http://psoup.math.wisc.edu/mcell/rullex_cycl.html",
+   "Mitarai et al. (2016) Three is much more than two in coarsening dynamics of cyclic competitions, Phys Rev E 93:042408 (arXiv 1512.00769)",
+   "Fisch (1992) Clustering in the 1D three-color CCA, Ann. Probab. 20(3) (verified only via reference list in arXiv 2108.06404)",
+   "Coarsening dynamics for spiral and disordered waves in active Potts models, arXiv 2509.17408",
+   "Zero-temperature coarsening in the 2d Potts model, J. Stat. Mech. (2013) P06018 (Redner et al.)"
+  ],
+  "searches": [
+   "cyclic cellular automaton threshold 3 states Moore neighborhood spiral waves Fisch Gravner Griffeath",
+   "stochastic cyclic cellular automaton three states domain coarsening rock-paper-scissors lattice",
+   "Potts model zero-temperature majority rule coarsening domain growth q=3 stripes metastable lattice",
+   "asynchronous stochastic update cyclic cellular automaton threshold Moore neighbourhood spirals turbulence robustness probability"
+  ],
+  "notes": "Variant = probabilistic (p=0.1) asynchronous update instead of synchronous deterministic CCA; no source found studying exactly T=3 Moore 3-colour CCA with alpha-asynchrony, but the asynchronous RPS and active-Potts literature cover the same phenomenology. Original 1991 papers were not read in full. The mapping of the g_* statistics to regimes is interpretive.",
+  "searches_used": 4
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Cyclic cellular automaton (Griffeath CCA), rule '313' R1/T3/C3/NM, in its stochastic form: excitable-media self-organisation with stochastic wave fronts/spiral debris; rock-paper-scissors cyclic-dominance patchiness",
+ "citations": [
+  "http://psoup.math.wisc.edu/mcell/rullex_cycl.html",
+  "https://link.springer.com/article/10.1007/BF01890834",
+  "https://arxiv.org/pdf/nlin/0507067",
+  "https://www.sciencedirect.com/science/article/abs/pii/016727899090170T",
+  "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.042408",
+  "https://projecteuclid.org/euclid.em/1062620830"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "The exact deterministic rule is MCell's named rule '313', known for spirals. The first pass's 'turbulent phase' reference comes from the 4-colour T=3 rule, not 3-colour. Random/asynchronous counterparts were already covered by Fisch-Gravner-Griffeath ('forest fire' equilibria with stochastic wave fronts) and by Bramson-Griffeath cyclic particle systems. The 'domain coarsening' label is probably a side effect of the classifier: short correlation length, about half of changes being cyclic steps, and all 3 types surviving point to patchy cycling wave fronts, not coarsening that settles. The class also lumps in noisy-majority rules (real coarsening), so it merges two known mechanisms. No paper found for exactly p=0.1 with T=3, 3 colours, but that is a rule-tuple gap, not new behaviour.",
+ "searches_used": 5,
+ "full_text": "**Verdict: KNOWN.** I disagree with the first pass's \"KNOWN-VARIANT\". Nothing in the reported numbers points to behaviour the literature doesn't already cover.\n\n**1. This exact rule is a well-known, named rule.** Three colours, Moore neighbourhood, range 1, threshold 3 is \"313\" (R1/T3/C3/NM) in Mirek W\u00f3jtowicz's MCell catalogue. It is credited to David Griffeath and described as \"the only three-color rule in the range-1 CCA rulespace that exhibits significant self-organization.\" It sports a number of distinct spiral types. So the textbook behaviour for this rule is spiral waves, not coarsening.\n\n**2. The first pass picked the wrong reference phase.** The metastable \"turbulent\" phase it cited comes from Shalizi et al., whose figures use 4 colours. In that setting, at T=3 one finds \"turbulence,\" which is metastable: spiral waves can form and take over the whole grid, but on finite lattices this doesn't always happen, and the turbulent phase can last a very long time. That describes the 4-colour rule (R1/T3/C4), not this 3-colour one. The overall phase picture still applies, though: at high thresholds you get static solid blocks (fixation); at intermediate thresholds, wave fronts form, travel for a while, then break up.\n\n**3. Making the update random (p = 0.1) isn't a new twist either.** The founding paper on these automata already says that, started from random states, they typically nucleate locally periodic 'ram's horns' or spirals, and that the corresponding random processes produce 'forest fire' equilibria with large-scale stochastic wave fronts. Random versions were in the programme from the start. Bramson and Griffeath's cyclic particle systems are the continuous-time random counterpart: continuous-time Markov processes with stochastic rather than deterministic evolution. Rock-paper-scissors lattice models also cover the domain behaviour. In 1D, domains grow algebraically over time, while in 2D domains can break up, allowing long-term coexistence. That fits what you saw: all 3 types survive (entropy \u2248 1.0) and there are about 4 domains rather than one winner.\n\n**4. Why the fingerprint doesn't look like textbook coarsening.** Correlation length \u2248 4.7 on a 64\u00d764 grid, Moran's I \u2248 0.77, and about half of all changes being cyclic steps add up to noisy, patchy wave fronts that keep cycling. That is the stochastic-wave-front regime above, not coarsening that settles down. Passing the coarsening test is most likely a labelling side effect: it is a 3-colour rule that makes local patches. The same class also contains noisy-majority rules (p = 0.001), which really do coarsen. So the class merges two different known mechanisms that just look alike on these summary statistics.\n\n**Genuine or artifact?** The pattern itself is real and well documented (excitable-media self-organisation). The \"domain coarsening\" label is the shaky part. One limit: I didn't find a paper giving this exact asynchronous T=3, 3-colour parameter set, but by your own criterion that's a rule-tuple gap, not a new behaviour. I also didn't read the 1991 papers in full.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Cyclic cellular automaton (Griffeath CCA), rule '313' R1/T3/C3/NM, in its stochastic form: excitable-media self-organisation with stochastic wave fronts/spiral debris; rock-paper-scissors cyclic-dominance patchiness\", \"citations\": [\"http://psoup.math.wisc.edu/mcell/rullex_cycl.html\", \"https://link.springer.com/article/10.1007/BF01890834\", \"https://arxiv.org/pdf/nlin/0507067\", \"https://www.sciencedirect.com/science/article/abs/pii/016727899090170T\", \"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.042408\", \"https://projecteuclid.org/euclid.em/1062620830\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"The exact deterministic rule is MCell's named rule '313', known for spirals. The first pass's 'turbulent phase' reference comes from the 4-colour T=3 rule, not 3-colour. Random/asynchronous counterparts were already covered by Fisch-Gravner-Griffeath ('forest fire' equilibria with stochastic wave fronts) and by Bramson-Griffeath cyclic particle systems. The 'domain coarsening' label is probably a side effect of the classifier: short correlation length, about half of changes being cyclic steps, and all 3 types surviving point to patchy cycling wave fronts, not coarsening that settles. The class also lumps in noisy-majority rules (real coarsening), so it merges two known mechanisms. No paper found for exactly p=0.1 with T=3, 3 colours, but that is a rule-tuple gap, not new behaviour.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=3 | C.CYCLE(th=3,p=0.1)",
+ "len": 13,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 1608,
+ "groups": [
+  "grid|domain coarsening|2",
+  "grid|domain coarsening|4",
+  "grid|domain coarsening|17"
+ ],
+ "checked": "2026-10-24 23:32:25"
+}

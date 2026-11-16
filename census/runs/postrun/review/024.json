@@ -1,0 +1,54 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Spatial evolutionary game on a lattice (Nowak-May synchronous imitate-the-best, 8+1 neighbourhood) with snowdrift-ordered payoffs (T>R>S>P) plus unbiased random mobility via neighbour swaps",
+  "standard_name": "Spatial snowdrift/prisoner's dilemma game with synchronous unconditional imitation and random mobility (Nowak-May spatial chaos / domain coarsening with diffusion)",
+  "confidence": "medium",
+  "citations": [
+   "Vainstein, Silva & Arenzon, Does mobility decrease cooperation? J. Theor. Biol. 244, 722-728 (2007), arXiv q-bio/0608009",
+   "Sicardi, Fort, Vainstein & Arenzon, Random mobility and spatial structure often enhance cooperation, J. Theor. Biol. 256, 240-246 (2009)",
+   "Vainstein & Arenzon, Spatial social dilemmas: dilution, mobility and grouping effects with imitation dynamics, Physica A 394, 145 (2014), arXiv 1511.07740",
+   "Nowak & May 1992/1993 (spatial chaos; described in Szabo & Fath, Evolutionary games on graphs, arXiv cond-mat/0607344)",
+   "Fu, Nowak & Hauert, Invasion and expansion of cooperators in lattice populations, J. Theor. Biol. 2010",
+   "Meloni et al., Effects of mobility in a population of prisoner's dilemma players, Phys. Rev. E 79, 067101 (2009)"
+  ],
+  "searches": [
+   "mobility spatial prisoner's dilemma swap neighbours imitate best Nowak May lattice random diffusion cooperation",
+   "snowdrift game deterministic imitate best neighbour synchronous lattice domain coarsening spatial chaos",
+   "Sicardi Fort Vainstein Arenzon Random mobility and spatial structure often enhance cooperation",
+   "Vainstein Silva Arenzon Does mobility decrease cooperation? Journal of Theoretical Biology 2007",
+   "Meloni Effects of mobility in a population of prisoner's dilemma players Phys Rev E 79 067101"
+  ],
+  "notes": "Payoffs T=1.5, S=0.5, R=1, P=0 give the snowdrift ordering. Known mobility work (Vainstein-Arenzon) uses vacancy-based diffusion; the fully occupied pair-swap mechanism is flagged there as an unstudied alternative, which is the variant here. Based on abstracts and snippets only. I did not confirm an explicit report of domain coarsening for this exact variant. I did not search specifically for swap/Kawasaki-exchange evolutionary games.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Spatial snowdrift (hawk-dove) game with imitate-the-best updating and random mobility: stable coexistence of a dominant percolating strategy with fragmented minority patches (Hauert-Doebeli spatial snowdrift; Sicardi/Vainstein-Arenzon mobility)",
+ "citations": [
+  "Hauert & Doebeli 2004, Nature 428:643-646",
+  "Sicardi, Fort, Vainstein, Arenzon 2009, J Theor Biol 256:240-246 (arXiv:0809.1479)",
+  "Vainstein, Silva, Arenzon 2007, J Theor Biol 244:722-728",
+  "arXiv:1708.06844 (notes neighbour-strategy swapping as occupancy-independent mobility)",
+  "Nowak & May 1992 spatial PD"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "Payoffs T>R>S>P give a snowdrift game. The first pass's 'variant' (pair-swap rather than vacancy diffusion) is a rule-tuple difference, not a behavioural one; the literature explicitly mentions swapping as an equivalent mobility implementation, and the same class includes a copy variant with no swap, so mobility is not essential. Fingerprint (~84/16 coexistence, ~4.7 domains, corrlen ~2) is the textbook snowdrift coexistence state; the 'domain coarsening' label likely reflects a percolating majority cluster rather than true coarsening. Genuine emergent pattern but low novelty. Checked only abstracts and snippets; exact coexistence fractions were not matched to published phase diagrams.",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What it called the \"twist\" (swapping neighbours instead of hopping into empty sites) is a difference in the rules, not in the behaviour. The observed pattern is the standard result for a spatial snowdrift game, with or without random mixing.\n\n**What the game is.** With T=1.5 > R=1 > S=0.5 > P=0, this is a snowdrift (hawk-dove) game, not a prisoner's dilemma. The two games differ only in whether P or S is ranked higher. In a snowdrift game on a lattice, it pays to adopt the opposite of your neighbours' strategy, so spatial structure ends up inhibiting cooperation, as Hauert & Doebeli showed (Nature 428, 643\u2013646, 2004). The usual result is that both types coexist: one forms a large connected region and the other survives as small scattered patches. That matches what was seen. A largest domain of 0.835 and a type entropy of 0.654 bits mean roughly 84/16 coexistence, around 4\u20135 domains, and a short correlation length of about 2.\n\n**Random movement in spatial games is well studied.** Sicardi, Fort, Vainstein & Arenzon (2009) studied an unconditional move rule in the spatial Prisoner's Dilemma, Snowdrift and Stag Hunt games. They found that random dilution and mobility may suppress the inhibiting factors of the spatial structure in the Snowdrift game.\n\n**The swap mechanism is explicitly anticipated, not overlooked.** In the same research line, the authors note that random movement may be even independent of the occupation \u03c1 of the lattice if implemented through, for example, the swapping of two neighboring strategies. They chose vacancy-based moves for their own reasons. On a fully occupied lattice, swapping neighbours is just a standard way to add random mixing; it doesn't create new behaviour.\n\n**The swap isn't even needed for this behaviour.** The same class includes swap rates from 0.005 to 0.1 and a variant with copying (`C.COPY(p=0.2)`) and no swap at all. So the behaviour comes from best-neighbour imitation in the snowdrift game, and the mixing only nudges it.\n\n**Is the pattern real or an artifact?** It's a genuine emergent pattern, the well-known one, but the summary numbers say little.\n- A short correlation length (about 2) plus one dominant domain is what you'd expect when the majority type simply forms one connected region. This is a fixed level of coexistence, not ongoing growth of domains.\n- So the \"domain coarsening\" label is probably a misreading of the metrics. The \"spatial game chaos\" label fits only loosely.\n- A single reversal (`g_reversals=1`) is consistent with a short transient.\n\n**Caveat:** I checked abstracts and snippets only. I didn't confirm the exact coexistence fractions against the published phase diagrams for imitate-the-best updating on an 8-neighbour lattice that includes self.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Spatial snowdrift (hawk-dove) game with imitate-the-best updating and random mobility: stable coexistence of a dominant percolating strategy with fragmented minority patches (Hauert-Doebeli spatial snowdrift; Sicardi/Vainstein-Arenzon mobility)\", \"citations\": [\"Hauert & Doebeli 2004, Nature 428:643-646\", \"Sicardi, Fort, Vainstein, Arenzon 2009, J Theor Biol 256:240-246 (arXiv:0809.1479)\", \"Vainstein, Silva, Arenzon 2007, J Theor Biol 244:722-728\", \"arXiv:1708.06844 (notes neighbour-strategy swapping as occupancy-independent mobility)\", \"Nowak & May 1992 spatial PD\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"Payoffs T>R>S>P give a snowdrift game. The first pass's 'variant' (pair-swap rather than vacancy diffusion) is a rule-tuple difference, not a behavioural one; the literature explicitly mentions swapping as an equivalent mobility implementation, and the same class includes a copy variant with no swap, so mobility is not essential. Fingerprint (~84/16 coexistence, ~4.7 domains, corrlen ~2) is the textbook snowdrift coexistence state; the 'domain coarsening' label likely reflects a percolating majority cluster rather than true coarsening. Genuine emergent pattern but low novelty. Checked only abstracts and snippets; exact coexistence fractions were not matched to published phase diagrams.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.GAME(g=(1.5, 0.5)) ; C.SWAP(p=0.1)",
+ "len": 17,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 45,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|2"
+ ],
+ "checked": "2026-10-24 23:46:22"
+}

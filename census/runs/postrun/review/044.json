@@ -1,0 +1,57 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Binary (K=2) stochastic threshold/voter-type cyclic CA with neighbour-swap mobility (CCA/Greenberg-Hastings family with pair-exchange; voter model with stirring; Glauber+Kawasaki)",
+  "standard_name": "Domain coarsening in a voter/threshold model with stirring (spin-exchange mobility)",
+  "confidence": "medium",
+  "citations": [
+   "Reichenbach, Mobilia, Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448, 1046 (2007)",
+   "Szolnoki et al., Cyclic dominance in evolutionary games: a review, J. R. Soc. Interface 11, 20140735 (2014), arXiv:1408.6828",
+   "Astoquillca, Severo, Szabo, Valesin, Percolation on the stationary distributions of the voter model with stirring, arXiv:2412.09532",
+   "Voter models with conserved dynamics, arXiv:1208.2050",
+   "Coarsening and persistence in the voter model, arXiv:cond-mat/9511040",
+   "Coarsening and percolation in the kinetic 2d Ising model with spin exchange updates and the voter model, arXiv:1805.05775",
+   "Fisch, Gravner, Griffeath, Threshold-range scaling of excitable cellular automata, Statistics and Computing (CCA/GH definitions)",
+   "Critical exponents of the Ising model with competing Glauber and Kawasaki dynamics, Phys. Rev. E 53, 5484"
+  ],
+  "searches": [
+   "voter model with mobility swapping neighbouring sites domain coarsening stirring",
+   "cyclic cellular automaton threshold 3 neighbours Greenberg-Hastings Griffeath two states coarsening",
+   "Ising model Glauber plus Kawasaki exchange dynamics competing coarsening majority rule mobility",
+   "cyclic dominance mobility swapping neighbours spatial patterns Reichenbach Mobilia Frey",
+   "voter model with stirring Kawasaki exchange coarsening mixing rate scaling domain growth Ising-like"
+  ],
+  "notes": "With K=2 the cyclic rule collapses to a binary threshold-copy rule, so coarsening is expected. No source found for the exact rule (Moore-8, threshold 3 which is below majority, p=0.1, synchronous, swap every step). Likely differences: no clean surface tension at threshold 3/8, and very high mobility relative to reaction rate, which may give a finite correlation length or arrested coarsening instead of textbook t^(1/2). Earliest sources for stirring and Glauber+Kawasaki were not traced. Quantitative claims were not independently verified. Citations are based on abstracts and snippets.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Clustering/domain coarsening in a threshold voter model (Cox-Durrett nonlinear voter model) with stirring (Glauber+Kawasaki competing dynamics / Durrett-Neuhauser particle systems with stirring)",
+ "citations": [
+  "Cox & Durrett 1991, Nonlinear voter models",
+  "Liggett 1994, Coexistence in threshold voter models, Ann. Probab. 22:764-802",
+  "Durrett & Steif 1993, Fixation results for threshold voter systems, Ann. Probab. 21:232-247",
+  "Durrett & Neuhauser 1994, Particle systems and reaction-diffusion equations, Ann. Probab. 22:289-333",
+  "De Masi, Ferrari & Lebowitz 1986, J. Stat. Phys. 44:589",
+  "Garrido, Marro et al. 1989, Nonequilibrium Ising models with competing reaction-diffusion dynamics, Phys. Rev. A 40:5802",
+  "Tome & de Oliveira 1989, Phys. Rev. A 40:6643"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "medium-high",
+ "notes": "With 2 types the cyclic rule is exactly a threshold-3/8 (Moore) threshold voter model; the swap step is stirring. Clustering/coarsening with declining activity is the documented intermediate-threshold behaviour. The non-textbook fingerprint is most plausibly finite-size saturation (corrlen ~ L/3, ~4.6 domains on 64x64) plus voter-like interfaces with no surface tension. My own mean-field calculation (not from a source) of the fast-stirring limit gives three stable states (0, 1/2, 1), so pure-vs-mixed domains are possible; this is still inside the Durrett-Neuhauser bistable reaction-diffusion framework. Check: whether minority regions are mixed or pure, and whether the swap is random or a deterministic permutation (if deterministic, it is effectively a no-op).",
+ "searches_used": 3,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. What the run shows is ordinary clustering and coarsening in a threshold voter model with neighbour swapping added. I found no behaviour that isn't already described, and the fact that this exact rule combination wasn't found in print doesn't count as a discovery.\n\n**1. What the rule is.** With only 2 types, the \"cycle\" rule just means: switch to the other type if at least 3 of your 8 neighbours already have it. That is the threshold voter model, which was introduced by Cox and Durrett and studied in depth by Liggett and others. In that model individuals update their opinion at rate one (continuous time) and change their opinion if and only if the number of opponents in their neighborhood is at least equal to \u03c4. The known picture is that as the threshold \u03c4 increases from one to the neighborhood size, the system goes from a phase of coexistence to a phase of clustering to a phase of fixation. A threshold of 3 out of 8 sits between those extremes. Both ends of that sequence are proved: the threshold-1 case is known to cluster if N = d = 1 and coexists in every other case (Liggett 1994). For larger thresholds, Durrett and Steif proved fixation. Your observations fit the clustering-to-fixation part: a few large domains, falling activity, and no type taking over.\n\n**2. The swapping.** Adding neighbour exchange on top of spin flips is the standard \"stirring\" setup. Durrett and Neuhauser studied it with stirring at a fast rate, i.e., for each x, y ... we exchange the values at x and y at rate e^-2. In physics it appears as Ising models whose time evolution occurs as a consequence of a combination of spin-flip (Glauber) and spin-exchange (Kawasaki) processes. That covers the same-class variants that use majority plus swap.\n\n**3. A check I worked out myself (not from a source).** In the very-fast-swapping limit, neighboring sites become independent, so the system follows a simple average-density equation. For this rule (3 of 8 neighbours, two types) that equation has three stable states: all one type, all the other, and a 50/50 mix. So moderate swapping (1 swap step per 0.1 flip probability) could leave the grid with pure regions next to well-mixed regions, rather than two clean opposing phases. That would explain a \"non-textbook\" fingerprint. It is still covered by Durrett and Neuhauser's theory for systems with two competing stable states, where the outcome is decided by which way the boundary between them moves.\n\n**4. Is it real or an artifact? Mostly real, but strongly affected by grid size.** The pattern genuinely emerges: ordered domains form from a random start. However:\n- A correlation length of about 20 cells on a 64-cell grid, with about 4.6 domains, means the domains are already a third of the grid wide. Coarsening is probably close to stopping because of the grid's size, which by itself makes the fingerprint look unusual.\n- At a threshold below the majority, the boundaries between domains wander like voter-model boundaries rather than smoothing out under surface tension. That gives slow, noisy coarsening.\n- If the swap moves values in a fixed pattern rather than with random partners, it is close to a no-op for these statistics. In that case the run is just the threshold voter model.\n- 29 rule programs landing in the same class fits this being a generic behaviour.\n\n**Possible follow-ups:**\n- Check whether the low-type regions are pure or mixed. Mixed regions would point to the three-state effect in point 3.\n- Run larger grids to see whether the unusual fingerprint disappears.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Clustering/domain coarsening in a threshold voter model (Cox-Durrett nonlinear voter model) with stirring (Glauber+Kawasaki competing dynamics / Durrett-Neuhauser particle systems with stirring)\", \"citations\": [\"Cox & Durrett 1991, Nonlinear voter models\", \"Liggett 1994, Coexistence in threshold voter models, Ann. Probab. 22:764-802\", \"Durrett & Steif 1993, Fixation results for threshold voter systems, Ann. Probab. 21:232-247\", \"Durrett & Neuhauser 1994, Particle systems and reaction-diffusion equations, Ann. Probab. 22:289-333\", \"De Masi, Ferrari & Lebowitz 1986, J. Stat. Phys. 44:589\", \"Garrido, Marro et al. 1989, Nonequilibrium Ising models with competing reaction-diffusion dynamics, Phys. Rev. A 40:5802\", \"Tome & de Oliveira 1989, Phys. Rev. A 40:6643\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"medium-high\", \"notes\": \"With 2 types the cyclic rule is exactly a threshold-3/8 (Moore) threshold voter model; the swap step is stirring. Clustering/coarsening with declining activity is the documented intermediate-threshold behaviour. The non-textbook fingerprint is most plausibly finite-size saturation (corrlen ~ L/3, ~4.6 domains on 64x64) plus voter-like interfaces with no surface tension. My own mean-field calculation (not from a source) of the fast-stirring limit gives three stable states (0, 1/2, 1), so pure-vs-mixed domains are possible; this is still inside the Durrett-Neuhauser bistable reaction-diffusion framework. Check: whether minority regions are mixed or pure, and whether the swap is random or a deterministic permutation (if deterministic, it is effectively a no-op).\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.SWAP(p=1.0) ; C.CYCLE(th=3,p=0.1)",
+ "len": 19,
+ "stage": "g1",
+ "shown": [
+  "domain coarsening"
+ ],
+ "size": 29,
+ "groups": [
+  "grid|domain coarsening|13"
+ ],
+ "checked": "2026-10-25 05:56:39"
+}

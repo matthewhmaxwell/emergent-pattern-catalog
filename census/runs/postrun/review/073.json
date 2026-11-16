@@ -1,0 +1,58 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Composite lattice model: Nowak-May spatial game (synchronous best-neighbour imitation) + Kawasaki-type neighbour swap mobility + stochastic 2-state threshold cyclic CA (Moore, majority-like flip) + uncoupled Kuramoto phase layer",
+  "standard_name": "Spatial game chaos (Nowak-May) with mobility; Ising-like domain coarsening (Glauber flips + Kawasaki exchange)",
+  "confidence": "medium",
+  "citations": [
+   "Nowak & May 1992, Evolutionary games and spatial chaos, Nature 359:826-829",
+   "Szabo & Fath 2007, Evolutionary games on graphs, Phys. Rep. 446:97-216 (review; covers synchronous best-neighbour CA and neighbour-exchange migration)",
+   "Vainstein, Silva, Arenzon, Does mobility decrease cooperation? (q-bio/0608009)",
+   "Sicardi et al., Random mobility and spatial structure often enhance cooperation (arXiv:0809.1479)",
+   "Fisch, Gravner, Griffeath 1991, Cyclic Cellular Automata in Two Dimensions",
+   "Tartaglia, Cugliandolo, Picco, Coarsening and percolation in the kinetic 2d Ising model with spin exchange updates and the voter model (arXiv:1805.05775)",
+   "Scaling for domain growth in the Ising model with competing dynamics (cond-mat/9901060)"
+  ],
+  "searches": [
+   "Nowak May spatial chaos evolutionary games cooperators defectors lattice",
+   "random mobility spatial prisoner's dilemma lattice swap neighbors cooperation enhanced",
+   "evolutionary game coupled Kuramoto oscillators lattice prisoner's dilemma phase synchronization",
+   "domain coarsening Ising Glauber with Kawasaki exchange dynamics mixed spin-exchange and spin-flip",
+   "domain growth coarsening spatial evolutionary game Moore neighborhood cooperators defectors curvature-driven",
+   "cyclic cellular automaton threshold Griffeath Fisch Gravner stochastic two states majority rule",
+   "Szabo Fath evolutionary games on graphs mobility exchange neighboring players prisoner's dilemma lattice stirring"
+  ],
+  "notes": "Each ingredient is documented. Differences: (a) hybrid of mechanisms not found in one published model; (b) swaps on a full lattice rather than diluted lattice with empty sites; (c) k=2 threshold CCA is a stochastic majority flip, not the spiral-forming CCA regime; (d) Kuramoto layer appears decoupled from types, unlike published evolutionary Kuramoto-game models, so likely irrelevant to the measured domain/game statistics. Did not read Szabo & Fath Section 8 in full, did not run the model, and did not verify that the observed numbers match published scaling values.",
+  "searches_used": 7
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": true,
+ "standard_name": "Nowak-May spatial Prisoner's Dilemma, regime A (1<b<1.33): coexistence with large cooperator domains, perturbed by random strategy-independent mobility (Vainstein-Arenzon type) and noisy flips",
+ "citations": [
+  "Nowak & May 1992/1993, Nature / Int J Bifurc Chaos",
+  "Schweitzer, Behera & Muhlenbein, Evolution of Cooperation in a Spatial Prisoner's Dilemma (phase diagram: 1.0<b<1.33 large cooperator domains)",
+  "Hamming distance as a measure of spatial chaos in evolutionary games, arXiv:2311.08119 (chaos only for 1.8<T<=2)",
+  "Intra-group SPD model, arXiv:cond-mat/0504782 (self-interaction stabilises square cooperator clusters)",
+  "Vainstein, Silva & Arenzon, J Theor Biol 244:722 (2007)",
+  "Sicardi, Fort, Vainstein & Arenzon, J Theor Biol 256:240 (2009)"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "b=1.3 is outside the chaotic window (1.8<b<=2), so the 'spatial game chaos' label is probably an artifact of stochastic swap/flip noise. The deterministic copy-the-best game step dominates the 1% type-flip rule. The Kuramoto layer has no feedback into types, so it cannot affect the measured features. The fingerprint (~90% largest domain, few small domains, corrlen 3, one reversal) fits the standard initial defector surge followed by cooperator-domain takeover into a nearly absorbing majority state. The first pass's KNOWN-VARIANT rested on the novel rule mix, which does not count.",
+ "searches_used": 2,
+ "full_text": "I'm calling this **KNOWN**. The pattern looks like the standard Nowak\u2013May \"large cooperator domains\" regime, disturbed by random noise. I didn't find anything new in the behaviour itself, and much of the fingerprint looks trivial.\n\n**What the behaviour comes down to**\n- **The game rule decides the outcome.** Each step, every cell deterministically copies its best-scoring neighbour, and that drowns out the type-flip rule, which only fires with 1% probability. The phase oscillators are never fed back into the cell types or the game, so they can't affect any of the measured features.\n- **b = 1.3 puts this run in the \"large domains\" regime, not the chaotic one.** A detailed phase-diagram study of the Nowak\u2013May model lists regime \"A: coexistence with large domains of cooperators\u2026 1.0 < b < 1.33\". In that regime it finds \"coexistence regimes with either a majority of cooperators in large spatial domains\". That matches what you measured: about 3.7 domains, the largest covering 90% of the grid, a correlation length of 3, and strong spatial clustering (Moran's I = 0.61).\n- **The \"spatial game chaos\" label is wrong for this parameter.** With the standard setup (Moore neighbourhood, self-play, copy-the-best), \"At $1.8 < T \\le 2$ the dynamics is chaotic\", while other values give \"only a few periodic states\". Passing a chaos test at b = 1.3 is most likely because the random swaps and flips keep the grid moving, not because of true game chaos.\n- **Self-play matters here.** It \"produces a bias to cooperative states leadingto more stable cooperation clusters\", and the clusters come out square-shaped. That helps explain the big, compact majority domain.\n- **Random swapping is studied as \"mobility\".** Diffusion in the spatial Prisoner's Dilemma was examined first with empty lattice sites and then with players allowed to move \"to nearest-neighbor empty sites with a certain probability\". That movement was \"strategy-independent\", which is the same idea as your swap rule. Those papers show mobility can either help or hurt cooperation (Vainstein, Silva & Arenzon 2007; Sicardi et al. 2009). Swapping on a full lattice instead of one with empty sites is a change to the rules, not a new behaviour.\n- **The single reversal** most likely reflects the usual Nowak\u2013May start. Defectors grab ground at first, then cooperator clusters spread back and take the majority. I couldn't confirm this from your run data, so treat it as a likely explanation.\n\n**Corrections to the first pass**\n- **Its \"KNOWN-VARIANT\" call relied on the rule mix**, which you said doesn't count.\n- **It didn't notice that b = 1.3 is outside the chaotic window.**\n- **It was right that the oscillators are decoupled from everything else.**\n- **The \"domain coarsening\" is not Ising-like growth.** Domain growth here is driven by the game's imitation step, not a temperature-like process. The domain count is just the snapshot of a settled, mostly-one-type state.\n\n**Emergent or trivial?** Partly both. The cooperator clusters are a real, but well-known, emergent effect of spatial reciprocity. The rest is trivial: a grid that is about 90% one type with a few small pockets, and an oscillator layer that does nothing to the measured features.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": true, \"standard_name\": \"Nowak-May spatial Prisoner's Dilemma, regime A (1<b<1.33): coexistence with large cooperator domains, perturbed by random strategy-independent mobility (Vainstein-Arenzon type) and noisy flips\", \"citations\": [\"Nowak & May 1992/1993, Nature / Int J Bifurc Chaos\", \"Schweitzer, Behera & Muhlenbein, Evolution of Cooperation in a Spatial Prisoner's Dilemma (phase diagram: 1.0<b<1.33 large cooperator domains)\", \"Hamming distance as a measure of spatial chaos in evolutionary games, arXiv:2311.08119 (chaos only for 1.8<T<=2)\", \"Intra-group SPD model, arXiv:cond-mat/0504782 (self-interaction stabilises square cooperator clusters)\", \"Vainstein, Silva & Arenzon, J Theor Biol 244:722 (2007)\", \"Sicardi, Fort, Vainstein & Arenzon, J Theor Biol 256:240 (2009)\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"b=1.3 is outside the chaotic window (1.8<b<=2), so the 'spatial game chaos' label is probably an artifact of stochastic swap/flip noise. The deterministic copy-the-best game step dominates the 1% type-flip rule. The Kuramoto layer has no feedback into types, so it cannot affect the measured features. The fingerprint (~90% largest domain, few small domains, corrlen 3, one reversal) fits the standard initial defector surge followed by cooperator-domain takeover into a nearly absorbing majority state. The first pass's KNOWN-VARIANT rested on the novel rule mix, which does not count.\"}\n```",
+ "second_pass": true,
+ "rep": "C kC=2 | C.SWAP(p=0.3) ; C.CYCLE(th=4,p=0.01) ; C.GAME(g=(1.3, 0.0)) ; C.KURA(K=1.0)",
+ "len": 38,
+ "stage": "novelty",
+ "shown": [
+  "domain coarsening",
+  "spatial game chaos"
+ ],
+ "size": 2,
+ "groups": [
+  "grid|domain coarsening+spatial game chaos|11"
+ ],
+ "checked": "2026-10-25 00:37:14"
+}

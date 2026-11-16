@@ -1,0 +1,52 @@
+{
+ "first_pass": {
+  "verdict": "KNOWN-VARIANT",
+  "model_family": "Kuramoto phase oscillators on sparse time-varying (blinking / temporal / rewired) networks, with stochastic discrete pairwise phase coupling",
+  "standard_name": "Synchronization in blinking / time-varying networks (fast-switching limit; averaged-network synchronization)",
+  "confidence": "medium",
+  "citations": [
+   "Belykh, Belykh & Hasler, 'Blinking model and synchronization in small-world networks with a time-varying coupling', Physica D 195, 188-206 (2004)",
+   "Hasler & Belykh, 'Blinking Long-Range Connections Increase the Functionality of Locally Connected Networks', IEICE Trans. Fundamentals E88-A (2005) (math.gsu.edu/ibelykh/blinking_IEICE_transactions.pdf)",
+   "Jeter & Belykh, 'Synchronization in On-Off Stochastic Networks: Windows of Opportunity', IEEE TCAS-I 62(5), 2015",
+   "Faggian, Ginelli, Rosas, Levnajic, 'Synchronization in time-varying random networks with vanishing connectivity', Sci. Rep. 9 (2019), arXiv:1811.09591",
+   "Ghosh, Frasca, Rizzo, Majhi, Rakshit, Alfaro-Bittner, Boccaletti, 'The synchronized dynamics of time-varying networks', Phys. Rep. 949 (2022), arXiv:2109.07618"
+  ],
+  "searches": [
+   "Kuramoto oscillators randomly rewired links every step fast switching synchronization time-varying network",
+   "Kuramoto model random pairwise phase coupling probability one neighbor per step synchronization stochastic interactions",
+   "blinking model synchronization small-world networks time-varying coupling Belykh",
+   "Kuramoto oscillators temporal network synchronization annealed random neighbor each time step order parameter frequency locking Physics Reports review",
+   "Kuramoto-like phase update randomized gossip pairwise phase averaging heterogeneous frequencies synchronization"
+  ],
+  "notes": "Partial synchronization (r~0.65) with near-complete frequency entrainment on a sparse, constantly rewired or stochastically coupled network is the expected outcome of fast-switching or blinking-network theory (the averaged network drives the dynamics). Differences: discrete-time probabilistic PHASE_COUPLE steps, and the COPY_RAND voter-like imitation step, for which I found no exact-match source. These probably do not change the qualitative result, but I did not verify that. I read the Faggian et al. and Jeter-Belykh texts; the Belykh 2004 paper and the Phys. Rep. review were seen only via citations or snippets.",
+  "searches_used": 5
+ },
+ "verdict": "KNOWN",
+ "behaviour_documented": true,
+ "trivial_or_artifact": false,
+ "standard_name": "Partial (phase-locked, r<1) Kuramoto synchronization on annealed / fast-switching (blinking) time-varying networks",
+ "citations": [
+  "https://www.nature.com/articles/s41598-019-46345-y",
+  "https://arxiv.org/pdf/1811.09591",
+  "https://www.sciencedirect.com/science/article/abs/pii/S0167278915000433",
+  "https://arxiv.org/pdf/1704.04130",
+  "https://link.springer.com/article/10.1007/BF01048044"
+ ],
+ "undocumented_phenomenology": "",
+ "confidence": "high",
+ "notes": "r~0.65 with near-zero effective-frequency spread is the standard partially phase-locked state: frequencies match but phases stay spread out, and r>=1/2 is allowed in a locked state. Rewiring every step (REWIRE p=1) or random stochastic coupling (PHASE_COUPLE p<<1) makes a sparse graph act like its time-averaged mean-field network, which is the fast-switching/blinking result (sync even at vanishing connectivity, usual Kuramoto class). Downgraded from KNOWN-VARIANT because discrete-time, random-application coupling is an implementation detail, not new behaviour. Caveat: in the COPY_RAND programs part of r is caused directly by the copying rule (trivial), and the small frequency spread may partly reflect how the frequency is measured. The pure KURA+REWIRE programs are a genuine emergent but textbook outcome.",
+ "searches_used": 2,
+ "full_text": "**Verdict: KNOWN.** I'm downgrading the first pass's KNOWN-VARIANT. The behaviour is partial (but phase-locked) Kuramoto synchronization on an annealed or fast-switching network. The fast-switching theory and standard Kuramoto locking theory together cover it. The things that made the first pass hedge (discrete time, coupling applied at random, the grammar wording) are details of how the model is built, not a different behaviour.\n\n**What the fingerprint shows.** r \u2248 0.65 with small fluctuation (std 0.057), and almost no spread in effective frequencies (0.025). So the oscillators share one frequency but keep fixed phase offsets that don't close up. That is not textbook full synchrony, which is probably why the pattern-matcher flagged it. But it is a standard state.\n\n**Why this is known:**\n1. **Locked frequencies with phases still spread out is the normal Kuramoto picture.** Past a first critical coupling, some oscillators enter a partially phase locked state and their phases evolve with the same time-averaged frequency. In a phase-locked state, the order parameter does not have to be 1. It has been shown to have a strictly positive lower bound (r \u2a7e 1/2). So r \u2248 0.65 with matching frequencies is what you'd expect just above the locking threshold. Phases spread out with fixed gaps is exactly what a locked state looks like.\n2. **Rewiring every step, so that a sparse graph acts like a mean-field one, is documented.** One study finds sufficiently fast network rewiring can overcome the effects of low network connectivity, inducing partial synchronization on the network. Synchronization can happen for arbitrarily small net connectivity (i.e., for a sparse and infrequent coupling among the oscillators), provided sufficiently fast switching and strong couplings are considered. In the fast-switching limit, the synchronization dynamics is fully captured by the time-averaged connectivity matrix. The transition is still in the usual Kuramoto model class. Similarly, the blinking network considered in [4] was shown to support synchrony if the blinking is fast enough.\n3. **The other rules in the class are the same mechanism.** REWIRE(p=1.0) with KURA on kN=2 or kN=4 is an annealed random graph. PHASE_COUPLE at p=0.02\u20130.1 with one random partner is \"blinking\" coupling with a low duty cycle, which works like a weaker average coupling. 162 programs giving the same fingerprint is what you'd expect if the averaged network decides the outcome.\n\n**Artifact check:**\n- **COPY_RAND inflates r.** The programs that copy a random node's phase push phases together through imitation, not coupling. In those programs some of the 0.65 is caused by the rule itself, which is trivial. It still sits inside the same class.\n- **The low frequency spread may be partly measurement.** If effective frequency is averaged over a window, noisy random kicks can make frequencies look more alike than they are.\n- **Otherwise it's a genuine emergent state.** For the pure KURA+REWIRE and PHASE_COUPLE programs, a stable, partially coherent locked state comes out of the collective dynamics. It's real, just well known.\n\n**What is not accounted for:** nothing at the level of behaviour. The only open item is that I couldn't find these exact discrete-time \"blink with probability p\" rules in the literature. Per your criterion, that's not a discovery.\n\n```json\n{\"verdict\": \"KNOWN\", \"behaviour_documented\": true, \"trivial_or_artifact\": false, \"standard_name\": \"Partial (phase-locked, r<1) Kuramoto synchronization on annealed / fast-switching (blinking) time-varying networks\", \"citations\": [\"https://www.nature.com/articles/s41598-019-46345-y\", \"https://arxiv.org/pdf/1811.09591\", \"https://www.sciencedirect.com/science/article/abs/pii/S0167278915000433\", \"https://arxiv.org/pdf/1704.04130\", \"https://link.springer.com/article/10.1007/BF01048044\"], \"undocumented_phenomenology\": \"\", \"confidence\": \"high\", \"notes\": \"r~0.65 with near-zero effective-frequency spread is the standard partially phase-locked state: frequencies match but phases stay spread out, and r>=1/2 is allowed in a locked state. Rewiring every step (REWIRE p=1) or random stochastic coupling (PHASE_COUPLE p<<1) makes a sparse graph act like its time-averaged mean-field network, which is the fast-switching/blinking result (sync even at vanishing connectivity, usual Kuramoto class). Downgraded from KNOWN-VARIANT because discrete-time, random-application coupling is an implementation detail, not new behaviour. Caveat: in the COPY_RAND programs part of r is caused directly by the copying rule (trivial), and the small frequency spread may partly reflect how the frequency is measured. The pure KURA+REWIRE programs are a genuine emergent but textbook outcome.\"}\n```",
+ "second_pass": true,
+ "rep": "N kN=1 | N[any] ALWAYS() -> PHASE_COUPLE(K=0.2) p=0.1",
+ "len": 14,
+ "stage": "g2",
+ "shown": [
+  "network synchronization"
+ ],
+ "size": 162,
+ "groups": [
+  "network-phase|network synchronization|2"
+ ],
+ "checked": "2026-10-24 23:33:28"
+}
