@@ -50,3 +50,35 @@ costs nothing because it is read from the primary runs). This is slow but workab
 order is P12 primary, then D2 at L = 40, then D2 at L = 100, within the two-process limit. Reading those run times
 also showed that most early low-M realisations ran to G_max. No target, tolerance, size, seed count or rule has
 been or will be changed.
+
+## P26 stochastic resonance: PASS
+
+Target: Gammaitoni et al. 1998 RMP Fig. 7, Floquet spectral amplification at A = 0.1, Omega = 0.1 (digitized:
+eta_max = 12.23 at D = 0.150; eta(0.20) = 10.8; eta(0.30) = 6.5). Model: `BistableDoubleWell` rule with a = b = 1,
+A = 0.1, f = 0.1/(2 pi), dt = 0.01, run through the vectorised driver. 15 D values x 10 seeds (1001-1010) x 400
+trials; burn-in 10 periods, measurement 50 periods.
+
+| Rule (spec section 4) | Target and band | Measured (mean +- SE over seeds) | Outcome |
+|---|---|---|---|
+| 1. eta_max (quadratic vertex on D in [0.12, 0.18]) | 12.23, [11.62, 12.84] | 12.416 +- 0.068 (bootstrap 95%: 12.29-12.55) | pass |
+| 2. D_max | 0.150 +- 0.015 | 0.1537 +- 0.0003 (bootstrap 95%: 0.1531-0.1545) | pass |
+| 3. eta(0.20) | 10.8, [9.94, 11.66] | 10.757 +- 0.049 | pass |
+| 4. eta(0.30) | 6.5, [5.98, 7.02] | 6.524 +- 0.041 | pass |
+
+Measured curve eta(D), seed means: 1.68 (0.06), 4.73 (0.08), 8.40 (0.10), 11.05 (0.12), 11.84 (0.13), 12.25 (0.14),
+12.41 (0.15), 12.31 (0.16), 12.04 (0.17), 11.70 (0.18), 10.76 (0.20), 8.39 (0.25), 6.52 (0.30), 4.23 (0.40),
+2.99 (0.50); SE 0.01-0.08.
+
+Required checks:
+- dt check (D = 0.10, 0.15, 0.30 at dt = 0.005, same seed numbers): relative differences 0.98%, 0.43%, 0.46%, all
+  under 2%, so the gated values come from dt = 0.01 and no rerun was needed.
+- Frame check (canonical a = 4, b = 1, A = 0.8, Omega = 0.4, D x 16, dt = 0.0025): 16 eta agrees with the a = b = 1
+  values to 4e-15. With the same seeds the canonical Euler map is an exact rescaling of the a = b = 1 map, so this
+  confirms the scaling and the code path; it is not an independent statistical replicate.
+
+Reported, not gated: the seed-mean SNR has one interior local maximum on the grid, at D = 0.14 (3-point vertex
+0.136), against the two-state value Delta V / 2 = 0.125. Down to D = 0.06 the SNR falls with decreasing D; the
+intrawell divergence the source describes as D -> 0 does not appear in this range.
+
+No deviation. Runtime 5,235 CPU-s (1.45 CPU-h; spec estimate < 1 CPU-h): 3,273 s main, 1,285 s dt check, 678 s
+frame check. Code commit of all runs: 90cfbe2.
