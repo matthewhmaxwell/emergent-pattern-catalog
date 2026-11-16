@@ -169,7 +169,7 @@ class TestP24PulsePerturbation:
 # ── Model metadata interaction ──
 
 class TestP24MetadataInteraction:
-    """Metadata-based tier gates."""
+    """Metadata no longer gates any tier; measured feedback does (f2d4044)."""
 
     def test_no_metadata_still_detects(self):
         """Detection works without metadata (at confirmation or lower)."""
@@ -181,16 +181,51 @@ class TestP24MetadataInteraction:
         result = det.detect(history, metadata=None)
         assert result.detected
 
-    def test_false_feedback_metadata_blocks_definitive(self):
-        """If metadata says no active feedback, definitive is denied."""
+    # Test maintenance: test_false_feedback_metadata_blocks_definitive was
+    # replaced by the two tests below. f2d4044 removed the has_active_feedback
+    # metadata gate on the definitive tier and made the confirmation tier
+    # require MEASURED negative feedback (restoring_slope < 0, from regressing
+    # dx/dt on x - setpoint over the perturbed window); S2 Text, P24 row:
+    # "measured restoring feedback, no metadata flag".
+
+    def test_feedback_metadata_flag_does_not_gate_tier(self):
+        """The has_active_feedback flag no longer changes the tier (f2d4044)."""
         params = HomeostatParams(gain=5.0, setpoint=10.0, seed=42, dt=0.1)
         schedule = PerturbationSchedule(onset=50.0, amplitude=5.0)
         model = ProportionalHomeostat(params)
         history = model.simulate(2000, schedule=schedule)
-        fake_metadata = {'has_active_feedback': False}
         det = P24HomeostasisDetector(n_permutations=199, seed=42)
-        result = det.detect(history, metadata=fake_metadata)
+        tiers = {
+            label: det.detect(history, metadata=md).tier.value
+            for label, md in (("model", model.get_metadata()),
+                              ("flag_false", {'has_active_feedback': False}),
+                              ("none", None))
+        }
+        assert set(tiers.values()) == {"definitive"}, tiers
+        result = det.detect(history, metadata={'has_active_feedback': False})
+        assert result.primary_metric['restoring_slope'] < 0.0
+
+    def test_no_negative_feedback_held_at_screening(self):
+        """What now does the job: a trajectory without negative feedback is held
+        at SCREENING by the measured restoring slope, even though it is bounded,
+        stays near the setpoint and beats the uncontrolled-drift null.
+
+        Synthetic slow runaway: deviation 0.3*exp(t/90) during a constant
+        perturbation of 5 (positive feedback, restoring slope = +1/90). Its
+        deviation ratio and null p would satisfy the definitive gates; only
+        restoring_slope < 0 (required at confirmation since f2d4044) fails.
+        """
+        dt, n, onset_i, tau, sp = 0.1, 1000, 100, 90.0, 10.0
+        t = np.arange(n) * dt
+        x = sp + 0.3 * np.exp((t - t[onset_i]) / tau)
+        pert = np.where(np.arange(n) >= onset_i, 5.0, 0.0)
+        history = [{'time': float(t[i]), 'x': float(x[i]), 'setpoint': sp,
+                    'perturbation': float(pert[i])} for i in range(n)]
+        det = P24HomeostasisDetector(n_permutations=199, seed=42)
+        result = det.detect(history, metadata=None)
         assert result.detected
-        assert result.tier.value != "definitive", (
-            "Definitive should be blocked when metadata says no feedback"
-        )
+        assert result.tier.value == "screening", result.summary()
+        assert result.primary_metric['restoring_slope'] > 0.0
+        # The other confirmation/definitive conditions are met:
+        assert result.null_p_value <= 0.005
+        assert result.secondary_metrics['deviation_ratio'] < 0.3

@@ -126,34 +126,53 @@ class TestP6OnModels:
 
 
 class TestP24CrossModel:
-    """P24 homeostasis detector — T1b cross-model generalization test.
+    """P24 homeostasis detector — T1b cross-model test on the integral controller.
 
-    The detector must fire on a SECOND, independent homeostat implementation
-    (integral controller) that it was NOT tuned on. This is the minimum
-    evidence that the detector recognizes the *phenomenon* (homeostatic
-    regulation), not its *implementation* (proportional control).
+    Test maintenance: these tests used to require P24 to fire (definitive) on
+    the integral controller. Since f2d4044 the screening gate requires
+    measured regulation (steady-state deviation below 30% of the perturbation
+    amplitude) and the confirmation gate a measured negative restoring slope,
+    in place of a bounded-vs-ramp test plus the has_active_feedback metadata
+    flag (S2 Text, P24 row). The integral controller fails the regulation
+    gate. The project records this as the P24 cross-model result
+    (docs/validation_rebuild/cross_model_generalization.md, 2026-06-16) and
+    the paper reports it: P24 fires on none of the five integral-controller
+    runs. The tests now pin that documented result and the reason for it.
     """
 
-    def test_p24_on_integral_homeostat_detected(self):
-        """P24 must detect on integral controller (independent implementation)."""
+    @pytest.mark.parametrize("seed", [0, 1, 2, 3, 4])
+    def test_p24_on_integral_homeostat_not_detected(self, seed):
+        """Documented cross-model result: P24 does not fire on the integral controller.
+
+        Settings are the cross-model builder's (analysis/t2c_systems.py
+        recog_p24_integral, used by the recognition and transfer-matrix runs).
+        Rejection is at the f2d4044 regulation gate.
+        """
         from epc.models.homeostasis import IntegralHomeostat, HomeostatParams, PerturbationSchedule
         from epc.detectors.p24_homeostasis import P24HomeostasisDetector
 
-        params = HomeostatParams(gain=2.0, setpoint=10.0, seed=42, dt=0.1)
-        schedule = PerturbationSchedule(onset=50.0, amplitude=5.0)
-        model = IntegralHomeostat(params)
-        history = model.simulate(2000, schedule=schedule)
+        model = IntegralHomeostat(HomeostatParams(setpoint=10.0, gain=1.0, dt=0.1,
+                                                  noise_std=0.5, seed=seed))
+        history = model.simulate(n_steps=1000,
+                                 schedule=PerturbationSchedule(onset=30.0, offset=70.0, amplitude=5.0))
         det = P24HomeostasisDetector(n_permutations=199, seed=42)
         result = det.detect(history, model.get_metadata())
-        assert result.detected, (
-            f"P24 not detected on integral homeostat: {result.summary()}"
+        assert not result.detected, (
+            f"P24 now fires on the integral controller (seed {seed}); the paper's "
+            f"cross-model result needs updating: {result.summary()}"
         )
-        assert result.tier.value in ("confirmation", "definitive"), (
-            f"Expected confirmation+, got {result.tier.value}: {result.summary()}"
-        )
+        assert any(w.startswith("Not bounded regulation") for w in result.warnings), result.warnings
 
-    def test_p24_integral_vs_proportional_both_definitive(self):
-        """Both controller types should reach definitive tier."""
+    def test_p24_proportional_definitive_integral_rejected_at_regulation_gate(self):
+        """Proportional controller reaches DEFINITIVE; the integral one is rejected
+        at screening because its deviation never settles.
+
+        With integral-only control of a pure integrator (epc.models.homeostasis
+        IntegralHomeostat) the post-onset deviation oscillates without decay at
+        amplitude perturbation/sqrt(gain) (5/sqrt(2) = 3.54 here), so the mean
+        absolute deviation stays near 2.26, above the f2d4044 regulation bound
+        of 0.3 x 5 = 1.5.
+        """
         from epc.models.homeostasis import (
             ProportionalHomeostat, IntegralHomeostat,
             HomeostatParams, PerturbationSchedule,
@@ -178,9 +197,15 @@ class TestP24CrossModel:
         assert p_result.tier.value == "definitive", (
             f"Proportional not definitive: {p_result.summary()}"
         )
-        assert i_result.tier.value == "definitive", (
-            f"Integral not definitive: {i_result.summary()}"
-        )
+        assert not i_result.detected, f"Integral now detected: {i_result.summary()}"
+        assert i_result.primary_metric["steady_state_deviation"] >= 0.3 * 5.0
+
+        # The integral controller's deviation does not decay: the peak in the
+        # last quarter of the perturbed window matches the first quarter.
+        dev = np.array([s["x"] - s["setpoint"] for s in i_hist if s["time"] >= 50.0])
+        q = len(dev) // 4
+        first, last = np.abs(dev[:q]).max(), np.abs(dev[-q:]).max()
+        assert last >= 0.95 * first, (first, last)
 
 
 class TestP23CrossModel:
