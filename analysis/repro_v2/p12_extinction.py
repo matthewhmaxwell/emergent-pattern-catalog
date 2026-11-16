@@ -305,8 +305,11 @@ def cmd_analyze(args):
     d1_rule = rule(d1[40], d1[100])
     # D2
     d2recs = {L: load_records("D2", L) for L in L_VALUES}
-    d2 = {L: (estimate(d2recs[L], L) if d2recs[L] else None) for L in L_VALUES}
+    d2_complete = {L: len(d2recs[L]) == N_REAL * len(M_GRID) for L in L_VALUES}
+    d2 = {L: (estimate(d2recs[L], L) if d2_complete[L] else None) for L in L_VALUES}
     d2_rule = rule(d2[40], d2[100]) if (d2[40] and d2[100]) else None
+    if not (est[40]["complete"] and est[100]["complete"]):
+        raise SystemExit("primary runs incomplete; refusing to evaluate the rule")
     runtimes = {}
     commits = set()
     for name, rr in [("primary", prim), ("D2", d2recs)]:
@@ -334,7 +337,10 @@ def cmd_analyze(args):
             "Mc_statement_reproduced_L100_only": bool(mc_repro),
             "Mc_note": "L = 200 not run; the statement is judged on the L = 100 points at M >= 4e-4 only.",
             "D1_G_equals_N": {"L40": d1[40], "L100": d1[100], "rule": d1_rule},
-            "D2_M_half": ({"L40": d2[40], "L100": d2[100], "rule": d2_rule} if d2_rule else "not run"),
+            "D2_M_half": ({"L40": d2[40], "L100": d2[100], "rule": d2_rule} if d2_rule else
+                          {"status": "incomplete at this analysis",
+                           "runs_done": {f"L{L}": len(d2recs[L]) for L in L_VALUES},
+                           "L40": d2[40]}),
             "optional_L200": "not run (budget)",
         },
         "runtime": runtimes,
