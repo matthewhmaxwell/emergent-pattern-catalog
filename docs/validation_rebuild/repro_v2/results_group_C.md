@@ -127,3 +127,47 @@ published fit, so the published numbers are not in the units of Eq. (37).
 
 No deviation. Runtime 26,299 CPU-s (7.3 CPU-h; spec estimate about 4 CPU-h): tau = 0.2, 0.5, 1.0 main 5,002 + 2,880
 + 2,277 s; f = 0.025 check 11,073 s; exponential start 2,688 s; P28-B 2,379 s. Code commit of all runs: 90cfbe2.
+
+## P12 cyclic dominance (spatial rock-paper-scissors): FAIL
+
+Target: Reichenbach, Mobilia & Frey 2007 Nature Fig. 2b, extinction probability P_ext at t = N for L = 40 and
+L = 100 (digitized, +-0.02). Model: `RPSSpatialModel` with sigma = mu = 1, von Neumann neighbourhood, random initial
+condition, run with the bit-identical Numba loop. 7 mobilities M = 1e-4 x 2^(k/2), k = -1..5; 500 realisations per
+(L, M), seeds 120000 + 1000 index(L) + 10 index(M) + r; each run until absorption or floor(G_max) generations,
+G_max = N(2 + MN/2) (the spec's conversion of t = N to our generations).
+
+| M | L = 40: P_hat [Wilson 95%] | Fig. | dev | L = 100: P_hat [Wilson 95%] | Fig. | dev |
+|---|---|---|---|---|---|---|
+| 7.07e-5 | 0.054 [0.037, 0.077] | 0.427 | -0.373 | 0.000 [0.000, 0.008] | 0.247 | -0.247 |
+| 1.00e-4 | 0.060 [0.042, 0.084] | 0.599 | -0.539 | 0.000 [0.000, 0.008] | 0.407 | -0.407 |
+| 1.41e-4 | 0.120 [0.094, 0.151] | 0.776 | -0.656 | 0.004 [0.001, 0.014] | 0.507 | -0.503 |
+| 2.00e-4 | 0.208 [0.175, 0.246] | 0.908 | -0.700 | 0.088 [0.066, 0.116] | 0.611 | -0.523 |
+| 2.83e-4 | 0.426 [0.383, 0.470] | 0.945 | -0.519 | 0.276 [0.239, 0.317] | 0.734 | -0.458 |
+| 4.00e-4 | 0.578 [0.534, 0.621] | 0.976 | -0.398 | 0.442 [0.399, 0.486] | 0.911 | -0.469 |
+| 5.66e-4 | 0.786 [0.748, 0.820] | 0.987 | -0.201 | 0.524 [0.480, 0.567] | 0.959 | -0.435 |
+
+| Rule (spec section 4) | Outcome |
+|---|---|
+| 1. L = 100: every |dev| <= 0.10 and mean signed dev within +-0.05 | fail (max |dev| 0.523, mean -0.435) |
+| 2. L = 40: same two conditions | fail (max |dev| 0.700, mean -0.484) |
+| 3. Sharpening: P(L = 100) < P(L = 40) at the 5 points M <= 2.83e-4 | pass (5 of 5) |
+
+P12 FAIL. P_ext rises with M and falls with L, as in the source, but at every point it is far below the figure:
+in our model, extinction by t = N (converted as the spec derives) is much rarer than in the source. The
+M_c = 4.5e-4 statement is not reproduced (L = 100 points at M >= 4e-4 are 0.47 and 0.44 below the figure; L = 200
+not run).
+
+Reported diagnostics (cannot turn the FAIL into a PASS):
+- D1, G = N generations (read from the primary runs, absorption generation <= N): L = 40 P_hat = 0.024, 0.018,
+  0.036, 0.082, 0.170, 0.228, 0.464 (mean dev -0.657); L = 100 P_hat = 0.000, 0.000, 0.000, 0.032, 0.078, 0.208,
+  0.274 (mean dev -0.541). Conditions 1 and 2 fail, 3 passes.
+- D2, our code at M/2 run to N(2 + (M/2)N/2): running at the time of this note (L = 40 in progress, L = 100 next); results follow below when complete.
+
+Median absorption generation among absorbed runs at L = 100 ranges from 9,356 (M = 5.66e-4) to 16,283
+(M = 2.83e-4), against G_max = 23,535-48,284; full quartiles and 10-bin histograms are in P12.json.
+
+No deviation from the protocol. Spec notes recorded before the runs (above): the seed formula's overlap across M
+within one L, and the optional L = 200 not run. Runtime: primary L = 40 2,126 CPU-s, primary L = 100 69,092 CPU-s
+(19.2 CPU-h; spec estimate about 8). Code: primary L = 40 and the first 1,450 L = 100 realisations ran at 90cfbe2,
+the remaining 2,050 L = 100 realisations through the work-queue mode at cfd9075 (model and per-realisation code
+identical; the queue mode only distributes realisations over two workers). Numba 0.68.1, numpy 2.5.0.
