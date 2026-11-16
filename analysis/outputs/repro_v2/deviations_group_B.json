@@ -1,0 +1,17 @@
+{
+ "_about": "Deviations from the declared protocol or readings for repro_v2 group B (P5, P6, P10). Each entry is logged, with its reason, before the affected rule is evaluated (REPRO_V2_PLAN.md rule of conduct 3). The aggregate copies these into P5.json / P6.json / P10.json.",
+ "P5": [],
+ "P6": [],
+ "P10": [
+  {
+   "id": "P10-D1",
+   "logged": "2026-11-16 04:05 UTC, before T10.1 and T10.2 are evaluated (Stage A seeds 5-9 still running)",
+   "affects": "P10 dt check (dt_paper = 0.0125 repeat of Stage A). Reported only; no pass rule depends on it.",
+   "deviation": "The dt check is reported as not run.",
+   "reason": "The declared reading names the two lowest-numbered Stage A chimera seeds. Paper-IC seeds 0-4 all ended in full sync (r_bar = 1.0000, f_drift = 0, Delta = 0.9838 = cos(0.18)), so if seeds 5-9 also reach no chimera there is no seed to repeat. Running the check on the fallback realizations instead (repeating ramp plus Stage A at dt_paper = 0.0125) was considered and not done: it is not what was declared.",
+   "approved_by": "Coordinator (main thread), under the owner's standing rule of no deviation without approval; option (a) of two presented.",
+   "gating_rules_changed": "None. T10.1, T10.2 targets, tolerances, sizes and seed counts are unchanged; the pre-registered fallback runs as specified and T10.1/T10.2 are labelled as evaluated on fallback realizations if it is used.",
+   "status": "Provisional until Stage A seeds 5-9 finish. If two or more paper-IC seeds are chimeras, the declared reading applies as written and this entry is withdrawn; if exactly one is, the coordinator is asked before anything is run."
+  }
+ ]
+}

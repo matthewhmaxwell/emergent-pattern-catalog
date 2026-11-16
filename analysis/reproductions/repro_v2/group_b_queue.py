@@ -137,16 +137,18 @@ def status() -> None:
 
 
 DECL = OUT / "declarations_group_B.json"
+DEVS = OUT / "deviations_group_B.json"
 
 
 def aggregate() -> None:
     decl = read_json(DECL) if DECL.exists() else {}
+    devs = read_json(DEVS) if DEVS.exists() else {}
     for pat, mod in MODULES.items():
         d = decl.get(pat, {})
         out = {"pattern": pat, "spec": "docs/validation_rebuild/repro_v2/group_B.md",
                "plan": "docs/validation_rebuild/repro_v2/REPRO_V2_PLAN.md (frozen at 39688e3)",
                "implementation_readings_declared_before_full_runs": d.get("readings", []),
-               "deviations": d.get("deviations", []),
+               "deviations": d.get("deviations", []) + devs.get(pat, []),
                "not_run": d.get("not_run", []),
                "aggregated_at": time.strftime("%Y-%m-%d %H:%M:%S %Z"),
                "aggregate_code": git_info(),
