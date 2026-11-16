@@ -1,9 +1,9 @@
 """Orchestration layer tests — substrate-aware detector dispatch.
 
-Tests the compatibility matrix: 7 substrate types, 20 models × 19 detectors,
-79 compatible pairs (Sprint 20 added the voter model + P18 consensus
-detector; Sprint 19 had previously added lotka_volterra + P11 to close the
-oldest carry-forward). Counts are pinned by
+Tests the compatibility matrix: 17 substrate types, 40 models × 32 detectors,
+121 compatible pairs as of Sprint 92 (64a8165); see the count tests below for
+the commits that added each. (At Sprint 20 the counts were 7 substrate types,
+20 models × 19 detectors and 79 pairs.) Counts are pinned by
 `tests/test_transfer_matrix_counts.py` (Sprint 22) and the canonical
 breakdown is emitted by `scripts/count_transfer_matrix.py`. Verifies
 substrate filtering, observable guards, canonical positive/negative
@@ -61,37 +61,62 @@ class TestSubstrateCounts:
         assert len(models) >= 1
 
     def test_five_substrate_types_total(self):
-        substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
-        assert len(substrates) == 13, f"Expected 13 substrate types, got {substrates}"
+        """Pinned at 17 substrate types (test-maintenance, registry at 838d744).
 
+        The test had been left at 13 (the Sprint 83 value, 712de07). Added since:
+        territorial_agent_field (Sprint 86, 266810f, P4), trail_network
+        (Sprint 88, ca14f2a, P29), task_allocation_timeseries (Sprint 90,
+        dd22076, P32), particle_membrane (Sprint 92, 64a8165, P30).
+        """
+        substrates = {m.substrate_type for m in MODEL_REGISTRY.values()}
+        assert len(substrates) == 17, f"Expected 17 substrate types, got {substrates}"
+
+
+# Registry and compatibility counts below are pinned at the registry as of
+# 838d744 (epc/orchestration.py last changed in 64a8165, Sprint 92). The tests
+# had been frozen at Sprint 86 (models, detectors) and Sprint 83 (pairs,
+# cells). Models, detectors and compatible pairs added since Sprint 83:
+#   266810f Sprint 86: scent_marking_territory, pheromone_repulsion_territory + P4 (+2 pairs)
+#   ca14f2a Sprint 88: ant_trail_network, physarum_network + P29 (+2 pairs)
+#   dd22076 Sprint 90: response_threshold, no_reinforcement + P32 (+2 pairs)
+#   64a8165 Sprint 92: autopoiesis + P30 (+1 pair)
+# P33-P37 are not in the orchestration registry (they run through the
+# battery and their own panels). The 121 compatible pairs are the 121 rows
+# of the paper's transfer matrix (S2 Table).
 
 class TestRegistryCounts:
 
     def test_model_count(self):
-        assert len(MODEL_REGISTRY) == 35, \
-            f"Expected 35 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
+        assert len(MODEL_REGISTRY) == 40, \
+            f"Expected 40 models, got {len(MODEL_REGISTRY)}: {list(MODEL_REGISTRY.keys())}"
 
     def test_detector_count(self):
-        assert len(DETECTOR_REGISTRY) == 29, \
-            f"Expected 29 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
+        assert len(DETECTOR_REGISTRY) == 32, \
+            f"Expected 32 detectors, got {len(DETECTOR_REGISTRY)}: {list(DETECTOR_REGISTRY.keys())}"
 
 
 class TestCompatibility:
 
     def test_total_compatible_pairs(self):
         pairs = get_compatible_pairs()
-        assert len(pairs) == 114, \
-            f"Expected 114 compatible pairs, got {len(pairs)}: {pairs}"
+        assert len(pairs) == 121, \
+            f"Expected 121 compatible pairs, got {len(pairs)}: {pairs}"
 
     def test_total_cells(self):
         matrix = get_compatibility_matrix()
         total = sum(len(row) for row in matrix.values())
-        assert total == 924, f"Expected 924 cells (33x28), got {total}"
+        assert total == 1280, f"Expected 1280 cells (40x32), got {total}"
 
     def test_mismatch_count(self):
+        """Mismatches = all cells minus compatible pairs (1280 - 121).
+
+        The old version subtracted from a hard-coded 924 (the Sprint 83 cell
+        count); it now uses the live cell count so the two numbers cannot drift.
+        """
         pairs = get_compatible_pairs()
-        mismatches = 924 - len(pairs)
-        assert mismatches == 810, f"Expected 810 mismatches, got {mismatches}"
+        total = sum(len(row) for row in get_compatibility_matrix().values())
+        mismatches = total - len(pairs)
+        assert mismatches == 1159, f"Expected 1159 mismatches, got {mismatches}"
 
 
 class TestCanonicalPairs:
