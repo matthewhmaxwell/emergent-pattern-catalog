@@ -1,0 +1,26 @@
+{
+  "check": "break-point invariance (implementation check, pre-registered)",
+  "L": 200,
+  "seed": 0,
+  "generations": 300,
+  "b_reference": 1.9,
+  "b_compared": [
+    1.85,
+    1.95
+  ],
+  "model_step_used": "epc.models.nowak_may.NowakMayModel.step",
+  "initial_grids_identical": true,
+  "first_generation_with_difference": {
+    "1.85": null,
+    "1.95": null
+  },
+  "pass": true,
+  "runtime_s": 12.13077998161316,
+  "git": {
+    "commit": "a21b04ded2c1d4e6a1bc20bd04d92654c465f1ff",
+    "branch": "repro-v2-a",
+    "tracked_tree_clean": true,
+    "frozen_plan_commit": "39688e3"
+  },
+  "timestamp": "2026-11-16T01:52:28+0000"
+}

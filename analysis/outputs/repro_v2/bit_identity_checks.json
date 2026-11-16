@@ -1,0 +1,769 @@
+{
+  "description": "Bit-identity checks for the repro v2 group A fast loops, on small cases only.\n\n1. Minority game: the frozen-commit model (git show 39688e3) and the current model give\n   identical records under the default options (catalog runs unchanged).\n2. Minority game: mg_fast.advance() vs simulate() in chunks, for all four\n   (tie_break, payoff) combinations: attendance, winning side, final scores,\n   history bits and rng state. Also: mu returned by advance() equals the index\n   rebuilt from the concatenated winning-side series (incl. the m bits before).\n3. Voter: voter_fast.sweep() vs VoterModel.step(): grid after every sweep, rng state.\n4. Nowak-May: nm_fast.generation() vs NowakMayModel.step(): grid and f_C every generation.\n\nSizes and lengths are far too small to inform any pass rule.\nWrites analysis/outputs/repro_v2/bit_identity_checks.json.\n",
+  "git": {
+    "commit": "a21b04ded2c1d4e6a1bc20bd04d92654c465f1ff",
+    "branch": "repro-v2-a",
+    "tracked_tree_clean": true,
+    "frozen_plan_commit": "39688e3"
+  },
+  "env": {
+    "host": "ai-server",
+    "python": "3.12.3",
+    "numpy": "2.5.0",
+    "pid": 1462049
+  },
+  "timestamp": "2026-11-16T01:05:21+0000",
+  "runtime_s": 17.0944607257843,
+  "all_pass": true,
+  "checks": [
+    {
+      "name": "mg_default_options_identical_to_frozen_model",
+      "cases": [
+        {
+          "N": 101,
+          "m": 6,
+          "rounds": 3000,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "N": 101,
+          "m": 6,
+          "rounds": 3000,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "N": 101,
+          "m": 6,
+          "rounds": 3000,
+          "seed": 2,
+          "identical": true
+        },
+        {
+          "N": 101,
+          "m": 6,
+          "rounds": 3000,
+          "seed": 3,
+          "identical": true
+        },
+        {
+          "N": 101,
+          "m": 6,
+          "rounds": 3000,
+          "seed": 4,
+          "identical": true
+        },
+        {
+          "N": 11,
+          "m": 3,
+          "rounds": 2000,
+          "seed": 7,
+          "identical": true
+        },
+        {
+          "N": 31,
+          "m": 5,
+          "rounds": 2000,
+          "seed": 3,
+          "identical": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "mg_fast_advance_vs_simulate",
+      "cases": [
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 11,
+          "m": 3,
+          "P": 8,
+          "rounds": 2400,
+          "chunking": "P",
+          "seed": 0,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 31,
+          "m": 5,
+          "P": 32,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 1,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 101,
+          "m": 6,
+          "P": 64,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 2,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 129,
+          "m": 7,
+          "P": 128,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 3,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 255,
+          "m": 8,
+          "P": 256,
+          "rounds": 1536,
+          "chunking": "P",
+          "seed": 4,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 511,
+          "m": 9,
+          "P": 512,
+          "rounds": 2048,
+          "chunking": "P",
+          "seed": 5,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "sign",
+          "N": 33,
+          "m": 4,
+          "P": 16,
+          "rounds": 2310,
+          "chunking": "mixed",
+          "seed": 6,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 11,
+          "m": 3,
+          "P": 8,
+          "rounds": 2400,
+          "chunking": "P",
+          "seed": 0,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 31,
+          "m": 5,
+          "P": 32,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 1,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 101,
+          "m": 6,
+          "P": 64,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 2,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 129,
+          "m": 7,
+          "P": 128,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 3,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 255,
+          "m": 8,
+          "P": 256,
+          "rounds": 1536,
+          "chunking": "P",
+          "seed": 4,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 511,
+          "m": 9,
+          "P": 512,
+          "rounds": 2048,
+          "chunking": "P",
+          "seed": 5,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "first",
+          "payoff": "linear",
+          "N": 33,
+          "m": 4,
+          "P": 16,
+          "rounds": 2310,
+          "chunking": "mixed",
+          "seed": 6,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 11,
+          "m": 3,
+          "P": 8,
+          "rounds": 2400,
+          "chunking": "P",
+          "seed": 0,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 31,
+          "m": 5,
+          "P": 32,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 1,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 101,
+          "m": 6,
+          "P": 64,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 2,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 129,
+          "m": 7,
+          "P": 128,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 3,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 255,
+          "m": 8,
+          "P": 256,
+          "rounds": 1536,
+          "chunking": "P",
+          "seed": 4,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 511,
+          "m": 9,
+          "P": 512,
+          "rounds": 2048,
+          "chunking": "P",
+          "seed": 5,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "sign",
+          "N": 33,
+          "m": 4,
+          "P": 16,
+          "rounds": 2310,
+          "chunking": "mixed",
+          "seed": 6,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 11,
+          "m": 3,
+          "P": 8,
+          "rounds": 2400,
+          "chunking": "P",
+          "seed": 0,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 31,
+          "m": 5,
+          "P": 32,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 1,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 101,
+          "m": 6,
+          "P": 64,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 2,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 129,
+          "m": 7,
+          "P": 128,
+          "rounds": 2560,
+          "chunking": "P",
+          "seed": 3,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 255,
+          "m": 8,
+          "P": 256,
+          "rounds": 1536,
+          "chunking": "P",
+          "seed": 4,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 511,
+          "m": 9,
+          "P": 512,
+          "rounds": 2048,
+          "chunking": "P",
+          "seed": 5,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        },
+        {
+          "tie_break": "random",
+          "payoff": "linear",
+          "N": 33,
+          "m": 4,
+          "P": 16,
+          "rounds": 2310,
+          "chunking": "mixed",
+          "seed": 6,
+          "checks": {
+            "attendance": true,
+            "winning_side": true,
+            "scores": true,
+            "history_bits": true,
+            "rng_state": true,
+            "mu_equals_rebuilt_from_winning_side": true
+          },
+          "identical": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "voter_fast_sweep_vs_step",
+      "cases": [
+        {
+          "neighborhood": "von_neumann",
+          "rows": 16,
+          "cols": 16,
+          "sweeps": 40,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "neighborhood": "von_neumann",
+          "rows": 32,
+          "cols": 32,
+          "sweeps": 30,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "neighborhood": "von_neumann",
+          "rows": 24,
+          "cols": 40,
+          "sweeps": 30,
+          "seed": 2,
+          "identical": true
+        },
+        {
+          "neighborhood": "moore",
+          "rows": 16,
+          "cols": 16,
+          "sweeps": 40,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "neighborhood": "moore",
+          "rows": 32,
+          "cols": 32,
+          "sweeps": 30,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "neighborhood": "moore",
+          "rows": 24,
+          "cols": 40,
+          "sweeps": 30,
+          "seed": 2,
+          "identical": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "nm_fast_generation_vs_step",
+      "cases": [
+        {
+          "b": 1.9,
+          "rows": 60,
+          "cols": 60,
+          "generations": 150,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "b": 1.9,
+          "rows": 40,
+          "cols": 72,
+          "generations": 150,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "b": 1.9,
+          "rows": 3,
+          "cols": 5,
+          "generations": 20,
+          "seed": 2,
+          "identical": true
+        },
+        {
+          "b": 1.8,
+          "rows": 60,
+          "cols": 60,
+          "generations": 150,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "b": 1.8,
+          "rows": 40,
+          "cols": 72,
+          "generations": 150,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "b": 1.8,
+          "rows": 3,
+          "cols": 5,
+          "generations": 20,
+          "seed": 2,
+          "identical": true
+        },
+        {
+          "b": 1.85,
+          "rows": 60,
+          "cols": 60,
+          "generations": 150,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "b": 1.85,
+          "rows": 40,
+          "cols": 72,
+          "generations": 150,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "b": 1.85,
+          "rows": 3,
+          "cols": 5,
+          "generations": 20,
+          "seed": 2,
+          "identical": true
+        },
+        {
+          "b": 1.6,
+          "rows": 60,
+          "cols": 60,
+          "generations": 150,
+          "seed": 0,
+          "identical": true
+        },
+        {
+          "b": 1.6,
+          "rows": 40,
+          "cols": 72,
+          "generations": 150,
+          "seed": 1,
+          "identical": true
+        },
+        {
+          "b": 1.6,
+          "rows": 3,
+          "cols": 5,
+          "generations": 20,
+          "seed": 2,
+          "identical": true
+        }
+      ],
+      "pass": true
+    }
+  ]
+}
