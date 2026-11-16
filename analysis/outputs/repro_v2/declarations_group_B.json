@@ -1,0 +1,64 @@
+{
+ "_about": "Implementation readings for details group_B.md leaves open, declared and committed before any full run. Deviations (if any) are appended with time and reason before the affected rule is evaluated.",
+ "P5": {
+  "readings": [
+   "position_update='old_velocity' is the synchronous reading of Vicsek 1995 Eqs. (1)-(2): theta(t+1) from the neighbours of x(t) with headings theta(t); x(t+1) = x(t) + v0 (cos theta(t), sin theta(t)) dt. (Moving first and then aligning at the new positions is the catalog's own operator sequence shifted by half a step, so it would not be a distinct option.)",
+   "wrap_guard=True in every P5 run (both update orders): positions >= L after the modulo are set to 0. Default False keeps the catalog model unchanged; at default settings the edited model was checked bit-identical to the frozen commit.",
+   "phi = polarization(state) sampled after measurement steps 10, 20, ..., 80000 (8000 samples); first half = samples 1-4000, second half = 4001-8000.",
+   "Convergence 'cell' = one run (N, eta, seed). If |half difference| > 0.02 the same run continues to 2e5 measurement steps (20000 samples) and the per-seed value is the mean of all 20000 samples.",
+   "SE uses the sample sd (ddof=1) of the 10 seed means; 95% t-interval with 9 df.",
+   "Sensitivity run: N=400, position_update='new_velocity' (catalog order), identical protocol and seeds; reported, not pass/fail.",
+   "beta (descriptive): eta_c scanned 2.600-4.599 by 0.001; OLS of ln v_sim on ln((eta_c-eta)/eta_c) over grid points with eta < eta_c (>= 3 points); eta_c at maximum R^2; beta = slope; N=400 old_velocity means.",
+   "Optional N=4000 (eta 2.0, 2.5, 3.0; seeds 1000-1004; band 0.06) is last in the queue; if compute does not allow it, it is listed under not_run."
+  ],
+  "deviations": [],
+  "not_run": []
+ },
+ "P6": {
+  "readings": [
+   "Window samples at t = 150.1, 150.2, ..., 200.0 (500 samples; every 10 steps at dt=0.01, every 20 at dt=0.005); halves = first 250 vs last 250.",
+   "Per sample: x_cm = mean position (open space); d_i = |x_i - x_cm|; R = mean d_i; CV = std(d_i)/R (population sd); L = AngularMomentumMetric.compute_instant(state, box_size=None) (open-space COM, unit vectors, signed); speed = mean |v_i|; maxd = max d_i.",
+   "Gates on window time means: CV < 0.05; |mean L| > 0.95; |speed/sqrt(2) - 1| < 0.02; mean maxd < 2 R; |R_second_half/R_first_half - 1| < 0.005.",
+   "Extension: if the convergence gate fails at T=200, the same run continues to T=400 and R and every gate are re-evaluated on [350, 400]; the seed is valid only if all gates then pass.",
+   "dt check: seed 2000 at N=100 and N=400, quantity = the per-seed R; if either changes by >= 0.1%, every T6.1 run uses dt=0.005 (the dt=0.005 runs of seed 2000 are reused).",
+   "Failed seeds are kept in the output with a state label (co-rotating ring / ring with mixed rotation / translating clump / annulus / escaped / other) and their gate values.",
+   "T6.3: seeds 2000-2004; U_total = sum_i sum_{j != i} [C_r exp(-r/l_r) - C_a exp(-r/l_a)] at t = 100; exponent = OLS slope of ln(median |U_total|) on ln N, N in {50, 100, 200, 400}."
+  ],
+  "deviations": [],
+  "not_run": [
+   "init_radius sensitivity at 0.5 and 2.0 (named in group_B.md P6 section 2 but given no protocol, seeds or rule in section 3; running it would mean designing it after the fact)."
+  ]
+ },
+ "P10": {
+  "readings": [
+   "dt_ours = dt_paper * 2 pi / N via the new dt_paper option; record_dt = 40 dt_ours (80 at dt_paper=0.0125), so each run() frame is 1.0 paper time; theta stays unwrapped across run() calls.",
+   "IC = init_mode 'as2004': 6 exp(-30 (x_i - pi)^2) r_i, r_i ~ U[-1/2, 1/2] drawn first from default_rng(seed); stored mod 2 pi like the other modes (the dynamics depend on phases mod 2 pi only).",
+   "r sampled at the end of each paper time unit in (2500, 5000] (2500 samples); R(x) snapshots at t = 2510, 2520, ..., 5000 (250).",
+   "Locked set: bins [k 0.001, (k+1) 0.001) anchored at 0; modal bin = most populated (lowest k on a tie; ties recorded); locked = Omega in [lo - 0.002, hi + 0.002).",
+   "dt check seeds: the two lowest-numbered Stage A chimera seeds; passes if both are chimeras at dt_paper=0.0125 and all five estimators change by less than half their tolerance. group_B.md gives no consequence for a failure; it is reported as is.",
+   "Stage B hold sequence: 0.20 (500), 0.22 (500), 0.24 (500), then 0.2400, 0.2425, ..., 0.2800 (1000 each): 17 values including 0.2400 again, which matches the spec's 7.4e5-step estimate. Each hold starts from the previous hold's final phases (new model object with the new beta; theta overwritten).",
+   "Collapse at a hold: min r over the 200 unit-spaced samples of the last 200 paper time > 0.95 AND f_drift < 0.02, f_drift from the Stage A frequency method applied to the last 200 paper time.",
+   "After the first collapse one confirmation hold is run and that seed's ramp stops (full sync is absorbing for beta > 0; beta_collapse only needs the first collapse). The confirmation result is recorded.",
+   "A seed that never collapses gets beta_collapse = +inf, included in the median.",
+   "'No seed still holds a chimera at beta >= 0.2700' fails if any hold with beta >= 0.2700 ends classified as a chimera (Stage A rule on its last 200 paper time) or if any seed's beta_collapse is above 0.2700.",
+   "Fallback (only if < 5 of 10 Stage A seeds are chimeras): seeds 100, 101, ... with init_mode 'asymmetric_gaussian' (amp 2.0, sigma 0.5) at beta=0.05 held 500, then beta 0.06, ..., 0.18 held 500 each, then the Stage A protocol at beta=0.18 from that state (T=5000, window [2500, 5000]); lowest seeds first until 10 chimera realizations exist (at most 20 attempts); each labelled fallback_ramp; Stage B is run from each.",
+   "Stage C: seeds 0-9, N=256, the Stage A protocol at beta=0.05 with the paper IC.",
+   "Secondary N=128: Stage A (beta=0.18, seeds 0-9) and Stage B from its chimera seeds; no fallback at N=128."
+  ],
+  "deviations": [],
+  "timing_check_before_full_run": {
+   "steps": 1000,
+   "integrator": "KuramotoNonlocal._rk4_step (the loop run() uses)",
+   "dt_paper": 0.025,
+   "ms_per_step": {
+    "N128": 2.206,
+    "N256": 8.541
+   },
+   "date": "2026-11-15",
+   "note": "machine shared and loaded at the time; within the spec's 10 ms/step budget at N=256"
+  },
+  "not_run": [
+   "Optional N=512 Stage B (5 seeds): not run; at the measured ~4x per-step cost of N=256 it does not fit the two-process budget alongside the required runs."
+  ]
+ }
+}

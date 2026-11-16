@@ -65,6 +65,8 @@ class VicsekModel:
         dt: float = 1.0,
         init_mode: str = "random",
         seed: Optional[int] = None,
+        position_update: str = "new_velocity",
+        wrap_guard: bool = False,
     ):
         """Initialize Vicsek model.
 
@@ -79,7 +81,23 @@ class VicsekModel:
             init_mode: One of 'random', 'aligned', 'half_aligned',
                        'single_cluster'.
             seed: Random seed for reproducibility.
+            position_update: 'new_velocity' (default, catalog behaviour):
+                   x(t+1) = x(t) + v(θ(t+1))Δt. 'old_velocity': Vicsek
+                   1995 Eq. (1), x(t+1) = x(t) + v(θ(t))Δt, i.e. both
+                   θ(t+1) (neighbours at x(t)) and x(t+1) are computed
+                   from the state at t (the "backward update" of
+                   Baglietto & Albano). Added for the repro_v2 P5 run.
+            wrap_guard: If True, map positions that come out of the
+                   periodic wrap at exactly L (floating point) to 0, so
+                   cKDTree(boxsize=L) does not raise. Default False
+                   (catalog behaviour unchanged; the guard only acts
+                   where the unguarded step would crash).
         """
+        if position_update not in ("new_velocity", "old_velocity"):
+            raise ValueError(
+                f"position_update must be 'new_velocity' or 'old_velocity', "
+                f"got {position_update!r}"
+            )
         self.n_particles = n_particles
         self.box_size = box_size
         self.speed = speed
@@ -88,6 +106,8 @@ class VicsekModel:
         self.dt = dt
         self.init_mode = init_mode
         self.seed = seed
+        self.position_update = position_update
+        self.wrap_guard = wrap_guard
 
         # Derived
         self.density = n_particles / box_size**2
@@ -188,16 +208,27 @@ class VicsekModel:
         new_headings += noise
 
         # --- Update headings (wrap to [-π, π) for cleanliness) ---
+        old_headings = self.headings
         self.headings = (new_headings + np.pi) % (2 * np.pi) - np.pi
 
         # --- Update positions ---
-        vx = self.speed * np.cos(self.headings) * self.dt
-        vy = self.speed * np.sin(self.headings) * self.dt
+        # Default: move with the new heading θ(t+1). Option 'old_velocity':
+        # move with θ(t), as in Vicsek 1995 Eq. (1).
+        move_headings = (
+            old_headings if self.position_update == "old_velocity"
+            else self.headings
+        )
+        vx = self.speed * np.cos(move_headings) * self.dt
+        vy = self.speed * np.sin(move_headings) * self.dt
         self.positions[:, 0] += vx
         self.positions[:, 1] += vy
 
         # --- Periodic boundary conditions ---
         self.positions %= L
+        if self.wrap_guard:
+            # x % L can round to exactly L for tiny negative x; cKDTree
+            # with boxsize=L requires [0, L).
+            self.positions[self.positions >= L] = 0.0
 
         self._step_count += 1
         return self.get_state()
