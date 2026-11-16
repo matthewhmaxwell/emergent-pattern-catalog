@@ -9,6 +9,7 @@ Run (one process per call; resumable; results streamed one JSON line per realisa
     PYTHONPATH=. python analysis/repro_v2/p12_extinction.py run --variant primary --L 40
     PYTHONPATH=. python analysis/repro_v2/p12_extinction.py run --variant primary --L 100 [--shard 0/2]
     PYTHONPATH=. python analysis/repro_v2/p12_extinction.py run --variant D2 --L 100
+    PYTHONPATH=. python analysis/repro_v2/p12_extinction.py queue --jobs primary:100,D2:40,D2:100   (n workers)
     PYTHONPATH=. python analysis/repro_v2/p12_extinction.py analyze
 """
 from __future__ import annotations
@@ -162,6 +163,47 @@ def cmd_run(args):
                 el = time.time() - t_start
                 print(f"[p12] {k + 1}/{len(todo)} done, {el / 3600:.2f} h elapsed, "
                       f"ETA {el / (k + 1) * (len(todo) - k - 1) / 3600:.2f} h", flush=True)
+
+
+CLAIM_DIR = os.path.join(RAW_DIR, "claims")
+
+
+def cmd_queue(args):
+    """Work queue for several workers: tasks are claimed with O_EXCL lock files, so any number of workers
+    started on the same job list split the remaining tasks dynamically. The per-realisation computation
+    (run_one) is the same as in `run`. Clear CLAIM_DIR only when no worker is running."""
+    os.makedirs(RAW_DIR, exist_ok=True)
+    os.makedirs(CLAIM_DIR, exist_ok=True)
+    commit = git_commit()
+    wid = f"{os.getpid()}"
+    for job in args.jobs.split(","):
+        variant, L = job.split(":")
+        L = int(L)
+        tasks = task_list(variant, L)
+        done = done_keys(variant, L)
+        todo = [t for t in tasks if (t["iM"], t["r"]) not in done]
+        out_fn = os.path.join(RAW_DIR, f"{variant}_L{L}_{time.strftime('%Y%m%dT%H%M%S')}_q{wid}.jsonl")
+        print(f"[p12q {wid}] job {variant} L={L}: {len(todo)} tasks not done (commit {commit[:10]}, "
+              f"dirty={git_dirty()})", flush=True)
+        n_run = 0
+        t_start = time.time()
+        with open(out_fn, "a") as fh:
+            for t in todo:
+                claim = os.path.join(CLAIM_DIR, f"{variant}_L{L}_{t['iM']}_{t['r']}")
+                try:
+                    os.close(os.open(claim, os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+                except FileExistsError:
+                    continue
+                res = run_one(t["L"], t["M_run"], t["G_max"], t["seed"])
+                fh.write(json.dumps({**t, **res, "commit": commit}) + "\n")
+                fh.flush()
+                n_run += 1
+                if n_run % 50 == 0:
+                    left = len(todo) - len(done_keys(variant, L) & {(x["iM"], x["r"]) for x in todo})
+                    print(f"[p12q {wid}] {variant} L={L}: {n_run} run by this worker, ~{left} left, "
+                          f"{(time.time() - t_start) / 3600:.2f} h", flush=True)
+        print(f"[p12q {wid}] job {variant} L={L} finished by this worker ({n_run} run)", flush=True)
+    print(f"[p12q {wid}] QUEUE_DONE", flush=True)
 
 
 # ---------------------------------------------------------------- analysis
@@ -319,10 +361,14 @@ def main():
     r.add_argument("--L", type=int, choices=L_VALUES, required=True)
     r.add_argument("--shard", default="0/1")
     r.add_argument("--limit", type=int, default=0)
+    q = sub.add_parser("queue")
+    q.add_argument("--jobs", required=True, help="comma list of variant:L, e.g. primary:100,D2:40,D2:100")
     sub.add_parser("analyze")
     args = ap.parse_args()
     if args.cmd == "run":
         cmd_run(args)
+    elif args.cmd == "queue":
+        cmd_queue(args)
     else:
         cmd_analyze(args)
 
