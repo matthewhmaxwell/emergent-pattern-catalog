@@ -1,0 +1,41 @@
+{
+ "task": {
+  "id": "P6_T63_hstable_N400_s2002",
+  "kind": "energy",
+  "set": "hstable",
+  "N": 400,
+  "seed": 2002
+ },
+ "git": {
+  "commit": "08afe1141b11954ffd95e70c782a68e1656259a5",
+  "code_dirty": false
+ },
+ "worker": "pid1457636",
+ "started": 1794927371.2990527,
+ "finished": 1794929145.164574,
+ "result": {
+  "set": "hstable",
+  "params": {
+   "C_a": 0.5,
+   "C_r": 1.0,
+   "l_a": 2.0,
+   "l_r": 1.5,
+   "beta": 0.5,
+   "alpha": 0.5
+  },
+  "N": 400,
+  "seed": 2002,
+  "dt": 0.01,
+  "T": 100.0,
+  "init_radius": 1.0,
+  "U_total": -16.095728683386152,
+  "abs_U_total": 16.095728683386152,
+  "mean_radius": 102.72379635072728,
+  "max_radius": 112.36247818989276,
+  "mean_speed": 0.9998222285954445,
+  "L": 0.0007754716373793888,
+  "finite": true,
+  "wall_s": 1773.8508489131927,
+  "cpu_s": 1772.5547477200162
+ }
+}

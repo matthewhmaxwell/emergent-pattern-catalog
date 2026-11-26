@@ -1,0 +1,41 @@
+{
+ "task": {
+  "id": "P6_T63_catastrophic_N200_s2003",
+  "kind": "energy",
+  "set": "catastrophic",
+  "N": 200,
+  "seed": 2003
+ },
+ "git": {
+  "commit": "08afe1141b11954ffd95e70c782a68e1656259a5",
+  "code_dirty": false
+ },
+ "worker": "pid1457636",
+ "started": 1794924697.1299307,
+ "finished": 1794925004.7573717,
+ "result": {
+  "set": "catastrophic",
+  "params": {
+   "C_a": 0.5,
+   "C_r": 1.0,
+   "l_a": 2.0,
+   "l_r": 0.5,
+   "beta": 0.5,
+   "alpha": 1.0
+  },
+  "N": 200,
+  "seed": 2003,
+  "dt": 0.01,
+  "T": 100.0,
+  "init_radius": 1.0,
+  "U_total": -5479.693458480398,
+  "abs_U_total": 5479.693458480398,
+  "mean_radius": 1.2974476666005372,
+  "max_radius": 2.0200685457750356,
+  "mean_speed": 1.4054671225620132,
+  "L": 0.9975718409779936,
+  "finite": true,
+  "wall_s": 307.6165220737457,
+  "cpu_s": 307.3355407830095
+ }
+}

@@ -1,0 +1,1900 @@
+{
+ "pattern": "P10",
+ "spec": "docs/validation_rebuild/repro_v2/group_B.md",
+ "plan": "docs/validation_rebuild/repro_v2/REPRO_V2_PLAN.md (frozen at 39688e3)",
+ "implementation_readings_declared_before_full_runs": [
+  "dt_ours = dt_paper * 2 pi / N via the new dt_paper option; record_dt = 40 dt_ours (80 at dt_paper=0.0125), so each run() frame is 1.0 paper time; theta stays unwrapped across run() calls.",
+  "IC = init_mode 'as2004': 6 exp(-30 (x_i - pi)^2) r_i, r_i ~ U[-1/2, 1/2] drawn first from default_rng(seed); stored mod 2 pi like the other modes (the dynamics depend on phases mod 2 pi only).",
+  "r sampled at the end of each paper time unit in (2500, 5000] (2500 samples); R(x) snapshots at t = 2510, 2520, ..., 5000 (250).",
+  "Locked set: bins [k 0.001, (k+1) 0.001) anchored at 0; modal bin = most populated (lowest k on a tie; ties recorded); locked = Omega in [lo - 0.002, hi + 0.002).",
+  "dt check seeds: the two lowest-numbered Stage A chimera seeds; passes if both are chimeras at dt_paper=0.0125 and all five estimators change by less than half their tolerance. group_B.md gives no consequence for a failure; it is reported as is.",
+  "Stage B hold sequence: 0.20 (500), 0.22 (500), 0.24 (500), then 0.2400, 0.2425, ..., 0.2800 (1000 each): 17 values including 0.2400 again, which matches the spec's 7.4e5-step estimate. Each hold starts from the previous hold's final phases (new model object with the new beta; theta overwritten).",
+  "Collapse at a hold: min r over the 200 unit-spaced samples of the last 200 paper time > 0.95 AND f_drift < 0.02, f_drift from the Stage A frequency method applied to the last 200 paper time.",
+  "After the first collapse one confirmation hold is run and that seed's ramp stops (full sync is absorbing for beta > 0; beta_collapse only needs the first collapse). The confirmation result is recorded.",
+  "A seed that never collapses gets beta_collapse = +inf, included in the median.",
+  "'No seed still holds a chimera at beta >= 0.2700' fails if any hold with beta >= 0.2700 ends classified as a chimera (Stage A rule on its last 200 paper time) or if any seed's beta_collapse is above 0.2700.",
+  "Fallback (only if < 5 of 10 Stage A seeds are chimeras): seeds 100, 101, ... with init_mode 'asymmetric_gaussian' (amp 2.0, sigma 0.5) at beta=0.05 held 500, then beta 0.06, ..., 0.18 held 500 each, then the Stage A protocol at beta=0.18 from that state (T=5000, window [2500, 5000]); lowest seeds first until 10 chimera realizations exist (at most 20 attempts); each labelled fallback_ramp; Stage B is run from each.",
+  "Stage C: seeds 0-9, N=256, the Stage A protocol at beta=0.05 with the paper IC.",
+  "Secondary N=128: Stage A (beta=0.18, seeds 0-9) and Stage B from its chimera seeds; no fallback at N=128."
+ ],
+ "deviations": [
+  {
+   "id": "P10-D1",
+   "logged": "2026-11-16 04:05 UTC, before T10.1 and T10.2 are evaluated (Stage A seeds 5-9 still running)",
+   "affects": "P10 dt check (dt_paper = 0.0125 repeat of Stage A). Reported only; no pass rule depends on it.",
+   "deviation": "The dt check is reported as not run.",
+   "reason": "The declared reading names the two lowest-numbered Stage A chimera seeds. All ten paper-IC seeds (0-9) ended in full sync (r_bar = 1.0000, f_drift = 0, Delta = 0.9838 = cos(0.18)), so there is no seed to repeat. Running the check on the fallback realizations instead (repeating ramp plus Stage A at dt_paper = 0.0125) was considered and not done: it is not what was declared.",
+   "approved_by": "Coordinator (main thread), under the owner's standing rule of no deviation without approval; option (a) of two presented.",
+   "gating_rules_changed": "None. T10.1, T10.2 targets, tolerances, sizes and seed counts are unchanged; the pre-registered fallback runs as specified and T10.1/T10.2 are labelled as evaluated on fallback realizations if it is used.",
+   "status": "Final (2026-11-16 05:12 UTC): Stage A complete, 0 of 10 paper-IC seeds formed a chimera."
+  }
+ ],
+ "not_run": [
+  "Optional N=512 Stage B (5 seeds): not run; at the measured ~4x per-step cost of N=256 it does not fit the two-process budget alongside the required runs."
+ ],
+ "aggregated_at": "2026-11-26 16:07:01 UTC",
+ "aggregate_code": {
+  "commit": "08afe1141b11954ffd95e70c782a68e1656259a5",
+  "code_dirty": false
+ },
+ "n_runs": 50,
+ "runtime_cpu_h_total": 34.621988859623904,
+ "runtime_wall_h_total_summed_over_runs": 35.02997051093313,
+ "commits": [
+  "08afe1141b11954ffd95e70c782a68e1656259a5",
+  "9be14e534ddc927edde4e7b12043eccde3da4475",
+  "cd7e571f028a77c7fbe880fdc78cee8013c70e15"
+ ],
+ "any_code_dirty": false,
+ "fallback": {
+  "needed_realizations": 10,
+  "attempts_run": 10,
+  "attempts_chimera": [
+   100,
+   101,
+   102,
+   103,
+   104,
+   105,
+   106,
+   107,
+   108,
+   109
+  ],
+  "used_seeds": [
+   100,
+   101,
+   102,
+   103,
+   104,
+   105,
+   106,
+   107,
+   108,
+   109
+  ]
+ },
+ "T10_1": {
+  "n_runs": 20,
+  "n_chimera": 10,
+  "basin_fraction": 0.5,
+  "per_seed": [
+   {
+    "seed": 0,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869295,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 1,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869512,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 2,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869761,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 3,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869503,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 4,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869305,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 5,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869758,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 6,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869532,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 7,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869396,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999998,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 8,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869754,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999999,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 9,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 1.0,
+    "Delta": 0.9838436927869303,
+    "f_drift": 0.0,
+    "R_min": 0.9999999999999999,
+    "R_max": 1.0,
+    "n_locked": 256,
+    "modal_bin": [
+     -0.984,
+     -0.983
+    ]
+   },
+   {
+    "seed": 100,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6317418601787347,
+    "Delta": 0.7325559704699269,
+    "f_drift": 0.74609375,
+    "R_min": 0.4783286144146421,
+    "R_max": 0.8077300251881359,
+    "n_locked": 65,
+    "modal_bin": [
+     -0.733,
+     -0.732
+    ]
+   },
+   {
+    "seed": 101,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6309814171806103,
+    "Delta": 0.7321333825408046,
+    "f_drift": 0.7578125,
+    "R_min": 0.477749777230678,
+    "R_max": 0.8068636086881485,
+    "n_locked": 62,
+    "modal_bin": [
+     -0.733,
+     -0.732
+    ]
+   },
+   {
+    "seed": 102,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6302631425453649,
+    "Delta": 0.7318247240300793,
+    "f_drift": 0.73828125,
+    "R_min": 0.47710632709393913,
+    "R_max": 0.8082408705887059,
+    "n_locked": 67,
+    "modal_bin": [
+     -0.732,
+     -0.731
+    ]
+   },
+   {
+    "seed": 103,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6307411212013326,
+    "Delta": 0.7320053391777467,
+    "f_drift": 0.7734375,
+    "R_min": 0.4784687322656869,
+    "R_max": 0.8087297145130962,
+    "n_locked": 58,
+    "modal_bin": [
+     -0.733,
+     -0.732
+    ]
+   },
+   {
+    "seed": 104,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6317101005417939,
+    "Delta": 0.7324783410574423,
+    "f_drift": 0.7421875,
+    "R_min": 0.47900581388256486,
+    "R_max": 0.8092107464988351,
+    "n_locked": 66,
+    "modal_bin": [
+     -0.733,
+     -0.732
+    ]
+   },
+   {
+    "seed": 105,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6303087785647051,
+    "Delta": 0.7317388019120371,
+    "f_drift": 0.75390625,
+    "R_min": 0.4751966471812042,
+    "R_max": 0.8067262614636127,
+    "n_locked": 63,
+    "modal_bin": [
+     -0.732,
+     -0.731
+    ]
+   },
+   {
+    "seed": 106,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6314544584352316,
+    "Delta": 0.7323972609719102,
+    "f_drift": 0.80078125,
+    "R_min": 0.47785017330700985,
+    "R_max": 0.8082722779015664,
+    "n_locked": 51,
+    "modal_bin": [
+     -0.733,
+     -0.732
+    ]
+   },
+   {
+    "seed": 107,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6300847650704476,
+    "Delta": 0.7316562907336822,
+    "f_drift": 0.73828125,
+    "R_min": 0.47750385307838933,
+    "R_max": 0.8080192922746462,
+    "n_locked": 67,
+    "modal_bin": [
+     -0.732,
+     -0.731
+    ]
+   },
+   {
+    "seed": 108,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6334211073431548,
+    "Delta": 0.7333493004367414,
+    "f_drift": 0.77734375,
+    "R_min": 0.48199101352522483,
+    "R_max": 0.8089165146289968,
+    "n_locked": 57,
+    "modal_bin": [
+     -0.734,
+     -0.733
+    ]
+   },
+   {
+    "seed": 109,
+    "origin": "fallback_ramp",
+    "chimera": true,
+    "r_bar": 0.6296972051245413,
+    "Delta": 0.7314530969390505,
+    "f_drift": 0.75,
+    "R_min": 0.4747125313973515,
+    "R_max": 0.8079772869659954,
+    "n_locked": 64,
+    "modal_bin": [
+     -0.732,
+     -0.731
+    ]
+   }
+  ],
+  "targets": {
+   "r_bar": 0.6287,
+   "Delta": 0.732,
+   "f_drift": 0.7008,
+   "R_min": 0.4732,
+   "R_max": 0.8068
+  },
+  "tolerances": {
+   "r_bar": 0.02,
+   "Delta": 0.01,
+   "f_drift": 0.03,
+   "R_min": 0.03,
+   "R_max": 0.03
+  },
+  "median_over_chimera_seeds": {
+   "r_bar": 0.6308612691909714,
+   "Delta": 0.7320693608592757,
+   "f_drift": 0.751953125,
+   "R_min": 0.47779997526884393,
+   "R_max": 0.8081300814316761
+  },
+  "diff": {
+   "r_bar": 0.002161269190971371,
+   "Delta": 6.936085927566893e-05,
+   "f_drift": 0.05115312500000002,
+   "R_min": 0.0045999752688439255,
+   "R_max": 0.0013300814316761222
+  },
+  "within": {
+   "r_bar": true,
+   "Delta": true,
+   "f_drift": false,
+   "R_min": true,
+   "R_max": true
+  },
+  "all_five_within": false,
+  "paper_IC_basin_fraction": 0.0,
+  "fallback_used": true,
+  "complete": true,
+  "outcome": "FAIL",
+  "rule": "medians over chimera seeds: |r_bar-0.6287|<=0.02, |Delta-0.7320|<=0.010, |f_drift-0.7008|<=0.03, |R_min-0.4732|<=0.03, |R_max-0.8068|<=0.03"
+ },
+ "dt_check": {
+  "rule": "two seeds at dt_paper=0.0125: every Stage A estimator changes by < half its tolerance (seeds = the two lowest-numbered Stage A chimera seeds)",
+  "rows": [],
+  "passed": null
+ },
+ "T10_2": {
+  "per_seed": [
+   {
+    "seed": 100,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.255,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6374323630047849,
+      "r_min_last200": 0.5837659859193157,
+      "f_drift_last200": 0.69140625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.65703848340756,
+      "r_min_last200": 0.5718565148972455,
+      "f_drift_last200": 0.67578125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6669944631015561,
+      "r_min_last200": 0.6215547152147053,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6744637248742094,
+      "r_min_last200": 0.6205497923687567,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6733855882634701,
+      "r_min_last200": 0.6118514541572339,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6767477716255084,
+      "r_min_last200": 0.6263470438623958,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6824051448471161,
+      "r_min_last200": 0.6311921851418542,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6831102871322363,
+      "r_min_last200": 0.6332553451863174,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6910689180325278,
+      "r_min_last200": 0.642188839343288,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 101,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.26,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6396441589112397,
+      "r_min_last200": 0.5886604705165895,
+      "f_drift_last200": 0.69140625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6609703100386042,
+      "r_min_last200": 0.572869152682963,
+      "f_drift_last200": 0.6640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6696094120038816,
+      "r_min_last200": 0.6010873767558351,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6758814071914898,
+      "r_min_last200": 0.5809594629184414,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6721893933433205,
+      "r_min_last200": 0.6255962966213335,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6803937216408243,
+      "r_min_last200": 0.6242495336588536,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6805794658923027,
+      "r_min_last200": 0.6319380955630953,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6816015877826161,
+      "r_min_last200": 0.6234771490055254,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6931016988091155,
+      "r_min_last200": 0.6315040560774677,
+      "f_drift_last200": 0.60546875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6928990106015381,
+      "r_min_last200": 0.6440111689694445,
+      "f_drift_last200": 0.60546875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.6868882220602166,
+      "r_min_last200": 0.6281325073083535,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2625,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 102,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.26,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6419794884643127,
+      "r_min_last200": 0.5869448270120027,
+      "f_drift_last200": 0.6875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6569061435024932,
+      "r_min_last200": 0.6045395076104858,
+      "f_drift_last200": 0.66796875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6727975294171589,
+      "r_min_last200": 0.6019828003787413,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6701681580667745,
+      "r_min_last200": 0.6085728212708446,
+      "f_drift_last200": 0.65234375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6747051161918362,
+      "r_min_last200": 0.615059116913839,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6768170115362389,
+      "r_min_last200": 0.631150970223883,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6803939398439822,
+      "r_min_last200": 0.6357088417260852,
+      "f_drift_last200": 0.64453125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6850876295486327,
+      "r_min_last200": 0.6397381407708077,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6930509839128285,
+      "r_min_last200": 0.6202403258878091,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6885052063669062,
+      "r_min_last200": 0.64000256320276,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.6956515092186205,
+      "r_min_last200": 0.6492804816837179,
+      "f_drift_last200": 0.6015625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2625,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 103,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.2575,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6450162163089306,
+      "r_min_last200": 0.5695832315709752,
+      "f_drift_last200": 0.6953125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6556865961583651,
+      "r_min_last200": 0.589561894474754,
+      "f_drift_last200": 0.65625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6780478392295325,
+      "r_min_last200": 0.5837259888358873,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6682206729554672,
+      "r_min_last200": 0.6267475089133017,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6743037714316807,
+      "r_min_last200": 0.60027318486517,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6820144740453489,
+      "r_min_last200": 0.6304552271575995,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6762774315029472,
+      "r_min_last200": 0.6173792925786943,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6852471752520576,
+      "r_min_last200": 0.576991698902893,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6856733346064107,
+      "r_min_last200": 0.6208771345534709,
+      "f_drift_last200": 0.609375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6916191227390743,
+      "r_min_last200": 0.6535165234597028,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.999999999998152,
+      "r_min_last200": 0.999999999916536,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 104,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.26,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.645485089616961,
+      "r_min_last200": 0.5689847472095975,
+      "f_drift_last200": 0.68359375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6573836479643681,
+      "r_min_last200": 0.5931729956700447,
+      "f_drift_last200": 0.66796875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6701454981419246,
+      "r_min_last200": 0.6161706916069888,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6713184404625967,
+      "r_min_last200": 0.5981829426544281,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.674933262902082,
+      "r_min_last200": 0.6234173478669011,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6754199618516165,
+      "r_min_last200": 0.6109773549861852,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6806823576659398,
+      "r_min_last200": 0.6284539106261989,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.680800475666357,
+      "r_min_last200": 0.6141060587011317,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6842461002645354,
+      "r_min_last200": 0.6323938751242637,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6863753224263129,
+      "r_min_last200": 0.6481431804336006,
+      "f_drift_last200": 0.60546875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.6958797516347011,
+      "r_min_last200": 0.653108292673991,
+      "f_drift_last200": 0.59765625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2625,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 105,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.255,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6384200924696636,
+      "r_min_last200": 0.5884530179036717,
+      "f_drift_last200": 0.6875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6542574592905807,
+      "r_min_last200": 0.591099171128115,
+      "f_drift_last200": 0.6640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6744343218280778,
+      "r_min_last200": 0.6208314938993608,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6754700106998416,
+      "r_min_last200": 0.592259524513822,
+      "f_drift_last200": 0.64453125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6749622381841115,
+      "r_min_last200": 0.6356312492039204,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6735933337722372,
+      "r_min_last200": 0.6236558505517237,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6795913712101165,
+      "r_min_last200": 0.6270272897342928,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.686003236408266,
+      "r_min_last200": 0.6329124373330945,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6926017173760352,
+      "r_min_last200": 0.6384542252039995,
+      "f_drift_last200": 0.609375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 106,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.2525,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6390445907492419,
+      "r_min_last200": 0.6001286643861413,
+      "f_drift_last200": 0.68359375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.656652083559707,
+      "r_min_last200": 0.6004399022664034,
+      "f_drift_last200": 0.66796875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6685468783671475,
+      "r_min_last200": 0.6202326856481775,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.672218427897823,
+      "r_min_last200": 0.627696523448593,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6754032845351884,
+      "r_min_last200": 0.6179511852595856,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.677276612881773,
+      "r_min_last200": 0.6121228152514174,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6757694060822224,
+      "r_min_last200": 0.636674704002948,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6830577641905728,
+      "r_min_last200": 0.6350383303551019,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 107,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.2575,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.640512890015906,
+      "r_min_last200": 0.5857294752587486,
+      "f_drift_last200": 0.6875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6624084286455811,
+      "r_min_last200": 0.5385772757364161,
+      "f_drift_last200": 0.671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6689238384005205,
+      "r_min_last200": 0.6122345860633058,
+      "f_drift_last200": 0.63671875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6731420926174893,
+      "r_min_last200": 0.6054567671869526,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6761956787897276,
+      "r_min_last200": 0.6268070675524219,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6768420610864895,
+      "r_min_last200": 0.6182815365682548,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6761224566284078,
+      "r_min_last200": 0.599442703656343,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6804376103502432,
+      "r_min_last200": 0.6129028852743091,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6850286469988993,
+      "r_min_last200": 0.6441026492720419,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.691126812840172,
+      "r_min_last200": 0.6380453557583706,
+      "f_drift_last200": 0.609375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.9999773525674788,
+      "r_min_last200": 0.998986232961675,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 108,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.2625,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6471906140095751,
+      "r_min_last200": 0.5627999236114294,
+      "f_drift_last200": 0.69140625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6586159618176759,
+      "r_min_last200": 0.5802341953291978,
+      "f_drift_last200": 0.6640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6744430236347199,
+      "r_min_last200": 0.600229529875687,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6806327393178413,
+      "r_min_last200": 0.6041643455350995,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6772664284971132,
+      "r_min_last200": 0.6200051885750545,
+      "f_drift_last200": 0.640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6753910771637828,
+      "r_min_last200": 0.6383967703572668,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6800032787712504,
+      "r_min_last200": 0.620750618059247,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6813876201341108,
+      "r_min_last200": 0.6405198504947391,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6863449227621757,
+      "r_min_last200": 0.6322741653635827,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6846017346494864,
+      "r_min_last200": 0.6321024864840863,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.696232342460627,
+      "r_min_last200": 0.6538269197415177,
+      "f_drift_last200": 0.59375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 0.7037244824565567,
+      "r_min_last200": 0.6585071013274315,
+      "f_drift_last200": 0.6015625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2625,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.265,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   },
+   {
+    "seed": 109,
+    "origin": "fallback_ramp",
+    "beta_collapse": 0.26,
+    "chimera_at_hold_with_beta_ge_0.27": false,
+    "confirmation_hold_still_collapsed": true,
+    "holds": [
+     {
+      "beta": 0.2,
+      "r_mean_last200": 0.6418045720313234,
+      "r_min_last200": 0.5842034462750829,
+      "f_drift_last200": 0.68359375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.22,
+      "r_mean_last200": 0.6575908468912077,
+      "r_min_last200": 0.6005158139064669,
+      "f_drift_last200": 0.6640625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.671325487403968,
+      "r_min_last200": 0.607379224313558,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.24,
+      "r_mean_last200": 0.6786316169464698,
+      "r_min_last200": 0.5952979662813171,
+      "f_drift_last200": 0.6328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2425,
+      "r_mean_last200": 0.6744999762586121,
+      "r_min_last200": 0.6119149069663874,
+      "f_drift_last200": 0.62890625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.245,
+      "r_mean_last200": 0.6798302846354801,
+      "r_min_last200": 0.6239124182513984,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2475,
+      "r_mean_last200": 0.6796190642290307,
+      "r_min_last200": 0.6271668043364785,
+      "f_drift_last200": 0.62109375,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.25,
+      "r_mean_last200": 0.6803547786894572,
+      "r_min_last200": 0.6145362449081134,
+      "f_drift_last200": 0.625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2525,
+      "r_mean_last200": 0.6935695988168987,
+      "r_min_last200": 0.6230150810291232,
+      "f_drift_last200": 0.61328125,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.255,
+      "r_mean_last200": 0.6828294922065674,
+      "r_min_last200": 0.6322124282687818,
+      "f_drift_last200": 0.6171875,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.2575,
+      "r_mean_last200": 0.6945236529643012,
+      "r_min_last200": 0.6411945913657723,
+      "f_drift_last200": 0.59765625,
+      "collapse": false,
+      "chimera": true
+     },
+     {
+      "beta": 0.26,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     },
+     {
+      "beta": 0.2625,
+      "r_mean_last200": 1.0,
+      "r_min_last200": 0.9999999999999998,
+      "f_drift_last200": 0.0,
+      "collapse": true,
+      "chimera": false
+     }
+    ]
+   }
+  ],
+  "n_ramps": 10,
+  "n_paper_IC_chimera_seeds": 0,
+  "median_beta_collapse": 0.25875000000000004,
+  "beta_collapse_values": [
+   0.255,
+   0.26,
+   0.26,
+   0.2575,
+   0.26,
+   0.255,
+   0.2525,
+   0.2575,
+   0.2625,
+   0.26
+  ],
+  "median_in_band": true,
+  "no_hold_at_beta_ge_0.27_classified_chimera": true,
+  "every_seed_collapsed_by_beta_0.27": true,
+  "no_chimera_at_beta_ge_0.27": true,
+  "complete": true,
+  "rule": "median beta_collapse in [0.2500, 0.2675] and no seed holds a chimera at beta >= 0.2700 (N=256)",
+  "beta_SN_continuum": 0.2635,
+  "outcome": "PASS"
+ },
+ "T10_3": {
+  "n_runs": 10,
+  "n_chimera": 9,
+  "basin_fraction": 0.9,
+  "per_seed": [
+   {
+    "seed": 0,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5769478513390337,
+    "Delta": 0.7151266211391588,
+    "f_drift": 0.91015625,
+    "R_min": 0.4237238055740444,
+    "R_max": 0.7324636154366886,
+    "n_locked": 23,
+    "modal_bin": [
+     -0.716,
+     -0.715
+    ]
+   },
+   {
+    "seed": 1,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5769207915283715,
+    "Delta": 0.14756524019150793,
+    "f_drift": 0.921875,
+    "R_min": 0.42324654462586936,
+    "R_max": 0.7333785761988358,
+    "n_locked": 20,
+    "modal_bin": [
+     -0.148,
+     -0.147
+    ]
+   },
+   {
+    "seed": 2,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5761216341926664,
+    "Delta": 0.7146452726705453,
+    "f_drift": 0.9140625,
+    "R_min": 0.42184655579329533,
+    "R_max": 0.7319562944633572,
+    "n_locked": 22,
+    "modal_bin": [
+     -0.715,
+     -0.714
+    ]
+   },
+   {
+    "seed": 3,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5765607313972748,
+    "Delta": 0.7149009191436225,
+    "f_drift": 0.94140625,
+    "R_min": 0.42250680881421926,
+    "R_max": 0.732413992635041,
+    "n_locked": 15,
+    "modal_bin": [
+     -0.715,
+     -0.714
+    ]
+   },
+   {
+    "seed": 4,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5775002060470592,
+    "Delta": 0.15152241856953164,
+    "f_drift": 0.92578125,
+    "R_min": 0.42489451024259745,
+    "R_max": 0.7341367929567523,
+    "n_locked": 19,
+    "modal_bin": [
+     -0.152,
+     -0.151
+    ]
+   },
+   {
+    "seed": 5,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5773124254840193,
+    "Delta": 0.14533014780769377,
+    "f_drift": 0.921875,
+    "R_min": 0.42438120247030825,
+    "R_max": 0.7335948985428435,
+    "n_locked": 20,
+    "modal_bin": [
+     -0.146,
+     -0.145
+    ]
+   },
+   {
+    "seed": 6,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5768992592772937,
+    "Delta": 0.14447723489467557,
+    "f_drift": 0.92578125,
+    "R_min": 0.4233853002826163,
+    "R_max": 0.7342571443928223,
+    "n_locked": 19,
+    "modal_bin": [
+     -0.145,
+     -0.14400000000000002
+    ]
+   },
+   {
+    "seed": 7,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5770304555172817,
+    "Delta": 0.14392587299104742,
+    "f_drift": 0.93359375,
+    "R_min": 0.4229872521674316,
+    "R_max": 0.7326858649952495,
+    "n_locked": 17,
+    "modal_bin": [
+     -0.14400000000000002,
+     -0.14300000000000002
+    ]
+   },
+   {
+    "seed": 8,
+    "origin": "paper_IC",
+    "chimera": false,
+    "r_bar": 0.5776066184548506,
+    "Delta": 0.7155355093468441,
+    "f_drift": 0.953125,
+    "R_min": 0.42448675863270696,
+    "R_max": 0.732145394792989,
+    "n_locked": 12,
+    "modal_bin": [
+     -0.716,
+     -0.715
+    ]
+   },
+   {
+    "seed": 9,
+    "origin": "paper_IC",
+    "chimera": true,
+    "r_bar": 0.5771482138226062,
+    "Delta": 0.14551866153070556,
+    "f_drift": 0.9296875,
+    "R_min": 0.42356135348720564,
+    "R_max": 0.7339248036683335,
+    "n_locked": 18,
+    "modal_bin": [
+     -0.146,
+     -0.145
+    ]
+   }
+  ],
+  "targets": {
+   "r_bar": 0.576,
+   "Delta": 0.716,
+   "f_drift": 0.8526,
+   "R_min": 0.4214,
+   "R_max": 0.7326
+  },
+  "tolerances": {
+   "r_bar": 0.02,
+   "Delta": 0.01,
+   "f_drift": 0.03,
+   "R_min": 0.03,
+   "R_max": 0.03
+  },
+  "median_over_chimera_seeds": {
+   "r_bar": 0.5769478513390337,
+   "Delta": 0.14756524019150793,
+   "f_drift": 0.92578125,
+   "R_min": 0.4233853002826163,
+   "R_max": 0.7333785761988358
+  },
+  "diff": {
+   "r_bar": 0.0009478513390337451,
+   "Delta": -0.568434759808492,
+   "f_drift": 0.07318124999999998,
+   "R_min": 0.001985300282616287,
+   "R_max": 0.000778576198835812
+  },
+  "within": {
+   "r_bar": true,
+   "Delta": false,
+   "f_drift": false,
+   "R_min": true,
+   "R_max": true
+  },
+  "all_five_within": false,
+  "complete": true,
+  "outcome": "FAIL",
+  "rule": "as T10.1 with the beta=0.05 analytic row (reported, not gating)"
+ },
+ "secondary_N128": {
+  "stage_A": {
+   "n_runs": 10,
+   "n_chimera": 0,
+   "basin_fraction": 0.0,
+   "per_seed": [
+    {
+     "seed": 0,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869291,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 1,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869706,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 2,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869494,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999999,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 3,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869516,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 4,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869412,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999999,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 5,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869527,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 6,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869507,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 7,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869394,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 8,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.983843692786975,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    },
+    {
+     "seed": 9,
+     "origin": "paper_IC",
+     "chimera": false,
+     "r_bar": 1.0,
+     "Delta": 0.9838436927869301,
+     "f_drift": 0.0,
+     "R_min": 0.9999999999999998,
+     "R_max": 1.0,
+     "n_locked": 128,
+     "modal_bin": [
+      -0.984,
+      -0.983
+     ]
+    }
+   ],
+   "targets": {
+    "r_bar": 0.6287,
+    "Delta": 0.732,
+    "f_drift": 0.7008,
+    "R_min": 0.4732,
+    "R_max": 0.8068
+   },
+   "tolerances": {
+    "r_bar": 0.02,
+    "Delta": 0.01,
+    "f_drift": 0.03,
+    "R_min": 0.03,
+    "R_max": 0.03
+   },
+   "all_five_within": false
+  },
+  "stage_B": {
+   "per_seed": [],
+   "n_ramps": 0,
+   "n_paper_IC_chimera_seeds": 0
+  },
+  "note": "secondary, reported: finite-N trend of beta_collapse (expected to approach 0.2635 from below)"
+ },
+ "optional_N512": "not run"
+}

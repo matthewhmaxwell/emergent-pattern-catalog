@@ -1,0 +1,513 @@
+[01:01:13] pid1457446 start P6_T61_N400_s2000_dt0.01
+[02:00:55] pid1457446 done  P6_T61_N400_s2000_dt0.01 (59.7 min)
+[02:00:55] pid1457446 start P6_T61_N100_s2000_dt0.01
+[02:04:10] pid1457446 done  P6_T61_N100_s2000_dt0.01 (3.2 min)
+[02:04:10] pid1457446 start P6_T61_N100_s2000_dt0.005
+[02:10:29] pid1457446 done  P6_T61_N100_s2000_dt0.005 (6.3 min)
+[02:10:29] pid1457446 start P10_A_N256_b0.18_s0_dtp0.025
+[02:41:13] pid1457446 done  P10_A_N256_b0.18_s0_dtp0.025 (30.7 min)
+[02:41:13] pid1457446 start P10_A_N256_b0.18_s1_dtp0.025
+[03:11:38] pid1457446 done  P10_A_N256_b0.18_s1_dtp0.025 (30.4 min)
+[03:11:38] pid1457446 start P10_A_N256_b0.18_s3_dtp0.025
+[03:41:34] pid1457446 done  P10_A_N256_b0.18_s3_dtp0.025 (29.9 min)
+[03:41:34] pid1457446 start P10_A_N256_b0.18_s5_dtp0.025
+[04:11:57] pid1457446 done  P10_A_N256_b0.18_s5_dtp0.025 (30.4 min)
+[04:11:57] pid1457446 start P10_A_N256_b0.18_s7_dtp0.025
+[04:41:23] pid1457446 done  P10_A_N256_b0.18_s7_dtp0.025 (29.4 min)
+[04:41:23] pid1457446 start P10_A_N256_b0.18_s9_dtp0.025
+[05:10:17] pid1457446 done  P10_A_N256_b0.18_s9_dtp0.025 (28.9 min)
+[05:10:17] pid1457446 start P6_T61_N400_s2002_dt0.01
+[06:06:45] pid1457446 done  P6_T61_N400_s2002_dt0.01 (56.5 min)
+[06:06:45] pid1457446 start P6_T61_N400_s2004_dt0.01
+[07:01:57] pid1457446 done  P6_T61_N400_s2004_dt0.01 (55.2 min)
+[07:01:57] pid1457446 start P6_T61_N400_s2006_dt0.01
+[07:56:49] pid1457446 done  P6_T61_N400_s2006_dt0.01 (54.9 min)
+[07:56:49] pid1457446 start P6_T61_N400_s2008_dt0.01
+[08:51:57] pid1457446 done  P6_T61_N400_s2008_dt0.01 (55.1 min)
+[08:51:57] pid1457446 start P6_T61_N300_s2000_dt0.01
+[09:14:12] pid1457446 done  P6_T61_N300_s2000_dt0.01 (22.3 min)
+[09:14:13] pid1457446 start P6_T61_N300_s2001_dt0.01
+[09:36:36] pid1457446 done  P6_T61_N300_s2001_dt0.01 (22.4 min)
+[09:36:36] pid1457446 start P6_T61_N300_s2003_dt0.01
+[09:58:41] pid1457446 done  P6_T61_N300_s2003_dt0.01 (22.1 min)
+[09:58:41] pid1457446 start P6_T61_N300_s2005_dt0.01
+[10:20:48] pid1457446 done  P6_T61_N300_s2005_dt0.01 (22.1 min)
+[10:20:48] pid1457446 start P6_T61_N300_s2007_dt0.01
+[10:43:02] pid1457446 done  P6_T61_N300_s2007_dt0.01 (22.2 min)
+[10:43:02] pid1457446 start P6_T61_N300_s2009_dt0.01
+[11:05:27] pid1457446 done  P6_T61_N300_s2009_dt0.01 (22.4 min)
+[11:05:27] pid1457446 start P6_T61_N200_s2001_dt0.01
+[11:15:57] pid1457446 done  P6_T61_N200_s2001_dt0.01 (10.5 min)
+[11:15:57] pid1457446 start P6_T61_N200_s2003_dt0.01
+[11:26:08] pid1457446 done  P6_T61_N200_s2003_dt0.01 (10.2 min)
+[11:26:08] pid1457446 start P6_T61_N200_s2005_dt0.01
+[11:36:14] pid1457446 done  P6_T61_N200_s2005_dt0.01 (10.1 min)
+[11:36:15] pid1457446 start P6_T61_N200_s2007_dt0.01
+[11:46:28] pid1457446 done  P6_T61_N200_s2007_dt0.01 (10.2 min)
+[11:46:28] pid1457446 start P6_T61_N200_s2009_dt0.01
+[11:56:40] pid1457446 done  P6_T61_N200_s2009_dt0.01 (10.2 min)
+[11:56:40] pid1457446 start P6_T61_N100_s2002_dt0.01
+[11:59:17] pid1457446 done  P6_T61_N100_s2002_dt0.01 (2.6 min)
+[11:59:17] pid1457446 start P6_T61_N100_s2004_dt0.01
+[12:01:59] pid1457446 done  P6_T61_N100_s2004_dt0.01 (2.7 min)
+[12:01:59] pid1457446 start P6_T61_N100_s2006_dt0.01
+[12:04:39] pid1457446 done  P6_T61_N100_s2006_dt0.01 (2.7 min)
+[12:04:39] pid1457446 start P6_T61_N100_s2008_dt0.01
+[12:07:20] pid1457446 done  P6_T61_N100_s2008_dt0.01 (2.7 min)
+[12:07:20] pid1457446 start P5_N400_eta0.5_s1000_old_velocity
+[12:12:57] pid1457446 done  P5_N400_eta0.5_s1000_old_velocity (5.6 min)
+[12:12:57] pid1457446 start P5_N400_eta0.5_s1002_old_velocity
+[12:18:10] pid1457446 done  P5_N400_eta0.5_s1002_old_velocity (5.2 min)
+[12:18:10] pid1457446 start P5_N400_eta0.5_s1004_old_velocity
+[12:23:25] pid1457446 done  P5_N400_eta0.5_s1004_old_velocity (5.3 min)
+[12:23:25] pid1457446 start P5_N400_eta0.5_s1006_old_velocity
+[12:29:02] pid1457446 done  P5_N400_eta0.5_s1006_old_velocity (5.6 min)
+[12:29:02] pid1457446 start P5_N400_eta0.5_s1008_old_velocity
+[12:34:17] pid1457446 done  P5_N400_eta0.5_s1008_old_velocity (5.3 min)
+[12:34:17] pid1457446 start P5_N400_eta1.0_s1000_old_velocity
+[12:40:16] pid1457446 done  P5_N400_eta1.0_s1000_old_velocity (6.0 min)
+[12:40:16] pid1457446 start P5_N400_eta1.0_s1002_old_velocity
+[12:46:03] pid1457446 done  P5_N400_eta1.0_s1002_old_velocity (5.8 min)
+[12:46:03] pid1457446 start P5_N400_eta1.0_s1004_old_velocity
+[12:51:47] pid1457446 done  P5_N400_eta1.0_s1004_old_velocity (5.7 min)
+[12:51:47] pid1457446 start P5_N400_eta1.0_s1006_old_velocity
+[12:58:01] pid1457446 done  P5_N400_eta1.0_s1006_old_velocity (6.2 min)
+[12:58:01] pid1457446 start P5_N400_eta1.0_s1009_old_velocity
+[13:04:01] pid1457446 done  P5_N400_eta1.0_s1009_old_velocity (6.0 min)
+[13:04:01] pid1457446 start P5_N400_eta1.5_s1000_old_velocity
+[13:09:47] pid1457446 done  P5_N400_eta1.5_s1000_old_velocity (5.8 min)
+[13:09:47] pid1457446 start P5_N400_eta1.5_s1002_old_velocity
+[13:15:46] pid1457446 done  P5_N400_eta1.5_s1002_old_velocity (6.0 min)
+[13:15:46] pid1457446 start P5_N400_eta1.5_s1004_old_velocity
+[13:21:44] pid1457446 done  P5_N400_eta1.5_s1004_old_velocity (6.0 min)
+[13:21:44] pid1457446 start P5_N400_eta1.5_s1006_old_velocity
+[13:28:23] pid1457446 done  P5_N400_eta1.5_s1006_old_velocity (6.7 min)
+[13:28:23] pid1457446 start P5_N400_eta1.5_s1009_old_velocity
+[13:34:10] pid1457446 done  P5_N400_eta1.5_s1009_old_velocity (5.8 min)
+[13:34:10] pid1457446 start P5_N400_eta2.0_s1001_old_velocity
+[13:39:25] pid1457446 done  P5_N400_eta2.0_s1001_old_velocity (5.3 min)
+[13:39:26] pid1457446 start P5_N400_eta2.0_s1003_old_velocity
+[13:45:32] pid1457446 done  P5_N400_eta2.0_s1003_old_velocity (6.1 min)
+[13:45:32] pid1457446 start P5_N400_eta2.0_s1005_old_velocity
+[13:51:25] pid1457446 done  P5_N400_eta2.0_s1005_old_velocity (5.9 min)
+[13:51:25] pid1457446 start P5_N400_eta2.0_s1007_old_velocity
+[13:57:00] pid1457446 done  P5_N400_eta2.0_s1007_old_velocity (5.6 min)
+[13:57:00] pid1457446 start P5_N400_eta2.0_s1009_old_velocity
+[14:03:13] pid1457446 done  P5_N400_eta2.0_s1009_old_velocity (6.2 min)
+[14:03:13] pid1457446 start P5_N400_eta2.5_s1001_old_velocity
+[14:09:17] pid1457446 done  P5_N400_eta2.5_s1001_old_velocity (6.1 min)
+[14:09:17] pid1457446 start P5_N400_eta2.5_s1003_old_velocity
+[14:14:48] pid1457446 done  P5_N400_eta2.5_s1003_old_velocity (5.5 min)
+[14:14:48] pid1457446 start P5_N400_eta2.5_s1005_old_velocity
+[14:20:37] pid1457446 done  P5_N400_eta2.5_s1005_old_velocity (5.8 min)
+[14:20:37] pid1457446 start P5_N400_eta2.5_s1007_old_velocity
+[14:26:23] pid1457446 done  P5_N400_eta2.5_s1007_old_velocity (5.8 min)
+[14:26:23] pid1457446 start P5_N400_eta2.5_s1009_old_velocity
+[14:32:21] pid1457446 done  P5_N400_eta2.5_s1009_old_velocity (6.0 min)
+[14:32:21] pid1457446 start P5_N400_eta3.0_s1001_old_velocity
+[14:37:58] pid1457446 done  P5_N400_eta3.0_s1001_old_velocity (5.6 min)
+[14:37:58] pid1457446 start P5_N400_eta3.0_s1003_old_velocity
+[14:43:56] pid1457446 done  P5_N400_eta3.0_s1003_old_velocity (6.0 min)
+[14:43:56] pid1457446 start P5_N400_eta3.0_s1005_old_velocity
+[14:56:40] pid1457446 done  P5_N400_eta3.0_s1005_old_velocity (12.7 min)
+[14:56:40] pid1457446 start P5_N400_eta3.0_s1008_old_velocity
+[15:02:35] pid1457446 done  P5_N400_eta3.0_s1008_old_velocity (5.9 min)
+[15:02:35] pid1457446 start P5_N400_eta3.5_s1000_old_velocity
+[15:15:24] pid1457446 done  P5_N400_eta3.5_s1000_old_velocity (12.8 min)
+[15:15:24] pid1457446 start P5_N400_eta3.5_s1003_old_velocity
+[15:21:12] pid1457446 done  P5_N400_eta3.5_s1003_old_velocity (5.8 min)
+[15:21:12] pid1457446 start P5_N400_eta3.5_s1005_old_velocity
+[15:33:28] pid1457446 done  P5_N400_eta3.5_s1005_old_velocity (12.3 min)
+[15:33:28] pid1457446 start P5_N400_eta3.5_s1008_old_velocity
+[15:38:42] pid1457446 done  P5_N400_eta3.5_s1008_old_velocity (5.2 min)
+[15:38:42] pid1457446 start P5_N400_eta4.0_s1000_old_velocity
+[15:50:18] pid1457446 done  P5_N400_eta4.0_s1000_old_velocity (11.6 min)
+[15:50:18] pid1457446 start P5_N400_eta4.0_s1003_old_velocity
+[15:55:37] pid1457446 done  P5_N400_eta4.0_s1003_old_velocity (5.3 min)
+[15:55:38] pid1457446 start P5_N400_eta4.0_s1005_old_velocity
+[16:01:01] pid1457446 done  P5_N400_eta4.0_s1005_old_velocity (5.4 min)
+[16:01:01] pid1457446 start P5_N400_eta4.0_s1007_old_velocity
+[16:12:42] pid1457446 done  P5_N400_eta4.0_s1007_old_velocity (11.7 min)
+[16:12:42] pid1457446 start P5_N400_eta4.5_s1001_old_velocity
+[16:17:46] pid1457446 done  P5_N400_eta4.5_s1001_old_velocity (5.1 min)
+[16:17:46] pid1457446 start P5_N400_eta4.5_s1003_old_velocity
+[16:22:33] pid1457446 done  P5_N400_eta4.5_s1003_old_velocity (4.8 min)
+[16:22:33] pid1457446 start P5_N400_eta4.5_s1005_old_velocity
+[16:27:24] pid1457446 done  P5_N400_eta4.5_s1005_old_velocity (4.8 min)
+[16:27:24] pid1457446 start P5_N400_eta4.5_s1007_old_velocity
+[16:32:09] pid1457446 done  P5_N400_eta4.5_s1007_old_velocity (4.8 min)
+[16:32:09] pid1457446 start P5_N400_eta4.5_s1009_old_velocity
+[16:36:47] pid1457446 done  P5_N400_eta4.5_s1009_old_velocity (4.6 min)
+[16:36:47] pid1457446 start P10_F_N256_k1
+[17:54:11] pid1457446 done  P10_F_N256_k1 (77.4 min)
+[17:54:11] pid1457446 start P10_BF_N256_k1
+[19:05:23] pid1457446 done  P10_BF_N256_k1 (71.2 min)
+[19:05:23] pid1457446 start P10_F_N256_k3
+[20:24:15] pid1457446 done  P10_F_N256_k3 (78.9 min)
+[20:24:15] pid1457446 start P10_BF_N256_k3
+[21:28:40] pid1457446 done  P10_BF_N256_k3 (64.4 min)
+[21:28:40] pid1457446 start P10_F_N256_k5
+[22:45:02] pid1457446 done  P10_F_N256_k5 (76.4 min)
+[22:45:02] pid1457446 start P10_BF_N256_k5
+[23:39:06] pid1457446 done  P10_BF_N256_k5 (54.1 min)
+[23:39:06] pid1457446 start P10_F_N256_k6
+[00:49:34] pid1457446 done  P10_F_N256_k6 (70.5 min)
+[00:49:34] pid1457446 start P10_BF_N256_k6
+[01:38:07] pid1457446 done  P10_BF_N256_k6 (48.5 min)
+[01:38:07] pid1457446 start P10_F_N256_k8
+[02:52:24] pid1457446 done  P10_F_N256_k8 (74.3 min)
+[02:52:24] pid1457446 start P10_BF_N256_k8
+[04:08:47] pid1457446 done  P10_BF_N256_k8 (76.4 min)
+[04:08:47] pid1457446 start P10_A_N256_b0.05_s0_dtp0.025
+[04:41:53] pid1457446 done  P10_A_N256_b0.05_s0_dtp0.025 (33.1 min)
+[04:41:53] pid1457446 start P10_A_N256_b0.05_s2_dtp0.025
+[05:14:14] pid1457446 done  P10_A_N256_b0.05_s2_dtp0.025 (32.3 min)
+[05:14:14] pid1457446 start P10_A_N256_b0.05_s4_dtp0.025
+[05:46:03] pid1457446 done  P10_A_N256_b0.05_s4_dtp0.025 (31.8 min)
+[05:46:03] pid1457446 start P10_A_N256_b0.05_s6_dtp0.025
+[06:19:56] pid1457446 done  P10_A_N256_b0.05_s6_dtp0.025 (33.9 min)
+[06:19:56] pid1457446 start P10_A_N256_b0.05_s8_dtp0.025
+[06:53:39] pid1457446 done  P10_A_N256_b0.05_s8_dtp0.025 (33.7 min)
+[06:53:39] pid1457446 start P5_N100_eta0.5_s1000_old_velocity
+[06:55:56] pid1457446 done  P5_N100_eta0.5_s1000_old_velocity (2.3 min)
+[06:55:56] pid1457446 start P5_N100_eta0.5_s1001_old_velocity
+[06:58:09] pid1457446 done  P5_N100_eta0.5_s1001_old_velocity (2.2 min)
+[06:58:09] pid1457446 start P5_N100_eta0.5_s1002_old_velocity
+[07:00:20] pid1457446 done  P5_N100_eta0.5_s1002_old_velocity (2.2 min)
+[07:00:20] pid1457446 start P5_N100_eta0.5_s1003_old_velocity
+[07:02:34] pid1457446 done  P5_N100_eta0.5_s1003_old_velocity (2.2 min)
+[07:02:34] pid1457446 start P5_N100_eta0.5_s1004_old_velocity
+[07:04:44] pid1457446 done  P5_N100_eta0.5_s1004_old_velocity (2.2 min)
+[07:04:44] pid1457446 start P5_N100_eta0.5_s1005_old_velocity
+[07:06:59] pid1457446 done  P5_N100_eta0.5_s1005_old_velocity (2.2 min)
+[07:06:59] pid1457446 start P5_N100_eta0.5_s1006_old_velocity
+[07:08:58] pid1457446 done  P5_N100_eta0.5_s1006_old_velocity (2.0 min)
+[07:08:58] pid1457446 start P5_N100_eta0.5_s1008_old_velocity
+[07:11:05] pid1457446 done  P5_N100_eta0.5_s1008_old_velocity (2.1 min)
+[07:11:05] pid1457446 start P5_N100_eta1.0_s1000_old_velocity
+[07:13:14] pid1457446 done  P5_N100_eta1.0_s1000_old_velocity (2.1 min)
+[07:13:14] pid1457446 start P5_N100_eta1.0_s1002_old_velocity
+[07:15:16] pid1457446 done  P5_N100_eta1.0_s1002_old_velocity (2.0 min)
+[07:15:16] pid1457446 start P5_N100_eta1.0_s1004_old_velocity
+[07:17:26] pid1457446 done  P5_N100_eta1.0_s1004_old_velocity (2.2 min)
+[07:17:27] pid1457446 start P5_N100_eta1.0_s1006_old_velocity
+[07:19:33] pid1457446 done  P5_N100_eta1.0_s1006_old_velocity (2.1 min)
+[07:19:33] pid1457446 start P5_N100_eta1.0_s1008_old_velocity
+[07:21:48] pid1457446 done  P5_N100_eta1.0_s1008_old_velocity (2.3 min)
+[07:21:48] pid1457446 start P5_N100_eta1.5_s1000_old_velocity
+[07:24:00] pid1457446 done  P5_N100_eta1.5_s1000_old_velocity (2.2 min)
+[07:24:00] pid1457446 start P5_N100_eta1.5_s1002_old_velocity
+[07:26:21] pid1457446 done  P5_N100_eta1.5_s1002_old_velocity (2.4 min)
+[07:26:22] pid1457446 start P5_N100_eta1.5_s1004_old_velocity
+[07:28:37] pid1457446 done  P5_N100_eta1.5_s1004_old_velocity (2.3 min)
+[07:28:37] pid1457446 start P5_N100_eta1.5_s1006_old_velocity
+[07:30:49] pid1457446 done  P5_N100_eta1.5_s1006_old_velocity (2.2 min)
+[07:30:49] pid1457446 start P5_N100_eta1.5_s1008_old_velocity
+[07:33:03] pid1457446 done  P5_N100_eta1.5_s1008_old_velocity (2.2 min)
+[07:33:03] pid1457446 start P5_N100_eta2.0_s1000_old_velocity
+[07:35:14] pid1457446 done  P5_N100_eta2.0_s1000_old_velocity (2.2 min)
+[07:35:14] pid1457446 start P5_N100_eta2.0_s1002_old_velocity
+[07:37:21] pid1457446 done  P5_N100_eta2.0_s1002_old_velocity (2.1 min)
+[07:37:21] pid1457446 start P5_N100_eta2.0_s1004_old_velocity
+[07:39:29] pid1457446 done  P5_N100_eta2.0_s1004_old_velocity (2.1 min)
+[07:39:29] pid1457446 start P5_N100_eta2.0_s1006_old_velocity
+[07:41:44] pid1457446 done  P5_N100_eta2.0_s1006_old_velocity (2.2 min)
+[07:41:44] pid1457446 start P5_N100_eta2.0_s1008_old_velocity
+[07:43:59] pid1457446 done  P5_N100_eta2.0_s1008_old_velocity (2.2 min)
+[07:43:59] pid1457446 start P5_N100_eta2.5_s1000_old_velocity
+[07:46:11] pid1457446 done  P5_N100_eta2.5_s1000_old_velocity (2.2 min)
+[07:46:11] pid1457446 start P5_N100_eta2.5_s1002_old_velocity
+[07:48:13] pid1457446 done  P5_N100_eta2.5_s1002_old_velocity (2.0 min)
+[07:48:13] pid1457446 start P5_N100_eta2.5_s1004_old_velocity
+[07:50:15] pid1457446 done  P5_N100_eta2.5_s1004_old_velocity (2.0 min)
+[07:50:15] pid1457446 start P5_N100_eta2.5_s1006_old_velocity
+[07:52:18] pid1457446 done  P5_N100_eta2.5_s1006_old_velocity (2.0 min)
+[07:52:18] pid1457446 start P5_N100_eta2.5_s1008_old_velocity
+[07:54:19] pid1457446 done  P5_N100_eta2.5_s1008_old_velocity (2.0 min)
+[07:54:19] pid1457446 start P5_N100_eta3.0_s1000_old_velocity
+[07:56:24] pid1457446 done  P5_N100_eta3.0_s1000_old_velocity (2.1 min)
+[07:56:24] pid1457446 start P5_N100_eta3.0_s1002_old_velocity
+[07:58:28] pid1457446 done  P5_N100_eta3.0_s1002_old_velocity (2.1 min)
+[07:58:28] pid1457446 start P5_N100_eta3.0_s1004_old_velocity
+[08:00:36] pid1457446 done  P5_N100_eta3.0_s1004_old_velocity (2.1 min)
+[08:00:36] pid1457446 start P5_N100_eta3.0_s1006_old_velocity
+[08:02:39] pid1457446 done  P5_N100_eta3.0_s1006_old_velocity (2.0 min)
+[08:02:39] pid1457446 start P5_N100_eta3.0_s1008_old_velocity
+[08:04:48] pid1457446 done  P5_N100_eta3.0_s1008_old_velocity (2.2 min)
+[08:04:48] pid1457446 start P5_N100_eta3.0_s1009_old_velocity
+[08:07:00] pid1457446 done  P5_N100_eta3.0_s1009_old_velocity (2.2 min)
+[08:07:00] pid1457446 start P5_N100_eta3.5_s1001_old_velocity
+[08:09:04] pid1457446 done  P5_N100_eta3.5_s1001_old_velocity (2.1 min)
+[08:09:04] pid1457446 start P5_N100_eta3.5_s1003_old_velocity
+[08:11:09] pid1457446 done  P5_N100_eta3.5_s1003_old_velocity (2.1 min)
+[08:11:09] pid1457446 start P5_N100_eta3.5_s1005_old_velocity
+[08:13:17] pid1457446 done  P5_N100_eta3.5_s1005_old_velocity (2.1 min)
+[08:13:17] pid1457446 start P5_N100_eta3.5_s1008_old_velocity
+[08:15:20] pid1457446 done  P5_N100_eta3.5_s1008_old_velocity (2.0 min)
+[08:15:20] pid1457446 start P5_N100_eta4.0_s1000_old_velocity
+[08:17:23] pid1457446 done  P5_N100_eta4.0_s1000_old_velocity (2.0 min)
+[08:17:23] pid1457446 start P5_N100_eta4.0_s1002_old_velocity
+[08:19:19] pid1457446 done  P5_N100_eta4.0_s1002_old_velocity (1.9 min)
+[08:19:19] pid1457446 start P5_N100_eta4.0_s1003_old_velocity
+[08:21:20] pid1457446 done  P5_N100_eta4.0_s1003_old_velocity (2.0 min)
+[08:21:21] pid1457446 start P5_N100_eta4.0_s1005_old_velocity
+[08:23:23] pid1457446 done  P5_N100_eta4.0_s1005_old_velocity (2.0 min)
+[08:23:23] pid1457446 start P5_N100_eta4.0_s1008_old_velocity
+[08:25:24] pid1457446 done  P5_N100_eta4.0_s1008_old_velocity (2.0 min)
+[08:25:24] pid1457446 start P5_N100_eta4.5_s1000_old_velocity
+[08:27:35] pid1457446 done  P5_N100_eta4.5_s1000_old_velocity (2.2 min)
+[08:27:35] pid1457446 start P5_N100_eta4.5_s1002_old_velocity
+[08:29:45] pid1457446 done  P5_N100_eta4.5_s1002_old_velocity (2.2 min)
+[08:29:45] pid1457446 start P5_N100_eta4.5_s1003_old_velocity
+[08:31:54] pid1457446 done  P5_N100_eta4.5_s1003_old_velocity (2.2 min)
+[08:31:55] pid1457446 start P5_N100_eta4.5_s1005_old_velocity
+[08:33:59] pid1457446 done  P5_N100_eta4.5_s1005_old_velocity (2.1 min)
+[08:33:59] pid1457446 start P5_N100_eta4.5_s1007_old_velocity
+[08:36:05] pid1457446 done  P5_N100_eta4.5_s1007_old_velocity (2.1 min)
+[08:36:05] pid1457446 start P5_N100_eta4.5_s1009_old_velocity
+[08:38:06] pid1457446 done  P5_N100_eta4.5_s1009_old_velocity (2.0 min)
+[08:38:06] pid1457446 start P5_N40_eta0.5_s1002_old_velocity
+[08:39:31] pid1457446 done  P5_N40_eta0.5_s1002_old_velocity (1.4 min)
+[08:39:31] pid1457446 start P5_N40_eta0.5_s1004_old_velocity
+[08:40:58] pid1457446 done  P5_N40_eta0.5_s1004_old_velocity (1.4 min)
+[08:40:58] pid1457446 start P5_N40_eta0.5_s1006_old_velocity
+[08:42:17] pid1457446 done  P5_N40_eta0.5_s1006_old_velocity (1.3 min)
+[08:42:17] pid1457446 start P5_N40_eta0.5_s1008_old_velocity
+[08:43:42] pid1457446 done  P5_N40_eta0.5_s1008_old_velocity (1.4 min)
+[08:43:42] pid1457446 start P5_N40_eta1.0_s1000_old_velocity
+[08:45:03] pid1457446 done  P5_N40_eta1.0_s1000_old_velocity (1.4 min)
+[08:45:03] pid1457446 start P5_N40_eta1.0_s1002_old_velocity
+[08:46:31] pid1457446 done  P5_N40_eta1.0_s1002_old_velocity (1.5 min)
+[08:46:31] pid1457446 start P5_N40_eta1.0_s1004_old_velocity
+[08:47:51] pid1457446 done  P5_N40_eta1.0_s1004_old_velocity (1.3 min)
+[08:47:51] pid1457446 start P5_N40_eta1.0_s1006_old_velocity
+[08:49:12] pid1457446 done  P5_N40_eta1.0_s1006_old_velocity (1.3 min)
+[08:49:12] pid1457446 start P5_N40_eta1.0_s1008_old_velocity
+[08:50:36] pid1457446 done  P5_N40_eta1.0_s1008_old_velocity (1.4 min)
+[08:50:37] pid1457446 start P5_N40_eta1.5_s1000_old_velocity
+[08:51:57] pid1457446 done  P5_N40_eta1.5_s1000_old_velocity (1.3 min)
+[08:51:57] pid1457446 start P5_N40_eta1.5_s1002_old_velocity
+[08:53:18] pid1457446 done  P5_N40_eta1.5_s1002_old_velocity (1.4 min)
+[08:53:19] pid1457446 start P5_N40_eta1.5_s1004_old_velocity
+[08:54:38] pid1457446 done  P5_N40_eta1.5_s1004_old_velocity (1.3 min)
+[08:54:38] pid1457446 start P5_N40_eta1.5_s1006_old_velocity
+[08:56:07] pid1457446 done  P5_N40_eta1.5_s1006_old_velocity (1.5 min)
+[08:56:07] pid1457446 start P5_N40_eta1.5_s1008_old_velocity
+[08:57:31] pid1457446 done  P5_N40_eta1.5_s1008_old_velocity (1.4 min)
+[08:57:31] pid1457446 start P5_N40_eta2.0_s1000_old_velocity
+[08:58:57] pid1457446 done  P5_N40_eta2.0_s1000_old_velocity (1.4 min)
+[08:58:57] pid1457446 start P5_N40_eta2.0_s1002_old_velocity
+[09:00:16] pid1457446 done  P5_N40_eta2.0_s1002_old_velocity (1.3 min)
+[09:00:17] pid1457446 start P5_N40_eta2.0_s1004_old_velocity
+[09:01:48] pid1457446 done  P5_N40_eta2.0_s1004_old_velocity (1.5 min)
+[09:01:48] pid1457446 start P5_N40_eta2.0_s1006_old_velocity
+[09:03:14] pid1457446 done  P5_N40_eta2.0_s1006_old_velocity (1.4 min)
+[09:03:14] pid1457446 start P5_N40_eta2.0_s1008_old_velocity
+[09:04:45] pid1457446 done  P5_N40_eta2.0_s1008_old_velocity (1.5 min)
+[09:04:45] pid1457446 start P5_N40_eta2.5_s1000_old_velocity
+[09:06:19] pid1457446 done  P5_N40_eta2.5_s1000_old_velocity (1.6 min)
+[09:06:19] pid1457446 start P5_N40_eta2.5_s1002_old_velocity
+[09:07:49] pid1457446 done  P5_N40_eta2.5_s1002_old_velocity (1.5 min)
+[09:07:50] pid1457446 start P5_N40_eta2.5_s1004_old_velocity
+[09:09:15] pid1457446 done  P5_N40_eta2.5_s1004_old_velocity (1.4 min)
+[09:09:16] pid1457446 start P5_N40_eta2.5_s1006_old_velocity
+[09:10:48] pid1457446 done  P5_N40_eta2.5_s1006_old_velocity (1.5 min)
+[09:10:48] pid1457446 start P5_N40_eta2.5_s1008_old_velocity
+[09:12:18] pid1457446 done  P5_N40_eta2.5_s1008_old_velocity (1.5 min)
+[09:12:18] pid1457446 start P5_N40_eta3.0_s1000_old_velocity
+[09:13:49] pid1457446 done  P5_N40_eta3.0_s1000_old_velocity (1.5 min)
+[09:13:49] pid1457446 start P5_N40_eta3.0_s1002_old_velocity
+[09:15:19] pid1457446 done  P5_N40_eta3.0_s1002_old_velocity (1.5 min)
+[09:15:19] pid1457446 start P5_N40_eta3.0_s1004_old_velocity
+[09:16:48] pid1457446 done  P5_N40_eta3.0_s1004_old_velocity (1.5 min)
+[09:16:48] pid1457446 start P5_N40_eta3.0_s1006_old_velocity
+[09:18:15] pid1457446 done  P5_N40_eta3.0_s1006_old_velocity (1.5 min)
+[09:18:16] pid1457446 start P5_N40_eta3.0_s1008_old_velocity
+[09:19:42] pid1457446 done  P5_N40_eta3.0_s1008_old_velocity (1.4 min)
+[09:19:42] pid1457446 start P5_N40_eta3.5_s1000_old_velocity
+[09:21:12] pid1457446 done  P5_N40_eta3.5_s1000_old_velocity (1.5 min)
+[09:21:12] pid1457446 start P5_N40_eta3.5_s1002_old_velocity
+[09:22:37] pid1457446 done  P5_N40_eta3.5_s1002_old_velocity (1.4 min)
+[09:22:37] pid1457446 start P5_N40_eta3.5_s1004_old_velocity
+[09:23:58] pid1457446 done  P5_N40_eta3.5_s1004_old_velocity (1.3 min)
+[09:23:58] pid1457446 start P5_N40_eta3.5_s1006_old_velocity
+[09:25:22] pid1457446 done  P5_N40_eta3.5_s1006_old_velocity (1.4 min)
+[09:25:22] pid1457446 start P5_N40_eta3.5_s1008_old_velocity
+[09:26:47] pid1457446 done  P5_N40_eta3.5_s1008_old_velocity (1.4 min)
+[09:26:47] pid1457446 start P5_N40_eta4.0_s1000_old_velocity
+[09:28:13] pid1457446 done  P5_N40_eta4.0_s1000_old_velocity (1.4 min)
+[09:28:13] pid1457446 start P5_N40_eta4.0_s1002_old_velocity
+[09:29:40] pid1457446 done  P5_N40_eta4.0_s1002_old_velocity (1.4 min)
+[09:29:40] pid1457446 start P5_N40_eta4.0_s1004_old_velocity
+[09:31:12] pid1457446 done  P5_N40_eta4.0_s1004_old_velocity (1.5 min)
+[09:31:12] pid1457446 start P5_N40_eta4.0_s1006_old_velocity
+[09:32:39] pid1457446 done  P5_N40_eta4.0_s1006_old_velocity (1.5 min)
+[09:32:39] pid1457446 start P5_N40_eta4.0_s1008_old_velocity
+[09:34:03] pid1457446 done  P5_N40_eta4.0_s1008_old_velocity (1.4 min)
+[09:34:03] pid1457446 start P5_N40_eta4.5_s1000_old_velocity
+[09:35:25] pid1457446 done  P5_N40_eta4.5_s1000_old_velocity (1.4 min)
+[09:35:25] pid1457446 start P5_N40_eta4.5_s1002_old_velocity
+[09:36:46] pid1457446 done  P5_N40_eta4.5_s1002_old_velocity (1.4 min)
+[09:36:46] pid1457446 start P5_N40_eta4.5_s1004_old_velocity
+[09:38:06] pid1457446 done  P5_N40_eta4.5_s1004_old_velocity (1.3 min)
+[09:38:06] pid1457446 start P5_N40_eta4.5_s1006_old_velocity
+[09:39:23] pid1457446 done  P5_N40_eta4.5_s1006_old_velocity (1.3 min)
+[09:39:23] pid1457446 start P5_N40_eta4.5_s1008_old_velocity
+[09:40:52] pid1457446 done  P5_N40_eta4.5_s1008_old_velocity (1.5 min)
+[09:40:52] pid1457446 start P5_N400_eta0.5_s1000_new_velocity
+[09:45:17] pid1457446 done  P5_N400_eta0.5_s1000_new_velocity (4.4 min)
+[09:45:17] pid1457446 start P5_N400_eta0.5_s1002_new_velocity
+[09:49:37] pid1457446 done  P5_N400_eta0.5_s1002_new_velocity (4.3 min)
+[09:49:37] pid1457446 start P5_N400_eta0.5_s1004_new_velocity
+[09:53:40] pid1457446 done  P5_N400_eta0.5_s1004_new_velocity (4.0 min)
+[09:53:40] pid1457446 start P5_N400_eta0.5_s1006_new_velocity
+[09:57:53] pid1457446 done  P5_N400_eta0.5_s1006_new_velocity (4.2 min)
+[09:57:53] pid1457446 start P5_N400_eta0.5_s1008_new_velocity
+[10:02:12] pid1457446 done  P5_N400_eta0.5_s1008_new_velocity (4.3 min)
+[10:02:12] pid1457446 start P5_N400_eta1.0_s1000_new_velocity
+[10:06:39] pid1457446 done  P5_N400_eta1.0_s1000_new_velocity (4.5 min)
+[10:06:39] pid1457446 start P5_N400_eta1.0_s1002_new_velocity
+[10:11:08] pid1457446 done  P5_N400_eta1.0_s1002_new_velocity (4.5 min)
+[10:11:08] pid1457446 start P5_N400_eta1.0_s1004_new_velocity
+[10:15:41] pid1457446 done  P5_N400_eta1.0_s1004_new_velocity (4.5 min)
+[10:15:41] pid1457446 start P5_N400_eta1.0_s1006_new_velocity
+[10:20:01] pid1457446 done  P5_N400_eta1.0_s1006_new_velocity (4.3 min)
+[10:20:01] pid1457446 start P5_N400_eta1.0_s1008_new_velocity
+[10:24:23] pid1457446 done  P5_N400_eta1.0_s1008_new_velocity (4.4 min)
+[10:24:23] pid1457446 start P5_N400_eta1.5_s1000_new_velocity
+[10:28:49] pid1457446 done  P5_N400_eta1.5_s1000_new_velocity (4.4 min)
+[10:28:49] pid1457446 start P5_N400_eta1.5_s1002_new_velocity
+[10:33:12] pid1457446 done  P5_N400_eta1.5_s1002_new_velocity (4.4 min)
+[10:33:12] pid1457446 start P5_N400_eta1.5_s1004_new_velocity
+[10:37:37] pid1457446 done  P5_N400_eta1.5_s1004_new_velocity (4.4 min)
+[10:37:37] pid1457446 start P5_N400_eta1.5_s1006_new_velocity
+[10:41:56] pid1457446 done  P5_N400_eta1.5_s1006_new_velocity (4.3 min)
+[10:41:57] pid1457446 start P5_N400_eta1.5_s1008_new_velocity
+[10:46:27] pid1457446 done  P5_N400_eta1.5_s1008_new_velocity (4.5 min)
+[10:46:27] pid1457446 start P5_N400_eta2.0_s1000_new_velocity
+[10:50:50] pid1457446 done  P5_N400_eta2.0_s1000_new_velocity (4.4 min)
+[10:50:50] pid1457446 start P5_N400_eta2.0_s1002_new_velocity
+[10:55:22] pid1457446 done  P5_N400_eta2.0_s1002_new_velocity (4.5 min)
+[10:55:22] pid1457446 start P5_N400_eta2.0_s1004_new_velocity
+[10:59:47] pid1457446 done  P5_N400_eta2.0_s1004_new_velocity (4.4 min)
+[10:59:47] pid1457446 start P5_N400_eta2.0_s1006_new_velocity
+[11:04:25] pid1457446 done  P5_N400_eta2.0_s1006_new_velocity (4.6 min)
+[11:04:25] pid1457446 start P5_N400_eta2.0_s1008_new_velocity
+[11:08:53] pid1457446 done  P5_N400_eta2.0_s1008_new_velocity (4.5 min)
+[11:08:53] pid1457446 start P5_N400_eta2.5_s1000_new_velocity
+[11:13:11] pid1457446 done  P5_N400_eta2.5_s1000_new_velocity (4.3 min)
+[11:13:12] pid1457446 start P5_N400_eta2.5_s1002_new_velocity
+[11:17:32] pid1457446 done  P5_N400_eta2.5_s1002_new_velocity (4.3 min)
+[11:17:32] pid1457446 start P5_N400_eta2.5_s1004_new_velocity
+[11:21:50] pid1457446 done  P5_N400_eta2.5_s1004_new_velocity (4.3 min)
+[11:21:50] pid1457446 start P5_N400_eta2.5_s1006_new_velocity
+[11:25:57] pid1457446 done  P5_N400_eta2.5_s1006_new_velocity (4.1 min)
+[11:25:57] pid1457446 start P5_N400_eta2.5_s1008_new_velocity
+[11:30:09] pid1457446 done  P5_N400_eta2.5_s1008_new_velocity (4.2 min)
+[11:30:09] pid1457446 start P5_N400_eta3.0_s1000_new_velocity
+[11:34:22] pid1457446 done  P5_N400_eta3.0_s1000_new_velocity (4.2 min)
+[11:34:22] pid1457446 start P5_N400_eta3.0_s1002_new_velocity
+[11:38:35] pid1457446 done  P5_N400_eta3.0_s1002_new_velocity (4.2 min)
+[11:38:35] pid1457446 start P5_N400_eta3.0_s1004_new_velocity
+[11:42:50] pid1457446 done  P5_N400_eta3.0_s1004_new_velocity (4.3 min)
+[11:42:50] pid1457446 start P5_N400_eta3.0_s1006_new_velocity
+[11:47:07] pid1457446 done  P5_N400_eta3.0_s1006_new_velocity (4.3 min)
+[11:47:07] pid1457446 start P5_N400_eta3.0_s1008_new_velocity
+[11:51:27] pid1457446 done  P5_N400_eta3.0_s1008_new_velocity (4.3 min)
+[11:51:27] pid1457446 start P5_N400_eta3.5_s1000_new_velocity
+[11:55:39] pid1457446 done  P5_N400_eta3.5_s1000_new_velocity (4.2 min)
+[11:55:39] pid1457446 start P5_N400_eta3.5_s1002_new_velocity
+[11:59:44] pid1457446 done  P5_N400_eta3.5_s1002_new_velocity (4.1 min)
+[11:59:45] pid1457446 start P5_N400_eta3.5_s1004_new_velocity
+[12:04:18] pid1457446 done  P5_N400_eta3.5_s1004_new_velocity (4.6 min)
+[12:04:18] pid1457446 start P5_N400_eta3.5_s1006_new_velocity
+[12:08:49] pid1457446 done  P5_N400_eta3.5_s1006_new_velocity (4.5 min)
+[12:08:49] pid1457446 start P5_N400_eta3.5_s1008_new_velocity
+[12:13:23] pid1457446 done  P5_N400_eta3.5_s1008_new_velocity (4.6 min)
+[12:13:23] pid1457446 start P5_N400_eta4.0_s1000_new_velocity
+[12:17:56] pid1457446 done  P5_N400_eta4.0_s1000_new_velocity (4.6 min)
+[12:17:56] pid1457446 start P5_N400_eta4.0_s1002_new_velocity
+[12:22:28] pid1457446 done  P5_N400_eta4.0_s1002_new_velocity (4.5 min)
+[12:22:28] pid1457446 start P5_N400_eta4.0_s1004_new_velocity
+[12:26:57] pid1457446 done  P5_N400_eta4.0_s1004_new_velocity (4.5 min)
+[12:26:57] pid1457446 start P5_N400_eta4.0_s1006_new_velocity
+[12:31:25] pid1457446 done  P5_N400_eta4.0_s1006_new_velocity (4.5 min)
+[12:31:25] pid1457446 start P5_N400_eta4.0_s1008_new_velocity
+[12:35:39] pid1457446 done  P5_N400_eta4.0_s1008_new_velocity (4.2 min)
+[12:35:39] pid1457446 start P5_N400_eta4.5_s1000_new_velocity
+[12:39:45] pid1457446 done  P5_N400_eta4.5_s1000_new_velocity (4.1 min)
+[12:39:45] pid1457446 start P5_N400_eta4.5_s1002_new_velocity
+[12:43:49] pid1457446 done  P5_N400_eta4.5_s1002_new_velocity (4.1 min)
+[12:43:49] pid1457446 start P5_N400_eta4.5_s1004_new_velocity
+[12:47:51] pid1457446 done  P5_N400_eta4.5_s1004_new_velocity (4.0 min)
+[12:47:51] pid1457446 start P5_N400_eta4.5_s1006_new_velocity
+[12:52:06] pid1457446 done  P5_N400_eta4.5_s1006_new_velocity (4.2 min)
+[12:52:06] pid1457446 start P5_N400_eta4.5_s1008_new_velocity
+[12:56:12] pid1457446 done  P5_N400_eta4.5_s1008_new_velocity (4.1 min)
+[12:56:12] pid1457446 start P6_T63_catastrophic_N400_s2000
+[13:25:27] pid1457446 done  P6_T63_catastrophic_N400_s2000 (29.3 min)
+[13:25:27] pid1457446 start P6_T63_catastrophic_N400_s2002
+[13:54:50] pid1457446 done  P6_T63_catastrophic_N400_s2002 (29.4 min)
+[13:54:50] pid1457446 start P6_T63_catastrophic_N400_s2004
+[14:23:43] pid1457446 done  P6_T63_catastrophic_N400_s2004 (28.9 min)
+[14:23:43] pid1457446 start P6_T63_catastrophic_N100_s2002
+[14:25:01] pid1457446 done  P6_T63_catastrophic_N100_s2002 (1.3 min)
+[14:25:01] pid1457446 start P6_T63_catastrophic_N100_s2004
+[14:26:22] pid1457446 done  P6_T63_catastrophic_N100_s2004 (1.4 min)
+[14:26:23] pid1457446 start P6_T63_catastrophic_N50_s2002
+[14:26:46] pid1457446 done  P6_T63_catastrophic_N50_s2002 (0.4 min)
+[14:26:46] pid1457446 start P6_T63_catastrophic_N50_s2004
+[14:27:10] pid1457446 done  P6_T63_catastrophic_N50_s2004 (0.4 min)
+[14:27:10] pid1457446 start P6_T63_hstable_N400_s2001
+[14:56:17] pid1457446 done  P6_T63_hstable_N400_s2001 (29.1 min)
+[14:56:17] pid1457446 start P6_T63_hstable_N400_s2003
+[15:25:55] pid1457446 done  P6_T63_hstable_N400_s2003 (29.6 min)
+[15:25:55] pid1457446 start P6_T63_hstable_N200_s2000
+[15:31:06] pid1457446 done  P6_T63_hstable_N200_s2000 (5.2 min)
+[15:31:06] pid1457446 start P6_T63_hstable_N200_s2001
+[15:36:11] pid1457446 done  P6_T63_hstable_N200_s2001 (5.1 min)
+[15:36:11] pid1457446 start P6_T63_hstable_N200_s2002
+[15:41:19] pid1457446 done  P6_T63_hstable_N200_s2002 (5.1 min)
+[15:41:19] pid1457446 start P6_T63_hstable_N200_s2003
+[15:46:22] pid1457446 done  P6_T63_hstable_N200_s2003 (5.0 min)
+[15:46:22] pid1457446 start P6_T63_hstable_N200_s2004
+[15:51:30] pid1457446 done  P6_T63_hstable_N200_s2004 (5.1 min)
+[15:51:30] pid1457446 start P6_T63_hstable_N100_s2000
+[15:52:45] pid1457446 done  P6_T63_hstable_N100_s2000 (1.2 min)
+[15:52:45] pid1457446 start P6_T63_hstable_N100_s2001
+[15:53:59] pid1457446 done  P6_T63_hstable_N100_s2001 (1.2 min)
+[15:53:59] pid1457446 start P6_T63_hstable_N100_s2002
+[15:55:17] pid1457446 done  P6_T63_hstable_N100_s2002 (1.3 min)
+[15:55:17] pid1457446 start P6_T63_hstable_N100_s2004
+[15:56:34] pid1457446 done  P6_T63_hstable_N100_s2004 (1.3 min)
+[15:56:34] pid1457446 start P6_T63_hstable_N50_s2002
+[15:56:56] pid1457446 done  P6_T63_hstable_N50_s2002 (0.4 min)
+[15:56:56] pid1457446 start P6_T63_hstable_N50_s2004
+[15:57:18] pid1457446 done  P6_T63_hstable_N50_s2004 (0.4 min)
+[15:57:18] pid1457446 start P10_A_N128_b0.18_s1_dtp0.025
+[16:04:28] pid1457446 done  P10_A_N128_b0.18_s1_dtp0.025 (7.2 min)
+[16:04:28] pid1457446 start P10_A_N128_b0.18_s3_dtp0.025
+[16:11:47] pid1457446 done  P10_A_N128_b0.18_s3_dtp0.025 (7.3 min)
+[16:11:47] pid1457446 start P10_A_N128_b0.18_s5_dtp0.025
+[16:19:05] pid1457446 done  P10_A_N128_b0.18_s5_dtp0.025 (7.3 min)
+[16:19:05] pid1457446 start P10_A_N128_b0.18_s7_dtp0.025
+[16:26:22] pid1457446 done  P10_A_N128_b0.18_s7_dtp0.025 (7.3 min)
+[16:26:22] pid1457446 start P10_A_N128_b0.18_s9_dtp0.025
+[16:33:42] pid1457446 done  P10_A_N128_b0.18_s9_dtp0.025 (7.3 min)
+[16:33:43] pid1457446 start P5_N4000_eta2.0_s1001_old_velocity
+[19:54:10] pid1457446 done  P5_N4000_eta2.0_s1001_old_velocity (200.4 min)
+[19:54:10] pid1457446 start P5_N4000_eta2.0_s1003_old_velocity
+[21:29:39] pid1457446 done  P5_N4000_eta2.0_s1003_old_velocity (95.5 min)
+[21:29:39] pid1457446 start P5_N4000_eta2.0_s1004_old_velocity
+[00:57:34] pid1457446 done  P5_N4000_eta2.0_s1004_old_velocity (207.9 min)
+[00:57:34] pid1457446 start P5_N4000_eta2.5_s1001_old_velocity
+[04:25:46] pid1457446 done  P5_N4000_eta2.5_s1001_old_velocity (208.2 min)
+[04:25:46] pid1457446 start P5_N4000_eta2.5_s1004_old_velocity
+[07:33:16] pid1457446 done  P5_N4000_eta2.5_s1004_old_velocity (187.5 min)
+[07:33:16] pid1457446 start P5_N4000_eta3.0_s1000_old_velocity
+[10:24:59] pid1457446 done  P5_N4000_eta3.0_s1000_old_velocity (171.7 min)
+[10:24:59] pid1457446 start P5_N4000_eta3.0_s1002_old_velocity
+[13:18:02] pid1457446 done  P5_N4000_eta3.0_s1002_old_velocity (173.0 min)
+[13:18:02] pid1457446 start P5_N4000_eta3.0_s1004_old_velocity
+[16:11:18] pid1457446 done  P5_N4000_eta3.0_s1004_old_velocity (173.3 min)
+[16:11:18] pid1457446: queue empty, exiting

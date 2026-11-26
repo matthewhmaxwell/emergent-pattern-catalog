@@ -130,7 +130,14 @@ class KuramotoNonlocal:
         init_mode: Optional[str] = None,
         asym_amp: Optional[float] = None,
         asym_sigma: Optional[float] = None,
+        dt_paper: Optional[float] = None,
     ) -> None:
+        """``dt_paper`` (option, default None = unchanged): give the step in
+        Abrams-Strogatz 2004 time units. Our right-hand side has no 2π/N
+        Riemann weight, so it runs N/(2π) times faster than the paper's;
+        dt_paper sets ``dt = dt_paper * 2π/N`` (overrides ``dt``). Paper
+        time = our time * N/(2π). Added for the repro_v2 P10 run.
+        """
         if params is None:
             params = KuramotoNonlocalParams()
         # kwarg overrides
@@ -146,6 +153,8 @@ class KuramotoNonlocal:
         if init_mode is not None: params.init_mode = str(init_mode)
         if asym_amp is not None: params.asym_amp = float(asym_amp)
         if asym_sigma is not None: params.asym_sigma = float(asym_sigma)
+        if dt_paper is not None:
+            params.dt = float(dt_paper) * 2 * np.pi / params.N
 
         if params.N < 16:
             raise ValueError(f"N must be >= 16 for windowing, got {params.N}")
@@ -220,6 +229,13 @@ class KuramotoNonlocal:
             envelope = 6.0 * np.exp(-30 * ((self.x / np.pi - 1.0) ** 2))
             return np.mod(envelope * self.rng.standard_normal(p.N) / 1.5,
                           2 * np.pi)
+        if p.init_mode == "as2004":
+            # Abrams & Strogatz 2004, Fig. 1 caption: phi(x) = 6 exp(-30 x^2) r,
+            # r ~ U[-1/2, 1/2], x in [-pi, pi]. Our x_i in [0, 2pi), so the
+            # paper's x is x_i - pi. Added for the repro_v2 P10 run.
+            envelope = 6.0 * np.exp(-30.0 * (self.x - np.pi) ** 2)
+            r = self.rng.uniform(-0.5, 0.5, p.N)
+            return np.mod(envelope * r, 2 * np.pi)
         raise ValueError(f"Unknown init_mode: {p.init_mode}")
 
     # ------------------------------------------------------------------

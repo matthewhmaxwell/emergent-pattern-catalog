@@ -1,0 +1,48 @@
+{
+ "task": {
+  "id": "P5_N100_eta4.0_s1006_old_velocity",
+  "N": 100,
+  "eta": 4.0,
+  "seed": 1006,
+  "update": "old_velocity"
+ },
+ "git": {
+  "commit": "08afe1141b11954ffd95e70c782a68e1656259a5",
+  "code_dirty": false
+ },
+ "worker": "pid1457636",
+ "started": 1794903682.953472,
+ "finished": 1794903801.8755877,
+ "result": {
+  "N": 100,
+  "L": 5.0,
+  "eta": 4.0,
+  "seed": 1006,
+  "position_update": "old_velocity",
+  "burn_in_steps": 20000,
+  "measurement_steps_initial": 80000,
+  "sample_every": 10,
+  "half_means_initial": [
+   0.3668433076158446,
+   0.36184341537257386
+  ],
+  "half_diff_initial": 0.004999892243270743,
+  "extended": false,
+  "measurement_steps_used": 80000,
+  "n_samples": 8000,
+  "phi_mean": 0.36434336149420926,
+  "phi_sd_time": 0.08702554797728622,
+  "block_means_1e4_steps": [
+   0.37284739774211634,
+   0.36830603042931775,
+   0.36716278160139426,
+   0.35905702069055,
+   0.35824732807724663,
+   0.3723831874062231,
+   0.3563662345476997,
+   0.3603769114591262
+  ],
+  "wall_s": 118.91075801849365,
+  "cpu_s": 118.9042692840012
+ }
+}
