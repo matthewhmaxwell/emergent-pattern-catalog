@@ -1,0 +1,10 @@
+{
+ "grammar": "g2",
+ "n_programs": 98082,
+ "max_bits": 21,
+ "min_bits": 0,
+ "workers": 5,
+ "pipeline": "validated (screen + knock-out + textbook measures)",
+ "sample": 0,
+ "started": "2026-10-19 16:52:28"
+}
